@@ -1,8 +1,9 @@
-# kotlinmvpsample
-Kotlin learning project
+# kotlin-template
+Kotlin template project
 
 - MVP
 - data classes
 - Retrofit2/OkHttp3
-- 70% of NStack reimplemented (and refactored) in kotlin with coroutines
-# kotlin-template
+- Android kotlin extensions (views are automatically made into properties on the activity)
+- Uses KStack
+- Basic kotlin plumbing (coroutines, reflection)
