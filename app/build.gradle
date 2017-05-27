@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+apply plugin: 'dk.nstack.translation.plugin'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+translation {
+    appId = "BmZHmoKuU99A5ZnOByOiRxMVSmAWC2yBz3OW"
+    apiKey = "yw9go00oCWt6zPhfbdjRYXiHRWmkQZQSuRke"
+    acceptHeader = "da-DK"
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "dk.bison.wt"
+        minSdkVersion 22
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
+        }
+        release {
+            buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.15'
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.15'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile ('com.squareup.retrofit2:retrofit:2.3.0')
+    compile ('com.squareup.retrofit2:converter-gson:2.3.0') {
+        exclude module: 'retrofit:2.3.0'
+    }
+    compile 'com.squareup.okhttp3:okhttp:3.8.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    compile 'dk.nodes.kstack:kstack:0.1-LOCAL'
+}
