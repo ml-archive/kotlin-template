@@ -2,6 +2,7 @@ package dk.nodes.template
 
 import android.app.Application
 import android.util.Log
+import dk.bison.wt.BuildConfig
 import dk.nodes.template.api.ApiProxy
 import dk.nodes.template.api.makeApiProxy
 import dk.nodes.kstack.KStack
@@ -32,7 +33,7 @@ class App : Application()
         proxy = makeApiProxy()
 
         KStack.setLogFunction { tag, msg -> Log.e(tag, msg) }
-        KStack.init(this, "BmZHmoKuU99A5ZnOByOiRxMVSmAWC2yBz3OW", "yw9go00oCWt6zPhfbdjRYXiHRWmkQZQSuRke", true)
+        KStack.init(this, "BmZHmoKuU99A5ZnOByOiRxMVSmAWC2yBz3OW", "yw9go00oCWt6zPhfbdjRYXiHRWmkQZQSuRke", "staging", true)
         KStack.setTranslationClass(Translation::class.java)
 
     }
