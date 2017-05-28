@@ -7,23 +7,21 @@ import dk.nodes.template.api.Post
  */
 class MainPresenter(val api: dk.nodes.template.api.ApiProxy) : dk.nodes.template.mvp.MvpBasePresenter<MainMvpView>() {
     init {
-        val name : String = "Per"
-        android.util.Log.i("", "Customer initialized with value ${name}")
     }
 
     override fun attachView(view: MainMvpView) {
         super.attachView(view)
         android.util.Log.e("debug", "attachView")
-        /*
+
         loadPosts({ posts ->
-            if (isViewAttached)
-                view?.showPosts(posts)
+            //if (isViewAttached)
+                //view?.showPosts(posts)
         }, { errorCode, msg ->
             if (isViewAttached) {
                 // showerror
             }
         })
-        */
+
 
     }
 

@@ -1,7 +1,10 @@
 package dk.nodes.template.api
 
 import com.google.gson.*
+import dk.nodes.kstack.providers.NMetaInterceptor
+import dk.nodes.template.BuildConfig
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -26,7 +29,7 @@ interface ApiProxy {
 fun makeApiProxy() : ApiProxy
 {
     val retrofit = Retrofit.Builder()
-            .baseUrl(dk.bison.wt.BuildConfig.API_URL)
+            .baseUrl(BuildConfig.API_URL)
             .addConverterFactory(GsonConverterFactory.create(makeGson()))
             .client(makeOkHttpClient())
             .build()
@@ -38,6 +41,14 @@ private fun makeOkHttpClient(): OkHttpClient {
             .connectTimeout(45, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
+            .addInterceptor(NMetaInterceptor("staging"))
+
+    if(BuildConfig.DEBUG)
+    {
+        val logging = okhttp3.logging.HttpLoggingInterceptor()
+        logging.level = okhttp3.logging.HttpLoggingInterceptor.Level.BODY
+        clientBuilder.addInterceptor(logging)
+    }
 
     return clientBuilder.build()
 }

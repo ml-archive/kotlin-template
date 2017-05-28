@@ -3,11 +3,11 @@ package dk.nodes.template.ui.main
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import dk.bison.wt.R
 import dk.nodes.template.api.Post
 import dk.nodes.kstack.KStack
 import dk.nodes.kstack.UpdateType
 import dk.nodes.template.App
+import dk.nodes.template.R
 import dk.nodes.template.Translation
 import kotlinx.android.synthetic.main.activity_main.*
 
