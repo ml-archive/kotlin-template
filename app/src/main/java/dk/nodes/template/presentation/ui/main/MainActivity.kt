@@ -1,9 +1,9 @@
-package dk.nodes.template.ui.main
+package dk.nodes.template.presentation.ui.main
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
-import dk.nodes.template.api.Post
+import dk.nodes.template.domain.models.Post
 import dk.nodes.kstack.KStack
 import dk.nodes.kstack.UpdateType
 import dk.nodes.template.App
@@ -32,8 +32,8 @@ class MainActivity : AppCompatActivity(), MainMvpView {
             when (type) {
                 UpdateType.UPDATE -> builder?.show()
                 UpdateType.FORCE_UPDATE -> {
-                    builder?.setOnDismissListener { finish() }
-                    builder?.show()
+                    //builder?.setOnDismissListener { finish() }
+                    //builder?.show()
                 }
                 else -> {
                 }
@@ -58,5 +58,9 @@ class MainActivity : AppCompatActivity(), MainMvpView {
         {
             Log.d("debug", post.toString())
         }
+    }
+
+    override fun showError(msg: String) {
+        Log.e("debug", msg)
     }
 }
