@@ -42,7 +42,6 @@ dependencies {
     compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.15'
     compile 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.15'
     compile 'com.android.support:appcompat-v7:25.3.1'
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile ('com.squareup.retrofit2:retrofit:2.3.0')
     compile ('com.squareup.retrofit2:converter-gson:2.3.0') {
@@ -51,4 +50,11 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.8.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     compile 'dk.nodes.kstack:kstack:0.1-LOCAL'
+
+    // ... more entries
+    testCompile 'junit:junit:4.12'
+    // required if you want to use Mockito for unit tests
+    testCompile 'org.mockito:mockito-core:2.7.22'
+    // required if you want to use Mockito for Android tests
+    androidTestCompile 'org.mockito:mockito-android:2.7.22'
 }

@@ -2,8 +2,8 @@ package dk.nodes.template
 
 import android.app.Application
 import android.util.Log
-import dk.nodes.template.api.ApiProxy
-import dk.nodes.template.api.makeApiProxy
+import dk.nodes.template.network.ApiProxy
+import dk.nodes.template.network.makeApiProxy
 import dk.nodes.kstack.KStack
 
 /**
