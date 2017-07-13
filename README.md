@@ -27,8 +27,7 @@ okhttp etc. This also contain specific implementations of the Repository interfa
 ## Flow of control
 Example: 
 1. User clicks a button that loads a list of posts in a view.
-2. Buttons OnClickListener calls the Presenter for the view it is a part of. 
-3. The Presenter executes a Interactor/UseCase asynchronously in the business logic layer.
+3. OnClickListener executes a Interactor/UseCase asynchronously in the business logic layer.
 4. The Interactor runs in the background accessing a post repository which fetches a list of posts
 5. Presenter gets notified with the loaded posts or a message in case of error trough a callback
 6. Presenter instructs the view (if attached) to update itself with the new data, or display an error to the user
