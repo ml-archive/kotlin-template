@@ -1,8 +1,6 @@
 package dk.nodes.template.domain.interactors.base
 
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.Job
-import kotlinx.coroutines.experimental.launch
+import dk.nodes.template.domain.executor.Executor
 
 /**
  * Created by bison on 24-06-2017.
@@ -10,16 +8,17 @@ import kotlinx.coroutines.experimental.launch
 /*
     Wraps the client provided execute function in a subroutine and runs it on the common pool
  */
-abstract class BaseInteractor : Interactor {
-    var job : Job? = null
-
-    // This runs on the CommonPool
-    abstract fun execute()
-
+abstract class BaseInteractor(protected val executor: Executor) : Interactor {
     override fun run() {
-        job = launch(CommonPool)
-        {
+        executor.execute(Runnable {
             execute()
-        }
+        })
     }
+
+    fun runOnUIThread(code: () -> Unit)
+    {
+        executor.runOnUIThread(code)
+    }
+
+    abstract fun execute()
 }

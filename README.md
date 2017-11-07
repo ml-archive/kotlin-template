@@ -1,7 +1,13 @@
 # kotlin-template
-Kotlin Clean Architecture Template Project
-A stab at clean arch in android using kotlin.
+Kotlin Clean Architecture Template Project. Uses dagger2 for dependency injection yall
 
+Projects using this architecture:
+- warningapp-kotlin-android
+- dfds-channel-android
+
+TODO: make Brian insert proper links (and integrate with libarch, fancy lifecycle support)
+
+__Below information might be slightly out of date__
 ### Layers
 This is a 4 layer onion architecture. Dependencies are only allowed to point inwards, 
 meaning that the inner layer most not reference code in the outer layers directly. 
@@ -35,14 +41,15 @@ Example:
 ## Patterns in use:
 - MVP
 - Repository
-- Interactor (implemented with kotlin coroutines)
+- Interactor (implemented with a pluggable executor)
+- Dependency Injection (and thus factory)
+- Inward dependency rule (all dependencies must point inwards)
 
 ## Stuff
 - kotlin data classes as entities
 - Retrofit2/OkHttp3
 - Android kotlin extensions (views are automatically made into properties on the activity)
-- Uses KStack
-- Basic kotlin plumbing (coroutines, reflection)
+- Uses nstack-kotlin
 - Mockito and junit for testing
 
 ## Inspired/partially ripped off from the following sources:

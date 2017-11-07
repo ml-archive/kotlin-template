@@ -3,32 +3,41 @@ package dk.nodes.template.presentation.ui.main
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import dk.nodes.nstack.kotlin.NStack
+import dk.nodes.nstack.kotlin.UpdateType
 import dk.nodes.template.domain.models.Post
-import dk.nodes.kstack.KStack
-import dk.nodes.kstack.UpdateType
 import dk.nodes.template.App
 import dk.nodes.template.R
-import dk.nodes.template.Translation
+import dk.nodes.template.domain.models.Translation
+import dk.nodes.template.presentation.injection.DaggerPresentationComponent
+import dk.nodes.template.presentation.injection.PresentationComponent
+import dk.nodes.template.presentation.injection.PresentationModule
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), MainMvpView {
-    private lateinit var presenter : MainPresenter
+class MainActivity : AppCompatActivity(), MainContract.View {
+    val component: PresentationComponent by lazy {
+        DaggerPresentationComponent.builder()
+                .appComponent((application as App).appComponent)
+                .presentationModule(PresentationModule())
+                .build()
+    }
+    @Inject lateinit var presenter : MainContract.Presenter
 
-    //@Translate("defaultSection.cancel") var textTv : TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        component.inject(this)
 
         //textTv = findViewById(R.id.text) as TextView
         textTv.text = Translation.defaultSection.settings
-        KStack.translate(this@MainActivity)
+        NStack.translate(this@MainActivity)
 
-        presenter = MainPresenter(App.apiProxy())
 
-        KStack.appOpen({ success -> Log.e("debug", "appopen success = $success") })
+        NStack.appOpen({ success -> Log.e("debug", "appopen success = $success") })
 
-        KStack.versionControl(this@MainActivity, { type, builder ->
+        NStack.versionControl(this@MainActivity, { type, builder ->
             when (type) {
                 UpdateType.UPDATE -> builder?.show()
                 UpdateType.FORCE_UPDATE -> {
@@ -45,7 +54,7 @@ class MainActivity : AppCompatActivity(), MainMvpView {
     override fun onResume() {
         super.onResume()
         presenter.attachView(this)
-        KStack.translate(this@MainActivity)
+        NStack.translate(this@MainActivity)
     }
 
     override fun onPause() {

@@ -1,40 +1,35 @@
 package dk.nodes.template.presentation.ui.main
 
 import dk.nodes.template.domain.interactors.GetPostsInteractor
-import dk.nodes.template.domain.interactors.GetPostsInteractorImpl
 import dk.nodes.template.domain.models.Post
-import dk.nodes.template.network.ApiProxy
-import dk.nodes.template.network.RestPostRepository
 import dk.nodes.template.presentation.base.MvpBasePresenter
+import timber.log.Timber
 
 /**
  * Created by bison on 20-05-2017.
  */
-class MainPresenter(val api: ApiProxy) : MvpBasePresenter<MainMvpView>(), GetPostsInteractor.Callback {
+class MainPresenter(val getPostsInteractor: GetPostsInteractor) : MainContract.Presenter, MvpBasePresenter<MainContract.View>(), GetPostsInteractor.Output {
     init {
+        getPostsInteractor.output = this
     }
 
-    override fun attachView(view: MainMvpView) {
+    override fun attachView(view: MainContract.View) {
         super.attachView(view)
-        android.util.Log.e("debug", "attachView")
-
-        val interactor : GetPostsInteractor = GetPostsInteractorImpl(this@MainPresenter, RestPostRepository(api))
-        interactor.run()
+        Timber.d("attachView")
+        getPostsInteractor.run()
     }
 
     override fun detachView() {
         super.detachView()
-        android.util.Log.e("debug", "detachView")
+        Timber.d("detachView")
     }
 
     // implementation of the interactors callback interface
     override fun onPostsLoaded(posts: List<Post>) {
-        if(isViewAttached)
-            view?.showPosts(posts)
+        view?.showPosts(posts)
     }
 
     override fun onError(msg: String) {
-        if(isViewAttached)
-            view?.showError(msg)
+        view?.showError(msg)
     }
 }

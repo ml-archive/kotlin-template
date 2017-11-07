@@ -7,7 +7,7 @@ import dk.nodes.template.domain.repositories.RepositoryException
 /**
  * Created by bison on 24-06-2017.
  */
-class RestPostRepository(val api: dk.nodes.template.network.ApiProxy) : PostRepository {
+class RestPostRepository(val api: dk.nodes.template.network.Api) : PostRepository {
     override fun getPosts(): List<Post>
     {
         val response = api.getPosts().execute()
