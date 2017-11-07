@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'dk.nstack.translation.plugin'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.gfx.ribbonizer'
+apply plugin: 'dk.nodes.ci.bitrise'
 
 translation {
     appId = "BmZHmoKuU99A5ZnOByOiRxMVSmAWC2yBz3OW"
@@ -10,19 +12,28 @@ translation {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+    flavorDimensions "default"
+
     defaultConfig {
         applicationId "dk.nodes.template"
-        minSdkVersion 22
-        targetSdkVersion 25
+        minSdkVersion 19
+        targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [
+            appId: translation.appId,
+            apiKey: translation.apiKey
+        ]
     }
+
     buildTypes {
         debug {
-            buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
+            // uncomment the following line if you add a flavorbased signingConfig for debug builds
+            //signingConfig null
         }
         release {
             buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
@@ -30,6 +41,59 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        staging {
+            dimension "default"
+            applicationIdSuffix ".staging"
+            //signingConfig signingConfigs.staging
+            deploy = "debug"
+            hockeyAppId = ""
+            manifestPlaceholders = [
+                    HOCKEYAPP_APP_ID: hockeyAppId,
+                    APP_NAME        : "KotlinTemplateStaging"
+            ]
+            buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
+        }
+        production {
+            dimension "default"
+            applicationIdSuffix ".production"
+            //signingConfig signingConfigs.production
+            deploy = "release"
+            hockeyAppId = ""
+            manifestPlaceholders = [
+                    HOCKEYAPP_APP_ID: hockeyAppId,
+                    APP_NAME        : "KotlinTemplate"
+            ]
+            buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
+        }
+    }
+
+    // Uncomment the following if you include signingConfigs
+    /*
+    signingConfigs {
+        staging {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+        }
+        production {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+        }
+    }
+    */
+}
+
+repositories {
+    mavenLocal()
+}
+
+kapt {
+    generateStubs = true
 }
 
 dependencies {
@@ -37,19 +101,30 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    // uncomment me if using multidex
+    //compile 'com.android.support:multidex:1.0.2'
+
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.15'
-    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.15'
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-core:0.19.1'
+    compile 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.19.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
+    compile 'com.google.dagger:dagger:2.11'
+    kapt "com.google.dagger:dagger-compiler:2.11"
+
+    compile 'net.hockeyapp.android:HockeySDK:5.0.2'
+    compile 'com.jakewharton.timber:timber:4.5.1'
+
     compile ('com.squareup.retrofit2:retrofit:2.3.0')
     compile ('com.squareup.retrofit2:converter-gson:2.3.0') {
         exclude module: 'retrofit:2.3.0'
     }
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
-    compile 'dk.nodes.kstack:kstack:0.1-LOCAL'
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    compile 'dk.nodes.nstack:nstack-kotlin:1.0'
 
     // ... more entries
     testCompile 'junit:junit:4.12'
