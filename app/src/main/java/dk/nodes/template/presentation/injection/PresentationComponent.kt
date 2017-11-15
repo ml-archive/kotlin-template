@@ -3,8 +3,8 @@ package dk.nodes.template.presentation.injection
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import dk.nodes.arch.domain.injection.scopes.ActivityScope
 import dk.nodes.template.domain.interactors.GetPostsInteractor
-import dk.nodes.template.injection.ActivityScope
 import dk.nodes.template.injection.AppComponent
 import dk.nodes.template.presentation.ui.main.MainActivity
 import dk.nodes.template.presentation.ui.main.MainContract

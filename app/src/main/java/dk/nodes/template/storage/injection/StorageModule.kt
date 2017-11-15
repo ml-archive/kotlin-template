@@ -3,8 +3,8 @@ package dk.nodes.template.storage.injection
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.template.domain.managers.PrefManager
-import dk.nodes.template.injection.ApplicationScope
 import dk.nodes.template.storage.PrefManagerImpl
 
 /**
@@ -13,7 +13,7 @@ import dk.nodes.template.storage.PrefManagerImpl
 @Module
 class StorageModule {
     @Provides
-    @ApplicationScope
+    @AppScope
     fun providePrefManager(context: Context) : PrefManager
     {
         return PrefManagerImpl(context)

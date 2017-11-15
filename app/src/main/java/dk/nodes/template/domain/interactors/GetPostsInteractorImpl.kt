@@ -1,11 +1,9 @@
 package dk.nodes.template.domain.interactors
 
-import dk.nodes.template.domain.executor.Executor
-import dk.nodes.template.domain.interactors.base.BaseInteractor
+import dk.nodes.arch.domain.executor.Executor
+import dk.nodes.arch.domain.interactor.BaseInteractor
 import dk.nodes.template.domain.repositories.PostRepository
 import dk.nodes.template.domain.repositories.RepositoryException
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.launch
 
 /**
  * Created by bison on 24-06-2017.

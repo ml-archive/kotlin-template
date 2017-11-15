@@ -3,6 +3,7 @@ package dk.nodes.template.injection
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.template.App
 
 
@@ -12,13 +13,13 @@ import dk.nodes.template.App
 @Module
 class AppModule(val application: App) {
     @Provides
-    @ApplicationScope
+    @AppScope
     fun provideContext(): Context {
         return application.baseContext
     }
 
     @Provides
-    @ApplicationScope
+    @AppScope
     fun provideApp(): App {
         return application
     }

@@ -1,8 +1,9 @@
 package dk.nodes.template.injection
 
 import dagger.Component
+import dk.nodes.arch.domain.executor.Executor
+import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.template.App
-import dk.nodes.template.domain.executor.Executor
 import dk.nodes.template.domain.executor.injection.ExecutorModule
 import dk.nodes.template.domain.interactors.GetPostsInteractor
 import dk.nodes.template.domain.interactors.injection.InteractorModule
@@ -21,7 +22,7 @@ import dk.nodes.template.storage.injection.StorageModule
         PresentationModule::class,
         StorageModule::class))
 
-@ApplicationScope
+@AppScope
 interface AppComponent
 {
     fun inject(app: App)
