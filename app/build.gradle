@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.gfx.ribbonizer'
 apply plugin: 'dk.nodes.ci.bitrise'
+apply plugin: 'kotlin-kapt'
 
 translation {
     appId = "BmZHmoKuU99A5ZnOByOiRxMVSmAWC2yBz3OW"
@@ -92,10 +93,6 @@ repositories {
     mavenLocal()
 }
 
-kapt {
-    generateStubs = true
-}
-
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -125,6 +122,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.9.0'
     compile 'dk.nodes.nstack:nstack-kotlin:1.0'
+    compile 'dk.nodes.arch:base:1.0.1'
 
     // ... more entries
     testCompile 'junit:junit:4.12'

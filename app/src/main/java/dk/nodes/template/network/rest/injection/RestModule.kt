@@ -4,9 +4,9 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.nstack.providers.NMetaInterceptor
 import dk.nodes.template.BuildConfig
-import dk.nodes.template.injection.ApplicationScope
 import dk.nodes.template.network.Api
 import dk.nodes.template.network.rest.util.DateDeserializer
 import dk.nodes.template.network.rest.util.ItemTypeAdapterFactory
@@ -42,7 +42,7 @@ class RestModule {
     }
 
     @Provides
-    @ApplicationScope
+    @AppScope
     fun provideGson(typeFactory: ItemTypeAdapterFactory, dateDeserializer: DateDeserializer) : Gson
     {
         val gson = GsonBuilder()
@@ -60,13 +60,13 @@ class RestModule {
     }
 
     @Provides
-    @ApplicationScope
+    @AppScope
     fun provideGsonConverter(gson : Gson): Converter.Factory {
         return GsonConverterFactory.create(gson)
     }
 
     @Provides
-    @ApplicationScope
+    @AppScope
     fun provideHttpClient() : OkHttpClient
     {
         val clientBuilder = OkHttpClient.Builder()
@@ -113,7 +113,7 @@ class RestModule {
     }
 
     @Provides
-    @ApplicationScope
+    @AppScope
     fun provideRetrofit(client : OkHttpClient, converter: Converter.Factory, @Named("NAME_BASE_URL") baseUrl: String): Retrofit {
         return Retrofit.Builder()
                 .client(client)
@@ -123,7 +123,7 @@ class RestModule {
     }
 
     @Provides
-    @ApplicationScope
+    @AppScope
     fun provideApi(retrofit: Retrofit): Api {
         return retrofit.create<Api>(Api::class.java)
     }

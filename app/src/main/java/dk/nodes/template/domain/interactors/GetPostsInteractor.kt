@@ -1,6 +1,6 @@
 package dk.nodes.template.domain.interactors
 
-import dk.nodes.template.domain.interactors.base.Interactor
+import dk.nodes.arch.domain.interactor.Interactor
 import dk.nodes.template.domain.models.Post
 
 /**

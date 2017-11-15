@@ -1,18 +1,18 @@
 package dk.nodes.template.presentation.ui.main
 
+import dk.nodes.arch.presentation.base.BasePresenter
+import dk.nodes.arch.presentation.base.BaseView
 import dk.nodes.template.domain.models.Post
-import dk.nodes.template.presentation.base.MvpPresenter
-import dk.nodes.template.presentation.base.MvpView
 
 /**
  * Created by bison on 07-11-2017.
  */
 interface MainContract {
-    interface View : MvpView {
+    interface View : BaseView {
         fun showPosts(posts : List<Post>)
         fun showError(msg : String)
     }
 
-    interface Presenter : MvpPresenter<View> {
+    interface Presenter : BasePresenter<View> {
     }
 }

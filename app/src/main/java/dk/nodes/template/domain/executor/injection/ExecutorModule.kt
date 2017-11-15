@@ -2,9 +2,9 @@ package dk.nodes.template.domain.executor.injection
 
 import dagger.Module
 import dagger.Provides
-import dk.nodes.template.domain.executor.Executor
-import dk.nodes.template.domain.executor.ThreadExecutor
-import dk.nodes.template.injection.ApplicationScope
+import dk.nodes.arch.domain.executor.Executor
+import dk.nodes.arch.domain.executor.ThreadExecutor
+import dk.nodes.arch.domain.injection.scopes.AppScope
 
 /**
  * Created by bison on 26/07/17.
@@ -12,7 +12,7 @@ import dk.nodes.template.injection.ApplicationScope
 @Module
 class ExecutorModule {
     @Provides
-    @ApplicationScope
+    @AppScope
     fun provideExecutor() : Executor
     {
         return ThreadExecutor()
