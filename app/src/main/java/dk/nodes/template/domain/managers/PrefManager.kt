@@ -6,9 +6,6 @@ package dk.nodes.template.domain.managers
  * The clean version of JosoPrefs :D (inject into and use from interactors)
  */
 interface PrefManager {
-    var isLocked : Boolean
-    fun lock()
-    fun unlock()
     fun getInt(key : String, defaultValue : Int) : Int
     fun setInt(key : String, value : Int)
     fun getLong(key : String, defaultValue : Long) : Long
