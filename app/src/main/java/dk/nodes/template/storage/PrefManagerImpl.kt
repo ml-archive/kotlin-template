@@ -9,7 +9,7 @@ import dk.nodes.template.domain.managers.PrefManager
  * Created by bison on 11/10/17.
  */
 class PrefManagerImpl(context: Context) : PrefManager {
-    private var sharedPrefs : SharedPreferences = context.getSharedPreferences("${BuildConfig.APPLICATION_ID}.SHARED_PREFERENCES", Context.MODE_PRIVATE)
+    private var sharedPrefs : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     override fun getInt(key : String, defaultValue : Int) : Int
     {
