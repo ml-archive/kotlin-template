@@ -58,7 +58,7 @@ import javax.inject.Inject
      //This is for the SampleActivityTest.class for Ui tests examples.
     private fun initUiTestSamples() {
         saveButton.setOnClickListener(View.OnClickListener {
-            textview.text = edittext.text
+            textview.text = edittext.text.trim()
         })
 
         buttonOpenDialog.setOnClickListener(View.OnClickListener {

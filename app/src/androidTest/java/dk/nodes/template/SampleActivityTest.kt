@@ -30,7 +30,6 @@ class SampleActivityTest {
     The Aura and Linak Desk App are both close to 100% full UI test coverage, so take a look at them for more examples
      */
 
-
     //Tells the UI Test that we'll start and tests in this Activity.
     @Rule
     @JvmField
@@ -56,6 +55,8 @@ class SampleActivityTest {
         onView(withId(R.id.saveButton))
                 .check(matches(isDisplayed()))
                 .perform(click())
+
+        Thread.sleep(3000)
 
         // 3) We now check if our message has been saved into the TextView
         onView(withId(R.id.textview))
