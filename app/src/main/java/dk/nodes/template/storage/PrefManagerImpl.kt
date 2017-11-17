@@ -2,7 +2,7 @@ package dk.nodes.template.storage
 
 import android.content.Context
 import android.content.SharedPreferences
-import dk.nodes.template.BuildConfig
+import android.preference.PreferenceManager
 import dk.nodes.template.domain.managers.PrefManager
 
 /**

@@ -56,7 +56,9 @@ class SampleActivityTest {
                 .check(matches(isDisplayed()))
                 .perform(click())
 
-        Thread.sleep(3000)
+
+        //If you want to pause the UI test for what ever reason you can sleep the thread
+        // Thread.sleep(2000)
 
         // 3) We now check if our message has been saved into the TextView
         onView(withId(R.id.textview))
