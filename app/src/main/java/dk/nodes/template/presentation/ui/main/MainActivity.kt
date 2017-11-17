@@ -1,5 +1,6 @@
 package dk.nodes.template.presentation.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import dk.nodes.arch.presentation.base.BaseActivity
@@ -31,7 +32,12 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        component.inject(this)
+        initUiTestSamples()
 
+        //textview = findViewById(R.id.textview) as TextView
+        textview.text = Translation.defaultSection.settings
+        NStack.translate(this@MainActivity)
 
 
         NStack.appOpen({ success -> Log.e("debug", "appopen success = $success") })
@@ -51,6 +57,36 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun setupTranslations() {
         textTv.text = Translation.defaultSection.settings
+
+     //This is for the SampleActivityTest.class for Ui tests examples.
+    private fun initUiTestSamples() {
+        saveButton.setOnClickListener(View.OnClickListener {
+            textview.text = edittext.text.trim()
+        })
+
+        buttonOpenDialog.setOnClickListener(View.OnClickListener {
+            AlertDialog.Builder(this)
+                    .setTitle("Hello Ui Test!")
+                    .setMessage("This is an alert message. Let the UI test read it")
+                    .setNegativeButton("Cancel", null)
+                    .setPositiveButton("OK", null)
+                    .show()
+        })
+
+        buttonOpenActivity.setOnClickListener(View.OnClickListener {
+            startActivity(Intent(this, SampleActivity::class.java))
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.attachView(this)
+        NStack.translate(this@MainActivity)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.detachView()
     }
 
     override fun showPosts(posts: List<Post>) {
