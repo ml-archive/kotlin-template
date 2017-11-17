@@ -2,13 +2,15 @@ package dk.nodes.template.presentation.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.util.Log
+import android.view.View
 import dk.nodes.arch.presentation.base.BaseActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.UpdateType
-import dk.nodes.template.domain.models.Post
 import dk.nodes.template.App
 import dk.nodes.template.R
+import dk.nodes.template.domain.models.Post
 import dk.nodes.template.domain.models.Translation
 import dk.nodes.template.presentation.injection.DaggerPresentationComponent
 import dk.nodes.template.presentation.injection.PresentationComponent
@@ -23,11 +25,12 @@ class MainActivity : BaseActivity(), MainContract.View {
                 .presentationModule(PresentationModule())
                 .build()
     }
-    @Inject lateinit var presenter : MainContract.Presenter
+    @Inject lateinit var presenter: MainContract.Presenter
 
     override fun injectDependencies() {
         component.inject(this)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,10 +58,12 @@ class MainActivity : BaseActivity(), MainContract.View {
         })
     }
 
-    override fun setupTranslations() {
-        textTv.text = Translation.defaultSection.settings
 
-     //This is for the SampleActivityTest.class for Ui tests examples.
+    override fun setupTranslations() {
+        textview.text = Translation.defaultSection.settings
+    }
+
+    //This is for the SampleActivityTest.class for Ui tests examples.
     private fun initUiTestSamples() {
         saveButton.setOnClickListener(View.OnClickListener {
             textview.text = edittext.text.trim()
@@ -78,20 +83,15 @@ class MainActivity : BaseActivity(), MainContract.View {
         })
     }
 
+
     override fun onResume() {
         super.onResume()
-        presenter.attachView(this)
         NStack.translate(this@MainActivity)
     }
 
-    override fun onPause() {
-        super.onPause()
-        presenter.detachView()
-    }
 
     override fun showPosts(posts: List<Post>) {
-        for(post in posts)
-        {
+        for (post in posts) {
             Log.d("debug", post.toString())
         }
     }
@@ -99,5 +99,4 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun showError(msg: String) {
         Log.e("debug", msg)
     }
-
 }
