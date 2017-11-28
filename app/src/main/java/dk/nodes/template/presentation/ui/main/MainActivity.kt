@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
-import dk.nodes.arch.presentation.base.BaseActivity
+import dk.nodes.template.presentation.base.BaseActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.UpdateType
 import dk.nodes.template.App
