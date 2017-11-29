@@ -10,17 +10,17 @@ import dk.nodes.template.domain.models.Post
 class MainPresenter(val getPostsInteractor: GetPostsInteractor) : MainContract.Presenter, BasePresenterImpl<MainContract.View>(), GetPostsInteractor.Output {
     init {
         getPostsInteractor.output = this
-        run({
+        runAction {
             getPostsInteractor.run()
-        })
+        }
     }
 
     // implementation of the interactors callback interface
     override fun onPostsLoaded(posts: List<Post>) {
-        run({ view?.showPosts(posts) })
+        runAction{ view?.showPosts(posts) }
     }
 
     override fun onError(msg: String) {
-        run({ view?.showError(msg) })
+        runAction{ view?.showError(msg) }
     }
 }

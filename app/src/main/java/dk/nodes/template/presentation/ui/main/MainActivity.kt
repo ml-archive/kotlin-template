@@ -29,13 +29,13 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun injectDependencies() {
         component.inject(this)
+        presenter.onViewCreated(this, lifecycle)
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        component.inject(this)
         initUiTestSamples()
 
         //textview = findViewById(R.id.textview) as TextView

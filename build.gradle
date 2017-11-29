@@ -7,7 +7,7 @@ buildscript {
     ext {
         // Plugins
         gradle_version = '3.0.0'
-        kotlin_version = '1.1.61'
+        kotlin_version = '1.2.0'
         nodes_nstack_translation_version = '0.35'
         bitrise_version = '0.93'
         ribbonizer_version = '2.1.0'
@@ -30,7 +30,7 @@ buildscript {
         nodes_nstack_kotlin_version = '1.0'
 
         //nodes_arch_version = '1.0.1'
-        nodes_arch_version = '1.1.0'
+        nodes_arch_version = '1.1.2'
 
         rxkotlin_version = '2.1.0'
         rxandroid_version = '2.0.1'
@@ -44,6 +44,7 @@ buildscript {
     }
 
     repositories {
+        mavenCentral()
         maven { url 'https://maven.google.com' }
         jcenter()
     }
@@ -58,9 +59,9 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenCentral()
         jcenter()
         maven { url 'https://maven.google.com' }
-        mavenCentral()
         mavenLocal()
     }
 }
