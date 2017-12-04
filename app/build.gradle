@@ -1,0 +1,143 @@
+apply plugin: 'com.android.application'
+apply plugin: 'dk.nstack.translation.plugin'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.github.gfx.ribbonizer'
+apply plugin: 'dk.nodes.ci.bitrise'
+apply plugin: 'kotlin-kapt'
+
+translation {
+    appId = "BmZHmoKuU99A5ZnOByOiRxMVSmAWC2yBz3OW"
+    apiKey = "yw9go00oCWt6zPhfbdjRYXiHRWmkQZQSuRke"
+    acceptHeader = "da-DK"
+}
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+    flavorDimensions "default"
+
+    defaultConfig {
+        applicationId "dk.eboks.app"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "0.0.1"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders = [
+            appId: translation.appId,
+            apiKey: translation.apiKey
+        ]
+    }
+
+    buildTypes {
+        debug {
+            // uncomment the following line if you add a flavorbased signingConfig for debug builds
+            //signingConfig null
+        }
+        release {
+            buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        staging {
+            dimension "default"
+            applicationIdSuffix ".staging"
+            //signingConfig signingConfigs.staging
+            deploy = "debug"
+            hockeyAppId = ""
+            manifestPlaceholders = [
+                    HOCKEYAPP_APP_ID: hockeyAppId,
+                    APP_NAME        : "KotlinTemplateStaging"
+            ]
+            buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
+        }
+        production {
+            dimension "default"
+            applicationIdSuffix ".production"
+            //signingConfig signingConfigs.production
+            deploy = "release"
+            hockeyAppId = ""
+            manifestPlaceholders = [
+                    HOCKEYAPP_APP_ID: hockeyAppId,
+                    APP_NAME        : "KotlinTemplate"
+            ]
+            buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
+        }
+    }
+
+    // Uncomment the following if you include signingConfigs
+    /*
+    signingConfigs {
+        staging {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+        }
+        production {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('debug.keystore')
+            storePassword 'android'
+        }
+    }
+    */
+}
+
+repositories {
+    mavenLocal()
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso_core_version", {
+        exclude group: "com.android.support", module: "support-annotations"
+    })
+
+    // uncomment me if using multidex
+    // implementation "com.android.support:multidex:$multidex_version"
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
+
+    implementation "com.android.support:appcompat-v7:$support_library_version"
+    implementation "com.android.support:recyclerview-v7:$support_library_version"
+    implementation "com.android.support:design:$support_library_version"
+    implementation "com.android.support:cardview-v7:$support_library_version"
+    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    implementation "net.hockeyapp.android:HockeySDK:$hockey_sdk_version"
+    implementation "com.jakewharton.timber:timber:$timber_version"
+
+    implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version") {
+        exclude module: "retrofit:$retrofit_version"
+    }
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    implementation "dk.nodes.nstack:nstack-kotlin:$nodes_nstack_kotlin_version"
+    implementation "dk.nodes.arch:base:$nodes_arch_version"
+
+
+    // Testing
+    testImplementation "junit:junit:$junit_version"
+    // required if you want to use Mockito for unit tests
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    // required if you want to use Mockito for Android tests
+    androidTestImplementation "org.mockito:mockito-android:$mockito_version"
+
+    //For Espresso UI testing
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_core_version"
+    androidTestImplementation("com.android.support.test.espresso:espresso-intents:$espresso_core_version")
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espresso_core_version"
+}
