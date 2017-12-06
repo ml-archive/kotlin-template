@@ -9,52 +9,45 @@ import dk.nodes.template.domain.managers.PrefManager
  * Created by bison on 11/10/17.
  */
 class PrefManagerImpl(context: Context) : PrefManager {
-    private var sharedPrefs : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private var sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-    override fun getInt(key : String, defaultValue : Int) : Int
-    {
+    override fun getInt(key: String, defaultValue: Int): Int {
         return sharedPrefs.getInt(key, defaultValue)
     }
 
-    override fun setInt(key : String, value : Int)
-    {
+    override fun setInt(key: String, value: Int) {
         sharedPrefs.edit().putInt(key, value).commit()
     }
 
-    override fun getLong(key : String, defaultValue : Long) : Long
+    override fun getLong(key: String, defaultValue: Long): Long
             = sharedPrefs.getLong(key, defaultValue)
 
-    override fun setLong(key : String, value : Long)
-    {
+    override fun setLong(key: String, value: Long) {
         sharedPrefs.edit().putLong(key, value).commit()
     }
 
-    override fun getBoolean(key : String, defaultValue : Boolean) : Boolean
+    override fun getBoolean(key: String, defaultValue: Boolean): Boolean
             = sharedPrefs.getBoolean(key, defaultValue)
 
-    override fun setBoolean(key : String, value : Boolean)
-    {
+    override fun setBoolean(key: String, value: Boolean) {
         sharedPrefs.edit().putBoolean(key, value).commit()
     }
 
-    override fun getFloat(key : String, defaultValue : Float) : Float
+    override fun getFloat(key: String, defaultValue: Float): Float
             = sharedPrefs.getFloat(key, defaultValue)
 
-    override fun setFloat(key : String, value : Float)
-    {
+    override fun setFloat(key: String, value: Float) {
         sharedPrefs.edit().putFloat(key, value).commit()
     }
 
-    override fun getString(key : String, defaultValue : String?) : String?
+    override fun getString(key: String, defaultValue: String?): String?
             = sharedPrefs.getString(key, defaultValue)
 
-    override fun setString(key : String, value : String)
-    {
+    override fun setString(key: String, value: String) {
         sharedPrefs.edit().putString(key, value).commit()
     }
 
-    override fun remove(key : String)
-    {
+    override fun remove(key: String) {
         sharedPrefs.edit().remove(key).commit()
     }
 }

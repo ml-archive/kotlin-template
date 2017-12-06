@@ -65,11 +65,11 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     //This is for the SampleActivityTest.class for Ui tests examples.
     private fun initUiTestSamples() {
-        saveButton.setOnClickListener(View.OnClickListener {
+        saveButton.setOnClickListener({
             textview.text = edittext.text.trim()
         })
 
-        buttonOpenDialog.setOnClickListener(View.OnClickListener {
+        buttonOpenDialog.setOnClickListener({
             AlertDialog.Builder(this)
                     .setTitle("Hello Ui Test!")
                     .setMessage("This is an alert message. Let the UI test read it")
@@ -78,7 +78,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                     .show()
         })
 
-        buttonOpenActivity.setOnClickListener(View.OnClickListener {
+        buttonOpenActivity.setOnClickListener({
             startActivity(Intent(this, SampleActivity::class.java))
         })
     }

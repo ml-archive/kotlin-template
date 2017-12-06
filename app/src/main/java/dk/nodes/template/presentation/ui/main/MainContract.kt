@@ -9,8 +9,8 @@ import dk.nodes.template.domain.models.Post
  */
 interface MainContract {
     interface View : BaseView {
-        fun showPosts(posts : List<Post>)
-        fun showError(msg : String)
+        fun showPosts(posts: List<Post>)
+        fun showError(msg: String)
     }
 
     interface Presenter : BasePresenter<View> {
