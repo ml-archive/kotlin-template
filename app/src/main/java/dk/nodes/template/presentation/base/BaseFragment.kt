@@ -1,9 +1,10 @@
-package dk.nodes.arch.presentation.base
+package dk.nodes.template.presentation.base
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import dk.nodes.arch.presentation.base.BaseView
 
-abstract class BaseFragment<V> : Fragment(), BaseView {
+abstract class BaseFragment : Fragment(), BaseView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
