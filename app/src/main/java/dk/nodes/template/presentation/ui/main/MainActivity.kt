@@ -5,13 +5,13 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
-import dk.nodes.template.presentation.base.BaseActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.UpdateType
 import dk.nodes.template.App
 import dk.nodes.template.R
 import dk.nodes.template.domain.models.Post
 import dk.nodes.template.domain.models.Translation
+import dk.nodes.template.presentation.base.BaseActivity
 import dk.nodes.template.presentation.injection.DaggerPresentationComponent
 import dk.nodes.template.presentation.injection.PresentationComponent
 import dk.nodes.template.presentation.injection.PresentationModule

@@ -1,4 +1,4 @@
-package dk.nodes.template.injection
+package dk.nodes.template.injection.components
 
 import dagger.Component
 import dk.nodes.arch.domain.executor.Executor
@@ -7,11 +7,12 @@ import dk.nodes.template.App
 import dk.nodes.template.domain.executor.injection.ExecutorModule
 import dk.nodes.template.domain.interactors.GetPostsInteractor
 import dk.nodes.template.domain.interactors.injection.InteractorModule
+import dk.nodes.template.injection.modules.AppModule
+import dk.nodes.template.injection.modules.RestModule
+import dk.nodes.template.injection.modules.RestRepositoryModule
+import dk.nodes.template.injection.modules.StorageModule
 import dk.nodes.template.network.Api
-import dk.nodes.template.network.rest.injection.RestModule
-import dk.nodes.template.network.rest.injection.RestRepositoryModule
 import dk.nodes.template.presentation.injection.PresentationModule
-import dk.nodes.template.storage.injection.StorageModule
 
 @Component(modules = arrayOf(
         AppModule::class,

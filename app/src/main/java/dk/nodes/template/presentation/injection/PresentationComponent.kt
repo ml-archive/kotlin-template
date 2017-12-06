@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 import dk.nodes.template.domain.interactors.GetPostsInteractor
-import dk.nodes.template.injection.AppComponent
+import dk.nodes.template.injection.components.AppComponent
 import dk.nodes.template.presentation.ui.main.MainActivity
 import dk.nodes.template.presentation.ui.main.MainContract
 import dk.nodes.template.presentation.ui.main.MainPresenter

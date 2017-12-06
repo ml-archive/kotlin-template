@@ -1,4 +1,4 @@
-package dk.nodes.template.network.rest.injection
+package dk.nodes.template.injection.modules
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

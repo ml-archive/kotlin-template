@@ -1,4 +1,4 @@
-package dk.nodes.template.storage.injection
+package dk.nodes.template.injection.modules
 
 import android.content.Context
 import dagger.Module
