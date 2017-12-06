@@ -103,7 +103,7 @@ class RestModule {
                 // Create an ssl socket factory with our all-trusting manager
                 val sslSocketFactory = sslContext.socketFactory
                 clientBuilder.sslSocketFactory(sslSocketFactory)
-                clientBuilder.hostnameVerifier(HostnameVerifier { hostname, session -> true })
+                clientBuilder.hostnameVerifier({ hostname, session -> true })
             } catch (e: Exception) {
                 throw RuntimeException(e)
             }

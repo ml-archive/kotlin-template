@@ -4,8 +4,8 @@ import android.app.Application
 import android.util.Log
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.template.domain.models.Translation
-import dk.nodes.template.injection.DaggerAppComponent
 import dk.nodes.template.injection.components.AppComponent
+import dk.nodes.template.injection.components.DaggerAppComponent
 import dk.nodes.template.injection.modules.AppModule
 import timber.log.Timber
 
