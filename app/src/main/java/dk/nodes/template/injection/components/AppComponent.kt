@@ -7,12 +7,8 @@ import dk.nodes.template.App
 import dk.nodes.template.domain.executor.injection.ExecutorModule
 import dk.nodes.template.domain.interactors.GetPostsInteractor
 import dk.nodes.template.domain.interactors.injection.InteractorModule
-import dk.nodes.template.injection.modules.AppModule
-import dk.nodes.template.injection.modules.RestModule
-import dk.nodes.template.injection.modules.RestRepositoryModule
-import dk.nodes.template.injection.modules.StorageModule
+import dk.nodes.template.injection.modules.*
 import dk.nodes.template.network.Api
-import dk.nodes.template.presentation.injection.PresentationModule
 
 @Component(modules = arrayOf(
         AppModule::class,

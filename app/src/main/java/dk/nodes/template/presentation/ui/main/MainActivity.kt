@@ -4,18 +4,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
-import android.view.View
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.UpdateType
 import dk.nodes.template.App
 import dk.nodes.template.R
 import dk.nodes.template.domain.models.Post
 import dk.nodes.template.domain.models.Translation
+import dk.nodes.template.injection.components.DaggerPresentationComponent
 import dk.nodes.template.presentation.base.BaseActivity
-import dk.nodes.template.presentation.injection.DaggerPresentationComponent
-import dk.nodes.template.presentation.injection.PresentationComponent
-import dk.nodes.template.presentation.injection.PresentationModule
+import dk.nodes.template.injection.components.PresentationComponent
+import dk.nodes.template.injection.modules.PresentationModule
 import kotlinx.android.synthetic.main.activity_main.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View {
@@ -41,7 +41,6 @@ class MainActivity : BaseActivity(), MainContract.View {
         //textview = findViewById(R.id.textview) as TextView
         textview.text = Translation.defaultSection.settings
         NStack.translate(this@MainActivity)
-
 
         NStack.appOpen({ success -> Log.e("debug", "appopen success = $success") })
 
@@ -92,11 +91,11 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun showPosts(posts: List<Post>) {
         for (post in posts) {
-            Log.d("debug", post.toString())
+            Timber.e(post.toString())
         }
     }
 
     override fun showError(msg: String) {
-        Log.e("debug", msg)
+        Timber.e(msg)
     }
 }
