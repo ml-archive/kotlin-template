@@ -36,3 +36,6 @@ fun ViewGroup.asSequence(): Sequence<View> = object : Sequence<View> {
 val ViewGroup.views: List<View>
     get() = asSequence().toList()
 
+inline fun <T> T.guard(block: T.() -> Unit): T {
+    if (this == null) block(); return this
+}

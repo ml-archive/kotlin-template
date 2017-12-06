@@ -17,10 +17,10 @@ class MainPresenter(val getPostsInteractor: GetPostsInteractor) : MainContract.P
 
     // implementation of the interactors callback interface
     override fun onPostsLoaded(posts: List<Post>) {
-        runAction{ view?.showPosts(posts) }
+        runAction { view?.showPosts(posts) }
     }
 
     override fun onError(msg: String) {
-        runAction{ view?.showError(msg) }
+        runAction { view?.showError(msg) }
     }
 }
