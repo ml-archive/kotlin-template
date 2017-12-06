@@ -30,21 +30,18 @@ import javax.net.ssl.X509TrustManager
 @Module
 class RestModule {
     @Provides
-    fun provideTypeFactory() : ItemTypeAdapterFactory
-    {
+    fun provideTypeFactory(): ItemTypeAdapterFactory {
         return ItemTypeAdapterFactory()
     }
 
     @Provides
-    fun provideDateDeserializer() : DateDeserializer
-    {
+    fun provideDateDeserializer(): DateDeserializer {
         return DateDeserializer()
     }
 
     @Provides
     @AppScope
-    fun provideGson(typeFactory: ItemTypeAdapterFactory, dateDeserializer: DateDeserializer) : Gson
-    {
+    fun provideGson(typeFactory: ItemTypeAdapterFactory, dateDeserializer: DateDeserializer): Gson {
         val gson = GsonBuilder()
                 .registerTypeAdapterFactory(typeFactory)
                 .registerTypeAdapter(Date::class.java, dateDeserializer)
@@ -61,52 +58,23 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideGsonConverter(gson : Gson): Converter.Factory {
+    fun provideGsonConverter(gson: Gson): Converter.Factory {
         return GsonConverterFactory.create(gson)
     }
 
     @Provides
     @AppScope
-    fun provideHttpClient() : OkHttpClient
-    {
+    fun provideHttpClient(): OkHttpClient {
         val clientBuilder = OkHttpClient.Builder()
                 .connectTimeout(45, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
 
-        if(BuildConfig.DEBUG)
-        {
+        if (BuildConfig.DEBUG) {
             val logging = okhttp3.logging.HttpLoggingInterceptor()
             logging.level = okhttp3.logging.HttpLoggingInterceptor.Level.BODY
             clientBuilder.addInterceptor(logging)
-
-            try {
-                // Create a trust manager that does not validate certificate chains
-                val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-                    @Throws(CertificateException::class)
-                    override fun checkClientTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {
-                    }
-
-                    @Throws(CertificateException::class)
-                    override fun checkServerTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {
-                    }
-
-                    override fun getAcceptedIssuers(): Array<java.security.cert.X509Certificate> {
-                        return arrayOf()
-                    }
-                })
-
-                // Install the all-trusting trust manager
-                val sslContext = SSLContext.getInstance("SSL")
-                sslContext.init(null, trustAllCerts, java.security.SecureRandom())
-                // Create an ssl socket factory with our all-trusting manager
-                val sslSocketFactory = sslContext.socketFactory
-                clientBuilder.sslSocketFactory(sslSocketFactory)
-                clientBuilder.hostnameVerifier({ hostname, session -> true })
-            } catch (e: Exception) {
-                throw RuntimeException(e)
-            }
         }
 
         return clientBuilder.build()
@@ -114,7 +82,7 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideRetrofit(client : OkHttpClient, converter: Converter.Factory, @Named("NAME_BASE_URL") baseUrl: String): Retrofit {
+    fun provideRetrofit(client: OkHttpClient, converter: Converter.Factory, @Named("NAME_BASE_URL") baseUrl: String): Retrofit {
         return Retrofit.Builder()
                 .client(client)
                 .baseUrl(baseUrl)
