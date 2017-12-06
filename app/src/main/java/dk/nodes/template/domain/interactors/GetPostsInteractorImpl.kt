@@ -18,7 +18,7 @@ class GetPostsInteractorImpl(executor: Executor, val postRepository: PostReposit
             // do something with unwrapped input
         }
         try {
-            val posts = postRepository.getPosts()
+            val posts = postRepository.getPosts(true)
             runOnUIThread {
                 output?.onPostsLoaded(posts)
             }

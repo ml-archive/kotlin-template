@@ -1,4 +1,4 @@
-package dk.nodes.template.domain.interactors.injection
+package dk.nodes.template.injection.modules
 
 import dagger.Module
 import dagger.Provides

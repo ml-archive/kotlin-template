@@ -128,6 +128,12 @@ dependencies {
     implementation "dk.nodes.nstack:nstack-kotlin:$nodes_nstack_kotlin_version"
     implementation "dk.nodes.arch:base:$nodes_arch_version"
 
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    implementation "com.nytimes.android:store-kotlin3:$store_version"
+    implementation "com.nytimes.android:middleware3:$store_version"
+    implementation "com.nytimes.android:filesystem3:$store_version"
 
     // Testing
     testImplementation "junit:junit:$junit_version"
