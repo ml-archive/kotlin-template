@@ -5,7 +5,19 @@ Projects using this architecture:
 - warningapp-kotlin-android
 - dfds-channel-android
 
-TODO: make Brian insert proper links (and integrate with libarch, fancy lifecycle support)
+## Live Templates
+The Kotlin template comes supported with a its own set of live templates which can be found at
+
+https://github.com/nodes-android/androidstudio-livetemplates
+
+It should make generating the boilerplate for activities and fragments easy.
+
+## Nodes Architecture Library
+The Template uses components from our Architecture library so be sure to read up on how that is used as well
+
+https://github.com/nodes-android/nodes-architecture-android
+
+
 
 __Below information might be slightly out of date__
 ### Layers
