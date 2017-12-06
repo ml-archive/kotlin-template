@@ -7,21 +7,18 @@ import dagger.Provides
 import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.nstack.providers.NMetaInterceptor
 import dk.nodes.template.BuildConfig
-import dk.nodes.template.network.Api
+import dk.nodes.template.network.rest.Api
+import dk.nodes.template.network.rest.util.BufferedSourceConverterFactory
 import dk.nodes.template.network.rest.util.DateDeserializer
 import dk.nodes.template.network.rest.util.ItemTypeAdapterFactory
 import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.security.cert.CertificateException
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
-import javax.net.ssl.HostnameVerifier
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
 
 
 /**
@@ -86,7 +83,9 @@ class RestModule {
         return Retrofit.Builder()
                 .client(client)
                 .baseUrl(baseUrl)
+                .addConverterFactory(BufferedSourceConverterFactory())
                 .addConverterFactory(converter)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
     }
 

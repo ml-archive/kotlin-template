@@ -4,11 +4,11 @@ import dagger.Component
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.template.App
-import dk.nodes.template.domain.executor.injection.ExecutorModule
+import dk.nodes.template.injection.modules.ExecutorModule
 import dk.nodes.template.domain.interactors.GetPostsInteractor
-import dk.nodes.template.domain.interactors.injection.InteractorModule
+import dk.nodes.template.injection.modules.InteractorModule
 import dk.nodes.template.injection.modules.*
-import dk.nodes.template.network.Api
+import dk.nodes.template.network.rest.Api
 
 @Component(modules = arrayOf(
         AppModule::class,
