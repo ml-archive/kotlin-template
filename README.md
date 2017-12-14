@@ -1,3 +1,5 @@
+[![codebeat badge](https://codebeat.co/badges/52d35f8a-9cd2-4bb2-b2e4-434554910af8)](https://codebeat.co/a/tech-2/projects/github-com-nodes-projects-e-boks-kotlin-android-master)
+
 # kotlin-template
 Kotlin Clean Architecture Template Project. Uses dagger2 for dependency injection yall
 
