@@ -1,15 +1,24 @@
-package dk.eboks.app.network.rest.injection
+package dk.eboks.app.injection.modules
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import dk.eboks.app.domain.config.Config
+import dk.eboks.app.network.Api
+import dk.eboks.app.network.rest.util.BufferedSourceConverterFactory
+import dk.eboks.app.network.rest.util.DateDeserializer
+import dk.eboks.app.network.rest.util.ItemTypeAdapterFactory
 import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.nstack.providers.NMetaInterceptor
 import okhttp3.OkHttpClient
+import org.simpleframework.xml.Serializer
+import org.simpleframework.xml.core.Persister
 import retrofit2.Converter
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import java.security.cert.CertificateException
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -18,6 +27,9 @@ import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
+import org.simpleframework.xml.convert.AnnotationStrategy
+
+
 
 
 /**
@@ -26,20 +38,20 @@ import javax.net.ssl.X509TrustManager
 @Module
 class RestModule {
     @Provides
-    fun provideTypeFactory() : dk.eboks.app.network.rest.util.ItemTypeAdapterFactory
+    fun provideTypeFactory() : ItemTypeAdapterFactory
     {
-        return dk.eboks.app.network.rest.util.ItemTypeAdapterFactory()
+        return ItemTypeAdapterFactory()
     }
 
     @Provides
-    fun provideDateDeserializer() : dk.eboks.app.network.rest.util.DateDeserializer
+    fun provideDateDeserializer() : DateDeserializer
     {
-        return dk.eboks.app.network.rest.util.DateDeserializer()
+        return DateDeserializer()
     }
 
     @Provides
     @AppScope
-    fun provideGson(typeFactory: dk.eboks.app.network.rest.util.ItemTypeAdapterFactory, dateDeserializer: dk.eboks.app.network.rest.util.DateDeserializer) : Gson
+    fun provideGson(typeFactory: ItemTypeAdapterFactory, dateDeserializer: DateDeserializer) : Gson
     {
         val gson = GsonBuilder()
                 .registerTypeAdapterFactory(typeFactory)
@@ -52,7 +64,7 @@ class RestModule {
     @Provides
     @Named("NAME_BASE_URL")
     fun provideBaseUrlString(): String {
-        return dk.eboks.app.BuildConfig.API_URL
+        return Config.currentMode.environment?.baseUrl + "/" + Config.currentMode.urlPrefix + "/" ?: throw(IllegalStateException("No base URL set"))
     }
 
     @Provides
@@ -77,6 +89,7 @@ class RestModule {
             logging.level = okhttp3.logging.HttpLoggingInterceptor.Level.BODY
             clientBuilder.addInterceptor(logging)
 
+            /*
             try {
                 // Create a trust manager that does not validate certificate chains
                 val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
@@ -103,6 +116,7 @@ class RestModule {
             } catch (e: Exception) {
                 throw RuntimeException(e)
             }
+            */
         }
 
         return clientBuilder.build()
@@ -114,13 +128,16 @@ class RestModule {
         return Retrofit.Builder()
                 .client(client)
                 .baseUrl(baseUrl)
-                .addConverterFactory(converter)
+                .addConverterFactory(SimpleXmlConverterFactory.createNonStrict(Persister(AnnotationStrategy())))
+                .addConverterFactory(BufferedSourceConverterFactory())
+                //.addConverterFactory(converter)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
     }
 
     @Provides
     @AppScope
-    fun provideApi(retrofit: Retrofit): dk.eboks.app.network.Api {
-        return retrofit.create<dk.eboks.app.network.Api>(dk.eboks.app.network.Api::class.java)
+    fun provideApi(retrofit: Retrofit): Api {
+        return retrofit.create<Api>(Api::class.java)
     }
 }

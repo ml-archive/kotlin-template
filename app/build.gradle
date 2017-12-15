@@ -13,17 +13,21 @@ translation {
 }
 
 android {
+    productFlavors.all {
+        ext.locale = "en-UK"
+    }
+
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
     flavorDimensions "default"
 
     defaultConfig {
-        applicationId "dk.eboks.app"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
         versionName "0.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
 
         manifestPlaceholders = [
             appId: translation.appId,
@@ -44,30 +48,52 @@ android {
     }
 
     productFlavors {
-        staging {
+        danish {
+            locale = "da-DK"
             dimension "default"
-            applicationIdSuffix ".staging"
+            applicationId "com.eboks.activities"
+            versionName '4.0.0'
             //signingConfig signingConfigs.staging
-            deploy = "debug"
+            deploy = "debug|release"
             hockeyAppId = ""
+            hockeyAppIdStaging = ""
+            buildConfigField "String", "mode", '"danish"'
             manifestPlaceholders = [
                     HOCKEYAPP_APP_ID: hockeyAppId,
-                    APP_NAME        : "KotlinTemplateStaging"
+                    APP_NAME        : "e-Boks.dk"
             ]
-            buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }
-        production {
+        swedish {
+            locale = "sv-SE"
             dimension "default"
-            applicationIdSuffix ".production"
+            applicationId "sv.eboks.activities"
+            versionName '4.0.0'
             //signingConfig signingConfigs.production
-            deploy = "release"
+            deploy = "debug|release"
             hockeyAppId = ""
+            hockeyAppIdStaging = ""
+            buildConfigField "String", "mode", '"swedish"'
             manifestPlaceholders = [
                     HOCKEYAPP_APP_ID: hockeyAppId,
-                    APP_NAME        : "KotlinTemplate"
+                    APP_NAME        : "e-Boks.se"
             ]
-            buildConfigField "String", "API_URL", "\"https://jsonplaceholder.typicode.com\""
         }
+        norwegian {
+            locale = "nb-NO"
+            dimension "default"
+            applicationId "no.eboks.activities"
+            versionName '4.0.0'
+            //signingConfig signingConfigs.production
+            deploy = "debug|release"
+            hockeyAppId = ""
+            hockeyAppIdStaging = ""
+            buildConfigField "String", "mode", '"norwegian"'
+            manifestPlaceholders = [
+                    HOCKEYAPP_APP_ID: hockeyAppId,
+                    APP_NAME        : "e-Boks.no"
+            ]
+        }
+
     }
 
     // Uncomment the following if you include signingConfigs
@@ -100,7 +126,7 @@ dependencies {
     })
 
     // uncomment me if using multidex
-    // implementation "com.android.support:multidex:$multidex_version"
+    implementation "com.android.support:multidex:$multidex_version"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
@@ -120,14 +146,25 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timber_version"
 
     implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
+
     implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version") {
         exclude module: "retrofit:$retrofit_version"
     }
+
+    implementation ("com.squareup.retrofit2:converter-simplexml:$retrofit_version") {
+        exclude module: "retrofit:$retrofit_version"
+    }
+
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
     implementation "dk.nodes.nstack:nstack-kotlin:$nodes_nstack_kotlin_version"
     implementation "dk.nodes.arch:base:$nodes_arch_version"
 
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    implementation "com.nytimes.android:store-kotlin3:$store_version"
+    implementation "com.nytimes.android:middleware3:$store_version"
+    implementation "com.nytimes.android:filesystem3:$store_version"
 
     // Testing
     testImplementation "junit:junit:$junit_version"

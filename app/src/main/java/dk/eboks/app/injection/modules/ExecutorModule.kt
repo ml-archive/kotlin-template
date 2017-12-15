@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.executor.injection
+package dk.eboks.app.injection.modules
 
 import dagger.Module
 import dagger.Provides

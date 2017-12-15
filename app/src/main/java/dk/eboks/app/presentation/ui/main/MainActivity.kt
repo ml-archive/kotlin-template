@@ -5,17 +5,20 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
-import dk.eboks.app.presentation.injection.DaggerPresentationComponent
+import dk.eboks.app.injection.components.DaggerPresentationComponent
+import dk.eboks.app.injection.components.PresentationComponent
+import dk.eboks.app.injection.modules.PresentationModule
+import dk.eboks.app.presentation.base.BaseActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.UpdateType
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : dk.eboks.app.presentation.base.BaseActivity(), dk.eboks.app.presentation.ui.main.MainContract.View {
-    val component: dk.eboks.app.presentation.injection.PresentationComponent by lazy {
+class MainActivity : BaseActivity(), MainContract.View {
+    val component: PresentationComponent by lazy {
         DaggerPresentationComponent.builder()
                 .appComponent((application as dk.eboks.app.App).appComponent)
-                .presentationModule(dk.eboks.app.presentation.injection.PresentationModule())
+                .presentationModule(PresentationModule())
                 .build()
     }
     @Inject lateinit var presenter: dk.eboks.app.presentation.ui.main.MainContract.Presenter
@@ -29,53 +32,13 @@ class MainActivity : dk.eboks.app.presentation.base.BaseActivity(), dk.eboks.app
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(dk.eboks.app.R.layout.activity_main)
-        initUiTestSamples()
 
-        //textview = findViewById(R.id.textview) as TextView
-        textview.text = dk.eboks.app.domain.models.Translation.defaultSection.settings
-        NStack.translate(this@MainActivity)
-
-
-        NStack.appOpen({ success -> Log.e("debug", "appopen success = $success") })
-
-        NStack.versionControl(this@MainActivity, { type, builder ->
-            when (type) {
-                UpdateType.UPDATE -> builder?.show()
-                UpdateType.FORCE_UPDATE -> {
-                    //builder?.setOnDismissListener { finish() }
-                    //builder?.show()
-                }
-                else -> {
-                }
-            }
-        })
     }
 
 
     override fun setupTranslations() {
         textview.text = dk.eboks.app.domain.models.Translation.defaultSection.settings
     }
-
-    //This is for the SampleActivityTest.class for Ui tests examples.
-    private fun initUiTestSamples() {
-        saveButton.setOnClickListener(View.OnClickListener {
-            textview.text = edittext.text.trim()
-        })
-
-        buttonOpenDialog.setOnClickListener(View.OnClickListener {
-            AlertDialog.Builder(this)
-                    .setTitle("Hello Ui Test!")
-                    .setMessage("This is an alert message. Let the UI test read it")
-                    .setNegativeButton("Cancel", null)
-                    .setPositiveButton("OK", null)
-                    .show()
-        })
-
-        buttonOpenActivity.setOnClickListener(View.OnClickListener {
-            startActivity(Intent(this, dk.eboks.app.presentation.ui.main.SampleActivity::class.java))
-        })
-    }
-
 
     override fun onResume() {
         super.onResume()
