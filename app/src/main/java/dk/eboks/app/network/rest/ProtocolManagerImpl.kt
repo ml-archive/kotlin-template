@@ -115,4 +115,51 @@ class ProtocolManagerImpl() : ProtocolManager {
         return formatter.format(Date()) + TIMEZONE_LOGIN
     }
 
+    override fun parseNonce(header: String): String {
+        // extract nonce with even more ugly old string manipulation
+        val nonce_start = header.indexOf("nonce=\"") + 7
+        val nonce_end = header.indexOf("\"", nonce_start)
+        val nonce = header.substring(nonce_start, nonce_end)
+        return nonce
+    }
+
+    override fun parseNonceAndSessionId(header: String) : Pair<String, String> {
+        // extract session id with some ugly old string manipulation
+        val ses_id_start = header.indexOf("sessionid=\"") + 11
+        val ses_id_end = header.indexOf("\"", ses_id_start)
+        val sessionId = header.substring(ses_id_start, ses_id_end)
+
+        // extract nonce with even more ugly old string manipulation
+        val nonce_start = header.indexOf("nonce=\"") + 7
+        val nonce_end = header.indexOf("\"", nonce_start)
+        val nonce = header.substring(nonce_start, nonce_end)
+        return Pair(nonce, sessionId)
+    }
+
+    /**
+     * used for generating the response code that is part of the header for all
+     * calls post login Response code is calculated as
+     * response=î{##(activationcode:deviceid:nonce:sessionid)} the nonce value
+     * is stored in the object.
+     *
+     * @param activationCode
+     * @return
+     */
+    override fun generateResponseCode(): String {
+        val deviceId = sessionData.deviceId
+        val builder = StringBuilder()
+
+        builder
+                .append(userInfo.activationCode)
+                .append(":")
+                .append(deviceId)
+                .append(":")
+                .append(sessionData.nonce)
+                .append(":")
+                .append(sessionData.sessionId)
+        //Log.d(TAG, "generateResponseCode/ Response - " + builder.toString());
+        //Log.d(TAG, "generateResponseCode/ Response1 - " + responseCode);
+        return generateDoubleHash(builder)
+    }
+
 }

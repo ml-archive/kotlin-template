@@ -15,4 +15,7 @@ interface ProtocolManager {
     fun buildEboksHeader() : String
     fun generateChallenge(datetime : String) : String
     fun getDateTime(): String
+    fun parseNonce(header : String) : String
+    fun parseNonceAndSessionId(header : String) : Pair<String, String>
+    fun generateResponseCode(): String
 }

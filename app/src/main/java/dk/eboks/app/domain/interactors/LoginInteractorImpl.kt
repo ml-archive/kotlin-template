@@ -31,7 +31,8 @@ class LoginInteractorImpl(executor: Executor, val api: Api, val protocolManager:
                 val arg = LoginRequest(AppInfo(version = version, os = "Android", device = device, osVersion = os_version), it.userInfo)
                 it.userInfo.loginDateTime = protocolManager.getDateTime()
                 protocolManager.userInfo = it.userInfo
-                api.login(arg).blockingGet()
+                val res = api.login(arg).blockingGet()
+
                 runOnUIThread {
                     output?.onLogin()
                 }
