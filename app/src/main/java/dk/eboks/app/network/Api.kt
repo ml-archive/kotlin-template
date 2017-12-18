@@ -1,7 +1,12 @@
 package dk.eboks.app.network
 
+import dk.eboks.app.domain.models.request.LoginRequest
+import io.reactivex.Single
+import okio.BufferedSource
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PUT
 
 /**
  * Created by bison on 20-05-2017.
@@ -10,4 +15,6 @@ import retrofit2.http.GET
 interface Api {
     @GET("posts") fun getPosts() : Call<List<dk.eboks.app.domain.models.Post>>
     @GET("photos") fun getPhotos() : Call<List<dk.eboks.app.domain.models.Photo>>
+
+    @PUT("session") fun login(@Body body : LoginRequest) : Single<BufferedSource>
 }

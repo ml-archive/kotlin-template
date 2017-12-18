@@ -20,7 +20,7 @@ buildscript {
         dagger_version = "2.11"
         multidex_version = '1.0.2'
         hockey_sdk_version = "5.0.2"
-        timber_version = "4.5.1"
+        timber_version = "4.6.0"
 
         junit_version = '4.12'
         test_runner_version = '1.0.1'
@@ -41,6 +41,8 @@ buildscript {
         okhttp_version = "3.9.0"
         gson_version = '2.8.2'
         glide_version = '4.2.0'
+        rxandroid_version = '2.0.1'
+        store_version = "3.0.0-beta"
     }
 
     repositories {

@@ -1,4 +1,4 @@
-package dk.eboks.app.storage.injection
+package dk.eboks.app.injection.modules
 
 import android.content.Context
 import dagger.Module
