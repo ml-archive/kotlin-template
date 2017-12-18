@@ -6,10 +6,12 @@ import java.io.Serializable
  * Created by bison on 07/12/17.
  */
 data class SessionData (
-        var sessionId : String,
+        var initialized : Boolean = false,
+        var deviceId : String = "",
+        var sessionId : String = "",
         var nonce : String? = null,
-        var responseCode : String,
-        var userId : String,
-        var ticketType : String,
-        var ticket : String
+        var responseCode : String = "",
+        var userId : String = "",
+        var ticketType : String = "",
+        var ticket : String = ""
 ) : Serializable

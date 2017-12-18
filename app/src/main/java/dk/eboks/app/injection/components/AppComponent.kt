@@ -2,6 +2,7 @@ package dk.eboks.app.injection.components
 
 import dagger.Component
 import dk.eboks.app.App
+import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.LoginInteractor
 import dk.eboks.app.injection.modules.*
 import dk.eboks.app.network.Api
@@ -26,5 +27,6 @@ interface AppComponent
     // expose functions to components dependent on this component
     fun executor() : Executor
     fun api() : Api
-    fun getLoginInteractor() : LoginInteractor
+    fun loginInteractor() : LoginInteractor
+    fun boostrapInteractor() : BootstrapInteractor
 }

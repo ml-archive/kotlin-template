@@ -24,7 +24,7 @@ class App : Application()
 
     override fun onCreate() {
         super.onCreate()
-        dk.eboks.app.App.Companion._instance = this
+        App.Companion._instance = this
 
         if(BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
@@ -42,10 +42,10 @@ class App : Application()
 
 
     companion object {
-        private lateinit var _instance : dk.eboks.app.App
-        fun instance() : dk.eboks.app.App
+        private lateinit var _instance : App
+        fun instance() : App
         {
-            return dk.eboks.app.App.Companion._instance
+            return App.Companion._instance
         }
     }
 

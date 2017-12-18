@@ -10,7 +10,9 @@ import org.simpleframework.xml.Root
 data class UserInfo
 (
     @field:Attribute var identity: String = "",
-    @field:Attribute var identityType: String = "",
+    @field:Attribute var identityType: String = "P",
     @field:Attribute var nationality: String = "",
-    @field:Attribute var pincode: String = ""
+    @field:Attribute var pincode: String = "",
+    var activationCode : String = "",
+    var loginDateTime : String = ""
 )
