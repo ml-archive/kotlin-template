@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors
 
+import dk.eboks.app.domain.models.request.UserInfo
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**
@@ -10,10 +11,10 @@ interface LoginInteractor : Interactor
     var input : Input?
     var output : Output?
 
-    data class Input(val i : Int)
+    data class Input(val userInfo: UserInfo)
 
     interface Output {
         fun onLogin()
-        fun onError(msg : String)
+        fun onLoginError(msg : String)
     }
 }

@@ -166,6 +166,8 @@ dependencies {
     implementation "com.nytimes.android:middleware3:$store_version"
     implementation "com.nytimes.android:filesystem3:$store_version"
 
+    implementation "org.apache.commons:commons-lang3:$commons_lang3_version"
+
     // Testing
     testImplementation "junit:junit:$junit_version"
     // required if you want to use Mockito for unit tests

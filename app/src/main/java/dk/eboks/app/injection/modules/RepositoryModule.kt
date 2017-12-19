@@ -3,7 +3,10 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.managers.PrefManager
+import dk.eboks.app.domain.repositories.PostRepository
 import dk.eboks.app.domain.repositories.SettingsRepository
+import dk.eboks.app.network.Api
+import dk.eboks.app.network.RestPostRepository
 import dk.eboks.app.storage.SharedPrefsSettingsRepository
 import dk.nodes.arch.domain.injection.scopes.AppScope
 
@@ -14,9 +17,9 @@ import dk.nodes.arch.domain.injection.scopes.AppScope
 class RepositoryModule {
     @Provides
     @AppScope
-    fun providePostRepository(api: dk.eboks.app.network.Api) : dk.eboks.app.domain.repositories.PostRepository
+    fun providePostRepository(api: Api) : PostRepository
     {
-        return dk.eboks.app.network.RestPostRepository(api)
+        return RestPostRepository(api)
     }
 
     @Provides

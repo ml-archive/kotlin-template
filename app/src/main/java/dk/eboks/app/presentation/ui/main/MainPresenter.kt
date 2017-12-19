@@ -16,7 +16,7 @@ class MainPresenter(val loginInteractor: LoginInteractor) : dk.eboks.app.present
 
     }
 
-    override fun onError(msg: String) {
+    override fun onLoginError(msg: String) {
         runAction{ view?.showError(msg) }
     }
 }

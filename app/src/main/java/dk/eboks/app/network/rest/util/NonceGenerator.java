@@ -77,7 +77,7 @@ public final class NonceGenerator
         final StringBuilder builder = new StringBuilder();
 
         String country = Config.currentMode.getCountryCode();
-        String deviceId = DeviceUtils.getInstance().getDeviceId();
+        String deviceId = "";
 
         builder
                 .append(activationCode)
@@ -103,7 +103,7 @@ public final class NonceGenerator
     public String generateSSOChallenge(String ticketType, String ticket, final String dateTime)
     {
         final StringBuilder builder = new StringBuilder();
-        String deviceId = DeviceUtils.getInstance().getDeviceId();
+        String deviceId = "";
         builder.append(":").append(deviceId).append(":").append(
                 ticketType).append(":").append(ticket).append(":").append(dateTime);
         //Log.d(TAG, "generateChallenge: " + builder.toString());
@@ -142,7 +142,7 @@ public final class NonceGenerator
      */
     public String generateResponseCode(char[] activationCode, String sessionId, String nonce)
     {
-        String deviceId = DeviceUtils.getInstance().getDeviceId();
+        String deviceId = "";
         final StringBuilder builder = new StringBuilder();
 
         builder
@@ -161,7 +161,7 @@ public final class NonceGenerator
 
     public String generateResponseCodeSSO(String sessionId, String nonce)
     {
-        String deviceId = DeviceUtils.getInstance().getDeviceId();
+        String deviceId = "";
         final StringBuilder builder = new StringBuilder();
 
         builder.append(COLON_SEPERATOR).append(

@@ -4,29 +4,27 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.network.Api
+import dk.eboks.app.domain.managers.ProtocolManager
+import dk.eboks.app.network.rest.ProtocolManagerImpl
 import dk.eboks.app.network.rest.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.rest.util.DateDeserializer
 import dk.eboks.app.network.rest.util.ItemTypeAdapterFactory
 import dk.nodes.arch.domain.injection.scopes.AppScope
+import dk.nodes.nstack.providers.EboksHeaderInterceptor
 import dk.nodes.nstack.providers.NMetaInterceptor
 import okhttp3.OkHttpClient
-import org.simpleframework.xml.Serializer
 import org.simpleframework.xml.core.Persister
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
-import java.security.cert.CertificateException
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
-import javax.net.ssl.HostnameVerifier
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
 import org.simpleframework.xml.convert.AnnotationStrategy
 
 
@@ -56,7 +54,7 @@ class RestModule {
         val gson = GsonBuilder()
                 .registerTypeAdapterFactory(typeFactory)
                 .registerTypeAdapter(Date::class.java, dateDeserializer)
-                .setDateFormat(dk.eboks.app.network.rest.util.DateDeserializer.DATE_FORMATS[0])
+                .setDateFormat(DateDeserializer.DATE_FORMATS[0])
                 .create()
         return gson
     }
@@ -75,15 +73,28 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideHttpClient() : OkHttpClient
+    fun provideProtocolManager(): ProtocolManager {
+        return ProtocolManagerImpl()
+    }
+
+    @Provides
+    @AppScope
+    fun provideEboksHeaderInterceptor(eboksProtocol: ProtocolManager): EboksHeaderInterceptor {
+        return EboksHeaderInterceptor(eboksProtocol)
+    }
+
+    @Provides
+    @AppScope
+    fun provideHttpClient(eboksHeaderInterceptor: EboksHeaderInterceptor) : OkHttpClient
     {
         val clientBuilder = OkHttpClient.Builder()
                 .connectTimeout(45, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
-                .addInterceptor(NMetaInterceptor(dk.eboks.app.BuildConfig.FLAVOR))
+                .addInterceptor(eboksHeaderInterceptor)
+                .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
 
-        if(dk.eboks.app.BuildConfig.DEBUG)
+        if(BuildConfig.DEBUG)
         {
             val logging = okhttp3.logging.HttpLoggingInterceptor()
             logging.level = okhttp3.logging.HttpLoggingInterceptor.Level.BODY
