@@ -33,6 +33,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="dk.eboks.app.presentation.ui.main.SampleActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.main.MainActivity" />
     </application>
 </manifest>

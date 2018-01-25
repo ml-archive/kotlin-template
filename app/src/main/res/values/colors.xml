@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">@color/white</color>
+    <color name="colorPrimaryDark">@color/darkGreyBlue</color>
+    <color name="colorAccent">@color/rouge</color>
+    <color name="textColorPrimary">@color/darkGreyBlue</color>
+    <color name="textColorSecondary">@color/blueGrey</color>
+
+    <color name="white">#FFF</color>
+    <color name="rouge">#A8242F</color>
+    <color name="actionBarColor">#FCFDFD</color>
+    <color name="darkGreyBlue">#294350</color>
+    <color name="blueGrey">#7f9aa3</color>
+    <color name="dividerGrey">#26294350</color>
+    <color name="toolbarSelectedColor">@color/darkGreyBlue</color>
+    <color name="toolbarNormalColor">@color/rouge</color>
+    <color name="toolbarTitleColor">@color/darkGreyBlue</color>
 </resources>

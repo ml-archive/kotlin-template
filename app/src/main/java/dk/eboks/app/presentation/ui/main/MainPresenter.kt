@@ -9,7 +9,7 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 class MainPresenter(val loginInteractor: LoginInteractor) : dk.eboks.app.presentation.ui.main.MainContract.Presenter, BasePresenterImpl<MainContract.View>(), LoginInteractor.Output {
     init {
         loginInteractor.output = this
-        loginInteractor.run()
+        //loginInteractor.run()
     }
 
     override fun onLogin() {

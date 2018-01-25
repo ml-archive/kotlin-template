@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.splash
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import dk.eboks.app.App
@@ -8,6 +9,7 @@ import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.presentation.ui.main.MainActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.UpdateType
 import timber.log.Timber
@@ -67,5 +69,9 @@ class SplashActivity : BaseActivity(), SplashContract.View {
                 }
             }
         })
+    }
+
+    override fun startMain() {
+        startActivity(Intent(this, MainActivity::class.java))
     }
 }

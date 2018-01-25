@@ -13,7 +13,7 @@ import dk.eboks.app.network.rest.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.rest.util.DateDeserializer
 import dk.eboks.app.network.rest.util.ItemTypeAdapterFactory
 import dk.nodes.arch.domain.injection.scopes.AppScope
-import dk.nodes.nstack.providers.EboksHeaderInterceptor
+import dk.eboks.app.network.rest.EboksHeaderInterceptor
 import dk.nodes.nstack.providers.NMetaInterceptor
 import okhttp3.OkHttpClient
 import org.simpleframework.xml.core.Persister
