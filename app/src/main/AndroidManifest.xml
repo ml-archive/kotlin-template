@@ -34,5 +34,6 @@
             </intent-filter>
         </activity>
         <activity android:name="dk.eboks.app.presentation.ui.main.MainActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.mail.MailOverviewActivity" />
     </application>
 </manifest>

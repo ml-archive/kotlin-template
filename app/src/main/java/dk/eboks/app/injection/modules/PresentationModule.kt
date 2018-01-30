@@ -4,6 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.LoginInteractor
+import dk.eboks.app.presentation.ui.mail.MailOverviewContract
+import dk.eboks.app.presentation.ui.mail.MailOverviewPresenter
 import dk.eboks.app.presentation.ui.main.MainContract
 import dk.eboks.app.presentation.ui.main.MainPresenter
 import dk.eboks.app.presentation.ui.splash.SplashContract
@@ -26,5 +28,11 @@ class PresentationModule {
     @Provides
     fun provideSplashPresenter(bootstrapInteractor: BootstrapInteractor, loginInteractor: LoginInteractor) : SplashContract.Presenter {
         return SplashPresenter(bootstrapInteractor, loginInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideMailOverviewPresenter() : MailOverviewContract.Presenter {
+        return MailOverviewPresenter()
     }
 }

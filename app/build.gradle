@@ -7,9 +7,10 @@ apply plugin: 'dk.nodes.ci.bitrise'
 apply plugin: 'kotlin-kapt'
 
 translation {
-    appId = "BmZHmoKuU99A5ZnOByOiRxMVSmAWC2yBz3OW"
-    apiKey = "yw9go00oCWt6zPhfbdjRYXiHRWmkQZQSuRke"
-    acceptHeader = "da-DK"
+    appId = "5Rg3muDHQL8J19lb6sZzjD6ANSOrigg5x55u"
+    apiKey = "htCPriWP9yoaeoHHnPgYKYw68BoejYhJnR8w"
+    acceptHeader = "en-US"
+    //acceptHeader = "da-DK"
 }
 
 android {

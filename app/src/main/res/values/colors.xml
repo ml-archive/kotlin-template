@@ -15,4 +15,6 @@
     <color name="toolbarSelectedColor">@color/darkGreyBlue</color>
     <color name="toolbarNormalColor">@color/rouge</color>
     <color name="toolbarTitleColor">@color/darkGreyBlue</color>
+    <color name="outerCircleImageColor">#FFc1ced2</color>
+    <color name="innerCircleImageColor">#FFeceff3</color>
 </resources>
