@@ -73,5 +73,7 @@ class SplashActivity : BaseActivity(), SplashContract.View {
 
     override fun startMain() {
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
+        overridePendingTransition(0, 0)
     }
 }

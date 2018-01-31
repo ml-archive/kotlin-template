@@ -10,8 +10,8 @@
     <color name="rouge">#A8242F</color>
     <color name="actionBarColor">#FCFDFD</color>
     <color name="darkGreyBlue">#294350</color>
+    <color name="dividerGreyBlue">#26294350</color>
     <color name="blueGrey">#7f9aa3</color>
-    <color name="dividerGrey">#26294350</color>
     <color name="toolbarSelectedColor">@color/darkGreyBlue</color>
     <color name="toolbarNormalColor">@color/rouge</color>
     <color name="toolbarTitleColor">@color/darkGreyBlue</color>

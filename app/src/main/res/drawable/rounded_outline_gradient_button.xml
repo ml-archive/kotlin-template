@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:enterFadeDuration="200"
+    android:exitFadeDuration="200">
+    <item android:state_enabled="false">
+        <shape android:shape="rectangle">
+            <corners android:radius="18dp" />
+            <solid android:color="@color/darkGreyBlue" />
+        </shape>
+    </item>
+    <item android:state_pressed="true" android:drawable="@drawable/rounded_outline_gradient_button_background" />
+    <item android:drawable="@drawable/rounded_outline_gradient_button_background" />
+</selector>
