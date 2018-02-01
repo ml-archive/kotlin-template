@@ -9,6 +9,7 @@
     <ImageView
             android:id="@+id/circleIv"
             android:layout_gravity="center"
+            android:padding="16dp"
             android:layout_width="76dp"
             android:layout_height="76dp"
             android:background="@drawable/circular_image_view_background"/>

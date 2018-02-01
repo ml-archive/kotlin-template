@@ -31,7 +31,7 @@ class ConfirmDialogFragment : DialogFragment() {
         dialogInstance.window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         parentView = dialogInstance.window.decorView.rootView
         val size = (resources.displayMetrics.density * 32.0f).toInt()
-        parentView?.setPadding(size, 0, size, 0);
+        parentView?.setPadding(size, 0, size, 0)
 
         return dialogInstance
     }

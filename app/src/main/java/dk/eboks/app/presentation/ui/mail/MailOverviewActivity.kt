@@ -10,7 +10,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
+import com.bumptech.glide.Glide
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Sender
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
@@ -30,7 +33,10 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
                 .presentationModule(PresentationModule())
                 .build()
     }
+
     @Inject lateinit var presenter: MailOverviewContract.Presenter
+
+    var senders : MutableList<Sender> = ArrayList()
 
     override fun injectDependencies() {
         component.inject(this)
@@ -42,9 +48,28 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mail_overview)
         setupRecyclerView()
+        setupYourMail()
 
         yourMailTv.setOnClickListener {
             showConfirmDialog()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        NStack.translate(this@MailOverviewActivity)
+    }
+
+    override fun onShake() {
+        if(showEmptyState)
+        {
+            sendersListEmptyLl.visibility = View.VISIBLE
+            sendersListLl.visibility = View.GONE
+        }
+        else
+        {
+            sendersListLl.visibility = View.VISIBLE
+            sendersListEmptyLl.visibility = View.GONE
         }
     }
 
@@ -63,6 +88,27 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
         sendersRv.adapter = HorizontalSendersAdapter()
     }
 
+    fun setupYourMail()
+    {
+        yourMailLl.removeAllViews()
+        val li : LayoutInflater = LayoutInflater.from(this)
+
+        var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
+        v.findViewById<TextView>(R.id.nameTv)?.text = "Highlights"
+        v.setOnClickListener {  }
+        yourMailLl.addView(v)
+
+        v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
+        v.findViewById<TextView>(R.id.nameTv)?.text = "Inbox"
+        v.setOnClickListener {  }
+        yourMailLl.addView(v)
+
+        v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
+        v.findViewById<TextView>(R.id.nameTv)?.text = "Folders"
+        v.setOnClickListener {  }
+        yourMailLl.addView(v)
+    }
+
     fun showConfirmDialog()
     {
         Timber.e("Showing confirm dialog")
@@ -70,13 +116,14 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
         dialog.show(supportFragmentManager, ConfirmDialogFragment::class.simpleName)
     }
 
-    override fun onResume() {
-        super.onResume()
-        NStack.translate(this@MailOverviewActivity)
-    }
 
     override fun showError(msg: String) {
         Log.e("debug", msg)
+    }
+
+    override fun showSenders(senders: List<Sender>) {
+        this.senders.addAll(senders)
+        sendersRv.adapter.notifyDataSetChanged()
     }
 
 
@@ -94,13 +141,16 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
         }
 
         override fun getItemCount(): Int {
-            return 10
+            return senders.size
         }
 
         override fun onBindViewHolder(holder: CircularSenderViewHolder?, position: Int) {
-            holder?.circleIv?.setOnClickListener { view ->
-                view.isSelected = !view.isSelected
+            holder?.circleIv?.let {
+                Glide.with(this@MailOverviewActivity).load(senders[position].imageUrl).into(it)
+                it.isSelected = senders[position].unreadEmailsCount > 0
             }
+
+
         }
     }
 }

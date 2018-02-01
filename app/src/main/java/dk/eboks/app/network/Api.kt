@@ -7,14 +7,16 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PUT
+import retrofit2.http.Path
 
 /**
  * Created by bison on 20-05-2017.
  */
 
 interface Api {
-    @GET("posts") fun getPosts() : Call<List<dk.eboks.app.domain.models.Post>>
-    @GET("photos") fun getPhotos() : Call<List<dk.eboks.app.domain.models.Photo>>
 
+    @GET("api/mail/folders") fun getFolders() : Single<BufferedSource>
+    @GET("api/folders/{id}/messages") fun getMessages(@Path("id") id : Long) : Single<BufferedSource>
+    @GET("api/senders") fun getSenders() : Single<BufferedSource>
     @PUT("session") fun login(@Body body : LoginRequest) : Single<BufferedSource>
 }

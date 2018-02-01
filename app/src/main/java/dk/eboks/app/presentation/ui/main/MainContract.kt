@@ -8,10 +8,9 @@ import dk.nodes.arch.presentation.base.BaseView
  */
 interface MainContract {
     interface View : BaseView {
-        fun showPosts(posts : List<dk.eboks.app.domain.models.Post>)
         fun showError(msg : String)
     }
 
-    interface Presenter : BasePresenter<dk.eboks.app.presentation.ui.main.MainContract.View> {
+    interface Presenter : BasePresenter<MainContract.View> {
     }
 }
