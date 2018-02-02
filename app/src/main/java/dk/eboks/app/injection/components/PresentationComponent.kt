@@ -4,6 +4,8 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.injection.modules.PresentationModule
+import dk.eboks.app.presentation.ui.mail.MailFolderActivity
+import dk.eboks.app.presentation.ui.mail.MailFolderPresenter
 import dk.eboks.app.presentation.ui.mail.MailOverviewActivity
 import dk.eboks.app.presentation.ui.mail.MailOverviewPresenter
 import dk.eboks.app.presentation.ui.main.MainActivity
@@ -25,5 +27,7 @@ interface PresentationComponent {
     fun inject(target : SplashPresenter)
     fun inject(target : MailOverviewActivity)
     fun inject(target : MailOverviewPresenter)
+    fun inject(target : MailFolderActivity)
+    fun inject(target : MailFolderPresenter)
 
 }

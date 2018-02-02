@@ -49,7 +49,7 @@ class MailOverviewPresenter @Inject constructor(val getSendersInteractor: GetSen
     }
 
     override fun onGetSenders(senders: List<Sender>) {
-        Timber.e("Received them senders")
+        Timber.e("Received them messages")
         refreshingSenders = false
         runAction { v ->
             v.showSenders(senders)

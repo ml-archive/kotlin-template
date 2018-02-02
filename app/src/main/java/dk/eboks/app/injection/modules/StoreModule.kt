@@ -12,6 +12,7 @@ import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.models.Sender
 import dk.eboks.app.domain.models.Folder
+import dk.eboks.app.domain.models.Message
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.injection.scopes.AppScope
 import okio.BufferedSource
@@ -22,6 +23,9 @@ import okio.BufferedSource
 
 typealias SenderStore = Store<List<Sender>, Int>
 typealias FolderStore = Store<List<Folder>, Int>
+
+data class MessageStoreKey(var folderId : Long)
+typealias MessageStore = Store<List<Message>, MessageStoreKey>
 
 @Module
 class StoreModule {
@@ -44,6 +48,17 @@ class StoreModule {
                 .fetcher { key -> api.getFolders() }
                 .persister(FileSystemPersister.create(FileSystemFactory.create(context.cacheDir), { key -> "Folder$key"}))
                 .parser(GsonParserFactory.createSourceParser<List<Folder>>(gson, object : TypeToken<List<Folder>>() {}.type))
+                .open()
+    }
+
+    @Provides
+    @AppScope
+    fun provideMessageStore(api: Api, gson : Gson, context : Context) : MessageStore
+    {
+        return StoreBuilder.parsedWithKey<MessageStoreKey, BufferedSource, List<Message>>()
+                .fetcher { key -> api.getMessages(key.folderId) }
+                .persister(FileSystemPersister.create(FileSystemFactory.create(context.cacheDir), { key -> "Message$key"}))
+                .parser(GsonParserFactory.createSourceParser<List<Message>>(gson, object : TypeToken<List<Message>>() {}.type))
                 .open()
     }
 }

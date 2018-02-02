@@ -6,6 +6,7 @@ import dk.eboks.app.domain.interactors.*
 import dk.eboks.app.domain.managers.GuidManager
 import dk.eboks.app.domain.managers.ProtocolManager
 import dk.eboks.app.domain.repositories.FoldersRepository
+import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.domain.repositories.SendersRepository
 import dk.eboks.app.domain.repositories.SettingsRepository
 import dk.eboks.app.network.Api
@@ -34,5 +35,10 @@ class InteractorModule {
     @Provides fun provideGetFoldersInteractor(executor: Executor, foldersRepository: FoldersRepository) : GetFoldersInteractor
     {
         return GetFoldersInteractorImpl(executor, foldersRepository)
+    }
+
+    @Provides fun provideGetMessagesInteractor(executor: Executor, messagesRepository: MessagesRepository) : GetMessagesInteractor
+    {
+        return GetMessagesInteractorImpl(executor, messagesRepository)
     }
 }

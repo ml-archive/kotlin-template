@@ -2,10 +2,9 @@ package dk.eboks.app.injection.modules
 
 import dagger.Module
 import dagger.Provides
-import dk.eboks.app.domain.interactors.BootstrapInteractor
-import dk.eboks.app.domain.interactors.GetFoldersInteractor
-import dk.eboks.app.domain.interactors.GetSendersInteractor
-import dk.eboks.app.domain.interactors.LoginInteractor
+import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.presentation.ui.mail.MailFolderContract
+import dk.eboks.app.presentation.ui.mail.MailFolderPresenter
 import dk.eboks.app.presentation.ui.mail.MailOverviewContract
 import dk.eboks.app.presentation.ui.mail.MailOverviewPresenter
 import dk.eboks.app.presentation.ui.main.MainContract
@@ -36,5 +35,11 @@ class PresentationModule {
     @Provides
     fun provideMailOverviewPresenter(getSendersInteractor: GetSendersInteractor, getFoldersInteractor: GetFoldersInteractor) : MailOverviewContract.Presenter {
         return MailOverviewPresenter(getSendersInteractor, getFoldersInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideMailFolderPresenter(getMessagesInteractor: GetMessagesInteractor) : MailFolderContract.Presenter {
+        return MailFolderPresenter(getMessagesInteractor)
     }
 }

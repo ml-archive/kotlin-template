@@ -1,23 +1,21 @@
 package dk.eboks.app.presentation.ui.mail
 
 import dk.eboks.app.domain.models.Folder
-import dk.eboks.app.domain.models.Sender
+import dk.eboks.app.domain.models.Message
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 
 /**
  * Created by bison on 07-11-2017.
  */
-interface MailOverviewContract {
+interface MailFolderContract {
     interface View : BaseView {
         fun showError(msg : String)
-        fun showSenders(senders : List<Sender>)
-        fun showFolders(folders : List<Folder>)
         fun showRefreshProgress(show : Boolean)
-        fun openFolder(folder: Folder)
+        fun showMessages(messages : List<Message>)
     }
 
-    interface Presenter : BasePresenter<MailOverviewContract.View> {
+    interface Presenter : BasePresenter<MailFolderContract.View> {
         fun refresh()
     }
 }

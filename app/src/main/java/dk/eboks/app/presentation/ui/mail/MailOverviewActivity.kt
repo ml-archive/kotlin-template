@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.mail
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
@@ -121,7 +122,7 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
 
             val iv = v.findViewById<ImageView>(R.id.iconIv)
             iv?.let { Glide.with(this@MailOverviewActivity).load(folder.iconImageUrl).into(it) }
-            v.setOnClickListener {  }
+            v.setOnClickListener { openFolder(folder) }
             yourMailLl.addView(v)
         }
     }
@@ -129,6 +130,11 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
     override fun showRefreshProgress(show: Boolean) {
         //if(refreshSrl.isRefreshing != show)
             refreshSrl.isRefreshing = show
+    }
+
+    override fun openFolder(folder: Folder) {
+        startActivity(Intent(this, MailFolderActivity::class.java))
+        //overridePendingTransition(0, 0)
     }
 
 
