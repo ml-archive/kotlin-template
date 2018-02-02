@@ -3,6 +3,7 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.BootstrapInteractor
+import dk.eboks.app.domain.interactors.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.GetSendersInteractor
 import dk.eboks.app.domain.interactors.LoginInteractor
 import dk.eboks.app.presentation.ui.mail.MailOverviewContract
@@ -33,7 +34,7 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMailOverviewPresenter(getSendersInteractor: GetSendersInteractor) : MailOverviewContract.Presenter {
-        return MailOverviewPresenter(getSendersInteractor)
+    fun provideMailOverviewPresenter(getSendersInteractor: GetSendersInteractor, getFoldersInteractor: GetFoldersInteractor) : MailOverviewContract.Presenter {
+        return MailOverviewPresenter(getSendersInteractor, getFoldersInteractor)
     }
 }

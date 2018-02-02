@@ -10,10 +10,11 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
  */
 class GetSendersInteractorImpl(executor: Executor, val sendersRepository: SendersRepository) : BaseInteractor(executor), GetSendersInteractor {
     override var output: GetSendersInteractor.Output? = null
+    override var input: GetSendersInteractor.Input? = null
 
     override fun execute() {
         try {
-            val senders = sendersRepository.getSenders(true)
+            val senders = sendersRepository.getSenders(input?.cached ?: true)
             runOnUIThread {
                 output?.onGetSenders(senders)
             }

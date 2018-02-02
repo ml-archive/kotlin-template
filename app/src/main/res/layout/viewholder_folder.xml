@@ -27,7 +27,7 @@
         android:text="Inbox"/>
 
     <TextView
-        android:id="@+id/badgeCount"
+        android:id="@+id/badgeCountTv"
         android:layout_width="24dp"
         android:layout_height="24dp"
         style="@style/BadgeCount"

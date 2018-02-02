@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.domain.models.Sender
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.injection.components.DaggerPresentationComponent
@@ -48,10 +49,14 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mail_overview)
         setupRecyclerView()
-        setupYourMail()
+        //setupYourMail()
 
         yourMailTv.setOnClickListener {
             showConfirmDialog()
+        }
+
+        refreshSrl.setOnRefreshListener {
+            presenter.refresh()
         }
     }
 
@@ -88,27 +93,6 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
         sendersRv.adapter = HorizontalSendersAdapter()
     }
 
-    fun setupYourMail()
-    {
-        yourMailLl.removeAllViews()
-        val li : LayoutInflater = LayoutInflater.from(this)
-
-        var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
-        v.findViewById<TextView>(R.id.nameTv)?.text = "Highlights"
-        v.setOnClickListener {  }
-        yourMailLl.addView(v)
-
-        v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
-        v.findViewById<TextView>(R.id.nameTv)?.text = "Inbox"
-        v.setOnClickListener {  }
-        yourMailLl.addView(v)
-
-        v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
-        v.findViewById<TextView>(R.id.nameTv)?.text = "Folders"
-        v.setOnClickListener {  }
-        yourMailLl.addView(v)
-    }
-
     fun showConfirmDialog()
     {
         Timber.e("Showing confirm dialog")
@@ -124,6 +108,27 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
     override fun showSenders(senders: List<Sender>) {
         this.senders.addAll(senders)
         sendersRv.adapter.notifyDataSetChanged()
+    }
+
+    override fun showFolders(folders: List<Folder>) {
+        yourMailLl.removeAllViews()
+        val li : LayoutInflater = LayoutInflater.from(this)
+        for(folder in folders)
+        {
+            var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
+            v.findViewById<TextView>(R.id.nameTv)?.text = folder.name
+            v.findViewById<TextView>(R.id.badgeCountTv)?.text = "${folder.unreadCount}"
+
+            val iv = v.findViewById<ImageView>(R.id.iconIv)
+            iv?.let { Glide.with(this@MailOverviewActivity).load(folder.iconImageUrl).into(it) }
+            v.setOnClickListener {  }
+            yourMailLl.addView(v)
+        }
+    }
+
+    override fun showRefreshProgress(show: Boolean) {
+        //if(refreshSrl.isRefreshing != show)
+            refreshSrl.isRefreshing = show
     }
 
 

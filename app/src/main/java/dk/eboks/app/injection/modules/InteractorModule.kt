@@ -5,6 +5,7 @@ import dagger.Provides
 import dk.eboks.app.domain.interactors.*
 import dk.eboks.app.domain.managers.GuidManager
 import dk.eboks.app.domain.managers.ProtocolManager
+import dk.eboks.app.domain.repositories.FoldersRepository
 import dk.eboks.app.domain.repositories.SendersRepository
 import dk.eboks.app.domain.repositories.SettingsRepository
 import dk.eboks.app.network.Api
@@ -30,4 +31,8 @@ class InteractorModule {
         return GetSendersInteractorImpl(executor, sendersRepository)
     }
 
+    @Provides fun provideGetFoldersInteractor(executor: Executor, foldersRepository: FoldersRepository) : GetFoldersInteractor
+    {
+        return GetFoldersInteractorImpl(executor, foldersRepository)
+    }
 }

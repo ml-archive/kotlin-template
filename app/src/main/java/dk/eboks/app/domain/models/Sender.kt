@@ -7,7 +7,7 @@ import java.io.Serializable
  */
 data class Sender(
     var id : Long,
-    var name : String? = null,
-    var unreadEmailsCount : Int?,
-    var imageUrl : String? = ""
+    var name : String = "",
+    var unreadEmailsCount : Int = 0,
+    var imageUrl : String = ""
 ) : Serializable
