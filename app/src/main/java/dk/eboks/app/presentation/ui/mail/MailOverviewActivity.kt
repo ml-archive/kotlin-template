@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.mail
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.BottomSheetBehavior
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -22,11 +23,13 @@ import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.base.MainNavigationBaseActivity
 import dk.eboks.app.presentation.ui.dialogs.ConfirmDialogFragment
+import dk.eboks.app.presentation.ui.dialogs.ContextSheetActivity
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_mail_overview.*
 import kotlinx.android.synthetic.main.include_toolnar.*
 import timber.log.Timber
 import javax.inject.Inject
+
 
 class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.View {
     val component: PresentationComponent by lazy {
@@ -35,6 +38,8 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
                 .presentationModule(PresentationModule())
                 .build()
     }
+
+
 
     @Inject lateinit var presenter: MailOverviewContract.Presenter
 
@@ -58,6 +63,11 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
 
         refreshSrl.setOnRefreshListener {
             presenter.refresh()
+        }
+
+        userShareTv.setOnClickListener {
+            startActivity(Intent(this@MailOverviewActivity, ContextSheetActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
     }
 

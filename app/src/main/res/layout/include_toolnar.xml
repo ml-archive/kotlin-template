@@ -27,12 +27,28 @@
 
         <TextView
             android:id="@+id/toolbarTv"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="_Main"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
             android:textColor="@color/toolbarTitleColor" />
+
+        <TextView
+            android:id="@+id/userShareTv"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:gravity="center"
+            style="@style/Navigation.Dark.Two"
+            android:drawableEnd="@drawable/ic_chevron_down"
+            android:background="@drawable/rounded_grey_background"
+            android:textColor="@color/darkGreyBlue"
+            android:text="Helena Christensen"
+            />
     </android.support.v7.widget.Toolbar>
     <TextView
         android:id="@+id/toolbarLargeTv"
