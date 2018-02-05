@@ -5,31 +5,49 @@
                                                  xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <View
-        android:id="@+id/touch_outside"
+        android:id="@+id/touchVeilV"
         android:background="#88000000"
+        android:alpha="0"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <android.support.v4.widget.NestedScrollView
+    <FrameLayout
         android:id="@+id/contextSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clipToPadding="true"
-        android:background="@color/white"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
+            android:background="@drawable/context_sheet_background"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="200dp"
-                style="@style/Navigation.Dark.One"
-                android:layout_gravity="center"
-                android:text="Hej per har du savnet mig?"/>
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="350dp"
+                    style="@style/Navigation.Dark.One"
+                    android:layout_gravity="center"
+                    android:text="Hej per har du savnet mig?"/>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+        <View
+            android:id="@+id/contextSheetHandle"
+            android:layout_width="48dp"
+            android:layout_height="5dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/sheet_handle"
+            android:layout_gravity="center_horizontal"
+            />
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>
