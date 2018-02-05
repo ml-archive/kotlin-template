@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/rounded_dialog_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="24dp"
+        android:paddingBottom="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/headerTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            style="@style/Header.Dark.One"
+            android:text="_Title"/>
+
+        <TextView
+            android:id="@+id/messageTv"
+            android:layout_marginTop="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            style="@style/Navigation.Light.Two"
+            android:lineSpacingExtra="5sp"
+            android:text="_message"/>
+
+        <FrameLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp">
+
+            <Button
+                android:id="@+id/negBtn"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                style="@style/Button.OutlineGradient"
+                android:layout_gravity="left"
+                android:text="_No"/>
+
+            <Button
+                android:id="@+id/posBtn"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                style="@style/Button.SolidGradient"
+                android:layout_gravity="right"
+                android:text="_Si"/>
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>

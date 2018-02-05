@@ -13,7 +13,8 @@ import dk.eboks.app.network.rest.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.rest.util.DateDeserializer
 import dk.eboks.app.network.rest.util.ItemTypeAdapterFactory
 import dk.nodes.arch.domain.injection.scopes.AppScope
-import dk.nodes.nstack.providers.EboksHeaderInterceptor
+import dk.eboks.app.network.rest.EboksHeaderInterceptor
+import dk.eboks.app.network.rest.MockHeaderInterceptor
 import dk.nodes.nstack.providers.NMetaInterceptor
 import okhttp3.OkHttpClient
 import org.simpleframework.xml.core.Persister
@@ -26,8 +27,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import org.simpleframework.xml.convert.AnnotationStrategy
-
-
 
 
 /**
@@ -62,6 +61,8 @@ class RestModule {
     @Provides
     @Named("NAME_BASE_URL")
     fun provideBaseUrlString(): String {
+        if(BuildConfig.MOCK_API_ENABLED)
+            return BuildConfig.MOCK_API_URL
         return Config.currentMode.environment?.baseUrl + "/" + Config.currentMode.urlPrefix + "/" ?: throw(IllegalStateException("No base URL set"))
     }
 
@@ -91,8 +92,14 @@ class RestModule {
                 .connectTimeout(45, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
-                .addInterceptor(eboksHeaderInterceptor)
+                //.addInterceptor(eboksHeaderInterceptor)
                 .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
+
+
+        if(BuildConfig.MOCK_API_ENABLED)
+        {
+            clientBuilder.addInterceptor(MockHeaderInterceptor())
+        }
 
         if(BuildConfig.DEBUG)
         {
@@ -139,7 +146,7 @@ class RestModule {
         return Retrofit.Builder()
                 .client(client)
                 .baseUrl(baseUrl)
-                .addConverterFactory(SimpleXmlConverterFactory.createNonStrict(Persister(AnnotationStrategy())))
+                //.addConverterFactory(SimpleXmlConverterFactory.createNonStrict(Persister(AnnotationStrategy())))
                 .addConverterFactory(BufferedSourceConverterFactory())
                 //.addConverterFactory(converter)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

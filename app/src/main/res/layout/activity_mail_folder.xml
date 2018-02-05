@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:background="@color/white"
+                                                 xmlns:tools="http://schemas.android.com/tools">
+
+    <include layout="@layout/include_toolnar"  />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/dividerGreyBlue" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/refreshSrl"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <FrameLayout
+                android:animateLayoutChanges="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/emptyLl"
+                    android:visibility="gone"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="16dp">
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/messagesRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+                    />
+            </FrameLayout>
+
+            <!--
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/dividerGreyBlue" />
+                -->
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/include_navigation_view" />
+        </FrameLayout>
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

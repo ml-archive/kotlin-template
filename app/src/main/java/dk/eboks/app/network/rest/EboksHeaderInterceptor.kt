@@ -1,4 +1,4 @@
-package dk.nodes.nstack.providers
+package dk.eboks.app.network.rest
 
 import dk.eboks.app.domain.managers.ProtocolManager
 import timber.log.Timber

@@ -21,7 +21,10 @@ class SplashPresenter(val bootstrapInteractor: BootstrapInteractor, val loginInt
 
     override fun proceed() {
         Timber.e("Ready to proceed")
-        bootstrapInteractor.run()
+        runAction { v ->
+            v.startMain()
+        }
+        //bootstrapInteractor.run()
     }
 
     override fun onLogin() {

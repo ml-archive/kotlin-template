@@ -10,6 +10,7 @@ interface SplashContract {
     interface View : BaseView {
         fun performVersionControl()
         fun showError(msg : String)
+        fun startMain()
     }
 
     interface Presenter : BasePresenter<View> {

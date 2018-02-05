@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+        android:color="@color/rouge">
+    <!-- The Mask can be a shape drawable if you want -->
+    <!-- Also removing the mask makes the ripple "borderless" -->
+    <!-- here we're using just any color to have a rectangular limit for the ripple -->
+    <!-- color isn't drawn for mask-item-->
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <corners android:radius="18dp" />
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/rounded_outline_gradient_button_background" />
+</ripple>

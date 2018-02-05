@@ -1,13 +1,18 @@
 package dk.eboks.app.presentation.ui.splash
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import dk.eboks.app.App
+import dk.eboks.app.R
 import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.presentation.base.MainNavigationBaseActivity
+import dk.eboks.app.presentation.ui.mail.MailOverviewActivity
+import dk.eboks.app.presentation.ui.main.MainActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.UpdateType
 import timber.log.Timber
@@ -67,5 +72,12 @@ class SplashActivity : BaseActivity(), SplashContract.View {
                 }
             }
         })
+    }
+
+    override fun startMain() {
+        MainNavigationBaseActivity.currentMenuItem = R.id.actionMail
+        startActivity(Intent(this, MailOverviewActivity::class.java))
+        finish()
+        overridePendingTransition(0, 0)
     }
 }

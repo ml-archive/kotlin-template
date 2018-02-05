@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                                            android:id="@+id/mainAppbar"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                                            android:elevation="0dp"
+                                            app:elevation="0dp"
+                                            >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/mainTb"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <ImageButton
+            android:id="@+id/toolbarIb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_menu_home"
+            android:tint="@color/toolbar_item_selector" />
+
+        <TextView
+            android:id="@+id/toolbarTv"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="_Main"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+            android:textColor="@color/toolbarTitleColor" />
+
+        <TextView
+            android:id="@+id/userShareTv"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:gravity="center"
+            style="@style/Navigation.Dark.Two"
+            android:drawableEnd="@drawable/ic_chevron_down"
+            android:background="@drawable/rounded_grey_background"
+            android:textColor="@color/darkGreyBlue"
+            android:text="Helena Christensen"
+            />
+    </android.support.v7.widget.Toolbar>
+    <TextView
+        android:id="@+id/toolbarLargeTv"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:layout_marginBottom="6dp"
+        android:textSize="34sp"
+        style="@style/Header.Dark.One"
+        android:text="_All mail"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dividerGreyBlue" />
+</android.support.design.widget.AppBarLayout>

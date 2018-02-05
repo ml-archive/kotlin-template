@@ -2,8 +2,11 @@ package dk.eboks.app.injection.modules
 
 import dagger.Module
 import dagger.Provides
-import dk.eboks.app.domain.interactors.BootstrapInteractor
-import dk.eboks.app.domain.interactors.LoginInteractor
+import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.presentation.ui.mail.MailFolderContract
+import dk.eboks.app.presentation.ui.mail.MailFolderPresenter
+import dk.eboks.app.presentation.ui.mail.MailOverviewContract
+import dk.eboks.app.presentation.ui.mail.MailOverviewPresenter
 import dk.eboks.app.presentation.ui.main.MainContract
 import dk.eboks.app.presentation.ui.main.MainPresenter
 import dk.eboks.app.presentation.ui.splash.SplashContract
@@ -26,5 +29,17 @@ class PresentationModule {
     @Provides
     fun provideSplashPresenter(bootstrapInteractor: BootstrapInteractor, loginInteractor: LoginInteractor) : SplashContract.Presenter {
         return SplashPresenter(bootstrapInteractor, loginInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideMailOverviewPresenter(getSendersInteractor: GetSendersInteractor, getFoldersInteractor: GetFoldersInteractor) : MailOverviewContract.Presenter {
+        return MailOverviewPresenter(getSendersInteractor, getFoldersInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideMailFolderPresenter(getMessagesInteractor: GetMessagesInteractor) : MailFolderContract.Presenter {
+        return MailFolderPresenter(getMessagesInteractor)
     }
 }

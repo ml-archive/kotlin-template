@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/actionHome"
+        android:icon="@drawable/ic_menu_home"
+        android:enabled="true"
+        android:title="_Home" />
 
     <item
-        android:id="@+id/actionAppName"
-        android:icon="@null"
-        android:title="@string/app_name"
-        app:showAsAction="always"/>
+        android:id="@+id/actionMail"
+        android:icon="@drawable/ic_menu_mail"
+        android:enabled="true"
+        android:title="_Mail" />
 
+    <item
+        android:id="@+id/actionSenders"
+        android:icon="@drawable/ic_menu_senders"
+        android:enabled="true"
+        android:title="_Senders" />
+
+    <item
+        android:id="@+id/actionChannels"
+        android:icon="@drawable/ic_menu_channels"
+        android:enabled="true"
+        android:title="_Channels" />
+
+    <item
+        android:id="@+id/actionUploads"
+        android:icon="@drawable/ic_menu_uploads"
+        android:enabled="true"
+        android:title="_Uploads" />
 </menu>

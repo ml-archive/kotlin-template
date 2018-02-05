@@ -3,10 +3,13 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.managers.PrefManager
-import dk.eboks.app.domain.repositories.PostRepository
+import dk.eboks.app.domain.repositories.FoldersRepository
+import dk.eboks.app.domain.repositories.MessagesRepository
+import dk.eboks.app.domain.repositories.SendersRepository
 import dk.eboks.app.domain.repositories.SettingsRepository
-import dk.eboks.app.network.Api
-import dk.eboks.app.network.RestPostRepository
+import dk.eboks.app.network.rest.FoldersRestRepository
+import dk.eboks.app.network.rest.MessagesRestRepository
+import dk.eboks.app.network.rest.SendersRestRepository
 import dk.eboks.app.storage.SharedPrefsSettingsRepository
 import dk.nodes.arch.domain.injection.scopes.AppScope
 
@@ -17,9 +20,24 @@ import dk.nodes.arch.domain.injection.scopes.AppScope
 class RepositoryModule {
     @Provides
     @AppScope
-    fun providePostRepository(api: Api) : PostRepository
+    fun provideMessagesRepository(messageStore: MessageStore) : MessagesRepository
     {
-        return RestPostRepository(api)
+        return MessagesRestRepository(messageStore)
+    }
+
+
+    @Provides
+    @AppScope
+    fun provideSendersRepository(senderStore: SenderStore) : SendersRepository
+    {
+        return SendersRestRepository(senderStore)
+    }
+
+    @Provides
+    @AppScope
+    fun provideFoldersRepository(folderStore: FolderStore) : FoldersRepository
+    {
+        return FoldersRestRepository(folderStore)
     }
 
     @Provides
