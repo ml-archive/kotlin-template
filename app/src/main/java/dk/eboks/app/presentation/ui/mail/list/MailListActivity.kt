@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.mail
+package dk.eboks.app.presentation.ui.mail.list
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -18,12 +18,12 @@ import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.base.MainNavigationBaseActivity
 import dk.nodes.nstack.kotlin.NStack
-import kotlinx.android.synthetic.main.activity_mail_folder.*
+import kotlinx.android.synthetic.main.activity_mail_list.*
 import kotlinx.android.synthetic.main.include_toolnar.*
 import java.util.*
 import javax.inject.Inject
 
-class MailFolderActivity : MainNavigationBaseActivity(), MailFolderContract.View {
+class MailListActivity : MainNavigationBaseActivity(), MailListContract.View {
     val component: PresentationComponent by lazy {
         DaggerPresentationComponent.builder()
                 .appComponent((application as dk.eboks.app.App).appComponent)
@@ -31,7 +31,7 @@ class MailFolderActivity : MainNavigationBaseActivity(), MailFolderContract.View
                 .build()
     }
 
-    @Inject lateinit var presenter: MailFolderContract.Presenter
+    @Inject lateinit var presenter: MailListContract.Presenter
 
     var messages: MutableList<Message> = ArrayList()
 
@@ -43,7 +43,7 @@ class MailFolderActivity : MainNavigationBaseActivity(), MailFolderContract.View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mail_folder)
+        setContentView(R.layout.activity_mail_list)
         setupRecyclerView()
 
         refreshSrl.setOnRefreshListener {
@@ -53,7 +53,7 @@ class MailFolderActivity : MainNavigationBaseActivity(), MailFolderContract.View
 
     override fun onResume() {
         super.onResume()
-        NStack.translate(this@MailFolderActivity)
+        NStack.translate(this@MailListActivity)
     }
 
     override fun onShake() {
@@ -115,7 +115,7 @@ class MailFolderActivity : MainNavigationBaseActivity(), MailFolderContract.View
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
-            val v = LayoutInflater.from(this@MailFolderActivity).inflate(R.layout.viewholder_message, parent, false)
+            val v = LayoutInflater.from(this@MailListActivity).inflate(R.layout.viewholder_message, parent, false)
             val vh = MessageViewHolder(v)
             return vh
         }
@@ -128,7 +128,7 @@ class MailFolderActivity : MainNavigationBaseActivity(), MailFolderContract.View
             if(messages[position].sender != null) {
                 holder?.circleIv?.let {
 
-                    Glide.with(this@MailFolderActivity).load(messages[position].sender?.imageUrl).into(it)
+                    Glide.with(this@MailListActivity).load(messages[position].sender?.imageUrl).into(it)
                     it.isSelected = !messages[position].isRead
                 }
             }

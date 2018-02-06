@@ -1,17 +1,16 @@
-package dk.eboks.app.presentation.ui.mail
+package dk.eboks.app.presentation.ui.mail.list
 
 import dk.eboks.app.domain.interactors.GetMessagesInteractor
 import dk.eboks.app.domain.models.Message
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-class MailFolderPresenter @Inject constructor(val getMessagesInteractor: GetMessagesInteractor) :
-        MailFolderContract.Presenter,
-        BasePresenterImpl<MailFolderContract.View>(),
+class MailListPresenter @Inject constructor(val getMessagesInteractor: GetMessagesInteractor) :
+        MailListContract.Presenter,
+        BasePresenterImpl<MailListContract.View>(),
         GetMessagesInteractor.Output
 {
     var refreshing = false

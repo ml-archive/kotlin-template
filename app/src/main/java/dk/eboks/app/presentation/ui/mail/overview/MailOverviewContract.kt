@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.mail
+package dk.eboks.app.presentation.ui.mail.overview
 
 import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.domain.models.Sender
@@ -17,7 +17,7 @@ interface MailOverviewContract {
         fun openFolder(folder: Folder)
     }
 
-    interface Presenter : BasePresenter<MailOverviewContract.View> {
+    interface Presenter : BasePresenter<View> {
         fun refresh()
     }
 }

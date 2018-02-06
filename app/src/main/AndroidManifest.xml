@@ -36,8 +36,9 @@
             </intent-filter>
         </activity>
         <activity android:name="dk.eboks.app.presentation.ui.main.MainActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.mail.MailOverviewActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.mail.MailFolderActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.mail.overview.MailOverviewActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.mail.list.MailListActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.mail.folder.FolderActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.dialogs.ContextSheetActivity" />
     </application>
 </manifest>

@@ -1,10 +1,7 @@
-package dk.eboks.app.presentation.ui.mail
+package dk.eboks.app.presentation.ui.mail.overview
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.BottomSheetBehavior
-import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -24,6 +21,8 @@ import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.base.MainNavigationBaseActivity
 import dk.eboks.app.presentation.ui.dialogs.ConfirmDialogFragment
 import dk.eboks.app.presentation.ui.dialogs.ContextSheetActivity
+import dk.eboks.app.presentation.ui.mail.folder.FolderActivity
+import dk.eboks.app.presentation.ui.mail.list.MailListActivity
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_mail_overview.*
 import kotlinx.android.synthetic.main.include_toolnar.*
@@ -69,6 +68,8 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
             startActivity(Intent(this@MailOverviewActivity, ContextSheetActivity::class.java))
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
+
+        userShareTv.visibility = View.VISIBLE
     }
 
     override fun onResume() {
@@ -124,6 +125,7 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
     override fun showFolders(folders: List<Folder>) {
         yourMailLl.removeAllViews()
         val li : LayoutInflater = LayoutInflater.from(this)
+        insertTestData()
         for(folder in folders)
         {
             var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
@@ -137,13 +139,31 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
         }
     }
 
+    fun insertTestData()
+    {
+        val li : LayoutInflater = LayoutInflater.from(this)
+        var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
+        v.findViewById<TextView>(R.id.nameTv)?.text = "Folders"
+        v.findViewById<TextView>(R.id.badgeCountTv)?.text = "2"
+
+        val iv = v.findViewById<ImageView>(R.id.iconIv)
+        //iv?.let { Glide.with(this@MailOverviewActivity).load(folder.iconImageUrl).into(it) }
+        v.setOnClickListener {
+            startActivity(Intent(this@MailOverviewActivity, FolderActivity::class.java))
+        }
+        yourMailLl.addView(v)
+    }
+
     override fun showRefreshProgress(show: Boolean) {
         //if(refreshSrl.isRefreshing != show)
             refreshSrl.isRefreshing = show
     }
 
     override fun openFolder(folder: Folder) {
-        startActivity(Intent(this, MailFolderActivity::class.java))
+        if(folder.type == "folders")
+            startActivity(Intent(this@MailOverviewActivity, FolderActivity::class.java))
+        else
+            startActivity(Intent(this, MailListActivity::class.java))
         //overridePendingTransition(0, 0)
     }
 

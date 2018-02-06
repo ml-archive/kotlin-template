@@ -11,8 +11,7 @@ import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.MainNavigationBaseActivity
-import dk.eboks.app.presentation.ui.mail.MailOverviewActivity
-import dk.eboks.app.presentation.ui.main.MainActivity
+import dk.eboks.app.presentation.ui.mail.overview.MailOverviewActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.UpdateType
 import timber.log.Timber

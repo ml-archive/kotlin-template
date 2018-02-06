@@ -4,9 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.presentation.ui.mail.MailOverviewActivity
+import dk.eboks.app.presentation.ui.mail.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.main.MainActivity
-import dk.eboks.app.presentation.ui.splash.SplashActivity
 import dk.eboks.app.util.disableShiftingMode
 import kotlinx.android.synthetic.main.include_navigation_view.*
 
