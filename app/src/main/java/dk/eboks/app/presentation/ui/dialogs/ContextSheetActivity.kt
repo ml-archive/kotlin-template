@@ -28,9 +28,13 @@ class ContextSheetActivity : AppCompatActivity() {
     var shouldClose = false
     lateinit var fadeAnim : Animation
     lateinit var bounceAnim : Animation
-    val handleOffsetMaxDP = 24
+    val handleOffsetMaxDP = 28
+    val handleOffsetMinDP = 0
     var handleBounceDistance = 0f
     var handleOffsetMax : Float = 0f
+    var handleOffsetMin : Float = 0f
+    var elevationMin : Float = 0f
+    var elevationMax : Float = 0f
     val evaluator: ArgbEvaluator = ArgbEvaluator()
     var handleStartColor: Int = 0
     var handleEndColor: Int = 0
@@ -42,7 +46,8 @@ class ContextSheetActivity : AppCompatActivity() {
             touchVeilV.alpha = MathUtil.reMapFloat(-1.0f, 1.0f, 0f, 1.0f, slideOffset)
             if(slideOffset >= 0) {
                 val params = contextSheetHandle.layoutParams as FrameLayout.LayoutParams
-                params.topMargin = MathUtil.lerp(handleOffsetMax, 0f, slideOffset).toInt()
+                params.topMargin = MathUtil.lerp(handleOffsetMax, handleOffsetMin, slideOffset).toInt()
+                contextSheetHandle.elevation = MathUtil.lerp(elevationMin, elevationMax, slideOffset)
                 contextSheetHandle.layoutParams = params
                 val background = contextSheetHandle.background
                 setDrawableColor(background, (evaluator.evaluate(slideOffset, handleStartColor, handleEndColor) as Int))
@@ -52,7 +57,7 @@ class ContextSheetActivity : AppCompatActivity() {
         }
 
         override fun onStateChanged(bottomSheet: View, newState: Int) {
-            Timber.e("State changed to $newState")
+            //Timber.e("State changed to $newState")
             if(newState == BottomSheetBehavior.STATE_HIDDEN)
             {
                 shouldClose = true
@@ -61,9 +66,14 @@ class ContextSheetActivity : AppCompatActivity() {
             }
             if(newState == BottomSheetBehavior.STATE_EXPANDED)
             {
-                if(firstExpand) {
-                    contextSheetHandle.startAnimation(bounceAnim)
-                    firstExpand = false
+                bounceAnim.repeatCount = Animation.INFINITE
+                contextSheetHandle.startAnimation(bounceAnim)
+            }
+            if(newState == BottomSheetBehavior.STATE_DRAGGING)
+            {
+                contextSheetHandle.animation?.let {
+                    contextSheetHandle.animation.repeatCount = 0
+                    //contextSheetHandle.animate().translationY(0f).setDuration(50).start()
                 }
             }
         }
@@ -77,21 +87,25 @@ class ContextSheetActivity : AppCompatActivity() {
         touchVeilV.setOnClickListener {
             sheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
-        handleStartColor = Color.parseColor("#999999")
+        handleStartColor = Color.parseColor("#CACACA")
         handleEndColor = Color.WHITE
 
         fadeAnim = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
         fadeAnim.duration = 150
         handleOffsetMax = resources.displayMetrics.density * handleOffsetMaxDP.toFloat()
-        handleBounceDistance = resources.displayMetrics.density * 4.0f
+        handleOffsetMin = resources.displayMetrics.density * handleOffsetMinDP.toFloat()
+        handleBounceDistance = resources.displayMetrics.density * 6.0f
+        elevationMin = 0f
+        elevationMax = resources.displayMetrics.density * 2.0f
 
-        bounceAnim = TranslateAnimation(0f, 0f,0f, handleBounceDistance)
+
+        bounceAnim = TranslateAnimation(0f, 0f, 0f, handleBounceDistance)
         bounceAnim.interpolator = AccelerateDecelerateInterpolator()
-        bounceAnim.duration = 400
-        bounceAnim.repeatCount = 5
+        bounceAnim.duration = 1500
+        bounceAnim.repeatCount = Animation.INFINITE
         bounceAnim.repeatMode = Animation.REVERSE
         bounceAnim.fillBefore = true
-        bounceAnim.fillAfter = true
+        bounceAnim.fillAfter = false
     }
 
     override fun onResume() {
