@@ -130,7 +130,16 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
         {
             var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
             v.findViewById<TextView>(R.id.nameTv)?.text = folder.name
-            v.findViewById<TextView>(R.id.badgeCountTv)?.text = "${folder.unreadCount}"
+            if(folder.unreadCount != 0) {
+                v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.VISIBLE
+                v.findViewById<TextView>(R.id.badgeCountTv)?.text = "${folder.unreadCount}"
+                v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.GONE
+            }
+            else
+            {
+                v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.GONE
+                v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.VISIBLE
+            }
 
             val iv = v.findViewById<ImageView>(R.id.iconIv)
             iv?.let { Glide.with(this@MailOverviewActivity).load(folder.iconImageUrl).into(it) }

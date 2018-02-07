@@ -22,6 +22,7 @@ import okio.BufferedSource
  */
 
 typealias SenderStore = Store<List<Sender>, Int>
+typealias CategoryStore = Store<List<Folder>, Long>
 typealias FolderStore = Store<List<Folder>, Int>
 
 data class MessageStoreKey(var folderId : Long)
@@ -42,11 +43,11 @@ class StoreModule {
 
     @Provides
     @AppScope
-    fun provideFolderStore(api: Api, gson : Gson, context : Context) : FolderStore
+    fun provideCategoryStore(api: Api, gson : Gson, context : Context) : CategoryStore
     {
-        return StoreBuilder.parsedWithKey<Int, BufferedSource, List<Folder>>()
-                .fetcher { key -> api.getFolders() }
-                .persister(FileSystemPersister.create(FileSystemFactory.create(context.cacheDir), { key -> "Folder$key"}))
+        return StoreBuilder.parsedWithKey<Long, BufferedSource, List<Folder>>()
+                .fetcher { key -> api.getCategories() }
+                .persister(FileSystemPersister.create(FileSystemFactory.create(context.cacheDir), { key -> "Category$key"}))
                 .parser(GsonParserFactory.createSourceParser<List<Folder>>(gson, object : TypeToken<List<Folder>>() {}.type))
                 .open()
     }
@@ -59,6 +60,17 @@ class StoreModule {
                 .fetcher { key -> api.getMessages(key.folderId) }
                 .persister(FileSystemPersister.create(FileSystemFactory.create(context.cacheDir), { key -> "Message$key"}))
                 .parser(GsonParserFactory.createSourceParser<List<Message>>(gson, object : TypeToken<List<Message>>() {}.type))
+                .open()
+    }
+
+    @Provides
+    @AppScope
+    fun provideFolderStore(api: Api, gson : Gson, context : Context) : FolderStore
+    {
+        return StoreBuilder.parsedWithKey<Int, BufferedSource, List<Folder>>()
+                .fetcher { key -> api.getFolders() }
+                .persister(FileSystemPersister.create(FileSystemFactory.create(context.cacheDir), { key -> "Folder$key"}))
+                .parser(GsonParserFactory.createSourceParser<List<Folder>>(gson, object : TypeToken<List<Folder>>() {}.type))
                 .open()
     }
 }

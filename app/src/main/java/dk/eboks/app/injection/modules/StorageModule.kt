@@ -3,6 +3,10 @@ package dk.eboks.app.injection.modules
 import android.content.Context
 import dagger.Module
 import dagger.Provides
+import dk.eboks.app.domain.managers.PrefManager
+import dk.eboks.app.domain.managers.ResourceManager
+import dk.eboks.app.storage.PrefManagerImpl
+import dk.eboks.app.storage.ResourceManagerImpl
 import dk.nodes.arch.domain.injection.scopes.AppScope
 
 /**
@@ -12,8 +16,15 @@ import dk.nodes.arch.domain.injection.scopes.AppScope
 class StorageModule {
     @Provides
     @AppScope
-    fun providePrefManager(context: Context) : dk.eboks.app.domain.managers.PrefManager
+    fun providePrefManager(context: Context) : PrefManager
     {
-        return dk.eboks.app.storage.PrefManagerImpl(context)
+        return PrefManagerImpl(context)
+    }
+
+    @Provides
+    @AppScope
+    fun provideResourceManager(context: Context) : ResourceManager
+    {
+        return ResourceManagerImpl(context)
     }
 }

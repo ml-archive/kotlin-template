@@ -3,10 +3,8 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.managers.PrefManager
-import dk.eboks.app.domain.repositories.FoldersRepository
-import dk.eboks.app.domain.repositories.MessagesRepository
-import dk.eboks.app.domain.repositories.SendersRepository
-import dk.eboks.app.domain.repositories.SettingsRepository
+import dk.eboks.app.domain.repositories.*
+import dk.eboks.app.network.rest.CategoriesRestRepository
 import dk.eboks.app.network.rest.FoldersRestRepository
 import dk.eboks.app.network.rest.MessagesRestRepository
 import dk.eboks.app.network.rest.SendersRestRepository
@@ -35,9 +33,9 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideFoldersRepository(folderStore: FolderStore) : FoldersRepository
+    fun provideCategoriesRepository(categoryStore: CategoryStore) : CategoriesRepository
     {
-        return FoldersRestRepository(folderStore)
+        return CategoriesRestRepository(categoryStore)
     }
 
     @Provides
@@ -45,5 +43,12 @@ class RepositoryModule {
     fun provideSettingsRepository(prefManager: PrefManager) : SettingsRepository
     {
         return SharedPrefsSettingsRepository(prefManager)
+    }
+
+    @Provides
+    @AppScope
+    fun provideFoldersRepository(folderStore: FolderStore) : FoldersRepository
+    {
+        return FoldersRestRepository(folderStore)
     }
 }

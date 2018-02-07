@@ -15,6 +15,7 @@ import retrofit2.http.Path
 
 interface Api {
 
+    @GET("api/mail/categories") fun getCategories() : Single<BufferedSource>
     @GET("api/mail/folders") fun getFolders() : Single<BufferedSource>
     @GET("api/folders/{id}/messages") fun getMessages(@Path("id") id : Long) : Single<BufferedSource>
     @GET("api/senders") fun getSenders() : Single<BufferedSource>

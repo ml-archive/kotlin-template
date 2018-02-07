@@ -32,7 +32,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
 
                 var jsonElement = elementAdapter.read(`in`)
                 if (jsonElement.isJsonObject) {
-                    Timber.e("parsing element " + jsonElement.toString())
+                    //Timber.e("parsing element " + jsonElement.toString())
                     val jsonObject = jsonElement.asJsonObject
                     val entry_set = jsonObject.entrySet()
                     if(entry_set.isNotEmpty())
@@ -43,7 +43,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                             val ele : JsonElement = entry_set.iterator().next().value
                             if(rootContainerNames.contains(key))
                             {
-                                Timber.e("Doing deserialization workaround")
+                                //Timber.e("Doing deserialization workaround")
                                 return delegate.fromJsonTree(ele)
                             }
                         }

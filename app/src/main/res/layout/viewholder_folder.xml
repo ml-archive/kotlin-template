@@ -26,10 +26,20 @@
         style="@style/Navigation.Dark.Two"
         android:text="Inbox"/>
 
-    <TextView
-        android:id="@+id/badgeCountTv"
+    <FrameLayout
         android:layout_width="24dp"
-        android:layout_height="24dp"
-        style="@style/BadgeCount"
-        android:text="2"/>
+        android:layout_height="24dp">
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/badgeCountTv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            style="@style/BadgeCount"
+            android:text="2"/>
+        <ImageView
+            android:id="@+id/chevronRightIv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_chevron_right"/>
+    </FrameLayout>
 </LinearLayout>

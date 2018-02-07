@@ -35,7 +35,7 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMailOverviewPresenter(getSendersInteractor: GetSendersInteractor, getFoldersInteractor: GetFoldersInteractor) : MailOverviewContract.Presenter {
+    fun provideMailOverviewPresenter(getSendersInteractor: GetSendersInteractor, getFoldersInteractor: GetCategoriesInteractor) : MailOverviewContract.Presenter {
         return MailOverviewPresenter(getSendersInteractor, getFoldersInteractor)
     }
 
@@ -47,7 +47,7 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideFolderPresenter() : FolderContract.Presenter {
-        return FolderPresenter()
+    fun provideFolderPresenter(getFoldersInteractor: GetFoldersInteractor) : FolderContract.Presenter {
+        return FolderPresenter(getFoldersInteractor)
     }
 }

@@ -1,21 +1,20 @@
 package dk.eboks.app.network.rest
 
-import dk.eboks.app.domain.models.Message
-import dk.eboks.app.domain.repositories.MessagesRepository
+import dk.eboks.app.domain.models.Folder
+import dk.eboks.app.domain.repositories.CategoriesRepository
 import dk.eboks.app.domain.repositories.RepositoryException
-import dk.eboks.app.injection.modules.MessageStore
-import dk.eboks.app.injection.modules.MessageStoreKey
+import dk.eboks.app.injection.modules.CategoryStore
 import java.io.IOException
 import java.net.UnknownHostException
 
 /**
  * Created by bison on 01/02/18.
  */
-class MessagesRestRepository(val messageStore: MessageStore) : MessagesRepository {
+class CategoriesRestRepository(val categoryStore: CategoryStore) : CategoriesRepository {
 
-    override fun getMessages(cached: Boolean, folderId : Long): List<Message> {
+    override fun getCategories(cached: Boolean): List<Folder> {
         try {
-            val result = if(cached) messageStore.get(MessageStoreKey(folderId)).blockingGet() else messageStore.fetch(MessageStoreKey(folderId)).blockingGet()
+            val result = if(cached) categoryStore.get(0).blockingGet() else categoryStore.fetch(0).blockingGet()
             if(result == null) {
                 throw(RepositoryException(-1, "darn"))
             }

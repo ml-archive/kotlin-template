@@ -1,11 +1,8 @@
 package dk.eboks.app.presentation.ui.mail.folder
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -19,6 +16,7 @@ import dk.eboks.app.presentation.base.MainNavigationBaseActivity
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_folder.*
 import kotlinx.android.synthetic.main.include_toolnar.*
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -72,22 +70,35 @@ class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
 
     }
 
-
     override fun showError(msg: String) {
-        Log.e("debug", msg)
+        Timber.e(msg)
     }
 
+    override fun showSystemFolders(folders: List<Folder>) {
+        systemFoldersLl.removeAllViews()
+        val li: LayoutInflater = LayoutInflater.from(this)
+        for (folder in folders) {
+            var v = li.inflate(R.layout.viewholder_folder, systemFoldersLl, false)
+            v.findViewById<TextView>(R.id.nameTv)?.text = folder.name
+            if (folder.unreadCount != 0) {
+                v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.VISIBLE
+                v.findViewById<TextView>(R.id.badgeCountTv)?.text = "${folder.unreadCount}"
+                v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.GONE
+            } else {
+                v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.GONE
+                v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.VISIBLE
+            }
 
-    /*
-    override fun showSenders(messages: List<Sender>) {
-        this.messages.addAll(messages)
-        sendersRv.adapter.notifyDataSetChanged()
+            val iv = v.findViewById<ImageView>(R.id.iconIv)
+            iv?.let { Glide.with(this@FolderActivity).load(folder.iconImageUrl).into(it) }
+            v.setOnClickListener { }
+            systemFoldersLl.addView(v)
+        }
     }
-    */
 
 
     override fun showRefreshProgress(show: Boolean) {
-        //refreshSrl.isRefreshing = show
+        refreshSrl.isRefreshing = show
     }
 
 }

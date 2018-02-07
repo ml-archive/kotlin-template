@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.mail.overview
 
-import dk.eboks.app.domain.interactors.GetFoldersInteractor
+import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.GetSendersInteractor
 import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.domain.models.Sender
@@ -11,11 +11,11 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class MailOverviewPresenter @Inject constructor(val getSendersInteractor: GetSendersInteractor, val getFoldersInteractor: GetFoldersInteractor) :
+class MailOverviewPresenter @Inject constructor(val getSendersInteractor: GetSendersInteractor, val getCategoriesInteractor: GetCategoriesInteractor) :
         MailOverviewContract.Presenter,
         BasePresenterImpl<MailOverviewContract.View>(),
         GetSendersInteractor.Output,
-        GetFoldersInteractor.Output
+        GetCategoriesInteractor.Output
 {
     var refreshingSenders = false
     var refreshingFolders = false
@@ -25,9 +25,9 @@ class MailOverviewPresenter @Inject constructor(val getSendersInteractor: GetSen
         getSendersInteractor.output = this
         getSendersInteractor.run()
 
-        getFoldersInteractor.input = GetFoldersInteractor.Input(true)
-        getFoldersInteractor.output = this
-        getFoldersInteractor.run()
+        getCategoriesInteractor.input = GetCategoriesInteractor.Input(true)
+        getCategoriesInteractor.output = this
+        getCategoriesInteractor.run()
     }
 
 
@@ -42,8 +42,8 @@ class MailOverviewPresenter @Inject constructor(val getSendersInteractor: GetSen
     override fun refresh() {
         getSendersInteractor.input = GetSendersInteractor.Input(false)
         getSendersInteractor.run()
-        getFoldersInteractor.input = GetFoldersInteractor.Input(false)
-        getFoldersInteractor.run()
+        getCategoriesInteractor.input = GetCategoriesInteractor.Input(false)
+        getCategoriesInteractor.run()
         refreshingFolders = true
         refreshingSenders = true
     }
@@ -63,7 +63,7 @@ class MailOverviewPresenter @Inject constructor(val getSendersInteractor: GetSen
         runAction { v-> v.showRefreshProgress(false) }
     }
 
-    override fun onGetFolders(folders: List<Folder>) {
+    override fun onGetCategories(folders: List<Folder>) {
         Timber.e("Received them folders")
         refreshingFolders = false
         runAction { v ->
@@ -72,7 +72,7 @@ class MailOverviewPresenter @Inject constructor(val getSendersInteractor: GetSen
         }
     }
 
-    override fun onGetFoldersError(msg: String) {
+    override fun onGetCategoriesError(msg: String) {
         refreshingFolders = false
         runAction { v-> v.showRefreshProgress(false) }
         Timber.e(msg)

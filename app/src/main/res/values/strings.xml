@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Kotlin template</string>
+    <string-array name="systemFolderTypes">
+        <item>inbox</item>
+        <item>drafts</item>
+        <item>sentitems</item>
+        <item>deleteditems</item>
+        <item>highlights</item>
+        <item>unread</item>
+        <item>latest</item>
+    </string-array>
 </resources>

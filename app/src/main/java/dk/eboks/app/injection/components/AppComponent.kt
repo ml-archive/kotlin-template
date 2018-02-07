@@ -30,6 +30,7 @@ interface AppComponent
     fun loginInteractor() : LoginInteractor
     fun boostrapInteractor() : BootstrapInteractor
     fun getSendersInteractor() : GetSendersInteractor
-    fun getFoldersInteractor() : GetFoldersInteractor
+    fun getCategoriesInteractor() : GetCategoriesInteractor
     fun getMessagesInteractor() : GetMessagesInteractor
+    fun getFoldersInteractor() : GetFoldersInteractor
 }

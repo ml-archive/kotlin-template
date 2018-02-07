@@ -10,5 +10,6 @@ data class Folder(
     var name : String,
     var type : String,
     var unreadCount : Int,
-    var iconImageUrl : String
+    var iconImageUrl : String,
+    var folders : List<Folder>
 ) : Serializable
