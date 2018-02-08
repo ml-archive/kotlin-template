@@ -8,6 +8,7 @@
 
     <color name="white">#FFF</color>
     <color name="rouge">#A8242F</color>
+    <color name="backgroundColor">#F4F6F8</color>
     <color name="actionBarColor">#FCFDFD</color>
     <color name="darkGreyBlue">#294350</color>
     <color name="dividerGreyBlue">#26294350</color>

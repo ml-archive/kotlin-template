@@ -25,14 +25,6 @@ class GetFoldersInteractorImpl(executor: Executor, val foldersRepository: Folder
             folders.forEach { f ->
                 if(isInStringArray(f.type, systemFolderTypes)) {
                     system.add(f)
-                    if(f.type == "inbox")
-                    {
-                        for(ib_f in f.folders)
-                        {
-                            if(ib_f.type == "folder")
-                                user.add(ib_f)
-                        }
-                    }
                 }
                 else
                     user.add(f)

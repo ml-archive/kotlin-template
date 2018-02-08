@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Fri Feb 02 14:42:09 CET 2018 
+ * Generated: Thu Feb 08 16:34:15 CET 2018 
  */
 
 public class Translation {
@@ -29,5 +29,9 @@ public class Translation {
 		public static String sendersButton = "Senders";
 		public static String channelsButton = "Channels";
 		public static String uploadsButton = "Uploads";
+	}
+	public final static class folders {
+		public static String foldersHeader = "Folders";
+		public static String searchBarPlaceholder = "Search";
 	}
 }

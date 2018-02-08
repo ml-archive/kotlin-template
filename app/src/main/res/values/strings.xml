@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kotlin template</string>
+    <string name="app_name">e-Boks.dk</string>
     <string-array name="systemFolderTypes">
         <item>inbox</item>
         <item>drafts</item>

@@ -12,6 +12,7 @@ interface FolderContract {
         fun showError(msg : String)
         fun showRefreshProgress(show : Boolean)
         fun showSystemFolders(folders : List<Folder>)
+        fun showUserFolders(folders : List<Folder>)
     }
 
     interface Presenter : BasePresenter<View> {

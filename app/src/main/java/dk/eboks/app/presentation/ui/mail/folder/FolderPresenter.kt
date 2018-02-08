@@ -24,11 +24,12 @@ class FolderPresenter @Inject constructor(val getFoldersInteractor: GetFoldersIn
 
     override fun onGetFolders(folders: List<Folder>) {
         Timber.e("user folders $folders")
+        runAction { v-> v.showUserFolders(folders) }
 
     }
 
     override fun onGetSystemFolders(folders: List<Folder>) {
-        Timber.e("system folders $folders")
+        //Timber.e("system folders $folders")
         runAction { v-> v.showSystemFolders(folders) }
     }
 

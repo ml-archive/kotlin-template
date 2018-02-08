@@ -1,45 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:paddingTop="18dp"
-    android:background="?selectableItemBackground"
-    android:paddingBottom="18dp">
-    <ImageView
-        android:id="@+id/iconIv"
-        android:background="@color/blueGrey"
-        android:layout_width="24dp"
-        android:layout_height="24dp"/>
-
-    <TextView
-        android:id="@+id/nameTv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginStart="@dimen/margin_normal"
-        android:layout_marginEnd="@dimen/margin_normal"
-        style="@style/Navigation.Dark.Two"
-        android:text="Inbox"/>
-
-    <FrameLayout
-        android:layout_width="24dp"
-        android:layout_height="24dp">
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/badgeCountTv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            style="@style/BadgeCount"
-            android:text="2"/>
+    android:layout_height="60dp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="18dp"
+        android:background="?selectableItemBackground"
+        android:paddingBottom="18dp">
         <ImageView
-            android:id="@+id/chevronRightIv"
+            android:id="@+id/iconIv"
+            android:background="@color/blueGrey"
             android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_chevron_right"/>
-    </FrameLayout>
-</LinearLayout>
+            android:layout_height="24dp"/>
+
+        <TextView
+            android:id="@+id/nameTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            style="@style/Navigation.Dark.Two"
+            android:text="Inbox"/>
+
+        <FrameLayout
+            android:layout_width="24dp"
+            android:layout_height="24dp">
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/badgeCountTv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                style="@style/BadgeCount"
+                android:text="2"/>
+            <ImageView
+                android:id="@+id/chevronRightIv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_chevron_right"/>
+        </FrameLayout>
+    </LinearLayout>
+    <View
+        android:id="@+id/underLineV"
+        android:visibility="gone"
+        android:layout_marginStart="56dp"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_gravity="bottom"
+        android:background="@color/dividerGreyBlue" />
+</FrameLayout>

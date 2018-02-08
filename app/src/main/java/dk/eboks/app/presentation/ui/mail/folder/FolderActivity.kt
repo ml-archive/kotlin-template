@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.mail.folder
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -9,6 +8,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Folder
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
@@ -31,6 +31,7 @@ class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
     @Inject lateinit var presenter: FolderContract.Presenter
 
     var folders: MutableList<Folder> = ArrayList()
+    var indentationLevel = 0
 
     override fun injectDependencies() {
         component.inject(this)
@@ -66,7 +67,7 @@ class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
     override fun setupTranslations() {
         toolbarTv.visibility = View.GONE
         toolbarLargeTv.visibility = View.VISIBLE
-        toolbarLargeTv.text = "_Folders"
+        toolbarLargeTv.text = Translation.folders.foldersHeader
 
     }
 
@@ -93,6 +94,66 @@ class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
             iv?.let { Glide.with(this@FolderActivity).load(folder.iconImageUrl).into(it) }
             v.setOnClickListener { }
             systemFoldersLl.addView(v)
+        }
+    }
+
+    override fun showUserFolders(folders: List<Folder>) {
+        foldersLl.removeAllViews()
+        indentationLevel = 1
+        processFoldersRecursive(folders)
+        /*
+        for (folder in folders) {
+            var v = li.inflate(R.layout.viewholder_folder, foldersLl, false)
+            v.findViewById<TextView>(R.id.nameTv)?.text = folder.name
+            if (folder.unreadCount != 0) {
+                v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.VISIBLE
+                v.findViewById<TextView>(R.id.badgeCountTv)?.text = "${folder.unreadCount}"
+                v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.GONE
+            } else {
+                v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.GONE
+                v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.VISIBLE
+            }
+
+            val iv = v.findViewById<ImageView>(R.id.iconIv)
+            iv?.let { Glide.with(this@FolderActivity).load(folder.iconImageUrl).into(it) }
+            v.setOnClickListener { }
+            foldersLl.addView(v)
+        }
+        */
+    }
+
+    fun processFoldersRecursive(folders: List<Folder>)
+    {
+        val li: LayoutInflater = LayoutInflater.from(this)
+        for(folder in folders)
+        {
+            Timber.e("$indentationLevel: ${folder.name}")
+
+
+            var v = li.inflate(R.layout.viewholder_folder, foldersLl, false)
+            val left  = resources.displayMetrics.density * 40.0f * indentationLevel.toFloat()
+            v.setPadding(left.toInt(), v.paddingTop, v.paddingRight, v.paddingBottom)
+            v.findViewById<View>(R.id.underLineV)?.visibility = View.VISIBLE
+            v.findViewById<TextView>(R.id.nameTv)?.text = folder.name
+            if (folder.unreadCount != 0) {
+                v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.VISIBLE
+                v.findViewById<TextView>(R.id.badgeCountTv)?.text = "${folder.unreadCount}"
+                v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.GONE
+            } else {
+                v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.GONE
+                v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.VISIBLE
+            }
+
+            val iv = v.findViewById<ImageView>(R.id.iconIv)
+            iv?.let { Glide.with(this@FolderActivity).load(folder.iconImageUrl).into(it) }
+            v.setOnClickListener { }
+            foldersLl.addView(v)
+
+
+            if(folder.folders.isNotEmpty()) {
+                indentationLevel++
+                processFoldersRecursive(folder.folders)
+            }
         }
     }
 
