@@ -14,6 +14,8 @@ import dk.eboks.app.presentation.ui.message.MessageActivity
 import dk.eboks.app.presentation.ui.message.MessagePresenter
 import dk.eboks.app.presentation.ui.message.sheet.MessageSheetActivity
 import dk.eboks.app.presentation.ui.message.sheet.MessageSheetPresenter
+import dk.eboks.app.presentation.ui.message.sheet.components.header.HeaderComponentFragment
+import dk.eboks.app.presentation.ui.message.sheet.components.header.HeaderComponentPresenter
 import dk.eboks.app.presentation.ui.splash.SplashActivity
 import dk.eboks.app.presentation.ui.splash.SplashPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
@@ -39,4 +41,6 @@ interface PresentationComponent {
     fun inject(target : MessagePresenter)
     fun inject(target : MessageSheetActivity)
     fun inject(target : MessageSheetPresenter)
+    fun inject(target : HeaderComponentFragment)
+    fun inject(target : HeaderComponentPresenter)
 }

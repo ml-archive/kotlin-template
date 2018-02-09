@@ -19,6 +19,7 @@ import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.base.MainNavigationBaseActivity
 import dk.eboks.app.presentation.ui.message.MessageActivity
+import dk.eboks.app.presentation.ui.message.sheet.MessageSheetActivity
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_mail_list.*
 import kotlinx.android.synthetic.main.include_toolnar.*
@@ -140,7 +141,7 @@ class MailListActivity : MainNavigationBaseActivity(), MailListContract.View {
             holder?.root?.setOnClickListener {
                 Timber.e("supposed to launch")
                 presenter.setCurrentMessage(messages[position])
-                startActivity(Intent(this@MailListActivity, MessageActivity::class.java))
+                startActivity(Intent(this@MailListActivity, MessageSheetActivity::class.java))
             }
         }
     }

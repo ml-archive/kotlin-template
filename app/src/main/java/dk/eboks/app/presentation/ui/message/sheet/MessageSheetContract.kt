@@ -8,6 +8,7 @@ import dk.nodes.arch.presentation.base.BaseView
  */
 interface MessageSheetContract {
     interface View : BaseView {
+        fun addHeaderComponentFragment()
         fun showError(msg : String)
     }
 

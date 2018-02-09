@@ -6,6 +6,7 @@ import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.ui.dialogs.ContextSheetActivity
+import dk.eboks.app.presentation.ui.message.sheet.components.header.HeaderComponentFragment
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -21,6 +22,8 @@ class MessageSheetActivity : ContextSheetActivity(), MessageSheetContract.View {
     }
     @Inject
     lateinit var presenter: MessageSheetContract.Presenter
+
+    var headerComponentFragment: HeaderComponentFragment? = null
 
     fun injectDependencies() {
         component.inject(this)
@@ -40,5 +43,14 @@ class MessageSheetActivity : ContextSheetActivity(), MessageSheetContract.View {
 
     override fun setupTranslations() {
         
+    }
+
+    override fun addHeaderComponentFragment()
+    {
+        headerComponentFragment = HeaderComponentFragment()
+        headerComponentFragment?.let{
+            component.inject(it)
+            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, headerComponentFragment, HeaderComponentFragment::class.java.simpleName).commit()
+        }
     }
 }

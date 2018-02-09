@@ -16,6 +16,8 @@ import dk.eboks.app.presentation.ui.message.MessageContract
 import dk.eboks.app.presentation.ui.message.MessagePresenter
 import dk.eboks.app.presentation.ui.message.sheet.MessageSheetContract
 import dk.eboks.app.presentation.ui.message.sheet.MessageSheetPresenter
+import dk.eboks.app.presentation.ui.message.sheet.components.header.HeaderComponentContract
+import dk.eboks.app.presentation.ui.message.sheet.components.header.HeaderComponentPresenter
 import dk.eboks.app.presentation.ui.splash.SplashContract
 import dk.eboks.app.presentation.ui.splash.SplashPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
@@ -64,7 +66,13 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMessageSheetPresenter() : MessageSheetContract.Presenter {
-        return MessageSheetPresenter()
+    fun provideMessageSheetPresenter(stateManager: AppStateManager) : MessageSheetContract.Presenter {
+        return MessageSheetPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideHeaderComponentPresenter(stateManager: AppStateManager) : HeaderComponentContract.Presenter {
+        return HeaderComponentPresenter(stateManager)
     }
 }

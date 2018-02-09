@@ -3,13 +3,10 @@ package dk.eboks.app
 import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
-import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.repositories.AppStateRepository
 import dk.eboks.app.injection.components.AppComponent
 import dk.eboks.app.injection.components.DaggerAppComponent
 import dk.eboks.app.injection.modules.AppModule
 import timber.log.Timber
-import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
@@ -22,8 +19,6 @@ class App : Application()
                 .appModule(AppModule(this))
                 .build()
     }
-
-    @Inject lateinit var appStateManager: AppStateManager
 
     override fun onCreate() {
         super.onCreate()

@@ -65,8 +65,7 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
         }
 
         userShareTv.setOnClickListener {
-            startActivity(Intent(this@MailOverviewActivity, MessageSheetActivity::class.java))
-            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+
         }
 
         userShareTv.visibility = View.VISIBLE

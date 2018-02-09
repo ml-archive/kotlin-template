@@ -45,7 +45,8 @@ abstract class ContextSheetActivity : AppCompatActivity() {
     val callback = object : BottomSheetBehavior.BottomSheetCallback() {
         override fun onSlide(bottomSheet: View, slideOffset: Float) {
             //Timber.e("Slideoffset: $slideOffset")
-            touchVeilV.alpha = MathUtil.reMapFloat(-1.0f, 1.0f, 0f, 1.0f, slideOffset)
+            touchVeilV.alpha = MathUtil.reMapFloat(0f, 1.0f, .0f, 0.75f, slideOffset)
+            //touchVeilV.alpha = slideOffset
             if(slideOffset >= 0) {
                 val params = contextSheetHandle.layoutParams as FrameLayout.LayoutParams
                 params.topMargin = MathUtil.lerp(handleOffsetMax, handleOffsetMin, slideOffset).toInt()
@@ -89,7 +90,7 @@ abstract class ContextSheetActivity : AppCompatActivity() {
         setContentView(R.layout.activity_context_sheet)
         setupBottomSheet()
         touchVeilV.setOnClickListener {
-            sheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+            sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
         }
         handleStartColor = Color.parseColor("#CACACA")
         handleEndColor = Color.WHITE
@@ -120,17 +121,18 @@ abstract class ContextSheetActivity : AppCompatActivity() {
     fun setupBottomSheet()
     {
         sheetBehavior = BottomSheetBehavior.from(contextSheet)
-        sheetBehavior?.isHideable = true
-        sheetBehavior?.peekHeight = (resources.displayMetrics.density * 172.0).toInt()
-        sheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        sheetBehavior?.isHideable = false
+        sheetBehavior?.peekHeight = (resources.displayMetrics.density * 116.0).toInt()
+        sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+        /*
         contextSheet.post {
-            sheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+            sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
         }
+        */
         sheetBehavior?.setBottomSheetCallback(callback)
-    }
-
-    override fun onBackPressed() {
-        sheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        contextSheet.post {
+            callback.onSlide(contextSheet, 0f)
+        }
     }
 
     fun setDrawableColor(background: Drawable, color : Int)

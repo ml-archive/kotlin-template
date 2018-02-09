@@ -3,6 +3,7 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.GuidManager
 import dk.eboks.app.domain.managers.ProtocolManager
 import dk.eboks.app.domain.managers.ResourceManager
@@ -20,9 +21,9 @@ class InteractorModule {
         return LoginInteractorImpl(executor, api, protocolManager)
     }
 
-    @Provides fun provideBootstrapInteractor(executor: Executor, guidManager: GuidManager, settingsRepository: SettingsRepository, protocolManager: ProtocolManager) : BootstrapInteractor
+    @Provides fun provideBootstrapInteractor(executor: Executor, guidManager: GuidManager, settingsRepository: SettingsRepository, protocolManager: ProtocolManager, appStateManager: AppStateManager) : BootstrapInteractor
     {
-        return BootstrapInteractorImpl(executor, guidManager, settingsRepository, protocolManager)
+        return BootstrapInteractorImpl(executor, guidManager, settingsRepository, protocolManager, appStateManager)
     }
 
     @Provides fun provideGetSendersInteractor(executor: Executor, sendersRepository: SendersRepository) : GetSendersInteractor
