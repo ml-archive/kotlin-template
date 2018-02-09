@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/backgroundColorSheet"
+    android:paddingStart="@dimen/margin_normal"
+    android:paddingEnd="@dimen/margin_normal"
+    android:paddingTop="20dp"
+    android:paddingBottom="@dimen/margin_normal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp"
+        style="@style/Header.Dark.Two"
+        android:text="_Notes"/>
+    <View
+        android:id="@+id/focusThiefV"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:layout_width="1dp"
+        android:layout_height="1dp" />
+    <EditText
+        android:id="@+id/noteEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollHorizontally="false"
+        android:background="@drawable/notes_background"
+        android:textColor="@color/darkGreyBlue"
+        android:textSize="15sp"
+        android:autoLink="all"
+        android:minLines="1"
+        android:gravity="top|left"
+        android:scrollbars="none"
+        android:inputType="textMultiLine"
+        android:layout_weight="1"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        />
+</LinearLayout>

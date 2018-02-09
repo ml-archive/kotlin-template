@@ -13,6 +13,9 @@ class MessageSheetPresenter @Inject constructor(val stateManager: AppStateManage
         Timber.e("Current message ${stateManager.state?.currentMessage}")
         runAction { v->
             v.addHeaderComponentFragment()
+            v.addNotesComponentFragment()
+            v.addAttachmentsComponentFragment()
+            v.addFolderInfoComponentFragment()
         }
     }
 

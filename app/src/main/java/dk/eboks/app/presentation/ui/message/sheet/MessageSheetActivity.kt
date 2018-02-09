@@ -6,7 +6,10 @@ import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.ui.dialogs.ContextSheetActivity
+import dk.eboks.app.presentation.ui.message.sheet.components.attachments.AttachmentsComponentFragment
+import dk.eboks.app.presentation.ui.message.sheet.components.folderinfo.FolderInfoComponentFragment
 import dk.eboks.app.presentation.ui.message.sheet.components.header.HeaderComponentFragment
+import dk.eboks.app.presentation.ui.message.sheet.components.notes.NotesComponentFragment
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -24,6 +27,9 @@ class MessageSheetActivity : ContextSheetActivity(), MessageSheetContract.View {
     lateinit var presenter: MessageSheetContract.Presenter
 
     var headerComponentFragment: HeaderComponentFragment? = null
+    var notesComponentFragment: NotesComponentFragment? = null
+    var attachmentsComponentFragment: AttachmentsComponentFragment? = null
+    var folderInfoComponentFragment: FolderInfoComponentFragment? = null
 
     fun injectDependencies() {
         component.inject(this)
@@ -51,6 +57,30 @@ class MessageSheetActivity : ContextSheetActivity(), MessageSheetContract.View {
         headerComponentFragment?.let{
             component.inject(it)
             supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, headerComponentFragment, HeaderComponentFragment::class.java.simpleName).commit()
+        }
+    }
+
+    override fun addNotesComponentFragment() {
+        notesComponentFragment = NotesComponentFragment()
+        notesComponentFragment?.let{
+            component.inject(it)
+            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, notesComponentFragment, NotesComponentFragment::class.java.simpleName).commit()
+        }
+    }
+
+    override fun addAttachmentsComponentFragment() {
+        attachmentsComponentFragment = AttachmentsComponentFragment()
+        attachmentsComponentFragment?.let{
+            component.inject(it)
+            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, attachmentsComponentFragment, AttachmentsComponentFragment::class.java.simpleName).commit()
+        }
+    }
+
+    override fun addFolderInfoComponentFragment() {
+        folderInfoComponentFragment = FolderInfoComponentFragment()
+        folderInfoComponentFragment?.let{
+            component.inject(it)
+            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, folderInfoComponentFragment, FolderInfoComponentFragment::class.java.simpleName).commit()
         }
     }
 }

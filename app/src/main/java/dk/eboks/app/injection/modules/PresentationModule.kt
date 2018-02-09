@@ -16,8 +16,14 @@ import dk.eboks.app.presentation.ui.message.MessageContract
 import dk.eboks.app.presentation.ui.message.MessagePresenter
 import dk.eboks.app.presentation.ui.message.sheet.MessageSheetContract
 import dk.eboks.app.presentation.ui.message.sheet.MessageSheetPresenter
+import dk.eboks.app.presentation.ui.message.sheet.components.attachments.AttachmentsComponentContract
+import dk.eboks.app.presentation.ui.message.sheet.components.attachments.AttachmentsComponentPresenter
+import dk.eboks.app.presentation.ui.message.sheet.components.folderinfo.FolderInfoComponentContract
+import dk.eboks.app.presentation.ui.message.sheet.components.folderinfo.FolderInfoComponentPresenter
 import dk.eboks.app.presentation.ui.message.sheet.components.header.HeaderComponentContract
 import dk.eboks.app.presentation.ui.message.sheet.components.header.HeaderComponentPresenter
+import dk.eboks.app.presentation.ui.message.sheet.components.notes.NotesComponentContract
+import dk.eboks.app.presentation.ui.message.sheet.components.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.splash.SplashContract
 import dk.eboks.app.presentation.ui.splash.SplashPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
@@ -74,5 +80,23 @@ class PresentationModule {
     @Provides
     fun provideHeaderComponentPresenter(stateManager: AppStateManager) : HeaderComponentContract.Presenter {
         return HeaderComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideNotesComponentPresenter(stateManager: AppStateManager) : NotesComponentContract.Presenter {
+        return NotesComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideAttachmentsComponentPresenter(stateManager: AppStateManager) : AttachmentsComponentContract.Presenter {
+        return AttachmentsComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideFolderInfoComponentPresenter(stateManager: AppStateManager) : FolderInfoComponentContract.Presenter {
+        return FolderInfoComponentPresenter(stateManager)
     }
 }

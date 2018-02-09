@@ -9,6 +9,9 @@ import dk.nodes.arch.presentation.base.BaseView
 interface MessageSheetContract {
     interface View : BaseView {
         fun addHeaderComponentFragment()
+        fun addNotesComponentFragment()
+        fun addAttachmentsComponentFragment()
+        fun addFolderInfoComponentFragment()
         fun showError(msg : String)
     }
 
