@@ -13,7 +13,6 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Folder
-import dk.eboks.app.domain.models.FolderType
 import dk.eboks.app.domain.models.Sender
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.injection.components.DaggerPresentationComponent
@@ -21,9 +20,9 @@ import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.base.MainNavigationBaseActivity
 import dk.eboks.app.presentation.ui.dialogs.ConfirmDialogFragment
-import dk.eboks.app.presentation.ui.dialogs.ContextSheetActivity
 import dk.eboks.app.presentation.ui.mail.folder.FolderActivity
 import dk.eboks.app.presentation.ui.mail.list.MailListActivity
+import dk.eboks.app.presentation.ui.message.sheet.MessageSheetActivity
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_mail_overview.*
 import kotlinx.android.synthetic.main.include_toolnar.*
@@ -66,7 +65,7 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
         }
 
         userShareTv.setOnClickListener {
-            startActivity(Intent(this@MailOverviewActivity, ContextSheetActivity::class.java))
+            startActivity(Intent(this@MailOverviewActivity, MessageSheetActivity::class.java))
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
         }
 

@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.mail.list
 
 import dk.eboks.app.domain.interactors.GetMessagesInteractor
+import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Message
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
@@ -8,7 +9,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class MailListPresenter @Inject constructor(val getMessagesInteractor: GetMessagesInteractor) :
+class MailListPresenter @Inject constructor(val appState: AppStateManager, val getMessagesInteractor: GetMessagesInteractor) :
         MailListContract.Presenter,
         BasePresenterImpl<MailListContract.View>(),
         GetMessagesInteractor.Output
@@ -24,6 +25,11 @@ class MailListPresenter @Inject constructor(val getMessagesInteractor: GetMessag
     override fun refresh() {
         getMessagesInteractor.input = GetMessagesInteractor.Input(false, 0)
         getMessagesInteractor.run()
+    }
+
+    override fun setCurrentMessage(message: Message) {
+        appState.state?.currentMessage = message
+        appState.save()
     }
 
     override fun onGetMessages(messages: List<Message>) {

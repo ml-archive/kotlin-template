@@ -17,28 +17,30 @@ import dk.eboks.app.util.MathUtil
 import android.support.v4.content.ContextCompat
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
+import android.view.LayoutInflater
 import android.view.animation.*
 
 
 /**
  * Created by bison on 05/02/18.
  */
-class ContextSheetActivity : AppCompatActivity() {
+abstract class ContextSheetActivity : AppCompatActivity() {
     var sheetBehavior : BottomSheetBehavior<View>? = null
     var shouldClose = false
-    lateinit var fadeAnim : Animation
-    lateinit var bounceAnim : Animation
-    val handleOffsetMaxDP = 28
-    val handleOffsetMinDP = 0
-    var handleBounceDistance = 0f
-    var handleOffsetMax : Float = 0f
-    var handleOffsetMin : Float = 0f
-    var elevationMin : Float = 0f
-    var elevationMax : Float = 0f
-    val evaluator: ArgbEvaluator = ArgbEvaluator()
-    var handleStartColor: Int = 0
-    var handleEndColor: Int = 0
-    var firstExpand = true
+    private lateinit var fadeAnim : Animation
+    private lateinit var bounceAnim : Animation
+    private val handleOffsetMaxDP = 28
+    private val handleOffsetMinDP = 0
+    private var handleBounceDistance = 0f
+    private var handleOffsetMax : Float = 0f
+    private var handleOffsetMin : Float = 0f
+    private var elevationMin : Float = 0f
+    private var elevationMax : Float = 0f
+    private val evaluator: ArgbEvaluator = ArgbEvaluator()
+    private var handleStartColor: Int = 0
+    private var handleEndColor: Int = 0
+    private var firstExpand = true
 
     val callback = object : BottomSheetBehavior.BottomSheetCallback() {
         override fun onSlide(bottomSheet: View, slideOffset: Float) {
@@ -47,7 +49,9 @@ class ContextSheetActivity : AppCompatActivity() {
             if(slideOffset >= 0) {
                 val params = contextSheetHandle.layoutParams as FrameLayout.LayoutParams
                 params.topMargin = MathUtil.lerp(handleOffsetMax, handleOffsetMin, slideOffset).toInt()
-                contextSheetHandle.elevation = MathUtil.lerp(elevationMin, elevationMax, slideOffset)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    contextSheetHandle.elevation = MathUtil.lerp(elevationMin, elevationMax, slideOffset)
+                }
                 contextSheetHandle.layoutParams = params
                 val background = contextSheetHandle.background
                 setDrawableColor(background, (evaluator.evaluate(slideOffset, handleStartColor, handleEndColor) as Int))
@@ -141,5 +145,12 @@ class ContextSheetActivity : AppCompatActivity() {
             // alpha value may need to be set again after this call
             background.color = color
         }
+    }
+
+    protected fun setContentSheet(resId : Int)
+    {
+        val li: LayoutInflater = LayoutInflater.from(this)
+        val sheet = li.inflate(resId, contextSheetSv, false)
+        contextSheetSv.addView(sheet)
     }
 }

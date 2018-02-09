@@ -15,6 +15,7 @@ interface MailListContract {
     }
 
     interface Presenter : BasePresenter<View> {
+        fun setCurrentMessage(message: Message)
         fun refresh()
     }
 }

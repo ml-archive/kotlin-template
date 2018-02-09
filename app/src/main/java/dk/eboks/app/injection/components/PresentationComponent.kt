@@ -10,6 +10,10 @@ import dk.eboks.app.presentation.ui.mail.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.mail.overview.MailOverviewPresenter
 import dk.eboks.app.presentation.ui.main.MainActivity
 import dk.eboks.app.presentation.ui.main.MainPresenter
+import dk.eboks.app.presentation.ui.message.MessageActivity
+import dk.eboks.app.presentation.ui.message.MessagePresenter
+import dk.eboks.app.presentation.ui.message.sheet.MessageSheetActivity
+import dk.eboks.app.presentation.ui.message.sheet.MessageSheetPresenter
 import dk.eboks.app.presentation.ui.splash.SplashActivity
 import dk.eboks.app.presentation.ui.splash.SplashPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
@@ -31,5 +35,8 @@ interface PresentationComponent {
     fun inject(target : MailListPresenter)
     fun inject(target : FolderActivity)
     fun inject(target : FolderPresenter)
-
+    fun inject(target : MessageActivity)
+    fun inject(target : MessagePresenter)
+    fun inject(target : MessageSheetActivity)
+    fun inject(target : MessageSheetPresenter)
 }
