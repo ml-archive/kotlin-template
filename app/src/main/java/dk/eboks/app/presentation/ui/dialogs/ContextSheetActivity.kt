@@ -77,8 +77,16 @@ abstract class ContextSheetActivity : AppCompatActivity() {
             if(newState == BottomSheetBehavior.STATE_DRAGGING)
             {
                 contextSheetHandle.animation?.let {
-                    contextSheetHandle.animation.repeatCount = 0
-                    //contextSheetHandle.animate().translationY(0f).setDuration(50).start()
+                    if(!it.hasEnded())
+                        contextSheetHandle.animation.repeatCount = 0
+                }
+            }
+            if(newState == BottomSheetBehavior.STATE_COLLAPSED)
+            {
+                contextSheetSv.scrollTo(0,0)
+                contextSheetHandle.animation?.let {
+                    if(!it.hasEnded())
+                        contextSheetHandle.animation.repeatCount = 0
                 }
             }
         }

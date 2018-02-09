@@ -100,7 +100,7 @@ class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
 
     override fun showUserFolders(folders: List<Folder>) {
         foldersLl.removeAllViews()
-        indentationLevel = 1
+        indentationLevel = 0
         processFoldersRecursive(folders)
     }
 
@@ -112,8 +112,10 @@ class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
             Timber.e("$indentationLevel: ${folder.name}")
 
 
-            var v = li.inflate(R.layout.viewholder_folder, foldersLl, false)
-            val left  = resources.displayMetrics.density * 40.0f * indentationLevel.toFloat()
+            val v = li.inflate(R.layout.viewholder_folder, foldersLl, false)
+            var left  = resources.displayMetrics.density * 40.0f * indentationLevel.toFloat()
+            if(left == 0f)
+                left = resources.displayMetrics.density * 16f
             v.setPadding(left.toInt(), v.paddingTop, v.paddingRight, v.paddingBottom)
             v.findViewById<View>(R.id.underLineV)?.visibility = View.VISIBLE
             v.findViewById<TextView>(R.id.nameTv)?.text = folder.name

@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.Folder
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.ui.message.sheet.components.SheetComponentFragment
-import kotlinx.android.synthetic.main.fragment_header_component.*
+import kotlinx.android.synthetic.main.fragment_folderinfo_component.*
 import javax.inject.Inject
 
 /**
@@ -26,12 +26,14 @@ class FolderInfoComponentFragment : SheetComponentFragment(), FolderInfoComponen
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.onViewCreated(this, lifecycle)
+        setupTranslations()
     }
 
     override fun setupTranslations() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        folderTv.text = Translation.message.folder
     }
 
-    override fun updateView(message: Message) {
+    override fun updateView(folder: Folder) {
+        folderNameTv.text = folder.name
     }
 }

@@ -51,7 +51,7 @@ abstract class MainNavigationBaseActivity : BaseActivity() {
                 }
                 else -> { }
             }
-            startActivity(Intent(this, activityCls))
+            activityCls?.let { startActivity(Intent(this, activityCls)) }
             //overridePendingTransition(0, 0)
             false
         }

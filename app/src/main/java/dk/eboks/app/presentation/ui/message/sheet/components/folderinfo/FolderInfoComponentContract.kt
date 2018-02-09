@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.message.sheet.components.folderinfo
 
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.Folder
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 
@@ -9,7 +9,7 @@ import dk.nodes.arch.presentation.base.BaseView
  */
 interface FolderInfoComponentContract {
     interface View : BaseView {
-        fun updateView(message : Message)
+        fun updateView(folder : Folder)
     }
 
     interface Presenter : BasePresenter<FolderInfoComponentContract.View> {

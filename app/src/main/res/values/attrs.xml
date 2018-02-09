@@ -3,4 +3,7 @@
     <declare-styleable name="NavigationBarView">
         <attr name="buttonIconTint" format="color" />
     </declare-styleable>
+    <declare-styleable name="MaxHeightScrollView">
+        <attr name="maxHeight" format="dimension" />
+    </declare-styleable>
 </resources>

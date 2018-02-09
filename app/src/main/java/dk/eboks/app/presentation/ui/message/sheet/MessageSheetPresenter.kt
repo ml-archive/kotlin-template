@@ -14,7 +14,8 @@ class MessageSheetPresenter @Inject constructor(val stateManager: AppStateManage
         runAction { v->
             v.addHeaderComponentFragment()
             v.addNotesComponentFragment()
-            v.addAttachmentsComponentFragment()
+            if(stateManager.state?.currentMessage?.attachments != null)
+                v.addAttachmentsComponentFragment()
             v.addFolderInfoComponentFragment()
         }
     }

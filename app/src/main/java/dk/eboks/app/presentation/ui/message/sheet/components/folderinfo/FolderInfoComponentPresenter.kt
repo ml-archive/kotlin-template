@@ -11,9 +11,8 @@ import javax.inject.Inject
 class FolderInfoComponentPresenter @Inject constructor(val appState: AppStateManager) : FolderInfoComponentContract.Presenter, BasePresenterImpl<FolderInfoComponentContract.View>() {
 
     init {
-        Timber.e("Current message ${appState.state?.currentMessage}")
         runAction { v->
-            appState.state?.currentMessage?.let { v.updateView(it) }
+            appState.state?.currentFolder?.let { v.updateView(it) }
         }
     }
 

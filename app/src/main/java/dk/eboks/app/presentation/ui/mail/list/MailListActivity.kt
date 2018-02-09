@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Attachment
 import dk.eboks.app.domain.models.Message
 import dk.eboks.app.domain.models.Sender
 import dk.eboks.app.injection.components.DaggerPresentationComponent
@@ -79,9 +80,6 @@ class MailListActivity : MainNavigationBaseActivity(), MailListContract.View {
     {
         messagesRv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         messagesRv.adapter = MessageAdapter()
-
-        messages.add(Message(0, "Police 42342342", false, Date(), Sender(0, "Alka Forsikring"), null))
-        messages.add(Message(1, "Kontoudskrift", false, Date(), Sender(0, "Danske Bank"), null))
     }
 
 
@@ -95,6 +93,9 @@ class MailListActivity : MainNavigationBaseActivity(), MailListContract.View {
 
 
     override fun showMessages(messages: List<Message>) {
+        this.messages.clear()
+        this.messages.add(Message(0, "Police 42342342", false, Date(), Sender(0, "Alka Forsikring"), null, listOf(Attachment(1, "Sorteper.pdf", "13 KB"), Attachment(1, "HalvgrønneBent.pdf", "2,7 MB"), Attachment(1, "SvartaGudrun.pdf", "236 KB"), Attachment(1, "Lyserøde Lars.pdf", "1,2 MB"))))
+        this.messages.add(Message(1, "Kontoudskrift", false, Date(), Sender(0, "Danske Bank"), null, listOf(Attachment(1, "Pels for begyndere.pdf", "13 KB"), Attachment(1, "alverdens_sten.pdf", "236 KB"))))
         this.messages.addAll(messages)
         messagesRv.adapter.notifyDataSetChanged()
     }

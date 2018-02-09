@@ -44,16 +44,15 @@
         android:clipToPadding="false"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
-        <android.support.v4.widget.NestedScrollView
+        <dk.eboks.app.presentation.ui.widgets.MaxHeightScrollView
             android:id="@+id/contextSheetSv"
             android:background="@drawable/context_sheet_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:paddingTop="16dp"
-            android:clipToPadding="true">
+            android:clipToPadding="true" />
 
-        </android.support.v4.widget.NestedScrollView>
         <View
             android:id="@+id/contextSheetHandle"
             android:elevation="2dp"

@@ -3,10 +3,38 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <TextView
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Header.Dark.Two"
-        android:text="Component"/>
+        android:paddingStart="@dimen/margin_normal"
+        android:paddingEnd="@dimen/margin_normal"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp">
+        <TextView
+            android:id="@+id/folderTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Header.Dark.Two"
+            android:text="_Folder"/>
+
+        <TextView
+            android:id="@+id/folderNameTv"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:gravity="end"
+            style="@style/Navigation.Light.Three"
+            android:text=""/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dividerGreyBlue"
+        android:layout_gravity="top"/>
 
 </FrameLayout>

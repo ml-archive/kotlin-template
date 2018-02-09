@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
+import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.ui.message.sheet.components.SheetComponentFragment
-import kotlinx.android.synthetic.main.fragment_header_component.*
+import kotlinx.android.synthetic.main.fragment_attachments_component.*
 import javax.inject.Inject
 
 /**
@@ -26,12 +27,27 @@ class AttachmentsComponentFragment : SheetComponentFragment(), AttachmentsCompon
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.onViewCreated(this, lifecycle)
+        setupTranslations()
     }
 
     override fun setupTranslations() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        attachmentsTv.text = Translation.message.attachments
     }
 
     override fun updateView(message: Message) {
+        attachmentsLl.removeAllViews()
+        val li: LayoutInflater = LayoutInflater.from(context)
+        message.attachments?.let {
+            for(attachment in it)
+            {
+                val v = li.inflate(R.layout.viewholder_attachment, attachmentsLl, false)
+                v.findViewById<TextView>(R.id.nameTv)?.text = attachment.name
+                v.findViewById<TextView>(R.id.sizeTv)?.text = attachment.size
+                attachmentsLl.addView(v)
+                v.setOnClickListener {
+
+                }
+            }
+        }
     }
 }
