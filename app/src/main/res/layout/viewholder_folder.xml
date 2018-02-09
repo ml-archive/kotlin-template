@@ -15,7 +15,6 @@
         android:paddingBottom="18dp">
         <ImageView
             android:id="@+id/iconIv"
-            android:background="@color/blueGrey"
             android:layout_width="24dp"
             android:layout_height="24dp"/>
 

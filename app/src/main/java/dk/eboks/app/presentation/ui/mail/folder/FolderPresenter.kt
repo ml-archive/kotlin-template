@@ -16,15 +16,21 @@ class FolderPresenter @Inject constructor(val getFoldersInteractor: GetFoldersIn
 {
     init {
         getFoldersInteractor.output = this
+        getFoldersInteractor.input = GetFoldersInteractor.Input(true)
         getFoldersInteractor.run()
     }
 
     override fun refresh() {
+        getFoldersInteractor.input = GetFoldersInteractor.Input(false)
+        getFoldersInteractor.run()
     }
 
     override fun onGetFolders(folders: List<Folder>) {
         Timber.e("user folders $folders")
-        runAction { v-> v.showUserFolders(folders) }
+        runAction { v->
+            v.showUserFolders(folders)
+            v.showRefreshProgress(false)
+        }
 
     }
 

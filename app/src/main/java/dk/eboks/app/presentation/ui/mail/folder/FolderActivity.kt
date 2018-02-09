@@ -43,11 +43,10 @@ class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_folder)
 
-        /*
         refreshSrl.setOnRefreshListener {
             presenter.refresh()
         }
-        */
+
     }
 
     override fun onResume() {
@@ -91,7 +90,7 @@ class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
             }
 
             val iv = v.findViewById<ImageView>(R.id.iconIv)
-            iv?.let { Glide.with(this@FolderActivity).load(folder.iconImageUrl).into(it) }
+            iv?.let { it.setImageResource(folder.type.getIconResId()) }
             v.setOnClickListener { }
             systemFoldersLl.addView(v)
         }
@@ -101,25 +100,6 @@ class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
         foldersLl.removeAllViews()
         indentationLevel = 1
         processFoldersRecursive(folders)
-        /*
-        for (folder in folders) {
-            var v = li.inflate(R.layout.viewholder_folder, foldersLl, false)
-            v.findViewById<TextView>(R.id.nameTv)?.text = folder.name
-            if (folder.unreadCount != 0) {
-                v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.VISIBLE
-                v.findViewById<TextView>(R.id.badgeCountTv)?.text = "${folder.unreadCount}"
-                v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.GONE
-            } else {
-                v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.GONE
-                v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.VISIBLE
-            }
-
-            val iv = v.findViewById<ImageView>(R.id.iconIv)
-            iv?.let { Glide.with(this@FolderActivity).load(folder.iconImageUrl).into(it) }
-            v.setOnClickListener { }
-            foldersLl.addView(v)
-        }
-        */
     }
 
     fun processFoldersRecursive(folders: List<Folder>)
@@ -145,7 +125,7 @@ class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
             }
 
             val iv = v.findViewById<ImageView>(R.id.iconIv)
-            iv?.let { Glide.with(this@FolderActivity).load(folder.iconImageUrl).into(it) }
+            iv?.let { it.setImageResource(folder.type.getIconResId()) }
             v.setOnClickListener { }
             foldersLl.addView(v)
 

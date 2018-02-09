@@ -8,7 +8,7 @@ import java.io.Serializable
 data class Folder(
     var id : Long = 0,
     var name : String = "",
-    var type : String = "",
+    var type : FolderType = FolderType.FOLDER,
     var unreadCount : Int = 0,
     var iconImageUrl : String = "",
     var folders : List<Folder> = ArrayList()

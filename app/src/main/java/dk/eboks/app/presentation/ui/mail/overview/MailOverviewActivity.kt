@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Folder
+import dk.eboks.app.domain.models.FolderType
 import dk.eboks.app.domain.models.Sender
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.injection.components.DaggerPresentationComponent
@@ -142,7 +143,7 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
             }
 
             val iv = v.findViewById<ImageView>(R.id.iconIv)
-            iv?.let { Glide.with(this@MailOverviewActivity).load(folder.iconImageUrl).into(it) }
+            iv?.let { it.setImageResource(folder.type.getIconResId()) }
             v.setOnClickListener { openFolder(folder) }
             yourMailLl.addView(v)
         }
@@ -156,7 +157,7 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
         v.findViewById<TextView>(R.id.badgeCountTv)?.text = "2"
 
         val iv = v.findViewById<ImageView>(R.id.iconIv)
-        //iv?.let { Glide.with(this@MailOverviewActivity).load(folder.iconImageUrl).into(it) }
+        iv?.setImageResource(R.drawable.ic_folder)
         v.setOnClickListener {
             startActivity(Intent(this@MailOverviewActivity, FolderActivity::class.java))
         }
@@ -169,10 +170,7 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
     }
 
     override fun openFolder(folder: Folder) {
-        if(folder.type == "folders")
-            startActivity(Intent(this@MailOverviewActivity, FolderActivity::class.java))
-        else
-            startActivity(Intent(this, MailListActivity::class.java))
+        startActivity(Intent(this, MailListActivity::class.java))
         //overridePendingTransition(0, 0)
     }
 
