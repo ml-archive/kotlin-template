@@ -41,4 +41,20 @@ enum class FolderType(val type : String) {
             else -> return R.drawable.ic_folder
         }
     }
+
+    override fun toString(): String {
+        when(this)
+        {
+            INBOX -> return "inbox"
+            DRAFTS -> return "drafts"
+            ARCHIVE -> return "archive"
+            SENT -> return "sentitems"
+            DELETED -> return "deleteditems"
+            HIGHLIGHTS  -> return "highlights"
+            UNREAD -> return "unread"
+            LATEST -> return "latest"
+            FOLDER -> return "folder"
+            else -> return super.toString()
+        }
+    }
 }

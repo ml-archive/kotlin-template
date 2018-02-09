@@ -19,5 +19,6 @@ interface MailOverviewContract {
 
     interface Presenter : BasePresenter<View> {
         fun refresh()
+        fun setCurrentFolder(folder: Folder)
     }
 }

@@ -12,6 +12,7 @@ interface MailListContract {
         fun showError(msg : String)
         fun showRefreshProgress(show : Boolean)
         fun showMessages(messages : List<Message>)
+        fun showFolderName(name : String)
     }
 
     interface Presenter : BasePresenter<View> {

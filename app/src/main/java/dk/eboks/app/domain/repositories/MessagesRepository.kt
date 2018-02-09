@@ -1,6 +1,7 @@
 package dk.eboks.app.domain.repositories
 
 import dk.eboks.app.domain.models.Folder
+import dk.eboks.app.domain.models.FolderType
 import dk.eboks.app.domain.models.Message
 
 /**
@@ -8,4 +9,5 @@ import dk.eboks.app.domain.models.Message
  */
 interface MessagesRepository {
     fun getMessages(cached : Boolean = false, folderId : Long) : List<Message>
+    fun getMessages(cached : Boolean = false, type : FolderType) : List<Message>
 }

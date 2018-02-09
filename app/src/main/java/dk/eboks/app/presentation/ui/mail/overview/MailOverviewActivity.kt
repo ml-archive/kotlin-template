@@ -168,6 +168,7 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
     }
 
     override fun openFolder(folder: Folder) {
+        presenter.setCurrentFolder(folder)
         startActivity(Intent(this, MailListActivity::class.java))
         //overridePendingTransition(0, 0)
     }

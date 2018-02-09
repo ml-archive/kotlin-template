@@ -85,6 +85,10 @@ class MailListActivity : MainNavigationBaseActivity(), MailListContract.View {
     }
 
 
+    override fun showFolderName(name: String) {
+        toolbarLargeTv.text = name
+    }
+
     override fun showError(msg: String) {
         Log.e("debug", msg)
     }

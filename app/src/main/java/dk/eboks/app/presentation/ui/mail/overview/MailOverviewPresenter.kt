@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.mail.overview
 
 import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.GetSendersInteractor
+import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.domain.models.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -11,7 +12,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class MailOverviewPresenter @Inject constructor(val getSendersInteractor: GetSendersInteractor, val getCategoriesInteractor: GetCategoriesInteractor) :
+class MailOverviewPresenter @Inject constructor(val appState: AppStateManager, val getSendersInteractor: GetSendersInteractor, val getCategoriesInteractor: GetCategoriesInteractor) :
         MailOverviewContract.Presenter,
         BasePresenterImpl<MailOverviewContract.View>(),
         GetSendersInteractor.Output,
@@ -46,6 +47,11 @@ class MailOverviewPresenter @Inject constructor(val getSendersInteractor: GetSen
         getCategoriesInteractor.run()
         refreshingFolders = true
         refreshingSenders = true
+    }
+
+    override fun setCurrentFolder(folder: Folder) {
+        appState.state?.currentFolder = folder
+        appState.save()
     }
 
     override fun onGetSenders(senders: List<Sender>) {

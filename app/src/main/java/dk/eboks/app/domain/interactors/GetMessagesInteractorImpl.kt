@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors
 
+import dk.eboks.app.domain.models.FolderType
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.domain.repositories.RepositoryException
 import dk.nodes.arch.domain.executor.Executor
@@ -14,7 +15,7 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
 
     override fun execute() {
         try {
-            val messages = messagesRepository.getMessages(input?.cached ?: true, input?.folderId ?: 0)
+            val messages = messagesRepository.getMessages(input?.cached ?: true, input?.type ?: FolderType.INBOX)
             runOnUIThread {
                 output?.onGetMessages(messages)
             }

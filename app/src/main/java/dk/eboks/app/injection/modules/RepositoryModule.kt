@@ -28,9 +28,9 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideMessagesRepository(messageStore: MessageStore) : MessagesRepository
+    fun provideMessagesRepository(messageStore: MessageStore, folderTypeMessageStore: FolderTypeMessageStore) : MessagesRepository
     {
-        return MessagesRestRepository(messageStore)
+        return MessagesRestRepository(messageStore, folderTypeMessageStore)
     }
 
 

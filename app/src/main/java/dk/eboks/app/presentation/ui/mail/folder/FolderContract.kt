@@ -17,5 +17,6 @@ interface FolderContract {
 
     interface Presenter : BasePresenter<View> {
         fun refresh()
+        fun setCurrentFolder(folder: Folder)
     }
 }

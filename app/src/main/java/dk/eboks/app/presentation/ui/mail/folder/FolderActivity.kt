@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.mail.folder
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.base.MainNavigationBaseActivity
+import dk.eboks.app.presentation.ui.mail.list.MailListActivity
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_folder.*
 import kotlinx.android.synthetic.main.include_toolnar.*
@@ -91,7 +93,7 @@ class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
 
             val iv = v.findViewById<ImageView>(R.id.iconIv)
             iv?.let { it.setImageResource(folder.type.getIconResId()) }
-            v.setOnClickListener { }
+            v.setOnClickListener { openFolder(folder) }
             systemFoldersLl.addView(v)
         }
     }
@@ -126,7 +128,7 @@ class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
 
             val iv = v.findViewById<ImageView>(R.id.iconIv)
             iv?.let { it.setImageResource(folder.type.getIconResId()) }
-            v.setOnClickListener { }
+            v.setOnClickListener { openFolder(folder) }
             foldersLl.addView(v)
 
 
@@ -137,6 +139,11 @@ class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
         }
     }
 
+    fun openFolder(folder: Folder) {
+        presenter.setCurrentFolder(folder)
+        startActivity(Intent(this, MailListActivity::class.java))
+        //overridePendingTransition(0, 0)
+    }
 
     override fun showRefreshProgress(show: Boolean) {
         refreshSrl.isRefreshing = show
