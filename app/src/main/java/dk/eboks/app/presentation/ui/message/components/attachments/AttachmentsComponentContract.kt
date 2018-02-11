@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.message.sheet.components.attachments
+package dk.eboks.app.presentation.ui.message.components.attachments
 
 import dk.eboks.app.domain.models.Message
 import dk.nodes.arch.presentation.base.BasePresenter

@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.message.sheet.components.folderinfo
+package dk.eboks.app.presentation.ui.message.components.folderinfo
 
 import dk.eboks.app.domain.models.Folder
 import dk.nodes.arch.presentation.base.BasePresenter

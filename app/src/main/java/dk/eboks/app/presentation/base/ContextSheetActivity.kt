@@ -126,7 +126,7 @@ abstract class ContextSheetActivity : BaseActivity() {
     {
         sheetBehavior = BottomSheetBehavior.from(contextSheet)
         sheetBehavior?.isHideable = false
-        sheetBehavior?.peekHeight = (resources.displayMetrics.density * 116.0).toInt()
+        sheetBehavior?.peekHeight = (resources.displayMetrics.density * 104.0).toInt()
         sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
         /*
         contextSheet.post {

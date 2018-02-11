@@ -30,7 +30,7 @@
                 android:paddingBottom="350dp"
                 style="@style/Navigation.Dark.One"
                 android:layout_gravity="center"
-                android:text="docubent"/>
+                android:text="[Document]"/>
 
         </FrameLayout>
     </FrameLayout>

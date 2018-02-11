@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.message.sheet.components
+package dk.eboks.app.presentation.ui.message.components
 
 import dk.eboks.app.presentation.base.BaseFragment
 

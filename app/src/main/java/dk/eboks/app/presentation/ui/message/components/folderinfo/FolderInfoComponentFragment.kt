@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.message.sheet.components.folderinfo
+package dk.eboks.app.presentation.ui.message.components.folderinfo
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.presentation.ui.message.sheet.components.SheetComponentFragment
+import dk.eboks.app.presentation.ui.message.components.SheetComponentFragment
 import kotlinx.android.synthetic.main.fragment_folderinfo_component.*
 import javax.inject.Inject
 

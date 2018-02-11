@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.message.sheet.components.header
+package dk.eboks.app.presentation.ui.message.components.document
 
 import dk.eboks.app.domain.models.Message
 import dk.nodes.arch.presentation.base.BasePresenter
@@ -7,11 +7,11 @@ import dk.nodes.arch.presentation.base.BaseView
 /**
  * Created by bison on 07-11-2017.
  */
-interface HeaderComponentContract {
+interface DocumentComponentContract {
     interface View : BaseView {
         fun updateView(message : Message)
     }
 
-    interface Presenter : BasePresenter<HeaderComponentContract.View> {
+    interface Presenter : BasePresenter<DocumentComponentContract.View> {
     }
 }

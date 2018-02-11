@@ -16,14 +16,16 @@ import dk.eboks.app.presentation.ui.message.MessageContract
 import dk.eboks.app.presentation.ui.message.MessagePresenter
 import dk.eboks.app.presentation.ui.message.sheet.MessageSheetContract
 import dk.eboks.app.presentation.ui.message.sheet.MessageSheetPresenter
-import dk.eboks.app.presentation.ui.message.sheet.components.attachments.AttachmentsComponentContract
-import dk.eboks.app.presentation.ui.message.sheet.components.attachments.AttachmentsComponentPresenter
-import dk.eboks.app.presentation.ui.message.sheet.components.folderinfo.FolderInfoComponentContract
-import dk.eboks.app.presentation.ui.message.sheet.components.folderinfo.FolderInfoComponentPresenter
-import dk.eboks.app.presentation.ui.message.sheet.components.header.HeaderComponentContract
-import dk.eboks.app.presentation.ui.message.sheet.components.header.HeaderComponentPresenter
-import dk.eboks.app.presentation.ui.message.sheet.components.notes.NotesComponentContract
-import dk.eboks.app.presentation.ui.message.sheet.components.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.message.components.attachments.AttachmentsComponentContract
+import dk.eboks.app.presentation.ui.message.components.attachments.AttachmentsComponentPresenter
+import dk.eboks.app.presentation.ui.message.components.document.DocumentComponentContract
+import dk.eboks.app.presentation.ui.message.components.document.DocumentComponentPresenter
+import dk.eboks.app.presentation.ui.message.components.folderinfo.FolderInfoComponentContract
+import dk.eboks.app.presentation.ui.message.components.folderinfo.FolderInfoComponentPresenter
+import dk.eboks.app.presentation.ui.message.components.header.HeaderComponentContract
+import dk.eboks.app.presentation.ui.message.components.header.HeaderComponentPresenter
+import dk.eboks.app.presentation.ui.message.components.notes.NotesComponentContract
+import dk.eboks.app.presentation.ui.message.components.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.splash.SplashContract
 import dk.eboks.app.presentation.ui.splash.SplashPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
@@ -98,5 +100,11 @@ class PresentationModule {
     @Provides
     fun provideFolderInfoComponentPresenter(stateManager: AppStateManager) : FolderInfoComponentContract.Presenter {
         return FolderInfoComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideDocumentComponentPresenter(stateManager: AppStateManager) : DocumentComponentContract.Presenter {
+        return DocumentComponentPresenter(stateManager)
     }
 }

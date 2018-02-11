@@ -1,17 +1,13 @@
-package dk.eboks.app.presentation.ui.message.sheet.components.header
+package dk.eboks.app.presentation.ui.message.components.header
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import dk.eboks.app.App
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Message
-import dk.eboks.app.injection.components.DaggerPresentationComponent
-import dk.eboks.app.injection.components.PresentationComponent
-import dk.eboks.app.injection.modules.PresentationModule
-import dk.eboks.app.presentation.ui.message.sheet.components.SheetComponentFragment
+import dk.eboks.app.presentation.ui.message.components.SheetComponentFragment
 import kotlinx.android.synthetic.main.fragment_header_component.*
 import javax.inject.Inject
 

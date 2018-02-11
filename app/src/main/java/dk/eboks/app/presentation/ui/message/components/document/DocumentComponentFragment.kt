@@ -1,25 +1,26 @@
-package dk.eboks.app.presentation.ui.message.sheet.components.notes
+package dk.eboks.app.presentation.ui.message.components.document
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Message
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.presentation.ui.message.sheet.components.SheetComponentFragment
-import kotlinx.android.synthetic.main.fragment_notes_component.*
+import dk.eboks.app.presentation.ui.message.components.SheetComponentFragment
+import kotlinx.android.synthetic.main.fragment_document_component.*
 import javax.inject.Inject
 
 /**
  * Created by bison on 09-02-2018.
  */
-class NotesComponentFragment : SheetComponentFragment(), NotesComponentContract.View {
+class DocumentComponentFragment : SheetComponentFragment(), DocumentComponentContract.View {
     @Inject
-    lateinit var presenter : NotesComponentContract.Presenter
+    lateinit var presenter : DocumentComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_notes_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_document_component, container, false)
         return rootView
     }
 
@@ -27,11 +28,9 @@ class NotesComponentFragment : SheetComponentFragment(), NotesComponentContract.
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        focusThiefV.requestFocus()
     }
 
     override fun setupTranslations() {
-        notesTv.text = Translation.message.notes
     }
 
     override fun updateView(message: Message) {

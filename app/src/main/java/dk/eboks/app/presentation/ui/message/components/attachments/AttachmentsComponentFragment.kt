@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.message.sheet.components.attachments
+package dk.eboks.app.presentation.ui.message.components.attachments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Message
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.presentation.ui.message.sheet.components.SheetComponentFragment
+import dk.eboks.app.presentation.ui.message.components.SheetComponentFragment
 import kotlinx.android.synthetic.main.fragment_attachments_component.*
 import javax.inject.Inject
 
@@ -38,16 +38,29 @@ class AttachmentsComponentFragment : SheetComponentFragment(), AttachmentsCompon
         attachmentsLl.removeAllViews()
         val li: LayoutInflater = LayoutInflater.from(context)
         message.attachments?.let {
-            for(attachment in it)
-            {
-                val v = li.inflate(R.layout.viewholder_attachment, attachmentsLl, false)
-                v.findViewById<TextView>(R.id.nameTv)?.text = attachment.name
-                v.findViewById<TextView>(R.id.sizeTv)?.text = attachment.size
-                attachmentsLl.addView(v)
-                v.setOnClickListener {
+            if(it.isNotEmpty()) {
+                for (attachment in it) {
+                    val v = li.inflate(R.layout.viewholder_attachment, attachmentsLl, false)
+                    v.findViewById<TextView>(R.id.nameTv)?.text = attachment.name
+                    v.findViewById<TextView>(R.id.sizeTv)?.text = attachment.size
+                    attachmentsLl.addView(v)
+                    v.setOnClickListener {
 
+                    }
                 }
             }
+            else
+                hide()
         }
+        if(message.attachments == null)
+        {
+            hide()
+        }
+    }
+
+    fun hide()
+    {
+        attachmentsTv.visibility = View.GONE
+        attachmentsLl.visibility = View.GONE
     }
 }

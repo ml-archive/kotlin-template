@@ -31,8 +31,13 @@
                         android:layout_height="156dp">
                         <fragment
                             android:id="@+id/headerFragment"
-                            android:name="dk.eboks.app.presentation.ui.message.sheet.components.header.HeaderComponentFragment"
+                            android:name="dk.eboks.app.presentation.ui.message.components.header.HeaderComponentFragment"
                             android:layout_marginTop="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                        <fragment
+                            android:id="@+id/documentFragment"
+                            android:name="dk.eboks.app.presentation.ui.message.components.document.DocumentComponentFragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
@@ -44,13 +49,13 @@
 
                     <fragment
                         android:id="@+id/notesFragment"
-                        android:name="dk.eboks.app.presentation.ui.message.sheet.components.notes.NotesComponentFragment"
+                        android:name="dk.eboks.app.presentation.ui.message.components.notes.NotesComponentFragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <fragment
                         android:id="@+id/attachmentsFragment"
-                        android:name="dk.eboks.app.presentation.ui.message.sheet.components.attachments.AttachmentsComponentFragment"
+                        android:name="dk.eboks.app.presentation.ui.message.components.attachments.AttachmentsComponentFragment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
@@ -58,7 +63,7 @@
             </android.support.v4.widget.NestedScrollView>
         <fragment
             android:id="@+id/folderInfoFragment"
-            android:name="dk.eboks.app.presentation.ui.message.sheet.components.folderinfo.FolderInfoComponentFragment"
+            android:name="dk.eboks.app.presentation.ui.message.components.folderinfo.FolderInfoComponentFragment"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_gravity="bottom" />

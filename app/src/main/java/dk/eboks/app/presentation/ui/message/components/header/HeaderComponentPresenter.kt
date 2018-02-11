@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.message.sheet.components.header
+package dk.eboks.app.presentation.ui.message.components.header
 
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.nodes.arch.presentation.base.BasePresenterImpl

@@ -3,10 +3,10 @@ package dk.eboks.app.presentation.ui.message.sheet
 import android.os.Bundle
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.ContextSheetActivity
-import dk.eboks.app.presentation.ui.message.sheet.components.attachments.AttachmentsComponentFragment
-import dk.eboks.app.presentation.ui.message.sheet.components.folderinfo.FolderInfoComponentFragment
-import dk.eboks.app.presentation.ui.message.sheet.components.header.HeaderComponentFragment
-import dk.eboks.app.presentation.ui.message.sheet.components.notes.NotesComponentFragment
+import dk.eboks.app.presentation.ui.message.components.attachments.AttachmentsComponentFragment
+import dk.eboks.app.presentation.ui.message.components.folderinfo.FolderInfoComponentFragment
+import dk.eboks.app.presentation.ui.message.components.header.HeaderComponentFragment
+import dk.eboks.app.presentation.ui.message.components.notes.NotesComponentFragment
 import timber.log.Timber
 import javax.inject.Inject
 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:paddingStart="@dimen/margin_normal"
+    android:paddingEnd="@dimen/margin_normal"
+    android:paddingTop="14dp"
+    android:paddingBottom="18dp">
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/document_attachment_background"
+        android:elevation="12dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_attachment_black"/>
+
+            <TextView
+                android:id="@+id/nameTv"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:lines="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                style="@style/Navigation.Dark.Two"
+                android:text="Main document"/>
+
+            <TextView
+                android:id="@+id/sizeTv"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:layout_marginStart="12dp"
+                android:gravity="end"
+                style="@style/Navigation.Light.Three"
+                android:text="2,3 MB"/>
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.message.sheet.components.attachments
+package dk.eboks.app.presentation.ui.message.components.document
 
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class AttachmentsComponentPresenter @Inject constructor(val appState: AppStateManager) : AttachmentsComponentContract.Presenter, BasePresenterImpl<AttachmentsComponentContract.View>() {
+class DocumentComponentPresenter @Inject constructor(val appState: AppStateManager) : DocumentComponentContract.Presenter, BasePresenterImpl<DocumentComponentContract.View>() {
 
     init {
         Timber.e("Current message ${appState.state?.currentMessage}")

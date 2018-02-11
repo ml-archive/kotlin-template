@@ -1,8 +1,7 @@
-package dk.eboks.app.presentation.ui.message.sheet.components.folderinfo
+package dk.eboks.app.presentation.ui.message.components.folderinfo
 
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
