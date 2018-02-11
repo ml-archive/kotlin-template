@@ -29,26 +29,15 @@ import java.util.*
 import javax.inject.Inject
 
 class MailListActivity : MainNavigationBaseActivity(), MailListContract.View {
-    val component: PresentationComponent by lazy {
-        DaggerPresentationComponent.builder()
-                .appComponent((application as dk.eboks.app.App).appComponent)
-                .presentationModule(PresentationModule())
-                .build()
-    }
-
     @Inject lateinit var presenter: MailListContract.Presenter
 
     var messages: MutableList<Message> = ArrayList()
 
-    override fun injectDependencies() {
-        component.inject(this)
-        presenter.onViewCreated(this, lifecycle)
-    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mail_list)
+        component.inject(this)
+        presenter.onViewCreated(this, lifecycle)
         setupRecyclerView()
 
         refreshSrl.setOnRefreshListener {
@@ -147,6 +136,12 @@ class MailListActivity : MainNavigationBaseActivity(), MailListContract.View {
                 Timber.e("supposed to launch")
                 presenter.setCurrentMessage(messages[position])
                 startActivity(Intent(this@MailListActivity, MessageSheetActivity::class.java))
+            }
+            holder?.root?.setOnLongClickListener {
+                Timber.e("supposed to launch")
+                presenter.setCurrentMessage(messages[position])
+                startActivity(Intent(this@MailListActivity, MessageActivity::class.java))
+                true
             }
         }
     }

@@ -5,8 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import dk.eboks.app.App
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Message
+import dk.eboks.app.injection.components.DaggerPresentationComponent
+import dk.eboks.app.injection.components.PresentationComponent
+import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.ui.message.sheet.components.SheetComponentFragment
 import kotlinx.android.synthetic.main.fragment_header_component.*
 import javax.inject.Inject
@@ -25,11 +29,15 @@ class HeaderComponentFragment : SheetComponentFragment(), HeaderComponentContrac
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        arguments?.let { args->
+            if(args.getBoolean("show_divider", false))
+            dividerV.visibility = View.VISIBLE
+        }
     }
 
     override fun setupTranslations() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun updateView(message: Message) {

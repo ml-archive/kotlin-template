@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Message
 import dk.eboks.app.domain.models.Translation
@@ -26,8 +25,8 @@ class NotesComponentFragment : SheetComponentFragment(), NotesComponentContract.
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        setupTranslations()
         focusThiefV.requestFocus()
     }
 

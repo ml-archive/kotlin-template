@@ -23,32 +23,19 @@ import java.util.*
 import javax.inject.Inject
 
 class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
-    val component: PresentationComponent by lazy {
-        DaggerPresentationComponent.builder()
-                .appComponent((application as dk.eboks.app.App).appComponent)
-                .presentationModule(PresentationModule())
-                .build()
-    }
-
     @Inject lateinit var presenter: FolderContract.Presenter
 
     var folders: MutableList<Folder> = ArrayList()
     var indentationLevel = 0
 
-    override fun injectDependencies() {
-        component.inject(this)
-        presenter.onViewCreated(this, lifecycle)
-    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_folder)
-
+        component.inject(this)
+        presenter.onViewCreated(this, lifecycle)
         refreshSrl.setOnRefreshListener {
             presenter.refresh()
         }
-
     }
 
     override fun onResume() {

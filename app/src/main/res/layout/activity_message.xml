@@ -6,14 +6,61 @@
                                                  xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include layout="@layout/include_toolnar"  />
-    <include layout="@layout/include_navigation_view"  />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="48dp"
+                android:fitsSystemWindows="true"
+                android:clipToPadding="true">
 
-    <ImageView
-        android:id="@+id/circleIv"
-        android:layout_gravity="center"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:background="@drawable/circular_image_view_background"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
+                    <LinearLayout
+                        android:id="@+id/headerLl"
+                        android:orientation="vertical"
+                        android:background="@color/backgroundColor"
+                        android:layout_width="match_parent"
+                        android:layout_height="156dp">
+                        <fragment
+                            android:id="@+id/headerFragment"
+                            android:name="dk.eboks.app.presentation.ui.message.sheet.components.header.HeaderComponentFragment"
+                            android:layout_marginTop="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/dividerGreyBlue" />
+
+                    <fragment
+                        android:id="@+id/notesFragment"
+                        android:name="dk.eboks.app.presentation.ui.message.sheet.components.notes.NotesComponentFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <fragment
+                        android:id="@+id/attachmentsFragment"
+                        android:name="dk.eboks.app.presentation.ui.message.sheet.components.attachments.AttachmentsComponentFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+        <fragment
+            android:id="@+id/folderInfoFragment"
+            android:name="dk.eboks.app.presentation.ui.message.sheet.components.folderinfo.FolderInfoComponentFragment"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="bottom" />
+    </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

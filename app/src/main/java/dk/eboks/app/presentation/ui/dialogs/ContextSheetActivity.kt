@@ -20,12 +20,13 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.animation.*
+import dk.eboks.app.presentation.base.BaseActivity
 
 
 /**
  * Created by bison on 05/02/18.
  */
-abstract class ContextSheetActivity : AppCompatActivity() {
+abstract class ContextSheetActivity : BaseActivity() {
     var sheetBehavior : BottomSheetBehavior<View>? = null
     var shouldClose = false
     private lateinit var fadeAnim : Animation

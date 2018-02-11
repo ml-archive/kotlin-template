@@ -5,7 +5,6 @@
     android:layout_height="wrap_content">
     <LinearLayout
         android:orientation="horizontal"
-        android:background="@color/backgroundColorSheet"
         android:paddingStart="@dimen/margin_normal"
         android:paddingEnd="@dimen/margin_normal"
         android:paddingTop="0dp"
@@ -42,6 +41,8 @@
         </LinearLayout>
     </LinearLayout>
     <View
+        android:id="@+id/dividerV"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/dividerGreyBlue"

@@ -26,8 +26,8 @@ class AttachmentsComponentFragment : SheetComponentFragment(), AttachmentsCompon
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        setupTranslations()
     }
 
     override fun setupTranslations() {

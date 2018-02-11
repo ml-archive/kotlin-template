@@ -11,23 +11,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : MainNavigationBaseActivity(), MainContract.View {
-    val component: PresentationComponent by lazy {
-        DaggerPresentationComponent.builder()
-                .appComponent((application as dk.eboks.app.App).appComponent)
-                .presentationModule(PresentationModule())
-                .build()
-    }
     @Inject lateinit var presenter: MainContract.Presenter
-
-    override fun injectDependencies() {
-        component.inject(this)
-        presenter.onViewCreated(this, lifecycle)
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(dk.eboks.app.R.layout.activity_main)
+        component.inject(this)
+        presenter.onViewCreated(this, lifecycle)
+
         circleIv.setOnClickListener {
             circleIv.isSelected = !circleIv.isSelected
         }

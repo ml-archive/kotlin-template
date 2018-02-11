@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@color/backgroundColorSheet"
     android:paddingStart="@dimen/margin_normal"
     android:paddingEnd="@dimen/margin_normal"
     android:paddingTop="20dp"
@@ -27,8 +26,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollHorizontally="false"
-        android:background="@drawable/notes_background"
-        android:textColor="@color/darkGreyBlue"
+        android:background="@drawable/attachment_background"
+        android:textColor="@color/blueGrey"
         android:textSize="15sp"
         android:autoLink="all"
         android:minLines="1"

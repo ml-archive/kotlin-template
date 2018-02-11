@@ -15,6 +15,7 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class FolderInfoComponentFragment : SheetComponentFragment(), FolderInfoComponentContract.View {
+
     @Inject
     lateinit var presenter : FolderInfoComponentContract.Presenter
 
@@ -25,8 +26,8 @@ class FolderInfoComponentFragment : SheetComponentFragment(), FolderInfoComponen
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        setupTranslations()
     }
 
     override fun setupTranslations() {

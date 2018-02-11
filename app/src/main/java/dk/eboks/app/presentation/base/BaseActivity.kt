@@ -6,11 +6,21 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import dk.eboks.app.BuildConfig
+import dk.eboks.app.injection.components.DaggerPresentationComponent
+import dk.eboks.app.injection.components.PresentationComponent
+import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.util.ShakeDetector
 import dk.nodes.arch.presentation.base.BaseView
 import timber.log.Timber
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
+    protected val component: PresentationComponent by lazy {
+        DaggerPresentationComponent.builder()
+                .appComponent((application as dk.eboks.app.App).appComponent)
+                .presentationModule(PresentationModule())
+                .build()
+    }
+
     private val shakeDetector : ShakeDetector? = if(BuildConfig.DEBUG) ShakeDetector() else null
     private var sensorManager : SensorManager? = null
     private var acceleroMeter : Sensor? = null
@@ -18,8 +28,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Make sure all of our dependencies get injected
-        injectDependencies()
         if(BuildConfig.DEBUG)
         {
             setupShakeDetection()
@@ -56,6 +64,5 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     }
 
-    protected abstract fun injectDependencies()
     protected open fun onShake() {}
 }

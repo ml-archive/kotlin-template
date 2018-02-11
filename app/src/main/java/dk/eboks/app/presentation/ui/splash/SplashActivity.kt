@@ -18,23 +18,13 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class SplashActivity : BaseActivity(), SplashContract.View {
-    val component: PresentationComponent by lazy {
-        DaggerPresentationComponent.builder()
-                .appComponent((application as App).appComponent)
-                .presentationModule(PresentationModule())
-                .build()
-    }
     @Inject lateinit var presenter: SplashContract.Presenter
-
-    override fun injectDependencies() {
-        component.inject(this)
-        presenter.onViewCreated(this, lifecycle)
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(dk.eboks.app.R.layout.activity_splash)
+        component.inject(this)
+        presenter.onViewCreated(this, lifecycle)
 
     }
 

@@ -31,28 +31,15 @@ import javax.inject.Inject
 
 
 class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.View {
-    val component: PresentationComponent by lazy {
-        DaggerPresentationComponent.builder()
-                .appComponent((application as dk.eboks.app.App).appComponent)
-                .presentationModule(PresentationModule())
-                .build()
-    }
-
-
-
     @Inject lateinit var presenter: MailOverviewContract.Presenter
 
     var senders : MutableList<Sender> = ArrayList()
 
-    override fun injectDependencies() {
-        component.inject(this)
-        presenter.onViewCreated(this, lifecycle)
-    }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mail_overview)
+        component.inject(this)
+        presenter.onViewCreated(this, lifecycle)
         setupRecyclerView()
         //setupYourMail()
 
