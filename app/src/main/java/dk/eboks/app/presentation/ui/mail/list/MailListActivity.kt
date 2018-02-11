@@ -19,6 +19,7 @@ import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.base.MainNavigationBaseActivity
+import dk.eboks.app.presentation.ui.debug.hinter.HintActivity
 import dk.eboks.app.presentation.ui.message.MessageActivity
 import dk.eboks.app.presentation.ui.message.sheet.MessageSheetActivity
 import dk.nodes.nstack.kotlin.NStack
@@ -43,6 +44,8 @@ class MailListActivity : MainNavigationBaseActivity(), MailListContract.View {
         refreshSrl.setOnRefreshListener {
             presenter.refresh()
         }
+
+        HintActivity.showHint(this, "This view containes the message read from the mock plus two seeded messages (alka, danske bank).\n- Tap item to open message in embedded mode (drawer)\n- Long press to open in non-embeddable mode\n- Pull to refresh")
     }
 
     override fun onResume() {

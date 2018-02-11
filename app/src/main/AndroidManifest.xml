@@ -35,6 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".presentation.ui.debug.hinter.HintActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.main.MainActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.mail.overview.MailOverviewActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.mail.list.MailListActivity" />

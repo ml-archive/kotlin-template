@@ -1,17 +1,12 @@
 package dk.eboks.app.presentation.ui.message.sheet
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import dk.eboks.app.R
-import dk.eboks.app.injection.components.DaggerPresentationComponent
-import dk.eboks.app.injection.components.PresentationComponent
-import dk.eboks.app.injection.modules.PresentationModule
-import dk.eboks.app.presentation.ui.dialogs.ContextSheetActivity
+import dk.eboks.app.presentation.base.ContextSheetActivity
 import dk.eboks.app.presentation.ui.message.sheet.components.attachments.AttachmentsComponentFragment
 import dk.eboks.app.presentation.ui.message.sheet.components.folderinfo.FolderInfoComponentFragment
 import dk.eboks.app.presentation.ui.message.sheet.components.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.message.sheet.components.notes.NotesComponentFragment
-import kotlinx.android.synthetic.main.sheet_message.*
 import timber.log.Timber
 import javax.inject.Inject
 

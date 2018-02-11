@@ -2,6 +2,7 @@ package dk.eboks.app.injection.components
 
 import dagger.Component
 import dk.eboks.app.injection.modules.PresentationModule
+import dk.eboks.app.presentation.ui.debug.hinter.HintActivity
 import dk.eboks.app.presentation.ui.mail.folder.FolderActivity
 import dk.eboks.app.presentation.ui.mail.folder.FolderPresenter
 import dk.eboks.app.presentation.ui.mail.list.MailListActivity
@@ -55,4 +56,5 @@ interface PresentationComponent {
     fun inject(target : AttachmentsComponentPresenter)
     fun inject(target : FolderInfoComponentFragment)
     fun inject(target : FolderInfoComponentPresenter)
+    fun inject(target : HintActivity)
 }

@@ -4,6 +4,7 @@ import dagger.Component
 import dk.eboks.app.App
 import dk.eboks.app.domain.interactors.*
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.injection.modules.*
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.Executor
@@ -28,6 +29,7 @@ interface AppComponent
     // expose functions to components dependent on this component
     fun executor() : Executor
     fun api() : Api
+    fun prefManager() : PrefManager
     fun appStateManager() : AppStateManager
     fun loginInteractor() : LoginInteractor
     fun boostrapInteractor() : BootstrapInteractor

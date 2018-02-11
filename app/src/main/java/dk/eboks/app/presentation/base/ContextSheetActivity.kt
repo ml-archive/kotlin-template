@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.dialogs
+package dk.eboks.app.presentation.base
 
 import android.animation.ArgbEvaluator
 import android.graphics.Color
@@ -6,21 +6,16 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.ShapeDrawable
 import android.os.Bundle
 import android.support.design.widget.BottomSheetBehavior
-import android.support.v7.app.AppCompatActivity
-import android.transition.Fade
 import android.view.View
 import dk.eboks.app.R
 import kotlinx.android.synthetic.main.activity_context_sheet.*
-import timber.log.Timber
 import android.widget.FrameLayout
 import dk.eboks.app.util.MathUtil
-import android.support.v4.content.ContextCompat
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.animation.*
-import dk.eboks.app.presentation.base.BaseActivity
 
 
 /**

@@ -19,6 +19,7 @@ import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.base.MainNavigationBaseActivity
+import dk.eboks.app.presentation.ui.debug.hinter.HintActivity
 import dk.eboks.app.presentation.ui.dialogs.ConfirmDialogFragment
 import dk.eboks.app.presentation.ui.mail.folder.FolderActivity
 import dk.eboks.app.presentation.ui.mail.list.MailListActivity
@@ -56,6 +57,8 @@ class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.
         }
 
         userShareTv.visibility = View.VISIBLE
+
+        HintActivity.showHint(this, "- Shake to show empty state\n- Tap 'you mail' to preview confirm dialog\n- Folders open the treeview the rest opens the individual list views\n- Pull to refresh")
     }
 
     override fun onResume() {
