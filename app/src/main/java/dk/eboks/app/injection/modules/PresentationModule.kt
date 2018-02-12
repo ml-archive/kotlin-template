@@ -26,6 +26,8 @@ import dk.eboks.app.presentation.ui.message.components.header.HeaderComponentCon
 import dk.eboks.app.presentation.ui.message.components.header.HeaderComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.notes.NotesComponentContract
 import dk.eboks.app.presentation.ui.message.components.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.message.components.pdfpreview.PdfPreviewComponentContract
+import dk.eboks.app.presentation.ui.message.components.pdfpreview.PdfPreviewComponentPresenter
 import dk.eboks.app.presentation.ui.splash.SplashContract
 import dk.eboks.app.presentation.ui.splash.SplashPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
@@ -106,5 +108,11 @@ class PresentationModule {
     @Provides
     fun provideDocumentComponentPresenter(stateManager: AppStateManager) : DocumentComponentContract.Presenter {
         return DocumentComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun providePdfPreviewComponentPresenter(stateManager: AppStateManager) : PdfPreviewComponentContract.Presenter {
+        return PdfPreviewComponentPresenter(stateManager)
     }
 }

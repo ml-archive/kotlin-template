@@ -6,13 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.injection.components.DaggerPresentationComponent
-import dk.eboks.app.injection.components.PresentationComponent
-import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.base.MainNavigationBaseActivity
 import dk.eboks.app.presentation.ui.mail.list.MailListActivity
 import dk.nodes.nstack.kotlin.NStack

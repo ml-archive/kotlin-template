@@ -4,17 +4,20 @@ import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.domain.repositories.CategoriesRepository
 import dk.eboks.app.domain.repositories.RepositoryException
 import dk.eboks.app.injection.modules.CategoryStore
+import dk.eboks.app.network.rest.base.SynchronizedBaseRepository
 import java.io.IOException
 import java.net.UnknownHostException
 
 /**
  * Created by bison on 01/02/18.
  */
-class CategoriesRestRepository(val categoryStore: CategoryStore) : CategoriesRepository {
+class CategoriesRestRepository(val categoryStore: CategoryStore) : CategoriesRepository, SynchronizedBaseRepository() {
 
     override fun getCategories(cached: Boolean): List<Folder> {
         try {
+            lock()
             val result = if(cached) categoryStore.get(0).blockingGet() else categoryStore.fetch(0).blockingGet()
+            unlock()
             if(result == null) {
                 throw(RepositoryException(-1, "darn"))
             }
@@ -32,6 +35,9 @@ class CategoriesRestRepository(val categoryStore: CategoryStore) : CategoriesRep
             }
             else
                 throw(RepositoryException(-1, "Unknown"))
+        }
+        finally {
+            unlock()
         }
     }
 }

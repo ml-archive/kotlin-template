@@ -25,6 +25,8 @@ import dk.eboks.app.presentation.ui.message.components.header.HeaderComponentFra
 import dk.eboks.app.presentation.ui.message.components.header.HeaderComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.notes.NotesComponentFragment
 import dk.eboks.app.presentation.ui.message.components.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.message.components.pdfpreview.PdfPreviewComponentFragment
+import dk.eboks.app.presentation.ui.message.components.pdfpreview.PdfPreviewComponentPresenter
 import dk.eboks.app.presentation.ui.splash.SplashActivity
 import dk.eboks.app.presentation.ui.splash.SplashPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
@@ -60,5 +62,7 @@ interface PresentationComponent {
     fun inject(target : FolderInfoComponentPresenter)
     fun inject(target : DocumentComponentFragment)
     fun inject(target : DocumentComponentPresenter)
+    fun inject(target : PdfPreviewComponentFragment)
+    fun inject(target : PdfPreviewComponentPresenter)
     fun inject(target : HintActivity)
 }

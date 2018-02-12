@@ -6,27 +6,26 @@ import dagger.Module
 import dagger.Provides
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
-import dk.eboks.app.network.Api
 import dk.eboks.app.domain.managers.ProtocolManager
+import dk.eboks.app.network.Api
+import dk.eboks.app.network.rest.EboksHeaderInterceptor
+import dk.eboks.app.network.rest.MockHeaderInterceptor
 import dk.eboks.app.network.rest.ProtocolManagerImpl
 import dk.eboks.app.network.rest.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.rest.util.DateDeserializer
 import dk.eboks.app.network.rest.util.ItemTypeAdapterFactory
 import dk.nodes.arch.domain.injection.scopes.AppScope
-import dk.eboks.app.network.rest.EboksHeaderInterceptor
-import dk.eboks.app.network.rest.MockHeaderInterceptor
 import dk.nodes.nstack.providers.NMetaInterceptor
+import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
-import org.simpleframework.xml.core.Persister
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import java.util.*
+import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
-import org.simpleframework.xml.convert.AnnotationStrategy
 
 
 /**
@@ -95,6 +94,13 @@ class RestModule {
                 //.addInterceptor(eboksHeaderInterceptor)
                 .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
 
+
+        // this only work if we use retrofit enqueue() which in turn uses okhttp enqueue
+        // pipelining is solved in a baseclass of the repositories instead
+        /*
+        if(BuildConfig.FORCE_REQUEST_PIPELINING)
+            clientBuilder.dispatcher(Dispatcher(Executors.newSingleThreadExecutor()))
+        */
 
         if(BuildConfig.MOCK_API_ENABLED)
         {

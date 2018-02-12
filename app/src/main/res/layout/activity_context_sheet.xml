@@ -7,32 +7,40 @@
 
     <include layout="@layout/include_toolnar"  />
 
-
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="#aaa"
         android:layout_marginTop="?attr/actionBarSize">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:paddingBottom="350dp"
+                style="@style/Navigation.Dark.One"
+                android:layout_gravity="center"
+                android:text="[Document]"/>
+
+            <fragment
+                android:id="@+id/previewFragment"
+                android:name="dk.eboks.app.presentation.ui.message.components.pdfpreview.PdfPreviewComponentFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
         <View
             android:id="@+id/touchVeilV"
             android:background="#88000000"
             android:alpha="0"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="350dp"
-                style="@style/Navigation.Dark.One"
-                android:layout_gravity="center"
-                android:text="[Document]"/>
-
-        </FrameLayout>
     </FrameLayout>
 
     <FrameLayout
