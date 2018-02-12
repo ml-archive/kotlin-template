@@ -37,11 +37,12 @@ abstract class ContextSheetActivity : BaseActivity() {
     private var handleStartColor: Int = 0
     private var handleEndColor: Int = 0
     private var firstExpand = true
+    private var oldState = BottomSheetBehavior.STATE_COLLAPSED
 
     val callback = object : BottomSheetBehavior.BottomSheetCallback() {
         override fun onSlide(bottomSheet: View, slideOffset: Float) {
             //Timber.e("Slideoffset: $slideOffset")
-            touchVeilV.alpha = MathUtil.reMapFloat(0f, 1.0f, .0f, 0.75f, slideOffset)
+            touchVeilV.alpha = MathUtil.reMapFloat(0f, 1.0f, .0f, 1.0f, slideOffset)
             //touchVeilV.alpha = slideOffset
             if(slideOffset >= 0) {
                 val params = contextSheetHandle.layoutParams as FrameLayout.LayoutParams
@@ -72,19 +73,27 @@ abstract class ContextSheetActivity : BaseActivity() {
             }
             if(newState == BottomSheetBehavior.STATE_DRAGGING)
             {
-                contextSheetHandle.animation?.let {
-                    if(!it.hasEnded())
-                        contextSheetHandle.animation.repeatCount = 0
+                if(oldState == BottomSheetBehavior.STATE_COLLAPSED)
+                {
+                    touchVeilV.visibility = View.VISIBLE
+                }
+                if(oldState == BottomSheetBehavior.STATE_EXPANDED) {
+                    contextSheetHandle.animation?.let {
+                        if (!it.hasEnded())
+                            contextSheetHandle.animation.repeatCount = 0
+                    }
                 }
             }
             if(newState == BottomSheetBehavior.STATE_COLLAPSED)
             {
+                touchVeilV.visibility = View.GONE
                 contextSheetSv.scrollTo(0,0)
                 contextSheetHandle.animation?.let {
                     if(!it.hasEnded())
                         contextSheetHandle.animation.repeatCount = 0
                 }
             }
+            oldState = newState
         }
 
     }
