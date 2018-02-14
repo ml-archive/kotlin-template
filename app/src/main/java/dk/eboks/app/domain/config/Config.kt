@@ -2,6 +2,8 @@ package dk.eboks.app.domain.config
 
 import dk.eboks.app.BuildConfig
 
+// TODO this stuff should be downloaded from a url (on request of the customer) so that the app only contains
+// one harded coded url ya'll
 /**
  * Created by bison on 07/12/17.
  *
