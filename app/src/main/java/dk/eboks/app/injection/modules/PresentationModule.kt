@@ -4,6 +4,14 @@ import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.presentation.ui.components.folder.systemfolders.SystemFoldersComponentContract
+import dk.eboks.app.presentation.ui.components.folder.systemfolders.SystemFoldersComponentPresenter
+import dk.eboks.app.presentation.ui.components.folder.userfolders.UserFoldersComponentContract
+import dk.eboks.app.presentation.ui.components.folder.userfolders.UserFoldersComponentPresenter
+import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentContract
+import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentPresenter
+import dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentContract
+import dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentPresenter
 import dk.eboks.app.presentation.ui.mail.folder.FolderContract
 import dk.eboks.app.presentation.ui.mail.folder.FolderPresenter
 import dk.eboks.app.presentation.ui.mail.list.MailListContract
@@ -16,18 +24,18 @@ import dk.eboks.app.presentation.ui.message.MessageContract
 import dk.eboks.app.presentation.ui.message.MessagePresenter
 import dk.eboks.app.presentation.ui.message.sheet.MessageSheetContract
 import dk.eboks.app.presentation.ui.message.sheet.MessageSheetPresenter
-import dk.eboks.app.presentation.ui.message.components.attachments.AttachmentsComponentContract
-import dk.eboks.app.presentation.ui.message.components.attachments.AttachmentsComponentPresenter
-import dk.eboks.app.presentation.ui.message.components.document.DocumentComponentContract
-import dk.eboks.app.presentation.ui.message.components.document.DocumentComponentPresenter
-import dk.eboks.app.presentation.ui.message.components.folderinfo.FolderInfoComponentContract
-import dk.eboks.app.presentation.ui.message.components.folderinfo.FolderInfoComponentPresenter
-import dk.eboks.app.presentation.ui.message.components.header.HeaderComponentContract
-import dk.eboks.app.presentation.ui.message.components.header.HeaderComponentPresenter
-import dk.eboks.app.presentation.ui.message.components.notes.NotesComponentContract
-import dk.eboks.app.presentation.ui.message.components.notes.NotesComponentPresenter
-import dk.eboks.app.presentation.ui.message.components.pdfpreview.PdfPreviewComponentContract
-import dk.eboks.app.presentation.ui.message.components.pdfpreview.PdfPreviewComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.attachments.AttachmentsComponentContract
+import dk.eboks.app.presentation.ui.components.message.attachments.AttachmentsComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.document.DocumentComponentContract
+import dk.eboks.app.presentation.ui.components.message.document.DocumentComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.folderinfo.FolderInfoComponentContract
+import dk.eboks.app.presentation.ui.components.message.folderinfo.FolderInfoComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentContract
+import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentContract
+import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentContract
+import dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentPresenter
 import dk.eboks.app.presentation.ui.splash.SplashContract
 import dk.eboks.app.presentation.ui.splash.SplashPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
@@ -114,5 +122,29 @@ class PresentationModule {
     @Provides
     fun providePdfPreviewComponentPresenter(stateManager: AppStateManager) : PdfPreviewComponentContract.Presenter {
         return PdfPreviewComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideSystemFoldersComponentPresenter(stateManager: AppStateManager) : SystemFoldersComponentContract.Presenter {
+        return SystemFoldersComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideUserFoldersComponentPresenter(stateManager: AppStateManager) : UserFoldersComponentContract.Presenter {
+        return UserFoldersComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideFolderShortcutsComponentPresenter(stateManager: AppStateManager) : FolderShortcutsComponentContract.Presenter {
+        return FolderShortcutsComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideSenderCarouselComponentPresenter(stateManager: AppStateManager) : SenderCarouselComponentContract.Presenter {
+        return SenderCarouselComponentPresenter(stateManager)
     }
 }

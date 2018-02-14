@@ -6,8 +6,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -15,15 +15,11 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.domain.models.Sender
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.injection.components.DaggerPresentationComponent
-import dk.eboks.app.injection.components.PresentationComponent
-import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.base.MainNavigationBaseActivity
 import dk.eboks.app.presentation.ui.debug.hinter.HintActivity
 import dk.eboks.app.presentation.ui.dialogs.ConfirmDialogFragment
 import dk.eboks.app.presentation.ui.mail.folder.FolderActivity
 import dk.eboks.app.presentation.ui.mail.list.MailListActivity
-import dk.eboks.app.presentation.ui.message.sheet.MessageSheetActivity
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_mail_overview.*
 import kotlinx.android.synthetic.main.include_toolnar.*
