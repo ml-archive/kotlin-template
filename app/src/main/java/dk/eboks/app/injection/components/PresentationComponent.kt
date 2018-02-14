@@ -10,19 +10,19 @@ import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortc
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentFragment
 import dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentPresenter
-import dk.eboks.app.presentation.ui.debug.hinter.HintActivity
-import dk.eboks.app.presentation.ui.mail.folder.FolderActivity
-import dk.eboks.app.presentation.ui.mail.folder.FolderPresenter
-import dk.eboks.app.presentation.ui.mail.list.MailListActivity
-import dk.eboks.app.presentation.ui.mail.list.MailListPresenter
-import dk.eboks.app.presentation.ui.mail.overview.MailOverviewActivity
-import dk.eboks.app.presentation.ui.mail.overview.MailOverviewPresenter
-import dk.eboks.app.presentation.ui.main.MainActivity
-import dk.eboks.app.presentation.ui.main.MainPresenter
-import dk.eboks.app.presentation.ui.message.MessageActivity
-import dk.eboks.app.presentation.ui.message.MessagePresenter
-import dk.eboks.app.presentation.ui.message.sheet.MessageSheetActivity
-import dk.eboks.app.presentation.ui.message.sheet.MessageSheetPresenter
+import dk.eboks.app.presentation.ui.screens.debug.hinter.HintActivity
+import dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity
+import dk.eboks.app.presentation.ui.screens.mail.folder.FolderPresenter
+import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
+import dk.eboks.app.presentation.ui.screens.mail.list.MailListPresenter
+import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
+import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
+import dk.eboks.app.presentation.ui.screens.main.MainActivity
+import dk.eboks.app.presentation.ui.screens.main.MainPresenter
+import dk.eboks.app.presentation.ui.screens.message.MessageActivity
+import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
+import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetActivity
+import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetPresenter
 import dk.eboks.app.presentation.ui.components.message.attachments.AttachmentsComponentFragment
 import dk.eboks.app.presentation.ui.components.message.attachments.AttachmentsComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.document.DocumentComponentFragment
@@ -35,8 +35,8 @@ import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentFragm
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentPresenter
-import dk.eboks.app.presentation.ui.splash.SplashActivity
-import dk.eboks.app.presentation.ui.splash.SplashPresenter
+import dk.eboks.app.presentation.ui.screens.splash.SplashActivity
+import dk.eboks.app.presentation.ui.screens.splash.SplashPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
 /**

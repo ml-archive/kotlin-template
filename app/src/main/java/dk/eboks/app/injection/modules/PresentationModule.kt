@@ -14,18 +14,18 @@ import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentCo
 import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentContract
 import dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentPresenter
-import dk.eboks.app.presentation.ui.mail.folder.FolderContract
-import dk.eboks.app.presentation.ui.mail.folder.FolderPresenter
-import dk.eboks.app.presentation.ui.mail.list.MailListContract
-import dk.eboks.app.presentation.ui.mail.list.MailListPresenter
-import dk.eboks.app.presentation.ui.mail.overview.MailOverviewContract
-import dk.eboks.app.presentation.ui.mail.overview.MailOverviewPresenter
-import dk.eboks.app.presentation.ui.main.MainContract
-import dk.eboks.app.presentation.ui.main.MainPresenter
-import dk.eboks.app.presentation.ui.message.MessageContract
-import dk.eboks.app.presentation.ui.message.MessagePresenter
-import dk.eboks.app.presentation.ui.message.sheet.MessageSheetContract
-import dk.eboks.app.presentation.ui.message.sheet.MessageSheetPresenter
+import dk.eboks.app.presentation.ui.screens.mail.folder.FolderContract
+import dk.eboks.app.presentation.ui.screens.mail.folder.FolderPresenter
+import dk.eboks.app.presentation.ui.screens.mail.list.MailListContract
+import dk.eboks.app.presentation.ui.screens.mail.list.MailListPresenter
+import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewContract
+import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
+import dk.eboks.app.presentation.ui.screens.main.MainContract
+import dk.eboks.app.presentation.ui.screens.main.MainPresenter
+import dk.eboks.app.presentation.ui.screens.message.MessageContract
+import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
+import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetContract
+import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetPresenter
 import dk.eboks.app.presentation.ui.components.message.attachments.AttachmentsComponentContract
 import dk.eboks.app.presentation.ui.components.message.attachments.AttachmentsComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.document.DocumentComponentContract
@@ -38,8 +38,8 @@ import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentContr
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentContract
 import dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentPresenter
-import dk.eboks.app.presentation.ui.splash.SplashContract
-import dk.eboks.app.presentation.ui.splash.SplashPresenter
+import dk.eboks.app.presentation.ui.screens.splash.SplashContract
+import dk.eboks.app.presentation.ui.screens.splash.SplashPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
 /**

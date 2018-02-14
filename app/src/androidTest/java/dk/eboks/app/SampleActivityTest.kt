@@ -31,7 +31,7 @@ class SampleActivityTest {
     //Tells the UI Test that we'll start and tests in this Activity.
     @Rule
     @JvmField
-    var mainActivityActivity = ActivityTestRule<dk.eboks.app.presentation.ui.main.MainActivity>(dk.eboks.app.presentation.ui.main.MainActivity::class.java)
+    var mainActivityActivity = ActivityTestRule<dk.eboks.app.presentation.ui.screens.main.MainActivity>(dk.eboks.app.presentation.ui.screens.main.MainActivity::class.java)
 
 
     @Before
@@ -72,7 +72,7 @@ class SampleActivityTest {
         onView(withId(dk.eboks.app.R.id.buttonOpenActivity)).perform(click())
 
         // 2) Check if the activity has started and is showing
-        intended(hasComponent(dk.eboks.app.presentation.ui.main.SampleActivity::class.java.name))
+        intended(hasComponent(dk.eboks.app.presentation.ui.screens.main.SampleActivity::class.java.name))
 
     }
 
