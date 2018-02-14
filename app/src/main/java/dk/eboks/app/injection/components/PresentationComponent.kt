@@ -84,7 +84,5 @@ interface PresentationComponent {
     fun inject(target : SenderCarouselComponentPresenter)
 
 
-
-
     fun inject(target : HintActivity)
 }

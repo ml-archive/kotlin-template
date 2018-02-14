@@ -1,86 +1,65 @@
 package dk.eboks.app.presentation.ui.mail.overview
 
-import dk.eboks.app.domain.interactors.GetCategoriesInteractor
-import dk.eboks.app.domain.interactors.GetSendersInteractor
+import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.Folder
-import dk.eboks.app.domain.models.Sender
+import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.RefreshFolderShortcutsDoneEvent
+import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.RefreshFolderShortcutsEvent
+import dk.eboks.app.presentation.ui.components.mail.sendercarousel.RefreshSenderCarouselDoneEvent
+import dk.eboks.app.presentation.ui.components.mail.sendercarousel.RefreshSenderCarouselEvent
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import timber.log.Timber
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-class MailOverviewPresenter @Inject constructor(val appState: AppStateManager, val getSendersInteractor: GetSendersInteractor, val getCategoriesInteractor: GetCategoriesInteractor) :
+class MailOverviewPresenter @Inject constructor(val appState: AppStateManager) :
         MailOverviewContract.Presenter,
-        BasePresenterImpl<MailOverviewContract.View>(),
-        GetSendersInteractor.Output,
-        GetCategoriesInteractor.Output
+        BasePresenterImpl<MailOverviewContract.View>()
 {
-    var refreshingSenders = false
     var refreshingFolders = false
+    var refreshingSenders = false
 
     init {
-        getSendersInteractor.input = GetSendersInteractor.Input(true)
-        getSendersInteractor.output = this
-        getSendersInteractor.run()
 
-        getCategoriesInteractor.input = GetCategoriesInteractor.Input(true)
-        getCategoriesInteractor.output = this
-        getCategoriesInteractor.run()
     }
 
+    override fun onViewCreated(view: MailOverviewContract.View, lifecycle: Lifecycle) {
+        super.onViewCreated(view, lifecycle)
+        EventBus.getDefault().register(this)
+    }
 
-    fun updateRefreshProgress()
+    override fun onViewDetached() {
+        EventBus.getDefault().unregister(this)
+        super.onViewDetached()
+    }
+
+    override fun refresh()
     {
-        if(!refreshingFolders && !refreshingSenders)
-        {
-            view?.showRefreshProgress(false)
-        }
-    }
-
-    override fun refresh() {
-        getSendersInteractor.input = GetSendersInteractor.Input(false)
-        getSendersInteractor.run()
-        getCategoriesInteractor.input = GetCategoriesInteractor.Input(false)
-        getCategoriesInteractor.run()
         refreshingFolders = true
         refreshingSenders = true
+        EventBus.getDefault().post(RefreshFolderShortcutsEvent())
+        EventBus.getDefault().post(RefreshSenderCarouselEvent())
     }
 
-    override fun setCurrentFolder(folder: Folder) {
-        appState.state?.currentFolder = folder
-        appState.save()
+    fun stopProgressIfDone()
+    {
+        if(!refreshingFolders && !refreshingSenders)
+            runAction { v-> v.showProgress(false) }
     }
 
-    override fun onGetSenders(senders: List<Sender>) {
-        Timber.e("Received them senders")
-        refreshingSenders = false
-        runAction { v ->
-            v.showSenders(senders)
-            updateRefreshProgress()
-        }
-    }
-
-    override fun onGetSendersError(msg: String) {
-        refreshingSenders = false
-        Timber.e(msg)
-        runAction { v-> v.showRefreshProgress(false) }
-    }
-
-    override fun onGetCategories(folders: List<Folder>) {
-        Timber.e("Received them folders")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: RefreshFolderShortcutsDoneEvent) {
         refreshingFolders = false
-        runAction { v ->
-            v.showFolders(folders)
-            updateRefreshProgress()
-        }
+        stopProgressIfDone()
     }
 
-    override fun onGetCategoriesError(msg: String) {
-        refreshingFolders = false
-        runAction { v-> v.showRefreshProgress(false) }
-        Timber.e(msg)
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: RefreshSenderCarouselDoneEvent) {
+        refreshingSenders = false
+        stopProgressIfDone()
     }
+
 }

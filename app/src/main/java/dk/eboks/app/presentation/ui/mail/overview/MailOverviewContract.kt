@@ -1,7 +1,5 @@
 package dk.eboks.app.presentation.ui.mail.overview
 
-import dk.eboks.app.domain.models.Folder
-import dk.eboks.app.domain.models.Sender
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 
@@ -10,15 +8,10 @@ import dk.nodes.arch.presentation.base.BaseView
  */
 interface MailOverviewContract {
     interface View : BaseView {
-        fun showError(msg : String)
-        fun showSenders(senders : List<Sender>)
-        fun showFolders(folders : List<Folder>)
-        fun showRefreshProgress(show : Boolean)
-        fun openFolder(folder: Folder)
+        fun showProgress(show: Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
         fun refresh()
-        fun setCurrentFolder(folder: Folder)
     }
 }

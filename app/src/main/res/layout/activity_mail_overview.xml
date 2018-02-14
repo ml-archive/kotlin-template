@@ -25,128 +25,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <FrameLayout
-                    android:animateLayoutChanges="true"
+                <fragment
+                    android:id="@+id/senderCarouselFragment"
+                    android:name="dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white">
-
-                    <LinearLayout
-                        android:id="@+id/sendersListLl"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="24dp"
-                        android:paddingBottom="16dp">
-                        <LinearLayout
-                            android:orientation="horizontal"
-                            android:layout_marginStart="@dimen/margin_normal"
-                            android:layout_marginEnd="@dimen/margin_normal"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical">
-                            <TextView
-                                android:id="@+id/sendersHeaderTv"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                style="@style/Header.Dark.One"
-                                android:text="Mail from your senders"/>
-
-                            <TextView
-                                android:id="@+id/sendersShowAllTv"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:paddingStart="16dp"
-                                android:drawableRight="@drawable/ic_chevron_right"
-                                style="@style/Navigation.Dark.Three"
-                                android:text="_Show all"/>
-                        </LinearLayout>
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/sendersRv"
-                            android:layout_marginTop="24dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="108dp"
-                            android:scrollbars="none"
-                            />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/sendersListEmptyLl"
-                        android:visibility="gone"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="24dp"
-                        android:paddingBottom="16dp">
-
-                        <TextView
-                            android:id="@+id/sendersEmptyHeaderTv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            style="@style/Header.Dark.One"
-                            android:text="_No mails from your senders"/>
-
-                        <TextView
-                            android:id="@+id/sendersEmptyDescTv"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginStart="32dp"
-                            android:layout_marginEnd="32dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            style="@style/Navigation.Light.Two"
-                            android:lineSpacingExtra="5sp"
-                            android:text="_Bla bla bla"/>
-
-                        <Button
-                            android:id="@+id/addMoreSendersBtn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Button.SolidGradient"
-                            android:layout_marginTop="12dp"
-                            android:layout_marginBottom="12dp"
-                            android:layout_gravity="center_horizontal"
-                            android:text="_Add more senders"/>
-
-                    </LinearLayout>
-
-                </FrameLayout>
+                    android:layout_height="wrap_content" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="@color/dividerGreyBlue" />
 
-                <TextView
-                    android:id="@+id/yourMailTv"
+                <fragment
+                    android:id="@+id/folderShortcutsFragment"
+                    android:name="dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:gravity="left|bottom"
-                    android:paddingStart="@dimen/margin_normal"
-                    android:paddingBottom="8dp"
-                    style="@style/Header.Dark.Two"
-                    android:text="_Your mail"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/dividerGreyBlue" />
-
-                <LinearLayout
-                    android:id="@+id/yourMailLl"
-                    android:orientation="vertical"
-                    android:showDividers="middle"
-                    android:background="@color/white"
-                    android:divider="@drawable/dark_grey_blue_divider"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-
-                </LinearLayout>
+                    android:layout_height="wrap_content" />
 
                 <View
                     android:layout_width="match_parent"

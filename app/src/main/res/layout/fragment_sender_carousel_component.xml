@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:animateLayoutChanges="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/sendersListLl"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="24dp"
+        android:paddingBottom="16dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:layout_marginEnd="@dimen/margin_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+            <TextView
+                android:id="@+id/sendersHeaderTv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                style="@style/Header.Dark.One"
+                android:text="Mail from your senders"/>
+
+            <TextView
+                android:id="@+id/sendersShowAllTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:drawableRight="@drawable/ic_chevron_right"
+                style="@style/Navigation.Dark.Three"
+                android:text="_Show all"/>
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/sendersRv"
+            android:layout_marginTop="24dp"
+            android:layout_width="match_parent"
+            android:layout_height="108dp"
+            android:scrollbars="none"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/sendersListEmptyLl"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="24dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:id="@+id/sendersEmptyHeaderTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            style="@style/Header.Dark.One"
+            android:text="_No mails from your senders"/>
+
+        <TextView
+            android:id="@+id/sendersEmptyDescTv"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            style="@style/Navigation.Light.Two"
+            android:lineSpacingExtra="5sp"
+            android:text="_Bla bla bla"/>
+
+        <Button
+            android:id="@+id/addMoreSendersBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Button.SolidGradient"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_gravity="center_horizontal"
+            android:text="_Add more senders"/>
+
+    </LinearLayout>
+
+</FrameLayout>

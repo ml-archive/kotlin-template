@@ -149,6 +149,8 @@ dependencies {
 
     implementation "net.hockeyapp.android:HockeySDK:$hockey_sdk_version"
     implementation "com.jakewharton.timber:timber:$timber_version"
+    implementation 'org.greenrobot:eventbus:3.0.0'
+
 
     implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
 

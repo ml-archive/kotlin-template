@@ -10,6 +10,8 @@ import dk.eboks.app.presentation.ui.components.folder.userfolders.UserFoldersCom
 import dk.eboks.app.presentation.ui.components.folder.userfolders.UserFoldersComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentContract
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentPresenter
+import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentContract
+import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentContract
 import dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentPresenter
 import dk.eboks.app.presentation.ui.mail.folder.FolderContract
@@ -60,8 +62,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMailOverviewPresenter(stateManager: AppStateManager, getSendersInteractor: GetSendersInteractor, getFoldersInteractor: GetCategoriesInteractor) : MailOverviewContract.Presenter {
-        return MailOverviewPresenter(stateManager, getSendersInteractor, getFoldersInteractor)
+    fun provideMailOverviewPresenter(stateManager: AppStateManager) : MailOverviewContract.Presenter {
+        return MailOverviewPresenter(stateManager)
     }
 
     @ActivityScope
@@ -138,13 +140,19 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideFolderShortcutsComponentPresenter(stateManager: AppStateManager) : FolderShortcutsComponentContract.Presenter {
-        return FolderShortcutsComponentPresenter(stateManager)
+    fun provideFolderShortcutsComponentPresenter(stateManager: AppStateManager, getCategoriesInteractor: GetCategoriesInteractor) : FolderShortcutsComponentContract.Presenter {
+        return FolderShortcutsComponentPresenter(stateManager, getCategoriesInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideSenderCarouselComponentPresenter(stateManager: AppStateManager) : SenderCarouselComponentContract.Presenter {
-        return SenderCarouselComponentPresenter(stateManager)
+    fun provideSenderCarouselComponentPresenter(stateManager: AppStateManager, sendersInteractor: GetSendersInteractor) : SenderCarouselComponentContract.Presenter {
+        return SenderCarouselComponentPresenter(stateManager, sendersInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideMailListComponentPresenter(stateManager: AppStateManager, getMessagesInteractor: GetMessagesInteractor) : MailListComponentContract.Presenter {
+        return MailListComponentPresenter(stateManager, getMessagesInteractor)
     }
 }
