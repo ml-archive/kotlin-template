@@ -1,4 +1,4 @@
-package dk.eboks.app.pasta
+package dk.eboks.app.pasta.activity
 
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
@@ -6,11 +6,11 @@ import dk.nodes.arch.presentation.base.BaseView
 /**
  * Created by bison on 07-11-2017.
  */
-interface PastaComponentContract {
+interface PastaContract {
     interface View : BaseView {
-
+        fun showError(msg : String)
     }
 
-    interface Presenter : BasePresenter<PastaComponentContract.View> {
+    interface Presenter : BasePresenter<View> {
     }
 }

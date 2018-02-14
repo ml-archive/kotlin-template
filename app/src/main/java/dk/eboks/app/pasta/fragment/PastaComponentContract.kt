@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.screens.main
+package dk.eboks.app.pasta.fragment
 
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
@@ -6,11 +6,11 @@ import dk.nodes.arch.presentation.base.BaseView
 /**
  * Created by bison on 07-11-2017.
  */
-interface MainContract {
+interface PastaComponentContract {
     interface View : BaseView {
-        fun showError(msg : String)
+
     }
 
-    interface Presenter : BasePresenter<MainContract.View> {
+    interface Presenter : BasePresenter<View> {
     }
 }

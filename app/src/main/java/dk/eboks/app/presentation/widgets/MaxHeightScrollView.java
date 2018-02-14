@@ -1,9 +1,7 @@
-package dk.eboks.app.presentation.ui.widgets;
+package dk.eboks.app.presentation.widgets;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.os.Build;
 import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 

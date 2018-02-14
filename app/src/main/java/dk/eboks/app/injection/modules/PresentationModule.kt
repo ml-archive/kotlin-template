@@ -20,8 +20,8 @@ import dk.eboks.app.presentation.ui.screens.mail.list.MailListContract
 import dk.eboks.app.presentation.ui.screens.mail.list.MailListPresenter
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewContract
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
-import dk.eboks.app.presentation.ui.screens.main.MainContract
-import dk.eboks.app.presentation.ui.screens.main.MainPresenter
+import dk.eboks.app.pasta.activity.PastaContract
+import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageContract
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
 import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetContract
@@ -50,8 +50,8 @@ import dk.nodes.arch.domain.injection.scopes.ActivityScope
 class PresentationModule {
     @ActivityScope
     @Provides
-    fun provideMainPresenter(getPostsInteractor: LoginInteractor) : MainContract.Presenter {
-        return MainPresenter(getPostsInteractor)
+    fun provideMainPresenter(appState: AppStateManager) : PastaContract.Presenter {
+        return PastaPresenter(appState)
     }
 
     @ActivityScope
@@ -68,8 +68,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMailListPresenter(appState: AppStateManager, getMessagesInteractor: GetMessagesInteractor) : MailListContract.Presenter {
-        return MailListPresenter(appState, getMessagesInteractor)
+    fun provideMailListPresenter(appState: AppStateManager) : MailListContract.Presenter {
+        return MailListPresenter(appState)
     }
 
     @ActivityScope

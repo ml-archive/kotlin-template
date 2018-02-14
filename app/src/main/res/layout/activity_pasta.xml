@@ -9,11 +9,4 @@
     <include layout="@layout/include_navigation_view"  />
 
 
-    <ImageView
-        android:id="@+id/circleIv"
-        android:layout_gravity="center"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:background="@drawable/circular_image_view_background"/>
-
 </android.support.design.widget.CoordinatorLayout>

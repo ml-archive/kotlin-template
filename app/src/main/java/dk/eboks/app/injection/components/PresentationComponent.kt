@@ -8,6 +8,8 @@ import dk.eboks.app.presentation.ui.components.folder.userfolders.UserFoldersCom
 import dk.eboks.app.presentation.ui.components.folder.userfolders.UserFoldersComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentFragment
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentPresenter
+import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentFragment
+import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentFragment
 import dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentPresenter
 import dk.eboks.app.presentation.ui.screens.debug.hinter.HintActivity
@@ -17,8 +19,8 @@ import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.mail.list.MailListPresenter
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
-import dk.eboks.app.presentation.ui.screens.main.MainActivity
-import dk.eboks.app.presentation.ui.screens.main.MainPresenter
+import dk.eboks.app.pasta.activity.PastaActivity
+import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
 import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetActivity
@@ -46,8 +48,8 @@ import dk.nodes.arch.domain.injection.scopes.ActivityScope
 @Component(dependencies = arrayOf(AppComponent::class), modules = arrayOf(PresentationModule::class))
 @ActivityScope
 interface PresentationComponent {
-    fun inject(target : MainActivity)
-    fun inject(target : MainPresenter)
+    fun inject(target : PastaActivity)
+    fun inject(target : PastaPresenter)
     fun inject(target : SplashActivity)
     fun inject(target : SplashPresenter)
     fun inject(target : MailOverviewActivity)
@@ -82,6 +84,8 @@ interface PresentationComponent {
     fun inject(target : FolderShortcutsComponentPresenter)
     fun inject(target : SenderCarouselComponentFragment)
     fun inject(target : SenderCarouselComponentPresenter)
+    fun inject(target : MailListComponentFragment)
+    fun inject(target : MailListComponentPresenter)
 
 
     fun inject(target : HintActivity)

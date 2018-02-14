@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.mail.maillist
 
+import dk.eboks.app.domain.models.Message
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 
@@ -8,9 +9,13 @@ import dk.nodes.arch.presentation.base.BaseView
  */
 interface MailListComponentContract {
     interface View : BaseView {
-
+        fun showError(msg : String)
+        fun showRefreshProgress(show : Boolean)
+        fun showMessages(messages : List<Message>)
     }
 
     interface Presenter : BasePresenter<MailListComponentContract.View> {
+        fun setCurrentMessage(message: Message)
+        fun refresh()
     }
 }

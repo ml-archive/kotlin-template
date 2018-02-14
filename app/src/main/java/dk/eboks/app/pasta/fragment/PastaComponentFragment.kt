@@ -1,4 +1,4 @@
-package dk.eboks.app.pasta
+package dk.eboks.app.pasta.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

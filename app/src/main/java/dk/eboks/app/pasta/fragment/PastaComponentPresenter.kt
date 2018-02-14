@@ -1,4 +1,4 @@
-package dk.eboks.app.pasta
+package dk.eboks.app.pasta.fragment
 
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.nodes.arch.presentation.base.BasePresenterImpl

@@ -1,9 +1,8 @@
-package dk.eboks.app.presentation.ui.widgets
+package dk.eboks.app.presentation.widgets
 
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.ImageView
-import android.widget.LinearLayout
 
 /**
  * Created by bison on 30/01/18.

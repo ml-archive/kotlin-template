@@ -5,7 +5,7 @@ import android.content.Intent
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
-import dk.eboks.app.presentation.ui.screens.main.MainActivity
+import dk.eboks.app.pasta.activity.PastaActivity
 import dk.eboks.app.util.disableShiftingMode
 import kotlinx.android.synthetic.main.include_navigation_view.*
 
@@ -42,7 +42,7 @@ abstract class MainNavigationBaseActivity : BaseActivity() {
             when(item.itemId)
             {
                 R.id.actionHome -> {
-                    activityCls = MainActivity::class.java
+                    activityCls = PastaActivity::class.java
                     currentMenuItem = R.id.actionHome
                 }
                 R.id.actionMail -> {

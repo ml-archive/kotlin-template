@@ -36,7 +36,7 @@
             </intent-filter>
         </activity>
         <activity android:name="dk.eboks.app.presentation.ui.screens.debug.hinter.HintActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.main.MainActivity" />
+        <activity android:name="dk.eboks.app.pasta.activity.PastaActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity" />

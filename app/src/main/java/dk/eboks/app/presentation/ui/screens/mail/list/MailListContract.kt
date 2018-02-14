@@ -10,13 +10,9 @@ import dk.nodes.arch.presentation.base.BaseView
 interface MailListContract {
     interface View : BaseView {
         fun showError(msg : String)
-        fun showRefreshProgress(show : Boolean)
-        fun showMessages(messages : List<Message>)
         fun showFolderName(name : String)
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setCurrentMessage(message: Message)
-        fun refresh()
     }
 }
