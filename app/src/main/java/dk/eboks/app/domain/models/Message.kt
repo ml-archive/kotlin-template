@@ -10,7 +10,7 @@ import kotlin.collections.ArrayList
 data class Message(
     var id : Long,
     var name : String,
-    var isRead : Boolean,
+    var unread : Boolean,
     var date : Date,
     var sender: Sender?,
     var status: Status?,

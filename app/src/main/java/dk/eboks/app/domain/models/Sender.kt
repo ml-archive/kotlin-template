@@ -8,6 +8,6 @@ import java.io.Serializable
 data class Sender(
     var id : Long,
     var name : String = "",
-    var unreadEmailsCount : Int = 0,
-    var imageUrl : String = ""
+    var unreadCount : Int = 0,
+    var logo : String = ""
 ) : Serializable
