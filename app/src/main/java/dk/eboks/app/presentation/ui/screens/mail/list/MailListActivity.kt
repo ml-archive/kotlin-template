@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import dk.eboks.app.R
-import dk.eboks.app.presentation.base.MainNavigationBaseActivity
+import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.screens.debug.hinter.HintActivity
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.include_toolnar.*
 import javax.inject.Inject
 
-class MailListActivity : MainNavigationBaseActivity(), MailListContract.View {
+class MailListActivity : BaseActivity(), MailListContract.View {
     @Inject lateinit var presenter: MailListContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {

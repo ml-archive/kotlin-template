@@ -36,6 +36,8 @@ import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentContr
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentContract
 import dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentPresenter
+import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContract
+import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.screens.splash.SplashContract
 import dk.eboks.app.presentation.ui.screens.splash.SplashPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
@@ -146,5 +148,11 @@ class PresentationModule {
     @Provides
     fun provideMailListComponentPresenter(stateManager: AppStateManager, getMessagesInteractor: GetMessagesInteractor) : MailListComponentContract.Presenter {
         return MailListComponentPresenter(stateManager, getMessagesInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideNavBarComponentPresenter(stateManager: AppStateManager) : NavBarComponentContract.Presenter {
+        return NavBarComponentPresenter(stateManager)
     }
 }

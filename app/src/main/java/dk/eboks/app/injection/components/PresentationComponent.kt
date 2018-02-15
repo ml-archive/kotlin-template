@@ -35,6 +35,8 @@ import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentFragm
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentPresenter
+import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
+import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.screens.splash.SplashActivity
 import dk.eboks.app.presentation.ui.screens.splash.SplashPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
@@ -82,6 +84,8 @@ interface PresentationComponent {
     fun inject(target : SenderCarouselComponentPresenter)
     fun inject(target : MailListComponentFragment)
     fun inject(target : MailListComponentPresenter)
+    fun inject(target : NavBarComponentFragment)
+    fun inject(target : NavBarComponentPresenter)
 
 
     fun inject(target : HintActivity)

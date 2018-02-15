@@ -1,11 +1,11 @@
 package dk.eboks.app.pasta.activity
 
 import android.os.Bundle
-import dk.eboks.app.presentation.base.MainNavigationBaseActivity
+import dk.eboks.app.presentation.base.BaseActivity
 import timber.log.Timber
 import javax.inject.Inject
 
-class PastaActivity : MainNavigationBaseActivity(), PastaContract.View {
+class PastaActivity : BaseActivity(), PastaContract.View {
     @Inject lateinit var presenter: PastaContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {

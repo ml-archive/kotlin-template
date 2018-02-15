@@ -3,7 +3,7 @@ package dk.eboks.app.presentation.ui.screens.mail.overview
 import android.os.Bundle
 import android.view.View
 import dk.eboks.app.R
-import dk.eboks.app.presentation.base.MainNavigationBaseActivity
+import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.screens.debug.hinter.HintActivity
 import dk.eboks.app.presentation.ui.dialogs.ConfirmDialogFragment
 import kotlinx.android.synthetic.main.activity_mail_overview.*
@@ -12,7 +12,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 
-class MailOverviewActivity : MainNavigationBaseActivity(), MailOverviewContract.View {
+class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
     @Inject lateinit var presenter: MailOverviewContract.Presenter
 
 

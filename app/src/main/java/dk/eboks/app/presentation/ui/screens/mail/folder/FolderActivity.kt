@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.View
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.presentation.base.MainNavigationBaseActivity
+import dk.eboks.app.presentation.base.BaseActivity
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.include_toolnar.*
 import javax.inject.Inject
 
-class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
+class FolderActivity : BaseActivity(), FolderContract.View {
     @Inject lateinit var presenter: FolderContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +38,6 @@ class FolderActivity : MainNavigationBaseActivity(), FolderContract.View {
         toolbarTv.visibility = View.GONE
         toolbarLargeTv.visibility = View.VISIBLE
         toolbarLargeTv.text = Translation.folders.foldersHeader
-
     }
 
 

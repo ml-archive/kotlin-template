@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.presentation.base.MainNavigationBaseActivity
+import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.UpdateType
@@ -60,7 +60,7 @@ class SplashActivity : BaseActivity(), SplashContract.View {
     }
 
     override fun startMain() {
-        MainNavigationBaseActivity.currentMenuItem = R.id.actionMail
+        NavBarComponentFragment.currentMenuItem = R.id.actionMail
         startActivity(Intent(this, MailOverviewActivity::class.java))
         finish()
         overridePendingTransition(0, 0)
