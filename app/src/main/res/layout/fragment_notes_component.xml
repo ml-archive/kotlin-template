@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="16dp"
-        style="@style/Header.Dark.Two"
+        style="@style/text.header3"
         android:text="_Notes"/>
     <View
         android:id="@+id/focusThiefV"

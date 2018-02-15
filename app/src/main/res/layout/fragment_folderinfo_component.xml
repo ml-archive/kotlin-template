@@ -16,7 +16,7 @@
             android:id="@+id/folderTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Header.Dark.Two"
+            style="@style/text.header3"
             android:text="_Folder"/>
 
         <TextView
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
             android:gravity="end"
-            style="@style/Navigation.Light.Three"
+            style="@style/text.subHeader5.quaternary"
             android:text=""/>
 
     </LinearLayout>

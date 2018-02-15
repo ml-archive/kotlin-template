@@ -38,7 +38,7 @@
                 android:lines="1"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                style="@style/Navigation.Dark.Two"
+                style="@style/text.header3"
                 android:text="Main document"/>
 
             <TextView
@@ -48,7 +48,7 @@
                 android:lines="1"
                 android:layout_marginStart="12dp"
                 android:gravity="end"
-                style="@style/Navigation.Light.Three"
+                style="@style/text.subHeader5.quaternary"
                 android:text="2,3 MB"/>
         </LinearLayout>
     </FrameLayout>

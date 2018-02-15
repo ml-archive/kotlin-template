@@ -21,14 +21,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:gravity="center"
-                style="@style/Header.Dark.One"
+                style="@style/text.header2"
                 android:text="Hints"/>
             <TextView
                 android:id="@+id/hintTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="5sp"
-                style="@style/Navigation.Light.Two"
+                style="@style/text.body6.secondary"
                 android:text="Hej per"/>
             <CheckBox
                 android:id="@+id/disableCb"
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="Go away"
-                style="@style/Button.SolidGradient"/>
+                style="@style/button.SolidGradient"/>
         </LinearLayout>
     </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

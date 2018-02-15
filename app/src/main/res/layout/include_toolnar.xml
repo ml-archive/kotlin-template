@@ -44,7 +44,7 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:gravity="center"
-            style="@style/Navigation.Dark.Two"
+            style="@style/text.header3"
             android:drawableEnd="@drawable/ic_chevron_down"
             android:background="@drawable/rounded_grey_background"
             android:textColor="@color/darkGreyBlue"
@@ -60,7 +60,7 @@
         android:layout_marginEnd="@dimen/margin_normal"
         android:layout_marginBottom="6dp"
         android:textSize="34sp"
-        style="@style/Header.Dark.One"
+        style="@style/text.header3"
         android:text="_All mail"/>
     <View
         android:layout_width="match_parent"

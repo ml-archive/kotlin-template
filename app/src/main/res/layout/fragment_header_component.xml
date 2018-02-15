@@ -29,14 +29,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
-                style="@style/Header.Dark.Two"
+                style="@style/text.header3"
                 android:text="header component"/>
             <TextView
                 android:id="@+id/titleTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="11dp"
-                style="@style/Navigation.Light.Three"
+                style="@style/text.subHeader5.quaternary"
                 android:text="header component"/>
         </LinearLayout>
     </LinearLayout>

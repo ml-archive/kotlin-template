@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            style="@style/Header.Dark.One"
+            style="@style/text.header3"
             android:text="_Title"/>
 
         <TextView
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            style="@style/Navigation.Light.Two"
+            style="@style/text.body6.secondary"
             android:lineSpacingExtra="5sp"
             android:text="_message"/>
 
@@ -42,7 +42,7 @@
                 android:id="@+id/negBtn"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                style="@style/Button.OutlineGradient"
+                style="@style/button.OutlineGradient"
                 android:layout_gravity="left"
                 android:text="_No"/>
 
@@ -50,7 +50,7 @@
                 android:id="@+id/posBtn"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                style="@style/Button.SolidGradient"
+                style="@style/button.SolidGradient"
                 android:layout_gravity="right"
                 android:text="_Si"/>
         </FrameLayout>

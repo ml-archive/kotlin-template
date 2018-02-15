@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:paddingBottom="350dp"
-                style="@style/Navigation.Dark.One"
+                style="@style/text.header2"
                 android:layout_gravity="center"
                 android:text="[Document]"/>
 

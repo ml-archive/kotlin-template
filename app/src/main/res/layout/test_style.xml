@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!--header 0-->
+        <TextView
+            style="@style/text.header0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 0 Header" />
+
+        <!--header 1-->
+        <TextView
+            style="@style/text.header1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 1 Header" />
+
+        <!--header 2-->
+        <TextView
+            style="@style/text.header2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 2 Header" />
+
+        <TextView
+            style="@style/text.header2.secondary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 2 Header" />
+
+        <!--header 3-->
+        <TextView
+            style="@style/text.header3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 3 Header" />
+
+        <!--header 3 condensed-->
+        <TextView
+            style="@style/text.header3.condensed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 3 Header condensend" />
+
+        <!--header 4-->
+        <TextView
+            style="@style/text.header4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 4 Header" />
+
+        <TextView
+            style="@style/text.header4.secondary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 4 Header" />
+
+        <TextView
+            style="@style/text.header4.tertiary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 4 Header" />
+
+        <TextView
+            style="@style/text.header4.quaternary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 4 Header" />
+
+        <!--header 5-->
+        <TextView
+            style="@style/text.subHeader5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 5 Subheader" />
+
+        <TextView
+            style="@style/text.subHeader5.quaternary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 5 Subheader" />
+
+        <TextView
+            style="@style/text.subHeader5.tertiary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 5 Subheader" />
+
+        <!--Body 6-->
+        <TextView
+            style="@style/text.body6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 6 Body" />
+
+        <TextView
+            style="@style/text.body6.secondary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - 6 Body" />
+
+
+        <!--Button small-->
+        <TextView
+            style="@style/text.buttonSmall.tertiary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - Button Small" />
+
+        <TextView
+            style="@style/text.buttonSmall.quaternary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - Button Small" />
+
+        <TextView
+            style="@style/text.buttonSmall.white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/textColorSecondary"
+            android:text="Text style - Button Small" />
+
+        <TextView
+            style="@style/text.buttonSmall"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - Button Small" />
+
+        <!--Button normal-->
+        <TextView
+            style="@style/text.button.tertiary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - Button" />
+
+        <TextView
+            style="@style/text.button.quaternary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - Button" />
+
+        <TextView
+            style="@style/text.button.white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/textColorSecondary"
+            android:text="Text style - Button" />
+
+        <TextView
+            style="@style/text.button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - Button" />
+
+        <!--Button Large-->
+        <TextView
+            style="@style/text.buttonLarge.tertiary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - Button Large" />
+
+        <TextView
+            style="@style/text.buttonLarge.quaternary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - Button Large" />
+
+        <TextView
+            style="@style/text.buttonLarge.white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/textColorSecondary"
+            android:text="Text style - Button Large" />
+
+        <TextView
+            style="@style/text.buttonLarge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Text style - Button Large" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
+
