@@ -30,7 +30,7 @@
 
             <fragment
                 android:id="@+id/previewFragment"
-                android:name="dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentFragment"
+                android:name="dk.eboks.app.presentation.ui.components.message.viewers.pdf.PdfViewComponentFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 

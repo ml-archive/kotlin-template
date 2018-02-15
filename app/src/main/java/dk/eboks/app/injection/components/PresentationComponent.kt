@@ -33,8 +33,14 @@ import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentFra
 import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentFragment
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
-import dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentFragment
-import dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentFragment
+import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentFragment
+import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.viewers.pdf.PdfViewComponentFragment
+import dk.eboks.app.presentation.ui.components.message.viewers.pdf.PdfViewComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentFragment
+import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.screens.splash.SplashActivity
@@ -74,8 +80,8 @@ interface PresentationComponent {
     fun inject(target : FolderInfoComponentPresenter)
     fun inject(target : DocumentComponentFragment)
     fun inject(target : DocumentComponentPresenter)
-    fun inject(target : PdfPreviewComponentFragment)
-    fun inject(target : PdfPreviewComponentPresenter)
+    fun inject(target : PdfViewComponentFragment)
+    fun inject(target : PdfViewComponentPresenter)
     fun inject(target : FoldersComponentFragment)
     fun inject(target : FoldersComponentPresenter)
     fun inject(target : FolderShortcutsComponentFragment)
@@ -86,7 +92,12 @@ interface PresentationComponent {
     fun inject(target : MailListComponentPresenter)
     fun inject(target : NavBarComponentFragment)
     fun inject(target : NavBarComponentPresenter)
-
+    fun inject(target : HtmlViewComponentFragment)
+    fun inject(target : HtmlViewComponentPresenter)
+    fun inject(target : ImageViewComponentFragment)
+    fun inject(target : ImageViewComponentPresenter)
+    fun inject(target : TextViewComponentFragment)
+    fun inject(target : TextViewComponentPresenter)
 
     fun inject(target : HintActivity)
 }

@@ -34,8 +34,14 @@ import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentCon
 import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentContract
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
-import dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentContract
-import dk.eboks.app.presentation.ui.components.message.pdfpreview.PdfPreviewComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentContract
+import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentContract
+import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.viewers.pdf.PdfViewComponentContract
+import dk.eboks.app.presentation.ui.components.message.viewers.pdf.PdfViewComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentContract
+import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContract
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.screens.splash.SplashContract
@@ -122,8 +128,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun providePdfPreviewComponentPresenter(stateManager: AppStateManager) : PdfPreviewComponentContract.Presenter {
-        return PdfPreviewComponentPresenter(stateManager)
+    fun providePdfPreviewComponentPresenter(stateManager: AppStateManager) : PdfViewComponentContract.Presenter {
+        return PdfViewComponentPresenter(stateManager)
     }
 
     @ActivityScope
@@ -155,4 +161,32 @@ class PresentationModule {
     fun provideNavBarComponentPresenter(stateManager: AppStateManager) : NavBarComponentContract.Presenter {
         return NavBarComponentPresenter(stateManager)
     }
+
+
+    @ActivityScope
+    @Provides
+    fun provideHtmlViewComponentPresenter(stateManager: AppStateManager) : HtmlViewComponentContract.Presenter {
+        return HtmlViewComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideImageViewComponentPresenter(stateManager: AppStateManager) : ImageViewComponentContract.Presenter {
+        return ImageViewComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideTextViewComponentPresenter(stateManager: AppStateManager) : TextViewComponentContract.Presenter {
+        return TextViewComponentPresenter(stateManager)
+    }
+
+
+    /* Pasta
+    @ActivityScope
+    @Provides
+    fun provideComponentPresenter(stateManager: AppStateManager) : ComponentContract.Presenter {
+        return NavBarComponentPresenter(stateManager)
+    }
+    */
 }

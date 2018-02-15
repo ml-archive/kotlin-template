@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.message.pdfpreview
+package dk.eboks.app.presentation.ui.components.message.viewers.pdf
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -12,7 +12,7 @@ import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.pdf.AsyncPdfRenderer
 import dk.eboks.app.util.pdf.RenderedPage
-import kotlinx.android.synthetic.main.fragment_pdfpreview_component.*
+import kotlinx.android.synthetic.main.fragment_pdfview_component.*
 import java.util.ArrayList
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -20,17 +20,17 @@ import kotlin.math.roundToInt
 /**
  * Created by bison on 09-02-2018.
  */
-class PdfPreviewComponentFragment : BaseFragment(), PdfPreviewComponentContract.View {
+class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View {
     private var pages: MutableList<RenderedPage> = ArrayList()
     private lateinit var renderer: AsyncPdfRenderer
 
     @Inject
-    lateinit var presenter : PdfPreviewComponentContract.Presenter
+    lateinit var presenter : PdfViewComponentContract.Presenter
 
     var pageMarginPx = 0
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_pdfpreview_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_pdfview_component, container, false)
         return rootView
     }
 
