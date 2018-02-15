@@ -2,10 +2,8 @@ package dk.eboks.app.injection.components
 
 import dagger.Component
 import dk.eboks.app.injection.modules.PresentationModule
-import dk.eboks.app.presentation.ui.components.folder.systemfolders.SystemFoldersComponentFragment
-import dk.eboks.app.presentation.ui.components.folder.systemfolders.SystemFoldersComponentPresenter
-import dk.eboks.app.presentation.ui.components.folder.userfolders.UserFoldersComponentFragment
-import dk.eboks.app.presentation.ui.components.folder.userfolders.UserFoldersComponentPresenter
+import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentFragment
+import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentFragment
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentFragment
@@ -76,10 +74,8 @@ interface PresentationComponent {
     fun inject(target : DocumentComponentPresenter)
     fun inject(target : PdfPreviewComponentFragment)
     fun inject(target : PdfPreviewComponentPresenter)
-    fun inject(target : SystemFoldersComponentFragment)
-    fun inject(target : SystemFoldersComponentPresenter)
-    fun inject(target : UserFoldersComponentFragment)
-    fun inject(target : UserFoldersComponentPresenter)
+    fun inject(target : FoldersComponentFragment)
+    fun inject(target : FoldersComponentPresenter)
     fun inject(target : FolderShortcutsComponentFragment)
     fun inject(target : FolderShortcutsComponentPresenter)
     fun inject(target : SenderCarouselComponentFragment)

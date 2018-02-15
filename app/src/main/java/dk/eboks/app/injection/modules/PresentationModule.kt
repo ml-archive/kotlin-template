@@ -4,10 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.presentation.ui.components.folder.systemfolders.SystemFoldersComponentContract
-import dk.eboks.app.presentation.ui.components.folder.systemfolders.SystemFoldersComponentPresenter
-import dk.eboks.app.presentation.ui.components.folder.userfolders.UserFoldersComponentContract
-import dk.eboks.app.presentation.ui.components.folder.userfolders.UserFoldersComponentPresenter
+import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentContract
+import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentContract
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentContract
@@ -74,8 +72,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideFolderPresenter(appState: AppStateManager, getFoldersInteractor: GetFoldersInteractor) : FolderContract.Presenter {
-        return FolderPresenter(appState, getFoldersInteractor)
+    fun provideFolderPresenter(appState: AppStateManager) : FolderContract.Presenter {
+        return FolderPresenter(appState)
     }
 
     @ActivityScope
@@ -128,14 +126,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideSystemFoldersComponentPresenter(stateManager: AppStateManager) : SystemFoldersComponentContract.Presenter {
-        return SystemFoldersComponentPresenter(stateManager)
-    }
-
-    @ActivityScope
-    @Provides
-    fun provideUserFoldersComponentPresenter(stateManager: AppStateManager) : UserFoldersComponentContract.Presenter {
-        return UserFoldersComponentPresenter(stateManager)
+    fun provideFoldersComponentPresenter(stateManager: AppStateManager, getFoldersInteractor: GetFoldersInteractor) : FoldersComponentContract.Presenter {
+        return FoldersComponentPresenter(stateManager, getFoldersInteractor)
     }
 
     @ActivityScope
