@@ -13,7 +13,7 @@
         android:gravity="left|bottom"
         android:paddingStart="@dimen/margin_normal"
         android:paddingBottom="8dp"
-        style="@style/Header.Dark.Two"
+        style="@style/text.header3"
         android:text="_Your mail"/>
 
     <View

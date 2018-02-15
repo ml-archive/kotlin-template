@@ -34,21 +34,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="7sp"
-                style="@style/Header.Dark.Two"
+                style="@style/text.header3"
                 android:text="_Name"/>
             <TextView
                 android:id="@+id/subTitleTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="4sp"
-                style="@style/Navigation.Light.Three"
+                style="@style/text.subHeader5.quaternary"
                 android:text="Inbox"/>
             <TextView
                 android:id="@+id/urgentTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="7sp"
-                style="@style/Navigation.Rogue.Three"
+                style="@style/text.subHeader5.tertiary"
                 android:text="Inbox"/>
         </LinearLayout>
 
@@ -56,7 +56,7 @@
             android:id="@+id/dateTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Navigation.Dark.Three"
+            style="@style/text.subHeader5"
             android:text="Today"/>
     </LinearLayout>
     <View

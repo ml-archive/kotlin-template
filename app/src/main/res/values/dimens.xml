@@ -5,4 +5,17 @@
     <dimen name="screen_vertical_margin">16dp</dimen>
     <dimen name="list_top_padding">8dp</dimen>
     <dimen name="margin_normal">16dp</dimen>
+
+    <dimen name="text_size_header_0">34sp</dimen>
+    <dimen name="text_size_header_1">20sp</dimen>
+    <dimen name="text_size_header_2">18sp</dimen>
+    <dimen name="text_size_header_3">15sp</dimen>
+    <dimen name="text_size_header_4">16sp</dimen>
+    <dimen name="text_size_subheader_5">13sp</dimen>
+    <dimen name="text_size_body_6">15dp</dimen>
+    <dimen name="text_size_button">14dp</dimen>
+    <dimen name="text_size_button_large">16dp</dimen>
+    <dimen name="text_size_button_small">14dp</dimen>
+
+
 </resources>
