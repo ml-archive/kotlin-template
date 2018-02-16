@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.components.mail.maillist
 
-import dk.eboks.app.domain.interactors.GetMessagesInteractor
+import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.FolderType
 import dk.eboks.app.domain.models.Message

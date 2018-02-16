@@ -65,7 +65,7 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
 
             val iv = v.findViewById<ImageView>(R.id.iconIv)
             iv?.let { it.setImageResource(folder.type.getIconResId()) }
-            v.setOnClickListener { openFolder(folder) }
+            v.setOnClickListener { presenter.openFolder(folder) }
             yourMailLl.addView(v)
         }
     }
@@ -83,11 +83,5 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
             startActivity(Intent(context, FolderActivity::class.java))
         }
         yourMailLl.addView(v)
-    }
-
-    override fun openFolder(folder: Folder) {
-        presenter.setCurrentFolder(folder)
-        startActivity(Intent(context, MailListActivity::class.java))
-        //overridePendingTransition(0, 0)
     }
 }

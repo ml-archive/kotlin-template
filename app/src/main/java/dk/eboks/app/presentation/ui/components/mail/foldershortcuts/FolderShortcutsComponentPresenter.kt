@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.components.mail.foldershortcuts
 
 import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.GetCategoriesInteractor
+import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Folder
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -16,12 +17,14 @@ import org.greenrobot.eventbus.Subscribe
 /**
  * Created by bison on 20-05-2017.
  */
-class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppStateManager, val getCategoriesInteractor: GetCategoriesInteractor) :
+class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppStateManager, val getCategoriesInteractor: GetCategoriesInteractor, val openFolderInteractor: OpenFolderInteractor) :
         FolderShortcutsComponentContract.Presenter,
         BasePresenterImpl<FolderShortcutsComponentContract.View>(),
-        GetCategoriesInteractor.Output {
+        GetCategoriesInteractor.Output,
+        OpenFolderInteractor.Output {
 
     init {
+        openFolderInteractor.output = this
         refresh(true)
     }
 
@@ -35,9 +38,9 @@ class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppSta
         super.onViewDetached()
     }
 
-    override fun setCurrentFolder(folder: Folder) {
-        appState.state?.currentFolder = folder
-        appState.save()
+    override fun openFolder(folder: Folder) {
+        openFolderInteractor.input = OpenFolderInteractor.Input(folder)
+        openFolderInteractor.run()
     }
 
 
@@ -53,6 +56,14 @@ class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppSta
         runAction { v->
             EventBus.getDefault().post(RefreshFolderShortcutsDoneEvent())
         }
+        Timber.e(msg)
+    }
+
+    override fun onOpenFolderDone() {
+
+    }
+
+    override fun onOpenFolderError(msg: String) {
         Timber.e(msg)
     }
 

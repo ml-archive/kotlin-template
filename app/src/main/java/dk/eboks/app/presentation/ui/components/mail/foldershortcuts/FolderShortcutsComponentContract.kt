@@ -11,10 +11,10 @@ interface FolderShortcutsComponentContract {
     interface View : BaseView {
         fun showError(msg : String)
         fun showFolders(folders : List<Folder>)
-        fun openFolder(folder: Folder)
+
     }
 
     interface Presenter : BasePresenter<FolderShortcutsComponentContract.View> {
-        fun setCurrentFolder(folder: Folder)
+        fun openFolder(folder: Folder)
     }
 }

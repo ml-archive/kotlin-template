@@ -66,7 +66,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
             val iv = v.findViewById<ImageView>(R.id.iconIv)
             iv?.let { it.setImageResource(folder.type.getIconResId()) }
-            v.setOnClickListener { openFolder(folder) }
+            v.setOnClickListener { presenter.openFolder(folder) }
             systemFoldersLl.addView(v)
         }
     }
@@ -103,7 +103,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
             val iv = v.findViewById<ImageView>(R.id.iconIv)
             iv?.let { it.setImageResource(folder.type.getIconResId()) }
-            v.setOnClickListener { openFolder(folder) }
+            v.setOnClickListener { presenter.openFolder(folder) }
             foldersLl.addView(v)
 
 
@@ -112,12 +112,6 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 processFoldersRecursive(folder.folders)
             }
         }
-    }
-
-    fun openFolder(folder: Folder) {
-        presenter.setCurrentFolder(folder)
-        startActivity(Intent(context, MailListActivity::class.java))
-        //overridePendingTransition(0, 0)
     }
 
     override fun showRefreshProgress(show: Boolean) {

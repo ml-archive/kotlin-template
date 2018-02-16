@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors
+package dk.eboks.app.domain.interactors.folder
 
 import dk.eboks.app.domain.models.Folder
 import dk.nodes.arch.domain.interactor.Interactor

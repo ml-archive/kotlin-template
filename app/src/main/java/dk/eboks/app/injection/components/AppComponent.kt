@@ -3,8 +3,14 @@ package dk.eboks.app.injection.components
 import dagger.Component
 import dk.eboks.app.App
 import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
+import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
+import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
+import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
+import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.PrefManager
+import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.injection.modules.*
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.Executor
@@ -29,12 +35,19 @@ interface AppComponent
     // expose functions to components dependent on this component
     fun executor() : Executor
     fun api() : Api
+
+    // managers
     fun prefManager() : PrefManager
     fun appStateManager() : AppStateManager
+    fun uiManager() : UIManager
+
+    // interactors
     fun loginInteractor() : LoginInteractor
     fun boostrapInteractor() : BootstrapInteractor
     fun getSendersInteractor() : GetSendersInteractor
     fun getCategoriesInteractor() : GetCategoriesInteractor
     fun getMessagesInteractor() : GetMessagesInteractor
     fun getFoldersInteractor() : GetFoldersInteractor
+    fun openMessageInteractor() : OpenMessageInteractor
+    fun openFolderInteractor() : OpenFolderInteractor
 }

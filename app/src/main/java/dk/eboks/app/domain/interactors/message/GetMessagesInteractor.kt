@@ -1,8 +1,7 @@
-package dk.eboks.app.domain.interactors
+package dk.eboks.app.domain.interactors.message
 
 import dk.eboks.app.domain.models.FolderType
 import dk.eboks.app.domain.models.Message
-import dk.eboks.app.domain.models.Sender
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**

@@ -3,6 +3,10 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
+import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
+import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
+import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentContract
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
@@ -62,7 +66,7 @@ import dk.nodes.arch.domain.injection.scopes.ActivityScope
 class PresentationModule {
     @ActivityScope
     @Provides
-    fun provideMainPresenter(appState: AppStateManager) : PastaContract.Presenter {
+    fun providePastaPresenter(appState: AppStateManager) : PastaContract.Presenter {
         return PastaPresenter(appState)
     }
 
@@ -140,14 +144,14 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideFoldersComponentPresenter(stateManager: AppStateManager, getFoldersInteractor: GetFoldersInteractor) : FoldersComponentContract.Presenter {
-        return FoldersComponentPresenter(stateManager, getFoldersInteractor)
+    fun provideFoldersComponentPresenter(stateManager: AppStateManager, getFoldersInteractor: GetFoldersInteractor, openFolderInteractor: OpenFolderInteractor) : FoldersComponentContract.Presenter {
+        return FoldersComponentPresenter(stateManager, getFoldersInteractor, openFolderInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideFolderShortcutsComponentPresenter(stateManager: AppStateManager, getCategoriesInteractor: GetCategoriesInteractor) : FolderShortcutsComponentContract.Presenter {
-        return FolderShortcutsComponentPresenter(stateManager, getCategoriesInteractor)
+    fun provideFolderShortcutsComponentPresenter(stateManager: AppStateManager, getCategoriesInteractor: GetCategoriesInteractor, openFolderInteractor: OpenFolderInteractor) : FolderShortcutsComponentContract.Presenter {
+        return FolderShortcutsComponentPresenter(stateManager, getCategoriesInteractor, openFolderInteractor)
     }
 
     @ActivityScope

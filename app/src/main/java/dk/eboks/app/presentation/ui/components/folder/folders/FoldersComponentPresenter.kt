@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.folder.folders
 
-import dk.eboks.app.domain.interactors.GetFoldersInteractor
+import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
+import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Folder
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -10,25 +11,27 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class FoldersComponentPresenter @Inject constructor(val appState: AppStateManager, val getFoldersInteractor: GetFoldersInteractor) :
+class FoldersComponentPresenter @Inject constructor(val appState: AppStateManager, val getFoldersInteractor: GetFoldersInteractor, val openFolderInteractor: OpenFolderInteractor) :
         FoldersComponentContract.Presenter,
         BasePresenterImpl<FoldersComponentContract.View>(),
-        GetFoldersInteractor.Output {
+        GetFoldersInteractor.Output,
+        OpenFolderInteractor.Output {
 
 
     init {
+        openFolderInteractor.output = this
+        getFoldersInteractor.output = this
         refresh()
     }
 
     override fun refresh() {
-        getFoldersInteractor.output = this
         getFoldersInteractor.input = GetFoldersInteractor.Input(false)
         getFoldersInteractor.run()
     }
 
-    override fun setCurrentFolder(folder: Folder) {
-        appState.state?.currentFolder = folder
-        appState.save()
+    override fun openFolder(folder: Folder) {
+        openFolderInteractor.input = OpenFolderInteractor.Input(folder)
+        openFolderInteractor.run()
     }
 
     override fun onGetFolders(folders: List<Folder>) {
@@ -47,5 +50,13 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
 
     override fun onGetFoldersError(msg: String) {
 
+    }
+
+    override fun onOpenFolderDone() {
+
+    }
+
+    override fun onOpenFolderError(msg: String) {
+        Timber.e(msg)
     }
 }

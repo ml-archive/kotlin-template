@@ -4,7 +4,8 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.App
-import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.UIManager
+import dk.eboks.app.presentation.managers.UIManagerImpl
 import dk.nodes.arch.domain.injection.scopes.AppScope
 
 
@@ -23,5 +24,11 @@ class AppModule(val application: App) {
     @AppScope
     fun provideApp(): App {
         return application
+    }
+
+    @AppScope
+    @Provides
+    fun provideUIManager(context: Context) : UIManager {
+        return UIManagerImpl(context)
     }
 }

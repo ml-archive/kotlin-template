@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors
+package dk.eboks.app.domain.interactors.sender
 
 import dk.eboks.app.domain.repositories.RepositoryException
 import dk.eboks.app.domain.repositories.SendersRepository

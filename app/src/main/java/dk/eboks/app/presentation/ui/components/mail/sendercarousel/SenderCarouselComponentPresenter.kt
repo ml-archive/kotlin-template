@@ -1,7 +1,7 @@
 package dk.eboks.app.presentation.ui.components.mail.sendercarousel
 
 import android.arch.lifecycle.Lifecycle
-import dk.eboks.app.domain.interactors.GetSendersInteractor
+import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl

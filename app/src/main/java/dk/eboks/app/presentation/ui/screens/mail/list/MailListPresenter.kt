@@ -1,9 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.mail.list
 
-import dk.eboks.app.domain.interactors.GetMessagesInteractor
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.FolderType
-import dk.eboks.app.domain.models.Message
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 

@@ -16,7 +16,7 @@ interface FoldersComponentContract {
     }
 
     interface Presenter : BasePresenter<FoldersComponentContract.View> {
-        fun setCurrentFolder(folder: Folder)
+        fun openFolder(folder: Folder)
         fun refresh()
     }
 }

@@ -3,10 +3,17 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
-import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.managers.GuidManager
-import dk.eboks.app.domain.managers.ProtocolManager
-import dk.eboks.app.domain.managers.ResourceManager
+import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
+import dk.eboks.app.domain.interactors.folder.GetFoldersInteractorImpl
+import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
+import dk.eboks.app.domain.interactors.folder.OpenFolderInteractorImpl
+import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
+import dk.eboks.app.domain.interactors.message.GetMessagesInteractorImpl
+import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
+import dk.eboks.app.domain.interactors.message.OpenMessageInteractorImpl
+import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
+import dk.eboks.app.domain.interactors.sender.GetSendersInteractorImpl
+import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.repositories.*
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.Executor
@@ -44,5 +51,15 @@ class InteractorModule {
     @Provides fun provideGetMessagesInteractor(executor: Executor, messagesRepository: MessagesRepository) : GetMessagesInteractor
     {
         return GetMessagesInteractorImpl(executor, messagesRepository)
+    }
+
+    @Provides fun provideOpenFolderInteractor(executor: Executor, appStateManager: AppStateManager, uiManager: UIManager) : OpenFolderInteractor
+    {
+        return OpenFolderInteractorImpl(executor, appStateManager, uiManager)
+    }
+
+    @Provides fun provideOpenMessageInteractor(executor: Executor, messagesRepository: MessagesRepository) : OpenMessageInteractor
+    {
+        return OpenMessageInteractorImpl(executor, messagesRepository)
     }
 }

@@ -1,6 +1,5 @@
-package dk.eboks.app.domain.interactors
+package dk.eboks.app.domain.interactors.folder
 
-import dk.eboks.app.R
 import dk.eboks.app.domain.managers.ResourceManager
 import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.domain.models.FolderType
