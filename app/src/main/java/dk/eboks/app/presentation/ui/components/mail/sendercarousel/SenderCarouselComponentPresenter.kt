@@ -20,7 +20,7 @@ class SenderCarouselComponentPresenter @Inject constructor(val appState: AppStat
         GetSendersInteractor.Output {
 
     init {
-        refresh()
+        refresh(true)
     }
 
     override fun onViewCreated(view: SenderCarouselComponentContract.View, lifecycle: Lifecycle) {
@@ -33,9 +33,9 @@ class SenderCarouselComponentPresenter @Inject constructor(val appState: AppStat
         super.onViewDetached()
     }
 
-    fun refresh()
+    fun refresh(cached : Boolean)
     {
-        getSendersInteractor.input = GetSendersInteractor.Input(true)
+        getSendersInteractor.input = GetSendersInteractor.Input(cached)
         getSendersInteractor.output = this
         getSendersInteractor.run()
     }
@@ -55,6 +55,6 @@ class SenderCarouselComponentPresenter @Inject constructor(val appState: AppStat
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: RefreshSenderCarouselEvent) {
-        refresh()
+        refresh(false)
     }
 }

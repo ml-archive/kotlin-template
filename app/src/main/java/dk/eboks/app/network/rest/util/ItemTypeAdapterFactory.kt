@@ -13,7 +13,7 @@ import java.io.IOException
  * Created by bison on 26/07/17.
  */
 class ItemTypeAdapterFactory : TypeAdapterFactory {
-    var rootContainerNames = listOf("data")
+    var rootContainerNames = listOf("data", "items")
 
     override fun <T> create(gson: Gson, type: TypeToken<T>): TypeAdapter<T> {
 

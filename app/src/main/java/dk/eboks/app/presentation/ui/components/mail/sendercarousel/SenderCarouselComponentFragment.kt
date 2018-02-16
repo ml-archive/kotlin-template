@@ -72,6 +72,7 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
     }
 
     override fun showSenders(senders: List<Sender>) {
+        this.senders.clear()
         this.senders.addAll(senders)
         sendersRv.adapter.notifyDataSetChanged()
     }
@@ -95,8 +96,8 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
 
         override fun onBindViewHolder(holder: CircularSenderViewHolder?, position: Int) {
             holder?.circleIv?.let {
-                Glide.with(context).load(senders[position].imageUrl).into(it)
-                it.isSelected = senders[position].unreadEmailsCount > 0
+                Glide.with(context).load(senders[position].logo).into(it)
+                it.isSelected = senders[position].unreadCount > 0
             }
 
 

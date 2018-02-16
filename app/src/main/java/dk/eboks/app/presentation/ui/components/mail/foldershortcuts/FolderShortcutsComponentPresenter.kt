@@ -22,7 +22,7 @@ class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppSta
         GetCategoriesInteractor.Output {
 
     init {
-        refresh()
+        refresh(true)
     }
 
     override fun onViewCreated(view: FolderShortcutsComponentContract.View, lifecycle: Lifecycle) {
@@ -56,15 +56,15 @@ class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppSta
         Timber.e(msg)
     }
 
-    fun refresh() {
+    fun refresh(cached : Boolean) {
         getCategoriesInteractor.output = this
-        getCategoriesInteractor.input = GetCategoriesInteractor.Input(false)
+        getCategoriesInteractor.input = GetCategoriesInteractor.Input(cached)
         getCategoriesInteractor.run()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: RefreshFolderShortcutsEvent) {
-        refresh()
+        refresh(false)
     }
 
 }

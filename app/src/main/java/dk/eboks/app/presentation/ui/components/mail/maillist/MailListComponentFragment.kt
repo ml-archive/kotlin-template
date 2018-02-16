@@ -111,8 +111,8 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             if(messages[position].sender != null) {
                 holder?.circleIv?.let {
 
-                    Glide.with(context).load(messages[position].sender?.imageUrl).into(it)
-                    it.isSelected = !messages[position].isRead
+                    Glide.with(context).load(messages[position].sender?.logo).into(it)
+                    it.isSelected = messages[position].unread
                 }
             }
             holder?.titleTv?.text = messages[position].sender?.name

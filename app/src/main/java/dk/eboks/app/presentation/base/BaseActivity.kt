@@ -1,10 +1,12 @@
 package dk.eboks.app.presentation.base
 
 import android.content.Context
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.KeyEvent
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
@@ -12,6 +14,9 @@ import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.util.ShakeDetector
 import dk.nodes.arch.presentation.base.BaseView
 import timber.log.Timber
+import android.view.KeyEvent.KEYCODE_VOLUME_DOWN
+import dk.eboks.app.presentation.ui.screens.debug.DebugActivity
+
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
     protected val component: PresentationComponent by lazy {
@@ -25,11 +30,14 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     private var sensorManager : SensorManager? = null
     private var acceleroMeter : Sensor? = null
     protected var showEmptyState : Boolean = false
+    protected var countToDebug = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(BuildConfig.DEBUG)
         {
+            countToDebug = 0
             setupShakeDetection()
         }
     }
@@ -63,6 +71,19 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         sensorManager?.registerListener(shakeDetector, acceleroMeter, SensorManager.SENSOR_DELAY_UI)
 
     }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            countToDebug++
+            if(countToDebug > 2)
+            {
+                startActivity(Intent(this, DebugActivity::class.java))
+                countToDebug = 0
+            }
+        }
+        return true
+    }
+
 
     protected open fun onShake() {}
 }

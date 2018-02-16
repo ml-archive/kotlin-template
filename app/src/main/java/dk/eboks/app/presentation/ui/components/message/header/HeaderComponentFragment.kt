@@ -39,7 +39,7 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
     override fun updateView(message: Message) {
         senderTv.text = message.sender?.name ?: ""
         titleTv.text = message.name
-        message.sender?.imageUrl.let {
+        message.sender?.logo.let {
             Glide.with(context).load(it).into(senderLogoIv)
         }
     }
