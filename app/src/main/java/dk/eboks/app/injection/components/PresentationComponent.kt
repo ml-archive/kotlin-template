@@ -35,6 +35,8 @@ import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageCompo
 import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentFragment
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentFragment
+import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentFragment
@@ -102,6 +104,7 @@ interface PresentationComponent {
     fun inject(target : TextViewComponentPresenter)
     fun inject(target : LockedMessageComponentFragment)
     fun inject(target : LockedMessageComponentPresenter)
-
+    fun inject(target : ProtectedMessageComponentFragment)
+    fun inject(target : ProtectedMessageComponentPresenter)
     fun inject(target : HintActivity)
 }

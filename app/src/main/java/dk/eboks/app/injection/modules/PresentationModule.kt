@@ -36,6 +36,8 @@ import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageCompo
 import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentContract
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentContract
+import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentContract
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentContract
@@ -185,8 +187,14 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideComponentPresenter(stateManager: AppStateManager) : LockedMessageComponentContract.Presenter {
+    fun provideLockedMessageComponentPresenter(stateManager: AppStateManager) : LockedMessageComponentContract.Presenter {
         return LockedMessageComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideProtectedMessageComponentPresenter(stateManager: AppStateManager) : ProtectedMessageComponentContract.Presenter {
+        return ProtectedMessageComponentPresenter(stateManager)
     }
     /* Pasta
     @ActivityScope
