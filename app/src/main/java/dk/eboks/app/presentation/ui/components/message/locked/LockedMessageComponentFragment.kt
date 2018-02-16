@@ -24,7 +24,7 @@ class LockedMessageComponentFragment : BaseFragment(), LockedMessageComponentCon
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //component.inject(this)
+        component.inject(this)
         presenter.onViewCreated(this, lifecycle)
     }
 

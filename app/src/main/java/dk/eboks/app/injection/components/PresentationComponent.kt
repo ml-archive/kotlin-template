@@ -31,6 +31,8 @@ import dk.eboks.app.presentation.ui.components.message.folderinfo.FolderInfoComp
 import dk.eboks.app.presentation.ui.components.message.folderinfo.FolderInfoComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageComponentFragment
+import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentFragment
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentFragment
@@ -98,6 +100,8 @@ interface PresentationComponent {
     fun inject(target : ImageViewComponentPresenter)
     fun inject(target : TextViewComponentFragment)
     fun inject(target : TextViewComponentPresenter)
+    fun inject(target : LockedMessageComponentFragment)
+    fun inject(target : LockedMessageComponentPresenter)
 
     fun inject(target : HintActivity)
 }

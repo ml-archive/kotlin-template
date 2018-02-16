@@ -32,6 +32,8 @@ import dk.eboks.app.presentation.ui.components.message.folderinfo.FolderInfoComp
 import dk.eboks.app.presentation.ui.components.message.folderinfo.FolderInfoComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentContract
 import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageComponentContract
+import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentContract
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentContract
@@ -181,12 +183,16 @@ class PresentationModule {
         return TextViewComponentPresenter(stateManager)
     }
 
-
+    @ActivityScope
+    @Provides
+    fun provideComponentPresenter(stateManager: AppStateManager) : LockedMessageComponentContract.Presenter {
+        return LockedMessageComponentPresenter(stateManager)
+    }
     /* Pasta
     @ActivityScope
     @Provides
     fun provideComponentPresenter(stateManager: AppStateManager) : ComponentContract.Presenter {
-        return NavBarComponentPresenter(stateManager)
+        return ComponentPresenter(stateManager)
     }
     */
 }

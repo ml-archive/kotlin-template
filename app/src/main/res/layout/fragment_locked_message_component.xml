@@ -75,11 +75,14 @@
                 <TextView
                     style="@style/text.buttonSmall.tertiary"
                     android:id="@+id/deleteButtonTv"
+                    android:clickable="true"
                     android:text="Delete message"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:paddingTop="20dp"
                     android:paddingBottom="20dp"
+                    android:textColor="@color/delete_button_selector"
                     />
 
             </LinearLayout>
