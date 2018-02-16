@@ -19,6 +19,7 @@ import javax.inject.Inject
  */
 class ChannelMainScreenComponentFragment : BaseFragment(), ChannelMainScreenComponentContract.View {
 
+    /*
     var cards: MutableList<ChannelCards> = ArrayList()
 
     @Inject
@@ -35,9 +36,7 @@ class ChannelMainScreenComponentFragment : BaseFragment(), ChannelMainScreenComp
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setupTranslations() {
 
-    }
 
 
     inner class MessageAdapter : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
@@ -84,5 +83,10 @@ class ChannelMainScreenComponentFragment : BaseFragment(), ChannelMainScreenComp
                 true
             }
         }
+    }
+    */
+
+    override fun setupTranslations() {
+
     }
 }
