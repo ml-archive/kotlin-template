@@ -1,4 +1,4 @@
-package dk.eboks.app.network.rest.util
+package dk.eboks.app.network.util
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.TypeAdapter
@@ -6,7 +6,6 @@ import com.google.gson.TypeAdapterFactory
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
-import timber.log.Timber
 import java.io.IOException
 
 /**

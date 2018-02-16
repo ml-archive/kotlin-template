@@ -1,4 +1,4 @@
-package dk.eboks.app.util
+package dk.eboks.app.system.managers
 
 import dk.eboks.app.domain.managers.GuidManager
 import java.util.*

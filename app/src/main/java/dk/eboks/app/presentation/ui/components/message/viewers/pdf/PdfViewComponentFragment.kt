@@ -10,8 +10,8 @@ import android.widget.ImageView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.util.pdf.AsyncPdfRenderer
-import dk.eboks.app.util.pdf.RenderedPage
+import dk.eboks.app.presentation.widgets.pdf.AsyncPdfRenderer
+import dk.eboks.app.presentation.widgets.pdf.RenderedPage
 import kotlinx.android.synthetic.main.fragment_pdfview_component.*
 import java.util.ArrayList
 import javax.inject.Inject

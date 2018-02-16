@@ -6,12 +6,12 @@ import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.repositories.*
-import dk.eboks.app.network.rest.CategoriesRestRepository
-import dk.eboks.app.network.rest.FoldersRestRepository
-import dk.eboks.app.network.rest.MessagesRestRepository
-import dk.eboks.app.network.rest.SendersRestRepository
-import dk.eboks.app.storage.AppStateRepositoryImpl
-import dk.eboks.app.storage.SharedPrefsSettingsRepository
+import dk.eboks.app.network.repositories.CategoriesRestRepository
+import dk.eboks.app.network.repositories.FoldersRestRepository
+import dk.eboks.app.network.repositories.MessagesRestRepository
+import dk.eboks.app.network.repositories.SendersRestRepository
+import dk.eboks.app.storage.repositories.AppStateRepositoryImpl
+import dk.eboks.app.storage.repositories.SharedPrefsSettingsRepository
 import dk.nodes.arch.domain.injection.scopes.AppScope
 
 /**

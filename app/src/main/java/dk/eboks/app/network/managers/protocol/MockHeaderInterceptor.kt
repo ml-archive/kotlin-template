@@ -1,4 +1,4 @@
-package dk.eboks.app.network.rest
+package dk.eboks.app.network.managers.protocol
 
 import dk.eboks.app.BuildConfig
 

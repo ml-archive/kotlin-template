@@ -3,7 +3,7 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.managers.GuidManager
-import dk.eboks.app.util.GuidManagerImpl
+import dk.eboks.app.system.managers.GuidManagerImpl
 import dk.nodes.arch.domain.injection.scopes.AppScope
 
 /**

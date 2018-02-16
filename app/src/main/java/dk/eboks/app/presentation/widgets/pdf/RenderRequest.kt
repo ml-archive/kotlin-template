@@ -1,4 +1,4 @@
-package dk.eboks.app.util.pdf
+package dk.eboks.app.presentation.widgets.pdf
 
 /**
  * Created by bison on 12-02-2018.

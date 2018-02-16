@@ -1,10 +1,10 @@
-package dk.eboks.app.network.rest
+package dk.eboks.app.network.repositories
 
 import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.domain.repositories.CategoriesRepository
 import dk.eboks.app.domain.repositories.RepositoryException
 import dk.eboks.app.injection.modules.CategoryStore
-import dk.eboks.app.network.rest.base.SynchronizedBaseRepository
+import dk.eboks.app.network.base.SynchronizedBaseRepository
 import java.io.IOException
 import java.net.UnknownHostException
 

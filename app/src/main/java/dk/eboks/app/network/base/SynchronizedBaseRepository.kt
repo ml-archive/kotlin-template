@@ -1,7 +1,6 @@
-package dk.eboks.app.network.rest.base
+package dk.eboks.app.network.base
 
 import dk.eboks.app.BuildConfig
-import timber.log.Timber
 import java.util.concurrent.locks.ReentrantLock
 
 /**
@@ -15,7 +14,7 @@ abstract class SynchronizedBaseRepository {
         fun lock()
         {
             if(BuildConfig.FORCE_REQUEST_PIPELINING) {
-                Timber.e("lock")
+                //Timber.e("lock")
                 pipelineLock.lock()
             }
         }
@@ -23,7 +22,7 @@ abstract class SynchronizedBaseRepository {
         fun unlock()
         {
             if(BuildConfig.FORCE_REQUEST_PIPELINING) {
-                Timber.e("unlock")
+                //Timber.e("unlock")
                 if(pipelineLock.isHeldByCurrentThread)
                     pipelineLock.unlock()
             }

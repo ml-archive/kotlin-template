@@ -1,4 +1,4 @@
-package dk.eboks.app.storage
+package dk.eboks.app.storage.managers
 
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.AppState

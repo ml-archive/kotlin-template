@@ -1,4 +1,4 @@
-package dk.eboks.app.network.rest
+package dk.eboks.app.network.repositories
 
 import dk.eboks.app.domain.models.FolderType
 import dk.eboks.app.domain.models.Message

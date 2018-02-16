@@ -14,7 +14,7 @@
     -->
 
     <!--
-    <dk.eboks.app.util.pdf.PdfReaderView
+ dk.eboks.app.presentation.widgets.pdf.pdf.PdfReaderView
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

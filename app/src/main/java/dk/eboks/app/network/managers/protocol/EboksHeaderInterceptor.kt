@@ -1,4 +1,4 @@
-package dk.eboks.app.network.rest
+package dk.eboks.app.network.managers.protocol
 
 import dk.eboks.app.domain.managers.ProtocolManager
 import timber.log.Timber

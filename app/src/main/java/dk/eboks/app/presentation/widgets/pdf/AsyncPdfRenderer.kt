@@ -1,4 +1,4 @@
-package dk.eboks.app.util.pdf
+package dk.eboks.app.presentation.widgets.pdf
 
 import android.content.Context
 import android.graphics.Bitmap

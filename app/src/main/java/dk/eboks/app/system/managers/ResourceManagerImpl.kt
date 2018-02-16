@@ -1,4 +1,4 @@
-package dk.eboks.app.storage
+package dk.eboks.app.system.managers
 
 import android.content.Context
 import dk.eboks.app.domain.managers.ResourceManager

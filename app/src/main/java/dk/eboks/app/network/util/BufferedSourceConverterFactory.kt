@@ -1,6 +1,5 @@
-package dk.eboks.app.network.rest.util
+package dk.eboks.app.network.util
 
-import java.io.IOException
 import java.lang.reflect.Type
 
 import okhttp3.ResponseBody

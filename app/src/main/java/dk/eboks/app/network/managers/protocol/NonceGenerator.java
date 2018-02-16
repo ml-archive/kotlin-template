@@ -1,4 +1,4 @@
-package dk.eboks.app.network.rest.util;
+package dk.eboks.app.network.managers.protocol;
 
 /**
  * Created by bison on 10/08/15.

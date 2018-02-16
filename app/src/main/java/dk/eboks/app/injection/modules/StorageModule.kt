@@ -7,9 +7,9 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.managers.ResourceManager
 import dk.eboks.app.domain.repositories.AppStateRepository
-import dk.eboks.app.storage.AppStateManagerImpl
-import dk.eboks.app.storage.PrefManagerImpl
-import dk.eboks.app.storage.ResourceManagerImpl
+import dk.eboks.app.storage.managers.AppStateManagerImpl
+import dk.eboks.app.system.managers.PrefManagerImpl
+import dk.eboks.app.system.managers.ResourceManagerImpl
 import dk.nodes.arch.domain.injection.scopes.AppScope
 
 /**

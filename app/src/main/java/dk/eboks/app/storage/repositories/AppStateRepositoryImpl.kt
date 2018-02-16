@@ -1,4 +1,4 @@
-package dk.eboks.app.storage
+package dk.eboks.app.storage.repositories
 
 /**
  * Created by bison on 09/10/17.
