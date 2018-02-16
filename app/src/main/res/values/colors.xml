@@ -28,5 +28,7 @@
     <color name="outerCircleImageColor">#FFc1ced2</color>
     <color name="innerCircleImageColor">#FFeceff3</color>
     <color name="blueGreyBorderColor">#c1ced2</color>
+    <color name="transparent">#80000000</color>
+    <color name="transparentBlue">#7F0000FF</color>
 
 </resources>

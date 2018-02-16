@@ -20,6 +20,8 @@ import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewContract
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
+import dk.eboks.app.presentation.ui.components.channels.mainscreen.ChannelMainScreenComponentContract
+import dk.eboks.app.presentation.ui.components.channels.mainscreen.ChannelMainScreenComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageContract
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
 import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetContract
@@ -195,6 +197,12 @@ class PresentationModule {
     @Provides
     fun provideProtectedMessageComponentPresenter(stateManager: AppStateManager) : ProtectedMessageComponentContract.Presenter {
         return ProtectedMessageComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelMainScreenComponentPresenter(stateManager: AppStateManager) : ChannelMainScreenComponentContract.Presenter {
+        return ChannelMainScreenComponentPresenter(stateManager)
     }
     /* Pasta
     @ActivityScope
