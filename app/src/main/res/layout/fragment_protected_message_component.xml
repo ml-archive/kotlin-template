@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="28dp"
                     android:layout_gravity="center_horizontal"
-                    android:text="Recalled by sender" />
+                    android:text="This message is protected" />
 
                 <TextView
                     style="@style/text.body6.secondary"
@@ -72,11 +72,20 @@
                     android:text="Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh." />
 
 
+                <Button
+                    style="@style/button.SolidGradient.large"
+                    android:id="@+id/loginNemiIdBtn"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="280dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:text="Log on with NemID"/>
+
                 <TextView
                     style="@style/text.buttonSmall.tertiary"
-                    android:id="@+id/deleteButtonTv"
+                    android:id="@+id/loginMobilButtonTv"
                     android:clickable="true"
-                    android:text="Delete message"
+                    android:text="Log on with mobile access"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -104,7 +113,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_gravity="center"
-        android:src="@drawable/ic_reply_white"
+        android:src="@drawable/icon_48_lock_white"
         app:layout_anchor="@+id/containerCv"
         app:layout_anchorGravity="center|top" />
 </android.support.design.widget.CoordinatorLayout>

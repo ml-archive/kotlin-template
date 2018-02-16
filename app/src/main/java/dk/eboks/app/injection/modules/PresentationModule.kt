@@ -20,6 +20,8 @@ import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewContract
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
+import dk.eboks.app.presentation.ui.components.channels.mainscreen.ChannelMainScreenComponentContract
+import dk.eboks.app.presentation.ui.components.channels.mainscreen.ChannelMainScreenComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageContract
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
 import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetContract
@@ -32,8 +34,12 @@ import dk.eboks.app.presentation.ui.components.message.folderinfo.FolderInfoComp
 import dk.eboks.app.presentation.ui.components.message.folderinfo.FolderInfoComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentContract
 import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageComponentContract
+import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentContract
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentContract
+import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentContract
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentContract
@@ -181,12 +187,28 @@ class PresentationModule {
         return TextViewComponentPresenter(stateManager)
     }
 
+    @ActivityScope
+    @Provides
+    fun provideLockedMessageComponentPresenter(stateManager: AppStateManager) : LockedMessageComponentContract.Presenter {
+        return LockedMessageComponentPresenter(stateManager)
+    }
 
+    @ActivityScope
+    @Provides
+    fun provideProtectedMessageComponentPresenter(stateManager: AppStateManager) : ProtectedMessageComponentContract.Presenter {
+        return ProtectedMessageComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelMainScreenComponentPresenter(stateManager: AppStateManager) : ChannelMainScreenComponentContract.Presenter {
+        return ChannelMainScreenComponentPresenter(stateManager)
+    }
     /* Pasta
     @ActivityScope
     @Provides
     fun provideComponentPresenter(stateManager: AppStateManager) : ComponentContract.Presenter {
-        return NavBarComponentPresenter(stateManager)
+        return ComponentPresenter(stateManager)
     }
     */
 }

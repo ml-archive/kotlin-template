@@ -19,6 +19,8 @@ import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
 import dk.eboks.app.pasta.activity.PastaActivity
 import dk.eboks.app.pasta.activity.PastaPresenter
+import dk.eboks.app.presentation.ui.components.channels.mainscreen.ChannelMainScreenComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.mainscreen.ChannelMainScreenComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
 import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetActivity
@@ -31,8 +33,12 @@ import dk.eboks.app.presentation.ui.components.message.folderinfo.FolderInfoComp
 import dk.eboks.app.presentation.ui.components.message.folderinfo.FolderInfoComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageComponentFragment
+import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentFragment
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentFragment
+import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentFragment
@@ -98,6 +104,11 @@ interface PresentationComponent {
     fun inject(target : ImageViewComponentPresenter)
     fun inject(target : TextViewComponentFragment)
     fun inject(target : TextViewComponentPresenter)
-
+    fun inject(target : LockedMessageComponentFragment)
+    fun inject(target : LockedMessageComponentPresenter)
+    fun inject(target : ProtectedMessageComponentFragment)
+    fun inject(target : ProtectedMessageComponentPresenter)
+    fun inject(target : ChannelMainScreenComponentFragment)
+    fun inject(target : ChannelMainScreenComponentPresenter)
     fun inject(target : HintActivity)
 }

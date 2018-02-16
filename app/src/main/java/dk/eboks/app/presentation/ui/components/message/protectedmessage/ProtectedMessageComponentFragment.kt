@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.message.locked
+package dk.eboks.app.presentation.ui.components.message.protectedmessage
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,13 +12,13 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class LockedMessageComponentFragment : BaseFragment(), LockedMessageComponentContract.View {
+class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageComponentContract.View {
 
     @Inject
-    lateinit var presenter : LockedMessageComponentContract.Presenter
+    lateinit var presenter : ProtectedMessageComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_locked_message_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_protected_message_component, container, false)
         return rootView
     }
 
