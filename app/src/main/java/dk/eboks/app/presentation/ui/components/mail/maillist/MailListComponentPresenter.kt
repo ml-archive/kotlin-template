@@ -1,21 +1,25 @@
 package dk.eboks.app.presentation.ui.components.mail.maillist
 
 import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
+import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.FolderType
 import dk.eboks.app.domain.models.Message
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-class MailListComponentPresenter @Inject constructor(val appState: AppStateManager, val getMessagesInteractor : GetMessagesInteractor) :
+class MailListComponentPresenter @Inject constructor(val appState: AppStateManager, val getMessagesInteractor : GetMessagesInteractor, val openMessageInteractor: OpenMessageInteractor) :
         MailListComponentContract.Presenter,
         BasePresenterImpl<MailListComponentContract.View>(),
-        GetMessagesInteractor.Output {
+        GetMessagesInteractor.Output,
+        OpenMessageInteractor.Output {
 
     init {
+        openMessageInteractor.output = this
         val type = appState.state?.currentFolder?.type ?: FolderType.INBOX
         getMessagesInteractor.output = this
         getMessagesInteractor.input = GetMessagesInteractor.Input(true, 0, type)
@@ -28,9 +32,9 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
         getMessagesInteractor.run()
     }
 
-    override fun setCurrentMessage(message: Message) {
-        appState.state?.currentMessage = message
-        appState.save()
+    override fun openMessage(message: Message) {
+        openMessageInteractor.input = OpenMessageInteractor.Input(message)
+        openMessageInteractor.run()
     }
 
     override fun onGetMessages(messages: List<Message>) {
@@ -45,5 +49,13 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
             v.showError(msg)
             v.showRefreshProgress(false)
         }
+    }
+
+    override fun onOpenMessageDone() {
+
+    }
+
+    override fun onOpenMessageError(msg: String) {
+        Timber.e(msg)
     }
 }

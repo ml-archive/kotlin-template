@@ -118,15 +118,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             holder?.titleTv?.text = messages[position].sender?.name
             holder?.subTitleTv?.text = messages[position].name
             holder?.root?.setOnClickListener {
-                Timber.e("supposed to launch")
-                presenter.setCurrentMessage(messages[position])
-                startActivity(Intent(context, MessageSheetActivity::class.java))
-            }
-            holder?.root?.setOnLongClickListener {
-                Timber.e("supposed to launch")
-                presenter.setCurrentMessage(messages[position])
-                startActivity(Intent(context, MessageActivity::class.java))
-                true
+                presenter.openMessage(messages[position])
             }
         }
     }

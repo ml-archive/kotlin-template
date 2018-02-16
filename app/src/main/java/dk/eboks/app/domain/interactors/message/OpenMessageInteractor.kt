@@ -10,13 +10,10 @@ interface OpenMessageInteractor : Interactor {
     var output : Output?
     var input : Input?
 
-    data class Input(val cached: Boolean, var msg : Message)
+    data class Input(var msg : Message)
 
     interface Output {
-        fun onOpenMessage(messages : List<Message>)
-        fun onOpenMessageLocked()
-        fun onOpenMessagePromulgated()
-        fun onOpenMessageProtected()
+        fun onOpenMessageDone()
         fun onOpenMessageError(msg : String)
     }
 }

@@ -15,7 +15,7 @@ interface MailListComponentContract {
     }
 
     interface Presenter : BasePresenter<MailListComponentContract.View> {
-        fun setCurrentMessage(message: Message)
+        fun openMessage(message: Message)
         fun refresh()
     }
 }

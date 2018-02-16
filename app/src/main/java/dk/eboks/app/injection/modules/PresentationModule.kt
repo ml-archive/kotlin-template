@@ -6,6 +6,7 @@ import dk.eboks.app.domain.interactors.*
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
+import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentContract
@@ -162,8 +163,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMailListComponentPresenter(stateManager: AppStateManager, getMessagesInteractor: GetMessagesInteractor) : MailListComponentContract.Presenter {
-        return MailListComponentPresenter(stateManager, getMessagesInteractor)
+    fun provideMailListComponentPresenter(stateManager: AppStateManager, getMessagesInteractor: GetMessagesInteractor, openMessageInteractor: OpenMessageInteractor) : MailListComponentContract.Presenter {
+        return MailListComponentPresenter(stateManager, getMessagesInteractor, openMessageInteractor)
     }
 
     @ActivityScope
