@@ -22,17 +22,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:paddingBottom="350dp"
                 style="@style/text.header2"
                 android:layout_gravity="center"
                 android:text="[Document]"/>
 
+            <!--
             <fragment
                 android:id="@+id/previewFragment"
                 android:name="dk.eboks.app.presentation.ui.components.message.viewers.pdf.PdfViewComponentFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+                -->
 
         </FrameLayout>
         <View

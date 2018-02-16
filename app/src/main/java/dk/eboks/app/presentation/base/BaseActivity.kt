@@ -80,8 +80,9 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
                 startActivity(Intent(this, DebugActivity::class.java))
                 countToDebug = 0
             }
+            return true
         }
-        return true
+        return super.onKeyDown(keyCode, event)
     }
 
 

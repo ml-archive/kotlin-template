@@ -16,6 +16,7 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.animation.*
+import timber.log.Timber
 
 
 /**
@@ -167,5 +168,10 @@ abstract class BaseSheetActivity : BaseActivity() {
         val li: LayoutInflater = LayoutInflater.from(this)
         val sheet = li.inflate(resId, contextSheetSv, false)
         contextSheetSv.addView(sheet)
+    }
+
+    override fun onBackPressed() {
+        Timber.e("onBackPressed")
+        super.onBackPressed()
     }
 }
