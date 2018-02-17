@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.message.viewers.base.EmbeddedViewer
 import kotlinx.android.synthetic.main.fragment_textview_component.*
 import timber.log.Timber
 import java.io.IOException
@@ -16,7 +17,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View {
+class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View, EmbeddedViewer {
 
     @Inject
     lateinit var presenter : TextViewComponentContract.Presenter

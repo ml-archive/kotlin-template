@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.message.viewers.base.EmbeddedViewer
 import kotlinx.android.synthetic.main.fragment_htmlview_component.*
 import timber.log.Timber
 import java.io.UnsupportedEncodingException
@@ -15,7 +16,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class HtmlViewComponentFragment : BaseFragment(), HtmlViewComponentContract.View {
+class HtmlViewComponentFragment : BaseFragment(), HtmlViewComponentContract.View, EmbeddedViewer {
 
     @Inject
     lateinit var presenter : HtmlViewComponentContract.Presenter

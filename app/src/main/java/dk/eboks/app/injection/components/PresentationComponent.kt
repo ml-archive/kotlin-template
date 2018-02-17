@@ -23,8 +23,8 @@ import dk.eboks.app.presentation.ui.components.channels.mainscreen.ChannelMainSc
 import dk.eboks.app.presentation.ui.components.channels.mainscreen.ChannelMainScreenComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
-import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetActivity
-import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetPresenter
+import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity
+import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedPresenter
 import dk.eboks.app.presentation.ui.components.message.attachments.AttachmentsComponentFragment
 import dk.eboks.app.presentation.ui.components.message.attachments.AttachmentsComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.document.DocumentComponentFragment
@@ -72,8 +72,8 @@ interface PresentationComponent {
     fun inject(target : FolderPresenter)
     fun inject(target : MessageActivity)
     fun inject(target : MessagePresenter)
-    fun inject(target : MessageSheetActivity)
-    fun inject(target : MessageSheetPresenter)
+    fun inject(target : MessageEmbeddedActivity)
+    fun inject(target : MessageEmbeddedPresenter)
 
     // components
     fun inject(target : HeaderComponentFragment)

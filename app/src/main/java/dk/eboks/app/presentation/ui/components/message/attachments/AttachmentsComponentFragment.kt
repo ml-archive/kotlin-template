@@ -41,8 +41,8 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
             if(it.isNotEmpty()) {
                 for (attachment in it) {
                     val v = li.inflate(R.layout.viewholder_attachment, attachmentsLl, false)
-                    v.findViewById<TextView>(R.id.nameTv)?.text = attachment.name
-                    v.findViewById<TextView>(R.id.sizeTv)?.text = attachment.size
+                    v.findViewById<TextView>(R.id.nameTv)?.text = attachment.title
+                    v.findViewById<TextView>(R.id.sizeTv)?.text = "${attachment.fileSize}"
                     attachmentsLl.addView(v)
                     v.setOnClickListener {
 

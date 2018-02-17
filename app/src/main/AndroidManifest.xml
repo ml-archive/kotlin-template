@@ -43,6 +43,6 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.message.MessageActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity" />
     </application>
 </manifest>

@@ -1,10 +1,8 @@
 package dk.eboks.app.presentation.ui.components.mail.maillist
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Attachment
 import dk.eboks.app.domain.models.Message
-import dk.eboks.app.domain.models.Sender
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.screens.debug.hinter.HintActivity
-import dk.eboks.app.presentation.ui.screens.message.MessageActivity
-import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetActivity
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
 import timber.log.Timber
 import java.util.*
@@ -75,8 +68,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     override fun showMessages(messages: List<Message>) {
         this.messages.clear()
-        this.messages.add(Message(0, "Police 42342342", false, Date(), Sender(0, "Alka Forsikring"), null, listOf(Attachment(1, "Sorteper.pdf", "13 KB"), Attachment(1, "HalvgrønneBent.pdf", "2,7 MB"), Attachment(1, "SvartaGudrun.pdf", "236 KB"), Attachment(1, "Lyserøde Lars.pdf", "1,2 MB"))))
-        this.messages.add(Message(1, "Kontoudskrift", false, Date(), Sender(0, "Danske Bank"), null, listOf(Attachment(1, "Pels for begyndere.pdf", "13 KB"), Attachment(1, "alverdens_sten.pdf", "236 KB"))))
         this.messages.addAll(messages)
         messagesRv.adapter.notifyDataSetChanged()
     }

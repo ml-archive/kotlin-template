@@ -14,19 +14,10 @@
         android:layout_marginTop="?attr/actionBarSize">
 
         <FrameLayout
+            android:id="@+id/viewerFl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                android:paddingBottom="350dp"
-                style="@style/text.header2"
-                android:layout_gravity="center"
-                android:text="[Document]"/>
 
             <!--
             <fragment

@@ -29,8 +29,8 @@ import dk.eboks.app.presentation.ui.components.channels.mainscreen.ChannelMainSc
 import dk.eboks.app.presentation.ui.components.channels.mainscreen.ChannelMainScreenComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageContract
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
-import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetContract
-import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetPresenter
+import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedContract
+import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedPresenter
 import dk.eboks.app.presentation.ui.components.message.attachments.AttachmentsComponentContract
 import dk.eboks.app.presentation.ui.components.message.attachments.AttachmentsComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.document.DocumentComponentContract
@@ -103,8 +103,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMessageSheetPresenter(stateManager: AppStateManager) : MessageSheetContract.Presenter {
-        return MessageSheetPresenter(stateManager)
+    fun provideMessageSheetPresenter(stateManager: AppStateManager) : MessageEmbeddedContract.Presenter {
+        return MessageEmbeddedPresenter(stateManager)
     }
 
     @ActivityScope

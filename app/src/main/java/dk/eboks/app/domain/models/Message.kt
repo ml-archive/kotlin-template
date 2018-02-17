@@ -12,7 +12,13 @@ data class Message(
     var name : String,
     var unread : Boolean,
     var date : Date,
-    var sender: Sender?,
+    var sender: Sender? = null,
+    var recipient: Sender? = null,
+    var folder : Folder? = null,
+    var content : Content? = null,
+    var link : Link? = null,
     var status: Status?,
-    var attachments : List<Attachment>? = null
+    var numberOfAttachments: Int = 0,
+    var attachments : List<Content>? = null,
+    var note : String = ""
 ) : Serializable

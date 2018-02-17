@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.message.viewers.base.EmbeddedViewer
 import kotlinx.android.synthetic.main.fragment_imageview_component.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -13,7 +14,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.View {
+class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.View, EmbeddedViewer {
 
     @Inject
     lateinit var presenter : ImageViewComponentContract.Presenter
@@ -40,6 +41,7 @@ class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.Vi
     }
 
     private fun readArguments() {
+        /*
         val args = arguments
         if (args == null) {
             Timber.e("Imageviewer received no arguments, not much to do")
@@ -48,8 +50,10 @@ class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.Vi
         imageName = args.getString("name")
         imageFormat = args.getString("format")
         imageData = args.getByteArray("imageData")
-        stringUri = args.getString("uri")
-        Timber.e("the image uri made as follows: " + stringUri)
+        //stringUri = args.getString("uri")
+        */
+        stringUri = "https://picsum.photos/1024/1024"
+        Timber.e("image uri: " + stringUri)
         showImage()
 
     }

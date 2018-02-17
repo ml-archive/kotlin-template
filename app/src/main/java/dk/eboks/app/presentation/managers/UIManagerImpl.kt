@@ -6,7 +6,7 @@ import android.os.Handler
 import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
-import dk.eboks.app.presentation.ui.screens.message.sheet.MessageSheetActivity
+import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity
 
 /**
  * Created by bison on 16-02-2018.
@@ -24,7 +24,7 @@ class UIManagerImpl(val context: Context) : UIManager {
 
     override fun showEmbeddedMessageScreen() {
         handler.post {
-            context.startActivity(Intent(context, MessageSheetActivity::class.java))
+            context.startActivity(Intent(context, MessageEmbeddedActivity::class.java))
         }
     }
 

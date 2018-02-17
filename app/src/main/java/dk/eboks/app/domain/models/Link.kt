@@ -6,10 +6,7 @@ import java.util.*
 /**
  * Created by bison on 24-06-2017.
  */
-data class Status(
-    var important : Boolean = false,
-    var title : String? = null,
+data class Link(
     var text : String? = null,
-    var type : Int = 0,
-    var date : Date
+    var url : String = ""
 ) : Serializable

@@ -6,7 +6,7 @@ package dk.eboks.app.storage.repositories
 
 import android.content.Context
 import com.google.gson.Gson
-import dk.eboks.app.domain.models.AppState
+import dk.eboks.app.domain.models.internal.AppState
 import dk.eboks.app.domain.repositories.AppStateRepository
 import dk.eboks.app.storage.base.GsonFileStorageRepository
 import timber.log.Timber

@@ -10,6 +10,7 @@ import android.widget.ImageView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.message.viewers.base.EmbeddedViewer
 import dk.eboks.app.presentation.widgets.pdf.AsyncPdfRenderer
 import dk.eboks.app.presentation.widgets.pdf.RenderedPage
 import kotlinx.android.synthetic.main.fragment_pdfview_component.*
@@ -20,7 +21,7 @@ import kotlin.math.roundToInt
 /**
  * Created by bison on 09-02-2018.
  */
-class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View {
+class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, EmbeddedViewer {
     private var pages: MutableList<RenderedPage> = ArrayList()
     private lateinit var renderer: AsyncPdfRenderer
 
