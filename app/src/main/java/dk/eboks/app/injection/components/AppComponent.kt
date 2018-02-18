@@ -8,9 +8,7 @@ import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
-import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.managers.PrefManager
-import dk.eboks.app.domain.managers.UIManager
+import dk.eboks.app.domain.managers.*
 import dk.eboks.app.injection.modules.*
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.Executor
@@ -40,6 +38,8 @@ interface AppComponent
     fun prefManager() : PrefManager
     fun appStateManager() : AppStateManager
     fun uiManager() : UIManager
+    fun fileCacheManager() : FileCacheManager
+    fun downloadManager() : DownloadManager
 
     // interactors
     fun loginInteractor() : LoginInteractor

@@ -33,6 +33,7 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
     }
 
     override fun openMessage(message: Message) {
+        runAction { v-> v.showOpenProgress(true) }
         openMessageInteractor.input = OpenMessageInteractor.Input(message)
         openMessageInteractor.run()
     }
@@ -52,10 +53,11 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
     }
 
     override fun onOpenMessageDone() {
-
+        runAction { v-> v.showOpenProgress(false) }
     }
 
     override fun onOpenMessageError(msg: String) {
+        runAction { v-> v.showOpenProgress(false) }
         Timber.e(msg)
     }
 }

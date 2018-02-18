@@ -11,6 +11,7 @@ interface MailListComponentContract {
     interface View : BaseView {
         fun showError(msg : String)
         fun showRefreshProgress(show : Boolean)
+        fun showOpenProgress(show : Boolean)
         fun showMessages(messages : List<Message>)
     }
 

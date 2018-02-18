@@ -8,5 +8,6 @@ import dk.eboks.app.domain.models.Message
  */
 data class AppState (
         var currentFolder : Folder? = null,
-        var currentMessage : Message? = null
+        var currentMessage : Message? = null,
+        var currentViewerFileName : String? = null
 )

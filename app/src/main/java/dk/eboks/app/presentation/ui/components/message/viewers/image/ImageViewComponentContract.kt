@@ -8,7 +8,7 @@ import dk.nodes.arch.presentation.base.BaseView
  */
 interface ImageViewComponentContract {
     interface View : BaseView {
-
+        fun showImage(filename : String)
     }
 
     interface Presenter : BasePresenter<View> {

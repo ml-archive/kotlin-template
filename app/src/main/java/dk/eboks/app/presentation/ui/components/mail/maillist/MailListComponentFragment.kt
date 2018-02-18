@@ -66,6 +66,10 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         refreshSrl.isRefreshing = show
     }
 
+    override fun showOpenProgress(show: Boolean) {
+        progressFl.visibility = if(show) View.VISIBLE else View.GONE
+    }
+
     override fun showMessages(messages: List<Message>) {
         this.messages.clear()
         this.messages.addAll(messages)

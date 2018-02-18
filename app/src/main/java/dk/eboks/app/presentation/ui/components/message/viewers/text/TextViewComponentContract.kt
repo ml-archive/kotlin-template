@@ -8,7 +8,7 @@ import dk.nodes.arch.presentation.base.BaseView
  */
 interface TextViewComponentContract {
     interface View : BaseView {
-
+        fun showText(filename: String)
     }
 
     interface Presenter : BasePresenter<View> {

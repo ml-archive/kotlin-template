@@ -9,10 +9,10 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.base.EmbeddedViewer
 import kotlinx.android.synthetic.main.fragment_textview_component.*
 import timber.log.Timber
-import java.io.IOException
-import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
 import javax.inject.Inject
+import java.io.*
+
 
 /**
  * Created by bison on 09-02-2018.
@@ -23,11 +23,9 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
     lateinit var presenter : TextViewComponentContract.Presenter
 
     internal var data: ByteArray? = null
-    internal var name: String = ""
-    internal var format: String = ""
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_pasta_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_textview_component, container, false)
         return rootView
     }
 
@@ -35,20 +33,41 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-
-        val args = arguments
-        if (args == null) {
-            Timber.e("textviewer received no arguments, not much to do")
-            return
-        }
-        name = args.getString("name")
-        format = args.getString("format")
-        data = args.getByteArray("data")
-        show()
     }
 
     override fun setupTranslations() {
 
+    }
+
+    override fun showText(filename: String) {
+        data = convertFileToByteArray(File(filename))
+        data?.let {
+            show()
+        }
+    }
+
+    fun convertFileToByteArray(f: File): ByteArray? {
+        var byteArray: ByteArray? = null
+        try {
+            val inputStream = FileInputStream(f)
+            val bos = ByteArrayOutputStream()
+            val b = ByteArray(1024 * 8)
+            var bytesRead = 0
+
+            while(true)
+            {
+                bytesRead = inputStream.read(b)
+                if(bytesRead == -1)
+                    break
+                bos.write(b, 0, bytesRead)
+            }
+
+            byteArray = bos.toByteArray()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+
+        return byteArray
     }
 
     private fun show()

@@ -10,6 +10,11 @@ import javax.inject.Inject
 class ImageViewComponentPresenter @Inject constructor(val appState: AppStateManager) : ImageViewComponentContract.Presenter, BasePresenterImpl<ImageViewComponentContract.View>() {
 
     init {
+        appState.state?.currentViewerFileName?.let { filename->
+            runAction { v->
+                v.showImage(filename)
+            }
+        }
     }
 
 }

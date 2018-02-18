@@ -1,39 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout android:id="@+id/refreshSrl"
+<FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <FrameLayout
-        android:animateLayoutChanges="true"
+    <android.support.v4.widget.SwipeRefreshLayout android:id="@+id/refreshSrl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/emptyLl"
-            android:visibility="gone"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="24dp"
-            android:paddingBottom="16dp">
-
-        </LinearLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/messagesRv"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none"
-            />
-    </FrameLayout>
+            android:background="@color/white">
 
-    <!--
-    <View
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/messagesRv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                />
+        </FrameLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+    <FrameLayout
+        android:id="@+id/progressFl"
+        android:visibility="gone"
+        android:background="#3000"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/dividerGreyBlue" />
-        -->
-
-</android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+</FrameLayout>

@@ -8,7 +8,7 @@ import dk.nodes.arch.presentation.base.BaseView
  */
 interface HtmlViewComponentContract {
     interface View : BaseView {
-
+        fun showHtml(filename : String)
     }
 
     interface Presenter : BasePresenter<View> {

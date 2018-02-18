@@ -19,11 +19,6 @@ class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.Vi
     @Inject
     lateinit var presenter : ImageViewComponentContract.Presenter
 
-    internal var imageData: ByteArray? = null
-    internal var imageName: String = ""
-    internal var imageFormat: String = ""
-    internal var stringUri: String = ""
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_imageview_component, container, false)
         return rootView
@@ -33,39 +28,21 @@ class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.Vi
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        readArguments()
+
+        val settings = webView.getSettings()
+        settings.setUseWideViewPort(true)
+        settings.setLoadWithOverviewMode(true)
+        settings.setBuiltInZoomControls(true)
+        settings.setDisplayZoomControls(false)
     }
 
     override fun setupTranslations() {
 
     }
 
-    private fun readArguments() {
-        /*
-        val args = arguments
-        if (args == null) {
-            Timber.e("Imageviewer received no arguments, not much to do")
-            return
-        }
-        imageName = args.getString("name")
-        imageFormat = args.getString("format")
-        imageData = args.getByteArray("imageData")
-        //stringUri = args.getString("uri")
-        */
-        stringUri = "https://picsum.photos/1024/1024"
-        Timber.e("image uri: " + stringUri)
-        showImage()
-
-    }
-
-    private fun showImage() {
-        val settings = webView.getSettings()
-        settings.setUseWideViewPort(true)
-        settings.setLoadWithOverviewMode(true)
-        settings.setBuiltInZoomControls(true)
-        settings.setDisplayZoomControls(false)
-
-        val html = "<html><head></head><body><img src=\"$stringUri\" width=\"100%\"></body></html>"
+    override fun showImage(filename : String) {
+        Timber.e("Attempting to open $filename")
+        val html = "<html><head></head><body style=\"background-color: #aaa; margin: 0px; padding: 0px\"><img src=\"file://$filename\" width=\"100%\"></body></html>"
         webView.loadDataWithBaseURL("", html, "text/html", "utf-8", "")
     }
 

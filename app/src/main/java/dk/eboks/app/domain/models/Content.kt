@@ -11,5 +11,6 @@ data class Content(
    var fileSize : Long,
    var fileExtension : String,
    var mimeType : String?,
-   var encoding : String?
+   var encoding : String?,
+   var contentUrlMock : String?
 ) : Serializable

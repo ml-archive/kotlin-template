@@ -10,6 +10,11 @@ import javax.inject.Inject
 class HtmlViewComponentPresenter @Inject constructor(val appState: AppStateManager) : HtmlViewComponentContract.Presenter, BasePresenterImpl<HtmlViewComponentContract.View>() {
 
     init {
+        appState.state?.currentViewerFileName?.let { filename->
+            runAction { v->
+                v.showHtml(filename)
+            }
+        }
     }
 
 }

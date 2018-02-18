@@ -58,8 +58,8 @@ class InteractorModule {
         return OpenFolderInteractorImpl(executor, appStateManager, uiManager)
     }
 
-    @Provides fun provideOpenMessageInteractor(executor: Executor, appStateManager: AppStateManager, uiManager: UIManager) : OpenMessageInteractor
+    @Provides fun provideOpenMessageInteractor(executor: Executor, appStateManager: AppStateManager, uiManager: UIManager, downloadManager: DownloadManager, fileCacheManager: FileCacheManager) : OpenMessageInteractor
     {
-        return OpenMessageInteractorImpl(executor, appStateManager, uiManager)
+        return OpenMessageInteractorImpl(executor, appStateManager, uiManager, downloadManager, fileCacheManager)
     }
 }

@@ -1,13 +1,17 @@
 package dk.eboks.app.injection.modules
 
+import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.managers.DownloadManager
+import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.managers.ProtocolManager
 import dk.eboks.app.network.Api
+import dk.eboks.app.network.managers.DownloadManagerImpl
 import dk.eboks.app.network.managers.protocol.EboksHeaderInterceptor
 import dk.eboks.app.network.managers.protocol.MockHeaderInterceptor
 import dk.eboks.app.network.managers.protocol.ProtocolManagerImpl
@@ -73,6 +77,12 @@ class RestModule {
     @AppScope
     fun provideProtocolManager(): ProtocolManager {
         return ProtocolManagerImpl()
+    }
+
+    @Provides
+    @AppScope
+    fun provideDownloadManager(context: Context, client: OkHttpClient, cacheManager: FileCacheManager): DownloadManager {
+        return DownloadManagerImpl(context, client, cacheManager)
     }
 
     @Provides

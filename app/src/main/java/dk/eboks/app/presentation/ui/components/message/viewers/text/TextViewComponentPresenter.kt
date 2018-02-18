@@ -10,6 +10,11 @@ import javax.inject.Inject
 class TextViewComponentPresenter @Inject constructor(val appState: AppStateManager) : TextViewComponentContract.Presenter, BasePresenterImpl<TextViewComponentContract.View>() {
 
     init {
+        appState.state?.currentViewerFileName?.let { filename->
+            runAction { v->
+                v.showText(filename)
+            }
+        }
     }
 
 }

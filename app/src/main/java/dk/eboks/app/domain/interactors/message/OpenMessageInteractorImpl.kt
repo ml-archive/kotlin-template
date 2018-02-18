@@ -1,37 +1,65 @@
 package dk.eboks.app.domain.interactors.message
 
+import dk.eboks.app.domain.interactors.InteractorException
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.DownloadManager
+import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.domain.models.Message
 import dk.eboks.app.domain.models.internal.EboksContentType
-import dk.eboks.app.domain.repositories.RepositoryException
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import timber.log.Timber
 
 /**
  * Created by bison on 01/02/18.
  */
-class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStateManager, val uiManager: UIManager) : BaseInteractor(executor), OpenMessageInteractor {
+class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStateManager,
+                                val uiManager: UIManager, val downloadManager: DownloadManager,
+                                val cacheManager: FileCacheManager)
+    : BaseInteractor(executor), OpenMessageInteractor {
+
     override var output: OpenMessageInteractor.Output? = null
     override var input: OpenMessageInteractor.Input? = null
 
     override fun execute() {
         try {
-            input?.msg?.let {
-                appStateManager.state?.currentMessage = it
-                appStateManager.save()
-                if(isEmbeddedType(it))
-                {
-                    uiManager.showEmbeddedMessageScreen()
-                }
-                else {
-                    uiManager.showMessageScreen()
-                }
-                runOnUIThread {
-                    output?.onOpenMessageDone()
+            input?.msg?.let { msg->
+                msg.content?.let { content->
+                    var filename = cacheManager.getCachedContentFileName(content)
+                    if(filename == null) // is not in cache
+                    {
+                        Timber.e("Content ${content.id} not in cache, downloading")
+                        // TODO the result of this call can result in all sorts of fun control flow changes depending on what error code the backend returns
+                        filename = downloadManager.downloadContent(content)
+                        if(filename == null)
+                            throw(InteractorException("Could not download content ${content.id}"))
+                        Timber.e("Downloaded content to $filename")
+                        cacheManager.cacheContent(filename, content)
+                    }
+                    else
+                    {
+                        Timber.e("Found content in cache ($filename)")
+                    }
+
+                    appStateManager.state?.currentMessage = msg
+                    appStateManager.state?.currentViewerFileName = cacheManager.getAbsolutePath(filename)
+                    appStateManager.save()
+
+                    if(isEmbeddedType(msg))
+                    {
+                        uiManager.showEmbeddedMessageScreen()
+                    }
+                    else {
+                        uiManager.showMessageScreen()
+                    }
+                    runOnUIThread {
+                        output?.onOpenMessageDone()
+                    }
                 }
             }
-        } catch (e: RepositoryException) {
+        } catch (e: Throwable) {
+            e.printStackTrace()
             runOnUIThread {
                 output?.onOpenMessageError("Unknown error opening message ${input?.msg}")
             }
