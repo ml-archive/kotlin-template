@@ -21,6 +21,7 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
     init {
         openFolderInteractor.output = this
         getFoldersInteractor.output = this
+        runAction { v-> v.showProgress(true) }
         refresh()
     }
 
@@ -37,6 +38,7 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
     override fun onGetFolders(folders: List<Folder>) {
         Timber.e("user folders $folders")
         runAction { v->
+            v.showProgress(false)
             v.showUserFolders(folders)
             v.showRefreshProgress(false)
         }
@@ -49,6 +51,11 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
     }
 
     override fun onGetFoldersError(msg: String) {
+        Timber.e(msg)
+        runAction { v->
+            v.showProgress(false)
+            v.showRefreshProgress(false)
+        }
 
     }
 

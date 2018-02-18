@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.components.folder.folders
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +9,9 @@ import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import kotlinx.android.synthetic.main.fragment_folders_component.*
 import timber.log.Timber
-import java.util.ArrayList
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -118,4 +116,12 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         refreshSrl.isRefreshing = show
     }
 
+    override fun showProgress(show: Boolean) {
+        progressFl.visibility = if(show) View.VISIBLE else View.GONE
+    }
+
+    override fun showEmpty(show: Boolean) {
+        emptyFl.visibility = if(show) View.VISIBLE else View.GONE
+        refreshSrl.visibility = if(!show) View.VISIBLE else View.GONE
+    }
 }

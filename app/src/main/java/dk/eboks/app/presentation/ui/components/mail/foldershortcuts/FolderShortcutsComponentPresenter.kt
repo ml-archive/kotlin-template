@@ -26,6 +26,7 @@ class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppSta
     init {
         openFolderInteractor.output = this
         refresh(true)
+        runAction { v-> v.showProgress(true) }
     }
 
     override fun onViewCreated(view: FolderShortcutsComponentContract.View, lifecycle: Lifecycle) {
@@ -48,12 +49,14 @@ class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppSta
         Timber.e("Received them folders")
         runAction { v ->
             EventBus.getDefault().post(RefreshFolderShortcutsDoneEvent())
+            v.showProgress(false)
             v.showFolders(folders)
         }
     }
 
     override fun onGetCategoriesError(msg: String) {
         runAction { v->
+            v.showProgress(false)
             EventBus.getDefault().post(RefreshFolderShortcutsDoneEvent())
         }
         Timber.e(msg)

@@ -34,7 +34,7 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
 
         userShareTv.visibility = View.VISIBLE
 
-        HintActivity.showHint(this, "- Shake to show empty state\n- Tap 'you mail' to preview confirm dialog\n- Folders open the treeview the rest opens the individual list views\n- Pull to refresh")
+        //HintActivity.showHint(this, "- Shake to show empty state\n- Tap 'you mail' to preview confirm dialog\n- Folders open the treeview the rest opens the individual list views\n- Pull to refresh")
     }
 
     override fun setupTranslations() {

@@ -84,4 +84,12 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
         }
         yourMailLl.addView(v)
     }
+
+    override fun showProgress(show: Boolean) {
+        progressFl.visibility = if(show) View.VISIBLE else View.GONE
+    }
+
+    override fun showEmpty(show: Boolean) {
+
+    }
 }

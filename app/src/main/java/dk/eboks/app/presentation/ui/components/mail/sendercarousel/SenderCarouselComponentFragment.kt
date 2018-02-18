@@ -3,7 +3,6 @@ package dk.eboks.app.presentation.ui.components.mail.sendercarousel
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,16 +54,7 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
 
 
     override fun onShake() {
-        if(showEmptyState)
-        {
-            sendersListEmptyLl.visibility = View.VISIBLE
-            sendersListLl.visibility = View.GONE
-        }
-        else
-        {
-            sendersListLl.visibility = View.VISIBLE
-            sendersListEmptyLl.visibility = View.GONE
-        }
+        showEmpty(showEmptyState)
     }
 
     override fun showError(msg: String) {
@@ -75,6 +65,15 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         this.senders.clear()
         this.senders.addAll(senders)
         sendersRv.adapter.notifyDataSetChanged()
+    }
+
+    override fun showProgress(show: Boolean) {
+        progressFl.visibility = if(show) View.VISIBLE else View.GONE
+    }
+
+    override fun showEmpty(show: Boolean) {
+        sendersListEmptyLl.visibility = if(show) View.VISIBLE else View.GONE
+        sendersListLl.visibility = if(!show) View.VISIBLE else View.GONE
     }
 
     inner class HorizontalSendersAdapter : RecyclerView.Adapter<HorizontalSendersAdapter.CircularSenderViewHolder>() {
@@ -99,8 +98,6 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
                 Glide.with(context).load(senders[position].logo).into(it)
                 it.isSelected = senders[position].unreadCount > 0
             }
-
-
         }
     }
 

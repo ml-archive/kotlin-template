@@ -4,27 +4,55 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <android.support.v4.widget.SwipeRefreshLayout android:id="@+id/refreshSrl"
+    <FrameLayout
+        android:id="@+id/contentFl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <FrameLayout
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        <android.support.v4.widget.SwipeRefreshLayout android:id="@+id/refreshSrl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white">
+            android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/messagesRv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none"
-                />
-        </FrameLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/messagesRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="none"
+                    />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/emptyFl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="32dp"
+            android:gravity="center"
+            android:layout_gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_visual_mail"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-32dp"
+                style="@style/text.header2.secondary"
+                android:text="_No messages"/>
+        </LinearLayout>
+
+    </FrameLayout>
+
     <FrameLayout
         android:id="@+id/progressFl"
-        android:visibility="gone"
-        android:background="#3000"
+        android:background="@color/white"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">

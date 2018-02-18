@@ -24,6 +24,7 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
         getMessagesInteractor.output = this
         getMessagesInteractor.input = GetMessagesInteractor.Input(true, 0, type)
         getMessagesInteractor.run()
+        runAction { v-> v.showProgress(true) }
     }
 
     override fun refresh() {
@@ -33,31 +34,38 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
     }
 
     override fun openMessage(message: Message) {
-        runAction { v-> v.showOpenProgress(true) }
+        runAction { v-> v.showProgress(true) }
         openMessageInteractor.input = OpenMessageInteractor.Input(message)
         openMessageInteractor.run()
     }
 
     override fun onGetMessages(messages: List<Message>) {
         runAction { v->
+            v.showProgress(false)
             v.showRefreshProgress(false)
-            v.showMessages(messages)
+            if(messages.isNotEmpty()) {
+                v.showEmpty(false)
+                v.showMessages(messages)
+            }
+            else
+                v.showEmpty(true)
         }
     }
 
     override fun onGetMessagesError(msg: String) {
         runAction { v->
             v.showError(msg)
+            v.showProgress(false)
             v.showRefreshProgress(false)
         }
     }
 
     override fun onOpenMessageDone() {
-        runAction { v-> v.showOpenProgress(false) }
+        runAction { v-> v.showProgress(false) }
     }
 
     override fun onOpenMessageError(msg: String) {
-        runAction { v-> v.showOpenProgress(false) }
+        runAction { v-> v.showProgress(false) }
         Timber.e(msg)
     }
 }

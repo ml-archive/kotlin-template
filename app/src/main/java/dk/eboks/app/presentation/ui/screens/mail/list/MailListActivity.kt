@@ -19,7 +19,7 @@ class MailListActivity : BaseActivity(), MailListContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        HintActivity.showHint(this, "This view containes the message read from the mock plus two seeded messages (alka, danske bank).\n- Tap item to open message in embedded mode (drawer)\n- Long press to open in non-embeddable mode\n- Pull to refresh")
+        HintActivity.showHint(this, "Inbox currently contained mock versions of the 4 different embedded viewers. PDF is still a placeholder\n- Downloading and filecaching is working properly\n- Pull to refresh")
     }
 
     override fun onResume() {
