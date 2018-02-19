@@ -6,11 +6,15 @@
     android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/cardContainerCv"
         android:layout_width="match_parent"
         android:layout_height="176dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="20dp"
         android:elevation="0dp"
-        app:cardCornerRadius="8dp"
-        android:visibility="visible">
+        android:visibility="visible"
+        app:cardCornerRadius="8dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -43,14 +47,15 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="28dp"
                     android:orientation="horizontal">
 
+
                     <ImageView
-                        android:id="@+id/iconIv"
+                        android:id="@+id/logoIv"
                         android:layout_width="28dp"
                         android:layout_height="28dp"
-                        android:background="@color/white"
+                        android:background="@drawable/channels_small_background_rounded"
                         android:src="@drawable/ic_menu_home" />
 
                     <TextView
@@ -82,13 +87,15 @@
     </android.support.v7.widget.CardView>
 
     <TextView
+        android:id="@+id/headerTv"
         style="@style/text.header1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Channels give you relevant information and actions directly on your e-boks home screen"
         android:layout_gravity="center"
-        android:paddingRight="16dp"
-        android:paddingLeft="16dp"
-        />
+        android:paddingBottom="20dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="36dp"
+        android:text="Channels give you relevant information and actions directly on your e-boks home screen" />
 
 </FrameLayout>

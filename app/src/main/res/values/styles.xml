@@ -14,7 +14,7 @@
     <!-- Base text styles -->
     <style name="text" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/textColorPrimary</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
 
