@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical">
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></View>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dividerGreyBlue"
+        android:layout_gravity="top"
+        android:layout_marginBottom="40dp"
+        />
+
+    <TextView
+        style="@style/text.subHeader5.quaternary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Verify your profile to accesthis channel"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        style="@style/buttonRoundedCorners.Tintable"
+        android:id="@+id/installBtn"
+        android:backgroundTint="@color/textColorTertiary"
+        android:layout_marginBottom="40dp"
+        android:layout_width="295dp"
+        android:layout_height="52dp"
+        android:layout_gravity="center"
+        android:text="Install channel"/>
+
+</LinearLayout>

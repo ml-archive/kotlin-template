@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <!--Top part-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="92dp"
+            android:background="@color/textColorTertiary"
+            android:orientation="vertical"></LinearLayout>
+
+        <!--Bottom part-->
+
+        <LinearLayout
+            android:id="@+id/containerCv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundColor"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="52dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/headerTv"
+                    style="@style/text.header1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Få dine kvitteringer digitalt" />
+
+                <TextView
+                    android:id="@+id/nameTv"
+                    style="@style/text.header4.tertiary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Storebox" />
+
+                <TextView
+                    android:id="@+id/descriptionTv"
+                    style="@style/text.body6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="40dp"
+                    android:text="By sending your invoice to the betalingsservice app, you also accep that e-Boks provides Betalingsservice by NETS with your civil registration number and payment information. This information is used to identify you to Betalingsservice" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:background="@drawable/circle_white"
+        app:layout_anchor="@+id/containerCv"
+        app:layout_anchorGravity="center|top" />
+
+    <ImageView
+        android:id="@+id/logoIv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_menu_mail"
+        app:layout_anchor="@+id/containerCv"
+        app:layout_anchorGravity="center|top" />
+</android.support.design.widget.CoordinatorLayout>

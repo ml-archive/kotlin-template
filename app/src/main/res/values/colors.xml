@@ -30,5 +30,6 @@
     <color name="blueGreyBorderColor">#c1ced2</color>
     <color name="transparent">#80000000</color>
     <color name="transparentWhite">#33000000</color>
+    <color name="dividerDarkGreyBlue">#26416780</color>
 
 </resources>
