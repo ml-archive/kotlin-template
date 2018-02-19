@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
-import dk.eboks.app.pasta.fragment.PastaComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import javax.inject.Inject
 
@@ -18,7 +17,7 @@ class ChannelDetailComponentFragment : BaseFragment(), ChannelDetailComponentCon
     lateinit var presenter : ChannelDetailComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_channel_detail_install, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_channel_detail_open_component, container, false)
         return rootView
     }
 

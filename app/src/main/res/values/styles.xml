@@ -204,8 +204,10 @@
     <style name="buttonRoundedCorners.Tintable">
         <item name="android:background">@drawable/rounded_button_white</item>
     </style>
-
-
+    <style name="buttonRoundedCorners.Tintable.darkText">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 
     <!-- Indicators -->
     <style name="badgeCount">

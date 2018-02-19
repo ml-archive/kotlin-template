@@ -9,5 +9,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <include layout="@layout/include_channel_detail_bottom_install_component" />
+    <include layout="@layout/include_channel_detail_bottom_nemid" />
 </LinearLayout>
