@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
+import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Message
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
@@ -24,6 +25,8 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     @Inject
     lateinit var presenter : MailListComponentContract.Presenter
+    @Inject
+    lateinit var formatter: EboksFormatter
 
     var messages: MutableList<Message> = ArrayList()
 
@@ -110,7 +113,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         override fun onBindViewHolder(holder: MessageViewHolder?, position: Int) {
             if(messages[position].sender != null) {
                 holder?.circleIv?.let {
-
                     Glide.with(context).load(messages[position].sender?.logo).into(it)
                     it.isSelected = messages[position].unread
                 }
@@ -120,6 +122,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             holder?.root?.setOnClickListener {
                 presenter.openMessage(messages[position])
             }
+            holder?.dateTv?.text = formatter.formatDateRelative(messages[position])
         }
     }
 

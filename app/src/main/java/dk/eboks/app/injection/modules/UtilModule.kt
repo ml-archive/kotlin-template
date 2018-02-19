@@ -1,8 +1,11 @@
 package dk.eboks.app.injection.modules
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
+import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.managers.GuidManager
+import dk.eboks.app.system.managers.EboksFormatterImpl
 import dk.eboks.app.system.managers.GuidManagerImpl
 import dk.nodes.arch.domain.injection.scopes.AppScope
 
@@ -17,4 +20,12 @@ class UtilModule {
     {
         return GuidManagerImpl()
     }
+
+    @Provides
+    @AppScope
+    fun provideEboksFormatter(context: Context) : EboksFormatter
+    {
+        return EboksFormatterImpl(context)
+    }
+
 }

@@ -11,7 +11,7 @@ data class Message(
     var id : Long,
     var name : String,
     var unread : Boolean,
-    var date : Date,
+    var received : Date,
     var sender: Sender? = null,
     var recipient: Sender? = null,
     var folder : Folder? = null,

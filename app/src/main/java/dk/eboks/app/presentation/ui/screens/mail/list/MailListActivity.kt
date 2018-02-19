@@ -22,11 +22,6 @@ class MailListActivity : BaseActivity(), MailListContract.View {
         HintActivity.showHint(this, "Inbox currently contained mock versions of the 4 different embedded viewers. PDF is still a placeholder\n- Downloading and filecaching is working properly\n- Pull to refresh")
     }
 
-    override fun onResume() {
-        super.onResume()
-        NStack.translate(this@MailListActivity)
-    }
-
     override fun onShake() {
         if(showEmptyState)
         {
@@ -39,10 +34,8 @@ class MailListActivity : BaseActivity(), MailListContract.View {
     override fun setupTranslations() {
         toolbarTv.visibility = View.GONE
         toolbarLargeTv.visibility = View.VISIBLE
-        toolbarLargeTv.text = "_All mail"
+        toolbarLargeTv.text = ""
     }
-
-
 
     override fun showFolderName(name: String) {
         toolbarLargeTv.text = name

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/componentRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipToPadding="false"
@@ -16,6 +17,7 @@
         android:background="@drawable/document_attachment_background"
         android:elevation="12dp">
         <LinearLayout
+            android:id="@+id/bodyLl"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -1,6 +1,5 @@
 package dk.eboks.app.domain.models
 
-import android.util.EventLogTags
 import java.io.Serializable
 
 /**

@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Message
 import dk.eboks.app.presentation.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_document_component.*
 import javax.inject.Inject
 
 /**
@@ -15,6 +17,9 @@ import javax.inject.Inject
 class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View {
     @Inject
     lateinit var presenter : DocumentComponentContract.Presenter
+
+    @Inject
+    lateinit var formatter : EboksFormatter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_document_component, container, false)
@@ -31,6 +36,15 @@ class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View
     }
 
     override fun updateView(message: Message) {
+        if(message.content == null)
+        {
+            componentRoot.visibility = View.GONE
+            return
+        }
+        message.content?.let { content->
+            nameTv.text = content.title
+            sizeTv.text = formatter.formatSize(content)
+        }
 
     }
 }

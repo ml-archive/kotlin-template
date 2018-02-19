@@ -50,6 +50,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
             override fun onShake(count: Int) {
                 showEmptyState = !showEmptyState
                 Timber.e("showEmptyState $showEmptyState")
+
                 this@BaseActivity.onShake()
             }
         })
