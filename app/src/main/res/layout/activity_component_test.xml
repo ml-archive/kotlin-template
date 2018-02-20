@@ -11,6 +11,6 @@
         android:id="@+id/testComponentFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="dk.eboks.app.presentation.ui.components.channels.list.ChannelDetailComponentFragment"
+        android:name="dk.eboks.app.presentation.ui.components.channels.list.ChannelSettingsPopUpComponentFragment"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </android.support.design.widget.CoordinatorLayout>

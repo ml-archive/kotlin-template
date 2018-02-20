@@ -19,10 +19,7 @@ import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
 import dk.eboks.app.pasta.activity.PastaActivity
 import dk.eboks.app.pasta.activity.PastaPresenter
-import dk.eboks.app.presentation.ui.components.channels.list.ChannelDetailComponentFragment
-import dk.eboks.app.presentation.ui.components.channels.list.ChannelDetailComponentPresenter
-import dk.eboks.app.presentation.ui.components.channels.list.ChannelListComponentFragment
-import dk.eboks.app.presentation.ui.components.channels.list.ChannelListComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.list.*
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
 import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity
@@ -114,5 +111,7 @@ interface PresentationComponent {
     fun inject(target : ChannelListComponentPresenter)
     fun inject(target : ChannelDetailComponentFragment)
     fun inject(target : ChannelDetailComponentPresenter)
+    fun inject(target : ChannelSettingsPopUpComponentFragment)
+    fun inject(target : ChannelSettingsPopUpComponentPresenter)
     fun inject(target : HintActivity)
 }
