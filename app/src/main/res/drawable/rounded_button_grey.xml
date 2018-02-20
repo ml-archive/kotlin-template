@@ -5,22 +5,19 @@
     <item android:state_enabled="false">
         <shape android:shape="rectangle">
             <corners android:radius="18dp" />
-            <solid android:color="#FFFFFF" />
+            <solid android:color="@color/transparentWhite" />
         </shape>
     </item>
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <corners android:radius="18dp" />
-            <solid android:color="#FFFFFF" />
+            <solid android:color="@color/transparentWhite" />
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="18dp" />
-            <gradient
-                android:endColor="#b3b3b3"
-                android:startColor="#666666"
-                android:angle="135" />
+            <solid android:color="@color/transparentWhite" />
         </shape>
     </item>
 </selector>

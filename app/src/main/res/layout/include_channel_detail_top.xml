@@ -16,8 +16,13 @@
             android:layout_width="match_parent"
             android:layout_height="92dp"
             android:background="@color/textColorTertiary"
-            android:orientation="vertical"></LinearLayout>
-
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/backgroundIv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_menu_home" />
+        </LinearLayout>
         <!--Bottom part-->
 
         <LinearLayout
@@ -52,6 +57,7 @@
                 <TextView
                     android:id="@+id/descriptionTv"
                     style="@style/text.body6"
+                    android:textAlignment="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
