@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.message.document
+package dk.eboks.app.presentation.ui.components.message.share
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,11 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
-import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.domain.models.Message
 import dk.eboks.app.presentation.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_document_component.*
+import kotlinx.android.synthetic.main.fragment_share_component.*
 import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
@@ -21,18 +20,15 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View {
+class ShareComponentFragment : BaseFragment(), ShareComponentContract.View {
     @Inject
-    lateinit var presenter : DocumentComponentContract.Presenter
-
-    @Inject
-    lateinit var formatter : EboksFormatter
+    lateinit var presenter : ShareComponentContract.Presenter
 
     @Inject
     lateinit var uiManager: UIManager
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_document_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_share_component, container, false)
         return rootView
     }
 
@@ -52,8 +48,6 @@ class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View
             return
         }
         message.content?.let { content->
-            nameTv.text = content.title
-            sizeTv.text = formatter.formatSize(content)
             bodyLl.setOnClickListener {
                 presenter.openExternalViewer(message)
             }
@@ -61,8 +55,7 @@ class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View
     }
 
     override fun openExternalViewer(filename: String, mimeType : String) {
-        //handler.post {
-        Timber.e("Opening document $filename $mimeType")
+        Timber.e("Opening share $filename $mimeType")
         val intent = Intent(Intent.ACTION_VIEW)
         intent.addCategory(Intent.CATEGORY_DEFAULT)
         val uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".fileprovider", File(filename))
@@ -75,7 +68,5 @@ class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View
         } else {
             Timber.e("Could not resolve share intent")
         }
-
-        //}
     }
 }

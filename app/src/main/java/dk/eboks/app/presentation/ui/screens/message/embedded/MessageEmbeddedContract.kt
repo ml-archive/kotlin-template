@@ -13,6 +13,7 @@ interface MessageEmbeddedContract {
         fun addNotesComponentFragment()
         fun addAttachmentsComponentFragment()
         fun addFolderInfoComponentFragment()
+        fun addShareComponentFragment()
         fun addPdfViewer()
         fun addImageViewer()
         fun addHtmlViewer()

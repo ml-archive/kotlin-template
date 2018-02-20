@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/componentRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:paddingStart="@dimen/margin_normal"
+    android:paddingEnd="@dimen/margin_normal"
+    android:paddingTop="14dp"
+    android:paddingBottom="18dp">
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/attachment_background"
+        android:elevation="2dp">
+        <LinearLayout
+            android:id="@+id/bodyLl"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?selectableItemBackground"
+            android:clickable="true"
+            android:gravity="center_vertical"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:tint="@color/blueGrey"
+                android:src="@drawable/ic_share_black_24dp"/>
+
+            <TextView
+                android:id="@+id/nameTv"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:lines="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                style="@style/text.button.quaternary"
+                android:textColor="@color/textColorSecondary"
+                android:text="_Share"/>
+
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

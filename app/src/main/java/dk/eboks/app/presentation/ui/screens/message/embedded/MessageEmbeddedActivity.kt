@@ -12,6 +12,7 @@ import dk.eboks.app.presentation.ui.components.message.attachments.AttachmentsCo
 import dk.eboks.app.presentation.ui.components.message.folderinfo.FolderInfoComponentFragment
 import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentFragment
+import dk.eboks.app.presentation.ui.components.message.share.ShareComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.pdf.PdfViewComponentFragment
@@ -31,6 +32,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     lateinit var formatter: EboksFormatter
 
     var headerComponentFragment: HeaderComponentFragment? = null
+    var shareComponentFragment: ShareComponentFragment? = null
     var notesComponentFragment: NotesComponentFragment? = null
     var attachmentsComponentFragment: AttachmentsComponentFragment? = null
     var folderInfoComponentFragment: FolderInfoComponentFragment? = null
@@ -61,6 +63,13 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         }
     }
 
+    override fun addShareComponentFragment() {
+        shareComponentFragment = ShareComponentFragment()
+        shareComponentFragment?.let{
+            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, ShareComponentFragment::class.java.simpleName).commit()
+        }
+    }
+
     override fun addNotesComponentFragment() {
         notesComponentFragment = NotesComponentFragment()
         notesComponentFragment?.let{
@@ -74,6 +83,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
             supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, AttachmentsComponentFragment::class.java.simpleName).commit()
         }
     }
+
 
     override fun addFolderInfoComponentFragment() {
         folderInfoComponentFragment = FolderInfoComponentFragment()

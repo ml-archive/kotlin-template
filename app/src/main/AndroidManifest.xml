@@ -44,5 +44,15 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.message.MessageActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="dk.eboks.app.fileprovider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths" />
+        </provider>
     </application>
 </manifest>
