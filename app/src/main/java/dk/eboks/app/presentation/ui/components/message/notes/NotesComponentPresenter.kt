@@ -11,7 +11,6 @@ import javax.inject.Inject
 class NotesComponentPresenter @Inject constructor(val appState: AppStateManager) : NotesComponentContract.Presenter, BasePresenterImpl<NotesComponentContract.View>() {
 
     init {
-        Timber.e("Current message ${appState.state?.currentMessage}")
         runAction { v->
             appState.state?.currentMessage?.let { v.updateView(it) }
         }

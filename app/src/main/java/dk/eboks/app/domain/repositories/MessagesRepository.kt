@@ -10,4 +10,5 @@ import dk.eboks.app.domain.models.Message
 interface MessagesRepository {
     fun getMessages(cached : Boolean = false, folderId : Long) : List<Message>
     fun getMessages(cached : Boolean = false, type : FolderType) : List<Message>
+    fun getMessage(cached : Boolean = false, folderId: Long, id : String) : Message
 }

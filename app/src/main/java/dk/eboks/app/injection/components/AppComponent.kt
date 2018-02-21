@@ -6,6 +6,7 @@ import dk.eboks.app.domain.interactors.*
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
+import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.managers.*
@@ -51,4 +52,5 @@ interface AppComponent
     fun getFoldersInteractor() : GetFoldersInteractor
     fun openMessageInteractor() : OpenMessageInteractor
     fun openFolderInteractor() : OpenFolderInteractor
+    fun openAttachmentInteractor() : OpenAttachmentInteractor
 }

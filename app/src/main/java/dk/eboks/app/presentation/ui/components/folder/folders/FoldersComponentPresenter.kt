@@ -36,7 +36,6 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
     }
 
     override fun onGetFolders(folders: List<Folder>) {
-        Timber.e("user folders $folders")
         runAction { v->
             v.showProgress(false)
             v.showUserFolders(folders)

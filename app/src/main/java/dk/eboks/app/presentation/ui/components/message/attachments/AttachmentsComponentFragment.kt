@@ -9,6 +9,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Message
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.util.FileUtils
 import kotlinx.android.synthetic.main.fragment_attachments_component.*
 import javax.inject.Inject
 
@@ -45,7 +46,7 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
                     v.findViewById<TextView>(R.id.sizeTv)?.text = "${attachment.fileSize}"
                     attachmentsLl.addView(v)
                     v.setOnClickListener {
-
+                        presenter.openAttachment(attachment)
                     }
                 }
             }
@@ -62,5 +63,9 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
     {
         attachmentsTv.visibility = View.GONE
         attachmentsLl.visibility = View.GONE
+    }
+
+    override fun openExternalViewer(filename: String, mimeType : String) {
+        FileUtils.openExternalViewer(context, filename, mimeType)
     }
 }

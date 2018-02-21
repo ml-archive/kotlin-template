@@ -46,7 +46,6 @@ class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppSta
 
 
     override fun onGetCategories(folders: List<Folder>) {
-        Timber.e("Received them folders")
         runAction { v ->
             EventBus.getDefault().post(RefreshFolderShortcutsDoneEvent())
             v.showProgress(false)

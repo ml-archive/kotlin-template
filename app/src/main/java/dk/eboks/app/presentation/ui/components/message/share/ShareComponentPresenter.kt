@@ -16,7 +16,6 @@ class ShareComponentPresenter @Inject constructor(val appState: AppStateManager)
 {
 
     init {
-        Timber.e("Current message ${appState.state?.currentMessage}")
         runAction { v->
             appState.state?.currentMessage?.let { v.updateView(it) }
         }

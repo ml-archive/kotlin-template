@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.message.attachments
 
+import dk.eboks.app.domain.models.Content
 import dk.eboks.app.domain.models.Message
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
@@ -10,8 +11,10 @@ import dk.nodes.arch.presentation.base.BaseView
 interface AttachmentsComponentContract {
     interface View : BaseView {
         fun updateView(message : Message)
+        fun openExternalViewer(filename: String, mimeType : String)
     }
 
     interface Presenter : BasePresenter<AttachmentsComponentContract.View> {
+        fun openAttachment(content : Content)
     }
 }

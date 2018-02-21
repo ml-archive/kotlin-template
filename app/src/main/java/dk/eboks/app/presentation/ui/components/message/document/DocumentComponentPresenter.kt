@@ -16,7 +16,6 @@ class DocumentComponentPresenter @Inject constructor(val appState: AppStateManag
 {
 
     init {
-        Timber.e("Current message ${appState.state?.currentMessage}")
         runAction { v->
             appState.state?.currentMessage?.let { v.updateView(it) }
         }

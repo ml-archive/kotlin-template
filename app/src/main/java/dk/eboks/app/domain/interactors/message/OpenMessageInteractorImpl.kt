@@ -7,6 +7,8 @@ import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.domain.models.Message
 import dk.eboks.app.domain.models.internal.EboksContentType
+import dk.eboks.app.domain.repositories.MessagesRepository
+import dk.eboks.app.util.FieldMapper
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
@@ -16,7 +18,7 @@ import timber.log.Timber
  */
 class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStateManager,
                                 val uiManager: UIManager, val downloadManager: DownloadManager,
-                                val cacheManager: FileCacheManager)
+                                val cacheManager: FileCacheManager, val messagesRepository: MessagesRepository)
     : BaseInteractor(executor), OpenMessageInteractor {
 
     override var output: OpenMessageInteractor.Output? = null
@@ -25,6 +27,14 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
     override fun execute() {
         try {
             input?.msg?.let { msg->
+
+                // TODO the result of this call can result in all sorts of fun control flow changes depending on what error code the backend returns
+                val updated_msg = messagesRepository.getMessage(false, msg.folder?.id ?: 0, msg.id.toString())
+
+
+                // update the (perhaps) more detailed message object with the extra info from the backend
+                FieldMapper.copyAllFields(msg, updated_msg)
+
                 msg.content?.let { content->
                     var filename = cacheManager.getCachedContentFileName(content)
                     if(filename == null) // is not in cache
