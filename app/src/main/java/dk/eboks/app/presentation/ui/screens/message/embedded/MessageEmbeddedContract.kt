@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.message.embedded
 
+import dk.eboks.app.domain.models.Message
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 
@@ -12,11 +13,13 @@ interface MessageEmbeddedContract {
         fun addNotesComponentFragment()
         fun addAttachmentsComponentFragment()
         fun addFolderInfoComponentFragment()
+        fun addShareComponentFragment()
         fun addPdfViewer()
         fun addImageViewer()
         fun addHtmlViewer()
         fun addTextViewer()
         fun showError(msg : String)
+        fun showTitle(message : Message)
     }
 
     interface Presenter : BasePresenter<MessageEmbeddedContract.View> {

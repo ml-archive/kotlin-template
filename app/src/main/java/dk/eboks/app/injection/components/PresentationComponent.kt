@@ -38,6 +38,8 @@ import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentFragm
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentFragment
 import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.share.ShareComponentFragment
+import dk.eboks.app.presentation.ui.components.message.share.ShareComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentFragment
@@ -113,5 +115,7 @@ interface PresentationComponent {
     fun inject(target : ChannelDetailComponentPresenter)
     fun inject(target : ChannelSettingsPopUpComponentFragment)
     fun inject(target : ChannelSettingsPopUpComponentPresenter)
+    fun inject(target : ShareComponentFragment)
+    fun inject(target : ShareComponentPresenter)
     fun inject(target : HintActivity)
 }

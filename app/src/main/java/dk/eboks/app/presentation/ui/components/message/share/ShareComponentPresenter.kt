@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.message.document
+package dk.eboks.app.presentation.ui.components.message.share
 
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Message
@@ -10,9 +10,9 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class DocumentComponentPresenter @Inject constructor(val appState: AppStateManager) :
-        DocumentComponentContract.Presenter,
-        BasePresenterImpl<DocumentComponentContract.View>()
+class ShareComponentPresenter @Inject constructor(val appState: AppStateManager) :
+        ShareComponentContract.Presenter,
+        BasePresenterImpl<ShareComponentContract.View>()
 {
 
     init {

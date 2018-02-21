@@ -14,8 +14,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/document_attachment_background"
-        android:elevation="12dp">
+        android:background="@drawable/attachment_background"
+        android:elevation="2dp">
         <LinearLayout
             android:id="@+id/bodyLl"
             android:orientation="horizontal"
@@ -31,7 +31,8 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_attachment_black"/>
+                android:tint="@color/blueGrey"
+                android:src="@drawable/ic_share_black_24dp"/>
 
             <TextView
                 android:id="@+id/nameTv"
@@ -40,18 +41,10 @@
                 android:lines="1"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                style="@style/text.header3"
-                android:text="Main document"/>
+                style="@style/text.button.quaternary"
+                android:textColor="@color/textColorSecondary"
+                android:text="_Share"/>
 
-            <TextView
-                android:id="@+id/sizeTv"
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:lines="1"
-                android:layout_marginStart="12dp"
-                android:gravity="end"
-                style="@style/text.subHeader5.quaternary"
-                android:text="2,3 MB"/>
         </LinearLayout>
     </FrameLayout>
 </FrameLayout>

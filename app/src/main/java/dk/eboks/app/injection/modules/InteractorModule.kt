@@ -7,10 +7,7 @@ import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractorImpl
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractorImpl
-import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
-import dk.eboks.app.domain.interactors.message.GetMessagesInteractorImpl
-import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
-import dk.eboks.app.domain.interactors.message.OpenMessageInteractorImpl
+import dk.eboks.app.domain.interactors.message.*
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractorImpl
 import dk.eboks.app.domain.managers.*

@@ -2,17 +2,22 @@ package dk.eboks.app.presentation.ui.screens.message.embedded
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.View
 import dk.eboks.app.R
+import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseSheetActivity
 import dk.eboks.app.presentation.ui.components.message.attachments.AttachmentsComponentFragment
 import dk.eboks.app.presentation.ui.components.message.folderinfo.FolderInfoComponentFragment
 import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentFragment
-import dk.eboks.app.presentation.ui.components.message.viewers.base.EmbeddedViewer
+import dk.eboks.app.presentation.ui.components.message.share.ShareComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.pdf.PdfViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentFragment
+import kotlinx.android.synthetic.main.include_toolnar.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -23,7 +28,11 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     @Inject
     lateinit var presenter: MessageEmbeddedContract.Presenter
 
+    @Inject
+    lateinit var formatter: EboksFormatter
+
     var headerComponentFragment: HeaderComponentFragment? = null
+    var shareComponentFragment: ShareComponentFragment? = null
     var notesComponentFragment: NotesComponentFragment? = null
     var attachmentsComponentFragment: AttachmentsComponentFragment? = null
     var folderInfoComponentFragment: FolderInfoComponentFragment? = null
@@ -41,7 +50,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     }
 
     override fun setupTranslations() {
-        
+        toolbarTv.text = Translation.message.title
     }
 
     override fun addHeaderComponentFragment()
@@ -54,6 +63,13 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         }
     }
 
+    override fun addShareComponentFragment() {
+        shareComponentFragment = ShareComponentFragment()
+        shareComponentFragment?.let{
+            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, ShareComponentFragment::class.java.simpleName).commit()
+        }
+    }
+
     override fun addNotesComponentFragment() {
         notesComponentFragment = NotesComponentFragment()
         notesComponentFragment?.let{
@@ -63,14 +79,15 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
 
     override fun addAttachmentsComponentFragment() {
         attachmentsComponentFragment = AttachmentsComponentFragment()
-        attachmentsComponentFragment?.let{
+        attachmentsComponentFragment?.let {
             supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, AttachmentsComponentFragment::class.java.simpleName).commit()
         }
     }
 
+
     override fun addFolderInfoComponentFragment() {
         folderInfoComponentFragment = FolderInfoComponentFragment()
-        folderInfoComponentFragment?.let{
+        folderInfoComponentFragment?.let {
             supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, FolderInfoComponentFragment::class.java.simpleName).commit()
         }
     }
@@ -101,5 +118,11 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         embeddedViewerComponentFragment?.let {
             supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, TextViewComponentFragment::class.java.simpleName).commit()
         }
+    }
+
+    override fun showTitle(message: Message) {
+        toolbarSubTv.text = formatter.formatDate(message)
+        toolbarTv.visibility = View.VISIBLE
+        toolbarSubTv.visibility = View.VISIBLE
     }
 }

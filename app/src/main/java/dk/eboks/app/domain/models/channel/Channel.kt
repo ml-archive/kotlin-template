@@ -6,8 +6,6 @@ import java.io.Serializable
 /**
  * Created by thsk on 16/02/2018.
  */
-
-
 data class Channel(
         var id : Int,
         var name : String,

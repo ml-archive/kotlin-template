@@ -44,6 +44,8 @@ import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentContr
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentContract
 import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.share.ShareComponentContract
+import dk.eboks.app.presentation.ui.components.message.share.ShareComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentContract
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentContract
@@ -220,6 +222,13 @@ class PresentationModule {
     fun provideChannelSettingsPopUpComponentPresenter(stateManager: AppStateManager) : ChannelSettingsPopUpComponentContract.Presenter {
         return ChannelSettingsPopUpComponentPresenter(stateManager)
     }
+
+    @ActivityScope
+    @Provides
+    fun provideShareComponentPresenter(stateManager: AppStateManager) : ShareComponentContract.Presenter {
+        return ShareComponentPresenter(stateManager)
+    }
+
     /* Pasta
     @ActivityScope
     @Provides

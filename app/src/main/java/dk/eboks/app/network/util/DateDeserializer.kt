@@ -16,19 +16,21 @@ class DateDeserializer : JsonDeserializer<Date> {
     @Throws(JsonParseException::class)
     override fun deserialize(jsonElement: JsonElement, typeOF: Type,
                              context: JsonDeserializationContext): Date {
-        for (format in dk.eboks.app.network.util.DateDeserializer.Companion.DATE_FORMATS) {
-            if (!dk.eboks.app.network.util.DateDeserializer.Companion.formatters.containsKey(format)) {
-                dk.eboks.app.network.util.DateDeserializer.Companion.formatters.put(format, SimpleDateFormat(format, Locale.getDefault()))
+        for (format in DATE_FORMATS) {
+
+            if (!formatters.containsKey(format)) {
+                formatters.put(format, SimpleDateFormat(format, Locale.getDefault()))
             }
 
             try {
-                return dk.eboks.app.network.util.DateDeserializer.Companion.formatters[format]?.parse(jsonElement.asString) ?: Date()
+                return formatters[format]?.parse(jsonElement.asString) ?: Date()
             } catch (e: ParseException) {
+                e.printStackTrace()
             }
 
         }
         throw JsonParseException("Unparseable date: \"" + jsonElement.asString
-                + "\". Supported formats: " + Arrays.toString(dk.eboks.app.network.util.DateDeserializer.Companion.DATE_FORMATS))
+                + "\". Supported formats: " + Arrays.toString(DATE_FORMATS))
     }
 
     // replacement for a static member

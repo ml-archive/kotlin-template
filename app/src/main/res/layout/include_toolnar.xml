@@ -25,15 +25,32 @@
             android:src="@drawable/ic_menu_home"
             android:tint="@color/toolbar_item_selector" />
 
-        <TextView
-            android:id="@+id/toolbarTv"
-            android:visibility="gone"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="_Main"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-            android:textColor="@color/toolbarTitleColor" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/toolbarTv"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginStart="16dp"
+                android:text="_Main"
+                android:textAppearance="@style/text.header2" />
+
+            <TextView
+                android:id="@+id/toolbarSubTv"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginStart="16dp"
+                android:text="_Main"
+                android:textAppearance="@style/text.subHeader5.quaternary"
+                android:textColor="@color/blueGrey" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/userShareTv"

@@ -17,7 +17,7 @@ class AppModule(val application: App) {
     @Provides
     @AppScope
     fun provideContext(): Context {
-        return application.baseContext
+        return application.applicationContext
     }
 
     @Provides

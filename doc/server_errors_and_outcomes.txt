@@ -1,0 +1,216 @@
+ 
+E-boks 4.0 Phase 1 message open error codes
+===============================================================================
+
+1. Sikkerhedsniveau, log på igen
+2. Log på metode, log på igen
+3. Privat-visning (NO)
+4. Obligatorisk åbningskvittering - slutbruger skal acceptere kvittering sendes før meddelelsen kan åbnes
+5. Valgfri åbningskvittering - slutbruger kan afvise en kvittering og stadig få adgang til meddelelsen
+6. Meddelelsen er i karantæne
+7. Meddelelsen er trukket tilbage
+8. Låst meddelelse
+9. Digital forkyndelse
+
+
+ServerError model:
+ 
+{
+	"id": (string),
+	"code": (integer),
+	"arg": (string, optional), (do not implement as enum, to not hinder future use, at least if your parsing stops on unknown values)
+	"description": (description, optional),
+	"type": (string) = ["error","warning","information"],
+	"debug": (string, optional)
+}
+
+description er nu optional, ser ikke nogen grund til at sende dem med altid, når vi ikke altid viser dem.
+
+arg repræsenterer et argument, blev for messy at kommunikere det hele i code. Derudover giver
+den mulighed for fremtidig fleksibilitet.
+Hvis eboks f.eks. ønsker at sender flere mulige login providers
+tilbage kan arg være en kommasepareret liste ala "arg": "bankid,idporten,nemid"
+Vi så kan parse og kun præsentere disse providers.
+Derudover kan feltet bruges til future stuff :)
+
+-------------------------------------------------------------------------------
+Eboks error HTTP status code
+
+For the auth error responses appropiate HTTP status code (403) has been chosen.
+For errors not mapable to HTTP and unique for eboks we've chosen:
+
+520 Eboks
+
+(512+ is unused and 5XX indicate a server error in general, hence the choice of 520.
+This is as restful as it gets without wasting time on defining dual codes, or risking
+running out of codes in the small 512-599 unreserved HTTP Server Error interval)
+
+    Quote from:
+    https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+
+    Response status codes beginning with the digit "5" indicate cases in which the server is aware that
+    it has encountered an error or is otherwise incapable of performing the request.
+
+    Except when responding to a HEAD request, the server should include an entity containing an explanation of the error situation,
+    and indicate whether it is a temporary or permanent condition. Likewise, user agents should display any included entity to the user.
+    These response codes are applicable to any request method.
+
+
+------------------------------------------------------------------------------
+
+1. Sikkerhedsniveau, log på igen
+
+Code: INSUFFICIENT_CLEARANCE_ERROR = 9000
+
+User must relog with appropiate security level, login provider specified by the optional arg field:
+
+mobileaccess (if the user is anonymous?)
+nemid
+bankid
+idporten
+[future login provider]
+ 
+Sample response: (optional unused fields from model class omitted)
+
+403 Unauthorized
+{
+	"code": 9000,
+	"arg": "bankid"
+	"type": "error"
+}
+
+-------------------------------------------------------------------------------
+2. Log på metode, log på igen
+
+Code: ALSO_INSUFFICIENT_CLEARANCE_ERROR = 9001
+
+User must relog with appropiate security level, login provider specified by the optional arg field:
+
+mobileaccess (if the user is anonymous?)
+nemid
+bankid
+idporten
+[future login provider]
+
+Sample response: (optional unused fields from model class omitted)
+
+403 Unauthorized
+{
+	"code": 9001,
+	"arg": "bankid"
+	"type": "error"
+}
+
+Comments:
+
+Kan ikke forestille mig hvorfor klienten skulle præsentere disse to outcomes forskelligt?
+Vil det ikke altid resultere i at serveren beslutter sig for en anden login provider,
+og kommunikerer denne tilbage via arg?
+
+-------------------------------------------------------------------------------
+
+3. Privat-visning (NO)
+
+Show a confirmation dialog to the user where they can either cancel or press ok and go through with opening the
+message (legal bs feature, norway only)
+
+Code: NO_PRIVATE_SENDER_WARNING = 9100
+
+520 Eboks
+{
+	"code": 9100,
+	"type": "information"
+}
+
+-------------------------------------------------------------------------------
+
+4. Obligatorisk åbningskvittering - slutbruger skal acceptere kvittering sendes før meddelelsen kan åbnes
+
+Show a confirmation dialog with the options "Back" and "Open". Back dismisses the dialog and return the user to the
+previous screen. Open calls an endpoint (presumably with the message and probably folder id too). If
+the endpoint returns 200 OK, everything is well and the user is taken to the message.
+
+Code: MANDATORY_OPEN_RECEIPT = 9200
+
+520 Eboks
+{
+	"code": 9200,
+	"type": "warning"
+}
+
+-------------------------------------------------------------------------------
+
+5. Valgfri åbningskvittering - slutbruger kan afvise en kvittering og stadig få adgang til meddelelsen
+
+Show a confirmation dialog with the options "Cancel" and "Open". Cancel dismiss the dialog AND open the document
+anyway. Open calls the receipt endpoint and then opens the message.
+
+Code: VOLUNTARY_OPEN_RECEIPT = 9200
+
+520 Eboks
+{
+	"code": 9201,
+	"type": "warning"
+}
+
+-------------------------------------------------------------------------------
+
+6. Meddelelsen er i karantæne
+
+Instead of the message show a fullscreen "locked" view (refer to design). In a future version
+an option to delete the message might be presented with a button.
+
+Code: MESSAGE_QUARANTINED = 9300
+
+520 Eboks
+{
+	"code": 9300,
+	"type": "warning"
+}
+
+NB: Translations for quarantine skærmen i den nuværende app er stadig "karantine beskrivelse" på alle sprog (i custom translation url'en også)
+Har i nogensinde benyttet denne feature i den eksisterende app? Den er implementeret og erindrer svagt at have testet den også, men ikke mere.
+
+-------------------------------------------------------------------------------
+
+7. Meddelelsen er trukket tilbage
+
+Instead of the message show a fullscreen "locked" view (refer to design). In a future version
+an option to delete the message might be presented with a button.
+
+Code: MESSAGE_RECALLED = 9301
+
+520 Eboks
+{
+	"code": 9301,
+	"type": "warning"
+}
+
+
+-------------------------------------------------------------------------------
+
+8. Låst meddelelse
+Show a lock screen (refer to the design). Provide the user the option to login
+with the login provider specified in the arg field.
+
+520 Eboks
+{
+	"code": 9302,
+	"arg": "bankid"
+	"type": "information"
+}
+
+-------------------------------------------------------------------------------
+
+9. Digital forkyndelse / Promulgation
+Inform the user in the politest possible way that they've been served, with a dialog
+with giant okay button. Clicking the okay button a promulgation endpoint is called and if
+it returns 200 OK, the user is taken to the document.
+
+NB: er det sådan promulgation virker backend wise? (jeg har ikke implementeret den nuværende feature)
+
+520 Eboks
+{
+	"code": 9400,
+	"type": "warning"
+}

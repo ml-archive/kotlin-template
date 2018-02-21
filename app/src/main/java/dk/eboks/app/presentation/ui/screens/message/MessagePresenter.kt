@@ -12,7 +12,10 @@ class MessagePresenter @Inject constructor(val appState: AppStateManager) : Mess
 
     init {
         Timber.e("Current message ${appState.state?.currentMessage}")
+        val message = appState.state?.currentMessage
+        runAction { v->
+            message?.let { v.showTitle(it) }
+        }
     }
-
 
 }

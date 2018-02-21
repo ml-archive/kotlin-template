@@ -1,17 +1,20 @@
 package dk.eboks.app
 
+import android.app.Activity
 import android.app.Application
 import android.content.Context
+import android.os.Bundle
 import android.support.multidex.MultiDex
 import dk.eboks.app.injection.components.AppComponent
 import dk.eboks.app.injection.components.DaggerAppComponent
 import dk.eboks.app.injection.modules.AppModule
 import timber.log.Timber
+import java.lang.ref.WeakReference
 
 /**
  * Created by bison on 20-05-2017.
  */
-class App : Application()
+class App : Application(), Application.ActivityLifecycleCallbacks
 {
     val appComponent: AppComponent by lazy {
         DaggerAppComponent
@@ -29,6 +32,7 @@ class App : Application()
         }
 
         appComponent.inject(this)
+        registerActivityLifecycleCallbacks(this)
     }
 
     // uncomment me if multidex
@@ -41,11 +45,34 @@ class App : Application()
 
     companion object {
         private lateinit var _instance : App
+        private var activityRef : WeakReference<Activity?>? = null
 
         fun instance() : App
         {
             return _instance
         }
+
+        fun currentActivity() : Activity?
+        {
+            activityRef?.let {
+                if(it.get() != null)
+                    return it.get()
+            }
+            return null
+        }
     }
 
+    override fun onActivityPaused(activity: Activity?) {
+        activityRef = null
+    }
+
+    override fun onActivityResumed(activity: Activity?) {
+        activityRef = WeakReference(activity)
+    }
+
+    override fun onActivityStarted(p0: Activity?) {}
+    override fun onActivityDestroyed(p0: Activity?) {}
+    override fun onActivitySaveInstanceState(p0: Activity?, p1: Bundle?) {}
+    override fun onActivityStopped(p0: Activity?) {}
+    override fun onActivityCreated(p0: Activity?, p1: Bundle?) {}
 }
