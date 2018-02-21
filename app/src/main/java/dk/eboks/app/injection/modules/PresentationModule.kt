@@ -56,6 +56,8 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContract
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.ChannelsContract
+import dk.eboks.app.presentation.ui.screens.channels.ChannelsPresenter
 import dk.eboks.app.presentation.ui.screens.splash.SplashContract
 import dk.eboks.app.presentation.ui.screens.splash.SplashPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
@@ -100,6 +102,13 @@ class PresentationModule {
     @Provides
     fun provideMessagePresenter(appState: AppStateManager) : MessageContract.Presenter {
         return MessagePresenter(appState)
+    }
+
+
+    @ActivityScope
+    @Provides
+    fun provideChannelsPresenter(stateManager: AppStateManager) : ChannelsContract.Presenter {
+        return ChannelsPresenter(stateManager)
     }
 
     @ActivityScope

@@ -44,6 +44,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.message.MessageActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

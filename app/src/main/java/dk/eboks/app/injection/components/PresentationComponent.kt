@@ -50,6 +50,8 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity
+import dk.eboks.app.presentation.ui.screens.channels.ChannelsPresenter
 import dk.eboks.app.presentation.ui.screens.splash.SplashActivity
 import dk.eboks.app.presentation.ui.screens.splash.SplashPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
@@ -75,6 +77,8 @@ interface PresentationComponent {
     fun inject(target : MessagePresenter)
     fun inject(target : MessageEmbeddedActivity)
     fun inject(target : MessageEmbeddedPresenter)
+    fun inject(target : ChannelsActivity)
+    fun inject(target : ChannelsPresenter)
 
     // components
     fun inject(target : HeaderComponentFragment)

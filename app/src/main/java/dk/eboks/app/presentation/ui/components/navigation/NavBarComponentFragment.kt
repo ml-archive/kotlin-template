@@ -10,6 +10,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.pasta.activity.PastaActivity
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.eboks.app.util.disableShiftingMode
 import kotlinx.android.synthetic.main.fragment_navbar_component.*
@@ -69,6 +70,10 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
                 R.id.actionMail -> {
                     activityCls = MailOverviewActivity::class.java
                     currentMenuItem = R.id.actionMail
+                }
+                R.id.actionChannels -> {
+                    activityCls = ChannelsActivity::class.java
+                    currentMenuItem = R.id.actionChannels
                 }
                 else -> { }
             }
