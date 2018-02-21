@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_top_corners"
+        android:orientation="vertical"
+        android:paddingBottom="31.5dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="40dp">
+
+        <TextView
+            style="@style/text.header4.tertiary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="e-Boks Sign up" />
+
+        <TextView
+            style="@style/text.header1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="8.5dp"
+            android:text="Lets help you to get started" />
+
+        <TextView
+            style="@style/text.header4.quaternary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="The Mecenat channel needs the following information to create a user for you." />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_setting_boxrow_view" />
+
+        <include layout="@layout/include_setting_boxrow_view" />
+
+        <include layout="@layout/include_setting_boxrow_view" />
+
+        <include layout="@layout/include_setting_boxrow_view" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                style="@style/button.SolidGradient"
+                android:layout_width="328dp"
+                android:layout_height="52dp"
+                android:text="Update profile" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

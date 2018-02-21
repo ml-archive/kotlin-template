@@ -25,8 +25,7 @@ import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewContract
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
-import dk.eboks.app.presentation.ui.components.channels.mainscreen.ChannelMainScreenComponentContract
-import dk.eboks.app.presentation.ui.components.channels.mainscreen.ChannelMainScreenComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.list.*
 import dk.eboks.app.presentation.ui.screens.message.MessageContract
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
 import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedContract
@@ -208,8 +207,20 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelMainScreenComponentPresenter(stateManager: AppStateManager) : ChannelMainScreenComponentContract.Presenter {
-        return ChannelMainScreenComponentPresenter(stateManager)
+    fun provideChannelListComponentPresenter(stateManager: AppStateManager) : ChannelListComponentContract.Presenter {
+        return ChannelListComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelDetailComponentPresenter(stateManager: AppStateManager) : ChannelDetailComponentContract.Presenter {
+        return ChannelDetailComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelSettingsPopUpComponentPresenter(stateManager: AppStateManager) : ChannelSettingsPopUpComponentContract.Presenter {
+        return ChannelSettingsPopUpComponentPresenter(stateManager)
     }
 
     @ActivityScope
