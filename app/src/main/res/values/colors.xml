@@ -32,5 +32,6 @@
     <color name="transparentWhite">#33000000</color>
     <color name="dividerDarkGreyBlue">#26416780</color>
     <color name="transparentDarkGreyBlue">#0d345768</color>
+    <color name="greyBoarder">#c1ced2</color>
 
 </resources>

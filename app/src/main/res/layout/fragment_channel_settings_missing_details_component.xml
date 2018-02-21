@@ -49,13 +49,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/include_setting_boxrow_view" />
+        <include layout="@layout/include_channel_setting_boxrow_view" />
 
-        <include layout="@layout/include_setting_boxrow_view" />
+        <include layout="@layout/include_channel_setting_boxrow_view" />
 
-        <include layout="@layout/include_setting_boxrow_view" />
+        <include layout="@layout/include_channel_setting_boxrow_view" />
 
-        <include layout="@layout/include_setting_boxrow_view" />
+        <include layout="@layout/include_channel_setting_boxrow_view" />
 
         <LinearLayout
             android:layout_width="match_parent"
