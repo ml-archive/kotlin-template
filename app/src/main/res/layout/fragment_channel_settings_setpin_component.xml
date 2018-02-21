@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_top_corners"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/text.header1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:text="Settings" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                style="@style/buttonRoundedCorners"
+                android:layout_width="140.5dp"
+                android:layout_height="36dp"
+                android:text="Update profile"
+                android:textColor="@color/colorPrimaryDark" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
