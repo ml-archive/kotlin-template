@@ -16,6 +16,7 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, 
     override var input : BootstrapInteractor.Input? = null
 
     override fun execute() {
+
         // we don't use input in this example but we could:
         input?.let {
             // do something with unwrapped input
@@ -32,6 +33,7 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, 
         // Initialize eboks protocol
         protocolManager.init(settings.deviceId)
 
+        executor.sleepUntilSignalled("bootstrapDone")
 
         try {
             runOnUIThread {

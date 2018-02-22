@@ -8,19 +8,25 @@ import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
+import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.UpdateType
+import kotlinx.android.synthetic.main.activity_splash.*
 import timber.log.Timber
 import javax.inject.Inject
 
 class SplashActivity : BaseActivity(), SplashContract.View {
     @Inject lateinit var presenter: SplashContract.Presenter
+    @Inject lateinit var executor: Executor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(dk.eboks.app.R.layout.activity_splash)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        proceedBtn.setOnClickListener {
+            executor.signal("bootstrapDone")
+        }
 
     }
 

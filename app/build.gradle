@@ -165,7 +165,9 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
     implementation "dk.nodes.nstack:nstack-kotlin:$nodes_nstack_kotlin_version"
-    implementation "dk.nodes.arch:base:$nodes_arch_version"
+
+    //implementation "dk.nodes.arch:base:$nodes_arch_version"
+    implementation "dk.nodes.arch:base:LOCAL"
 
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
