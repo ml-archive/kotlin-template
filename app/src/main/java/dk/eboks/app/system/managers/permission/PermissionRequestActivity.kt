@@ -1,5 +1,6 @@
 package dk.eboks.app.system.managers.permission
 
+import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
@@ -45,7 +46,8 @@ class PermissionRequestActivity : BaseActivity() {
         for(str in perm_array)
             Timber.e("perm array entry: $str")
 
-        ActivityCompat.requestPermissions(this, perm_array, PERMISSION_REQUEST)
+        val PERMISSIONS : Array<out String> = arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS)
+        ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
