@@ -29,7 +29,7 @@ buildscript {
 
         nodes_nstack_kotlin_version = '1.0'
 
-        nodes_arch_version = '1.1.4'
+        nodes_arch_version = '1.1.7'
 
         rxkotlin_version = '2.1.0'
         rxandroid_version = '2.0.1'

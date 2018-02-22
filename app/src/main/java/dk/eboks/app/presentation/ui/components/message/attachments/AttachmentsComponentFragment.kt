@@ -11,6 +11,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.FileUtils
 import kotlinx.android.synthetic.main.fragment_attachments_component.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -66,6 +67,11 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
     }
 
     override fun openExternalViewer(filename: String, mimeType : String) {
-        FileUtils.openExternalViewer(context, filename, mimeType)
+        val was_opened = FileUtils.openExternalViewer(context, filename, mimeType)
+        if(!was_opened)
+        {
+            Timber.e("Intent for $filename ($mimeType) could not be resolved, copying to external storage")
+
+        }
     }
 }

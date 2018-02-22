@@ -1,10 +1,7 @@
 package dk.eboks.app.domain.interactors.message
 
 import dk.eboks.app.domain.interactors.InteractorException
-import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.managers.DownloadManager
-import dk.eboks.app.domain.managers.FileCacheManager
-import dk.eboks.app.domain.managers.UIManager
+import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Content
 import dk.eboks.app.domain.models.internal.EboksContentType
 import dk.nodes.arch.domain.executor.Executor

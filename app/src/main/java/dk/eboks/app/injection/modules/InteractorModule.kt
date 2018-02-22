@@ -55,12 +55,14 @@ class InteractorModule {
         return OpenFolderInteractorImpl(executor, appStateManager, uiManager)
     }
 
-    @Provides fun provideOpenMessageInteractor(executor: Executor, appStateManager: AppStateManager, uiManager: UIManager, downloadManager: DownloadManager, fileCacheManager: FileCacheManager, messagesRepository: MessagesRepository) : OpenMessageInteractor
+    @Provides fun provideOpenMessageInteractor(executor: Executor, appStateManager: AppStateManager, uiManager: UIManager, downloadManager: DownloadManager,
+                                               fileCacheManager: FileCacheManager, messagesRepository: MessagesRepository) : OpenMessageInteractor
     {
         return OpenMessageInteractorImpl(executor, appStateManager, uiManager, downloadManager, fileCacheManager, messagesRepository)
     }
 
-    @Provides fun provideOpenAttachmentInteractor(executor: Executor, appStateManager: AppStateManager, uiManager: UIManager, downloadManager: DownloadManager, fileCacheManager: FileCacheManager) : OpenAttachmentInteractor
+    @Provides fun provideOpenAttachmentInteractor(executor: Executor, appStateManager: AppStateManager, uiManager: UIManager, downloadManager: DownloadManager,
+                                                  fileCacheManager: FileCacheManager) : OpenAttachmentInteractor
     {
         return OpenAttachmentInteractorImpl(executor, appStateManager, uiManager, downloadManager, fileCacheManager)
     }

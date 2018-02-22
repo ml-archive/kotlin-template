@@ -10,6 +10,7 @@ import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
 import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity
+import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.eboks.app.util.guard
 import timber.log.Timber
 import java.io.File
@@ -54,6 +55,13 @@ class UIManagerImpl(val context: Context) : UIManager {
     override fun showFolderContentScreen() {
         handler.post {
             context.startActivity(Intent(context, MailListActivity::class.java))
+        }
+    }
+
+    override fun showPermissionRequestScreen()
+    {
+        handler.post {
+            context.startActivity(Intent(context, PermissionRequestActivity::class.java))
         }
     }
 

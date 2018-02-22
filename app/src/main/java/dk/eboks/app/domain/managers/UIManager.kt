@@ -13,4 +13,5 @@ interface UIManager {
     fun showMessageReceiptOpenScreen()
 
     fun showFolderContentScreen()
+    fun showPermissionRequestScreen()
 }

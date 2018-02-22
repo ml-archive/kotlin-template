@@ -54,6 +54,7 @@ import dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsPresenter
 import dk.eboks.app.presentation.ui.screens.splash.SplashActivity
 import dk.eboks.app.presentation.ui.screens.splash.SplashPresenter
+import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
 /**
@@ -122,4 +123,5 @@ interface PresentationComponent {
     fun inject(target : ShareComponentFragment)
     fun inject(target : ShareComponentPresenter)
     fun inject(target : HintActivity)
+    fun inject(target : PermissionRequestActivity)
 }

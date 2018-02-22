@@ -11,7 +11,7 @@ import java.io.File
  * Created by bison on 21/02/18.
  */
 object FileUtils {
-    fun openExternalViewer(cur_context : Context, filename: String, mimeType : String) {
+    fun openExternalViewer(cur_context : Context, filename: String, mimeType : String) : Boolean {
         //handler.post {
         Timber.e("Opening document $filename $mimeType")
         val intent = Intent(Intent.ACTION_VIEW)
@@ -23,10 +23,9 @@ object FileUtils {
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         if (intent.resolveActivity(cur_context.packageManager) != null) {
             cur_context.startActivity(Intent.createChooser(intent, "_Open with"))
-        } else {
-            Timber.e("Could not resolve share intent")
+            return true
         }
-
-        //}
+        Timber.e("Could not resolve share intent")
+        return false
     }
 }

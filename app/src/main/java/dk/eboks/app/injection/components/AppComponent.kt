@@ -42,6 +42,7 @@ interface AppComponent
     fun fileCacheManager() : FileCacheManager
     fun downloadManager() : DownloadManager
     fun eboksFormatter() : EboksFormatter
+    fun permissionManager() : PermissionManager
 
     // interactors
     fun loginInteractor() : LoginInteractor
