@@ -66,4 +66,10 @@ class InteractorModule {
     {
         return OpenAttachmentInteractorImpl(executor, appStateManager, uiManager, downloadManager, fileCacheManager)
     }
+
+    @Provides fun provideSaveAttachmentInteractor(executor: Executor, appStateManager: AppStateManager,
+                                                  fileCacheManager: FileCacheManager, permissionManager: PermissionManager) : SaveAttachmentInteractor
+    {
+        return SaveAttachmentInteractorImpl(executor, appStateManager, fileCacheManager, permissionManager)
+    }
 }

@@ -33,8 +33,6 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, 
         // Initialize eboks protocol
         protocolManager.init(settings.deviceId)
 
-        executor.sleepUntilSignalled("bootstrapDone")
-
         try {
             runOnUIThread {
                 output?.onBootstrapDone()

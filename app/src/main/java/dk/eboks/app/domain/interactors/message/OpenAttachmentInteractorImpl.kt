@@ -44,7 +44,7 @@ class OpenAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
                 enrichType(content)
 
                 runOnUIThread {
-                    output?.onOpenAttachment(abs_path, content.mimeType ?: "*/*")
+                    output?.onOpenAttachment(content, abs_path, content.mimeType ?: "*/*")
                 }
             }
         } catch (e: Throwable) {

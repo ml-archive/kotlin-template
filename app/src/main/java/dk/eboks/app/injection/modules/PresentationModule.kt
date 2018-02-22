@@ -8,6 +8,7 @@ import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
+import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentContract
@@ -132,8 +133,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideAttachmentsComponentPresenter(stateManager: AppStateManager, openAttachmentInteractor: OpenAttachmentInteractor) : AttachmentsComponentContract.Presenter {
-        return AttachmentsComponentPresenter(stateManager, openAttachmentInteractor)
+    fun provideAttachmentsComponentPresenter(stateManager: AppStateManager, openAttachmentInteractor: OpenAttachmentInteractor, saveAttachmentInteractor: SaveAttachmentInteractor) : AttachmentsComponentContract.Presenter {
+        return AttachmentsComponentPresenter(stateManager, openAttachmentInteractor, saveAttachmentInteractor)
     }
 
     @ActivityScope

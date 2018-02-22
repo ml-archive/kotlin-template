@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Content
 import dk.eboks.app.domain.models.Message
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
@@ -66,12 +67,12 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
         attachmentsLl.visibility = View.GONE
     }
 
-    override fun openExternalViewer(filename: String, mimeType : String) {
+    override fun openExternalViewer(attachment: Content, filename: String, mimeType : String) {
         val was_opened = FileUtils.openExternalViewer(context, filename, mimeType)
         if(!was_opened)
         {
             Timber.e("Intent for $filename ($mimeType) could not be resolved, copying to external storage")
-
+            presenter.saveAttachment(attachment)
         }
     }
 }

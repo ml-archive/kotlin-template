@@ -20,14 +20,14 @@ class PermissionRequestActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permission_request)
         component.inject(this)
-        requestPermissions()
+        requestThemPermissions()
     }
 
     override fun setupTranslations() {
 
     }
 
-    private fun requestPermissions()
+    private fun requestThemPermissions()
     {
         if(!permissionManager.requestInProgress || permissionManager.permsToCheck?.isEmpty() == null)
         {
@@ -40,23 +40,26 @@ class PermissionRequestActivity : BaseActivity() {
             perm_list.add(perm.perm)
         }
 
-        ActivityCompat.requestPermissions(this, perm_list.toTypedArray(), PERMISSION_REQUEST)
 
+        val perm_array = perm_list.toTypedArray()
+        for(str in perm_array)
+            Timber.e("perm array entry: $str")
+
+        ActivityCompat.requestPermissions(this, perm_array, PERMISSION_REQUEST)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        Timber.e("Permission request completed")
-        for(i in 0..permissions.size)
-        {
-            Timber.e("Requested perm ${permissions[i]} = ${grantResults[i] == PackageManager.PERMISSION_GRANTED}")
-            permissionManager.permsToCheck?.let { perms ->
-                for(perm in perms)
-                {
-                    perm.wasGranted = grantResults[i] == PackageManager.PERMISSION_GRANTED
+        if(requestCode == PERMISSION_REQUEST) {
+            Timber.e("Permission request completed")
+            for (i in 0..permissions.size - 1) {
+                Timber.e("Requested perm ${permissions[i]} = ${grantResults[i] == PackageManager.PERMISSION_GRANTED}")
+                permissionManager.permsToCheck?.let { perms ->
+                    perms[i].wasGranted = grantResults[i] == PackageManager.PERMISSION_GRANTED
                 }
             }
-
+            permissionManager.onRequestCompleted()
         }
-        permissionManager.onRequestCompleted()
+        else
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 }

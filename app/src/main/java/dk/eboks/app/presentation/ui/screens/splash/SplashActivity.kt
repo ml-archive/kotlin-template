@@ -24,10 +24,6 @@ class SplashActivity : BaseActivity(), SplashContract.View {
         setContentView(dk.eboks.app.R.layout.activity_splash)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        proceedBtn.setOnClickListener {
-            executor.signal("bootstrapDone")
-        }
-
     }
 
 

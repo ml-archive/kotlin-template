@@ -11,10 +11,11 @@ import dk.nodes.arch.presentation.base.BaseView
 interface AttachmentsComponentContract {
     interface View : BaseView {
         fun updateView(message : Message)
-        fun openExternalViewer(filename: String, mimeType : String)
+        fun openExternalViewer(attachment: Content, filename: String, mimeType : String)
     }
 
     interface Presenter : BasePresenter<AttachmentsComponentContract.View> {
         fun openAttachment(content : Content)
+        fun saveAttachment(content : Content)
     }
 }
