@@ -6,7 +6,10 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 /**
  * Created by bison on 20-05-2017.
  */
-class ChannelsPresenter(val appStateManager: AppStateManager) : ChannelsContract.Presenter, BasePresenterImpl<ChannelsContract.View>() {
+class ChannelsPresenter(val appStateManager: AppStateManager) :
+        ChannelsContract.Presenter,
+        BasePresenterImpl<ChannelsContract.View>()
+{
     init {
     }
 

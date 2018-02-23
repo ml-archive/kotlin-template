@@ -183,6 +183,10 @@ class ChannelListComponentFragment : BaseFragment(), ChannelListComponentContrac
     }
 
 
+    override fun showChannels(channels: List<Channel>) {
+        // TODO show the data
+    }
+
     override fun setupTranslations() {
 
     }

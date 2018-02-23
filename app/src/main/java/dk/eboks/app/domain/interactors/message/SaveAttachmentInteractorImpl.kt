@@ -1,9 +1,11 @@
 package dk.eboks.app.domain.interactors.message
 
 import android.Manifest
+import dk.eboks.app.domain.interactors.InteractorException
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.managers.PermissionManager
+import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
@@ -22,13 +24,26 @@ class SaveAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
         try {
             input?.attachment?.let { content->
                 var filename = cacheManager.getCachedContentFileName(content)
+                filename.guard { throw InteractorException("Cached content $filename could not be find") }
 
-                val perms = permissionManager.requestPermissions(listOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                if(permissionManager.requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE))
+                {
+
+                }
+                else
+                    throw(InteractorException("User refused permission"))
+
+
+                val ext_filename = filename?.replace("[^a-zA-Z0-9\\.\\-]", "_")
+
+                /*
+                val perms = permissionManager.requestPermissions(listOf(Manifest.permission.READ_EXTERNAL_STORAGE))
                 perms?.let {
                     perms.forEach {
                         Timber.e("$it")
                     }
                 }
+                */
 
                 runOnUIThread {
                     output?.onSaveAttachment(filename!!)
@@ -37,7 +52,7 @@ class SaveAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
         } catch (e: Throwable) {
             e.printStackTrace()
             runOnUIThread {
-                output?.onSaveAttachmentError("Unknown error saving attachment ${input?.attachment}")
+                output?.onSaveAttachmentError(e.message ?: "Unknown error saving attachment ${input?.attachment}")
             }
         }
     }

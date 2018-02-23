@@ -14,6 +14,7 @@ import dk.eboks.app.domain.models.Sender
 import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.domain.models.FolderType
 import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.injection.scopes.AppScope
 import okio.BufferedSource
@@ -32,6 +33,8 @@ typealias FolderTypeMessageStore = Store<List<Message>, FolderType>
 
 data class MessageStoreKey(var folderId : Long, var id : String)
 typealias MessageStore = Store<Message, MessageStoreKey>
+
+typealias ListChannelStore = Store<List<Channel>, Long>
 
 @Module
 class StoreModule {
@@ -98,6 +101,17 @@ class StoreModule {
                 .fetcher { key -> api.getFolders() }
                 .persister(FileSystemPersister.create(FileSystemFactory.create(context.cacheDir), { key -> "Folder$key"}))
                 .parser(GsonParserFactory.createSourceParser<List<Folder>>(gson, object : TypeToken<List<Folder>>() {}.type))
+                .open()
+    }
+
+    @Provides
+    @AppScope
+    fun provideListChannelStore(api: Api, gson : Gson, context : Context) : ListChannelStore
+    {
+        return StoreBuilder.parsedWithKey<Long, BufferedSource, List<Channel>>()
+                .fetcher { key -> api.getChannels() }
+                .persister(FileSystemPersister.create(FileSystemFactory.create(context.cacheDir), { key -> "ChannelList$key"}))
+                .parser(GsonParserFactory.createSourceParser<List<Channel>>(gson, object : TypeToken<List<Channel>>() {}.type))
                 .open()
     }
 }

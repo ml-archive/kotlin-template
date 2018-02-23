@@ -68,11 +68,14 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
     }
 
     override fun openExternalViewer(attachment: Content, filename: String, mimeType : String) {
+        presenter.saveAttachment(attachment)
+        /*
         val was_opened = FileUtils.openExternalViewer(context, filename, mimeType)
         if(!was_opened)
         {
             Timber.e("Intent for $filename ($mimeType) could not be resolved, copying to external storage")
             presenter.saveAttachment(attachment)
         }
+        */
     }
 }

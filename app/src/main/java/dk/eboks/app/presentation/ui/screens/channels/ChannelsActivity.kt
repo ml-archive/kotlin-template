@@ -23,4 +23,5 @@ class ChannelsActivity : BaseActivity(), ChannelsContract.View {
     override fun showError(msg: String) {
         Timber.e(msg) // errorhandling lol
     }
+
 }

@@ -3,6 +3,8 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
+import dk.eboks.app.domain.interactors.channel.GetChannelsInteractorImpl
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractorImpl
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
@@ -71,5 +73,10 @@ class InteractorModule {
                                                   fileCacheManager: FileCacheManager, permissionManager: PermissionManager) : SaveAttachmentInteractor
     {
         return SaveAttachmentInteractorImpl(executor, appStateManager, fileCacheManager, permissionManager)
+    }
+
+    @Provides fun provideGetChannelsInteractor(executor: Executor, channelsRepository: ChannelsRepository) : GetChannelsInteractor
+    {
+        return GetChannelsInteractorImpl(executor, channelsRepository)
     }
 }

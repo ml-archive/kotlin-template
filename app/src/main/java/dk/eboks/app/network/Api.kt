@@ -22,5 +22,6 @@ interface Api {
     @GET("mail/folders/{folderId}/messages/{id}") fun getMessage(@Path("id") id : String, @Path("folderId") folderId : Long) : Single<BufferedSource>
     @GET("mail/{type}/messages") fun getMessagesByType(@Path("type") type : FolderType) : Single<BufferedSource>
     @GET("api/senders") fun getSenders() : Single<BufferedSource>
+    @GET("api/channels") fun getChannels() : Single<BufferedSource>
     @PUT("session") fun login(@Body body : LoginRequest) : Single<BufferedSource>
 }

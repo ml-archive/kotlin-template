@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.channels
 
+import dk.eboks.app.domain.models.channel.Channel
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 

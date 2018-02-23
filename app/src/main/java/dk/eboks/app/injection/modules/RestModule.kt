@@ -118,7 +118,7 @@ class RestModule {
         if(BuildConfig.DEBUG)
         {
             val logging = okhttp3.logging.HttpLoggingInterceptor()
-            logging.level = okhttp3.logging.HttpLoggingInterceptor.Level.HEADERS
+            logging.level = okhttp3.logging.HttpLoggingInterceptor.Level.BODY
             clientBuilder.addInterceptor(logging)
 
             /*

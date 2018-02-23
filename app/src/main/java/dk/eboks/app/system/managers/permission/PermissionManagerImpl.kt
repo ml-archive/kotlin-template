@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.support.v4.content.ContextCompat
 import dk.eboks.app.domain.managers.PermissionManager
 import dk.eboks.app.domain.managers.UIManager
+import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 
 /**
@@ -45,7 +46,13 @@ class PermissionManagerImpl(val executor: Executor, val context: Context, val ui
     }
 
     override fun requestPermission(perm : String): Boolean {
-        return requestPermissions(listOf(perm)) != null
+        val perms = requestPermissions(listOf(perm))
+        perms?.guard { return false }
+        perms?.forEach {
+            if(it.perm == perm && it.wasGranted)
+                return true
+        }
+        return false
     }
 
     override fun onRequestCompleted() {
