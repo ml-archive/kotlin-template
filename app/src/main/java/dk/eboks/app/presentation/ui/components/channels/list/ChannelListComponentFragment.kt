@@ -14,6 +14,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Description
 import dk.eboks.app.domain.models.Status
@@ -55,9 +58,9 @@ class ChannelListComponentFragment : BaseFragment(), ChannelListComponentContrac
         // card0 - Dummy card for the top textview - should be changed later
         var status0 = Status(false, null, null, 0, Date());
         var desecription0 = Description("desription1")
-        var logo0 = Image("http://hareskovskole.skoleporten.dk/sp/resource/image/9cc24af6-5339-4eeb-97f5-11278b6859ac?width=573&height=200", "text1", null)
-        var image0 = Image("http://hareskovskole.skoleporten.dk/sp/resource/image/9cc24af6-5339-4eeb-97f5-11278b6859ac?width=573&height=200", "text1", null)
-        var color0 = ChannelColor("rbg", "#BF00FF00")
+        var logo0 = Image("https://is1-ssl.mzstatic.com/image/thumb/Purple62/v4/1c/df/67/1cdf6719-e05f-bb7a-3676-69811b41d168/mzl.gxqksxgx.png/1200x630bb.jpg", "text1", null)
+        var image0 = Image("https://www.mockupworld.co/wp-content/uploads/edd/2016/04/iphone-transparent-free-mockup-1000x566.jpg", "text1", null)
+        var color0 = ChannelColor("rbg", "#10a5c5")
         var requirements0: Array<Requirement>? = null
         requirements0 = arrayOf(Requirement("nameRequirement", "value", RequirementType.NAME))
 
@@ -66,13 +69,13 @@ class ChannelListComponentFragment : BaseFragment(), ChannelListComponentContrac
         // card 1
         var status = Status(false, null, null, 0, Date());
         var desecription1 = Description("desription1")
-        var logo = Image("http://hareskovskole.skoleporten.dk/sp/resource/image/9cc24af6-5339-4eeb-97f5-11278b6859ac?width=573&height=200", "text1", null)
-        var image = Image("http://hareskovskole.skoleporten.dk/sp/resource/image/9cc24af6-5339-4eeb-97f5-11278b6859ac?width=573&height=200", "text1", null)
-        var color = ChannelColor("rbg", "#BF00FF00")
+        var logo = Image("https://is1-ssl.mzstatic.com/image/thumb/Purple62/v4/1c/df/67/1cdf6719-e05f-bb7a-3676-69811b41d168/mzl.gxqksxgx.png/1200x630bb.jpg", "text1", null)
+        var image = Image("https://www.mockupworld.co/wp-content/uploads/edd/2016/04/iphone-transparent-free-mockup-1000x566.jpg", "text1", null)
+        var color = ChannelColor("rbg", "#BF10a5c5")
         var requirements: Array<Requirement>? = null
         requirements = arrayOf(Requirement("nameRequirement", "value", RequirementType.NAME))
 
-        var card1 = Channel(1, "name1", "payoff1", desecription1, status, logo, image, color, requirements, false, false);
+        var card1 = Channel(1, "Mecenat", "Nøglen til et rigere studieliv", desecription1, status, logo, image, color, requirements, false, false);
 
         // card 2
         var status2 = Status(false, null, null, 0, Date());
@@ -115,6 +118,7 @@ class ChannelListComponentFragment : BaseFragment(), ChannelListComponentContrac
             //header
             val headerTv = root.findViewById<TextView>(R.id.headerTv)
             //cards
+
             val cardContainerCv = root.findViewById<CardView>(R.id.cardContainerCv)
             val backgroundIv = root.findViewById<ImageView>(R.id.backgroundIv)
             val backgroundColorLl = root.findViewById<LinearLayout>(R.id.backgroundColorLl)
@@ -145,7 +149,13 @@ class ChannelListComponentFragment : BaseFragment(), ChannelListComponentContrac
 
                 if (currentCard.background != null) {
                     holder?.backgroundIv?.let {
-                        Glide.with(context).load(currentCard?.image?.url).into(it)
+                        val requestOptions = RequestOptions()
+                                .transform(RoundedCorners(20))
+
+                        Glide.with(context)
+                                .load(currentCard?.image?.url)
+                                .apply(requestOptions)
+                                .into(it)
                     }
                 }
 
@@ -155,7 +165,8 @@ class ChannelListComponentFragment : BaseFragment(), ChannelListComponentContrac
                     }
                 }
 
-                holder?.backgroundColorLl?.background?.setTint(Color.parseColor(currentCard.background?.rgba))
+                var backgroundcolor = currentCard.background?.rgba
+                holder?.backgroundColorLl?.background?.setTint(Color.parseColor(backgroundcolor))
                 holder?.headlineTv?.setText(currentCard.payoff)
 
 

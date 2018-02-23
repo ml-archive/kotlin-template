@@ -4,35 +4,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp"
     android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp">
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="10dp">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardContainerCv"
         android:layout_width="match_parent"
         android:layout_height="176dp"
-
         android:elevation="0dp"
+        android:outlineProvider="none"
         android:visibility="visible"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="8dp"
+        app:cardPreventCornerOverlap="true">
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_margin="4dp">
 
             <ImageView
                 android:id="@+id/backgroundIv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:outlineProvider="background"
+                android:scaleType="centerCrop"
                 android:src="@drawable/ic_menu_home" />
+
 
             <LinearLayout
                 android:id="@+id/backgroundColorLl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="4dp"
                 android:background="@drawable/channels_card_background_rounded"
                 android:orientation="vertical"
                 android:paddingLeft="20dp">

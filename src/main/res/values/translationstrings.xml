@@ -1,0 +1,30 @@
+<resources>
+  <string name='defaultOk' formatted='false'>Okay</string>
+  <string name='errorErrorMessage10100' formatted='false'>Something wrong with server</string>
+  <string name='errorErrorTitle10100' formatted='false'>ServerErrorTitle</string>
+  <string name='mailSenderHeader' formatted='false'>Mail from your senders</string>
+  <string name='mailShowAllSendersButton' formatted='false'>Show all</string>
+  <string name='mailSmartFolderHeader' formatted='false'>Your mail</string>
+  <string name='mailFoldersButton' formatted='false'>Folders</string>
+  <string name='mailSendersEmptyHeader' formatted='false'>No mails from your senders</string>
+  <string name='mailSendersEmptyMessage' formatted='false'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</string>
+  <string name='mailAddMoreSendersButton' formatted='false'>Add more senders</string>
+  <string name='mainnavHomeButton' formatted='false'>Home</string>
+  <string name='mainnavMailButton' formatted='false'>Mail</string>
+  <string name='mainnavSendersButton' formatted='false'>Senders</string>
+  <string name='mainnavChannelsButton' formatted='false'>Channels</string>
+  <string name='mainnavUploadsButton' formatted='false'>Uploads</string>
+  <string name='foldersFoldersHeader' formatted='false'>Folders</string>
+  <string name='foldersSearchBarPlaceholder' formatted='false'>Search</string>
+  <string name='messageNotes' formatted='false'>Notes</string>
+  <string name='messageAttachments' formatted='false'>Attachments</string>
+  <string name='messageFolder' formatted='false'>Folder</string>
+  <string name='messageTitle' formatted='false'>Message</string>
+  <string name='messageInformation' formatted='false'>Information</string>
+  <string name='attachmentsLockedTitle' formatted='false'>Locked attachment</string>
+  <string name='attachmentsLockedMessage' formatted='false'>Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.</string>
+  <string name='channelsChannelsHeader' formatted='false'>Get you relevant information and actions directly on your  e-Boks home screen</string>
+  <string name='channelsTitle' formatted='false'>Channels</string>
+  <string name='channelsInstall' formatted='false'>Install</string>
+  <string name='channelsOpen' formatted='false'>Open</string>
+</resources>
