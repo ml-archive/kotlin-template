@@ -9,6 +9,14 @@ import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
+import java.nio.channels.FileChannel
+import java.nio.file.Files.exists
+
+
 
 /**
  * Created by bison on 01/02/18.
@@ -36,6 +44,9 @@ class SaveAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
 
                 val ext_filename = filename?.replace("[^a-zA-Z0-9\\.\\-]", "_")
 
+                Timber.e("Generated safe filename $ext_filename")
+                //copyFile()
+
                 /*
                 val perms = permissionManager.requestPermissions(listOf(Manifest.permission.READ_EXTERNAL_STORAGE))
                 perms?.let {
@@ -53,6 +64,32 @@ class SaveAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
             e.printStackTrace()
             runOnUIThread {
                 output?.onSaveAttachmentError(e.message ?: "Unknown error saving attachment ${input?.attachment}")
+            }
+        }
+    }
+
+    @Throws(IOException::class)
+    fun copyFile(sourceFile: File, destFile: File) {
+        if (!destFile.getParentFile().exists())
+            destFile.getParentFile().mkdirs()
+
+        if (!destFile.exists()) {
+            destFile.createNewFile()
+        }
+
+        var source: FileChannel? = null
+        var destination: FileChannel? = null
+
+        try {
+            source = FileInputStream(sourceFile).getChannel()
+            destination = FileOutputStream(destFile).getChannel()
+            destination!!.transferFrom(source, 0, source!!.size())
+        } finally {
+            if (source != null) {
+                source!!.close()
+            }
+            if (destination != null) {
+                destination!!.close()
             }
         }
     }
