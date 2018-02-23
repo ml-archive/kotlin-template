@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.CycleInterpolator
+import android.view.animation.ScaleAnimation
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -50,60 +53,6 @@ class ChannelListComponentFragment : BaseFragment(), ChannelListComponentContrac
         presenter.onViewCreated(this, lifecycle)
 
         setupRecyclerView()
-
-        setupMockedData()
-    }
-
-    private fun setupMockedData() {
-        // card0 - Dummy card for the top textview - should be changed later
-        var status0 = Status(false, null, null, 0, Date());
-        var desecription0 = Description("desription1")
-        var logo0 = Image("https://is1-ssl.mzstatic.com/image/thumb/Purple62/v4/1c/df/67/1cdf6719-e05f-bb7a-3676-69811b41d168/mzl.gxqksxgx.png/1200x630bb.jpg", "text1", null)
-        var image0 = Image("https://www.mockupworld.co/wp-content/uploads/edd/2016/04/iphone-transparent-free-mockup-1000x566.jpg", "text1", null)
-        var color0 = ChannelColor("rbg", "#10a5c5")
-        var requirements0: Array<Requirement>? = null
-        requirements0 = arrayOf(Requirement("nameRequirement", "value", RequirementType.NAME))
-
-        var card0 = Channel(-1, "name1", "payoff1", desecription0, status0, logo0, image0, color0, requirements0, false, false);
-
-        // card 1
-        var status = Status(false, null, null, 0, Date());
-        var desecription1 = Description("desription1")
-        var logo = Image("https://is1-ssl.mzstatic.com/image/thumb/Purple62/v4/1c/df/67/1cdf6719-e05f-bb7a-3676-69811b41d168/mzl.gxqksxgx.png/1200x630bb.jpg", "text1", null)
-        var image = Image("https://www.mockupworld.co/wp-content/uploads/edd/2016/04/iphone-transparent-free-mockup-1000x566.jpg", "text1", null)
-        var color = ChannelColor("rbg", "#BF10a5c5")
-        var requirements: Array<Requirement>? = null
-        requirements = arrayOf(Requirement("nameRequirement", "value", RequirementType.NAME))
-
-        var card1 = Channel(1, "Mecenat", "Nøglen til et rigere studieliv", desecription1, status, logo, image, color, requirements, false, false);
-
-        // card 2
-        var status2 = Status(false, null, null, 0, Date());
-        var desecription2 = Description("desription2")
-        var logo2 = Image("http://hareskovskole.skoleporten.dk/sp/resource/image/9cc24af6-5339-4eeb-97f5-11278b6859ac?width=573&height=200", "text2", null)
-        var image2 = Image("http://hareskovskole.skoleporten.dk/sp/resource/image/9cc24af6-5339-4eeb-97f5-11278b6859ac?width=573&height=200", "text2", null)
-        var color2 = ChannelColor("rbg", "#BFFF0000")
-        var requirements2: Array<Requirement>? = null
-        requirements2 = arrayOf(Requirement("nameRequirement", "value", RequirementType.NAME))
-
-        var card2 = Channel(2, "name2", "payoff2", desecription2, status2, logo2, image2, color2, requirements2, false, false);
-
-        // card 3
-        var status3 = Status(false, null, null, 0, Date());
-        var desecription3 = Description("desription3")
-        var logo3 = Image("http://hareskovskole.skoleporten.dk/sp/resource/image/9cc24af6-5339-4eeb-97f5-11278b6859ac?width=573&height=200", "text3", null)
-        var image3 = Image("http://hareskovskole.skoleporten.dk/sp/resource/image/9cc24af6-5339-4eeb-97f5-11278b6859ac?width=573&height=200", "text3", null)
-        var color3 = ChannelColor("rbg", "#BF0000FF")
-        var requirements3: Array<Requirement>? = null
-        requirements3 = arrayOf(Requirement("nameRequirement", "value", RequirementType.NAME))
-
-        var card3 = Channel(3, "name3", "payoff3", desecription3, status3, logo3, image3, color3, requirements3, false, false);
-
-        cards.add(card0)
-        cards.add(card1)
-        cards.add(card2)
-        cards.add(card3)
-        channelRv.adapter.notifyDataSetChanged()
     }
 
     private fun setupRecyclerView() {
@@ -115,14 +64,15 @@ class ChannelListComponentFragment : BaseFragment(), ChannelListComponentContrac
     inner class ChannelAdapter : RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder>() {
 
         inner class ChannelViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
+
             //header
             val headerTv = root.findViewById<TextView>(R.id.headerTv)
-            //cards
 
+            //cards
             val cardContainerCv = root.findViewById<CardView>(R.id.cardContainerCv)
             val backgroundIv = root.findViewById<ImageView>(R.id.backgroundIv)
             val backgroundColorLl = root.findViewById<LinearLayout>(R.id.backgroundColorLl)
-            val headlineTv = root.findViewById<TextView>(R.id.headerTv)
+            val headlineTv = root.findViewById<TextView>(R.id.headlineTv)
             val logoIv = root.findViewById<ImageView>(R.id.logoIv)
             val nameTv = root.findViewById<TextView>(R.id.nameTv)
             val button = root.findViewById<Button>(R.id.button)
@@ -150,7 +100,7 @@ class ChannelListComponentFragment : BaseFragment(), ChannelListComponentContrac
                 if (currentCard.background != null) {
                     holder?.backgroundIv?.let {
                         val requestOptions = RequestOptions()
-                                .transform(RoundedCorners(20))
+                                .transform(RoundedCorners(15))
 
                         Glide.with(context)
                                 .load(currentCard?.image?.url)
@@ -178,13 +128,27 @@ class ChannelListComponentFragment : BaseFragment(), ChannelListComponentContrac
                     holder?.button?.setText(Translation.channels.install)
                 }
 
+                holder?.cardContainerCv?.setOnClickListener(View.OnClickListener {
+                    var currentChannel = cards.get(position)
+                    holder?.cardContainerCv?.animate()?.scaleX(0.9f)?.scaleY(0.9f)?.setDuration(100)?.
+                            setInterpolator(CycleInterpolator(0.5f))?.
+                            start()
+                })
             }
         }
     }
 
 
     override fun showChannels(channels: List<Channel>) {
-        // TODO show the data
+
+        //adding header card added to the top of the list
+        cards.clear()
+        cards.add(Channel(-1, "","",null,null,null,null,null,null,null,null))
+        //addings channels
+        for( channel in channels){
+            cards.add(channel)
+        }
+        channelRv.adapter.notifyDataSetChanged()
     }
 
     override fun setupTranslations() {
