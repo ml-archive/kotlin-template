@@ -3,10 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="dk.eboks.app">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" tools:remove="android:maxSdkVersion"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:remove="android:maxSdkVersion"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:remove="android:maxSdkVersion"/>
 
     <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="false" />
 
@@ -49,6 +48,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity" />
         <activity android:name="dk.eboks.app.system.managers.permission.PermissionRequestActivity" />
+
 
         <provider
             android:name="android.support.v4.content.FileProvider"

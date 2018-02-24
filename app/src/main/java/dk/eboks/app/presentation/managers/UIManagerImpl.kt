@@ -25,13 +25,14 @@ class UIManagerImpl(val context: Context) : UIManager {
 
     override fun showMessageScreen() {
         handler.post {
-            context.startActivity(Intent(context, MessageActivity::class.java))
+            App.currentActivity()?.startActivity(Intent(context, MessageActivity::class.java))
+            //context.startActivity(Intent(context, MessageActivity::class.java))
         }
     }
 
     override fun showEmbeddedMessageScreen() {
         handler.post {
-            context.startActivity(Intent(context, MessageEmbeddedActivity::class.java))
+            App.currentActivity()?.startActivity(Intent(context, MessageEmbeddedActivity::class.java))
         }
     }
 
@@ -54,14 +55,14 @@ class UIManagerImpl(val context: Context) : UIManager {
 
     override fun showFolderContentScreen() {
         handler.post {
-            context.startActivity(Intent(context, MailListActivity::class.java))
+            App.currentActivity()?.startActivity(Intent(context, MailListActivity::class.java))
         }
     }
 
     override fun showPermissionRequestScreen()
     {
         handler.post {
-            context.startActivity(Intent(context, PermissionRequestActivity::class.java))
+            App.currentActivity()?.startActivity(Intent(context, PermissionRequestActivity::class.java))
         }
     }
 

@@ -34,62 +34,23 @@ class SaveAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
                 var filename = cacheManager.getCachedContentFileName(content)
                 filename.guard { throw InteractorException("Cached content $filename could not be find") }
 
-                if(permissionManager.requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE))
+                if(!permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE))
                 {
-
-                }
-                else
                     throw(InteractorException("User refused permission"))
-
-
-                val ext_filename = filename?.replace("[^a-zA-Z0-9\\.\\-]", "_")
-
-                Timber.e("Generated safe filename $ext_filename")
-                //copyFile()
-
-                /*
-                val perms = permissionManager.requestPermissions(listOf(Manifest.permission.READ_EXTERNAL_STORAGE))
-                perms?.let {
-                    perms.forEach {
-                        Timber.e("$it")
+                }
+                if(!cacheManager.isExternalStorageWritable())
+                    throw(InteractorException("External storage is currently unavailable"))
+                val public_filename = cacheManager.copyContentToExternalStorage(content)
+                public_filename?.let {
+                    runOnUIThread {
+                        output?.onSaveAttachment(it)
                     }
-                }
-                */
-
-                runOnUIThread {
-                    output?.onSaveAttachment(filename!!)
-                }
+                }.guard{ throw(InteractorException("Copying cached file to downloads dir failed"))}
             }
         } catch (e: Throwable) {
             e.printStackTrace()
             runOnUIThread {
                 output?.onSaveAttachmentError(e.message ?: "Unknown error saving attachment ${input?.attachment}")
-            }
-        }
-    }
-
-    @Throws(IOException::class)
-    fun copyFile(sourceFile: File, destFile: File) {
-        if (!destFile.getParentFile().exists())
-            destFile.getParentFile().mkdirs()
-
-        if (!destFile.exists()) {
-            destFile.createNewFile()
-        }
-
-        var source: FileChannel? = null
-        var destination: FileChannel? = null
-
-        try {
-            source = FileInputStream(sourceFile).getChannel()
-            destination = FileOutputStream(destFile).getChannel()
-            destination!!.transferFrom(source, 0, source!!.size())
-        } finally {
-            if (source != null) {
-                source!!.close()
-            }
-            if (destination != null) {
-                destination!!.close()
             }
         }
     }

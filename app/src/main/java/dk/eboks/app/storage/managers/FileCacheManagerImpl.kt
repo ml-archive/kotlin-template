@@ -1,13 +1,20 @@
 package dk.eboks.app.storage.managers
 
 import android.content.Context
+import android.os.Environment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import dk.eboks.app.domain.interactors.InteractorException
 import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.models.Content
 import dk.eboks.app.storage.base.GsonFileStorageRepository
+import dk.eboks.app.util.guard
 import timber.log.Timber
 import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
+import java.nio.channels.FileChannel
 
 /**
  * Created by bison on 17-02-2018.
@@ -77,6 +84,69 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
             Timber.e("Error file $filename does not exist")
         }
         return downloadedFile.absolutePath
+    }
+
+    override fun copyContentToExternalStorage(content: Content) : String?
+    {
+        var filename = getCachedContentFileName(content)
+        filename?.let {
+            val ext_filename = content.title.replace("[^a-zA-Z0-9\\.\\-]", "_")
+            Timber.e("Generated safe filename $ext_filename")
+            val srcfile = File(getAbsolutePath(filename))
+            if(!srcfile.exists()) {
+                Timber.e("Cache src file ${srcfile.absolutePath} does not exist")
+                return null
+            }
+            val destfile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), ext_filename)
+            Timber.e("Copying cached file to ${destfile.absolutePath}")
+            try {
+                copyFileToExternalStorage(srcfile, destfile)
+                return destfile.name
+            }
+            catch(t : Throwable)
+            {
+                t.printStackTrace()
+                return null
+            }
+        }
+        return null
+    }
+
+    @Throws(IOException::class)
+    private fun copyFileToExternalStorage(sourceFile: File, destFile: File) {
+        if (!destFile.getParentFile().exists())
+            destFile.getParentFile().mkdirs()
+
+        if (!destFile.exists()) {
+            destFile.createNewFile()
+        }
+
+        var source: FileChannel? = null
+        var destination: FileChannel? = null
+
+        try {
+            source = FileInputStream(sourceFile).getChannel()
+            destination = FileOutputStream(destFile).getChannel()
+            destination!!.transferFrom(source, 0, source!!.size())
+        } finally {
+            if (source != null) {
+                source!!.close()
+            }
+            if (destination != null) {
+                destination!!.close()
+            }
+        }
+    }
+
+    /* Checks if external storage is available for read and write */
+    override fun isExternalStorageWritable(): Boolean {
+        return Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
+    }
+
+    /* Checks if external storage is available to at least read */
+    override fun isExternalStorageReadable(): Boolean {
+        return Environment.getExternalStorageState() in
+                setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)
     }
 
     inner class CacheEntry(var filename: String, var content: Content)

@@ -14,6 +14,7 @@ import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.injection.modules.*
 import dk.eboks.app.network.Api
+import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.AppScope
 
@@ -32,6 +33,7 @@ import dk.nodes.arch.domain.injection.scopes.AppScope
 interface AppComponent
 {
     fun inject(app: App)
+    fun inject(t : PermissionRequestActivity)
 
     // expose functions to components dependent on this component
     fun executor() : Executor

@@ -3,4 +3,5 @@
     <cache-path
         name="eboks_cache"
         path="filecache" />
+    <external-path name="downloads" path="Download" />
 </paths>

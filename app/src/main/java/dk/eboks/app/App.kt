@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import android.support.multidex.MultiDex
 import dk.eboks.app.injection.components.AppComponent
 import dk.eboks.app.injection.components.DaggerAppComponent
 import dk.eboks.app.injection.modules.AppModule
@@ -37,11 +36,12 @@ class App : Application(), Application.ActivityLifecycleCallbacks
 
     // uncomment me if multidex
 
+    /*
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         MultiDex.install(this)
     }
-
+    */
 
     companion object {
         private lateinit var _instance : App
