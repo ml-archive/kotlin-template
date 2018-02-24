@@ -28,7 +28,6 @@ class SplashActivity : BaseActivity(), SplashContract.View {
 
 
     override fun setupTranslations() {
-
     }
 
 
