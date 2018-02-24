@@ -4,6 +4,7 @@ import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Content
+import dk.eboks.app.domain.models.Message
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -17,23 +18,28 @@ class AttachmentsComponentPresenter @Inject constructor(val appState: AppStateMa
         OpenAttachmentInteractor.Output,
         SaveAttachmentInteractor.Output
 {
+    private val message: Message? = appState.state?.currentMessage
 
     init {
         openAttachmentInteractor.output = this
         saveAttachmentInteractor.output = this
         runAction { v->
-            appState.state?.currentMessage?.let { v.updateView(it) }
+            message?.let { v.updateView(it) }
         }
     }
 
     override fun openAttachment(content: Content) {
-        openAttachmentInteractor.input = OpenAttachmentInteractor.Input(content)
-        openAttachmentInteractor.run()
+        message?.let {
+            openAttachmentInteractor.input = OpenAttachmentInteractor.Input(it, content)
+            openAttachmentInteractor.run()
+        }
     }
 
     override fun saveAttachment(content: Content) {
-        saveAttachmentInteractor.input = SaveAttachmentInteractor.Input(content)
-        saveAttachmentInteractor.run()
+        message?.let {
+            saveAttachmentInteractor.input = SaveAttachmentInteractor.Input(it, content)
+            saveAttachmentInteractor.run()
+        }
     }
 
     override fun onOpenAttachment(attachment: Content, filename: String, mimeType: String) {

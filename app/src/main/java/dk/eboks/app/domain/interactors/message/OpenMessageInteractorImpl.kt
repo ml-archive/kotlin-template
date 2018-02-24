@@ -38,7 +38,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                     {
                         Timber.e("Content ${content.id} not in cache, downloading")
                         // TODO the result of this call can result in all sorts of fun control flow changes depending on what error code the backend returns
-                        filename = downloadManager.downloadContent(content)
+                        filename = downloadManager.downloadAttachmentContent(msg, content)
                         if(filename == null)
                             throw(InteractorException("Could not download content ${content.id}"))
                         Timber.e("Downloaded content to $filename")

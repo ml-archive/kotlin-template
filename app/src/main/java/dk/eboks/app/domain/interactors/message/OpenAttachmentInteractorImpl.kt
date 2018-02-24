@@ -3,6 +3,7 @@ package dk.eboks.app.domain.interactors.message
 import dk.eboks.app.domain.interactors.InteractorException
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Content
+import dk.eboks.app.domain.models.Message
 import dk.eboks.app.domain.models.internal.EboksContentType
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -21,13 +22,14 @@ class OpenAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
 
     override fun execute() {
         try {
+            val message : Message = input?.message ?: throw InteractorException("No message given to interactor input")
             input?.attachment?.let { content->
                 var filename = cacheManager.getCachedContentFileName(content)
                 if(filename == null) // is not in cache
                 {
                     Timber.e("Attachment content ${content.id} not in cache, downloading")
                     // TODO the result of this call can result in all sorts of fun control flow changes depending on what error code the backend returns
-                    filename = downloadManager.downloadContent(content)
+                    filename = downloadManager.downloadAttachmentContent(message, content)
                     if(filename == null)
                         throw(InteractorException("Could not download content ${content.id}"))
                     Timber.e("Downloaded content to $filename")

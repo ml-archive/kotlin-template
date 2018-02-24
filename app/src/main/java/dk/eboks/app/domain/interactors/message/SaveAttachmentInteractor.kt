@@ -1,6 +1,7 @@
 package dk.eboks.app.domain.interactors.message
 
 import dk.eboks.app.domain.models.Content
+import dk.eboks.app.domain.models.Message
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**
@@ -10,7 +11,7 @@ interface SaveAttachmentInteractor : Interactor {
     var output : Output?
     var input : Input?
 
-    data class Input(var attachment : Content)
+    data class Input(var message : Message, var attachment : Content)
 
     interface Output {
         fun onSaveAttachment(filename: String)
