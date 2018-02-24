@@ -1,7 +1,9 @@
 package dk.eboks.app.storage.managers
 
 import android.content.Context
+import android.media.MediaScannerConnection
 import android.os.Environment
+import android.provider.MediaStore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dk.eboks.app.domain.interactors.InteractorException
@@ -101,6 +103,7 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
             Timber.e("Copying cached file to ${destfile.absolutePath}")
             try {
                 copyFileToExternalStorage(srcfile, destfile)
+                mediaScanFile(destfile.absolutePath, content.mimeType ?: "*/*")
                 return destfile.name
             }
             catch(t : Throwable)
@@ -110,6 +113,19 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
             }
         }
         return null
+    }
+
+    private fun mediaScanFile(path : String, mimetype : String)
+    {
+        try {
+            MediaScannerConnection.scanFile(context, arrayOf(path), arrayOf(mimetype), { path, uri ->
+                Timber.e("Scan completed")
+            })
+        }
+        catch (t : Throwable)
+        {
+            t.printStackTrace()
+        }
     }
 
     @Throws(IOException::class)
