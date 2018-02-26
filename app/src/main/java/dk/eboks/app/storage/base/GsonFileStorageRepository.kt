@@ -2,6 +2,7 @@ package dk.eboks.app.storage.base
 
 import android.content.Context
 import com.google.gson.Gson
+import dk.eboks.app.domain.exceptions.RepositoryException
 import timber.log.Timber
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -24,7 +25,7 @@ abstract class GsonFileStorageRepository<T>(val context: Context, val gson: Gson
             outputStream.close()
         } catch (e: Exception) {
             e.printStackTrace()
-            throw(dk.eboks.app.domain.repositories.RepositoryException(-1, "file could not be written to internal storage"))
+            throw(RepositoryException(-1, "file could not be written to internal storage"))
         }
     }
 
@@ -50,7 +51,7 @@ abstract class GsonFileStorageRepository<T>(val context: Context, val gson: Gson
         catch (e : Exception)
         {
             Timber.e("Catching file not found")
-            throw(dk.eboks.app.domain.repositories.RepositoryException(-1, "File $filename could not be read from internal storage"))
+            throw(RepositoryException(-1, "File $filename could not be read from internal storage"))
         }
     }
 }

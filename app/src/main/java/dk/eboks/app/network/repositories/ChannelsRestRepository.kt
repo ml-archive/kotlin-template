@@ -2,7 +2,7 @@ package dk.eboks.app.network.repositories
 
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.repositories.ChannelsRepository
-import dk.eboks.app.domain.repositories.RepositoryException
+import dk.eboks.app.domain.exceptions.RepositoryException
 import dk.eboks.app.injection.modules.ListChannelStore
 import dk.eboks.app.network.base.SynchronizedBaseRepository
 import java.io.IOException

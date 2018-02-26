@@ -1,7 +1,7 @@
 package dk.eboks.app.domain.interactors
 
 import dk.eboks.app.domain.repositories.CategoriesRepository
-import dk.eboks.app.domain.repositories.RepositoryException
+import dk.eboks.app.domain.exceptions.RepositoryException
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 

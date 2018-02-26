@@ -8,6 +8,7 @@ import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
 import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity
+import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.eboks.app.util.guard
 
@@ -33,22 +34,12 @@ class UIManagerImpl(val context: Context) : UIManager {
         }
     }
 
-    override fun showMessageLockedScreen() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showMessageOpeningScreen() {
+        handler.post {
+            App.currentActivity()?.let { it.startActivity(Intent(context, MessageOpeningActivity::class.java)) }
+                    .guard { context.startActivity(Intent(context, MessageOpeningActivity::class.java)) }
+        }
     }
-
-    override fun showMessagePromulgatedScreen() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showMessageConfirmOpenScreen() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showMessageReceiptOpenScreen() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
 
     override fun showFolderContentScreen() {
         handler.post {

@@ -1,7 +1,7 @@
 package dk.eboks.app.network.repositories
 
 import dk.eboks.app.domain.models.Sender
-import dk.eboks.app.domain.repositories.RepositoryException
+import dk.eboks.app.domain.exceptions.RepositoryException
 import dk.eboks.app.domain.repositories.SendersRepository
 import dk.eboks.app.injection.modules.SenderStore
 import dk.eboks.app.network.base.SynchronizedBaseRepository

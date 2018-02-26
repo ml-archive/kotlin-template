@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <!--Top part-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/backgroundColor"
+            android:orientation="vertical"
+            android:weightSum="4">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+            <ImageView
+                android:layout_width="240dp"
+                android:layout_height="240dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_visual_mail" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+        </LinearLayout>
+
+        <!--middle image-->
+
+        <!--Bottom part-->
+        <android.support.v7.widget.CardView
+            android:id="@+id/containerCv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="52dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text.header1"
+                    android:id="@+id/headerTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="_Private sender" />
+
+                <TextView
+                    style="@style/text.body6.secondary"
+                    android:id="@+id/mainTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="40dp"
+                    android:text="Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh." />
+
+
+                <Button
+                    style="@style/button.SolidGradient.large"
+                    android:id="@+id/openBtn"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="280dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:text="_Open message"/>
+
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/BackBtn"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center"
+        android:background="@drawable/circle_gradiant"
+        app:layout_anchor="@+id/containerCv"
+        app:layout_anchorGravity="center|top" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_reply_white"
+        app:layout_anchor="@+id/containerCv"
+        app:layout_anchorGravity="center|top" />
+</android.support.design.widget.CoordinatorLayout>

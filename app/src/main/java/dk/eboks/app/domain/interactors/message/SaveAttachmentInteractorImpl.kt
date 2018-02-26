@@ -1,21 +1,13 @@
 package dk.eboks.app.domain.interactors.message
 
 import android.Manifest
-import dk.eboks.app.domain.interactors.InteractorException
+import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.managers.PermissionManager
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
-import timber.log.Timber
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
-import java.io.IOException
-import java.nio.channels.FileChannel
-import java.nio.file.Files.exists
-
 
 
 /**

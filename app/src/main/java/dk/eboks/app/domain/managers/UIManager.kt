@@ -7,10 +7,7 @@ package dk.eboks.app.domain.managers
 interface UIManager {
     fun showMessageScreen()
     fun showEmbeddedMessageScreen()
-    fun showMessageLockedScreen()
-    fun showMessagePromulgatedScreen()
-    fun showMessageConfirmOpenScreen()
-    fun showMessageReceiptOpenScreen()
+    fun showMessageOpeningScreen()
 
     fun showFolderContentScreen()
     fun showPermissionRequestScreen()

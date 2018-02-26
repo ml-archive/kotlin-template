@@ -1,6 +1,6 @@
 package dk.eboks.app.domain.interactors.sender
 
-import dk.eboks.app.domain.repositories.RepositoryException
+import dk.eboks.app.domain.exceptions.RepositoryException
 import dk.eboks.app.domain.repositories.SendersRepository
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor

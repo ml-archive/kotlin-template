@@ -2,7 +2,8 @@ package dk.eboks.app.domain.interactors.message
 
 import dk.eboks.app.domain.models.FolderType
 import dk.eboks.app.domain.repositories.MessagesRepository
-import dk.eboks.app.domain.repositories.RepositoryException
+import dk.eboks.app.domain.exceptions.RepositoryException
+import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
@@ -15,10 +16,19 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
 
     override fun execute() {
         try {
-            val messages = messagesRepository.getMessages(input?.cached ?: true, input?.type ?: FolderType.INBOX)
-            runOnUIThread {
-                output?.onGetMessages(messages)
-            }
+            input?.folder?.let { folder->
+                val messages = if(folder.type == FolderType.FOLDER) messagesRepository.getMessages(input?.cached ?: true, folder.id)
+                    else messagesRepository.getMessages(input?.cached ?: true, folder.type)
+
+                runOnUIThread {
+                    output?.onGetMessages(messages)
+                }
+            }.guard {
+                        runOnUIThread {
+                            output?.onGetMessagesError("Bad interactor input")
+                        }
+                    }
+
         } catch (e: RepositoryException) {
             runOnUIThread {
                 output?.onGetMessagesError(e.message ?: "Unknown error")

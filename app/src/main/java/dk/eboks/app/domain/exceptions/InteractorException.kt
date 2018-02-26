@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors
+package dk.eboks.app.domain.exceptions
 
 /**
  * Created by bison on 24-06-2017.

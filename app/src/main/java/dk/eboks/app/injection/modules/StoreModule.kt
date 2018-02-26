@@ -73,17 +73,6 @@ class StoreModule {
 
     @Provides
     @AppScope
-    fun provideMessageStore(api: Api, gson : Gson, context : Context) : MessageStore
-    {
-        return StoreBuilder.parsedWithKey<MessageStoreKey, BufferedSource, Message>()
-                .fetcher { key -> api.getMessage(key.id, key.folderId) }
-                .persister(FileSystemPersister.create(FileSystemFactory.create(context.cacheDir), { key -> "Message$key"}))
-                .parser(GsonParserFactory.createSourceParser<Message>(gson, object : TypeToken<Message>() {}.type))
-                .open()
-    }
-
-    @Provides
-    @AppScope
     fun provideFolderTypeMessageStore(api: Api, gson : Gson, context : Context) : FolderTypeMessageStore
     {
         return StoreBuilder.parsedWithKey<FolderType, BufferedSource, List<Message>>()

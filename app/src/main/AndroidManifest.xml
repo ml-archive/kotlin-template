@@ -45,6 +45,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.message.MessageActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity" />
         <activity android:name="dk.eboks.app.system.managers.permission.PermissionRequestActivity" />

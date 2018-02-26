@@ -36,6 +36,8 @@ import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageCompo
 import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentFragment
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.privatesender.PrivateSenderWarningComponentFragment
+import dk.eboks.app.presentation.ui.components.message.privatesender.PrivateSenderWarningComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentFragment
 import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.share.ShareComponentFragment
@@ -52,6 +54,8 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragmen
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsPresenter
+import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
+import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
 import dk.eboks.app.presentation.ui.screens.splash.SplashActivity
 import dk.eboks.app.presentation.ui.screens.splash.SplashPresenter
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
@@ -78,6 +82,8 @@ interface PresentationComponent {
     fun inject(target : MessagePresenter)
     fun inject(target : MessageEmbeddedActivity)
     fun inject(target : MessageEmbeddedPresenter)
+    fun inject(target : MessageOpeningActivity)
+    fun inject(target : MessageOpeningPresenter)
     fun inject(target : ChannelsActivity)
     fun inject(target : ChannelsPresenter)
 
@@ -114,6 +120,8 @@ interface PresentationComponent {
     fun inject(target : LockedMessageComponentPresenter)
     fun inject(target : ProtectedMessageComponentFragment)
     fun inject(target : ProtectedMessageComponentPresenter)
+    fun inject(target : PrivateSenderWarningComponentFragment)
+    fun inject(target : PrivateSenderWarningComponentPresenter)
     fun inject(target : ChannelListComponentFragment)
     fun inject(target : ChannelListComponentPresenter)
     fun inject(target : ChannelDetailComponentFragment)

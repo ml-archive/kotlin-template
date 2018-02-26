@@ -5,6 +5,7 @@ import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.FolderType
 import dk.eboks.app.domain.models.Message
+import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,19 +19,24 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
         GetMessagesInteractor.Output,
         OpenMessageInteractor.Output {
 
+    val folder = appState.state?.currentFolder
+
     init {
         openMessageInteractor.output = this
-        val type = appState.state?.currentFolder?.type ?: FolderType.INBOX
         getMessagesInteractor.output = this
-        getMessagesInteractor.input = GetMessagesInteractor.Input(true, 0, type)
-        getMessagesInteractor.run()
-        runAction { v-> v.showProgress(true) }
+        folder?.let {
+            getMessagesInteractor.input = GetMessagesInteractor.Input(true, it)
+            getMessagesInteractor.run()
+            runAction { v-> v.showProgress(true) }
+        }.guard {  runAction { v-> v.showEmpty(true) } }
+
     }
 
     override fun refresh() {
-        val type = appState.state?.currentFolder?.type ?: FolderType.INBOX
-        getMessagesInteractor.input = GetMessagesInteractor.Input(false, 0, type)
-        getMessagesInteractor.run()
+        folder?.let {
+            getMessagesInteractor.input = GetMessagesInteractor.Input(false, it)
+            getMessagesInteractor.run()
+        }
     }
 
     override fun openMessage(message: Message) {

@@ -3,14 +3,11 @@ package dk.eboks.app.storage.managers
 import android.content.Context
 import android.media.MediaScannerConnection
 import android.os.Environment
-import android.provider.MediaStore
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import dk.eboks.app.domain.interactors.InteractorException
 import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.models.Content
 import dk.eboks.app.storage.base.GsonFileStorageRepository
-import dk.eboks.app.util.guard
 import timber.log.Timber
 import java.io.File
 import java.io.FileInputStream

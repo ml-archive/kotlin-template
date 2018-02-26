@@ -7,7 +7,7 @@ import java.util.*
  * Created by bison on 24-06-2017.
  */
 data class Message(
-    var id : Long,
+    var id : String,
     var name : String,
     var unread : Boolean,
     var received : Date,

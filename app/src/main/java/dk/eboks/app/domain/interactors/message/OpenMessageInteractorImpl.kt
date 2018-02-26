@@ -1,8 +1,11 @@
 package dk.eboks.app.domain.interactors.message
 
-import dk.eboks.app.domain.interactors.InteractorException
+import dk.eboks.app.domain.exceptions.InteractorException
+import dk.eboks.app.domain.exceptions.ServerErrorException
+import dk.eboks.app.domain.interactors.ServerErrorHandler
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.ServerError
 import dk.eboks.app.domain.models.internal.EboksContentType
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.util.FieldMapper
@@ -21,15 +24,18 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
     override var output: OpenMessageInteractor.Output? = null
     override var input: OpenMessageInteractor.Input? = null
 
+    private var errorHandler = ServerErrorHandler(uiManager, executor, appStateManager)
+
     override fun execute() {
         try {
             input?.msg?.let { msg->
 
                 // TODO the result of this call can result in all sorts of fun control flow changes depending on what error code the backend returns
-                val updated_msg = messagesRepository.getMessage(false, msg.folder?.id ?: 0, msg.id.toString())
+                val updated_msg = messagesRepository.getMessage(msg.folder?.id ?: 0, msg.id)
 
 
                 // update the (perhaps) more detailed message object with the extra info from the backend
+                // because the JVM can only deal with reference types silly reflection tricks like this are necessary
                 FieldMapper.copyAllFields(msg, updated_msg)
 
                 msg.content?.let { content->
@@ -65,10 +71,19 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                     }
                 }
             }
-        } catch (e: Throwable) {
+        }
+        catch (e: Throwable) {
             e.printStackTrace()
+            if(e is ServerErrorException)
+            {
+                val shouldProceed = errorHandler.handle(e.error)
+                runOnUIThread {
+                    output?.onOpenMessageError("Cant fetch the fucking message because we only have the error")
+                }
+                return
+            }
             runOnUIThread {
-                output?.onOpenMessageError("Unknown error opening message ${input?.msg}")
+                output?.onOpenMessageError("Unknown error opening message ${e.message}")
             }
         }
     }

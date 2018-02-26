@@ -1,6 +1,6 @@
 package dk.eboks.app.domain.interactors.message
 
-import dk.eboks.app.domain.interactors.InteractorException
+import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Content
 import dk.eboks.app.domain.models.Message

@@ -162,7 +162,7 @@ class RestModule {
                 .baseUrl(baseUrl)
                 //.addConverterFactory(SimpleXmlConverterFactory.createNonStrict(Persister(AnnotationStrategy())))
                 .addConverterFactory(BufferedSourceConverterFactory())
-                //.addConverterFactory(converter)
+                .addConverterFactory(converter)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
     }

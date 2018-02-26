@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.repositories.*
+import dk.eboks.app.network.Api
 import dk.eboks.app.network.repositories.*
 import dk.eboks.app.storage.repositories.AppStateRepositoryImpl
 import dk.eboks.app.storage.repositories.SharedPrefsSettingsRepository
@@ -25,9 +26,9 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideMessagesRepository(listMessageStore: ListMessageStore, folderTypeMessageStore: FolderTypeMessageStore, messageStore: MessageStore) : MessagesRepository
+    fun provideMessagesRepository(api: Api, gson: Gson, listMessageStore: ListMessageStore, folderTypeMessageStore: FolderTypeMessageStore) : MessagesRepository
     {
-        return MessagesRestRepository(listMessageStore, folderTypeMessageStore, messageStore)
+        return MessagesRestRepository(api, gson, listMessageStore, folderTypeMessageStore)
     }
 
 

@@ -4,7 +4,7 @@ import dk.eboks.app.domain.managers.ResourceManager
 import dk.eboks.app.domain.models.Folder
 import dk.eboks.app.domain.models.FolderType
 import dk.eboks.app.domain.repositories.FoldersRepository
-import dk.eboks.app.domain.repositories.RepositoryException
+import dk.eboks.app.domain.exceptions.RepositoryException
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber

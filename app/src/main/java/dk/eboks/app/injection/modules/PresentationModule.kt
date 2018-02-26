@@ -45,6 +45,8 @@ import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageCompo
 import dk.eboks.app.presentation.ui.components.message.locked.LockedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentContract
 import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.privatesender.PrivateSenderWarningComponentContract
+import dk.eboks.app.presentation.ui.components.message.privatesender.PrivateSenderWarningComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentContract
 import dk.eboks.app.presentation.ui.components.message.protectedmessage.ProtectedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.share.ShareComponentContract
@@ -61,8 +63,11 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContrac
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsContract
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsPresenter
+import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningContract
+import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
 import dk.eboks.app.presentation.ui.screens.splash.SplashContract
 import dk.eboks.app.presentation.ui.screens.splash.SplashPresenter
+import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
 /**
@@ -118,6 +123,12 @@ class PresentationModule {
     @Provides
     fun provideMessageSheetPresenter(stateManager: AppStateManager) : MessageEmbeddedContract.Presenter {
         return MessageEmbeddedPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideMessageOpeningPresenter(stateManager: AppStateManager, executor: Executor) : MessageOpeningContract.Presenter {
+        return MessageOpeningPresenter(stateManager, executor)
     }
 
     @ActivityScope
@@ -215,6 +226,12 @@ class PresentationModule {
     @Provides
     fun provideProtectedMessageComponentPresenter(stateManager: AppStateManager) : ProtectedMessageComponentContract.Presenter {
         return ProtectedMessageComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun providePrivateSenderWarningComponentPresenter(stateManager: AppStateManager, executor: Executor) : PrivateSenderWarningComponentContract.Presenter {
+        return PrivateSenderWarningComponentPresenter(stateManager, executor)
     }
 
     @ActivityScope
