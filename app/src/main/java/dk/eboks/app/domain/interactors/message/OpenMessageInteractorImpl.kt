@@ -78,7 +78,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
             {
                 val shouldProceed = errorHandler.handle(e.error)
                 runOnUIThread {
-                    output?.onOpenMessageError("Cant fetch the fucking message because we only have the error")
+                    output?.onOpenMessageError("Cant fetch the message because we only have the error")
                 }
                 return
             }

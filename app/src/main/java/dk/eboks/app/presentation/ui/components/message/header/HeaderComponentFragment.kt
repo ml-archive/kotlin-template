@@ -37,6 +37,14 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
     }
 
     override fun updateView(message: Message) {
+        if(message.recipient != null)
+        {
+
+        }
+        if(message.recipient != null && message.sender != null)
+        {
+
+        }
         senderTv.text = message.sender?.name ?: ""
         titleTv.text = message.name
         message.sender?.logo.let {
