@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/backgroundColor">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/include_sender_publicauthority_card"></include>
+
+            <include layout="@layout/include_sender_list_card"></include>
+
+            <include layout="@layout/include_sender_list_row_view"></include>
+            
+            <TextView
+
+                style="@style/text.header3"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="All categories"/>
+            
+            <include layout="@layout/include_sender_categories_view"></include>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

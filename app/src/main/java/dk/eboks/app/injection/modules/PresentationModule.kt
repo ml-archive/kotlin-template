@@ -59,6 +59,8 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContract
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.SenderListComponentContract
+import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsContract
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsPresenter
 import dk.eboks.app.presentation.ui.screens.splash.SplashContract
@@ -240,6 +242,13 @@ class PresentationModule {
     fun provideShareComponentPresenter(stateManager: AppStateManager) : ShareComponentContract.Presenter {
         return ShareComponentPresenter(stateManager)
     }
+
+    @ActivityScope
+    @Provides
+    fun provideSenderListComponentPresenter(stateManager: AppStateManager) : SenderListComponentContract.Presenter {
+        return SenderListComponentPresenter(stateManager)
+    }
+
 
     /* Pasta
     @ActivityScope
