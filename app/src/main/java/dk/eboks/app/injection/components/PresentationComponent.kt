@@ -52,6 +52,8 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
+import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
@@ -132,4 +134,6 @@ interface PresentationComponent {
     fun inject(target : ShareComponentPresenter)
     fun inject(target : HintActivity)
     fun inject(target : PermissionRequestActivity)
+    fun inject(target : SenderListComponentFragment)
+    fun inject(target : SenderListComponentPresenter)
 }
