@@ -92,7 +92,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/icon_48_arrow_right_grey"/>
+                    />
 
             </LinearLayout>
         </LinearLayout>

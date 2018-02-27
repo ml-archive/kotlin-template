@@ -6,6 +6,7 @@ import com.google.gson.TypeAdapterFactory
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
+import timber.log.Timber
 import java.io.IOException
 
 /**
@@ -18,6 +19,8 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
 
         val delegate = gson.getDelegateAdapter(this, type)
         val elementAdapter = gson.getAdapter(JsonElement::class.java)
+        var listElement: JsonElement? = null
+        var metadata: JsonElement? = null
 
         return object : TypeAdapter<T>() {
 
@@ -34,6 +37,8 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                     //Timber.e("parsing element " + jsonElement.toString())
                     val jsonObject = jsonElement.asJsonObject
                     val entry_set = jsonObject.entrySet()
+                    listElement = null
+                    metadata = null
                     if(entry_set.isNotEmpty())
                     {
                         for(entry in entry_set)
@@ -42,23 +47,24 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                             val ele : JsonElement = entry_set.iterator().next().value
                             if(rootContainerNames.contains(key))
                             {
+                                Timber.e("Got that special list, looking for meta")
+                                listElement = ele
                                 //Timber.e("Doing deserialization workaround")
-                                return delegate.fromJsonTree(ele)
+                            }
+                            if(key.contentEquals("metadata"))
+                            {
+                                if(ele.isJsonObject)
+                                {
+                                    metadata = ele
+                                    Timber.e("Found metadata object")
+                                }
                             }
                         }
-                    }
-                    /*
-                    if(entry_set.size == 1)
-                    {
-                        val key : String = entry_set.iterator().next().key ?: ""
-                        val ele : JsonElement = entry_set.iterator().next().value
-                        if(rootContainerNames.contains(key))
+                        if(listElement != null)
                         {
-                            Timber.e("Doing deserialization workaround")
-                            return delegate.fromJsonTree(ele)
+                            return delegate.fromJsonTree(listElement)
                         }
                     }
-                    */
                 }
                 return delegate.fromJsonTree(jsonElement)
             }
