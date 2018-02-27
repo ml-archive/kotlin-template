@@ -3,9 +3,11 @@ package dk.eboks.app.domain.interactors.message
 import dk.eboks.app.domain.models.FolderType
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.domain.exceptions.RepositoryException
+import dk.eboks.app.network.util.metaData
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import timber.log.Timber
 
 /**
  * Created by bison on 01/02/18.
@@ -20,6 +22,7 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
                 val messages = if(folder.type == FolderType.FOLDER) messagesRepository.getMessages(input?.cached ?: true, folder.id)
                     else messagesRepository.getMessages(input?.cached ?: true, folder.type)
 
+                messages.metaData?.let { metadata -> Timber.e("Found metadata on messagelist: $metadata") }
                 runOnUIThread {
                     output?.onGetMessages(messages)
                 }
