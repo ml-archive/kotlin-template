@@ -49,16 +49,18 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                             //Timber.e("Examining key $key")
                             if(rootContainerNames.contains(key))
                             {
-                                //Timber.e("Got that special list, looking for meta")
-                                listElement = ele
-                                //Timber.e("Doing deserialization workaround")
+                                if(ele.isJsonArray)
+                                {
+                                    listElement = ele
+                                }
+                                else    // if we cannot find a list with one of the whitelisted names we abort and let gson treat it as usual
+                                    return delegate.fromJsonTree(jsonElement)
                             }
                             if(key.contentEquals("metadata"))
                             {
                                 if(ele.isJsonObject)
                                 {
                                     metadata = ele
-                                    //Timber.e("Found metadata object")
                                 }
                             }
                         }
@@ -69,7 +71,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                                 try {
                                     val meta = gson.fromJson(metadata, Metadata::class.java)
                                     _metaDataMap[listobj as Any] = meta
-                                    Timber.e("Parsed metadata object = $meta")
+                                    //Timber.e("Parsed metadata object = $meta")
                                 }
                                 catch (t : Throwable)
                                 {
@@ -96,5 +98,6 @@ private fun <T> _findMetadata(list : List<T>) : Metadata?
         return null
 }
 
+// extension property that allows retrieval possible metadata objects using the above backing hashtable
 val <T> List<T>.metaData: Metadata?
     get() = _findMetadata(this)

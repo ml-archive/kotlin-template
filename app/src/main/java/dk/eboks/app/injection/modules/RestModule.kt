@@ -18,7 +18,6 @@ import dk.eboks.app.network.managers.protocol.ProtocolManagerImpl
 import dk.eboks.app.network.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.util.DateDeserializer
 import dk.eboks.app.network.util.ItemTypeAdapterFactory
-import dk.eboks.app.network.util.ListDeserializer
 import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.nstack.providers.NMetaInterceptor
 import okhttp3.OkHttpClient
