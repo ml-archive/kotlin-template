@@ -66,9 +66,9 @@ class MessagesRestRepository(val api: Api, val gson: Gson, val listMessageStore:
         }
     }
 
-    override fun getMessage(folderId: Long, id: String) : Message {
+    override fun getMessage(folderId: Long, id: String, receipt : Boolean?, terms : Boolean?) : Message {
         try {
-            val call = api.getMessage(id, folderId)
+            val call = api.getMessage(id, folderId, receipt, terms)
             val result = call.execute()
             result?.let { response ->
                 if(response.isSuccessful)

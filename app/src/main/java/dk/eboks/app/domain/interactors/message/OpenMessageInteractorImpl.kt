@@ -9,6 +9,7 @@ import dk.eboks.app.domain.models.ServerError
 import dk.eboks.app.domain.models.internal.EboksContentType
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.util.FieldMapper
+import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
@@ -29,47 +30,12 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
     override fun execute() {
         try {
             input?.msg?.let { msg->
-
                 // TODO the result of this call can result in all sorts of fun control flow changes depending on what error code the backend returns
                 val updated_msg = messagesRepository.getMessage(msg.folder?.id ?: 0, msg.id)
-
-
                 // update the (perhaps) more detailed message object with the extra info from the backend
                 // because the JVM can only deal with reference types silly reflection tricks like this are necessary
                 FieldMapper.copyAllFields(msg, updated_msg)
-
-                msg.content?.let { content->
-                    var filename = cacheManager.getCachedContentFileName(content)
-                    if(filename == null) // is not in cache
-                    {
-                        Timber.e("Content ${content.id} not in cache, downloading")
-                        // TODO the result of this call can result in all sorts of fun control flow changes depending on what error code the backend returns
-                        filename = downloadManager.downloadAttachmentContent(msg, content)
-                        if(filename == null)
-                            throw(InteractorException("Could not download content ${content.id}"))
-                        Timber.e("Downloaded content to $filename")
-                        cacheManager.cacheContent(filename, content)
-                    }
-                    else
-                    {
-                        Timber.e("Found content in cache ($filename)")
-                    }
-
-                    appStateManager.state?.currentMessage = msg
-                    appStateManager.state?.currentViewerFileName = cacheManager.getAbsolutePath(filename)
-                    appStateManager.save()
-
-                    if(isEmbeddedType(msg))
-                    {
-                        uiManager.showEmbeddedMessageScreen()
-                    }
-                    else {
-                        uiManager.showMessageScreen()
-                    }
-                    runOnUIThread {
-                        output?.onOpenMessageDone()
-                    }
-                }
+                openMessage(msg)
             }
         }
         catch (e: Throwable) {
@@ -77,13 +43,68 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
             if(e is ServerErrorException)
             {
                 val shouldProceed = errorHandler.handle(e.error)
-                runOnUIThread {
-                    output?.onOpenMessageError("Cant fetch the message because we only have the error")
+                if(shouldProceed)
+                {
+                    when(e.error.code)
+                    {
+                        ServerErrorHandler.NO_PRIVATE_SENDER_WARNING -> {
+                            input?.msg?.let { msg->
+                                try {
+                                    val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id ?: 0, input?.msg?.id ?: "", null, shouldProceed)
+                                    FieldMapper.copyAllFields(msg, updated_msg)
+                                    openMessage(msg)
+                                }
+                                catch (t : Throwable) {output?.onOpenMessageError("Unknown error opening message ${e.message}")}
+                            }.guard { output?.onOpenMessageError("Unknown error opening message ${e.message}") }
+                        }
+                        else -> runOnUIThread { output?.onOpenMessageDone() }
+                    }
+                }
+                else {
+                    runOnUIThread {
+                        runOnUIThread { output?.onOpenMessageDone() }
+                    }
                 }
                 return
             }
             runOnUIThread {
                 output?.onOpenMessageError("Unknown error opening message ${e.message}")
+            }
+        }
+    }
+
+    fun openMessage(msg : Message)
+    {
+        msg.content?.let { content->
+            var filename = cacheManager.getCachedContentFileName(content)
+            if(filename == null) // is not in cache
+            {
+                Timber.e("Content ${content.id} not in cache, downloading")
+                // TODO the result of this call can result in all sorts of fun control flow changes depending on what error code the backend returns
+                filename = downloadManager.downloadAttachmentContent(msg, content)
+                if(filename == null)
+                    throw(InteractorException("Could not download content ${content.id}"))
+                Timber.e("Downloaded content to $filename")
+                cacheManager.cacheContent(filename, content)
+            }
+            else
+            {
+                Timber.e("Found content in cache ($filename)")
+            }
+
+            appStateManager.state?.currentMessage = msg
+            appStateManager.state?.currentViewerFileName = cacheManager.getAbsolutePath(filename)
+            appStateManager.save()
+
+            if(isEmbeddedType(msg))
+            {
+                uiManager.showEmbeddedMessageScreen()
+            }
+            else {
+                uiManager.showMessageScreen()
+            }
+            runOnUIThread {
+                output?.onOpenMessageDone()
             }
         }
     }
