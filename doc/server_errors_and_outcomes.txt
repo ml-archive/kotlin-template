@@ -127,8 +127,8 @@ Code: NO_PRIVATE_SENDER_WARNING = 9100
 4. Obligatorisk åbningskvittering - slutbruger skal acceptere kvittering sendes før meddelelsen kan åbnes
 
 Show a confirmation dialog with the options "Back" and "Open". Back dismisses the dialog and return the user to the
-previous screen. Open calls an endpoint (presumably with the message and probably folder id too). If
-the endpoint returns 200 OK, everything is well and the user is taken to the message.
+previous screen. If the user press open, the message is refetched with boolean parameter set to true, otherwise its called with false
+and the message is not opened.
 
 Code: MANDATORY_OPEN_RECEIPT = 9200
 

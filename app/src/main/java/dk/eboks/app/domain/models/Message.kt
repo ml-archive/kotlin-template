@@ -16,8 +16,9 @@ data class Message(
     var folder : Folder? = null,
     var content : Content? = null,
     var link : Link? = null,
-    var status: Status?,
+    var status: Status? = null,
     var numberOfAttachments: Int = 0,
     var attachments : List<Content>? = null,
-    var note : String = ""
+    var note : String = "",
+    var messageType: MessageType = MessageType.RECEIVED
 ) : Serializable

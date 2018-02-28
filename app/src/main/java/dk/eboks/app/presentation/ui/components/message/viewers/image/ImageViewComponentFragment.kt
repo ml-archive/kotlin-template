@@ -21,6 +21,7 @@ class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.Vi
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_imageview_component, container, false)
+        Timber.e("onCreateView IMAGEVIEWER")
         return rootView
     }
 

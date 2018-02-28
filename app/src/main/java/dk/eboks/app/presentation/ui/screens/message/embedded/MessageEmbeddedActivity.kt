@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.screens.message.embedded
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.view.View
 import dk.eboks.app.R
@@ -93,31 +94,40 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     }
 
     override fun addPdfViewer() {
-        embeddedViewerComponentFragment = PdfViewComponentFragment()
-        embeddedViewerComponentFragment?.let {
-            supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, PdfViewComponentFragment::class.java.simpleName).commit()
-        }
+        Handler(mainLooper).post({
+            embeddedViewerComponentFragment = PdfViewComponentFragment()
+            embeddedViewerComponentFragment?.let {
+                supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, PdfViewComponentFragment::class.java.simpleName).commit()
+            }
+        })
     }
 
     override fun addImageViewer() {
-        embeddedViewerComponentFragment = ImageViewComponentFragment()
-        embeddedViewerComponentFragment?.let {
-            supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, ImageViewComponentFragment::class.java.simpleName).commit()
-        }
+        Handler(mainLooper).post({
+            embeddedViewerComponentFragment = ImageViewComponentFragment()
+            embeddedViewerComponentFragment?.let {
+                supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, ImageViewComponentFragment::class.java.simpleName).commit()
+            }
+        })
     }
 
     override fun addHtmlViewer() {
-        embeddedViewerComponentFragment = HtmlViewComponentFragment()
-        embeddedViewerComponentFragment?.let {
-            supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, HtmlViewComponentFragment::class.java.simpleName).commit()
-        }
+        Handler(mainLooper).post({
+            embeddedViewerComponentFragment = HtmlViewComponentFragment()
+            embeddedViewerComponentFragment?.let {
+                supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, HtmlViewComponentFragment::class.java.simpleName).commit()
+            }
+        })
     }
 
     override fun addTextViewer() {
-        embeddedViewerComponentFragment = TextViewComponentFragment()
-        embeddedViewerComponentFragment?.let {
-            supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, TextViewComponentFragment::class.java.simpleName).commit()
-        }
+        Handler(mainLooper).post({
+            embeddedViewerComponentFragment = TextViewComponentFragment()
+            embeddedViewerComponentFragment?.let {
+                supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, TextViewComponentFragment::class.java.simpleName).commit()
+            }
+        })
+
     }
 
     override fun showTitle(message: Message) {

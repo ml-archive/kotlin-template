@@ -13,11 +13,11 @@
         <TextView
             android:id="@+id/contentTv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="16dp"
             android:background="@drawable/notes_background"
             android:textColor="#000"
-            android:text="this is text"/>
+            android:text="_Loading"/>
 
 
 

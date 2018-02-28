@@ -23,6 +23,7 @@ class HtmlViewComponentFragment : BaseFragment(), HtmlViewComponentContract.View
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_htmlview_component, container, false)
+        Timber.e("onCreateView HTMLVIEWER")
         return rootView
     }
 

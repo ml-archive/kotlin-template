@@ -2,7 +2,8 @@ package dk.eboks.app.domain.models;
 
 /**
  * Created by nstack.io gradle translation plugin
- * Built from Accept Header: en-US
+ * Built from Accept Header: en-US 
+ * Generated: Wed Feb 28 11:20:22 CET 2018 
  */
 
 public class Translation {
@@ -39,6 +40,10 @@ public class Translation {
 		public static String folder = "Folder";
 		public static String title = "Message";
 		public static String information = "Information";
+		public static String recipientPrefixTo = "To:";
+		public static String uploadedByYou = "Uploaded by you";
+		public static String notePlaceholder = "Write note";
+		public static String draft = "Draft";
 	}
 	public final static class attachments {
 		public static String lockedTitle = "Locked attachment";
@@ -49,5 +54,19 @@ public class Translation {
 		public static String title = "Channels";
 		public static String install = "Install";
 		public static String open = "Open";
+		public static String openChannel = "Open channel";
+		public static String logOnWithPKI = "Log on with [pkiName]";
+		public static String verifyYourProfile = "Verify your profile to access this channel";
+		public static String channelNotAvailable = "[channelName] is not available for this device or no longer available as a channel";
+		public static String installChannel = "Install channel";
+	}
+	public final static class senders {
+		public static String title = "Senders";
+		public static String registrations = "Registrations";
+		public static String register = "Register";
+	}
+	public final static class start {
+		public static String logonDifferentUser = "Log on as a different user";
+		public static String signupButton = "Sign up";
 	}
 }

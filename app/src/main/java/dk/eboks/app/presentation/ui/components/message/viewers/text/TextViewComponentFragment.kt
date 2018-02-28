@@ -8,6 +8,9 @@ import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.base.EmbeddedViewer
 import kotlinx.android.synthetic.main.fragment_textview_component.*
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.launch
 import timber.log.Timber
 import java.nio.charset.Charset
 import javax.inject.Inject
@@ -40,9 +43,23 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
     }
 
     override fun showText(filename: String) {
-        data = convertFileToByteArray(File(filename))
-        data?.let {
-            show()
+        launch(CommonPool)
+        {
+            data = convertFileToByteArray(File(filename))
+            data?.let {
+                //show()
+                var decoded = String(data!!, Charset.forName("ISO-8859-1"))
+                if (utf8Test(decoded)) {
+                    Timber.i("text was not encoded with iso-8859-1, using utf-8 as fallback")
+                    decoded = String(data!!, Charset.forName("utf-8"))
+                }
+
+                launch(UI)
+                {
+                    Timber.e("Calling show")
+                    show(decoded)
+                }
+            }
         }
     }
 
@@ -70,16 +87,14 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
         return byteArray
     }
 
-    private fun show()
+    private fun show(decoded : String)
     {
         try {
 
-            var decoded = String(data!!, Charset.forName("ISO-8859-1"))
-            if (utf8Test(decoded)) {
-                Timber.i("text was not encoded with iso-8859-1, using utf-8 as fallback")
-                decoded = String(data!!, Charset.forName("utf-8"))
-            }
+
+            Timber.e("Setting textview")
             contentTv.text = decoded
+            Timber.e("Done setting textview")
 
         } catch (e: UnsupportedEncodingException) {
             contentTv.visibility = View.GONE

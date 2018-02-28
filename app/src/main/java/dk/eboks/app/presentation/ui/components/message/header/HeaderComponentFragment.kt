@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.MessageType
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_header_component.*
 import javax.inject.Inject
@@ -29,7 +31,7 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
         presenter.onViewCreated(this, lifecycle)
         arguments?.let { args->
             if(args.getBoolean("show_divider", false))
-            dividerV.visibility = View.VISIBLE
+                dividerV.visibility = View.VISIBLE
         }
     }
 
@@ -37,18 +39,33 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
     }
 
     override fun updateView(message: Message) {
-        if(message.recipient != null)
-        {
 
-        }
-        if(message.recipient != null && message.sender != null)
+        when(message.messageType)
         {
-
-        }
-        senderTv.text = message.sender?.name ?: ""
-        titleTv.text = message.name
-        message.sender?.logo.let {
-            Glide.with(context).load(it).into(senderLogoIv)
+            MessageType.RECEIVED -> {
+                senderTv.text = message.sender?.name ?: ""
+                titleTv.text = message.name
+                message.sender?.logo.let {
+                    Glide.with(context).load(it).into(senderLogoIv)
+                }
+            }
+            MessageType.DRAFT -> {
+                senderTv.text = message.sender?.name ?: ""
+                titleTv.text = message.name
+                senderLogoIv.visibility = View.GONE
+            }
+            MessageType.SENT -> {
+                senderTv.text = "${Translation.message.recipientPrefixTo} ${message.sender?.name ?: ""}"
+                titleTv.text = message.name
+                senderLogoIv.visibility = View.GONE
+            }
+            MessageType.UPLOAD -> {
+                senderTv.text = Translation.message.uploadedByYou
+                titleTv.text = message.name
+                message.sender?.logo.let {
+                    Glide.with(context).load(it).into(senderLogoIv)
+                }
+            }
         }
     }
 }
