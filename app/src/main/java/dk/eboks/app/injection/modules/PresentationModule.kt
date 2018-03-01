@@ -67,6 +67,8 @@ import dk.eboks.app.presentation.ui.screens.channels.ChannelsContract
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningContract
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
+import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewContract
+import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.splash.SplashContract
 import dk.eboks.app.presentation.ui.screens.splash.SplashPresenter
 import dk.nodes.arch.domain.executor.Executor
@@ -264,6 +266,12 @@ class PresentationModule {
     @Provides
     fun provideSenderListComponentPresenter(stateManager: AppStateManager) : SenderListComponentContract.Presenter {
         return SenderListComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideSendersOverviewPresenter(stateManager: AppStateManager) : SendersOverviewContract.Presenter {
+        return SendersOverviewPresenter(stateManager)
     }
 
 

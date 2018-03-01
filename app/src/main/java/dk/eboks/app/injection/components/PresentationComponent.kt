@@ -58,6 +58,8 @@ import dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
+import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity
+import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.splash.SplashActivity
 import dk.eboks.app.presentation.ui.screens.splash.SplashPresenter
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
@@ -70,6 +72,7 @@ import dk.nodes.arch.domain.injection.scopes.ActivityScope
 @Component(dependencies = arrayOf(AppComponent::class), modules = arrayOf(PresentationModule::class))
 @ActivityScope
 interface PresentationComponent {
+    // Screens
     fun inject(target : PastaActivity)
     fun inject(target : PastaPresenter)
     fun inject(target : SplashActivity)
@@ -88,8 +91,10 @@ interface PresentationComponent {
     fun inject(target : MessageOpeningPresenter)
     fun inject(target : ChannelsActivity)
     fun inject(target : ChannelsPresenter)
+    fun inject(target : SendersOverviewActivity)
+    fun inject(target : SendersOverviewPresenter)
 
-    // components
+    // Components
     fun inject(target : HeaderComponentFragment)
     fun inject(target : HeaderComponentPresenter)
     fun inject(target : NotesComponentFragment)
@@ -136,4 +141,5 @@ interface PresentationComponent {
     fun inject(target : PermissionRequestActivity)
     fun inject(target : SenderListComponentFragment)
     fun inject(target : SenderListComponentPresenter)
+
 }
