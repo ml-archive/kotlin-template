@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="320dp"
+    android:background="@drawable/square_gradient">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <!--White circle and logo-->
+        <FrameLayout
+            android:layout_width="92dp"
+            android:layout_height="92dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/circle_transparent_greyboarder"/>
+
+            <ImageView
+                android:padding="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/circle_white" />
+
+            <ImageView
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_72_senders_public" />
+
+        </FrameLayout>
+
+        <!--Public authority text-->
+        <TextView
+            style="@style/text.header2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="_Offentlige myndigheder"
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+        <TextView
+            style="@style/text.header4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="_Get mail from all public authorities with a single tap. See the senders below."
+            android:textAlignment="center"
+            android:textColor="@color/white" />
+
+
+        <!--Button Register-->
+        <LinearLayout
+            android:visibility="gone"
+            style="@style/buttonRoundedCorners.Tintable"
+            android:layout_width="114dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/white"
+            android:gravity="center">
+
+            <TextView
+                style="@style/text.button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Register"
+                android:textAlignment="center"
+                android:textColor="@color/rouge" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/icon_48_checkmark_white"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!--Button Registered-->
+        <LinearLayout
+            android:visibility="visible"
+            style="@style/buttonRoundedCorners.Tintable"
+            android:layout_width="114dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="#28ffffff"
+            android:gravity="center">
+
+            <TextView
+                style="@style/text.button"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Registered"
+                android:textAlignment="viewEnd"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginRight="8dp"
+                android:src="@drawable/icon_48_checkmark_white"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- X-Button -->
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:src="@drawable/icon_48_close_white_navigationbar" />
+
+</FrameLayout>
