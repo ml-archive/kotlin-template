@@ -63,14 +63,16 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContrac
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentContract
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
+import dk.eboks.app.presentation.ui.components.signup.SignupComponentContract
+import dk.eboks.app.presentation.ui.components.signup.SignupComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsContract
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsPresenter
+import dk.eboks.app.presentation.ui.screens.start.StartContract
+import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningContract
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewContract
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
-import dk.eboks.app.presentation.ui.screens.splash.SplashContract
-import dk.eboks.app.presentation.ui.screens.splash.SplashPresenter
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
@@ -84,12 +86,6 @@ class PresentationModule {
     @Provides
     fun providePastaPresenter(appState: AppStateManager) : PastaContract.Presenter {
         return PastaPresenter(appState)
-    }
-
-    @ActivityScope
-    @Provides
-    fun provideSplashPresenter(bootstrapInteractor: BootstrapInteractor, loginInteractor: LoginInteractor) : SplashContract.Presenter {
-        return SplashPresenter(bootstrapInteractor, loginInteractor)
     }
 
     @ActivityScope
@@ -274,6 +270,17 @@ class PresentationModule {
         return SendersOverviewPresenter(stateManager)
     }
 
+    @ActivityScope
+    @Provides
+    fun provideStartPresenter(stateManager: AppStateManager, bootstrapInteractor: BootstrapInteractor) : StartContract.Presenter {
+        return StartPresenter(stateManager, bootstrapInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideSignupComponentPresenter(stateManager: AppStateManager) : SignupComponentContract.Presenter {
+        return SignupComponentPresenter(stateManager)
+    }
 
     /* Pasta
     @ActivityScope

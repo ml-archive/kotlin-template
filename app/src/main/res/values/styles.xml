@@ -223,4 +223,42 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="OnboardingProgress" parent="Widget.AppCompat.ProgressBar.Horizontal">
+
+    </style>
+
+
+    <style name="EboksTextInputLayout">
+        <item name="android:textColorHint"></item>
+    </style>
+
+
+    <!-- hintTextAppearance -->
+    <style name="HintTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+
+    <style name="TextInputLayoutTheme" parent="AppTheme">
+        <item name="colorAccent">@color/textColorSecondary</item>
+        <item name="android:colorPrimary">@color/textColorSecondary</item>
+        <item name="android:colorControlActivated">@color/textColorSecondary</item>
+    </style>
+
+    <style name="EditText">
+        <item name="android:textColor">@color/darkGreyBlue</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+
+    <!--
+    <style name="TextInputLayoutTheme" parent="AppTheme">
+        <item name="colorAccent">#f00</item>
+        <item name="android:colorPrimary">#0f0</item>
+        <item name="android:colorControlActivated">#00f</item>
+    </style>
+    -->
+
 </resources>

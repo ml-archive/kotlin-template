@@ -54,14 +54,16 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragmen
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
+import dk.eboks.app.presentation.ui.components.signup.NameMailComponentFragment
+import dk.eboks.app.presentation.ui.components.signup.SignupComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsPresenter
+import dk.eboks.app.presentation.ui.screens.start.StartActivity
+import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
-import dk.eboks.app.presentation.ui.screens.splash.SplashActivity
-import dk.eboks.app.presentation.ui.screens.splash.SplashPresenter
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
@@ -75,8 +77,6 @@ interface PresentationComponent {
     // Screens
     fun inject(target : PastaActivity)
     fun inject(target : PastaPresenter)
-    fun inject(target : SplashActivity)
-    fun inject(target : SplashPresenter)
     fun inject(target : MailOverviewActivity)
     fun inject(target : MailOverviewPresenter)
     fun inject(target : MailListActivity)
@@ -93,6 +93,8 @@ interface PresentationComponent {
     fun inject(target : ChannelsPresenter)
     fun inject(target : SendersOverviewActivity)
     fun inject(target : SendersOverviewPresenter)
+    fun inject(target : StartActivity)
+    fun inject(target : StartPresenter)
 
     // Components
     fun inject(target : HeaderComponentFragment)
@@ -141,5 +143,10 @@ interface PresentationComponent {
     fun inject(target : PermissionRequestActivity)
     fun inject(target : SenderListComponentFragment)
     fun inject(target : SenderListComponentPresenter)
+
+    // signup
+    fun inject(target : SignupComponentPresenter)
+    fun inject(target : NameMailComponentFragment)
+
 
 }

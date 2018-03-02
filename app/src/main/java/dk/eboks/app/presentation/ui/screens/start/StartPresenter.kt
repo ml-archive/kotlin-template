@@ -1,21 +1,20 @@
-package dk.eboks.app.presentation.ui.screens.splash
+package dk.eboks.app.presentation.ui.screens.start
 
 import dk.eboks.app.domain.interactors.BootstrapInteractor
-import dk.eboks.app.domain.interactors.LoginInteractor
-import dk.eboks.app.domain.models.request.UserInfo
+import dk.eboks.app.domain.managers.AppStateManager
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 
 /**
  * Created by bison on 20-05-2017.
  */
-class SplashPresenter(val bootstrapInteractor: BootstrapInteractor, val loginInteractor: LoginInteractor) : SplashContract.Presenter, BasePresenterImpl<SplashContract.View>(),
-        LoginInteractor.Output,
+class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteractor: BootstrapInteractor) :
+        StartContract.Presenter,
+        BasePresenterImpl<StartContract.View>(),
         BootstrapInteractor.Output {
 
     init {
         bootstrapInteractor.output = this
-        loginInteractor.output = this
         runAction { v -> v.performVersionControl() }
     }
 
@@ -25,18 +24,10 @@ class SplashPresenter(val bootstrapInteractor: BootstrapInteractor, val loginInt
         bootstrapInteractor.run()
     }
 
-    override fun onLogin() {
-        Timber.e("onLogin")
-    }
-
-    override fun onLoginError(msg: String) {
-        runAction{ view?.showError(msg) }
-    }
-
     override fun onBootstrapDone() {
         Timber.e("Boostrap done")
         runAction { v ->
-            v.startMain()
+            v.showWelcomeComponent()
         }
         /*
         loginInteractor.input = LoginInteractor.Input(UserInfo(identity = "0703151319", identityType = "P", nationality = "DK", pincode = "a12345", activationCode = "Rg9d2X3D"))

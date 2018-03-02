@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.screens.splash
+package dk.eboks.app.presentation.ui.screens.start
 
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
@@ -6,11 +6,12 @@ import dk.nodes.arch.presentation.base.BaseView
 /**
  * Created by bison on 07-11-2017.
  */
-interface SplashContract {
+interface StartContract {
     interface View : BaseView {
         fun performVersionControl()
-        fun showError(msg : String)
         fun startMain()
+        fun showWelcomeComponent()
+        fun showError(msg : String)
     }
 
     interface Presenter : BasePresenter<View> {

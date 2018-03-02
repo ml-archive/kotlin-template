@@ -31,11 +31,15 @@
         <!-- hockey id included from build.gradle manifest placeholder -->
         <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name="dk.eboks.app.presentation.ui.screens.splash.SplashActivity">
+        <activity android:name="dk.eboks.app.presentation.ui.screens.start.StartActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name="dk.eboks.app.presentation.ui.screens.splash.SplashActivity">
+
         </activity>
         <activity android:name="dk.eboks.app.presentation.ui.screens.debug.hinter.HintActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.debug.ComponentTestActivity" />
@@ -50,7 +54,6 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity" />
         <activity android:name="dk.eboks.app.system.managers.permission.PermissionRequestActivity" />
-
 
         <provider
             android:name="android.support.v4.content.FileProvider"
