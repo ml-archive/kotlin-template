@@ -37,10 +37,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="dk.eboks.app.presentation.ui.screens.splash.SplashActivity">
-
-        </activity>
         <activity android:name="dk.eboks.app.presentation.ui.screens.debug.hinter.HintActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.debug.ComponentTestActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.debug.DebugActivity" />
@@ -54,6 +50,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity" />
         <activity android:name="dk.eboks.app.system.managers.permission.PermissionRequestActivity" />
+        <activity android:name="dk.eboks.app.presentation.base.SheetComponentActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

@@ -54,7 +54,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         showProgress(true)
         content.postDelayed({
             showProgress(false)
-            (activity as StartActivity).replaceFragment(VerificationComponentFragment())
+            (activity as StartActivity).replaceFragment(SignupVerificationComponentFragment())
         }, 1000)
     }
 }

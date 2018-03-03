@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.signup
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,8 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.base.SheetComponentActivity
+import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_signup_verification_component.*
 import javax.inject.Inject
@@ -14,7 +17,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class VerificationComponentFragment : BaseFragment(), SignupComponentContract.VerificationView {
+class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContract.VerificationView {
 
     @Inject
     lateinit var presenter : SignupComponentContract.Presenter
@@ -28,6 +31,12 @@ class VerificationComponentFragment : BaseFragment(), SignupComponentContract.Ve
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        verifyBtn.setOnClickListener {
+            val intent = Intent(activity, SheetComponentActivity::class.java)
+            intent.putExtra("component", VerificationComponentFragment::class.java.simpleName)
+            activity.startActivity(intent)
+            activity.overridePendingTransition(0,0)
+        }
         continueWithoutVerificationTv.setOnClickListener { onContinueClicked() }
     }
 

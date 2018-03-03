@@ -55,6 +55,8 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresent
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.signup.*
+import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
+import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsPresenter
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
@@ -142,11 +144,13 @@ interface PresentationComponent {
     fun inject(target : PermissionRequestActivity)
     fun inject(target : SenderListComponentFragment)
     fun inject(target : SenderListComponentPresenter)
+    fun inject(target : VerificationComponentFragment)
+    fun inject(target : VerificationComponentPresenter)
 
     // signup
     fun inject(target : SignupComponentPresenter)
     fun inject(target : NameMailComponentFragment)
     fun inject(target : PasswordComponentFragment)
-    fun inject(target : VerificationComponentFragment)
+    fun inject(target : SignupVerificationComponentFragment)
     fun inject(target : CompletedComponentFragment)
 }
