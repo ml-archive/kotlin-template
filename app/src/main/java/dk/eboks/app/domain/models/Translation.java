@@ -3,12 +3,13 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Wed Feb 28 11:20:22 CET 2018 
+ * Generated: Sat Mar 03 14:24:23 CET 2018 
  */
 
 public class Translation {
 	public final static class defaultSection {
 		public static String ok = "Okay";
+		public static String cancel = "Cancel";
 	}
 	public final static class error {
 		public static String errorMessage10100 = "Something wrong with server";
@@ -64,9 +65,46 @@ public class Translation {
 		public static String title = "Senders";
 		public static String registrations = "Registrations";
 		public static String register = "Register";
+		public static String signUpHere = "Sign up here";
+		public static String senderCount = "[senderCount] senders";
+		public static String allCategories = "All categories";
 	}
 	public final static class start {
-		public static String logonDifferentUser = "Log on as a different user";
 		public static String signupButton = "Sign up";
+		public static String addNewUser = "Add another user";
+		public static String logonButton = "Log on";
+	}
+	public final static class logoncredentials {
+		public static String topLabel = "Good to see you again. We missed you!";
+		public static String topSublabel = "Please fill in your credentials below";
+		public static String emailfieldHeader = "Email or Social Security Number";
+		public static String passwordfieldHeader = "Password";
+		public static String placeholder = "Type here";
+		public static String continueButton = "Continue";
+		public static String forgotPasswordButton = "Forgot password";
+	}
+	public final static class forgotpassword {
+		public static String title = "Forgot your password?";
+		public static String subtitle = "Enter the email address you used when creating this account. We\u2019ll send you an email to reset your password.";
+		public static String emailHeader = "Email";
+		public static String placeholder = "Type here";
+		public static String resetPasswordButton = "Reset my password";
+	}
+	public final static class signup {
+		public static String nameEmailHeader = "Let\'s get started with your brand new e-Boks account";
+		public static String nameEmailDetail = "Please fill in the information below";
+		public static String passwordHeader = "Great! Now, let\u2019s get you a password. A secure one, and something you can remember";
+		public static String passwordDetail = "Your password should be at least 8 characters long, and include a letter and a number. Just to be safe!";
+		public static String verificationHeader = "Perfect! Now we just need to know that you are who you say you are. Of course!";
+		public static String verificationDetail = "This will enable the full feature set of e-Boks. Features like reading mail from public institutions, signing documents and paying, directly in e-Boks!";
+		public static String completedHeader = "Yay! We\u2019re all set!\u2028We hope you\u2019ll enjoy your new all digital inbox!";
+		public static String continueButton = "Continue";
+		public static String verifyButton = "Verify my account";
+		public static String continueWithoutVerificationButton = "Continue without verification";
+		public static String continueToAppButton = "Continue to app";
+		public static String nameHint = "Name";
+		public static String emailHint = "Email";
+		public static String passwordHint = "Password";
+		public static String repeatPasswordHint = "Repeat password";
 	}
 }

@@ -2,12 +2,16 @@ package dk.eboks.app.presentation.ui.screens.start
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.components.login.welcome.WelcomeComponentFragment
+import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
+import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
+import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.UpdateType
+import kotlinx.android.synthetic.main.activity_start.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -74,8 +78,8 @@ class StartActivity : BaseActivity(), StartContract.View {
     }
 
     override fun startMain() {
-        //NavBarComponentFragment.currentMenuItem = R.id.actionMail
-        startActivity(Intent(this, StartActivity::class.java))
+        NavBarComponentFragment.currentMenuItem = R.id.actionMail
+        startActivity(Intent(this, MailOverviewActivity::class.java))
 
         //overridePendingTransition(0, 0)
         finishAfterTransition()
@@ -92,5 +96,10 @@ class StartActivity : BaseActivity(), StartContract.View {
         }
         else
             super.onBackPressed()
+    }
+
+    fun showLogo(show : Boolean)
+    {
+        logoIv.visibility = if(show) View.VISIBLE else View.INVISIBLE
     }
 }

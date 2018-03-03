@@ -224,7 +224,7 @@
     </style>
 
     <style name="OnboardingProgress" parent="Widget.AppCompat.ProgressBar.Horizontal">
-
+        <item name="android:progressBackgroundTint">@color/white</item>
     </style>
 
 

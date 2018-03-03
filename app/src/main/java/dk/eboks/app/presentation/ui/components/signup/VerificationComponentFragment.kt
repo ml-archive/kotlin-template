@@ -5,22 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
-import kotlinx.android.synthetic.main.fragment_signup_name_mail_component.*
+import kotlinx.android.synthetic.main.fragment_signup_verification_component.*
 import javax.inject.Inject
-import dk.eboks.app.domain.models.Translation
 
 /**
  * Created by bison on 09-02-2018.
  */
-class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMailView {
+class VerificationComponentFragment : BaseFragment(), SignupComponentContract.VerificationView {
 
     @Inject
     lateinit var presenter : SignupComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_signup_name_mail_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_signup_verification_component, container, false)
         return rootView
     }
 
@@ -28,15 +28,14 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        continueBtn.setOnClickListener { onContinueClicked() }
+        continueWithoutVerificationTv.setOnClickListener { onContinueClicked() }
     }
 
     override fun setupTranslations() {
-        headerTv.text = Translation.signup.nameEmailHeader
-        detailTv.text = Translation.signup.nameEmailDetail
-        continueBtn.text = Translation.signup.continueButton
-        nameTil.hint = Translation.signup.nameHint
-        emailTil.hint = Translation.signup.emailHint
+        headerTv.text = Translation.signup.verificationHeader
+        detailTv.text = Translation.signup.verificationDetail
+        verifyBtn.text = Translation.signup.verifyButton
+        continueWithoutVerificationTv.text = Translation.signup.continueWithoutVerificationButton
     }
 
     override fun showError() {
@@ -54,7 +53,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         showProgress(true)
         content.postDelayed({
             showProgress(false)
-            (activity as StartActivity).replaceFragment(PasswordComponentFragment())
+            (activity as StartActivity).replaceFragment(CompletedComponentFragment())
         }, 1000)
     }
 }

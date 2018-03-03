@@ -5,22 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
-import kotlinx.android.synthetic.main.fragment_signup_name_mail_component.*
+import kotlinx.android.synthetic.main.fragment_signup_completed_component.*
 import javax.inject.Inject
-import dk.eboks.app.domain.models.Translation
 
 /**
  * Created by bison on 09-02-2018.
  */
-class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMailView {
+class CompletedComponentFragment : BaseFragment(), SignupComponentContract.CompletedView {
 
     @Inject
     lateinit var presenter : SignupComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_signup_name_mail_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_signup_completed_component, container, false)
         return rootView
     }
 
@@ -32,11 +32,8 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     }
 
     override fun setupTranslations() {
-        headerTv.text = Translation.signup.nameEmailHeader
-        detailTv.text = Translation.signup.nameEmailDetail
-        continueBtn.text = Translation.signup.continueButton
-        nameTil.hint = Translation.signup.nameHint
-        emailTil.hint = Translation.signup.emailHint
+        headerTv.text = Translation.signup.completedHeader
+        continueBtn.text = Translation.signup.continueToAppButton
     }
 
     override fun showError() {
@@ -53,8 +50,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         (activity as StartActivity).showLogo(false)
         showProgress(true)
         content.postDelayed({
-            showProgress(false)
-            (activity as StartActivity).replaceFragment(PasswordComponentFragment())
+            (activity as StartActivity).startMain()
         }, 1000)
     }
 }

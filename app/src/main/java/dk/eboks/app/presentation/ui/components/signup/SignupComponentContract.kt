@@ -9,6 +9,7 @@ import dk.nodes.arch.presentation.base.BaseView
 interface SignupComponentContract {
     interface SignupView : BaseView {
         fun showError()
+        fun showProgress(show : Boolean)
     }
 
     interface NameMailView : SignupView {
@@ -19,7 +20,7 @@ interface SignupComponentContract {
 
     }
 
-    interface VerifyView : SignupView {
+    interface VerificationView : SignupView {
 
     }
 

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundColor"
+    android:animateLayoutChanges="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:id="@+id/content"
+        android:orientation="vertical"
+        android:background="@color/backgroundColor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/include_toolnar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="36dp"
+                android:paddingRight="36dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:background="@color/backgroundColor"
+                    android:layout_marginTop="40dp"
+                    android:elevation="0.5dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="20dp">
+                    <ProgressBar
+                        style="@style/OnboardingProgress"
+                        android:progressBackgroundTint="@color/white"
+                        android:progress="100"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/headerTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/text.header1"
+                    android:text="Header"/>
+
+                
+                <ImageView
+                    android:layout_width="224dp"
+                    android:layout_height="224dp"
+                    android:src="@drawable/visual_new_user"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"/>
+
+                <Button
+                    android:id="@+id/continueBtn"
+                    style="@style/button.SolidGradient"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="52dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginEnd="36dp"
+                    android:text="_Continue to app" />
+                
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/progress"
+        android:visibility="gone"
+        android:background="@color/backgroundColor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+</FrameLayout>
