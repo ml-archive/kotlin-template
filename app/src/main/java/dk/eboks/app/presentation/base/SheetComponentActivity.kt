@@ -196,7 +196,8 @@ class SheetComponentActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        Timber.e("onBackPressed")
-        super.onBackPressed()
+        contextSheet.post {
+            sheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        }
     }
 }
