@@ -39,7 +39,6 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
     }
 
     override fun updateView(message: Message) {
-
         when(message.messageType)
         {
             MessageType.RECEIVED -> {
@@ -61,6 +60,14 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
             }
             MessageType.UPLOAD -> {
                 senderTv.text = Translation.message.uploadedByYou
+                titleTv.text = message.name
+                message.sender?.logo.let {
+                    Glide.with(context).load(it).into(senderLogoIv)
+                }
+            }
+            else ->
+            {
+                senderTv.text = message.sender?.name ?: ""
                 titleTv.text = message.name
                 message.sender?.logo.let {
                     Glide.with(context).load(it).into(senderLogoIv)

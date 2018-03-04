@@ -109,6 +109,14 @@
                     android:layout_marginEnd="36dp"
                     android:text="_Continue" />
 
+                <TextView
+                    android:id="@+id/showTermsTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    style="@style/text.buttonSmall.quaternary"
+                    android:text="_By doing this you accept the Terms &amp; Conditions"/>
+
             </LinearLayout>
         </ScrollView>
     </LinearLayout>

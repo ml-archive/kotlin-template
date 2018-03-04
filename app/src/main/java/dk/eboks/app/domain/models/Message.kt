@@ -20,5 +20,5 @@ data class Message(
     var numberOfAttachments: Int = 0,
     var attachments : List<Content>? = null,
     var note : String = "",
-    var messageType: MessageType = MessageType.RECEIVED
+    var messageType: MessageType? = MessageType.RECEIVED
 ) : Serializable
