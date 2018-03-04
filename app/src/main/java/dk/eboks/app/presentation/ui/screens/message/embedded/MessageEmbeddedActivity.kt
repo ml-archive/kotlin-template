@@ -51,7 +51,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     }
 
     override fun setupTranslations() {
-        toolbarTv.text = Translation.message.title
+
     }
 
     override fun addHeaderComponentFragment()
@@ -131,8 +131,6 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     }
 
     override fun showTitle(message: Message) {
-        toolbarSubTv.text = formatter.formatDate(message)
-        toolbarTv.visibility = View.VISIBLE
-        toolbarSubTv.visibility = View.VISIBLE
+        setToolbar(R.drawable.ic_menu_mail, Translation.message.title, formatter.formatDate(message))
     }
 }

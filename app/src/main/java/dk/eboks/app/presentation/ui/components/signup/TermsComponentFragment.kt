@@ -29,6 +29,9 @@ class TermsComponentFragment : BaseFragment(), SignupComponentContract.TermsView
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         continueBtn.setOnClickListener { onContinueClicked() }
+        getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.signup.termsTitle, null, {
+            fragmentManager.popBackStack()
+        })
     }
 
     override fun setupTranslations() {

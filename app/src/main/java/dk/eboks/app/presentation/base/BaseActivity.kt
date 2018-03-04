@@ -15,7 +15,12 @@ import dk.eboks.app.util.ShakeDetector
 import dk.nodes.arch.presentation.base.BaseView
 import timber.log.Timber
 import android.view.KeyEvent.KEYCODE_VOLUME_DOWN
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import dk.eboks.app.R
 import dk.eboks.app.presentation.ui.screens.debug.DebugActivity
+import dk.eboks.app.util.guard
 
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
@@ -49,7 +54,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         shakeDetector?.setOnShakeListener(object : ShakeDetector.OnShakeListener {
             override fun onShake(count: Int) {
                 showEmptyState = !showEmptyState
-                Timber.e("showEmptyState $showEmptyState")
+                Timber.d("showEmptyState $showEmptyState")
 
                 this@BaseActivity.onShake()
             }
@@ -84,6 +89,44 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
             return true
         }
         return super.onKeyDown(keyCode, event)
+    }
+
+    fun setToolbar(iconResId : Int, title : String? = null, subtitle : String? = null, callback : (()->Unit)? = null)
+    {
+        findViewById<ImageView>(R.id.toolbarIb)?.let {
+            it.setImageResource(iconResId)
+            it.setOnClickListener { callback?.invoke() }
+        }
+        findViewById<TextView>(R.id.toolbarTv)?.let {
+            if(title != null) {
+                it.visibility = View.VISIBLE
+                it.text = title
+            }
+            else
+                it.visibility = View.GONE
+        }
+        findViewById<TextView>(R.id.toolbarSubTv)?.let {
+            if(subtitle != null) {
+                it.visibility = View.VISIBLE
+                it.text = subtitle
+            }
+            else
+                it.visibility = View.GONE
+        }
+    }
+
+    fun setToolbarLarge(iconResId : Int, title : String, callback : (()->Unit)? = null)
+    {
+        findViewById<ImageView>(R.id.toolbarIb)?.let {
+            it.setImageResource(iconResId)
+            it.setOnClickListener { callback?.invoke() }
+        }
+        findViewById<TextView>(R.id.toolbarTv)?.visibility = View.GONE
+        findViewById<TextView>(R.id.toolbarSubTv)?.visibility = View.GONE
+        findViewById<TextView>(R.id.toolbarLargeTv)?.let {
+            it.text = title
+            it.visibility = View.VISIBLE
+        }
     }
 
 

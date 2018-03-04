@@ -33,6 +33,9 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
             (activity as StartActivity).showLogo(false)
             (activity as StartActivity).replaceFragment(TermsComponentFragment())
         }
+        getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.signup.title, null, {
+            fragmentManager.popBackStack()
+        })
     }
 
     override fun setupTranslations() {

@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.screens.channels
 
 import android.os.Bundle
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import timber.log.Timber
 import javax.inject.Inject
@@ -17,7 +18,7 @@ class ChannelsActivity : BaseActivity(), ChannelsContract.View {
     }
 
     override fun setupTranslations() {
-
+        setToolbar(R.drawable.ic_menu_channels, Translation.channels.title)
     }
 
     override fun showError(msg: String) {

@@ -63,5 +63,12 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     }
 
+    fun getBaseActivity() : BaseActivity?
+    {
+        if(activity is BaseActivity)
+            return activity as BaseActivity
+        return null
+    }
+
     protected open fun onShake() {}
 }

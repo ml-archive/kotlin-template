@@ -29,6 +29,9 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         continueBtn.setOnClickListener { onContinueClicked() }
+        getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.signup.title, null, {
+            fragmentManager.popBackStack()
+        })
     }
 
     override fun setupTranslations() {

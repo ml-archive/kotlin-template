@@ -33,8 +33,6 @@ class MessageActivity : BaseActivity(), MessageContract.View {
     }
 
     override fun showTitle(message: Message) {
-        toolbarSubTv.text = formatter.formatDate(message)
-        toolbarTv.visibility = View.VISIBLE
-        toolbarSubTv.visibility = View.VISIBLE
+        setToolbar(R.drawable.ic_menu_mail, Translation.message.title, formatter.formatDate(message))
     }
 }

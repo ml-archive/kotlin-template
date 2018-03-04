@@ -18,8 +18,6 @@ class MailListActivity : BaseActivity(), MailListContract.View {
         setContentView(R.layout.activity_mail_list)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-
-        HintActivity.showHint(this, "Inbox currently contained mock versions of the 4 different embedded viewers. PDF is still a placeholder\n- Downloading and filecaching is working properly\n- Pull to refresh")
     }
 
     override fun onShake() {
@@ -32,13 +30,10 @@ class MailListActivity : BaseActivity(), MailListContract.View {
     }
 
     override fun setupTranslations() {
-        toolbarTv.visibility = View.GONE
-        toolbarLargeTv.visibility = View.VISIBLE
-        toolbarLargeTv.text = ""
     }
 
     override fun showFolderName(name: String) {
-        toolbarLargeTv.text = name
+        setToolbarLarge(R.drawable.ic_menu_mail, name)
     }
 
     override fun showError(msg: String) {
