@@ -20,6 +20,10 @@ interface SignupComponentContract {
 
     }
 
+    interface MMView : SignupView {
+
+    }
+
     interface VerificationView : SignupView {
 
     }
