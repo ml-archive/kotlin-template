@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:padding="16dp"
+    android:background="#00f"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+            android:id="@+id/circleIv"
+            android:layout_gravity="center"
+            android:padding="16dp"
+            android:layout_width="76dp"
+            android:layout_height="76dp"
+            android:background="@drawable/circular_image_view_background"/>
+</FrameLayout>
