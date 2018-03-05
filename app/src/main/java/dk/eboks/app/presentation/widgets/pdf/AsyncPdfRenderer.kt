@@ -62,7 +62,7 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
             val file = File(context.cacheDir, filename)
             if (!file.exists()) {
                 // Since PdfRenderer cannot handle the compressed asset file directly, we copy it into
-                // the cache directory.
+                // the users directory.
                 val asset = context.assets.open(filename)
                 val output = FileOutputStream(file)
                 val buffer = ByteArray(8192)

@@ -8,6 +8,7 @@ import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentFragment
 import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.nodes.nstack.kotlin.NStack
@@ -38,6 +39,17 @@ class StartActivity : BaseActivity(), StartContract.View {
         fragment?.let{
             supportFragmentManager.beginTransaction().add(R.id.containerFl, it, fragment.javaClass.simpleName).addToBackStack(fragment.javaClass.simpleName).commit()
         }
+    }
+
+    fun emptyBackStack()
+    {
+        val trans = supportFragmentManager.beginTransaction()
+        for( frag in supportFragmentManager.fragments)
+        {
+            trans.remove(frag)
+            Timber.e("Removing frag")
+        }
+        trans.commitNowAllowingStateLoss()
     }
 
     override fun setupTranslations() {
@@ -73,16 +85,16 @@ class StartActivity : BaseActivity(), StartContract.View {
         })
     }
 
-    override fun showLoginComponent()
+    override fun showUserCarouselComponent()
     {
         showLogo(false)
-        addFragment(LoginComponentFragment())
+        addFragment(UserCarouselComponentFragment())
     }
 
     override fun showWelcomeComponent()
     {
         showLogo(false)
-        addFragment(WelcomeComponentFragment())
+        replaceFragment(WelcomeComponentFragment())
     }
 
     override fun startMain() {

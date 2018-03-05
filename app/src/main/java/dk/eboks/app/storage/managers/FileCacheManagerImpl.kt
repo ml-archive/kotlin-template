@@ -28,7 +28,7 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
         val type = object : TypeToken<HashMap<String, CacheEntry>>(){}.type
         try {
             cache = cacheStore.load(type)
-            Timber.e("Loaded file cache with ${cache.size} entries")
+            Timber.e("Loaded filecache with ${cache.size} entries")
             for(entry in cache)
             {
                 Timber.e("Entry: ${entry.key} = ${entry.value.filename}")

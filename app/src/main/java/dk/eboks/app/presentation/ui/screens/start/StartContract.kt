@@ -11,7 +11,7 @@ interface StartContract {
         fun performVersionControl()
         fun startMain()
         fun showWelcomeComponent()
-        fun showLoginComponent()
+        fun showUserCarouselComponent()
         fun showError(msg : String)
     }
 

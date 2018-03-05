@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.signup
+package dk.eboks.app.presentation.ui.components.start.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,19 +8,19 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
-import kotlinx.android.synthetic.main.fragment_signup_terms_component.*
+import kotlinx.android.synthetic.main.fragment_signup_completed_component.*
 import javax.inject.Inject
 
 /**
  * Created by bison on 09-02-2018.
  */
-class TermsComponentFragment : BaseFragment(), SignupComponentContract.TermsView {
+class CompletedComponentFragment : BaseFragment(), SignupComponentContract.CompletedView {
 
     @Inject
     lateinit var presenter : SignupComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_signup_terms_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_signup_completed_component, container, false)
         return rootView
     }
 
@@ -29,14 +29,11 @@ class TermsComponentFragment : BaseFragment(), SignupComponentContract.TermsView
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         continueBtn.setOnClickListener { onContinueClicked() }
-        getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.signup.termsTitle, null, {
-            fragmentManager.popBackStack()
-        })
     }
 
     override fun setupTranslations() {
-        textTv.text = Translation.signup.termsText
-        continueBtn.text = Translation.signup.continueButton
+        headerTv.text = Translation.signup.completedHeader
+        continueBtn.text = Translation.signup.continueToAppButton
     }
 
     override fun showError() {
@@ -53,7 +50,7 @@ class TermsComponentFragment : BaseFragment(), SignupComponentContract.TermsView
         //(activity as StartActivity).showLogo(false)
         showProgress(true)
         content.postDelayed({
-            //(activity as StartActivity).startMain()
+            (activity as StartActivity).startMain()
         }, 1000)
     }
 }

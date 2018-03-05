@@ -77,9 +77,9 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
     {
         msg.content?.let { content->
             var filename = cacheManager.getCachedContentFileName(content)
-            if(filename == null) // is not in cache
+            if(filename == null) // is not in users
             {
-                Timber.e("Content ${content.id} not in cache, downloading")
+                Timber.e("Content ${content.id} not in users, downloading")
                 // TODO the result of this call can result in all sorts of fun control flow changes depending on what error code the backend returns
                 filename = downloadManager.downloadAttachmentContent(msg, content)
                 if(filename == null)
@@ -89,7 +89,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
             }
             else
             {
-                Timber.e("Found content in cache ($filename)")
+                Timber.e("Found content in users ($filename)")
             }
 
             appStateManager.state?.currentMessage = msg

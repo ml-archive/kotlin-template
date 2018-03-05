@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.signup
+package dk.eboks.app.presentation.ui.components.start.signup
 
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView

@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.verification
+package dk.eboks.app.presentation.ui.components.start.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,19 +8,19 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
-import kotlinx.android.synthetic.main.fragment_verification_component.*
+import kotlinx.android.synthetic.main.fragment_activation_code_component.*
 import javax.inject.Inject
 
 /**
  * Created by bison on 09-02-2018.
  */
-class VerificationComponentFragment : BaseFragment(), VerificationComponentContract.View {
+class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentContract.View {
 
     @Inject
-    lateinit var presenter : VerificationComponentContract.Presenter
+    lateinit var presenter : ActivationCodeComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_verification_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_activation_code_component, container, false)
         return rootView
     }
 
@@ -28,12 +28,14 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        headerTv.requestFocus()
         cancelTv.setOnClickListener {
             (activity as SheetComponentActivity).onBackPressed()
         }
     }
 
     override fun setupTranslations() {
+        resetPasswordBtn.text = Translation.forgotpassword.resetPasswordButton
         cancelTv.text = Translation.defaultSection.cancel
     }
 

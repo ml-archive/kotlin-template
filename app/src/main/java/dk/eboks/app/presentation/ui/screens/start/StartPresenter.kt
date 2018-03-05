@@ -24,11 +24,13 @@ class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteract
         bootstrapInteractor.run()
     }
 
-    override fun onBootstrapDone() {
+    override fun onBootstrapDone(hasUsers : Boolean) {
         Timber.e("Boostrap done")
         runAction { v ->
-            v.showLoginComponent()
-            //v.showWelcomeComponent()
+            if(hasUsers)
+                v.showUserCarouselComponent()
+            else
+                v.showWelcomeComponent()
         }
         /*
         loginInteractor.input = LoginInteractor.Input(UserInfo(identity = "0703151319", identityType = "P", nationality = "DK", pincode = "a12345", activationCode = "Rg9d2X3D"))

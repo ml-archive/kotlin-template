@@ -11,6 +11,8 @@ import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
+import dk.eboks.app.domain.interactors.user.CreateUserInteractor
+import dk.eboks.app.domain.interactors.user.GetUsersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentContract
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
@@ -63,12 +65,9 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContrac
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentContract
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
-import dk.eboks.app.presentation.ui.components.signup.SignupComponentContract
-import dk.eboks.app.presentation.ui.components.signup.SignupComponentPresenter
-import dk.eboks.app.presentation.ui.components.start.login.LoginComponentContract
-import dk.eboks.app.presentation.ui.components.start.login.LoginComponentPresenter
-import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentContract
-import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.*
+import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContract
+import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsContract
@@ -297,14 +296,26 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideUserCarouselComponentPresenter(stateManager: AppStateManager) : UserCarouselComponentContract.Presenter {
-        return UserCarouselComponentPresenter(stateManager)
+    fun provideUserCarouselComponentPresenter(stateManager: AppStateManager, getUsersInteractor: GetUsersInteractor) : UserCarouselComponentContract.Presenter {
+        return UserCarouselComponentPresenter(stateManager, getUsersInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideLoginComponentPresenter(stateManager: AppStateManager) : LoginComponentContract.Presenter {
-        return LoginComponentPresenter(stateManager)
+    fun provideLoginComponentPresenter(stateManager: AppStateManager, createUserInteractor: CreateUserInteractor) : LoginComponentContract.Presenter {
+        return LoginComponentPresenter(stateManager, createUserInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideForgotPasswordComponentPresenter(stateManager: AppStateManager) : ForgotPasswordComponentContract.Presenter {
+        return ForgotPasswordComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideActivationCodeComponentPresenter(stateManager: AppStateManager) : ActivationCodeComponentContract.Presenter {
+        return ActivationCodeComponentPresenter(stateManager)
     }
 
     /* Pasta

@@ -25,9 +25,9 @@ class OpenAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
             val message : Message = input?.message ?: throw InteractorException("No message given to interactor input")
             input?.attachment?.let { content->
                 var filename = cacheManager.getCachedContentFileName(content)
-                if(filename == null) // is not in cache
+                if(filename == null) // is not in users
                 {
-                    Timber.e("Attachment content ${content.id} not in cache, downloading")
+                    Timber.e("Attachment content ${content.id} not in users, downloading")
                     // TODO the result of this call can result in all sorts of fun control flow changes depending on what error code the backend returns
                     filename = downloadManager.downloadAttachmentContent(message, content)
                     if(filename == null)
@@ -37,7 +37,7 @@ class OpenAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
                 }
                 else
                 {
-                    Timber.e("Found content in cache ($filename)")
+                    Timber.e("Found content in users ($filename)")
                 }
 
                 val abs_path = cacheManager.getAbsolutePath(filename)

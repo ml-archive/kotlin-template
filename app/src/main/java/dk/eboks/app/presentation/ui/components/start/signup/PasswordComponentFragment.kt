@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.signup
+package dk.eboks.app.presentation.ui.components.start.signup
 
 import android.os.Bundle
 import android.text.Editable

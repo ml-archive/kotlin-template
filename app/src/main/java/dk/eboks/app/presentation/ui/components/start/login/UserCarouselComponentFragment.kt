@@ -5,10 +5,18 @@ import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.internal.User
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.start.signup.NameMailComponentFragment
+import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
+import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_user_carousel_component.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -29,6 +37,26 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupViewPager()
+        signupBtn.setOnClickListener { (activity as StartActivity).replaceFragment(NameMailComponentFragment()) }
+        if(BuildConfig.DEBUG) {
+            debugSkipBtn.visibility = View.VISIBLE
+            debugSkipBtn.setOnClickListener {
+                (activity as StartActivity).startMain()
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.requestUsers()
+        signupBtn.post({
+            fragmentManager.findFragmentByTag(WelcomeComponentFragment::class.java.simpleName)?.let { frag->
+                Timber.e("Found frag, removing")
+                fragmentManager.beginTransaction().remove(frag).commitNowAllowingStateLoss()
+                //fragmentManager.beginTransaction().replace(R.id.containerFl, UserCarouselComponentFragment(), UserCarouselComponentFragment::class.java.simpleName).commitNow()
+            }
+        })
+
     }
 
     fun setupViewPager()
@@ -43,7 +71,6 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
 
         //val between = (density * 1f).toInt()
         viewPager.pageMargin = 0
-        viewPager.adapter = UserPagerAdapter()
         viewPager.offscreenPageLimit = 10
     }
 
@@ -51,13 +78,34 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         signupBtn.text = Translation.start.signupButton
     }
 
-    inner class UserPagerAdapter : PagerAdapter()
+    override fun showUsers(users: MutableList<User>) {
+        viewPager.adapter = UserPagerAdapter(users)
+    }
+
+    inner class UserPagerAdapter(val users: List<User>) : PagerAdapter()
     {
         override fun instantiateItem(collection: ViewGroup, position: Int): Any {
             val inflater = LayoutInflater.from(context)
-            val layout = inflater.inflate(R.layout.viewholder_user_carousel, collection, false) as ViewGroup
-            collection.addView(layout)
-            return layout
+            if(position < users.size) {
+                val v = inflater.inflate(R.layout.viewholder_user_carousel, collection, false) as ViewGroup
+                v.findViewById<TextView>(R.id.nameTv)?.text = users[position].email
+                collection.addView(v)
+                return v
+            }
+            else
+            {
+                val v = inflater.inflate(R.layout.viewholder_add_user_carousel, collection, false) as ViewGroup
+                v.findViewById<TextView>(R.id.nameTv)?.text = Translation.start.addNewUser
+                v.findViewById<LinearLayout>(R.id.addUserLl)?.setOnClickListener {
+                    val frag = LoginComponentFragment()
+                    val args = Bundle()
+                    args.putBoolean("showGreeting", false)
+                    frag.arguments = args
+                    (activity as StartActivity).replaceFragment(frag)
+                }
+                collection.addView(v)
+                return v
+            }
         }
 
         override fun destroyItem(collection: ViewGroup, position: Int, view: Any) {
@@ -65,7 +113,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         }
 
         override fun getCount(): Int {
-            return 3
+            return users.size + 1
         }
 
         override fun isViewFromObject(view: View, `object`: Any): Boolean {

@@ -1,17 +1,15 @@
 package dk.eboks.app.presentation.ui.components.start.welcome
 
 import android.os.Bundle
-import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.components.signup.NameMailComponentFragment
-import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentFragment
+import dk.eboks.app.presentation.ui.components.start.signup.NameMailComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_welcome_component.*
 
@@ -32,6 +30,7 @@ class WelcomeComponentFragment : BaseFragment() {
             (activity as StartActivity).replaceFragment(NameMailComponentFragment())
         }
         logonBtn.setOnClickListener {
+            /*
             val move = TransitionInflater.from(activity).inflateTransition(android.R.transition.move)
             val fade = TransitionInflater.from(activity).inflateTransition(android.R.transition.fade)
 
@@ -49,10 +48,11 @@ class WelcomeComponentFragment : BaseFragment() {
             val ft = fragmentManager.beginTransaction()
                     .replace(R.id.containerFl, fragment)
                     .addToBackStack(UserCarouselComponentFragment::class.java.simpleName)
-                    .addSharedElement(logoIv, "eboksLogoTransition")
                     .addSharedElement(signupBtn, "signUpButtonTransition")
-
+                    .addSharedElement(logoIv, "eboksLogoTransition")
             ft.commit()
+            */
+            (activity as StartActivity).replaceFragment(LoginComponentFragment())
         }
         if(BuildConfig.DEBUG) {
             debugSkipBtn.visibility = View.VISIBLE

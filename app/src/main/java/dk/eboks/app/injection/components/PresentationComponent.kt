@@ -54,11 +54,8 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragmen
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
-import dk.eboks.app.presentation.ui.components.signup.*
-import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
-import dk.eboks.app.presentation.ui.components.start.login.LoginComponentPresenter
-import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentFragment
-import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.*
+import dk.eboks.app.presentation.ui.components.start.signup.*
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity
@@ -165,4 +162,8 @@ interface PresentationComponent {
     fun inject(target : UserCarouselComponentPresenter)
     fun inject(target : LoginComponentFragment)
     fun inject(target : LoginComponentPresenter)
+    fun inject(target : ForgotPasswordComponentFragment)
+    fun inject(target : ForgotPasswordComponentPresenter)
+    fun inject(target : ActivationCodeComponentFragment)
+    fun inject(target : ActivationCodeComponentPresenter)
 }

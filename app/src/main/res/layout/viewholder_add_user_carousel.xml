@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:clipToPadding="false"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/cardCv"
+        android:layout_width="match_parent"
+        android:layout_height="132dp"
+        android:background="@drawable/attachment_background"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/addUserLl"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:background="?selectableItemBackground">
+            <ImageView
+                android:id="@+id/avatarIv"
+                android:layout_gravity="center"
+                android:padding="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_profile"
+                android:elevation="8dp"
+                android:background="@drawable/circular_image_view_background"/>
+
+            <TextView
+                android:id="@+id/nameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                style="@style/text.header3"
+                android:textColor="@color/darkGreyBlue"
+                android:text="_Add another user"
+                />
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

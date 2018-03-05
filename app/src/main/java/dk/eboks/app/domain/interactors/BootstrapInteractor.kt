@@ -13,7 +13,7 @@ interface BootstrapInteractor : Interactor
     data class Input(val i : Int)
 
     interface Output {
-        fun onBootstrapDone()
+        fun onBootstrapDone(hasUsers : Boolean)
         fun onBootstrapError(msg : String)
     }
 }

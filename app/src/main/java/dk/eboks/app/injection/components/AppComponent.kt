@@ -11,6 +11,8 @@ import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
+import dk.eboks.app.domain.interactors.user.CreateUserInteractor
+import dk.eboks.app.domain.interactors.user.GetUsersInteractor
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.injection.modules.*
 import dk.eboks.app.network.Api
@@ -47,6 +49,7 @@ interface AppComponent
     fun downloadManager() : DownloadManager
     fun eboksFormatter() : EboksFormatter
     fun permissionManager() : PermissionManager
+    fun userManager() : UserManager
 
     // interactors
     fun loginInteractor() : LoginInteractor
@@ -60,4 +63,6 @@ interface AppComponent
     fun openAttachmentInteractor() : OpenAttachmentInteractor
     fun saveAttachmentInteractor() : SaveAttachmentInteractor
     fun getChannelsInteractor() : GetChannelsInteractor
+    fun createUserInteractor() : CreateUserInteractor
+    fun getUsersInteractor() : GetUsersInteractor
 }

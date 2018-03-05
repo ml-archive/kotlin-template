@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
+import dk.eboks.app.domain.models.internal.User
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 
@@ -8,9 +9,10 @@ import dk.nodes.arch.presentation.base.BaseView
  */
 interface UserCarouselComponentContract {
     interface View : BaseView {
-
+        fun showUsers(users : MutableList<User>)
     }
 
     interface Presenter : BasePresenter<View> {
+        fun requestUsers()
     }
 }

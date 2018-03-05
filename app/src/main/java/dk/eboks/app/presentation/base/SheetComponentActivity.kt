@@ -17,6 +17,8 @@ import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
 import android.widget.FrameLayout
 import dk.eboks.app.R
+import dk.eboks.app.presentation.ui.components.start.login.ActivationCodeComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.ForgotPasswordComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.util.MathUtil
 import kotlinx.android.synthetic.main.activity_sheet_component.*
@@ -45,7 +47,7 @@ class SheetComponentActivity : BaseActivity() {
 
     val callback = object : BottomSheetBehavior.BottomSheetCallback() {
         override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            Timber.e("Slideoffset: $slideOffset")
+            //Timber.e("Slideoffset: $slideOffset")
             touchVeilV.alpha = MathUtil.reMapFloat(-1.0f, 1.0f, .0f, 1.0f, slideOffset)
             //touchVeilV.alpha = slideOffset
             if(slideOffset >= 0) {
@@ -132,9 +134,11 @@ class SheetComponentActivity : BaseActivity() {
 
         val compname = intent.getStringExtra("component")
         compname?.let { name ->
-            when(name)
+            when(name) // add components here that you want to be able to open in the drawer of wonder (tm)
             {
                 VerificationComponentFragment::class.java.simpleName -> addFragment(VerificationComponentFragment())
+                ForgotPasswordComponentFragment::class.java.simpleName -> addFragment(ForgotPasswordComponentFragment())
+                ActivationCodeComponentFragment::class.java.simpleName -> addFragment(ActivationCodeComponentFragment())
             }
         }
     }

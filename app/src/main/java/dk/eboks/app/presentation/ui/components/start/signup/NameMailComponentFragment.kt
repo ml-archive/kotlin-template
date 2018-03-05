@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.signup
+package dk.eboks.app.presentation.ui.components.start.signup
 
 import android.os.Bundle
 import android.text.Editable
@@ -14,13 +14,9 @@ import javax.inject.Inject
 import dk.eboks.app.domain.models.Translation
 import android.util.Patterns
 import android.text.TextUtils
-import android.view.FocusFinder
-import dk.eboks.app.R.id.nameTil
 import android.text.method.LinkMovementMethod
-import android.widget.TextView
 import android.text.Spanned
 import android.text.TextPaint
-import android.content.Intent
 import android.graphics.Color
 import android.text.style.ClickableSpan
 import android.text.SpannableString

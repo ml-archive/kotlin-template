@@ -1,8 +1,6 @@
 package dk.eboks.app.domain.interactors
 
-import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.managers.GuidManager
-import dk.eboks.app.domain.managers.ProtocolManager
+import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.repositories.SettingsRepository
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -11,7 +9,9 @@ import timber.log.Timber
 /**
  * Created by bison on 24-06-2017.
  */
-class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, val settingsRepository: SettingsRepository, val protocolManager: ProtocolManager, val appStateManager: AppStateManager) : BaseInteractor(executor), BootstrapInteractor {
+class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, val settingsRepository: SettingsRepository,
+                              val protocolManager: ProtocolManager, val appStateManager: AppStateManager,
+                              val fileCacheManager: FileCacheManager, val userManager: UserManager) : BaseInteractor(executor), BootstrapInteractor {
     override var output : BootstrapInteractor.Output? = null
     override var input : BootstrapInteractor.Input? = null
 
@@ -22,7 +22,7 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, 
             // do something with unwrapped input
 
         }
-
+        val hasUsers = userManager.users.isNotEmpty()
         val settings = settingsRepository.get()
         if(settings.deviceId.isBlank()) {
             settings.deviceId = guidManager.generateGuid()
@@ -35,7 +35,7 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, 
 
         try {
             runOnUIThread {
-                output?.onBootstrapDone()
+                output?.onBootstrapDone(hasUsers)
             }
         } catch (e: Exception) {
             runOnUIThread {

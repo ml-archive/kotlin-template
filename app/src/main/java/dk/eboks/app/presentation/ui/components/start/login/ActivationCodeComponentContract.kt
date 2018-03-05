@@ -6,12 +6,11 @@ import dk.nodes.arch.presentation.base.BaseView
 /**
  * Created by bison on 07-11-2017.
  */
-interface LoginComponentContract {
+interface ActivationCodeComponentContract {
     interface View : BaseView {
 
     }
 
     interface Presenter : BasePresenter<View> {
-        fun createUser(email : String)
     }
 }

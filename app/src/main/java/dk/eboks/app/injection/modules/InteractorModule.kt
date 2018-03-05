@@ -12,6 +12,10 @@ import dk.eboks.app.domain.interactors.folder.OpenFolderInteractorImpl
 import dk.eboks.app.domain.interactors.message.*
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractorImpl
+import dk.eboks.app.domain.interactors.user.CreateUserInteractor
+import dk.eboks.app.domain.interactors.user.CreateUserInteractorImpl
+import dk.eboks.app.domain.interactors.user.GetUsersInteractor
+import dk.eboks.app.domain.interactors.user.GetUsersInteractorImpl
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.repositories.*
 import dk.eboks.app.network.Api
@@ -27,9 +31,11 @@ class InteractorModule {
         return LoginInteractorImpl(executor, api, protocolManager)
     }
 
-    @Provides fun provideBootstrapInteractor(executor: Executor, guidManager: GuidManager, settingsRepository: SettingsRepository, protocolManager: ProtocolManager, appStateManager: AppStateManager) : BootstrapInteractor
+    @Provides fun provideBootstrapInteractor(executor: Executor, guidManager: GuidManager, settingsRepository: SettingsRepository,
+                                             protocolManager: ProtocolManager, appStateManager: AppStateManager,
+                                             fileCacheManager: FileCacheManager, userManager: UserManager) : BootstrapInteractor
     {
-        return BootstrapInteractorImpl(executor, guidManager, settingsRepository, protocolManager, appStateManager)
+        return BootstrapInteractorImpl(executor, guidManager, settingsRepository, protocolManager, appStateManager, fileCacheManager, userManager)
     }
 
     @Provides fun provideGetSendersInteractor(executor: Executor, sendersRepository: SendersRepository) : GetSendersInteractor
@@ -78,5 +84,15 @@ class InteractorModule {
     @Provides fun provideGetChannelsInteractor(executor: Executor, channelsRepository: ChannelsRepository) : GetChannelsInteractor
     {
         return GetChannelsInteractorImpl(executor, channelsRepository)
+    }
+
+    @Provides fun provideCreateUserInteractor(executor: Executor, userManager: UserManager) : CreateUserInteractor
+    {
+        return CreateUserInteractorImpl(executor, userManager)
+    }
+
+    @Provides fun provideGetUsersInteractor(executor: Executor, userManager: UserManager) : GetUsersInteractor
+    {
+        return GetUsersInteractorImpl(executor, userManager)
     }
 }
