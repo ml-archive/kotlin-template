@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:enterFadeDuration="200"
-    android:exitFadeDuration="200">
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:enterFadeDuration="200" android:exitFadeDuration="200">
     <item android:state_enabled="false">
         <shape android:shape="rectangle">
             <corners android:radius="18dp" />
@@ -11,19 +9,13 @@
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <corners android:radius="18dp" />
-            <gradient
-                android:endColor="#bc1f30"
-                android:startColor="#872058"
-                android:angle="135" />
+            <gradient android:angle="135" android:endColor="#bc1f30" android:startColor="#872058" />
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="18dp" />
-            <gradient
-                android:endColor="#bc1f30"
-                android:startColor="#872058"
-                android:angle="135" />
+            <gradient android:angle="135" android:endColor="#bc1f30" android:startColor="#872058" />
         </shape>
     </item>
 </selector>
