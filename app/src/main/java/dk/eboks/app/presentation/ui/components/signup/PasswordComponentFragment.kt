@@ -1,6 +1,8 @@
 package dk.eboks.app.presentation.ui.components.signup
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +19,10 @@ import javax.inject.Inject
 class PasswordComponentFragment : BaseFragment(), SignupComponentContract.PasswordView {
 
     @Inject
-    lateinit var presenter : SignupComponentContract.Presenter
+    lateinit var presenter: SignupComponentContract.Presenter
+
+    var passwordValid = false
+    var repeatPasswordValid = false
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_signup_password_component, container, false)
@@ -32,6 +37,78 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.signup.title, null, {
             fragmentManager.popBackStack()
         })
+        // password listeners
+        passwordEt.onFocusChangeListener = object : View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                if (passwordEt.text.toString().trim().isNullOrBlank() && !hasFocus) {
+                    passwordTil.error = Translation.signup.invalidPassword
+                    passwordValid = false
+                }
+                comparePasswords()
+            }
+        }
+
+        passwordEt.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(password: Editable?) {
+                passwordTil.error = null
+                passwordValid = (isValidPassword(password.toString()))
+                comparePasswords()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        // report password listeners
+
+        repeatPasswordEt.onFocusChangeListener = object : View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                comparePasswords()
+            }
+        }
+
+        repeatPasswordEt.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(repeatPassword: Editable?) {
+                repeatPasswordTil.error = null
+                comparePasswords()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+    }
+
+    fun comparePasswords() {
+        if (passwordEt.text.isNullOrBlank()) {
+            if (repeatPasswordEt.text.isNullOrBlank()) {
+                passwordTil.error = null
+                repeatPasswordValid = false
+            } else {
+                passwordTil.error = Translation.signup.invalidPassword
+            }
+            passwordValid = false
+        }
+        if (passwordEt.text.toString().trim() == repeatPasswordEt.text.toString().trim()) {
+            repeatPasswordValid = true
+            repeatPasswordTil.error = null
+        } else {
+            repeatPasswordValid = false
+            if (repeatPasswordEt.text.isNullOrBlank()) {
+                repeatPasswordTil.error = null
+            } else {
+                repeatPasswordTil.error = Translation.signup.invalidPasswordMatch
+            }
+        }
+        continueBtn.isEnabled = (passwordValid && repeatPasswordValid)
+    }
+
+    fun isValidPassword(password: CharSequence): Boolean {
+        if (password.isNotBlank()) {
+            return true
+        }
+        return false
     }
 
     override fun setupTranslations() {
@@ -47,12 +124,11 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     }
 
     override fun showProgress(show: Boolean) {
-        content.visibility = if(show) View.GONE else View.VISIBLE
-        progress.visibility = if(show) View.VISIBLE else View.GONE
+        content.visibility = if (show) View.GONE else View.VISIBLE
+        progress.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    fun onContinueClicked()
-    {
+    fun onContinueClicked() {
         //(activity as StartActivity).showLogo(false)
         showProgress(true)
         content.postDelayed({
