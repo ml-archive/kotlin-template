@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Mon Mar 05 15:46:56 CET 2018 
+ * Generated: Mon Mar 05 16:31:16 CET 2018 
  */
 
 public class Translation {
@@ -82,6 +82,7 @@ public class Translation {
 		public static String placeholder = "Type here";
 		public static String continueButton = "Continue";
 		public static String forgotPasswordButton = "Forgot password";
+		public static String title = "Sign in";
 	}
 	public final static class forgotpassword {
 		public static String title = "Forgot your password?";

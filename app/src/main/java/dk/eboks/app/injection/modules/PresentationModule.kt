@@ -65,6 +65,8 @@ import dk.eboks.app.presentation.ui.components.senders.SenderListComponentContra
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.signup.SignupComponentContract
 import dk.eboks.app.presentation.ui.components.signup.SignupComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.LoginComponentContract
+import dk.eboks.app.presentation.ui.components.start.login.LoginComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentContract
 import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
@@ -297,6 +299,12 @@ class PresentationModule {
     @Provides
     fun provideUserCarouselComponentPresenter(stateManager: AppStateManager) : UserCarouselComponentContract.Presenter {
         return UserCarouselComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideLoginComponentPresenter(stateManager: AppStateManager) : LoginComponentContract.Presenter {
+        return LoginComponentPresenter(stateManager)
     }
 
     /* Pasta

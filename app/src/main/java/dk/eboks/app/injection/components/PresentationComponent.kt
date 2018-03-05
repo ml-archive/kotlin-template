@@ -55,6 +55,8 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresent
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.signup.*
+import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.LoginComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
@@ -148,8 +150,6 @@ interface PresentationComponent {
     fun inject(target : SenderListComponentPresenter)
     fun inject(target : VerificationComponentFragment)
     fun inject(target : VerificationComponentPresenter)
-    fun inject(target : UserCarouselComponentFragment)
-    fun inject(target : UserCarouselComponentPresenter)
 
     // signup
     fun inject(target : SignupComponentPresenter)
@@ -159,4 +159,10 @@ interface PresentationComponent {
     fun inject(target : SignupVerificationComponentFragment)
     fun inject(target : MMComponentFragment)
     fun inject(target : CompletedComponentFragment)
+
+    // login
+    fun inject(target : UserCarouselComponentFragment)
+    fun inject(target : UserCarouselComponentPresenter)
+    fun inject(target : LoginComponentFragment)
+    fun inject(target : LoginComponentPresenter)
 }

@@ -1,17 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
-    android:padding="16dp"
-    android:background="#00f"
+    android:clipToPadding="false"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-            android:id="@+id/circleIv"
-            android:layout_gravity="center"
-            android:padding="16dp"
-            android:layout_width="76dp"
-            android:layout_height="76dp"
-            android:background="@drawable/circular_image_view_background"/>
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardCv"
+        android:layout_width="match_parent"
+        android:layout_height="132dp"
+        android:visibility="visible"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardPreventCornerOverlap="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:background="?selectableItemBackground">
+            <ImageView
+                android:id="@+id/avatarIv"
+                android:layout_gravity="center"
+                android:padding="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/circular_image_view_background"/>
+
+            <TextView
+                android:id="@+id/nameTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                style="@style/text.header3"
+                android:textColor="@color/darkGreyBlue"
+                android:text="Helena L. Christensen"
+                />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:padding="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_red_close"
+            android:tint="@color/blueGrey"
+            android:background="@drawable/rounded_grey_background"
+            android:layout_gravity="center_horizontal|end"/>
+
+    </android.support.v7.widget.CardView>
 </FrameLayout>
