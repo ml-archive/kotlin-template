@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!--What you can recieve textview-->
+
+    <TextView
+        style="@style/text.header3"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/backgroundColor"
+        android:paddingLeft="16dp"
+        android:paddingTop="20dp"
+        android:text="_What you can receive" />
+
+    <include
+        layout="@layout/include_divider"
+        android:visibility="visible"></include>
+
+    <!--Adding the rows-->
+
+    <include layout="@layout/include_sender_detail_recieve_row"></include>
+
+    <include layout="@layout/include_divider_leftmargin_whitebackground"></include>
+
+    <include layout="@layout/include_sender_detail_recieve_row"></include>
+</LinearLayout>

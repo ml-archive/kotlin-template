@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/text.header3"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="bottom"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:text="_What you can receive" />
+
+
+    <include
+        layout="@layout/include_divider"
+        android:visibility="visible"></include>
+
+    <include layout="@layout/include_sender_detail_public_authorities_receive_row"></include>
+
+    <include layout="@layout/include_divider_leftmargin_whitebackground"></include>
+
+    <include layout="@layout/include_sender_detail_public_authorities_receive_row"></include>
+
+    <include layout="@layout/include_divider_leftmargin_whitebackground"></include>
+
+    <include layout="@layout/include_sender_detail_public_authorities_receive_row"></include>
+
+    <include layout="@layout/include_divider_leftmargin_whitebackground"></include>
+
+    <include layout="@layout/include_sender_detail_public_authorities_receive_row"></include>
+
+</LinearLayout>
