@@ -50,7 +50,7 @@ class TermsComponentFragment : BaseFragment(), SignupComponentContract.TermsView
 
     fun onContinueClicked()
     {
-        (activity as StartActivity).showLogo(false)
+        //(activity as StartActivity).showLogo(false)
         showProgress(true)
         content.postDelayed({
             //(activity as StartActivity).startMain()

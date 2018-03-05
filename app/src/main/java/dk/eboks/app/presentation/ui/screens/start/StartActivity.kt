@@ -98,8 +98,4 @@ class StartActivity : BaseActivity(), StartContract.View {
             super.onBackPressed()
     }
 
-    fun showLogo(show : Boolean)
-    {
-        logoIv.visibility = if(show) View.VISIBLE else View.INVISIBLE
-    }
 }

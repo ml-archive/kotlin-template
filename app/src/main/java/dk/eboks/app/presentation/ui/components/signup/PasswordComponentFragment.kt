@@ -53,7 +53,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
 
     fun onContinueClicked()
     {
-        (activity as StartActivity).showLogo(false)
+        //(activity as StartActivity).showLogo(false)
         showProgress(true)
         content.postDelayed({
             showProgress(false)

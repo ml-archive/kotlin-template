@@ -25,7 +25,7 @@ class WelcomeComponentFragment : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as StartActivity).showLogo(true)
+        //(activity as StartActivity).showLogo(true)
         signupBtn.setOnClickListener {
             (activity as StartActivity).replaceFragment(NameMailComponentFragment())
         }

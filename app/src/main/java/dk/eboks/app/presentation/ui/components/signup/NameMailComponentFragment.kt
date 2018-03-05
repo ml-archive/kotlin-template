@@ -30,7 +30,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         presenter.onViewCreated(this, lifecycle)
         continueBtn.setOnClickListener { onContinueClicked() }
         showTermsTv.setOnClickListener {
-            (activity as StartActivity).showLogo(false)
+            //(activity as StartActivity).showLogo(false)
             (activity as StartActivity).replaceFragment(TermsComponentFragment())
         }
         getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.signup.title, null, {
@@ -57,7 +57,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
 
     fun onContinueClicked()
     {
-        (activity as StartActivity).showLogo(false)
+        //(activity as StartActivity).showLogo(false)
         showProgress(true)
         content.postDelayed({
             showProgress(false)

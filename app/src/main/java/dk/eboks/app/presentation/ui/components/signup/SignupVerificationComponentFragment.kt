@@ -61,7 +61,7 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
 
     fun onContinueClicked()
     {
-        (activity as StartActivity).showLogo(false)
+        //(activity as StartActivity).showLogo(false)
         showProgress(true)
         content.postDelayed({
             showProgress(false)

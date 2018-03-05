@@ -53,7 +53,7 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
 
     fun onContinueClicked()
     {
-        (activity as StartActivity).showLogo(false)
+        //(activity as StartActivity).showLogo(false)
         showProgress(true)
         content.postDelayed({
             showProgress(false)
