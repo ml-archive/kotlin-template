@@ -4,10 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/include_channel_detail_top"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <include layout="@layout/include_channel_detail_top" />
 
     <include layout="@layout/include_channel_detail_bottom_not_available" />
 </LinearLayout>
