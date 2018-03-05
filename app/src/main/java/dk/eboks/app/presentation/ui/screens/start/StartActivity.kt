@@ -7,6 +7,7 @@ import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
 import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.nodes.nstack.kotlin.NStack
@@ -72,8 +73,15 @@ class StartActivity : BaseActivity(), StartContract.View {
         })
     }
 
+    override fun showLoginComponent()
+    {
+        showLogo(false)
+        addFragment(LoginComponentFragment())
+    }
+
     override fun showWelcomeComponent()
     {
+        showLogo(false)
         addFragment(WelcomeComponentFragment())
     }
 
@@ -98,4 +106,8 @@ class StartActivity : BaseActivity(), StartContract.View {
             super.onBackPressed()
     }
 
+    fun showLogo(show : Boolean)
+    {
+        logoIv.visibility = if(show) View.VISIBLE else View.GONE
+    }
 }

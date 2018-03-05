@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundColor"
+    android:animateLayoutChanges="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:id="@+id/content"
+        android:orientation="vertical"
+        android:background="@color/backgroundColor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/include_toolnar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="36dp"
+                android:paddingRight="36dp">
+
+                <TextView
+                    android:id="@+id/headerTv"
+                    android:layout_marginTop="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/text.header1"
+                    android:text="Header"/>
+
+                <TextView
+                    android:id="@+id/detailTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    style="@style/text.body6.secondary"
+                    android:text="_Please fill in the information below"/>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/cprEmailTil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:theme="@style/TextInputLayoutTheme"
+                    android:textColorHint="@color/blueGrey"
+                    app:hintTextAppearance="@style/HintTextAppearance"
+                    android:hint="_cpr">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/cprEmailEt"
+                        style="@style/EditText"
+                        android:inputType="text"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/passwordTil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:theme="@style/TextInputLayoutTheme"
+                    android:textColorHint="@color/blueGrey"
+                    app:hintTextAppearance="@style/HintTextAppearance"
+                    android:hint="_Password">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/passwordEt"
+                        style="@style/EditText"
+                        android:inputType="textPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+        <LinearLayout
+            android:id="@+id/loginProvidersLl"
+            android:orientation="vertical"
+            android:showDividers="beginning|middle"
+            android:divider="@color/dividerGreyBlue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/progress"
+        android:visibility="gone"
+        android:background="@color/backgroundColor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+</FrameLayout>
