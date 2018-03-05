@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
@@ -34,7 +35,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             (activity as StartActivity).onBackPressed()
         })
         makeMocks()
-
+        if(BuildConfig.DEBUG) {
+            debugSkipBtn.visibility = View.VISIBLE
+            debugSkipBtn.setOnClickListener {
+                (activity as StartActivity).startMain()
+            }
+        }
     }
 
     fun makeMocks()

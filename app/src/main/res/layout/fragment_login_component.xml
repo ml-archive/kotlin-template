@@ -82,7 +82,16 @@
 
                 </android.support.design.widget.TextInputLayout>
 
-
+                <Button
+                    android:id="@+id/debugSkipBtn"
+                    android:visibility="gone"
+                    style="@style/buttonRoundedCorners.darkBlueGrey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginEnd="36dp"
+                    android:text="Skip to app (DEBUG)" />
             </LinearLayout>
         </ScrollView>
         <LinearLayout

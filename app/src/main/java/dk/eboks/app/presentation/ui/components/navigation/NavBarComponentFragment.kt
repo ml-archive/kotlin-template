@@ -49,7 +49,7 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
         menu.findItem(R.id.actionMail).title = Translation.mainnav.mailButton
         menu.findItem(R.id.actionSenders).title = Translation.mainnav.sendersButton
         menu.findItem(R.id.actionChannels).title = Translation.mainnav.channelsButton
-        menu.findItem(R.id.actionUploads).title = Translation.mainnav.uploadsButton
+        //menu.findItem(R.id.actionUploads).title = Translation.mainnav.uploadsButton
         mainNavigationBnv.disableShiftingMode()
         mainNavigationBnv.selectedItemId = currentMenuItem
         /*
