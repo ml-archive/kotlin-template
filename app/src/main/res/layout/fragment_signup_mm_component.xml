@@ -80,13 +80,15 @@
 
                 <Button
                     android:id="@+id/signupWithMMBtn"
-                    style="@style/button.SolidGradient"
+                    style="@style/enabledButtton"
+                    android:textColor="@drawable/enabled_button"
                     android:layout_width="match_parent"
                     android:layout_marginTop="32dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:layout_marginStart="36dp"
                     android:layout_marginEnd="36dp"
+                    android:enabled="false"
                     android:text="_Continue" />
 
                 <TextView

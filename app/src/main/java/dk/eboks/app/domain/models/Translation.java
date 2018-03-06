@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Tue Mar 06 14:55:19 CET 2018 
+ * Generated: Tue Mar 06 15:29:13 CET 2018 
  */
 
 public class Translation {
@@ -123,6 +123,7 @@ public class Translation {
 		public static String invalidPasswordMatch = "Password does not match";
 		public static String termsClickAbleText = "By doing this you accept the [Terms & Conditions]";
 		public static String invalidEmail = "Invalid Email";
+		public static String mmInvalidCprNumber = "mm Invalid cpr number";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";

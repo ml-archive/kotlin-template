@@ -1,6 +1,8 @@
 package dk.eboks.app.presentation.ui.components.start.signup
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
+import dk.eboks.app.util.isValidCpr
 import kotlinx.android.synthetic.main.fragment_signup_mm_component.*
 import javax.inject.Inject
 
@@ -31,6 +34,23 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
         continueWithoutMMTv.setOnClickListener { onContinueClicked() }
         getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.signup.title, null, {
             fragmentManager.popBackStack()
+        })
+
+        cprEt.addTextChangedListener(object : TextWatcher{
+            var wasValid = false
+            override fun afterTextChanged(cprNumber: Editable?) {
+                signupWithMMBtn.isEnabled =cprNumber?.isValidCpr()?: false
+                if(signupWithMMBtn.isEnabled){
+                    wasValid = true
+                }
+                if(!signupWithMMBtn.isEnabled && wasValid){
+                    cprTil.error = Translation.signup.mmInvalidCprNumber
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
     }
 
