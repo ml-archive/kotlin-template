@@ -37,7 +37,31 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.signup.title, null, {
             fragmentManager.popBackStack()
         })
-        // password listeners
+
+        setupPasswordListeners()
+        setupRepeatPasswordListener()
+    }
+
+    private fun setupRepeatPasswordListener() {
+        repeatPasswordEt.onFocusChangeListener = object : View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                comparePasswords()
+            }
+        }
+
+        repeatPasswordEt.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(repeatPassword: Editable?) {
+                repeatPasswordTil.error = null
+                comparePasswords()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+    }
+
+    private fun setupPasswordListeners() {
         passwordEt.onFocusChangeListener = object : View.OnFocusChangeListener {
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
                 if (passwordEt.text.toString().trim().isNullOrBlank() && !hasFocus) {
@@ -52,25 +76,6 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
             override fun afterTextChanged(password: Editable?) {
                 passwordTil.error = null
                 passwordValid = (isValidPassword(password.toString()))
-                comparePasswords()
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
-
-        // report password listeners
-
-        repeatPasswordEt.onFocusChangeListener = object : View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
-                comparePasswords()
-            }
-        }
-
-        repeatPasswordEt.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(repeatPassword: Editable?) {
-                repeatPasswordTil.error = null
                 comparePasswords()
             }
 

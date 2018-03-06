@@ -4,9 +4,13 @@ import android.annotation.SuppressLint
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
+import android.text.Editable
+import android.text.TextUtils
+import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
 import timber.log.Timber
+import java.util.regex.Pattern
 
 /**
  * Created by bison on 01-07-2017.
@@ -62,6 +66,24 @@ fun BottomNavigationView.disableShiftingMode() {
     }
 
 }
+
+fun Editable.isValidEmail() : Boolean {
+    return !TextUtils.isEmpty(toString().trim()) && Patterns.EMAIL_ADDRESS.matcher(toString().trim()).matches()
+
+}
+
+fun Editable.isValidCpr() : Boolean {
+    val cprRegex = Regex("^[0-9]{10}$")
+    val text = toString().trim()
+    return !TextUtils.isEmpty(text) && text.matches(cprRegex)
+}
+
+fun Editable.isValidActivationCode() : Boolean {
+    val cprRegex = Regex("^[a-zA-Z0-9]{8}$")
+    val text = toString().trim()
+    return !TextUtils.isEmpty(text) && text.matches(cprRegex)
+}
+
 
 inline fun <T> T.guard(block: T.() -> Unit): T {
     if (this == null) block(); return this

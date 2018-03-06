@@ -1,6 +1,8 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +10,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
+import dk.eboks.app.util.isValidActivationCode
 import kotlinx.android.synthetic.main.fragment_activation_code_component.*
 import javax.inject.Inject
 
@@ -17,7 +20,7 @@ import javax.inject.Inject
 class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentContract.View {
 
     @Inject
-    lateinit var presenter : ActivationCodeComponentContract.Presenter
+    lateinit var presenter: ActivationCodeComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_activation_code_component, container, false)
@@ -32,10 +35,27 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         cancelTv.setOnClickListener {
             (activity as SheetComponentActivity).onBackPressed()
         }
+
+        activationCodeEt.addTextChangedListener(object : TextWatcher {
+            var wasValid = false
+            override fun afterTextChanged(activationCode: Editable?) {
+                findActivationCodeBtn.isEnabled = activationCode?.isValidActivationCode() ?: false
+                if(findActivationCodeBtn.isEnabled){
+                    wasValid = true
+                    activationCodeEt.error = null
+                } else if(wasValid){
+                    activationCodeTil.error = Translation.activationcode.invalidActivationCode
+                }
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
     }
 
     override fun setupTranslations() {
-        resetPasswordBtn.text = Translation.forgotpassword.resetPasswordButton
         cancelTv.text = Translation.defaultSection.cancel
     }
 

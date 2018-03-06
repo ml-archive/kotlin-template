@@ -20,8 +20,7 @@ import android.text.TextPaint
 import android.graphics.Color
 import android.text.style.ClickableSpan
 import android.text.SpannableString
-
-
+import dk.eboks.app.util.isValidEmail
 
 
 /**
@@ -45,37 +44,47 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         continueBtn.setOnClickListener { onContinueClicked() }
-//        ----------------------
 
-        val ss = SpannableString("Android is a Software stack")
-        val clickableSpan = object : ClickableSpan() {
-            override fun onClick(textView: View) {
-                (activity as StartActivity).replaceFragment(TermsComponentFragment())
-            }
+        setupTermsText()
+        setupNameListeners()
+        setupEmailListeners()
 
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.isUnderlineText = false
-            }
-        }
-        ss.setSpan(clickableSpan, 22, 27, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-//        val textView = findViewById(R.id.hello) as TextView
-        showTermsTv.text = ss
-        showTermsTv.movementMethod = LinkMovementMethod.getInstance()
-        showTermsTv.highlightColor = Color.TRANSPARENT
-
-
-//        showTermsTv.setOnClickListener {
-//            //(activity as StartActivity).showLogo(false)
-//            (activity as StartActivity).replaceFragment(TermsComponentFragment())
-//        }
-        //        ----------------------
         getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.signup.title, null, {
             fragmentManager.popBackStack()
         })
-        //-------------------
+    }
 
+    private fun setupEmailListeners() {
+        emailEt.onFocusChangeListener = object : View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+                if (!emailEt.text.isValidEmail() && !hasFocus) {
+                    emailTil.error = Translation.signup.invalidEmail
+                    emailValid = false
+                    checkContinueBtn()
+                }
+            }
+        }
+        emailEt.addTextChangedListener(object : TextWatcher {
+            var wasValid = false
+            override fun afterTextChanged(s: Editable?) {
+                emailTil.error = null
+                emailValid = (s?.isValidEmail() ?: false)
+                if (emailValid && !wasValid){
+                    wasValid = true
+                }
+                if (wasValid && !emailValid) {
+                    emailTil.error = Translation.signup.invalidEmail
+                }
+                checkContinueBtn()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+    }
+
+    private fun setupNameListeners() {
         nameEt.onFocusChangeListener = object : View.OnFocusChangeListener {
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
                 if (nameEt.text.toString().trim().isNullOrBlank() && !hasFocus) {
@@ -104,34 +113,33 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
-        //---------------------
-        emailEt.setOnFocusChangeListener(object : View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
-                if (emailEt.text.toString().trim().isNullOrBlank() && !hasFocus) {
-                    emailTil.error = Translation.signup.invalidEmail
-                    emailValid = false
-                    checkContinueBtn()
-                }
-            }
-        })
-        emailEt.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                emailTil.error = null
-                if (isValidEmail(s.toString())) {
-                    emailValid = true
-                    checkContinueBtn()
+    }
 
-                } else {
-                    emailValid = false
-                    checkContinueBtn()
-                }
+    private fun setupTermsText() {
+        var termsText = Translation.signup.termsClickAbleText
+        var startIndex = termsText.indexOf("[", 0, false)
+        var endIndex = termsText.indexOf("]", 0, false) - 1
+        termsText = termsText.replace("[", "", false)
+        termsText = termsText.replace("]", "", false)
+
+        val ss = SpannableString(termsText)
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(textView: View) {
+                (activity as StartActivity).replaceFragment(TermsComponentFragment())
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+                ds.isUnderlineText = false
+            }
+        }
+        ss.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
-        //---------------------
+        showTermsTv.text = ss
+        showTermsTv.movementMethod = LinkMovementMethod.getInstance()
+        showTermsTv.highlightColor = Color.TRANSPARENT
+
+
     }
 
     private fun checkContinueBtn() {
