@@ -13,6 +13,10 @@ import timber.log.Timber
 class ServerErrorHandler(val uiManager: UIManager, val executor: Executor, val appStateManager: AppStateManager) {
     companion object {
         val NO_PRIVATE_SENDER_WARNING = 9100
+
+        val REPEAT = 1
+        val ABORT = 2
+        val SHOW_ERROR = 3
     }
 
 
@@ -21,7 +25,7 @@ class ServerErrorHandler(val uiManager: UIManager, val executor: Executor, val a
         should continue with whatever it was doing, otherwise
         it returns false to indicate the interactor should abort
      */
-    fun handle(error : ServerError) : Boolean
+    fun handle(error : ServerError) : Int
     {
         Timber.e("Handling server error $error")
         when(error.code)
@@ -35,9 +39,12 @@ class ServerErrorHandler(val uiManager: UIManager, val executor: Executor, val a
                 uiManager.showMessageOpeningScreen()
                 executor.sleepUntilSignalled("messageOpenDone")
                 Timber.e("Woke back up for some action")
-                return appStateManager.state?.openingState?.shouldProceedWithOpening ?: false
+                if(appStateManager.state?.openingState?.shouldProceedWithOpening ?: false)
+                    return REPEAT
+                else
+                    return ABORT
             }
+            else -> return SHOW_ERROR
         }
-        return false
     }
 }

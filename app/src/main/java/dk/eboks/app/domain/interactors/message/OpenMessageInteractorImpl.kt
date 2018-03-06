@@ -42,15 +42,15 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
             e.printStackTrace()
             if(e is ServerErrorException)
             {
-                val shouldProceed = errorHandler.handle(e.error)
-                if(shouldProceed)
+                val outcome = errorHandler.handle(e.error)
+                if(outcome == ServerErrorHandler.REPEAT)
                 {
                     when(e.error.code)
                     {
                         ServerErrorHandler.NO_PRIVATE_SENDER_WARNING -> {
                             input?.msg?.let { msg->
                                 try {
-                                    val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id ?: 0, input?.msg?.id ?: "", null, shouldProceed)
+                                    val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id ?: 0, input?.msg?.id ?: "", null, true)
                                     FieldMapper.copyAllFields(msg, updated_msg)
                                     openMessage(msg)
                                 }

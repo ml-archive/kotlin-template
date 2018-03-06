@@ -30,9 +30,9 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     private var passwordIsValid = false
 
     @Inject
-    lateinit var presenter: LoginComponentContract.Presenter
+    lateinit var presenter : LoginComponentContract.Presenter
 
-    var showGreeting: Boolean = true
+    var showGreeting : Boolean = true
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_login_component, container, false)
@@ -152,13 +152,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     fun makeMocks() {
         val li = LayoutInflater.from(context)
 
-        val listener = object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                val intent = Intent(activity, SheetComponentActivity::class.java)
-                intent.putExtra("component", ActivationCodeComponentFragment::class.java.simpleName)
-                activity.startActivity(intent)
-                activity.overridePendingTransition(0, 0)
-            }
+        val listener = View.OnClickListener {
+            val intent = Intent(activity, SheetComponentActivity::class.java)
+            intent.putExtra("component", ActivationCodeComponentFragment::class.java.simpleName)
+            activity.startActivity(intent)
+            activity.overridePendingTransition(0,0)
         }
 
         var v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
