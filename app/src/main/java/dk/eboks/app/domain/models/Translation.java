@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Mon Mar 05 16:31:16 CET 2018 
+ * Generated: Tue Mar 06 11:23:37 CET 2018 
  */
 
 public class Translation {
@@ -14,6 +14,7 @@ public class Translation {
 	public final static class error {
 		public static String errorMessage10100 = "Something wrong with server";
 		public static String errorTitle10100 = "ServerErrorTitle";
+		public static String invalidEmail = "Invalid Email";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -98,7 +99,7 @@ public class Translation {
 		public static String passwordDetail = "Your password should be at least 8 characters long, and include a letter and a number. Just to be safe!";
 		public static String verificationHeader = "Perfect! Now we just need to know that you are who you say you are. Of course!";
 		public static String verificationDetail = "This will enable the full feature set of e-Boks. Features like reading mail from public institutions, signing documents and paying, directly in e-Boks!";
-		public static String completedHeader = "Yay! We\u2019re all set!\u2028We hope you\u2019ll enjoy your new all digital inbox!";
+		public static String completedHeader = "Yay! We\u2019re all set!\u2028 We hope you\u2019ll enjoy your new all digital inbox!";
 		public static String continueButton = "Continue";
 		public static String verifyButton = "Verify my account";
 		public static String continueWithoutVerificationButton = "Continue without verification";
@@ -115,9 +116,9 @@ public class Translation {
 		public static String cprHint = "Your Social Security Number*";
 		public static String continueWithoutMMButton = "Continue without Mina meddelan";
 		public static String signupWithMMButton = "Sign up with Mina meddelan";
-		public static String invalidEmail = "Invalid Email";
 		public static String invalidName = "Invalid Name";
 		public static String invalidPassword = "Invalid Password";
 		public static String invalidPasswordMatch = "Password does not match";
+		public static String termsClickAbleText = "By doing this you accept the [Terms & Conditions]";
 	}
 }

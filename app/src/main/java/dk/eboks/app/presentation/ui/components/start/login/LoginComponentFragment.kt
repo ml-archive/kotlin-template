@@ -2,6 +2,8 @@ package dk.eboks.app.presentation.ui.components.start.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +14,9 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
-import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
+import dk.eboks.app.util.isValidCpr
+import dk.eboks.app.util.isValidEmail
 import kotlinx.android.synthetic.main.fragment_login_component.*
 import kotlinx.android.synthetic.main.include_toolnar.*
 import javax.inject.Inject
@@ -23,10 +26,13 @@ import javax.inject.Inject
  */
 class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
-    @Inject
-    lateinit var presenter : LoginComponentContract.Presenter
+    private var emailCprIsValid = false
+    private var passwordIsValid = false
 
-    var showGreeting : Boolean = true
+    @Inject
+    lateinit var presenter: LoginComponentContract.Presenter
+
+    var showGreeting: Boolean = true
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_login_component, container, false)
@@ -42,15 +48,13 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         })
         makeMocks()
 
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             debugSkipBtn.visibility = View.VISIBLE
             debugSkipBtn.setOnClickListener {
                 val emailOrCpr = cprEmailEt.text?.toString()?.trim() ?: ""
-                if(emailOrCpr.isNotBlank())
-                {
+                if (emailOrCpr.isNotBlank()) {
                     presenter.createUser(emailOrCpr)
-                    if(showGreeting)
-                    {
+                    if (showGreeting) {
                         fragmentManager.beginTransaction().remove(this).replace(R.id.containerFl, UserCarouselComponentFragment(), UserCarouselComponentFragment::class.java.simpleName).commit()
                         //(activity as StartActivity).replaceFragment(UserCarouselComponentFragment())
                         /*
@@ -59,8 +63,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                             //fragmentManager.beginTransaction().replace(R.id.containerFl, UserCarouselComponentFragment(), UserCarouselComponentFragment::class.java.simpleName).commitNow()
                         }
                         */
-                    }
-                    else {
+                    } else {
                         (activity as StartActivity).onBackPressed()
                     }
                 }
@@ -71,26 +74,82 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             val intent = Intent(activity, SheetComponentActivity::class.java)
             intent.putExtra("component", ForgotPasswordComponentFragment::class.java.simpleName)
             activity.startActivity(intent)
-            activity.overridePendingTransition(0,0)
+            activity.overridePendingTransition(0, 0)
         }
 
-        arguments?.let { args->
-            if(args.getBoolean("showGreeting", true)) {
+        arguments?.let { args ->
+            if (args.getBoolean("showGreeting", true)) {
                 showGreeting = true
                 headerTv.visibility = View.VISIBLE
                 detailTv.visibility = View.VISIBLE
-            }
-            else
-            {
+            } else {
                 showGreeting = false
                 headerTv.visibility = View.GONE
                 detailTv.visibility = View.GONE
             }
         }
+        setupCprEmailListeners()
+        setupPasswordListener()
+
     }
 
-    fun makeMocks()
-    {
+    private fun setupPasswordListener() {
+        passwordEt.addTextChangedListener(object : TextWatcher {
+            var wasValid = false
+            override fun afterTextChanged(password: Editable?) {
+                if (!password.isNullOrBlank()) {
+                    wasValid = true
+                    passwordTil.error = null
+                    passwordIsValid = true
+                } else if (wasValid) {
+                    passwordIsValid = false
+                    passwordTil.error = Translation.signup.invalidPassword
+                }
+                setContinueButton()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+    }
+
+    private fun setupCprEmailListeners() {
+        cprEmailEt.onFocusChangeListener = object : View.OnFocusChangeListener {
+            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+
+            }
+        }
+
+        cprEmailEt.addTextChangedListener(object : TextWatcher {
+            var wasValid = false
+            override fun afterTextChanged(text: Editable?) {
+                if (text?.isValidEmail() ?: false || cprEmailEt.text.isValidCpr()) {
+                    wasValid = true
+                    emailCprIsValid = true
+                    cprEmailTil.error = null
+                } else if (wasValid) {
+                    emailCprIsValid = false
+                    cprEmailTil.error = "_incorrect email or social security number"
+                }
+                setContinueButton()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+    }
+
+    private fun setContinueButton() {
+        if (emailCprIsValid && passwordIsValid){
+            cprEmailEt.error = "continue button should be enabled"
+        } else {
+            cprEmailEt.error = "continue Button should be disabled"
+        }
+    }
+
+    fun makeMocks() {
         val li = LayoutInflater.from(context)
 
         val listener = object : View.OnClickListener {
@@ -98,7 +157,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 val intent = Intent(activity, SheetComponentActivity::class.java)
                 intent.putExtra("component", ActivationCodeComponentFragment::class.java.simpleName)
                 activity.startActivity(intent)
-                activity.overridePendingTransition(0,0)
+                activity.overridePendingTransition(0, 0)
             }
         }
 
