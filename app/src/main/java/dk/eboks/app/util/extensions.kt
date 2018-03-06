@@ -75,8 +75,13 @@ fun Editable.isValidEmail() : Boolean {
 fun Editable.isValidCpr() : Boolean {
     val cprRegex = Regex("^[0-9]{10}$")
     val text = toString().trim()
-    return !TextUtils.isEmpty(toString().trim()) && text.matches(cprRegex)
+    return !TextUtils.isEmpty(text) && text.matches(cprRegex)
+}
 
+fun Editable.isValidActivationCode() : Boolean {
+    val cprRegex = Regex("^[a-zA-Z0-9]{8}$")
+    val text = toString().trim()
+    return !TextUtils.isEmpty(text) && text.matches(cprRegex)
 }
 
 

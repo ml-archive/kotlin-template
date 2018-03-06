@@ -58,7 +58,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         emailEt.onFocusChangeListener = object : View.OnFocusChangeListener {
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
                 if (!emailEt.text.isValidEmail() && !hasFocus) {
-                    emailTil.error = Translation.error.invalidEmail
+                    emailTil.error = Translation.signup.invalidEmail
                     emailValid = false
                     checkContinueBtn()
                 }
@@ -73,7 +73,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
                     wasValid = true
                 }
                 if (wasValid && !emailValid) {
-                    emailTil.error = Translation.error.invalidEmail
+                    emailTil.error = Translation.signup.invalidEmail
                 }
                 checkContinueBtn()
             }

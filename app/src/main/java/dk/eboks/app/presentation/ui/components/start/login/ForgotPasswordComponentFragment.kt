@@ -58,7 +58,7 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
                     wasValid = true
 
                 } else if (wasValid) {
-                    emailTil.error = Translation.error.invalidEmail
+                    emailTil.error = Translation.forgotpassword.invalidEmail
                     resetPasswordBtn.isEnabled = false
                 }
             }
