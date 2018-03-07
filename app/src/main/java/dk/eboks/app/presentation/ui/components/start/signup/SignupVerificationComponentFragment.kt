@@ -38,7 +38,7 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
             activity.overridePendingTransition(0,0)
         }
         continueWithoutVerificationTv.setOnClickListener { onContinueClicked() }
-        getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.signup.title, null, {
+        getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.signup.title, null, {
             fragmentManager.popBackStack()
         })
     }

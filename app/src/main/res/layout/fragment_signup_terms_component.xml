@@ -24,12 +24,10 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="36dp"
-                android:paddingRight="36dp">
+                android:padding="16dp">
 
                 <TextView
                     android:id="@+id/textTv"
-                    android:paddingTop="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/text.body6.secondary"

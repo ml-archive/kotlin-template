@@ -51,9 +51,10 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         setupNameListeners()
         setupEmailListeners()
 
-        getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.signup.title, null, {
+        getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.signup.title, null, {
             fragmentManager.popBackStack()
         })
+
     }
 
     private fun setupEmailListeners() {

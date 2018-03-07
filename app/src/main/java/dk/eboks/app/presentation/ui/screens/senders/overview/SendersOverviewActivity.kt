@@ -15,10 +15,15 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
         setContentView(dk.eboks.app.R.layout.activity_senders_overview)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        setupTopBar()
+    }
+
+    private fun setupTopBar() {
+        setToolbar(R.drawable.ic_menu_senders, Translation.senders.title, null, null,true, true, "REGISTRATIONS")
     }
 
     override fun setupTranslations() {
-        setToolbar(R.drawable.ic_menu_senders, Translation.senders.title)
+
     }
 
     override fun showError(msg: String) {

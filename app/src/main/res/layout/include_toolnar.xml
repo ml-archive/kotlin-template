@@ -19,6 +19,7 @@
 
         <ImageButton
             android:id="@+id/toolbarIb"
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_normal"
@@ -59,16 +60,27 @@
             android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
-            android:layout_gravity="center"
+            android:layout_gravity="start"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:gravity="center"
             style="@style/text.header3"
-            android:drawableEnd="@drawable/ic_chevron_down"
-            android:background="@drawable/rounded_grey_background"
+            android:background="@color/white"
             android:textColor="@color/darkGreyBlue"
             android:text="Helena Christensen"
             />
+        <!--This should be added to userShareTv in phase 2-->
+        <!--android:drawableEnd="@drawable/ic_chevron_down"-->
+
+        <ImageView
+            android:id="@+id/imgOptionIV"
+            android:visibility="gone"
+            android:src="@drawable/red_navigationbar"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
 
         <Button
             android:id="@+id/redOptionTv"
@@ -80,6 +92,9 @@
             android:layout_marginEnd="16dp"
             style="@style/button.borderless"
             android:text="_FORGOT PASSWORD"/>
+        
+
+        
     </android.support.v7.widget.Toolbar>
     <TextView
         android:id="@+id/toolbarLargeTv"

@@ -45,7 +45,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.logoncredentials.title, null, {
+        getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.logoncredentials.title, null, {
             (activity as StartActivity).onBackPressed()
         })
         makeMocks()

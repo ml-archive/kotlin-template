@@ -16,11 +16,14 @@ import dk.nodes.arch.presentation.base.BaseView
 import timber.log.Timber
 import android.view.KeyEvent.KEYCODE_VOLUME_DOWN
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.presentation.ui.screens.debug.DebugActivity
 import dk.eboks.app.util.guard
+import kotlinx.android.synthetic.main.include_toolnar.*
 
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
@@ -91,7 +94,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         return super.onKeyDown(keyCode, event)
     }
 
-    fun setToolbar(iconResId : Int, title : String? = null, subtitle : String? = null, callback : (()->Unit)? = null)
+    fun setToolbar(iconResId : Int, title : String? = null, subtitle : String? = null, callback : (()->Unit)? = null, hideIcon : Boolean=false, showImgIcon : Boolean=false, redOptionsText : String? = null, userShareTvAllignedLeft : Boolean=false)
     {
         findViewById<ImageView>(R.id.toolbarIb)?.let {
             it.setImageResource(iconResId)
@@ -113,6 +116,22 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
             else
                 it.visibility = View.GONE
         }
+
+        if(hideIcon){
+            val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            params.setMargins(0, 0, 0, 0)
+            toolbarTv.layoutParams = params
+            toolbarIb.visibility = View.GONE
+        }
+
+        if (showImgIcon) {imgOptionIV.visibility = View.VISIBLE}
+
+        if(redOptionsText != null) {
+            redOptionTv.visibility = View.VISIBLE
+            redOptionTv.text = "REGISTRATIONS"
+        }
+
+        if(userShareTvAllignedLeft){ userShareTv.setPadding(0,0,0,0) }
     }
 
     fun setToolbarLarge(iconResId : Int, title : String, callback : (()->Unit)? = null)

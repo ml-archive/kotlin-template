@@ -28,6 +28,7 @@
         <Button
             android:id="@+id/signupBtn"
             style="@style/buttonRoundedCorners.darkBlueGrey"
+            android:backgroundTint="#0D223944"
             android:transitionName="signUpButtonTransition"
             android:layout_width="match_parent"
             android:layout_marginTop="12dp"
@@ -41,6 +42,7 @@
             android:id="@+id/debugSkipBtn"
             android:visibility="gone"
             style="@style/buttonRoundedCorners.darkBlueGrey"
+            android:backgroundTint="#223944"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
