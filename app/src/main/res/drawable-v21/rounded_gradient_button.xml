@@ -7,16 +7,16 @@
     <!-- color isn't drawn for mask-item-->
     <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
-            <corners android:radius="18dp" />
+            <corners android:radius="56dp" />
             <solid android:color="@color/white" />
         </shape>
     </item>
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="18dp" />
+            <corners android:radius="56dp" />
             <gradient
-                android:endColor="#be1c36"
-                android:startColor="#ac236c"
+                android:endColor="#bc1f30"
+                android:startColor="#872058"
                 android:angle="135" />
         </shape>
     </item>
