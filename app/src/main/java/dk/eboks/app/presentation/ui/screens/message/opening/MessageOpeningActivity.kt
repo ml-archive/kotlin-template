@@ -3,7 +3,7 @@ package dk.eboks.app.presentation.ui.screens.message.opening
 import android.os.Bundle
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.presentation.ui.components.message.privatesender.PrivateSenderWarningComponentFragment
+import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentFragment
 import timber.log.Timber
 import javax.inject.Inject
 

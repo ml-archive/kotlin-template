@@ -3,22 +3,20 @@ package dk.eboks.app.presentation.ui.screens.message.embedded
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
-import android.view.View
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Message
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseSheetActivity
-import dk.eboks.app.presentation.ui.components.message.attachments.AttachmentsComponentFragment
-import dk.eboks.app.presentation.ui.components.message.folderinfo.FolderInfoComponentFragment
-import dk.eboks.app.presentation.ui.components.message.header.HeaderComponentFragment
-import dk.eboks.app.presentation.ui.components.message.notes.NotesComponentFragment
-import dk.eboks.app.presentation.ui.components.message.share.ShareComponentFragment
+import dk.eboks.app.presentation.ui.components.message.detail.attachments.AttachmentsComponentFragment
+import dk.eboks.app.presentation.ui.components.message.detail.folderinfo.FolderInfoComponentFragment
+import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderComponentFragment
+import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentFragment
+import dk.eboks.app.presentation.ui.components.message.detail.share.ShareComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.pdf.PdfViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentFragment
-import kotlinx.android.synthetic.main.include_toolnar.*
 import timber.log.Timber
 import javax.inject.Inject
 
