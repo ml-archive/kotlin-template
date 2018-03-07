@@ -18,6 +18,7 @@ import android.text.method.LinkMovementMethod
 import android.text.Spanned
 import android.text.TextPaint
 import android.graphics.Color
+import android.os.Handler
 import android.text.style.ClickableSpan
 import android.text.SpannableString
 import dk.eboks.app.util.isValidEmail
@@ -33,6 +34,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
 
     var nameValid = false
     var emailValid = false
+    var mHandler = Handler()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_signup_name_mail_component, container, false)
@@ -65,17 +67,17 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
             }
         }
         emailEt.addTextChangedListener(object : TextWatcher {
-            var wasValid = false
             override fun afterTextChanged(s: Editable?) {
+                mHandler.removeCallbacksAndMessages(null)
                 emailTil.error = null
                 emailValid = (s?.isValidEmail() ?: false)
-                if (emailValid && !wasValid){
-                    wasValid = true
-                }
-                if (wasValid && !emailValid) {
-                    emailTil.error = Translation.signup.invalidEmail
-                }
                 checkContinueBtn()
+
+                mHandler?.postDelayed({
+                    if (!emailValid) {
+                        emailTil.error = Translation.signup.invalidEmail
+                    }
+                },1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -174,5 +176,10 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
             showProgress(false)
             (activity as StartActivity).replaceFragment(PasswordComponentFragment())
         }, 1000)
+    }
+
+    override fun onDestroy() {
+        mHandler.removeCallbacksAndMessages(null)
+        super.onDestroy()
     }
 }

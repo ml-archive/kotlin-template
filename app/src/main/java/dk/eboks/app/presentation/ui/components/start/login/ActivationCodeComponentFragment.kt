@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -22,6 +23,8 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
     @Inject
     lateinit var presenter: ActivationCodeComponentContract.Presenter
 
+    var mHandler = Handler()
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_activation_code_component, container, false)
         return rootView
@@ -37,15 +40,15 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         }
 
         activationCodeEt.addTextChangedListener(object : TextWatcher {
-            var wasValid = false
             override fun afterTextChanged(activationCode: Editable?) {
+                activationCodeTil.error = null
+                mHandler.removeCallbacksAndMessages(null)
                 findActivationCodeBtn.isEnabled = activationCode?.isValidActivationCode() ?: false
-                if(findActivationCodeBtn.isEnabled){
-                    wasValid = true
-                    activationCodeEt.error = null
-                } else if(wasValid){
+                mHandler?.postDelayed({
+                    if(!findActivationCodeBtn.isEnabled){
                     activationCodeTil.error = Translation.activationcode.invalidActivationCode
                 }
+                }, 1200)
 
             }
 
@@ -59,4 +62,8 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         cancelTv.text = Translation.defaultSection.cancel
     }
 
+    override fun onDestroy() {
+        mHandler.removeCallbacksAndMessages(null)
+        super.onDestroy()
+    }
 }

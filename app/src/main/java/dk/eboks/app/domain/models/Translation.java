@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Tue Mar 06 15:29:13 CET 2018 
+ * Generated: Wed Mar 07 13:18:35 CET 2018 
  */
 
 public class Translation {
@@ -83,6 +83,8 @@ public class Translation {
 		public static String continueButton = "Continue";
 		public static String forgotPasswordButton = "Forgot password";
 		public static String title = "Sign in";
+		public static String invalidPassword = "invalid Password";
+		public static String invalidCprorEmail = "invalid Email or CPR-number";
 	}
 	public final static class forgotpassword {
 		public static String title = "Forgot your password?";
@@ -124,6 +126,7 @@ public class Translation {
 		public static String termsClickAbleText = "By doing this you accept the [Terms & Conditions]";
 		public static String invalidEmail = "Invalid Email";
 		public static String mmInvalidCprNumber = "mm Invalid cpr number";
+		public static String login = "Log in";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";
@@ -133,5 +136,13 @@ public class Translation {
 		public static String placeholder = "Type here";
 		public static String continueButton = "Continue";
 		public static String invalidActivationCode = "Invalid activation code";
+	}
+	public final static class senderdetails {
+		public static String register = "Register";
+		public static String whatYouCanReceiveTitle = "What You Can Receive";
+		public static String informationTitle = "Information";
+		public static String registeredTypeNo = "Not registered";
+		public static String registeredTypeYes = "Registered";
+		public static String registeredTypePartial = "Partially registered";
 	}
 }
