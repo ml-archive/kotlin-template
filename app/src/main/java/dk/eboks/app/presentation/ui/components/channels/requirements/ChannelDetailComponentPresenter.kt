@@ -1,7 +1,6 @@
-package dk.eboks.app.presentation.ui.components.channels.list
+package dk.eboks.app.presentation.ui.components.channels.requirements
 
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.pasta.fragment.PastaComponentContract
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 

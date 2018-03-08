@@ -10,7 +10,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.pasta.activity.PastaActivity
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity
+import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity
 import dk.eboks.app.util.disableShiftingMode
@@ -73,7 +73,7 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
                     currentMenuItem = R.id.actionMail
                 }
                 R.id.actionChannels -> {
-                    activityCls = ChannelsActivity::class.java
+                    activityCls = ChannelOverviewActivity::class.java
                     currentMenuItem = R.id.actionChannels
                 }
                 R.id.actionSenders -> {

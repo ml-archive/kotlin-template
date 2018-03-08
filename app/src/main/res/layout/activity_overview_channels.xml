@@ -18,7 +18,7 @@
 
         <fragment
             android:id="@+id/channelsListComponentFragment"
-            android:name="dk.eboks.app.presentation.ui.components.channels.list.ChannelListComponentFragment"
+            android:name="dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
