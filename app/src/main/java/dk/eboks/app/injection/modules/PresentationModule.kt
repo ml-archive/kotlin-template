@@ -63,6 +63,8 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContract
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
+import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentContract
+import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentContract
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
@@ -316,6 +318,12 @@ class PresentationModule {
     @Provides
     fun provideActivationCodeComponentPresenter(stateManager: AppStateManager) : ActivationCodeComponentContract.Presenter {
         return ActivationCodeComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideMyInformationComponentPresenter(stateManager: AppStateManager) : MyInformationComponentContract.Presenter {
+        return MyInformationComponentPresenter(stateManager)
     }
 
     /* Pasta

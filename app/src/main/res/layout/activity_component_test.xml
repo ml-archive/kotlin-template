@@ -10,7 +10,7 @@
     <fragment
         android:id="@+id/testComponentFragment"
         android:layout_width="match_parent"
-        android:layout_height="132dp"
-        android:name="dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentFragment"
+        android:layout_height="wrap_content"
+        android:name="dk.eboks.app.presentation.ui.components.profile.MyInformationComponentFragment"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 </android.support.design.widget.CoordinatorLayout>
