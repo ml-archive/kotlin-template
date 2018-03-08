@@ -3,15 +3,18 @@
 
     <item android:color="@android:color/white" android:state_enabled="true">
         <shape android:shape="rectangle">
-            <corners android:radius="18dp" />
-            <gradient android:angle="135" android:endColor="#bc1f30" android:startColor="#872058" />
+            <corners android:radius="56dp" />
+            <gradient android:angle="135"
+                android:endColor="#bc1f30"
+                android:startColor="#872058"
+                />
         </shape>
     </item>
 
     <item android:color="@color/silver">
 
         <shape android:shape="rectangle">
-            <corners android:radius="18dp" />
+            <corners android:radius="56dp" />
             <solid android:color="#08223944" />
         </shape>
 

@@ -15,10 +15,15 @@ class ChannelsActivity : BaseActivity(), ChannelsContract.View {
         setContentView(R.layout.activity_channels)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        setupToolbar()
+    }
+
+    private fun setupToolbar() {
+        setToolbar(R.drawable.ic_menu_channels, Translation.channels.title,null, null ,true)
     }
 
     override fun setupTranslations() {
-        setToolbar(R.drawable.ic_menu_channels, Translation.channels.title)
+
     }
 
     override fun showError(msg: String) {

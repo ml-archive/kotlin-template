@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -21,6 +22,8 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
 
     @Inject
     lateinit var presenter : ForgotPasswordComponentContract.Presenter
+
+    var mHandler = Handler()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_forgot_password_component, container, false)
@@ -50,17 +53,18 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
 
     private fun setupEmailListener() {
         emailEt.addTextChangedListener(object : TextWatcher {
-            var wasValid = false
             override fun afterTextChanged(s: Editable?) {
-                if (s?.isValidEmail() ?: false) {
-                    emailTil.error = null
-                    resetPasswordBtn.isEnabled = true
-                    wasValid = true
+                mHandler.removeCallbacksAndMessages(null)
+                emailTil.error = null
+                resetPasswordBtn.isEnabled = (s?.isValidEmail() ?: false)
 
-                } else if (wasValid) {
-                    emailTil.error = Translation.forgotpassword.invalidEmail
-                    resetPasswordBtn.isEnabled = false
-                }
+                mHandler?.postDelayed({
+                    if (s?.isValidEmail() ?: false) {
+                        emailTil.error = null
+                    } else  {
+                        emailTil.error = Translation.forgotpassword.invalidEmail
+                    }
+                }, 1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -77,4 +81,8 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
         cancelTv.text = Translation.defaultSection.cancel
     }
 
+    override fun onDestroy() {
+        mHandler.removeCallbacksAndMessages(null)
+        super.onDestroy()
+    }
 }

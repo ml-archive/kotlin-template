@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.components.start.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -28,6 +29,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     private var emailCprIsValid = false
     private var passwordIsValid = false
+    var mHandler = Handler()
 
     @Inject
     lateinit var presenter : LoginComponentContract.Presenter
@@ -43,7 +45,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.logoncredentials.title, null, {
+        getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.logoncredentials.title, null, {
             (activity as StartActivity).onBackPressed()
         })
         makeMocks()
@@ -95,17 +97,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     private fun setupPasswordListener() {
         passwordEt.addTextChangedListener(object : TextWatcher {
-            var wasValid = false
             override fun afterTextChanged(password: Editable?) {
-                if (!password.isNullOrBlank()) {
-                    wasValid = true
-                    passwordTil.error = null
-                    passwordIsValid = true
-                } else if (wasValid) {
-                    passwordIsValid = false
-                    passwordTil.error = Translation.signup.invalidPassword
-                }
                 setContinueButton()
+                mHandler?.postDelayed({
+                    setErrorMessages()
+                }, 1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -122,17 +118,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
 
         cprEmailEt.addTextChangedListener(object : TextWatcher {
-            var wasValid = false
             override fun afterTextChanged(text: Editable?) {
-                if (text?.isValidEmail() ?: false || cprEmailEt.text.isValidCpr()) {
-                    wasValid = true
-                    emailCprIsValid = true
-                    cprEmailTil.error = null
-                } else if (wasValid) {
-                    emailCprIsValid = false
-                    cprEmailTil.error = "_incorrect email or social security number"
-                }
+                cprEmailTil.error = null
                 setContinueButton()
+                mHandler?.postDelayed({
+                    setErrorMessages()
+                }, 1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -141,7 +132,25 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         })
     }
 
+    private fun setErrorMessages() {
+        if (emailCprIsValid) {
+            cprEmailTil.error = null
+        } else  {
+            cprEmailTil.error = Translation.logoncredentials.invalidCprorEmail
+        }
+
+        if (!passwordIsValid && !passwordEt.text.isNullOrBlank()){
+            passwordTil.error = Translation.logoncredentials.invalidPassword
+        }else {
+            passwordTil.error = null
+        }
+    }
+
     private fun setContinueButton() {
+        emailCprIsValid = (cprEmailEt.text.isValidEmail() || cprEmailEt.text.isValidCpr())
+        passwordIsValid = (!passwordEt.text.isNullOrBlank())
+
+
         if (emailCprIsValid && passwordIsValid){
             cprEmailEt.error = "continue button should be enabled"
         } else {
@@ -190,4 +199,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         redOptionTv.text = Translation.logoncredentials.forgotPasswordButton
     }
 
+    override fun onDestroy() {
+        mHandler.removeCallbacksAndMessages(null)
+        super.onDestroy()
+    }
 }

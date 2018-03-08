@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.start.signup
 
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -20,7 +21,9 @@ import javax.inject.Inject
 class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
 
     @Inject
-    lateinit var presenter : SignupComponentContract.Presenter
+    lateinit var presenter: SignupComponentContract.Presenter
+
+    var mHandler = Handler()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_signup_mm_component, container, false)
@@ -32,20 +35,21 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         continueWithoutMMTv.setOnClickListener { onContinueClicked() }
-        getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.signup.title, null, {
+        getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.signup.title, null, {
             fragmentManager.popBackStack()
         })
 
-        cprEt.addTextChangedListener(object : TextWatcher{
-            var wasValid = false
+        cprEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(cprNumber: Editable?) {
-                signupWithMMBtn.isEnabled =cprNumber?.isValidCpr()?: false
-                if(signupWithMMBtn.isEnabled){
-                    wasValid = true
-                }
-                if(!signupWithMMBtn.isEnabled && wasValid){
-                    cprTil.error = Translation.signup.mmInvalidCprNumber
-                }
+                mHandler.removeCallbacksAndMessages(null)
+                cprTil.error = null
+                signupWithMMBtn.isEnabled = cprNumber?.isValidCpr() ?: false
+                mHandler?.postDelayed({
+                    if (!signupWithMMBtn.isEnabled && !cprEt.text.isNullOrBlank()) {
+                        cprTil.error = Translation.signup.mmInvalidCprNumber
+                    }
+                }, 1200)
+
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -67,17 +71,21 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
     }
 
     override fun showProgress(show: Boolean) {
-        content.visibility = if(show) View.GONE else View.VISIBLE
-        progress.visibility = if(show) View.VISIBLE else View.GONE
+        content.visibility = if (show) View.GONE else View.VISIBLE
+        progress.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    fun onContinueClicked()
-    {
+    fun onContinueClicked() {
         //(activity as StartActivity).showLogo(false)
         showProgress(true)
         content.postDelayed({
             showProgress(false)
             (activity as StartActivity).replaceFragment(CompletedComponentFragment())
         }, 1000)
+    }
+
+    override fun onDestroy() {
+        mHandler.removeCallbacksAndMessages(null)
+        super.onDestroy()
     }
 }

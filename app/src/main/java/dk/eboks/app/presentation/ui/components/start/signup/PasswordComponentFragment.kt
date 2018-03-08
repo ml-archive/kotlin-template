@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.start.signup
 
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
+import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_signup_password_component.*
 import javax.inject.Inject
 
@@ -23,6 +25,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
 
     var passwordValid = false
     var repeatPasswordValid = false
+    var mHandler = Handler()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_signup_password_component, container, false)
@@ -34,7 +37,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         continueBtn.setOnClickListener { onContinueClicked() }
-        getBaseActivity()?.setToolbar(R.drawable.ic_red_back, Translation.signup.title, null, {
+        getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.signup.title, null, {
             fragmentManager.popBackStack()
         })
 
@@ -46,13 +49,18 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         repeatPasswordEt.onFocusChangeListener = object : View.OnFocusChangeListener {
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
                 comparePasswords()
+                setErrorMessages()
             }
         }
 
         repeatPasswordEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(repeatPassword: Editable?) {
+                mHandler.removeCallbacksAndMessages(null)
                 repeatPasswordTil.error = null
                 comparePasswords()
+                mHandler?.postDelayed({
+                    setErrorMessages()
+                }, 1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -61,22 +69,36 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         })
     }
 
+    private fun setErrorMessages() {
+        if (!passwordEt.text.isNullOrBlank() && !passwordValid) {
+        passwordTil.error = Translation.signup.invalidPassword
+        } else {
+            passwordTil.error = null
+        }
+
+        if (!repeatPasswordEt.text.isNullOrBlank() && !repeatPasswordValid){
+            repeatPasswordTil.error = Translation.signup.invalidPasswordMatch
+        } else {
+            repeatPasswordTil.error = null
+        }
+    }
+
     private fun setupPasswordListeners() {
         passwordEt.onFocusChangeListener = object : View.OnFocusChangeListener {
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
-                if (passwordEt.text.toString().trim().isNullOrBlank() && !hasFocus) {
-                    passwordTil.error = Translation.signup.invalidPassword
-                    passwordValid = false
-                }
                 comparePasswords()
+                setErrorMessages()
             }
         }
 
         passwordEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(password: Editable?) {
+                mHandler.removeCallbacksAndMessages(null)
                 passwordTil.error = null
-                passwordValid = (isValidPassword(password.toString()))
                 comparePasswords()
+                mHandler?.postDelayed({
+                    setErrorMessages()
+                }, 1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -86,26 +108,8 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     }
 
     fun comparePasswords() {
-        if (passwordEt.text.isNullOrBlank()) {
-            if (repeatPasswordEt.text.isNullOrBlank()) {
-                passwordTil.error = null
-                repeatPasswordValid = false
-            } else {
-                passwordTil.error = Translation.signup.invalidPassword
-            }
-            passwordValid = false
-        }
-        if (passwordEt.text.toString().trim() == repeatPasswordEt.text.toString().trim()) {
-            repeatPasswordValid = true
-            repeatPasswordTil.error = null
-        } else {
-            repeatPasswordValid = false
-            if (repeatPasswordEt.text.isNullOrBlank()) {
-                repeatPasswordTil.error = null
-            } else {
-                repeatPasswordTil.error = Translation.signup.invalidPasswordMatch
-            }
-        }
+        passwordValid = (isValidPassword(passwordEt.text.toString().trim()))
+        repeatPasswordValid = (passwordEt.text.toString().trim() == repeatPasswordEt.text.toString().trim())
         continueBtn.isEnabled = (passwordValid && repeatPasswordValid)
     }
 
@@ -140,5 +144,10 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
             showProgress(false)
             (activity as StartActivity).replaceFragment(SignupVerificationComponentFragment())
         }, 1000)
+    }
+
+    override fun onDestroy() {
+        mHandler.removeCallbacksAndMessages(null)
+        super.onDestroy()
     }
 }
