@@ -180,6 +180,8 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+
     // Testing
     testImplementation "junit:junit:$junit_version"
     // required if you want to use Mockito for unit tests

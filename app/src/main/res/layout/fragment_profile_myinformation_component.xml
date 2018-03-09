@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/backgroundColor"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,61 +14,58 @@
         android:orientation="vertical">
 
         <!--Name-->
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/cprNameTil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="12dp"
-            android:hint="_Name"
-            android:textColorHint="@color/blueGrey"
-            android:theme="@style/TextInputLayoutMyProfileTheme"
-            app:errorTextAppearance="@style/errorappearance"
-            app:hintTextAppearance="@style/HintTextAppearance">
-
-            <android.support.design.widget.TextInputEditText
+            <com.rengwuxian.materialedittext.MaterialEditText
                 android:id="@+id/cprNameEt"
                 style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="text" />
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:inputType="text"
+                android:hint="_Name"
+                android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
+                app:met_textColorHint="@color/blueGrey"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="_name"
+                />
 
-        </android.support.design.widget.TextInputLayout>
 
         <!--Primary email-->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/emailTil"
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/primaryMailEt"
+                style="@style/EditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="_Primary e-mail"
-                android:textColorHint="@color/blueGrey"
-                android:theme="@style/TextInputLayoutMyProfileTheme"
-                app:errorTextAppearance="@style/errorappearance"
-                app:hintTextAppearance="@style/HintTextAppearance">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/emailEt"
-                    style="@style/EditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="textEmailAddress" />
-
-            </android.support.design.widget.TextInputLayout>
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:inputType="textEmailAddress"
+                android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
+                android:hint="_Primary email"
+                app:met_primaryColor="@color/blueGrey"
+                app:met_textColorHint="@color/blueGrey"
+                app:met_helperText="_You will be notified by e-mail when you recieve new mail"
+                app:met_helperTextColor="@color/blueGrey"
+                app:met_helperTextAlwaysShown="true"
+                app:met_bottomTextSize="12dp"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="_Primary email"
+                app:met_hideUnderline="false"
+                app:met_underlineColor="@color/ProfileUnderlineColor"/>
 
             <Button
                 style="@style/button.SolidGradient"
                 android:layout_width="80dp"
                 android:layout_height="20dp"
                 android:layout_gravity="end"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
                 android:text="_Verify email"
                 android:textSize="7dp"
                 android:textStyle="normal" />
@@ -79,38 +78,39 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/secondaryEmailTil"
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/secondaryMailEt"
+                style="@style/EditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="_Secondary e-mail"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:inputType="textEmailAddress"
+                android:hint="_Secondary email"
+                android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
+                app:met_textColorHint="@color/blueGrey"
                 android:textColorHint="@color/blueGrey"
-                android:theme="@style/TextInputLayoutMyProfileTheme"
-                app:errorTextAppearance="@style/errorappearance"
-                app:hintTextAppearance="@style/HintTextAppearance">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/secondayEt"
-                    style="@style/EditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="textEmailAddress" />
-
-            </android.support.design.widget.TextInputLayout>
+                app:met_bottomTextSize="8dp"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="_Secondary email"
+                app:met_hideUnderline="false"
+                app:met_underlineColor="@color/ProfileUnderlineColor"/>
 
             <Button
                 style="@style/button.SolidGradient"
                 android:layout_width="80dp"
                 android:layout_height="20dp"
                 android:layout_gravity="end"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
                 android:text="_Verify email"
                 android:textSize="7dp"
                 android:textStyle="normal" />
+
+
         </FrameLayout>
 
         <!--Mobile number-->
@@ -118,50 +118,51 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:orientation="vertical">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/phoneNumberTil"
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/mobilEt"
+                style="@style/EditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:paddingBottom="20dp"
+                android:inputType="phone"
                 android:hint="_Mobile number"
+                android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
+                app:met_textColorHint="@color/blueGrey"
                 android:textColorHint="@color/blueGrey"
-                android:theme="@style/TextInputLayoutMyProfileTheme"
-                app:errorTextAppearance="@style/errorappearance"
-                app:hintTextAppearance="@style/HintTextAppearance">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/phoneNumberEt"
-                    style="@style/EditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="textEmailAddress" />
-
-            </android.support.design.widget.TextInputLayout>
+                app:met_helperText="_You will be notified by SMS when you recieve new mail"
+                app:met_helperTextColor="@color/blueGrey"
+                app:met_helperTextAlwaysShown="true"
+                app:met_bottomTextSize="12dp"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="_Mobile number"
+                app:met_hideUnderline="false"
+                app:met_underlineColor="@color/ProfileUnderlineColor"/>
 
             <Button
                 style="@style/button.SolidGradient"
                 android:layout_width="80dp"
                 android:layout_height="20dp"
                 android:layout_gravity="end"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
                 android:text="_Verify email"
                 android:textSize="7dp"
                 android:textStyle="normal" />
-        </FrameLayout>
 
-        <include
-            layout="@layout/include_divider"
-            android:visibility="visible"></include>
+
+        </FrameLayout>
     </LinearLayout>
 
     <!--Newsletter-->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:layout_marginTop="8dp"
         android:background="@color/white"
         android:orientation="vertical">
@@ -198,5 +199,10 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></View>
 
 </LinearLayout>

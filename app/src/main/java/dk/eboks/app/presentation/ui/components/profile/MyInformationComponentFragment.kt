@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
-import dk.eboks.app.pasta.fragment.PastaComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import javax.inject.Inject
 
@@ -18,7 +17,7 @@ class MyInformationComponentFragment : BaseFragment(), MyInformationComponentCon
     lateinit var presenter : MyInformationComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_profile_myinformation_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_profile_enable_fingerprint_mobile_component, container, false)
         return rootView
     }
 

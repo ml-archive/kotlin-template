@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></View>
+
+    <TextView
+        style="@style/text.header2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="32dp"
+        android:text="_Verify your account" />
+
+    <TextView
+        style="@style/text.body6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:text="_You will need to sign in with NemID.
+Don't worry, its a one time thing. You will be sent to the NemID app to log in."
+        android:textColor="@color/blueGrey" />
+
+    <Button
+        android:id="@+id/logonBtn"
+        style="@style/button.SolidGradient"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="24dp"
+        android:text="_Sign on with NemID"
+        android:textSize="16dp"/>
+
+    <Button
+        android:id="@+id/redOptionTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        style="@style/button.borderless"
+        android:text="_Cancel"
+        android:textStyle="bold"/>
+
+</LinearLayout>

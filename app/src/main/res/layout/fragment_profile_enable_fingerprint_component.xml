@@ -5,8 +5,8 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     android:orientation="vertical"
-    android:paddingLeft="40dp"
-    android:paddingRight="40dp">
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
 
     <View
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="32dp"
-        android:text="_Verify your mobile number" />
+        android:text="_Enable fingerprint" />
 
     <TextView
         style="@style/text.body6"
@@ -27,22 +27,41 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="8dp"
+        android:layout_marginBottom="24dp"
         android:text="_Lorem ipsum dolor sit amet consectetur adipiscing elit. Integer cursus dui."
         android:textColor="@color/blueGrey" />
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/verificationCodeTil"
+        android:id="@+id/socialSecurityTil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:hint="_Verification code"
+        android:hint="_Social Security Number"
         android:textColorHint="@color/blueGrey"
         android:theme="@style/TextInputLayoutTheme"
         app:errorTextAppearance="@style/errorappearance"
         app:hintTextAppearance="@style/HintTextAppearance">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/verificationCodeEt"
+            android:id="@+id/socialSecurityEt"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/passwordTil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="_Password"
+        android:textColorHint="@color/blueGrey"
+        android:theme="@style/TextInputLayoutTheme"
+        app:errorTextAppearance="@style/errorappearance"
+        app:hintTextAppearance="@style/HintTextAppearance">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/passwordEt"
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -51,33 +70,24 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/signupBtn"
-        style="@style/buttonRoundedCorners.darkBlueGrey"
-        android:backgroundTint="#0D223944"
+        android:id="@+id/resetPasswordBtn"
+        style="@style/enabledButtton"
+        android:textColor="@drawable/enabled_button"
         android:layout_width="match_parent"
-        android:layout_marginTop="16dp"
-        android:layout_height="52dp"
-        android:layout_marginBottom="12dp"
-        android:textSize="16dp"
-        android:text="_Resend code" />
-
-    <Button
-        android:id="@+id/logonBtn"
-        style="@style/button.SolidGradient"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:textSize="16dp"
-        android:text="_Continue" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:enabled="false"
+        android:text="_Enable" />
 
     <Button
         android:id="@+id/redOptionTv"
-        android:textAllCaps="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_gravity="center"
         style="@style/button.borderless"
+        android:textStyle="bold"
         android:text="_Cancel"/>
-
 
 </LinearLayout>
