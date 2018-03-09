@@ -10,8 +10,10 @@ import dk.nodes.arch.presentation.base.BaseView
 interface ChannelOverviewComponentContract {
     interface View : BaseView {
         fun showChannels(channels : List<Channel>)
+        fun showChannelOpening()
     }
 
     interface Presenter : BasePresenter<View> {
+        fun openChannel(channel : Channel)
     }
 }

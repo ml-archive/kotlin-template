@@ -6,7 +6,14 @@
                                                  xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include layout="@layout/include_toolnar"  />
-    <include layout="@layout/include_navigation_view"  />
+
+    <fragment
+        android:id="@+id/channelOpeningComponentFragment"
+        android:name="dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentFragment"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
 
 </android.support.design.widget.CoordinatorLayout>

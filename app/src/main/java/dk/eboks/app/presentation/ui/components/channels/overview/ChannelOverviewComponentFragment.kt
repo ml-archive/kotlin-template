@@ -1,5 +1,7 @@
 package dk.eboks.app.presentation.ui.components.channels.overview
 
+import android.animation.Animator
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.CardView
@@ -20,6 +22,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.*
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.channels.opening.ChannelsOpeningActivity
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -50,6 +53,10 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
     private fun setupRecyclerView() {
         channelRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         channelRv.adapter = ChannelAdapter()
+    }
+
+    override fun showChannelOpening() {
+        startActivity(Intent(activity, ChannelsOpeningActivity::class.java))
     }
 
 
@@ -124,7 +131,14 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                     var currentChannel = cards.get(position)
                     holder?.cardContainerCv?.animate()?.scaleX(0.9f)?.scaleY(0.9f)?.setDuration(100)?.
                             setInterpolator(CycleInterpolator(0.5f))?.
-                            start()
+                            setListener(object : Animator.AnimatorListener {
+                                override fun onAnimationRepeat(p0: Animator?) {}
+                                override fun onAnimationEnd(p0: Animator?) {
+                                    presenter.openChannel(currentChannel)
+                                }
+                                override fun onAnimationCancel(p0: Animator?) {}
+                                override fun onAnimationStart(p0: Animator?) {}
+                            })?.start()
                 })
             }
         }

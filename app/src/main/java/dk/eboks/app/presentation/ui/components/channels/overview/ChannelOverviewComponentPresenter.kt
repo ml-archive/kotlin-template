@@ -28,6 +28,11 @@ class ChannelOverviewComponentPresenter @Inject constructor(val appState: AppSta
         getChannelsInteractor.run()
     }
 
+    override fun openChannel(channel: Channel) {
+        appState.state?.channelState?.selectedChannel = channel
+        runAction { v-> v.showChannelOpening() }
+    }
+
     override fun onGetChannels(channels: List<Channel>) {
         runAction { v->
             v.showChannels(channels)
