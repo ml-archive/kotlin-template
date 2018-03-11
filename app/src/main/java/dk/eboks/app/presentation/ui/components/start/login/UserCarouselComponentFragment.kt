@@ -82,6 +82,11 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         viewPager.adapter = UserPagerAdapter(users)
     }
 
+    override fun openLogin() {
+        val frag = LoginComponentFragment()
+        (activity as StartActivity).replaceFragment(frag)
+    }
+
     inner class UserPagerAdapter(val users: List<User>) : PagerAdapter()
     {
         override fun instantiateItem(collection: ViewGroup, position: Int): Any {
@@ -90,6 +95,9 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                 val v = inflater.inflate(R.layout.viewholder_user_carousel, collection, false) as ViewGroup
                 v.findViewById<TextView>(R.id.nameTv)?.text = users[position].email
                 collection.addView(v)
+                v.findViewById<LinearLayout>(R.id.clickLl)?.setOnClickListener {
+                    presenter.login(users[position])
+                }
                 return v
             }
             else
@@ -97,11 +105,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                 val v = inflater.inflate(R.layout.viewholder_add_user_carousel, collection, false) as ViewGroup
                 v.findViewById<TextView>(R.id.nameTv)?.text = Translation.start.addNewUser
                 v.findViewById<LinearLayout>(R.id.addUserLl)?.setOnClickListener {
-                    val frag = LoginComponentFragment()
-                    val args = Bundle()
-                    args.putBoolean("showGreeting", false)
-                    frag.arguments = args
-                    (activity as StartActivity).replaceFragment(frag)
+                    presenter.addAnotherUser()
                 }
                 collection.addView(v)
                 return v
