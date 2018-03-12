@@ -76,6 +76,7 @@ object Config {
             cprLength = 11,
             demoVideo = "https://youtu.be/8OmF6uHxfWU",
 
+
             integration = Environments(
                     baseUrl = "https://integration-rest.e-boks.dk/mobile/1/xml.svc",
                     signupUrl = "http://integration-www.e-boks.dk/go?linkid=10101",
