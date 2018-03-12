@@ -10,6 +10,9 @@ import javax.inject.Inject
 class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStateManager) : ChannelOpeningComponentContract.Presenter, BasePresenterImpl<ChannelOpeningComponentContract.View>() {
 
     init {
+        appState.state?.channelState?.selectedChannel?.let {
+
+        }
     }
 
 }

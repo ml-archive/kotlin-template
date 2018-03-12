@@ -59,7 +59,6 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
         startActivity(Intent(activity, ChannelsOpeningActivity::class.java))
     }
 
-
     inner class ChannelAdapter : RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder>() {
 
         inner class ChannelViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
