@@ -76,6 +76,8 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContrac
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentContract
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentContract
+import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContract
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentPresenter
@@ -370,6 +372,13 @@ class PresentationModule {
     fun provideChannelSettingsOptionsComponentPresenter(stateManager: AppStateManager) : ChannelSettingsOptionsComponentContract.Presenter {
         return ChannelSettingsOptionsComponentPresenter(stateManager)
     }
+
+    @ActivityScope
+    @Provides
+    fun provideCategoriesComponentPresenter(stateManager: AppStateManager) : CategoriesComponentContract.Presenter {
+        return CategoriesComponentPresenter(stateManager)
+    }
+
 
     /* Pasta
     @ActivityScope

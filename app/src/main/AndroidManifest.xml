@@ -51,7 +51,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.channels.opening.ChannelsOpeningActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity" />
         <activity android:name="dk.eboks.app.system.managers.permission.PermissionRequestActivity" />
-        <activity android:name="dk.eboks.app.presentation.base.SheetComponentActivity" />
+        <activity android:name="dk.eboks.app.presentation.base.SheetComponentActivity" android:theme="@style/TransTheme" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

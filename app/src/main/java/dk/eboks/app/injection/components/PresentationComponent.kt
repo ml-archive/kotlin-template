@@ -65,6 +65,8 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragmen
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
+import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
 import dk.eboks.app.presentation.ui.components.start.signup.*
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
@@ -176,6 +178,9 @@ interface PresentationComponent {
     fun inject(target : ChannelSettingsStoreboxComponentPresenter)
     fun inject(target : ChannelSettingsOptionsComponentFragment)
     fun inject(target : ChannelSettingsOptionsComponentPresenter)
+
+
+    fun inject(target : CategoriesComponentFragment)
 
     // signup
     fun inject(target : SignupComponentPresenter)

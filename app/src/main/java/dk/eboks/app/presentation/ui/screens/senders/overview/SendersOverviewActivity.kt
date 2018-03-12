@@ -1,9 +1,12 @@
 package dk.eboks.app.presentation.ui.screens.senders.overview
 
 import android.os.Bundle
+import android.widget.ImageButton
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
+import kotlinx.android.synthetic.main.include_toolnar.*
+import kotlinx.android.synthetic.main.include_toolnar.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -19,7 +22,15 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
     }
 
     private fun setupTopBar() {
-        setToolbar(R.drawable.ic_menu_senders, Translation.senders.title, null, null,true, true, "REGISTRATIONS")
+//
+//        val v = ImageButton(this)
+//        v.setImageResource(R.drawable.search)
+//
+//        mainTb.navigationIcon = null
+//        mainTb.addView(v)
+//        mainTb.title = Translation.senders.title
+
+        setToolbar(R.drawable.search, Translation.senders.title, null, null,true, true, "REGISTRATIONS")
     }
 
     override fun setupTranslations() {

@@ -1,88 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
         android:id="@+id/senderCardContainerCv"
         android:layout_width="match_parent"
-        android:layout_height="184dp"
-        android:layout_marginBottom="6dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="6dp"
+        android:layout_height="172dp"
+        android:layout_marginBottom="@dimen/margin_normal"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_marginTop="4dp"
         app:cardCornerRadius="8dp"
-        app:cardElevation="0dp"
-        app:cardUseCompatPadding="true">
+        app:cardElevation="@dimen/card_elevation">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/backgroundColorLl"
+            <ImageView
+                android:id="@+id/backgroundIv"
                 android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="24dp">
-
-                <ImageView
-                    android:id="@+id/backgroundIv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:outlineProvider="background"
-                    android:src="@drawable/ic_menu_home" />
-            </LinearLayout>
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_menu_home"/>
 
             <include
                 layout="@layout/include_divider"
-                android:visibility="visible"></include>
+                android:visibility="visible"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="52dp"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:paddingLeft="@dimen/margin_normal"
+                android:paddingRight="@dimen/margin_normal">
 
                 <TextView
                     style="@style/text.header4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="_Alm. Brand" />
-
-
-                <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"></View>
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="_Alm. Brand"/>
 
-                <LinearLayout
+                <Button
+                    style="@style/buttonRoundedCorners.darkBlueGrey.small"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="12dp"
-                    android:layout_marginTop="16dp">
-
-                    <Button
-                        style="@style/buttonRoundedCorners.Tintable.darkText"
-                        android:layout_width="78.5dp"
-                        android:layout_height="28dp"
-                        android:layout_gravity="center"
-                        android:backgroundTint="@color/greyButton"
-                        android:paddingRight="8dp"
-                        android:stateListAnimator="@null"
-                        android:text="_Register"
-                        android:textSize="14dp"
-                        android:textStyle="normal" />
-                </LinearLayout>
+                    android:layout_height="28dp"
+                    android:text="_Register"/>
             </LinearLayout>
         </LinearLayout>
-
     </android.support.v7.widget.CardView>
 </LinearLayout>

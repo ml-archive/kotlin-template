@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="?selectableItemBackground"
+              android:orientation="vertical"
+              android:clickable="true"
+              android:paddingLeft="@dimen/margin_normal">
+
+    <TextView
+        android:id="@+id/categoryNameTv"
+        style="@style/text.header4"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="Bolig og ejendom"
+        android:gravity="bottom"/>
+
+    <TextView
+        android:id="@+id/categoryCountTv"
+        style="@style/text.subHeader5.quaternary"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="39 senders"
+        android:textAlignment="viewStart"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_gravity="top"
+        android:background="@color/dividerGreyBlue"/>
+
+</LinearLayout>

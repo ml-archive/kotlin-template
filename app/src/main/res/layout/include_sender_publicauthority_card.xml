@@ -9,26 +9,23 @@
         android:id="@+id/publicAuthorityCardContainerCv"
         android:layout_width="match_parent"
         android:layout_height="192dp"
-        android:layout_marginBottom="6dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="10dp"
-        app:cardElevation="0dp"
+        android:layout_marginBottom="@dimen/margin_normal"
+        android:layout_marginLeft="@dimen/margin_normal"
+        android:layout_marginRight="@dimen/margin_normal"
+        android:layout_marginTop="4dp"
         app:cardCornerRadius="8dp"
-        app:cardUseCompatPadding="true">
+        app:cardElevation="@dimen/card_elevation">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
             android:orientation="vertical">
 
             <FrameLayout
                 android:id="@+id/backgroundColorLl"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
+                android:layout_margin="4dp"
                 android:background="@drawable/rounded_gradient_card">
 
                 <ImageView
@@ -54,18 +51,18 @@
                     />
             </FrameLayout>
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingLeft="16dp"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp">
+                    android:layout_marginLeft="@dimen/margin_normal"
+                    android:layout_marginRight="@dimen/margin_normal"
+                    android:layout_marginTop="@dimen/margin_vertical"
+                    android:layout_marginBottom="@dimen/margin_vertical">
 
                     <TextView
                         style="@style/text.header3"
@@ -83,18 +80,16 @@
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"></View>
-
-                <ImageView
+                <ImageButton
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:layout_gravity="center"
+                    android:layout_gravity="right|center_vertical"
+                    android:layout_margin="@dimen/margin_half"
+                    android:background="?selectableItemBackground"
+                    android:src="@drawable/icon_48_arrow_right_grey"
                     />
 
-            </LinearLayout>
+            </FrameLayout>
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

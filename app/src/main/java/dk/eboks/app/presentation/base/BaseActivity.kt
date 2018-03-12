@@ -94,13 +94,14 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         return super.onKeyDown(keyCode, event)
     }
 
+
     fun setToolbar(iconResId : Int, title : String? = null, subtitle : String? = null, callback : (()->Unit)? = null, hideIcon : Boolean=false, showImgIcon : Boolean=false, redOptionsText : String? = null, userShareTvAllignedLeft : Boolean=false)
     {
-        findViewById<ImageView>(R.id.toolbarIb)?.let {
+        toolbarIb?.let {
             it.setImageResource(iconResId)
             it.setOnClickListener { callback?.invoke() }
         }
-        findViewById<TextView>(R.id.toolbarTv)?.let {
+        toolbarTv?.let {
             if(title != null) {
                 it.visibility = View.VISIBLE
                 it.text = title
@@ -108,7 +109,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
             else
                 it.visibility = View.GONE
         }
-        findViewById<TextView>(R.id.toolbarSubTv)?.let {
+       toolbarSubTv?.let {
             if(subtitle != null) {
                 it.visibility = View.VISIBLE
                 it.text = subtitle
@@ -136,13 +137,13 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     fun setToolbarLarge(iconResId : Int, title : String, callback : (()->Unit)? = null)
     {
-        findViewById<ImageView>(R.id.toolbarIb)?.let {
+        toolbarIb?.let {
             it.setImageResource(iconResId)
             it.setOnClickListener { callback?.invoke() }
         }
-        findViewById<TextView>(R.id.toolbarTv)?.visibility = View.GONE
-        findViewById<TextView>(R.id.toolbarSubTv)?.visibility = View.GONE
-        findViewById<TextView>(R.id.toolbarLargeTv)?.let {
+        toolbarTv?.visibility = View.GONE
+        toolbarSubTv?.visibility = View.GONE
+        toolbarLargeTv?.let {
             it.text = title
             it.visibility = View.VISIBLE
         }

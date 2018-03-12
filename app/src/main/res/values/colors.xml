@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="darkGreyBlue">#294350</color>
+    <color name="transparentDarkGreyBlue">#0d345768</color>
+    <color name="greyButton">#16223944</color>
+    <color name="greyButtonTrans">#0d223944</color>
+
     <color name="blueGrey">#7f9aa3</color>
+    <color name="rouge">#A8242F</color>
     <color name="rougeTwo">#BC1E3D</color>
     <color name="silver">#C1CED2</color>
+    <color name="white">#FFF</color>
 
 
 
@@ -16,23 +22,23 @@
     <color name="textColorTertiary">@color/rougeTwo</color>
     <color name="textColorQuaternary">@color/silver</color>
 
-    <color name="white">#FFF</color>
-    <color name="rouge">#A8242F</color>
     <color name="backgroundColor">#F4F6F8</color>
     <color name="backgroundColorSheet">#F2F3F4</color>
     <color name="actionBarColor">#FCFDFD</color>
+
     <color name="dividerGreyBlue">#26294350</color>
+    <color name="dividerDarkGreyBlue">#26416780</color>
+
     <color name="toolbarSelectedColor">@color/darkGreyBlue</color>
     <color name="toolbarNormalColor">@color/rouge</color>
     <color name="toolbarTitleColor">@color/darkGreyBlue</color>
-    <color name="outerCircleImageColor">#FFc1ced2</color>
-    <color name="innerCircleImageColor">#FFeceff3</color>
+
+    <color name="outerCircleImageColor">#c1ced2</color>
+    <color name="innerCircleImageColor">#eceff3</color>
+
     <color name="blueGreyBorderColor">#c1ced2</color>
-    <color name="transparent">#80000000</color>
+    <color name="transparent">#0000</color>
     <color name="transparentWhite">#32ffffff</color>
-    <color name="dividerDarkGreyBlue">#26416780</color>
-    <color name="transparentDarkGreyBlue">#0d345768</color>
     <color name="greyBoarder">#c1ced2</color>
-    <color name="greyButton">#16223944</color>
 
 </resources>
