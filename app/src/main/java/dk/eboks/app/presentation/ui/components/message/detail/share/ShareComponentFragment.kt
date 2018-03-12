@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.FileUtils
 import kotlinx.android.synthetic.main.fragment_share_component.*
@@ -35,6 +36,7 @@ class ShareComponentFragment : BaseFragment(), ShareComponentContract.View {
     }
 
     override fun setupTranslations() {
+        nameTv.text = Translation.message.shareMessageText
     }
 
     override fun updateView(message: Message) {

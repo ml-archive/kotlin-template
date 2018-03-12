@@ -32,6 +32,7 @@ class NotesComponentFragment : BaseFragment(), NotesComponentContract.View {
 
     override fun setupTranslations() {
         notesTv.text = Translation.message.notes
+        noteEt.hint = Translation.message.notePlaceholder
     }
 
     override fun updateView(message: Message) {
