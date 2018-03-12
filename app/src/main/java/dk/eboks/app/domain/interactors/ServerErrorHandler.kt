@@ -2,7 +2,7 @@ package dk.eboks.app.domain.interactors
 
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UIManager
-import dk.eboks.app.domain.models.ServerError
+import dk.eboks.app.domain.models.protocol.ServerError
 import dk.nodes.arch.domain.executor.Executor
 import timber.log.Timber
 

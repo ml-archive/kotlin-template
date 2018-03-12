@@ -2,7 +2,7 @@ package dk.eboks.app.presentation.ui.screens.message.opening
 
 import dk.eboks.app.domain.interactors.ServerErrorHandler
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.ServerError
+import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.presentation.base.BasePresenterImpl

@@ -1,6 +1,6 @@
 package dk.eboks.app.domain.repositories
 
-import dk.eboks.app.domain.models.Folder
+import dk.eboks.app.domain.models.folder.Folder
 
 /**
  * Created by bison on 01/02/18.

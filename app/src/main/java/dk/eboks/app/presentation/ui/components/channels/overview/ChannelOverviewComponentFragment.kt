@@ -149,7 +149,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
 
         //adding header card added to the top of the list
         cards.clear()
-        cards.add(Channel(-1, "","",null,null,null,null,null,null,null,null))
+        cards.add(Channel(-1, "","",null,null,null,null,null,null,false,null))
         //addings channels
         for( channel in channels){
             cards.add(channel)

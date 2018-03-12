@@ -2,8 +2,8 @@ package dk.eboks.app.system.managers
 
 import android.content.Context
 import dk.eboks.app.domain.managers.EboksFormatter
-import dk.eboks.app.domain.models.Content
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.message.Content
+import dk.eboks.app.domain.models.message.Message
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*

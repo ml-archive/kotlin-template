@@ -1,6 +1,6 @@
 package dk.eboks.app.domain.interactors.message
 
-import dk.eboks.app.domain.models.FolderType
+import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.domain.exceptions.RepositoryException
 import dk.eboks.app.network.util.metaData

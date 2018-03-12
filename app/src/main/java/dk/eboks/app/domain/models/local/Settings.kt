@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.models.settings
+package dk.eboks.app.domain.models.local
 
 import java.io.Serializable
 

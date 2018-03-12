@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.components.message.detail.folderinfo
 
-import dk.eboks.app.domain.models.Folder
+import dk.eboks.app.domain.models.folder.Folder
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 

@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.models
+package dk.eboks.app.domain.models.folder
 
 import com.google.gson.annotations.SerializedName
 import dk.eboks.app.R
@@ -35,7 +35,7 @@ enum class FolderType(val type : String) {
             ARCHIVE -> return R.drawable.ic_archive
             SENT -> return R.drawable.ic_sent
             DELETED -> return R.drawable.ic_deleted
-            HIGHLIGHTS  -> return R.drawable.ic_highlights
+            HIGHLIGHTS -> return R.drawable.ic_highlights
             UNREAD -> return R.drawable.ic_folder
             LATEST -> return R.drawable.ic_folder
             else -> return R.drawable.ic_folder
@@ -50,7 +50,7 @@ enum class FolderType(val type : String) {
             ARCHIVE -> return "archive"
             SENT -> return "sentitems"
             DELETED -> return "deleteditems"
-            HIGHLIGHTS  -> return "highlights"
+            HIGHLIGHTS -> return "highlights"
             UNREAD -> return "unread"
             LATEST -> return "latest"
             FOLDER -> return "folder"

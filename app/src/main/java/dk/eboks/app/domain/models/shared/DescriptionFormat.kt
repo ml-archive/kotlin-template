@@ -1,7 +1,6 @@
-package dk.eboks.app.domain.models
+package dk.eboks.app.domain.models.shared
 
 import com.google.gson.annotations.SerializedName
-import dk.eboks.app.R
 
 /**
  * Created by bison on 09-02-2018.

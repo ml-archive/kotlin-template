@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.models.request
+package dk.eboks.app.domain.models.protocol
 
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Namespace

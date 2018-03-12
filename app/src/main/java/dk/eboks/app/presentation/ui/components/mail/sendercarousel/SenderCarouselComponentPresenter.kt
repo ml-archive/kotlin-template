@@ -3,7 +3,7 @@ package dk.eboks.app.presentation.ui.components.mail.sendercarousel
 import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.Sender
+import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe

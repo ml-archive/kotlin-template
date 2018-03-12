@@ -1,8 +1,7 @@
-package dk.eboks.app.domain.models.internal
+package dk.eboks.app.domain.models.login
 
 import dk.eboks.app.domain.config.LoginProvider
 import java.io.Serializable
-import java.util.*
 
 /**
  * Created by bison on 24-06-2017.

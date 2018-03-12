@@ -3,8 +3,8 @@ package dk.eboks.app.domain.interactors
 import android.os.Build
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.managers.ProtocolManager
-import dk.eboks.app.domain.models.request.AppInfo
-import dk.eboks.app.domain.models.request.LoginRequest
+import dk.eboks.app.domain.models.protocol.AppInfo
+import dk.eboks.app.domain.models.protocol.LoginRequest
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor

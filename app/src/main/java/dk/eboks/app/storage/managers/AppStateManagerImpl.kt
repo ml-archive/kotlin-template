@@ -1,7 +1,7 @@
 package dk.eboks.app.storage.managers
 
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.internal.AppState
+import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.repositories.AppStateRepository
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.launch

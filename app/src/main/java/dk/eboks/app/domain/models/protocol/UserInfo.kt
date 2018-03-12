@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.models.request
+package dk.eboks.app.domain.models.protocol
 
 import org.simpleframework.xml.Attribute
 import org.simpleframework.xml.Root

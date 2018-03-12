@@ -1,7 +1,7 @@
 package dk.eboks.app.presentation.ui.components.message.detail.attachments
 
-import dk.eboks.app.domain.models.Content
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.message.Content
+import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 

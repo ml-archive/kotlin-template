@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.models
+package dk.eboks.app.domain.models.sender
 
 import java.io.Serializable
 

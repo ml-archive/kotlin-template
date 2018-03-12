@@ -1,6 +1,6 @@
 package dk.eboks.app.domain.interactors.user
 
-import dk.eboks.app.domain.models.internal.User
+import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**

@@ -1,6 +1,6 @@
 package dk.eboks.app.domain.repositories
 
-import dk.eboks.app.domain.models.internal.AppState
+import dk.eboks.app.domain.models.AppState
 
 /**
  * Created by bison on 09/10/17.

@@ -1,6 +1,6 @@
-package dk.eboks.app.domain.models.internal
+package dk.eboks.app.domain.models.message
 
-import dk.eboks.app.domain.models.ServerError
+import dk.eboks.app.domain.models.protocol.ServerError
 
 /**
  * Created by bison on 09-02-2018.
