@@ -333,11 +333,12 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-
     fun provideMyInformationComponentPresenter(stateManager: AppStateManager) : MyInformationComponentContract.Presenter {
         return MyInformationComponentPresenter(stateManager)
     }
-    
+
+    @ActivityScope
+    @Provides
     fun provideChannelOpeningComponentPresenter(stateManager: AppStateManager) : ChannelOpeningComponentContract.Presenter {
         return ChannelOpeningComponentPresenter(stateManager)
     }
