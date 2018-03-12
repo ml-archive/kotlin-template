@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/backgroundColor"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <!--Name-->
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/cprNameEt"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:inputType="text"
+                android:hint="_Name"
+                android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
+                app:met_textColorHint="@color/blueGrey"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="_name"
+                />
+
+
+        <!--Primary email-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/primaryMailEt"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:inputType="textEmailAddress"
+                android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
+                android:hint="_Primary email"
+                app:met_primaryColor="@color/blueGrey"
+                app:met_textColorHint="@color/blueGrey"
+                app:met_helperText="_You will be notified by e-mail when you recieve new mail"
+                app:met_helperTextColor="@color/blueGrey"
+                app:met_helperTextAlwaysShown="true"
+                app:met_bottomTextSize="12dp"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="_Primary email"
+                app:met_hideUnderline="false"
+                app:met_underlineColor="@color/ProfileUnderlineColor"/>
+
+            <Button
+                style="@style/button.SolidGradient"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:text="_Verify email"
+                android:textSize="7dp"
+                android:textStyle="normal" />
+
+
+        </FrameLayout>
+
+        <!--Secondary email-->
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/secondaryMailEt"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:inputType="textEmailAddress"
+                android:hint="_Secondary email"
+                android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
+                app:met_textColorHint="@color/blueGrey"
+                android:textColorHint="@color/blueGrey"
+                app:met_bottomTextSize="8dp"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="_Secondary email"
+                app:met_hideUnderline="false"
+                app:met_underlineColor="@color/ProfileUnderlineColor"/>
+
+            <Button
+                style="@style/button.SolidGradient"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:text="_Verify email"
+                android:textSize="7dp"
+                android:textStyle="normal" />
+
+
+        </FrameLayout>
+
+        <!--Mobile number-->
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/mobilEt"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="12dp"
+                android:paddingBottom="20dp"
+                android:inputType="phone"
+                android:hint="_Mobile number"
+                android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
+                app:met_textColorHint="@color/blueGrey"
+                android:textColorHint="@color/blueGrey"
+                app:met_helperText="_You will be notified by SMS when you recieve new mail"
+                app:met_helperTextColor="@color/blueGrey"
+                app:met_helperTextAlwaysShown="true"
+                app:met_bottomTextSize="12dp"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="_Mobile number"
+                app:met_hideUnderline="false"
+                app:met_underlineColor="@color/ProfileUnderlineColor"/>
+
+            <Button
+                style="@style/button.SolidGradient"
+                android:layout_width="80dp"
+                android:layout_height="20dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:text="_Verify email"
+                android:textSize="7dp"
+                android:textStyle="normal" />
+
+
+        </FrameLayout>
+    </LinearLayout>
+
+    <!--Newsletter-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+
+            <TextView
+                style="@style/text.header4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="_Newsletter" />
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <Switch
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:thumbTint="@color/textColorTertiary"
+                    android:trackTint="@color/textColorTertiary" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></View>
+
+</LinearLayout>

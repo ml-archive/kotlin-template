@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:scrollHorizontally="false"
         android:background="@drawable/attachment_background"
+        android:backgroundTint="@color/white"
         android:textColor="@color/blueGrey"
         android:textSize="15sp"
         android:autoLink="all"

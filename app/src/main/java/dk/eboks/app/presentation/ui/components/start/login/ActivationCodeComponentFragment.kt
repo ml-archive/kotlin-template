@@ -35,7 +35,7 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         headerTv.requestFocus()
-        cancelTv.setOnClickListener {
+        cancelBtn.setOnClickListener {
             (activity as SheetComponentActivity).onBackPressed()
         }
 
@@ -59,7 +59,7 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
     }
 
     override fun setupTranslations() {
-        cancelTv.text = Translation.defaultSection.cancel
+        cancelBtn.text = Translation.defaultSection.cancel
     }
 
     override fun onDestroy() {

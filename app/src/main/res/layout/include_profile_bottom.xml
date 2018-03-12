@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical">
+
+    <!--My information-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/text.header4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="_My information" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/include_divider"
+        android:visibility="visible"></include>
+
+    <!--Fingerprint and keep me signed in-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+        <include
+            layout="@layout/include_divider"
+            android:visibility="visible"></include>
+
+        <!--Fingerprint switch-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+
+                <TextView
+                    style="@style/text.header4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="_Fingerprint" />
+
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:thumbTint="@color/textColorTertiary"
+                        android:trackTint="@color/textColorTertiary" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <include layout="@layout/include_divider_leftmargin_whitebackground"></include>
+
+        </LinearLayout>
+
+        <!--Keep me signed in switch-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp">
+
+
+                <TextView
+                    style="@style/text.header4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="_Keep me signed in" />
+
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:thumbTint="@color/textColorTertiary"
+                        android:trackTint="@color/textColorTertiary" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <include
+                layout="@layout/include_divider"
+                android:visibility="visible"></include>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- keep me signed in text-->
+    <TextView
+        style="@style/text.subHeader5.quaternary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="_Keep me signed in when i close the e-boks app orem ipsum dolor sit amet"
+        android:textColor="@color/blueGrey" />
+
+    <include
+        layout="@layout/include_divider"
+        android:visibility="visible"></include>
+
+    <!--Terms & Conditions-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/text.header4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="_Terms and Conditions" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <include layout="@layout/include_divider_leftmargin_whitebackground"></include>
+
+    <!--Privacy Statement-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/text.header4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="_Privacy Statement" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        layout="@layout/include_divider"
+        android:visibility="visible"></include>
+
+    <!--Help-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                style="@style/text.header4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="_help" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <include
+        layout="@layout/include_divider"
+        android:visibility="visible"></include>
+    
+    <!--Sign out Button-->
+    <Button
+        style="@style/buttonRoundedCorners.Tintable.darkText"
+        android:backgroundTint="@color/transparentDarkGreyBlue"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_width="100dp"
+        android:layout_height="36dp"
+        android:text="_Sign out"/>
+    
+    <!--Version textView-->
+    
+    <TextView
+        style="@style/text.subHeader5"
+        android:textColor="@color/blueGrey"
+        android:gravity="center"
+        android:text="_Version 4.0.0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"/>
+    
+    
+
+</LinearLayout>

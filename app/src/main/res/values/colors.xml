@@ -34,5 +34,6 @@
     <color name="transparentDarkGreyBlue">#0d345768</color>
     <color name="greyBoarder">#c1ced2</color>
     <color name="greyButton">#16223944</color>
+    <color name="ProfileUnderlineColor">#25294350</color>
 
 </resources>

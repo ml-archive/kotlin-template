@@ -129,6 +129,6 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     }
 
     override fun showTitle(message: Message) {
-        setToolbar(R.drawable.ic_menu_mail, Translation.message.title, formatter.formatDate(message))
+        setToolbar(R.drawable.red_navigationbar, Translation.message.title, formatter.formatDate(message), {onBackPressed()})
     }
 }

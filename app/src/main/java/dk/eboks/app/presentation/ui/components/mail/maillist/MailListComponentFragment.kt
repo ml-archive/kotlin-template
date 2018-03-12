@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Message
@@ -113,7 +114,10 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         override fun onBindViewHolder(holder: MessageViewHolder?, position: Int) {
             if(messages[position].sender != null) {
                 holder?.circleIv?.let {
-                    Glide.with(context).load(messages[position].sender?.logo).into(it)
+                    Glide.with(context)
+                            .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
+                            .load(messages[position].sender?.logo)
+                            .into(it)
                     it.isSelected = messages[position].unread
                 }
             }

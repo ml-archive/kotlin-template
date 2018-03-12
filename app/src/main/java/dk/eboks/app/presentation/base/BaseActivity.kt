@@ -134,20 +134,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         if(userShareTvAllignedLeft){ userShareTv.setPadding(0,0,0,0) }
     }
 
-    fun setToolbarLarge(iconResId : Int, title : String, callback : (()->Unit)? = null)
-    {
-        findViewById<ImageView>(R.id.toolbarIb)?.let {
-            it.setImageResource(iconResId)
-            it.setOnClickListener { callback?.invoke() }
-        }
-        findViewById<TextView>(R.id.toolbarTv)?.visibility = View.GONE
-        findViewById<TextView>(R.id.toolbarSubTv)?.visibility = View.GONE
-        findViewById<TextView>(R.id.toolbarLargeTv)?.let {
-            it.text = title
-            it.visibility = View.VISIBLE
-        }
-    }
-
 
     protected open fun onShake() {}
 }
