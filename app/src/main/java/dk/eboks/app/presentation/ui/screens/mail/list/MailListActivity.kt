@@ -33,7 +33,7 @@ class MailListActivity : BaseActivity(), MailListContract.View {
     }
 
     override fun showFolderName(name: String) {
-        setToolbarLarge(R.drawable.ic_menu_mail, name)
+        setToolbar(R.drawable.ic_menu_mail, name)
     }
 
     override fun showError(msg: String) {
