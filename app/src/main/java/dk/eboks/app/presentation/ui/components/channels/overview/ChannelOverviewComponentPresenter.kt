@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.channels.list
+package dk.eboks.app.presentation.ui.components.channels.overview
 
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
 import dk.eboks.app.domain.managers.AppStateManager
@@ -10,9 +10,9 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class ChannelListComponentPresenter @Inject constructor(val appState: AppStateManager, val getChannelsInteractor: GetChannelsInteractor) :
-        ChannelListComponentContract.Presenter,
-        BasePresenterImpl<ChannelListComponentContract.View>(),
+class ChannelOverviewComponentPresenter @Inject constructor(val appState: AppStateManager, val getChannelsInteractor: GetChannelsInteractor) :
+        ChannelOverviewComponentContract.Presenter,
+        BasePresenterImpl<ChannelOverviewComponentContract.View>(),
         GetChannelsInteractor.Output
 {
 
@@ -26,6 +26,11 @@ class ChannelListComponentPresenter @Inject constructor(val appState: AppStateMa
     {
         getChannelsInteractor.input = GetChannelsInteractor.Input(cached)
         getChannelsInteractor.run()
+    }
+
+    override fun openChannel(channel: Channel) {
+        appState.state?.channelState?.selectedChannel = channel
+        runAction { v-> v.showChannelOpening() }
     }
 
     override fun onGetChannels(channels: List<Channel>) {

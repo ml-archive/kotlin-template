@@ -29,6 +29,7 @@
 
                 <TextView
                     android:id="@+id/headerTv"
+                    android:visibility="gone"
                     android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -37,6 +38,7 @@
 
                 <TextView
                     android:id="@+id/detailTv"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -46,6 +48,7 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/cprEmailTil"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -66,6 +69,7 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/passwordTil"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -85,19 +89,33 @@
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
-                    android:id="@+id/debugSkipBtn"
+                    android:id="@+id/continueBtn"
                     android:visibility="gone"
-                    style="@style/buttonRoundedCorners.darkBlueGrey"
+                    style="@style/enabledButtton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:layout_marginStart="36dp"
                     android:layout_marginEnd="36dp"
+                    android:enabled="false"
+                    android:text="_Continue" />
+
+                <Button
+                    android:id="@+id/debugSkipBtn"
+                    android:visibility="gone"
+                    style="@style/enabledButtton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginEnd="36dp"
+                    android:enabled="false"
                     android:text="Create user (DEBUG)" />
             </LinearLayout>
         </ScrollView>
         <LinearLayout
             android:id="@+id/loginProvidersLl"
+            android:visibility="gone"
             android:orientation="vertical"
             android:showDividers="beginning|middle"
             android:divider="@color/dividerGreyBlue"

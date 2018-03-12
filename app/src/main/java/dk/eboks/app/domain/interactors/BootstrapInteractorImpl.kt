@@ -23,6 +23,9 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, 
 
         }
         val hasUsers = userManager.users.isNotEmpty()
+
+        appStateManager.state?.loginState?.firstLogin = !hasUsers
+
         val settings = settingsRepository.get()
         if(settings.deviceId.isBlank()) {
             settings.deviceId = guidManager.generateGuid()

@@ -23,6 +23,16 @@ class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateM
         getUsersInteractor.run()
     }
 
+    override fun login(user: User) {
+        appState.state?.loginState?.selectedUser = user
+        runAction { v-> v.openLogin() }
+    }
+
+    override fun addAnotherUser() {
+        appState.state?.loginState?.selectedUser = null
+        runAction { v-> v.openLogin() }
+    }
+
     override fun onGetUsers(users: MutableList<User>) {
         runAction { v-> v.showUsers(users) }
     }

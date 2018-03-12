@@ -30,7 +30,18 @@ import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewContract
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
-import dk.eboks.app.presentation.ui.components.channels.list.*
+import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentStoreboxComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentStoreboxComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.requirements.*
+import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentContract
+import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentContract
+import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.settings.*
+import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentContract
+import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageContract
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
 import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedContract
@@ -72,8 +83,8 @@ import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContr
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
-import dk.eboks.app.presentation.ui.screens.channels.ChannelsContract
-import dk.eboks.app.presentation.ui.screens.channels.ChannelsPresenter
+import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewContract
+import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.start.StartContract
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningContract
@@ -122,8 +133,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelsPresenter(stateManager: AppStateManager) : ChannelsContract.Presenter {
-        return ChannelsPresenter(stateManager)
+    fun provideChannelsPresenter(stateManager: AppStateManager) : ChannelOverviewContract.Presenter {
+        return ChannelOverviewPresenter(stateManager)
     }
 
     @ActivityScope
@@ -243,8 +254,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelListComponentPresenter(stateManager: AppStateManager, getChannelsInteractor: GetChannelsInteractor) : ChannelListComponentContract.Presenter {
-        return ChannelListComponentPresenter(stateManager, getChannelsInteractor)
+    fun provideChannelListComponentPresenter(stateManager: AppStateManager, getChannelsInteractor: GetChannelsInteractor) : ChannelOverviewComponentContract.Presenter {
+        return ChannelOverviewComponentPresenter(stateManager, getChannelsInteractor)
     }
 
     @ActivityScope
@@ -255,8 +266,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelSettingsPopUpComponentPresenter(stateManager: AppStateManager) : ChannelSettingsPopUpComponentContract.Presenter {
-        return ChannelSettingsPopUpComponentPresenter(stateManager)
+    fun provideChannelSettingsPopUpComponentPresenter(stateManager: AppStateManager) : ChannelRequirementsComponentContract.Presenter {
+        return ChannelRequirementsComponentPresenter(stateManager)
     }
 
     @ActivityScope
@@ -322,8 +333,49 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
+
     fun provideMyInformationComponentPresenter(stateManager: AppStateManager) : MyInformationComponentContract.Presenter {
         return MyInformationComponentPresenter(stateManager)
+    }
+    
+    fun provideChannelOpeningComponentPresenter(stateManager: AppStateManager) : ChannelOpeningComponentContract.Presenter {
+        return ChannelOpeningComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelVerificationComponentPresenter(stateManager: AppStateManager) : ChannelVerificationComponentContract.Presenter {
+        return ChannelVerificationComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelContentComponentPresenter(stateManager: AppStateManager) : ChannelContentComponentContract.Presenter {
+        return ChannelContentComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelContentStoreboxComponentPresenter(stateManager: AppStateManager) : ChannelContentStoreboxComponentContract.Presenter {
+        return ChannelContentStoreboxComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelSettingsComponentPresenter(stateManager: AppStateManager) : ChannelSettingsComponentContract.Presenter {
+        return ChannelSettingsComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelSettingsStoreboxComponentPresenter(stateManager: AppStateManager) : ChannelSettingsStoreboxComponentContract.Presenter {
+        return ChannelSettingsStoreboxComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelSettingsOptionsComponentPresenter(stateManager: AppStateManager) : ChannelSettingsOptionsComponentContract.Presenter {
+        return ChannelSettingsOptionsComponentPresenter(stateManager)
     }
 
     /* Pasta

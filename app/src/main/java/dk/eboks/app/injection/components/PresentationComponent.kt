@@ -19,7 +19,18 @@ import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
 import dk.eboks.app.pasta.activity.PastaActivity
 import dk.eboks.app.pasta.activity.PastaPresenter
-import dk.eboks.app.presentation.ui.components.channels.list.*
+import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentStoreboxComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentStoreboxComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.requirements.*
+import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.settings.*
+import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
 import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity
@@ -60,8 +71,8 @@ import dk.eboks.app.presentation.ui.components.start.login.*
 import dk.eboks.app.presentation.ui.components.start.signup.*
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
-import dk.eboks.app.presentation.ui.screens.channels.ChannelsActivity
-import dk.eboks.app.presentation.ui.screens.channels.ChannelsPresenter
+import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity
+import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
@@ -93,14 +104,16 @@ interface PresentationComponent {
     fun inject(target : MessageEmbeddedPresenter)
     fun inject(target : MessageOpeningActivity)
     fun inject(target : MessageOpeningPresenter)
-    fun inject(target : ChannelsActivity)
-    fun inject(target : ChannelsPresenter)
+    fun inject(target : ChannelOverviewActivity)
+    fun inject(target : ChannelOverviewPresenter)
     fun inject(target : SendersOverviewActivity)
     fun inject(target : SendersOverviewPresenter)
     fun inject(target : StartActivity)
     fun inject(target : StartPresenter)
 
     // Components
+
+    // message
     fun inject(target : HeaderComponentFragment)
     fun inject(target : HeaderComponentPresenter)
     fun inject(target : NotesComponentFragment)
@@ -113,16 +126,8 @@ interface PresentationComponent {
     fun inject(target : DocumentComponentPresenter)
     fun inject(target : PdfViewComponentFragment)
     fun inject(target : PdfViewComponentPresenter)
-    fun inject(target : FoldersComponentFragment)
-    fun inject(target : FoldersComponentPresenter)
-    fun inject(target : FolderShortcutsComponentFragment)
-    fun inject(target : FolderShortcutsComponentPresenter)
-    fun inject(target : SenderCarouselComponentFragment)
-    fun inject(target : SenderCarouselComponentPresenter)
-    fun inject(target : MailListComponentFragment)
-    fun inject(target : MailListComponentPresenter)
-    fun inject(target : NavBarComponentFragment)
-    fun inject(target : NavBarComponentPresenter)
+    fun inject(target : ShareComponentFragment)
+    fun inject(target : ShareComponentPresenter)
     fun inject(target : HtmlViewComponentFragment)
     fun inject(target : HtmlViewComponentPresenter)
     fun inject(target : ImageViewComponentFragment)
@@ -135,20 +140,44 @@ interface PresentationComponent {
     fun inject(target : ProtectedMessageComponentPresenter)
     fun inject(target : PrivateSenderWarningComponentFragment)
     fun inject(target : PrivateSenderWarningComponentPresenter)
-    fun inject(target : ChannelListComponentFragment)
-    fun inject(target : ChannelListComponentPresenter)
-    fun inject(target : ChannelDetailComponentFragment)
-    fun inject(target : ChannelDetailComponentPresenter)
-    fun inject(target : ChannelSettingsPopUpComponentFragment)
-    fun inject(target : ChannelSettingsPopUpComponentPresenter)
-    fun inject(target : ShareComponentFragment)
-    fun inject(target : ShareComponentPresenter)
-    fun inject(target : HintActivity)
-    fun inject(target : PermissionRequestActivity)
+
+    // mail
+    fun inject(target : FoldersComponentFragment)
+    fun inject(target : FoldersComponentPresenter)
+    fun inject(target : FolderShortcutsComponentFragment)
+    fun inject(target : FolderShortcutsComponentPresenter)
+    fun inject(target : SenderCarouselComponentFragment)
+    fun inject(target : SenderCarouselComponentPresenter)
+    fun inject(target : MailListComponentFragment)
+    fun inject(target : MailListComponentPresenter)
     fun inject(target : SenderListComponentFragment)
     fun inject(target : SenderListComponentPresenter)
-    fun inject(target : VerificationComponentFragment)
-    fun inject(target : VerificationComponentPresenter)
+
+    // generic
+    fun inject(target : NavBarComponentFragment)
+    fun inject(target : NavBarComponentPresenter)
+
+    // channels
+    fun inject(target : ChannelOverviewComponentFragment)
+    fun inject(target : ChannelOverviewComponentPresenter)
+    fun inject(target : ChannelDetailComponentFragment)
+    fun inject(target : ChannelDetailComponentPresenter)
+    fun inject(target : ChannelRequirementsComponentFragment)
+    fun inject(target : ChannelRequirementsComponentPresenter)
+    fun inject(target : ChannelOpeningComponentFragment)
+    fun inject(target : ChannelOpeningComponentPresenter)
+    fun inject(target : ChannelVerificationComponentFragment)
+    fun inject(target : ChannelVerificationComponentPresenter)
+    fun inject(target : ChannelContentComponentFragment)
+    fun inject(target : ChannelContentComponentPresenter)
+    fun inject(target : ChannelContentStoreboxComponentFragment)
+    fun inject(target : ChannelContentStoreboxComponentPresenter)
+    fun inject(target : ChannelSettingsComponentFragment)
+    fun inject(target : ChannelSettingsComponentPresenter)
+    fun inject(target : ChannelSettingsStoreboxComponentFragment)
+    fun inject(target : ChannelSettingsStoreboxComponentPresenter)
+    fun inject(target : ChannelSettingsOptionsComponentFragment)
+    fun inject(target : ChannelSettingsOptionsComponentPresenter)
 
     // signup
     fun inject(target : SignupComponentPresenter)
@@ -168,8 +197,16 @@ interface PresentationComponent {
     fun inject(target : ForgotPasswordComponentPresenter)
     fun inject(target : ActivationCodeComponentFragment)
     fun inject(target : ActivationCodeComponentPresenter)
-
+  
     // profile
     fun inject(target : MyInformationComponentFragment)
     fun inject(target : MyInformationComponentPresenter)
+
+    // verification
+    fun inject(target : VerificationComponentFragment)
+    fun inject(target : VerificationComponentPresenter)
+
+    // brother
+    fun inject(target : HintActivity)
+    fun inject(target : PermissionRequestActivity)
 }

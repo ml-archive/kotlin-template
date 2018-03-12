@@ -5,11 +5,7 @@ package dk.eboks.app.domain.config
  * Created by joso on 10/08/15.
  */
 data class Mode (
-    var nemIdEnabled : Boolean = false,
-    var bankIdEnabled : Boolean = false,
-    var feedEnabled : Boolean = false,
     var signupEnabled : Boolean = false,
-    var loggedInViaIDPorten : Boolean = false,
     var environment: Environments? = null,
     var urlPrefix: String = "",
     var countryCode: String = "",
