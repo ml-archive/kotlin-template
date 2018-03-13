@@ -187,6 +187,7 @@ interface PresentationComponent {
     fun inject(target : SignupVerificationComponentFragment)
     fun inject(target : MMComponentFragment)
     fun inject(target : CompletedComponentFragment)
+    fun inject(target : AcceptTermsComponentFragment)
 
     // login
     fun inject(target : UserCarouselComponentFragment)

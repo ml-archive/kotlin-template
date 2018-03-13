@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--header-->
+            <TextView
+                android:id="@+id/headerTv"
+                style="@style/text.header1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="40dp"
+                android:text="_Upload and store your important files and pictures in one secure place" />
+
+            <!--progresstext-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="24dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/leftProgressTv"
+                    style="@style/text.body6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="_1 GB " />
+
+                <TextView
+                    android:id="@+id/rightProgressTv"
+                    style="@style/text.body6"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="_700 Mb left"
+                    android:textColor="@color/blueGrey"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@style/OnboardingProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="3.5dp"
+                android:progress="30"
+                android:progressBackgroundTint="@color/white" />
+
+
+            <!--Buttons-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="40dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/photoBtn"
+                    style="@style/button.SolidGradient"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:text="_take photo" />
+
+                <Button
+                    android:id="@+id/fileBtn"
+                    style="@style/button.SolidGradient"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:text="_choose a file" />
+
+            </LinearLayout>
+
+
+            <!-- Get extra free storage row-->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
+
+                <include layout="@layout/include_divider" android:visibility="visible"/>
+
+                <TextView
+                    style="@style/text.header4"
+                    android:text="get 1 fb free"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/text.subHeader5"
+                    android:textColor="@color/blueGrey"
+                    android:text="_and much more"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                
+                <Button
+                    style="@style/buttonRoundedCorners.darkBlueGrey"
+                    android:text="_Verify profile"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:gravity="center"/>
+
+            </FrameLayout>
+
+            <include layout="@layout/include_divider" android:visibility="visible"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

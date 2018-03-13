@@ -63,6 +63,7 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
             v.showError(msg)
             v.showProgress(false)
             v.showRefreshProgress(false)
+            v.showEmpty(true)
         }
     }
 

@@ -267,7 +267,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     override fun setupTranslations() {
         headerTv.text = Translation.logoncredentials.topLabel
         detailTv.text = Translation.logoncredentials.topSublabel
-        cprEmailTil.hint = Translation.logoncredentials.emailfieldHeader
+        cprEmailTil.hint = Translation.logoncredentials.emailOrSSNHeader
         passwordTil.hint = Translation.logoncredentials.passwordfieldHeader
         redOptionTv.visibility = View.VISIBLE
         redOptionTv.text = Translation.logoncredentials.forgotPasswordButton

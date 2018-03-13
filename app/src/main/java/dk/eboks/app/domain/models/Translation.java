@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Mon Mar 12 17:09:12 CET 2018 
+ * Generated: Tue Mar 13 13:33:19 CET 2018 
  */
 
 public class Translation {
@@ -25,6 +25,7 @@ public class Translation {
 		public static String sendersEmptyHeader = "No mails from your senders";
 		public static String sendersEmptyMessage = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
 		public static String addMoreSendersButton = "Add more senders";
+		public static String noMessagesToDisplay = "Theres no mail to display in this folder";
 	}
 	public final static class mainnav {
 		public static String homeButton = "Home";
@@ -76,7 +77,6 @@ public class Translation {
 	public final static class logoncredentials {
 		public static String topLabel = "Good to see you again. We missed you!";
 		public static String topSublabel = "Please fill in your credentials below";
-		public static String emailfieldHeader = "Email";
 		public static String passwordfieldHeader = "Password";
 		public static String placeholder = "Type here";
 		public static String continueButton = "Continue";
@@ -129,6 +129,9 @@ public class Translation {
 		public static String login = "Log in";
 		public static String completedHeader = "Yay! We\'re all set!\r\nWe hope you\'ll enjoy your new all digital inbox!";
 		public static String typeHere = "Type here";
+		public static String termsAcceptButton = "I accept";
+		public static String termsAcceptHeader = "Welcome! To use e-Boks you need to accept the Terms & Conditions.";
+		public static String termsAcceptSubHeader = "Please read & accept to continue";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";
@@ -184,5 +187,6 @@ public class Translation {
 		public static String errorBiometryNotSetUp = "[idtype] is not set up";
 		public static String errorBiometryLocked = "[idtype] is locked";
 		public static String errorUnknownBiometryEvent = "Unknown problem with [idtype]";
+		public static String logonWithBiometryReason = "Use [idtype] to log in";
 	}
 }
