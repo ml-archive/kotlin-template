@@ -18,8 +18,11 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
     {
         if(channel.installed)
         {
-
+            runAction { v-> v.showOpenState(channel) }
         }
+        else
+            runAction { v-> v.showInstallState(channel) }
+
     }
 
 }

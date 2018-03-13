@@ -22,6 +22,6 @@
         android:id="@+id/contentBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <include layout="@layout/include_channel_detail_bottom_install" />
+
     </FrameLayout>
 </LinearLayout>
