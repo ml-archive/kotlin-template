@@ -16,7 +16,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:background="@drawable/circle_white_greyboarder">
+            android:background="@drawable/circle_white_greyborder">
 
             <ImageView
                 android:layout_width="24dp"

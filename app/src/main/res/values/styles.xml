@@ -22,7 +22,6 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-
     <!-- Header 0 -->
     <style name="text.header0">
         <item name="android:textSize">@dimen/text_size_header_0</item>
@@ -289,5 +288,23 @@
         <item name="android:colorControlActivated">#00f</item>
     </style>
     -->
+
+    <style name="ToolbarTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/text_size_header_2</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:elevation">2dp</item>
+
+        <!-- Activate the ripple effect when a toolbar menu item is clicked https://stackoverflow.com/a/30759118/1502079 -->
+        <item name="colorControlHighlight">@color/textColorSecondary</item>
+        <!-- https://stackoverflow.com/a/30977835/1502079 -->
+        <item name="actionBarItemBackground">?attr/selectableItemBackground</item>
+        <item name="colorControlNormal">@color/toolbarNormalColor</item>
+        <item name="actionMenuTextColor">@color/toolbarNormalColor</item>
+    </style>
 
 </resources>

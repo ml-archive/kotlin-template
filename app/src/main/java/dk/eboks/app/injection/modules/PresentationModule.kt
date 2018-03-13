@@ -10,6 +10,7 @@ import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
+import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
@@ -89,6 +90,8 @@ import dk.eboks.app.presentation.ui.screens.start.StartContract
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningContract
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
+import dk.eboks.app.presentation.ui.screens.senders.overview.BrowseCategoryContract
+import dk.eboks.app.presentation.ui.screens.senders.overview.BrowseCategoryPresenter
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewContract
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.nodes.arch.domain.executor.Executor
@@ -375,8 +378,14 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideCategoriesComponentPresenter(stateManager: AppStateManager) : CategoriesComponentContract.Presenter {
-        return CategoriesComponentPresenter(stateManager)
+    fun provideCategoriesComponentPresenter(stateManager: AppStateManager, getSenderCategoriesInteractor: GetSenderCategoriesInteractor) : CategoriesComponentContract.Presenter {
+        return CategoriesComponentPresenter(stateManager, getSenderCategoriesInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideBrowseCategoryPresenter(stateManager: AppStateManager) : BrowseCategoryContract.Presenter {
+        return BrowseCategoryPresenter(stateManager)
     }
 
 

@@ -77,6 +77,7 @@ import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
+import dk.eboks.app.presentation.ui.screens.senders.overview.BrowseCategoryActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
@@ -179,8 +180,10 @@ interface PresentationComponent {
     fun inject(target : ChannelSettingsOptionsComponentFragment)
     fun inject(target : ChannelSettingsOptionsComponentPresenter)
 
-
+    // senders
     fun inject(target : CategoriesComponentFragment)
+    fun inject(target : CategoriesComponentPresenter)
+    fun inject(target : BrowseCategoryActivity)
 
     // signup
     fun inject(target : SignupComponentPresenter)

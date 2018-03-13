@@ -8,6 +8,7 @@
     <color name="blueGrey">#7f9aa3</color>
     <color name="rouge">#A8242F</color>
     <color name="rougeTwo">#BC1E3D</color>
+    <color name="rougeThree">#872058</color>
     <color name="silver">#C1CED2</color>
     <color name="white">#FFF</color>
 
@@ -38,7 +39,8 @@
 
     <color name="blueGreyBorderColor">#c1ced2</color>
     <color name="transparent">#0000</color>
-    <color name="transparentWhite">#32ffffff</color>
+    <color name="transparentWhite">#3fff</color>
+    <color name="transparentBlack">#3000</color>
     <color name="greyBoarder">#c1ced2</color>
 
 </resources>

@@ -1,17 +1,18 @@
 package dk.eboks.app.presentation.ui.screens.senders.overview
 
 import android.os.Bundle
-import android.widget.ImageButton
+import android.view.MenuItem
+import android.widget.Toast
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
-import kotlinx.android.synthetic.main.include_toolnar.*
-import kotlinx.android.synthetic.main.include_toolnar.view.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
 
 class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
-    @Inject lateinit var presenter: SendersOverviewContract.Presenter
+    @Inject
+    lateinit var presenter: SendersOverviewContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,14 +24,26 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
 
     private fun setupTopBar() {
 //
-//        val v = ImageButton(this)
-//        v.setImageResource(R.drawable.search)
-//
-//        mainTb.navigationIcon = null
-//        mainTb.addView(v)
-//        mainTb.title = Translation.senders.title
+        mainTb.navigationIcon = null
+//        mainTb.setNavigationIcon(R.drawable.search)
+//        mainTb.setNavigationOnClickListener {
+//            Toast.makeText(this, "Halloooooo", Toast.LENGTH_SHORT).show()
+//        }
+        mainTb.title = Translation.senders.title
+        val menuRegist = mainTb.menu.add("Registrations")
+        menuRegist.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        menuRegist.setOnMenuItemClickListener { item: MenuItem ->
+            Toast.makeText(this, "Registrations", Toast.LENGTH_SHORT).show()
+            true
+        }
+        val menuSearch = mainTb.menu.add("search")
+        menuSearch.setIcon(R.drawable.search)
+        menuSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        menuSearch.setOnMenuItemClickListener { item: MenuItem ->
+            Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show()
+            true
+        }
 
-        setToolbar(R.drawable.search, Translation.senders.title, null, null,true, true, "REGISTRATIONS")
     }
 
     override fun setupTranslations() {

@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.senders.categories
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.LayoutInflaterCompat
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.senders.overview.BrowseCategoryActivity
 import kotlinx.android.synthetic.main.fragment_senders_categories_component.*
 import kotlinx.android.synthetic.main.fragment_signup_terms_component.view.*
 import kotlinx.android.synthetic.main.viewholder_sender_category.view.*
@@ -41,8 +43,17 @@ class CategoriesComponentFragment : BaseFragment(), CategoriesComponentContract.
             val v = LayoutInflater.from(context).inflate(R.layout.viewholder_sender_category, null)
             v.categoryNameTv.text = it.name
             v.categoryCountTv.text = "${it.numberOfSenders}"
+            v.setOnClickListener { v ->
+                val i = Intent(context, BrowseCategoryActivity::class.java )
+                i.putExtra(SenderCategory::class.simpleName, it)
+                startActivity(i)
+            }
             categoriesLl.addView(v)
         }
+    }
+
+    override fun showError(message: String) {
+        //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun setupTranslations() {

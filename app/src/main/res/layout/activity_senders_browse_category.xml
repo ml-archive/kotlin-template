@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/include_toolbar"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <com.l4digital.fastscroll.FastScrollRecyclerView
+        android:id="@+id/browseCatRv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        app:bubbleColor="@null"
+        app:bubbleTextColor="@color/colorPrimary"
+        app:handleColor="@color/rouge"
+        app:trackColor="@color/transparentBlack"
+        app:hideScrollbar="false"
+        app:showTrack="true">
+
+    </com.l4digital.fastscroll.FastScrollRecyclerView>
+
+</FrameLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
