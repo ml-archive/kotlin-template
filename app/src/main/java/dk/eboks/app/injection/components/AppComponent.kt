@@ -3,6 +3,7 @@ package dk.eboks.app.injection.components
 import dagger.Component
 import dk.eboks.app.App
 import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
@@ -65,4 +66,5 @@ interface AppComponent
     fun getChannelsInteractor() : GetChannelsInteractor
     fun createUserInteractor() : CreateUserInteractor
     fun getUsersInteractor() : GetUsersInteractor
+    fun getChannelInteractor() : GetChannelInteractor
 }

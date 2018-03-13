@@ -2,15 +2,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/backgroundColor"
     android:orientation="vertical">
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"></View>
 
 
     <View
@@ -22,16 +16,17 @@
         />
 
     <TextView
+        android:id="@+id/descriptionTv"
         style="@style/text.subHeader5.quaternary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Verify your profile to accesthis channel"
+        android:text="_Verify your profile to access this channel"
         android:layout_marginBottom="16dp"/>
 
     <Button
         style="@style/buttonRoundedCorners.Tintable"
-        android:id="@+id/installBtn"
+        android:id="@+id/verifyBtn"
         android:backgroundTint="#0fa5c5"
         android:layout_marginBottom="40dp"
         android:layout_width="295dp"

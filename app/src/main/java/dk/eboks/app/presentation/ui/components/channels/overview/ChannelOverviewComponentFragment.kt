@@ -59,7 +59,6 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
         startActivity(Intent(activity, ChannelsOpeningActivity::class.java))
     }
 
-
     inner class ChannelAdapter : RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder>() {
 
         inner class ChannelViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
@@ -118,23 +117,25 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 holder?.backgroundColorLl?.background?.setTint(Color.parseColor(backgroundcolor))
                 holder?.headlineTv?.setText(currentCard.payoff)
 
-
                 holder?.nameTv?.setText(currentCard.name)
                 // todo get translations and confirm the logic is correct
                 if (currentCard.installed == true) {
                     holder?.button?.setText(Translation.channels.open)
+                    holder?.button?.setOnClickListener { presenter.open(currentCard)}
+
                 } else {
                     holder?.button?.setText(Translation.channels.install)
+                    holder?.button?.setOnClickListener { presenter.install(currentCard)}
                 }
 
                 holder?.cardContainerCv?.setOnClickListener(View.OnClickListener {
-                    var currentChannel = cards.get(position)
+
                     holder?.cardContainerCv?.animate()?.scaleX(0.9f)?.scaleY(0.9f)?.setDuration(100)?.
                             setInterpolator(CycleInterpolator(0.5f))?.
                             setListener(object : Animator.AnimatorListener {
                                 override fun onAnimationRepeat(p0: Animator?) {}
                                 override fun onAnimationEnd(p0: Animator?) {
-                                    presenter.openChannel(currentChannel)
+                                    presenter.openChannel(currentCard)
                                 }
                                 override fun onAnimationCancel(p0: Animator?) {}
                                 override fun onAnimationStart(p0: Animator?) {}

@@ -30,6 +30,19 @@ class ChannelOverviewComponentPresenter @Inject constructor(val appState: AppSta
 
     override fun openChannel(channel: Channel) {
         appState.state?.channelState?.selectedChannel = channel
+        appState.state?.channelState?.openOrInstallImmediately = false
+        runAction { v-> v.showChannelOpening() }
+    }
+
+    override fun install(channel: Channel) {
+        appState.state?.channelState?.selectedChannel = channel
+        appState.state?.channelState?.openOrInstallImmediately = true
+        runAction { v-> v.showChannelOpening() }
+    }
+
+    override fun open(channel: Channel) {
+        appState.state?.channelState?.selectedChannel = channel
+        appState.state?.channelState?.openOrInstallImmediately = true
         runAction { v-> v.showChannelOpening() }
     }
 

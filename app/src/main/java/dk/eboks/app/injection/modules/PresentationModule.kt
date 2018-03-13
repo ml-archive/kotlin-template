@@ -3,6 +3,7 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
@@ -331,8 +332,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelOpeningComponentPresenter(stateManager: AppStateManager) : ChannelOpeningComponentContract.Presenter {
-        return ChannelOpeningComponentPresenter(stateManager)
+    fun provideChannelOpeningComponentPresenter(stateManager: AppStateManager, getChannelInteractor: GetChannelInteractor) : ChannelOpeningComponentContract.Presenter {
+        return ChannelOpeningComponentPresenter(stateManager, getChannelInteractor)
     }
 
     @ActivityScope
