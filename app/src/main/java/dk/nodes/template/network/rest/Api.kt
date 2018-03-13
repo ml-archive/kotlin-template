@@ -12,9 +12,13 @@ import retrofit2.http.GET
  */
 
 interface Api {
-    @GET("posts") fun getPosts() : Call<List<Post>>
-    @GET("photos") fun getPhotos() : Call<List<Photo>>
+    @GET("posts")
+    fun getPosts(): Call<List<Post>>
+
+    @GET("photos")
+    fun getPhotos(): Call<List<Photo>>
 
     // buffered version (for use with NYT Store lib)
-    @GET("posts") fun getPostsBuffered() : Single<BufferedSource>
+    @GET("posts")
+    fun getPostsBuffered(): Single<BufferedSource>
 }

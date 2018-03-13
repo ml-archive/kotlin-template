@@ -14,7 +14,7 @@ import dk.nodes.template.presentation.ui.main.MainPresenter
 class PresentationModule {
     @ActivityScope
     @Provides
-    fun provideMainPresenter(getPostsInteractor: GetPostsInteractor) : MainContract.Presenter {
+    fun provideMainPresenter(getPostsInteractor: GetPostsInteractor): MainContract.Presenter {
         return MainPresenter(getPostsInteractor)
     }
 }

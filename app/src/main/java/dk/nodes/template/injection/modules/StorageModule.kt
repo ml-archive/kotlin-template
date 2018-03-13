@@ -14,8 +14,7 @@ import dk.nodes.template.storage.PrefManagerImpl
 class StorageModule {
     @Provides
     @AppScope
-    fun providePrefManager(context: Context) : PrefManager
-    {
+    fun providePrefManager(context: Context): PrefManager {
         return PrefManagerImpl(context)
     }
 }

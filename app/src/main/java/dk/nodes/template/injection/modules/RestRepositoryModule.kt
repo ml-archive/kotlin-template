@@ -16,8 +16,7 @@ import dk.nodes.template.network.rest.StorePostRepository
 class RestRepositoryModule {
     @Provides
     @AppScope
-    fun providePostRepository(api: Api, gson: Gson, context: Context) : PostRepository
-    {
+    fun providePostRepository(api: Api, gson: Gson, context: Context): PostRepository {
         return StorePostRepository(api, gson, context)
     }
 }
