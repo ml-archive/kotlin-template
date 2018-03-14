@@ -67,6 +67,8 @@ import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentFra
 import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
+import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
 import dk.eboks.app.presentation.ui.components.start.signup.*
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
@@ -79,6 +81,8 @@ import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
+import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity
+import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
@@ -156,6 +160,7 @@ interface PresentationComponent {
     fun inject(target : MailListComponentPresenter)
     fun inject(target : SenderListComponentFragment)
     fun inject(target : SenderListComponentPresenter)
+    fun inject(target : SearchSendersActivity)
 
     // generic
     fun inject(target : NavBarComponentFragment)
@@ -180,6 +185,11 @@ interface PresentationComponent {
     fun inject(target : ChannelSettingsStoreboxComponentPresenter)
     fun inject(target : ChannelSettingsOptionsComponentFragment)
     fun inject(target : ChannelSettingsOptionsComponentPresenter)
+
+    // senders
+    fun inject(target : CategoriesComponentFragment)
+    fun inject(target : CategoriesComponentPresenter)
+    fun inject(target : BrowseCategoryActivity)
 
     // signup
     fun inject(target : SignupComponentPresenter)

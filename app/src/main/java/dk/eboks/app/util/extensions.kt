@@ -1,6 +1,7 @@
 package dk.eboks.app.util
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
@@ -9,6 +10,8 @@ import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
+import com.l4digital.fastscroll.FastScrollRecyclerView
+import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.domain.config.Config
 import timber.log.BuildConfig
 import timber.log.Timber
@@ -90,4 +93,17 @@ fun Editable.isValidActivationCode() : Boolean {
 
 inline fun <T> T.guard(block: T.() -> Unit): T {
     if (this == null) block(); return this
+}
+
+fun FastScrollRecyclerView.setBubbleDrawable(drawable: Drawable) {
+    FastScrollRecyclerView::class.java.getDeclaredField("mFastScroller").let {
+        it.isAccessible = true
+        val scroller = it.get(this) as FastScroller
+
+        FastScroller::class.java.getDeclaredField("mBubbleView").let {
+            it.isAccessible = true
+            val bubbleView = it.get(scroller) as View
+            bubbleView.background = drawable
+        }
+    }
 }

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/senderDetailABL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/senderDetailCTL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:contentScrim="@drawable/square_gradient"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/square_gradient"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_normal"
+                app:layout_collapseMode="parallax">
+
+                <ImageView
+                    android:id="@+id/senderDetailIv"
+                    android:layout_width="92dp"
+                    android:layout_height="92dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin_normal"
+                    android:background="@drawable/circle_white_white_ring"
+                    android:padding="@dimen/margin_normal"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_72_senders_private"/>
+
+                <TextView
+                    android:id="@+id/senderDetailNameTv"
+                    style="@style/text.header2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Radius"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:id="@+id/senderDetailBodyTv"
+                    style="@style/text.header4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_half"
+                    android:text="Radius padius radius padius adius padius radius padius adius"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"/>
+
+                <ToggleButton
+                    android:id="@+id/senderDetailRegisterTB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:minHeight="0dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/margin_normal"
+                    android:paddingLeft="@dimen/margin_normal"
+                    android:paddingRight="@dimen/margin_normal"
+                    android:paddingTop="@dimen/margin_half"
+                    android:paddingBottom="@dimen/margin_half"
+                    android:gravity="center"
+                    android:background="@drawable/ripple_rounded_white"
+                    android:textColor="@color/selector_red_grey_white"
+                    android:checkMark="@drawable/icon_48_checkmark_white"
+                    android:textSize="14sp"
+                    android:textAllCaps="false"
+                    android:textOn="regis"
+                    android:textOff="regis"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/senderDetailTB"
+                android:theme="@style/ToolbarTheme.Secondary"
+                app:titleTextAppearance="@style/ToolbarTitle.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_cross_white"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/include_sender_detail_bottom"></include>
+
+            <include layout="@layout/include_sender_detail_bottom"></include>
+
+            <include layout="@layout/include_sender_detail_bottom"></include>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

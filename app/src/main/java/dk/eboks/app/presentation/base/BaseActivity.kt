@@ -6,6 +6,7 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.view.KeyEvent
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.injection.components.DaggerPresentationComponent
@@ -94,13 +95,17 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         return super.onKeyDown(keyCode, event)
     }
 
+    fun getToolbar() : Toolbar {
+        return mainTb
+    }
+
     fun setToolbar(iconResId : Int, title : String? = null, subtitle : String? = null, callback : (()->Unit)? = null, hideIcon : Boolean=false, showImgIcon : Boolean=false, redOptionsText : String? = null, userShareTvAllignedLeft : Boolean=false)
     {
-        findViewById<ImageView>(R.id.toolbarIb)?.let {
+        toolbarIb?.let {
             it.setImageResource(iconResId)
             it.setOnClickListener { callback?.invoke() }
         }
-        findViewById<TextView>(R.id.toolbarTv)?.let {
+        toolbarTv?.let {
             if(title != null) {
                 it.visibility = View.VISIBLE
                 it.text = title
@@ -108,7 +113,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
             else
                 it.visibility = View.GONE
         }
-        findViewById<TextView>(R.id.toolbarSubTv)?.let {
+       toolbarSubTv?.let {
             if(subtitle != null) {
                 it.visibility = View.VISIBLE
                 it.text = subtitle

@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:background="@color/white"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <include layout="@layout/include_toolnar"  />
-    <include layout="@layout/include_navigation_view"  />
+    <include layout="@layout/include_toolbar"/>
 
-    <fragment
-        android:id="@+id/testComponentFragment"
+    <include layout="@layout/include_navigation_view"/>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:background="@color/backgroundColor"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/margin_normal">
+
+            <fragment
+                android:id="@+id/sendersListComponentF"
+                android:name="dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <fragment
+                android:id="@+id/sendersCategoriesFrag"
+                android:name="dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 </android.support.design.widget.CoordinatorLayout>

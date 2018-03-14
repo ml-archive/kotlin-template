@@ -11,7 +11,9 @@ import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
+import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
+import dk.eboks.app.domain.interactors.sender.SearchSendersInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
@@ -79,6 +81,8 @@ import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentCon
 import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentContract
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentContract
+import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentContract
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentPresenter
@@ -94,6 +98,8 @@ import dk.eboks.app.presentation.ui.screens.start.StartContract
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningContract
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
+import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryContract
+import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryPresenter
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewContract
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.nodes.arch.domain.executor.Executor
@@ -263,7 +269,6 @@ class PresentationModule {
         return ChannelOverviewComponentPresenter(stateManager, getChannelsInteractor)
     }
 
-
     @ActivityScope
     @Provides
     fun provideChannelSettingsPopUpComponentPresenter(stateManager: AppStateManager) : ChannelRequirementsComponentContract.Presenter {
@@ -389,6 +394,18 @@ class PresentationModule {
     @Provides
     fun provideAcceptTermsComponentPresenter(stateManager: AppStateManager) : AcceptTermsComponentContract.Presenter {
         return AcceptTermsComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideCategoriesComponentPresenter(stateManager: AppStateManager, getSenderCategoriesInteractor: GetSenderCategoriesInteractor) : CategoriesComponentContract.Presenter {
+        return CategoriesComponentPresenter(stateManager, getSenderCategoriesInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideBrowseCategoryPresenter(stateManager: AppStateManager, searchSendersInteractor: SearchSendersInteractor) : BrowseCategoryContract.Presenter {
+        return BrowseCategoryPresenter(stateManager, searchSendersInteractor)
     }
     /* Pasta
     @ActivityScope

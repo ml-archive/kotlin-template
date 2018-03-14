@@ -4,7 +4,11 @@
     <dimen name="screen_horizontal_margin">16dp</dimen>
     <dimen name="screen_vertical_margin">16dp</dimen>
     <dimen name="list_top_padding">8dp</dimen>
+    <dimen name="margin_half">8dp</dimen>
     <dimen name="margin_normal">16dp</dimen>
+    <dimen name="margin_vertical">10dp</dimen>
+
+    <dimen name="card_elevation">4dp</dimen>
 
     <dimen name="text_size_header_0">34sp</dimen>
     <dimen name="text_size_header_1">20sp</dimen>

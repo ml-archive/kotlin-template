@@ -50,8 +50,12 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity" />
+
         <activity android:name="dk.eboks.app.system.managers.permission.PermissionRequestActivity" />
-        <activity android:name="dk.eboks.app.presentation.base.SheetComponentActivity" />
+        <activity android:name="dk.eboks.app.presentation.base.SheetComponentActivity" android:theme="@style/TransTheme" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
