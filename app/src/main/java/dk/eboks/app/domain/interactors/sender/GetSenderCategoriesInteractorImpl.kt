@@ -14,7 +14,7 @@ class GetSenderCategoriesInteractorImpl(executor: Executor) : BaseInteractor(exe
 
     override fun execute() {
         try {
-            // mock TODO: Change to REST
+            // mock! TODO: Change to REST
             val cats = ArrayList<SenderCategory>()
             for(i in 0..30) {
                 cats.add(SenderCategory(i.toLong(), "Cat-$i", (Math.random()*100).toInt()))

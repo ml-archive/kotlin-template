@@ -77,7 +77,8 @@ import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
-import dk.eboks.app.presentation.ui.screens.senders.overview.BrowseCategoryActivity
+import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity
+import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
@@ -153,6 +154,7 @@ interface PresentationComponent {
     fun inject(target : MailListComponentPresenter)
     fun inject(target : SenderListComponentFragment)
     fun inject(target : SenderListComponentPresenter)
+    fun inject(target : SearchSendersActivity)
 
     // generic
     fun inject(target : NavBarComponentFragment)

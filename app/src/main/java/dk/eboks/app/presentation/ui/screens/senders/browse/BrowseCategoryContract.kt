@@ -1,7 +1,7 @@
-package dk.eboks.app.presentation.ui.screens.senders.overview
+package dk.eboks.app.presentation.ui.screens.senders.browse
 
 import dk.eboks.app.domain.models.Sender
-import dk.eboks.app.domain.models.SenderCategory
+import dk.eboks.app.presentation.base.ComponentBaseView
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 
@@ -10,12 +10,13 @@ import dk.nodes.arch.presentation.base.BaseView
  * Copied by chnt on 12-03-2018
  */
 interface BrowseCategoryContract {
-    interface View : BaseView {
-        fun showSenders(categories: List<Sender>)
+    interface View : BaseView, ComponentBaseView {
+        fun showSenders(senders: List<Sender>)
         fun showError(msg: String)
     }
 
     interface Presenter : BasePresenter<View> {
         fun loadSenders(senderId : Long)
+        fun searchSenders(searchText : String)
     }
 }

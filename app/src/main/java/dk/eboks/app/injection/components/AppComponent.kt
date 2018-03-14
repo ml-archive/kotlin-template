@@ -12,6 +12,7 @@ import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
+import dk.eboks.app.domain.interactors.sender.SearchSendersInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
 import dk.eboks.app.domain.managers.*
@@ -67,4 +68,5 @@ interface AppComponent
     fun createUserInteractor() : CreateUserInteractor
     fun getUsersInteractor() : GetUsersInteractor
     fun getSenderCategoriesInteractor() : GetSenderCategoriesInteractor
+    fun getSearchSendersInterActor() : SearchSendersInteractor
 }

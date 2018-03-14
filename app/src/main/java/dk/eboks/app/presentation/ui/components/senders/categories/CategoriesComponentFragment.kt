@@ -1,20 +1,17 @@
 package dk.eboks.app.presentation.ui.components.senders.categories
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.view.LayoutInflaterCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.screens.senders.overview.BrowseCategoryActivity
+import dk.eboks.app.presentation.base.ComponentBaseView
+import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity
 import kotlinx.android.synthetic.main.fragment_senders_categories_component.*
-import kotlinx.android.synthetic.main.fragment_signup_terms_component.view.*
 import kotlinx.android.synthetic.main.viewholder_sender_category.view.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -22,6 +19,7 @@ import javax.inject.Inject
  * Copied by chnt on 12-03-2018
  */
 class CategoriesComponentFragment : BaseFragment(), CategoriesComponentContract.View {
+
 
     @Inject
     lateinit var presenter : CategoriesComponentContract.Presenter
@@ -53,7 +51,7 @@ class CategoriesComponentFragment : BaseFragment(), CategoriesComponentContract.
     }
 
     override fun showError(message: String) {
-        //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun setupTranslations() {

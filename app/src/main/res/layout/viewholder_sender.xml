@@ -12,43 +12,49 @@
         android:layout_height="60dp"
         android:gravity="center"
         android:lines="1"
-        android:text="A"/>
+        android:text="A"
+        android:visibility="gone"/>
 
-    <ImageView
-        android:id="@+id/senderLogoIv"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/margin_normal"
-        android:layout_marginRight="@dimen/margin_normal"
-        android:background="@drawable/circle_white_greyborder"
-        android:padding="8dp"
-        android:src="@drawable/icon_48_delete_red"/>
-
-    <FrameLayout
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/senderMainLl"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="?selectableItemBackground"
-        android:clickable="true">
+        android:orientation="horizontal"
+        android:background="?selectableItemBackground">
 
-        <TextView
-            android:id="@+id/senderNameTv"
-            style="@style/text.header4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+        <ImageView
+            android:id="@+id/senderLogoIv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/margin_normal"
             android:layout_marginRight="@dimen/margin_normal"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:lines="1"
-            android:text="Arbejdernes Landsbank"/>
+            android:background="@drawable/circle_white_greyborder"
+            android:padding="8dp"
+            android:src="@drawable/icon_48_delete_red"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/dividerGreyBlue"
-            android:layout_gravity="bottom"/>
-    </FrameLayout>
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
+            <TextView
+                android:id="@+id/senderNameTv"
+                style="@style/text.header4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:lines="1"
+                android:text="Arbejdernes Landsbank"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_gravity="bottom"
+                android:background="@color/dividerGreyBlue"/>
+        </FrameLayout>
+    </LinearLayout>
 </LinearLayout>

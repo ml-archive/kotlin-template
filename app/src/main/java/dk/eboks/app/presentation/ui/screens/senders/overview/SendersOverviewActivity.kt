@@ -1,11 +1,13 @@
 package dk.eboks.app.presentation.ui.screens.senders.overview
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -40,7 +42,7 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
         menuSearch.setIcon(R.drawable.search)
         menuSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuSearch.setOnMenuItemClickListener { item: MenuItem ->
-            Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, SearchSendersActivity::class.java ))
             true
         }
 

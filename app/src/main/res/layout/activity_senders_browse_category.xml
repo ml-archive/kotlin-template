@@ -26,6 +26,12 @@
 
     </com.l4digital.fastscroll.FastScrollRecyclerView>
 
+        <ProgressBar
+            android:id="@+id/browseCatPb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
 </FrameLayout>
 
 

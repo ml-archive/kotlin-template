@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple android:color="@color/darkGreyBlue" xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <selector>
+            <item android:state_checked="true">
+                <shape android:shape="rectangle">
+                    <corners android:radius="18dp"/>
+                    <solid android:color="@color/transparentWhite"/>
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="18dp"/>
+                    <solid android:color="@color/white"/>
+                </shape>
+            </item>
+        </selector>
+    </item>
+</ripple>

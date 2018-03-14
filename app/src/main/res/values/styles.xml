@@ -64,7 +64,7 @@
     <style name="text.header4">
         <item name="android:textSize">@dimen/text_size_header_4</item>
         <item name="android:lineSpacingExtra">4sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="text.header4.secondary">
@@ -294,6 +294,9 @@
         <item name="android:textColor">@color/textColorPrimary</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
+    <style name="ToolbarTitle.Secondary">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
 
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
@@ -305,6 +308,12 @@
         <item name="actionBarItemBackground">?attr/selectableItemBackground</item>
         <item name="colorControlNormal">@color/toolbarNormalColor</item>
         <item name="actionMenuTextColor">@color/toolbarNormalColor</item>
+    </style>
+
+    <style name="ToolbarTheme.Secondary">
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="colorControlNormal">@color/textColorPrimary</item>
+        <item name="actionMenuTextColor">@color/textColorPrimary</item>
     </style>
 
 </resources>

@@ -10,10 +10,7 @@ import dk.eboks.app.domain.interactors.folder.GetFoldersInteractorImpl
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractorImpl
 import dk.eboks.app.domain.interactors.message.*
-import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
-import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractorImpl
-import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
-import dk.eboks.app.domain.interactors.sender.GetSendersInteractorImpl
+import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractorImpl
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
@@ -101,5 +98,10 @@ class InteractorModule {
     @Provides
     fun provideGetSenderCategoriesInteractor(executor: Executor) : GetSenderCategoriesInteractor {
         return GetSenderCategoriesInteractorImpl(executor)
+    }
+
+    @Provides
+    fun provideSearchSendersInterActor(executor: Executor) : SearchSendersInteractor {
+        return SearchSendersInteractorImpl(executor)
     }
 }
