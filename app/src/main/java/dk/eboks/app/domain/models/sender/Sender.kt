@@ -1,6 +1,7 @@
 package dk.eboks.app.domain.models.sender
 
 import java.io.Serializable
+import dk.eboks.app.domain.models.Image
 
 /**
  * Created by bison on 24-06-2017.
