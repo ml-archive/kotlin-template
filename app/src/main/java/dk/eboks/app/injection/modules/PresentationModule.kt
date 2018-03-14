@@ -3,7 +3,6 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
-import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
@@ -82,8 +81,6 @@ import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContr
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
-import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContract
-import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewContract
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.start.StartContract
@@ -259,6 +256,7 @@ class PresentationModule {
         return ChannelOverviewComponentPresenter(stateManager, getChannelsInteractor)
     }
 
+
     @ActivityScope
     @Provides
     fun provideChannelSettingsPopUpComponentPresenter(stateManager: AppStateManager) : ChannelRequirementsComponentContract.Presenter {
@@ -324,6 +322,12 @@ class PresentationModule {
     @Provides
     fun provideActivationCodeComponentPresenter(stateManager: AppStateManager) : ActivationCodeComponentContract.Presenter {
         return ActivationCodeComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideMyInformationComponentPresenter(stateManager: AppStateManager) : MyInformationComponentContract.Presenter {
+        return MyInformationComponentPresenter(stateManager)
     }
 
     @ActivityScope

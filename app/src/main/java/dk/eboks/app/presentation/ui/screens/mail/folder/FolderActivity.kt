@@ -35,7 +35,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
     }
 
     override fun setupTranslations() {
-        setToolbarLarge(R.drawable.ic_menu_mail, Translation.folders.foldersHeader)
+        setToolbar(R.drawable.ic_menu_mail, Translation.folders.foldersHeader)
     }
 
 

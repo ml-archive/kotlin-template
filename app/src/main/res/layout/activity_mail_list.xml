@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 android:background="@color/white"
-                                                 xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <include layout="@layout/include_toolnar"  />
+    <include layout="@layout/include_toolnar" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
@@ -21,12 +21,12 @@
             android:layout_height="0.5dp"
             android:background="@color/dividerGreyBlue" />
 
-        <fragment
-            android:id="@+id/mailListComponentFragment"
-            android:name="dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentFragment"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+                <fragment
+                    android:id="@+id/mailListComponentFragment"
+                    android:name="dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
         <FrameLayout
             android:layout_width="match_parent"

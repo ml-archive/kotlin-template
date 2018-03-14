@@ -268,6 +268,16 @@
         <item name="android:colorControlActivated">@color/textColorSecondary</item>
     </style>
 
+    <style name="TextInputLayoutMyProfileTheme" parent="AppTheme">
+        <item name="colorAccent">@color/white</item>
+        <item name="android:colorPrimary">@color/white</item>
+        <item name="android:colorControlActivated">@color/white</item>
+    </style>
+
+    <style name="MaterialTextInputLayoutMyProfileTheme" parent="AppTheme">
+        <item name="android:colorPrimary">@color/blueGrey</item>
+    </style>
+
     <style name="EditText">
         <item name="android:textColor">@color/darkGreyBlue</item>
         <item name="android:textSize">16sp</item>

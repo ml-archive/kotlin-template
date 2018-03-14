@@ -95,7 +95,8 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
 
         override fun onBindViewHolder(holder: CircularSenderViewHolder?, position: Int) {
             holder?.circleIv?.let {
-                Glide.with(context).load(senders[position].logo).into(it)
+                if(senders[position].logo != null)
+                    Glide.with(context).load(senders[position].logo?.url).into(it)
                 it.isSelected = senders[position].unreadCount > 0
             }
         }

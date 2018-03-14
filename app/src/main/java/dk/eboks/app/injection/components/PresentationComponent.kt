@@ -63,6 +63,8 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
+import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentFragment
+import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
@@ -197,6 +199,10 @@ interface PresentationComponent {
     fun inject(target : ForgotPasswordComponentPresenter)
     fun inject(target : ActivationCodeComponentFragment)
     fun inject(target : ActivationCodeComponentPresenter)
+  
+    // profile
+    fun inject(target : MyInformationComponentFragment)
+    fun inject(target : MyInformationComponentPresenter)
 
     // verification
     fun inject(target : VerificationComponentFragment)

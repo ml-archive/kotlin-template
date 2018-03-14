@@ -9,5 +9,5 @@ data class Sender(
     var id : Long,
     var name : String = "",
     var unreadCount : Int = 0,
-    var logo : String = ""
+    var logo : Image? = null
 ) : Serializable

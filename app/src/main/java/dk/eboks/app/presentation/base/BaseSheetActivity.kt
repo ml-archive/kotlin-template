@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.base
 
 import android.animation.ArgbEvaluator
+import android.app.Activity
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.ShapeDrawable
@@ -16,6 +17,7 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.animation.*
+import android.view.inputmethod.InputMethodManager
 import timber.log.Timber
 
 
@@ -63,6 +65,7 @@ abstract class BaseSheetActivity : BaseActivity() {
             //Timber.e("State changed to $newState")
             if(newState == BottomSheetBehavior.STATE_HIDDEN)
             {
+
                 shouldClose = true
                 finish()
                 overridePendingTransition(0,0)
@@ -74,6 +77,7 @@ abstract class BaseSheetActivity : BaseActivity() {
             }
             if(newState == BottomSheetBehavior.STATE_DRAGGING)
             {
+                hideKeyboard(bottomSheet)
                 if(oldState == BottomSheetBehavior.STATE_COLLAPSED)
                 {
                     touchVeilV.visibility = View.VISIBLE
@@ -97,6 +101,11 @@ abstract class BaseSheetActivity : BaseActivity() {
             oldState = newState
         }
 
+    }
+
+    private fun hideKeyboard(bottomSheet: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(bottomSheet.windowToken, 0)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
