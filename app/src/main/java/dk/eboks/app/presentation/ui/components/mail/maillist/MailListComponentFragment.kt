@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
@@ -48,7 +49,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     override fun setupTranslations() {
-
+            noMessagesTv.text = Translation.mail.noMessagesToDisplay
     }
 
     override fun onShake() {

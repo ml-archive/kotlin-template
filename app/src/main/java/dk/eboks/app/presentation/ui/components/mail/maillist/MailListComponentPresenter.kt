@@ -62,15 +62,20 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
             v.showError(msg)
             v.showProgress(false)
             v.showRefreshProgress(false)
+            v.showEmpty(true)
         }
     }
 
     override fun onOpenMessageDone() {
-        runAction { v-> v.showProgress(false) }
+        runAction {
+            v-> v.showProgress(false)
+        }
     }
 
     override fun onOpenMessageError(msg: String) {
-        runAction { v-> v.showProgress(false) }
+        runAction {
+            v-> v.showProgress(false)
+        }
         Timber.e(msg)
     }
 }

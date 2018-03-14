@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Fri Mar 09 14:43:04 CET 2018 
+ * Generated: Tue Mar 13 13:33:19 CET 2018 
  */
 
 public class Translation {
@@ -11,6 +11,7 @@ public class Translation {
 		public static String ok = "Ok";
 		public static String cancel = "Cancel";
 		public static String yes = "Yes";
+		public static String back = "Back";
 	}
 	public final static class error {
 		public static String errorMessage10100 = "Something wrong with server";
@@ -24,6 +25,7 @@ public class Translation {
 		public static String sendersEmptyHeader = "No mails from your senders";
 		public static String sendersEmptyMessage = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
 		public static String addMoreSendersButton = "Add more senders";
+		public static String noMessagesToDisplay = "Theres no mail to display in this folder";
 	}
 	public final static class mainnav {
 		public static String homeButton = "Home";
@@ -58,6 +60,12 @@ public class Translation {
 		public static String signUpHere = "Sign up here";
 		public static String senderCount = "[senderCount] senders";
 		public static String allCategories = "All categories";
+		public static String registered = "Registered";
+		public static String registerAlertTitle = "You are about to register";
+		public static String unregister = "Unregister";
+		public static String unregisterAlertTitle = "Are you sure you want to unregister?";
+		public static String registerAlertDescription = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
+		public static String unregisterAlertDescription = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
 	}
 	public final static class start {
 		public static String signupButton = "Sign up";
@@ -69,7 +77,6 @@ public class Translation {
 	public final static class logoncredentials {
 		public static String topLabel = "Good to see you again. We missed you!";
 		public static String topSublabel = "Please fill in your credentials below";
-		public static String emailfieldHeader = "Email or Social Security Number";
 		public static String passwordfieldHeader = "Password";
 		public static String placeholder = "Type here";
 		public static String continueButton = "Continue";
@@ -77,6 +84,8 @@ public class Translation {
 		public static String title = "Sign in";
 		public static String invalidPassword = "invalid Password";
 		public static String invalidCprorEmail = "invalid Email or CPR-number";
+		public static String emailOrSSNHeader = "Email or Social Security Number";
+		public static String ssnHeader = "Social security number";
 	}
 	public final static class forgotpassword {
 		public static String title = "Forgot your password?";
@@ -119,6 +128,10 @@ public class Translation {
 		public static String mmInvalidCprNumber = "mm Invalid cpr number";
 		public static String login = "Log in";
 		public static String completedHeader = "Yay! We\'re all set!\r\nWe hope you\'ll enjoy your new all digital inbox!";
+		public static String typeHere = "Type here";
+		public static String termsAcceptButton = "I accept";
+		public static String termsAcceptHeader = "Welcome! To use e-Boks you need to accept the Terms & Conditions.";
+		public static String termsAcceptSubHeader = "Please read & accept to continue";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";
@@ -162,5 +175,18 @@ public class Translation {
 		public static String uploadedByYou = "Uploaded by you";
 		public static String notePlaceholder = "Write note";
 		public static String draft = "Draft";
+		public static String shareMessageText = "Share";
+	}
+	public final static class iosbiometrics {
+		public static String errorAuthentication = "There was a problem verifying your identity";
+		public static String errorUserCancel = "You cancelled";
+		public static String errorUserFallback = "You pressed password";
+		public static String faceID = "FaceID";
+		public static String touchID = "TouchID";
+		public static String errorBiometryNotAvailable = "[idtype] is not available";
+		public static String errorBiometryNotSetUp = "[idtype] is not set up";
+		public static String errorBiometryLocked = "[idtype] is locked";
+		public static String errorUnknownBiometryEvent = "Unknown problem with [idtype]";
+		public static String logonWithBiometryReason = "Use [idtype] to log in";
 	}
 }

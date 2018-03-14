@@ -80,6 +80,8 @@ import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPre
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentContract
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
+import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentContract
+import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContract
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
@@ -383,6 +385,11 @@ class PresentationModule {
         return ChannelContentPresenter(stateManager)
     }
 
+    @ActivityScope
+    @Provides
+    fun provideAcceptTermsComponentPresenter(stateManager: AppStateManager) : AcceptTermsComponentContract.Presenter {
+        return AcceptTermsComponentPresenter(stateManager)
+    }
     /* Pasta
     @ActivityScope
     @Provides

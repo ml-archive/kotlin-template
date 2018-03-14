@@ -28,26 +28,20 @@
         android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/backgroundColor">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="32dp"
-            android:gravity="center"
-            android:layout_gravity="center">
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_visual_mail"/>
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/noMessagesTv"
+                style="@style/text.body6"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-32dp"
-                style="@style/text.header2.secondary"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@color/blueGrey"
+                android:layout_marginRight="24dp"
+                android:layout_marginLeft="24dp"
                 android:text="_No messages"/>
-        </LinearLayout>
+
 
     </FrameLayout>
 
