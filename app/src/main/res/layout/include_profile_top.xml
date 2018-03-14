@@ -100,7 +100,7 @@
     <!-- X-Button -->
 
     <ImageView
-        android:src="@drawable/icon_48_close_white_navigationbar"
+        android:src="@drawable/ic_cross_white"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginLeft="20dp"

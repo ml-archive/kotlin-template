@@ -2,7 +2,8 @@ package dk.eboks.app.presentation.ui.screens.senders.browse
 
 import dk.eboks.app.domain.interactors.sender.SearchSendersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.Sender
+import dk.eboks.app.domain.models.Image
+import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 
 /**
@@ -25,7 +26,7 @@ class BrowseCategoryPresenter(val appStateManager: AppStateManager, val searchSe
 
         for(i in 0..60) {
             val r = Math.random()*25 + 65
-            val s = Sender(i.toLong(), "${r.toInt().toChar()}senderName$i", 0, "https://qu6oa42ax6a2pyq2c11ozwvm-wpengine.netdna-ssl.com/wp-content/uploads/2017/10/nodes-logo-2017.png")
+            val s = Sender(i.toLong(), "${r.toInt().toChar()}senderName$i", 0, Image("https://qu6oa42ax6a2pyq2c11ozwvm-wpengine.netdna-ssl.com/wp-content/uploads/2017/10/nodes-logo-2017.png"))
             senders.add(s)
         }
         runAction { v ->

@@ -1,7 +1,8 @@
 package dk.eboks.app.domain.interactors.sender
 
 import dk.eboks.app.domain.exceptions.RepositoryException
-import dk.eboks.app.domain.models.Sender
+import dk.eboks.app.domain.models.Image
+import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
@@ -17,7 +18,7 @@ class SearchSendersInteractorImpl(executor: Executor) : BaseInteractor(executor)
             // mock! TODO: Change to REST
             val senders = ArrayList<Sender>()
             for(i in 0..20) {
-                val s = Sender(i.toLong(), "${input?.searchText}senderName$i", 0, "https://qu6oa42ax6a2pyq2c11ozwvm-wpengine.netdna-ssl.com/wp-content/uploads/2017/10/nodes-logo-2017.png")
+                val s = Sender(i.toLong(), "${input?.searchText}senderName$i", 0, Image("https://qu6oa42ax6a2pyq2c11ozwvm-wpengine.netdna-ssl.com/wp-content/uploads/2017/10/nodes-logo-2017.png"))
                 senders.add(s)
             }
 

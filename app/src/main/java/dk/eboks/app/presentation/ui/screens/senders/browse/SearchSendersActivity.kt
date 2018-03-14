@@ -13,8 +13,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Sender
-import dk.eboks.app.domain.models.SenderCategory
+import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
 import kotlinx.android.synthetic.main.activity_senders_search_senders.*
