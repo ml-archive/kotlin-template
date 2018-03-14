@@ -15,6 +15,7 @@ import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentFragment
 import kotlinx.android.synthetic.main.fragment_channel_opening_component.*
 import kotlinx.android.synthetic.main.include_channel_detail_top.*
 import javax.inject.Inject
@@ -67,6 +68,10 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         contentBottom.addView(v)
         val button = v.findViewById<Button>(R.id.openBtn)
         button?.text = Translation.channels.openChannel
+
+        button?.setOnClickListener {
+            presenter.open(channel)
+        }
     }
 
     override fun showDisabledState(channel: Channel) {
@@ -95,11 +100,21 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         val button = v.findViewById<Button>(R.id.verifyBtn)
         v.findViewById<TextView>(R.id.descriptionTv)?.text = Translation.channels.verifyYourProfile
         button?.setOnClickListener {
-
+            presenter.open(channel)
         }
     }
 
     override fun showProgress(show: Boolean) {
         progress.visibility = if(show) View.VISIBLE else View.GONE
+    }
+
+    override fun openChannelContent() {
+        val fragment = ChannelContentComponentFragment()
+        getBaseActivity()?.replaceFragment(R.id.content, fragment, false)
+        /*
+        fragment?.let{
+            fragmentManager.beginTransaction().add(R.id.content, it, ChannelContentComponentFragment::class.java.simpleName).commit()
+        }
+        */
     }
 }

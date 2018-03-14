@@ -22,7 +22,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.*
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.screens.channels.opening.ChannelsOpeningActivity
+import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -56,7 +56,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
     }
 
     override fun showChannelOpening() {
-        startActivity(Intent(activity, ChannelsOpeningActivity::class.java))
+        startActivity(Intent(activity, ChannelContentActivity::class.java))
     }
 
     inner class ChannelAdapter : RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder>() {

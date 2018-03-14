@@ -36,6 +36,11 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
         }
     }
 
+    override fun open(channel: Channel)
+    {
+        runAction { v->v.openChannelContent() }
+    }
+
     override fun onGetChannel(channel: Channel) {
         runAction { v->v.showProgress(false) }
         if(appState.state?.channelState?.openOrInstallImmediately == false) {
@@ -54,7 +59,7 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
 
                 }
             } else
-                runAction { v -> v.showDisabledState(channel) }
+                runAction { v -> v.openChannelContent() }
         }
     }
 

@@ -5,13 +5,10 @@
                                                  android:background="@color/white"
                                                  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/include_toolnar"  />
-
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?actionBarSize">
+        android:layout_height="match_parent">
 
     </FrameLayout>
 

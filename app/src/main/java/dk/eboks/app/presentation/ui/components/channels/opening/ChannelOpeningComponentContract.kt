@@ -15,9 +15,11 @@ interface ChannelOpeningComponentContract {
         fun showInstallState(channel: Channel)
         fun showVerifyState(channel: Channel, provider : LoginProvider)
         fun showProgress(show : Boolean)
+        fun openChannelContent()
     }
 
     interface Presenter : BasePresenter<View> {
         fun install(channel : Channel, provider : LoginProvider)
+        fun open(channel: Channel)
     }
 }

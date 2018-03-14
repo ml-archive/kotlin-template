@@ -148,6 +148,25 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         }
     }
 
+    fun replaceFragment(resId : Int, fragment : BaseFragment?, addToBack : Boolean = true)
+    {
+        fragment?.let{
+            val trans = supportFragmentManager.beginTransaction().replace(resId, it, fragment.javaClass.simpleName)
+            if(addToBack)
+                trans.addToBackStack(fragment.javaClass.simpleName)
+            trans.commit()
+        }
+    }
+
+    fun addFragment(resId : Int, fragment : BaseFragment?, addToBack : Boolean = true)
+    {
+        fragment?.let{
+            val trans = supportFragmentManager.beginTransaction().add(resId, it, fragment.javaClass.simpleName)
+            if(addToBack)
+                trans.addToBackStack(fragment.javaClass.simpleName)
+            trans.commit()
+        }
+    }
 
     protected open fun onShake() {}
 }

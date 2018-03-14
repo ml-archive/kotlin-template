@@ -82,6 +82,8 @@ import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContr
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContract
+import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewContract
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.start.StartContract
@@ -259,12 +261,6 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelDetailComponentPresenter(stateManager: AppStateManager) : ChannelDetailComponentContract.Presenter {
-        return ChannelDetailComponentPresenter(stateManager)
-    }
-
-    @ActivityScope
-    @Provides
     fun provideChannelSettingsPopUpComponentPresenter(stateManager: AppStateManager) : ChannelRequirementsComponentContract.Presenter {
         return ChannelRequirementsComponentPresenter(stateManager)
     }
@@ -370,6 +366,12 @@ class PresentationModule {
     @Provides
     fun provideChannelSettingsOptionsComponentPresenter(stateManager: AppStateManager) : ChannelSettingsOptionsComponentContract.Presenter {
         return ChannelSettingsOptionsComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelContentPresenter(stateManager: AppStateManager) : ChannelContentContract.Presenter {
+        return ChannelContentPresenter(stateManager)
     }
 
     /* Pasta

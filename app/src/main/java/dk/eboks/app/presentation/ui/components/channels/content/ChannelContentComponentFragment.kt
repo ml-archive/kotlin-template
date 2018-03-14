@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
 import dk.eboks.app.presentation.base.BaseWebFragment
+import kotlinx.android.synthetic.main.fragment_base_web.*
 import javax.inject.Inject
 
 /**
@@ -18,6 +19,7 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        webView.loadData("Channel content webview - not implemented", "text/html", "utf8")
     }
 
     override fun setupTranslations() {
