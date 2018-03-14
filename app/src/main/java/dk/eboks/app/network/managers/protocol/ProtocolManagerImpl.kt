@@ -2,7 +2,7 @@ package dk.eboks.app.network.managers.protocol
 
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.ProtocolManager
-import dk.eboks.app.domain.models.request.UserInfo
+import dk.eboks.app.domain.models.protocol.UserInfo
 import org.apache.commons.lang3.time.FastDateFormat
 import timber.log.Timber
 import java.security.MessageDigest

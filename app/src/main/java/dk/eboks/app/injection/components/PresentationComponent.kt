@@ -71,6 +71,8 @@ import dk.eboks.app.presentation.ui.components.start.login.*
 import dk.eboks.app.presentation.ui.components.start.signup.*
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
+import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
@@ -106,6 +108,8 @@ interface PresentationComponent {
     fun inject(target : MessageOpeningPresenter)
     fun inject(target : ChannelOverviewActivity)
     fun inject(target : ChannelOverviewPresenter)
+    fun inject(target : ChannelContentActivity)
+    fun inject(target : ChannelContentPresenter)
     fun inject(target : SendersOverviewActivity)
     fun inject(target : SendersOverviewPresenter)
     fun inject(target : StartActivity)
@@ -160,8 +164,6 @@ interface PresentationComponent {
     // channels
     fun inject(target : ChannelOverviewComponentFragment)
     fun inject(target : ChannelOverviewComponentPresenter)
-    fun inject(target : ChannelDetailComponentFragment)
-    fun inject(target : ChannelDetailComponentPresenter)
     fun inject(target : ChannelRequirementsComponentFragment)
     fun inject(target : ChannelRequirementsComponentPresenter)
     fun inject(target : ChannelOpeningComponentFragment)

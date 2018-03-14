@@ -4,7 +4,7 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dk.eboks.app.domain.managers.UserManager
-import dk.eboks.app.domain.models.internal.User
+import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.storage.base.GsonFileStorageRepository
 import timber.log.Timber
 

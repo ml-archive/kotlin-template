@@ -5,7 +5,7 @@ import android.os.Handler
 import android.support.v4.app.Fragment
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseSheetActivity
 import dk.eboks.app.presentation.ui.components.message.detail.attachments.AttachmentsComponentFragment

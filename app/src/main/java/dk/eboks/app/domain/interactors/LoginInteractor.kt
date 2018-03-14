@@ -1,6 +1,6 @@
 package dk.eboks.app.domain.interactors
 
-import dk.eboks.app.domain.models.request.UserInfo
+import dk.eboks.app.domain.models.protocol.UserInfo
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**

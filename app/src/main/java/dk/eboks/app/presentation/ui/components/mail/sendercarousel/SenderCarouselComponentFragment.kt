@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Sender
+import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_sender_carousel_component.*

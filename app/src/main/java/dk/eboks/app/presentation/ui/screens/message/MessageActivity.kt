@@ -2,10 +2,9 @@ package dk.eboks.app.presentation.ui.screens.message
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import kotlinx.android.synthetic.main.include_toolnar.*

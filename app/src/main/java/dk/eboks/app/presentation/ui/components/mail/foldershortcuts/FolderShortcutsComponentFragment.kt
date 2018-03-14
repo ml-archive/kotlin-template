@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Folder
+import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity
-import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import kotlinx.android.synthetic.main.fragment_folder_shortcuts_component.*
 import javax.inject.Inject
 

@@ -1,7 +1,7 @@
 package dk.eboks.app.presentation.ui.screens.message.embedded
 
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject

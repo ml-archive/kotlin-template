@@ -7,13 +7,12 @@
 
     <include layout="@layout/include_toolnar"  />
 
-    <fragment
-        android:id="@+id/channelOpeningComponentFragment"
-        android:name="dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentFragment"
-        android:layout_marginTop="?actionBarSize"
+    <FrameLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_marginTop="?actionBarSize">
 
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

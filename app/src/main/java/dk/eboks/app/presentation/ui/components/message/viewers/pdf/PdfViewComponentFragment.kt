@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Folder
+import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.base.EmbeddedViewer
 import dk.eboks.app.presentation.widgets.pdf.AsyncPdfRenderer

@@ -1,6 +1,6 @@
 package dk.eboks.app.domain.exceptions
 
-import dk.eboks.app.domain.models.ServerError
+import dk.eboks.app.domain.models.protocol.ServerError
 
 /**
  * Created by bison on 24-06-2017.

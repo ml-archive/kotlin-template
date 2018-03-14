@@ -22,7 +22,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.*
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.screens.channels.opening.ChannelsOpeningActivity
+import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -56,7 +56,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
     }
 
     override fun showChannelOpening() {
-        startActivity(Intent(activity, ChannelsOpeningActivity::class.java))
+        startActivity(Intent(activity, ChannelContentActivity::class.java))
     }
 
     inner class ChannelAdapter : RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder>() {
@@ -117,23 +117,25 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 holder?.backgroundColorLl?.background?.setTint(Color.parseColor(backgroundcolor))
                 holder?.headlineTv?.setText(currentCard.payoff)
 
-
                 holder?.nameTv?.setText(currentCard.name)
                 // todo get translations and confirm the logic is correct
                 if (currentCard.installed == true) {
                     holder?.button?.setText(Translation.channels.open)
+                    holder?.button?.setOnClickListener { presenter.open(currentCard)}
+
                 } else {
                     holder?.button?.setText(Translation.channels.install)
+                    holder?.button?.setOnClickListener { presenter.install(currentCard)}
                 }
 
                 holder?.cardContainerCv?.setOnClickListener(View.OnClickListener {
-                    var currentChannel = cards.get(position)
+
                     holder?.cardContainerCv?.animate()?.scaleX(0.9f)?.scaleY(0.9f)?.setDuration(100)?.
                             setInterpolator(CycleInterpolator(0.5f))?.
                             setListener(object : Animator.AnimatorListener {
                                 override fun onAnimationRepeat(p0: Animator?) {}
                                 override fun onAnimationEnd(p0: Animator?) {
-                                    presenter.openChannel(currentChannel)
+                                    presenter.openChannel(currentCard)
                                 }
                                 override fun onAnimationCancel(p0: Animator?) {}
                                 override fun onAnimationStart(p0: Animator?) {}
@@ -148,7 +150,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
 
         //adding header card added to the top of the list
         cards.clear()
-        cards.add(Channel(-1, "","",null,null,null,null,null,null,null,null))
+        cards.add(Channel(-1, "","",null,null,null,null,null,null,false,null))
         //addings channels
         for( channel in channels){
             cards.add(channel)

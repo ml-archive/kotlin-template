@@ -4,9 +4,8 @@ import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.interactors.ServerErrorHandler
 import dk.eboks.app.domain.managers.*
-import dk.eboks.app.domain.models.Message
-import dk.eboks.app.domain.models.ServerError
-import dk.eboks.app.domain.models.internal.EboksContentType
+import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.EboksContentType
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.util.FieldMapper
 import dk.eboks.app.util.guard

@@ -3,6 +3,8 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
+import dk.eboks.app.domain.interactors.channel.GetChannelInteractorImpl
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractorImpl
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
@@ -94,5 +96,10 @@ class InteractorModule {
     @Provides fun provideGetUsersInteractor(executor: Executor, userManager: UserManager) : GetUsersInteractor
     {
         return GetUsersInteractorImpl(executor, userManager)
+    }
+
+    @Provides fun provideGetChannelInteractor(executor: Executor, channelsRepository: ChannelsRepository) : GetChannelInteractor
+    {
+        return GetChannelInteractorImpl(executor, channelsRepository)
     }
 }

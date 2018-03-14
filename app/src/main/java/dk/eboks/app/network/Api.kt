@@ -1,8 +1,9 @@
 package dk.eboks.app.network
 
-import dk.eboks.app.domain.models.FolderType
-import dk.eboks.app.domain.models.Message
-import dk.eboks.app.domain.models.request.LoginRequest
+import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.protocol.LoginRequest
 import io.reactivex.Single
 import okio.BufferedSource
 import retrofit2.Call
@@ -21,5 +22,6 @@ interface Api {
     @GET("mail/{type}/messages") fun getMessagesByType(@Path("type") type : FolderType) : Single<BufferedSource>
     @GET("api/senders") fun getSenders() : Single<BufferedSource>
     @GET("api/channels") fun getChannels() : Single<BufferedSource>
+    @GET("api/channels/{id}") fun getChannel(@Path("id") id : Long) : Call<Channel>
     @PUT("session") fun login(@Body body : LoginRequest) : Single<BufferedSource>
 }

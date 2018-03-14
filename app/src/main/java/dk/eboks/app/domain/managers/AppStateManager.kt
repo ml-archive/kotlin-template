@@ -1,6 +1,6 @@
 package dk.eboks.app.domain.managers
 
-import dk.eboks.app.domain.models.internal.AppState
+import dk.eboks.app.domain.models.AppState
 
 /**
  * Created by bison on 09-02-2018.

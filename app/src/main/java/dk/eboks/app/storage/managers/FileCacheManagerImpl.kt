@@ -6,7 +6,7 @@ import android.os.Environment
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dk.eboks.app.domain.managers.FileCacheManager
-import dk.eboks.app.domain.models.Content
+import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.storage.base.GsonFileStorageRepository
 import timber.log.Timber
 import java.io.File

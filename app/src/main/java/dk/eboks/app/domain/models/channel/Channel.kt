@@ -1,6 +1,7 @@
 package dk.eboks.app.domain.models.channel
 
-import dk.eboks.app.domain.models.*
+import dk.eboks.app.domain.models.message.Status
+import dk.eboks.app.domain.models.shared.Description
 import java.io.Serializable
 
 /**
@@ -16,6 +17,6 @@ data class Channel(
         var image : Image?,
         var background : ChannelColor?,
         var requirements : Array<Requirement>? = null,
-        var installed : Boolean?,
+        var installed : Boolean,
         var pinned : Boolean?
 ) : Serializable

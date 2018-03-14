@@ -74,8 +74,6 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContract
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
-import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentContract
-import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentContract
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
@@ -258,11 +256,6 @@ class PresentationModule {
         return ChannelOverviewComponentPresenter(stateManager, getChannelsInteractor)
     }
 
-    @ActivityScope
-    @Provides
-    fun provideChannelDetailComponentPresenter(stateManager: AppStateManager) : ChannelDetailComponentContract.Presenter {
-        return ChannelDetailComponentPresenter(stateManager)
-    }
 
     @ActivityScope
     @Provides
@@ -339,8 +332,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelOpeningComponentPresenter(stateManager: AppStateManager) : ChannelOpeningComponentContract.Presenter {
-        return ChannelOpeningComponentPresenter(stateManager)
+    fun provideChannelOpeningComponentPresenter(stateManager: AppStateManager, getChannelInteractor: GetChannelInteractor) : ChannelOpeningComponentContract.Presenter {
+        return ChannelOpeningComponentPresenter(stateManager, getChannelInteractor)
     }
 
     @ActivityScope
@@ -377,6 +370,12 @@ class PresentationModule {
     @Provides
     fun provideChannelSettingsOptionsComponentPresenter(stateManager: AppStateManager) : ChannelSettingsOptionsComponentContract.Presenter {
         return ChannelSettingsOptionsComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelContentPresenter(stateManager: AppStateManager) : ChannelContentContract.Presenter {
+        return ChannelContentPresenter(stateManager)
     }
 
     /* Pasta
