@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -8,13 +9,14 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.internal.User
+import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
@@ -51,10 +53,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.logoncredentials.title, null, {
+            hideKeyboard(view)
             (activity as StartActivity).onBackPressed()
         })
 
         redOptionTv.setOnClickListener {
+            hideKeyboard(this.view)
             val intent = Intent(activity, SheetComponentActivity::class.java)
             intent.putExtra("component", ForgotPasswordComponentFragment::class.java.simpleName)
             activity.startActivity(intent)
@@ -67,6 +71,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         setupCprEmailListeners()
         setupPasswordListener()
 
+    }
+
+
+    private fun hideKeyboard(view: View?) {
+        val inputMethodManager = getBaseActivity()?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
     override fun setupView(loginProvider: LoginProvider?, user: User?, altLoginProviders: List<LoginProvider>) {
@@ -251,17 +261,13 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         passwordIsValid = (!passwordEt.text.isNullOrBlank())
 
 
-        if (emailCprIsValid && passwordIsValid){
-            debugSkipBtn.isEnabled = true
-        } else {
-            debugSkipBtn.isEnabled = false
-        }
+        debugSkipBtn.isEnabled = (emailCprIsValid && passwordIsValid)
     }
 
     override fun setupTranslations() {
         headerTv.text = Translation.logoncredentials.topLabel
         detailTv.text = Translation.logoncredentials.topSublabel
-        cprEmailTil.hint = Translation.logoncredentials.emailfieldHeader
+        cprEmailTil.hint = Translation.logoncredentials.emailOrSSNHeader
         passwordTil.hint = Translation.logoncredentials.passwordfieldHeader
         redOptionTv.visibility = View.VISIBLE
         redOptionTv.text = Translation.logoncredentials.forgotPasswordButton

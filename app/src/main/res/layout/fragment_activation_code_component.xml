@@ -79,12 +79,15 @@
                     android:enabled="false"
                     android:text="_Find activation code" />
 
-                <TextView
-                    android:id="@+id/cancelTv"
+                <Button
+                    android:id="@+id/cancelBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
                     android:layout_gravity="center"
-                    style="@style/text.button.tertiary"
+                    style="@style/button.borderless"
+                    android:textStyle="bold"
                     android:text="_Cancel"/>
 
             </LinearLayout>

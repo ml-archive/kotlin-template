@@ -1,6 +1,6 @@
 package dk.eboks.app.domain.managers
 
-import dk.eboks.app.domain.models.request.UserInfo
+import dk.eboks.app.domain.models.protocol.UserInfo
 import dk.eboks.app.network.managers.protocol.SessionData
 
 /**

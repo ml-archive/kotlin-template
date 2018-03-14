@@ -2,15 +2,14 @@ package dk.eboks.app.network.repositories
 
 import com.google.gson.Gson
 import dk.eboks.app.BuildConfig
-import dk.eboks.app.domain.models.FolderType
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.domain.exceptions.RepositoryException
 import dk.eboks.app.domain.exceptions.ServerErrorException
-import dk.eboks.app.domain.models.ServerError
+import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.injection.modules.*
 import dk.eboks.app.network.Api
-import dk.eboks.app.util.guard
 import timber.log.Timber
 import java.io.IOException
 import java.net.UnknownHostException

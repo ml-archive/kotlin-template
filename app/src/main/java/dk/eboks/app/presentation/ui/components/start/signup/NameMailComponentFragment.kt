@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.start.signup
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -21,6 +22,7 @@ import android.graphics.Color
 import android.os.Handler
 import android.text.style.ClickableSpan
 import android.text.SpannableString
+import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.util.isValidEmail
 
 
@@ -52,9 +54,14 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         setupEmailListeners()
 
         getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.signup.title, null, {
+            hideKeyboard(view)
             fragmentManager.popBackStack()
         })
+    }
 
+    private fun hideKeyboard(view: View?) {
+        val inputMethodManager = getBaseActivity()?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
     private fun setupEmailListeners() {

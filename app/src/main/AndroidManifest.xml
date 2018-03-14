@@ -48,7 +48,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.channels.opening.ChannelsOpeningActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity" />

@@ -139,20 +139,26 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         if(userShareTvAllignedLeft){ userShareTv.setPadding(0,0,0,0) }
     }
 
-    fun setToolbarLarge(iconResId : Int, title : String, callback : (()->Unit)? = null)
+
+    fun replaceFragment(resId : Int, fragment : BaseFragment?, addToBack : Boolean = true)
     {
-        toolbarIb?.let {
-            it.setImageResource(iconResId)
-            it.setOnClickListener { callback?.invoke() }
-        }
-        toolbarTv?.visibility = View.GONE
-        toolbarSubTv?.visibility = View.GONE
-        toolbarLargeTv?.let {
-            it.text = title
-            it.visibility = View.VISIBLE
+        fragment?.let{
+            val trans = supportFragmentManager.beginTransaction().replace(resId, it, fragment.javaClass.simpleName)
+            if(addToBack)
+                trans.addToBackStack(fragment.javaClass.simpleName)
+            trans.commit()
         }
     }
 
+    fun addFragment(resId : Int, fragment : BaseFragment?, addToBack : Boolean = true)
+    {
+        fragment?.let{
+            val trans = supportFragmentManager.beginTransaction().add(resId, it, fragment.javaClass.simpleName)
+            if(addToBack)
+                trans.addToBackStack(fragment.javaClass.simpleName)
+            trans.commit()
+        }
+    }
 
     protected open fun onShake() {}
 }

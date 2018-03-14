@@ -2,7 +2,7 @@ package dk.eboks.app.presentation.ui.components.start.login
 
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.internal.User
+import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject

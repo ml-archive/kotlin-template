@@ -12,6 +12,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
+import dk.eboks.app.domain.config.Config
+import timber.log.BuildConfig
 import timber.log.Timber
 import java.util.regex.Pattern
 
@@ -76,7 +78,8 @@ fun Editable.isValidEmail() : Boolean {
 }
 
 fun Editable.isValidCpr() : Boolean {
-    val cprRegex = Regex("^[0-9]{10}$")
+    var cprLength = Config.currentMode.cprLength
+    val cprRegex = Regex("^[0-9]{"+cprLength+"}$")
     val text = toString().trim()
     return !TextUtils.isEmpty(text) && text.matches(cprRegex)
 }

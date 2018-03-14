@@ -10,10 +10,10 @@ import com.nytimes.android.external.store3.base.impl.StoreBuilder
 import com.nytimes.android.external.store3.middleware.GsonParserFactory
 import dagger.Module
 import dagger.Provides
-import dk.eboks.app.domain.models.Sender
-import dk.eboks.app.domain.models.Folder
-import dk.eboks.app.domain.models.FolderType
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.sender.Sender
+import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.injection.scopes.AppScope

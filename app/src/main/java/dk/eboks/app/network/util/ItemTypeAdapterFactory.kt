@@ -6,7 +6,7 @@ import com.google.gson.TypeAdapterFactory
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
-import dk.eboks.app.domain.models.Metadata
+import dk.eboks.app.domain.models.protocol.Metadata
 import timber.log.Timber
 import java.io.IOException
 

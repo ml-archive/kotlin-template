@@ -63,6 +63,8 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
+import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentFragment
+import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
@@ -71,6 +73,8 @@ import dk.eboks.app.presentation.ui.components.start.login.*
 import dk.eboks.app.presentation.ui.components.start.signup.*
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
+import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
@@ -108,6 +112,8 @@ interface PresentationComponent {
     fun inject(target : MessageOpeningPresenter)
     fun inject(target : ChannelOverviewActivity)
     fun inject(target : ChannelOverviewPresenter)
+    fun inject(target : ChannelContentActivity)
+    fun inject(target : ChannelContentPresenter)
     fun inject(target : SendersOverviewActivity)
     fun inject(target : SendersOverviewPresenter)
     fun inject(target : StartActivity)
@@ -163,8 +169,6 @@ interface PresentationComponent {
     // channels
     fun inject(target : ChannelOverviewComponentFragment)
     fun inject(target : ChannelOverviewComponentPresenter)
-    fun inject(target : ChannelDetailComponentFragment)
-    fun inject(target : ChannelDetailComponentPresenter)
     fun inject(target : ChannelRequirementsComponentFragment)
     fun inject(target : ChannelRequirementsComponentPresenter)
     fun inject(target : ChannelOpeningComponentFragment)
@@ -195,6 +199,7 @@ interface PresentationComponent {
     fun inject(target : SignupVerificationComponentFragment)
     fun inject(target : MMComponentFragment)
     fun inject(target : CompletedComponentFragment)
+    fun inject(target : AcceptTermsComponentFragment)
 
     // login
     fun inject(target : UserCarouselComponentFragment)
@@ -205,6 +210,10 @@ interface PresentationComponent {
     fun inject(target : ForgotPasswordComponentPresenter)
     fun inject(target : ActivationCodeComponentFragment)
     fun inject(target : ActivationCodeComponentPresenter)
+  
+    // profile
+    fun inject(target : MyInformationComponentFragment)
+    fun inject(target : MyInformationComponentPresenter)
 
     // verification
     fun inject(target : VerificationComponentFragment)

@@ -4,8 +4,8 @@ import android.content.Context
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.managers.DownloadManager
 import dk.eboks.app.domain.managers.FileCacheManager
-import dk.eboks.app.domain.models.Content
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.message.Content
+import dk.eboks.app.domain.models.message.Message
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okio.Okio

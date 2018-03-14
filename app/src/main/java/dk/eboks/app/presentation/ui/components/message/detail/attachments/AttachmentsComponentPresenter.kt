@@ -3,8 +3,8 @@ package dk.eboks.app.presentation.ui.components.message.detail.attachments
 import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.Content
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.message.Content
+import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject

@@ -1,7 +1,7 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
 import dk.eboks.app.domain.config.LoginProvider
-import dk.eboks.app.domain.models.internal.User
+import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 

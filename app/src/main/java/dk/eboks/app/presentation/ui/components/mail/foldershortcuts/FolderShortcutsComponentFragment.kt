@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Folder
+import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity
-import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import kotlinx.android.synthetic.main.fragment_folder_shortcuts_component.*
 import javax.inject.Inject
 
@@ -47,7 +46,6 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
     override fun showFolders(folders: List<Folder>) {
         yourMailLl.removeAllViews()
         val li : LayoutInflater = LayoutInflater.from(context)
-        insertTestData()
         for(folder in folders)
         {
             var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
@@ -68,13 +66,14 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
             v.setOnClickListener { presenter.openFolder(folder) }
             yourMailLl.addView(v)
         }
+        insertTestData()
     }
 
     fun insertTestData()
     {
         val li : LayoutInflater = LayoutInflater.from(context)
         var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
-        v.findViewById<TextView>(R.id.nameTv)?.text = "Folders"
+        v.findViewById<TextView>(R.id.nameTv)?.text = Translation.folders.foldersHeader
         v.findViewById<TextView>(R.id.badgeCountTv)?.text = "2"
 
         val iv = v.findViewById<ImageView>(R.id.iconIv)

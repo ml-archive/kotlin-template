@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.screens.mail.list
 
-import dk.eboks.app.domain.models.Message
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 

@@ -1,7 +1,7 @@
 package dk.eboks.app.storage.repositories
 
 import dk.eboks.app.domain.managers.PrefManager
-import dk.eboks.app.domain.models.settings.Settings
+import dk.eboks.app.domain.models.local.Settings
 import dk.eboks.app.domain.repositories.SettingsRepository
 
 /**

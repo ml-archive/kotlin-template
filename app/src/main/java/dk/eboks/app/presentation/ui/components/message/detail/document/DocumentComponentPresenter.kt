@@ -1,7 +1,7 @@
 package dk.eboks.app.presentation.ui.components.message.detail.document
 
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber

@@ -3,8 +3,7 @@ package dk.eboks.app.presentation.ui.components.mail.maillist
 import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.FolderType
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
@@ -63,15 +62,20 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
             v.showError(msg)
             v.showProgress(false)
             v.showRefreshProgress(false)
+            v.showEmpty(true)
         }
     }
 
     override fun onOpenMessageDone() {
-        runAction { v-> v.showProgress(false) }
+        runAction {
+            v-> v.showProgress(false)
+        }
     }
 
     override fun onOpenMessageError(msg: String) {
-        runAction { v-> v.showProgress(false) }
+        runAction {
+            v-> v.showProgress(false)
+        }
         Timber.e(msg)
     }
 }

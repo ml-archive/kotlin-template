@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.message.embedded
 
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 

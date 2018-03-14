@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_notes_component.*
@@ -32,6 +32,7 @@ class NotesComponentFragment : BaseFragment(), NotesComponentContract.View {
 
     override fun setupTranslations() {
         notesTv.text = Translation.message.notes
+        noteEt.hint = Translation.message.notePlaceholder
     }
 
     override fun updateView(message: Message) {

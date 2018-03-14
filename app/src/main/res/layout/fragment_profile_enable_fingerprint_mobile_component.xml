@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></View>
+
+    <TextView
+        style="@style/text.header2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="32dp"
+        android:text="_Enable Mobile access to use fingerprint" />
+
+    <TextView
+        style="@style/text.body6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="8dp"
+        android:text="_Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer cursus, dui vel pretium laoreet, sapien nunc laoreet neque, ac vestibulum velit tellus at diam. "
+        android:textColor="@color/blueGrey" />
+
+    <Button
+        android:id="@+id/signupBtn"
+        style="@style/buttonRoundedCorners.darkBlueGrey"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#0D223944"
+        android:text="_Ok"
+        android:textSize="16dp" />
+
+
+</LinearLayout>

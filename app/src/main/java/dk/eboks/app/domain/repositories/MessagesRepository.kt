@@ -1,7 +1,7 @@
 package dk.eboks.app.domain.repositories
 
-import dk.eboks.app.domain.models.FolderType
-import dk.eboks.app.domain.models.Message
+import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.message.Message
 
 /**
  * Created by bison on 01/02/18.

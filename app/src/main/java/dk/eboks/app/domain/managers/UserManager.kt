@@ -1,6 +1,6 @@
 package dk.eboks.app.domain.managers
 
-import dk.eboks.app.domain.models.internal.User
+import dk.eboks.app.domain.models.login.User
 
 /**
  * Created by bison on 18-02-2018.

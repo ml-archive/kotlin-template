@@ -1,8 +1,8 @@
 package dk.eboks.app.domain.interactors.folder
 
 import dk.eboks.app.domain.managers.ResourceManager
-import dk.eboks.app.domain.models.Folder
-import dk.eboks.app.domain.models.FolderType
+import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.repositories.FoldersRepository
 import dk.eboks.app.domain.exceptions.RepositoryException
 import dk.nodes.arch.domain.executor.Executor

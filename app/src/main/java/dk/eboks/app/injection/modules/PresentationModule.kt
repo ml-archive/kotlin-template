@@ -3,6 +3,7 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
@@ -76,15 +77,21 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContract
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
+import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentContract
+import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentContract
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentContract
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
+import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentContract
+import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContract
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContract
+import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewContract
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.start.StartContract
@@ -264,12 +271,6 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelDetailComponentPresenter(stateManager: AppStateManager) : ChannelDetailComponentContract.Presenter {
-        return ChannelDetailComponentPresenter(stateManager)
-    }
-
-    @ActivityScope
-    @Provides
     fun provideChannelSettingsPopUpComponentPresenter(stateManager: AppStateManager) : ChannelRequirementsComponentContract.Presenter {
         return ChannelRequirementsComponentPresenter(stateManager)
     }
@@ -337,8 +338,14 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelOpeningComponentPresenter(stateManager: AppStateManager) : ChannelOpeningComponentContract.Presenter {
-        return ChannelOpeningComponentPresenter(stateManager)
+    fun provideMyInformationComponentPresenter(stateManager: AppStateManager) : MyInformationComponentContract.Presenter {
+        return MyInformationComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelOpeningComponentPresenter(stateManager: AppStateManager, getChannelInteractor: GetChannelInteractor) : ChannelOpeningComponentContract.Presenter {
+        return ChannelOpeningComponentPresenter(stateManager, getChannelInteractor)
     }
 
     @ActivityScope
@@ -379,6 +386,18 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
+    fun provideChannelContentPresenter(stateManager: AppStateManager) : ChannelContentContract.Presenter {
+        return ChannelContentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideAcceptTermsComponentPresenter(stateManager: AppStateManager) : AcceptTermsComponentContract.Presenter {
+        return AcceptTermsComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
     fun provideCategoriesComponentPresenter(stateManager: AppStateManager, getSenderCategoriesInteractor: GetSenderCategoriesInteractor) : CategoriesComponentContract.Presenter {
         return CategoriesComponentPresenter(stateManager, getSenderCategoriesInteractor)
     }
@@ -388,8 +407,6 @@ class PresentationModule {
     fun provideBrowseCategoryPresenter(stateManager: AppStateManager, searchSendersInteractor: SearchSendersInteractor) : BrowseCategoryContract.Presenter {
         return BrowseCategoryPresenter(stateManager, searchSendersInteractor)
     }
-
-
     /* Pasta
     @ActivityScope
     @Provides

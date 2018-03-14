@@ -15,5 +15,7 @@ interface ChannelOverviewComponentContract {
 
     interface Presenter : BasePresenter<View> {
         fun openChannel(channel : Channel)
+        fun install(channel : Channel)
+        fun open(channel : Channel)
     }
 }

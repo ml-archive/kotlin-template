@@ -1,6 +1,6 @@
 package dk.eboks.app.domain.repositories
 
-import dk.eboks.app.domain.models.settings.Settings
+import dk.eboks.app.domain.models.local.Settings
 
 /**
  * Created by bison on 15/12/17.

@@ -7,4 +7,5 @@ import dk.eboks.app.domain.models.channel.Channel
  */
 interface ChannelsRepository {
     fun getChannels(cached : Boolean = false) : List<Channel>
+    fun getChannel(id: Long) : Channel
 }
