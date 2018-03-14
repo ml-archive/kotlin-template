@@ -50,6 +50,7 @@ class SenderDetailActivity : BaseActivity() {
     }
 
     override fun setupTranslations() {
+        // TODO add real translation
         senderDetailRegisterTB.text = "Register"
         senderDetailRegisterTB.textOn = "Register"
         senderDetailRegisterTB.textOff = "Register"

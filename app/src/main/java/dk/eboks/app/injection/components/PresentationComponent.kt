@@ -181,10 +181,6 @@ interface PresentationComponent {
     fun inject(target : ChannelContentStoreboxComponentPresenter)
     fun inject(target : ChannelSettingsComponentFragment)
     fun inject(target : ChannelSettingsComponentPresenter)
-    fun inject(target : ChannelSettingsStoreboxComponentFragment)
-    fun inject(target : ChannelSettingsStoreboxComponentPresenter)
-    fun inject(target : ChannelSettingsOptionsComponentFragment)
-    fun inject(target : ChannelSettingsOptionsComponentPresenter)
 
     // senders
     fun inject(target : CategoriesComponentFragment)

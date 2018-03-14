@@ -1,15 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
 
-
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="32dp"
-            style="@style/text.header3"
-            android:text="Not Implemented"/>
+            android:background="@drawable/rounded_top_corners"
+            android:orientation="vertical">
 
-</FrameLayout>
+                <TextView
+                    style="@style/text.header1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
+                    android:text="Settings" />
+
+        </LinearLayout>
+
+        <!--pin home screen and push notifications view-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundColor"
+            android:orientation="vertical"
+            android:paddingBottom="8dp">
+
+                <include layout="@layout/include_channel_settings_switch_row"></include>
+
+                <include layout="@layout/include_channel_settings_switch_row"></include>
+
+        </LinearLayout>
+
+        <!-- optional pins -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+                <include layout="@layout/include_channel_settings_switch_row"></include>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                        <TextView
+                            style="@style/text.header3"
+                            android:text="Credit cards"
+                            android:paddingLeft="16dp"
+                            android:paddingBottom="8dp"
+                            android:paddingTop="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:background="@color/backgroundColor"
+                            />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                                <include layout="@layout/include_channel_settings_creditcard_row"></include>
+
+                                <include layout="@layout/include_channel_settings_creditcard_row"></include>
+
+                                <include layout="@layout/include_channel_settings_addcard_row"></include>
+
+                        </LinearLayout>
+
+
+                </LinearLayout>
+
+        </LinearLayout>
+
+        <!--bottom with bottom-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@color/backgroundColor"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                        <Button
+                            style="@style/buttonRoundedCorners"
+                            android:layout_width="140.5dp"
+                            android:layout_height="36dp"
+                            android:text="Remove channel"
+                            android:textColor="@color/colorPrimaryDark" />
+
+                </LinearLayout>
+
+        </LinearLayout>
+</LinearLayout>

@@ -24,6 +24,7 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
         setupTopBar()
     }
 
+    // TODO add translation
     private fun setupTopBar() {
 //
         mainTb.navigationIcon = null

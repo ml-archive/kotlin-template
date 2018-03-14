@@ -17,6 +17,8 @@ import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
 import android.widget.FrameLayout
 import dk.eboks.app.R
+import dk.eboks.app.presentation.ui.components.channels.requirements.ChannelRequirementsComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.ActivationCodeComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.ForgotPasswordComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
@@ -133,14 +135,27 @@ class SheetComponentActivity : BaseActivity() {
         bounceAnim.fillAfter = false
 
         val compname = intent.getStringExtra("component")
+        try {
+            val clazz = Class.forName(compname)
+            val frag = clazz.newInstance() as BaseFragment
+            addFragment(frag)
+        }
+        catch (t : Throwable)
+        {
+            Timber.e("Fragment $compname could not be instantiated")
+        }
+        /*
         compname?.let { name ->
             when(name) // add components here that you want to be able to open in the drawer of wonder (tm)
             {
                 VerificationComponentFragment::class.java.simpleName -> addFragment(VerificationComponentFragment())
                 ForgotPasswordComponentFragment::class.java.simpleName -> addFragment(ForgotPasswordComponentFragment())
                 ActivationCodeComponentFragment::class.java.simpleName -> addFragment(ActivationCodeComponentFragment())
+                ChannelRequirementsComponentFragment::class.java.simpleName -> addFragment(ChannelRequirementsComponentFragment())
+                ChannelSettingsComponentFragment::class.java.simpleName -> addFragment(ChannelSettingsComponentFragment())
             }
         }
+        */
     }
 
     fun addFragment(fragment : BaseFragment?)
