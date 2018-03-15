@@ -3,7 +3,7 @@ package dk.eboks.app.presentation.ui.screens.senders.detail
 import android.os.Bundle
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Sender
+import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_senders_detail.*
 

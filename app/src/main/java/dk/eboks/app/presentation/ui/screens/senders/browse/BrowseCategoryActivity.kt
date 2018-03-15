@@ -12,9 +12,9 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Sender
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
 import dk.eboks.app.util.setBubbleDrawable
@@ -128,7 +128,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
             fun bind(sender: Sender) {
                 indexTv.text = "${sender.name.first()}"
                 nameTv.text = sender.name
-                Glide.with(v.context).load(sender.logo).into(iconIv)
+                Glide.with(v.context).load(sender.logo?.url).into(iconIv)
 
                 mainLl.setOnClickListener {
                     val i = Intent(this@BrowseCategoryActivity, SenderDetailActivity::class.java )
