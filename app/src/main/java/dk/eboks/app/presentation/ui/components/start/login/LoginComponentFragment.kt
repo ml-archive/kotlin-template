@@ -75,7 +75,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
         setupCprEmailListeners()
         setupPasswordListener()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.setup()
     }
 
 
@@ -88,9 +92,9 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         Timber.e("SetupView called loginProvider = $loginProvider user = $user altProviders = $altLoginProviders")
         loginProvider?.let { provider->
             currentProvider = provider
-            setupViewForProvider(user)
             headerTv.visibility = View.GONE
             detailTv.visibility = View.GONE
+            setupViewForProvider(user)
         }.guard {
             // no provider given setup for cpr/email (mobile access)
             headerTv.visibility = View.VISIBLE
@@ -182,20 +186,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                     passwordTil.visibility = View.VISIBLE
                     continueBtn.visibility = View.VISIBLE
                 }
-                "nemid" -> {
-                    // TODO popup nemid webview
-                }
-                "idporten" -> {
-                    // TODO popup idporten webview
-                }
-                "bankid_no" -> {
-                    // TODO popup bank id no
-                }
-                "bankid_se" -> {
-                    // TODO popup bank id se
-                }
                 else -> {
-                    // show some kind of error? this shouldnt really happen since its handled in the function calling this}
+                    getBaseActivity()?.replaceFragment(R.id.containerFl, provider.fragmentClass?.newInstance())
                 }
             }
         }
@@ -208,13 +200,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             loginProvidersLl.visibility = View.GONE
             return
         }
+        loginProvidersLl.removeAllViews()
         loginProvidersLl.visibility = View.VISIBLE
         val li = LayoutInflater.from(context)
 
-        val listener = View.OnClickListener {
-            getBaseActivity()?.openComponentDrawer(ActivationCodeComponentFragment::class.java)
-
-        }
         for(provider in providers)
         {
             val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
@@ -224,7 +213,9 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             provider.description?.let { v.findViewById<TextView>(R.id.descTv).text = it }.guard {
                 v.findViewById<TextView>(R.id.descTv).visibility = View.GONE
             }
-            v.setOnClickListener(listener)
+            v.setOnClickListener {
+                presenter.switchLoginProvider(provider)
+            }
             loginProvidersLl.addView(v)
         }
     }
@@ -295,9 +286,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             if(provider.id == "email")
             {
                 continueBtn.isEnabled = passwordIsValid
-                debugCreateBtn.isEnabled = passwordIsValid
-                debugCreateVerifiedBtn.isEnabled = passwordIsValid
+
             }
+        }.guard {
+            val enabled = (emailCprIsValid && passwordIsValid)
+            debugCreateBtn.isEnabled = enabled
+            debugCreateVerifiedBtn.isEnabled = enabled
         }
 
     }

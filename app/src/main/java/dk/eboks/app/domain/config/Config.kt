@@ -2,6 +2,8 @@ package dk.eboks.app.domain.config
 
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentFragment
 
 // TODO this stuff should be downloaded from a url (on request of the customer) so that the app only contains
 // one harded coded url ya'll
@@ -185,23 +187,18 @@ object Config {
             customTranslationUrl = "https://m.e-boks.se/app/resources/android/eboks.android.3.5.0.json"
     )
 
-    val loginProviders : List<LoginProvider> = listOf(
-            LoginProvider("email", "Email", false, -1),
-            LoginProvider("cpr", "Social Security Number", false, -1),
-            LoginProvider("nemid", "NemID", true, -1),
-            LoginProvider("idporten", "ID-Porten", true, R.drawable.ic_idporten, "_Use this to see mail from public authorities"),
-            LoginProvider("bankid_se", "Bank ID", true, R.drawable.ic_bankid),
-            LoginProvider("bankid_no", "Bank ID", true, R.drawable.ic_bankid)
+    val loginProviders: Map<String, LoginProvider> = mapOf(
+            "email" to LoginProvider("email", "Email", false, -1, null, LoginComponentFragment::class.java),
+            "cpr" to LoginProvider("cpr", "Social Security Number", false, -1, null, LoginComponentFragment::class.java),
+            "nemid" to LoginProvider("nemid", "NemID", true, -1, null, NemIdComponentFragment::class.java),
+            "idporten" to LoginProvider("idporten", "ID-Porten", true, R.drawable.ic_idporten, "_Use this to see mail from public authorities", NemIdComponentFragment::class.java),
+            "bankid_se" to LoginProvider("bankid_se", "Bank ID", true, R.drawable.ic_bankid, null, NemIdComponentFragment::class.java),
+            "bankid_no" to LoginProvider("bankid_no", "Bank ID", true, R.drawable.ic_bankid, null, NemIdComponentFragment::class.java)
     )
 
     fun getLoginProvider(id : String) : LoginProvider?
     {
-        for(p in loginProviders)
-        {
-            if(id == p.id)
-                return p
-        }
-        return null
+        return loginProviders[id]
     }
 
     fun isDK() : Boolean { return BuildConfig.mode == "danish" }

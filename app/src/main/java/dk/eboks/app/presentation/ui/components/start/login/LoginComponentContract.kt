@@ -15,6 +15,8 @@ interface LoginComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
+        fun setup()
         fun createUserAndLogin(email: String?, cpr: String?, verified: Boolean = false)
+        fun switchLoginProvider(provider: LoginProvider)
     }
 }
