@@ -22,7 +22,6 @@ class FolderActivity : BaseActivity(), FolderContract.View {
 
     override fun onResume() {
         super.onResume()
-        NStack.translate(this@FolderActivity)
     }
 
     override fun onShake() {

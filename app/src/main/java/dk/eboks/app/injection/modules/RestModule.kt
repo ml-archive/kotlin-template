@@ -19,7 +19,7 @@ import dk.eboks.app.network.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.util.DateDeserializer
 import dk.eboks.app.network.util.ItemTypeAdapterFactory
 import dk.nodes.arch.domain.injection.scopes.AppScope
-import dk.nodes.nstack.providers.NMetaInterceptor
+import dk.nodes.nstack.kotlin.providers.NMetaInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
@@ -36,21 +36,18 @@ import javax.inject.Named
 @Module
 class RestModule {
     @Provides
-    fun provideTypeFactory() : ItemTypeAdapterFactory
-    {
+    fun provideTypeFactory(): ItemTypeAdapterFactory {
         return ItemTypeAdapterFactory()
     }
 
     @Provides
-    fun provideDateDeserializer() : DateDeserializer
-    {
+    fun provideDateDeserializer(): DateDeserializer {
         return DateDeserializer()
     }
 
     @Provides
     @AppScope
-    fun provideGson(typeFactory: ItemTypeAdapterFactory, dateDeserializer: DateDeserializer) : Gson
-    {
+    fun provideGson(typeFactory: ItemTypeAdapterFactory, dateDeserializer: DateDeserializer): Gson {
         val gson = GsonBuilder()
                 .registerTypeAdapterFactory(typeFactory)
                 .registerTypeAdapter(Date::class.java, dateDeserializer)
@@ -63,14 +60,15 @@ class RestModule {
     @Provides
     @Named("NAME_BASE_URL")
     fun provideBaseUrlString(): String {
-        if(BuildConfig.MOCK_API_ENABLED)
+        if (BuildConfig.MOCK_API_ENABLED)
             return BuildConfig.MOCK_API_URL
-        return Config.currentMode.environment?.baseUrl + "/" + Config.currentMode.urlPrefix + "/" ?: throw(IllegalStateException("No base URL set"))
+        return Config.currentMode.environment?.baseUrl + "/" + Config.currentMode.urlPrefix + "/"
+                ?: throw(IllegalStateException("No base URL set"))
     }
 
     @Provides
     @AppScope
-    fun provideGsonConverter(gson : Gson): Converter.Factory {
+    fun provideGsonConverter(gson: Gson): Converter.Factory {
         return GsonConverterFactory.create(gson)
     }
 
@@ -82,7 +80,11 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideDownloadManager(context: Context, client: OkHttpClient, cacheManager: FileCacheManager): DownloadManager {
+    fun provideDownloadManager(
+            context: Context,
+            client: OkHttpClient,
+            cacheManager: FileCacheManager
+    ): DownloadManager {
         return DownloadManagerImpl(context, client, cacheManager)
     }
 
@@ -94,8 +96,7 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideHttpClient(eboksHeaderInterceptor: EboksHeaderInterceptor) : OkHttpClient
-    {
+    fun provideHttpClient(eboksHeaderInterceptor: EboksHeaderInterceptor): OkHttpClient {
         val clientBuilder = OkHttpClient.Builder()
                 .connectTimeout(45, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
@@ -111,13 +112,11 @@ class RestModule {
             clientBuilder.dispatcher(Dispatcher(Executors.newSingleThreadExecutor()))
         */
 
-        if(BuildConfig.MOCK_API_ENABLED)
-        {
+        if (BuildConfig.MOCK_API_ENABLED) {
             clientBuilder.addInterceptor(MockHeaderInterceptor())
         }
 
-        if(BuildConfig.DEBUG)
-        {
+        if (BuildConfig.DEBUG) {
             val logging = okhttp3.logging.HttpLoggingInterceptor()
             logging.level = okhttp3.logging.HttpLoggingInterceptor.Level.BODY
             clientBuilder.addInterceptor(logging)
@@ -157,7 +156,10 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideRetrofit(client : OkHttpClient, converter: Converter.Factory, @Named("NAME_BASE_URL") baseUrl: String): Retrofit {
+    fun provideRetrofit(
+            client: OkHttpClient,
+            converter: Converter.Factory, @Named("NAME_BASE_URL") baseUrl: String
+    ): Retrofit {
         return Retrofit.Builder()
                 .client(client)
                 .baseUrl(baseUrl)

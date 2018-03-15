@@ -167,7 +167,7 @@ dependencies {
 
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-    implementation "dk.nodes.nstack:nstack-kotlin:$nodes_nstack_kotlin_version"
+    implementation "dk.nodes.nstack:nstack-kotlin:2.0.0"
 
     implementation "dk.nodes.arch:base:$nodes_arch_version"
     //implementation "dk.nodes.arch:base:LOCAL"
