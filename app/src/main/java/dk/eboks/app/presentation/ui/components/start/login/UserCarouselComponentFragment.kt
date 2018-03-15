@@ -9,6 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
@@ -27,6 +28,9 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
     @Inject
     lateinit var presenter : UserCarouselComponentContract.Presenter
 
+    @Inject
+    lateinit var formatter : EboksFormatter
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_user_carousel_component, container, false)
         return rootView
@@ -39,8 +43,8 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         setupViewPager()
         signupBtn.setOnClickListener { (activity as StartActivity).replaceFragment(NameMailComponentFragment()) }
         if(BuildConfig.DEBUG) {
-            debugSkipBtn.visibility = View.VISIBLE
-            debugSkipBtn.setOnClickListener {
+            debugCreateBtn.visibility = View.VISIBLE
+            debugCreateBtn.setOnClickListener {
                 (activity as StartActivity).startMain()
             }
         }
@@ -92,8 +96,24 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         override fun instantiateItem(collection: ViewGroup, position: Int): Any {
             val inflater = LayoutInflater.from(context)
             if(position < users.size) {
+                val user = users[position]
                 val v = inflater.inflate(R.layout.viewholder_user_carousel, collection, false) as ViewGroup
-                v.findViewById<TextView>(R.id.nameTv)?.text = users[position].email
+
+                var name = ""
+
+                if(user.email != null) {
+                    name = users[position].email!!
+                }
+                else if(user.cpr != null)
+                {
+                    name = formatter.formatCpr(users[position].cpr!!)
+                }
+
+                if(BuildConfig.DEBUG)
+                    name += " (${if(user.verified) "Verified" else "Non-verified"})"
+
+                v.findViewById<TextView>(R.id.nameTv)?.text = name
+
                 collection.addView(v)
                 v.findViewById<LinearLayout>(R.id.clickLl)?.setOnClickListener {
                     presenter.login(users[position])

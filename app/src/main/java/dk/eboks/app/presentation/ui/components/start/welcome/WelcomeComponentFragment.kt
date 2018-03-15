@@ -55,8 +55,8 @@ class WelcomeComponentFragment : BaseFragment() {
             (activity as StartActivity).replaceFragment(LoginComponentFragment())
         }
         if(BuildConfig.DEBUG) {
-            debugSkipBtn.visibility = View.VISIBLE
-            debugSkipBtn.setOnClickListener {
+            debugCreateBtn.visibility = View.VISIBLE
+            debugCreateBtn.setOnClickListener {
                 (activity as StartActivity).startMain()
             }
         }

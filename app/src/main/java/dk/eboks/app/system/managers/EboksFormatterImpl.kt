@@ -1,6 +1,7 @@
 package dk.eboks.app.system.managers
 
 import android.content.Context
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
@@ -17,6 +18,14 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
     }
     val dayDateFormat : SimpleDateFormat by lazy {
         SimpleDateFormat("E", Locale.getDefault())
+    }
+
+    override fun formatCpr(cpr: String) : String
+    {
+        if(Config.isDK())
+            return "${cpr.substring(0, 6)}-${cpr.substring(6, 10)}"
+        // TODO add formatting for SE / NO
+        return cpr
     }
 
     override fun formatDate(target: Message): String {

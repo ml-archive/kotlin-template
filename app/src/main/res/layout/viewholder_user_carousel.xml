@@ -45,7 +45,6 @@
                 android:gravity="center"
                 style="@style/text.header3"
                 android:textColor="@color/darkGreyBlue"
-                android:text="Helena L. Christensen"
                 />
         </LinearLayout>
 

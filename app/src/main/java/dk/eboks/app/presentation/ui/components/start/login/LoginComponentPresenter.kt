@@ -75,9 +75,9 @@ class LoginComponentPresenter @Inject constructor(val appState: AppStateManager,
     }
 
     // TODO not much loggin going on
-    override fun createUserAndLogin(email: String?, cpr: String?) {
+    override fun createUserAndLogin(email: String?, cpr: String?, verified: Boolean) {
         val provider = if(email != null) Config.getLoginProvider("email") else Config.getLoginProvider("cpr")
-        val user : User = User(id = -1, name = "Name McLastName", email = email, cpr = cpr, avatarUri = null, lastLoginProvider = provider, verified = false, hasFingerprint = false)
+        val user : User = User(id = -1, name = "Name McLastName", email = email, cpr = cpr, avatarUri = null, lastLoginProvider = provider, verified = verified, hasFingerprint = false)
 
         createUserInteractor.input = CreateUserInteractor.Input(user)
         createUserInteractor.run()

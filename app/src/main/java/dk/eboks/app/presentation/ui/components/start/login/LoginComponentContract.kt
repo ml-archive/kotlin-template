@@ -15,6 +15,6 @@ interface LoginComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun createUserAndLogin(email: String?, cpr: String?)
+        fun createUserAndLogin(email: String?, cpr: String?, verified: Boolean = false)
     }
 }
