@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="28dp"
                     android:layout_gravity="center_horizontal"
-                    android:text="Få dine kvitteringer digitalt" />
+                    android:text="_Få dine kvitteringer digitalt" />
 
                 <TextView
                     android:id="@+id/nameTv"
@@ -56,7 +56,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="28dp"
                     android:layout_gravity="center_horizontal"
-                    android:text="Storebox" />
+                    android:text="_Storebox" />
 
                 <TextView
                     android:id="@+id/descriptionTv"
@@ -67,7 +67,7 @@
                     android:layout_gravity="center_horizontal"
                     android:paddingLeft="40dp"
                     android:paddingRight="40dp"
-                    android:text="By sending your invoice to the betalingsservice app, you also accept that e-Boks provides Betalingsservice by NETS with your civil registration number and payment information. This information is used to identify you to Betalingsservice" />
+                    android:text="_By sending your invoice to the betalingsservice app, you also accept that e-Boks provides Betalingsservice by NETS with your civil registration number and payment information. This information is used to identify you to Betalingsservice" />
 
             </LinearLayout>
         </LinearLayout>

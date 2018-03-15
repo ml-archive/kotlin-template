@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_signup_accept_terms_component.*
 import javax.inject.Inject
 
@@ -28,11 +29,7 @@ class AcceptTermsComponentFragment : BaseFragment(), AcceptTermsComponentContrac
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        acceptBtn.setOnClickListener(View.OnClickListener {
-            //todo go to next screen, we dont know which yet
-            var temp = "Accept button clicked, do something"
-            println(temp)
-        })
+        acceptBtn.setOnClickListener{(activity as StartActivity).replaceFragment(NameMailComponentFragment()) }
     }
 
     override fun setupTranslations() {

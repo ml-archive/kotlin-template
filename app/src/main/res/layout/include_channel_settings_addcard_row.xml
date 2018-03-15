@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Add another credit card" />
+                android:text="_Add another credit card" />
 
 
         </LinearLayout>
