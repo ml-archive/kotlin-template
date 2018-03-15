@@ -173,12 +173,14 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                     user?.let { setupUserView(it) }
                     cprEmailTil.visibility = View.GONE
                     passwordTil.visibility = View.VISIBLE
+                    continueBtn.visibility = View.VISIBLE
                 }
                 "cpr" -> {
                     user?.let { setupUserView(it) }
                     cprEmailTil.visibility = View.VISIBLE
                     cprEmailTil.hint = "_Social security number"
                     passwordTil.visibility = View.VISIBLE
+                    continueBtn.visibility = View.VISIBLE
                 }
                 "nemid" -> {
                     // TODO popup nemid webview
@@ -282,9 +284,22 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         emailCprIsValid = (cprEmailEt.text.isValidEmail() || cprEmailEt.text.isValidCpr())
         passwordIsValid = (!passwordEt.text.isNullOrBlank())
 
+        currentProvider?.let { provider->
+            if(provider.id == "cpr")
+            {
+                val enabled = (emailCprIsValid && passwordIsValid)
+                debugCreateBtn.isEnabled = enabled
+                debugCreateVerifiedBtn.isEnabled = enabled
+                continueBtn.isEnabled = enabled
+            }
+            if(provider.id == "email")
+            {
+                continueBtn.isEnabled = passwordIsValid
+                debugCreateBtn.isEnabled = passwordIsValid
+                debugCreateVerifiedBtn.isEnabled = passwordIsValid
+            }
+        }
 
-        debugCreateBtn.isEnabled = (emailCprIsValid && passwordIsValid)
-        debugCreateVerifiedBtn.isEnabled = (emailCprIsValid && passwordIsValid)
     }
 
     override fun setupTranslations() {

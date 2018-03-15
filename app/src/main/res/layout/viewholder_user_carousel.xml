@@ -34,7 +34,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/circular_image_view_background"/>
+                android:background="@drawable/circle_transparent_greyblue_border"/>
 
             <TextView
                 android:id="@+id/nameTv"

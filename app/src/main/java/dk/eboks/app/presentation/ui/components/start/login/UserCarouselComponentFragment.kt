@@ -120,7 +120,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                 }
                 return v
             }
-            else
+            else if(position == users.size)
             {
                 val v = inflater.inflate(R.layout.viewholder_add_user_carousel, collection, false) as ViewGroup
                 v.findViewById<TextView>(R.id.nameTv)?.text = Translation.start.addNewUser
@@ -130,6 +130,19 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                 collection.addView(v)
                 return v
             }
+            else
+            {
+                if(BuildConfig.DEBUG) {
+                    val v = inflater.inflate(R.layout.viewholder_add_user_carousel, collection, false) as ViewGroup
+                    v.findViewById<TextView>(R.id.nameTv)?.text = "Create User (DEBUG)"
+                    v.findViewById<LinearLayout>(R.id.addUserLl)?.setOnClickListener {
+                        presenter.addAnotherUser()
+                    }
+                    collection.addView(v)
+                    return v
+                }
+            }
+            return Any()
         }
 
         override fun destroyItem(collection: ViewGroup, position: Int, view: Any) {
@@ -137,7 +150,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         }
 
         override fun getCount(): Int {
-            return users.size + 1
+            return if(!BuildConfig.DEBUG) users.size + 1 else users.size + 2
         }
 
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
