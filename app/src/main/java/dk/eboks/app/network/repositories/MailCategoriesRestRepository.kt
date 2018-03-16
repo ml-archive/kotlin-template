@@ -1,9 +1,9 @@
 package dk.eboks.app.network.repositories
 
 import dk.eboks.app.domain.models.folder.Folder
-import dk.eboks.app.domain.repositories.CategoriesRepository
+import dk.eboks.app.domain.repositories.MailCategoriesRepository
 import dk.eboks.app.domain.exceptions.RepositoryException
-import dk.eboks.app.injection.modules.CategoryStore
+import dk.eboks.app.injection.modules.MailCategoryStore
 import dk.eboks.app.network.base.SynchronizedBaseRepository
 import java.io.IOException
 import java.net.UnknownHostException
@@ -11,12 +11,12 @@ import java.net.UnknownHostException
 /**
  * Created by bison on 01/02/18.
  */
-class CategoriesRestRepository(val categoryStore: CategoryStore) : CategoriesRepository, SynchronizedBaseRepository() {
+class MailCategoriesRestRepository(val mailCategoryStore: MailCategoryStore) : MailCategoriesRepository, SynchronizedBaseRepository() {
 
-    override fun getCategories(cached: Boolean): List<Folder> {
+    override fun getMailCategories(cached: Boolean): List<Folder> {
         try {
             lock()
-            val result = if(cached) categoryStore.get(0).blockingGet() else categoryStore.fetch(0).blockingGet()
+            val result = if(cached) mailCategoryStore.get(0).blockingGet() else mailCategoryStore.fetch(0).blockingGet()
             unlock()
             if(result == null) {
                 throw(RepositoryException(-1, "darn"))

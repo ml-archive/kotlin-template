@@ -10,6 +10,7 @@ import com.nytimes.android.external.store3.base.impl.StoreBuilder
 import com.nytimes.android.external.store3.middleware.GsonParserFactory
 import dagger.Module
 import dagger.Provides
+import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
@@ -24,7 +25,8 @@ import okio.BufferedSource
  */
 
 typealias SenderStore = Store<List<Sender>, Int>
-typealias CategoryStore = Store<List<Folder>, Long>
+typealias SenderCategoryStore = Store<List<SenderCategory>, Long>
+typealias MailCategoryStore = Store<List<Folder>, Long>
 typealias FolderStore = Store<List<Folder>, Int>
 
 data class ListMessageStoreKey(var folderId : Long)
@@ -51,11 +53,21 @@ class StoreModule {
 
     @Provides
     @AppScope
-    fun provideCategoryStore(api: Api, gson : Gson, context : Context) : CategoryStore
+    fun provideSenderCategoryStore(api: Api, gson : Gson, context : Context) : SenderCategoryStore {
+        return StoreBuilder.parsedWithKey<Long, BufferedSource, List<SenderCategory>>()
+                .fetcher { key -> api.getSenderCategories("private") }
+                .persister(FileSystemPersister.create(FileSystemFactory.create(context.cacheDir), { key -> "SenderCategory$key"}))
+                .parser(GsonParserFactory.createSourceParser<List<SenderCategory>>(gson, object : TypeToken<List<SenderCategory>>() {}.type))
+                .open()
+    }
+
+    @Provides
+    @AppScope
+    fun provideMailCategoryStore(api: Api, gson : Gson, context : Context) : MailCategoryStore
     {
         return StoreBuilder.parsedWithKey<Long, BufferedSource, List<Folder>>()
-                .fetcher { key -> api.getCategories() }
-                .persister(FileSystemPersister.create(FileSystemFactory.create(context.cacheDir), { key -> "Category$key"}))
+                .fetcher { key -> api.getMailCategories() }
+                .persister(FileSystemPersister.create(FileSystemFactory.create(context.cacheDir), { key -> "MailCategory$key"}))
                 .parser(GsonParserFactory.createSourceParser<List<Folder>>(gson, object : TypeToken<List<Folder>>() {}.type))
                 .open()
     }
@@ -70,6 +82,7 @@ class StoreModule {
                 .parser(GsonParserFactory.createSourceParser<List<Message>>(gson, object : TypeToken<List<Message>>() {}.type))
                 .open()
     }
+
 
     @Provides
     @AppScope

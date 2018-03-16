@@ -42,7 +42,10 @@ import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningCo
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentContract
 import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentPresenter
-import dk.eboks.app.presentation.ui.components.channels.settings.*
+import dk.eboks.app.presentation.ui.components.channels.requirements.ChannelRequirementsComponentContract
+import dk.eboks.app.presentation.ui.components.channels.requirements.ChannelRequirementsComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentContract
+import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentContract
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageContract
@@ -79,6 +82,8 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContrac
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentContract
 import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentContract
+import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentContract
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentContract
@@ -426,6 +431,13 @@ class PresentationModule {
     fun provideBrowseCategoryPresenter(stateManager: AppStateManager, searchSendersInteractor: SearchSendersInteractor) : BrowseCategoryContract.Presenter {
         return BrowseCategoryPresenter(stateManager, searchSendersInteractor)
     }
+
+    @ActivityScope
+    @Provides
+    fun provideSenderGroupsComponentPresenter(stateManager: AppStateManager): SenderGroupsComponentContract.Presenter {
+        return SenderGroupsComponentPresenter(stateManager)
+    }
+
     /* Pasta
     @ActivityScope
     @Provides

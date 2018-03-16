@@ -1,7 +1,7 @@
 package dk.eboks.app.domain.models.channel
 
 import dk.eboks.app.domain.models.Image
-import dk.eboks.app.domain.models.message.Status
+import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.domain.models.shared.Description
 import java.io.Serializable
 

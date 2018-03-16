@@ -8,7 +8,7 @@
               android:paddingLeft="@dimen/margin_normal">
 
     <TextView
-        android:id="@+id/categoryNameTv"
+        android:id="@+id/titleTv"
         style="@style/text.header4"
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -16,7 +16,7 @@
         android:gravity="bottom"/>
 
     <TextView
-        android:id="@+id/categoryCountTv"
+        android:id="@+id/subTv"
         style="@style/text.subHeader5.quaternary"
         android:layout_width="match_parent"
         android:layout_height="30dp"
@@ -26,7 +26,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_gravity="top"
         android:background="@color/dividerGreyBlue"/>
 
 </LinearLayout>

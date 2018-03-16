@@ -5,6 +5,6 @@ import dk.eboks.app.domain.models.folder.Folder
 /**
  * Created by bison on 01/02/18.
  */
-interface CategoriesRepository {
-    fun getCategories(cached : Boolean = false) : List<Folder>
+interface MailCategoriesRepository {
+    fun getMailCategories(cached : Boolean = false) : List<Folder>
 }

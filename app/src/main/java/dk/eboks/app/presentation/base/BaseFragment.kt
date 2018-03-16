@@ -6,6 +6,7 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.View
+import android.view.LayoutInflater
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
@@ -21,6 +22,9 @@ abstract class BaseFragment : Fragment(), BaseView {
                 .presentationModule(PresentationModule())
                 .build()
     }
+    val inflator by lazy {
+        LayoutInflater.from(context)
+    }
 
     private val shakeDetector : ShakeDetector? = if(BuildConfig.DEBUG) ShakeDetector() else null
     private var sensorManager : SensorManager? = null
@@ -29,8 +33,8 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun onStart() {
         super.onStart()
+        setupTranslations()
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,13 +60,11 @@ abstract class BaseFragment : Fragment(), BaseView {
     override fun onPause() {
         super.onPause()
         sensorManager?.unregisterListener(shakeDetector)
-        Timber.e("OnResume")
     }
 
     override fun onResume() {
         super.onResume()
         sensorManager?.registerListener(shakeDetector, acceleroMeter, SensorManager.SENSOR_DELAY_UI)
-        setupTranslations()
     }
 
     fun getBaseActivity() : BaseActivity?

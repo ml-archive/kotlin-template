@@ -1,7 +1,9 @@
 package dk.eboks.app.presentation.ui.screens.senders.detail
 
 import android.os.Bundle
+import android.view.View
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
@@ -19,11 +21,23 @@ class SenderDetailActivity : BaseActivity() {
         } else {
             senderDetailTB.title = sender.name
             senderDetailNameTv.text = sender.name
-            senderDetailBodyTv.text = sender.name + " body description"
-            Glide.with(this).load(sender.logo).into(senderDetailIv)
+
+            Glide.with(this)
+                    .load(sender.logo?.url)
+                    .apply(RequestOptions()
+                            .fallback(R.drawable.icon_72_senders_private)
+                            .placeholder(R.drawable.icon_72_senders_private)
+                    )
+                    .into(senderDetailIv)
+            // pass the knowledge on to your siblings, so they in turn can use it
+            val b = Bundle()
+            b.putSerializable(Sender::class.simpleName, sender)
+            senderGroupsListComponentF.arguments = b
+            senderDetailInfoF.arguments = b
         }
 
-        senderDetailTB.title = ""
+        senderDetailBodyTv.visibility = View.GONE // only for public authorities
+
         senderDetailTB.setNavigationOnClickListener {
             finish()
         }
@@ -34,7 +48,7 @@ class SenderDetailActivity : BaseActivity() {
             if (appBarLayout.totalScrollRange + verticalOffset < 200) {
                 senderDetailTB.title = sender!!.name
             } else {
-                senderDetailTB.title = "" // careful there should a space between double quote otherwise it wont work
+                senderDetailTB.title = ""
             }
         }
 
@@ -46,13 +60,13 @@ class SenderDetailActivity : BaseActivity() {
             }
         }
 
-
     }
 
     override fun setupTranslations() {
         // TODO add real translation
-        senderDetailRegisterTB.text = "Register"
-        senderDetailRegisterTB.textOn = "Register"
-        senderDetailRegisterTB.textOff = "Register"
+        senderDetailRegisterTB.text = "NstackRegister"
+        senderDetailRegisterTB.textOn = "NstackRegister"
+        senderDetailRegisterTB.textOff = "NstackRegistered"
     }
 }
+
