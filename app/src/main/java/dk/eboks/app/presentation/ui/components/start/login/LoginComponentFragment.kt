@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -15,10 +14,10 @@ import android.widget.TextView
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.LoginProvider
+import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.base.SheetComponentActivity
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.isValidCpr
@@ -27,6 +26,12 @@ import kotlinx.android.synthetic.main.fragment_login_component.*
 import kotlinx.android.synthetic.main.include_toolnar.*
 import timber.log.Timber
 import javax.inject.Inject
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.Glide
+
+
 
 /**
  * Created by bison on 09-02-2018.
@@ -39,6 +44,9 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     @Inject
     lateinit var presenter : LoginComponentContract.Presenter
+
+    @Inject
+    lateinit var formatter: EboksFormatter
 
     var showGreeting : Boolean = true
     var currentProvider: LoginProvider? = null
@@ -67,7 +75,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
         setupCprEmailListeners()
         setupPasswordListener()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.setup()
     }
 
 
@@ -79,18 +91,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     override fun setupView(loginProvider: LoginProvider?, user: User?, altLoginProviders: List<LoginProvider>) {
         Timber.e("SetupView called loginProvider = $loginProvider user = $user altProviders = $altLoginProviders")
         loginProvider?.let { provider->
-            // TODO setup for appropriate login provider
             currentProvider = provider
-            setupViewForProvider()
             headerTv.visibility = View.GONE
             detailTv.visibility = View.GONE
-            when(provider.id)
-            {
-                "email" -> {
-
-                }
-            }
-
+            setupViewForProvider(user)
         }.guard {
             // no provider given setup for cpr/email (mobile access)
             headerTv.visibility = View.VISIBLE
@@ -99,33 +103,43 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             passwordTil.visibility = View.VISIBLE
 
             if (BuildConfig.DEBUG) {
-                debugSkipBtn.visibility = View.VISIBLE
-                debugSkipBtn.setOnClickListener {
-                    val emailOrCpr = cprEmailEt.text?.toString()?.trim() ?: ""
-                    if (emailOrCpr.isNotBlank()) {
-                        if(emailOrCpr.contains("@"))
-                            presenter.createUserAndLogin(email = emailOrCpr, cpr = null)
-                        else
-                            presenter.createUserAndLogin(email = null, cpr = emailOrCpr)
+                debugCreateBtn.visibility = View.VISIBLE
+                debugCreateBtn.setOnClickListener {
+                    createUser(false)
+                }
 
-                        if (showGreeting) {
-                            fragmentManager.beginTransaction().remove(this@LoginComponentFragment).replace(R.id.containerFl, UserCarouselComponentFragment(), UserCarouselComponentFragment::class.java.simpleName).commit()
-                            //(activity as StartActivity).replaceFragment(UserCarouselComponentFragment())
-                            /*
-                            fragmentManager.findFragmentByTag(WelcomeComponentFragment::class.java.simpleName)?.let { frag->
-                                fragmentManager.beginTransaction().remove(frag).commitNowAllowingStateLoss()
-                                //fragmentManager.beginTransaction().replace(R.id.containerFl, UserCarouselComponentFragment(), UserCarouselComponentFragment::class.java.simpleName).commitNow()
-                            }
-                            */
-                        } else {
-                            (activity as StartActivity).onBackPressed()
-                        }
-                    }
+                debugCreateVerifiedBtn.visibility = View.VISIBLE
+                debugCreateVerifiedBtn.setOnClickListener {
+                    createUser(true)
                 }
             }
+
         }
         setupAltLoginProviders(altLoginProviders)
+    }
 
+    private fun createUser(verified : Boolean)
+    {
+        val emailOrCpr = cprEmailEt.text?.toString()?.trim() ?: ""
+        if (emailOrCpr.isNotBlank()) {
+            if(emailOrCpr.contains("@"))
+                presenter.createUserAndLogin(email = emailOrCpr, cpr = null, verified = verified)
+            else
+                presenter.createUserAndLogin(email = null, cpr = emailOrCpr, verified = verified)
+
+            if (showGreeting) {
+                fragmentManager.beginTransaction().remove(this@LoginComponentFragment).replace(R.id.containerFl, UserCarouselComponentFragment(), UserCarouselComponentFragment::class.java.simpleName).commit()
+                //(activity as StartActivity).replaceFragment(UserCarouselComponentFragment())
+                /*
+                fragmentManager.findFragmentByTag(WelcomeComponentFragment::class.java.simpleName)?.let { frag->
+                    fragmentManager.beginTransaction().remove(frag).commitNowAllowingStateLoss()
+                    //fragmentManager.beginTransaction().replace(R.id.containerFl, UserCarouselComponentFragment(), UserCarouselComponentFragment::class.java.simpleName).commitNow()
+                }
+                */
+            } else {
+                (activity as StartActivity).onBackPressed()
+            }
+        }
     }
 
     override fun addFingerPrintProvider() {
@@ -139,34 +153,41 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         loginProvidersLl.addView(v)
     }
 
-    private fun setupViewForProvider()
+    private fun setupUserView(user : User)
+    {
+        userLl.visibility = View.VISIBLE
+        userNameTv.text = user.name
+        var emailCpr = ""
+        user.email?.let { emailCpr = it }
+        user.cpr?.let { emailCpr = formatter.formatCpr(it) }
+        userEmailCprTv.text = emailCpr
+
+        Glide.with(context)
+                .load(user.avatarUri)
+                .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(30)))
+                .into(userAvatarIv)
+    }
+
+    private fun setupViewForProvider(user : User?)
     {
         currentProvider?.let { provider->
             when(provider.id)
             {
                 "email" -> {
+                    user?.let { setupUserView(it) }
                     cprEmailTil.visibility = View.GONE
                     passwordTil.visibility = View.VISIBLE
+                    continueBtn.visibility = View.VISIBLE
                 }
                 "cpr" -> {
+                    user?.let { setupUserView(it) }
                     cprEmailTil.visibility = View.VISIBLE
                     cprEmailTil.hint = "_Social security number"
                     passwordTil.visibility = View.VISIBLE
-                }
-                "nemid" -> {
-                    // TODO popup nemid webview
-                }
-                "idporten" -> {
-                    // TODO popup idporten webview
-                }
-                "bankid_no" -> {
-                    // TODO popup bank id no
-                }
-                "bankid_se" -> {
-                    // TODO popup bank id se
+                    continueBtn.visibility = View.VISIBLE
                 }
                 else -> {
-                    // show some kind of error? this shouldnt really happen since its handled in the function calling this}
+                    getBaseActivity()?.replaceFragment(R.id.containerFl, provider.fragmentClass?.newInstance())
                 }
             }
         }
@@ -179,13 +200,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             loginProvidersLl.visibility = View.GONE
             return
         }
+        loginProvidersLl.removeAllViews()
         loginProvidersLl.visibility = View.VISIBLE
         val li = LayoutInflater.from(context)
 
-        val listener = View.OnClickListener {
-            getBaseActivity()?.openComponentDrawer(ActivationCodeComponentFragment::class.java)
-
-        }
         for(provider in providers)
         {
             val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
@@ -195,7 +213,9 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             provider.description?.let { v.findViewById<TextView>(R.id.descTv).text = it }.guard {
                 v.findViewById<TextView>(R.id.descTv).visibility = View.GONE
             }
-            v.setOnClickListener(listener)
+            v.setOnClickListener {
+                presenter.switchLoginProvider(provider)
+            }
             loginProvidersLl.addView(v)
         }
     }
@@ -255,8 +275,25 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         emailCprIsValid = (cprEmailEt.text.isValidEmail() || cprEmailEt.text.isValidCpr())
         passwordIsValid = (!passwordEt.text.isNullOrBlank())
 
+        currentProvider?.let { provider->
+            if(provider.id == "cpr")
+            {
+                val enabled = (emailCprIsValid && passwordIsValid)
+                debugCreateBtn.isEnabled = enabled
+                debugCreateVerifiedBtn.isEnabled = enabled
+                continueBtn.isEnabled = enabled
+            }
+            if(provider.id == "email")
+            {
+                continueBtn.isEnabled = passwordIsValid
 
-        debugSkipBtn.isEnabled = (emailCprIsValid && passwordIsValid)
+            }
+        }.guard {
+            val enabled = (emailCprIsValid && passwordIsValid)
+            debugCreateBtn.isEnabled = enabled
+            debugCreateVerifiedBtn.isEnabled = enabled
+        }
+
     }
 
     override fun setupTranslations() {

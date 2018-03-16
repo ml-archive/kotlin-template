@@ -21,8 +21,12 @@ class LoginComponentPresenter @Inject constructor(val appState: AppStateManager,
 
     init {
         createUserInteractor.output = this
+    }
+
+    override fun setup()
+    {
         appState.state?.loginState?.let { state->
-            state.selectedUser?.let { setupRelogin(it) }.guard { setupFirstLogin() }
+            state.selectedUser?.let { setupLogin(it, it.lastLoginProvider) }.guard { setupFirstLogin() }
         }
     }
 
@@ -42,45 +46,57 @@ class LoginComponentPresenter @Inject constructor(val appState: AppStateManager,
         runAction { v-> v.setupView(null, null, altproviders) }
     }
 
-    private fun setupRelogin(user: User)
+    private fun setupLogin(user: User?, provider: LoginProvider?)
     {
-        if(!user.verified)
-        {
+        user?.let {
+            if(!user.verified)
+            {
+                runAction { v->
+                    v.setupView(loginProvider = provider, user = user, altLoginProviders = ArrayList())
+                    if(user.hasFingerprint)
+                        v.addFingerPrintProvider()
+                }
+            }
+            else // user is verified
+            {
+                // add secure alternate login providers based on country
+                val altproviders : MutableList<LoginProvider> = ArrayList()
+                if(Config.isDK()) {
+                    Config.getLoginProvider("nemid")?.let { altproviders.add(it) }
+                }
+                if(Config.isNO()) {
+                    Config.getLoginProvider("idporten")?.let { altproviders.add(it) }
+                    Config.getLoginProvider("bankid_no")?.let { altproviders.add(it) }
+                }
+                if(Config.isSE()) {
+                    Config.getLoginProvider("bankid_se")?.let { altproviders.add(it) }
+                }
+                runAction {
+                    v-> v.setupView(loginProvider = provider, user = user, altLoginProviders = altproviders)
+                    if(user.hasFingerprint)
+                        v.addFingerPrintProvider()
+                }
+            }
+        }.guard {
             runAction { v->
-                v.setupView(loginProvider = user.lastLoginProvider, user = user, altLoginProviders = ArrayList())
-                if(user.hasFingerprint)
-                    v.addFingerPrintProvider()
-            }
-        }
-        else // user is verified
-        {
-            // add secure alternate login providers based on country
-            val altproviders : MutableList<LoginProvider> = ArrayList()
-            if(Config.isDK()) {
-                Config.getLoginProvider("nemid")?.let { altproviders.add(it) }
-            }
-            if(Config.isNO()) {
-                Config.getLoginProvider("idporten")?.let { altproviders.add(it) }
-                Config.getLoginProvider("bankid_no")?.let { altproviders.add(it) }
-            }
-            if(Config.isSE()) {
-                Config.getLoginProvider("bankid_se")?.let { altproviders.add(it) }
-            }
-            runAction {
-                v-> v.setupView(loginProvider = user.lastLoginProvider, user = user, altLoginProviders = altproviders)
-                if(user.hasFingerprint)
-                    v.addFingerPrintProvider()
+                v.setupView(loginProvider = provider, user = null, altLoginProviders = ArrayList())
             }
         }
     }
 
     // TODO not much loggin going on
-    override fun createUserAndLogin(email: String?, cpr: String?) {
+    override fun createUserAndLogin(email: String?, cpr: String?, verified: Boolean) {
         val provider = if(email != null) Config.getLoginProvider("email") else Config.getLoginProvider("cpr")
-        val user : User = User(id = -1, name = "Name McLastName", email = email, cpr = cpr, avatarUri = null, lastLoginProvider = provider, verified = false, hasFingerprint = false)
+        val user : User = User(id = -1, name = "Name McLastName", email = email, cpr = cpr, avatarUri = null, lastLoginProvider = provider, verified = verified, hasFingerprint = false)
 
         createUserInteractor.input = CreateUserInteractor.Input(user)
         createUserInteractor.run()
+    }
+
+    override fun switchLoginProvider(provider: LoginProvider) {
+        appState.state?.loginState?.let { state->
+            state.selectedUser?.let { setupLogin(it, provider) }.guard { setupLogin(null, provider)}
+        }
     }
 
     override fun onCreateUser(user: User) {

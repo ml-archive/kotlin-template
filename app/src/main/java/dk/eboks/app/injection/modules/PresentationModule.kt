@@ -84,6 +84,8 @@ import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresen
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentContract
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
+import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentContract
+import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentContract
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContract
@@ -305,6 +307,11 @@ class PresentationModule {
         return SignupComponentPresenter(stateManager)
     }
 
+    @ActivityScope
+    @Provides
+    fun provideNemIdComponentPresenter(stateManager: AppStateManager) : NemIdComponentContract.Presenter {
+        return NemIdComponentPresenter(stateManager)
+    }
 
     @ActivityScope
     @Provides

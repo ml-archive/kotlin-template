@@ -50,8 +50,8 @@ class SheetComponentActivity : BaseActivity() {
     val callback = object : BottomSheetBehavior.BottomSheetCallback() {
         override fun onSlide(bottomSheet: View, slideOffset: Float) {
             //Timber.e("Slideoffset: $slideOffset")
-            touchVeilV.alpha = MathUtil.reMapFloat(-1.0f, 1.0f, .0f, 1.0f, slideOffset)
-            //touchVeilV.alpha = slideOffset
+            //touchVeilV.alpha = MathUtil.reMapFloat(-1.0f, 1.0f, .0f, 1.0f, slideOffset)
+            touchVeilV.alpha = slideOffset
             if(slideOffset >= 0) {
                 val params = contextSheetHandle.layoutParams as FrameLayout.LayoutParams
                 params.topMargin = MathUtil.lerp(handleOffsetMax, handleOffsetMin, slideOffset).toInt()
@@ -95,11 +95,17 @@ class SheetComponentActivity : BaseActivity() {
             if(newState == BottomSheetBehavior.STATE_COLLAPSED)
             {
                 //touchVeilV.visibility = View.GONE
+                /*
                 contextSheetSv.scrollTo(0,0)
                 contextSheetHandle.animation?.let {
                     if(!it.hasEnded())
                         contextSheetHandle.animation.repeatCount = 0
                 }
+                */
+                contextSheet.post {
+                    sheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+                }
+
             }
             oldState = newState
         }
@@ -144,18 +150,6 @@ class SheetComponentActivity : BaseActivity() {
         {
             Timber.e("Fragment $compname could not be instantiated")
         }
-        /*
-        compname?.let { name ->
-            when(name) // add components here that you want to be able to open in the drawer of wonder (tm)
-            {
-                VerificationComponentFragment::class.java.simpleName -> addFragment(VerificationComponentFragment())
-                ForgotPasswordComponentFragment::class.java.simpleName -> addFragment(ForgotPasswordComponentFragment())
-                ActivationCodeComponentFragment::class.java.simpleName -> addFragment(ActivationCodeComponentFragment())
-                ChannelRequirementsComponentFragment::class.java.simpleName -> addFragment(ChannelRequirementsComponentFragment())
-                ChannelSettingsComponentFragment::class.java.simpleName -> addFragment(ChannelSettingsComponentFragment())
-            }
-        }
-        */
     }
 
     fun addFragment(fragment : BaseFragment?)
@@ -174,7 +168,8 @@ class SheetComponentActivity : BaseActivity() {
     {
         sheetBehavior = BottomSheetBehavior.from(contextSheet)
         sheetBehavior?.isHideable = true
-        sheetBehavior?.peekHeight = (resources.displayMetrics.density * 104.0).toInt()
+        sheetBehavior?.peekHeight = 0
+        //sheetBehavior?.peekHeight = (resources.displayMetrics.density * 104.0).toInt()
         //sheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
 
         sheetBehavior?.setBottomSheetCallback(callback)

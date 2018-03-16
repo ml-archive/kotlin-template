@@ -11,4 +11,5 @@ interface EboksFormatter
     fun formatDate(target : Message) : String
     fun formatDateRelative(target : Message) : String
     fun formatSize(target : Content) : String
+    fun formatCpr(cpr: String) : String
 }

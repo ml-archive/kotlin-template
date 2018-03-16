@@ -10,14 +10,14 @@ translation {
     appId = "5Rg3muDHQL8J19lb6sZzjD6ANSOrigg5x55u"
     apiKey = "htCPriWP9yoaeoHHnPgYKYw68BoejYhJnR8w"
     acceptHeader = "en-US"
-    //acceptHeader = "da-DK"
+}
+
+bitrise{
+    defaultDeployMode="release|staging"
+    branchMode = true
 }
 
 android {
-    productFlavors.all {
-        ext.locale = "en-UK"
-    }
-
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
     flavorDimensions "default"
@@ -25,14 +25,14 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 11
+        versionCode 12
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
         manifestPlaceholders = [
-            appId: translation.appId,
-            apiKey: translation.apiKey
+                appId : translation.appId,
+                apiKey: translation.apiKey
         ]
 
         buildConfigField "String", "MOCK_API_URL", "\"https://60582528-965e-4f53-8ab4-e09a1aebd008.mock.pstmn.io\""
@@ -41,61 +41,80 @@ android {
         buildConfigField "Boolean", "FORCE_REQUEST_PIPELINING", "true"
     }
 
+    signingConfigs {
+        debug {
+            keyAlias 'eboks'
+            keyPassword '5bXpXL47PSwfKwwxWMFsDaJaQ'
+            storeFile file('./keys/debug')
+            storePassword '5bXpXL47PSwfKwwxWMFsDaJaQ'
+        }
+        production {
+            keyAlias 'eboks'
+            keyPassword 'UsawyV2AtzdAP6Saye6r6RqYg'
+            storeFile file('./keys/production')
+            storePassword 'UsawyV2AtzdAP6Saye6r6RqYg'
+        }
+    }
+
     buildTypes {
         debug {
-            // uncomment the following line if you add a flavorbased signingConfig for debug builds
-            //signingConfig null
+            applicationIdSuffix ".debug"
+            signingConfig signingConfigs.debug
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.production
         }
     }
 
     productFlavors {
         danish {
-            locale = "da-DK"
             dimension "default"
-            //applicationId "com.eboks.activities" // old apps id
+
             applicationId "dk.eboks.app"
             versionName '4.0.0'
-            //signingConfig signingConfigs.staging
-            deploy = "debug|release"
+
             hockeyAppId = "c420719986b14750af457e6ac686fb5d"
-            hockeyAppIdStaging = "c420719986b14750af457e6ac686fb5d"
+            hockeyAppIdStaging = "5787fa63d0a0404bbdcd93456360db79"
+
             buildConfigField "String", "mode", '"danish"'
+            buildConfigField "String", "locale", '"da-DK"'
+
             manifestPlaceholders = [
                     HOCKEYAPP_APP_ID: hockeyAppId,
                     APP_NAME        : "e-Boks.dk"
             ]
         }
         swedish {
-            locale = "sv-SE"
             dimension "default"
+
             applicationId "se.eboks.app"
-            //applicationId "sv.eboks.activities"
             versionName '4.0.0'
-            //signingConfig signingConfigs.production
-            deploy = "debug|release"
-            hockeyAppId = ""
-            hockeyAppIdStaging = ""
+
+            hockeyAppId = "6cde34b0caee42cd938ed52b8e461b97"
+            hockeyAppIdStaging = "74e3a5f6d05c4a02a17697bbb11d8af0"
+
             buildConfigField "String", "mode", '"swedish"'
+            buildConfigField "String", "locale", '"sv-SE"'
+
             manifestPlaceholders = [
                     HOCKEYAPP_APP_ID: hockeyAppId,
                     APP_NAME        : "e-Boks.se"
             ]
         }
         norwegian {
-            locale = "nb-NO"
             dimension "default"
+
             applicationId "no.eboks.app"
-            //applicationId "no.eboks.activities"
             versionName '4.0.0'
-            //signingConfig signingConfigs.production
-            deploy = "debug|release"
-            hockeyAppId = ""
-            hockeyAppIdStaging = ""
+
+            hockeyAppId = "7ae0dc6ff4a945d18f4ec28cbf14f385"
+            hockeyAppIdStaging = "e323e110faa049b787027ea5b0a93cec"
+
             buildConfigField "String", "mode", '"norwegian"'
+            buildConfigField "String", "locale", '"nb-NO"'
+
             manifestPlaceholders = [
                     HOCKEYAPP_APP_ID: hockeyAppId,
                     APP_NAME        : "e-Boks.no"
@@ -103,24 +122,6 @@ android {
         }
 
     }
-
-    // Uncomment the following if you include signingConfigs
-    /*
-    signingConfigs {
-        staging {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('debug.keystore')
-            storePassword 'android'
-        }
-        production {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('debug.keystore')
-            storePassword 'android'
-        }
-    }
-    */
 }
 
 repositories {
@@ -154,20 +155,15 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$timber_version"
     implementation 'org.greenrobot:eventbus:3.0.0'
 
+    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
 
-    implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
-
-    implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version") {
-        exclude module: "retrofit:$retrofit_version"
-    }
-
-    implementation ("com.squareup.retrofit2:converter-simplexml:$retrofit_version") {
+    implementation("com.squareup.retrofit2:converter-gson:$retrofit_version") {
         exclude module: "retrofit:$retrofit_version"
     }
 
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-    implementation "dk.nodes.nstack:nstack-kotlin:$nodes_nstack_kotlin_version"
+    implementation "dk.nodes.nstack:nstack-kotlin:2.0.0"
 
     implementation "dk.nodes.arch:base:$nodes_arch_version"
     //implementation "dk.nodes.arch:base:LOCAL"

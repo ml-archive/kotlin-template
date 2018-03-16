@@ -34,7 +34,7 @@
                 android:layout_height="60dp"
                 android:src="@drawable/ic_profile"
                 android:elevation="8dp"
-                android:background="@drawable/circular_image_view_background"/>
+                android:background="@drawable/circle_transparent_greyblue_border"/>
 
             <TextView
                 android:id="@+id/nameTv"

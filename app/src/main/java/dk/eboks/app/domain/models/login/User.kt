@@ -3,9 +3,6 @@ package dk.eboks.app.domain.models.login
 import dk.eboks.app.domain.config.LoginProvider
 import java.io.Serializable
 
-/**
- * Created by bison on 24-06-2017.
- */
 data class User(
     var id : Long = -1,
     var name : String,
