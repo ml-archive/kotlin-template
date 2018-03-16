@@ -28,7 +28,7 @@ class WelcomeComponentFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         //(activity as StartActivity).showLogo(true)
         signupBtn.setOnClickListener {
-            (activity as StartActivity).replaceFragment(AcceptTermsComponentFragment())
+            (activity as StartActivity).replaceFragment(NameMailComponentFragment())
         }
         logonBtn.setOnClickListener {
             /*

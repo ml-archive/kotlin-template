@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Thu Mar 15 13:43:59 CET 2018 
+ * Generated: Fri Mar 16 10:26:05 CET 2018 
  */
 
 public class Translation {
@@ -43,7 +43,7 @@ public class Translation {
 		public static String lockedMessage = "Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
 	}
 	public final static class channels {
-		public static String channelsHeader = "Get you relevant information and actions directly on your  e-Boks home screen";
+		public static String channelsHeader = "Get you relevant information and actions directly on your e-Boks home screen";
 		public static String title = "Channels";
 		public static String install = "Install";
 		public static String open = "Open";
@@ -143,6 +143,7 @@ public class Translation {
 		public static String termsAcceptButton = "I accept";
 		public static String termsAcceptHeader = "Welcome! To use e-Boks you need to accept the Terms & Conditions.";
 		public static String termsAcceptSubHeader = "Please read & accept to continue";
+		public static String cancelTermsBtn = "Cancel";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";
