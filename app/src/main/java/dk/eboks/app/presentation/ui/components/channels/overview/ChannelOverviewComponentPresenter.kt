@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.channels.overview
 
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
+import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.Channel
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -15,6 +16,8 @@ class ChannelOverviewComponentPresenter @Inject constructor(val appState: AppSta
         BasePresenterImpl<ChannelOverviewComponentContract.View>(),
         GetChannelsInteractor.Output
 {
+
+    val channels = appState.state?.channelState
 
     init {
         getChannelsInteractor.output = this
@@ -49,6 +52,7 @@ class ChannelOverviewComponentPresenter @Inject constructor(val appState: AppSta
     override fun onGetChannels(channels: List<Channel>) {
         runAction { v->
             v.showChannels(channels)
+            v.showProgress(false)
         }
     }
 
@@ -56,4 +60,10 @@ class ChannelOverviewComponentPresenter @Inject constructor(val appState: AppSta
         Timber.e(msg)
     }
 
+    override fun refresh() {
+        channels?.let{
+            getChannelsInteractor.input = GetChannelsInteractor.Input(false)
+            getChannelsInteractor.run()
+        }
+    }
 }

@@ -43,9 +43,9 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
             override fun afterTextChanged(activationCode: Editable?) {
                 activationCodeTil.error = null
                 mHandler.removeCallbacksAndMessages(null)
-                findActivationCodeBtn.isEnabled = activationCode?.isValidActivationCode() ?: false
+                continueBtn.isEnabled = activationCode?.isValidActivationCode() ?: false
                 mHandler?.postDelayed({
-                    if(!findActivationCodeBtn.isEnabled){
+                    if(!continueBtn.isEnabled){
                     activationCodeTil.error = Translation.activationcode.invalidActivationCode
                 }
                 }, 1200)

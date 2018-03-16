@@ -39,17 +39,14 @@ class AcceptTermsComponentFragment : BaseFragment(), AcceptTermsComponentContrac
 
     private fun showDialog() {
         val dialogBuilder = AlertDialog.Builder(context)
-//        val inflater = this.layoutInflater
-//        val dialogView = inflater.inflate(R.layout.custom_dialog, null)
-//        dialogBuilder.setView(dialogView)
 
-        dialogBuilder.setTitle("_Are you sure?")
-        dialogBuilder.setMessage("_You cannot use the app if you dont accept to the terms. Cancel my signup?")
-        dialogBuilder.setPositiveButton("_No", DialogInterface.OnClickListener { dialog, whichButton ->
+        dialogBuilder.setTitle(Translation.signup.cancelDialogHeader)
+        dialogBuilder.setMessage(Translation.signup.cancelDialogText)
+        dialogBuilder.setPositiveButton(Translation.signup.cancelDialogCancelBtn, DialogInterface.OnClickListener { dialog, whichButton ->
 
 
         })
-        dialogBuilder.setNegativeButton("_Yes", DialogInterface.OnClickListener { dialog, whichButton ->
+        dialogBuilder.setNegativeButton(Translation.signup.cancelDialogDiscardBtn, DialogInterface.OnClickListener { dialog, whichButton ->
             (activity as StartActivity).replaceFragment(WelcomeComponentFragment())
         })
         val b = dialogBuilder.create()

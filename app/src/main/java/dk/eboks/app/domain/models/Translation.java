@@ -3,6 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
+ * Generated: Fri Mar 16 12:57:05 CET 2018 
  */
 
 public class Translation {
@@ -142,7 +143,14 @@ public class Translation {
 		public static String termsAcceptButton = "I accept";
 		public static String termsAcceptHeader = "Welcome! To use e-Boks you need to accept the Terms & Conditions.";
 		public static String termsAcceptSubHeader = "Please read & accept to continue";
-		public static String cancelTermsBtn = "Cancel";
+		public static String cancelTermsBtn = "Discard my information";
+		public static String signOnBankIDtitle = "Sign on with Bank ID";
+		public static String signOnBankIDMessage = "You will need to sign in with BankID: Don\'t worry, it\'s a one time thing. You will be sent to the BankID app to log in.";
+		public static String signOnBankIDButton = "Sign on with BankID";
+		public static String cancelDialogHeader = "Are you sure you want to discard your information?";
+		public static String cancelDialogText = "This will delete everything you have done up until this step.";
+		public static String cancelDialogDiscardBtn = "DISCARD";
+		public static String cancelDialogCancelBtn = "CANCEL";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";
@@ -187,6 +195,8 @@ public class Translation {
 		public static String notePlaceholder = "Write note";
 		public static String draft = "Draft";
 		public static String shareMessageText = "Share";
+		public static String lockedTitle = "Locked Content";
+		public static String lockedMessage = "This message content could not be opened due to a virus found";
 	}
 	public final static class iosbiometrics {
 		public static String errorAuthentication = "There was a problem verifying your identity";
@@ -206,5 +216,10 @@ public class Translation {
 		public static String nemId = "NemID";
 		public static String bankId = "BankID";
 		public static String idPorten = "IDPorten";
+	}
+	public final static class settings {
+		public static String header = "Settings";
+		public static String creditCardHeader = "Credit Cards";
+		public static String removeChannelBtn = "Remove Channel";
 	}
 }

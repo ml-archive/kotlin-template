@@ -23,6 +23,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.*
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
+import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -48,6 +49,17 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
         presenter.onViewCreated(this, lifecycle)
 
         setupRecyclerView()
+        refreshSrl.setOnRefreshListener {
+            presenter.refresh()
+        }
+    }
+
+    override fun showProgress(show: Boolean) {
+        progressFl.setVisible(show)
+        refreshSrl.setVisible(!show)
+        if (!show) {
+            refreshSrl.isRefreshing = false
+        }
     }
 
     private fun setupRecyclerView() {
@@ -121,25 +133,24 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 // todo get translations and confirm the logic is correct
                 if (currentCard.installed == true) {
                     holder?.button?.setText(Translation.channels.open)
-                    holder?.button?.setOnClickListener { presenter.open(currentCard)}
+                    holder?.button?.setOnClickListener { presenter.open(currentCard) }
 
                 } else {
                     holder?.button?.setText(Translation.channels.install)
-                    holder?.button?.setOnClickListener { presenter.install(currentCard)}
+                    holder?.button?.setOnClickListener { presenter.install(currentCard) }
                 }
 
                 holder?.cardContainerCv?.setOnClickListener(View.OnClickListener {
 
-                    holder?.cardContainerCv?.animate()?.scaleX(0.9f)?.scaleY(0.9f)?.setDuration(100)?.
-                            setInterpolator(CycleInterpolator(0.5f))?.
-                            setListener(object : Animator.AnimatorListener {
-                                override fun onAnimationRepeat(p0: Animator?) {}
-                                override fun onAnimationEnd(p0: Animator?) {
-                                    presenter.openChannel(currentCard)
-                                }
-                                override fun onAnimationCancel(p0: Animator?) {}
-                                override fun onAnimationStart(p0: Animator?) {}
-                            })?.start()
+                    holder?.cardContainerCv?.animate()?.scaleX(0.9f)?.scaleY(0.9f)?.setDuration(100)?.setInterpolator(CycleInterpolator(0.5f))?.setListener(object : Animator.AnimatorListener {
+                        override fun onAnimationRepeat(p0: Animator?) {}
+                        override fun onAnimationEnd(p0: Animator?) {
+                            presenter.openChannel(currentCard)
+                        }
+
+                        override fun onAnimationCancel(p0: Animator?) {}
+                        override fun onAnimationStart(p0: Animator?) {}
+                    })?.start()
                 })
             }
         }
@@ -150,9 +161,9 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
 
         //adding header card added to the top of the list
         cards.clear()
-        cards.add(Channel(-1, "","",null,null,null,null,null,null,false,null))
+        cards.add(Channel(-1, "", "", null, null, null, null, null, null, false, null))
         //addings channels
-        for( channel in channels){
+        for (channel in channels) {
             cards.add(channel)
         }
         channelRv.adapter.notifyDataSetChanged()
