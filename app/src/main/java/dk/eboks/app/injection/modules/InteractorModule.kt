@@ -107,6 +107,11 @@ class InteractorModule {
         return GetSendersInteractorImpl(executor, sendersRepository, senderCategoriesRepository)
     }
 
+    @Provides
+    fun provideGetSenderDetailInteractor(executor: Executor, sendersRepository: SendersRepository) : GetSenderDetailInteractor {
+        return GetSenderDetailInteractorImpl(executor, sendersRepository)
+    }
+
 //    @Provides
 //    fun provideSearchSendersInterActor(executor: Executor) : GetSendersInteractor {
 //        return SearchSendersInteractorImpl(executor)

@@ -28,6 +28,7 @@ interface Api {
     @PUT("session") fun login(@Body body : LoginRequest) : Single<BufferedSource>
 
     @GET("api/groups/{segment}/categories") fun getSenderCategories(@Path("segment") segment: String ) : Single<BufferedSource> // private or public
-    @GET("api/groups/categories/{id}/senders") fun getSenders(@Path("id") categoryId : Long) : Call<SenderCategory> // TODO: shouldn't this be /api/groups/private/categories/{id} ??
+    @GET("api/groups/categories/{id}/senders") fun getSenders(@Path("id") categoryId : Long) : Call<SenderCategory> // TODO: shouldn't this be called "/api/groups/private/categories/{id}" ??
     @GET("api/groups/senders") fun searchSenders(@Query("searchText") searchText : String) : Call<List<Sender>>
+    @GET("api/groups/senders/{id}") fun getSenderDetail(@Path("id") senderId : Long) : Call<Sender>
 }
