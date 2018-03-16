@@ -2,17 +2,19 @@ package dk.eboks.app.presentation.ui.components.start.signup
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
-import io.reactivex.Observable
 import kotlinx.android.synthetic.main.fragment_signup_password_component.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**

@@ -70,6 +70,12 @@ import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresen
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.*
@@ -210,6 +216,12 @@ interface PresentationComponent {
     fun inject(target : ActivationCodeComponentPresenter)
     fun inject(target : NemIdComponentFragment)
     fun inject(target : NemIdComponentPresenter)
+    fun inject(target : IdPortenComponentFragment)
+    fun inject(target : IdPortenComponentPresenter)
+    fun inject(target : BankIdSEComponentFragment)
+    fun inject(target : BankIdSEComponentPresenter)
+    fun inject(target : BankIdNOComponentFragment)
+    fun inject(target : BankIdNOComponentPresenter)
   
     // profile
     fun inject(target : MyInformationComponentFragment)

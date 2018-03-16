@@ -84,6 +84,12 @@ import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresen
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentContract
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentContract
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentContract
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentContract
+import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentContract
 import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentContract
@@ -311,6 +317,24 @@ class PresentationModule {
     @Provides
     fun provideNemIdComponentPresenter(stateManager: AppStateManager) : NemIdComponentContract.Presenter {
         return NemIdComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideIdPortenComponentPresenter(stateManager: AppStateManager) : IdPortenComponentContract.Presenter {
+        return IdPortenComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideBankIdSEComponentPresenter(stateManager: AppStateManager) : BankIdSEComponentContract.Presenter {
+        return BankIdSEComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideBankIdNOComponentPresenter(stateManager: AppStateManager) : BankIdNOComponentContract.Presenter {
+        return BankIdNOComponentPresenter(stateManager)
     }
 
     @ActivityScope
