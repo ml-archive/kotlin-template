@@ -45,13 +45,23 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
         searchSenderRv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         searchSenderSv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            private val deBounce = Runnable {
+                presenter.searchSenders(searchSenderSv.query.toString().trim())
+            }
             override fun onQueryTextSubmit(query: String): Boolean {
-                presenter.searchSenders(query)
+                searchSenderSv.removeCallbacks(deBounce)
+                searchSenderSv.post(deBounce)
                 return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                presenter.searchSenders(newText)
+                if(newText.isBlank()) {
+                    senders.clear()
+                    searchSenderRv.adapter?.notifyDataSetChanged()
+                } else {
+                    searchSenderSv.removeCallbacks(deBounce)
+                    searchSenderSv.postDelayed(deBounce, 500)
+                }
                 return true
             }
         })
@@ -72,9 +82,11 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
     }
 
     override fun showEmpty(show: Boolean) {
+        showProgress(false)
     }
 
     override fun showError(msg: String) {
+        showProgress(false)
     }
 
     override fun showSenders(senders: List<Sender>) {
@@ -111,9 +123,9 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
             }
 
             fun bind(sender: Sender) {
-                indexTv.text = "${sender.name.first()}"
+                indexTv.text = "${sender.name.first().toUpperCase()}"
                 nameTv.text = sender.name
-                Glide.with(v.context).load(sender.logo).into(iconIv)
+                Glide.with(v.context).load(sender.logo?.url).into(iconIv)
 
                 mainLl.setOnClickListener {
                     val i = Intent(this@SearchSendersActivity, SenderDetailActivity::class.java )

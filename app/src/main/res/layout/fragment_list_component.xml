@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/listComponentTitleTv"
+        style="@style/text.header3"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="6dp"
+        android:gravity="bottom|left"
+        android:text="All categories"/>
+
+    <LinearLayout
+        android:id="@+id/listComponentContentLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <!--<include layout="@layout/viewholder_title_subtitle"/>-->
+        <!--<include layout="@layout/viewholder_title_subtitle"/>-->
+        <!--<include layout="@layout/viewholder_title_subtitle"/>-->
+        <!--<include layout="@layout/viewholder_title_subtitle"/>-->
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_gravity="top"
+        android:background="@color/dividerGreyBlue"/>
+
+</LinearLayout>

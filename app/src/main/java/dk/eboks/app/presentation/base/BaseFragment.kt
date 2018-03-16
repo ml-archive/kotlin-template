@@ -5,6 +5,7 @@ import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.view.LayoutInflater
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
@@ -19,6 +20,9 @@ abstract class BaseFragment : Fragment(), BaseView {
                 .appComponent((activity.application as dk.eboks.app.App).appComponent)
                 .presentationModule(PresentationModule())
                 .build()
+    }
+    val inflator by lazy {
+        LayoutInflater.from(context)
     }
 
     private val shakeDetector : ShakeDetector? = if(BuildConfig.DEBUG) ShakeDetector() else null
