@@ -3,7 +3,6 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Tue Mar 13 13:33:19 CET 2018 
  */
 
 public class Translation {
@@ -43,7 +42,7 @@ public class Translation {
 		public static String lockedMessage = "Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
 	}
 	public final static class channels {
-		public static String channelsHeader = "Get you relevant information and actions directly on your  e-Boks home screen";
+		public static String channelsHeader = "Get you relevant information and actions directly on your e-Boks home screen";
 		public static String title = "Channels";
 		public static String install = "Install";
 		public static String open = "Open";
@@ -52,6 +51,15 @@ public class Translation {
 		public static String verifyYourProfile = "Verify your profile to access this channel";
 		public static String channelNotAvailable = "[channelName] is not available for this device or no longer available as a channel";
 		public static String installChannel = "Install channel";
+		public static String updateProfile = "Update profile";
+		public static String userSocialSecurityNumber = "Your Social Security Number";
+		public static String userName = "Your name";
+		public static String userEmailAdress = "Your email address";
+		public static String userPhoneNumber = "Your phone number";
+		public static String missing = "Missing";
+		public static String drawerHeader = "e-Boks Sign Up";
+		public static String drawerSubHeader = "Let\u2019s help you to get started";
+		public static String drawerHeaderText = "The Mecenat channel needs the following information to create a user for you.";
 	}
 	public final static class senders {
 		public static String title = "Senders";
@@ -66,6 +74,8 @@ public class Translation {
 		public static String unregisterAlertTitle = "Are you sure you want to unregister?";
 		public static String registerAlertDescription = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
 		public static String unregisterAlertDescription = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
+		public static String cannotUnregister = "Cannot unregister";
+		public static String cannotUnregisterDescription = "You are automatically registered mail from [sender] if this is part of your customer agreements or your conditions of employment";
 	}
 	public final static class start {
 		public static String signupButton = "Sign up";
@@ -132,6 +142,7 @@ public class Translation {
 		public static String termsAcceptButton = "I accept";
 		public static String termsAcceptHeader = "Welcome! To use e-Boks you need to accept the Terms & Conditions.";
 		public static String termsAcceptSubHeader = "Please read & accept to continue";
+		public static String cancelTermsBtn = "Cancel";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";
@@ -188,5 +199,12 @@ public class Translation {
 		public static String errorBiometryLocked = "[idtype] is locked";
 		public static String errorUnknownBiometryEvent = "Unknown problem with [idtype]";
 		public static String logonWithBiometryReason = "Use [idtype] to log in";
+	}
+	public final static class logonmethods {
+		public static String mobileAccess = "Mobile access";
+		public static String ssn = "Social security number";
+		public static String nemId = "NemID";
+		public static String bankId = "BankID";
+		public static String idPorten = "IDPorten";
 	}
 }

@@ -39,7 +39,7 @@
             android:text="_Sign up" />
 
         <Button
-            android:id="@+id/debugSkipBtn"
+            android:id="@+id/debugCreateBtn"
             android:visibility="gone"
             style="@style/buttonRoundedCorners.darkBlueGrey"
             android:backgroundTint="#223944"

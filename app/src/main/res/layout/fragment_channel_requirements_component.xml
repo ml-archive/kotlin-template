@@ -16,26 +16,29 @@
         android:paddingTop="40dp">
 
         <TextView
+            android:id="@+id/headLineTv"
             style="@style/text.header4.tertiary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="e-Boks Sign up" />
+            android:text="_e-Boks Sign up" />
 
         <TextView
+            android:id="@+id/subHeadLineTv"
             style="@style/text.header1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingBottom="8.5dp"
-            android:text="Lets help you to get started" />
+            android:text="_Lets help you to get started" />
 
         <TextView
+            android:id="@+id/headerTextTv"
             style="@style/text.header4.quaternary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="The Mecenat channel needs the following information to create a user for you." />
+            android:text="_The Mecenat channel needs the following information to create a user for you." />
 
     </LinearLayout>
 
@@ -44,28 +47,36 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/include_channel_setting_boxrow_view" />
-
-        <include layout="@layout/include_channel_setting_boxrow_view" />
-
-        <include layout="@layout/include_channel_setting_boxrow_view" />
-
-        <include layout="@layout/include_channel_setting_boxrow_view" />
-
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/requirementRowsRv"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
 
             <Button
                 android:id="@+id/updateProfileBtn"
                 style="@style/button.SolidGradient"
-                android:layout_width="328dp"
+                android:layout_width="match_parent"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_height="52dp"
-                android:text="Update profile" />
+                android:layout_gravity="center"
+                android:text="_Update profile" />
 
-        </LinearLayout>
+        <Button
+            android:id="@+id/cancelBtn"
+            style="@style/button.borderless"
+            android:text="_Cancel"
+            android:textSize="14dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
+
+
 
     </LinearLayout>
 </LinearLayout>

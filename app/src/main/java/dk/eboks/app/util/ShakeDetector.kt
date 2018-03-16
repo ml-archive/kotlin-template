@@ -6,9 +6,6 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.util.FloatMath
 
-/**
- * Created by bison on 01/02/18.
- */
 class ShakeDetector : SensorEventListener {
 
     private var mListener: OnShakeListener? = null

@@ -32,6 +32,6 @@
         android:layout_width="295dp"
         android:layout_height="52dp"
         android:layout_gravity="center"
-        android:text="log on with NemId"/>
+        android:text="_log on with NemId"/>
 
 </LinearLayout>

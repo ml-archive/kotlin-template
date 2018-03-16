@@ -18,7 +18,7 @@
                     android:gravity="center"
                     android:paddingBottom="20dp"
                     android:paddingTop="20dp"
-                    android:text="Settings" />
+                    android:text="_Settings" />
 
         </LinearLayout>
 
@@ -51,7 +51,7 @@
 
                         <TextView
                             style="@style/text.header3"
-                            android:text="Credit cards"
+                            android:text="_Credit cards"
                             android:paddingLeft="16dp"
                             android:paddingBottom="8dp"
                             android:paddingTop="20dp"
@@ -96,7 +96,7 @@
                             style="@style/buttonRoundedCorners"
                             android:layout_width="140.5dp"
                             android:layout_height="36dp"
-                            android:text="Remove channel"
+                            android:text="_Remove channel"
                             android:textColor="@color/colorPrimaryDark" />
 
                 </LinearLayout>

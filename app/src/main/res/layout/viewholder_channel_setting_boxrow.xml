@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:paddingStart="@dimen/margin_normal"
+    android:paddingEnd="@dimen/margin_normal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/headerTv"
+                style="@style/text.header4"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="bottom"
+                android:text="_Your phone Number" />
+
+            <TextView
+                android:visibility="visible"
+                android:id="@+id/subHeaderTv"
+                style="@style/text.subHeader5.quaternary"
+                android:layout_width="wrap_content"
+                android:gravity="top"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="_xxxxxxx@xxxxx.xxx" />
+        </LinearLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/centeredHeaderTv"
+            style="@style/text.header4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:text="_Your phone Number" />
+
+
+        <TextView
+            android:visibility="visible"
+            android:id="@+id/missingTv"
+            style="@style/text.subHeader5.quaternary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+
+            android:text="_Missing" />
+
+        <ImageView
+            android:visibility="visible"
+            android:id="@+id/checkIv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/icon_48_checkmark_red" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_gravity="bottom"
+        android:background="@color/dividerGreyBlue" />
+    </FrameLayout>

@@ -10,6 +10,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.start.signup.NameMailComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
+import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_welcome_component.*
 
@@ -55,8 +56,8 @@ class WelcomeComponentFragment : BaseFragment() {
             (activity as StartActivity).replaceFragment(LoginComponentFragment())
         }
         if(BuildConfig.DEBUG) {
-            debugSkipBtn.visibility = View.VISIBLE
-            debugSkipBtn.setOnClickListener {
+            debugCreateBtn.visibility = View.VISIBLE
+            debugCreateBtn.setOnClickListener {
                 (activity as StartActivity).startMain()
             }
         }

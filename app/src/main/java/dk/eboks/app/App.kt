@@ -2,19 +2,16 @@ package dk.eboks.app
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context
 import android.os.Bundle
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.injection.components.AppComponent
 import dk.eboks.app.injection.components.DaggerAppComponent
 import dk.eboks.app.injection.modules.AppModule
+import dk.nodes.nstack.kotlin.NStack
 import timber.log.Timber
 import java.lang.ref.WeakReference
 
-/**
- * Created by bison on 20-05-2017.
- */
-class App : Application(), Application.ActivityLifecycleCallbacks
-{
+class App : Application(), Application.ActivityLifecycleCallbacks {
     val appComponent: AppComponent by lazy {
         DaggerAppComponent
                 .builder()
@@ -24,9 +21,13 @@ class App : Application(), Application.ActivityLifecycleCallbacks
 
     override fun onCreate() {
         super.onCreate()
+
         App.Companion._instance = this
 
-        if(BuildConfig.DEBUG) {
+        NStack.translationClass = Translation::class.java
+        NStack.init(this)
+
+        if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
 
@@ -44,18 +45,16 @@ class App : Application(), Application.ActivityLifecycleCallbacks
     */
 
     companion object {
-        private lateinit var _instance : App
-        private var activityRef : WeakReference<Activity?>? = null
+        private lateinit var _instance: App
+        private var activityRef: WeakReference<Activity?>? = null
 
-        fun instance() : App
-        {
+        fun instance(): App {
             return _instance
         }
 
-        fun currentActivity() : Activity?
-        {
+        fun currentActivity(): Activity? {
             activityRef?.let {
-                if(it.get() != null)
+                if (it.get() != null)
                     return it.get()
             }
             return null
