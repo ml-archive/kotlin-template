@@ -7,4 +7,5 @@ import dk.eboks.app.domain.models.sender.Sender
  */
 interface SendersRepository {
     fun getSenders(cached : Boolean = false) : List<Sender>
+    fun searchSenders(search : String) : List<Sender>
 }

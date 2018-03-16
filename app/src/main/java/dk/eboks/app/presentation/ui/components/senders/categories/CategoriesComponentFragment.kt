@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.base.ComponentBaseView
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity
-import kotlinx.android.synthetic.main.fragment_senders_categories_component.*
-import kotlinx.android.synthetic.main.viewholder_sender_category.view.*
+import kotlinx.android.synthetic.main.fragment_list_component.*
+import kotlinx.android.synthetic.main.viewholder_title_subtitle.view.*
 import javax.inject.Inject
 
 /**
@@ -25,7 +24,7 @@ class CategoriesComponentFragment : BaseFragment(), CategoriesComponentContract.
     lateinit var presenter : CategoriesComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_senders_categories_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_list_component, container, false)
         return rootView
     }
 
@@ -36,17 +35,18 @@ class CategoriesComponentFragment : BaseFragment(), CategoriesComponentContract.
     }
 
     override fun showCategories(categories: List<SenderCategory>) {
-        categoriesLl.removeAllViews()
+        listComponentContentLl.removeAllViews()
+
         categories.forEach {
-            val v = LayoutInflater.from(context).inflate(R.layout.viewholder_sender_category, null)
-            v.categoryNameTv.text = it.name
-            v.categoryCountTv.text = "${it.numberOfSenders}"
+            val v = inflator.inflate(R.layout.viewholder_title_subtitle, null)
+            v.titleTv.text = it.name
+            v.subTv.text = "${it.numberOfSenders}"
             v.setOnClickListener { v ->
                 val i = Intent(context, BrowseCategoryActivity::class.java )
                 i.putExtra(SenderCategory::class.simpleName, it)
                 startActivity(i)
             }
-            categoriesLl.addView(v)
+            listComponentContentLl.addView(v)
         }
     }
 

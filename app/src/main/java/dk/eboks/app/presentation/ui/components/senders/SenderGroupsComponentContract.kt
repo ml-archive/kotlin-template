@@ -1,19 +1,22 @@
-package dk.eboks.app.presentation.ui.components.senders.categories
+package dk.eboks.app.presentation.ui.components.senders
 
-import dk.eboks.app.domain.models.SenderCategory
+import dk.eboks.app.domain.models.sender.SenderGroup
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 
 /**
- * Created by bison on 07-11-2017.
- * Copied by chnt on 12-03-2018
+ * Created by Christian on 3/15/2018.
+ * @author   Christian
+ * @since    3/15/2018.
  */
-interface CategoriesComponentContract {
+interface SenderGroupsComponentContract {
+
     interface View : BaseView {
-        fun showCategories(categories: List<SenderCategory>)
+        fun showSenderGroups(senderGroups: List<SenderGroup>)
         fun showError(message: String)
     }
 
     interface Presenter : BasePresenter<View> {
+        fun getSenderGroups(senderID: Long)
     }
 }

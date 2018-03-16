@@ -32,7 +32,7 @@
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/margin_normal"
                     android:background="@drawable/circle_white_white_ring"
-                    android:padding="@dimen/margin_normal"
+                    android:padding="19dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/icon_72_senders_private"/>
 
@@ -99,11 +99,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/include_sender_detail_bottom"></include>
+            <fragment
+                android:id="@+id/senderGroupsListComponentF"
+                android:name="dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-            <include layout="@layout/include_sender_detail_bottom"></include>
+            <fragment
+                android:id="@+id/senderDetailInfoF"
+                android:name="dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailInfoFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-            <include layout="@layout/include_sender_detail_bottom"></include>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

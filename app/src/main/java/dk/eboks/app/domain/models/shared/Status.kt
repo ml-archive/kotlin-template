@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.models.message
+package dk.eboks.app.domain.models.shared
 
 import java.io.Serializable
 import java.util.*

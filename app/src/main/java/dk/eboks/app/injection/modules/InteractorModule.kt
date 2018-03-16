@@ -39,14 +39,9 @@ class InteractorModule {
         return BootstrapInteractorImpl(executor, guidManager, settingsRepository, protocolManager, appStateManager, fileCacheManager, userManager)
     }
 
-    @Provides fun provideGetSendersInteractor(executor: Executor, sendersRepository: SendersRepository) : GetSendersInteractor
-    {
-        return GetSendersInteractorImpl(executor, sendersRepository)
-    }
-
-    @Provides fun provideGetCategoriesInteractor(executor: Executor, categoriesRepository: CategoriesRepository) : GetCategoriesInteractor
-    {
-        return GetCategoriesInteractorImpl(executor, categoriesRepository)
+    @Provides
+    fun provideGetCategoriesInteractor(executor: Executor, mailCategoriesRepository: MailCategoriesRepository) : GetCategoriesInteractor {
+        return GetMailCategoriesInteractorImpl(executor, mailCategoriesRepository)
     }
 
     @Provides fun provideGetFoldersInteractor(executor: Executor, foldersRepository: FoldersRepository, resourceManager: ResourceManager) : GetFoldersInteractor
@@ -103,12 +98,17 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideGetSenderCategoriesInteractor(executor: Executor) : GetSenderCategoriesInteractor {
-        return GetSenderCategoriesInteractorImpl(executor)
+    fun provideGetSenderCategoriesInteractor(executor: Executor, senderCategoriesRepository: SenderCategoriesRepository) : GetSenderCategoriesInteractor {
+        return GetSenderCategoriesInteractorImpl(executor, senderCategoriesRepository)
     }
 
     @Provides
-    fun provideSearchSendersInterActor(executor: Executor) : SearchSendersInteractor {
-        return SearchSendersInteractorImpl(executor)
+    fun provideGetSendersInteractor(executor: Executor, sendersRepository: SendersRepository, senderCategoriesRepository: SenderCategoriesRepository) : GetSendersInteractor {
+        return GetSendersInteractorImpl(executor, sendersRepository, senderCategoriesRepository)
     }
+
+//    @Provides
+//    fun provideSearchSendersInterActor(executor: Executor) : GetSendersInteractor {
+//        return SearchSendersInteractorImpl(executor)
+//    }
 }

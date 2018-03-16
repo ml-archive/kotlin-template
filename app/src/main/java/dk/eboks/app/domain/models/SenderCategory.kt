@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.models
 
+import dk.eboks.app.domain.models.sender.Sender
 import java.io.Serializable
 
 /**
@@ -10,5 +11,6 @@ import java.io.Serializable
 data class SenderCategory(
         var id: Long,
         var name: String = "",
-        var numberOfSenders: Int = 0
+        var numberOfSenders: Int = 0,
+        var senders : List<Sender>? = ArrayList()
 ) : Serializable

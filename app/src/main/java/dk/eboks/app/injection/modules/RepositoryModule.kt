@@ -34,16 +34,21 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideSendersRepository(senderStore: SenderStore) : SendersRepository
-    {
-        return SendersRestRepository(senderStore)
+    fun provideSendersRepository(api: Api, gson: Gson, senderStore: SenderStore) : SendersRepository {
+        return SendersRestRepository(api, gson, senderStore)
     }
 
     @Provides
     @AppScope
-    fun provideCategoriesRepository(categoryStore: CategoryStore) : CategoriesRepository
+    fun provideSenderCategoriesRepository(api: Api, gson: Gson, senderCategoryStore: SenderCategoryStore) : SenderCategoriesRepository {
+        return SenderCategoriesRestRepository(api, gson, senderCategoryStore)
+    }
+
+    @Provides
+    @AppScope
+    fun provideMailCategoriesRepository(mailCategoryStore: MailCategoryStore) : MailCategoriesRepository
     {
-        return CategoriesRestRepository(categoryStore)
+        return MailCategoriesRestRepository(mailCategoryStore)
     }
 
     @Provides

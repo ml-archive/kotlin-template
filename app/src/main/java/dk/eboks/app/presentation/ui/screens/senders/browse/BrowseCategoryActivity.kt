@@ -66,7 +66,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
         this.senders.addAll(
                 senders.sortedWith(
                         Comparator { sender1, sender2 ->
-                            sender1.name.compareTo(sender2.name)
+                            sender1.name.toLowerCase().compareTo(sender2.name.toLowerCase())
                         }
                 ))
         browseCatRv.adapter.notifyDataSetChanged()
@@ -92,7 +92,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
 
     inner class SenderAdapter(val senders: List<Sender>) : RecyclerView.Adapter<SenderAdapter.SenderViewHolder>(), FastScroller.SectionIndexer {
         override fun getSectionText(position: Int): String {
-            return "${senders[position].name.first()}"
+            return "${senders[position].name.first().toUpperCase()}"
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SenderViewHolder {
@@ -106,7 +106,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
             var firstInGroup = true
             try {
                 val prev = senders[position - 1]
-                if (s.name.startsWith(prev.name.first())) {
+                if (s.name.toLowerCase().startsWith(prev.name.toLowerCase().first())) {
                     firstInGroup = false
                 }
             }  catch (e : Exception) {}
@@ -126,7 +126,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
             val iconIv = v.findViewById<ImageView>(R.id.senderLogoIv)
 
             fun bind(sender: Sender) {
-                indexTv.text = "${sender.name.first()}"
+                indexTv.text = "${sender.name.first().toUpperCase()}"
                 nameTv.text = sender.name
                 Glide.with(v.context).load(sender.logo?.url).into(iconIv)
 
