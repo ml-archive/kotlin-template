@@ -73,6 +73,8 @@ import dk.eboks.app.presentation.ui.components.start.login.*
 import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.*
+import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentFragment
+import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
@@ -222,4 +224,8 @@ interface PresentationComponent {
     // brother
     fun inject(target : HintActivity)
     fun inject(target : PermissionRequestActivity)
+
+    //upload
+    fun inject(target : UploadOverviewComponentFragment)
+    fun inject(target : UploadOverviewComponentPresenter)
 }
