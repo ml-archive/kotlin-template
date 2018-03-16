@@ -14,7 +14,6 @@ import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
-import dk.eboks.app.domain.interactors.sender.SearchSendersInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
@@ -429,11 +428,13 @@ class PresentationModule {
         return CategoriesComponentPresenter(stateManager, getSenderCategoriesInteractor)
     }
 
+
     @ActivityScope
     @Provides
-    fun provideBrowseCategoryPresenter(stateManager: AppStateManager, searchSendersInteractor: SearchSendersInteractor) : BrowseCategoryContract.Presenter {
-        return BrowseCategoryPresenter(stateManager, searchSendersInteractor)
+    fun provideBrowseCategoryPresenter(stateManager: AppStateManager, getSendersInteractor: GetSendersInteractor) : BrowseCategoryContract.Presenter {
+        return BrowseCategoryPresenter(stateManager, getSendersInteractor)
     }
+
 
     @ActivityScope
     @Provides
