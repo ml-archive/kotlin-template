@@ -44,14 +44,14 @@
                     style="@style/text.header4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Super Brugsen"
+                    android:text="_Super Brugsen"
                     android:textAlignment="viewStart"/>
 
                 <TextView
                     style="@style/text.subHeader5.quaternary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Rødovre"
+                    android:text="_Rødovre"
                     android:textAlignment="viewStart"/>
 
             </LinearLayout>
@@ -79,14 +79,14 @@
                         style="@style/text.header4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="431,50"
+                        android:text="_431,50"
                         android:textAlignment="viewEnd"/>
 
                     <TextView
                         style="@style/text.subHeader5.quaternary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="today"
+                        android:text="_today"
                         android:textAlignment="viewEnd"/>
 
                 </LinearLayout>

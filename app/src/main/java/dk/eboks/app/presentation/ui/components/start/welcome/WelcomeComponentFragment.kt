@@ -10,6 +10,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.start.signup.NameMailComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
+import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_welcome_component.*
 
