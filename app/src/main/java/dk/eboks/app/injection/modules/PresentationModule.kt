@@ -374,18 +374,6 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelSettingsStoreboxComponentPresenter(stateManager: AppStateManager) : ChannelSettingsStoreboxComponentContract.Presenter {
-        return ChannelSettingsStoreboxComponentPresenter(stateManager)
-    }
-
-    @ActivityScope
-    @Provides
-    fun provideChannelSettingsOptionsComponentPresenter(stateManager: AppStateManager) : ChannelSettingsOptionsComponentContract.Presenter {
-        return ChannelSettingsOptionsComponentPresenter(stateManager)
-    }
-
-    @ActivityScope
-    @Provides
     fun provideChannelContentPresenter(stateManager: AppStateManager) : ChannelContentContract.Presenter {
         return ChannelContentPresenter(stateManager)
     }

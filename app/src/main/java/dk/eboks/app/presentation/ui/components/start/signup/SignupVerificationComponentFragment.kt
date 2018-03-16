@@ -32,10 +32,7 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         verifyBtn.setOnClickListener {
-            val intent = Intent(activity, SheetComponentActivity::class.java)
-            intent.putExtra("component", VerificationComponentFragment::class.java.simpleName)
-            activity.startActivity(intent)
-            activity.overridePendingTransition(0,0)
+            getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
         }
         continueWithoutVerificationBtn.setOnClickListener { onContinueClicked() }
         getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.signup.title, null, {

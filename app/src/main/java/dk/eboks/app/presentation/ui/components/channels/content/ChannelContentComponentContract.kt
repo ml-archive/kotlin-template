@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.channels.content
 
+import dk.eboks.app.domain.models.channel.Channel
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 
@@ -8,7 +9,7 @@ import dk.nodes.arch.presentation.base.BaseView
  */
 interface ChannelContentComponentContract {
     interface View : BaseView {
-
+        fun showChannel(channel : Channel)
     }
 
     interface Presenter : BasePresenter<View> {

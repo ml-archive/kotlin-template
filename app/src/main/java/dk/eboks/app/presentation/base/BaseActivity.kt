@@ -160,5 +160,13 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         }
     }
 
+    fun openComponentDrawer(cls : Class<out BaseFragment>)
+    {
+        val intent = Intent(this, SheetComponentActivity::class.java)
+        intent.putExtra("component", cls.name)
+        startActivity(intent)
+        overridePendingTransition(0,0)
+    }
+
     protected open fun onShake() {}
 }

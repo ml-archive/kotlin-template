@@ -59,10 +59,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
         redOptionTv.setOnClickListener {
             hideKeyboard(this.view)
-            val intent = Intent(activity, SheetComponentActivity::class.java)
-            intent.putExtra("component", ForgotPasswordComponentFragment::class.java.simpleName)
-            activity.startActivity(intent)
-            activity.overridePendingTransition(0, 0)
+            getBaseActivity()?.openComponentDrawer(ForgotPasswordComponentFragment::class.java)
         }
 
         arguments?.let { args ->
@@ -186,10 +183,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         val li = LayoutInflater.from(context)
 
         val listener = View.OnClickListener {
-            val intent = Intent(activity, SheetComponentActivity::class.java)
-            intent.putExtra("component", ActivationCodeComponentFragment::class.java.simpleName)
-            activity.startActivity(intent)
-            activity.overridePendingTransition(0,0)
+            getBaseActivity()?.openComponentDrawer(ActivationCodeComponentFragment::class.java)
+
         }
         for(provider in providers)
         {
