@@ -75,4 +75,36 @@ class SendersRestRepository(val api: Api, val gson: Gson, val senderStore: Sende
         }
         throw(RepositoryException())
     }
+
+    override fun getSenderDetail(id: Long): Sender {
+        try {
+            val call = api.getSenderDetail(id)
+            val result = call.execute()
+            result?.let { response ->
+                if (response.isSuccessful) {
+                    return response.body() ?: throw(RepositoryException(-1, "Unknown"))
+                }
+                // attempt to parse error
+                response.errorBody()?.string()?.let { error_str ->
+                    Timber.e("Received error body $error_str")
+                    throw(ServerErrorException(gson.fromJson<ServerError>(error_str, ServerError::class.java)))
+                }
+            }
+        } catch (e: Throwable) {
+            when (e) {
+                is ServerErrorException -> {
+                    Timber.e("Server error exception (runtime)")
+                    throw(e)
+                }
+                is UnknownHostException -> {
+                    Timber.e("unknown host")
+                    throw(RepositoryException(-1, "UnknownHostException"))
+                }
+            }
+            if (BuildConfig.DEBUG) {
+                e.printStackTrace()
+            }
+        }
+        throw(RepositoryException())
+    }
 }
