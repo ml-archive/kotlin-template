@@ -12,58 +12,21 @@ import timber.log.Timber
 * @author   bison
 * @since    01/02/18.
 */
-class GetSendersInteractorImpl(executor: Executor, val sendersRepository: SendersRepository, val senderCategoriesRepository: SenderCategoriesRepository) : BaseInteractor(executor), GetSendersInteractor {
+class GetSenderDetailInteractorImpl(executor: Executor, val sendersRepository: SendersRepository) : BaseInteractor(executor), GetSenderDetailInteractor {
 
-    override var output: GetSendersInteractor.Output? = null
-    override var input: GetSendersInteractor.Input? = null
+    override var output: GetSenderDetailInteractor.Output? = null
+    override var input: GetSenderDetailInteractor.Input? = null
 
 
     override fun execute() {
-        when {
-            (input?.id ?: -1) > 0 -> doGetByCategory()  // id given: all all of that category
-            !input?.name.isNullOrBlank() -> doSearch() // name field: do a search-by-name
-            else -> doGet() // no name: just get all
-        }
-    }
-
-    private fun doGet() {
-        Timber.d("doGet")
         try {
-            val senders = sendersRepository.getSenders(input?.cached ?: true)
+            val senders = sendersRepository.getSenderDetail(input?.id ?: 0)
             runOnUIThread {
-                output?.onGetSenders(senders)
+                output?.onGetSender(senders)
             }
         } catch (e: RepositoryException) {
             runOnUIThread {
-                output?.onGetSendersError(e.message ?: "Unknown error")
-            }
-        }
-    }
-
-    fun doGetByCategory() {
-        Timber.d("doGetByCategory")
-        try {
-            val category = senderCategoriesRepository.getSendersByCategory(input?.id ?: 0)
-            runOnUIThread {
-                output?.onGetSenders(category.senders ?: ArrayList())
-            }
-        } catch (e: Throwable) {
-            runOnUIThread {
-                output?.onGetSendersError(e.message ?: "Unknown error")
-            }
-        }
-    }
-
-    fun doSearch() {
-        Timber.d("doSearch")
-        try {
-            val senders = sendersRepository.searchSenders(input?.name ?: "")
-            runOnUIThread {
-                output?.onGetSenders(senders)
-            }
-        } catch (e: Throwable) {
-            runOnUIThread {
-                output?.onGetSendersError(e.message ?: "Unknown error")
+                output?.onGetSenderError(e.message ?: "Unknown error")
             }
         }
     }

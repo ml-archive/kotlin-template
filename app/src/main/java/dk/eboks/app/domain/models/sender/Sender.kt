@@ -13,7 +13,7 @@ import java.io.Serializable
 data class Sender(
         var id: Long,
         var name: String = "",
-        var authority: Int = 0,
+        var authority: Int = 0, // TODO: YELL at slackers,  This should be an INT!!
         var logo: Image? = null,
         var description: Description? = null,
         var address: Address? = null,

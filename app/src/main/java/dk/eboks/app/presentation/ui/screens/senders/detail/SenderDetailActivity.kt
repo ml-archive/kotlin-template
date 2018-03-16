@@ -8,12 +8,18 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_senders_detail.*
+import javax.inject.Inject
 
-class SenderDetailActivity : BaseActivity() {
+class SenderDetailActivity : BaseActivity(),SenderDetailContract.View {
+
+    @Inject
+    lateinit var presenter: SenderDetailContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_senders_detail)
+        component.inject(this)
+        presenter.onViewCreated(this, lifecycle)
 
         val sender = intent.getSerializableExtra(Sender::class.simpleName) as Sender?
         if (sender == null) {
@@ -32,8 +38,11 @@ class SenderDetailActivity : BaseActivity() {
             // pass the knowledge on to your siblings, so they in turn can use it
             val b = Bundle()
             b.putSerializable(Sender::class.simpleName, sender)
+
             senderGroupsListComponentF.arguments = b
             senderDetailInfoF.arguments = b
+
+            presenter.loadSender( sender.id)
         }
 
         senderDetailBodyTv.visibility = View.GONE // only for public authorities
@@ -67,6 +76,12 @@ class SenderDetailActivity : BaseActivity() {
         senderDetailRegisterTB.text = "NstackRegister"
         senderDetailRegisterTB.textOn = "NstackRegister"
         senderDetailRegisterTB.textOff = "NstackRegistered"
+    }
+
+    override fun showSender(sender: Sender) {
+    }
+
+    override fun showError(msg: String) {
     }
 }
 
