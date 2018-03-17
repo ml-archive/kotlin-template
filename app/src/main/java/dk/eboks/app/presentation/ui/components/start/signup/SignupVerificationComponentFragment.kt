@@ -62,7 +62,7 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
         showProgress(true)
         content.postDelayed({
             showProgress(false)
-            (activity as StartActivity).replaceFragment(MMComponentFragment())
+            getBaseActivity()?.replaceFragment(R.id.containerFl, MMComponentFragment(), true)
         }, 1000)
     }
 }

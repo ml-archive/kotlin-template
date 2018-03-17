@@ -33,7 +33,7 @@ class AcceptTermsComponentFragment : BaseFragment(), AcceptTermsComponentContrac
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        acceptBtn.setOnClickListener{(activity as StartActivity).replaceFragment(CompletedComponentFragment()) }
+        acceptBtn.setOnClickListener{getBaseActivity()?.replaceFragment(R.id.containerFl, CompletedComponentFragment(), true) }
         cancelBtn.setOnClickListener{showDialog()}
     }
 
@@ -50,7 +50,7 @@ class AcceptTermsComponentFragment : BaseFragment(), AcceptTermsComponentContrac
 
         })
         dialogBuilder.setNegativeButton("_Yes", DialogInterface.OnClickListener { dialog, whichButton ->
-            (activity as StartActivity).replaceFragment(WelcomeComponentFragment())
+            getBaseActivity()?.replaceFragment(R.id.containerFl, WelcomeComponentFragment(), true)
         })
         val b = dialogBuilder.create()
         b.show()

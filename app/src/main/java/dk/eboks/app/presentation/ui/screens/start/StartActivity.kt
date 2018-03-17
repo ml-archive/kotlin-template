@@ -29,35 +29,6 @@ class StartActivity : BaseActivity(), StartContract.View {
         presenter.onViewCreated(this, lifecycle)
     }
 
-    fun replaceFragment(fragment: BaseFragment?) {
-        fragment?.let {
-            supportFragmentManager.beginTransaction().replace(
-                    R.id.containerFl,
-                    it,
-                    fragment.javaClass.simpleName
-            ).addToBackStack(fragment.javaClass.simpleName).commit()
-        }
-    }
-
-    fun addFragment(fragment: BaseFragment?) {
-        fragment?.let {
-            supportFragmentManager.beginTransaction().add(
-                    R.id.containerFl,
-                    it,
-                    fragment.javaClass.simpleName
-            ).addToBackStack(fragment.javaClass.simpleName).commit()
-        }
-    }
-
-    fun emptyBackStack() {
-        val trans = supportFragmentManager.beginTransaction()
-        for (frag in supportFragmentManager.fragments) {
-            trans.remove(frag)
-            Timber.e("Removing frag")
-        }
-        trans.commitNowAllowingStateLoss()
-    }
-
     override fun setupTranslations() {
 
     }
@@ -101,12 +72,12 @@ class StartActivity : BaseActivity(), StartContract.View {
 
     override fun showUserCarouselComponent() {
         showLogo(false)
-        addFragment(UserCarouselComponentFragment())
+        addFragment(R.id.containerFl, UserCarouselComponentFragment(), true)
     }
 
     override fun showWelcomeComponent() {
         showLogo(false)
-        replaceFragment(WelcomeComponentFragment())
+        replaceFragment(R.id.containerFl, WelcomeComponentFragment(), true)
     }
 
     override fun startMain() {
