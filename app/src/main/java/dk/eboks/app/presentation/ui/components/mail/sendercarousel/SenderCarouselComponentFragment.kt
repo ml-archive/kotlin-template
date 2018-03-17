@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.mail.sendercarousel
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -12,7 +13,9 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
 import kotlinx.android.synthetic.main.fragment_sender_carousel_component.*
+import kotlinx.android.synthetic.main.viewholder_circular_sender.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -78,8 +81,9 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
 
     inner class HorizontalSendersAdapter : RecyclerView.Adapter<HorizontalSendersAdapter.CircularSenderViewHolder>() {
 
-        inner class CircularSenderViewHolder(root : View) : RecyclerView.ViewHolder(root)
+        inner class CircularSenderViewHolder(val root : View) : RecyclerView.ViewHolder(root)
         {
+
             val circleIv = root.findViewById<ImageView>(R.id.circleIv)
         }
 
@@ -97,7 +101,14 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
             holder?.circleIv?.let {
                 if(senders[position].logo != null)
                     Glide.with(context).load(senders[position].logo?.url).into(it)
+            }
+            holder?.root?.let {
                 it.isSelected = senders[position].unreadCount > 0
+                it.setOnClickListener {
+                val i = Intent(context, SenderDetailActivity::class.java )
+                i.putExtra(Sender::class.simpleName, senders[position])
+                startActivity(i)
+            }
             }
         }
     }

@@ -12,53 +12,33 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
         
-        <FrameLayout
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@drawable/circle_gradiant">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+            <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:src="@drawable/icon_48_payment_white">
-            </ImageView>
-        </FrameLayout>
+                android:padding="@dimen/margin_half"
+                android:src="@drawable/icon_48_payment_white"
+                android:background="@drawable/circle_gradiant"/>
 
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingLeft="16dp"
-            android:orientation="vertical">
 
             <TextView
                 style="@style/text.header4"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:paddingLeft="16dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="_XXXX XXXX XXXX 1234" />
 
 
-        </LinearLayout>
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
-            <ImageView
+            <ImageButton
                 android:layout_gravity="center"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/icon_48_delete_red"
-                
-                />
-
-        </FrameLayout>
+                android:background="@drawable/rippeldark"
+                android:src="@drawable/icon_48_delete_red" />
 
     </LinearLayout>
 

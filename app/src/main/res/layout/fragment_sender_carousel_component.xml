@@ -44,8 +44,11 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/sendersRv"
             android:layout_width="match_parent"
-            android:layout_height="108dp"
+            android:layout_height="148dp"
             android:layout_marginTop="24dp"
+            android:clipToPadding="false"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             android:scrollbars="none" />
     </LinearLayout>
 

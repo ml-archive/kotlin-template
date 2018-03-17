@@ -11,11 +11,13 @@ interface ChannelOverviewComponentContract {
     interface View : BaseView {
         fun showChannels(channels : List<Channel>)
         fun showChannelOpening()
+        fun showProgress(show : Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
         fun openChannel(channel : Channel)
         fun install(channel : Channel)
         fun open(channel : Channel)
+        fun refresh()
     }
 }

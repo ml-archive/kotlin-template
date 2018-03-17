@@ -95,6 +95,14 @@ inline fun <T> T.guard(block: T.() -> Unit): T {
     if (this == null) block(); return this
 }
 
+fun View.setVisible(isVisible:Boolean){
+    this.visibility = if (isVisible){
+        View.VISIBLE
+    } else {
+        View.GONE
+    }
+}
+
 fun FastScrollRecyclerView.setBubbleDrawable(drawable: Drawable) {
     FastScrollRecyclerView::class.java.getDeclaredField("mFastScroller").let {
         it.isAccessible = true

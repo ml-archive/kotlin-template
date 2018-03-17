@@ -1,25 +1,23 @@
-package dk.eboks.app.presentation.ui.components.channels.settings
+package dk.eboks.app.presentation.ui.components.uploads
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_channel_settings_component.*
 import javax.inject.Inject
 
 /**
  * Created by bison on 09-02-2018.
  */
-class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponentContract.View {
+class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentContract.View {
 
     @Inject
-    lateinit var presenter : ChannelSettingsComponentContract.Presenter
+    lateinit var presenter : UploadOverviewComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_channel_settings_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_upload_overview_component, container, false)
         return rootView
     }
 
@@ -30,9 +28,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     }
 
     override fun setupTranslations() {
-        headerTv.text = Translation.settings.header
-        creditCardHeaderTv.text = Translation.settings.creditCardHeader
-        removeChannelBtn.text = Translation.settings.removeChannelBtn
+
     }
 
 }

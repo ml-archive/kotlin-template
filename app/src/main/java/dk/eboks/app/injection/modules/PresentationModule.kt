@@ -101,6 +101,8 @@ import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponent
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContract
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentPresenter
+import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentContract
+import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContract
@@ -442,6 +444,12 @@ class PresentationModule {
         return SenderGroupsComponentPresenter(stateManager)
     }
 
+    @ActivityScope
+    @Provides
+    fun provideUploadOverviewPresenter(stateManager: AppStateManager) : UploadOverviewComponentContract.Presenter {
+        return UploadOverviewComponentPresenter(stateManager)
+    }
+  
     @ActivityScope
     @Provides
     fun provideSenderDetailPresenter(stateManager: AppStateManager, getSenderDetailInteractor: GetSenderDetailInteractor): SenderDetailContract.Presenter {

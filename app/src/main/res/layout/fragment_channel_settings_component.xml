@@ -12,6 +12,7 @@
             android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/headerTv"
                     style="@style/text.header1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -50,6 +51,7 @@
                     android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/creditCardHeaderTv"
                             style="@style/text.header3"
                             android:text="_Credit cards"
                             android:paddingLeft="16dp"
@@ -93,6 +95,7 @@
                     android:orientation="horizontal">
 
                         <Button
+                            android:id="@+id/removeChannelBtn"
                             style="@style/buttonRoundedCorners"
                             android:layout_width="140.5dp"
                             android:layout_height="36dp"

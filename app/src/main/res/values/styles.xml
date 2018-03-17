@@ -260,6 +260,9 @@
         <item name="android:progressBackgroundTint">@color/white</item>
     </style>
 
+    <style name="UploadProgress" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:progressBackgroundTint">@color/greyBoarder</item>
+    </style>
 
     <style name="EboksTextInputLayout">
         <item name="android:textColorHint"></item>
