@@ -65,11 +65,19 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragmen
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentFragment
+import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.*
@@ -87,6 +95,7 @@ import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivi
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity
 import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
+import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
@@ -190,8 +199,10 @@ interface PresentationComponent {
     fun inject(target : CategoriesComponentFragment)
     fun inject(target : CategoriesComponentPresenter)
     fun inject(target : BrowseCategoryActivity)
+    fun inject(target : SenderGroupsComponentFragment)
+    fun inject(target : SenderDetailActivity)
 
-    // signup
+    // signupGetSenderDetailInteractor
     fun inject(target : SignupComponentPresenter)
     fun inject(target : NameMailComponentFragment)
     fun inject(target : PasswordComponentFragment)
@@ -212,6 +223,12 @@ interface PresentationComponent {
     fun inject(target : ActivationCodeComponentPresenter)
     fun inject(target : NemIdComponentFragment)
     fun inject(target : NemIdComponentPresenter)
+    fun inject(target : IdPortenComponentFragment)
+    fun inject(target : IdPortenComponentPresenter)
+    fun inject(target : BankIdSEComponentFragment)
+    fun inject(target : BankIdSEComponentPresenter)
+    fun inject(target : BankIdNOComponentFragment)
+    fun inject(target : BankIdNOComponentPresenter)
   
     // profile
     fun inject(target : MyInformationComponentFragment)

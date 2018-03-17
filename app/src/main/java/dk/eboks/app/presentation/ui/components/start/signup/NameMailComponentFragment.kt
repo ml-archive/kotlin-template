@@ -135,7 +135,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         val ss = SpannableString(termsText)
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
-                (activity as StartActivity).replaceFragment(TermsComponentFragment())
+                getBaseActivity()?.replaceFragment(R.id.containerFl, TermsComponentFragment(), true)
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -182,7 +182,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         showProgress(true)
         content.postDelayed({
             showProgress(false)
-            (activity as StartActivity).replaceFragment(PasswordComponentFragment())
+            getBaseActivity()?.replaceFragment(R.id.containerFl, PasswordComponentFragment(), true)
         }, 1000)
     }
 

@@ -1,12 +1,8 @@
-package dk.eboks.app.presentation.ui.components.start.login.providers.nemid
+package dk.eboks.app.presentation.ui.components.start.login.providers.idporten
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.support.v7.app.AlertDialog
 import android.view.View
 import android.webkit.WebView
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseWebFragment
 import kotlinx.android.synthetic.main.fragment_base_web.*
@@ -16,36 +12,18 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
+class IdPortenComponentFragment : BaseWebFragment(), IdPortenComponentContract.View {
 
     @Inject
-    lateinit var presenter : NemIdComponentContract.Presenter
+    lateinit var presenter : IdPortenComponentContract.Presenter
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         webView.loadData("Nem id webview placeholder", "text/html", "utf8")
+
         setupTopBar()
-        if(BuildConfig.DEBUG) {
-            Handler(Looper.getMainLooper()).postDelayed({
-                showDebugDialog()
-            }, 500)
-        }
-    }
-
-    private fun showDebugDialog()
-    {
-        AlertDialog.Builder(activity)
-                .setTitle("Debug")
-                .setMessage("Press okay to simulate a successful login with external login provider")
-                .setPositiveButton("Login") { dialog, which ->
-
-                }
-                .setNegativeButton("Close") { dialog, which ->
-
-                }
-                .show()
     }
 
     // shamelessly ripped from chnt
@@ -57,7 +35,7 @@ class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
     }
 
     override fun setupTranslations() {
-        mainTb.title = "_NemID"
+        mainTb.title = "_IdPorten"
     }
 
     override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {

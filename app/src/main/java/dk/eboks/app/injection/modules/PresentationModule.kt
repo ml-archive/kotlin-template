@@ -12,8 +12,8 @@ import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
+import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
-import dk.eboks.app.domain.interactors.sender.SearchSendersInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
@@ -42,7 +42,10 @@ import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningCo
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentContract
 import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentPresenter
-import dk.eboks.app.presentation.ui.components.channels.settings.*
+import dk.eboks.app.presentation.ui.components.channels.requirements.ChannelRequirementsComponentContract
+import dk.eboks.app.presentation.ui.components.channels.requirements.ChannelRequirementsComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentContract
+import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentContract
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageContract
@@ -79,11 +82,19 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContrac
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentContract
 import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentContract
+import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentContract
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentContract
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentContract
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentContract
+import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentContract
+import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentContract
 import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentContract
@@ -104,6 +115,8 @@ import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningContra
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryContract
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryPresenter
+import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailContract
+import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailPresenter
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewContract
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.nodes.arch.domain.executor.Executor
@@ -317,6 +330,24 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
+    fun provideIdPortenComponentPresenter(stateManager: AppStateManager) : IdPortenComponentContract.Presenter {
+        return IdPortenComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideBankIdSEComponentPresenter(stateManager: AppStateManager) : BankIdSEComponentContract.Presenter {
+        return BankIdSEComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideBankIdNOComponentPresenter(stateManager: AppStateManager) : BankIdNOComponentContract.Presenter {
+        return BankIdNOComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
     fun provideVerificationComponentPresenter(stateManager: AppStateManager) : VerificationComponentContract.Presenter {
         return VerificationComponentPresenter(stateManager)
     }
@@ -399,10 +430,18 @@ class PresentationModule {
         return CategoriesComponentPresenter(stateManager, getSenderCategoriesInteractor)
     }
 
+
     @ActivityScope
     @Provides
-    fun provideBrowseCategoryPresenter(stateManager: AppStateManager, searchSendersInteractor: SearchSendersInteractor) : BrowseCategoryContract.Presenter {
-        return BrowseCategoryPresenter(stateManager, searchSendersInteractor)
+    fun provideBrowseCategoryPresenter(stateManager: AppStateManager, getSendersInteractor: GetSendersInteractor) : BrowseCategoryContract.Presenter {
+        return BrowseCategoryPresenter(stateManager, getSendersInteractor)
+    }
+
+
+    @ActivityScope
+    @Provides
+    fun provideSenderGroupsComponentPresenter(stateManager: AppStateManager): SenderGroupsComponentContract.Presenter {
+        return SenderGroupsComponentPresenter(stateManager)
     }
 
     @ActivityScope
@@ -410,6 +449,13 @@ class PresentationModule {
     fun provideUploadOverviewPresenter(stateManager: AppStateManager) : UploadOverviewComponentContract.Presenter {
         return UploadOverviewComponentPresenter(stateManager)
     }
+  
+    @ActivityScope
+    @Provides
+    fun provideSenderDetailPresenter(stateManager: AppStateManager, getSenderDetailInteractor: GetSenderDetailInteractor): SenderDetailContract.Presenter {
+        return SenderDetailPresenter(stateManager, getSenderDetailInteractor)
+    }
+
     /* Pasta
     @ActivityScope
     @Provides

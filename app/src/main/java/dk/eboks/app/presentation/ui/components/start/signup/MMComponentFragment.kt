@@ -80,7 +80,7 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
         showProgress(true)
         content.postDelayed({
             showProgress(false)
-            (activity as StartActivity).replaceFragment(AcceptTermsComponentFragment())
+            getBaseActivity()?.replaceFragment(R.id.containerFl, AcceptTermsComponentFragment(), true)
         }, 1000)
     }
 
