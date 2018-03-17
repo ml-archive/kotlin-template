@@ -6,6 +6,7 @@ import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -18,19 +19,17 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.isValidEmail
 import kotlinx.android.synthetic.main.fragment_login_component.*
-import kotlinx.android.synthetic.main.include_toolnar.*
 import timber.log.Timber
 import javax.inject.Inject
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.Glide
-
+import kotlinx.android.synthetic.main.include_toolbar.*
 
 
 /**
@@ -60,26 +59,50 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.logoncredentials.title, null, {
-            hideKeyboard(view)
-            (activity as StartActivity).onBackPressed()
-        })
 
-        redOptionTv.setOnClickListener {
-            hideKeyboard(this.view)
-            getBaseActivity()?.openComponentDrawer(ForgotPasswordComponentFragment::class.java)
-        }
+        setupTopBar()
 
         arguments?.let { args ->
             showGreeting = args.getBoolean("showGreeting", true)
         }
-        setupCprEmailListeners()
-        setupPasswordListener()
+    }
+
+
+    override fun setupTranslations() {
+        headerTv.text = Translation.logoncredentials.topLabel
+        detailTv.text = Translation.logoncredentials.topSublabel
+        cprEmailTil.hint = Translation.logoncredentials.emailOrSSNHeader
+        passwordTil.hint = Translation.logoncredentials.passwordfieldHeader
+    }
+
+    // shamelessly ripped from chnt
+    private fun setupTopBar() {
+        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.title = Translation.logoncredentials.title
+        mainTb.setNavigationOnClickListener {
+            hideKeyboard(view)
+            activity.onBackPressed()
+        }
+
+        val menuRegist = mainTb.menu.add(Translation.logoncredentials.forgotPasswordButton)
+        menuRegist.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
+        menuRegist.setOnMenuItemClickListener { item: MenuItem ->
+            hideKeyboard(this.view)
+            getBaseActivity()?.openComponentDrawer(ForgotPasswordComponentFragment::class.java)
+            true
+        }
     }
 
     override fun onResume() {
         super.onResume()
+        setupCprEmailListeners()
+        setupPasswordListener()
         presenter.setup()
+    }
+
+    override fun onPause() {
+        handler.removeCallbacksAndMessages(null)
+        super.onPause()
     }
 
 
@@ -127,18 +150,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             else
                 presenter.createUserAndLogin(email = null, cpr = emailOrCpr, verified = verified)
 
-            if (showGreeting) {
-                fragmentManager.beginTransaction().remove(this@LoginComponentFragment).replace(R.id.containerFl, UserCarouselComponentFragment(), UserCarouselComponentFragment::class.java.simpleName).commit()
-                //(activity as StartActivity).replaceFragment(UserCarouselComponentFragment())
-                /*
-                fragmentManager.findFragmentByTag(WelcomeComponentFragment::class.java.simpleName)?.let { frag->
-                    fragmentManager.beginTransaction().remove(frag).commitNowAllowingStateLoss()
-                    //fragmentManager.beginTransaction().replace(R.id.containerFl, UserCarouselComponentFragment(), UserCarouselComponentFragment::class.java.simpleName).commitNow()
-                }
-                */
-            } else {
-                (activity as StartActivity).onBackPressed()
-            }
+            getBaseActivity()?.setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
         }
     }
 
@@ -187,7 +199,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                     continueBtn.visibility = View.VISIBLE
                 }
                 else -> {
-                    getBaseActivity()?.replaceFragment(R.id.containerFl, provider.fragmentClass?.newInstance())
+                    getBaseActivity()?.addFragmentOnTop(R.id.containerFl, provider.fragmentClass?.newInstance())
                 }
             }
         }
@@ -294,19 +306,5 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             debugCreateVerifiedBtn.isEnabled = enabled
         }
 
-    }
-
-    override fun setupTranslations() {
-        headerTv.text = Translation.logoncredentials.topLabel
-        detailTv.text = Translation.logoncredentials.topSublabel
-        cprEmailTil.hint = Translation.logoncredentials.emailOrSSNHeader
-        passwordTil.hint = Translation.logoncredentials.passwordfieldHeader
-        redOptionTv.visibility = View.VISIBLE
-        redOptionTv.text = Translation.logoncredentials.forgotPasswordButton
-    }
-
-    override fun onDestroy() {
-        handler.removeCallbacksAndMessages(null)
-        super.onDestroy()
     }
 }

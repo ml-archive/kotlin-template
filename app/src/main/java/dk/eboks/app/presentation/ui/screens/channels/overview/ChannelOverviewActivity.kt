@@ -4,6 +4,7 @@ import android.os.Bundle
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -15,12 +16,15 @@ class ChannelOverviewActivity : BaseActivity(), ChannelOverviewContract.View {
         setContentView(R.layout.activity_overview_channels)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        setupToolbar()
+
+        setupTopBar()
     }
 
-    private fun setupToolbar() {
-        setToolbar(R.drawable.ic_menu_channels, Translation.channels.title,null, null ,true)
+    private fun setupTopBar() {
+        mainTb.setNavigationIcon(R.drawable.ic_menu_channels)
+        mainTb.title = Translation.channels.title
     }
+
 
     override fun setupTranslations() {
 

@@ -5,8 +5,7 @@ import android.view.View
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.nodes.nstack.kotlin.NStack
-import kotlinx.android.synthetic.main.include_toolnar.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 class FolderActivity : BaseActivity(), FolderContract.View {
@@ -17,7 +16,11 @@ class FolderActivity : BaseActivity(), FolderContract.View {
         setContentView(R.layout.activity_folder)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+    }
 
+    private fun setupTopBar() {
+        mainTb.setNavigationIcon(R.drawable.ic_menu_mail)
+        mainTb.title = Translation.folders.foldersHeader
     }
 
     override fun onResume() {
@@ -34,7 +37,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
     }
 
     override fun setupTranslations() {
-        setToolbar(R.drawable.ic_menu_mail, Translation.folders.foldersHeader)
+        setupTopBar()
     }
 
 

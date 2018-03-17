@@ -41,7 +41,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupViewPager()
-        signupBtn.setOnClickListener { getBaseActivity()?.replaceFragment(R.id.containerFl, NameMailComponentFragment(), true) }
+        signupBtn.setOnClickListener { getBaseActivity()?.addFragmentOnTop(R.id.containerFl, NameMailComponentFragment(), true) }
         if(BuildConfig.DEBUG) {
             debugCreateBtn.visibility = View.VISIBLE
             debugCreateBtn.setOnClickListener {
@@ -53,14 +53,6 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
     override fun onResume() {
         super.onResume()
         presenter.requestUsers()
-        signupBtn.post({
-            fragmentManager.findFragmentByTag(WelcomeComponentFragment::class.java.simpleName)?.let { frag->
-                Timber.e("Found frag, removing")
-                fragmentManager.beginTransaction().remove(frag).commitNowAllowingStateLoss()
-                //fragmentManager.beginTransaction().replace(R.id.containerFl, UserCarouselComponentFragment(), UserCarouselComponentFragment::class.java.simpleName).commitNow()
-            }
-        })
-
     }
 
     fun setupViewPager()
@@ -88,7 +80,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
 
     override fun openLogin() {
         val frag = LoginComponentFragment()
-        getBaseActivity()?.replaceFragment(R.id.containerFl, frag, true)
+        getBaseActivity()?.addFragmentOnTop(R.id.containerFl, frag, true)
     }
 
     inner class UserPagerAdapter(val users: List<User>) : PagerAdapter()

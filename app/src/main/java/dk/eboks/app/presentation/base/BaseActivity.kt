@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.base
 
+import android.app.FragmentManager
 import android.content.Context
 import android.content.Intent
 import android.hardware.Sensor
@@ -12,19 +13,11 @@ import dk.eboks.app.BuildConfig
 import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
+import dk.eboks.app.presentation.ui.screens.debug.DebugActivity
 import dk.eboks.app.util.ShakeDetector
 import dk.nodes.arch.presentation.base.BaseView
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
-import android.view.KeyEvent.KEYCODE_VOLUME_DOWN
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import dk.eboks.app.R
-import dk.eboks.app.presentation.ui.screens.debug.DebugActivity
-import dk.eboks.app.util.guard
-import kotlinx.android.synthetic.main.include_toolnar.*
 
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
@@ -40,6 +33,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     private var acceleroMeter : Sensor? = null
     protected var showEmptyState : Boolean = false
     protected var countToDebug = 0
+    protected val backStackRootTag = "root_fragment"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,63 +93,23 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         return mainTb
     }
 
-    fun setToolbar(iconResId : Int, title : String? = null, subtitle : String? = null, callback : (()->Unit)? = null, hideIcon : Boolean=false, showImgIcon : Boolean=false, redOptionsText : String? = null, userShareTvAllignedLeft : Boolean=false)
+    fun setRootFragment(resId : Int, fragment : BaseFragment?)
     {
-        toolbarIb?.let {
-            it.setImageResource(iconResId)
-            it.setOnClickListener { callback?.invoke() }
-        }
-        toolbarTv?.let {
-            if(title != null) {
-                it.visibility = View.VISIBLE
-                it.text = title
-            }
-            else
-                it.visibility = View.GONE
-        }
-       toolbarSubTv?.let {
-            if(subtitle != null) {
-                it.visibility = View.VISIBLE
-                it.text = subtitle
-            }
-            else
-                it.visibility = View.GONE
-        }
-
-        if(hideIcon){
-            val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            params.setMargins(0, 0, 0, 0)
-            toolbarTv.layoutParams = params
-            toolbarIb.visibility = View.GONE
-        }
-
-        if (showImgIcon) {imgOptionIV.visibility = View.VISIBLE}
-
-        if(redOptionsText != null) {
-            redOptionTv.visibility = View.VISIBLE
-            redOptionTv.text = "REGISTRATIONS"
-        }
-
-        if(userShareTvAllignedLeft){ userShareTv.setPadding(0,0,0,0) }
-    }
-
-
-    fun replaceFragment(resId : Int, fragment : BaseFragment?, addToBack : Boolean = true)
-    {
-        fragment?.let{
-            val trans = supportFragmentManager.beginTransaction().replace(resId, it, fragment.javaClass.simpleName)
-            if(addToBack)
-                trans.addToBackStack(fragment.javaClass.simpleName)
-            trans.commit()
+        fragment?.let {
+            supportFragmentManager.popBackStack(backStackRootTag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            supportFragmentManager.beginTransaction()
+                    .replace(resId, fragment)
+                    .addToBackStack(backStackRootTag)
+                    .commit()
         }
     }
 
-    fun addFragment(resId : Int, fragment : BaseFragment?, addToBack : Boolean = true)
+    fun addFragmentOnTop(resId : Int, fragment : BaseFragment?, addToBack : Boolean = true)
     {
         fragment?.let{
-            val trans = supportFragmentManager.beginTransaction().add(resId, it, fragment.javaClass.simpleName)
+            val trans = supportFragmentManager.beginTransaction().replace(resId, it)
             if(addToBack)
-                trans.addToBackStack(fragment.javaClass.simpleName)
+                trans.addToBackStack(null)
             trans.commit()
         }
     }

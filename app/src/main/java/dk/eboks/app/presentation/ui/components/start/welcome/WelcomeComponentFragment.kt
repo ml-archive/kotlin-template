@@ -28,7 +28,7 @@ class WelcomeComponentFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         //(activity as StartActivity).showLogo(true)
         signupBtn.setOnClickListener {
-            getBaseActivity()?.replaceFragment(R.id.containerFl, NameMailComponentFragment(), true)
+            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, NameMailComponentFragment(), true)
         }
         logonBtn.setOnClickListener {
             /*
@@ -53,7 +53,7 @@ class WelcomeComponentFragment : BaseFragment() {
                     .addSharedElement(logoIv, "eboksLogoTransition")
             ft.commit()
             */
-            getBaseActivity()?.replaceFragment(R.id.containerFl, LoginComponentFragment(), true)
+            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, LoginComponentFragment(), true)
         }
         if(BuildConfig.DEBUG) {
             debugCreateBtn.visibility = View.VISIBLE

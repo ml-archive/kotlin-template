@@ -17,6 +17,7 @@ import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.pdf.PdfViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentFragment
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -42,6 +43,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         setContentSheet(R.layout.sheet_message)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        setupTopBar()
     }
 
     override fun showError(msg: String) {
@@ -50,6 +52,19 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
 
     override fun setupTranslations() {
 
+    }
+
+    private fun setupTopBar()
+    {
+        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.title = Translation.message.title
+        mainTb.setNavigationOnClickListener {
+            onBackPressed()
+        }
+    }
+
+    override fun showTitle(message: Message) {
+        mainTb.subtitle = formatter.formatDate(message)
     }
 
     override fun addHeaderComponentFragment()
@@ -128,7 +143,5 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
 
     }
 
-    override fun showTitle(message: Message) {
-        setToolbar(R.drawable.red_navigationbar, Translation.message.title, formatter.formatDate(message), {onBackPressed()})
-    }
+
 }

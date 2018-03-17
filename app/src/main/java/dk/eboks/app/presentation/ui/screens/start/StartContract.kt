@@ -16,6 +16,7 @@ interface StartContract {
     }
 
     interface Presenter : BasePresenter<View> {
+        fun startup()
         fun proceed()
     }
 }

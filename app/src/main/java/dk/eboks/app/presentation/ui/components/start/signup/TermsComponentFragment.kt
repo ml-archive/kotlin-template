@@ -8,6 +8,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_signup_terms_component.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 /**
@@ -28,10 +29,17 @@ class TermsComponentFragment : BaseFragment(), SignupComponentContract.TermsView
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         continueBtn.setOnClickListener { onContinueClicked() }
-        getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.signup.termsTitle, null, {
-            fragmentManager.popBackStack()
-        })
+        setupTopBar()
     }
+
+    private fun setupTopBar() {
+        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.title = Translation.signup.termsTitle
+        mainTb.setNavigationOnClickListener {
+            fragmentManager.popBackStack()
+        }
+    }
+
 
     override fun setupTranslations() {
         textTv.text = Translation.signup.termsText

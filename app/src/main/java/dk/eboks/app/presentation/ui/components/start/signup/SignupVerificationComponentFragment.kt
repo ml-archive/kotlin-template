@@ -12,6 +12,7 @@ import dk.eboks.app.presentation.base.SheetComponentActivity
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_signup_verification_component.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 /**
@@ -35,10 +36,17 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
             getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
         }
         continueWithoutVerificationBtn.setOnClickListener { onContinueClicked() }
-        getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.signup.title, null, {
-            fragmentManager.popBackStack()
-        })
+        setupTopBar()
     }
+
+    private fun setupTopBar() {
+        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.title = Translation.signup.title
+        mainTb.setNavigationOnClickListener {
+            fragmentManager.popBackStack()
+        }
+    }
+
 
     override fun setupTranslations() {
         headerTv.text = Translation.signup.verificationHeader
@@ -62,7 +70,7 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
         showProgress(true)
         content.postDelayed({
             showProgress(false)
-            getBaseActivity()?.replaceFragment(R.id.containerFl, MMComponentFragment(), true)
+            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, MMComponentFragment(), true)
         }, 1000)
     }
 }

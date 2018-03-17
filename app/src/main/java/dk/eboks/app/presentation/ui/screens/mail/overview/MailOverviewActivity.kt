@@ -3,12 +3,10 @@ package dk.eboks.app.presentation.ui.screens.mail.overview
 import android.os.Bundle
 import android.view.View
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.presentation.ui.screens.debug.hinter.HintActivity
 import dk.eboks.app.presentation.ui.dialogs.ConfirmDialogFragment
 import kotlinx.android.synthetic.main.activity_mail_overview.*
-import kotlinx.android.synthetic.main.include_toolnar.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -29,14 +27,8 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
             presenter.refresh()
         }
 
-        userShareTv.setOnClickListener {
-            showConfirmDialog()
-        }
-
-        userShareTv.visibility = View.VISIBLE
-
         //HintActivity.showHint(this, "- Shake to show empty state\n- Tap 'you mail' to preview confirm dialog\n- Folders open the treeview the rest opens the individual list views\n- Pull to refresh")
-        setToolbar(R.drawable.ic_menu_mail,null,null,null,true, false,null , true)
+        mainTb.setNavigationIcon(R.drawable.ic_menu_mail)
     }
 
     override fun setupTranslations() {

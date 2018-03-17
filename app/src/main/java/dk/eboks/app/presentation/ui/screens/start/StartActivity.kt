@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.screens.start
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.view.View
 import dk.eboks.app.R
@@ -25,8 +26,21 @@ class StartActivity : BaseActivity(), StartContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(dk.eboks.app.R.layout.activity_start)
+        // add dummy fragment to work around the last fragment is impossible to remove bug (tm)
+        //supportFragmentManager.beginTransaction().add(R.id.containerFl, Fragment()).addToBackStack("dummy").commit()
+        //supportFragmentManager.beginTransaction().add(R.id.containerFl, Fragment()).commitNow()
+        //supportFragmentManager.executePendingTransactions()
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                if(!isDestroyed)
+                    finish()
+            }
+        }
+        presenter.startup()
     }
 
     override fun setupTranslations() {
@@ -38,9 +52,10 @@ class StartActivity : BaseActivity(), StartContract.View {
     }
 
     override fun performVersionControl() {
-        NStack.appOpen({ success -> Timber.e("appopen success = $success") })
-
+        //NStack.appOpen({ success -> Timber.e("appopen success = $success") })
+        NStack.appOpen()
         NStack.onAppUpdateListener = {
+            Timber.e("ONAPPUPDATELISTENER")
             showUpdateDialog(it)
         }
     }
@@ -71,13 +86,17 @@ class StartActivity : BaseActivity(), StartContract.View {
     }
 
     override fun showUserCarouselComponent() {
+        Timber.e("showUserCarousel")
         showLogo(false)
-        addFragment(R.id.containerFl, UserCarouselComponentFragment(), true)
+        setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
+        //replaceFragment(R.id.containerFl, UserCarouselComponentFragment(), true)
     }
 
     override fun showWelcomeComponent() {
+        Timber.e("showWelcome")
         showLogo(false)
-        replaceFragment(R.id.containerFl, WelcomeComponentFragment(), true)
+        setRootFragment(R.id.containerFl, WelcomeComponentFragment())
+        //replaceFragment(R.id.containerFl, WelcomeComponentFragment(), true)
     }
 
     override fun startMain() {
@@ -89,13 +108,10 @@ class StartActivity : BaseActivity(), StartContract.View {
     }
 
     override fun onBackPressed() {
-        Timber.e("entryCount ${supportFragmentManager.backStackEntryCount}")
         if (supportFragmentManager.backStackEntryCount > 0) {
             supportFragmentManager.popBackStack()
-            supportFragmentManager.executePendingTransactions()
-            if (supportFragmentManager.backStackEntryCount == 0)
-                super.onBackPressed()
-        } else
+        }
+        else
             super.onBackPressed()
     }
 

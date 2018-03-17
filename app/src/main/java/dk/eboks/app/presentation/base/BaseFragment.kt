@@ -13,6 +13,7 @@ import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.util.ShakeDetector
 import dk.nodes.arch.presentation.base.BaseView
+import kotlinx.android.synthetic.*
 import timber.log.Timber
 
 abstract class BaseFragment : Fragment(), BaseView {
@@ -34,6 +35,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     override fun onStart() {
         super.onStart()
         setupTranslations()
+        Timber.e("${this.javaClass.simpleName} onStart")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +44,13 @@ abstract class BaseFragment : Fragment(), BaseView {
         {
             setupShakeDetection()
         }
+        Timber.e("${this.javaClass.simpleName} onCreate")
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Timber.e("${this.javaClass.simpleName} onViewCreated")
+        clearFindViewByIdCache()
     }
 
     fun setupShakeDetection()
@@ -60,12 +69,31 @@ abstract class BaseFragment : Fragment(), BaseView {
     override fun onPause() {
         super.onPause()
         sensorManager?.unregisterListener(shakeDetector)
+        Timber.e("${this.javaClass.simpleName} onPause")
     }
 
     override fun onResume() {
         super.onResume()
         sensorManager?.registerListener(shakeDetector, acceleroMeter, SensorManager.SENSOR_DELAY_UI)
+        Timber.e("${this.javaClass.simpleName} onResume")
     }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        Timber.e("${this.javaClass.simpleName} onViewStateRestored")
+    }
+
+    /*
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        Timber.e("${this.javaClass.simpleName} onAttach")
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Timber.e("${this.javaClass.simpleName} onDetach")
+    }
+    */
 
     fun getBaseActivity() : BaseActivity?
     {

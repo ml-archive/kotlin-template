@@ -14,6 +14,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_signup_password_component.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -39,13 +40,20 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         continueBtn.setOnClickListener { onContinueClicked() }
-        getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.signup.title, null, {
-            fragmentManager.popBackStack()
-        })
+        setupTopBar()
 
         setupPasswordListeners()
         setupRepeatPasswordListener()
     }
+
+    private fun setupTopBar() {
+        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.title = Translation.signup.title
+        mainTb.setNavigationOnClickListener {
+            fragmentManager.popBackStack()
+        }
+    }
+
 
     private fun setupRepeatPasswordListener() {
         repeatPasswordEt.onFocusChangeListener = object : View.OnFocusChangeListener {
@@ -144,7 +152,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         showProgress(true)
         content.postDelayed({
             showProgress(false)
-            getBaseActivity()?.replaceFragment(R.id.containerFl, SignupVerificationComponentFragment(), true)
+            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, SignupVerificationComponentFragment(), true)
         }, 1000)
     }
 

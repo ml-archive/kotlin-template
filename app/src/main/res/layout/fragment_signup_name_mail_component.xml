@@ -13,7 +13,7 @@
         android:background="@color/backgroundColor"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolnar" />
+        <include layout="@layout/include_toolbar" />
 
         <ScrollView
             android:layout_width="match_parent"

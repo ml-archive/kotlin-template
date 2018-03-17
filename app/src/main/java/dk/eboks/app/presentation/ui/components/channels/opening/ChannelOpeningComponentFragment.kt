@@ -110,7 +110,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
 
     override fun openChannelContent() {
         val fragment = ChannelContentComponentFragment()
-        getBaseActivity()?.replaceFragment(R.id.content, fragment, false)
+        getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
         /*
         fragment?.let{
             fragmentManager.beginTransaction().add(R.id.content, it, ChannelContentComponentFragment::class.java.simpleName).commit()

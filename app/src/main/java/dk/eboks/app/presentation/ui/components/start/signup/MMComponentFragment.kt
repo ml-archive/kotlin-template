@@ -5,14 +5,15 @@ import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.util.isValidCpr
 import kotlinx.android.synthetic.main.fragment_signup_mm_component.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 /**
@@ -35,9 +36,6 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         continueWithoutMMTv.setOnClickListener { onContinueClicked() }
-        getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.signup.title, null, {
-            fragmentManager.popBackStack()
-        })
 
         cprEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(cprNumber: Editable?) {
@@ -56,6 +54,14 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
+    }
+
+    private fun setupTopBar() {
+        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.title = Translation.signup.title
+        mainTb.setNavigationOnClickListener {
+            activity.onBackPressed()
+        }
     }
 
     override fun setupTranslations() {
@@ -80,7 +86,7 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
         showProgress(true)
         content.postDelayed({
             showProgress(false)
-            getBaseActivity()?.replaceFragment(R.id.containerFl, AcceptTermsComponentFragment(), true)
+            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
         }, 1000)
     }
 

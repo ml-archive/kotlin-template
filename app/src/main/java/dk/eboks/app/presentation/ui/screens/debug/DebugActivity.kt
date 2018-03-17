@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_debug.*
-import kotlinx.android.synthetic.main.include_toolnar.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 
 class DebugActivity : AppCompatActivity() {
 
@@ -13,7 +13,7 @@ class DebugActivity : AppCompatActivity() {
         setContentView(dk.eboks.app.R.layout.activity_debug)
 
         //component.inject(this)
-        toolbarTv.text = "Debug"
+        mainTb.title = "Debug"
 
         componentTestTv.setOnClickListener {
             startActivity(Intent(this, ComponentTestActivity::class.java))

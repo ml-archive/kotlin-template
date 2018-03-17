@@ -15,12 +15,15 @@ class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteract
 
     init {
         bootstrapInteractor.output = this
+    }
+
+    override fun startup() {
+        Timber.e("Startup, running version control")
         runAction { v -> v.performVersionControl() }
     }
 
     override fun proceed() {
-        Timber.e("Ready to proceed")
-
+        Timber.e("Proceeding to run bootstrap interactor")
         bootstrapInteractor.run()
     }
 

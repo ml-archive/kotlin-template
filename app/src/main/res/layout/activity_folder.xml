@@ -5,7 +5,7 @@
                                                  android:background="@color/white"
                                                  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/include_toolnar"  />
+    <include layout="@layout/include_toolbar"  />
     <include layout="@layout/include_navigation_view"  />
 
 

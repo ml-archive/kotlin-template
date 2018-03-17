@@ -6,7 +6,7 @@
                                                  xmlns:app="http://schemas.android.com/apk/res-auto"
                                                  xmlns:tools="http://schemas.android.com/tools">
 
-    <include layout="@layout/include_toolnar"  />
+    <include layout="@layout/include_toolbar"  />
 
     <LinearLayout
         android:orientation="vertical"

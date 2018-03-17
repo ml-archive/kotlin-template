@@ -24,6 +24,7 @@ import android.text.style.ClickableSpan
 import android.text.SpannableString
 import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.util.isValidEmail
+import kotlinx.android.synthetic.main.include_toolbar.*
 
 
 /**
@@ -53,10 +54,16 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         setupNameListeners()
         setupEmailListeners()
 
-        getBaseActivity()?.setToolbar(R.drawable.red_navigationbar, Translation.signup.title, null, {
+        setupTopBar()
+    }
+
+    private fun setupTopBar() {
+        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.title = Translation.signup.title
+        mainTb.setNavigationOnClickListener {
             hideKeyboard(view)
             fragmentManager.popBackStack()
-        })
+        }
     }
 
     private fun hideKeyboard(view: View?) {
@@ -135,7 +142,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         val ss = SpannableString(termsText)
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(textView: View) {
-                getBaseActivity()?.replaceFragment(R.id.containerFl, TermsComponentFragment(), true)
+                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, TermsComponentFragment(), true)
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -182,7 +189,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         showProgress(true)
         content.postDelayed({
             showProgress(false)
-            getBaseActivity()?.replaceFragment(R.id.containerFl, PasswordComponentFragment(), true)
+            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, PasswordComponentFragment(), true)
         }, 1000)
     }
 
