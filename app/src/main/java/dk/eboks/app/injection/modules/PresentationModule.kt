@@ -15,6 +15,7 @@ import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
+import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentContract
@@ -111,6 +112,8 @@ import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContr
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewContract
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
+import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserContract
+import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserPresenter
 import dk.eboks.app.presentation.ui.screens.start.StartContract
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningContract
@@ -356,8 +359,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideUserCarouselComponentPresenter(stateManager: AppStateManager, getUsersInteractor: GetUsersInteractor) : UserCarouselComponentContract.Presenter {
-        return UserCarouselComponentPresenter(stateManager, getUsersInteractor)
+    fun provideUserCarouselComponentPresenter(stateManager: AppStateManager, getUsersInteractor: GetUsersInteractor, deleteUserInteractor: DeleteUserInteractor) : UserCarouselComponentContract.Presenter {
+        return UserCarouselComponentPresenter(stateManager, getUsersInteractor, deleteUserInteractor)
     }
 
     @ActivityScope
@@ -462,6 +465,12 @@ class PresentationModule {
     @Provides
     fun provideDebugOptionsComponentPresenter(stateManager: AppStateManager) : DebugOptionsComponentContract.Presenter {
         return DebugOptionsComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideDebugUserPresenter(stateManager: AppStateManager, createUserInteractor: CreateUserInteractor) : DebugUserContract.Presenter {
+        return DebugUserPresenter(stateManager, createUserInteractor)
     }
 
     /* Pasta

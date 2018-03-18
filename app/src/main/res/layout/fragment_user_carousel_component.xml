@@ -57,5 +57,18 @@
         android:layout_gravity="top|end"
         android:textAllCaps="true"
         style="@style/text.buttonSmall.tertiary"
+        android:textStyle="normal"
         android:text="Debug options"/>
+
+    <TextView
+        android:id="@+id/debugCreateUserTv"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:layout_gravity="top|start"
+        android:textAllCaps="true"
+        style="@style/text.buttonSmall.tertiary"
+        android:textStyle="normal"
+        android:text="Create user"/>
 </FrameLayout>

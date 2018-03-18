@@ -6,7 +6,7 @@ import dk.nodes.arch.domain.interactor.Interactor
 /**
  * Created by bison on 24-06-2017.
  */
-interface CreateUserInteractor : Interactor
+interface DeleteUserInteractor : Interactor
 {
     var input : Input?
     var output : Output?
@@ -14,7 +14,7 @@ interface CreateUserInteractor : Interactor
     data class Input(val user: User)
 
     interface Output {
-        fun onCreateUser(user : User, numberOfUsers : Int)
-        fun onCreateUserError(msg : String)
+        fun onDeleteUser(user : User)
+        fun onDeleteUserError(msg : String)
     }
 }

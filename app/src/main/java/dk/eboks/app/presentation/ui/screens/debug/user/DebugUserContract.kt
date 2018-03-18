@@ -1,0 +1,21 @@
+package dk.eboks.app.presentation.ui.screens.debug.user
+
+import dk.eboks.app.domain.config.LoginProvider
+import dk.nodes.arch.presentation.base.BasePresenter
+import dk.nodes.arch.presentation.base.BaseView
+
+/**
+ * Created by bison on 07-11-2017.
+ */
+interface DebugUserContract {
+    interface View : BaseView {
+        fun showLoginProviderSpinner(providers : List<LoginProvider>)
+        fun close(gotoUsers : Boolean)
+        fun showError(msg : String)
+    }
+
+    interface Presenter : BasePresenter<View> {
+        fun setup()
+        fun createUser(provider : LoginProvider, name : String, email : String?, cpr : String?, verified : Boolean, fingerprint : Boolean)
+    }
+}

@@ -13,3 +13,6 @@ data class LoginProvider (
         val description: String? = null,
         val fragmentClass: Class<out BaseFragment>?
 )
+{
+    override fun toString(): String = id
+}

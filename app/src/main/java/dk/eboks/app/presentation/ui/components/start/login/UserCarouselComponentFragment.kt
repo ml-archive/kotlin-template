@@ -1,10 +1,13 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.PagerAdapter
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import dk.eboks.app.BuildConfig
@@ -16,6 +19,8 @@ import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentFragment
 import dk.eboks.app.presentation.ui.components.start.signup.NameMailComponentFragment
+import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
+import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserActivity
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_user_carousel_component.*
 import timber.log.Timber
@@ -52,6 +57,10 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
             debugOptionsTv.setOnClickListener {
                 getBaseActivity()?.openComponentDrawer(DebugOptionsComponentFragment::class.java)
             }
+            debugCreateUserTv.visibility = View.VISIBLE
+            debugCreateUserTv.setOnClickListener {
+                activity.startActivity(Intent(activity, DebugUserActivity::class.java))
+            }
         }
         (activity as StartActivity).enableFragmentCheapFades()
     }
@@ -83,6 +92,10 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
 
     override fun showUsers(users: MutableList<User>) {
         viewPager.adapter = UserPagerAdapter(users)
+        if(users.isEmpty())
+        {
+            getBaseActivity()?.setRootFragment(R.id.containerFl, WelcomeComponentFragment())
+        }
     }
 
     override fun openLogin() {
@@ -90,7 +103,23 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         getBaseActivity()?.addFragmentOnTop(R.id.containerFl, frag, true)
     }
 
-    inner class UserPagerAdapter(val users: List<User>) : PagerAdapter()
+    private fun showDeleteDialog(user : User)
+    {
+        AlertDialog.Builder(activity)
+                .setTitle("_Delete ${user.name}")
+                .setMessage("_Are you sure you want to remove this user?")
+                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                    //(viewPager.adapter as UserPagerAdapter).users.remove(user)
+                    //viewPager.adapter.notifyDataSetChanged()
+                    presenter.deleteUser(user)
+                }
+                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+
+                }
+                .show()
+    }
+
+    inner class UserPagerAdapter(val users: MutableList<User>) : PagerAdapter()
     {
         override fun instantiateItem(collection: ViewGroup, position: Int): Any {
             val inflater = LayoutInflater.from(context)
@@ -98,28 +127,35 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                 val user = users[position]
                 val v = inflater.inflate(R.layout.viewholder_user_carousel, collection, false) as ViewGroup
 
-                var name = ""
-
-                if(user.email != null) {
-                    name = users[position].email!!
+                if(BuildConfig.DEBUG) {
+                    var info = ""
+                    if(user.lastLoginProvider != null)
+                        info += "${user.lastLoginProvider}\n"
+                    if(user.verified)
+                        info += "verified\n"
+                    if(user.hasFingerprint)
+                        info += "fingerprint\n"
+                    if(info.isNotBlank())
+                    {
+                        v.findViewById<TextView>(R.id.debugInfoTv)?.let {
+                            it.text = info
+                            it.visibility = View.VISIBLE
+                        }
+                    }
                 }
-                else if(user.cpr != null)
-                {
-                    name = formatter.formatCpr(users[position].cpr!!)
-                }
 
-                if(BuildConfig.DEBUG)
-                    name += " (${if(user.verified) "Verified" else "Non-verified"})"
-
-                v.findViewById<TextView>(R.id.nameTv)?.text = name
+                v.findViewById<TextView>(R.id.nameTv)?.text = user.name
 
                 collection.addView(v)
                 v.findViewById<LinearLayout>(R.id.clickLl)?.setOnClickListener {
                     presenter.login(users[position])
                 }
+                v.findViewById<ImageView>(R.id.deleteIv)?.setOnClickListener {
+                    showDeleteDialog(users[position])
+                }
                 return v
             }
-            else if(position == users.size)
+            else
             {
                 val v = inflater.inflate(R.layout.viewholder_add_user_carousel, collection, false) as ViewGroup
                 v.findViewById<TextView>(R.id.nameTv)?.text = Translation.start.addNewUser
@@ -129,19 +165,6 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                 collection.addView(v)
                 return v
             }
-            else
-            {
-                if(BuildConfig.DEBUG) {
-                    val v = inflater.inflate(R.layout.viewholder_add_user_carousel, collection, false) as ViewGroup
-                    v.findViewById<TextView>(R.id.nameTv)?.text = "Create User (DEBUG)"
-                    v.findViewById<LinearLayout>(R.id.addUserLl)?.setOnClickListener {
-                        presenter.addAnotherUser()
-                    }
-                    collection.addView(v)
-                    return v
-                }
-            }
-            return Any()
         }
 
         override fun destroyItem(collection: ViewGroup, position: Int, view: Any) {
@@ -149,7 +172,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         }
 
         override fun getCount(): Int {
-            return if(!BuildConfig.DEBUG) users.size + 1 else users.size + 2
+            return users.size + 1
         }
 
         override fun isViewFromObject(view: View, `object`: Any): Boolean {

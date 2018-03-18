@@ -40,6 +40,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.debug.hinter.HintActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.debug.ComponentTestActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.debug.DebugActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.debug.user.DebugUserActivity" />
         <activity android:name="dk.eboks.app.pasta.activity.PastaActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity" />

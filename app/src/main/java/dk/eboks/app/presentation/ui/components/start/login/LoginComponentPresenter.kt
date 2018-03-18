@@ -100,7 +100,7 @@ class LoginComponentPresenter @Inject constructor(val appState: AppStateManager,
         }
     }
 
-    override fun onCreateUser(user: User) {
+    override fun onCreateUser(user: User, numberOfUsers : Int) {
         Timber.e("User created $user")
     }
 

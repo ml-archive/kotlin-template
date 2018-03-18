@@ -8,27 +8,27 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 /**
  * Created by bison on 24-06-2017.
  */
-class CreateUserInteractorImpl(executor: Executor, val userManager: UserManager) : BaseInteractor(executor), CreateUserInteractor {
-    override var output : CreateUserInteractor.Output? = null
-    override var input : CreateUserInteractor.Input? = null
+class DeleteUserInteractorImpl(executor: Executor, val userManager: UserManager) : BaseInteractor(executor), DeleteUserInteractor {
+    override var output : DeleteUserInteractor.Output? = null
+    override var input : DeleteUserInteractor.Input? = null
 
     override fun execute() {
         // we don't use input in this example but we could:
         try {
             input?.user?.let { user->
-                userManager.add(user)
+                userManager.remove(user)
                 runOnUIThread {
-                    output?.onCreateUser(user, userManager.users.size)
+                    output?.onDeleteUser(user)
                 }
             }.guard {
                 runOnUIThread {
-                    output?.onCreateUserError("Interactor missing input")
+                    output?.onDeleteUserError("Interactor missing input")
                 }
             }
 
         } catch (e: Exception) {
             runOnUIThread {
-                output?.onCreateUserError(e.message ?: "Unknown error")
+                output?.onDeleteUserError(e.message ?: "Unknown error")
             }
         }
     }

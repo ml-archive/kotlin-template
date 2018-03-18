@@ -91,6 +91,8 @@ import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActiv
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
+import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserActivity
+import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserPresenter
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
@@ -251,4 +253,6 @@ interface PresentationComponent {
     // debug
     fun inject(target : DebugOptionsComponentFragment)
     fun inject(target : DebugOptionsComponentPresenter)
+    fun inject(target : DebugUserActivity)
+    fun inject(target : DebugUserPresenter)
 }

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:background="@color/white"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include layout="@layout/include_toolbar"  />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/focusThiefTv"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    style="@style/text.header3"
+                    android:text="Last Login Provider"/>
+                <Spinner
+                    android:id="@+id/loginProviderSpr"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/nameTil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Name"
+                    android:textColorHint="@color/blueGrey"
+                    android:theme="@style/TextInputLayoutTheme"
+                    app:errorEnabled="true"
+                    app:errorTextAppearance="@style/errorappearance"
+                    app:hintTextAppearance="@style/HintTextAppearance">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/nameEt"
+                        style="@style/EditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textPersonName" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/emailTil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:hint="Email"
+                    android:textColorHint="@color/blueGrey"
+                    android:theme="@style/TextInputLayoutTheme"
+                    app:errorEnabled="true"
+                    app:errorTextAppearance="@style/errorappearance"
+                    app:hintTextAppearance="@style/HintTextAppearance">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/emailEt"
+                        style="@style/EditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textEmailAddress" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/cprTil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:theme="@style/TextInputLayoutTheme"
+                    android:textColorHint="@color/blueGrey"
+                    app:hintTextAppearance="@style/HintTextAppearance"
+                    android:hint="CPR">
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/cprEt"
+                        style="@style/EditText"
+                        android:inputType="number"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <!-- Verified -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            style="@style/text.header4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="Verified" />
+                        <TextView
+                            style="@style/text.subHeader5.quaternary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="Verified with a secure provider" />
+
+                    </LinearLayout>
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+                        <Switch
+                            android:id="@+id/verifiedSw"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="false"
+                            android:trackTint="@color/textColorTertiary"
+                            android:thumbTint="@color/textColorTertiary"
+                            />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <!-- Fingerprint -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            style="@style/text.header4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="Fingerprint" />
+                        <TextView
+                            style="@style/text.subHeader5.quaternary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:text="Fingerprint login enabled" />
+
+                    </LinearLayout>
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+                        <Switch
+                            android:id="@+id/fingerPrintSw"
+                            android:layout_gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="false"
+                            android:trackTint="@color/textColorTertiary"
+                            android:thumbTint="@color/textColorTertiary"
+                            />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/createBtn"
+                    style="@style/button.SolidGradient"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginEnd="36dp"
+                    android:text="Create" />
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

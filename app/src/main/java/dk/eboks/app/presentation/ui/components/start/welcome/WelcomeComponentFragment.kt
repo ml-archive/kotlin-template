@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.start.welcome
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,8 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentFragment
 import dk.eboks.app.presentation.ui.components.start.signup.NameMailComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentFragment
+import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserActivity
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_welcome_component.*
 
@@ -43,6 +46,10 @@ class WelcomeComponentFragment : BaseFragment() {
             debugOptionsTv.setOnClickListener {
                 getBaseActivity()?.openComponentDrawer(DebugOptionsComponentFragment::class.java)
             }
+            debugCreateUserTv.visibility = View.VISIBLE
+            debugCreateUserTv.setOnClickListener {
+                activity.startActivity(Intent(activity, DebugUserActivity::class.java))
+            }
         }
         /*
         if(BuildConfig.DEBUG)
@@ -54,11 +61,20 @@ class WelcomeComponentFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         logoIv.setImageResource(Config.getLogoResourceId())
+        if(shouldGotoUsersOnResume)
+        {
+            shouldGotoUsersOnResume = false
+            getBaseActivity()?.setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
+        }
     }
 
     override fun setupTranslations() {
         signupBtn.text = Translation.start.signupButton
         logonBtn.text = Translation.start.logonButton
+    }
+
+    companion object {
+        var shouldGotoUsersOnResume = false
     }
 
 }

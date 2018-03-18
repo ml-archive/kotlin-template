@@ -124,19 +124,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             detailTv.visibility = View.VISIBLE
             cprEmailTil.visibility = View.VISIBLE
             passwordTil.visibility = View.VISIBLE
-
-            if (BuildConfig.DEBUG) {
-                debugCreateBtn.visibility = View.VISIBLE
-                debugCreateBtn.setOnClickListener {
-                    createUser(false)
-                }
-
-                debugCreateVerifiedBtn.visibility = View.VISIBLE
-                debugCreateVerifiedBtn.setOnClickListener {
-                    createUser(true)
-                }
-            }
-
+            continueBtn.visibility = View.VISIBLE
         }
         setupAltLoginProviders(altLoginProviders)
     }
@@ -291,19 +279,15 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             if(provider.id == "cpr")
             {
                 val enabled = (emailCprIsValid && passwordIsValid)
-                debugCreateBtn.isEnabled = enabled
-                debugCreateVerifiedBtn.isEnabled = enabled
                 continueBtn.isEnabled = enabled
             }
             if(provider.id == "email")
             {
                 continueBtn.isEnabled = passwordIsValid
-
             }
         }.guard {
             val enabled = (emailCprIsValid && passwordIsValid)
-            debugCreateBtn.isEnabled = enabled
-            debugCreateVerifiedBtn.isEnabled = enabled
+            continueBtn.isEnabled = enabled
         }
 
     }
