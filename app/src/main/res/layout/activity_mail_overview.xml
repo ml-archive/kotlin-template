@@ -20,36 +20,40 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <fragment
-                    android:id="@+id/senderCarouselFragment"
-                    android:name="dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentFragment"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/dividerGreyBlue" />
+                    <fragment
+                        android:id="@+id/senderCarouselFragment"
+                        android:name="dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-                <fragment
-                    android:id="@+id/folderShortcutsFragment"
-                    android:name="dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/dividerGreyBlue" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/dividerGreyBlue" />
+                    <fragment
+                        android:id="@+id/folderShortcutsFragment"
+                        android:name="dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/dividerGreyBlue" />
 
-            </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
         </android.support.v4.widget.SwipeRefreshLayout>
         <FrameLayout
             android:layout_width="match_parent"
