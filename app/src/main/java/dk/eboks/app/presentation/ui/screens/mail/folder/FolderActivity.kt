@@ -19,7 +19,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
     }
 
     private fun setupTopBar() {
-        mainTb.setNavigationIcon(R.drawable.ic_menu_mail)
+        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
         mainTb.title = Translation.folders.foldersHeader
         mainTb.setNavigationOnClickListener {
             onBackPressed()
