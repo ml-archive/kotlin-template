@@ -38,7 +38,10 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         cancelBtn.setOnClickListener {
             (activity as SheetComponentActivity).onBackPressed()
         }
+    }
 
+    fun setupValidation()
+    {
         activationCodeEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(activationCode: Editable?) {
                 activationCodeTil.error = null
@@ -46,8 +49,8 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
                 continueBtn.isEnabled = activationCode?.isValidActivationCode() ?: false
                 mHandler?.postDelayed({
                     if(!continueBtn.isEnabled){
-                    activationCodeTil.error = Translation.activationcode.invalidActivationCode
-                }
+                        activationCodeTil.error = Translation.activationcode.invalidActivationCode
+                    }
                 }, 1200)
 
             }
@@ -58,12 +61,16 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         })
     }
 
-    override fun setupTranslations() {
-        cancelBtn.text = Translation.defaultSection.cancel
+    override fun onResume() {
+        super.onResume()
+        setupValidation()
     }
 
-    override fun onDestroy() {
+    override fun onPause() {
         mHandler.removeCallbacksAndMessages(null)
-        super.onDestroy()
+        super.onPause()
+    }
+    override fun setupTranslations() {
+        cancelBtn.text = Translation.defaultSection.cancel
     }
 }

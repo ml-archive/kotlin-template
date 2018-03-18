@@ -21,6 +21,9 @@ class FolderActivity : BaseActivity(), FolderContract.View {
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.ic_menu_mail)
         mainTb.title = Translation.folders.foldersHeader
+        mainTb.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onResume() {
@@ -40,5 +43,5 @@ class FolderActivity : BaseActivity(), FolderContract.View {
         setupTopBar()
     }
 
-
+    override fun getNavigationMenuAction(): Int { return R.id.actionMail }
 }

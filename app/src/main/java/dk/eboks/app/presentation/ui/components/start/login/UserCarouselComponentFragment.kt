@@ -48,6 +48,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                 (activity as StartActivity).startMain()
             }
         }
+        (activity as StartActivity).enableFragmentCheapFades()
     }
 
     override fun onResume() {

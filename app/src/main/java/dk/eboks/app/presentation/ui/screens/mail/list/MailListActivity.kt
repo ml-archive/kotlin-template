@@ -44,4 +44,6 @@ class MailListActivity : BaseActivity(), MailListContract.View {
     override fun showError(msg: String) {
         Log.e("debug", msg)
     }
+
+    override fun getNavigationMenuAction(): Int { return R.id.actionMail }
 }

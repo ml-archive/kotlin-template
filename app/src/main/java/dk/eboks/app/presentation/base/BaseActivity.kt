@@ -33,7 +33,11 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     private var acceleroMeter : Sensor? = null
     protected var showEmptyState : Boolean = false
     protected var countToDebug = 0
-    protected val backStackRootTag = "root_fragment"
+
+
+    companion object {
+        val backStackRootTag = "root_fragment"
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -123,4 +127,5 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     }
 
     protected open fun onShake() {}
+    open fun getNavigationMenuAction() : Int { return -1 }
 }

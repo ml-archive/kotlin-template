@@ -43,4 +43,6 @@ class MessageActivity : BaseActivity(), MessageContract.View {
     override fun showTitle(message: Message) {
         mainTb.subtitle = formatter.formatDate(message)
     }
+
+    override fun getNavigationMenuAction(): Int { return R.id.actionMail }
 }

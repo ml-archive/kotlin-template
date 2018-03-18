@@ -2,20 +2,16 @@ package dk.eboks.app.presentation.ui.components.start.signup
 
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_signup_password_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -28,7 +24,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
 
     var passwordValid = false
     var repeatPasswordValid = false
-    var mHandler = Handler()
+    var handler = Handler()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_signup_password_component, container, false)
@@ -41,9 +37,17 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         presenter.onViewCreated(this, lifecycle)
         continueBtn.setOnClickListener { onContinueClicked() }
         setupTopBar()
+    }
 
+    override fun onResume() {
+        super.onResume()
         setupPasswordListeners()
         setupRepeatPasswordListener()
+    }
+
+    override fun onPause() {
+        handler.removeCallbacksAndMessages(null)
+        super.onPause()
     }
 
     private fun setupTopBar() {
@@ -65,10 +69,10 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
 
         repeatPasswordEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(repeatPassword: Editable?) {
-                mHandler.removeCallbacksAndMessages(null)
+                handler.removeCallbacksAndMessages(null)
                 repeatPasswordTil.error = null
                 comparePasswords()
-                mHandler?.postDelayed({
+                handler?.postDelayed({
                     setErrorMessages()
                 }, 1200)
             }
@@ -103,10 +107,10 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
 
         passwordEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(password: Editable?) {
-                mHandler.removeCallbacksAndMessages(null)
+                handler.removeCallbacksAndMessages(null)
                 passwordTil.error = null
                 comparePasswords()
-                mHandler?.postDelayed({
+                handler?.postDelayed({
                     setErrorMessages()
                 }, 1200)
             }
@@ -156,8 +160,4 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         }, 1000)
     }
 
-    override fun onDestroy() {
-        mHandler.removeCallbacksAndMessages(null)
-        super.onDestroy()
-    }
 }

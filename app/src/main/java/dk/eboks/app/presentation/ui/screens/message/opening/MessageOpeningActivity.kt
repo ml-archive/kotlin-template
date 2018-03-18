@@ -36,4 +36,6 @@ class MessageOpeningActivity : BaseActivity(), MessageOpeningContract.View {
         presenter.signalMessageOpenDone()
         super.onBackPressed()
     }
+
+    override fun getNavigationMenuAction(): Int { return R.id.actionMail }
 }

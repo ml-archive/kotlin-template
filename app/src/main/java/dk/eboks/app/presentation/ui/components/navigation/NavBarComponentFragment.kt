@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.navigation
 
 import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -51,14 +52,14 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
         menu.findItem(R.id.actionChannels).title = Translation.mainnav.channelsButton
         //menu.findItem(R.id.actionUploads).title = Translation.mainnav.uploadsButton
         mainNavigationBnv.disableShiftingMode()
-        mainNavigationBnv.selectedItemId = currentMenuItem
-        /*
-        if(firstRun)
-        {
-            firstRun = false
-            currentMenuItem = mainNavigationBnv.selectedItemId
+
+        getBaseActivity()?.let {
+            val menu_id = it.getNavigationMenuAction()
+            if(menu_id != -1)
+                currentMenuItem = menu_id
         }
-        */
+
+        mainNavigationBnv.selectedItemId = currentMenuItem
 
         mainNavigationBnv.setOnNavigationItemSelectedListener { item ->
             var activityCls : Class<out Activity>? = null
@@ -82,15 +83,16 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
                 }
                 else -> { }
             }
-            activityCls?.let { startActivity(Intent(context, activityCls)) }
-            //overridePendingTransition(0, 0)
+            activityCls?.let {
+                startActivity(Intent(context, activityCls))
+                //activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+            }
             false
         }
     }
 
     companion object {
         var currentMenuItem = 0
-        var firstRun = true
     }
 
 }

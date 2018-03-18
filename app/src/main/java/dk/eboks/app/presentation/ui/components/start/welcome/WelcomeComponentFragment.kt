@@ -31,28 +31,6 @@ class WelcomeComponentFragment : BaseFragment() {
             getBaseActivity()?.addFragmentOnTop(R.id.containerFl, NameMailComponentFragment(), true)
         }
         logonBtn.setOnClickListener {
-            /*
-            val move = TransitionInflater.from(activity).inflateTransition(android.R.transition.move)
-            val fade = TransitionInflater.from(activity).inflateTransition(android.R.transition.fade)
-
-            val fragment = UserCarouselComponentFragment()
-
-            sharedElementReturnTransition = move
-            exitTransition = fade
-
-            fragment.sharedElementEnterTransition = move
-            fragment.enterTransition = fade
-            //exitT.excludeTarget(R.id.start_root, true)
-            //exitT.addTarget(R.id.start_desc_tv)
-
-            // Add second fragment by replacing first
-            val ft = fragmentManager.beginTransaction()
-                    .replace(R.id.containerFl, fragment)
-                    .addToBackStack(UserCarouselComponentFragment::class.java.simpleName)
-                    .addSharedElement(signupBtn, "signUpButtonTransition")
-                    .addSharedElement(logoIv, "eboksLogoTransition")
-            ft.commit()
-            */
             getBaseActivity()?.addFragmentOnTop(R.id.containerFl, LoginComponentFragment(), true)
         }
         if(BuildConfig.DEBUG) {
@@ -65,6 +43,7 @@ class WelcomeComponentFragment : BaseFragment() {
         if(BuildConfig.DEBUG)
             Toast.makeText(activity, "Press volume down 3 times for debug menu", Toast.LENGTH_SHORT).show()
             */
+        (activity as StartActivity).enableFragmentCheapFades()
     }
 
     override fun setupTranslations() {

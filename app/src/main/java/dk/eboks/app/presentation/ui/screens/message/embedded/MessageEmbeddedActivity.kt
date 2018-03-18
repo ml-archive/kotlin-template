@@ -143,5 +143,5 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
 
     }
 
-
+    override fun getNavigationMenuAction(): Int { return R.id.actionMail }
 }

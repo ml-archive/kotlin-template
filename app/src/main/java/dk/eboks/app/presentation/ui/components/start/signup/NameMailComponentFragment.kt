@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_signup_name_mail_component.*
 import javax.inject.Inject
 import dk.eboks.app.domain.models.Translation
@@ -37,7 +36,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
 
     var nameValid = false
     var emailValid = false
-    var mHandler = Handler()
+    var handler = Handler()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_signup_name_mail_component, container, false)
@@ -49,12 +48,19 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         continueBtn.setOnClickListener { onContinueClicked() }
-
         setupTermsText()
+        setupTopBar()
+    }
+
+    override fun onResume() {
+        super.onResume()
         setupNameListeners()
         setupEmailListeners()
+    }
 
-        setupTopBar()
+    override fun onPause() {
+        handler.removeCallbacksAndMessages(null)
+        super.onPause()
     }
 
     private fun setupTopBar() {
@@ -83,12 +89,12 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         }
         emailEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                mHandler.removeCallbacksAndMessages(null)
+                handler.removeCallbacksAndMessages(null)
                 emailTil.error = null
                 emailValid = (s?.isValidEmail() ?: false)
                 checkContinueBtn()
 
-                mHandler?.postDelayed({
+                handler?.postDelayed({
                     if (!emailValid) {
                         emailTil.error = Translation.signup.invalidEmail
                     }
@@ -193,8 +199,4 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         }, 1000)
     }
 
-    override fun onDestroy() {
-        mHandler.removeCallbacksAndMessages(null)
-        super.onDestroy()
-    }
 }

@@ -1,7 +1,9 @@
 package dk.eboks.app.presentation.ui.screens.start
 
+import android.animation.LayoutTransition
 import android.content.Intent
 import android.os.Bundle
+import android.support.transition.TransitionInflater
 import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
 import android.view.View
@@ -10,6 +12,7 @@ import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentFragment
+import dk.eboks.app.presentation.ui.components.start.welcome.SplashComponentFragment
 import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.nodes.nstack.kotlin.NStack
@@ -23,15 +26,16 @@ class StartActivity : BaseActivity(), StartContract.View {
     @Inject
     lateinit var presenter: StartContract.Presenter
 
+    var splashFragment : SplashComponentFragment? = SplashComponentFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(dk.eboks.app.R.layout.activity_start)
-        // add dummy fragment to work around the last fragment is impossible to remove bug (tm)
-        //supportFragmentManager.beginTransaction().add(R.id.containerFl, Fragment()).addToBackStack("dummy").commit()
-        //supportFragmentManager.beginTransaction().add(R.id.containerFl, Fragment()).commitNow()
-        //supportFragmentManager.executePendingTransactions()
+
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+
+        addFragmentOnTop(R.id.containerFl, splashFragment, false)
 
         supportFragmentManager.addOnBackStackChangedListener {
             Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")
@@ -87,16 +91,14 @@ class StartActivity : BaseActivity(), StartContract.View {
 
     override fun showUserCarouselComponent() {
         Timber.e("showUserCarousel")
-        showLogo(false)
-        setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
-        //replaceFragment(R.id.containerFl, UserCarouselComponentFragment(), true)
+        splashFragment?.transitionToUserCarouselFragment()
+        //setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
     }
 
     override fun showWelcomeComponent() {
         Timber.e("showWelcome")
-        showLogo(false)
-        setRootFragment(R.id.containerFl, WelcomeComponentFragment())
-        //replaceFragment(R.id.containerFl, WelcomeComponentFragment(), true)
+        splashFragment?.transitionToWelcomeFragment()
+        //setRootFragment(R.id.containerFl, WelcomeComponentFragment())
     }
 
     override fun startMain() {
@@ -107,15 +109,25 @@ class StartActivity : BaseActivity(), StartContract.View {
         finishAfterTransition()
     }
 
+    fun removeSplashFragment()
+    {
+        Timber.e("Removing splash fragment")
+        splashFragment?.let {
+            supportFragmentManager.beginTransaction().remove(it).commit()
+        }
+        splashFragment = null
+    }
+
+    fun enableFragmentCheapFades()
+    {
+        containerFl.layoutTransition = LayoutTransition()
+    }
+
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount > 0) {
             supportFragmentManager.popBackStack()
         }
         else
             super.onBackPressed()
-    }
-
-    fun showLogo(show: Boolean) {
-        logoIv.visibility = if (show) View.VISIBLE else View.GONE
     }
 }

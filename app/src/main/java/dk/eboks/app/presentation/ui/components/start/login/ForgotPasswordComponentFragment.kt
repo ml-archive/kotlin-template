@@ -23,7 +23,7 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
     @Inject
     lateinit var presenter : ForgotPasswordComponentContract.Presenter
 
-    var mHandler = Handler()
+    var handler = Handler()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_forgot_password_component, container, false)
@@ -39,9 +39,6 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
             (activity as SheetComponentActivity).onBackPressed()
         }
 
-        setupEmailListener()
-
-
         resetPasswordBtn.setOnClickListener{
             if(emailEt.text.isValidEmail()){
 //            do resetMyPassword
@@ -51,14 +48,24 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        setupEmailListener()
+    }
+
+    override fun onPause() {
+        handler.removeCallbacksAndMessages(null)
+        super.onPause()
+    }
+
     private fun setupEmailListener() {
         emailEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                mHandler.removeCallbacksAndMessages(null)
+                handler.removeCallbacksAndMessages(null)
                 emailTil.error = null
                 resetPasswordBtn.isEnabled = (s?.isValidEmail() ?: false)
 
-                mHandler?.postDelayed({
+                handler?.postDelayed({
                     if (s?.isValidEmail() ?: false) {
                         emailTil.error = null
                     } else  {
@@ -79,10 +86,5 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
         emailTil.hint = Translation.forgotpassword.emailHeader
         resetPasswordBtn.text = Translation.forgotpassword.resetPasswordButton
         cancelTv.text = Translation.defaultSection.cancel
-    }
-
-    override fun onDestroy() {
-        mHandler.removeCallbacksAndMessages(null)
-        super.onDestroy()
     }
 }

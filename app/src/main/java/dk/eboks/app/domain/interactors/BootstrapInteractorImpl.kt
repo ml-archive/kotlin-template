@@ -37,6 +37,7 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, 
         protocolManager.init(settings.deviceId)
 
         try {
+            //Thread.sleep(2000)
             runOnUIThread {
                 output?.onBootstrapDone(hasUsers)
             }

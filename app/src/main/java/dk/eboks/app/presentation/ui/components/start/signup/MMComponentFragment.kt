@@ -37,6 +37,11 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
         presenter.onViewCreated(this, lifecycle)
         continueWithoutMMTv.setOnClickListener { onContinueClicked() }
 
+        setupTopBar()
+    }
+
+    private fun setupValidation()
+    {
         cprEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(cprNumber: Editable?) {
                 mHandler.removeCallbacksAndMessages(null)
@@ -54,6 +59,16 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setupValidation()
+    }
+
+    override fun onPause() {
+        mHandler.removeCallbacksAndMessages(null)
+        super.onPause()
     }
 
     private fun setupTopBar() {
@@ -90,8 +105,4 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
         }, 1000)
     }
 
-    override fun onDestroy() {
-        mHandler.removeCallbacksAndMessages(null)
-        super.onDestroy()
-    }
 }
