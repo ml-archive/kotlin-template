@@ -1,14 +1,8 @@
 <resources>
     <string name="app_name">e-Boks.dk</string>
-    <!--
-    <string-array name="systemFolderTypes">
-        <item>inbox</item>
-        <item>drafts</item>
-        <item>sentitems</item>
-        <item>deleteditems</item>
-        <item>highlights</item>
-        <item>unread</item>
-        <item>latest</item>
+    <string-array name="countries">
+        <item>danish</item>
+        <item>norwegian</item>
+        <item>swedish</item>
     </string-array>
-    -->
 </resources>

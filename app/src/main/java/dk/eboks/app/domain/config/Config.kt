@@ -204,9 +204,60 @@ object Config {
         return loginProviders[id]
     }
 
-    fun isDK() : Boolean { return BuildConfig.mode == "danish" }
-    fun isNO() : Boolean { return BuildConfig.mode == "norwegian" }
-    fun isSE() : Boolean { return BuildConfig.mode == "swedish" }
+    fun isDK() : Boolean { return currentMode == danish }
+    fun isNO() : Boolean { return currentMode == norwegian }
+    fun isSE() : Boolean { return currentMode == swedish }
+
+    fun changeConfig(name : String)
+    {
+        when(name)
+        {
+            "danish" -> {
+                Config.currentMode = Config.danish
+            }
+            "swedish" -> {
+                Config.currentMode = Config.swedish
+            }
+            "norwegian" -> {
+                Config.currentMode = Config.norwegian
+            }
+            else -> throw(IllegalStateException("Configuration mode ${name} is invalid. Use danish, swedish or norwegian"))
+        }
+    }
+
+    fun getCurrentConfigName() : String
+    {
+        when(currentMode)
+        {
+            danish -> {
+                return "danish"
+            }
+            swedish -> {
+                return "swedish"
+            }
+            norwegian -> {
+                return "norwegian"
+            }
+            else -> return "unknown"
+        }
+    }
+
+    fun getLogoResourceId() : Int
+    {
+        when(currentMode)
+        {
+            danish -> {
+                return R.drawable.eboks_dk_logo
+            }
+            swedish -> {
+                return R.drawable.eboks_se_logo
+            }
+            norwegian -> {
+                return R.drawable.eboks_no_logo
+            }
+            else -> return R.drawable.eboks_dk_logo
+        }
+    }
 
     lateinit var currentMode : Mode
 

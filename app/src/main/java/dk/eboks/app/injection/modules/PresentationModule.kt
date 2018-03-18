@@ -48,6 +48,8 @@ import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettings
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentContract
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentPresenter
+import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentContract
+import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageContract
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
 import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedContract
@@ -454,6 +456,12 @@ class PresentationModule {
     @Provides
     fun provideSenderDetailPresenter(stateManager: AppStateManager, getSenderDetailInteractor: GetSenderDetailInteractor): SenderDetailContract.Presenter {
         return SenderDetailPresenter(stateManager, getSenderDetailInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideDebugOptionsComponentPresenter(stateManager: AppStateManager) : DebugOptionsComponentContract.Presenter {
+        return DebugOptionsComponentPresenter(stateManager)
     }
 
     /* Pasta

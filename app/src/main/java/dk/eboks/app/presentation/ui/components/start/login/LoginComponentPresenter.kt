@@ -46,13 +46,14 @@ class LoginComponentPresenter @Inject constructor(val appState: AppStateManager,
         runAction { v-> v.setupView(null, null, altproviders) }
     }
 
-    private fun setupLogin(user: User?, provider: LoginProvider?)
+    private fun setupLogin(user: User?, provider: String?)
     {
+        val lp = if(provider != null) Config.getLoginProvider(provider) else null
         user?.let {
             if(!user.verified)
             {
                 runAction { v->
-                    v.setupView(loginProvider = provider, user = user, altLoginProviders = ArrayList())
+                    v.setupView(loginProvider = lp, user = user, altLoginProviders = ArrayList())
                     if(user.hasFingerprint)
                         v.addFingerPrintProvider()
                 }
@@ -72,14 +73,14 @@ class LoginComponentPresenter @Inject constructor(val appState: AppStateManager,
                     Config.getLoginProvider("bankid_se")?.let { altproviders.add(it) }
                 }
                 runAction {
-                    v-> v.setupView(loginProvider = provider, user = user, altLoginProviders = altproviders)
+                    v-> v.setupView(loginProvider = lp, user = user, altLoginProviders = altproviders)
                     if(user.hasFingerprint)
                         v.addFingerPrintProvider()
                 }
             }
         }.guard {
             runAction { v->
-                v.setupView(loginProvider = provider, user = null, altLoginProviders = ArrayList())
+                v.setupView(loginProvider = lp, user = null, altLoginProviders = ArrayList())
             }
         }
     }
@@ -87,7 +88,7 @@ class LoginComponentPresenter @Inject constructor(val appState: AppStateManager,
     // TODO not much loggin going on
     override fun createUserAndLogin(email: String?, cpr: String?, verified: Boolean) {
         val provider = if(email != null) Config.getLoginProvider("email") else Config.getLoginProvider("cpr")
-        val user : User = User(id = -1, name = "Name McLastName", email = email, cpr = cpr, avatarUri = null, lastLoginProvider = provider, verified = verified, hasFingerprint = false)
+        val user : User = User(id = -1, name = "Name McLastName", email = email, cpr = cpr, avatarUri = null, lastLoginProvider = provider?.id, verified = verified, hasFingerprint = false)
 
         createUserInteractor.input = CreateUserInteractor.Input(user)
         createUserInteractor.run()
@@ -95,7 +96,7 @@ class LoginComponentPresenter @Inject constructor(val appState: AppStateManager,
 
     override fun switchLoginProvider(provider: LoginProvider) {
         appState.state?.loginState?.let { state->
-            state.selectedUser?.let { setupLogin(it, provider) }.guard { setupLogin(null, provider)}
+            state.selectedUser?.let { setupLogin(it, provider.id) }.guard { setupLogin(null, provider.id)}
         }
     }
 

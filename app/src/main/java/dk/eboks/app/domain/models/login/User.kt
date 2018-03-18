@@ -1,6 +1,5 @@
 package dk.eboks.app.domain.models.login
 
-import dk.eboks.app.domain.config.LoginProvider
 import java.io.Serializable
 
 data class User(
@@ -9,7 +8,7 @@ data class User(
     var email : String? = null,
     var cpr : String? = null,
     var avatarUri : String? = null,
-    var lastLoginProvider: LoginProvider? = null,
+    var lastLoginProvider: String? = null,
     var verified : Boolean,
     var hasFingerprint : Boolean
 ) : Serializable

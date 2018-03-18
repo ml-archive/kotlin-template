@@ -50,7 +50,7 @@ abstract class GsonFileStorageRepository<T>(val context: Context, val gson: Gson
         }
         catch (e : Exception)
         {
-            Timber.e("Catching file not found")
+            Timber.e("Catching file not found ($filename)")
             throw(RepositoryException(-1, "File $filename could not be read from internal storage"))
         }
     }

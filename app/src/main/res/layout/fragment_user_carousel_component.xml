@@ -12,7 +12,7 @@
         android:layout_height="36dp"
         android:layout_marginTop="80dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/eboks_logo"/>
+        />
 
     <dk.eboks.app.presentation.widgets.DottedViewPager
         android:id="@+id/viewPager"
@@ -48,4 +48,14 @@
             android:layout_marginEnd="36dp"
             android:text="Skip to app (DEBUG)" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/debugOptionsTv"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:layout_gravity="top|end"
+        android:textAllCaps="true"
+        style="@style/text.buttonSmall.tertiary"
+        android:text="Debug options"/>
 </FrameLayout>

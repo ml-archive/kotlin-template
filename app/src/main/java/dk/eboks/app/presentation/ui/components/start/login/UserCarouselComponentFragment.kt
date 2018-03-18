@@ -9,12 +9,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentFragment
 import dk.eboks.app.presentation.ui.components.start.signup.NameMailComponentFragment
-import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_user_carousel_component.*
 import timber.log.Timber
@@ -47,12 +48,17 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
             debugCreateBtn.setOnClickListener {
                 (activity as StartActivity).startMain()
             }
+            debugOptionsTv.visibility = View.VISIBLE
+            debugOptionsTv.setOnClickListener {
+                getBaseActivity()?.openComponentDrawer(DebugOptionsComponentFragment::class.java)
+            }
         }
         (activity as StartActivity).enableFragmentCheapFades()
     }
 
     override fun onResume() {
         super.onResume()
+        logoIv.setImageResource(Config.getLogoResourceId())
         presenter.requestUsers()
     }
 

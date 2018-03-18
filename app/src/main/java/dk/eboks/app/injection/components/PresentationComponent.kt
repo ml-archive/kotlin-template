@@ -31,6 +31,8 @@ import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverview
 import dk.eboks.app.presentation.ui.components.channels.settings.*
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentPresenter
+import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentFragment
+import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
 import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity
@@ -202,7 +204,7 @@ interface PresentationComponent {
     fun inject(target : SenderGroupsComponentFragment)
     fun inject(target : SenderDetailActivity)
 
-    // signupGetSenderDetailInteractor
+    // signup
     fun inject(target : SignupComponentPresenter)
     fun inject(target : NameMailComponentFragment)
     fun inject(target : PasswordComponentFragment)
@@ -245,4 +247,8 @@ interface PresentationComponent {
     //upload
     fun inject(target : UploadOverviewComponentFragment)
     fun inject(target : UploadOverviewComponentPresenter)
+
+    // debug
+    fun inject(target : DebugOptionsComponentFragment)
+    fun inject(target : DebugOptionsComponentPresenter)
 }
