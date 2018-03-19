@@ -14,7 +14,10 @@ import java.util.*
  */
 class EboksFormatterImpl(val context: Context) : EboksFormatter {
     val messageDateFormat: SimpleDateFormat by lazy {
-        SimpleDateFormat("d. MMM. y, HH:mm", Locale.getDefault())
+        SimpleDateFormat("d. MMM", Locale.getDefault())
+    }
+    val messageDateYearFormat: SimpleDateFormat by lazy {
+        SimpleDateFormat("d. MMM YYYY", Locale.getDefault())
     }
     val dayDateFormat: SimpleDateFormat by lazy {
         SimpleDateFormat("E", Locale.getDefault())
@@ -47,6 +50,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         val cal = Calendar.getInstance(currentLocale)
         val cal2 = Calendar.getInstance(currentLocale)
 
+        val isThisYear = cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR)
         val isToday = cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR) && cal_recv.get(Calendar.DAY_OF_YEAR) == cal.get(Calendar.DAY_OF_YEAR)
 
         cal.add(Calendar.DATE, -1)
@@ -106,7 +110,11 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         }
         */
 
-        return messageDateFormat.format(target.received)
+        if (isThisYear) {
+            return messageDateFormat.format(target.received)
+        } else {
+            return messageDateYearFormat.format(target.received)
+        }
     }
 
     override fun formatSize(target: Content): String {

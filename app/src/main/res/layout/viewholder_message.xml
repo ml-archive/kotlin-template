@@ -20,7 +20,7 @@
             android:padding="8dp"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:background="@drawable/circle_white_greyborder"/>
+            android:background="@drawable/circular_image_view_no_inner_circle_background"/>
 
         <LinearLayout
             android:orientation="vertical"
@@ -57,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/text.subHeader5"
+            android:textColor="@color/blueGrey"
             android:text="Today"/>
     </LinearLayout>
     <View

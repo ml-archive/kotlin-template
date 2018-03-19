@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.mail.maillist
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -129,6 +130,9 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
             holder?.root?.setOnClickListener {
                 presenter.openMessage(messages[position])
+            }
+            if(messages[position].unread) {
+                holder?.dateTv?.setTextColor(resources.getColor(R.color.darkGreyBlue))
             }
             holder?.dateTv?.text = formatter.formatDateRelative(messages[position])
         }
