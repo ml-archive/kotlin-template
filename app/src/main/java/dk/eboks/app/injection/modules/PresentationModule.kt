@@ -11,6 +11,7 @@ import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
+import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
@@ -311,8 +312,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideSendersOverviewPresenter(stateManager: AppStateManager) : SendersOverviewContract.Presenter {
-        return SendersOverviewPresenter(stateManager)
+    fun provideSendersOverviewPresenter(stateManager: AppStateManager, collectionsInteractor: GetCollectionsInteractor) : SendersOverviewContract.Presenter {
+        return SendersOverviewPresenter(stateManager,collectionsInteractor)
     }
 
     @ActivityScope

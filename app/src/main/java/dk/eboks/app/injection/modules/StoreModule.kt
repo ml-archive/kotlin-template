@@ -12,6 +12,7 @@ import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.sender.Sender
+import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
@@ -26,6 +27,8 @@ import okio.BufferedSource
 
 typealias SenderStore = Store<List<Sender>, Int>
 typealias SenderCategoryStore = Store<List<SenderCategory>, Long>
+typealias CollectionsStore = Store<List<CollectionContainer>, Int>
+
 typealias MailCategoryStore = Store<List<Folder>, Long>
 typealias FolderStore = Store<List<Folder>, Int>
 
@@ -40,6 +43,17 @@ typealias ListChannelStore = Store<List<Channel>, Long>
 
 @Module
 class StoreModule {
+
+    @Provides
+    @AppScope
+    fun provideCollectionsStore(api: Api, gson : Gson, context : Context) : CollectionsStore {
+        return StoreBuilder.parsedWithKey<Int, BufferedSource, List<CollectionContainer>>()
+                .fetcher { key -> api.getCollections() }
+                .persister(FileSystemPersister.create(FileSystemFactory.create(context.cacheDir), { key -> "Collections$key"}))
+                .parser(GsonParserFactory.createSourceParser<List<CollectionContainer>>(gson, object : TypeToken<List<CollectionContainer>>() {}.type))
+                .open()
+    }
+
     @Provides
     @AppScope
     fun provideSenderStore(api: Api, gson : Gson, context : Context) : SenderStore

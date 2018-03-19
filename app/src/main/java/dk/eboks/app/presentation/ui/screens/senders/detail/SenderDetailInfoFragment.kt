@@ -51,6 +51,7 @@ class SenderDetailInfoFragment : BaseFragment() {
                         startActivity(intent)
                     }
                 }
+                senderInfoMoreBtn.text = it.text
                 senderInfoMoreBtn.visibility = View.VISIBLE
             }
         }
