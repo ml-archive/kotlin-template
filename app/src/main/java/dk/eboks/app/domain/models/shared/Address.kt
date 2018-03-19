@@ -10,7 +10,7 @@ import java.io.Serializable
 data class Address (
         var name : String = "",
         var addressLine1 : String = "",
-        var addressLine2 : String = "",
+        var addressLine2 : String? = "",
         var city : String = "",
         var zipCode : String = "",
         var phone : String = "",

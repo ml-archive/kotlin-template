@@ -79,6 +79,13 @@ class SenderDetailActivity : BaseActivity(),SenderDetailContract.View {
     }
 
     override fun showSender(sender: Sender) {
+        // pass the knowledge on to your siblings, so they in turn can use it
+        val b = Bundle()
+        b.putSerializable(Sender::class.simpleName, sender)
+
+        senderGroupsListComponentF.arguments = b
+        senderDetailInfoF.arguments = b
+
     }
 
     override fun showError(msg: String) {

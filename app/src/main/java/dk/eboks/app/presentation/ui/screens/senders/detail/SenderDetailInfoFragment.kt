@@ -57,12 +57,12 @@ class SenderDetailInfoFragment : BaseFragment() {
 
         sender?.address?.let {
             val s = StringBuilder().appendln(it.name).appendln(it.addressLine1)
-            if (it.addressLine2.isNotBlank()) {
+            if (!it.addressLine2.isNullOrBlank()) {
                 s.appendln(it.addressLine2)
             }
             s.append(it.zipCode).append(" ").appendln(it.city)
 
-            val navString = "google.navigation:q=${it.name},+${it.addressLine1},+${it.addressLine2},+${it.city},+${it.zipCode}"
+            val navString = "geo:0,0?q=${it.name},+${it.addressLine1},+${it.addressLine2},+${it.city},+${it.zipCode}"
             senderInfoAddressTv.text = s.toString()
             senderInfoAdressLL.setOnClickListener {
                 val gmmIntentUri = Uri.parse(navString)
