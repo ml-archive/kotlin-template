@@ -13,11 +13,11 @@ import java.io.Serializable
 data class Sender(
         var id: Long,
         var name: String = "",
-        var authority: Int = 0, // TODO: YELL at slackers,  This should be an INT!!
-        var logo: Image? = null,
         var description: Description? = null,
-        var address: Address? = null,
+        var authority: Int = 0,
+        var logo: Image? = null,
         var groups : List<SenderGroup>? = null,
+        var address: Address? = null,
         var registered: Int? = 0, // (0: No, 1: Yes, 2: Partial)
         var messages : List<Message>? = null,
         var status : Status? = null,
