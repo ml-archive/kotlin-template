@@ -8,6 +8,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_senders_detail.*
+import kotlinx.android.synthetic.main.fragment_profile_main_component.*
 import javax.inject.Inject
 
 class SenderDetailActivity : BaseActivity(),SenderDetailContract.View {

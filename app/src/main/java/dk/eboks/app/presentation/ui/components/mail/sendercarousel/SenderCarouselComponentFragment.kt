@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
@@ -85,6 +86,7 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         {
 
             val circleIv = root.findViewById<ImageView>(R.id.circleIv)
+            val senderNameTv = root.findViewById<TextView>(R.id.senderNameTv)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CircularSenderViewHolder {
@@ -102,6 +104,7 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
                 if(senders[position].logo != null)
                     Glide.with(context).load(senders[position].logo?.url).into(it)
             }
+            holder?.senderNameTv?.text = senders[position].name
             holder?.root?.let {
                 it.isSelected = senders[position].unreadCount > 0
                 it.setOnClickListener {

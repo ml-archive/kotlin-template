@@ -13,17 +13,19 @@ import java.util.*
  * Created by bison on 19/02/18.
  */
 class EboksFormatterImpl(val context: Context) : EboksFormatter {
-    val messageDateFormat : SimpleDateFormat by lazy {
+    val messageDateFormat: SimpleDateFormat by lazy {
         SimpleDateFormat("d. MMM. y, HH:mm", Locale.getDefault())
     }
-    val dayDateFormat : SimpleDateFormat by lazy {
+    val dayDateFormat: SimpleDateFormat by lazy {
         SimpleDateFormat("E", Locale.getDefault())
     }
 
-    override fun formatCpr(cpr: String) : String
-    {
-        if(Config.isDK())
-            return "${cpr.substring(0, 6)}-${cpr.substring(6, 10)}"
+    override fun formatCpr(cpr: String): String {
+        if (Config.isDK()) {
+            if (cpr.length > 9) {
+                return "${cpr.substring(0, 6)}-${cpr.substring(6, 10)}"
+            }
+        }
         // TODO add formatting for SE / NO
         return cpr
     }
@@ -31,9 +33,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
     override fun formatDate(target: Message): String {
         try {
             return messageDateFormat.format(target.received)
-        }
-        catch (t : Throwable)
-        {
+        } catch (t: Throwable) {
             Timber.e(t)
             return ""
         }
@@ -110,14 +110,14 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
     }
 
     override fun formatSize(target: Content): String {
-        if(target.fileSize < 1024)
+        if (target.fileSize < 1024)
             return "${target.fileSize} B"
-        if(target.fileSize < 1024f*1024f)
+        if (target.fileSize < 1024f * 1024f)
             return String.format("%.2f KB", target.fileSize.toFloat() / 1024f)
-        if(target.fileSize < 1024f*1024f*1024f)
-            return String.format("%.2f MB", target.fileSize.toFloat() / (1024f*1024f))
-        if(target.fileSize < 1024f*1024f*1024f*1024f)
-            return String.format("%.2f GB", target.fileSize.toFloat() / (1024f*1024f*1024f))
+        if (target.fileSize < 1024f * 1024f * 1024f)
+            return String.format("%.2f MB", target.fileSize.toFloat() / (1024f * 1024f))
+        if (target.fileSize < 1024f * 1024f * 1024f * 1024f)
+            return String.format("%.2f GB", target.fileSize.toFloat() / (1024f * 1024f * 1024f))
         return "0 B"
     }
 

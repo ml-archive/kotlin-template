@@ -20,7 +20,7 @@
             android:padding="8dp"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:background="@drawable/circular_image_view_background"/>
+            android:background="@drawable/circle_white_greyborder"/>
 
         <LinearLayout
             android:orientation="vertical"
