@@ -54,7 +54,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "dk.nodes.nstack:translation:1.0.0"
+        classpath "dk.nodes.nstack:translation:1.0.+"
         classpath "com.github.gfx.ribbonizer:ribbonizer-plugin:$ribbonizer_version"
         classpath "dk.nodes.ci:bitrise:$bitrise_version"
     }
