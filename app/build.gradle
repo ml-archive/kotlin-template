@@ -12,8 +12,8 @@ translation {
     acceptHeader = "en-US"
 }
 
-bitrise{
-    defaultDeployMode="release|debug"
+bitrise {
+    defaultDeployMode = "release|debug"
     branchMode = true
 }
 
@@ -42,29 +42,91 @@ android {
     }
 
     signingConfigs {
-        debug {
-            keyAlias 'eboks'
-            keyPassword '5bXpXL47PSwfKwwxWMFsDaJaQ'
-            storeFile file('./keys/debug')
-            storePassword '5bXpXL47PSwfKwwxWMFsDaJaQ'
+        swedishDebug {
+            keyAlias 'swedishDebug'
+            keyPassword 'RR3UC8zaFegE2TJQhkDdC5TGhTZKRa'
+            storeFile file('./keys/swedishDebug')
+            storePassword 'RR3UC8zaFegE2TJQhkDdC5TGhTZKRa'
         }
-        production {
-            keyAlias 'eboks'
-            keyPassword 'UsawyV2AtzdAP6Saye6r6RqYg'
-            storeFile file('./keys/production')
-            storePassword 'UsawyV2AtzdAP6Saye6r6RqYg'
+        danishDebug {
+            keyAlias 'danishDebug'
+            keyPassword 'TseJ4a4k4n92kXjjZNcspUwd7Vw2nF'
+            storeFile file('./keys/danishDebug')
+            storePassword 'TseJ4a4k4n92kXjjZNcspUwd7Vw2nF'
+        }
+        norwegianDebug {
+            keyAlias 'norwegianDebug'
+            keyPassword 'WK3cVLvpUDDgN2p3N8QxRkwWM4BTBT'
+            storeFile file('./keys/norwegianDebug')
+            storePassword 'WK3cVLvpUDDgN2p3N8QxRkwWM4BTBT'
+        }
+        debug {
+            keyAlias 'debug'
+            keyPassword 'ssY4tz324b2jDmnCBuTMyY4Fx989XR'
+            storeFile file('./keys/debug')
+            storePassword 'ssY4tz324b2jDmnCBuTMyY4Fx989XR'
+        }
+        swedishProduction {
+            keyAlias 'swedish'
+            keyPassword 'WbjQfkYrjdHwx5Md49TWKSZqEkAEHB'
+            storeFile file('./keys/swedish')
+            storePassword 'WbjQfkYrjdHwx5Md49TWKSZqEkAEHB'
+        }
+        danishProduction {
+            keyAlias 'danish'
+            keyPassword 'zmXRagTN3SX96ZxPdLcY88qx5H7fym'
+            storeFile file('./keys/danish')
+            storePassword 'zmXRagTN3SX96ZxPdLcY88qx5H7fym'
+        }
+        norwegianProduction {
+            keyAlias 'norwegian'
+            keyPassword 'aMHG8ryp627E4gnSZRJr9j3uqxpnt9'
+            storeFile file('./keys/norwegian')
+            storePassword 'aMHG8ryp627E4gnSZRJr9j3uqxpnt9'
         }
     }
 
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
-            signingConfig signingConfigs.debug
+            signingConfig null
+
+            // Used for setting specific signing keys for each flavor
+
+            productFlavors.all { flavor ->
+                switch (flavor.name) {
+                    case "danish":
+                        flavor.signingConfig signingConfigs.danishDebug
+                        break
+                    case "swedish":
+                        flavor.signingConfig signingConfigs.swedishDebug
+                        break
+                    case "norwegian":
+                        flavor.signingConfig signingConfigs.norwegianDebug
+                        break
+                }
+            }
         }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.production
+
+            // Used for setting specific signing keys for each flavor
+
+            productFlavors.all { flavor ->
+                switch (flavor.name) {
+                    case "danish":
+                        flavor.signingConfig signingConfigs.danishProduction
+                        break
+                    case "swedish":
+                        flavor.signingConfig signingConfigs.swedishProduction
+                        break
+                    case "norwegian":
+                        flavor.signingConfig signingConfigs.norwegianProduction
+                        break
+                }
+            }
         }
     }
 
@@ -163,7 +225,7 @@ dependencies {
 
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-    implementation "dk.nodes.nstack:nstack-kotlin:2.0.1"
+    implementation "dk.nodes.nstack:nstack-kotlin:2.0.+"
 
     implementation "dk.nodes.arch:base:$nodes_arch_version"
     //implementation "dk.nodes.arch:base:LOCAL"
