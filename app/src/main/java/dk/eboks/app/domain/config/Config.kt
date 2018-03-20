@@ -191,12 +191,60 @@ object Config {
     )
 
     val loginProviders: Map<String, LoginProvider> = mapOf(
-            "email" to LoginProvider("email", "Email", false, -1, null, LoginComponentFragment::class.java),
-            "cpr" to LoginProvider("cpr", "Social Security Number", false, -1, null, LoginComponentFragment::class.java),
-            "nemid" to LoginProvider("nemid", "NemID", true, -1, null, NemIdComponentFragment::class.java),
-            "idporten" to LoginProvider("idporten", "ID-Porten", true, R.drawable.ic_idporten, "_Use this to see mail from public authorities", IdPortenComponentFragment::class.java),
-            "bankid_se" to LoginProvider("bankid_se", "Bank ID", true, R.drawable.ic_bankid, null, BankIdSEComponentFragment::class.java),
-            "bankid_no" to LoginProvider("bankid_no", "Bank ID", true, R.drawable.ic_bankid, null, BankIdNOComponentFragment::class.java)
+            "email" to LoginProvider(
+                    id = "email",
+                    name = "Email",
+                    onlyVerified = false,
+                    icon = -1,
+                    description = null,
+                    fragmentClass = LoginComponentFragment::class.java,
+                    fallbackProvider = "email"
+            ),
+            "cpr" to LoginProvider(
+                    id = "cpr",
+                    name = "Social Security Number",
+                    onlyVerified = false,
+                    icon = -1,
+                    description = null,
+                    fragmentClass = LoginComponentFragment::class.java,
+                    fallbackProvider = "cpr"
+            ),
+            "nemid" to LoginProvider(
+                    id = "nemid",
+                    name = "NemID",
+                    onlyVerified = true,
+                    icon = -1,
+                    description = null,
+                    fragmentClass = NemIdComponentFragment::class.java,
+                    fallbackProvider = "cpr"
+            ),
+            "idporten" to LoginProvider(
+                    id = "idporten",
+                    name = "ID-Porten",
+                    onlyVerified = true,
+                    icon = R.drawable.ic_idporten,
+                    description = "_Use this to see mail from public authorities",
+                    fragmentClass = IdPortenComponentFragment::class.java,
+                    fallbackProvider = "cpr"
+            ),
+            "bankid_se" to LoginProvider(
+                    id = "bankid_se",
+                    name = "Bank ID",
+                    onlyVerified = true,
+                    icon = R.drawable.ic_bankid,
+                    description = null,
+                    fragmentClass = BankIdSEComponentFragment::class.java,
+                    fallbackProvider = "cpr"
+            ),
+            "bankid_no" to LoginProvider(
+                    id = "bankid_no",
+                    name = "Bank ID",
+                    onlyVerified = true,
+                    icon = R.drawable.ic_bankid,
+                    description = null,
+                    fragmentClass = BankIdNOComponentFragment::class.java,
+                    fallbackProvider = "cpr"
+            )
     )
 
     fun getLoginProvider(id : String) : LoginProvider?

@@ -15,6 +15,7 @@ import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.ui.screens.debug.DebugActivity
 import dk.eboks.app.util.ShakeDetector
+import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BaseView
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -33,6 +34,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     private var acceleroMeter : Sensor? = null
     protected var showEmptyState : Boolean = false
     protected var countToDebug = 0
+    var backPressedCallback: (()->Boolean)? = null
 
 
     companion object {
@@ -89,6 +91,14 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
                 countToDebug = 0
             }
             return true
+        }
+        if(keyCode == KeyEvent.KEYCODE_BACK)
+        {
+            backPressedCallback?.let {
+                Timber.e("Back pressed handling and blocking onBackPressed")
+                if(it())
+                    return true
+            }
         }
         return super.onKeyDown(keyCode, event)
     }
