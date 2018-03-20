@@ -99,6 +99,12 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         }
     }
 
+    override fun setSelectedUser(user: User) {
+        val pos = (viewPager.adapter as UserPagerAdapter).users.indexOf(user)
+        Timber.e("POS $pos")
+        viewPager.setCurrentItem(pos, true)
+    }
+
     override fun openLogin() {
         val frag = LoginComponentFragment()
         getBaseActivity()?.addFragmentOnTop(R.id.containerFl, frag, true)
@@ -161,6 +167,10 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                     }
                 }
 
+                if(BuildConfig.DEBUG)
+                {
+                    v.findViewById<TextView>(R.id.hintTv)?.visibility = View.VISIBLE
+                }
 
                 v.findViewById<ImageView>(R.id.deleteIv)?.setOnClickListener {
                     showDeleteDialog(users[position])

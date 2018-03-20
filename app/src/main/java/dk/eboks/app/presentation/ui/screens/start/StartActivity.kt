@@ -3,17 +3,11 @@ package dk.eboks.app.presentation.ui.screens.start
 import android.animation.LayoutTransition
 import android.content.Intent
 import android.os.Bundle
-import android.support.transition.TransitionInflater
-import android.support.v4.app.Fragment
 import android.support.v7.app.AlertDialog
-import android.view.View
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
-import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentFragment
 import dk.eboks.app.presentation.ui.components.start.welcome.SplashComponentFragment
-import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppUpdate
@@ -124,10 +118,12 @@ class StartActivity : BaseActivity(), StartContract.View {
     }
 
     override fun onBackPressed() {
-        if (supportFragmentManager.backStackEntryCount > 0) {
+        Timber.e("on back bs count ${supportFragmentManager.backStackEntryCount}")
+        if (supportFragmentManager.backStackEntryCount > 1) {
             supportFragmentManager.popBackStack()
         }
-        else
-            super.onBackPressed()
+        else {
+            finish()
+        }
     }
 }

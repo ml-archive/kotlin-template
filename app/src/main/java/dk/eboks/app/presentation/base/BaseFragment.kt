@@ -35,7 +35,7 @@ abstract class BaseFragment : Fragment(), BaseView {
     override fun onStart() {
         super.onStart()
         setupTranslations()
-        Timber.e("${this.javaClass.simpleName} onStart")
+        if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onStart")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,12 +44,12 @@ abstract class BaseFragment : Fragment(), BaseView {
         {
             setupShakeDetection()
         }
-        Timber.e("${this.javaClass.simpleName} onCreate")
+        if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onCreate")
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Timber.e("${this.javaClass.simpleName} onViewCreated")
+        if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onViewCreated")
         clearFindViewByIdCache()
     }
 
@@ -60,7 +60,7 @@ abstract class BaseFragment : Fragment(), BaseView {
         shakeDetector?.setOnShakeListener(object : ShakeDetector.OnShakeListener {
             override fun onShake(count: Int) {
                 showEmptyState = !showEmptyState
-                Timber.e("showEmptyState $showEmptyState")
+                if(BuildConfig.DEBUG) Timber.v("showEmptyState $showEmptyState")
                 this@BaseFragment.onShake()
             }
         })
@@ -69,18 +69,18 @@ abstract class BaseFragment : Fragment(), BaseView {
     override fun onPause() {
         super.onPause()
         sensorManager?.unregisterListener(shakeDetector)
-        Timber.e("${this.javaClass.simpleName} onPause")
+        if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onPause")
     }
 
     override fun onResume() {
         super.onResume()
         sensorManager?.registerListener(shakeDetector, acceleroMeter, SensorManager.SENSOR_DELAY_UI)
-        Timber.e("${this.javaClass.simpleName} onResume")
+        if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onResume")
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        Timber.e("${this.javaClass.simpleName} onViewStateRestored")
+        if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onViewStateRestored")
     }
 
     /*
