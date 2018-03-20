@@ -35,7 +35,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
 
                 var jsonElement = elementAdapter.read(`in`)
                 if (jsonElement.isJsonObject) {
-                    //Timber.e("parsing element " + jsonElement.toString())
+                    Timber.e("parsing element " + jsonElement.toString())
                     val jsonObject = jsonElement.asJsonObject
                     val entry_set = jsonObject.entrySet()
                     listElement = null

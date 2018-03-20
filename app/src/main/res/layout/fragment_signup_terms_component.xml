@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/backgroundColor"
-    android:animateLayoutChanges="true"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:animateLayoutChanges="true"
+    android:background="@color/backgroundColor"
+    tools:ignore="MissingPrefix">
+
     <LinearLayout
         android:id="@+id/content"
-        android:orientation="vertical"
-        android:background="@color/backgroundColor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:orientation="vertical">
 
         <include layout="@layout/include_toolbar" />
 
@@ -20,45 +22,50 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
                     android:id="@+id/textTv"
+                    style="@style/text.body6.secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/text.body6.secondary"
-                    android:text="Terms"/>
+                    android:text="Terms"
+                    nstack:key="@string/nstack_signup_termsText" />
 
 
                 <Button
                     android:id="@+id/continueBtn"
                     style="@style/button.SolidGradient"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="52dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
-                    android:layout_marginStart="36dp"
                     android:layout_marginEnd="36dp"
-                    android:text="_Continue" />
-                
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="52dp"
+                    android:text="_Continue"
+                    android:visibility="gone"
+                    nstack:key="@string/nstack_signup_continueButton" />
+
 
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/progress"
-        android:visibility="gone"
-        android:background="@color/backgroundColor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:visibility="gone">
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
     </FrameLayout>
 </FrameLayout>

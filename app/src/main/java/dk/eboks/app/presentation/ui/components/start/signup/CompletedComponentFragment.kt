@@ -32,8 +32,6 @@ class CompletedComponentFragment : BaseFragment(), SignupComponentContract.Compl
     }
 
     override fun setupTranslations() {
-        headerTv.text = Translation.signup.completedHeader
-        continueBtn.text = Translation.signup.continueToAppButton
     }
 
     override fun showError() {

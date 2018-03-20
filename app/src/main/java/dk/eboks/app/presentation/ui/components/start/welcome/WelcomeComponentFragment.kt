@@ -69,8 +69,6 @@ class WelcomeComponentFragment : BaseFragment() {
     }
 
     override fun setupTranslations() {
-        signupBtn.text = Translation.start.signupButton
-        logonBtn.text = Translation.start.logonButton
     }
 
     companion object {

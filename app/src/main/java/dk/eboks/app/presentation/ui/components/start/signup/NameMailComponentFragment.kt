@@ -23,6 +23,7 @@ import android.text.style.ClickableSpan
 import android.text.SpannableString
 import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.util.isValidEmail
+import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.include_toolbar.*
 
 
@@ -50,6 +51,8 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         continueBtn.setOnClickListener { onContinueClicked() }
         setupTermsText()
         setupTopBar()
+
+        NStack.translate()
     }
 
     override fun onResume() {
@@ -98,7 +101,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
                     if (!emailValid) {
                         emailTil.error = Translation.signup.invalidEmail
                     }
-                },1200)
+                }, 1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -174,11 +177,6 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     }
 
     override fun setupTranslations() {
-        headerTv.text = Translation.signup.nameEmailHeader
-        detailTv.text = Translation.signup.nameEmailDetail
-        continueBtn.text = Translation.signup.continueButton
-        nameTil.hint = Translation.signup.nameHint
-        emailTil.hint = Translation.signup.emailHint
     }
 
     override fun showError() {

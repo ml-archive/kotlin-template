@@ -55,11 +55,8 @@ class AcceptTermsComponentFragment : BaseFragment(), AcceptTermsComponentContrac
     }
 
     override fun setupTranslations() {
-            headerTv.text = Translation.signup.termsAcceptHeader
-            subHeaderTv.text = Translation.signup.termsAcceptSubHeader
-            termsContentTv.text = Translation.signup.termsText
-            acceptBtn.text = Translation.signup.termsAcceptButton
-            cancelBtn.text =Translation.signup.cancelTermsBtn
+
+
 
     }
 

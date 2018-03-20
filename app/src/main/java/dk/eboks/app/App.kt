@@ -25,6 +25,7 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
         App.Companion._instance = this
 
         NStack.translationClass = Translation::class.java
+        NStack.debugMode = BuildConfig.DEBUG
         NStack.init(this)
 
         if (BuildConfig.DEBUG) {

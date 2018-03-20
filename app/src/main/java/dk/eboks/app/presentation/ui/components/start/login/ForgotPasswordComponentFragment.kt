@@ -81,10 +81,5 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
     }
 
     override fun setupTranslations() {
-        headerTv.text = Translation.forgotpassword.title
-        detailTv.text = Translation.forgotpassword.subtitle
-        emailTil.hint = Translation.forgotpassword.emailHeader
-        resetPasswordBtn.text = Translation.forgotpassword.resetPasswordButton
-        cancelTv.text = Translation.defaultSection.cancel
     }
 }

@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Fri Mar 16 12:57:05 CET 2018 
+ * Generated: Tue Mar 20 14:19:56 CET 2018 
  */
 
 public class Translation {
@@ -97,6 +97,7 @@ public class Translation {
 		public static String invalidCprorEmail = "invalid Email or CPR-number";
 		public static String emailOrSSNHeader = "Email or Social Security Number";
 		public static String ssnHeader = "Social security number";
+		public static String invalidSSN = "Invalid social security number";
 	}
 	public final static class forgotpassword {
 		public static String title = "Forgot your password?";
@@ -169,6 +170,8 @@ public class Translation {
 		public static String registeredTypeYes = "Registered";
 		public static String registeredTypePartial = "Partially registered";
 		public static String readMore = "Read More";
+		public static String publicAuthoritiesHeader = "Public Authorities";
+		public static String publicAuthoritiesDescription = "Get mail from all public authorities with a single tap. See the senders below";
 	}
 	public final static class findactivationcode {
 		public static String title = "Finding your activation code";
@@ -209,6 +212,11 @@ public class Translation {
 		public static String errorBiometryLocked = "[idtype] is locked";
 		public static String errorUnknownBiometryEvent = "Unknown problem with [idtype]";
 		public static String logonWithBiometryReason = "Use [idtype] to log in";
+		public static String nextTimeTitle = "Don\'t you want to use [idtype] to log on next time?";
+		public static String nextTimeTouchIdMessage = "Just use your finger blablablala blabablablabla";
+		public static String nextTimeFaceIdMessage = "Sign in just by looking by enabling FaceID in the e-Boks app";
+		public static String nextTimeEnableButton = "Enable [typeid]";
+		public static String nextTimeDontUseButton = "I don\'t want to use [idtype]";
 	}
 	public final static class logonmethods {
 		public static String mobileAccess = "Mobile access";
@@ -221,5 +229,11 @@ public class Translation {
 		public static String header = "Settings";
 		public static String creditCardHeader = "Credit Cards";
 		public static String removeChannelBtn = "Remove Channel";
+	}
+	public final static class uploads {
+		public static String uploadsHeader = "Upload and store your important files and pictures in one secure place";
+		public static String title = "Uploads";
+		public static String takePhoto = "Take Photo";
+		public static String chooseFile = "Choose a File";
 	}
 }

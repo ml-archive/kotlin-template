@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/backgroundColor">
+    android:background="@color/backgroundColor"
+    tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/backgroundColor"
-        android:paddingBottom="32dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="32dp">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -29,21 +32,21 @@
 
                 <TextView
                     android:id="@+id/headerTv"
-                    android:gravity="center"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
                     style="@style/text.header1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="center"
                     android:text="_Activation Code" />
 
                 <TextView
                     android:id="@+id/detailTv"
-                    android:gravity="center"
                     style="@style/text.body6.secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:gravity="center"
                     android:text="_Lorem ipsum dolor sit amet consectetur adipiscing elit. Integer cursus dui." />
 
 
@@ -67,39 +70,41 @@
                         android:inputType="text" />
 
                 </android.support.design.widget.TextInputLayout>
+
                 <Button
                     android:id="@+id/findActivationCodeBtn"
                     style="@style/buttonRoundedCorners.darkBlueGrey"
-                    android:textColor="@color/darkGreyBlue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="36dp"
                     android:layout_marginStart="36dp"
                     android:layout_marginTop="12dp"
-                    android:text="_Find activation code" />
+                    android:text="_Find activation code"
+                    android:textColor="@color/darkGreyBlue" />
 
                 <Button
                     android:id="@+id/continueBtn"
                     style="@style/enabledButtton"
-                    android:textColor="@drawable/enabled_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="36dp"
                     android:layout_marginStart="36dp"
                     android:layout_marginTop="12dp"
                     android:enabled="false"
-                    android:text="_Continue" />
+                    android:text="_Continue"
+                    android:textColor="@drawable/enabled_button" />
 
                 <Button
                     android:id="@+id/cancelBtn"
+                    style="@style/button.borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
                     android:layout_gravity="center"
-                    style="@style/button.borderless"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:text="_Cancel"
                     android:textStyle="bold"
-                    android:text="_Cancel"/>
+                    nstack:key="@string/nstack_default_cancel" />
 
             </LinearLayout>
         </ScrollView>
