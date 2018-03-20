@@ -28,6 +28,9 @@ class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateM
 
     override fun login(user: User) {
         appState.state?.loginState?.selectedUser = user
+        appState.state?.loginState?.lastUser = user
+        Timber.e("Saving last user $user")
+        appState.save()
         runAction { v-> v.openLogin() }
     }
 
@@ -42,7 +45,13 @@ class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateM
     }
 
     override fun onGetUsers(users: MutableList<User>) {
-        runAction { v-> v.showUsers(users) }
+        runAction {
+            v-> v.showUsers(users)
+            appState.state?.loginState?.lastUser?.let { user ->
+                Timber.e("Setting selected user $user")
+                v.setSelectedUser(user)
+            }
+        }
     }
 
     override fun onGetUsersError(msg: String) {

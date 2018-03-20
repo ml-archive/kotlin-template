@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.LoginProvider
+import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
+import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.activity_debug_user.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -13,6 +15,8 @@ import javax.inject.Inject
 
 class DebugUserActivity : BaseActivity(), DebugUserContract.View {
     @Inject lateinit var presenter: DebugUserContract.Presenter
+
+    var currentUser : User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +27,9 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
         presenter.setup()
         focusThiefTv.requestFocus()
         createBtn.setOnClickListener {
-            createUser()
+            currentUser?.let { saveUser(it) }.guard {
+                createUser()
+            }
         }
     }
 
@@ -52,8 +58,45 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
         presenter.createUser(provider, name, email, cpr, verified, fingerprint)
     }
 
+    private fun saveUser(user : User)
+    {
+        user.lastLoginProvider = (loginProviderSpr.selectedItem as LoginProvider).id
+        user.name = nameEt.text.toString().trim()
+        user.email = emailEt.text.toString().trim()
+
+        if(user.email.isNullOrBlank())
+            user.email = null
+        user.cpr = cprEt.text.toString().trim()
+        if(user.cpr.isNullOrBlank())
+            user.cpr = null
+        user.verified = verifiedSw.isChecked
+        user.hasFingerprint = fingerPrintSw.isChecked
+        presenter.saveUser(user)
+    }
+
     override fun setupTranslations() {
 
+    }
+
+    override fun showUser(user: User) {
+        currentUser = user
+        for(i in 0 until loginProviderSpr.adapter.count)
+        {
+            user.lastLoginProvider?.let {
+                if((loginProviderSpr.adapter.getItem(i) as LoginProvider).id == it) {
+                    loginProviderSpr.setSelection(i)
+                    return@let
+                }
+            }
+        }
+        nameEt.setText(user.name)
+        user.email?.let { emailEt.setText(it) }
+        user.cpr?.let { cprEt.setText(it) }
+        verifiedSw.isChecked = user.verified
+        fingerPrintSw.isChecked = user.hasFingerprint
+        currentUser?.let {
+            createBtn.text = "Save"
+        }
     }
 
     override fun showError(msg: String) {

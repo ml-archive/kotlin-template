@@ -21,6 +21,7 @@ import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentFragme
 import dk.eboks.app.presentation.ui.components.start.signup.NameMailComponentFragment
 import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
 import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserActivity
+import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserPresenter
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_user_carousel_component.*
 import timber.log.Timber
@@ -98,6 +99,12 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         }
     }
 
+    override fun setSelectedUser(user: User) {
+        val pos = (viewPager.adapter as UserPagerAdapter).users.indexOf(user)
+        Timber.e("POS $pos")
+        viewPager.setCurrentItem(pos, true)
+    }
+
     override fun openLogin() {
         val frag = LoginComponentFragment()
         getBaseActivity()?.addFragmentOnTop(R.id.containerFl, frag, true)
@@ -147,9 +154,24 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                 v.findViewById<TextView>(R.id.nameTv)?.text = user.name
 
                 collection.addView(v)
-                v.findViewById<LinearLayout>(R.id.clickLl)?.setOnClickListener {
-                    presenter.login(users[position])
+                v.findViewById<LinearLayout>(R.id.clickLl)?.let {
+                    it.setOnClickListener {
+                        presenter.login(users[position])
+                    }
+                    if(BuildConfig.DEBUG) {
+                        it.setOnLongClickListener {
+                            DebugUserPresenter.editUser = users[position]
+                            activity.startActivity(Intent(activity, DebugUserActivity::class.java))
+                            true
+                        }
+                    }
                 }
+
+                if(BuildConfig.DEBUG)
+                {
+                    v.findViewById<TextView>(R.id.hintTv)?.visibility = View.VISIBLE
+                }
+
                 v.findViewById<ImageView>(R.id.deleteIv)?.setOnClickListener {
                     showDeleteDialog(users[position])
                 }

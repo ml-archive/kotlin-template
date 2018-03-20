@@ -18,6 +18,7 @@ import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
+import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentContract
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
@@ -470,8 +471,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideDebugUserPresenter(stateManager: AppStateManager, createUserInteractor: CreateUserInteractor) : DebugUserContract.Presenter {
-        return DebugUserPresenter(stateManager, createUserInteractor)
+    fun provideDebugUserPresenter(stateManager: AppStateManager, createUserInteractor: CreateUserInteractor, saveUserInteractor: SaveUserInteractor) : DebugUserContract.Presenter {
+        return DebugUserPresenter(stateManager, createUserInteractor, saveUserInteractor)
     }
 
     /* Pasta

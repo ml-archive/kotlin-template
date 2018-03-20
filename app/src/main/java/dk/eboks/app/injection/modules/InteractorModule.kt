@@ -84,6 +84,11 @@ class InteractorModule {
         return CreateUserInteractorImpl(executor, userManager)
     }
 
+    @Provides fun provideSaveUserInteractor(executor: Executor, userManager: UserManager) : SaveUserInteractor
+    {
+        return SaveUserInteractorImpl(executor, userManager)
+    }
+
     @Provides fun provideDeleteUserInteractor(executor: Executor, userManager: UserManager) : DeleteUserInteractor
     {
         return DeleteUserInteractorImpl(executor, userManager)

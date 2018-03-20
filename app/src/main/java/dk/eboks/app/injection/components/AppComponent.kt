@@ -18,6 +18,7 @@ import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
+import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.injection.modules.*
 import dk.eboks.app.network.Api
@@ -71,6 +72,7 @@ interface AppComponent
     fun saveAttachmentInteractor() : SaveAttachmentInteractor
     fun getChannelsInteractor() : GetChannelsInteractor
     fun createUserInteractor() : CreateUserInteractor
+    fun saveUserInteractor() : SaveUserInteractor
     fun deleteUserInteractor() : DeleteUserInteractor
     fun getUsersInteractor() : GetUsersInteractor
     fun getSenderCategoriesInteractor() : GetSenderCategoriesInteractor
