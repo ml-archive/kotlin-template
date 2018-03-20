@@ -89,8 +89,6 @@ import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentCon
 import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentContract
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
-import dk.eboks.app.presentation.ui.components.senders.SenderListComponentContract
-import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentContract
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
@@ -303,12 +301,6 @@ class PresentationModule {
     @Provides
     fun provideShareComponentPresenter(stateManager: AppStateManager) : ShareComponentContract.Presenter {
         return ShareComponentPresenter(stateManager)
-    }
-
-    @ActivityScope
-    @Provides
-    fun provideSenderListComponentPresenter(stateManager: AppStateManager) : SenderListComponentContract.Presenter {
-        return SenderListComponentPresenter(stateManager)
     }
 
     @ActivityScope

@@ -22,11 +22,17 @@
             android:orientation="vertical"
             android:paddingTop="@dimen/margin_normal">
 
-            <fragment
-                android:id="@+id/sendersListComponentF"
-                android:name="dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment"
+            <LinearLayout
+                android:id="@+id/sendersCollectionContainerLl"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <!--<fragment-->
+                <!--android:id="@+id/sendersListComponentF"-->
+                <!--android:name="dk.eboks.app.presentation.ui.components.senders.SegmentComponentFragment"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"/>-->
 
             <fragment
                 android:id="@+id/sendersCategoriesFrag"
