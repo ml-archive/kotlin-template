@@ -51,7 +51,6 @@
                 android:id="@+id/segmentBottomFl"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:clickable="true"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/margin_normal">
 

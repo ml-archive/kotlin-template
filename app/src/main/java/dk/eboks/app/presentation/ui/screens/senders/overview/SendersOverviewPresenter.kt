@@ -16,7 +16,7 @@ class SendersOverviewPresenter(val appStateManager: AppStateManager, val collect
 
     init {
         collectionsInteractor.output = this
-        collectionsInteractor.input = GetCollectionsInteractor.Input(false)
+        collectionsInteractor.input = GetCollectionsInteractor.Input(true)
         collectionsInteractor.run()
     }
 

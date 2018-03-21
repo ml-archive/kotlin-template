@@ -8,9 +8,12 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Segment
+import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.senders.SegmentComponentFragment
+import dk.eboks.app.presentation.ui.components.senders.SenderComponentFragment
+import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
 import kotlinx.android.synthetic.main.activity_senders_overview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -49,7 +52,10 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
         }
 
     }
+
     override fun showCollections(collections: List<CollectionContainer>) {
+        sendersCollectionContainerLl.removeAllViews()
+
         collections.forEach {
             val b = Bundle()
             lateinit var f : BaseFragment
@@ -57,7 +63,18 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
                 "segment" -> {
                     b.putSerializable(Segment::class.simpleName, it.segment)
                     f = SegmentComponentFragment()
-
+                    f.arguments = b
+                    supportFragmentManager.beginTransaction().add(sendersCollectionContainerLl.id, f).commit()
+                }
+                "sender" -> {
+                    b.putSerializable(Sender::class.simpleName, it.sender)
+                    f = SenderComponentFragment()
+                    f.arguments = b
+                    supportFragmentManager.beginTransaction().add(sendersCollectionContainerLl.id, f).commit()
+                }
+                "senders" -> {
+                    b.putSerializable(CollectionContainer::class.simpleName, it)
+                    f = SenderListComponentFragment()
                     f.arguments = b
                     supportFragmentManager.beginTransaction().add(sendersCollectionContainerLl.id, f).commit()
                 }
