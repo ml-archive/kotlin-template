@@ -19,6 +19,9 @@ import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BaseView
 import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
 import kotlinx.android.synthetic.main.include_toolbar.*
+import net.hockeyapp.android.CrashManager
+import net.hockeyapp.android.CrashManagerListener
+import net.hockeyapp.android.UpdateManager
 import timber.log.Timber
 
 
@@ -50,6 +53,22 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
             countToDebug = 0
             setupShakeDetection()
         }
+
+        CrashManager.register(this, object : CrashManagerListener() {
+            override fun onNoCrashesFound() {
+                super.onNoCrashesFound()
+                Timber.d("No crashes found")
+            }
+
+            override fun onNewCrashesFound() {
+                super.onNewCrashesFound()
+                Timber.d("New crashes found")
+            }
+
+            override fun shouldAutoUploadCrashes(): Boolean {
+                return true
+            }
+        })
     }
 
     fun setupShakeDetection()
@@ -73,14 +92,18 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     }
 
     override fun onPause() {
-        super.onPause()
         sensorManager?.unregisterListener(shakeDetector)
+        if(BuildConfig.DEBUG)
+            UpdateManager.unregister()
+        super.onPause()
     }
 
     override fun onResume() {
         super.onResume()
         sensorManager?.registerListener(shakeDetector, acceleroMeter, SensorManager.SENSOR_DELAY_UI)
-
+        if(BuildConfig.DEBUG) {
+            UpdateManager.register(this)
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
