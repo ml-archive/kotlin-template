@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.senders
 
+import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.sender.SenderGroup
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
@@ -17,6 +18,6 @@ interface SenderGroupsComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun getSenderGroups(senderID: Long)
+        fun getSenderGroups(sender: Sender)
     }
 }

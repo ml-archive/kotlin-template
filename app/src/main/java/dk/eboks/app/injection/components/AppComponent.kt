@@ -11,6 +11,7 @@ import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
+import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
@@ -62,6 +63,7 @@ interface AppComponent
     fun getSendersInteractor() : GetSendersInteractor
     fun getSenderDetailInteractor() : GetSenderDetailInteractor
     fun getCategoriesInteractor() : GetCategoriesInteractor
+    fun getGetCollectionsInteractor() : GetCollectionsInteractor
     fun getMessagesInteractor() : GetMessagesInteractor
     fun getFoldersInteractor() : GetFoldersInteractor
     fun openMessageInteractor() : OpenMessageInteractor

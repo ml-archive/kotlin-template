@@ -8,6 +8,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_senders_detail.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class SenderDetailActivity : BaseActivity(),SenderDetailContract.View {
@@ -25,16 +26,8 @@ class SenderDetailActivity : BaseActivity(),SenderDetailContract.View {
         if (sender == null) {
             finish()
         } else {
-            senderDetailTB.title = sender.name
-            senderDetailNameTv.text = sender.name
+            updateHeader(sender)
 
-            Glide.with(this)
-                    .load(sender.logo?.url)
-                    .apply(RequestOptions()
-                            .fallback(R.drawable.icon_72_senders_private)
-                            .placeholder(R.drawable.icon_72_senders_private)
-                    )
-                    .into(senderDetailIv)
             // pass the knowledge on to your siblings, so they in turn can use it
             val b = Bundle()
             b.putSerializable(Sender::class.simpleName, sender)
@@ -79,6 +72,28 @@ class SenderDetailActivity : BaseActivity(),SenderDetailContract.View {
     }
 
     override fun showSender(sender: Sender) {
+        // pass the knowledge on to your siblings, so they in turn can use it
+        val b = Bundle()
+        b.putSerializable(Sender::class.simpleName, sender)
+
+        senderGroupsListComponentF.arguments = b
+        senderDetailInfoF.arguments = b
+
+        // also update the header
+        updateHeader(sender)
+    }
+
+    private fun updateHeader(sender : Sender) {
+        senderDetailTB.title = sender.name
+        senderDetailNameTv.text = sender.name
+
+        Glide.with(this)
+                .load(sender.logo?.url)
+                .apply(RequestOptions()
+                        .fallback(R.drawable.icon_72_senders_private)
+                        .placeholder(R.drawable.icon_72_senders_private)
+                )
+                .into(senderDetailIv)
     }
 
     override fun showError(msg: String) {

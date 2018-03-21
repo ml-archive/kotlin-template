@@ -119,6 +119,11 @@ class InteractorModule {
         return GetSenderDetailInteractorImpl(executor, sendersRepository)
     }
 
+    @Provides
+    fun provideGetCollectionsInteractor(executor: Executor, collectionsRepository: CollectionsRepository) : GetCollectionsInteractor {
+        return GetCollectionsInteractorImpl(executor, collectionsRepository)
+    }
+
 //    @Provides
 //    fun provideSearchSendersInterActor(executor: Executor) : GetSendersInteractor {
 //        return SearchSendersInteractorImpl(executor)

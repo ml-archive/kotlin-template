@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
     <include layout="@layout/include_toolbar"/>
 
@@ -14,19 +15,22 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"
         android:background="@color/backgroundColor"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:animateLayoutChanges="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="@dimen/margin_normal">
+            android:paddingTop="@dimen/margin_normal"
+            android:animateLayoutChanges="true">
 
-            <fragment
-                android:id="@+id/sendersListComponentF"
-                android:name="dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment"
+            <LinearLayout
+                android:id="@+id/sendersCollectionContainerLl"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:animateLayoutChanges="true" />
 
             <fragment
                 android:id="@+id/sendersCategoriesFrag"

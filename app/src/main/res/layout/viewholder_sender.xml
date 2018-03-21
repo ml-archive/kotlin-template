@@ -19,8 +19,8 @@
         android:id="@+id/senderMainLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:background="?selectableItemBackground">
+        android:background="?selectableItemBackground"
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/senderLogoIv"
@@ -38,17 +38,34 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/senderNameTv"
-                style="@style/text.header4"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="@dimen/margin_normal"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:lines="1"
-                android:text="Arbejdernes Landsbank"/>
+                android:layout_height="match_parent"
+                android:paddingRight="@dimen/margin_normal">
+
+                <TextView
+                    android:id="@+id/senderNameTv"
+                    style="@style/text.header4"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:lines="1"
+                    android:text="Arbejdernes Landsbank"/>
+
+
+                <Button
+                    android:id="@+id/senderRegisterBtn"
+                    style="@style/buttonRoundedCorners.darkBlueGrey.small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/margin_normal"
+                    android:visibility="gone"
+                    android:text="_Register"/>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

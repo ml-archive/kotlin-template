@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.sender.Sender
@@ -13,6 +14,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity
 import kotlinx.android.synthetic.main.fragment_list_component.*
 import kotlinx.android.synthetic.main.viewholder_title_subtitle.view.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -25,8 +27,6 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
     @Inject
     lateinit var presenter: SenderGroupsComponentContract.Presenter
 
-    private val groups = ArrayList<SenderGroup>()
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_list_component, container, false)
         return rootView
@@ -37,7 +37,6 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        listComponentContentLl.removeAllViews()
     }
 
     override fun setArguments(args: Bundle?) {
@@ -45,10 +44,7 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
 
         val sender = arguments.getSerializable(Sender::class.simpleName) as Sender?
         if (sender != null) {
-            sender.groups?.let {
-                showSenderGroups(it)
-            }
-            presenter.getSenderGroups(sender.id)
+            presenter.getSenderGroups(sender)
         }
     }
 
@@ -61,7 +57,7 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
         listComponentContentLl.removeAllViews()
 
         senderGroups.forEach {
-            val v = inflator.inflate(R.layout.viewholder_title_subtitle, null)
+            val v = inflator.inflate(R.layout.viewholder_title_subtitle, listComponentContentLl, false)
             v.titleTv.text = it.name
             v.subTv.text = when (it.registered) {
                 0 -> "not"
@@ -75,6 +71,7 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
             }
             listComponentContentLl.addView(v)
         }
+        view?.requestLayout()
     }
 
     override fun showError(message: String) {

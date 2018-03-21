@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.senders.overview
 
+import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 
@@ -8,7 +9,9 @@ import dk.nodes.arch.presentation.base.BaseView
  */
 interface SendersOverviewContract {
     interface View : BaseView {
+        fun showCollections(collections : List<CollectionContainer>)
         fun showError(msg : String)
+
     }
 
     interface Presenter : BasePresenter<View> {

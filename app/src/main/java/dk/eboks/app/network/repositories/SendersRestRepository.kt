@@ -4,7 +4,6 @@ import com.google.gson.Gson
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.exceptions.RepositoryException
 import dk.eboks.app.domain.exceptions.ServerErrorException
-import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.repositories.SendersRepository
