@@ -11,7 +11,8 @@ data class LoginProvider (
         val onlyVerified : Boolean,
         val icon : Int,
         val description: String? = null,
-        val fragmentClass: Class<out BaseFragment>?
+        val fragmentClass: Class<out BaseFragment>?,
+        val fallbackProvider: String
 )
 {
     override fun toString(): String = id
