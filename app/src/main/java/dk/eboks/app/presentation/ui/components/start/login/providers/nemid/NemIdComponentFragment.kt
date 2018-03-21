@@ -24,6 +24,8 @@ class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
     @Inject
     lateinit var presenter : NemIdComponentContract.Presenter
 
+    var loginUser: User? = null
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
@@ -35,6 +37,7 @@ class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
                 showDebugDialog()
             }, 500)
         }
+        presenter.setup()
     }
 
     override fun onResume() {
@@ -50,8 +53,8 @@ class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
         super.onPause()
     }
 
-    override fun login(user: User) {
-
+    override fun setupLogin(user: User) {
+        loginUser = user
     }
 
     override fun proceed() {
@@ -62,13 +65,13 @@ class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
     {
         AlertDialog.Builder(activity)
                 .setTitle("Debug")
-                .setMessage("Press okay to simulate a successful login with external login provider")
+                .setMessage("Press okay to simulate a successful login with login provider")
                 .setPositiveButton("Login") { dialog, which ->
-
+                    loginUser?.let { presenter.login(it) }
                     (activity as StartActivity).startMain()
                 }
                 .setNegativeButton("Close") { dialog, which ->
-
+                    webView.postDelayed({ presenter.cancelAndClose() }, 500)
                 }
                 .show()
     }

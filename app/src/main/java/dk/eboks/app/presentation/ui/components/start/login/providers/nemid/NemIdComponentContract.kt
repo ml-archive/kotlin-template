@@ -9,12 +9,13 @@ import dk.nodes.arch.presentation.base.BaseView
  */
 interface NemIdComponentContract {
     interface View : BaseView {
-        fun login(user : User)
+        fun setupLogin(user : User)
         fun close()
         fun proceed()
     }
 
     interface Presenter : BasePresenter<View> {
+        fun setup()
         fun login(user : User)
         fun cancelAndClose()
     }

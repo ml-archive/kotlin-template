@@ -4,11 +4,13 @@ import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethod
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
@@ -29,6 +31,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.Glide
+import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.include_toolbar.*
 
 
@@ -49,6 +52,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     var showGreeting : Boolean = true
     var currentProvider: LoginProvider? = null
+    var currentUser: User? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_login_component, container, false)
@@ -65,6 +69,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         arguments?.let { args ->
             showGreeting = args.getBoolean("showGreeting", true)
         }
+
+        continueBtn.setOnClickListener { onContinue() }
     }
 
 
@@ -106,6 +112,24 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         val inputMethodManager = getBaseActivity()?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
+
+
+    private fun onContinue()
+    {
+        Timber.e("onContinue")
+        currentUser?.let { user ->
+            currentProvider?.let { provider ->
+                presenter.login(user, provider.id)
+            }
+        }.guard {
+            createUser(false)
+        }
+    }
+
+    override fun proceedToApp() {
+        (activity as StartActivity).startMain()
+    }
+
 
     override fun setupView(loginProvider: LoginProvider?, user: User?, altLoginProviders: List<LoginProvider>) {
         Timber.e("SetupView called loginProvider = $loginProvider user = $user altProviders = $altLoginProviders")
@@ -151,6 +175,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     private fun setupUserView(user : User)
     {
+        currentUser = user
         userLl.visibility = View.VISIBLE
         userNameTv.text = user.name
         var emailCpr = ""
@@ -171,12 +196,14 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             {
                 "email" -> {
                     user?.let { setupUserView(it) }
+                    cprEmailEt.inputType = InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
                     cprEmailTil.visibility = View.GONE
                     passwordTil.visibility = View.VISIBLE
                     continueBtn.visibility = View.VISIBLE
                 }
                 "cpr" -> {
                     user?.let { setupUserView(it) }
+                    cprEmailEt.inputType = InputType.TYPE_CLASS_NUMBER
                     cprEmailTil.visibility = View.VISIBLE
                     cprEmailTil.hint = "_Social security number"
                     passwordTil.visibility = View.VISIBLE

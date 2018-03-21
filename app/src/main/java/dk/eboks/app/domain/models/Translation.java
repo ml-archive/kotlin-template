@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Wed Mar 21 11:26:44 CET 2018 
+ * Generated: Wed Mar 21 14:51:38 CET 2018 
  */
 
 public class Translation {
@@ -218,7 +218,7 @@ public class Translation {
 		public static String nextTimeTitle = "Don\'t you want to use [idtype] to log on next time?";
 		public static String nextTimeTouchIdMessage = "Just use your finger blablablala blabablablabla";
 		public static String nextTimeFaceIdMessage = "Sign in just by looking by enabling FaceID in the e-Boks app";
-		public static String nextTimeEnableButton = "Enable [typeid]";
+		public static String nextTimeEnableButton = "Enable [idtype]";
 		public static String nextTimeDontUseButton = "I don\'t want to use [idtype]";
 	}
 	public final static class logonmethods {

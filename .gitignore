@@ -45,3 +45,6 @@ Thumbs.db
 
 #NDK
 obj/
+
+# nstack generated strings
+nstack_keys.xml

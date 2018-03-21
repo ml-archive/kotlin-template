@@ -85,6 +85,13 @@ class LoginComponentPresenter @Inject constructor(val appState: AppStateManager,
         }
     }
 
+    override fun login(user: User, providerId : String) {
+        user.lastLoginProvider = providerId
+        appState.state?.currentUser = user
+        appState.save()
+        runAction { v-> v.proceedToApp() }
+    }
+
     // TODO not much loggin going on
     override fun createUserAndLogin(email: String?, cpr: String?, verified: Boolean) {
         val provider = if(email != null) Config.getLoginProvider("email") else Config.getLoginProvider("cpr")

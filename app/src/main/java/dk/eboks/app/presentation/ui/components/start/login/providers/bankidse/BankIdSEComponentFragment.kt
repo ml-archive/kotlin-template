@@ -1,14 +1,20 @@
 package dk.eboks.app.presentation.ui.components.start.login.providers.bankidse
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.support.v7.app.AlertDialog
 import android.view.View
 import android.webkit.WebView
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseWebFragment
+import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
+import dk.eboks.app.domain.models.Translation
 
 /**
  * Created by bison on 09-02-2018.
@@ -18,6 +24,8 @@ class BankIdSEComponentFragment : BaseWebFragment(), BankIdSEComponentContract.V
     @Inject
     lateinit var presenter : BankIdSEComponentContract.Presenter
 
+    var loginUser: User? = null
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
@@ -25,6 +33,13 @@ class BankIdSEComponentFragment : BaseWebFragment(), BankIdSEComponentContract.V
         webView.loadData("Bank id sweden webview placeholder", "text/html", "utf8")
 
         setupTopBar()
+
+        if(BuildConfig.DEBUG) {
+            Handler(Looper.getMainLooper()).postDelayed({
+                showDebugDialog()
+            }, 500)
+        }
+        presenter.setup()
     }
 
     // shamelessly ripped from chnt
@@ -45,5 +60,45 @@ class BankIdSEComponentFragment : BaseWebFragment(), BankIdSEComponentContract.V
 
     override fun onLoadFinished(view: WebView?, url: String?) {
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getBaseActivity()?.backPressedCallback = {
+            presenter.cancelAndClose()
+            true
+        }
+    }
+
+    override fun onPause() {
+        getBaseActivity()?.backPressedCallback = null
+        super.onPause()
+    }
+
+    override fun setupLogin(user: User) {
+        loginUser = user
+    }
+
+    override fun proceed() {
+        (activity as StartActivity).startMain()
+    }
+
+    private fun showDebugDialog()
+    {
+        AlertDialog.Builder(activity)
+                .setTitle("Debug")
+                .setMessage("Press okay to simulate a successful login with login provider")
+                .setPositiveButton("Login") { dialog, which ->
+                    loginUser?.let { presenter.login(it) }
+                    (activity as StartActivity).startMain()
+                }
+                .setNegativeButton("Close") { dialog, which ->
+                    webView.postDelayed({ presenter.cancelAndClose() }, 500)
+                }
+                .show()
+    }
+
+    override fun close() {
+        fragmentManager.popBackStack()
     }
 }
