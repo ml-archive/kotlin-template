@@ -25,7 +25,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 14
+        versionCode 15
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -38,7 +38,7 @@ android {
         buildConfigField "String", "MOCK_API_URL", "\"https://60582528-965e-4f53-8ab4-e09a1aebd008.mock.pstmn.io\""
         buildConfigField "String", "MOCK_API_KEY", "\"2d00bf67a1cf4024a88e7e99c89557fe\""
         buildConfigField "Boolean", "MOCK_API_ENABLED", "true"
-        buildConfigField "Boolean", "FORCE_REQUEST_PIPELINING", "true"
+        buildConfigField "Boolean", "FORCE_REQUEST_PIPELINING", "false"
     }
 
     signingConfigs {
