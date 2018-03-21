@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/componentRoot"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,7 +8,9 @@
     android:paddingStart="@dimen/margin_normal"
     android:paddingEnd="@dimen/margin_normal"
     android:paddingTop="14dp"
-    android:paddingBottom="18dp">
+    android:paddingBottom="18dp"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingPrefix">
 
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -36,6 +38,7 @@
 
             <TextView
                 android:id="@+id/nameTv"
+                nstack:key="@string/nstack_message_shareMessageText"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:lines="1"

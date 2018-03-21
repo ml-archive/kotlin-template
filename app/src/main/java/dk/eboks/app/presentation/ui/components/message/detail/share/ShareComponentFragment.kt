@@ -36,7 +36,7 @@ class ShareComponentFragment : BaseFragment(), ShareComponentContract.View {
     }
 
     override fun setupTranslations() {
-        nameTv.text = Translation.message.shareMessageText
+
     }
 
     override fun updateView(message: Message) {

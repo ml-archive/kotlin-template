@@ -3,6 +3,7 @@ package dk.eboks.app.system.managers
 import android.content.Context
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
 import timber.log.Timber
@@ -58,10 +59,10 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         val isYesterday = cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR) && cal_recv.get(Calendar.DAY_OF_YEAR) == cal.get(Calendar.DAY_OF_YEAR)
 
         if (isToday) {
-            result = "_Today"
+            result = Translation.defaultSection.today
             return result
         } else if (isYesterday) {
-            result = "_Yesterday"
+            result = Translation.defaultSection.yesterday
             return result
         }
 

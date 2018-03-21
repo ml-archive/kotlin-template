@@ -43,11 +43,6 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
     }
 
     override fun setupTranslations() {
-        sendersHeaderTv.text = Translation.mail.senderHeader
-        sendersShowAllTv.text = Translation.mail.showAllSendersButton
-        sendersEmptyHeaderTv.text = Translation.mail.sendersEmptyHeader
-        sendersEmptyDescTv.text = Translation.mail.sendersEmptyMessage
-        addMoreSendersBtn.text = Translation.mail.addMoreSendersButton
     }
 
     fun setupRecyclerView()

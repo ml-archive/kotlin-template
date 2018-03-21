@@ -33,7 +33,6 @@ class SenderDetailInfoFragment : BaseFragment() {
     }
 
     override fun setupTranslations() {
-        senderInfoTitleTv.text = "NStack arwg narsg"
     }
 
     override fun setArguments(args: Bundle?) {

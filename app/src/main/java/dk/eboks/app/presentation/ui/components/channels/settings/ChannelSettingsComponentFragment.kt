@@ -30,9 +30,6 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     }
 
     override fun setupTranslations() {
-        headerTv.text = Translation.settings.header
-        creditCardHeaderTv.text = Translation.settings.creditCardHeader
-        removeChannelBtn.text = Translation.settings.removeChannelBtn
     }
 
 }

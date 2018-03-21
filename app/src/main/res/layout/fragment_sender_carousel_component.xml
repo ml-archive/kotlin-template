@@ -4,7 +4,9 @@
     android:layout_height="180dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:animateLayoutChanges="true"
-    android:background="@color/white">
+    android:background="@color/white"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:id="@+id/sendersListLl"
@@ -24,6 +26,7 @@
 
             <TextView
                 android:id="@+id/sendersHeaderTv"
+                nstack:key="@string/nstack_mail_senderHeader"
                 style="@style/text.header3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -32,6 +35,7 @@
 
             <TextView
                 android:id="@+id/sendersShowAllTv"
+                nstack:key="@string/nstack_mail_showAllSendersButton"
                 style="@style/text.subHeader5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -63,6 +67,7 @@
 
         <TextView
             android:id="@+id/sendersEmptyHeaderTv"
+            nstack:key="@string/nstack_mail_sendersEmptyHeader"
             style="@style/text.header3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,6 +76,7 @@
 
         <TextView
             android:id="@+id/sendersEmptyDescTv"
+            nstack:key="@string/nstack_mail_sendersEmptyMessage"
             style="@style/text.body6.secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,6 +89,7 @@
 
         <Button
             android:id="@+id/addMoreSendersBtn"
+            nstack:key="@string/nstack_mail_addMoreSendersButton"
             style="@style/button.SolidGradient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

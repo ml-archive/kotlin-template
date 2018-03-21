@@ -3,7 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
     <FrameLayout
         android:id="@+id/contentFl"
         android:layout_width="match_parent"
@@ -32,6 +35,7 @@
 
             <TextView
                 android:id="@+id/noMessagesTv"
+                nstack:key="@string/nstack_mail_noMessagesToDisplay"
                 style="@style/text.body6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

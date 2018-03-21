@@ -51,7 +51,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     override fun setupTranslations() {
-            noMessagesTv.text = Translation.mail.noMessagesToDisplay
     }
 
     override fun onShake() {

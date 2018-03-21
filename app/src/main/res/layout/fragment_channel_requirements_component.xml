@@ -3,7 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,6 +20,7 @@
 
         <TextView
             android:id="@+id/headLineTv"
+            nstack:key="@string/nstack_channels_drawerHeader"
             style="@style/text.header4.tertiary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,6 +29,7 @@
 
         <TextView
             android:id="@+id/subHeadLineTv"
+            nstack:key="@string/nstack_channels_drawerSubHeader"
             style="@style/text.header1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,6 +39,7 @@
 
         <TextView
             android:id="@+id/headerTextTv"
+            nstack:key="@string/nstack_channels_drawerHeaderText"
             style="@style/text.header4.quaternary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,6 +62,7 @@
 
             <Button
                 android:id="@+id/updateProfileBtn"
+                nstack:key="@string/nstack_channels_updateProfile"
                 style="@style/button.SolidGradient"
                 android:layout_width="match_parent"
                 android:layout_marginRight="16dp"

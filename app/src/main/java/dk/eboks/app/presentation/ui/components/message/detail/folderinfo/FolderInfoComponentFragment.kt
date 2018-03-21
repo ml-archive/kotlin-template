@@ -31,7 +31,6 @@ class FolderInfoComponentFragment : BaseFragment(), FolderInfoComponentContract.
     }
 
     override fun setupTranslations() {
-        folderTv.text = Translation.message.folder
     }
 
     override fun updateView(folder: Folder) {

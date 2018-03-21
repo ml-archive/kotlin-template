@@ -53,7 +53,6 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
     }
 
     override fun setupTranslations() {
-        listComponentTitleTv.text = "Somthing"
     }
 
     override fun showSenderGroups(senderGroups: List<SenderGroup>) {

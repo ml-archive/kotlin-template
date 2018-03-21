@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Tue Mar 20 14:19:56 CET 2018 
+ * Generated: Wed Mar 21 11:26:44 CET 2018 
  */
 
 public class Translation {
@@ -12,6 +12,8 @@ public class Translation {
 		public static String cancel = "Cancel";
 		public static String yes = "Yes";
 		public static String back = "Back";
+		public static String today = "Today\r\n";
+		public static String yesterday = "Yesterday";
 	}
 	public final static class error {
 		public static String errorMessage10100 = "Something wrong with server";
@@ -172,6 +174,7 @@ public class Translation {
 		public static String readMore = "Read More";
 		public static String publicAuthoritiesHeader = "Public Authorities";
 		public static String publicAuthoritiesDescription = "Get mail from all public authorities with a single tap. See the senders below";
+		public static String numberOfSenders = "senders";
 	}
 	public final static class findactivationcode {
 		public static String title = "Finding your activation code";
@@ -235,5 +238,11 @@ public class Translation {
 		public static String title = "Uploads";
 		public static String takePhoto = "Take Photo";
 		public static String chooseFile = "Choose a File";
+	}
+	public final static class loginproviders {
+		public static String nemidTitle = "NemID";
+		public static String idPortenTitle = "IdPorten";
+		public static String bankSeTitle = "BankID";
+		public static String bankNoTitle = "BankID";
 	}
 }

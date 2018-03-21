@@ -16,6 +16,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
         setContentView(R.layout.activity_folder)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        setupTopBar()
     }
 
     private fun setupTopBar() {
@@ -40,7 +41,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
     }
 
     override fun setupTranslations() {
-        setupTopBar()
+
     }
 
     override fun getNavigationMenuAction(): Int { return R.id.actionMail }
