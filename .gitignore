@@ -46,5 +46,5 @@ Thumbs.db
 #NDK
 obj/
 
-# nstack generated strings
-nstack_keys.xml
+# nstack generated strings (readd when gradle runs the task)
+#nstack_keys.xml
