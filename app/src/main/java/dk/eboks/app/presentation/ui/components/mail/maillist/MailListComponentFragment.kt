@@ -119,7 +119,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 holder?.circleIv?.let {
                     Glide.with(context)
                             .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
-                            .load(messages[position].sender?.logo)
+                            .load(messages[position].sender?.logo?.url)
                             .into(it)
                     it.isSelected = messages[position].unread
                 }
