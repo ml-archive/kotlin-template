@@ -11,12 +11,14 @@ import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
+import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
+import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentContract
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
@@ -87,8 +89,6 @@ import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentCon
 import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentContract
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
-import dk.eboks.app.presentation.ui.components.senders.SenderListComponentContract
-import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentContract
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
@@ -305,14 +305,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideSenderListComponentPresenter(stateManager: AppStateManager) : SenderListComponentContract.Presenter {
-        return SenderListComponentPresenter(stateManager)
-    }
-
-    @ActivityScope
-    @Provides
-    fun provideSendersOverviewPresenter(stateManager: AppStateManager) : SendersOverviewContract.Presenter {
-        return SendersOverviewPresenter(stateManager)
+    fun provideSendersOverviewPresenter(stateManager: AppStateManager, collectionsInteractor: GetCollectionsInteractor) : SendersOverviewContract.Presenter {
+        return SendersOverviewPresenter(stateManager,collectionsInteractor)
     }
 
     @ActivityScope
@@ -469,8 +463,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideDebugUserPresenter(stateManager: AppStateManager, createUserInteractor: CreateUserInteractor) : DebugUserContract.Presenter {
-        return DebugUserPresenter(stateManager, createUserInteractor)
+    fun provideDebugUserPresenter(stateManager: AppStateManager, createUserInteractor: CreateUserInteractor, saveUserInteractor: SaveUserInteractor) : DebugUserContract.Presenter {
+        return DebugUserPresenter(stateManager, createUserInteractor, saveUserInteractor)
     }
 
     /* Pasta

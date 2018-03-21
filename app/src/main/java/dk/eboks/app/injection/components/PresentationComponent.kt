@@ -69,8 +69,6 @@ import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentFra
 import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
-import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
-import dk.eboks.app.presentation.ui.components.senders.SenderListComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.*
@@ -175,8 +173,6 @@ interface PresentationComponent {
     fun inject(target : SenderCarouselComponentPresenter)
     fun inject(target : MailListComponentFragment)
     fun inject(target : MailListComponentPresenter)
-    fun inject(target : SenderListComponentFragment)
-    fun inject(target : SenderListComponentPresenter)
     fun inject(target : SearchSendersActivity)
 
     // generic

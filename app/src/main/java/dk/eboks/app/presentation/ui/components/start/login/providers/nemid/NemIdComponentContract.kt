@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.components.start.login.providers.nemid
 
-import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.nodes.arch.presentation.base.BaseView
 
@@ -9,9 +9,13 @@ import dk.nodes.arch.presentation.base.BaseView
  */
 interface NemIdComponentContract {
     interface View : BaseView {
-
+        fun login(user : User)
+        fun close()
+        fun proceed()
     }
 
     interface Presenter : BasePresenter<View> {
+        fun login(user : User)
+        fun cancelAndClose()
     }
 }

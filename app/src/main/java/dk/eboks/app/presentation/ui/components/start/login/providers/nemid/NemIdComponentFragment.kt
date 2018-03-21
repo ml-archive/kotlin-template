@@ -9,7 +9,9 @@ import android.webkit.WebView
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseWebFragment
+import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -35,6 +37,27 @@ class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        getBaseActivity()?.backPressedCallback = {
+            presenter.cancelAndClose()
+            true
+        }
+    }
+
+    override fun onPause() {
+        getBaseActivity()?.backPressedCallback = null
+        super.onPause()
+    }
+
+    override fun login(user: User) {
+
+    }
+
+    override fun proceed() {
+        (activity as StartActivity).startMain()
+    }
+
     private fun showDebugDialog()
     {
         AlertDialog.Builder(activity)
@@ -42,6 +65,7 @@ class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
                 .setMessage("Press okay to simulate a successful login with external login provider")
                 .setPositiveButton("Login") { dialog, which ->
 
+                    (activity as StartActivity).startMain()
                 }
                 .setNegativeButton("Close") { dialog, which ->
 
@@ -53,7 +77,7 @@ class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.red_navigationbar)
         mainTb.setNavigationOnClickListener {
-            activity.onBackPressed()
+            presenter.cancelAndClose()
         }
     }
 
@@ -67,5 +91,9 @@ class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
 
     override fun onLoadFinished(view: WebView?, url: String?) {
 
+    }
+
+    override fun close() {
+        fragmentManager.popBackStack()
     }
 }

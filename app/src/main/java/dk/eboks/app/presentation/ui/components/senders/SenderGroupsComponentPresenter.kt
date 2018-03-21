@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.senders
 
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
@@ -14,10 +15,11 @@ class SenderGroupsComponentPresenter @Inject constructor(val appState: AppStateM
     init {
     }
 
-    override fun getSenderGroups(senderID: Long) {
+    override fun getSenderGroups(sender: Sender) {
         runAction { v ->
-            v.showSenderGroups(ArrayList())
+            sender.groups?.let{
+                v.showSenderGroups(it)
+            }
         }
     }
-
 }

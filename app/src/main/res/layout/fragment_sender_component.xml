@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/senderCardContainerCv"
+        android:id="@+id/senderCv"
         android:layout_width="match_parent"
-        android:layout_height="172dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_normal"
         android:layout_marginLeft="@dimen/margin_normal"
         android:layout_marginRight="@dimen/margin_normal"
         android:layout_marginTop="4dp"
+        android:foreground="?selectableItemBackground"
         app:cardCornerRadius="8dp"
         app:cardElevation="@dimen/card_elevation">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/backgroundIv"
+                android:id="@+id/senderIv"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="120dp"
+                android:padding="@dimen/margin_normal"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_menu_home"/>
 
@@ -33,13 +35,15 @@
                 android:visibility="visible"/>
 
             <LinearLayout
+                android:id="@+id/senderBottomLl"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="60dp"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/margin_normal"
                 android:paddingRight="@dimen/margin_normal">
 
                 <TextView
+                    android:id="@+id/senderNameTv"
                     style="@style/text.header4"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -48,11 +52,15 @@
                     android:text="_Alm. Brand"/>
 
                 <Button
+                    android:id="@+id/senderRegisterBtn"
                     style="@style/buttonRoundedCorners.darkBlueGrey.small"
                     android:layout_width="wrap_content"
-                    android:layout_height="28dp"
+                    android:layout_height="36dp"
+                    android:gravity="center_vertical"
                     android:text="_Register"/>
             </LinearLayout>
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
+
 </LinearLayout>

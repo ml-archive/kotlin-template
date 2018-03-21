@@ -22,17 +22,6 @@ class BrowseCategoryPresenter(val appStateManager: AppStateManager, val getSende
         runAction { v ->
             v.showProgress(true)
         }
-//        val senders = ArrayList<Sender>()
-//// TODO REST
-//        for (i in 0..60) {
-//            val r = Math.random() * 25 + 65
-//            val s = Sender(i.toLong(), "${r.toInt().toChar()}senderName$i", 0, Image("https://qu6oa42ax6a2pyq2c11ozwvm-wpengine.netdna-ssl.com/wp-content/uploads/2017/10/nodes-logo-2017.png"))
-//            senders.add(s)
-//        }
-//        runAction { v ->
-//            v.showProgress(false)
-//            v.showSenders(senders)
-//        }
         runAction { v ->
             v.showProgress(true)
                 getSendersInteractor.input = GetSendersInteractor.Input(false, "", senderId)

@@ -84,6 +84,11 @@ class InteractorModule {
         return CreateUserInteractorImpl(executor, userManager)
     }
 
+    @Provides fun provideSaveUserInteractor(executor: Executor, userManager: UserManager) : SaveUserInteractor
+    {
+        return SaveUserInteractorImpl(executor, userManager)
+    }
+
     @Provides fun provideDeleteUserInteractor(executor: Executor, userManager: UserManager) : DeleteUserInteractor
     {
         return DeleteUserInteractorImpl(executor, userManager)
@@ -112,6 +117,11 @@ class InteractorModule {
     @Provides
     fun provideGetSenderDetailInteractor(executor: Executor, sendersRepository: SendersRepository) : GetSenderDetailInteractor {
         return GetSenderDetailInteractorImpl(executor, sendersRepository)
+    }
+
+    @Provides
+    fun provideGetCollectionsInteractor(executor: Executor, collectionsRepository: CollectionsRepository) : GetCollectionsInteractor {
+        return GetCollectionsInteractorImpl(executor, collectionsRepository)
     }
 
 //    @Provides

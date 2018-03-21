@@ -9,4 +9,5 @@ interface UserManager {
     var users : MutableList<User>
     fun add(user : User)
     fun remove(user : User)
+    fun save(user : User)
 }

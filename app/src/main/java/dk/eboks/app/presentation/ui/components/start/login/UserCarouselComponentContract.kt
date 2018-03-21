@@ -10,6 +10,7 @@ import dk.nodes.arch.presentation.base.BaseView
 interface UserCarouselComponentContract {
     interface View : BaseView {
         fun showUsers(users : MutableList<User>)
+        fun setSelectedUser(user : User)
         fun openLogin()
     }
 

@@ -11,12 +11,14 @@ import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
+import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
+import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.injection.modules.*
 import dk.eboks.app.network.Api
@@ -61,6 +63,7 @@ interface AppComponent
     fun getSendersInteractor() : GetSendersInteractor
     fun getSenderDetailInteractor() : GetSenderDetailInteractor
     fun getCategoriesInteractor() : GetCategoriesInteractor
+    fun getGetCollectionsInteractor() : GetCollectionsInteractor
     fun getMessagesInteractor() : GetMessagesInteractor
     fun getFoldersInteractor() : GetFoldersInteractor
     fun openMessageInteractor() : OpenMessageInteractor
@@ -69,6 +72,7 @@ interface AppComponent
     fun saveAttachmentInteractor() : SaveAttachmentInteractor
     fun getChannelsInteractor() : GetChannelsInteractor
     fun createUserInteractor() : CreateUserInteractor
+    fun saveUserInteractor() : SaveUserInteractor
     fun deleteUserInteractor() : DeleteUserInteractor
     fun getUsersInteractor() : GetUsersInteractor
     fun getSenderCategoriesInteractor() : GetSenderCategoriesInteractor
