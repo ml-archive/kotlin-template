@@ -3,6 +3,7 @@ package dk.eboks.app.system.managers
 import android.content.Context
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
 import timber.log.Timber
@@ -13,17 +14,22 @@ import java.util.*
  * Created by bison on 19/02/18.
  */
 class EboksFormatterImpl(val context: Context) : EboksFormatter {
-    val messageDateFormat : SimpleDateFormat by lazy {
-        SimpleDateFormat("d. MMM. y, HH:mm", Locale.getDefault())
+    val messageDateFormat: SimpleDateFormat by lazy {
+        SimpleDateFormat("d. MMM", Locale.getDefault())
     }
-    val dayDateFormat : SimpleDateFormat by lazy {
+    val messageDateYearFormat: SimpleDateFormat by lazy {
+        SimpleDateFormat("d. MMM YYYY", Locale.getDefault())
+    }
+    val dayDateFormat: SimpleDateFormat by lazy {
         SimpleDateFormat("E", Locale.getDefault())
     }
 
-    override fun formatCpr(cpr: String) : String
-    {
-        if(Config.isDK())
-            return "${cpr.substring(0, 6)}-${cpr.substring(6, 10)}"
+    override fun formatCpr(cpr: String): String {
+        if (Config.isDK()) {
+            if (cpr.length > 9) {
+                return "${cpr.substring(0, 6)}-${cpr.substring(6, 10)}"
+            }
+        }
         // TODO add formatting for SE / NO
         return cpr
     }
@@ -31,9 +37,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
     override fun formatDate(target: Message): String {
         try {
             return messageDateFormat.format(target.received)
-        }
-        catch (t : Throwable)
-        {
+        } catch (t: Throwable) {
             Timber.e(t)
             return ""
         }
@@ -47,6 +51,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         val cal = Calendar.getInstance(currentLocale)
         val cal2 = Calendar.getInstance(currentLocale)
 
+        val isThisYear = cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR)
         val isToday = cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR) && cal_recv.get(Calendar.DAY_OF_YEAR) == cal.get(Calendar.DAY_OF_YEAR)
 
         cal.add(Calendar.DATE, -1)
@@ -54,10 +59,10 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         val isYesterday = cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR) && cal_recv.get(Calendar.DAY_OF_YEAR) == cal.get(Calendar.DAY_OF_YEAR)
 
         if (isToday) {
-            result = "_Today"
+            result = Translation.defaultSection.today
             return result
         } else if (isYesterday) {
-            result = "_Yesterday"
+            result = Translation.defaultSection.yesterday
             return result
         }
 
@@ -106,18 +111,22 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         }
         */
 
-        return messageDateFormat.format(target.received)
+        if (isThisYear) {
+            return messageDateFormat.format(target.received)
+        } else {
+            return messageDateYearFormat.format(target.received)
+        }
     }
 
     override fun formatSize(target: Content): String {
-        if(target.fileSize < 1024)
+        if (target.fileSize < 1024)
             return "${target.fileSize} B"
-        if(target.fileSize < 1024f*1024f)
+        if (target.fileSize < 1024f * 1024f)
             return String.format("%.2f KB", target.fileSize.toFloat() / 1024f)
-        if(target.fileSize < 1024f*1024f*1024f)
-            return String.format("%.2f MB", target.fileSize.toFloat() / (1024f*1024f))
-        if(target.fileSize < 1024f*1024f*1024f*1024f)
-            return String.format("%.2f GB", target.fileSize.toFloat() / (1024f*1024f*1024f))
+        if (target.fileSize < 1024f * 1024f * 1024f)
+            return String.format("%.2f MB", target.fileSize.toFloat() / (1024f * 1024f))
+        if (target.fileSize < 1024f * 1024f * 1024f * 1024f)
+            return String.format("%.2f GB", target.fileSize.toFloat() / (1024f * 1024f * 1024f))
         return "0 B"
     }
 

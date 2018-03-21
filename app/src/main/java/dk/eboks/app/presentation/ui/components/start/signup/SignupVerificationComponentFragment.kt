@@ -49,9 +49,7 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
 
 
     override fun setupTranslations() {
-        headerTv.text = Translation.signup.verificationHeader
-        detailTv.text = Translation.signup.verificationDetail
-        verifyBtn.text = Translation.signup.verifyButton
+
         continueWithoutVerificationBtn.text = Translation.signup.continueWithoutVerificationButton
     }
 

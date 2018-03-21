@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/backgroundColor"
-    android:animateLayoutChanges="true"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:animateLayoutChanges="true"
+    android:background="@color/backgroundColor"
+    tools:ignore="MissingPrefix">
+
     <LinearLayout
         android:id="@+id/content"
-        android:orientation="vertical"
-        android:background="@color/backgroundColor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:orientation="vertical">
 
         <include layout="@layout/include_toolbar" />
 
@@ -20,44 +22,48 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingLeft="36dp"
                 android:paddingRight="36dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="3dp"
-                    android:background="@color/backgroundColor"
-                    android:layout_marginTop="40dp"
-                    android:elevation="0.5dp"
-                    android:layout_marginStart="1dp"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginEnd="1dp"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@color/backgroundColor"
+                    android:elevation="0.5dp">
+
                     <ProgressBar
                         style="@style/OnboardingProgress"
-                        android:progressBackgroundTint="@color/white"
-                        android:progress="75"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:progress="75"
+                        android:progressBackgroundTint="@color/white" />
                 </FrameLayout>
 
                 <TextView
                     android:id="@+id/headerTv"
+                    style="@style/text.header1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/text.header1"
-                    android:text="Header"/>
+                    android:text="Header"
+                    nstack:key="@string/nstack_signup_verificationHeader" />
 
                 <TextView
                     android:id="@+id/detailTv"
+                    style="@style/text.body6.secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    style="@style/text.body6.secondary"
-                    android:text="_Please fill in the information below"/>
+                    android:text="_Please fill in the information below"
+                    nstack:key="@string/nstack_signup_verificationDetail" />
 
                 <View
                     android:layout_width="match_parent"
@@ -68,32 +74,36 @@
                     android:id="@+id/verifyBtn"
                     style="@style/button.SolidGradient"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="52dp"
                     android:layout_height="52dp"
-                    android:text="_Verify my account" />
+                    android:layout_marginTop="52dp"
+                    android:text="_Verify my account"
+                    nstack:key="@string/nstack_signup_verifyButton" />
 
                 <Button
                     android:id="@+id/continueWithoutVerificationBtn"
+                    style="@style/button.borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="24dp"
                     android:layout_gravity="center"
-                    style="@style/button.borderless"
-                    android:text="_Continue without verification"/>
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="10dp"
+                    android:text="_Continue without verification"
+                    nstack:key="@string/nstack_signup_continueWithoutVerificationButton" />
 
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/progress"
-        android:visibility="gone"
-        android:background="@color/backgroundColor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:visibility="gone">
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
     </FrameLayout>
 </FrameLayout>

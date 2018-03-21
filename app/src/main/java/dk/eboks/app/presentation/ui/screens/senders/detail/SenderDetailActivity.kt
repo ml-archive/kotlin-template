@@ -5,13 +5,20 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_senders_detail.*
+import kotlinx.android.synthetic.main.fragment_profile_main_component.*
+import java.util.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class SenderDetailActivity : BaseActivity(),SenderDetailContract.View {
+class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
+    var onLanguageChangedListener: (Locale) -> Unit = {
+        setupTranslations()
+    }
 
     @Inject
     lateinit var presenter: SenderDetailContract.Presenter
@@ -35,7 +42,13 @@ class SenderDetailActivity : BaseActivity(),SenderDetailContract.View {
             senderGroupsListComponentF.arguments = b
             senderDetailInfoF.arguments = b
 
-            presenter.loadSender( sender.id)
+            presenter.loadSender(sender.id)
+
+            //translations
+            NStack.addLanguageChangeListener(onLanguageChangedListener)
+            senderDetailRegisterTB.text = Translation.senderdetails.register
+            senderDetailRegisterTB.textOn = Translation.senderdetails.register
+            senderDetailRegisterTB.textOff = Translation.senderdetails.registeredTypeYes
         }
 
         senderDetailBodyTv.visibility = View.GONE // only for public authorities
@@ -65,10 +78,7 @@ class SenderDetailActivity : BaseActivity(),SenderDetailContract.View {
     }
 
     override fun setupTranslations() {
-        // TODO add real translation
-        senderDetailRegisterTB.text = "NstackRegister"
-        senderDetailRegisterTB.textOn = "NstackRegister"
-        senderDetailRegisterTB.textOff = "NstackRegistered"
+
     }
 
     override fun showSender(sender: Sender) {
@@ -97,6 +107,11 @@ class SenderDetailActivity : BaseActivity(),SenderDetailContract.View {
     }
 
     override fun showError(msg: String) {
+    }
+
+    override fun onDestroy() {
+        NStack.removeLanguageChangeListener(onLanguageChangedListener)
+        super.onDestroy()
     }
 }
 

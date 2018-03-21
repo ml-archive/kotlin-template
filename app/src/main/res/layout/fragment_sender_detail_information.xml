@@ -3,10 +3,14 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="@color/white"
-              android:orientation="vertical">
+              android:orientation="vertical"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
 
     <TextView
         android:id="@+id/senderInfoTitleTv"
+        nstack:key="@string/nstack_senderdetails_informationTitle"
         style="@style/text.header3"
         android:layout_width="match_parent"
         android:layout_height="48dp"

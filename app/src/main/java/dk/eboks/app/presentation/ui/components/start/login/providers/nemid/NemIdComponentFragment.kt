@@ -8,6 +8,7 @@ import android.view.View
 import android.webkit.WebView
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseWebFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
@@ -81,7 +82,7 @@ class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
     }
 
     override fun setupTranslations() {
-        mainTb.title = "_NemID"
+        mainTb.title = Translation.loginproviders.nemidTitle
     }
 
     override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {

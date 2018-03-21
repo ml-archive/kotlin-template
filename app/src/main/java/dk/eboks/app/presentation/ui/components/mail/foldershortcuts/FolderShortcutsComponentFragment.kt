@@ -36,7 +36,6 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
     }
 
     override fun setupTranslations() {
-        yourMailTv.text = Translation.mail.smartFolderHeader
     }
 
     override fun showError(msg: String) {

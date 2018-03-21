@@ -80,15 +80,9 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
     }
 
     override fun setupTranslations() {
-        headerTv.text = Translation.signup.mmHeader
-        detailTv.text = Translation.signup.mmDetail
-        signupWithMMBtn.text = Translation.signup.signupWithMMButton
-        continueWithoutMMTv.text = Translation.signup.continueWithoutMMButton
-        cprTil.hint = Translation.signup.cprHint
     }
 
     override fun showError() {
-
     }
 
     override fun showProgress(show: Boolean) {

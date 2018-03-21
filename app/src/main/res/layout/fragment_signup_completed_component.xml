@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingPrefix"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:animateLayoutChanges="true"
     android:background="@color/backgroundColor">
 
@@ -40,6 +43,7 @@
 
                 <TextView
                     android:id="@+id/headerTv"
+                    nstack:key="@string/nstack_signup_completedHeader"
                     style="@style/text.header1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -64,6 +68,7 @@
 
                 <Button
                     android:id="@+id/continueBtn"
+                    nstack:key="@string/nstack_signup_continueToAppButton"
                     style="@style/button.SolidGradient"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"

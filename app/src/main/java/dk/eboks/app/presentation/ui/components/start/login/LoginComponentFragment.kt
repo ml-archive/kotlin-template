@@ -69,15 +69,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
 
     override fun setupTranslations() {
-        headerTv.text = Translation.logoncredentials.topLabel
-        detailTv.text = Translation.logoncredentials.topSublabel
-        cprEmailTil.hint = Translation.logoncredentials.emailOrSSNHeader
-        passwordTil.hint = Translation.logoncredentials.passwordfieldHeader
     }
 
     // shamelessly ripped from chnt
     private fun setupTopBar() {
-        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.ic_red_close)
         mainTb.title = Translation.logoncredentials.title
         mainTb.setNavigationOnClickListener {
             hideKeyboard(view)

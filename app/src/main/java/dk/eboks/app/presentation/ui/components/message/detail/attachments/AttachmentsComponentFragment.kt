@@ -32,7 +32,6 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
     }
 
     override fun setupTranslations() {
-        attachmentsTv.text = Translation.message.attachments
     }
 
     override fun updateView(message: Message) {

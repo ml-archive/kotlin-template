@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
     <ImageView
         android:id="@+id/logoIv"
         android:transitionName="eboksLogoTransition"
@@ -18,6 +20,7 @@
 
         <Button
             android:id="@+id/logonBtn"
+            nstack:key="@string/nstack_start_logonButton"
             style="@style/button.SolidGradient"
             android:layout_width="match_parent"
             android:layout_height="52dp"
@@ -27,6 +30,7 @@
 
         <Button
             android:id="@+id/signupBtn"
+            nstack:key="@string/nstack_start_signupButton"
             style="@style/buttonRoundedCorners.darkBlueGrey"
             android:backgroundTint="#0D223944"
             android:transitionName="signUpButtonTransition"

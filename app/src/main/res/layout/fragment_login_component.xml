@@ -1,169 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/backgroundColor"
-    android:animateLayoutChanges="true"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:animateLayoutChanges="true"
+    android:background="@color/backgroundColor"
+    tools:ignore="MissingPrefix">
+
     <LinearLayout
         android:id="@+id/content"
-        android:orientation="vertical"
-        android:background="@color/backgroundColor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:orientation="vertical">
 
         <include layout="@layout/include_toolbar" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:fillViewport="true"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:fillViewport="true">
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingLeft="36dp"
                 android:paddingRight="36dp">
 
 
                 <LinearLayout
                     android:id="@+id/userLl"
-                    android:visibility="gone"
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingBottom="16dp"
                     android:paddingTop="16dp"
-                    android:paddingBottom="16dp">
+                    android:visibility="gone">
 
                     <ImageView
                         android:id="@+id/userAvatarIv"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:background="@drawable/circle_transparent_greyblue_border"
-                        android:layout_gravity="center_horizontal"/>
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/circle_transparent_greyblue_border" />
 
                     <TextView
                         android:id="@+id/userNameTv"
+                        style="@style/text.header3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
                         android:layout_gravity="center"
+                        android:layout_marginTop="12dp"
                         android:gravity="center"
-                        style="@style/text.header3"
-                        android:textColor="@color/darkGreyBlue"
-                        android:text="Helena L. Christensen" />
+                        android:text="Helena L. Christensen"
+                        android:textColor="@color/darkGreyBlue" />
 
                     <TextView
                         android:id="@+id/userEmailCprTv"
+                        style="@style/text.body6.secondary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:textSize="13sp"
-                        style="@style/text.body6.secondary"
-                        android:text=""/>
+                        android:text=""
+                        android:textSize="13sp" />
 
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/headerTv"
-                    android:visibility="gone"
-                    android:layout_marginTop="16dp"
+                    style="@style/text.header1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/text.header1"
-                    android:text="Header"/>
+                    android:layout_marginTop="16dp"
+                    android:text="Header"
+                    android:visibility="gone"
+                    nstack:key="@string/nstack_logoncredentials_topLabel" />
 
                 <TextView
                     android:id="@+id/detailTv"
-                    android:visibility="gone"
+                    style="@style/text.body6.secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    style="@style/text.body6.secondary"
-                    android:text="_Please fill in the information below"/>
+                    android:text="_Please fill in the information below"
+                    android:visibility="gone"
+                    nstack:key="@string/nstack_logoncredentials_topSublabel" />
 
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/cprEmailTil"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:theme="@style/TextInputLayoutTheme"
+                    android:hint="_cpr"
                     android:textColorHint="@color/blueGrey"
-                    app:hintTextAppearance="@style/HintTextAppearance"
+                    android:theme="@style/TextInputLayoutTheme"
+                    android:visibility="gone"
                     app:errorTextAppearance="@style/errorappearance"
-                    android:hint="_cpr">
+                    app:hintTextAppearance="@style/HintTextAppearance"
+                    nstack:key="@string/nstack_logoncredentials_emailOrSSNHeader">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/cprEmailEt"
                         style="@style/EditText"
-                        android:inputType="text"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:inputType="text" />
 
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/passwordTil"
-                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:theme="@style/TextInputLayoutTheme"
+                    android:hint="_Password"
                     android:textColorHint="@color/blueGrey"
-                    app:hintTextAppearance="@style/HintTextAppearance"
+                    android:theme="@style/TextInputLayoutTheme"
+                    android:visibility="gone"
                     app:errorTextAppearance="@style/errorappearance"
-                    android:hint="_Password">
+                    app:hintTextAppearance="@style/HintTextAppearance"
+                    nstack:key="@string/nstack_logoncredentials_passwordfieldHeader">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/passwordEt"
                         style="@style/EditText"
-                        android:inputType="textPassword"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:inputType="textPassword" />
 
                 </android.support.design.widget.TextInputLayout>
 
                 <Button
                     android:id="@+id/continueBtn"
-                    android:visibility="gone"
                     style="@style/enabledButtton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_marginBottom="32dp"
-                    android:layout_marginStart="36dp"
                     android:layout_marginEnd="36dp"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="16dp"
                     android:enabled="false"
-                    android:text="_Continue" />
+                    android:text="_Continue"
+                    android:visibility="gone" />
             </LinearLayout>
         </ScrollView>
+
         <LinearLayout
             android:id="@+id/loginProvidersLl"
-            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/dividerGreyBlue"
             android:orientation="vertical"
             android:showDividers="beginning|middle"
-            android:divider="@color/dividerGreyBlue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:visibility="gone">
 
         </LinearLayout>
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/progress"
-        android:visibility="gone"
-        android:background="@color/backgroundColor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:visibility="gone">
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
     </FrameLayout>
 </FrameLayout>

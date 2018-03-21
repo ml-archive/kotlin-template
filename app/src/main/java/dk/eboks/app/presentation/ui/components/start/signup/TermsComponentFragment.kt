@@ -42,8 +42,6 @@ class TermsComponentFragment : BaseFragment(), SignupComponentContract.TermsView
 
 
     override fun setupTranslations() {
-        textTv.text = Translation.signup.termsText
-        continueBtn.text = Translation.signup.continueButton
     }
 
     override fun showError() {

@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
     android:animateLayoutChanges="true"
-    android:background="@color/backgroundColor">
+    android:background="@color/backgroundColor"
+    tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:id="@+id/content"
@@ -48,6 +51,7 @@
 
                 <TextView
                     android:id="@+id/headerTv"
+                    nstack:key="@string/nstack_signup_nameEmailHeader"
                     style="@style/text.header1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -55,6 +59,7 @@
 
                 <TextView
                     android:id="@+id/detailTv"
+                    nstack:key="@string/nstack_signup_nameEmailDetail"
                     style="@style/text.body6.secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -63,6 +68,7 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/nameTil"
+                    nstack:key="@string/nstack_signup_nameHint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -85,6 +91,7 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/emailTil"
+                    nstack:key="@string/nstack_signup_emailHint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
@@ -109,6 +116,7 @@
         </ScrollView>
         <Button
             android:id="@+id/continueBtn"
+            nstack:key="@string/nstack_signup_continueButton"
             style="@style/enabledButtton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

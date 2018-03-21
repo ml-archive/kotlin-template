@@ -44,7 +44,7 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
             true
         }
         val menuSearch = mainTb.menu.add("search")
-        menuSearch.setIcon(R.drawable.search)
+        menuSearch.setIcon(R.drawable.red_navigationbar)
         menuSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuSearch.setOnMenuItemClickListener { item: MenuItem ->
             startActivity(Intent(this, SearchSendersActivity::class.java ))

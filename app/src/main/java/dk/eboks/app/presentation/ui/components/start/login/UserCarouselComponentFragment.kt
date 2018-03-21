@@ -88,7 +88,6 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
     }
 
     override fun setupTranslations() {
-        signupBtn.text = Translation.start.signupButton
     }
 
     override fun showUsers(users: MutableList<User>) {

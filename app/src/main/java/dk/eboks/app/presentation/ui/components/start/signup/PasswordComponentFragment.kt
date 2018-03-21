@@ -135,11 +135,6 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     }
 
     override fun setupTranslations() {
-        headerTv.text = Translation.signup.passwordHeader
-        detailTv.text = Translation.signup.passwordDetail
-        continueBtn.text = Translation.signup.continueButton
-        passwordTil.hint = Translation.signup.passwordHint
-        repeatPasswordTil.hint = Translation.signup.repeatPasswordHint
     }
 
     override fun showError() {

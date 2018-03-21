@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.mail.maillist
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -16,6 +17,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
+import kotlinx.android.synthetic.main.viewholder_circular_sender.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -49,7 +51,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     override fun setupTranslations() {
-            noMessagesTv.text = Translation.mail.noMessagesToDisplay
     }
 
     override fun onShake() {
@@ -100,6 +101,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             val subTitleTv = root.findViewById<TextView>(R.id.subTitleTv)
             val urgentTv = root.findViewById<TextView>(R.id.urgentTv)
             val dateTv = root.findViewById<TextView>(R.id.dateTv)
+
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
@@ -124,8 +126,12 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             }
             holder?.titleTv?.text = messages[position].sender?.name
             holder?.subTitleTv?.text = messages[position].name
+
             holder?.root?.setOnClickListener {
                 presenter.openMessage(messages[position])
+            }
+            if(messages[position].unread) {
+                holder?.dateTv?.setTextColor(resources.getColor(R.color.darkGreyBlue))
             }
             holder?.dateTv?.text = formatter.formatDateRelative(messages[position])
         }

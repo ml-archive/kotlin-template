@@ -7,9 +7,13 @@
     android:paddingTop="20dp"
     android:paddingBottom="@dimen/margin_normal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
     <TextView
         android:id="@+id/attachmentsTv"
+        nstack:key="@string/nstack_message_attachments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="16dp"

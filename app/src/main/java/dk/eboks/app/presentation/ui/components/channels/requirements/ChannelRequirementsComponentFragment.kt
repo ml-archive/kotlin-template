@@ -52,10 +52,7 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
     }
 
     override fun setupTranslations() {
-        updateProfileBtn.text = Translation.channels.updateProfile
-        headLineTv.text = Translation.channels.drawerHeader
-        subHeadLineTv.text = Translation.channels.drawerSubHeader
-        headerTextTv.text = Translation.channels.drawerHeaderText
+
 
     }
 

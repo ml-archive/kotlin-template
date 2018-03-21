@@ -3,7 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:clipChildren="false"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix">
 
     <ImageView
         android:id="@+id/logoIv"
@@ -27,6 +30,7 @@
         android:layout_height="wrap_content">
         <Button
             android:id="@+id/signupBtn"
+            nstack:key="@string/nstack_start_signupButton"
             style="@style/buttonRoundedCorners.darkBlueGrey"
             android:transitionName="signUpButtonTransition"
             android:layout_width="match_parent"

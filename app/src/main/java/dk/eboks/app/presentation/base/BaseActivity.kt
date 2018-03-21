@@ -17,6 +17,7 @@ import dk.eboks.app.presentation.ui.screens.debug.DebugActivity
 import dk.eboks.app.util.ShakeDetector
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BaseView
+import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 
@@ -134,6 +135,10 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         intent.putExtra("component", cls.name)
         startActivity(intent)
         overridePendingTransition(0,0)
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(NStackBaseContext(newBase))
     }
 
     protected open fun onShake() {}

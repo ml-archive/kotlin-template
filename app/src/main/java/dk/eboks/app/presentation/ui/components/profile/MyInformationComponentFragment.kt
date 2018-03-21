@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_profile_main_component.*
 import javax.inject.Inject
 
 /**
@@ -17,7 +18,7 @@ class MyInformationComponentFragment : BaseFragment(), MyInformationComponentCon
     lateinit var presenter : MyInformationComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_profile_enable_fingerprint_mobile_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_profile_main_component, container, false)
         return rootView
     }
 
@@ -25,6 +26,28 @@ class MyInformationComponentFragment : BaseFragment(), MyInformationComponentCon
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+
+        setupCollapsingToolbar()
+    }
+
+    private fun setupCollapsingToolbar() {
+        profileDetailCTL.isTitleEnabled = false
+
+        profileDetailABL.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (appBarLayout.totalScrollRange + verticalOffset < 200) {
+                profileDetailTB.title = "_profile name"
+            } else {
+                profileDetailTB.title = ""
+            }
+        }
+
+        profileDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_48_checkmark_white, 0)
+            } else {
+                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            }
+        }
     }
 
     override fun setupTranslations() {
