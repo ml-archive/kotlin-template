@@ -12,7 +12,7 @@ import java.util.*
  */
 data class Message(
         var id : String,
-        var name : String,
+        var subject : String,
         var unread : Boolean,
         var received : Date,
         var sender: Sender? = null,
