@@ -32,9 +32,6 @@ class SplashComponentFragment : BaseFragment() {
         logoIv.setImageResource(Config.getLogoResourceId())
     }
 
-    override fun setupTranslations() {
-    }
-
     fun transitionToWelcomeFragment()
     {
         val move = TransitionInflater.from(activity).inflateTransition(android.R.transition.move)

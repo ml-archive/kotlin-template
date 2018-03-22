@@ -27,8 +27,4 @@ class ChannelVerificationComponentFragment : BaseFragment(), ChannelVerification
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setupTranslations() {
-
-    }
-
 }

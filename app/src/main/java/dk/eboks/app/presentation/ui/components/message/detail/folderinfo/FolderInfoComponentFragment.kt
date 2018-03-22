@@ -30,9 +30,6 @@ class FolderInfoComponentFragment : BaseFragment(), FolderInfoComponentContract.
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun updateView(folder: Folder) {
         folderNameTv.text = folder.name
     }

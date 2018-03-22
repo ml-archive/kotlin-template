@@ -38,10 +38,6 @@ class HtmlViewComponentFragment : BaseFragment(), HtmlViewComponentContract.View
 
     }
 
-    override fun setupTranslations() {
-
-    }
-
     override fun showHtml(filename: String) {
         webView.loadUrl("file://$filename")
     }

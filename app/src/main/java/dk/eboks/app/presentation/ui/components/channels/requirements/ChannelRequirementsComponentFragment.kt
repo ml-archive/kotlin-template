@@ -51,11 +51,6 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
         return mockData
     }
 
-    override fun setupTranslations() {
-
-
-    }
-
 
     inner class RowAdapter(requirements:ArrayList<Requirement>) : RecyclerView.Adapter<RowAdapter.ChannelRequirementViewHolder>() {
         val requirements: ArrayList<Requirement> = requirements

@@ -38,6 +38,7 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         cancelBtn.setOnClickListener {
             (activity as SheetComponentActivity).onBackPressed()
         }
+        cancelBtn.text = Translation.defaultSection.cancel
     }
 
     fun setupValidation()
@@ -70,7 +71,5 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         mHandler.removeCallbacksAndMessages(null)
         super.onPause()
     }
-    override fun setupTranslations() {
-        cancelBtn.text = Translation.defaultSection.cancel
-    }
+
 }

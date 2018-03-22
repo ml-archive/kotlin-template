@@ -35,9 +35,6 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
         }
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun updateView(message: Message) {
         when(message.messageType)
         {

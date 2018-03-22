@@ -79,9 +79,6 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
         }
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun showError() {
     }
 

@@ -54,10 +54,4 @@ class AcceptTermsComponentFragment : BaseFragment(), AcceptTermsComponentContrac
         b.show()
     }
 
-    override fun setupTranslations() {
-
-
-
-    }
-
 }

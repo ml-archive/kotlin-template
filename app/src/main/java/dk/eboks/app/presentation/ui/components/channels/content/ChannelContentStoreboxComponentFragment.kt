@@ -27,8 +27,4 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(), ChannelContentSt
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setupTranslations() {
-
-    }
-
 }

@@ -37,10 +37,6 @@ class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.Vi
         settings.setDisplayZoomControls(false)
     }
 
-    override fun setupTranslations() {
-
-    }
-
     override fun showImage(filename : String) {
         Timber.e("Attempting to open $filename")
         val html = "<html><head></head><body style=\"background-color: #aaa; margin: 0px; padding: 0px\"><img src=\"file://$filename\" width=\"100%\"></body></html>"

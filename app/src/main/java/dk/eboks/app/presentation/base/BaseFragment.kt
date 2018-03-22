@@ -12,7 +12,7 @@ import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.util.ShakeDetector
-import dk.nodes.arch.presentation.base.BaseView
+import dk.eboks.app.presentation.base.BaseView
 import kotlinx.android.synthetic.*
 import timber.log.Timber
 
@@ -34,7 +34,6 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun onStart() {
         super.onStart()
-        setupTranslations()
         if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onStart")
     }
 

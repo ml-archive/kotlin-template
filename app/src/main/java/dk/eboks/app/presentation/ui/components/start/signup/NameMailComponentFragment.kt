@@ -147,9 +147,6 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun showError() {
 
     }

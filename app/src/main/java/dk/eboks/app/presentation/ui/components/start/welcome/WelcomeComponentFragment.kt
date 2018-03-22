@@ -68,9 +68,6 @@ class WelcomeComponentFragment : BaseFragment() {
         }
     }
 
-    override fun setupTranslations() {
-    }
-
     companion object {
         var shouldGotoUsersOnResume = false
     }

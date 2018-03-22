@@ -74,9 +74,6 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
 
-    override fun setupTranslations() {
-    }
-
     // shamelessly ripped from chnt
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.ic_red_close)

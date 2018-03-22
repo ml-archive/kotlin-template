@@ -29,7 +29,6 @@
                 android:paddingLeft="36dp"
                 android:paddingRight="36dp">
 
-
                 <TextView
                     android:id="@+id/headerTv"
                     style="@style/text.header1"

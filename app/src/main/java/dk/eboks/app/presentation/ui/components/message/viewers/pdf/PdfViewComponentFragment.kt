@@ -52,10 +52,6 @@ class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, 
         renderer.requestPage(0)
     }
 
-    override fun setupTranslations() {
-
-    }
-
     fun setupRecyclerView()
     {
         pagesRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
