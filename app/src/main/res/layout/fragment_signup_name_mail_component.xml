@@ -128,19 +128,6 @@
             android:text="_Continue"
             android:textColor="@drawable/enabled_button" />
 
-        <TextView
-            android:id="@+id/showTermsTv"
-            style="@style/text.buttonSmall.quaternary"
-            android:layout_below="@+id/continueBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:paddingLeft="36dp"
-            android:paddingRight="36dp"
-            android:textStyle="normal"
-            android:gravity="center"
-            android:text="_By doing this you accept the Terms &amp; Conditions" />
     </LinearLayout>
 
     <FrameLayout

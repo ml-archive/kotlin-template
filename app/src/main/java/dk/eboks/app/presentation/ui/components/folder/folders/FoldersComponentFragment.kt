@@ -20,10 +20,9 @@ import javax.inject.Inject
 class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
     @Inject
-    lateinit var presenter : FoldersComponentContract.Presenter
+    lateinit var presenter: FoldersComponentContract.Presenter
 
     var folders: MutableList<Folder> = ArrayList()
-    var indentationLevel = 0
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_folders_component, container, false)
@@ -67,21 +66,17 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
     override fun showUserFolders(folders: List<Folder>) {
         foldersLl.removeAllViews()
-        indentationLevel = 0
-        processFoldersRecursive(folders)
+        processFoldersRecursive(folders,0)
     }
 
-    fun processFoldersRecursive(folders: List<Folder>)
-    {
+    fun processFoldersRecursive(folders: List<Folder>, level: Int) {
         val li: LayoutInflater = LayoutInflater.from(context)
-        for(folder in folders)
-        {
-            Timber.e("$indentationLevel: ${folder.name}")
-
+        for (folder in folders) {
+            Timber.e("$level: ${folder.name}")
 
             val v = li.inflate(R.layout.viewholder_folder, foldersLl, false)
-            var left  = resources.displayMetrics.density * 40.0f * indentationLevel.toFloat()
-            if(left == 0f)
+            var left = resources.displayMetrics.density * 40.0f * level.toFloat()
+            if (left == 0f)
                 left = resources.displayMetrics.density * 16f
             v.setPadding(left.toInt(), v.paddingTop, v.paddingRight, v.paddingBottom)
             v.findViewById<View>(R.id.underLineV)?.visibility = View.VISIBLE
@@ -101,9 +96,8 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             foldersLl.addView(v)
 
 
-            if(folder.folders.isNotEmpty()) {
-                indentationLevel++
-                processFoldersRecursive(folder.folders)
+            if (folder.folders.isNotEmpty()) {
+                processFoldersRecursive(folder.folders,level+1)
             }
         }
     }
@@ -113,11 +107,11 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if(show) View.VISIBLE else View.GONE
+        progressFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun showEmpty(show: Boolean) {
-        emptyFl.visibility = if(show) View.VISIBLE else View.GONE
-        refreshSrl.visibility = if(!show) View.VISIBLE else View.GONE
+        emptyFl.visibility = if (show) View.VISIBLE else View.GONE
+        refreshSrl.visibility = if (!show) View.VISIBLE else View.GONE
     }
 }

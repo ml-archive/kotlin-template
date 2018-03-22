@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refreshSrl"
         android:layout_width="match_parent"
@@ -11,8 +11,8 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
-            android:clipToPadding="true">
+            android:clipToPadding="true"
+            android:fitsSystemWindows="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -22,73 +22,77 @@
 
                 <LinearLayout
                     android:id="@+id/systemFoldersLl"
-                    android:orientation="vertical"
-                    android:showDividers="middle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:divider="@drawable/dark_grey_blue_divider"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </LinearLayout>
+                    android:orientation="vertical"
+                    android:showDividers="middle" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="@color/dividerGreyBlue" />
+
                 <View
                     android:layout_width="match_parent"
-                    android:layout_marginTop="8dp"
                     android:layout_height="0.5dp"
+                    android:layout_marginTop="8dp"
                     android:background="@color/dividerGreyBlue" />
 
                 <LinearLayout
                     android:id="@+id/foldersLl"
-                    android:orientation="vertical"
-                    android:background="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </LinearLayout>
-
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingBottom="60dp" />
 
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
+
     <FrameLayout
         android:id="@+id/emptyFl"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:visibility="gone">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="32dp"
+            android:layout_gravity="center"
             android:gravity="center"
-            android:layout_gravity="center">
+            android:orientation="vertical"
+            android:paddingBottom="32dp">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_visual_mail"/>
+                android:src="@drawable/ic_visual_mail" />
+
             <TextView
+                style="@style/text.header2.secondary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-32dp"
-                style="@style/text.header2.secondary"
-                android:text="_No folders"/>
+                android:text="_No folders" />
         </LinearLayout>
 
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/progressFl"
-        android:background="@color/white"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
     </FrameLayout>
 </FrameLayout>
