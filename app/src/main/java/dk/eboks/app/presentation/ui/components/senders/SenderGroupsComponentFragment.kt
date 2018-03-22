@@ -1,20 +1,17 @@
 package dk.eboks.app.presentation.ui.components.senders
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.SenderCategory
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.sender.SenderGroup
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity
+import dk.eboks.app.presentation.ui.components.senders.register.RegisterGroupComponentFragment
 import kotlinx.android.synthetic.main.fragment_list_component.*
 import kotlinx.android.synthetic.main.viewholder_title_subtitle.view.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -52,21 +49,20 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
     }
 
     override fun showSenderGroups(senderGroups: List<SenderGroup>) {
-
         listComponentContentLl.removeAllViews()
 
         senderGroups.forEach {
             val v = inflator.inflate(R.layout.viewholder_title_subtitle, listComponentContentLl, false)
             v.titleTv.text = it.name
             v.subTv.text = when (it.registered) {
-                0 -> "not"
-                1 -> "registred"
+                0 -> Translation.senderdetails.registeredTypeNo
+                1 -> Translation.senderdetails.registeredTypeYes
                 else -> ""
             }
             v.setOnClickListener { c ->
-                val i = Intent(context, BrowseCategoryActivity::class.java)
-                i.putExtra(SenderCategory::class.simpleName, it)
-                startActivity(i)
+                val data = Bundle()
+                data.putSerializable(SenderGroup::class.simpleName, it)
+                getBaseActivity()?.openComponentDrawer(RegisterGroupComponentFragment::class.java, data)
             }
             listComponentContentLl.addView(v)
         }

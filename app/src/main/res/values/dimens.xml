@@ -8,6 +8,8 @@
     <dimen name="margin_normal">16dp</dimen>
     <dimen name="margin_vertical">10dp</dimen>
 
+    <dimen name="padding_drawer">40dp</dimen>
+
     <dimen name="card_elevation">4dp</dimen>
 
     <dimen name="text_size_header_0">34sp</dimen>

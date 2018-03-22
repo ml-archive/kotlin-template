@@ -4,6 +4,7 @@
               android:layout_height="wrap_content"
               android:background="@color/white"
               android:orientation="vertical"
+              android:animateLayoutChanges="true"
     xmlns:nstack="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingPrefix">
@@ -19,7 +20,7 @@
         android:paddingBottom="8dp"
         android:paddingLeft="16dp"
         android:paddingRight="6dp"
-        android:text="All categories"/>
+        android:text="Information"/>
 
     <View
         android:layout_width="match_parent"
@@ -34,7 +35,7 @@
         android:layout_marginLeft="@dimen/margin_normal"
         android:layout_marginRight="@dimen/margin_normal"
         android:layout_marginTop="@dimen/margin_normal"
-        android:text="_Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor dolor sit"/>
+        android:text=""/>
 
     <Button
         android:id="@+id/senderInfoMoreBtn"
@@ -45,14 +46,15 @@
         android:layout_marginLeft="@dimen/margin_normal"
         android:layout_marginTop="@dimen/margin_half"
         android:gravity="left|center_vertical"
-        android:text="_Read more"/>
+        android:text=""/>
 
 
     <!--Adding rows-->
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true">
 
         <View
             android:layout_width="match_parent"
@@ -82,13 +84,14 @@
                 android:layout_marginBottom="@dimen/margin_normal"
                 android:layout_marginTop="@dimen/margin_normal"
                 android:paddingTop="@dimen/margin_half"
-                android:text="_Radius A/S /n Radius A/S \n Radius A/SRadius A/SRadius A/S"/>
+                android:text=""/>
         </LinearLayout>
     </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true">
 
         <View
             android:layout_width="match_parent"
@@ -118,13 +121,14 @@
                 android:layout_marginBottom="@dimen/margin_normal"
                 android:layout_marginTop="@dimen/margin_normal"
                 android:paddingTop="@dimen/margin_half"
-                android:text="_Radiu"/>
+                android:text=""/>
         </LinearLayout>
     </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true">
 
         <View
             android:layout_width="match_parent"
@@ -154,7 +158,7 @@
                 android:layout_marginBottom="@dimen/margin_normal"
                 android:layout_marginTop="@dimen/margin_normal"
                 android:paddingTop="@dimen/margin_half"
-                android:text="_2373"/>
+                android:text=""/>
         </LinearLayout>
     </FrameLayout>
 
