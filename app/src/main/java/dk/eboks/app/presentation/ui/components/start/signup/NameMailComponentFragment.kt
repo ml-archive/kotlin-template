@@ -49,9 +49,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         continueBtn.setOnClickListener { onContinueClicked() }
-        setupTermsText()
         setupTopBar()
-
         NStack.translate()
     }
 
@@ -139,33 +137,6 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
-    }
-
-    private fun setupTermsText() {
-        var termsText = Translation.signup.termsClickAbleText
-        var startIndex = termsText.indexOf("[", 0, false)
-        var endIndex = termsText.indexOf("]", 0, false) - 1
-        termsText = termsText.replace("[", "", false)
-        termsText = termsText.replace("]", "", false)
-
-        val ss = SpannableString(termsText)
-        val clickableSpan = object : ClickableSpan() {
-            override fun onClick(textView: View) {
-                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, TermsComponentFragment(), true)
-            }
-
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.isUnderlineText = false
-            }
-        }
-        ss.setSpan(clickableSpan, startIndex, endIndex, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-        showTermsTv.text = ss
-        showTermsTv.movementMethod = LinkMovementMethod.getInstance()
-        showTermsTv.highlightColor = Color.TRANSPARENT
-
-
     }
 
     private fun checkContinueBtn() {

@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Wed Mar 21 14:51:38 CET 2018 
+ * Generated: Thu Mar 22 14:24:07 CET 2018 
  */
 
 public class Translation {
@@ -79,6 +79,7 @@ public class Translation {
 		public static String unregisterAlertDescription = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
 		public static String cannotUnregister = "Cannot unregister";
 		public static String cannotUnregisterDescription = "You are automatically registered mail from [sender] if this is part of your customer agreements or your conditions of employment";
+		public static String cannotUnregisterPublicDescription = "You are automatically registered mail from the public sector if this is part of your customer agreements or your conditions of employment";
 	}
 	public final static class start {
 		public static String signupButton = "Sign up";
@@ -94,12 +95,13 @@ public class Translation {
 		public static String placeholder = "Type here";
 		public static String continueButton = "Continue";
 		public static String forgotPasswordButton = "Forgot password";
-		public static String title = "Sign in";
+		public static String title = "Log in";
 		public static String invalidPassword = "invalid Password";
 		public static String invalidCprorEmail = "invalid Email or CPR-number";
 		public static String emailOrSSNHeader = "Email or Social Security Number";
 		public static String ssnHeader = "Social security number";
 		public static String invalidSSN = "Invalid social security number";
+		public static String logonWithProvider = "Logon with [provider]";
 	}
 	public final static class forgotpassword {
 		public static String title = "Forgot your password?";
@@ -173,8 +175,9 @@ public class Translation {
 		public static String registeredTypePartial = "Partially registered";
 		public static String readMore = "Read More";
 		public static String publicAuthoritiesHeader = "Public Authorities";
-		public static String publicAuthoritiesDescription = "Get mail from all public authorities with a single tap. See the senders below";
+		public static String publicAuthoritiesUnregisteredDescription = "Get mail from all public authorities with a single tap. See the senders below";
 		public static String numberOfSenders = "senders";
+		public static String publicAuthoritiesRegisteredDescription = "You are registered to receive mail from all public authorities.";
 	}
 	public final static class findactivationcode {
 		public static String title = "Finding your activation code";
