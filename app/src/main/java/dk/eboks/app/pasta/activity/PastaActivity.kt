@@ -15,7 +15,4 @@ class PastaActivity : BaseActivity(), PastaContract.View {
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun showError(msg: String) {
-        Timber.e(msg) // errorhandling lol
-    }
 }

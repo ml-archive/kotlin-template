@@ -5,6 +5,8 @@ import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.managers.PermissionManager
+import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -42,7 +44,7 @@ class SaveAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
         } catch (e: Throwable) {
             e.printStackTrace()
             runOnUIThread {
-                output?.onSaveAttachmentError(e.message ?: "Unknown error saving attachment ${input?.attachment}")
+                output?.onSaveAttachmentError(ViewError(title = Translation.error.genericStorageTitle, message = Translation.error.genericStorageMessage))
             }
         }
     }

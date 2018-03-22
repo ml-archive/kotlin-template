@@ -1,6 +1,9 @@
 package dk.eboks.app.domain.interactors.user
 
 import dk.eboks.app.domain.managers.UserManager
+import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -22,13 +25,13 @@ class DeleteUserInteractorImpl(executor: Executor, val userManager: UserManager)
                 }
             }.guard {
                 runOnUIThread {
-                    output?.onDeleteUserError("Interactor missing input")
+                    output?.onDeleteUserError(ViewError(Translation.error.genericStorageTitle, Translation.error.genericStorageMessage))
                 }
             }
 
-        } catch (e: Exception) {
+        } catch (t: Throwable) {
             runOnUIThread {
-                output?.onDeleteUserError(e.message ?: "Unknown error")
+                output?.onDeleteUserError(exceptionToViewError(t))
             }
         }
     }

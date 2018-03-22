@@ -9,7 +9,6 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface MessageContract {
     interface View : BaseView {
-        fun showError(msg : String)
         fun showTitle(message: Message)
     }
 

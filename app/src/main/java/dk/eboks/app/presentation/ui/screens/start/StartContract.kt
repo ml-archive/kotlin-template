@@ -12,7 +12,6 @@ interface StartContract {
         fun startMain()
         fun showWelcomeComponent()
         fun showUserCarouselComponent()
-        fun showError(msg : String)
     }
 
     interface Presenter : BasePresenter<View> {

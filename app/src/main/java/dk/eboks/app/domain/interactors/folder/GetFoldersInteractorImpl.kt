@@ -4,7 +4,8 @@ import dk.eboks.app.domain.managers.ResourceManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.repositories.FoldersRepository
-import dk.eboks.app.domain.exceptions.RepositoryException
+import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
@@ -33,9 +34,9 @@ class GetFoldersInteractorImpl(executor: Executor, val foldersRepository: Folder
                 output?.onGetSystemFolders(system)
                 output?.onGetFolders(user)
             }
-        } catch (e: RepositoryException) {
+        } catch (t: Throwable) {
             runOnUIThread {
-                output?.onGetFoldersError(e.message ?: "Unknown error")
+                output?.onGetFoldersError(exceptionToViewError(t))
             }
         }
     }

@@ -24,8 +24,5 @@ class ChannelOverviewActivity : BaseActivity(), ChannelOverviewContract.View {
         mainTb.setNavigationIcon(R.drawable.ic_menu_channels)
         mainTb.title = Translation.channels.title
     }
-    override fun showError(msg: String) {
-        Timber.e(msg) // errorhandling lol
-    }
 
 }

@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors
 
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.protocol.UserInfo
 import dk.nodes.arch.domain.interactor.Interactor
 
@@ -15,6 +16,6 @@ interface LoginInteractor : Interactor
 
     interface Output {
         fun onLogin()
-        fun onLoginError(msg : String)
+        fun onLoginError(error : ViewError)
     }
 }

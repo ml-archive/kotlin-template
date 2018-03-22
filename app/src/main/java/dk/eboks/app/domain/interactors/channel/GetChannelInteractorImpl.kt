@@ -2,7 +2,8 @@ package dk.eboks.app.domain.interactors.channel
 
 import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.repositories.ChannelsRepository
-import dk.eboks.app.domain.exceptions.RepositoryException
+import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -29,7 +30,9 @@ class GetChannelInteractorImpl(executor: Executor, val channelsRepository: Chann
             }
         } catch (t: Throwable) {
             runOnUIThread {
-                output?.onGetChannelError(t.message ?: "Unknown error")
+                val ve = exceptionToViewError(t)
+                ve.shouldCloseView = true
+                output?.onGetChannelError(ve)
             }
         }
     }

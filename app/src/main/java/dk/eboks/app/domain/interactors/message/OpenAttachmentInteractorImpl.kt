@@ -2,9 +2,11 @@ package dk.eboks.app.domain.interactors.message
 
 import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.managers.*
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.EboksContentType
+import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
@@ -52,7 +54,7 @@ class OpenAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
         } catch (e: Throwable) {
             e.printStackTrace()
             runOnUIThread {
-                output?.onOpenAttachmentError("Unknown error opening attachment ${input?.attachment}")
+                output?.onOpenAttachmentError(exceptionToViewError(e))
             }
         }
     }

@@ -1,11 +1,10 @@
 package dk.eboks.app.domain.interactors.sender
 
-import dk.eboks.app.domain.exceptions.RepositoryException
-import dk.eboks.app.domain.repositories.SenderCategoriesRepository
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.repositories.SendersRepository
+import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
-import timber.log.Timber
 
 /**
 * Created by bison on 01/02/18.
@@ -24,9 +23,9 @@ class GetSenderDetailInteractorImpl(executor: Executor, val sendersRepository: S
             runOnUIThread {
                 output?.onGetSender(senders)
             }
-        } catch (e: RepositoryException) {
+        } catch (t: Throwable) {
             runOnUIThread {
-                output?.onGetSenderError(e.message ?: "Unknown error")
+                output?.onGetSenderError(exceptionToViewError(t))
             }
         }
     }

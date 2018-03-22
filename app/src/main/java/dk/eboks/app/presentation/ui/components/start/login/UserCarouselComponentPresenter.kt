@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.components.start.login
 import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
@@ -54,15 +55,15 @@ class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateM
         }
     }
 
-    override fun onGetUsersError(msg: String) {
-        Timber.e(msg)
+    override fun onGetUsersError(error : ViewError) {
+        runAction { it.showErrorDialog(error) }
     }
 
     override fun onDeleteUser(user: User) {
         getUsersInteractor.run()
     }
 
-    override fun onDeleteUserError(msg: String) {
-        Timber.e(msg)
+    override fun onDeleteUserError(error : ViewError) {
+        runAction { it.showErrorDialog(error) }
     }
 }

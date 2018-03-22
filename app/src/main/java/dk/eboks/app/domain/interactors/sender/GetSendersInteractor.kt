@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors.sender
 
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.domain.interactor.Interactor
 
@@ -14,6 +15,6 @@ interface GetSendersInteractor : Interactor {
 
     interface Output {
         fun onGetSenders(senders : List<Sender>)
-        fun onGetSendersError(msg : String)
+        fun onGetSendersError(error : ViewError)
     }
 }

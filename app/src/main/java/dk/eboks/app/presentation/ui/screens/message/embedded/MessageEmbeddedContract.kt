@@ -18,7 +18,6 @@ interface MessageEmbeddedContract {
         fun addImageViewer()
         fun addHtmlViewer()
         fun addTextViewer()
-        fun showError(msg : String)
         fun showTitle(message : Message)
     }
 

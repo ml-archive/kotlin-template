@@ -13,7 +13,6 @@ interface DebugUserContract {
         fun showLoginProviderSpinner(providers : List<LoginProvider>)
         fun close(gotoUsers : Boolean)
         fun showUser(user : User)
-        fun showError(msg : String)
     }
 
     interface Presenter : BasePresenter<View> {

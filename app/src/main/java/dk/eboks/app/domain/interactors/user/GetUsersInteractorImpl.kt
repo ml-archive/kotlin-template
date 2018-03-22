@@ -1,6 +1,7 @@
 package dk.eboks.app.domain.interactors.user
 
 import dk.eboks.app.domain.managers.UserManager
+import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
@@ -15,9 +16,9 @@ class GetUsersInteractorImpl(executor: Executor, val userManager: UserManager) :
             runOnUIThread {
                 output?.onGetUsers(userManager.users)
             }
-        } catch (e: Exception) {
+        } catch (t: Throwable) {
             runOnUIThread {
-                output?.onGetUsersError(e.message ?: "Unknown error")
+                output?.onGetUsersError(exceptionToViewError(t))
             }
         }
     }

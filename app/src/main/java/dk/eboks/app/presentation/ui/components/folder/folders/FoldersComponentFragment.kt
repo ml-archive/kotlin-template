@@ -38,10 +38,6 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         }
     }
 
-    override fun showError(msg: String) {
-        Timber.e(msg)
-    }
-
     override fun showSystemFolders(folders: List<Folder>) {
         systemFoldersLl.removeAllViews()
         val li: LayoutInflater = LayoutInflater.from(context)

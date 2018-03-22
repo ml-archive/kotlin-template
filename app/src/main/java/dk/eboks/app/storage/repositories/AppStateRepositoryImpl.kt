@@ -29,7 +29,6 @@ class AppStateRepositoryImpl(context: Context, gson: Gson) : GsonFileStorageRepo
         }
         catch (e : Exception)
         {
-            Timber.e("Catching Exception")
             return AppState()
         }
     }

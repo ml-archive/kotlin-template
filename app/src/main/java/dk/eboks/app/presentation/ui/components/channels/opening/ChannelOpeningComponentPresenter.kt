@@ -5,6 +5,7 @@ import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -63,9 +64,10 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
         }
     }
 
-    override fun onGetChannelError(msg: String) {
-        runAction { v->v.showProgress(false) }
-        // TODO error management
-        Timber.e(msg)
+    override fun onGetChannelError(error : ViewError) {
+        runAction { v->
+            v.showProgress(false)
+            v.showErrorDialog(error)
+        }
     }
 }

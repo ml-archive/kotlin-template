@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.screens.start
 
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 
@@ -41,7 +42,7 @@ class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteract
         */
     }
 
-    override fun onBootstrapError(msg: String) {
-        Timber.e("Boostrap error: $msg")
+    override fun onBootstrapError(error: ViewError) {
+        runAction { v->v.showErrorDialog(error) }
     }
 }

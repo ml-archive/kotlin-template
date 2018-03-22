@@ -102,9 +102,6 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
                 .into(senderDetailIv)
     }
 
-    override fun showError(msg: String) {
-    }
-
     override fun onDestroy() {
         NStack.removeLanguageChangeListener(onLanguageChangedListener)
         super.onDestroy()

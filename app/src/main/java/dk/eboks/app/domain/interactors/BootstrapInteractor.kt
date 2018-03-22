@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors
 
+import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**
@@ -14,6 +15,6 @@ interface BootstrapInteractor : Interactor
 
     interface Output {
         fun onBootstrapDone(hasUsers : Boolean)
-        fun onBootstrapError(msg : String)
+        fun onBootstrapError(error : ViewError)
     }
 }

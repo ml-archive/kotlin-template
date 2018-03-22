@@ -2,8 +2,9 @@ package dk.eboks.app.domain.interactors.message
 
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.repositories.MessagesRepository
-import dk.eboks.app.domain.exceptions.RepositoryException
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.network.util.metaData
+import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -28,13 +29,13 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
                 }
             }.guard {
                         runOnUIThread {
-                            output?.onGetMessagesError("Bad interactor input")
+                            output?.onGetMessagesError(ViewError())
                         }
                     }
 
-        } catch (e: RepositoryException) {
+        } catch (t: Throwable) {
             runOnUIThread {
-                output?.onGetMessagesError(e.message ?: "Unknown error")
+                output?.onGetMessagesError(exceptionToViewError(t))
             }
         }
     }

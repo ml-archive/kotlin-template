@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.screens.senders.detail
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 
@@ -29,7 +30,8 @@ class SenderDetailPresenter(val appStateManager: AppStateManager, val getSenderD
         }
     }
 
-    override fun onGetSenderError(msg: String) {
+    override fun onGetSenderError(error : ViewError) {
+        runAction { it.showErrorDialog(error) }
     }
 
 }

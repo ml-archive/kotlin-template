@@ -9,7 +9,6 @@ import dk.eboks.app.presentation.base.BaseView
 interface MessageOpeningContract {
     interface View : BaseView {
         fun setPrivateSenderWarningFragment()
-        fun showError(msg : String)
     }
 
     interface Presenter : BasePresenter<View> {

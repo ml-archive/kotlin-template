@@ -5,6 +5,7 @@ import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
@@ -58,16 +59,16 @@ class DebugUserPresenter(val appStateManager: AppStateManager, val createUserInt
         runAction { v->v.close(numberOfUsers == 1) }
     }
 
-    override fun onCreateUserError(msg: String) {
-        Timber.e(msg)
+    override fun onCreateUserError(error : ViewError) {
+        runAction { it.showErrorDialog(error) }
     }
 
     override fun onSaveUser(user: User, numberOfUsers: Int) {
         runAction { v->v.close(false) }
     }
 
-    override fun onSaveUserError(msg: String) {
-        Timber.e(msg)
+    override fun onSaveUserError(error : ViewError) {
+        runAction { it.showErrorDialog(error) }
     }
 
     companion object {

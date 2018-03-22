@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.components.mail.maillist
 import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -57,9 +58,9 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
         }
     }
 
-    override fun onGetMessagesError(msg: String) {
+    override fun onGetMessagesError(error : ViewError) {
         runAction { v->
-            v.showError(msg)
+            v.showErrorDialog(error)
             v.showProgress(false)
             v.showRefreshProgress(false)
             v.showEmpty(true)
@@ -72,10 +73,10 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
         }
     }
 
-    override fun onOpenMessageError(msg: String) {
-        runAction {
-            v-> v.showProgress(false)
+    override fun onOpenMessageError(error : ViewError) {
+        runAction { v->
+            v.showProgress(false)
+            v.showErrorDialog(error)
         }
-        Timber.e(msg)
     }
 }

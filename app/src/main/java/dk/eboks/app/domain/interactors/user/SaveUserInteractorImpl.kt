@@ -1,6 +1,8 @@
 package dk.eboks.app.domain.interactors.user
 
 import dk.eboks.app.domain.managers.UserManager
+import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -22,13 +24,13 @@ class SaveUserInteractorImpl(executor: Executor, val userManager: UserManager) :
                 }
             }.guard {
                 runOnUIThread {
-                    output?.onSaveUserError("Interactor missing input")
+                    output?.onSaveUserError(ViewError())
                 }
             }
 
-        } catch (e: Exception) {
+        } catch (t: Throwable) {
             runOnUIThread {
-                output?.onSaveUserError(e.message ?: "Unknown error")
+                output?.onSaveUserError(exceptionToViewError(t))
             }
         }
     }

@@ -46,10 +46,6 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         setupTopBar()
     }
 
-    override fun showError(msg: String) {
-        Timber.e(msg)
-    }
-
     private fun setupTopBar()
     {
         mainTb.setNavigationIcon(R.drawable.red_navigationbar)

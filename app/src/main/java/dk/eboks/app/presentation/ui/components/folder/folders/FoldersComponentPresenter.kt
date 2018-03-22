@@ -5,6 +5,7 @@ import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -80,11 +81,11 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
         return proccessedList
     }
 
-    override fun onGetFoldersError(msg: String) {
-        Timber.e(msg)
+    override fun onGetFoldersError(error : ViewError) {
         runAction { v ->
             v.showProgress(false)
             v.showRefreshProgress(false)
+            v.showErrorDialog(error)
         }
 
     }
@@ -93,7 +94,7 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
 
     }
 
-    override fun onOpenFolderError(msg: String) {
-        Timber.e(msg)
+    override fun onOpenFolderError(error : ViewError) {
+        runAction { it.showErrorDialog(error) }
     }
 }

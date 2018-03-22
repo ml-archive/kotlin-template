@@ -1,8 +1,9 @@
 package dk.eboks.app.domain.interactors.sender
 
-import dk.eboks.app.domain.exceptions.RepositoryException
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.repositories.SenderCategoriesRepository
 import dk.eboks.app.domain.repositories.SendersRepository
+import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
@@ -33,9 +34,9 @@ class GetSendersInteractorImpl(executor: Executor, val sendersRepository: Sender
             runOnUIThread {
                 output?.onGetSenders(senders)
             }
-        } catch (e: RepositoryException) {
+        } catch (t: Throwable) {
             runOnUIThread {
-                output?.onGetSendersError(e.message ?: "Unknown error")
+                output?.onGetSendersError(exceptionToViewError(t))
             }
         }
     }
@@ -47,9 +48,9 @@ class GetSendersInteractorImpl(executor: Executor, val sendersRepository: Sender
             runOnUIThread {
                 output?.onGetSenders(category.senders ?: ArrayList())
             }
-        } catch (e: Throwable) {
+        } catch (t: Throwable) {
             runOnUIThread {
-                output?.onGetSendersError(e.message ?: "Unknown error")
+                output?.onGetSendersError(exceptionToViewError(t))
             }
         }
     }
@@ -61,9 +62,9 @@ class GetSendersInteractorImpl(executor: Executor, val sendersRepository: Sender
             runOnUIThread {
                 output?.onGetSenders(senders)
             }
-        } catch (e: Throwable) {
+        } catch (t: Throwable) {
             runOnUIThread {
-                output?.onGetSendersError(e.message ?: "Unknown error")
+                output?.onGetSendersError(exceptionToViewError(t))
             }
         }
     }

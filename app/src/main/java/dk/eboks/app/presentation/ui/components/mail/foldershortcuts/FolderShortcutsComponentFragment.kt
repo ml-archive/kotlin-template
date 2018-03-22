@@ -35,10 +35,6 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun showError(msg: String) {
-        Log.e("debug", msg)
-    }
-
     override fun showFolders(folders: List<Folder>) {
         yourMailLl.removeAllViews()
         val li : LayoutInflater = LayoutInflater.from(context)

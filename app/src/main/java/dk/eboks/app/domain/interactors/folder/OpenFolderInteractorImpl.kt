@@ -2,6 +2,8 @@ package dk.eboks.app.domain.interactors.folder
 
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UIManager
+import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
@@ -24,7 +26,7 @@ class OpenFolderInteractorImpl(executor: Executor, val appStateManager: AppState
             }
         } catch (e: Throwable) {
             runOnUIThread {
-                output?.onOpenFolderError("Could not open folder")
+                output?.onOpenFolderError(exceptionToViewError(e))
             }
         }
     }

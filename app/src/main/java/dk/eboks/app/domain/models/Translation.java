@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Thu Mar 22 15:02:18 CET 2018 
+ * Generated: Thu Mar 22 21:17:48 CET 2018 
  */
 
 public class Translation {
@@ -16,8 +16,18 @@ public class Translation {
 		public static String yesterday = "Yesterday";
 	}
 	public final static class error {
-		public static String errorMessage10100 = "Something wrong with server";
-		public static String errorTitle10100 = "ServerErrorTitle";
+		public static String genericMessage = "An error occured";
+		public static String genericTitle = "Error";
+		public static String noInternetTitle = "No connectivity";
+		public static String noInternetMessage = "This application requires a connection to the internet to perform the requested operation.";
+		public static String startupTitle = "Error";
+		public static String startupMessage = "An initialization error happened during application startup. We apologize for the inconvenience.";
+		public static String genericServerTitle = "Server error";
+		public static String genericServerMessage = "An error occured while communicating with the server. We apologize for the inconvenience.";
+		public static String genericStorageTitle = "Storage error";
+		public static String genericStorageMessage = "An error occured accessing the persistent storage on this device.";
+		public static String genericOOMTitle = "Out of memory";
+		public static String genericOOMMessage = "There is not enough free resources on this device to accomplish the requested operation. Try shutting down other apps to free up more resources.";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -45,7 +55,7 @@ public class Translation {
 		public static String lockedMessage = "Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
 	}
 	public final static class channels {
-		public static String channelsHeader = "Get you relevant information and actions directly on your e-Boks home screen";
+		public static String channelsHeader = "Get your relevant information and actions directly on your e-Boks home screen";
 		public static String title = "Channels";
 		public static String install = "Install";
 		public static String open = "Open";

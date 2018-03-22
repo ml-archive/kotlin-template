@@ -11,7 +11,6 @@ interface FoldersComponentContract {
     interface View : ComponentBaseView {
         fun showUserFolders(folders : List<Folder>)
         fun showSystemFolders(folders : List<Folder>)
-        fun showError(msg : String)
         fun showRefreshProgress(show : Boolean)
     }
 

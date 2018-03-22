@@ -20,8 +20,4 @@ class ChannelContentActivity : BaseActivity(), ChannelContentContract.View {
             supportFragmentManager.beginTransaction().add(R.id.content, it, ChannelOpeningComponentFragment::class.java.simpleName).commit()
         }
     }
-
-    override fun showError(msg: String) {
-        Timber.e(msg) // errorhandling lol
-    }
 }

@@ -3,6 +3,8 @@ package dk.eboks.app.presentation.ui.components.mail.sendercarousel
 import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import org.greenrobot.eventbus.EventBus
@@ -57,11 +59,11 @@ class SenderCarouselComponentPresenter @Inject constructor(val appState: AppStat
         }
     }
 
-    override fun onGetSendersError(msg: String) {
-        Timber.e(msg)
+    override fun onGetSendersError(error : ViewError) {
         runAction { v->
             v.showProgress(false)
             EventBus.getDefault().post(RefreshSenderCarouselDoneEvent())
+            v.showErrorDialog(error)
         }
     }
 

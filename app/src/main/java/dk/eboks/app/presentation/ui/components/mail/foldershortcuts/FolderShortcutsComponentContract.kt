@@ -9,7 +9,6 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface FolderShortcutsComponentContract {
     interface View : ComponentBaseView {
-        fun showError(msg : String)
         fun showFolders(folders : List<Folder>)
 
     }

@@ -85,11 +85,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         messagesRv.adapter.notifyDataSetChanged()
     }
 
-    override fun showError(msg: String) {
-        Timber.e(msg)
-    }
-
-
     inner class MessageAdapter : RecyclerView.Adapter<MessageAdapter.MessageViewHolder>() {
 
         inner class MessageViewHolder(val root : View) : RecyclerView.ViewHolder(root)

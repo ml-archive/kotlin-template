@@ -5,8 +5,18 @@
   <string name='nstack_default_back' formatted='false'>default_back</string>
   <string name='nstack_default_today' formatted='false'>default_today</string>
   <string name='nstack_default_yesterday' formatted='false'>default_yesterday</string>
-  <string name='nstack_error_errorMessage10100' formatted='false'>error_errorMessage10100</string>
-  <string name='nstack_error_errorTitle10100' formatted='false'>error_errorTitle10100</string>
+  <string name='nstack_error_genericMessage' formatted='false'>error_genericMessage</string>
+  <string name='nstack_error_genericTitle' formatted='false'>error_genericTitle</string>
+  <string name='nstack_error_noInternetTitle' formatted='false'>error_noInternetTitle</string>
+  <string name='nstack_error_noInternetMessage' formatted='false'>error_noInternetMessage</string>
+  <string name='nstack_error_startupTitle' formatted='false'>error_startupTitle</string>
+  <string name='nstack_error_startupMessage' formatted='false'>error_startupMessage</string>
+  <string name='nstack_error_genericServerTitle' formatted='false'>error_genericServerTitle</string>
+  <string name='nstack_error_genericServerMessage' formatted='false'>error_genericServerMessage</string>
+  <string name='nstack_error_genericStorageTitle' formatted='false'>error_genericStorageTitle</string>
+  <string name='nstack_error_genericStorageMessage' formatted='false'>error_genericStorageMessage</string>
+  <string name='nstack_error_genericOOMTitle' formatted='false'>error_genericOOMTitle</string>
+  <string name='nstack_error_genericOOMMessage' formatted='false'>error_genericOOMMessage</string>
   <string name='nstack_mail_senderHeader' formatted='false'>mail_senderHeader</string>
   <string name='nstack_mail_showAllSendersButton' formatted='false'>mail_showAllSendersButton</string>
   <string name='nstack_mail_smartFolderHeader' formatted='false'>mail_smartFolderHeader</string>

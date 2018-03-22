@@ -1,10 +1,10 @@
 package dk.eboks.app.presentation.base
 
-import dk.eboks.app.domain.models.protocol.ServerError
+import dk.eboks.app.domain.models.local.ViewError
 
 /**
  * Created by bison on 22/03/2018.
  */
 interface BaseView {
-    fun showServerError(serverError: ServerError)
+    fun showErrorDialog(error : ViewError)
 }
