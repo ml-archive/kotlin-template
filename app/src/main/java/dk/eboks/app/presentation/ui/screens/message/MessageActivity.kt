@@ -24,9 +24,6 @@ class MessageActivity : BaseActivity(), MessageContract.View {
 
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun showError(msg: String) {
         Log.e("debug", msg)
     }

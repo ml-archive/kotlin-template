@@ -29,7 +29,4 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setupTranslations() {
-    }
-
 }

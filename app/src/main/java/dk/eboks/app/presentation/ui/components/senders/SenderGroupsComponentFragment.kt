@@ -45,9 +45,6 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
         }
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun showSenderGroups(senderGroups: List<SenderGroup>) {
         listComponentContentLl.removeAllViews()
 

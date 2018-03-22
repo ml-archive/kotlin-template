@@ -31,11 +31,4 @@ class PrivateSenderWarningComponentFragment : BaseFragment(), PrivateSenderWarni
             activity.finish()
         }
     }
-
-    override fun setupTranslations() {
-
-    }
-
-
-
 }

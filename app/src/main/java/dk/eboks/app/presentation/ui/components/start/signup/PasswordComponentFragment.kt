@@ -134,9 +134,6 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         return false
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun showError() {
 
     }

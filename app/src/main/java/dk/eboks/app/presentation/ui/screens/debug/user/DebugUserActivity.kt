@@ -74,10 +74,6 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
         presenter.saveUser(user)
     }
 
-    override fun setupTranslations() {
-
-    }
-
     override fun showUser(user: User) {
         currentUser = user
         for(i in 0 until loginProviderSpr.adapter.count)

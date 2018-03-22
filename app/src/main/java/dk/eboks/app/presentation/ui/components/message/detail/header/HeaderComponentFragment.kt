@@ -35,32 +35,29 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
         }
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun updateView(message: Message) {
         when(message.messageType)
         {
             MessageType.RECEIVED -> {
                 senderTv.text = message.sender?.name ?: ""
-                titleTv.text = message.name
+                titleTv.text = message.subject
                 message.sender?.logo.let {
                     Glide.with(context).load(it).into(senderLogoIv)
                 }
             }
             MessageType.DRAFT -> {
                 senderTv.text = message.sender?.name ?: ""
-                titleTv.text = message.name
+                titleTv.text = message.subject
                 senderLogoIv.visibility = View.GONE
             }
             MessageType.SENT -> {
                 senderTv.text = "${Translation.message.recipientPrefixTo} ${message.sender?.name ?: ""}"
-                titleTv.text = message.name
+                titleTv.text = message.subject
                 senderLogoIv.visibility = View.GONE
             }
             MessageType.UPLOAD -> {
                 senderTv.text = Translation.message.uploadedByYou
-                titleTv.text = message.name
+                titleTv.text = message.subject
                 message.sender?.logo.let {
                     Glide.with(context).load(it).into(senderLogoIv)
                 }
@@ -68,7 +65,7 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
             else ->
             {
                 senderTv.text = message.sender?.name ?: ""
-                titleTv.text = message.name
+                titleTv.text = message.subject
                 message.sender?.logo.let {
                     Glide.with(context).load(it).into(senderLogoIv)
                 }

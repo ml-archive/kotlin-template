@@ -169,7 +169,4 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
         channelRv.adapter.notifyDataSetChanged()
     }
 
-    override fun setupTranslations() {
-
-    }
 }

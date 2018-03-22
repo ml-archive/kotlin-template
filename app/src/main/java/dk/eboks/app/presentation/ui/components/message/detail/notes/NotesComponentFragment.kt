@@ -30,10 +30,6 @@ class NotesComponentFragment : BaseFragment(), NotesComponentContract.View {
         focusThiefV.requestFocus()
     }
 
-    override fun setupTranslations() {
-
-    }
-
     override fun updateView(message: Message) {
 
     }

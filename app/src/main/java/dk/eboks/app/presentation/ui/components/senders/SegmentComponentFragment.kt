@@ -39,7 +39,4 @@ class SegmentComponentFragment : BaseFragment() {
         }
     }
 
-    override fun setupTranslations() {
-
-    }
 }

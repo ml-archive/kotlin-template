@@ -37,9 +37,6 @@ class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun updateView(message: Message) {
         if(message.content == null)
         {

@@ -27,8 +27,4 @@ class LockedMessageComponentFragment : BaseFragment(), LockedMessageComponentCon
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setupTranslations() {
-
-    }
-
 }

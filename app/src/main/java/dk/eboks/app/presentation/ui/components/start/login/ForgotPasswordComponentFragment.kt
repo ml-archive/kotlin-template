@@ -79,7 +79,4 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
     }
-
-    override fun setupTranslations() {
-    }
 }

@@ -21,6 +21,8 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_verification_component, container, false)
+        // TODO para brian translata
+        cancelTv.text = Translation.defaultSection.cancel
         return rootView
     }
 
@@ -32,9 +34,4 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
             (activity as SheetComponentActivity).onBackPressed()
         }
     }
-
-    override fun setupTranslations() {
-        cancelTv.text = Translation.defaultSection.cancel
-    }
-
 }

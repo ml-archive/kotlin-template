@@ -40,10 +40,6 @@ class TermsComponentFragment : BaseFragment(), SignupComponentContract.TermsView
         }
     }
 
-
-    override fun setupTranslations() {
-    }
-
     override fun showError() {
 
     }

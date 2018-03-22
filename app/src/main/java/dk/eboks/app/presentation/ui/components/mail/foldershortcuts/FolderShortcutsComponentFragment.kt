@@ -35,9 +35,6 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun showError(msg: String) {
         Log.e("debug", msg)
     }

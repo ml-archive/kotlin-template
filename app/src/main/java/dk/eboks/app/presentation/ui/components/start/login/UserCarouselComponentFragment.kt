@@ -87,9 +87,6 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         viewPager.offscreenPageLimit = 10
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun showUsers(users: MutableList<User>) {
         viewPager.adapter = UserPagerAdapter(users)
         if(users.isEmpty())

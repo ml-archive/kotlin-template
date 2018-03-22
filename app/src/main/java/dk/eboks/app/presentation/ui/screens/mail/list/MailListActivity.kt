@@ -26,9 +26,6 @@ class MailListActivity : BaseActivity(), MailListContract.View {
         }
     }
 
-    override fun setupTranslations() {
-    }
-
     private fun setupTopBar(txt : String) {
         mainTb.setNavigationIcon(R.drawable.red_navigationbar)
         mainTb.title = txt

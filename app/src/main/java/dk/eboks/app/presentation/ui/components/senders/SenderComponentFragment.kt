@@ -44,7 +44,4 @@ class SenderComponentFragment : BaseFragment() {
         }
     }
 
-    override fun setupTranslations() {
-
-    }
 }

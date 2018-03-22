@@ -41,9 +41,6 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setupTranslations() {
-    }
-
     private fun setupTopView(channel: Channel)
     {
         headerTv.text = channel.payoff

@@ -38,10 +38,6 @@ class DebugOptionsComponentFragment : BaseFragment(), DebugOptionsComponentContr
         presenter.setup()
     }
 
-    override fun setupTranslations() {
-
-    }
-
     override fun showCountrySpinner(configIndex : Int)
     {
         // Create an ArrayAdapter using the string array and a default spinner layout

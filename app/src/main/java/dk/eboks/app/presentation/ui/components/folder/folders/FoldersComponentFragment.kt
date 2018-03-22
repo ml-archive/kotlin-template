@@ -39,10 +39,6 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         }
     }
 
-    override fun setupTranslations() {
-
-    }
-
     override fun showError(msg: String) {
         Timber.e(msg)
     }

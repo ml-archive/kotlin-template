@@ -52,10 +52,6 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
 
     }
 
-    override fun setupTranslations() {
-
-    }
-
     override fun showChannel(channel: Channel) {
         mainTb.title = channel.name
     }

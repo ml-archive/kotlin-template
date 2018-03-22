@@ -31,9 +31,6 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun updateView(message: Message) {
         attachmentsLl.removeAllViews()
         val li: LayoutInflater = LayoutInflater.from(context)

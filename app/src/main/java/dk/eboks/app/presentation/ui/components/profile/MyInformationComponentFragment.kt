@@ -50,8 +50,4 @@ class MyInformationComponentFragment : BaseFragment(), MyInformationComponentCon
         }
     }
 
-    override fun setupTranslations() {
-
-    }
-
 }
