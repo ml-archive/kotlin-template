@@ -56,6 +56,7 @@
   <string name='nstack_senders_unregisterAlertDescription' formatted='false'>senders_unregisterAlertDescription</string>
   <string name='nstack_senders_cannotUnregister' formatted='false'>senders_cannotUnregister</string>
   <string name='nstack_senders_cannotUnregisterDescription' formatted='false'>senders_cannotUnregisterDescription</string>
+  <string name='nstack_senders_cannotUnregisterPublicDescription' formatted='false'>senders_cannotUnregisterPublicDescription</string>
   <string name='nstack_start_signupButton' formatted='false'>start_signupButton</string>
   <string name='nstack_start_addNewUser' formatted='false'>start_addNewUser</string>
   <string name='nstack_start_logonButton' formatted='false'>start_logonButton</string>
@@ -73,6 +74,7 @@
   <string name='nstack_logoncredentials_emailOrSSNHeader' formatted='false'>logoncredentials_emailOrSSNHeader</string>
   <string name='nstack_logoncredentials_ssnHeader' formatted='false'>logoncredentials_ssnHeader</string>
   <string name='nstack_logoncredentials_invalidSSN' formatted='false'>logoncredentials_invalidSSN</string>
+  <string name='nstack_logoncredentials_logonWithProvider' formatted='false'>logoncredentials_logonWithProvider</string>
   <string name='nstack_forgotpassword_title' formatted='false'>forgotpassword_title</string>
   <string name='nstack_forgotpassword_subtitle' formatted='false'>forgotpassword_subtitle</string>
   <string name='nstack_forgotpassword_emailHeader' formatted='false'>forgotpassword_emailHeader</string>
@@ -123,6 +125,7 @@
   <string name='nstack_signup_cancelDialogText' formatted='false'>signup_cancelDialogText</string>
   <string name='nstack_signup_cancelDialogDiscardBtn' formatted='false'>signup_cancelDialogDiscardBtn</string>
   <string name='nstack_signup_cancelDialogCancelBtn' formatted='false'>signup_cancelDialogCancelBtn</string>
+  <string name='nstack_signup_termsWhyAcceptButton' formatted='false'>signup_termsWhyAcceptButton</string>
   <string name='nstack_activationcode_title' formatted='false'>activationcode_title</string>
   <string name='nstack_activationcode_subtitle' formatted='false'>activationcode_subtitle</string>
   <string name='nstack_activationcode_textFieldHeader' formatted='false'>activationcode_textFieldHeader</string>
@@ -138,8 +141,9 @@
   <string name='nstack_senderdetails_registeredTypePartial' formatted='false'>senderdetails_registeredTypePartial</string>
   <string name='nstack_senderdetails_readMore' formatted='false'>senderdetails_readMore</string>
   <string name='nstack_senderdetails_publicAuthoritiesHeader' formatted='false'>senderdetails_publicAuthoritiesHeader</string>
-  <string name='nstack_senderdetails_publicAuthoritiesDescription' formatted='false'>senderdetails_publicAuthoritiesDescription</string>
+  <string name='nstack_senderdetails_publicAuthoritiesUnregisteredDescription' formatted='false'>senderdetails_publicAuthoritiesUnregisteredDescription</string>
   <string name='nstack_senderdetails_numberOfSenders' formatted='false'>senderdetails_numberOfSenders</string>
+  <string name='nstack_senderdetails_publicAuthoritiesRegisteredDescription' formatted='false'>senderdetails_publicAuthoritiesRegisteredDescription</string>
   <string name='nstack_findactivationcode_title' formatted='false'>findactivationcode_title</string>
   <string name='nstack_findactivationcode_message' formatted='false'>findactivationcode_message</string>
   <string name='nstack_message_information' formatted='false'>message_information</string>

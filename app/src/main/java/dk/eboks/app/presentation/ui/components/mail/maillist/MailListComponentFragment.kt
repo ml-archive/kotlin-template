@@ -18,6 +18,7 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
 import kotlinx.android.synthetic.main.viewholder_circular_sender.*
+import kotlinx.android.synthetic.main.viewholder_message.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -123,6 +124,10 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             }
             holder?.titleTv?.text = messages[position].sender?.name
             holder?.subTitleTv?.text = messages[position].subject
+            if(messages[position].status?.text != null){
+                urgentTv?.visibility = View.VISIBLE
+                urgentTv?.text = messages[position].status?.text
+            }
 
             holder?.root?.setOnClickListener {
                 presenter.openMessage(messages[position])
