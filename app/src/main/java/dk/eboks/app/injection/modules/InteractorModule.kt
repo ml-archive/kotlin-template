@@ -13,6 +13,8 @@ import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractorImpl
 import dk.eboks.app.domain.interactors.message.*
 import dk.eboks.app.domain.interactors.sender.*
+import dk.eboks.app.domain.interactors.sender.register.RegisterSenderGroupInteractor
+import dk.eboks.app.domain.interactors.sender.register.RegisterSenderGroupInteractorImpl
 import dk.eboks.app.domain.interactors.user.*
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.repositories.*
@@ -123,6 +125,11 @@ class InteractorModule {
     fun provideGetCollectionsInteractor(executor: Executor, collectionsRepository: CollectionsRepository) : GetCollectionsInteractor {
         return GetCollectionsInteractorImpl(executor, collectionsRepository)
     }
+
+    @Provides fun provideRegisterSenderGroupInteractor(executor: Executor, api: Api) : RegisterSenderGroupInteractor {
+        return RegisterSenderGroupInteractorImpl(executor, api)
+    }
+
 
 //    @Provides
 //    fun provideSearchSendersInterActor(executor: Executor) : GetSendersInteractor {

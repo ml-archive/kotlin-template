@@ -17,8 +17,7 @@
         android:gravity="center"
         android:layout_marginTop="@dimen/margin_half"
         android:layout_marginBottom="@dimen/margin_half"
-        android:text="Kvitto"
-        />
+        android:text="Kvitto" />
 
     <TextView
         android:id="@+id/registerContentTv"
@@ -26,8 +25,17 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginBottom="@dimen/margin_normal"
-        android:text="text"
-        />
+        android:text="text" />
+
+    <LinearLayout
+        android:id="@+id/registerAliasContainerLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/viewholder_textinput"/>
+        <include layout="@layout/viewholder_textinput"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/registerRegBtn"

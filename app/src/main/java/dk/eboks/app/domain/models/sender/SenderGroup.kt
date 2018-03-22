@@ -14,7 +14,7 @@ data class SenderGroup (
         var name: String = "",
         var description: Description?,
         var registered: Int? = 0, // (0: No, 1: Yes)
-//        var alias : List<AliasRegistration>? = null, // TODO
+        var alias : List<Alias>? = null,
 //        var registrations : List<AliasRegistration>? = null, // TODO
         var numberOfRegistrations: Int? = 0, // (0: No, 1: Yes, 2: Partial)
         var status : Status,
