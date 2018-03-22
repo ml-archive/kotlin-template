@@ -125,7 +125,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 }
             }
             holder?.titleTv?.text = messages[position].sender?.name
-            holder?.subTitleTv?.text = messages[position].name
+            holder?.subTitleTv?.text = messages[position].subject
 
             holder?.root?.setOnClickListener {
                 presenter.openMessage(messages[position])
