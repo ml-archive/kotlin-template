@@ -54,7 +54,4 @@ class CategoriesComponentFragment : BaseFragment(), CategoriesComponentContract.
 
     }
 
-    override fun setupTranslations() {
-
-    }
 }

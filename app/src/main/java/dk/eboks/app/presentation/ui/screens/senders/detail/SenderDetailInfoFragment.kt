@@ -32,9 +32,6 @@ class SenderDetailInfoFragment : BaseFragment() {
         senderInfoPhoneLL.visibility = View.GONE
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun setArguments(args: Bundle?) {
         super.setArguments(args)
 

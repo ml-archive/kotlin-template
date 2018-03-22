@@ -31,10 +31,6 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
         mainTb.setNavigationIcon(R.drawable.ic_menu_mail)
     }
 
-    override fun setupTranslations() {
-
-    }
-
     fun showConfirmDialog()
     {
         Timber.e("Showing confirm dialog")

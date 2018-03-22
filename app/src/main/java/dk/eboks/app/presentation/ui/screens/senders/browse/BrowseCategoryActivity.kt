@@ -82,9 +82,6 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
     override fun showEmpty(show: Boolean) {
     }
 
-    override fun setupTranslations() {
-
-    }
 
     override fun showError(msg: String) {
         Timber.e(msg) // errorhandling lol

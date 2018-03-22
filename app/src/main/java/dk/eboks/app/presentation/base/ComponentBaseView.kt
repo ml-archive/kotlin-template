@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.base
 
-import dk.nodes.arch.presentation.base.BaseView
+import dk.eboks.app.presentation.base.BaseView
 
 /**
  * Created by bison on 18-02-2018.

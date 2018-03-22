@@ -29,12 +29,6 @@ class PermissionRequestActivity : BaseActivity() {
         requestThemPermissions()
     }
 
-
-    override fun setupTranslations() {
-
-    }
-
-
     private fun requestThemPermissions()
     {
         if(!permissionManager.requestInProgress || permissionManager.permsToCheck?.isEmpty() == null)

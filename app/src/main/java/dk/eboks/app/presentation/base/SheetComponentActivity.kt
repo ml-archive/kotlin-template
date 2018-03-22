@@ -205,10 +205,6 @@ class SheetComponentActivity : BaseActivity() {
         contextSheetSv.addView(sheet)
     }
 
-    override fun setupTranslations() {
-
-    }
-
     override fun onBackPressed() {
         contextSheet.post {
             sheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN

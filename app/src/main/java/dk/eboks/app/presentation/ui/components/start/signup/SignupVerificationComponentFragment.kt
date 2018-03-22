@@ -37,6 +37,8 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
         }
         continueWithoutVerificationBtn.setOnClickListener { onContinueClicked() }
         setupTopBar()
+        // TODO I should be handled by brian translate
+        continueWithoutVerificationBtn.text = Translation.signup.continueWithoutVerificationButton
     }
 
     private fun setupTopBar() {
@@ -47,11 +49,6 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
         }
     }
 
-
-    override fun setupTranslations() {
-
-        continueWithoutVerificationBtn.text = Translation.signup.continueWithoutVerificationButton
-    }
 
     override fun showError() {
 

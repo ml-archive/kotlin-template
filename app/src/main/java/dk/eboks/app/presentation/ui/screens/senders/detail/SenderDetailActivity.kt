@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
     var onLanguageChangedListener: (Locale) -> Unit = {
-        setupTranslations()
+
     }
 
     @Inject
@@ -74,10 +74,6 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
                 buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
             }
         }
-
-    }
-
-    override fun setupTranslations() {
 
     }
 

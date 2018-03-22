@@ -16,7 +16,7 @@ import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.ui.screens.debug.DebugActivity
 import dk.eboks.app.util.ShakeDetector
 import dk.eboks.app.util.guard
-import dk.nodes.arch.presentation.base.BaseView
+import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
 import kotlinx.android.synthetic.main.include_toolbar.*
 import net.hockeyapp.android.CrashManager
@@ -39,6 +39,10 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     protected var showEmptyState : Boolean = false
     protected var countToDebug = 0
     var backPressedCallback: (()->Boolean)? = null
+
+    val defaultErrorHandler: DefaultErrorHandler by lazy {
+        DefaultErrorHandler(this)
+    }
 
 
     companion object {
@@ -83,12 +87,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
                 this@BaseActivity.onShake()
             }
         })
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        setupTranslations()
     }
 
     override fun onPause() {

@@ -27,8 +27,4 @@ class PastaComponentFragment : BaseFragment(), PastaComponentContract.View {
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setupTranslations() {
-
-    }
-
 }

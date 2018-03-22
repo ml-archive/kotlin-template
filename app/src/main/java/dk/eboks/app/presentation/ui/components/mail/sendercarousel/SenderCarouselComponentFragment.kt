@@ -42,9 +42,6 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         setupRecyclerView()
     }
 
-    override fun setupTranslations() {
-    }
-
     fun setupRecyclerView()
     {
         sendersRv.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)

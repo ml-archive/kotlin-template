@@ -38,10 +38,6 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
         setupMainNavigation()
     }
 
-    override fun setupTranslations() {
-
-    }
-
     private fun setupMainNavigation()
     {
         mainNavigationBnv.inflateMenu(R.menu.main)

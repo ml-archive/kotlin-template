@@ -38,6 +38,7 @@ class IdPortenComponentFragment : BaseWebFragment(), IdPortenComponentContract.V
             }, 500)
         }
         presenter.setup()
+        mainTb.title = Translation.loginproviders.idPortenTitle
     }
 
     // shamelessly ripped from chnt
@@ -46,10 +47,6 @@ class IdPortenComponentFragment : BaseWebFragment(), IdPortenComponentContract.V
         mainTb.setNavigationOnClickListener {
             activity.onBackPressed()
         }
-    }
-
-    override fun setupTranslations() {
-        mainTb.title = Translation.loginproviders.idPortenTitle
     }
 
     override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {

@@ -35,10 +35,6 @@ class ShareComponentFragment : BaseFragment(), ShareComponentContract.View {
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setupTranslations() {
-
-    }
-
     override fun updateView(message: Message) {
         if(message.content == null)
         {

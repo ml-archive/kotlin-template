@@ -31,9 +31,6 @@ class CompletedComponentFragment : BaseFragment(), SignupComponentContract.Compl
         continueBtn.setOnClickListener { onContinueClicked() }
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun showError() {
 
     }

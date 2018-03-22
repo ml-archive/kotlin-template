@@ -38,6 +38,8 @@ class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
             }, 500)
         }
         presenter.setup()
+
+        mainTb.title = Translation.loginproviders.nemidTitle
     }
 
     override fun onResume() {
@@ -82,10 +84,6 @@ class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
         mainTb.setNavigationOnClickListener {
             presenter.cancelAndClose()
         }
-    }
-
-    override fun setupTranslations() {
-        mainTb.title = Translation.loginproviders.nemidTitle
     }
 
     override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {

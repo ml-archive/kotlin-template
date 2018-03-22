@@ -50,9 +50,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         }
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun onShake() {
         if(showEmptyState)
         {

@@ -39,6 +39,7 @@ class BankIdNOComponentFragment : BaseWebFragment(), BankIdNOComponentContract.V
             }, 500)
         }
         presenter.setup()
+        mainTb.title = Translation.loginproviders.bankNoTitle
     }
 
     // shamelessly ripped from chnt
@@ -47,10 +48,6 @@ class BankIdNOComponentFragment : BaseWebFragment(), BankIdNOComponentContract.V
         mainTb.setNavigationOnClickListener {
             activity.onBackPressed()
         }
-    }
-
-    override fun setupTranslations() {
-        mainTb.title = Translation.loginproviders.bankNoTitle
     }
 
     override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {

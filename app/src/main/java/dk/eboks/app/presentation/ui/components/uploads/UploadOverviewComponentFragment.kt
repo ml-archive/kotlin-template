@@ -27,8 +27,4 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setupTranslations() {
-
-    }
-
 }

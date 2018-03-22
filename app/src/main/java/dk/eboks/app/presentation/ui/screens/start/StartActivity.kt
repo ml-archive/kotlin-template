@@ -41,10 +41,6 @@ class StartActivity : BaseActivity(), StartContract.View {
         presenter.startup()
     }
 
-    override fun setupTranslations() {
-
-    }
-
     override fun showError(msg: String) {
         Timber.e(msg) // errorhandling lol
     }

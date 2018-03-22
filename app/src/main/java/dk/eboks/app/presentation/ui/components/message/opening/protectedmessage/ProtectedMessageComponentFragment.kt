@@ -26,9 +26,4 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
     }
-
-    override fun setupTranslations() {
-
-    }
-
 }

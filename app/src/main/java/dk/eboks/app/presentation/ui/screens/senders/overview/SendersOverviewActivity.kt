@@ -83,10 +83,6 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
         }
     }
 
-    override fun setupTranslations() {
-
-    }
-
     override fun showError(msg: String) {
         Timber.e(msg) // errorhandling lol
     }

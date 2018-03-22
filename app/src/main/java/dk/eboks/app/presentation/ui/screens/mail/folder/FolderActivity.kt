@@ -40,9 +40,5 @@ class FolderActivity : BaseActivity(), FolderContract.View {
         }
     }
 
-    override fun setupTranslations() {
-
-    }
-
     override fun getNavigationMenuAction(): Int { return R.id.actionMail }
 }

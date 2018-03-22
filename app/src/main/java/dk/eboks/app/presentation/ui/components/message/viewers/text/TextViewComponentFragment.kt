@@ -38,10 +38,6 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setupTranslations() {
-
-    }
-
     override fun showText(filename: String) {
         launch(CommonPool)
         {

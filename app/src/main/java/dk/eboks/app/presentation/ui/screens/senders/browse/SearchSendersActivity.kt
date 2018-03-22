@@ -78,9 +78,6 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
         }
     }
 
-    override fun setupTranslations() {
-    }
-
     override fun showEmpty(show: Boolean) {
         showProgress(false)
     }

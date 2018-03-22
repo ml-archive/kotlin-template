@@ -41,10 +41,6 @@ class HintActivity : BaseActivity() {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
     }
 
-    override fun setupTranslations() {
-
-    }
-
     companion object {
         var hint : String = ""
         var hintKey : String = ""

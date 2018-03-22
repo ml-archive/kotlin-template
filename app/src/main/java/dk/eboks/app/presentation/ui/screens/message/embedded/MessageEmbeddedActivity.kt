@@ -50,10 +50,6 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         Timber.e(msg)
     }
 
-    override fun setupTranslations() {
-
-    }
-
     private fun setupTopBar()
     {
         mainTb.setNavigationIcon(R.drawable.red_navigationbar)
