@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.KeyEvent
 import dk.eboks.app.BuildConfig
+import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
@@ -164,4 +165,8 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     protected open fun onShake() {}
     open fun getNavigationMenuAction() : Int { return -1 }
+
+    override fun showServerError(serverError: ServerError) {
+        defaultErrorHandler.showError(serverError)
+    }
 }

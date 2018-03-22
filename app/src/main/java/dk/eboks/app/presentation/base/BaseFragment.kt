@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.view.View
 import android.view.LayoutInflater
 import dk.eboks.app.BuildConfig
+import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
@@ -25,6 +26,10 @@ abstract class BaseFragment : Fragment(), BaseView {
     }
     val inflator by lazy {
         LayoutInflater.from(context)
+    }
+
+    val defaultErrorHandler: DefaultErrorHandler by lazy {
+        DefaultErrorHandler(context)
     }
 
     private val shakeDetector : ShakeDetector? = if(BuildConfig.DEBUG) ShakeDetector() else null
@@ -102,4 +107,8 @@ abstract class BaseFragment : Fragment(), BaseView {
     }
 
     protected open fun onShake() {}
+
+    override fun showServerError(serverError: ServerError) {
+        defaultErrorHandler.showError(serverError)
+    }
 }

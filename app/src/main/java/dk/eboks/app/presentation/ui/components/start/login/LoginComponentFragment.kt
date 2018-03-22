@@ -229,6 +229,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
             if(provider.icon != -1)
                 v.findViewById<ImageView>(R.id.iconIv).setImageResource(provider.icon)
+
             v.findViewById<TextView>(R.id.nameTv).text = Translation.logoncredentials.logonWithProvider.replace("[provider]",provider.name)
             provider.description?.let { v.findViewById<TextView>(R.id.descTv).text = it }.guard {
                 v.findViewById<TextView>(R.id.descTv).visibility = View.GONE
