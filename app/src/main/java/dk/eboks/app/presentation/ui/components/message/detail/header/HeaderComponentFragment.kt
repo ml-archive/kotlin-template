@@ -36,7 +36,7 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
     }
 
     override fun updateView(message: Message) {
-        when(message.messageType)
+        when(message.type)
         {
             MessageType.RECEIVED -> {
                 senderTv.text = message.sender?.name ?: ""

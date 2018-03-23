@@ -10,7 +10,6 @@ import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFra
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.activity_debug_user.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class DebugUserActivity : BaseActivity(), DebugUserContract.View {
@@ -37,7 +36,7 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
     {
         mainTb.title = "Create User"
         mainTb.subtitle = "DEBUG"
-        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.setNavigationOnClickListener {
             onBackPressed()
         }

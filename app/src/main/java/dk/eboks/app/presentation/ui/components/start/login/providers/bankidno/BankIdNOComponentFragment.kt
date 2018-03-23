@@ -44,7 +44,7 @@ class BankIdNOComponentFragment : BaseWebFragment(), BankIdNOComponentContract.V
 
     // shamelessly ripped from chnt
     private fun setupTopBar() {
-        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.setNavigationOnClickListener {
             activity.onBackPressed()
         }

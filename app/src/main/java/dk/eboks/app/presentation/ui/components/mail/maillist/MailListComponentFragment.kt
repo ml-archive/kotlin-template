@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.mail.maillist
 
 import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -118,10 +119,15 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 }
             }
             holder?.titleTv?.text = messages[position].sender?.name
+            if(!messages[position].unread){
+                holder?.titleTv?.setTypeface(null, Typeface.NORMAL)
+            }
             holder?.subTitleTv?.text = messages[position].subject
             if(messages[position].status?.text != null){
-                urgentTv?.visibility = View.VISIBLE
-                urgentTv?.text = messages[position].status?.text
+                holder?.urgentTv?.visibility = View.VISIBLE
+                holder?.urgentTv?.text = messages[position].status?.text
+            } else {
+                holder?.urgentTv?.visibility = View.GONE
             }
 
             holder?.root?.setOnClickListener {
