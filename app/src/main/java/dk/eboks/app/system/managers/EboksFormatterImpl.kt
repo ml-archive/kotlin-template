@@ -47,6 +47,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         var result = ""
         val currentLocale = getCurrentLocale(context)
         val cal_recv = Calendar.getInstance(currentLocale)
+
         cal_recv.time = target.received
         val cal = Calendar.getInstance(currentLocale)
         val cal2 = Calendar.getInstance(currentLocale)
