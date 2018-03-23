@@ -4,6 +4,7 @@ import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -111,7 +112,7 @@ class LoginComponentPresenter @Inject constructor(val appState: AppStateManager,
         Timber.e("User created $user")
     }
 
-    override fun onCreateUserError(msg: String) {
-        Timber.e(msg)
+    override fun onCreateUserError(error : ViewError) {
+        runAction { it.showErrorDialog(error) }
     }
 }

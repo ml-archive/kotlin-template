@@ -1,8 +1,7 @@
 package dk.eboks.app.domain.interactors.sender
 
-import dk.eboks.app.domain.exceptions.RepositoryException
 import dk.eboks.app.domain.repositories.CollectionsRepository
-import dk.eboks.app.domain.repositories.SenderCategoriesRepository
+import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
@@ -21,7 +20,11 @@ class GetCollectionsInteractorImpl(executor: Executor, val collectionsRepository
             runOnUIThread {
                 output?.onGetCollections(collections)
             }
-        } catch (e: RepositoryException) {
+        } catch (t: Throwable) {
+            runOnUIThread {
+                // TODO add function to interface and change presenter accordingly
+                //output?.onGetCollectionsError(exceptionToViewError(t))
+            }
         }
     }
 }

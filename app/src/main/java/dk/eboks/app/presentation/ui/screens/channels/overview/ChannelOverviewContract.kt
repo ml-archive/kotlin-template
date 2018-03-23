@@ -8,7 +8,7 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface ChannelOverviewContract {
     interface View : BaseView {
-        fun showError(msg : String)
+
     }
 
     interface Presenter : BasePresenter<View> {

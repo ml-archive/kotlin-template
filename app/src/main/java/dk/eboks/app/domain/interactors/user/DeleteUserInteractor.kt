@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors.user
 
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.domain.interactor.Interactor
 
@@ -15,6 +16,6 @@ interface DeleteUserInteractor : Interactor
 
     interface Output {
         fun onDeleteUser(user : User)
-        fun onDeleteUserError(msg : String)
+        fun onDeleteUserError(error : ViewError)
     }
 }

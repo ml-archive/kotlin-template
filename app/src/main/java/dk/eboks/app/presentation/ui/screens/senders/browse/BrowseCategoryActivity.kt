@@ -14,6 +14,7 @@ import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
@@ -42,7 +43,8 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
         component.inject(this)
         val cat = intent.getSerializableExtra(SenderCategory::class.simpleName) as SenderCategory?
         if (cat == null) {
-            showError(Translation.error.errorMessage10100) // TODO find the right message
+            // lets close the view after we informed the user of the error, since we can't initialize it proper without the arguments anyway I take it? :)
+            showErrorDialog(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true))
         } else {
             presenter.loadSenders(cat.id)
             mainTb.title = cat.name

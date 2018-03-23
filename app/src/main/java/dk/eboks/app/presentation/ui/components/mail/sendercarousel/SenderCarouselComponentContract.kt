@@ -10,7 +10,6 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface SenderCarouselComponentContract {
     interface View : ComponentBaseView {
         fun showSenders(senders : List<Sender>)
-        fun showError(msg : String)
     }
 
     interface Presenter : BasePresenter<SenderCarouselComponentContract.View> {

@@ -41,10 +41,6 @@ class StartActivity : BaseActivity(), StartContract.View {
         presenter.startup()
     }
 
-    override fun showError(msg: String) {
-        Timber.e(msg) // errorhandling lol
-    }
-
     override fun performVersionControl() {
         //NStack.appOpen({ success -> Timber.e("appopen success = $success") })
         NStack.appOpen()
@@ -67,6 +63,8 @@ class StartActivity : BaseActivity(), StartContract.View {
                     when (appUpdate.state) {
                         AppUpdateState.FORCE -> {
                             dialog.dismiss()
+                            // TODO app should launch play intent taking you to the eboks package and do a check if the intent can be resolved and otherwise open in the external browser
+                            // centralize this functionality in a helper class instead of dumping it all in here
                         }
                         else                 -> {
                             dialog.dismiss()
@@ -80,13 +78,11 @@ class StartActivity : BaseActivity(), StartContract.View {
     }
 
     override fun showUserCarouselComponent() {
-        Timber.e("showUserCarousel")
         splashFragment?.transitionToUserCarouselFragment()
         //setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
     }
 
     override fun showWelcomeComponent() {
-        Timber.e("showWelcome")
         splashFragment?.transitionToWelcomeFragment()
         //setRootFragment(R.id.containerFl, WelcomeComponentFragment())
     }

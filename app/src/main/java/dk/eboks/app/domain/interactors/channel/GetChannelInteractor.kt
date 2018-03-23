@@ -1,6 +1,7 @@
 package dk.eboks.app.domain.interactors.channel
 
 import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**
@@ -14,6 +15,6 @@ interface GetChannelInteractor : Interactor {
 
     interface Output {
         fun onGetChannel(channel : Channel)
-        fun onGetChannelError(msg : String)
+        fun onGetChannelError(error : ViewError)
     }
 }

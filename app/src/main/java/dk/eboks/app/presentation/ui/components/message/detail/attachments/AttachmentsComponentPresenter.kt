@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.components.message.detail.attachments
 import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -48,15 +49,16 @@ class AttachmentsComponentPresenter @Inject constructor(val appState: AppStateMa
         }
     }
 
-    override fun onOpenAttachmentError(msg: String) {
-        Timber.e(msg)
+    override fun onOpenAttachmentError(error : ViewError) {
+        runAction { it.showErrorDialog(error) }
     }
 
     override fun onSaveAttachment(filename: String) {
+        // TODO notify user
         Timber.e("Saved attachment to $filename")
     }
 
-    override fun onSaveAttachmentError(msg: String) {
-        Timber.e("Error saving attachment: $msg")
+    override fun onSaveAttachmentError(error : ViewError) {
+        runAction { it.showErrorDialog(error) }
     }
 }

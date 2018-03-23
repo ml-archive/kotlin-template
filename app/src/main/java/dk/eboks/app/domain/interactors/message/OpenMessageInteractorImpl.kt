@@ -4,10 +4,12 @@ import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.interactors.ServerErrorHandler
 import dk.eboks.app.domain.managers.*
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.EboksContentType
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.util.FieldMapper
+import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -53,8 +55,8 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                                     FieldMapper.copyAllFields(msg, updated_msg)
                                     openMessage(msg)
                                 }
-                                catch (t : Throwable) {output?.onOpenMessageError("Unknown error opening message ${e.message}")}
-                            }.guard { output?.onOpenMessageError("Unknown error opening message ${e.message}") }
+                                catch (t : Throwable) {output?.onOpenMessageError(exceptionToViewError(e))}
+                            }.guard { output?.onOpenMessageError(ViewError()) }
                         }
                         else -> runOnUIThread { output?.onOpenMessageDone() }
                     }
@@ -67,7 +69,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                 return
             }
             runOnUIThread {
-                output?.onOpenMessageError("Unknown error opening message ${e.message}")
+                output?.onOpenMessageError(exceptionToViewError(e))
             }
         }
     }

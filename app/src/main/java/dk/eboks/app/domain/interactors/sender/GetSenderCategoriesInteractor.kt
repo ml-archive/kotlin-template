@@ -1,6 +1,7 @@
 package dk.eboks.app.domain.interactors.sender
 
 import dk.eboks.app.domain.models.SenderCategory
+import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**
@@ -16,6 +17,6 @@ interface GetSenderCategoriesInteractor : Interactor {
 
     interface Output {
         fun onGetCategories(categories: List<SenderCategory>)
-        fun onGetCategoriesError(msg : String)
+        fun onGetCategoriesError(error : ViewError)
     }
 }

@@ -24,10 +24,6 @@ class MessageActivity : BaseActivity(), MessageContract.View {
 
     }
 
-    override fun showError(msg: String) {
-        Log.e("debug", msg)
-    }
-
     private fun setupTopBar()
     {
         mainTb.setNavigationIcon(R.drawable.red_navigationbar)

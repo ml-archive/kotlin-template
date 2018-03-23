@@ -8,11 +8,11 @@ import android.support.v4.app.Fragment
 import android.view.View
 import android.view.LayoutInflater
 import dk.eboks.app.BuildConfig
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.injection.components.DaggerPresentationComponent
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.util.ShakeDetector
-import dk.eboks.app.presentation.base.BaseView
 import kotlinx.android.synthetic.*
 import timber.log.Timber
 
@@ -23,8 +23,23 @@ abstract class BaseFragment : Fragment(), BaseView {
                 .presentationModule(PresentationModule())
                 .build()
     }
+
+    /**
+     * easy shortcut to get an inflater, this only gets instantiated if you use it and only the first time
+     */
     val inflator by lazy {
         LayoutInflater.from(context)
+    }
+
+    /**
+     * Make another default error handler and override showErrorDialog if you wanna do something really custom
+     *
+     * CloseFunction dictates whatever happens to a view of this type if ViewError::shouldClose
+     * is true
+     */
+    open val defaultErrorHandler: ViewErrorController by lazy {
+        //ViewErrorController(context = context, closeFunction = {fragmentManager.popBackStack()} )
+        ViewErrorController(context = context, closeFunction = {activity.onBackPressed()} )
     }
 
     private val shakeDetector : ShakeDetector? = if(BuildConfig.DEBUG) ShakeDetector() else null
@@ -34,7 +49,7 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun onStart() {
         super.onStart()
-        if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onStart")
+        //if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onStart")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +58,7 @@ abstract class BaseFragment : Fragment(), BaseView {
         {
             setupShakeDetection()
         }
-        if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onCreate")
+        //if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onCreate")
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -68,18 +83,18 @@ abstract class BaseFragment : Fragment(), BaseView {
     override fun onPause() {
         super.onPause()
         sensorManager?.unregisterListener(shakeDetector)
-        if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onPause")
+        //if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onPause")
     }
 
     override fun onResume() {
         super.onResume()
         sensorManager?.registerListener(shakeDetector, acceleroMeter, SensorManager.SENSOR_DELAY_UI)
-        if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onResume")
+        //if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onResume")
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onViewStateRestored")
+        //if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onViewStateRestored")
     }
 
     /*
@@ -102,4 +117,8 @@ abstract class BaseFragment : Fragment(), BaseView {
     }
 
     protected open fun onShake() {}
+
+    override fun showErrorDialog(error : ViewError) {
+        defaultErrorHandler.showErrorDialog(error)
+    }
 }

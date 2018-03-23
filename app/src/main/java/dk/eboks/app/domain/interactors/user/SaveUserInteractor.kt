@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors.user
 
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.domain.interactor.Interactor
 
@@ -15,6 +16,6 @@ interface SaveUserInteractor : Interactor
 
     interface Output {
         fun onSaveUser(user : User, numberOfUsers : Int)
-        fun onSaveUserError(msg : String)
+        fun onSaveUserError(error : ViewError)
     }
 }

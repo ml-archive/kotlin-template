@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.components.senders.categories
 import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.SenderCategory
+import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
@@ -25,9 +26,9 @@ class CategoriesComponentPresenter @Inject constructor(val appState: AppStateMan
         }
     }
 
-    override fun onGetCategoriesError(msg: String) {
+    override fun onGetCategoriesError(error : ViewError) {
         runAction { v ->
-            v.showError(msg)
+            v.showErrorDialog(error)
         }
     }
 }

@@ -53,7 +53,7 @@ class SplashComponentFragment : BaseFragment() {
                 .replace(R.id.containerFl, fragment)
                 .addToBackStack(BaseActivity.backStackRootTag)
                 .addSharedElement(logoIv, "eboksLogoTransition")
-                .commit()
+                .commitAllowingStateLoss()
 
     }
 
@@ -78,7 +78,7 @@ class SplashComponentFragment : BaseFragment() {
                 .replace(R.id.containerFl, fragment)
                 .addToBackStack(BaseActivity.backStackRootTag)
                 .addSharedElement(logoIv, "eboksLogoTransition")
-                .commit()
+                .commitAllowingStateLoss()
 
     }
 }

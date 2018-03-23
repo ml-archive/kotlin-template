@@ -4,6 +4,7 @@ import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
 import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -56,8 +57,8 @@ class ChannelOverviewComponentPresenter @Inject constructor(val appState: AppSta
         }
     }
 
-    override fun onGetChannelsError(msg: String) {
-        Timber.e(msg)
+    override fun onGetChannelsError(error : ViewError) {
+        runAction { it.showErrorDialog(error) }
     }
 
     override fun refresh() {

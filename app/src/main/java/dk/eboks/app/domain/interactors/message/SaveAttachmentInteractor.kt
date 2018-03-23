@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors.message
 
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.domain.interactor.Interactor
@@ -15,6 +16,6 @@ interface SaveAttachmentInteractor : Interactor {
 
     interface Output {
         fun onSaveAttachment(filename: String)
-        fun onSaveAttachmentError(msg : String)
+        fun onSaveAttachmentError(error : ViewError)
     }
 }

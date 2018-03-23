@@ -1,6 +1,7 @@
 package dk.eboks.app.domain.interactors.message
 
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.domain.interactor.Interactor
 
@@ -15,6 +16,6 @@ interface GetMessagesInteractor : Interactor {
 
     interface Output {
         fun onGetMessages(messages : List<Message>)
-        fun onGetMessagesError(msg : String)
+        fun onGetMessagesError(error : ViewError)
     }
 }

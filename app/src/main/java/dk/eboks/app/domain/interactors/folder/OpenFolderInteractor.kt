@@ -1,6 +1,7 @@
 package dk.eboks.app.domain.interactors.folder
 
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**
@@ -14,6 +15,6 @@ interface OpenFolderInteractor : Interactor {
 
     interface Output {
         fun onOpenFolderDone()
-        fun onOpenFolderError(msg : String)
+        fun onOpenFolderError(error : ViewError)
     }
 }

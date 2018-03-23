@@ -8,7 +8,6 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface MailListContract {
     interface View : BaseView {
-        fun showError(msg : String)
         fun showFolderName(name : String)
     }
 

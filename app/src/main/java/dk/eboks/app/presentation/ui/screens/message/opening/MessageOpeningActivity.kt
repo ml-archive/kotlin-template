@@ -17,10 +17,6 @@ class MessageOpeningActivity : BaseActivity(), MessageOpeningContract.View {
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun showError(msg: String) {
-        Timber.e(msg) // errorhandling lol
-    }
-
     override fun setPrivateSenderWarningFragment() {
         val fragment = PrivateSenderWarningComponentFragment()
         fragment?.let{

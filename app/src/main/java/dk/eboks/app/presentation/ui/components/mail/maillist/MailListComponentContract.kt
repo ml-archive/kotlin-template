@@ -9,7 +9,6 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface MailListComponentContract {
     interface View : ComponentBaseView {
-        fun showError(msg : String)
         fun showRefreshProgress(show : Boolean)
         fun showMessages(messages : List<Message>)
     }

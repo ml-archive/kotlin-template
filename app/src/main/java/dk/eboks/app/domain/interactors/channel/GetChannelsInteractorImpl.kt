@@ -1,7 +1,7 @@
 package dk.eboks.app.domain.interactors.channel
 
 import dk.eboks.app.domain.repositories.ChannelsRepository
-import dk.eboks.app.domain.exceptions.RepositoryException
+import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
@@ -17,13 +17,12 @@ class GetChannelsInteractorImpl(executor: Executor, val channelsRepository: Chan
         try {
             val channels = channelsRepository.getChannels(input?.cached ?: true)
             Timber.e("Got channels $channels")
-
             runOnUIThread {
                 output?.onGetChannels(channels)
             }
-        } catch (e: RepositoryException) {
+        } catch (t: Throwable) {
             runOnUIThread {
-                output?.onGetChannelsError(e.message ?: "Unknown error")
+                output?.onGetChannelsError(exceptionToViewError(t))
             }
         }
     }

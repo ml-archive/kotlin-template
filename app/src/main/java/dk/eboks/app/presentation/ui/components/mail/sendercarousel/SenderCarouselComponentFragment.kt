@@ -52,11 +52,7 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
     override fun onShake() {
         showEmpty(showEmptyState)
     }
-
-    override fun showError(msg: String) {
-        Timber.e(msg)
-    }
-
+    
     override fun showSenders(senders: List<Sender>) {
         this.senders.clear()
         this.senders.addAll(senders)

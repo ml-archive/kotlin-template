@@ -1,10 +1,13 @@
 package dk.eboks.app.domain.interactors
 
 import dk.eboks.app.domain.managers.*
+import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.repositories.SettingsRepository
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import java.io.IOException
 
 /**
  * Created by bison on 24-06-2017.
@@ -17,33 +20,33 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, 
 
     override fun execute() {
 
-        // we don't use input in this example but we could:
-        input?.let {
-            // do something with unwrapped input
-
-        }
-        val hasUsers = userManager.users.isNotEmpty()
-
-        appStateManager.state?.loginState?.firstLogin = !hasUsers
-
-        val settings = settingsRepository.get()
-        if(settings.deviceId.isBlank()) {
-            settings.deviceId = guidManager.generateGuid()
-            Timber.d("No device ID found, generating new id: ${settings.deviceId}")
-        }
-        settingsRepository.put(settings)
-
-        // Initialize eboks protocol
-        protocolManager.init(settings.deviceId)
-
         try {
+            // we don't use input in this example but we could:
+            input?.let {
+                // do something with unwrapped input
+
+            }
+            val hasUsers = userManager.users.isNotEmpty()
+
+            appStateManager.state?.loginState?.firstLogin = !hasUsers
+
+            val settings = settingsRepository.get()
+            if(settings.deviceId.isBlank()) {
+                settings.deviceId = guidManager.generateGuid()
+                Timber.d("No device ID found, generating new id: ${settings.deviceId}")
+            }
+            settingsRepository.put(settings)
+
+            // Initialize eboks protocol
+            protocolManager.init(settings.deviceId)
+
             //Thread.sleep(2000)
             runOnUIThread {
                 output?.onBootstrapDone(hasUsers)
             }
         } catch (e: Exception) {
             runOnUIThread {
-                output?.onBootstrapError(e.message ?: "Unknown error")
+                output?.onBootstrapError(ViewError(title = Translation.error.startupTitle, message = Translation.error.startupMessage, shouldCloseView = true))
             }
         }
     }

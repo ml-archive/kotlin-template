@@ -5,6 +5,7 @@ import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
@@ -53,20 +54,20 @@ class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppSta
         }
     }
 
-    override fun onGetCategoriesError(msg: String) {
+    override fun onGetCategoriesError(error : ViewError) {
         runAction { v->
             v.showProgress(false)
             EventBus.getDefault().post(RefreshFolderShortcutsDoneEvent())
+            v.showErrorDialog(error)
         }
-        Timber.e(msg)
     }
 
     override fun onOpenFolderDone() {
 
     }
 
-    override fun onOpenFolderError(msg: String) {
-        Timber.e(msg)
+    override fun onOpenFolderError(error : ViewError) {
+        runAction { it.showErrorDialog(error) }
     }
 
     fun refresh(cached : Boolean) {

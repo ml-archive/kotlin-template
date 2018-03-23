@@ -70,8 +70,8 @@
                 style="@style/text.body6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginLeft="36dp"
+                android:layout_marginRight="36dp"
                 android:paddingBottom="36dp"
                 android:paddingTop="36dp"
                 android:text="_By using this Site, you agree to be bound by, and to comply with, these Terms and Conditions. If you do not agree to these Terms and Conditions, please do not use this site.

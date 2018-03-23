@@ -1,7 +1,8 @@
 package dk.eboks.app.domain.interactors.sender
 
-import dk.eboks.app.domain.exceptions.RepositoryException
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.repositories.SenderCategoriesRepository
+import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
@@ -20,9 +21,9 @@ class GetSenderCategoriesInteractorImpl(executor: Executor, val senderCategories
             runOnUIThread {
                 output?.onGetCategories(senders)
             }
-        } catch (e: RepositoryException) {
+        } catch (t: Throwable) {
             runOnUIThread {
-                output?.onGetCategoriesError(e.message ?: "Unknown error")
+                output?.onGetCategoriesError(exceptionToViewError(t))
             }
         }
     }

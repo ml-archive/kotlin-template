@@ -10,8 +10,6 @@ import dk.eboks.app.presentation.base.BaseView
 interface SendersOverviewContract {
     interface View : BaseView {
         fun showCollections(collections : List<CollectionContainer>)
-        fun showError(msg : String)
-
     }
 
     interface Presenter : BasePresenter<View> {

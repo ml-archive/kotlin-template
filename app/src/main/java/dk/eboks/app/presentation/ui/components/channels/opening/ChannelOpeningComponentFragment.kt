@@ -14,7 +14,9 @@ import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.base.ViewErrorController
 import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentFragment
 import kotlinx.android.synthetic.main.fragment_channel_opening_component.*
 import kotlinx.android.synthetic.main.include_channel_detail_top.*

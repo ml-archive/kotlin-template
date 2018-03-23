@@ -12,7 +12,6 @@ import dk.eboks.app.presentation.base.BaseView
 interface SenderDetailContract {
     interface View : BaseView {
         fun showSender(sender: Sender)
-        fun showError(msg : String)
     }
 
     interface Presenter : BasePresenter<View> {

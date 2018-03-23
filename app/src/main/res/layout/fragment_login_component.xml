@@ -139,6 +139,7 @@
 
                 <Button
                     android:id="@+id/continueBtn"
+                    nstack:key="@string/nstack_logoncredentials_continueButton"
                     style="@style/enabledButtton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

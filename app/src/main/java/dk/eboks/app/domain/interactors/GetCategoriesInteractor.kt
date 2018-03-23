@@ -1,6 +1,7 @@
 package dk.eboks.app.domain.interactors
 
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**
@@ -14,6 +15,6 @@ interface GetCategoriesInteractor : Interactor {
 
     interface Output {
         fun onGetCategories(folders : List<Folder>)
-        fun onGetCategoriesError(msg : String)
+        fun onGetCategoriesError(error : ViewError)
     }
 }

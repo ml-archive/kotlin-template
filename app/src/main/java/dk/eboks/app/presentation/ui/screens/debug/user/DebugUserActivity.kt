@@ -95,10 +95,6 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
         }
     }
 
-    override fun showError(msg: String) {
-        Timber.e(msg) // errorhandling lol
-    }
-
     override fun close(gotoUsers : Boolean) {
         WelcomeComponentFragment.shouldGotoUsersOnResume = gotoUsers
         finish()

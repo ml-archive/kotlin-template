@@ -13,9 +13,14 @@ import android.view.ViewGroup
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.domain.config.Config
-import timber.log.BuildConfig
+import dk.eboks.app.domain.exceptions.ServerErrorException
+import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
+import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
-import java.util.regex.Pattern
+import java.io.IOException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 /**
  * Created by bison on 01-07-2017.
@@ -114,4 +119,18 @@ fun FastScrollRecyclerView.setBubbleDrawable(drawable: Drawable) {
             bubbleView.background = drawable
         }
     }
+}
+
+fun BaseInteractor.exceptionToViewError(t : Throwable) : ViewError
+{
+    when(t) {
+        is UnknownHostException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage)
+        is IOException -> return ViewError(title = Translation.error.genericStorageTitle, message = Translation.error.genericStorageMessage)
+        is SocketTimeoutException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage)
+        is ServerErrorException -> {
+            return ViewError(title = (t.cause as ServerErrorException).error.description?.title, message = (t.cause as ServerErrorException).error.description?.text)
+        }
+        else -> return ViewError()
+    }
+    return ViewError()
 }

@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Thu Mar 22 09:50:55 CET 2018 
+ * Generated: Thu Mar 22 21:17:48 CET 2018 
  */
 
 public class Translation {
@@ -16,8 +16,18 @@ public class Translation {
 		public static String yesterday = "Yesterday";
 	}
 	public final static class error {
-		public static String errorMessage10100 = "Something wrong with server";
-		public static String errorTitle10100 = "ServerErrorTitle";
+		public static String genericMessage = "An error occured";
+		public static String genericTitle = "Error";
+		public static String noInternetTitle = "No connectivity";
+		public static String noInternetMessage = "This application requires a connection to the internet to perform the requested operation.";
+		public static String startupTitle = "Error";
+		public static String startupMessage = "An initialization error happened during application startup. We apologize for the inconvenience.";
+		public static String genericServerTitle = "Server error";
+		public static String genericServerMessage = "An error occured while communicating with the server. We apologize for the inconvenience.";
+		public static String genericStorageTitle = "Storage error";
+		public static String genericStorageMessage = "An error occured accessing the persistent storage on this device.";
+		public static String genericOOMTitle = "Out of memory";
+		public static String genericOOMMessage = "There is not enough free resources on this device to accomplish the requested operation. Try shutting down other apps to free up more resources.";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -45,7 +55,7 @@ public class Translation {
 		public static String lockedMessage = "Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
 	}
 	public final static class channels {
-		public static String channelsHeader = "Get you relevant information and actions directly on your e-Boks home screen";
+		public static String channelsHeader = "Get your relevant information and actions directly on your e-Boks home screen";
 		public static String title = "Channels";
 		public static String install = "Install";
 		public static String open = "Open";
@@ -79,6 +89,7 @@ public class Translation {
 		public static String unregisterAlertDescription = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
 		public static String cannotUnregister = "Cannot unregister";
 		public static String cannotUnregisterDescription = "You are automatically registered mail from [sender] if this is part of your customer agreements or your conditions of employment";
+		public static String cannotUnregisterPublicDescription = "You are automatically registered mail from the public sector if this is part of your customer agreements or your conditions of employment";
 	}
 	public final static class start {
 		public static String signupButton = "Sign up";
@@ -94,12 +105,13 @@ public class Translation {
 		public static String placeholder = "Type here";
 		public static String continueButton = "Continue";
 		public static String forgotPasswordButton = "Forgot password";
-		public static String title = "Sign in";
+		public static String title = "Log in";
 		public static String invalidPassword = "invalid Password";
 		public static String invalidCprorEmail = "invalid Email or CPR-number";
 		public static String emailOrSSNHeader = "Email or Social Security Number";
 		public static String ssnHeader = "Social security number";
 		public static String invalidSSN = "Invalid social security number";
+		public static String logonWithProvider = "Logon with [provider]";
 	}
 	public final static class forgotpassword {
 		public static String title = "Forgot your password?";
@@ -154,6 +166,7 @@ public class Translation {
 		public static String cancelDialogText = "This will delete everything you have done up until this step.";
 		public static String cancelDialogDiscardBtn = "DISCARD";
 		public static String cancelDialogCancelBtn = "CANCEL";
+		public static String termsWhyAcceptButton = "Why do I need to accept this?";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";
@@ -173,8 +186,9 @@ public class Translation {
 		public static String registeredTypePartial = "Partially registered";
 		public static String readMore = "Read More";
 		public static String publicAuthoritiesHeader = "Public Authorities";
-		public static String publicAuthoritiesDescription = "Get mail from all public authorities with a single tap. See the senders below";
+		public static String publicAuthoritiesUnregisteredDescription = "Get mail from all public authorities with a single tap. See the senders below";
 		public static String numberOfSenders = "senders";
+		public static String publicAuthoritiesRegisteredDescription = "You are registered to receive mail from all public authorities.";
 	}
 	public final static class findactivationcode {
 		public static String title = "Finding your activation code";
