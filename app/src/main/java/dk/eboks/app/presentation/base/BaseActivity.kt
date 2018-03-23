@@ -149,10 +149,12 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         }
     }
 
-    fun openComponentDrawer(cls : Class<out BaseFragment>)
-    {
+    fun openComponentDrawer(cls : Class<out BaseFragment>, arguments : Bundle? = null) {
         val intent = Intent(this, SheetComponentActivity::class.java)
         intent.putExtra("component", cls.name)
+        arguments?.let {
+            intent.putExtra("arguments", it)
+        }
         startActivity(intent)
         overridePendingTransition(0,0)
     }

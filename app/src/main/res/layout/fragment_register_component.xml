@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:nstack="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:paddingLeft="@dimen/padding_drawer"
+              android:paddingRight="@dimen/padding_drawer"
+              tools:ignore="MissingPrefix">
+
+    <TextView
+        android:id="@+id/registerTitleTv"
+        style="@style/text.header2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/margin_half"
+        android:layout_marginBottom="@dimen/margin_half"
+        android:text="Kvitto" />
+
+    <TextView
+        android:id="@+id/registerContentTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/margin_normal"
+        android:text="text" />
+
+    <LinearLayout
+        android:id="@+id/registerAliasContainerLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/viewholder_textinput"/>
+        <include layout="@layout/viewholder_textinput"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/registerRegBtn"
+        nstack:key="@string/nstack_senderdetails_register"
+        style="@style/button.SolidGradient.large"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="@dimen/margin_half"
+        android:text="nstack_senderdetails_register"/>
+
+    <Button
+        android:id="@+id/registerCancelBtn"
+        nstack:key="@string/nstack_default_cancel"
+        style="@style/button.borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_half"
+        android:text="nstack_default_cancel"/>
+
+</LinearLayout>

@@ -71,6 +71,7 @@ import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentFrag
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.register.RegisterGroupComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.*
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentPresenter
@@ -201,6 +202,7 @@ interface PresentationComponent {
     fun inject(target : BrowseCategoryActivity)
     fun inject(target : SenderGroupsComponentFragment)
     fun inject(target : SenderDetailActivity)
+    fun inject(target : RegisterGroupComponentFragment)
 
     // signup
     fun inject(target : SignupComponentPresenter)

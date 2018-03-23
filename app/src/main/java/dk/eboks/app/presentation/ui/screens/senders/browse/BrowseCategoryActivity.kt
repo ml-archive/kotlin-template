@@ -75,7 +75,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
     }
 
     override fun showProgress(show: Boolean) {
-        browseCatPb.visibility = when(show) {
+        browseCatPb.visibility = when (show) {
             true -> View.VISIBLE
             false -> View.GONE
         }
@@ -101,17 +101,18 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
         override fun onBindViewHolder(holder: SenderViewHolder?, position: Int) {
             val s = senders[position]
 
-            // determine if we need to show the first-letter
-            var firstInGroup = true
-            try {
-                val prev = senders[position - 1]
-                if (s.name.toLowerCase().startsWith(prev.name.toLowerCase().first())) {
-                    firstInGroup = false
-                }
-            }  catch (e : Exception) {}
+            // REMOVED FEATURE
+            //  determine if we need to show the first-letter
+//            var firstInGroup = true
+//            try {
+//                val prev = senders[position - 1]
+//                if (s.name.toLowerCase().startsWith(prev.name.toLowerCase().first())) {
+//                    firstInGroup = false
+//                }
+//            }  catch (e : Exception) {}
 
             holder?.bind(s)
-            holder?.showIndex(firstInGroup)
+//            holder?.showIndex(firstInGroup)
         }
 
         override fun getItemCount(): Int {
@@ -124,13 +125,18 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
             val nameTv = v.findViewById<TextView>(R.id.senderNameTv)
             val iconIv = v.findViewById<ImageView>(R.id.senderLogoIv)
 
+            init {
+                // no index here - dammit!
+                indexTv.visibility = View.GONE
+            }
+
             fun bind(sender: Sender) {
                 indexTv.text = "${sender.name.first().toUpperCase()}"
                 nameTv.text = sender.name
                 Glide.with(v.context).load(sender.logo?.url).into(iconIv)
 
                 mainLl.setOnClickListener {
-                    val i = Intent(this@BrowseCategoryActivity, SenderDetailActivity::class.java )
+                    val i = Intent(this@BrowseCategoryActivity, SenderDetailActivity::class.java)
                     i.putExtra(Sender::class.simpleName, senders[position])
                     startActivity(i)
                 }

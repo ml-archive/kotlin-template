@@ -13,7 +13,7 @@ import dk.eboks.app.presentation.base.BaseView
 interface SenderGroupsComponentContract {
 
     interface View : BaseView {
-        fun showSenderGroups(senderGroups: List<SenderGroup>)
+        fun showSenderGroups(sender: Sender)
         fun showError(message: String)
     }
 

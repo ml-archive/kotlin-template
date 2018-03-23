@@ -208,7 +208,7 @@
     </style>
 
     <style name="button.SolidGradient">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/selector_white_grey</item>
         <item name="android:background">@drawable/rounded_gradient_button</item>
     </style>
 

@@ -3,19 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:nstack="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/senderDetailABL"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/senderDetailCTL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentScrim="@drawable/square_gradient"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:animateLayoutChanges="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,24 +96,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:animateLayoutChanges="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:animateLayoutChanges="true">
 
             <fragment
                 android:id="@+id/senderGroupsListComponentF"
                 android:name="dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"/>
 
             <fragment
                 android:id="@+id/senderDetailInfoF"
                 android:name="dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailInfoFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

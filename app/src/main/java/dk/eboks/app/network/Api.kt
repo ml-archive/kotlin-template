@@ -4,6 +4,7 @@ import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.protocol.AliasBody
 import dk.eboks.app.domain.models.protocol.LoginRequest
 import dk.eboks.app.domain.models.sender.Sender
 import io.reactivex.Single
@@ -32,4 +33,14 @@ interface Api {
     @GET("api/groups/categories/{id}/senders") fun getSenders(@Path("id") categoryId : Long) : Call<SenderCategory> // TODO: shouldn't this be called "/api/groups/private/categories/{id}" ??
     @GET("api/groups/senders") fun searchSenders(@Query("searchText") searchText : String) : Call<List<Sender>>
     @GET("api/groups/senders/{id}") fun getSenderDetail(@Path("id") senderId : Long) : Call<Sender>
+// register senders
+    @PUT("api/groups/segments/{segId}") fun registerSegment(@Path("segId") segmentId : Long) : Call<Any>              // TODO should we have SegmentID or SegmentType?
+    @PUT("api/groups/segments/{segType}") fun registerSegment(@Path("segType") segmentType : String) : Call<Any>      // TODO should we have SegmentType or SegmentID?
+    @PUT("api/groups/senders/{id}") fun registerSender(@Path("id") senderId : Long) : Call<Any>
+    @PUT("api/groups/senders/{sId}/sendergroups/{gId}") fun registerSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long, @Body aliasRegistrations : AliasBody) : Call<Any>
+// un-register senders
+    @DELETE("api/groups/segments/{segId}") fun unregisterSegment(@Path("segId") segmentId : Long) : Call<Any>         // TODO should we have SegmentID or SegmentType?
+    @DELETE("api/groups/segments/{segType}") fun unregisterSegment(@Path("segType") segmentType : String) : Call<Any> // TODO should we have SegmentType or SegmentID?
+    @DELETE("api/groups/senders/{id}") fun unregisterSender(@Path("id") senderId : Long) : Call<Any>
+    @DELETE("api/groups/senders/{sId}/sendergroups/{gId}") fun unregisterSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long, @Body aliasRegistrations : AliasBody) : Call<Any> // TODO: Why have a Body???
 }

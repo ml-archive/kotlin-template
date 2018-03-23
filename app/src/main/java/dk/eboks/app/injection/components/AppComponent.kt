@@ -15,6 +15,8 @@ import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
+import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
+import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
@@ -77,4 +79,6 @@ interface AppComponent
     fun getUsersInteractor() : GetUsersInteractor
     fun getSenderCategoriesInteractor() : GetSenderCategoriesInteractor
     fun getChannelInteractor() : GetChannelInteractor
+    fun registerInteractor(): RegisterInteractor
+    fun unregisterInteractor(): UnRegisterInteractor
 }

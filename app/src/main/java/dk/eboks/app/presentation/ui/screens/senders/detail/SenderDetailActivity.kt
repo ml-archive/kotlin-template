@@ -1,7 +1,10 @@
 package dk.eboks.app.presentation.ui.screens.senders.detail
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
+import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
@@ -10,12 +13,12 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_senders_detail.*
-import kotlinx.android.synthetic.main.fragment_profile_main_component.*
-import java.util.*
 import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
+
     var onLanguageChangedListener: (Locale) -> Unit = {
 
     }
@@ -32,24 +35,23 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
         val sender = intent.getSerializableExtra(Sender::class.simpleName) as Sender?
         if (sender == null) {
             finish()
-        } else {
-            updateHeader(sender)
-
-            // pass the knowledge on to your siblings, so they in turn can use it
-            val b = Bundle()
-            b.putSerializable(Sender::class.simpleName, sender)
-
-            senderGroupsListComponentF.arguments = b
-            senderDetailInfoF.arguments = b
-
-            presenter.loadSender(sender.id)
-
-            //translations
-            NStack.addLanguageChangeListener(onLanguageChangedListener)
-            senderDetailRegisterTB.text = Translation.senderdetails.register
-            senderDetailRegisterTB.textOn = Translation.senderdetails.register
-            senderDetailRegisterTB.textOff = Translation.senderdetails.registeredTypeYes
+            return
         }
+
+        updateHeader(sender)
+
+        // pass your knowledge on to your siblings, so they in turn can use it and pass it on to their siblings...
+        val b = Bundle()
+        b.putSerializable(Sender::class.simpleName, sender)
+
+        senderGroupsListComponentF.arguments = b
+        senderDetailInfoF.arguments = b
+
+        //translations
+        NStack.addLanguageChangeListener(onLanguageChangedListener)
+//        senderDetailRegisterTB.text = Translation.senderdetails.register
+        senderDetailRegisterTB.textOn = Translation.senderdetails.registeredTypeYes
+        senderDetailRegisterTB.textOff = Translation.senderdetails.register
 
         senderDetailBodyTv.visibility = View.GONE // only for public authorities
 
@@ -61,13 +63,14 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
 
         senderDetailABL.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (appBarLayout.totalScrollRange + verticalOffset < 200) {
-                senderDetailTB.title = sender!!.name
+                senderDetailTB.title = sender.name
             } else {
                 senderDetailTB.title = ""
             }
         }
 
         senderDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
+            Timber.d("toggle")
             if (isChecked) {
                 buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_48_checkmark_white, 0)
             } else {
@@ -75,6 +78,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
             }
         }
 
+        presenter.loadSender(sender.id)
     }
 
     override fun showSender(sender: Sender) {
@@ -89,7 +93,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
         updateHeader(sender)
     }
 
-    private fun updateHeader(sender : Sender) {
+    private fun updateHeader(sender: Sender) {
         senderDetailTB.title = sender.name
         senderDetailNameTv.text = sender.name
 
@@ -100,11 +104,60 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
                         .placeholder(R.drawable.icon_72_senders_private)
                 )
                 .into(senderDetailIv)
+
+        senderDetailRegisterTB.setOnTouchListener(View.OnTouchListener { v, event ->
+            return@OnTouchListener when(event.action) {
+                MotionEvent.ACTION_UP-> {
+                    if (senderDetailRegisterTB.isChecked) {
+                        AlertDialog.Builder(this@SenderDetailActivity)
+                                .setTitle(Translation.senders.unregisterAlertTitle)
+                                .setMessage(Translation.senders.unregisterAlertDescription)
+                                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                                    dialog.cancel()
+                                }
+                                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                                    senderDetailRegisterTB.visibility = View.INVISIBLE
+                                    presenter.unregisterSender(sender.id)
+                                    dialog.dismiss()
+                                }
+                                .show()
+                    } else {
+                        AlertDialog.Builder(this@SenderDetailActivity)
+                                .setTitle(Translation.senders.registerAlertTitle)
+                                .setMessage(Translation.senders.registerAlertDescription)
+                                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                                    dialog.cancel()
+                                }
+                                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                                    senderDetailRegisterTB.visibility = View.INVISIBLE
+                                    presenter.registerSender(sender.id)
+                                    dialog.dismiss()
+                                }
+                                .show()
+                    }
+                     true
+                }
+               else-> {
+                   v.onTouchEvent(event)
+               }
+            }
+        })
+
+        senderDetailRegisterTB.isChecked = sender.registered == 0
     }
 
     override fun onDestroy() {
         NStack.removeLanguageChangeListener(onLanguageChangedListener)
         super.onDestroy()
+    }
+
+    override fun showSuccess() {
+        senderDetailRegisterTB.visibility = View.VISIBLE
+        senderDetailRegisterTB.toggle()
+    }
+
+    override fun showError(message: String) {
+        senderDetailRegisterTB.visibility = View.VISIBLE
     }
 }
 

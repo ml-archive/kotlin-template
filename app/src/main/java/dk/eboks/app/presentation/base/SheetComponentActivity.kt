@@ -144,6 +144,9 @@ class SheetComponentActivity : BaseActivity() {
         try {
             val clazz = Class.forName(compname)
             val frag = clazz.newInstance() as BaseFragment
+            intent.getBundleExtra("arguments")?.let{
+                frag.arguments = it
+            }
             addFragment(frag)
         }
         catch (t : Throwable)
