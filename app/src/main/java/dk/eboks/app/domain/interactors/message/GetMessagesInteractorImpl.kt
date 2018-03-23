@@ -1,8 +1,8 @@
 package dk.eboks.app.domain.interactors.message
 
 import dk.eboks.app.domain.models.folder.FolderType
-import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.network.util.metaData
 import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
@@ -24,6 +24,18 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
                     else messagesRepository.getMessages(input?.cached ?: true, folder.type)
 
                 messages.metaData?.let { metadata -> Timber.e("Found metadata on messagelist: $metadata") }
+
+                /* Simulated error
+                throw(ServerErrorException(ServerError(
+                        id = "",
+                        type = ErrorType.ERROR,
+                        description = Description(
+                                title = "Hej Per",
+                                text = "Har du savnet mig?"
+                        )
+                )))
+                */
+
                 runOnUIThread {
                     output?.onGetMessages(messages)
                 }
@@ -35,7 +47,7 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
 
         } catch (t: Throwable) {
             runOnUIThread {
-                output?.onGetMessagesError(exceptionToViewError(t))
+                output?.onGetMessagesError(exceptionToViewError(t, shouldClose = true))
             }
         }
     }

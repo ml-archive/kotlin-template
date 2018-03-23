@@ -17,6 +17,6 @@ data class SenderGroup (
         var alias : List<Alias>? = null,
 //        var registrations : List<AliasRegistration>? = null, // TODO
         var numberOfRegistrations: Int? = 0, // (0: No, 1: Yes, 2: Partial)
-        var status : Status,
+        var status : Status?,
         var unreadCount: Int = 0
 ) : Serializable

@@ -55,10 +55,10 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                                     FieldMapper.copyAllFields(msg, updated_msg)
                                     openMessage(msg)
                                 }
-                                catch (t : Throwable) {output?.onOpenMessageError(exceptionToViewError(e))}
+                                catch (t : Throwable) { output?.onOpenMessageError(exceptionToViewError(t)) }
                             }.guard { output?.onOpenMessageError(ViewError()) }
                         }
-                        else -> runOnUIThread { output?.onOpenMessageDone() }
+                        else -> runOnUIThread { output?.onOpenMessageError(exceptionToViewError(e)) }
                     }
                 }
                 else {

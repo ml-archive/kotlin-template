@@ -91,7 +91,6 @@ android {
             applicationIdSuffix ".debug"
             signingConfig null
 
-            // Used for setting specific signing keys for each flavor
             productFlavors.all { flavor ->
                 switch (flavor.name) {
                     case "danish":
@@ -111,8 +110,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            // Used for setting specific signing keys for each flavor
-
             productFlavors.all { flavor ->
                 switch (flavor.name) {
                     case "danish":
@@ -127,6 +124,21 @@ android {
                 }
             }
         }
+
+        applicationVariants.all { variant ->
+            def flavor = variant.getMergedFlavor()
+            switch (variant.name) {
+                case "danishDebug":
+                    flavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "5787fa63d0a0404bbdcd93456360db79")
+                    break
+                case "swedishDebug":
+                    flavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "74e3a5f6d05c4a02a17697bbb11d8af0")
+                    break
+                case "norwegianDebug":
+                    flavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "e323e110faa049b787027ea5b0a93cec")
+                    break
+            }
+        }
     }
 
     productFlavors {
@@ -136,16 +148,15 @@ android {
             applicationId "dk.eboks.app"
             versionName '4.0.0'
 
+            hockeyAppId = "c420719986b14750af457e6ac686fb5d"
+            hockeyAppIdStaging = "5787fa63d0a0404bbdcd93456360db79"
 
             buildConfigField "String", "mode", '"danish"'
             buildConfigField "String", "locale", '"da-DK"'
 
-            hockeyAppId = "c420719986b14750af457e6ac686fb5d"
-            hockeyAppIdStaging = "5787fa63d0a0404bbdcd93456360db79"
-
             manifestPlaceholders = [
                     HOCKEYAPP_APP_ID: hockeyAppId,
-                    APP_NAME: "e-Boks.dk"
+                    APP_NAME        : "e-Boks.dk"
             ]
         }
         swedish {
@@ -225,7 +236,7 @@ dependencies {
 
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-    implementation "dk.nodes.nstack:nstack-kotlin:2.0.4"
+    implementation "dk.nodes.nstack:nstack-kotlin:2.0.+"
 
     implementation "dk.nodes.arch:base:$nodes_arch_version"
     //implementation "dk.nodes.arch:base:LOCAL"
