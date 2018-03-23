@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:nstack="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -34,7 +34,7 @@
                     android:background="@drawable/circle_white_white_ring"
                     android:padding="19dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/icon_72_senders_private"/>
+                    android:src="@drawable/icon_72_senders_private" />
 
                 <TextView
                     android:id="@+id/senderDetailNameTv"
@@ -43,7 +43,8 @@
                     android:layout_height="wrap_content"
                     android:text="Radius"
                     android:textAlignment="center"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
+
                 <TextView
                     android:id="@+id/senderDetailBodyTv"
                     style="@style/text.header4"
@@ -52,38 +53,38 @@
                     android:layout_marginTop="@dimen/margin_half"
                     android:text="Radius padius radius padius adius padius radius padius adius"
                     android:textAlignment="center"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
                 <ToggleButton
                     android:id="@+id/senderDetailRegisterTB"
                     android:layout_width="wrap_content"
                     android:layout_height="36dp"
-                    android:minHeight="0dp"
                     android:layout_gravity="center"
                     android:layout_margin="@dimen/margin_normal"
+                    android:background="@drawable/ripple_rounded_white"
+                    android:checkMark="@drawable/icon_48_checkmark_white"
+                    android:gravity="center"
+                    android:minHeight="0dp"
+                    android:paddingBottom="@dimen/margin_half"
                     android:paddingLeft="@dimen/margin_normal"
                     android:paddingRight="@dimen/margin_normal"
                     android:paddingTop="@dimen/margin_half"
-                    android:paddingBottom="@dimen/margin_half"
-                    android:gravity="center"
-                    android:background="@drawable/ripple_rounded_white"
-                    android:textColor="@color/selector_red_grey_white"
-                    android:checkMark="@drawable/icon_48_checkmark_white"
-                    android:textSize="14sp"
                     android:textAllCaps="false"
-                    android:textOn="regis"
-                    android:textOff="regis"/>
+                    android:textColor="@color/selector_red_grey_white"
+                    android:textSize="14sp"
+                    nstack:textOff="@string/nstack_senders_registered"
+                    nstack:textOn="@string/nstack_senders_register" />
 
             </LinearLayout>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/senderDetailTB"
-                android:theme="@style/ToolbarTheme.Secondary"
-                app:titleTextAppearance="@style/ToolbarTitle.Secondary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:theme="@style/ToolbarTheme.Secondary"
                 app:layout_collapseMode="pin"
-                app:navigationIcon="@drawable/ic_cross_white"/>
+                app:navigationIcon="@drawable/ic_cross_white"
+                app:titleTextAppearance="@style/ToolbarTitle.Secondary" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
@@ -103,13 +104,13 @@
                 android:id="@+id/senderGroupsListComponentF"
                 android:name="dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <fragment
                 android:id="@+id/senderDetailInfoF"
                 android:name="dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailInfoFragment"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
