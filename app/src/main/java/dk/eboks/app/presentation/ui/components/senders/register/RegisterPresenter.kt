@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.senders.register
 
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
+import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Segment
@@ -15,12 +16,14 @@ import javax.inject.Inject
  * @author   Christian
  * @since    3/22/2018.
  */
-class RegisterPresenter @Inject constructor(val appState: AppStateManager, val registerInteractor: RegisterInteractor) :
+class RegisterPresenter @Inject constructor(val appState: AppStateManager, val registerInteractor: RegisterInteractor, val unRegisterInteractor: UnRegisterInteractor) :
         RegistrationContract.Presenter, BasePresenterImpl<RegistrationContract.View>(),
-        RegisterInteractor.Output {
+        RegisterInteractor.Output,
+        UnRegisterInteractor.Output {
 
     init {
         registerInteractor.output = this
+        unRegisterInteractor.output = this
     }
 
     override fun registerSender(sender: Sender) {
@@ -37,6 +40,22 @@ class RegisterPresenter @Inject constructor(val appState: AppStateManager, val r
     override fun registerSegment(segment: Segment) {
         registerInteractor.inputSegment = RegisterInteractor.InputSegment(segment.id)
         registerInteractor.run()
+    }
+
+    override fun unregisterSender(sender: Sender) {
+        unRegisterInteractor.inputSender = UnRegisterInteractor.InputSender(sender.id)
+        unRegisterInteractor.run()
+    }
+
+    override fun unregisterSenderGroup(senderId: Long, sendergroup: SenderGroup) {
+        Timber.i("registerSenderGroup")
+        unRegisterInteractor.inputSenderGroup = UnRegisterInteractor.InputSenderGroup(senderId, sendergroup)
+        unRegisterInteractor.run()
+    }
+
+    override fun unregisterSegment(segment: Segment) {
+        unRegisterInteractor.inputSegment = UnRegisterInteractor.InputSegment(segment.id)
+        unRegisterInteractor.run()
     }
 
     override fun onSuccess() {

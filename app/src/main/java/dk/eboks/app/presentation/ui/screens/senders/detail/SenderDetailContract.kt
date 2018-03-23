@@ -19,5 +19,6 @@ interface SenderDetailContract {
     interface Presenter : BasePresenter<View> {
         fun loadSender(id : Long)
         fun registerSender(id: Long)
+        fun unregisterSender(id: Long)
     }
 }

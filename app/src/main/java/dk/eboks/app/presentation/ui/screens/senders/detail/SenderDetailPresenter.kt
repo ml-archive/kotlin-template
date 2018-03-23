@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.screens.senders.detail
 
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
+import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender
@@ -13,14 +14,16 @@ import timber.log.Timber
  * @author   bison
  * @since    20-05-2017.
  */
-class SenderDetailPresenter(val appStateManager: AppStateManager, val getSenderDetailInteractor: GetSenderDetailInteractor, val registerInteractor: RegisterInteractor) :
+class SenderDetailPresenter(val appStateManager: AppStateManager, val getSenderDetailInteractor: GetSenderDetailInteractor, val registerInteractor: RegisterInteractor, val unregisterInteractor: UnRegisterInteractor) :
         SenderDetailContract.Presenter, BasePresenterImpl<SenderDetailContract.View>(),
         GetSenderDetailInteractor.Output,
-        RegisterInteractor.Output {
+        RegisterInteractor.Output,
+        UnRegisterInteractor.Output{
 
     init {
         getSenderDetailInteractor.output = this
         registerInteractor.output = this
+        unregisterInteractor.output = this
     }
 
     override fun loadSender(id: Long) {
@@ -31,6 +34,11 @@ class SenderDetailPresenter(val appStateManager: AppStateManager, val getSenderD
     override fun registerSender(id: Long) {
         registerInteractor.inputSender = RegisterInteractor.InputSender(id)
         registerInteractor.run()
+    }
+
+    override fun unregisterSender(id: Long) {
+        unregisterInteractor.inputSender = UnRegisterInteractor.InputSender(id)
+        unregisterInteractor.run()
     }
 
     override fun onGetSender(sender: Sender) {

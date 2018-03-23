@@ -16,6 +16,7 @@ import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
+import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
@@ -453,14 +454,14 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideRegisterPresenter(stateManager: AppStateManager, registerInteractor: RegisterInteractor) : RegistrationContract.Presenter {
-        return RegisterPresenter(stateManager, registerInteractor)
+    fun provideRegisterPresenter(stateManager: AppStateManager, registerInteractor: RegisterInteractor, unRegisterInteractor: UnRegisterInteractor) : RegistrationContract.Presenter {
+        return RegisterPresenter(stateManager, registerInteractor, unRegisterInteractor)
     }
   
     @ActivityScope
     @Provides
-    fun provideSenderDetailPresenter(stateManager: AppStateManager, getSenderDetailInteractor: GetSenderDetailInteractor, registerInteractor: RegisterInteractor): SenderDetailContract.Presenter {
-        return SenderDetailPresenter(stateManager, getSenderDetailInteractor, registerInteractor)
+    fun provideSenderDetailPresenter(stateManager: AppStateManager, getSenderDetailInteractor: GetSenderDetailInteractor, registerInteractor: RegisterInteractor, unRegisterInteractor: UnRegisterInteractor): SenderDetailContract.Presenter {
+        return SenderDetailPresenter(stateManager, getSenderDetailInteractor, registerInteractor, unRegisterInteractor)
     }
 
     @ActivityScope

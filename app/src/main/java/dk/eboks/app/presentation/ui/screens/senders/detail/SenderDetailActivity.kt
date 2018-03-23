@@ -40,20 +40,18 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
 
         updateHeader(sender)
 
-        // pass the knowledge on to your siblings, so they in turn can use it
+        // pass your knowledge on to your siblings, so they in turn can use it and pass it on to their siblings...
         val b = Bundle()
         b.putSerializable(Sender::class.simpleName, sender)
 
         senderGroupsListComponentF.arguments = b
         senderDetailInfoF.arguments = b
 
-        presenter.loadSender(sender.id)
-
         //translations
         NStack.addLanguageChangeListener(onLanguageChangedListener)
-        senderDetailRegisterTB.text = Translation.senderdetails.register
-        senderDetailRegisterTB.textOn = Translation.senderdetails.register
-        senderDetailRegisterTB.textOff = Translation.senderdetails.registeredTypeYes
+//        senderDetailRegisterTB.text = Translation.senderdetails.register
+        senderDetailRegisterTB.textOn = Translation.senderdetails.registeredTypeYes
+        senderDetailRegisterTB.textOff = Translation.senderdetails.register
 
         senderDetailBodyTv.visibility = View.GONE // only for public authorities
 
@@ -71,6 +69,16 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
             }
         }
 
+        senderDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
+            Timber.d("toggle")
+            if (isChecked) {
+                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_48_checkmark_white, 0)
+            } else {
+                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            }
+        }
+
+        presenter.loadSender(sender.id)
     }
 
     override fun showSender(sender: Sender) {
@@ -101,7 +109,18 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
             return@OnTouchListener when(event.action) {
                 MotionEvent.ACTION_UP-> {
                     if (senderDetailRegisterTB.isChecked) {
-                        // TODO DO THE UNREGISTER CASE
+                        AlertDialog.Builder(this@SenderDetailActivity)
+                                .setTitle(Translation.senders.unregisterAlertTitle)
+                                .setMessage(Translation.senders.unregisterAlertDescription)
+                                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                                    dialog.cancel()
+                                }
+                                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                                    senderDetailRegisterTB.visibility = View.INVISIBLE
+                                    presenter.unregisterSender(sender.id)
+                                    dialog.dismiss()
+                                }
+                                .show()
                     } else {
                         AlertDialog.Builder(this@SenderDetailActivity)
                                 .setTitle(Translation.senders.registerAlertTitle)
@@ -124,15 +143,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
             }
         })
 
-
-        senderDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
-            Timber.d("toggle")
-            if (isChecked) {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_48_checkmark_white, 0)
-            } else {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-            }
-        }
+        senderDetailRegisterTB.isChecked = sender.registered == 0
     }
 
     override fun onDestroy() {

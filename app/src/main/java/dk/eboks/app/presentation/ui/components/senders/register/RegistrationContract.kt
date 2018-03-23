@@ -22,5 +22,9 @@ interface RegistrationContract {
         fun registerSender(sender: Sender) {}
         fun registerSenderGroup(senderId: Long, sendergroup: SenderGroup) {}
         fun registerSegment(segment: Segment) {}
+
+        fun unregisterSender(sender: Sender) {}
+        fun unregisterSenderGroup(senderId: Long, sendergroup: SenderGroup) {}
+        fun unregisterSegment(segment: Segment) {}
     }
 }
