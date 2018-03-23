@@ -90,40 +90,52 @@ android {
         debug {
             applicationIdSuffix ".debug"
             signingConfig null
+
+            productFlavors.all { flavor ->
+                switch (flavor.name) {
+                    case "danish":
+                        flavor.signingConfig signingConfigs.danishDebug
+                        break
+                    case "swedish":
+                        flavor.signingConfig signingConfigs.swedishDebug
+                        break
+                    case "norwegian":
+                        flavor.signingConfig signingConfigs.norwegianDebug
+                        break
+                }
+            }
         }
 
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            productFlavors.all { flavor ->
+                switch (flavor.name) {
+                    case "danish":
+                        flavor.signingConfig signingConfigs.danishProduction
+                        break
+                    case "swedish":
+                        flavor.signingConfig signingConfigs.swedishProduction
+                        break
+                    case "norwegian":
+                        flavor.signingConfig signingConfigs.norwegianProduction
+                        break
+                }
+            }
         }
 
         applicationVariants.all { variant ->
             def flavor = variant.getMergedFlavor()
-
             switch (variant.name) {
                 case "danishDebug":
-                    mergedFlavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "5787fa63d0a0404bbdcd93456360db79")
-                    flavor.setSigningConfig(signingConfigs.danishDebug)
+                    flavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "5787fa63d0a0404bbdcd93456360db79")
                     break
                 case "swedishDebug":
-                    mergedFlavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "74e3a5f6d05c4a02a17697bbb11d8af0")
-                    flavor.setSigningConfig(signingConfigs.swedishDebug)
+                    flavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "74e3a5f6d05c4a02a17697bbb11d8af0")
                     break
                 case "norwegianDebug":
-                    mergedFlavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "e323e110faa049b787027ea5b0a93cec")
-                    flavor.setSigningConfig(signingConfigs.norwegianDebug)
-                    break
-                case "danishRelease":
-                    mergedFlavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "c420719986b14750af457e6ac686fb5d")
-                    flavor.setSigningConfig(signingConfigs.danishProduction)
-                    break
-                case "swedishRelease":
-                    mergedFlavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "6cde34b0caee42cd938ed52b8e461b97")
-                    flavor.setSigningConfig(signingConfigs.swedishProduction)
-                    break
-                case "norwegianRelease":
-                    mergedFlavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "7ae0dc6ff4a945d18f4ec28cbf14f385")
-                    flavor.setSigningConfig(signingConfigs.norwegianProduction)
+                    flavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "e323e110faa049b787027ea5b0a93cec")
                     break
             }
         }

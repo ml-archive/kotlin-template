@@ -23,7 +23,7 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
         super.onCreate()
 
         App.Companion._instance = this
-
+        // NStack.customRequestUrl = Config.currentMode.customTranslationUrl
         NStack.translationClass = Translation::class.java
         NStack.debugMode = BuildConfig.DEBUG
         NStack.init(this)
