@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.components.senders.register
 import android.os.Bundle
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
+import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.sender.SenderGroup
 import dk.eboks.app.presentation.base.BaseFragment
+import kotlinx.android.synthetic.main.activity_senders_detail.*
 import kotlinx.android.synthetic.main.fragment_register_component.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -30,12 +32,14 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
 
     override fun showSuccess() {
         Timber.i("Success!")
+        registerRegBtn.isEnabled = true
         activity.onBackPressed()
     }
 
     override fun showError(message: String) {
         Timber.i("Fail!")
-        activity.onBackPressed()
+        registerRegBtn.isEnabled = true
+        activity.onBackPressed() // TODO show error
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -57,15 +61,16 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
             when (group.registered) {
                 0 -> {
                     registerRegBtn.text = Translation.senderdetails.register
-                    registerRegBtn.isEnabled = true
                 }
                 1 -> {
                     registerRegBtn.text = Translation.senderdetails.registeredTypeYes
-                    registerRegBtn.isEnabled = false
                 }
                 else -> ""
             }
 
+            registerRegBtn.isEnabled = true
+
+            // we need to make sure that all aliases (if any) are filled: TODO: probably the alias'es - check shouldn't be here when UN-registering
             registerAliasContainerLL.removeAllViews()
 
             val theEditors = ArrayList<TextInputEditText>()
@@ -97,8 +102,11 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
                     registerAliasContainerLL.addView(v)
                 }
             }
+
             registerRegBtn.setOnClickListener {
                 Timber.i("Register")
+                registerRegBtn.isEnabled = false // disable while we work
+
                 if (theEditors.isNotEmpty()) {
                     for (e in theEditors) {
                         group.alias?.find {
@@ -111,7 +119,33 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
                 group.alias?.forEach {
                     Timber.d("alias: ${it.name}, <${it.key}, ${it.value}>")
                 }
-                presenter.registerSenderGroup(senderId, group)
+
+                if(group.registered != 0) {
+                    AlertDialog.Builder(context)
+                            .setTitle(Translation.senders.unregisterAlertTitle)
+                            .setMessage(Translation.senders.unregisterAlertDescription)
+                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                                dialog.cancel()
+                            }
+                            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                                presenter.unregisterSenderGroup(senderId, group)
+                                dialog.dismiss()
+                            }
+                            .show()
+                } else {
+                    AlertDialog.Builder(context)
+                            .setTitle(Translation.senders.registerAlertTitle)
+                            .setMessage(Translation.senders.registerAlertDescription)
+                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                                dialog.cancel()
+                            }
+                            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                                presenter.registerSenderGroup(senderId, group)
+                                dialog.dismiss()
+                            }
+                            .show()
+                }
+
             }
         }
 
