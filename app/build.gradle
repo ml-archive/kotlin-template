@@ -90,41 +90,41 @@ android {
         debug {
             applicationIdSuffix ".debug"
             signingConfig null
-
-            // Used for setting specific signing keys for each flavor
-            productFlavors.all { flavor ->
-                switch (flavor.name) {
-                    case "danish":
-                        flavor.signingConfig signingConfigs.danishDebug
-                        break
-                    case "swedish":
-                        flavor.signingConfig signingConfigs.swedishDebug
-                        break
-                    case "norwegian":
-                        flavor.signingConfig signingConfigs.norwegianDebug
-                        break
-                }
-            }
         }
 
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
 
-            // Used for setting specific signing keys for each flavor
+        applicationVariants.all { variant ->
+            def flavor = variant.getMergedFlavor()
 
-            productFlavors.all { flavor ->
-                switch (flavor.name) {
-                    case "danish":
-                        flavor.signingConfig signingConfigs.danishProduction
-                        break
-                    case "swedish":
-                        flavor.signingConfig signingConfigs.swedishProduction
-                        break
-                    case "norwegian":
-                        flavor.signingConfig signingConfigs.norwegianProduction
-                        break
-                }
+            switch (variant.name) {
+                case "danishDebug":
+                    mergedFlavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "5787fa63d0a0404bbdcd93456360db79")
+                    flavor.setSigningConfig(signingConfigs.danishDebug)
+                    break
+                case "swedishDebug":
+                    mergedFlavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "74e3a5f6d05c4a02a17697bbb11d8af0")
+                    flavor.setSigningConfig(signingConfigs.swedishDebug)
+                    break
+                case "norwegianDebug":
+                    mergedFlavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "e323e110faa049b787027ea5b0a93cec")
+                    flavor.setSigningConfig(signingConfigs.norwegianDebug)
+                    break
+                case "danishRelease":
+                    mergedFlavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "c420719986b14750af457e6ac686fb5d")
+                    flavor.setSigningConfig(signingConfigs.danishProduction)
+                    break
+                case "swedishRelease":
+                    mergedFlavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "6cde34b0caee42cd938ed52b8e461b97")
+                    flavor.setSigningConfig(signingConfigs.swedishProduction)
+                    break
+                case "norwegianRelease":
+                    mergedFlavor.manifestPlaceholders.put("HOCKEYAPP_APP_ID", "7ae0dc6ff4a945d18f4ec28cbf14f385")
+                    flavor.setSigningConfig(signingConfigs.norwegianProduction)
+                    break
             }
         }
     }
@@ -136,16 +136,15 @@ android {
             applicationId "dk.eboks.app"
             versionName '4.0.0'
 
+            hockeyAppId = "c420719986b14750af457e6ac686fb5d"
+            hockeyAppIdStaging = "5787fa63d0a0404bbdcd93456360db79"
 
             buildConfigField "String", "mode", '"danish"'
             buildConfigField "String", "locale", '"da-DK"'
 
-            hockeyAppId = "c420719986b14750af457e6ac686fb5d"
-            hockeyAppIdStaging = "5787fa63d0a0404bbdcd93456360db79"
-
             manifestPlaceholders = [
                     HOCKEYAPP_APP_ID: hockeyAppId,
-                    APP_NAME: "e-Boks.dk"
+                    APP_NAME        : "e-Boks.dk"
             ]
         }
         swedish {
@@ -225,7 +224,7 @@ dependencies {
 
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-    implementation "dk.nodes.nstack:nstack-kotlin:2.0.4"
+    implementation "dk.nodes.nstack:nstack-kotlin:2.0.+"
 
     implementation "dk.nodes.arch:base:$nodes_arch_version"
     //implementation "dk.nodes.arch:base:LOCAL"
