@@ -34,4 +34,6 @@ interface Api {
     @GET("api/groups/senders") fun searchSenders(@Query("searchText") searchText : String) : Call<List<Sender>>
     @GET("api/groups/senders/{id}") fun getSenderDetail(@Path("id") senderId : Long) : Call<Sender>
     @PUT("api/groups/senders/{sId}/sendergroups/{gId}") fun registerSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long, @Body aliasRegistrations : List<Alias>? ) : Single<BufferedSource>
+    fun registerSender(id : Long) : Single<BufferedSource> // TODO
+    fun registerSegment(id : Long) : Single<BufferedSource> // TODO
 }

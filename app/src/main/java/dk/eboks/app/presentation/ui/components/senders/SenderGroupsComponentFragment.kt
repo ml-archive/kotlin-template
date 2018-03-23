@@ -41,14 +41,14 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
 
         val sender = arguments.getSerializable(Sender::class.simpleName) as Sender?
         if (sender != null) {
-            presenter.getSenderGroups(sender)
+            presenter.getSenderGroups(sender) // ask presenter to get the sendergroups for this
         }
     }
 
-    override fun showSenderGroups(senderGroups: List<SenderGroup>) {
+    override fun showSenderGroups(sender:Sender) {
         listComponentContentLl.removeAllViews()
 
-        senderGroups.forEach {
+        sender.groups?.forEach {
             val v = inflator.inflate(R.layout.viewholder_title_subtitle, listComponentContentLl, false)
             v.titleTv.text = it.name
             v.subTv.text = when (it.registered) {
@@ -58,6 +58,7 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
             }
             v.setOnClickListener { c ->
                 val data = Bundle()
+                data.putSerializable(Sender::class.simpleName, sender.id)
                 data.putSerializable(SenderGroup::class.simpleName, it)
                 getBaseActivity()?.openComponentDrawer(RegisterGroupComponentFragment::class.java, data)
             }

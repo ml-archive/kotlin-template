@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.sender.SenderGroup
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_register_component.*
@@ -46,6 +47,8 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
         presenter.onViewCreated(this, lifecycle)
 
         val group = arguments.getSerializable(SenderGroup::class.simpleName) as SenderGroup?
+        val senderId = arguments.getLong(Sender::class.simpleName, 0)
+
         if (group != null) {
             registerTitleTv.text = group.name
             registerContentTv.text = group.description?.text
@@ -101,7 +104,7 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
                     }
                 }
 
-                presenter.registerSenderGroup(0, group)
+                presenter.registerSenderGroup(senderId, group)
             }
         }
 

@@ -8,12 +8,16 @@ import dk.nodes.arch.domain.interactor.Interactor
 * @author   chnt
 * @since    21-03-2017.
 */
-interface RegisterSenderGroupInteractor : Interactor
+interface RegisterInteractor : Interactor
 {
-    var input : Input?
+    var inputSenderGroup : InputSenderGroup?
+    var inputSender : InputSender?
+    var inputSegment : InputSegment?
     var output : Output?
 
-    data class Input(val senderId: Long, val senderGroup: SenderGroup)
+    data class InputSenderGroup(val senderId: Long, val senderGroup: SenderGroup)
+    data class InputSender(val senderId: Long)
+    data class InputSegment(val segmentId: Long)
 
     interface Output {
         fun onSuccess()

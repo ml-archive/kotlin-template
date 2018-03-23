@@ -18,7 +18,7 @@ class SenderGroupsComponentPresenter @Inject constructor(val appState: AppStateM
     override fun getSenderGroups(sender: Sender) {
         runAction { v ->
             sender.groups?.let{
-                v.showSenderGroups(it)
+                v.showSenderGroups(sender)
             }
         }
     }

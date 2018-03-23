@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.components.senders.register
 
-import dk.eboks.app.domain.interactors.sender.register.RegisterSenderGroupInteractor
+import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.sender.SenderGroup
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -11,12 +11,12 @@ import javax.inject.Inject
  * @author   Christian
  * @since    3/22/2018.
  */
-class RegisterPresenter @Inject constructor(val appState: AppStateManager, val registerSenderGroupInteractor: RegisterSenderGroupInteractor) :
+class RegisterPresenter @Inject constructor(val appState: AppStateManager, val registerInteractor: RegisterInteractor) :
         RegistrationContract.Presenter, BasePresenterImpl<RegistrationContract.View>(),
-        RegisterSenderGroupInteractor.Output {
+        RegisterInteractor.Output {
 
     override fun registerSenderGroup(senderId: Long, sendergroup: SenderGroup) {
-        registerSenderGroupInteractor.input = RegisterSenderGroupInteractor.Input(senderId, sendergroup)
+        registerInteractor.inputSenderGroup = RegisterInteractor.InputSenderGroup(senderId, sendergroup)
     }
 
     override fun onSuccess() {
