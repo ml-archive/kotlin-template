@@ -11,10 +11,13 @@ import dk.eboks.app.presentation.base.BaseView
 */
 interface SenderDetailContract {
     interface View : BaseView {
+        fun showSuccess()
         fun showSender(sender: Sender)
+        fun showError(message: String)
     }
 
     interface Presenter : BasePresenter<View> {
         fun loadSender(id : Long)
+        fun registerSender(id: Long)
     }
 }

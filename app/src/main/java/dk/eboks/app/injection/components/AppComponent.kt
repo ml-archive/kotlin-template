@@ -78,5 +78,5 @@ interface AppComponent
     fun getUsersInteractor() : GetUsersInteractor
     fun getSenderCategoriesInteractor() : GetSenderCategoriesInteractor
     fun getChannelInteractor() : GetChannelInteractor
-    fun registerSenderGroupInteractor(): RegisterInteractor
+    fun registerInteractor(): RegisterInteractor
 }

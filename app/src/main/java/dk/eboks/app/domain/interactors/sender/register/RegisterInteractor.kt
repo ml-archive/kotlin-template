@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors.sender.register
 
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.SenderGroup
 import dk.nodes.arch.domain.interactor.Interactor
 
@@ -21,6 +22,6 @@ interface RegisterInteractor : Interactor
 
     interface Output {
         fun onSuccess()
-        fun onError(msg : String)
+        fun onError(error : ViewError)
     }
 }

@@ -26,14 +26,16 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
 
 
     @Inject
-    lateinit var presenter : RegistrationContract.Presenter
+    lateinit var presenter: RegistrationContract.Presenter
 
     override fun showSuccess() {
         Timber.i("Success!")
+        activity.onBackPressed()
     }
 
     override fun showError(message: String) {
         Timber.i("Fail!")
+        activity.onBackPressed()
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -97,20 +99,24 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
             }
             registerRegBtn.setOnClickListener {
                 Timber.i("Register")
-                if(theEditors.isNotEmpty()) {
-                    val aliases = HashMap<String, String>()
-                    for(e in theEditors) {
-                        aliases.put(e.tag.toString(), e.text.toString().trim())
+                if (theEditors.isNotEmpty()) {
+                    for (e in theEditors) {
+                        group.alias?.find {
+                            it == e.tag
+                        }?.let {
+                            it.value = e.text.toString().trim()
+                        }
                     }
                 }
-
+                group.alias?.forEach {
+                    Timber.d("alias: ${it.name}, <${it.key}, ${it.value}>")
+                }
                 presenter.registerSenderGroup(senderId, group)
             }
         }
 
         registerCancelBtn.setOnClickListener {
-
+            activity.onBackPressed()
         }
     }
-
 }

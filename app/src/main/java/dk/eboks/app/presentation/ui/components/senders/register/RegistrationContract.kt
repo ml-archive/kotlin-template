@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.senders.register
 
+import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.sender.SenderGroup
 import dk.eboks.app.presentation.base.BaseView
@@ -20,5 +21,6 @@ interface RegistrationContract {
     interface Presenter : BasePresenter<View> {
         fun registerSender(sender: Sender) {}
         fun registerSenderGroup(senderId: Long, sendergroup: SenderGroup) {}
+        fun registerSegment(segment: Segment) {}
     }
 }

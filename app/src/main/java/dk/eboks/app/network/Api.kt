@@ -4,6 +4,7 @@ import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.protocol.AliasBody
 import dk.eboks.app.domain.models.protocol.LoginRequest
 import dk.eboks.app.domain.models.sender.Alias
 import dk.eboks.app.domain.models.sender.Sender
@@ -33,7 +34,7 @@ interface Api {
     @GET("api/groups/categories/{id}/senders") fun getSenders(@Path("id") categoryId : Long) : Call<SenderCategory> // TODO: shouldn't this be called "/api/groups/private/categories/{id}" ??
     @GET("api/groups/senders") fun searchSenders(@Query("searchText") searchText : String) : Call<List<Sender>>
     @GET("api/groups/senders/{id}") fun getSenderDetail(@Path("id") senderId : Long) : Call<Sender>
-    @PUT("api/groups/senders/{sId}/sendergroups/{gId}") fun registerSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long, @Body aliasRegistrations : List<Alias>? ) : Single<BufferedSource>
-    fun registerSender(id : Long) : Single<BufferedSource> // TODO
-    fun registerSegment(id : Long) : Single<BufferedSource> // TODO
+    @PUT("api/groups/senders/{sId}/sendergroups/{gId}") fun registerSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long, @Body aliasRegistrations : AliasBody) : Call<Any>
+    fun registerSender(id : Long) : Call<Any> // TODO
+    fun registerSegment(id : Long) : Call<Any> // TODO
 }

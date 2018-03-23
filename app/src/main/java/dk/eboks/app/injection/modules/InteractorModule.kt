@@ -126,7 +126,7 @@ class InteractorModule {
         return GetCollectionsInteractorImpl(executor, collectionsRepository)
     }
 
-    @Provides fun provideRegisterSenderGroupInteractor(executor: Executor, api: Api) : RegisterInteractor {
+    @Provides fun provideRegisterInteractor(executor: Executor, api: Api) : RegisterInteractor {
         return RegisterInteractorImpl(executor, api)
     }
 

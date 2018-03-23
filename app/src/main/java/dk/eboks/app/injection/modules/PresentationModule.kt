@@ -91,6 +91,7 @@ import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentCont
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentContract
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.register.RegisterPresenter
 import dk.eboks.app.presentation.ui.components.senders.register.RegistrationContract
 import dk.eboks.app.presentation.ui.components.start.login.*
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentContract
@@ -452,14 +453,14 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideRegisterPresenter(stateManager: AppStateManager, registerGroupInteractor : RegisterInteractor) : RegistrationContract.Presenter {
-        return provideRegisterPresenter(stateManager, registerGroupInteractor)
+    fun provideRegisterPresenter(stateManager: AppStateManager, registerInteractor: RegisterInteractor) : RegistrationContract.Presenter {
+        return RegisterPresenter(stateManager, registerInteractor)
     }
   
     @ActivityScope
     @Provides
-    fun provideSenderDetailPresenter(stateManager: AppStateManager, getSenderDetailInteractor: GetSenderDetailInteractor): SenderDetailContract.Presenter {
-        return SenderDetailPresenter(stateManager, getSenderDetailInteractor)
+    fun provideSenderDetailPresenter(stateManager: AppStateManager, getSenderDetailInteractor: GetSenderDetailInteractor, registerInteractor: RegisterInteractor): SenderDetailContract.Presenter {
+        return SenderDetailPresenter(stateManager, getSenderDetailInteractor, registerInteractor)
     }
 
     @ActivityScope
