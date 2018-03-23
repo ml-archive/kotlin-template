@@ -104,7 +104,7 @@
                     android:visibility="gone"
                     app:errorTextAppearance="@style/errorappearance"
                     app:hintTextAppearance="@style/HintTextAppearance"
-                    nstack:key="@string/nstack_logoncredentials_emailOrSSNHeader">
+                    nstack:hint="@string/nstack_logoncredentials_emailOrSSNHeader">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/cprEmailEt"
@@ -126,7 +126,7 @@
                     android:visibility="gone"
                     app:errorTextAppearance="@style/errorappearance"
                     app:hintTextAppearance="@style/HintTextAppearance"
-                    nstack:key="@string/nstack_logoncredentials_passwordfieldHeader">
+                    nstack:hint="@string/nstack_logoncredentials_passwordfieldHeader">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/passwordEt"
@@ -139,7 +139,6 @@
 
                 <Button
                     android:id="@+id/continueBtn"
-                    nstack:key="@string/nstack_logoncredentials_continueButton"
                     style="@style/enabledButtton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -149,7 +148,8 @@
                     android:layout_marginTop="16dp"
                     android:enabled="false"
                     android:text="_Continue"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    nstack:key="@string/nstack_logoncredentials_continueButton" />
             </LinearLayout>
         </ScrollView>
 
