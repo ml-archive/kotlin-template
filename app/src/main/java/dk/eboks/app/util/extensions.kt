@@ -121,16 +121,22 @@ fun FastScrollRecyclerView.setBubbleDrawable(drawable: Drawable) {
     }
 }
 
-fun BaseInteractor.exceptionToViewError(t : Throwable) : ViewError
+/**
+ * Add cases to this where you want to use the standard exception to view error method
+ * Memba you can always create your own custom ViewError in the interactor instead of using this
+ *
+ * Its just for convenience yall
+ */
+fun BaseInteractor.exceptionToViewError(t : Throwable, shouldClose : Boolean = false) : ViewError
 {
     when(t) {
-        is UnknownHostException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage)
-        is IOException -> return ViewError(title = Translation.error.genericStorageTitle, message = Translation.error.genericStorageMessage)
-        is SocketTimeoutException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage)
+        is UnknownHostException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage, shouldCloseView = shouldClose)
+        is IOException -> return ViewError(title = Translation.error.genericStorageTitle, message = Translation.error.genericStorageMessage, shouldCloseView = shouldClose)
+        is SocketTimeoutException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage, shouldCloseView = shouldClose)
         is ServerErrorException -> {
-            return ViewError(title = (t.cause as ServerErrorException).error.description?.title, message = (t.cause as ServerErrorException).error.description?.text)
+            return ViewError(title = t.error.description?.title, message = t.error.description?.text, shouldCloseView = shouldClose)
         }
-        else -> return ViewError()
+        else -> return ViewError(shouldCloseView = shouldClose)
     }
-    return ViewError()
+    return ViewError(shouldCloseView = shouldClose)
 }
