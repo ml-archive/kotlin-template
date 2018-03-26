@@ -10,6 +10,6 @@ data class Status(
     var important : Boolean = false,
     var title : String? = null,
     var text : String? = null,
-    var type : Int = 0,
+    var type : Int? = 0,
     var date : Date
 ) : Serializable

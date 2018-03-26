@@ -50,7 +50,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
             mainTb.title = cat.name
         }
 
-        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.setNavigationOnClickListener {
             finish()
         }

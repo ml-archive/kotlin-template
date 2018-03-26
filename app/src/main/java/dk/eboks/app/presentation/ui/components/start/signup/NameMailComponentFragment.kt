@@ -14,13 +14,7 @@ import javax.inject.Inject
 import dk.eboks.app.domain.models.Translation
 import android.util.Patterns
 import android.text.TextUtils
-import android.text.method.LinkMovementMethod
-import android.text.Spanned
-import android.text.TextPaint
-import android.graphics.Color
 import android.os.Handler
-import android.text.style.ClickableSpan
-import android.text.SpannableString
 import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.util.isValidEmail
 import dk.nodes.nstack.kotlin.NStack
@@ -65,7 +59,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     }
 
     private fun setupTopBar() {
-        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = Translation.signup.title
         mainTb.setNavigationOnClickListener {
             hideKeyboard(view)

@@ -5,7 +5,6 @@ import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
@@ -72,7 +71,7 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
     }
 
     private fun setupTopBar() {
-        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = Translation.signup.title
         mainTb.setNavigationOnClickListener {
             activity.onBackPressed()
