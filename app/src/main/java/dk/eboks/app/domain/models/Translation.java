@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Mon Mar 26 12:21:21 CEST 2018 
+ * Generated: Mon Mar 26 14:22:20 CEST 2018 
  */
 
 public class Translation {
@@ -105,7 +105,7 @@ public class Translation {
 		public static String placeholder = "Type here";
 		public static String continueButton = "Continue";
 		public static String forgotPasswordButton = "Forgot password";
-		public static String title = "Log in";
+		public static String title = "Log on";
 		public static String invalidPassword = "invalid Password";
 		public static String invalidCprorEmail = "invalid Email or CPR-number";
 		public static String emailOrSSNHeader = "Email or Social Security Number";
@@ -152,7 +152,7 @@ public class Translation {
 		public static String termsClickAbleText = "By doing this you accept the [Terms & Conditions]";
 		public static String invalidEmail = "Invalid email";
 		public static String mmInvalidCprNumber = "mm Invalid cpr number";
-		public static String login = "Log in";
+		public static String login = "Log on";
 		public static String completedHeader = "Yay! We\'re all set!\r\nWe hope you\'ll enjoy your new all digital inbox!";
 		public static String typeHere = "Type here";
 		public static String termsAcceptButton = "I accept";
