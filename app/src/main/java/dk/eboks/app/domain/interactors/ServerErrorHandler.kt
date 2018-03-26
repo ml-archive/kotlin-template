@@ -14,7 +14,7 @@ class ServerErrorHandler(val uiManager: UIManager, val executor: Executor, val a
     companion object {
         val NO_PRIVATE_SENDER_WARNING = 9100
 
-        val REPEAT = 1
+        val PROCEED = 1
         val ABORT = 2
         val SHOW_ERROR = 3
     }
@@ -40,7 +40,7 @@ class ServerErrorHandler(val uiManager: UIManager, val executor: Executor, val a
                 executor.sleepUntilSignalled("messageOpenDone")
                 Timber.e("Woke back up for some action")
                 if(appStateManager.state?.openingState?.shouldProceedWithOpening ?: false)
-                    return REPEAT
+                    return PROCEED
                 else
                     return ABORT
             }

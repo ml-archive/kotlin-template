@@ -4,7 +4,6 @@ import android.content.Context
 import android.support.v7.app.AlertDialog
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.util.guard
 import timber.log.Timber
 
@@ -20,6 +19,9 @@ class ViewErrorController(val context: Context, val closeFunction: CloseFunction
         if(!error.shouldDisplay)
         {
             Timber.e("Error not displayed to user: $error")
+            closeFunction?.let { if(error.shouldCloseView) it() }.guard {
+                Timber.e("View closure was requested but view haven't specified a CloseFunction in ViewErrorController constructor, ignoring.")
+            }
             return
         }
         val builder = AlertDialog.Builder(context)

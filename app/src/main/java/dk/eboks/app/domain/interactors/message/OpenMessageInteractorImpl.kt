@@ -39,39 +39,43 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                 openMessage(msg)
             }
         }
-        catch (e: Throwable) {
-            e.printStackTrace()
-            if(e is ServerErrorException)
-            {
-                val outcome = errorHandler.handle(e.error)
-                if(outcome == ServerErrorHandler.REPEAT)
-                {
-                    when(e.error.code)
-                    {
-                        ServerErrorHandler.NO_PRIVATE_SENDER_WARNING -> {
-                            input?.msg?.let { msg->
-                                try {
-                                    val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id ?: 0, input?.msg?.id ?: "", null, true)
-                                    FieldMapper.copyAllFields(msg, updated_msg)
-                                    openMessage(msg)
-                                }
-                                catch (t : Throwable) { output?.onOpenMessageError(exceptionToViewError(t)) }
-                            }.guard { output?.onOpenMessageError(ViewError()) }
-                        }
-                        else -> runOnUIThread { output?.onOpenMessageError(exceptionToViewError(e)) }
-                    }
-                }
-                else {
-                    runOnUIThread {
-                        runOnUIThread { output?.onOpenMessageDone() }
-                    }
-                }
-                return
+        catch (t: Throwable) {
+
+            if(t is ServerErrorException) {
+                input?.msg?.let { handleServerException(t, it) }.guard { output?.onOpenMessageError(exceptionToViewError(t)) }
             }
-            runOnUIThread {
-                output?.onOpenMessageError(exceptionToViewError(e))
+            else runOnUIThread {
+                output?.onOpenMessageError(exceptionToViewError(t))
             }
         }
+    }
+
+    fun handleServerException(e : ServerErrorException, msg : Message)
+    {
+        Timber.e("ServerException arose from getMessage api call")
+
+        val outcome = errorHandler.handle(e.error)
+
+        when(outcome)
+        {
+            ServerErrorHandler.PROCEED -> {
+                try {
+                    val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id ?: 0, input?.msg?.id ?: "", null, true)
+                    FieldMapper.copyAllFields(msg, updated_msg)
+                    openMessage(msg)
+                }
+                catch (t : Throwable) { output?.onOpenMessageError(exceptionToViewError(t)) }
+            }
+            ServerErrorHandler.SHOW_ERROR -> {
+                runOnUIThread { output?.onOpenMessageError(exceptionToViewError(e)) }
+            }
+            else -> {
+                val ve = ViewError()
+                ve.shouldCloseView = true
+                ve.shouldDisplay = false
+            }
+        }
+
     }
 
     fun openMessage(msg : Message)
@@ -80,7 +84,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
             var filename = cacheManager.getCachedContentFileName(content)
             if(filename == null) // is not in users
             {
-                Timber.e("Content ${content.id} not in users, downloading")
+                Timber.e("Content ${content.id} not in cache, downloading")
                 // TODO the result of this call can result in all sorts of fun control flow changes depending on what error code the backend returns
                 filename = downloadManager.downloadAttachmentContent(msg, content)
                 if(filename == null)
@@ -90,7 +94,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
             }
             else
             {
-                Timber.e("Found content in users ($filename)")
+                Timber.e("Found content in cache ($filename)")
             }
 
             appStateManager.state?.currentMessage = msg

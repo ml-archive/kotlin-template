@@ -209,4 +209,16 @@
   <string name='nstack_loginproviders_idPortenTitle' formatted='false'>loginproviders_idPortenTitle</string>
   <string name='nstack_loginproviders_bankSeTitle' formatted='false'>loginproviders_bankSeTitle</string>
   <string name='nstack_loginproviders_bankNoTitle' formatted='false'>loginproviders_bankNoTitle</string>
+  <string name='nstack_profile_signOut' formatted='false'>profile_signOut</string>
+  <string name='nstack_profile_help' formatted='false'>profile_help</string>
+  <string name='nstack_profile_privacyStatement' formatted='false'>profile_privacyStatement</string>
+  <string name='nstack_profile_termsAndConditions' formatted='false'>profile_termsAndConditions</string>
+  <string name='nstack_profile_keepMeSignedIn' formatted='false'>profile_keepMeSignedIn</string>
+  <string name='nstack_profile_fingerprint' formatted='false'>profile_fingerprint</string>
+  <string name='nstack_profile_myInformation' formatted='false'>profile_myInformation</string>
+  <string name='nstack_profile_keepMeSignedInDescription' formatted='false'>profile_keepMeSignedInDescription</string>
+  <string name='nstack_profile_verifyButton' formatted='false'>profile_verifyButton</string>
+  <string name='nstack_profile_touchID' formatted='false'>profile_touchID</string>
+  <string name='nstack_profile_faceID' formatted='false'>profile_faceID</string>
+  <string name='nstack_profile_version' formatted='false'>profile_version</string>
 </resources>
