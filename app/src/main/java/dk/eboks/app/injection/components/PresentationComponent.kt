@@ -45,8 +45,6 @@ import dk.eboks.app.presentation.ui.components.message.detail.folderinfo.FolderI
 import dk.eboks.app.presentation.ui.components.message.detail.folderinfo.FolderInfoComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderComponentPresenter
-import dk.eboks.app.presentation.ui.components.message.opening.locked.LockedMessageComponentFragment
-import dk.eboks.app.presentation.ui.components.message.opening.locked.LockedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentFragment
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentFragment
@@ -55,6 +53,14 @@ import dk.eboks.app.presentation.ui.components.message.opening.protectedmessage.
 import dk.eboks.app.presentation.ui.components.message.opening.protectedmessage.ProtectedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.share.ShareComponentFragment
 import dk.eboks.app.presentation.ui.components.message.detail.share.ShareComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.promulgation.PromulgationComponentFragment
+import dk.eboks.app.presentation.ui.components.message.opening.promulgation.PromulgationComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.quarantine.QuarantineComponentFragment
+import dk.eboks.app.presentation.ui.components.message.opening.quarantine.QuarantineComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.recalled.RecalledComponentFragment
+import dk.eboks.app.presentation.ui.components.message.opening.recalled.RecalledComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.receipt.OpeningReceiptComponentFragment
+import dk.eboks.app.presentation.ui.components.message.opening.receipt.OpeningReceiptComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentFragment
@@ -158,12 +164,18 @@ interface PresentationComponent {
     fun inject(target : ImageViewComponentPresenter)
     fun inject(target : TextViewComponentFragment)
     fun inject(target : TextViewComponentPresenter)
-    fun inject(target : LockedMessageComponentFragment)
-    fun inject(target : LockedMessageComponentPresenter)
     fun inject(target : ProtectedMessageComponentFragment)
     fun inject(target : ProtectedMessageComponentPresenter)
     fun inject(target : PrivateSenderWarningComponentFragment)
     fun inject(target : PrivateSenderWarningComponentPresenter)
+    fun inject(target : OpeningReceiptComponentFragment)
+    fun inject(target : OpeningReceiptComponentPresenter)
+    fun inject(target : QuarantineComponentFragment)
+    fun inject(target : QuarantineComponentPresenter)
+    fun inject(target : RecalledComponentFragment)
+    fun inject(target : RecalledComponentPresenter)
+    fun inject(target : PromulgationComponentFragment)
+    fun inject(target : PromulgationComponentPresenter)
 
     // mail
     fun inject(target : FoldersComponentFragment)

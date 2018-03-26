@@ -22,5 +22,6 @@ interface MessageEmbeddedContract {
     }
 
     interface Presenter : BasePresenter<MessageEmbeddedContract.View> {
+        fun setup()
     }
 }

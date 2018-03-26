@@ -5,7 +5,7 @@
                                                  android:background="@color/white"
                                                  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <include layout="@layout/include_toolbar"  />
+    <!-- <include layout="@layout/include_toolbar"  /> -->
     <FrameLayout
         android:id="@+id/contentFl"
         android:layout_width="match_parent"

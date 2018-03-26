@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.message.detail.document
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,8 @@ class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View
     @Inject
     lateinit var uiManager: UIManager
 
+    var currentMessage : Message? = null
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_document_component, container, false)
         return rootView
@@ -38,6 +41,7 @@ class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View
     }
 
     override fun updateView(message: Message) {
+        currentMessage = message
         if(message.content == null)
         {
             componentRoot.visibility = View.GONE
@@ -53,6 +57,18 @@ class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View
     }
 
     override fun openExternalViewer(filename: String, mimeType : String) {
-        FileUtils.openExternalViewer(context, filename, mimeType)
+        if(!FileUtils.openExternalViewer(context, filename, mimeType))
+        {   // could not be opened in external viewer, ask if user wanna save to downloads
+            AlertDialog.Builder(context)
+                    .setTitle("_Could not open")
+                    .setMessage("_Document could not be opened, save to Downloads instead?")
+                    .setPositiveButton("_Save", {dialogInterface, i ->
+                        currentMessage?.content?.let { presenter.saveAttachment(it) }
+                    })
+                    .setNegativeButton("_Close", {dialogInterface, i ->
+
+                    })
+                    .show()
+        }
     }
 }

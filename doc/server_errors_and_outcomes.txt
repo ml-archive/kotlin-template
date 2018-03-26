@@ -145,7 +145,7 @@ Code: MANDATORY_OPEN_RECEIPT = 9200
 Show a confirmation dialog with the options "Cancel" and "Open". Cancel dismiss the dialog AND open the document
 anyway. Open calls the receipt endpoint and then opens the message.
 
-Code: VOLUNTARY_OPEN_RECEIPT = 9200
+Code: VOLUNTARY_OPEN_RECEIPT = 9201
 
 520 Eboks
 {
@@ -190,6 +190,9 @@ Code: MESSAGE_RECALLED = 9301
 -------------------------------------------------------------------------------
 
 8. Låst meddelelse
+
+Code: MESSAGE_LOCKED = 9302
+
 Show a lock screen (refer to the design). Provide the user the option to login
 with the login provider specified in the arg field.
 

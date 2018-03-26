@@ -2,7 +2,6 @@ package dk.eboks.app.domain.interactors.message
 
 import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.exceptions.ServerErrorException
-import dk.eboks.app.domain.interactors.ServerErrorHandler
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
@@ -31,7 +30,6 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
     override fun execute() {
         try {
             input?.msg?.let { msg->
-                // TODO the result of this call can result in all sorts of fun control flow changes depending on what error code the backend returns
                 val updated_msg = messagesRepository.getMessage(msg.folder?.id ?: 0, msg.id)
                 // update the (perhaps) more detailed message object with the extra info from the backend
                 // because the JVM can only deal with reference types silly reflection tricks like this are necessary
@@ -60,19 +58,25 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
         {
             ServerErrorHandler.PROCEED -> {
                 try {
-                    val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id ?: 0, input?.msg?.id ?: "", null, true)
+                    // TODO fix hack below
+                    //val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id ?: 0, input?.msg?.id ?: "", null, true)
+                    val updated_msg = messagesRepository.getMessage(1, "13", null, true)
+
                     FieldMapper.copyAllFields(msg, updated_msg)
                     openMessage(msg)
                 }
-                catch (t : Throwable) { output?.onOpenMessageError(exceptionToViewError(t)) }
+                catch (t : Throwable)
+                {
+                    runOnUIThread { output?.onOpenMessageError(exceptionToViewError(t)) }
+                }
             }
             ServerErrorHandler.SHOW_ERROR -> {
                 runOnUIThread { output?.onOpenMessageError(exceptionToViewError(e)) }
             }
             else -> {
                 val ve = ViewError()
-                ve.shouldCloseView = true
                 ve.shouldDisplay = false
+                runOnUIThread { output?.onOpenMessageError(ve) }
             }
         }
 
@@ -103,11 +107,13 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
 
             if(isEmbeddedType(msg))
             {
+                //uiManager.showMessageScreen()
                 uiManager.showEmbeddedMessageScreen()
             }
             else {
                 uiManager.showMessageScreen()
             }
+            Thread.sleep(500)
             runOnUIThread {
                 output?.onOpenMessageDone()
             }
@@ -141,7 +147,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
 
     companion object {
         var embeddedTypes = listOf<EboksContentType>(
-                EboksContentType("pdf", "application/pdf"),
+                /* EboksContentType("pdf", "application/pdf"), */
                 EboksContentType("png", "image/png"),
                 EboksContentType("jpg", "image/jpeg"),
                 EboksContentType("jpeg", "image/jpeg"),

@@ -22,14 +22,14 @@ class UIManagerImpl(val context: Context) : UIManager {
 
     override fun showMessageScreen() {
         handler.post {
-            App.currentActivity()?.let { it.startActivity(Intent(context, MessageActivity::class.java)) }
+            App.currentActivity()?.let { it.startActivity(Intent(context, MessageActivity::class.java)); it.overridePendingTransition(0,0) }
                     .guard { context.startActivity(Intent(context, MessageActivity::class.java)) }
         }
     }
 
     override fun showEmbeddedMessageScreen() {
         handler.post {
-            App.currentActivity()?.let { it.startActivity(Intent(context, MessageEmbeddedActivity::class.java)) }
+            App.currentActivity()?.let { it.startActivity(Intent(context, MessageEmbeddedActivity::class.java)); it.overridePendingTransition(0,0) }
                     .guard { context.startActivity(Intent(context, MessageEmbeddedActivity::class.java)) }
         }
     }

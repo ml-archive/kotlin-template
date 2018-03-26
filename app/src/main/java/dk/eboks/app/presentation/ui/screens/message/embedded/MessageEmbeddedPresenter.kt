@@ -12,7 +12,7 @@ import javax.inject.Inject
 class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateManager) : MessageEmbeddedContract.Presenter, BasePresenterImpl<MessageEmbeddedContract.View>() {
     var message: Message? = null
 
-    init {
+    override fun setup() {
         Timber.e("Current message ${stateManager.state?.currentMessage}")
         message = stateManager.state?.currentMessage
         startViewer()
@@ -25,7 +25,6 @@ class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateMan
             v.addFolderInfoComponentFragment()
             message?.let { v.showTitle(it) }
         }
-
     }
 
     fun startViewer()

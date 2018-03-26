@@ -24,11 +24,10 @@
         android:enabled="true"
         android:title="_Channels" />
 
-    <!--
     <item
         android:id="@+id/actionUploads"
         android:icon="@drawable/ic_menu_uploads"
         android:enabled="true"
         android:title="_Uploads" />
-        -->
+
 </menu>

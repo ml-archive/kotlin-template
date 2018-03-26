@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.screens.message.opening
 import android.os.Bundle
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentFragment
 import timber.log.Timber
 import javax.inject.Inject
@@ -17,10 +18,10 @@ class MessageOpeningActivity : BaseActivity(), MessageOpeningContract.View {
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun setPrivateSenderWarningFragment() {
-        val fragment = PrivateSenderWarningComponentFragment()
+    override fun setOpeningFragment(cls: Class<out BaseFragment>) {
+        val fragment = cls.newInstance()
         fragment?.let{
-            supportFragmentManager.beginTransaction().add(R.id.contentFl, it, PrivateSenderWarningComponentFragment::class.java.simpleName).commit()
+            supportFragmentManager.beginTransaction().add(R.id.contentFl, it, it::class.java.simpleName).commit()
         }
     }
 
