@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Mon Mar 26 14:22:20 CEST 2018 
+ * Generated: Mon Mar 26 16:18:36 CEST 2018 
  */
 
 public class Translation {
@@ -258,5 +258,15 @@ public class Translation {
 		public static String idPortenTitle = "IdPorten";
 		public static String bankSeTitle = "BankID";
 		public static String bankNoTitle = "BankID";
+	}
+	public final static class profile {
+		public static String signOut = "Sign Out";
+		public static String help = "Help";
+		public static String privacyStatement = "Privacy Statement";
+		public static String termsAndConditions = "Terms And Conditions";
+		public static String keepMeSignedIn = "Keep me signed in";
+		public static String fingerprint = "Fingerprint";
+		public static String myInformation = "My Information";
+		public static String keepMeSignedInDescription = "Keep me signed in description";
 	}
 }

@@ -8,7 +8,7 @@ import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.components.start.welcome.SplashComponentFragment
-import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
+import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
@@ -20,7 +20,7 @@ class StartActivity : BaseActivity(), StartContract.View {
     @Inject
     lateinit var presenter: StartContract.Presenter
 
-    var splashFragment : SplashComponentFragment? = SplashComponentFragment()
+    var splashFragment: SplashComponentFragment? = SplashComponentFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class StartActivity : BaseActivity(), StartContract.View {
         supportFragmentManager.addOnBackStackChangedListener {
             Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")
             if (supportFragmentManager.backStackEntryCount == 0) {
-                if(!isDestroyed)
+                if (!isDestroyed)
                     finish()
             }
         }
@@ -88,15 +88,15 @@ class StartActivity : BaseActivity(), StartContract.View {
     }
 
     override fun startMain() {
+        //TODO change back to regular when done
         NavBarComponentFragment.currentMenuItem = R.id.actionMail
-        startActivity(Intent(this, MailOverviewActivity::class.java))
+        startActivity(Intent(this, ProfileActivity::class.java))
 
         //overridePendingTransition(0, 0)
         finishAfterTransition()
     }
 
-    fun removeSplashFragment()
-    {
+    fun removeSplashFragment() {
         Timber.e("Removing splash fragment")
         splashFragment?.let {
             supportFragmentManager.beginTransaction().remove(it).commit()
@@ -104,8 +104,7 @@ class StartActivity : BaseActivity(), StartContract.View {
         splashFragment = null
     }
 
-    fun enableFragmentCheapFades()
-    {
+    fun enableFragmentCheapFades() {
         containerFl.layoutTransition = LayoutTransition()
     }
 
@@ -113,8 +112,7 @@ class StartActivity : BaseActivity(), StartContract.View {
         Timber.e("on back bs count ${supportFragmentManager.backStackEntryCount}")
         if (supportFragmentManager.backStackEntryCount > 1) {
             supportFragmentManager.popBackStack()
-        }
-        else {
+        } else {
             finish()
         }
     }
