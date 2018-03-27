@@ -124,6 +124,11 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideGetSegmentDetailInteractor(executor: Executor, api: Api) : GetSegmentInteractor {
+        return GetSegmentInteractorImpl(executor, api)
+    }
+
+    @Provides
     fun provideGetCollectionsInteractor(executor: Executor, collectionsRepository: CollectionsRepository) : GetCollectionsInteractor {
         return GetCollectionsInteractorImpl(executor, collectionsRepository)
     }

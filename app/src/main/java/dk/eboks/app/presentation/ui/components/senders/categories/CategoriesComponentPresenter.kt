@@ -15,7 +15,7 @@ class CategoriesComponentPresenter @Inject constructor(val appState: AppStateMan
         CategoriesComponentContract.Presenter, BasePresenterImpl<CategoriesComponentContract.View>(),
         GetSenderCategoriesInteractor.Output {
 
-    init {
+    override fun getCategories() {
         getSenderCategoriesInteractor.output = this
         getSenderCategoriesInteractor.run()
     }

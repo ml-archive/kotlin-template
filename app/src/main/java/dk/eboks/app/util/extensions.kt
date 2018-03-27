@@ -127,16 +127,16 @@ fun FastScrollRecyclerView.setBubbleDrawable(drawable: Drawable) {
  *
  * Its just for convenience yall
  */
-fun BaseInteractor.exceptionToViewError(t : Throwable, shouldClose : Boolean = false) : ViewError
+fun BaseInteractor.exceptionToViewError(t : Throwable, shouldClose : Boolean = false, shouldDisplay : Boolean = true) : ViewError
 {
     when(t) {
-        is UnknownHostException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage, shouldCloseView = shouldClose)
-        is IOException -> return ViewError(title = Translation.error.genericStorageTitle, message = Translation.error.genericStorageMessage, shouldCloseView = shouldClose)
-        is SocketTimeoutException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage, shouldCloseView = shouldClose)
+        is UnknownHostException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage, shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
+        is IOException -> return ViewError(title = Translation.error.genericStorageTitle, message = Translation.error.genericStorageMessage, shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
+        is SocketTimeoutException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage, shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
         is ServerErrorException -> {
-            return ViewError(title = t.error.description?.title, message = t.error.description?.text, shouldCloseView = shouldClose)
+            return ViewError(title = t.error.description?.title, message = t.error.description?.text, shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
         }
-        else -> return ViewError(shouldCloseView = shouldClose)
+        else -> return ViewError(shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
     }
-    return ViewError(shouldCloseView = shouldClose)
+    return ViewError(shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
 }

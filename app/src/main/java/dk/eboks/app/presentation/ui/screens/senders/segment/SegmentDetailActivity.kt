@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.screens.senders.detail
+package dk.eboks.app.presentation.ui.screens.senders.segment
 
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -8,56 +8,52 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_senders_detail.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
-class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
+class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
 
-    var onLanguageChangedListener: (Locale) -> Unit = {
-
-    }
+    var onLanguageChangedListener: (Locale) -> Unit = { }
 
     @Inject
-    lateinit var presenter: SenderDetailContract.Presenter
+    lateinit var presenter: SegmentDetailContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_senders_detail)
+
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        val sender = intent.getSerializableExtra(Sender::class.simpleName) as Sender?
-        if (sender == null) {
+        val segment = intent.getSerializableExtra(Segment::class.simpleName) as Segment?
+        if (segment == null) {
             finish()
             return
         }
 
-        updateHeader(sender)
+        senderDetailContainer.removeAllViews()
+        updateHeader(segment)
 
         // pass your knowledge on to your siblings, so they in turn can use it and pass it on to their siblings...
         val b = Bundle()
-        b.putSerializable(Sender::class.simpleName, sender)
-
-        senderGroupsListComponentF.arguments = b
-        senderDetailInfoF.arguments = b
+        b.putSerializable(Segment::class.simpleName, segment)
+//      senderGroupsListComponentF.arguments = b
 
         //translations
         NStack.addLanguageChangeListener(onLanguageChangedListener)
 
         senderDetailRegisterTB.textOn = Translation.senders.registered
         senderDetailRegisterTB.textOff = Translation.senders.register
-//        senderDetailRegisterTB.text = when (sender.registered) {
-//            0 -> Translation.senders.register
-//            else -> Translation.senders.registered
-//        }
 
         senderDetailBodyTv.visibility = View.GONE // only for public authorities
-        senderDetailRegisterTB.isChecked = sender.registered != 0
+        senderDetailRegisterTB.isChecked = segment.registered != 0
 
         senderDetailTB.setNavigationOnClickListener {
             finish()
@@ -67,7 +63,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
 
         senderDetailABL.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (appBarLayout.totalScrollRange + verticalOffset < 200) {
-                senderDetailTB.title = sender.name
+                senderDetailTB.title = segment.name
             } else {
                 senderDetailTB.title = ""
             }
@@ -82,28 +78,33 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
             }
         }
 
-        presenter.loadSender(sender.id)
+        presenter.loadSegment(segment.id)
     }
 
-    override fun showSender(sender: Sender) {
-        // pass the knowledge on to your siblings, so they in turn can use it
-        val b = Bundle()
-        b.putSerializable(Sender::class.simpleName, sender)
+    override fun showSegment(segment: Segment) {
+        senderDetailContainer.removeAllViews()
 
-        senderGroupsListComponentF.arguments = b
-        senderDetailInfoF.arguments = b
+        // pass the knowledge on...
+        val b = Bundle()
+        b.putSerializable(Segment::class.simpleName, segment)
+
+        val frag = CategoriesComponentFragment()
+        frag.arguments = b
+        supportFragmentManager.beginTransaction()
+                .add(senderDetailContainer.id, frag)
+                .commit()
 
         // also update the header
-        updateHeader(sender)
+        updateHeader(segment)
     }
 
-    private fun updateHeader(sender: Sender) {
-        senderDetailTB.title = sender.name
-        senderDetailNameTv.text = sender.name
+    private fun updateHeader(segment: Segment) {
+        senderDetailTB.title = segment.name
+        senderDetailNameTv.text = segment.name
         senderDetailRegisterTB.visibility = View.VISIBLE
 
         Glide.with(this)
-                .load(sender.logo?.url)
+                .load(segment.image?.url)
                 .apply(RequestOptions()
                         .fallback(R.drawable.icon_72_senders_private)
                         .placeholder(R.drawable.icon_72_senders_private)
@@ -114,7 +115,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
             return@OnTouchListener when (event.action) {
                 MotionEvent.ACTION_UP -> {
                     if (senderDetailRegisterTB.isChecked) {
-                        AlertDialog.Builder(this@SenderDetailActivity)
+                        AlertDialog.Builder(this@SegmentDetailActivity)
                                 .setTitle(Translation.senders.unregisterAlertTitle)
                                 .setMessage(Translation.senders.unregisterAlertDescription)
                                 .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
@@ -122,12 +123,12 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
                                 }
                                 .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
                                     senderDetailRegisterTB.visibility = View.INVISIBLE
-                                    presenter.unregisterSender(sender.id)
+                                    presenter.unregisterSegment(segment.id)
                                     dialog.dismiss()
                                 }
                                 .show()
                     } else {
-                        AlertDialog.Builder(this@SenderDetailActivity)
+                        AlertDialog.Builder(this@SegmentDetailActivity)
                                 .setTitle(Translation.senders.registerAlertTitle)
                                 .setMessage(Translation.senders.registerAlertDescription)
                                 .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
@@ -135,7 +136,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
                                 }
                                 .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
                                     senderDetailRegisterTB.visibility = View.INVISIBLE
-                                    presenter.registerSender(sender.id)
+                                    presenter.registerSegment(segment.id)
                                     dialog.dismiss()
                                 }
                                 .show()
@@ -148,7 +149,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
             }
         })
 
-        senderDetailRegisterTB.isChecked = sender.registered == 0
+        senderDetailRegisterTB.isChecked = segment.registered == 0
     }
 
     override fun onDestroy() {

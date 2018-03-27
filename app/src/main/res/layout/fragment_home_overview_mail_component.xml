@@ -38,7 +38,7 @@
 
                     <Button
                         android:id="@+id/showBtn"
-                        style="@style/enabledButttonDarkText"
+                        style="@style/enabledButtton.DarkText"
                         android:layout_width="wrap_content"
                         android:layout_height="28dp"
                         android:layout_gravity="right|center_vertical"
@@ -190,7 +190,7 @@
 
             <Button
                 android:id="@+id/bottomChannelBtn"
-                style="@style/enabledButttonDarkText"
+                style="@style/enabledButtton.DarkText"
                 android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:layout_gravity="center"

@@ -15,5 +15,6 @@ interface CategoriesComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
+        fun getCategories()
     }
 }

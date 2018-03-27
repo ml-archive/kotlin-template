@@ -75,8 +75,9 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragmen
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.components.profile.edit.ProfileInfoComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.edit.ProfileInfoComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.SenderComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentFragment
-import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.register.RegisterGroupComponentFragment
@@ -113,6 +114,7 @@ import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
+import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailActivity
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
@@ -222,6 +224,9 @@ interface PresentationComponent {
     fun inject(target : SenderGroupsComponentFragment)
     fun inject(target : SenderDetailActivity)
     fun inject(target : RegisterGroupComponentFragment)
+    fun inject(target : SenderListComponentFragment)
+    fun inject(target : SenderComponentFragment)
+    fun inject(target : SegmentDetailActivity)
 
     // signup
     fun inject(target : SignupComponentPresenter)

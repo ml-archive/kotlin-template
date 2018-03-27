@@ -31,10 +31,16 @@
                     android:id="@+id/segmentIv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:foreground="@drawable/rounded_gradient_card"
+                    android:background="@drawable/rounded_mask"
                     android:outlineProvider="background"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_menu_home"/>
+
+                <!-- Foreground on the Iv doesn't work until sdk-25, so we'll have to do with an overlay-tint -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rounded_gradient_card"/>
 
                 <TextView
                     android:id="@+id/segmentTitleTv"

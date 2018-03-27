@@ -48,7 +48,7 @@ class RegisterPresenter @Inject constructor(val appState: AppStateManager, val r
     }
 
     override fun unregisterSenderGroup(senderId: Long, sendergroup: SenderGroup) {
-        Timber.i("registerSenderGroup")
+        Timber.i("unregisterSenderGroup")
         unRegisterInteractor.inputSenderGroup = UnRegisterInteractor.InputSenderGroup(senderId, sendergroup)
         unRegisterInteractor.run()
     }

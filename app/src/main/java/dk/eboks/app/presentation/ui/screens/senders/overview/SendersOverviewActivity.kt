@@ -7,7 +7,6 @@ import android.widget.Toast
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.CollectionContainer
-import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
@@ -26,7 +25,7 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(dk.eboks.app.R.layout.activity_senders_overview)
+        setContentView(R.layout.activity_senders_overview)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
@@ -49,7 +48,6 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
             startActivity(Intent(this, SearchSendersActivity::class.java ))
             true
         }
-
     }
 
     override fun showCollections(collections: List<CollectionContainer>) {
@@ -57,28 +55,25 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
 
         collections.forEach {
             val b = Bundle()
-            lateinit var f : BaseFragment
+            var f : BaseFragment? = null
             when (it.type) {
                 "segment" -> {
-                    b.putSerializable(Segment::class.simpleName, it.segment)
+                    b.putSerializable(CollectionContainer::class.simpleName, it)
                     f = SegmentComponentFragment()
-                    f.arguments = b
-                    supportFragmentManager.beginTransaction().add(sendersCollectionContainerLl.id, f).commit()
                 }
                 "sender" -> {
                     b.putSerializable(Sender::class.simpleName, it.sender)
                     f = SenderComponentFragment()
-                    f.arguments = b
-                    supportFragmentManager.beginTransaction().add(sendersCollectionContainerLl.id, f).commit()
                 }
                 "senders" -> {
                     b.putSerializable(CollectionContainer::class.simpleName, it)
                     f = SenderListComponentFragment()
-                    f.arguments = b
-                    supportFragmentManager.beginTransaction().add(sendersCollectionContainerLl.id, f).commit()
                 }
             }
-
+            f?.let{
+                it.arguments = b
+                supportFragmentManager.beginTransaction().add(sendersCollectionContainerLl.id, it).commit()
+            }
         }
     }
 }
