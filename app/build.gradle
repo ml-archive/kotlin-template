@@ -250,7 +250,7 @@ dependencies {
     implementation "org.apache.commons:commons-lang3:$commons_lang3_version"
 
     implementation "com.github.bumptech.glide:glide:$glide_version"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
     implementation "com.l4digital.fastscroll:fastscroll:1.0.4"
 
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'

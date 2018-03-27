@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Tue Mar 27 15:21:03 CEST 2018 
+ * Generated: Tue Mar 27 13:20:31 CEST 2018 
  */
 
 public class Translation {
@@ -272,19 +272,5 @@ public class Translation {
 		public static String touchID = "Touch ID";
 		public static String faceID = "Face ID";
 		public static String version = "Version";
-		public static String title = "Profile";
-	}
-	public final static class myInformation {
-		public static String title = "My Information";
-		public static String name = "Name";
-		public static String primaryEmail = "Primary e-mail";
-		public static String secondaryEmail = "Secondary e-mail";
-		public static String verifyEmail = "Verify e-mail";
-		public static String typeHere = "Type here";
-		public static String notifyByEmailText = "You will be notified by e-mail when you receive new mail";
-		public static String mobileNumber = "Mobile number";
-		public static String verifyNumber = "Verify number";
-		public static String notifyBySMSText = "You will be notified by SMS when you receive new mail";
-		public static String newsletter = "Newsletter";
 	}
 }

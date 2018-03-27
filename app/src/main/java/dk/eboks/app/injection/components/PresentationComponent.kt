@@ -71,12 +71,9 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
-import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentFragment
-import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
-import dk.eboks.app.presentation.ui.components.senders.SenderComponentFragment
+import dk.eboks.app.presentation.ui.components.profile.edit.ProfileInfoComponentFragment
+import dk.eboks.app.presentation.ui.components.profile.edit.ProfileInfoComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentFragment
-import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
-import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.register.RegisterGroupComponentFragment
@@ -104,6 +101,7 @@ import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
+import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity
 import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
@@ -113,36 +111,34 @@ import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailActivit
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
-/**
- * Created by bison on 26-07-2017.
- */
-
-@Component(dependencies = arrayOf(AppComponent::class), modules = arrayOf(PresentationModule::class))
+@Component(dependencies = [(AppComponent::class)], modules = [(PresentationModule::class)])
 @ActivityScope
 interface PresentationComponent {
     // Screens
-    fun inject(target : PastaActivity)
-    fun inject(target : PastaPresenter)
-    fun inject(target : MailOverviewActivity)
-    fun inject(target : MailOverviewPresenter)
-    fun inject(target : MailListActivity)
-    fun inject(target : MailListPresenter)
-    fun inject(target : FolderActivity)
-    fun inject(target : FolderPresenter)
-    fun inject(target : MessageActivity)
-    fun inject(target : MessagePresenter)
-    fun inject(target : MessageEmbeddedActivity)
-    fun inject(target : MessageEmbeddedPresenter)
-    fun inject(target : MessageOpeningActivity)
-    fun inject(target : MessageOpeningPresenter)
-    fun inject(target : ChannelOverviewActivity)
-    fun inject(target : ChannelOverviewPresenter)
-    fun inject(target : ChannelContentActivity)
-    fun inject(target : ChannelContentPresenter)
-    fun inject(target : SendersOverviewActivity)
-    fun inject(target : SendersOverviewPresenter)
-    fun inject(target : StartActivity)
-    fun inject(target : StartPresenter)
+    fun inject(target: PastaActivity)
+
+    fun inject(target: PastaPresenter)
+    fun inject(target: MailOverviewActivity)
+    fun inject(target: MailOverviewPresenter)
+    fun inject(target: MailListActivity)
+    fun inject(target: MailListPresenter)
+    fun inject(target: FolderActivity)
+    fun inject(target: FolderPresenter)
+    fun inject(target: MessageActivity)
+    fun inject(target: MessagePresenter)
+    fun inject(target: MessageEmbeddedActivity)
+    fun inject(target: MessageEmbeddedPresenter)
+    fun inject(target: MessageOpeningActivity)
+    fun inject(target: MessageOpeningPresenter)
+    fun inject(target: ChannelOverviewActivity)
+    fun inject(target: ChannelOverviewPresenter)
+    fun inject(target: ChannelContentActivity)
+    fun inject(target: ChannelContentPresenter)
+    fun inject(target: SendersOverviewActivity)
+    fun inject(target: SendersOverviewPresenter)
+    fun inject(target: StartActivity)
+    fun inject(target: StartPresenter)
+    fun inject(target: ProfileActivity)
 
     // Components
 
@@ -250,8 +246,8 @@ interface PresentationComponent {
     fun inject(target : BankIdNOComponentPresenter)
   
     // profile
-    fun inject(target : MyInformationComponentFragment)
-    fun inject(target : MyInformationComponentPresenter)
+    fun inject(target: ProfileInfoComponentFragment)
+    fun inject(target: ProfileInfoComponentPresenter)
 
     // verification
     fun inject(target : VerificationComponentFragment)
