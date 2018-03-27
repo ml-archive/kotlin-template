@@ -13,7 +13,7 @@ import java.io.File
 object FileUtils {
     fun openExternalViewer(cur_context : Context, filename: String, mimeType : String) : Boolean {
         //handler.post {
-        Timber.e("Opening document $filename $mimeType")
+        Timber.e("Opening document $filename $mimeType in external viewer")
         val intent = Intent(Intent.ACTION_VIEW)
         intent.addCategory(Intent.CATEGORY_DEFAULT)
         val uri = FileProvider.getUriForFile(cur_context, BuildConfig.APPLICATION_ID + ".fileprovider", File(filename))
@@ -25,7 +25,7 @@ object FileUtils {
             cur_context.startActivity(Intent.createChooser(intent, "_Open with"))
             return true
         }
-        Timber.e("Could not resolve share intent")
+        Timber.e("Could not resolve share intent - failed to open documents")
         return false
     }
 }

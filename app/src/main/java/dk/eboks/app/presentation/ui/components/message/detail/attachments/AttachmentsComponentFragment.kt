@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.message.detail.attachments
 
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.util.FileUtils
 import kotlinx.android.synthetic.main.fragment_attachments_component.*
 import javax.inject.Inject
 
@@ -62,14 +64,18 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
     }
 
     override fun openExternalViewer(attachment: Content, filename: String, mimeType : String) {
-        presenter.saveAttachment(attachment)
-        /*
-        val was_opened = FileUtils.openExternalViewer(context, filename, mimeType)
-        if(!was_opened)
-        {
-            Timber.e("Intent for $filename ($mimeType) could not be resolved, copying to external storage")
-            presenter.saveAttachment(attachment)
+        if(!FileUtils.openExternalViewer(context, filename, mimeType))
+        {   // could not be opened in external viewer, ask if user wanna save to downloads
+            AlertDialog.Builder(context)
+                    .setTitle("_Could not open")
+                    .setMessage("_Document could not be opened, save to Downloads instead?")
+                    .setPositiveButton("_Save", {dialogInterface, i ->
+                        presenter.saveAttachment(attachment)
+                    })
+                    .setNegativeButton("_Close", {dialogInterface, i ->
+
+                    })
+                    .show()
         }
-        */
     }
 }

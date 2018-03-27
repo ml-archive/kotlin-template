@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.message.opening.privatesender
+package dk.eboks.app.presentation.ui.components.message.opening.promulgation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.nodes.nstack.kotlin.NStack
-import kotlinx.android.synthetic.main.fragment_mail_opening_error_component.*
+import kotlinx.android.synthetic.main.fragment_mail_opening_promulgation_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import java.util.*
@@ -17,7 +17,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class PrivateSenderWarningComponentFragment : BaseFragment(), PrivateSenderWarningComponentContract.View {
+class PromulgationComponentFragment : BaseFragment(), PromulgationComponentContract.View {
 
     val onLanguageChange : (Locale)->Unit = { locale ->
         Timber.e("Locale changed to locale")
@@ -25,10 +25,10 @@ class PrivateSenderWarningComponentFragment : BaseFragment(), PrivateSenderWarni
     }
 
     @Inject
-    lateinit var presenter : PrivateSenderWarningComponentContract.Presenter
+    lateinit var presenter : PromulgationComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_mail_opening_error_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_mail_opening_promulgation_component, container, false)
         return rootView
 
     }
@@ -36,10 +36,14 @@ class PrivateSenderWarningComponentFragment : BaseFragment(), PrivateSenderWarni
     override fun onResume() {
         super.onResume()
         NStack.addLanguageChangeListener(onLanguageChange)
+        // TODO uncomment to make modal
+        //getBaseActivity()?.backPressedCallback = { true }
     }
 
     override fun onPause() {
         NStack.removeLanguageChangeListener(onLanguageChange)
+        // TODO uncomment to make modal
+        //getBaseActivity()?.backPressedCallback = null
         super.onPause()
     }
 
@@ -47,29 +51,22 @@ class PrivateSenderWarningComponentFragment : BaseFragment(), PrivateSenderWarni
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        openBtn.setOnClickListener {
+        okayBtn.setOnClickListener {
             presenter.setShouldProceed(true)
             activity.onBackPressed()
         }
-        openBtn.visibility = View.VISIBLE
+        okayBtn.visibility = View.VISIBLE
         setupTopBar()
         updateTranslation()
+
     }
 
     private fun updateTranslation()
     {
-        mainTb.title = Translation.message.privateSenderTitle
-        headerTv.text = Translation.message.privateSenderTitle
-        mainTv.text = Translation.message.privateSenderMessage
-        openBtn.text = Translation.message.openMessageButton
+        mainTb.title = "_Promulgation"
     }
 
     private fun setupTopBar() {
-        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
-        mainTb.title = Translation.message.privateSenderTitle
-        mainTb.setNavigationOnClickListener {
-            presenter.setShouldProceed(false)
-            activity.onBackPressed()
-        }
+
     }
 }

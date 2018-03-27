@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.message.detail.document
 
+import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.eboks.app.presentation.base.BaseView
@@ -15,5 +16,6 @@ interface DocumentComponentContract {
 
     interface Presenter : BasePresenter<DocumentComponentContract.View> {
         fun openExternalViewer(message : Message)
+        fun saveAttachment(content: Content)
     }
 }

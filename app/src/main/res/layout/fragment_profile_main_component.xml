@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:nstack="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:nstack="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/profileDetailABL"
@@ -61,9 +61,9 @@
                     android:paddingTop="@dimen/margin_half"
                     android:textAllCaps="false"
                     android:textColor="@color/selector_red_grey_white"
+                    android:textSize="14sp"
                     nstack:textOff="@string/nstack_channels_verifyYourProfile"
-                    nstack:textOn="@string/nstack_senders_registered"
-                    android:textSize="14sp" />
+                    nstack:textOn="@string/nstack_senders_registered" />
 
             </LinearLayout>
 
@@ -90,8 +90,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <include layout="@layout/include_profile_bottom"></include>
-
+            <include layout="@layout/include_profile_bottom" />
 
         </LinearLayout>
 

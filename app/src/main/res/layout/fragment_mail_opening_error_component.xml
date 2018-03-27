@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <include layout="@layout/include_toolbar" />
 
         <!--Top part-->
         <LinearLayout
@@ -51,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="52dp"
+                android:paddingBottom="16dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -59,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="28dp"
                     android:layout_gravity="center_horizontal"
-                    android:text="Recalled by sender" />
+                    android:text="_Private sender" />
 
                 <TextView
                     style="@style/text.body6.secondary"
@@ -71,12 +73,32 @@
                     android:paddingRight="40dp"
                     android:text="Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh." />
 
+                <Button
+                    style="@style/button.SolidGradient.large"
+                    android:visibility="gone"
+                    android:id="@+id/openBtn"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="280dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:text="_Open message"/>
+
+                <Button
+                    style="@style/button.SolidGradient.large"
+                    android:id="@+id/loginSecureBtn"
+                    android:visibility="gone"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="280dp"
+                    android:layout_height="52dp"
+                    android:layout_gravity="center"
+                    android:text="_Log on with NemID"/>
 
                 <TextView
                     style="@style/text.buttonSmall.tertiary"
-                    android:id="@+id/deleteButtonTv"
+                    android:id="@+id/loginTv"
+                    android:visibility="gone"
                     android:clickable="true"
-                    android:text="Delete message"
+                    android:text="_Log on with mobile access"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

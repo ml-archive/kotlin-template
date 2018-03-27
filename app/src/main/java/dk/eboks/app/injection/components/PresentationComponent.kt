@@ -47,8 +47,6 @@ import dk.eboks.app.presentation.ui.components.message.detail.folderinfo.FolderI
 import dk.eboks.app.presentation.ui.components.message.detail.folderinfo.FolderInfoComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderComponentPresenter
-import dk.eboks.app.presentation.ui.components.message.opening.locked.LockedMessageComponentFragment
-import dk.eboks.app.presentation.ui.components.message.opening.locked.LockedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentFragment
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentFragment
@@ -57,6 +55,14 @@ import dk.eboks.app.presentation.ui.components.message.opening.protectedmessage.
 import dk.eboks.app.presentation.ui.components.message.opening.protectedmessage.ProtectedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.share.ShareComponentFragment
 import dk.eboks.app.presentation.ui.components.message.detail.share.ShareComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.promulgation.PromulgationComponentFragment
+import dk.eboks.app.presentation.ui.components.message.opening.promulgation.PromulgationComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.quarantine.QuarantineComponentFragment
+import dk.eboks.app.presentation.ui.components.message.opening.quarantine.QuarantineComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.recalled.RecalledComponentFragment
+import dk.eboks.app.presentation.ui.components.message.opening.recalled.RecalledComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.receipt.OpeningReceiptComponentFragment
+import dk.eboks.app.presentation.ui.components.message.opening.receipt.OpeningReceiptComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentFragment
@@ -67,8 +73,8 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
-import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentFragment
-import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
+import dk.eboks.app.presentation.ui.components.profile.edit.ProfileInfoComponentFragment
+import dk.eboks.app.presentation.ui.components.profile.edit.ProfileInfoComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
@@ -98,6 +104,7 @@ import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
+import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity
 import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
@@ -106,36 +113,34 @@ import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPres
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
-/**
- * Created by bison on 26-07-2017.
- */
-
-@Component(dependencies = arrayOf(AppComponent::class), modules = arrayOf(PresentationModule::class))
+@Component(dependencies = [(AppComponent::class)], modules = [(PresentationModule::class)])
 @ActivityScope
 interface PresentationComponent {
     // Screens
-    fun inject(target : PastaActivity)
-    fun inject(target : PastaPresenter)
-    fun inject(target : MailOverviewActivity)
-    fun inject(target : MailOverviewPresenter)
-    fun inject(target : MailListActivity)
-    fun inject(target : MailListPresenter)
-    fun inject(target : FolderActivity)
-    fun inject(target : FolderPresenter)
-    fun inject(target : MessageActivity)
-    fun inject(target : MessagePresenter)
-    fun inject(target : MessageEmbeddedActivity)
-    fun inject(target : MessageEmbeddedPresenter)
-    fun inject(target : MessageOpeningActivity)
-    fun inject(target : MessageOpeningPresenter)
-    fun inject(target : ChannelOverviewActivity)
-    fun inject(target : ChannelOverviewPresenter)
-    fun inject(target : ChannelContentActivity)
-    fun inject(target : ChannelContentPresenter)
-    fun inject(target : SendersOverviewActivity)
-    fun inject(target : SendersOverviewPresenter)
-    fun inject(target : StartActivity)
-    fun inject(target : StartPresenter)
+    fun inject(target: PastaActivity)
+
+    fun inject(target: PastaPresenter)
+    fun inject(target: MailOverviewActivity)
+    fun inject(target: MailOverviewPresenter)
+    fun inject(target: MailListActivity)
+    fun inject(target: MailListPresenter)
+    fun inject(target: FolderActivity)
+    fun inject(target: FolderPresenter)
+    fun inject(target: MessageActivity)
+    fun inject(target: MessagePresenter)
+    fun inject(target: MessageEmbeddedActivity)
+    fun inject(target: MessageEmbeddedPresenter)
+    fun inject(target: MessageOpeningActivity)
+    fun inject(target: MessageOpeningPresenter)
+    fun inject(target: ChannelOverviewActivity)
+    fun inject(target: ChannelOverviewPresenter)
+    fun inject(target: ChannelContentActivity)
+    fun inject(target: ChannelContentPresenter)
+    fun inject(target: SendersOverviewActivity)
+    fun inject(target: SendersOverviewPresenter)
+    fun inject(target: StartActivity)
+    fun inject(target: StartPresenter)
+    fun inject(target: ProfileActivity)
 
     // Components
 
@@ -160,12 +165,18 @@ interface PresentationComponent {
     fun inject(target : ImageViewComponentPresenter)
     fun inject(target : TextViewComponentFragment)
     fun inject(target : TextViewComponentPresenter)
-    fun inject(target : LockedMessageComponentFragment)
-    fun inject(target : LockedMessageComponentPresenter)
     fun inject(target : ProtectedMessageComponentFragment)
     fun inject(target : ProtectedMessageComponentPresenter)
     fun inject(target : PrivateSenderWarningComponentFragment)
     fun inject(target : PrivateSenderWarningComponentPresenter)
+    fun inject(target : OpeningReceiptComponentFragment)
+    fun inject(target : OpeningReceiptComponentPresenter)
+    fun inject(target : QuarantineComponentFragment)
+    fun inject(target : QuarantineComponentPresenter)
+    fun inject(target : RecalledComponentFragment)
+    fun inject(target : RecalledComponentPresenter)
+    fun inject(target : PromulgationComponentFragment)
+    fun inject(target : PromulgationComponentPresenter)
 
     // mail
     fun inject(target : FoldersComponentFragment)
@@ -234,8 +245,8 @@ interface PresentationComponent {
     fun inject(target : BankIdNOComponentPresenter)
   
     // profile
-    fun inject(target : MyInformationComponentFragment)
-    fun inject(target : MyInformationComponentPresenter)
+    fun inject(target: ProfileInfoComponentFragment)
+    fun inject(target: ProfileInfoComponentPresenter)
 
     // home
     fun inject(target : HomeComponentFragment)

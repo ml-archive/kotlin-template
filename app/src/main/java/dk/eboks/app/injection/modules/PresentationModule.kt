@@ -68,8 +68,6 @@ import dk.eboks.app.presentation.ui.components.message.detail.folderinfo.FolderI
 import dk.eboks.app.presentation.ui.components.message.detail.folderinfo.FolderInfoComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderComponentContract
 import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderComponentPresenter
-import dk.eboks.app.presentation.ui.components.message.opening.locked.LockedMessageComponentContract
-import dk.eboks.app.presentation.ui.components.message.opening.locked.LockedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentContract
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentContract
@@ -78,6 +76,14 @@ import dk.eboks.app.presentation.ui.components.message.opening.protectedmessage.
 import dk.eboks.app.presentation.ui.components.message.opening.protectedmessage.ProtectedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.share.ShareComponentContract
 import dk.eboks.app.presentation.ui.components.message.detail.share.ShareComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.promulgation.PromulgationComponentContract
+import dk.eboks.app.presentation.ui.components.message.opening.promulgation.PromulgationComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.quarantine.QuarantineComponentContract
+import dk.eboks.app.presentation.ui.components.message.opening.quarantine.QuarantineComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.recalled.RecalledComponentContract
+import dk.eboks.app.presentation.ui.components.message.opening.recalled.RecalledComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.receipt.OpeningReceiptComponentContract
+import dk.eboks.app.presentation.ui.components.message.opening.receipt.OpeningReceiptComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentContract
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentContract
@@ -88,8 +94,8 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContract
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
-import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentContract
-import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
+import dk.eboks.app.presentation.ui.components.profile.edit.ProfileInfoComponentContract
+import dk.eboks.app.presentation.ui.components.profile.edit.ProfileInfoComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentContract
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentContract
@@ -123,6 +129,8 @@ import dk.eboks.app.presentation.ui.screens.start.StartContract
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningContract
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
+import dk.eboks.app.presentation.ui.screens.profile.ProfileContract
+import dk.eboks.app.presentation.ui.screens.profile.ProfilePresenter
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryContract
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryPresenter
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailContract
@@ -140,50 +148,53 @@ import dk.nodes.arch.domain.injection.scopes.ActivityScope
 class PresentationModule {
     @ActivityScope
     @Provides
-    fun providePastaPresenter(appState: AppStateManager) : PastaContract.Presenter {
+    fun providePastaPresenter(appState: AppStateManager): PastaContract.Presenter {
         return PastaPresenter(appState)
     }
 
     @ActivityScope
     @Provides
-    fun provideMailOverviewPresenter(stateManager: AppStateManager) : MailOverviewContract.Presenter {
+    fun provideMailOverviewPresenter(stateManager: AppStateManager): MailOverviewContract.Presenter {
         return MailOverviewPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideMailListPresenter(appState: AppStateManager) : MailListContract.Presenter {
+    fun provideMailListPresenter(appState: AppStateManager): MailListContract.Presenter {
         return MailListPresenter(appState)
     }
 
     @ActivityScope
     @Provides
-    fun provideFolderPresenter(appState: AppStateManager) : FolderContract.Presenter {
+    fun provideFolderPresenter(appState: AppStateManager): FolderContract.Presenter {
         return FolderPresenter(appState)
     }
 
     @ActivityScope
     @Provides
-    fun provideMessagePresenter(appState: AppStateManager) : MessageContract.Presenter {
+    fun provideMessagePresenter(appState: AppStateManager): MessageContract.Presenter {
         return MessagePresenter(appState)
     }
 
 
     @ActivityScope
     @Provides
-    fun provideChannelsPresenter(stateManager: AppStateManager) : ChannelOverviewContract.Presenter {
+    fun provideChannelsPresenter(stateManager: AppStateManager): ChannelOverviewContract.Presenter {
         return ChannelOverviewPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideMessageSheetPresenter(stateManager: AppStateManager) : MessageEmbeddedContract.Presenter {
+    fun provideMessageSheetPresenter(stateManager: AppStateManager): MessageEmbeddedContract.Presenter {
         return MessageEmbeddedPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideMessageOpeningPresenter(stateManager: AppStateManager, executor: Executor) : MessageOpeningContract.Presenter {
+    fun provideMessageOpeningPresenter(
+            stateManager: AppStateManager,
+            executor: Executor
+    ): MessageOpeningContract.Presenter {
         return MessageOpeningPresenter(stateManager, executor)
     }
 
@@ -201,243 +212,319 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideAttachmentsComponentPresenter(stateManager: AppStateManager, openAttachmentInteractor: OpenAttachmentInteractor, saveAttachmentInteractor: SaveAttachmentInteractor) : AttachmentsComponentContract.Presenter {
-        return AttachmentsComponentPresenter(stateManager, openAttachmentInteractor, saveAttachmentInteractor)
+    fun provideAttachmentsComponentPresenter(
+            stateManager: AppStateManager,
+            openAttachmentInteractor: OpenAttachmentInteractor,
+            saveAttachmentInteractor: SaveAttachmentInteractor
+    ): AttachmentsComponentContract.Presenter {
+        return AttachmentsComponentPresenter(
+                stateManager,
+                openAttachmentInteractor,
+                saveAttachmentInteractor
+        )
     }
 
     @ActivityScope
     @Provides
-    fun provideFolderInfoComponentPresenter(stateManager: AppStateManager) : FolderInfoComponentContract.Presenter {
+    fun provideFolderInfoComponentPresenter(stateManager: AppStateManager): FolderInfoComponentContract.Presenter {
         return FolderInfoComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideDocumentComponentPresenter(stateManager: AppStateManager) : DocumentComponentContract.Presenter {
-        return DocumentComponentPresenter(stateManager)
+    fun provideDocumentComponentPresenter(stateManager: AppStateManager, saveAttachmentInteractor: SaveAttachmentInteractor) : DocumentComponentContract.Presenter {
+        return DocumentComponentPresenter(stateManager, saveAttachmentInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun providePdfPreviewComponentPresenter(stateManager: AppStateManager) : PdfViewComponentContract.Presenter {
+    fun providePdfPreviewComponentPresenter(stateManager: AppStateManager): PdfViewComponentContract.Presenter {
         return PdfViewComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideFoldersComponentPresenter(stateManager: AppStateManager, getFoldersInteractor: GetFoldersInteractor, openFolderInteractor: OpenFolderInteractor) : FoldersComponentContract.Presenter {
+    fun provideFoldersComponentPresenter(
+            stateManager: AppStateManager,
+            getFoldersInteractor: GetFoldersInteractor,
+            openFolderInteractor: OpenFolderInteractor
+    ): FoldersComponentContract.Presenter {
         return FoldersComponentPresenter(stateManager, getFoldersInteractor, openFolderInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideFolderShortcutsComponentPresenter(stateManager: AppStateManager, getCategoriesInteractor: GetCategoriesInteractor, openFolderInteractor: OpenFolderInteractor) : FolderShortcutsComponentContract.Presenter {
-        return FolderShortcutsComponentPresenter(stateManager, getCategoriesInteractor, openFolderInteractor)
+    fun provideFolderShortcutsComponentPresenter(
+            stateManager: AppStateManager,
+            getCategoriesInteractor: GetCategoriesInteractor,
+            openFolderInteractor: OpenFolderInteractor
+    ): FolderShortcutsComponentContract.Presenter {
+        return FolderShortcutsComponentPresenter(
+                stateManager,
+                getCategoriesInteractor,
+                openFolderInteractor
+        )
     }
 
     @ActivityScope
     @Provides
-    fun provideSenderCarouselComponentPresenter(stateManager: AppStateManager, sendersInteractor: GetSendersInteractor) : SenderCarouselComponentContract.Presenter {
+    fun provideSenderCarouselComponentPresenter(
+            stateManager: AppStateManager,
+            sendersInteractor: GetSendersInteractor
+    ): SenderCarouselComponentContract.Presenter {
         return SenderCarouselComponentPresenter(stateManager, sendersInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideMailListComponentPresenter(stateManager: AppStateManager, getMessagesInteractor: GetMessagesInteractor, openMessageInteractor: OpenMessageInteractor) : MailListComponentContract.Presenter {
-        return MailListComponentPresenter(stateManager, getMessagesInteractor, openMessageInteractor)
+    fun provideMailListComponentPresenter(
+            stateManager: AppStateManager,
+            getMessagesInteractor: GetMessagesInteractor,
+            openMessageInteractor: OpenMessageInteractor
+    ): MailListComponentContract.Presenter {
+        return MailListComponentPresenter(
+                stateManager,
+                getMessagesInteractor,
+                openMessageInteractor
+        )
     }
 
     @ActivityScope
     @Provides
-    fun provideNavBarComponentPresenter(stateManager: AppStateManager) : NavBarComponentContract.Presenter {
+    fun provideNavBarComponentPresenter(stateManager: AppStateManager): NavBarComponentContract.Presenter {
         return NavBarComponentPresenter(stateManager)
     }
 
 
     @ActivityScope
     @Provides
-    fun provideHtmlViewComponentPresenter(stateManager: AppStateManager) : HtmlViewComponentContract.Presenter {
+    fun provideHtmlViewComponentPresenter(stateManager: AppStateManager): HtmlViewComponentContract.Presenter {
         return HtmlViewComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideImageViewComponentPresenter(stateManager: AppStateManager) : ImageViewComponentContract.Presenter {
+    fun provideImageViewComponentPresenter(stateManager: AppStateManager): ImageViewComponentContract.Presenter {
         return ImageViewComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideTextViewComponentPresenter(stateManager: AppStateManager) : TextViewComponentContract.Presenter {
+    fun provideTextViewComponentPresenter(stateManager: AppStateManager): TextViewComponentContract.Presenter {
         return TextViewComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideLockedMessageComponentPresenter(stateManager: AppStateManager) : LockedMessageComponentContract.Presenter {
-        return LockedMessageComponentPresenter(stateManager)
+    fun provideQuarantineComponentPresenter(stateManager: AppStateManager, executor: Executor) : QuarantineComponentContract.Presenter {
+        return QuarantineComponentPresenter(stateManager, executor)
     }
 
     @ActivityScope
     @Provides
-    fun provideProtectedMessageComponentPresenter(stateManager: AppStateManager) : ProtectedMessageComponentContract.Presenter {
-        return ProtectedMessageComponentPresenter(stateManager)
+    fun provideRecalledMessageComponentPresenter(stateManager: AppStateManager, executor: Executor) : RecalledComponentContract.Presenter {
+        return RecalledComponentPresenter(stateManager, executor)
     }
 
     @ActivityScope
     @Provides
-    fun providePrivateSenderWarningComponentPresenter(stateManager: AppStateManager, executor: Executor) : PrivateSenderWarningComponentContract.Presenter {
+    fun providePromulgationComponentPresenter(stateManager: AppStateManager, executor: Executor) : PromulgationComponentContract.Presenter {
+        return PromulgationComponentPresenter(stateManager, executor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideProtectedMessageComponentPresenter(stateManager: AppStateManager, executor: Executor) : ProtectedMessageComponentContract.Presenter {
+        return ProtectedMessageComponentPresenter(stateManager, executor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideOpeningReceiptComponentPresenter(stateManager: AppStateManager, executor: Executor) : OpeningReceiptComponentContract.Presenter {
+        return OpeningReceiptComponentPresenter(stateManager, executor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun providePrivateSenderWarningComponentPresenter(
+            stateManager: AppStateManager,
+            executor: Executor
+    ): PrivateSenderWarningComponentContract.Presenter {
         return PrivateSenderWarningComponentPresenter(stateManager, executor)
     }
 
     @ActivityScope
     @Provides
-    fun provideChannelListComponentPresenter(stateManager: AppStateManager, getChannelsInteractor: GetChannelsInteractor) : ChannelOverviewComponentContract.Presenter {
+    fun provideChannelListComponentPresenter(
+            stateManager: AppStateManager,
+            getChannelsInteractor: GetChannelsInteractor
+    ): ChannelOverviewComponentContract.Presenter {
         return ChannelOverviewComponentPresenter(stateManager, getChannelsInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideChannelSettingsPopUpComponentPresenter(stateManager: AppStateManager) : ChannelRequirementsComponentContract.Presenter {
+    fun provideChannelSettingsPopUpComponentPresenter(stateManager: AppStateManager): ChannelRequirementsComponentContract.Presenter {
         return ChannelRequirementsComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideShareComponentPresenter(stateManager: AppStateManager) : ShareComponentContract.Presenter {
+    fun provideShareComponentPresenter(stateManager: AppStateManager): ShareComponentContract.Presenter {
         return ShareComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideSendersOverviewPresenter(stateManager: AppStateManager, collectionsInteractor: GetCollectionsInteractor) : SendersOverviewContract.Presenter {
-        return SendersOverviewPresenter(stateManager,collectionsInteractor)
+    fun provideSendersOverviewPresenter(
+            stateManager: AppStateManager,
+            collectionsInteractor: GetCollectionsInteractor
+    ): SendersOverviewContract.Presenter {
+        return SendersOverviewPresenter(stateManager, collectionsInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideStartPresenter(stateManager: AppStateManager, bootstrapInteractor: BootstrapInteractor) : StartContract.Presenter {
+    fun provideStartPresenter(
+            stateManager: AppStateManager,
+            bootstrapInteractor: BootstrapInteractor
+    ): StartContract.Presenter {
         return StartPresenter(stateManager, bootstrapInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideSignupComponentPresenter(stateManager: AppStateManager) : SignupComponentContract.Presenter {
+    fun provideSignupComponentPresenter(stateManager: AppStateManager): SignupComponentContract.Presenter {
         return SignupComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideNemIdComponentPresenter(stateManager: AppStateManager) : NemIdComponentContract.Presenter {
+    fun provideNemIdComponentPresenter(stateManager: AppStateManager): NemIdComponentContract.Presenter {
         return NemIdComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideIdPortenComponentPresenter(stateManager: AppStateManager) : IdPortenComponentContract.Presenter {
+    fun provideIdPortenComponentPresenter(stateManager: AppStateManager): IdPortenComponentContract.Presenter {
         return IdPortenComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideBankIdSEComponentPresenter(stateManager: AppStateManager) : BankIdSEComponentContract.Presenter {
+    fun provideBankIdSEComponentPresenter(stateManager: AppStateManager): BankIdSEComponentContract.Presenter {
         return BankIdSEComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideBankIdNOComponentPresenter(stateManager: AppStateManager) : BankIdNOComponentContract.Presenter {
+    fun provideBankIdNOComponentPresenter(stateManager: AppStateManager): BankIdNOComponentContract.Presenter {
         return BankIdNOComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideVerificationComponentPresenter(stateManager: AppStateManager) : VerificationComponentContract.Presenter {
+    fun provideVerificationComponentPresenter(stateManager: AppStateManager): VerificationComponentContract.Presenter {
         return VerificationComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideUserCarouselComponentPresenter(stateManager: AppStateManager, getUsersInteractor: GetUsersInteractor, deleteUserInteractor: DeleteUserInteractor) : UserCarouselComponentContract.Presenter {
-        return UserCarouselComponentPresenter(stateManager, getUsersInteractor, deleteUserInteractor)
+    fun provideUserCarouselComponentPresenter(
+            stateManager: AppStateManager,
+            getUsersInteractor: GetUsersInteractor,
+            deleteUserInteractor: DeleteUserInteractor
+    ): UserCarouselComponentContract.Presenter {
+        return UserCarouselComponentPresenter(
+                stateManager,
+                getUsersInteractor,
+                deleteUserInteractor
+        )
     }
 
     @ActivityScope
     @Provides
-    fun provideLoginComponentPresenter(stateManager: AppStateManager, createUserInteractor: CreateUserInteractor) : LoginComponentContract.Presenter {
+    fun provideLoginComponentPresenter(
+            stateManager: AppStateManager,
+            createUserInteractor: CreateUserInteractor
+    ): LoginComponentContract.Presenter {
         return LoginComponentPresenter(stateManager, createUserInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideForgotPasswordComponentPresenter(stateManager: AppStateManager) : ForgotPasswordComponentContract.Presenter {
+    fun provideForgotPasswordComponentPresenter(stateManager: AppStateManager): ForgotPasswordComponentContract.Presenter {
         return ForgotPasswordComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideActivationCodeComponentPresenter(stateManager: AppStateManager) : ActivationCodeComponentContract.Presenter {
+    fun provideActivationCodeComponentPresenter(stateManager: AppStateManager): ActivationCodeComponentContract.Presenter {
         return ActivationCodeComponentPresenter(stateManager)
     }
 
-    @ActivityScope
-    @Provides
-    fun provideMyInformationComponentPresenter(stateManager: AppStateManager) : MyInformationComponentContract.Presenter {
-        return MyInformationComponentPresenter(stateManager)
-    }
 
     @ActivityScope
     @Provides
-    fun provideChannelOpeningComponentPresenter(stateManager: AppStateManager, getChannelInteractor: GetChannelInteractor) : ChannelOpeningComponentContract.Presenter {
+    fun provideChannelOpeningComponentPresenter(
+            stateManager: AppStateManager,
+            getChannelInteractor: GetChannelInteractor
+    ): ChannelOpeningComponentContract.Presenter {
         return ChannelOpeningComponentPresenter(stateManager, getChannelInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideChannelVerificationComponentPresenter(stateManager: AppStateManager) : ChannelVerificationComponentContract.Presenter {
+    fun provideChannelVerificationComponentPresenter(stateManager: AppStateManager): ChannelVerificationComponentContract.Presenter {
         return ChannelVerificationComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideChannelContentComponentPresenter(stateManager: AppStateManager) : ChannelContentComponentContract.Presenter {
+    fun provideChannelContentComponentPresenter(stateManager: AppStateManager): ChannelContentComponentContract.Presenter {
         return ChannelContentComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideChannelContentStoreboxComponentPresenter(stateManager: AppStateManager) : ChannelContentStoreboxComponentContract.Presenter {
+    fun provideChannelContentStoreboxComponentPresenter(stateManager: AppStateManager): ChannelContentStoreboxComponentContract.Presenter {
         return ChannelContentStoreboxComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideChannelSettingsComponentPresenter(stateManager: AppStateManager) : ChannelSettingsComponentContract.Presenter {
+    fun provideChannelSettingsComponentPresenter(stateManager: AppStateManager): ChannelSettingsComponentContract.Presenter {
         return ChannelSettingsComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideChannelContentPresenter(stateManager: AppStateManager) : ChannelContentContract.Presenter {
+    fun provideChannelContentPresenter(stateManager: AppStateManager): ChannelContentContract.Presenter {
         return ChannelContentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideAcceptTermsComponentPresenter(stateManager: AppStateManager) : AcceptTermsComponentContract.Presenter {
+    fun provideAcceptTermsComponentPresenter(stateManager: AppStateManager): AcceptTermsComponentContract.Presenter {
         return AcceptTermsComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideCategoriesComponentPresenter(stateManager: AppStateManager, getSenderCategoriesInteractor: GetSenderCategoriesInteractor) : CategoriesComponentContract.Presenter {
+    fun provideCategoriesComponentPresenter(
+            stateManager: AppStateManager,
+            getSenderCategoriesInteractor: GetSenderCategoriesInteractor
+    ): CategoriesComponentContract.Presenter {
         return CategoriesComponentPresenter(stateManager, getSenderCategoriesInteractor)
     }
 
 
     @ActivityScope
     @Provides
-    fun provideBrowseCategoryPresenter(stateManager: AppStateManager, getSendersInteractor: GetSendersInteractor) : BrowseCategoryContract.Presenter {
+    fun provideBrowseCategoryPresenter(
+            stateManager: AppStateManager,
+            getSendersInteractor: GetSendersInteractor
+    ): BrowseCategoryContract.Presenter {
         return BrowseCategoryPresenter(stateManager, getSendersInteractor)
     }
 
@@ -450,31 +537,61 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideUploadOverviewPresenter(stateManager: AppStateManager) : UploadOverviewComponentContract.Presenter {
+    fun provideUploadOverviewPresenter(stateManager: AppStateManager): UploadOverviewComponentContract.Presenter {
         return UploadOverviewComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideRegisterPresenter(stateManager: AppStateManager, registerInteractor: RegisterInteractor, unRegisterInteractor: UnRegisterInteractor) : RegistrationContract.Presenter {
+    fun provideRegisterPresenter(
+            stateManager: AppStateManager,
+            registerInteractor: RegisterInteractor,
+            unRegisterInteractor: UnRegisterInteractor
+    ): RegistrationContract.Presenter {
         return RegisterPresenter(stateManager, registerInteractor, unRegisterInteractor)
     }
   
     @ActivityScope
     @Provides
-    fun provideSenderDetailPresenter(stateManager: AppStateManager, getSenderDetailInteractor: GetSenderDetailInteractor, registerInteractor: RegisterInteractor, unRegisterInteractor: UnRegisterInteractor): SenderDetailContract.Presenter {
-        return SenderDetailPresenter(stateManager, getSenderDetailInteractor, registerInteractor, unRegisterInteractor)
+    fun provideSenderDetailPresenter(
+            stateManager: AppStateManager,
+            getSenderDetailInteractor: GetSenderDetailInteractor,
+            registerInteractor: RegisterInteractor,
+            unRegisterInteractor: UnRegisterInteractor
+    ): SenderDetailContract.Presenter {
+        return SenderDetailPresenter(
+                stateManager,
+                getSenderDetailInteractor,
+                registerInteractor,
+                unRegisterInteractor
+        )
     }
 
     @ActivityScope
     @Provides
-    fun provideDebugOptionsComponentPresenter(stateManager: AppStateManager) : DebugOptionsComponentContract.Presenter {
+    fun provideDebugOptionsComponentPresenter(stateManager: AppStateManager): DebugOptionsComponentContract.Presenter {
         return DebugOptionsComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideDebugUserPresenter(stateManager: AppStateManager, createUserInteractor: CreateUserInteractor, saveUserInteractor: SaveUserInteractor) : DebugUserContract.Presenter {
+    fun provideProfilePresenter(stateManager: AppStateManager): ProfileContract.Presenter {
+        return ProfilePresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideProfileInfoComponentPresenter(stateManager: AppStateManager): ProfileInfoComponentContract.Presenter {
+        return ProfileInfoComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideDebugUserPresenter(
+            stateManager: AppStateManager,
+            createUserInteractor: CreateUserInteractor,
+            saveUserInteractor: SaveUserInteractor
+    ): DebugUserContract.Presenter {
         return DebugUserPresenter(stateManager, createUserInteractor, saveUserInteractor)
     }
 

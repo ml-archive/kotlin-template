@@ -6,9 +6,13 @@ import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.widget.Toast
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.injection.components.DaggerPresentationComponent
@@ -48,6 +52,16 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         val backStackRootTag = "root_fragment"
     }
 
+    /**
+     * easy shortcut to get an inflater, this only gets instantiated if you use it and only the first time
+     */
+    val inflator by lazy {
+        LayoutInflater.from(this)
+    }
+
+    val mainHandler by lazy {
+        Handler(Looper.getMainLooper())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -175,5 +189,10 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
      */
     override fun showErrorDialog(error : ViewError) {
         defaultErrorHandler.showErrorDialog(error)
+    }
+
+    override fun showToast(msg: String, showLongTime: Boolean) {
+        val dur = if(showLongTime) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
+        Toast.makeText(this, msg, dur).show()
     }
 }

@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
 
     <!--My information-->
     <LinearLayout
+        android:id="@+id/profileDetailContainerMyInformation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:orientation="vertical"
         android:paddingLeft="16dp">
 
@@ -24,7 +31,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="_My information" />
+                android:text="_My information"
+                nstack:text="@string/nstack_profile_myInformation" />
 
         </LinearLayout>
 
@@ -32,7 +40,7 @@
 
     <include
         layout="@layout/include_divider"
-        android:visibility="visible"></include>
+        android:visibility="visible" />
 
     <!--Fingerprint and keep me signed in-->
 
@@ -44,7 +52,7 @@
 
         <include
             layout="@layout/include_divider"
-            android:visibility="visible"></include>
+            android:visibility="visible" />
 
         <!--Fingerprint switch-->
 
@@ -52,7 +60,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:orientation="vertical">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -61,14 +73,14 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
 
-
                 <TextView
                     style="@style/text.header4"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="_Fingerprint" />
+                    android:text="_Fingerprint"
+                    nstack:text="@string/nstack_profile_fingerprint" />
 
 
                 <FrameLayout
@@ -76,6 +88,7 @@
                     android:layout_height="match_parent">
 
                     <Switch
+                        android:id="@+id/profileDetailSwFingerprint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -86,7 +99,7 @@
 
             </LinearLayout>
 
-            <include layout="@layout/include_divider_leftmargin_whitebackground"></include>
+            <include layout="@layout/include_divider_leftmargin_whitebackground" />
 
         </LinearLayout>
 
@@ -96,6 +109,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:orientation="vertical">
 
             <LinearLayout
@@ -112,7 +128,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="_Keep me signed in" />
+                    android:text="_Keep me signed in"
+                    nstack:text="@string/nstack_profile_keepMeSignedIn" />
 
 
                 <FrameLayout
@@ -120,6 +137,7 @@
                     android:layout_height="match_parent">
 
                     <Switch
+                        android:id="@+id/profileDetailSwKeepSignedIn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -132,7 +150,7 @@
 
             <include
                 layout="@layout/include_divider"
-                android:visibility="visible"></include>
+                android:visibility="visible" />
 
         </LinearLayout>
     </LinearLayout>
@@ -147,18 +165,23 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:text="_Keep me signed in when i close the e-boks app orem ipsum dolor sit amet"
-        android:textColor="@color/blueGrey" />
+        android:textColor="@color/blueGrey"
+        nstack:text="@string/nstack_profile_keepMeSignedInDescription" />
 
     <include
         layout="@layout/include_divider"
-        android:visibility="visible"></include>
+        android:visibility="visible" />
 
     <!--Terms & Conditions-->
 
     <LinearLayout
+        android:id="@+id/profileDetailContainerTerms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:orientation="vertical"
         android:paddingLeft="16dp">
 
@@ -173,20 +196,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="_Terms and Conditions" />
+                android:text="_Terms and Conditions"
+                nstack:text="@string/nstack_profile_termsAndConditions" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <include layout="@layout/include_divider_leftmargin_whitebackground"></include>
+    <include layout="@layout/include_divider_leftmargin_whitebackground" />
 
     <!--Privacy Statement-->
 
     <LinearLayout
+        android:id="@+id/profileDetailContainerPrivacy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:orientation="vertical"
         android:paddingLeft="16dp">
 
@@ -201,22 +229,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="_Privacy Statement" />
+                android:text="_Privacy Statement"
+                nstack:text="@string/nstack_profile_privacyStatement" />
 
         </LinearLayout>
     </LinearLayout>
 
     <include
         layout="@layout/include_divider"
-        android:visibility="visible"></include>
+        android:visibility="visible" />
 
     <!--Help-->
 
     <LinearLayout
+        android:id="@+id/profileDetailContainerHelp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
         android:orientation="vertical"
         android:paddingLeft="16dp">
 
@@ -225,45 +258,47 @@
             android:layout_height="60dp"
             android:orientation="horizontal">
 
-
             <TextView
                 style="@style/text.header4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="_help" />
+                android:text="_help"
+                nstack:text="@string/nstack_profile_help" />
 
         </LinearLayout>
     </LinearLayout>
 
     <include
         layout="@layout/include_divider"
-        android:visibility="visible"></include>
-    
+        android:visibility="visible" />
+
     <!--Sign out Button-->
     <Button
+        android:id="@+id/profileDetailBtnSignout"
         style="@style/buttonRoundedCorners.Tintable.darkText"
-        android:backgroundTint="@color/transparentDarkGreyBlue"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
         android:layout_width="100dp"
         android:layout_height="36dp"
-        android:text="_Sign out"/>
-    
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/transparentDarkGreyBlue"
+        android:text="_Sign out"
+        nstack:text="@string/nstack_profile_signOut" />
+
     <!--Version textView-->
-    
+
     <TextView
+        android:id="@+id/profileDetailTvVersion"
         style="@style/text.subHeader5"
-        android:textColor="@color/blueGrey"
-        android:gravity="center"
-        android:text="_Version 4.0.0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"/>
-    
-    
+        android:gravity="center"
+        android:text="_Version 4.0.0"
+        android:textColor="@color/blueGrey" />
+
 
 </LinearLayout>
