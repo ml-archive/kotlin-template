@@ -38,7 +38,8 @@ class UnRegisterInteractorImpl(executor: Executor, val api: Api) : BaseInteracto
         inputSenderGroup?.let {
             Timber.d("SenderGroup")
             try {
-                api.unregisterSenderGroup(it.senderId, it.senderGroup.id, AliasBody(it.senderGroup.alias)).execute()
+                api.unregisterSenderGroup(it.senderId, it.senderGroup.id).execute()
+//                api.unregisterSenderGroup(it.senderId, it.senderGroup.id, AliasBody(it.senderGroup.alias)).execute() // TODO: we probably need the alias to a url param instead
                 runOnUIThread {
                     output?.onSuccess()
                 }

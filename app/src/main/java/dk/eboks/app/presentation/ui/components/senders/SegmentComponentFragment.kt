@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.sender.Segment
+import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_segment_component.*
 
@@ -17,26 +20,34 @@ import kotlinx.android.synthetic.main.fragment_segment_component.*
  */
 class SegmentComponentFragment : BaseFragment() {
 
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_segment_component, container, false)
-        return rootView
+        return inflater?.inflate(R.layout.fragment_segment_component, container, false)
     }
-
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val seg = arguments.getSerializable(Segment::class.simpleName) as Segment?
-        seg?.let {
-            //            Glide.with(context).load(segment.image.url).into(segmentIv)
-            segmentTitleTv.text = it.name
-            segmentCv.setOnClickListener {
-                Toast.makeText(context, "TODO: open segment", Toast.LENGTH_SHORT).show()
+        val container = arguments.getSerializable(CollectionContainer::class.simpleName) as CollectionContainer?
+        container?.let{
+            segmentTitleTv.text = it.description?.text?:""
+            it.segment?.let {
+                Glide.with(context)
+                        .load(it.image?.url)
+                        .apply(RequestOptions()
+                                .fallback(R.drawable.icon_72_senders_private)
+                                .placeholder(R.drawable.icon_72_senders_private)
+                        )
+                        .into(segmentIv)
+
+                segmentCv.setOnClickListener {
+                    Toast.makeText(context, "TODO: open segment", Toast.LENGTH_SHORT).show()
+                }
+                segmentCatTv.text = it.name
+                segmentSignTv.text = when (it.registered) {
+                    0 -> Translation.senders.register
+                    else -> Translation.senders.registered
+                }
             }
-            segmentCatTv.text = it.type
-            segmentSignTv.text = "Nstack register" // TODO
         }
     }
-
 }

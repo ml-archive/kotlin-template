@@ -67,8 +67,10 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragmen
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.MyInformationComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.SenderComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.register.RegisterGroupComponentFragment
@@ -203,6 +205,8 @@ interface PresentationComponent {
     fun inject(target : SenderGroupsComponentFragment)
     fun inject(target : SenderDetailActivity)
     fun inject(target : RegisterGroupComponentFragment)
+    fun inject(target : SenderListComponentFragment)
+    fun inject(target : SenderComponentFragment)
 
     // signup
     fun inject(target : SignupComponentPresenter)

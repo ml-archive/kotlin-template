@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.MotionEvent
 import android.view.View
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
@@ -49,11 +48,16 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
 
         //translations
         NStack.addLanguageChangeListener(onLanguageChangedListener)
-//        senderDetailRegisterTB.text = Translation.senderdetails.register
-        senderDetailRegisterTB.textOn = Translation.senderdetails.registeredTypeYes
-        senderDetailRegisterTB.textOff = Translation.senderdetails.register
+
+        senderDetailRegisterTB.textOn = Translation.senders.registered
+        senderDetailRegisterTB.textOff = Translation.senders.register
+//        senderDetailRegisterTB.text = when (sender.registered) {
+//            0 -> Translation.senders.register
+//            else -> Translation.senders.registered
+//        }
 
         senderDetailBodyTv.visibility = View.GONE // only for public authorities
+        senderDetailRegisterTB.isChecked = sender.registered != 0
 
         senderDetailTB.setNavigationOnClickListener {
             finish()
@@ -96,6 +100,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
     private fun updateHeader(sender: Sender) {
         senderDetailTB.title = sender.name
         senderDetailNameTv.text = sender.name
+        senderDetailRegisterTB.visibility = View.VISIBLE
 
         Glide.with(this)
                 .load(sender.logo?.url)
@@ -106,8 +111,8 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
                 .into(senderDetailIv)
 
         senderDetailRegisterTB.setOnTouchListener(View.OnTouchListener { v, event ->
-            return@OnTouchListener when(event.action) {
-                MotionEvent.ACTION_UP-> {
+            return@OnTouchListener when (event.action) {
+                MotionEvent.ACTION_UP -> {
                     if (senderDetailRegisterTB.isChecked) {
                         AlertDialog.Builder(this@SenderDetailActivity)
                                 .setTitle(Translation.senders.unregisterAlertTitle)
@@ -135,11 +140,11 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
                                 }
                                 .show()
                     }
-                     true
+                    true
                 }
-               else-> {
-                   v.onTouchEvent(event)
-               }
+                else -> {
+                    v.onTouchEvent(event)
+                }
             }
         })
 

@@ -60,7 +60,7 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
             lateinit var f : BaseFragment
             when (it.type) {
                 "segment" -> {
-                    b.putSerializable(Segment::class.simpleName, it.segment)
+                    b.putSerializable(CollectionContainer::class.simpleName, it)
                     f = SegmentComponentFragment()
                     f.arguments = b
                     supportFragmentManager.beginTransaction().add(sendersCollectionContainerLl.id, f).commit()
