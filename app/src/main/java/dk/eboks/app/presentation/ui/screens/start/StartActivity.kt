@@ -8,6 +8,7 @@ import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.components.start.welcome.SplashComponentFragment
+import dk.eboks.app.presentation.ui.screens.home.HomeActivity
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppUpdate
@@ -66,7 +67,7 @@ class StartActivity : BaseActivity(), StartContract.View {
                             // TODO app should launch play intent taking you to the eboks package and do a check if the intent can be resolved and otherwise open in the external browser
                             // centralize this functionality in a helper class instead of dumping it all in here
                         }
-                        else                 -> {
+                        else -> {
                             dialog.dismiss()
                             presenter.proceed()
                         }
@@ -90,7 +91,7 @@ class StartActivity : BaseActivity(), StartContract.View {
     override fun startMain() {
         //TODO change back to regular when done
         NavBarComponentFragment.currentMenuItem = R.id.actionMail
-        startActivity(Intent(this, ProfileActivity::class.java))
+        startActivity(Intent(this, HomeActivity::class.java))
 
         //overridePendingTransition(0, 0)
         finishAfterTransition()

@@ -100,11 +100,14 @@ import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewAct
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserActivity
 import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserPresenter
+import dk.eboks.app.presentation.ui.screens.home.HomeActivity
+import dk.eboks.app.presentation.ui.screens.home.HomePresenter
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
+import dk.eboks.app.presentation.ui.screens.profile.ProfilePresenter
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity
 import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
@@ -141,6 +144,9 @@ interface PresentationComponent {
     fun inject(target: StartActivity)
     fun inject(target: StartPresenter)
     fun inject(target: ProfileActivity)
+    fun inject(target: ProfilePresenter)
+    fun inject(target: HomeActivity)
+    fun inject(target: HomePresenter)
 
     // Components
 

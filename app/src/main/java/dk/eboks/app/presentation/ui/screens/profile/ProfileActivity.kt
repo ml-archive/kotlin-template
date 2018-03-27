@@ -17,7 +17,8 @@ class ProfileActivity : BaseActivity(), ProfileContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        setFragment(ProfileInfoComponentFragment())
+        setRootFragment(R.id.profileActivityContainerFragment, ProfileInfoComponentFragment())
+
     }
 
     fun showMyInformationFragment() {
@@ -36,10 +37,4 @@ class ProfileActivity : BaseActivity(), ProfileContract.View {
         //TODO setup fragment
     }
 
-    private fun setFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-                .setTransitionStyle(R.style.AppTheme_WindowTransition)
-                .replace(R.id.profileActivityContainerFragment, fragment)
-                .commit()
-    }
 }
