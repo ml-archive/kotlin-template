@@ -4,98 +4,205 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/emailContainerLl"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="visible">
+        android:layout_height="wrap_content">
 
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/margin_normal"
-            android:paddingRight="@dimen/margin_normal"
-            android:background="@color/backgroundColor">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--Top half - Mails-->
+            <LinearLayout
+                android:id="@+id/emailContainerLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/margin_normal"
+                    android:paddingRight="@dimen/margin_normal">
+
+                    <TextView
+                        style="@style/text.header2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="_Mail"
+                        android:textStyle="normal" />
+
+                    <Button
+                        android:id="@+id/showBtn"
+                        style="@style/enabledButttonDarkText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="28dp"
+                        android:layout_gravity="right|center_vertical"
+                        android:enabled="false"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:text="_Show all"
+                        android:textSize="14dp"
+                        android:visibility="visible" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/mailListContentLL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical" />
+
+            </LinearLayout>
+
+            <!--Empty state - Mail-->
+            <LinearLayout
+                android:id="@+id/emptyStateLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/emptyStateHeaderTv"
+                    style="@style/text.header2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    android:gravity="center"
+                    android:text="_Think into the box"
+                    android:textStyle="normal" />
+
+                <ImageView
+                    android:id="@+id/emptyStateImageIv"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_visual_mail" />
+
+                <TextView
+                    android:id="@+id/emptyStateTextTv"
+                    style="@style/text.header3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="_Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
+                    android:textAlignment="center"
+                    android:textColor="@color/blueGrey"
+                    android:textStyle="normal" />
+
+                <Button
+                    android:id="@+id/emptyStateBtn"
+                    style="@style/button.SolidGradient"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:text="_Get started"
+                    android:textAppearance="@style/text.buttonSmall" />
+
+            </LinearLayout>
+
+            <!--Bottom half - Channels-->
+
+            <LinearLayout
+                android:id="@+id/channelsContainerLl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/channelsHeaderFL"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@color/backgroundColor"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/margin_normal"
+                    android:paddingRight="@dimen/margin_normal">
+
+                    <TextView
+                        style="@style/text.header2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="_Channels"
+                        android:textStyle="normal" />
+
+                    <Button
+                        android:id="@+id/editChannelsBtn"
+                        style="@style/buttonRoundedCorners"
+                        android:layout_width="wrap_content"
+                        android:layout_height="28dp"
+                        android:layout_gravity="right|center_vertical"
+                        android:text="_Edit"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14dp"
+                        android:visibility="visible" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:id="@+id/channelsContentLL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:orientation="vertical" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <TextView
+                android:id="@+id/bottomChannelHeaderTv"
                 style="@style/text.header2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="24dp"
                 android:gravity="center"
-                android:text="_Mail"
+                android:text="_Theres more to see!"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/bottomChannelTextTv"
+                style="@style/text.header3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="@dimen/default_padding_top"
+                android:gravity="center"
+                android:text="_You can add as many channels as you would like, to give you the best overview of your services etc.."
+                android:textColor="@color/blueGrey"
                 android:textStyle="normal" />
 
             <Button
-                style="@style/buttonRoundedCorners"
+                android:id="@+id/bottomChannelBtn"
+                style="@style/enabledButttonDarkText"
                 android:layout_width="wrap_content"
-                android:layout_height="28dp"
-                android:layout_gravity="right|center_vertical"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="_Show all"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="12dp"
+                android:enabled="false"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:text="_Add channels"
                 android:textSize="14dp" />
 
-        </FrameLayout>
 
-        <LinearLayout
-            android:id="@+id/mailListContentLL"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:animateLayoutChanges="true">
         </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/emptyStateLl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingLeft="32dp"
-        android:paddingRight="32dp"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/headerTv"
-            style="@style/text.header2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:gravity="center"
-            android:text="_Think into the box"
-            android:textStyle="normal" />
-
-        <ImageView
-            android:id="@+id/imageIv"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_visual_mail" />
-
-        <TextView
-            android:id="@+id/textTv"
-            style="@style/text.header3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="_Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet."
-            android:textAlignment="center"
-            android:textColor="@color/blueGrey"
-            android:textStyle="normal" />
-
-        <Button
-            android:id="@+id/emptyStateBtn"
-            style="@style/button.SolidGradient"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="24dp"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:text="_Get started"
-            android:textAppearance="@style/text.buttonSmall" />
-
-    </LinearLayout>
-
+    </ScrollView>
 </LinearLayout>

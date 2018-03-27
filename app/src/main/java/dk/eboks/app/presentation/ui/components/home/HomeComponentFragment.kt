@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
@@ -27,9 +28,9 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     lateinit var formatter: EboksFormatter
 
     //mock data
-    var emailCount = 2
+    var emailCount = 0
     var channelCount = 0
-    var verifiedUser = true
+    var verifiedUser = false
     var messages: MutableList<dk.eboks.app.domain.models.message.Message> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -41,75 +42,95 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        setupEmailState()
+        setupViews()
     }
 
-    private fun setupEmailState() {
+    private fun setupViews() {
         //  This is just a semi mock setup function to test ui
-        // 1. non-verified user with 0 channels
-        // 2. non-verified user with 1+ channels
-        // 3. Verified user with 0 mails
-        // 4. Verified user  with 1-3 mails
-        // 5. Verified user  with 4+ mails
 
+        if (verifiedUser) {
+            showMails()
+        } else {
+            showEmptyState()
+        }
+        setupBottomView()
+    }
 
+    private fun showEmptyState() {
+        emptyStateLl.visibility = View.VISIBLE
+        emailContainerLl.visibility = View.GONE
+        if (channelCount > 0) {
+            emptyStateImageIv.visibility = View.GONE
+        }
+    }
 
-        // 1
-        if (!verifiedUser && channelCount == 0) {
+    private fun setupBottomView() {
+        if (channelCount == 0) {
+            channelsHeaderFL.visibility = View.GONE
+            bottomChannelBtn.isEnabled = verifiedUser
+            bottomChannelHeaderTv.text = "_Channels"
+            bottomChannelTextTv.text = "_You haven’t added any channels yet. Channels give you relevant information and actions right at your fingertips."
+        } else {
+            bottomChannelBtn.isEnabled = false
+            bottomChannelHeaderTv.text = "_Theres more to see!"
+            bottomChannelTextTv.text = "_You can add as many channels as you would like, to give you the best overview of your services etc.."
+        }
+    }
+
+    private fun showMails() {
+        if (emailCount == 0) {
             emptyStateLl.visibility = View.VISIBLE
             emailContainerLl.visibility = View.GONE
-        }
-
-        // 2
-        if (!verifiedUser && channelCount > 0) {
-            emptyStateLl.visibility = View.VISIBLE
-            emailContainerLl.visibility = View.GONE
-            imageIv.visibility = View.GONE
-        }
-
-        // 3
-        if (verifiedUser && emailCount == 0) {
-            emptyStateLl.visibility = View.VISIBLE
-            emailContainerLl.visibility = View.GONE
-            imageIv.visibility = View.GONE
-            headerTv.text = "_There's no new messages for you"
-            emptyStateBtn.text = "_see all mail"
-        }
-
-        // 4
-        if (verifiedUser && emailCount < 4 && emailCount > 1) {
+            emptyStateBtn.isEnabled = verifiedUser
+            emptyStateImageIv.visibility = View.GONE
+            emptyStateBtn.text = "_See all mail"
+            emptyStateHeaderTv.text = "_There’s no new messages for you"
+            bottomChannelTextTv.text = "_Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor"
+        } else {
             emptyStateLl.visibility = View.GONE
             emailContainerLl.visibility = View.VISIBLE
             mailListContentLL.removeAllViews()
 
             createMockMails(emailCount)
+            var showCount = 3 // Not allowed to show more than 3
+            if (messages.size < showCount) {
+                showCount = messages.size
+            }
 
-            for (i in 1..messages.size) {
+            for (i in 1..showCount) {
                 val v = inflator.inflate(R.layout.viewholder_message, mailListContentLL, false)
-                var currentMessage = messages[i-1]
+                var currentMessage = messages[i - 1]
                 val circleIv = v.findViewById<ImageView>(R.id.circleIv)
                 val titleTv = v.findViewById<TextView>(R.id.titleTv)
                 val subTitleTv = v.findViewById<TextView>(R.id.subTitleTv)
                 val urgentTv = v.findViewById<TextView>(R.id.urgentTv)
                 val dateTv = v.findViewById<TextView>(R.id.dateTv)
+                val dividerV = v.findViewById<View>(R.id.dividerV)
+                val rootLl = v.findViewById<LinearLayout>(R.id.rootLl)
                 titleTv.text = currentMessage.id
                 subTitleTv.text = currentMessage.subject
                 dateTv.text = formatter.formatDate(currentMessage)
+                rootLl.setBackgroundColor(resources.getColor(R.color.white))
+                if (i == showCount) {
+                    val param = dividerV.layoutParams as LinearLayout.LayoutParams
+                    param.marginStart = 0
+                    dividerV.layoutParams = param
+                }
                 mailListContentLL.addView(v)
                 mailListContentLL.requestLayout()
+
+                if (messages.size > 3) {
+                    showBtn.isEnabled = true
+                    showBtn.text = "_" + messages.size + " new messages"
+                }
+
             }
         }
-
-        if (verifiedUser && emailCount > 4) {
-            emptyStateLl.visibility = View.GONE
-            emailContainerLl.visibility = View.VISIBLE
-        }
-
     }
 
-    fun createMockMails(emailCount: Int){
-        for (i in 1..emailCount){
-            messages.add(dk.eboks.app.domain.models.message.Message("id"+i,"subject"+i, Date(),false,null,null,null,null,null,null,0,null,null,null,null,null,"note string"))
+    fun createMockMails(emailCount: Int) {
+        for (i in 1..emailCount) {
+            messages.add(dk.eboks.app.domain.models.message.Message("id" + i, "subject" + i, Date(), false, null, null, null, null, null, null, 0, null, null, null, null, null, "note string"))
         }
     }
 }

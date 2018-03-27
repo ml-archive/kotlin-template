@@ -221,4 +221,16 @@
   <string name='nstack_profile_touchID' formatted='false'>profile_touchID</string>
   <string name='nstack_profile_faceID' formatted='false'>profile_faceID</string>
   <string name='nstack_profile_version' formatted='false'>profile_version</string>
+  <string name='nstack_profile_title' formatted='false'>profile_title</string>
+  <string name='nstack_myInformation_title' formatted='false'>myInformation_title</string>
+  <string name='nstack_myInformation_name' formatted='false'>myInformation_name</string>
+  <string name='nstack_myInformation_primaryEmail' formatted='false'>myInformation_primaryEmail</string>
+  <string name='nstack_myInformation_secondaryEmail' formatted='false'>myInformation_secondaryEmail</string>
+  <string name='nstack_myInformation_verifyEmail' formatted='false'>myInformation_verifyEmail</string>
+  <string name='nstack_myInformation_typeHere' formatted='false'>myInformation_typeHere</string>
+  <string name='nstack_myInformation_notifyByEmailText' formatted='false'>myInformation_notifyByEmailText</string>
+  <string name='nstack_myInformation_mobileNumber' formatted='false'>myInformation_mobileNumber</string>
+  <string name='nstack_myInformation_verifyNumber' formatted='false'>myInformation_verifyNumber</string>
+  <string name='nstack_myInformation_notifyBySMSText' formatted='false'>myInformation_notifyBySMSText</string>
+  <string name='nstack_myInformation_newsletter' formatted='false'>myInformation_newsletter</string>
 </resources>
