@@ -233,4 +233,24 @@
   <string name='nstack_myInformation_verifyNumber' formatted='false'>myInformation_verifyNumber</string>
   <string name='nstack_myInformation_notifyBySMSText' formatted='false'>myInformation_notifyBySMSText</string>
   <string name='nstack_myInformation_newsletter' formatted='false'>myInformation_newsletter</string>
+  <string name='nstack_myInformation_takePhoto' formatted='false'>myInformation_takePhoto</string>
+  <string name='nstack_myInformation_chooseFromLibrary' formatted='false'>myInformation_chooseFromLibrary</string>
+  <string name='nstack_home_bottomChannelBtnNoNewMails' formatted='false'>home_bottomChannelBtnNoNewMails</string>
+  <string name='nstack_home_bottomChannelHeaderNoChannels' formatted='false'>home_bottomChannelHeaderNoChannels</string>
+  <string name='nstack_home_bottomChannelHeaderNoNewMails' formatted='false'>home_bottomChannelHeaderNoNewMails</string>
+  <string name='nstack_home_bottomChannelTextNoNewMails' formatted='false'>home_bottomChannelTextNoNewMails</string>
+  <string name='nstack_home_bottomChannelTextNoChannels' formatted='false'>home_bottomChannelTextNoChannels</string>
+  <string name='nstack_home_bottomChannelHeaderChannels' formatted='false'>home_bottomChannelHeaderChannels</string>
+  <string name='nstack_home_bottomChannelTextChannels' formatted='false'>home_bottomChannelTextChannels</string>
+  <string name='nstack_home_bottomChannelBtnShowMessages' formatted='false'>home_bottomChannelBtnShowMessages</string>
+  <string name='nstack_home_bottomChannelBtn' formatted='false'>home_bottomChannelBtn</string>
+  <string name='nstack_home_topMailHeader' formatted='false'>home_topMailHeader</string>
+  <string name='nstack_home_topMailHeaderButton' formatted='false'>home_topMailHeaderButton</string>
+  <string name='nstack_home_channelsHeader' formatted='false'>home_channelsHeader</string>
+  <string name='nstack_home_channelsHeaderButton' formatted='false'>home_channelsHeaderButton</string>
+  <string name='nstack_home_topMailHeaderEmptyState' formatted='false'>home_topMailHeaderEmptyState</string>
+  <string name='nstack_home_topMailTextEmptyState' formatted='false'>home_topMailTextEmptyState</string>
+  <string name='nstack_home_topMailButtonEmptyState' formatted='false'>home_topMailButtonEmptyState</string>
+  <string name='nstack_home_topMailTextNoNewMails' formatted='false'>home_topMailTextNoNewMails</string>
+  <string name='nstack_home_windowHeader' formatted='false'>home_windowHeader</string>
 </resources>

@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.profile.edit.ProfileInfoComponentFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 class ProfileActivity : BaseActivity(), ProfileContract.View {
@@ -17,6 +18,12 @@ class ProfileActivity : BaseActivity(), ProfileContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                if (!isDestroyed)
+                    finish()
+            }
+        }
         setRootFragment(R.id.profileActivityContainerFragment, ProfileInfoComponentFragment())
 
     }

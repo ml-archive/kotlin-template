@@ -61,6 +61,9 @@ class ProfileInfoComponentFragment : BaseFragment(),
                 buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
             }
         }
+        profileDetailTB.setNavigationOnClickListener {
+            activity.finish()
+        }
     }
 
     private fun setupListeners() {
@@ -120,6 +123,6 @@ class ProfileInfoComponentFragment : BaseFragment(),
     }
 
     private fun setupVersionNumber() {
-        profileDetailTvVersion.text = BuildConfig.VERSION_NAME
+        profileDetailTvVersion.text = "${BuildConfig.VERSION_NAME} (build ${BuildConfig.VERSION_CODE})"
     }
 }
