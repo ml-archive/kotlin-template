@@ -7,4 +7,5 @@ import dk.eboks.app.domain.models.local.ViewError
  */
 interface BaseView {
     fun showErrorDialog(error : ViewError)
+    fun showToast(msg : String, showLongTime : Boolean = false)
 }

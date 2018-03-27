@@ -5,7 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.nodes.nstack.kotlin.NStack
+import kotlinx.android.synthetic.main.fragment_mail_opening_error_component.*
+import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -16,8 +22,13 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
     @Inject
     lateinit var presenter : ProtectedMessageComponentContract.Presenter
 
+    val onLanguageChange : (Locale)->Unit = { locale ->
+        Timber.e("Locale changed to locale")
+        updateTranslation()
+    }
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_protected_message_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_mail_opening_error_component, container, false)
         return rootView
     }
 
@@ -25,5 +36,34 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        loginSecureBtn.visibility = View.VISIBLE
+        loginTv.visibility = View.VISIBLE
+        setupTopBar()
+        updateTranslation()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        NStack.addLanguageChangeListener(onLanguageChange)
+    }
+
+    override fun onPause() {
+        NStack.removeLanguageChangeListener(onLanguageChange)
+        super.onPause()
+    }
+
+    private fun updateTranslation()
+    {
+        mainTb.title = Translation.message.protectedTitle
+        headerTv.text = Translation.message.protectedTitle
+        mainTv.text = Translation.message.protectedMessage
+    }
+
+    private fun setupTopBar() {
+        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+        mainTb.setNavigationOnClickListener {
+            presenter.setShouldProceed(false)
+            activity.onBackPressed()
+        }
     }
 }

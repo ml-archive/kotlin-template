@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.message.opening.protectedmessage
+package dk.eboks.app.presentation.ui.components.message.opening.promulgation
 
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.nodes.arch.domain.executor.Executor
@@ -8,11 +8,10 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class ProtectedMessageComponentPresenter @Inject constructor(val appState: AppStateManager, val executor: Executor) :
-        ProtectedMessageComponentContract.Presenter,
-        BasePresenterImpl<ProtectedMessageComponentContract.View>()
+class PromulgationComponentPresenter @Inject constructor(val appState: AppStateManager, val executor: Executor) :
+        PromulgationComponentContract.Presenter,
+        BasePresenterImpl<PromulgationComponentContract.View>()
 {
-
     init {
     }
 
@@ -22,5 +21,4 @@ class ProtectedMessageComponentPresenter @Inject constructor(val appState: AppSt
         }
         executor.signal("messageOpenDone")
     }
-
 }

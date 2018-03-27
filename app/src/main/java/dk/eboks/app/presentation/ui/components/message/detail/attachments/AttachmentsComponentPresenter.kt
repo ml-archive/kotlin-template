@@ -54,7 +54,7 @@ class AttachmentsComponentPresenter @Inject constructor(val appState: AppStateMa
     }
 
     override fun onSaveAttachment(filename: String) {
-        // TODO notify user
+        runAction { v->v.showToast("_Attachment $filename saved to Downloads") }
         Timber.e("Saved attachment to $filename")
     }
 

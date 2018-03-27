@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.message.opening.protectedmessage
+package dk.eboks.app.presentation.ui.components.message.opening.quarantine
 
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.nodes.arch.domain.executor.Executor
@@ -8,9 +8,9 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class ProtectedMessageComponentPresenter @Inject constructor(val appState: AppStateManager, val executor: Executor) :
-        ProtectedMessageComponentContract.Presenter,
-        BasePresenterImpl<ProtectedMessageComponentContract.View>()
+class QuarantineComponentPresenter @Inject constructor(val appState: AppStateManager, val executor: Executor) :
+        QuarantineComponentContract.Presenter,
+        BasePresenterImpl<QuarantineComponentContract.View>()
 {
 
     init {

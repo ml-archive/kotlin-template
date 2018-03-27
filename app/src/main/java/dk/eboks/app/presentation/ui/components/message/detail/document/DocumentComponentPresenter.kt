@@ -1,6 +1,9 @@
 package dk.eboks.app.presentation.ui.components.message.detail.document
 
+import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -10,12 +13,14 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class DocumentComponentPresenter @Inject constructor(val appState: AppStateManager) :
+class DocumentComponentPresenter @Inject constructor(val appState: AppStateManager, val saveAttachmentInteractor: SaveAttachmentInteractor) :
         DocumentComponentContract.Presenter,
-        BasePresenterImpl<DocumentComponentContract.View>()
+        BasePresenterImpl<DocumentComponentContract.View>(),
+        SaveAttachmentInteractor.Output
 {
 
     init {
+        saveAttachmentInteractor.output = this
         runAction { v->
             appState.state?.currentMessage?.let { v.updateView(it) }
         }
@@ -32,4 +37,19 @@ class DocumentComponentPresenter @Inject constructor(val appState: AppStateManag
         }
     }
 
+    override fun saveAttachment(content: Content) {
+        appState.state?.currentMessage?.let {
+            saveAttachmentInteractor.input = SaveAttachmentInteractor.Input(it, content)
+            saveAttachmentInteractor.run()
+        }
+    }
+
+    override fun onSaveAttachment(filename: String) {
+        runAction { v->v.showToast("_Document $filename saved to Downloads") }
+        Timber.e("Saved attachment to $filename")
+    }
+
+    override fun onSaveAttachmentError(error : ViewError) {
+        runAction { it.showErrorDialog(error) }
+    }
 }

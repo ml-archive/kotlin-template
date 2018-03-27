@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.message.opening.privatesender
+package dk.eboks.app.presentation.ui.components.message.opening.receipt
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,20 +17,28 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class PrivateSenderWarningComponentFragment : BaseFragment(), PrivateSenderWarningComponentContract.View {
+class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentContract.View {
+
+    @Inject
+    lateinit var presenter : OpeningReceiptComponentContract.Presenter
 
     val onLanguageChange : (Locale)->Unit = { locale ->
         Timber.e("Locale changed to locale")
         updateTranslation()
     }
 
-    @Inject
-    lateinit var presenter : PrivateSenderWarningComponentContract.Presenter
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_mail_opening_error_component, container, false)
         return rootView
+    }
 
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        component.inject(this)
+        presenter.onViewCreated(this, lifecycle)
+        openBtn.visibility = View.VISIBLE
+        setupTopBar()
+        updateTranslation()
     }
 
     override fun onResume() {
@@ -43,30 +51,16 @@ class PrivateSenderWarningComponentFragment : BaseFragment(), PrivateSenderWarni
         super.onPause()
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        component.inject(this)
-        presenter.onViewCreated(this, lifecycle)
-        openBtn.setOnClickListener {
-            presenter.setShouldProceed(true)
-            activity.onBackPressed()
-        }
-        openBtn.visibility = View.VISIBLE
-        setupTopBar()
-        updateTranslation()
-    }
-
     private fun updateTranslation()
     {
-        mainTb.title = Translation.message.privateSenderTitle
-        headerTv.text = Translation.message.privateSenderTitle
-        mainTv.text = Translation.message.privateSenderMessage
+        mainTb.title = Translation.message.receiptTitle
+        headerTv.text = Translation.message.receiptTitle
+        mainTv.text = Translation.message.receiptMessage
         openBtn.text = Translation.message.openMessageButton
     }
 
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
-        mainTb.title = Translation.message.privateSenderTitle
         mainTb.setNavigationOnClickListener {
             presenter.setShouldProceed(false)
             activity.onBackPressed()

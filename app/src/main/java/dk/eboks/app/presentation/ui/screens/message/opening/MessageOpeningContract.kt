@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.message.opening
 
+import dk.eboks.app.presentation.base.BaseFragment
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.eboks.app.presentation.base.BaseView
 
@@ -8,7 +9,7 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface MessageOpeningContract {
     interface View : BaseView {
-        fun setPrivateSenderWarningFragment()
+        fun setOpeningFragment(cls : Class<out BaseFragment>)
     }
 
     interface Presenter : BasePresenter<View> {

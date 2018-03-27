@@ -66,8 +66,6 @@ import dk.eboks.app.presentation.ui.components.message.detail.folderinfo.FolderI
 import dk.eboks.app.presentation.ui.components.message.detail.folderinfo.FolderInfoComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderComponentContract
 import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderComponentPresenter
-import dk.eboks.app.presentation.ui.components.message.opening.locked.LockedMessageComponentContract
-import dk.eboks.app.presentation.ui.components.message.opening.locked.LockedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentContract
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentContract
@@ -76,6 +74,14 @@ import dk.eboks.app.presentation.ui.components.message.opening.protectedmessage.
 import dk.eboks.app.presentation.ui.components.message.opening.protectedmessage.ProtectedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.share.ShareComponentContract
 import dk.eboks.app.presentation.ui.components.message.detail.share.ShareComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.promulgation.PromulgationComponentContract
+import dk.eboks.app.presentation.ui.components.message.opening.promulgation.PromulgationComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.quarantine.QuarantineComponentContract
+import dk.eboks.app.presentation.ui.components.message.opening.quarantine.QuarantineComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.recalled.RecalledComponentContract
+import dk.eboks.app.presentation.ui.components.message.opening.recalled.RecalledComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.receipt.OpeningReceiptComponentContract
+import dk.eboks.app.presentation.ui.components.message.opening.receipt.OpeningReceiptComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentContract
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentContract
@@ -211,8 +217,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideDocumentComponentPresenter(stateManager: AppStateManager) : DocumentComponentContract.Presenter {
-        return DocumentComponentPresenter(stateManager)
+    fun provideDocumentComponentPresenter(stateManager: AppStateManager, saveAttachmentInteractor: SaveAttachmentInteractor) : DocumentComponentContract.Presenter {
+        return DocumentComponentPresenter(stateManager, saveAttachmentInteractor)
     }
 
     @ActivityScope
@@ -272,14 +278,32 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideLockedMessageComponentPresenter(stateManager: AppStateManager) : LockedMessageComponentContract.Presenter {
-        return LockedMessageComponentPresenter(stateManager)
+    fun provideQuarantineComponentPresenter(stateManager: AppStateManager, executor: Executor) : QuarantineComponentContract.Presenter {
+        return QuarantineComponentPresenter(stateManager, executor)
     }
 
     @ActivityScope
     @Provides
-    fun provideProtectedMessageComponentPresenter(stateManager: AppStateManager) : ProtectedMessageComponentContract.Presenter {
-        return ProtectedMessageComponentPresenter(stateManager)
+    fun provideRecalledMessageComponentPresenter(stateManager: AppStateManager, executor: Executor) : RecalledComponentContract.Presenter {
+        return RecalledComponentPresenter(stateManager, executor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun providePromulgationComponentPresenter(stateManager: AppStateManager, executor: Executor) : PromulgationComponentContract.Presenter {
+        return PromulgationComponentPresenter(stateManager, executor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideProtectedMessageComponentPresenter(stateManager: AppStateManager, executor: Executor) : ProtectedMessageComponentContract.Presenter {
+        return ProtectedMessageComponentPresenter(stateManager, executor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideOpeningReceiptComponentPresenter(stateManager: AppStateManager, executor: Executor) : OpeningReceiptComponentContract.Presenter {
+        return OpeningReceiptComponentPresenter(stateManager, executor)
     }
 
     @ActivityScope
