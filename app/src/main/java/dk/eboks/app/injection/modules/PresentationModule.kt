@@ -11,10 +11,7 @@ import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
-import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
-import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
-import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
-import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
+import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
@@ -133,6 +130,8 @@ import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailContract
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailPresenter
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewContract
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
+import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailContract
+import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailPresenter
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
@@ -486,6 +485,12 @@ class PresentationModule {
     @Provides
     fun provideSenderDetailPresenter(stateManager: AppStateManager, getSenderDetailInteractor: GetSenderDetailInteractor, registerInteractor: RegisterInteractor, unRegisterInteractor: UnRegisterInteractor): SenderDetailContract.Presenter {
         return SenderDetailPresenter(stateManager, getSenderDetailInteractor, registerInteractor, unRegisterInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideSegmentDetailPresenter(stateManager: AppStateManager, getSegmentInteractor: GetSegmentInteractor, registerInteractor: RegisterInteractor, unRegisterInteractor: UnRegisterInteractor): SegmentDetailContract.Presenter {
+        return SegmentDetailPresenter(stateManager, getSegmentInteractor, registerInteractor, unRegisterInteractor)
     }
 
     @ActivityScope

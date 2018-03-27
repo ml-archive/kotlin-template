@@ -27,6 +27,7 @@ import okio.BufferedSource
 
 typealias SenderStore = Store<List<Sender>, Int>
 typealias SenderCategoryStore = Store<List<SenderCategory>, Long>
+typealias SegmentCategoryStore = Store<List<SenderCategory>, Long>
 typealias CollectionsStore = Store<List<CollectionContainer>, Int>
 
 typealias MailCategoryStore = Store<List<Folder>, Long>

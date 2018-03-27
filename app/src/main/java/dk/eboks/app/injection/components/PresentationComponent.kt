@@ -109,6 +109,7 @@ import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
+import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailActivity
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
@@ -219,6 +220,7 @@ interface PresentationComponent {
     fun inject(target : RegisterGroupComponentFragment)
     fun inject(target : SenderListComponentFragment)
     fun inject(target : SenderComponentFragment)
+    fun inject(target : SegmentDetailActivity)
 
     // signup
     fun inject(target : SignupComponentPresenter)

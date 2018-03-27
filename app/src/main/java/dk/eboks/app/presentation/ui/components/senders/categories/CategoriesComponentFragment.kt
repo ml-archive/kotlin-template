@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.SenderCategory
+import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity
 import kotlinx.android.synthetic.main.fragment_list_component.*
@@ -32,6 +33,16 @@ class CategoriesComponentFragment : BaseFragment(), CategoriesComponentContract.
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+
+        val segment = arguments?.getSerializable(Segment::class.simpleName) as Segment?
+        if (segment == null) {
+            presenter.getCategories()
+        }
+        else {
+            segment.categories?.let {
+                showCategories(it)
+            }
+        }
     }
 
     override fun showCategories(categories: List<SenderCategory>) {

@@ -64,7 +64,7 @@ class GetSendersInteractorImpl(executor: Executor, val sendersRepository: Sender
             }
         } catch (t: Throwable) {
             runOnUIThread {
-                output?.onGetSendersError(exceptionToViewError(t))
+                output?.onGetSendersError(exceptionToViewError(t, shouldDisplay = false))
             }
         }
     }

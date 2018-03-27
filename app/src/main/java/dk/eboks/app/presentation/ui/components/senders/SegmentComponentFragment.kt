@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.senders
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,11 @@ import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.CollectionContainer
+import dk.eboks.app.domain.models.sender.Segment
+import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
+import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailActivity
 import kotlinx.android.synthetic.main.fragment_segment_component.*
 
 /**
@@ -30,9 +35,9 @@ class SegmentComponentFragment : BaseFragment() {
         val container = arguments.getSerializable(CollectionContainer::class.simpleName) as CollectionContainer?
         container?.let{
             segmentTitleTv.text = it.description?.text?:""
-            it.segment?.let {
+            it.segment?.let { seg ->
                 Glide.with(context)
-                        .load(it.image?.url)
+                        .load(seg.image?.url)
                         .apply(RequestOptions()
                                 .fallback(R.drawable.icon_72_senders_private)
                                 .placeholder(R.drawable.icon_72_senders_private)
@@ -40,10 +45,12 @@ class SegmentComponentFragment : BaseFragment() {
                         .into(segmentIv)
 
                 segmentCv.setOnClickListener {
-                    Toast.makeText(context, "TODO: open segment", Toast.LENGTH_SHORT).show()
+                    val i = Intent(context, SegmentDetailActivity::class.java)
+                    i.putExtra(Segment::class.simpleName, seg)
+                    startActivity(i)
                 }
-                segmentCatTv.text = it.name
-                segmentSignTv.text = when (it.registered) {
+                segmentCatTv.text = seg.name
+                segmentSignTv.text = when (seg.registered) {
                     0 -> Translation.senders.register
                     else -> Translation.senders.registered
                 }

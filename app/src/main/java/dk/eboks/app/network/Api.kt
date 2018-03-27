@@ -6,6 +6,7 @@ import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.AliasBody
 import dk.eboks.app.domain.models.protocol.LoginRequest
+import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.domain.models.sender.Sender
 import io.reactivex.Single
 import okio.BufferedSource
@@ -30,8 +31,9 @@ interface Api {
 
     @GET("api/groups/collections") fun getCollections() : Single<BufferedSource>
     @GET("api/groups/{segment}/categories") fun getSenderCategories(@Path("segment") segment: String ) : Single<BufferedSource> // private or public
-    @GET("api/groups/categories/{id}/senders") fun getSenders(@Path("id") categoryId : Long) : Call<SenderCategory> // TODO: shouldn't this be called "/api/groups/private/categories/{id}" ??
+    @GET("api/groups/categories/{id}/senders") fun getSenders(@Path("id") categoryId : Long) : Call<SenderCategory>   // TODO: shouldn't this be called "/api/groups/private/categories/{id}" ??
     @GET("api/groups/senders") fun searchSenders(@Query("searchText") searchText : String) : Call<List<Sender>>
+    @GET("api/groups/segments/{id}") fun getSegmentDetail(@Path("id") segmentId : Long) : Call<Segment>               // segment detail
     @GET("api/groups/senders/{id}") fun getSenderDetail(@Path("id") senderId : Long) : Call<Sender>
 // register senders
     @PUT("api/groups/segments/{segId}") fun registerSegment(@Path("segId") segmentId : Long) : Call<Any>              // TODO should we have SegmentID or SegmentType?
@@ -43,5 +45,5 @@ interface Api {
     @DELETE("api/groups/segments/{segType}") fun unregisterSegment(@Path("segType") segmentType : String) : Call<Any> // TODO should we have SegmentType or SegmentID?
     @DELETE("api/groups/senders/{id}") fun unregisterSender(@Path("id") senderId : Long) : Call<Any>
     @DELETE("api/groups/senders/{sId}/sendergroups/{gId}/alias/{aId}") fun unregisterSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long) : Call<Any> // bodyless version // TODO check URL!!!
-//    @DELETE("api/groups/senders/{sId}/sendergroups/{gId}") fun unregisterSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long, @Body aliasRegistrations : AliasBody) : Call<Any> // TODO: This needs to be a PATCH or POST or be bodyless as above
+//    @DELETE("api/groups/senders/{sId}/sendergroups/{gId}") fun unregisterSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long, @Body aliasRegistrations : AliasBody) : Call<Any> // TODO: This needs to be a PATCH or POST or be bodyless as the one above
 }
