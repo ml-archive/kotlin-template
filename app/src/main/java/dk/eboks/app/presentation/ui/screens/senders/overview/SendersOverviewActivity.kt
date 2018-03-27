@@ -17,7 +17,6 @@ import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragme
 import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
 import kotlinx.android.synthetic.main.activity_senders_overview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
@@ -37,14 +36,14 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
     private fun setupTopBar() {
         mainTb.navigationIcon = null
         mainTb.title = Translation.senders.title
-        val menuRegist = mainTb.menu.add("Registrations")
+        val menuRegist = mainTb.menu.add("_Registrations")
         menuRegist.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         menuRegist.setOnMenuItemClickListener { item: MenuItem ->
-            Toast.makeText(this, "Registrations", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "_Registrations", Toast.LENGTH_SHORT).show()
             true
         }
         val menuSearch = mainTb.menu.add("search")
-        menuSearch.setIcon(R.drawable.red_navigationbar)
+        menuSearch.setIcon(R.drawable.search)
         menuSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuSearch.setOnMenuItemClickListener { item: MenuItem ->
             startActivity(Intent(this, SearchSendersActivity::class.java ))

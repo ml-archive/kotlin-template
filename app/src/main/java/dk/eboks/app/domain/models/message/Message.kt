@@ -13,16 +13,20 @@ import java.util.*
 data class Message(
         var id : String,
         var subject : String,
-        var unread : Boolean,
         var received : Date,
+        var unread : Boolean,
         var sender: Sender? = null,
+        var type: MessageType? = MessageType.RECEIVED,
         var recipient: Sender? = null,
         var folder : Folder? = null,
         var content : Content? = null,
+        var attachments : List<Content>? = null,
+        var numberOfAttachments: Int = 0,
+        var payment: Payment?,
+        var sign: Sign?,
+        var reply: Status?,
         var link : Link? = null,
         var status: Status? = null,
-        var numberOfAttachments: Int = 0,
-        var attachments : List<Content>? = null,
-        var note : String = "",
-        var messageType: MessageType? = MessageType.RECEIVED
+        var note : String = ""
+
 ) : Serializable

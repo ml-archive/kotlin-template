@@ -1,16 +1,15 @@
 package dk.eboks.app.presentation.ui.components.start.signup
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.base.SheetComponentActivity
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
-import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_signup_verification_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -42,7 +41,7 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
     }
 
     private fun setupTopBar() {
-        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = Translation.signup.title
         mainTb.setNavigationOnClickListener {
             fragmentManager.popBackStack()
@@ -65,7 +64,11 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
         showProgress(true)
         content.postDelayed({
             showProgress(false)
-            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, MMComponentFragment(), true)
+            if(Config.isSE()) {
+                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, MMComponentFragment(), true)
+            } else {
+                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
+            }
         }, 1000)
     }
 }

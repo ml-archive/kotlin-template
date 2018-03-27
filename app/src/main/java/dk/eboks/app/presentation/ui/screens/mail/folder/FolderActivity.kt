@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.mail.folder
 
 import android.os.Bundle
-import android.view.View
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
@@ -20,7 +19,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
     }
 
     private fun setupTopBar() {
-        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = Translation.folders.foldersHeader
         mainTb.setNavigationOnClickListener {
             onBackPressed()

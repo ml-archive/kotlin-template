@@ -36,7 +36,7 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
         setContentView(dk.eboks.app.R.layout.activity_senders_search_senders)
         component.inject(this)
 
-        searchSenderTb.setNavigationIcon(R.drawable.red_navigationbar)
+        searchSenderTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         searchSenderTb.setNavigationOnClickListener {
             finish()
         }

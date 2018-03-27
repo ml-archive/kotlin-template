@@ -18,7 +18,6 @@ import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewCo
 import dk.eboks.app.presentation.ui.components.message.viewers.pdf.PdfViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentFragment
 import kotlinx.android.synthetic.main.include_toolbar.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -48,7 +47,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
 
     private fun setupTopBar()
     {
-        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = Translation.message.title
         mainTb.setNavigationOnClickListener {
             onBackPressed()

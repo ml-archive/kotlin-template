@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.mail.list
 
 import android.os.Bundle
-import android.util.Log
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -27,7 +26,7 @@ class MailListActivity : BaseActivity(), MailListContract.View {
     }
 
     private fun setupTopBar(txt : String) {
-        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = txt
         mainTb.setNavigationOnClickListener {
             onBackPressed()

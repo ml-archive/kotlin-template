@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.message
 
 import android.os.Bundle
-import android.util.Log
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.message.Message
@@ -26,7 +25,7 @@ class MessageActivity : BaseActivity(), MessageContract.View {
 
     private fun setupTopBar()
     {
-        mainTb.setNavigationIcon(R.drawable.red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = Translation.message.title
         mainTb.setNavigationOnClickListener {
             onBackPressed()
