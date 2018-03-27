@@ -3,15 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="dk.eboks.app">
 
-    <uses-permission android:name="android.permission.INTERNET" tools:remove="android:maxSdkVersion"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:remove="android:maxSdkVersion"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" tools:remove="android:maxSdkVersion"/>
+    <uses-permission
+        android:name="android.permission.INTERNET"
+        tools:remove="android:maxSdkVersion" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:remove="android:maxSdkVersion" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:remove="android:maxSdkVersion" />
 
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="false" />
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="false" />
 
     <application
-        android:allowBackup="false"
         android:name="dk.eboks.app.App"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="${APP_NAME}"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -22,16 +30,18 @@
         <meta-data
             android:name="dk.nodes.nstack.appId"
             android:value="${appId}"
-            tools:replace="android:value"/>
+            tools:replace="android:value" />
         <meta-data
             android:name="dk.nodes.nstack.apiKey"
             android:value="${apiKey}"
-            tools:replace="android:value"/>
+            tools:replace="android:value" />
 
         <!-- hockey id included from build.gradle manifest placeholder -->
-        <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
+        <meta-data
+            android:name="net.hockeyapp.android.appIdentifier"
+            android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name="dk.eboks.app.presentation.ui.screens.start.StartActivity" >
+        <activity android:name="dk.eboks.app.presentation.ui.screens.start.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -54,15 +64,18 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.profile.ProfileActivity" />
 
         <activity android:name="dk.eboks.app.system.managers.permission.PermissionRequestActivity" />
-        <activity android:name="dk.eboks.app.presentation.base.SheetComponentActivity" android:theme="@style/TransTheme" />
+        <activity
+            android:name="dk.eboks.app.presentation.base.SheetComponentActivity"
+            android:theme="@style/TransTheme" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
