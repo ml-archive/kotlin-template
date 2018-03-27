@@ -73,7 +73,9 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragmen
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.components.profile.edit.ProfileInfoComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.edit.ProfileInfoComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.SenderComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentFragment
+import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.register.RegisterGroupComponentFragment
