@@ -122,6 +122,8 @@ import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewCon
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserContract
 import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserPresenter
+import dk.eboks.app.presentation.ui.screens.home.HomeContract
+import dk.eboks.app.presentation.ui.screens.home.HomePresenter
 import dk.eboks.app.presentation.ui.screens.start.StartContract
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningContract
@@ -575,6 +577,19 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
+    fun provideHomePresenter(stateManager: AppStateManager): HomeContract.Presenter {
+        return HomePresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideHomeComponentPresenter(stateManager: AppStateManager): HomeComponentContract.Presenter {
+        return HomeComponentPresenter(stateManager)
+    }
+
+
+    @ActivityScope
+    @Provides
     fun provideDebugOptionsComponentPresenter(stateManager: AppStateManager): DebugOptionsComponentContract.Presenter {
         return DebugOptionsComponentPresenter(stateManager)
     }
@@ -601,11 +616,6 @@ class PresentationModule {
         return DebugUserPresenter(stateManager, createUserInteractor, saveUserInteractor)
     }
 
-    @ActivityScope
-    @Provides
-    fun provideHomePresenter(stateManager: AppStateManager) : HomeComponentContract.Presenter {
-        return HomeComponentPresenter(stateManager)
-    }
 
     /* Pasta
     @ActivityScope

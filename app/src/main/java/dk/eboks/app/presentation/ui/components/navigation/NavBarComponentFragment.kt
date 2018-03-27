@@ -12,6 +12,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.pasta.activity.PastaActivity
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity
+import dk.eboks.app.presentation.ui.screens.home.HomeActivity
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity
 import dk.eboks.app.util.disableShiftingMode
@@ -62,7 +63,7 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
             when(item.itemId)
             {
                 R.id.actionHome -> {
-                    activityCls = PastaActivity::class.java
+                    activityCls = HomeActivity::class.java
                     currentMenuItem = R.id.actionHome
                 }
                 R.id.actionMail -> {
