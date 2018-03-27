@@ -12,6 +12,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_home_overview_mail_component.*
 import kotlinx.android.synthetic.main.viewholder_message.*
 import java.util.*
@@ -42,6 +43,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        NStack.translate()
         setupViews()
     }
 
@@ -59,7 +61,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     private fun showEmptyState() {
         emptyStateLl.visibility = View.VISIBLE
         emailContainerLl.visibility = View.GONE
-        if (channelCount > 0) {
+        if(channelCount>0) {
             emptyStateImageIv.visibility = View.GONE
         }
     }
@@ -68,12 +70,12 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         if (channelCount == 0) {
             channelsHeaderFL.visibility = View.GONE
             bottomChannelBtn.isEnabled = verifiedUser
-            bottomChannelHeaderTv.text = "_Channels"
-            bottomChannelTextTv.text = "_You haven’t added any channels yet. Channels give you relevant information and actions right at your fingertips."
+            bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderNoChannels
+            bottomChannelTextTv.text = Translation.home.bottomChannelTextNoChannels
         } else {
             bottomChannelBtn.isEnabled = false
-            bottomChannelHeaderTv.text = "_Theres more to see!"
-            bottomChannelTextTv.text = "_You can add as many channels as you would like, to give you the best overview of your services etc.."
+            bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderChannels
+            bottomChannelTextTv.text = Translation.home.bottomChannelTextChannels
         }
     }
 
@@ -83,9 +85,9 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             emailContainerLl.visibility = View.GONE
             emptyStateBtn.isEnabled = verifiedUser
             emptyStateImageIv.visibility = View.GONE
-            emptyStateBtn.text = "_See all mail"
-            emptyStateHeaderTv.text = "_There’s no new messages for you"
-            bottomChannelTextTv.text = "_Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor"
+            emptyStateBtn.text = Translation.home.bottomChannelBtnNoNewMails
+            emptyStateHeaderTv.text = Translation.home.bottomChannelHeaderNoNewMails
+            emptyStateTextTv.text = Translation.home.topMailTextNoNewMails
         } else {
             emptyStateLl.visibility = View.GONE
             emailContainerLl.visibility = View.VISIBLE
@@ -112,16 +114,14 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 dateTv.text = formatter.formatDate(currentMessage)
                 rootLl.setBackgroundColor(resources.getColor(R.color.white))
                 if (i == showCount) {
-                    val param = dividerV.layoutParams as LinearLayout.LayoutParams
-                    param.marginStart = 0
-                    dividerV.layoutParams = param
+                    dividerV.visibility = View.GONE
                 }
                 mailListContentLL.addView(v)
                 mailListContentLL.requestLayout()
 
                 if (messages.size > 3) {
                     showBtn.isEnabled = true
-                    showBtn.text = "_" + messages.size + " new messages"
+                    showBtn.text = Translation.home.bottomChannelBtnShowMessages.replace("[value]", messages.size.toString())
                 }
 
             }
