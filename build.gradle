@@ -6,7 +6,7 @@ buildscript {
 
     ext {
         // Plugins
-        gradle_version = '3.0.0'
+        gradle_version = '3.1.0'
         kotlin_version = '1.2.31'
         nodes_nstack_translation_version = '0.35'
         bitrise_version = '0.93'
@@ -52,7 +52,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "dk.nodes.nstack:translation:1.0.+"
         classpath "com.github.gfx.ribbonizer:ribbonizer-plugin:$ribbonizer_version"

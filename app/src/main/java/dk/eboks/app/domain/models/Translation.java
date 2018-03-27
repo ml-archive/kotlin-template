@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Tue Mar 27 10:35:03 CEST 2018 
+ * Generated: Tue Mar 27 13:20:31 CEST 2018 
  */
 
 public class Translation {
@@ -143,7 +143,7 @@ public class Translation {
 		public static String termsTitle = "Terms & Conditions";
 		public static String mmHeader = "Okay. Would you like to receive digital mail from Mina Meddelan in e-Boks?";
 		public static String mmDetail = "You will be able to receive mail from public authorities directly in your e-Boks.";
-		public static String cprHint = "Your Social Security Number*";
+		public static String cprHint = "Your Social Security Number";
 		public static String continueWithoutMMButton = "Continue without Mina meddelan";
 		public static String signupWithMMButton = "Sign up with Mina meddelan";
 		public static String invalidName = "Invalid Name";

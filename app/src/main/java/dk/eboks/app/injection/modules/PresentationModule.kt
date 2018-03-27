@@ -312,8 +312,11 @@ class PresentationModule {
         return TextViewComponentPresenter(stateManager)
     }
 
+    @ActivityScope
+    @Provides
     fun provideQuarantineComponentPresenter(stateManager: AppStateManager, executor: Executor) : QuarantineComponentContract.Presenter {
         return QuarantineComponentPresenter(stateManager, executor)
+    }
 
     @ActivityScope
     @Provides
@@ -572,6 +575,12 @@ class PresentationModule {
     @Provides
     fun provideProfilePresenter(stateManager: AppStateManager): ProfileContract.Presenter {
         return ProfilePresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideProfileInfoComponentPresenter(stateManager: AppStateManager): ProfileInfoComponentContract.Presenter {
+        return ProfileInfoComponentPresenter(stateManager)
     }
 
     @ActivityScope
