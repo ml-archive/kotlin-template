@@ -49,6 +49,8 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
 
     override fun onResume() {
         super.onResume()
+        nameEt.hint = ""
+        emailEt.hint = ""
         setupNameListeners()
         setupEmailListeners()
     }
@@ -76,7 +78,6 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         emailEt.onFocusChangeListener = object : View.OnFocusChangeListener {
             override fun onFocusChange(v: View?, hasFocus: Boolean) {
                 if (!emailEt.text.isValidEmail() && !hasFocus) {
-                    emailTil.error = Translation.signup.invalidEmail
                     emailValid = false
                     checkContinueBtn()
                 }
@@ -103,13 +104,12 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     }
 
     private fun setupNameListeners() {
-        nameEt.onFocusChangeListener = object : View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
-                if (nameEt.text.toString().trim().isNullOrBlank() && !hasFocus) {
-                    nameTil.error = Translation.signup.invalidName
-                    nameValid = false
-                    checkContinueBtn()
-                }
+        nameEt.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+            nameTil.error = null
+            if (nameEt.text.toString().trim().isNullOrBlank() && !hasFocus) {
+                nameTil.error = Translation.signup.invalidName
+                nameValid = false
+                checkContinueBtn()
             }
         }
 
@@ -123,7 +123,6 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
                 } else {
                     nameValid = true
                     checkContinueBtn()
-
                 }
             }
 
@@ -135,10 +134,6 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
 
     private fun checkContinueBtn() {
         continueBtn.isEnabled = (emailValid && nameValid)
-    }
-
-    fun isValidEmail(target: CharSequence): Boolean {
-        return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 
     override fun showError() {

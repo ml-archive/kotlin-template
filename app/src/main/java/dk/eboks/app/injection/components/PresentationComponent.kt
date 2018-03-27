@@ -33,6 +33,8 @@ import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVeri
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentPresenter
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentFragment
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentPresenter
+import dk.eboks.app.presentation.ui.components.home.HomeComponentFragment
+import dk.eboks.app.presentation.ui.components.home.HomeComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
 import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity
@@ -245,6 +247,10 @@ interface PresentationComponent {
     // profile
     fun inject(target: ProfileInfoComponentFragment)
     fun inject(target: ProfileInfoComponentPresenter)
+
+    // home
+    fun inject(target : HomeComponentFragment)
+    fun inject(target : HomeComponentPresenter)
 
     // verification
     fun inject(target : VerificationComponentFragment)

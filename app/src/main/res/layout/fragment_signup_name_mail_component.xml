@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:nstack="http://schemas.android.com/apk/res-auto"
     android:animateLayoutChanges="true"
     android:background="@color/backgroundColor"
     tools:ignore="MissingPrefix">
@@ -20,9 +20,8 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:fillViewport="true"
-            android:layout_weight="1">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,28 +50,26 @@
 
                 <TextView
                     android:id="@+id/headerTv"
-                    nstack:key="@string/nstack_signup_nameEmailHeader"
                     style="@style/text.header1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="_Header" />
+                    android:text="_Header"
+                    nstack:key="@string/nstack_signup_nameEmailHeader" />
 
                 <TextView
                     android:id="@+id/detailTv"
-                    nstack:key="@string/nstack_signup_nameEmailDetail"
                     style="@style/text.body6.secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="_Please fill in the information below" />
+                    android:text="_Please fill in the information below"
+                    nstack:key="@string/nstack_signup_nameEmailDetail" />
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/nameTil"
-                    nstack:key="@string/nstack_signup_nameHint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:hint="_Name"
                     android:textColorHint="@color/blueGrey"
                     android:theme="@style/TextInputLayoutTheme"
                     app:errorEnabled="true"
@@ -84,18 +81,16 @@
                         style="@style/EditText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:inputType="textPersonName" />
-
+                        android:inputType="textPersonName"
+                        nstack:hint="@string/nstack_signup_nameHint" />
                 </android.support.design.widget.TextInputLayout>
 
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/emailTil"
-                    nstack:key="@string/nstack_signup_emailHint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:hint="_Email"
                     android:textColorHint="@color/blueGrey"
                     android:theme="@style/TextInputLayoutTheme"
                     app:errorEnabled="true"
@@ -107,26 +102,27 @@
                         style="@style/EditText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:inputType="textEmailAddress" />
+                        android:inputType="textEmailAddress"
+                        nstack:hint="@string/nstack_signup_emailHint"/>
 
                 </android.support.design.widget.TextInputLayout>
 
-
+                <Button
+                    android:id="@+id/continueBtn"
+                    style="@style/enabledButtton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="36dp"
+                    android:layout_marginRight="36dp"
+                    android:layout_marginTop="12dp"
+                    android:enabled="false"
+                    android:text="_Continue"
+                    android:textColor="@drawable/enabled_button"
+                    nstack:key="@string/nstack_signup_continueButton" />
             </LinearLayout>
         </ScrollView>
-        <Button
-            android:id="@+id/continueBtn"
-            nstack:key="@string/nstack_signup_continueButton"
-            style="@style/enabledButtton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="36dp"
-            android:layout_marginRight="36dp"
-            android:enabled="false"
-            android:text="_Continue"
-            android:textColor="@drawable/enabled_button" />
+
 
     </LinearLayout>
 
