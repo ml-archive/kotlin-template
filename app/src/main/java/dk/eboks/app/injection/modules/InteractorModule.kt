@@ -13,10 +13,7 @@ import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractorImpl
 import dk.eboks.app.domain.interactors.message.*
 import dk.eboks.app.domain.interactors.sender.*
-import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
-import dk.eboks.app.domain.interactors.sender.register.RegisterInteractorImpl
-import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
-import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractorImpl
+import dk.eboks.app.domain.interactors.sender.register.*
 import dk.eboks.app.domain.interactors.user.*
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.repositories.*
@@ -139,6 +136,10 @@ class InteractorModule {
 
     @Provides fun provideUnRegisterInteractor(executor: Executor, api: Api) : UnRegisterInteractor {
         return UnRegisterInteractorImpl(executor, api)
+    }
+
+    @Provides fun provideRegistrationsInteractor(executor: Executor, api: Api) : GetRegistrationsInteractor {
+        return GetRegistrationsInteractorImpl(executor, api)
     }
 
 

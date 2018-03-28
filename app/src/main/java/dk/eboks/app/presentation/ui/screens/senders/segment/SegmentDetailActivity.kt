@@ -41,11 +41,6 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         senderDetailContainer.removeAllViews()
         updateHeader(segment)
 
-        // pass your knowledge on to your siblings, so they in turn can use it and pass it on to their siblings...
-        val b = Bundle()
-        b.putSerializable(Segment::class.simpleName, segment)
-//      senderGroupsListComponentF.arguments = b
-
         //translations
         NStack.addLanguageChangeListener(onLanguageChangedListener)
 
