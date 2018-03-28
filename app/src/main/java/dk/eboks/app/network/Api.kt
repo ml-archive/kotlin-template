@@ -6,6 +6,7 @@ import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.AliasBody
 import dk.eboks.app.domain.models.protocol.LoginRequest
+import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Registrations
 import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.domain.models.sender.Sender
@@ -32,7 +33,8 @@ interface Api {
 
     // groups
     @GET("api/groups/registrations") fun getRegistrations() : Call<Registrations> // get all my registrations
-    @GET("api/groups/collections") fun getCollections() : Single<BufferedSource>
+    @GET("api/groups/registrations/pending/collections") fun getPendingRegistrations() : Call<List<CollectionContainer>>
+    @GET("api/groups/collections") fun getCollections() : Single<BufferedSource> // for the Senders-landing page
     @GET("api/groups/{segment}/categories") fun getSenderCategories(@Path("segment") segment: String ) : Single<BufferedSource> // private or public
     @GET("api/groups/categories/{id}/senders") fun getSenders(@Path("id") categoryId : Long) : Call<SenderCategory>   // TODO: shouldn't this be called "/api/groups/private/categories/{id}" ??
     @GET("api/groups/senders") fun searchSenders(@Query("searchText") searchText : String) : Call<List<Sender>>

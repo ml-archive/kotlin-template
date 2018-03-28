@@ -126,6 +126,11 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideGetPendingInteractor(executor: Executor, api: Api) : GetPendingInteractor {
+        return GetPendingInteractorImpl(executor, api)
+    }
+
+    @Provides
     fun provideGetCollectionsInteractor(executor: Executor, collectionsRepository: CollectionsRepository) : GetCollectionsInteractor {
         return GetCollectionsInteractorImpl(executor, collectionsRepository)
     }
