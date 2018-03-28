@@ -1,6 +1,5 @@
-package dk.eboks.app.presentation.ui.components.profile.edit
+package dk.eboks.app.presentation.ui.components.profile.main
 
-import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
@@ -10,10 +9,6 @@ class ProfileInfoComponentPresenter @Inject constructor(val appState: AppStateMa
         ProfileInfoComponentContract.Presenter,
         BasePresenterImpl<ProfileInfoComponentContract.View>() {
 
-    override fun onViewCreated(view: ProfileInfoComponentContract.View, lifecycle: Lifecycle) {
-        super.onViewCreated(view, lifecycle)
-        loadUserData()
-    }
 
     override fun loadUserData() {
         Timber.d("loadUserData")
@@ -26,9 +21,9 @@ class ProfileInfoComponentPresenter @Inject constructor(val appState: AppStateMa
             return
         }
 
-        view?.let {
-            it.setName(currentUser.name)
-            it.setProfileImage(currentUser.avatarUri)
+        runAction { v->
+            v.setName(currentUser.name)
+            v.setProfileImage(currentUser.avatarUri)
         }
     }
 
