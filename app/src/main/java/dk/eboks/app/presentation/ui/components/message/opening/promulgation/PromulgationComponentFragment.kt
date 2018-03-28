@@ -63,10 +63,16 @@ class PromulgationComponentFragment : BaseFragment(), PromulgationComponentContr
 
     private fun updateTranslation()
     {
-        mainTb.title = "_Promulgation"
+        mainTb.title = Translation.message.promulgationTopBarTitle
+        okayBtn.text = Translation.message.promulgationOkButton
+
     }
 
     private fun setupTopBar() {
 
+    }
+
+    override fun setPromulgationText(promulgationText: String) {
+        termsContentTv.text = promulgationText
     }
 }

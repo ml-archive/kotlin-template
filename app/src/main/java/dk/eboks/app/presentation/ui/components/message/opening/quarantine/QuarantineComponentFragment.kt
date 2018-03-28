@@ -52,9 +52,9 @@ class QuarantineComponentFragment : BaseFragment(), QuarantineComponentContract.
 
     private fun updateTranslation()
     {
-        mainTb.title = "_Quarantined"
-        headerTv.text = "_Quarantined"
-        mainTv.text = "_Message is quarantined, spilling to the brim with viruses and such most like, I fear yes I do"
+        mainTb.title = Translation.message.title
+        headerTv.text = Translation.message.quarantinedTitle
+        mainTv.text = Translation.message.quarantinedMessage
     }
 
     private fun setupTopBar() {

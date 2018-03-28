@@ -37,7 +37,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        nstack:key="@string/nstack_home_topMailHeader"
+                        nstack:key="@string/nstack_home_messagesHeader"
                         android:textStyle="normal" />
 
                     <Button
@@ -49,7 +49,7 @@
                         android:enabled="false"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
-                        nstack:key="@string/nstack_home_topMailHeaderButton"
+                        nstack:key="@string/nstack_home_messagesSectionHeaderShowAllButton"
                         android:textSize="14dp"
                         android:visibility="visible" />
 
@@ -82,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
                     android:gravity="center"
-                    nstack:key = "@string/nstack_home_topMailHeaderEmptyState"
+                    nstack:key = "@string/nstack_home_messagesUnverifiedTitle"
                     android:textStyle="normal" />
 
                 <ImageView
@@ -97,7 +97,7 @@
                     style="@style/text.header3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    nstack:key="@string/nstack_home_topMailTextEmptyState"
+                    nstack:key="@string/nstack_home_messagesUnverifiedMessage"
                     android:textAlignment="center"
                     android:textColor="@color/blueGrey"
                     android:textStyle="normal" />
@@ -110,7 +110,7 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="24dp"
                     android:layout_marginTop="@dimen/margin_normal"
-                    nstack:key="@string/nstack_home_topMailButtonEmptyState"
+                    nstack:key="@string/nstack_home_messagesUnverifiedButton"
                     android:textAppearance="@style/text.buttonSmall" />
 
             </LinearLayout>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.nodes.nstack.kotlin.NStack
@@ -54,6 +55,12 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
 
     private fun updateTranslation()
     {
+        // mocking login providers
+        var nemidProvider = LoginProvider("1","NemId",true,0,null,null,"fallback string")
+        var mobileProvider = LoginProvider("2","Mobile Access",true,0,null,null,"fallback string")
+
+        loginSecureBtn.text = Translation.logoncredentials.logonWithProvider.replace("[provider]",nemidProvider.name)
+        loginTv.text = Translation.logoncredentials.logonWithProvider.replace("[provider]",mobileProvider.name)
         mainTb.title = Translation.message.protectedTitle
         headerTv.text = Translation.message.protectedTitle
         mainTv.text = Translation.message.protectedMessage

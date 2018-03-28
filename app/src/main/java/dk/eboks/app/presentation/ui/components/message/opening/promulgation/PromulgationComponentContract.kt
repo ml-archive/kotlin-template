@@ -8,7 +8,7 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface PromulgationComponentContract {
     interface View : BaseView {
-
+        fun setPromulgationText(promulgationText: String)
     }
 
     interface Presenter : BasePresenter<View> {
