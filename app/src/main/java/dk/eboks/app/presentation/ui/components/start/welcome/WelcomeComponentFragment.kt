@@ -38,10 +38,12 @@ class WelcomeComponentFragment : BaseFragment() {
             getBaseActivity()?.addFragmentOnTop(R.id.containerFl, LoginComponentFragment(), true)
         }
         if(BuildConfig.DEBUG) {
+            /*
             debugCreateBtn.visibility = View.VISIBLE
             debugCreateBtn.setOnClickListener {
                 (activity as StartActivity).startMain()
             }
+            */
             debugOptionsTv.visibility = View.VISIBLE
             debugOptionsTv.setOnClickListener {
                 getBaseActivity()?.openComponentDrawer(DebugOptionsComponentFragment::class.java)

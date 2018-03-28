@@ -91,8 +91,10 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContract
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
-import dk.eboks.app.presentation.ui.components.profile.edit.ProfileInfoComponentContract
-import dk.eboks.app.presentation.ui.components.profile.edit.ProfileInfoComponentPresenter
+import dk.eboks.app.presentation.ui.components.profile.main.ProfileInfoComponentContract
+import dk.eboks.app.presentation.ui.components.profile.main.ProfileInfoComponentPresenter
+import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentContract
+import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentContract
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentContract
@@ -604,6 +606,12 @@ class PresentationModule {
     @Provides
     fun provideProfileInfoComponentPresenter(stateManager: AppStateManager): ProfileInfoComponentContract.Presenter {
         return ProfileInfoComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideMyInfoComponentPresenter(stateManager: AppStateManager): MyInfoComponentContract.Presenter {
+        return MyInfoComponentPresenter(stateManager)
     }
 
     @ActivityScope

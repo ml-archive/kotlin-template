@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.profile.edit
+package dk.eboks.app.presentation.ui.components.profile.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import com.bumptech.glide.Glide
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFragment
+import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentFragment
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import kotlinx.android.synthetic.main.fragment_profile_main_component.*
 import kotlinx.android.synthetic.main.include_profile_bottom.*
@@ -18,6 +20,8 @@ class ProfileInfoComponentFragment : BaseFragment(),
                                      ProfileInfoComponentContract.View {
     @Inject
     lateinit var presenter: ProfileInfoComponentContract.Presenter
+
+    var toolbarTitle = ""
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -38,12 +42,17 @@ class ProfileInfoComponentFragment : BaseFragment(),
         setupListeners()
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.loadUserData()
+    }
+
     private fun setupCollapsingToolbar() {
         profileDetailCTL.isTitleEnabled = false
 
         profileDetailABL.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (appBarLayout.totalScrollRange + verticalOffset < 200) {
-                profileDetailTB.title = "_profile name"
+                profileDetailTB.title = toolbarTitle
             } else {
                 profileDetailTB.title = ""
             }
@@ -75,7 +84,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
         profileDetailContainerMyInformation.setOnClickListener {
             Timber.d("profileDetailContainerMyInformation Clicked")
-            profileActivity?.showMyInformationFragment()
+            getBaseActivity()?.addFragmentOnTop(R.id.profileActivityContainerFragment, MyInfoComponentFragment())
         }
 
         profileDetailSwFingerprint.setOnClickListener {
@@ -88,7 +97,11 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
         profileDetailContainerTerms.setOnClickListener {
             Timber.d("profileDetailContainerTerms Clicked")
-            profileActivity?.showTerms()
+            val frag = AcceptTermsComponentFragment()
+            val args = Bundle()
+            args.putBoolean("justShow", true)
+            frag.arguments = args
+            getBaseActivity()?.addFragmentOnTop(R.id.profileActivityContainerFragment, frag)
         }
 
         profileDetailContainerPrivacy.setOnClickListener {
@@ -108,8 +121,9 @@ class ProfileInfoComponentFragment : BaseFragment(),
     }
 
 
-    override fun setName(name: String?) {
+    override fun setName(name: String) {
         Timber.d("setName: %s", name)
+        toolbarTitle = name
         profileDetailNameTv.text = name
         profileDetailTB.title = name
     }

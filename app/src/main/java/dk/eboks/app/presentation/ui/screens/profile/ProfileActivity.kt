@@ -1,11 +1,9 @@
 package dk.eboks.app.presentation.ui.screens.profile
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.presentation.ui.components.profile.edit.ProfileInfoComponentFragment
-import timber.log.Timber
+import dk.eboks.app.presentation.ui.components.profile.main.ProfileInfoComponentFragment
 import javax.inject.Inject
 
 class ProfileActivity : BaseActivity(), ProfileContract.View {

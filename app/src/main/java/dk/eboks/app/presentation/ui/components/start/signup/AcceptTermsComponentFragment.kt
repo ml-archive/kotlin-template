@@ -13,6 +13,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_signup_accept_terms_component.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 /**
@@ -33,8 +34,22 @@ class AcceptTermsComponentFragment : BaseFragment(), AcceptTermsComponentContrac
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        acceptBtn.setOnClickListener{getBaseActivity()?.addFragmentOnTop(R.id.containerFl, CompletedComponentFragment(), true) }
-        cancelBtn.setOnClickListener{showDialog()}
+        arguments?.let { args ->
+            if(args.containsKey("justShow"))
+            {
+                termsHeaderLl.visibility = View.GONE
+                termsButtonsLl.visibility = View.GONE
+                toolbarInclude.visibility = View.VISIBLE
+                mainTb.title = Translation.signup.termsTitle
+                mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+                mainTb.setNavigationOnClickListener {
+                    fragmentManager.popBackStack()
+                }
+            }
+        }
+
+        acceptBtn.setOnClickListener { getBaseActivity()?.addFragmentOnTop(R.id.containerFl, CompletedComponentFragment(), true) }
+        cancelBtn.setOnClickListener { showDialog() }
     }
 
     private fun showDialog() {
@@ -43,7 +58,6 @@ class AcceptTermsComponentFragment : BaseFragment(), AcceptTermsComponentContrac
         dialogBuilder.setTitle(Translation.signup.cancelDialogHeader)
         dialogBuilder.setMessage(Translation.signup.cancelDialogText)
         dialogBuilder.setPositiveButton(Translation.signup.cancelDialogCancelBtn, DialogInterface.OnClickListener { dialog, whichButton ->
-
 
         })
 
