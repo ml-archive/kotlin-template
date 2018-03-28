@@ -12,6 +12,8 @@ import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.domain.interactors.sender.*
+import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
+import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
@@ -78,5 +80,7 @@ interface AppComponent
     fun getSenderCategoriesInteractor() : GetSenderCategoriesInteractor
     fun getChannelInteractor() : GetChannelInteractor
     fun registerInteractor(): RegisterInteractor
+    fun getRegistrationsInteractor(): GetRegistrationsInteractor
+    fun getPendingInteractor(): GetPendingInteractor
     fun unregisterInteractor(): UnRegisterInteractor
 }

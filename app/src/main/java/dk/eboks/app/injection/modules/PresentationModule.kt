@@ -12,6 +12,8 @@ import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.domain.interactors.sender.*
+import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
+import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
@@ -138,6 +140,10 @@ import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailContract
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailPresenter
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewContract
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
+import dk.eboks.app.presentation.ui.screens.senders.registrations.PendingContract
+import dk.eboks.app.presentation.ui.screens.senders.registrations.PendingPresenter
+import dk.eboks.app.presentation.ui.screens.senders.registrations.RegistrationsPresenter
+import dk.eboks.app.presentation.ui.screens.senders.registrations.RegistrationsContract
 import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailContract
 import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailPresenter
 import dk.nodes.arch.domain.executor.Executor
@@ -534,6 +540,12 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
+    fun provideRegistrationsPresenter(stateManager: AppStateManager, registrationsInteractor: GetRegistrationsInteractor): RegistrationsContract.Presenter {
+        return RegistrationsPresenter(stateManager, registrationsInteractor)
+    }
+
+    @ActivityScope
+    @Provides
     fun provideSenderGroupsComponentPresenter(stateManager: AppStateManager): SenderGroupsComponentContract.Presenter {
         return SenderGroupsComponentPresenter(stateManager)
     }
@@ -552,6 +564,17 @@ class PresentationModule {
             unRegisterInteractor: UnRegisterInteractor
     ): RegistrationContract.Presenter {
         return RegisterPresenter(stateManager, registerInteractor, unRegisterInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun providePendingPresenter(
+            stateManager: AppStateManager,
+            getPendingInteractor: GetPendingInteractor,
+            registerInteractor: RegisterInteractor,
+            unRegisterInteractor: UnRegisterInteractor
+    ): PendingContract.Presenter {
+        return PendingPresenter(stateManager, getPendingInteractor, registerInteractor, unRegisterInteractor)
     }
   
     @ActivityScope
