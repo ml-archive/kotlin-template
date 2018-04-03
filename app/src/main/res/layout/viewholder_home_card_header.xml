@@ -31,6 +31,7 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/margin_half"
                     android:layout_marginStart="@dimen/margin_normal"
+                    android:background="@drawable/square_white_greyboarder_rounded_corners"
                     android:src="@drawable/ic_attachment_black" />
 
                 <TextView
