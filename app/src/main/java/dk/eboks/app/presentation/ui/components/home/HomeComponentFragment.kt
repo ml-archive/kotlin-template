@@ -149,6 +149,11 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             val date = v.findViewById<TextView>(R.id.dateTv)
             val image = v.findViewById<ImageView>(R.id.circleIv)
             val urgent = v.findViewById<TextView>(R.id.urgentTv)
+            val bottomDivider = v.findViewById<View>(R.id.dividerV)
+            val topDivider = v.findViewById<View>(R.id.topDividerV)
+
+            bottomDivider.visibility = View.GONE
+            topDivider.visibility = View.VISIBLE
 
             val currentStatus = currentItem.status
             if( currentStatus!= null && currentStatus.important){
