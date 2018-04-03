@@ -13,6 +13,12 @@ class PromulgationComponentPresenter @Inject constructor(val appState: AppStateM
         BasePresenterImpl<PromulgationComponentContract.View>()
 {
     init {
+        runAction { v ->
+
+            //mocked string
+            var mockText = "You have received a court message that you have opened or otherwise processed. The message and exhibits, if any, have been properly serviced to you.//n It is important that you thoroughly read the court message and exhibits, if any. The message may for example include a summons, a call for a court hearing, or a judicial decision that all may have certain ramifications for you. Any time limits apply as of today.The court has received a return receipt in evidence of the message being serviced to you. You will find the return receipt under the folder Sent Items."
+            v.setPromulgationText(mockText)
+        }
     }
 
     override fun setShouldProceed(proceed: Boolean) {

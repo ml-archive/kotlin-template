@@ -1,67 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="?selectableItemBackground"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootLl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/rootLl">
+    android:background="?selectableItemBackground"
+    android:orientation="vertical">
+
+    <View
+        android:visibility="gone"
+        android:id="@+id/topDividerV"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginEnd="@dimen/margin_normal"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:background="@color/dividerGreyBlue" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
+        android:orientation="horizontal"
+        android:paddingBottom="14dp"
         android:paddingEnd="16dp"
-        android:paddingTop="14dp"
-        android:paddingBottom="14dp">
+        android:paddingStart="16dp"
+        android:paddingTop="14dp">
 
         <ImageView
             android:id="@+id/circleIv"
-            android:padding="8dp"
             android:layout_width="44dp"
             android:layout_height="44dp"
-            android:background="@drawable/circular_image_view_no_inner_circle_background"/>
+            android:background="@drawable/circular_image_view_no_inner_circle_background"
+            android:padding="8dp" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp">
+            android:layout_weight="1"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/titleTv"
+                style="@style/text.header3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="7sp"
-                style="@style/text.header3"
-                android:text="_Name"/>
+                android:text="_Name" />
+
             <TextView
                 android:id="@+id/subTitleTv"
+                style="@style/text.subHeader5.quaternary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="4sp"
-                style="@style/text.subHeader5.quaternary"
-                android:text="Inbox"/>
+                android:text="_Inbox" />
+
             <TextView
-                android:visibility="gone"
                 android:id="@+id/urgentTv"
+                style="@style/text.subHeader5.tertiary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="7sp"
-                style="@style/text.subHeader5.tertiary"
-                android:text="Inbox"/>
+                android:text="_Inbox"
+                android:visibility="gone" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/dateTv"
+            style="@style/text.subHeader5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/text.subHeader5"
-            android:textColor="@color/blueGrey"
-            android:text="Today"/>
+            android:text="_Today"
+            android:textColor="@color/blueGrey" />
     </LinearLayout>
+
     <View
         android:id="@+id/dividerV"
         android:layout_width="match_parent"
