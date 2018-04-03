@@ -11,6 +11,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="20dp"
+        android:layout_marginBottom="2dp"
         app:cardCornerRadius="8dp"
         app:cardPreventCornerOverlap="true">
 
@@ -24,15 +25,23 @@
                 android:layout_height="52dp"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/logoIv"
+                <FrameLayout
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/margin_half"
                     android:layout_marginStart="@dimen/margin_normal"
-                    android:background="@drawable/square_white_greyboarder_rounded_corners"
-                    android:src="@drawable/ic_attachment_black" />
+                    android:background="@drawable/square_white_greyboarder_rounded_corners">
+
+                    <ImageView
+                        android:id="@+id/logoIv"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_attachment_black" />
+
+                </FrameLayout>
+
 
                 <TextView
                     android:id="@+id/headerTv"

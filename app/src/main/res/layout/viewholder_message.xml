@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="4sp"
                 style="@style/text.subHeader5.quaternary"
-                android:text="Inbox"/>
+                android:text="_Inbox"/>
             <TextView
                 android:visibility="gone"
                 android:id="@+id/urgentTv"
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="7sp"
                 style="@style/text.subHeader5.tertiary"
-                android:text="Inbox"/>
+                android:text="_Inbox"/>
         </LinearLayout>
 
         <TextView
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             style="@style/text.subHeader5"
             android:textColor="@color/blueGrey"
-            android:text="Today"/>
+            android:text="_Today"/>
     </LinearLayout>
     <View
         android:id="@+id/dividerV"

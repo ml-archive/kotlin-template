@@ -18,6 +18,7 @@
         android:layout_height="64dp"
         android:orientation="horizontal"
         android:layout_marginTop="@dimen/margin_normal"
+        android:layout_marginBottom="@dimen/margin_normal"
         android:paddingEnd="@dimen/margin_normal"
         android:paddingStart="@dimen/margin_normal">
 
@@ -30,14 +31,13 @@
                 <TextView
                     android:id="@+id/titleTv"
                     style="@style/text.header3"
-                    android:textStyle="normal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="bottom"
                     android:text="_Herning levere vildt comeback på isen testte" />
 
                 <TextView
-                    android:id="@+id/subTitleTv"
+                    android:id="@+id/dateTv"
                     style="@style/text.subHeader5.quaternary"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"

@@ -4,6 +4,7 @@ import android.content.Context
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
 import timber.log.Timber
@@ -43,12 +44,20 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         }
     }
 
+    override fun formatDateRelative(target: Item): String {
+        return formatDateRelative(target.date!!)
+    }
+
     override fun formatDateRelative(target: Message): String {
+        return formatDateRelative(target.received)
+    }
+
+    private fun formatDateRelative(target:Date): String{
         var result = ""
         val currentLocale = getCurrentLocale(context)
         val cal_recv = Calendar.getInstance(currentLocale)
 
-        cal_recv.time = target.received
+        cal_recv.time = target
         val cal = Calendar.getInstance(currentLocale)
         val cal2 = Calendar.getInstance(currentLocale)
 
@@ -100,22 +109,10 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
             }
         }
 
-        /*
-        cal2.setTime(Date())
-        //cal2 = Calendar.getInstance(currentLocale);
-        cal2.add(Calendar.MONTH, -1)
-        if (cal_recv.after(cal2)) {
-            result = cal_recv.get(Calendar.DAY_OF_MONTH) + ". " + cal_recv.getDisplayName(Calendar.MONTH, Calendar.LONG, currentLocale)
-        } else {
-            val sdf = SimpleDateFormat(Config.CurrentMode.dateFormat)
-            result = sdf.format(received_date)
-        }
-        */
-
         if (isThisYear) {
-            return messageDateFormat.format(target.received)
+            return messageDateFormat.format(target)
         } else {
-            return messageDateYearFormat.format(target.received)
+            return messageDateYearFormat.format(target)
         }
     }
 

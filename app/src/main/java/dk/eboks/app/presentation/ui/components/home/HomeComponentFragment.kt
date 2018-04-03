@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.home
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.media.VolumeProviderCompat
 import android.view.LayoutInflater
@@ -8,13 +9,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.home.Control
 import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.home.ItemType
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.shared.Currency
+import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_home_overview_mail_component.*
@@ -32,7 +37,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     lateinit var formatter: EboksFormatter
 
     //mock data
-    var emailCount = 3
+    var emailCount = 4
     var channelCount = 1
     var verifiedUser = true
     var messages: MutableList<dk.eboks.app.domain.models.message.Message> = ArrayList()
@@ -89,33 +94,147 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             for (i in 1..channels.size) {
                 var currentChannel = channels[i - 1]
 
+                //setting the header
+                val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContainerLl, false)
+                val logoIv = v.findViewById<ImageView>(R.id.logoIv)
+                val headerTv = v.findViewById<TextView>(R.id.headerTv)
+                val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
+
+                //todo set the logo - is this the correct image ? Most likely we need the logo from the initial api call
+                logoIv?.let {
+                    if (currentChannel.items?.isNotEmpty() && currentChannel.items?.first()?.Image != null)
+                        Glide.with(context).load(currentChannel.items.first().Image?.url).into(it)
+                }
+                headerTv.text = currentChannel.id
+
+                //inflating the rows based on itemtype
                 when (currentChannel.type) {
                     ItemType.RECEIPTS -> {
-                        addRecieptCard(currentChannel)
+                        addRecieptCard(currentChannel, rowsContainerLl)
                     }
                     ItemType.NEWS -> {
-                        addNewsCard(currentChannel)
+                        addNewsCard(currentChannel, rowsContainerLl)
+                    }
+                    ItemType.IMAGES -> {
+                        //contrained to only show 1 row
+                        addImageCard(currentChannel, rowsContainerLl)
+
+                    }
+                    ItemType.NOTIFICATIONS -> {
+                        //contrained to only show 1 row
+                        addNotificationCard(currentChannel, rowsContainerLl)
+
+                    }
+                    ItemType.MESSAGES -> {
+                        addMessageCard(currentChannel, rowsContainerLl)
+
+                    }
+                    ItemType.FILES -> {
+
                     }
                 }
+
+                channelsContentLL.addView(v)
+                channelsContentLL.requestLayout()
 
             }
         }
     }
 
-    private fun addNewsCard(currentChannel: Control) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private fun addMessageCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
+        for (currentItem in currentChannel.items) {
+            val v = inflator.inflate(R.layout.viewholder_message, rowsContainerLl, false)
+            val title = v.findViewById<TextView>(R.id.titleTv)
+            val subtitle = v.findViewById<TextView>(R.id.subTitleTv)
+            val date = v.findViewById<TextView>(R.id.dateTv)
+            val image = v.findViewById<ImageView>(R.id.circleIv)
+            val urgent = v.findViewById<TextView>(R.id.urgentTv)
+
+            val currentStatus = currentItem.status
+            if( currentStatus!= null && currentStatus.important){
+                urgent.visibility = View.VISIBLE
+                urgent.text = currentStatus.title
+                //todo should the circle be red if msg is urgent, in the other view that means its unread. jakob will ask the client
+                image.isSelected = true
+            }
+
+            title.text = currentItem.title
+            subtitle.text = currentItem.description
+            date.text = formatter.formatDateRelative(currentItem)
+            image?.let {
+                if (currentItem.Image != null)
+                    Glide.with(context).load(currentItem.Image?.url).into(it)
+            }
+
+            rowsContainerLl.addView(v)
+            rowsContainerLl.requestLayout()
+        }
     }
 
-    private fun addRecieptCard(currentChannel: Control) {
+    private fun addNotificationCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
+        val v = inflator.inflate(R.layout.viewholder_home_notification_row, rowsContainerLl, false)
+        val title = v.findViewById<TextView>(R.id.titleTv)
+        val subtitle = v.findViewById<TextView>(R.id.subTitleTv)
+        val date = v.findViewById<TextView>(R.id.dateTv)
+        val emptyContainer = v.findViewById<LinearLayout>(R.id.emptyContentContainer)
+        val contentContainer = v.findViewById<LinearLayout>(R.id.contentContainer)
 
-        val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContainerLl, false)
-        val logoIv = v.findViewById<ImageView>(R.id.logoIv)
-        val headerTv = v.findViewById<TextView>(R.id.headerTv)
-        val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
+        if (currentChannel.items.isNotEmpty() && currentChannel.items?.first() != null) {
+            val currentItem = currentChannel.items?.first()
+            title.text = currentItem.title
+            subtitle.text = currentItem.description
+            date.text = formatter.formatDateRelative(currentItem)
 
-        //todo set the logo
-        headerTv.text = currentChannel.id
 
+        } else {
+            emptyContainer.visibility = View.VISIBLE
+            contentContainer.visibility = View.GONE
+        }
+        rowsContainerLl.addView(v)
+        rowsContainerLl.requestLayout()
+    }
+
+    private fun addImageCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
+        val v = inflator.inflate(R.layout.viewholder_home_image_row, rowsContainerLl, false)
+        val title = v.findViewById<TextView>(R.id.titleTv)
+        val image = v.findViewById<ImageView>(R.id.backgroundIv)
+        val background = v.findViewById<LinearLayout>(R.id.backgroundColorLl)
+
+        val currentItem = currentChannel.items?.first()
+        //todo this color should come from the channels object
+        var tintColor = "#bf112233"
+        background?.background?.setTint(Color.parseColor(tintColor))
+
+        title.text = currentItem.title
+        image?.let {
+            if (currentItem.Image != null)
+                Glide.with(context).load(currentItem.Image?.url).into(it)
+        }
+
+        rowsContainerLl.addView(v)
+        rowsContainerLl.requestLayout()
+    }
+
+    private fun addNewsCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
+        for (currentItem in currentChannel.items) {
+            val v = inflator.inflate(R.layout.viewholder_home_news_row, rowsContainerLl, false)
+            val title = v.findViewById<TextView>(R.id.titleTv)
+            val image = v.findViewById<ImageView>(R.id.imageIv)
+            val date = v.findViewById<TextView>(R.id.dateTv)
+
+            title.text = currentItem.title
+            date.text = formatter.formatDateRelative(currentItem)
+            image?.let {
+                if (currentItem.Image != null)
+                    Glide.with(context).load(currentItem.Image?.url).into(it)
+            }
+
+            rowsContainerLl.addView(v)
+            rowsContainerLl.requestLayout()
+        }
+    }
+
+    private fun addRecieptCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
         for (row in currentChannel.items) {
             val v = inflator.inflate(R.layout.viewholder_home_reciept_row, rowsContainerLl, false)
 
@@ -131,13 +250,12 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             var value = row.amount?.value.toString()
             if (row.date == null) {
                 //Todo need to format the string to use comma seperator
-                //todo need to format the date correctly
                 soloAmount.text = value
                 soloAmount.visibility = View.VISIBLE
                 amountDateContainer.visibility = View.GONE
             } else {
                 amount.text = value
-                date.text = row.date.toString()
+                date.text = formatter.formatDateRelative(row)
             }
 
             if (row.description == null) {
@@ -152,27 +270,54 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             rowsContainerLl.addView(v)
             rowsContainerLl.requestLayout()
         }
-
-        channelsContentLL.addView(v)
-        channelsContentLL.requestLayout()
     }
 
     private fun createMockChannels() {
         // receipt
         var items: ArrayList<Item> = ArrayList()
-        items.add(Item("ID-receipt", "Title-reciept", "Description-reciept", Date(), Currency(111.01, "DKK"), null, null, null))
+        items.add(Item("ID-receipt", "Title-reciept", "Description-reciept", Date(), Currency(111.01, "DKK"), null, null, Image("https://picsum.photos/200/?random")))
         items.add(Item("ID-receipt2", "Title-reciept2", null, null, Currency(222.02, "DK2"), null, null, null))
         channels.add(Control("control receipts", ItemType.RECEIPTS, items))
 
         var items2: ArrayList<Item> = ArrayList()
-        items2.add(Item("ID-receipt3", "Title-reciept3", "Description-reciept3", Date(), Currency(333.03, "DK3"), null, null, null))
+        items2.add(Item("ID-receipt3", "Title-reciept3", null, Date(), Currency(333.03, "DK3"), null, null, Image("https://picsum.photos/200/?random")))
         items2.add(Item("ID-receipt4", "Title-reciept4", null, null, Currency(444.04, "DK4"), null, null, null))
         channels.add(Control("control receipts2", ItemType.RECEIPTS, items2))
+
         // news
+        var items3: ArrayList<Item> = ArrayList()
+        items3.add(Item("ID-news1", "Title-news1", "Description-news1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+        channels.add(Control("control news1", ItemType.NEWS, items3))
+
+        var items4: ArrayList<Item> = ArrayList()
+        items4.add(Item("ID-news2", "Title-news2", "Description-news2", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+        items4.add(Item("ID-news3", "Title-news3", "Description-news3", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+        channels.add(Control("control news2", ItemType.NEWS, items4))
+
         // image
+        var items5: ArrayList<Item> = ArrayList()
+        items5.add(Item("ID-image1", "Title-image1", "Description-image1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+        channels.add(Control("control image1", ItemType.IMAGES, items5))
+
         // notification
-        //files
+        var items6: ArrayList<Item> = ArrayList()
+        items5.add(Item("ID-notification1", "Title-notification1", "Description-notification1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+        channels.add(Control("control notification1", ItemType.NOTIFICATIONS, items5))
+
+        var items7: ArrayList<Item> = ArrayList()
+        channels.add(Control("control notification2", ItemType.NOTIFICATIONS, items7))
+
         // message
+        var items8: ArrayList<Item> = ArrayList()
+        items8.add(Item("ID-message1", "Title-Message1", "Description-message1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+        channels.add(Control("control message1", ItemType.MESSAGES, items8))
+
+        var items9: ArrayList<Item> = ArrayList()
+        items9.add(Item("ID-message2", "Title-Message2", "Description-message2", Date(), null, Status(true,"important title", "important text",0,Date()), null, Image("https://picsum.photos/200/?random")))
+        items9.add(Item("ID-message2", "Title-Message2", "Description-message2", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+        channels.add(Control("control message1", ItemType.MESSAGES, items9))
+
+        //files
 
     }
 
@@ -208,7 +353,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 val rootLl = v.findViewById<LinearLayout>(R.id.rootLl)
                 titleTv.text = currentMessage.id
                 subTitleTv.text = currentMessage.subject
-                dateTv.text = formatter.formatDate(currentMessage)
+                dateTv.text = formatter.formatDateRelative(currentMessage)
                 rootLl.setBackgroundColor(resources.getColor(R.color.white))
                 if (i == showCount) {
                     dividerV.visibility = View.GONE
