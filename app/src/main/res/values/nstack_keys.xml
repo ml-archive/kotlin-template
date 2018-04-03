@@ -5,6 +5,8 @@
   <string name='nstack_default_back' formatted='false'>default_back</string>
   <string name='nstack_default_today' formatted='false'>default_today</string>
   <string name='nstack_default_yesterday' formatted='false'>default_yesterday</string>
+  <string name='nstack_default_save' formatted='false'>default_save</string>
+  <string name='nstack_default_close' formatted='false'>default_close</string>
   <string name='nstack_error_genericMessage' formatted='false'>error_genericMessage</string>
   <string name='nstack_error_genericTitle' formatted='false'>error_genericTitle</string>
   <string name='nstack_error_noInternetTitle' formatted='false'>error_noInternetTitle</string>
@@ -178,6 +180,12 @@
   <string name='nstack_message_shareMessageText' formatted='false'>message_shareMessageText</string>
   <string name='nstack_message_lockedTitle' formatted='false'>message_lockedTitle</string>
   <string name='nstack_message_lockedMessage' formatted='false'>message_lockedMessage</string>
+  <string name='nstack_message_quarantinedTitle' formatted='false'>message_quarantinedTitle</string>
+  <string name='nstack_message_quarantinedMessage' formatted='false'>message_quarantinedMessage</string>
+  <string name='nstack_message_promulgationTopBarTitle' formatted='false'>message_promulgationTopBarTitle</string>
+  <string name='nstack_message_promulgationOkButton' formatted='false'>message_promulgationOkButton</string>
+  <string name='nstack_message_numberOfAttachmentsPluralSuffix' formatted='false'>message_numberOfAttachmentsPluralSuffix</string>
+  <string name='nstack_message_numberOfAttachmentsSingularSuffix' formatted='false'>message_numberOfAttachmentsSingularSuffix</string>
   <string name='nstack_iosbiometrics_errorAuthentication' formatted='false'>iosbiometrics_errorAuthentication</string>
   <string name='nstack_iosbiometrics_errorUserCancel' formatted='false'>iosbiometrics_errorUserCancel</string>
   <string name='nstack_iosbiometrics_errorUserFallback' formatted='false'>iosbiometrics_errorUserFallback</string>
@@ -235,22 +243,21 @@
   <string name='nstack_myInformation_newsletter' formatted='false'>myInformation_newsletter</string>
   <string name='nstack_myInformation_takePhoto' formatted='false'>myInformation_takePhoto</string>
   <string name='nstack_myInformation_chooseFromLibrary' formatted='false'>myInformation_chooseFromLibrary</string>
-  <string name='nstack_home_bottomChannelBtnNoNewMails' formatted='false'>home_bottomChannelBtnNoNewMails</string>
+  <string name='nstack_home_messagesEmptyButton' formatted='false'>home_messagesEmptyButton</string>
   <string name='nstack_home_bottomChannelHeaderNoChannels' formatted='false'>home_bottomChannelHeaderNoChannels</string>
-  <string name='nstack_home_bottomChannelHeaderNoNewMails' formatted='false'>home_bottomChannelHeaderNoNewMails</string>
-  <string name='nstack_home_bottomChannelTextNoNewMails' formatted='false'>home_bottomChannelTextNoNewMails</string>
+  <string name='nstack_home_messagesEmptyTitle' formatted='false'>home_messagesEmptyTitle</string>
+  <string name='nstack_home_messagesEmptyMessage' formatted='false'>home_messagesEmptyMessage</string>
   <string name='nstack_home_bottomChannelTextNoChannels' formatted='false'>home_bottomChannelTextNoChannels</string>
   <string name='nstack_home_bottomChannelHeaderChannels' formatted='false'>home_bottomChannelHeaderChannels</string>
   <string name='nstack_home_bottomChannelTextChannels' formatted='false'>home_bottomChannelTextChannels</string>
-  <string name='nstack_home_bottomChannelBtnShowMessages' formatted='false'>home_bottomChannelBtnShowMessages</string>
+  <string name='nstack_home_messagesSectionHeaderButtonNewMessagesSuffix' formatted='false'>home_messagesSectionHeaderButtonNewMessagesSuffix</string>
   <string name='nstack_home_bottomChannelBtn' formatted='false'>home_bottomChannelBtn</string>
-  <string name='nstack_home_topMailHeader' formatted='false'>home_topMailHeader</string>
-  <string name='nstack_home_topMailHeaderButton' formatted='false'>home_topMailHeaderButton</string>
+  <string name='nstack_home_messagesHeader' formatted='false'>home_messagesHeader</string>
+  <string name='nstack_home_messagesSectionHeaderShowAllButton' formatted='false'>home_messagesSectionHeaderShowAllButton</string>
   <string name='nstack_home_channelsHeader' formatted='false'>home_channelsHeader</string>
   <string name='nstack_home_channelsHeaderButton' formatted='false'>home_channelsHeaderButton</string>
-  <string name='nstack_home_topMailHeaderEmptyState' formatted='false'>home_topMailHeaderEmptyState</string>
-  <string name='nstack_home_topMailTextEmptyState' formatted='false'>home_topMailTextEmptyState</string>
-  <string name='nstack_home_topMailButtonEmptyState' formatted='false'>home_topMailButtonEmptyState</string>
-  <string name='nstack_home_topMailTextNoNewMails' formatted='false'>home_topMailTextNoNewMails</string>
+  <string name='nstack_home_messagesUnverifiedTitle' formatted='false'>home_messagesUnverifiedTitle</string>
+  <string name='nstack_home_messagesUnverifiedMessage' formatted='false'>home_messagesUnverifiedMessage</string>
+  <string name='nstack_home_messagesUnverifiedButton' formatted='false'>home_messagesUnverifiedButton</string>
   <string name='nstack_home_windowHeader' formatted='false'>home_windowHeader</string>
 </resources>

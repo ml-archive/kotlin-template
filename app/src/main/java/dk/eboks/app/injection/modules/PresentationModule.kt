@@ -633,8 +633,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMyInfoComponentPresenter(stateManager: AppStateManager): MyInfoComponentContract.Presenter {
-        return MyInfoComponentPresenter(stateManager)
+    fun provideMyInfoComponentPresenter(stateManager: AppStateManager, saveUserInteractor: SaveUserInteractor): MyInfoComponentContract.Presenter {
+        return MyInfoComponentPresenter(stateManager, saveUserInteractor)
     }
 
     @ActivityScope

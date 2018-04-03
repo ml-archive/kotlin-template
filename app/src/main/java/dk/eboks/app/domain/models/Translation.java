@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Tue Mar 27 21:24:57 CEST 2018 
+ * Generated: Tue Apr 03 13:39:33 CEST 2018 
  */
 
 public class Translation {
@@ -14,6 +14,8 @@ public class Translation {
 		public static String back = "Back";
 		public static String today = "Today\r\n";
 		public static String yesterday = "Yesterday";
+		public static String save = "Save";
+		public static String close = "Close";
 	}
 	public final static class error {
 		public static String genericMessage = "An error occured";
@@ -217,6 +219,12 @@ public class Translation {
 		public static String shareMessageText = "Share";
 		public static String lockedTitle = "Locked Content";
 		public static String lockedMessage = "This message content could not be opened due to a virus found";
+		public static String quarantinedTitle = "Quarantined";
+		public static String quarantinedMessage = "This message is quarantined due to a problem found";
+		public static String promulgationTopBarTitle = "Promulgation";
+		public static String promulgationOkButton = "okay";
+		public static String numberOfAttachmentsPluralSuffix = "attachments \u2022";
+		public static String numberOfAttachmentsSingularSuffix = "attachment \u2022";
 	}
 	public final static class iosbiometrics {
 		public static String errorAuthentication = "There was a problem verifying your identity";
@@ -290,23 +298,22 @@ public class Translation {
 		public static String chooseFromLibrary = "Choose from library";
 	}
 	public final static class home {
-		public static String bottomChannelBtnNoNewMails = "See all mails";
+		public static String messagesEmptyButton = "See all mail";
 		public static String bottomChannelHeaderNoChannels = "Channels";
-		public static String bottomChannelHeaderNoNewMails = "There\u2019s no new messages for you";
-		public static String bottomChannelTextNoNewMails = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
+		public static String messagesEmptyTitle = "There\u2019s no new messages for you";
+		public static String messagesEmptyMessage = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
 		public static String bottomChannelTextNoChannels = "You haven\u2019t added any channels yet. Channels give you relevant information and actions right at your fingertips.";
 		public static String bottomChannelHeaderChannels = "Theres more to see!";
 		public static String bottomChannelTextChannels = "You can add as many channels as you would like, to give you the best overview of your services etc..";
-		public static String bottomChannelBtnShowMessages = "[value] new messages";
+		public static String messagesSectionHeaderButtonNewMessagesSuffix = "[value] new messages";
 		public static String bottomChannelBtn = "Add channels";
-		public static String topMailHeader = "Mail";
-		public static String topMailHeaderButton = "Show all";
+		public static String messagesHeader = "Mail";
+		public static String messagesSectionHeaderShowAllButton = "Show all";
 		public static String channelsHeader = "Channels";
 		public static String channelsHeaderButton = "Edit";
-		public static String topMailHeaderEmptyState = "Think into the box";
-		public static String topMailTextEmptyState = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.";
-		public static String topMailButtonEmptyState = "getStarted";
-		public static String topMailTextNoNewMails = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.";
+		public static String messagesUnverifiedTitle = "Think into the box";
+		public static String messagesUnverifiedMessage = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.";
+		public static String messagesUnverifiedButton = "Get started";
 		public static String windowHeader = "Home";
 	}
 }
