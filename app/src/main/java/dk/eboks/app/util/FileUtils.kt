@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.support.v4.content.FileProvider
 import dk.eboks.app.BuildConfig
+import dk.eboks.app.domain.models.Translation
 import timber.log.Timber
 import java.io.File
 
@@ -22,7 +23,7 @@ object FileUtils {
         intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         if (intent.resolveActivity(cur_context.packageManager) != null) {
-            cur_context.startActivity(Intent.createChooser(intent, "_Open with"))
+            cur_context.startActivity(Intent.createChooser(intent, Translation.error.attachmentOpenWith))
             return true
         }
         Timber.e("Could not resolve share intent - failed to open documents")

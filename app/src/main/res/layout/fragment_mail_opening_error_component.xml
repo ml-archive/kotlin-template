@@ -27,10 +27,10 @@
                 android:layout_weight="2" />
 
             <ImageView
-                android:layout_width="240dp"
-                android:layout_height="240dp"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_visual_mail" />
+                android:src="@drawable/visual_mail" />
 
             <View
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="52dp"
-                android:paddingBottom="16dp"
+                android:paddingBottom="32dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -66,6 +66,7 @@
                 <TextView
                     style="@style/text.body6.secondary"
                     android:id="@+id/mainTv"
+                    android:textAlignment="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"

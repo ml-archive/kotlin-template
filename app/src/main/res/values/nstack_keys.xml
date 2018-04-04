@@ -19,6 +19,11 @@
   <string name='nstack_error_genericStorageMessage' formatted='false'>error_genericStorageMessage</string>
   <string name='nstack_error_genericOOMTitle' formatted='false'>error_genericOOMTitle</string>
   <string name='nstack_error_genericOOMMessage' formatted='false'>error_genericOOMMessage</string>
+  <string name='nstack_error_attachmentErrorTitle' formatted='false'>error_attachmentErrorTitle</string>
+  <string name='nstack_error_attachmentErrorMessage' formatted='false'>error_attachmentErrorMessage</string>
+  <string name='nstack_error_attachmentErrorSaveBtn' formatted='false'>error_attachmentErrorSaveBtn</string>
+  <string name='nstack_error_attachmentErrorNegativeBtn' formatted='false'>error_attachmentErrorNegativeBtn</string>
+  <string name='nstack_error_attachmentOpenWith' formatted='false'>error_attachmentOpenWith</string>
   <string name='nstack_mail_senderHeader' formatted='false'>mail_senderHeader</string>
   <string name='nstack_mail_showAllSendersButton' formatted='false'>mail_showAllSendersButton</string>
   <string name='nstack_mail_smartFolderHeader' formatted='false'>mail_smartFolderHeader</string>

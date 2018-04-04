@@ -95,6 +95,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             val subTitleTv = root.findViewById<TextView>(R.id.subTitleTv)
             val urgentTv = root.findViewById<TextView>(R.id.urgentTv)
             val dateTv = root.findViewById<TextView>(R.id.dateTv)
+            val clipIv = root.findViewById<ImageView>(R.id.clipIv)
 
         }
 
@@ -109,25 +110,33 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         }
 
         override fun onBindViewHolder(holder: MessageViewHolder?, position: Int) {
-            if(messages[position].sender != null) {
+            var currentItem = messages[position]
+
+            if(currentItem.sender != null) {
                 holder?.circleIv?.let {
                     Glide.with(context)
                             .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
-                            .load(messages[position].sender?.logo?.url)
+                            .load(currentItem.sender?.logo?.url)
                             .into(it)
-                    it.isSelected = messages[position].unread
+                    it.isSelected = currentItem.unread
                 }
             }
-            holder?.titleTv?.text = messages[position].sender?.name
-            if(!messages[position].unread){
+            holder?.titleTv?.text = currentItem.sender?.name
+            if(!currentItem.unread){
                 holder?.titleTv?.setTypeface(null, Typeface.NORMAL)
             }
-            holder?.subTitleTv?.text = messages[position].subject
-            if(messages[position].status?.text != null){
+            holder?.subTitleTv?.text = currentItem.subject
+            if(currentItem.status?.text != null){
                 holder?.urgentTv?.visibility = View.VISIBLE
-                holder?.urgentTv?.text = messages[position].status?.text
+                holder?.urgentTv?.text = currentItem.status?.text
             } else {
                 holder?.urgentTv?.visibility = View.GONE
+            }
+
+            if (currentItem.numberOfAttachments >0){
+                holder?.clipIv?.visibility = View.VISIBLE
+            } else {
+                holder?.clipIv?.visibility = View.GONE
             }
 
             holder?.root?.setOnClickListener {

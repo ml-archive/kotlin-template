@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.screens.message.embedded
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
+import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.message.Message
@@ -17,6 +18,7 @@ import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.pdf.PdfViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentFragment
+import kotlinx.android.synthetic.main.fragment_header_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
@@ -44,6 +46,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
         mainHandler.post({ presenter.setup()})
+
     }
 
     private fun setupTopBar()
@@ -53,6 +56,10 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         mainTb.setNavigationOnClickListener {
             onBackPressed()
         }
+    }
+
+    override fun setHighPeakHeight() {
+            setupPeakHeight(140)
     }
 
     override fun showTitle(message: Message) {

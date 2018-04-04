@@ -34,7 +34,7 @@ class ViewErrorController(val context: Context, val closeFunction: CloseFunction
                 builder.setTitle(Translation.error.genericTitle)
             builder.setMessage(Translation.error.genericMessage)
         }
-        val label = if(error.shouldCloseView) "_Close" else Translation.defaultSection.ok
+        val label = if(error.shouldCloseView) Translation.defaultSection.close else Translation.defaultSection.ok
         builder.setPositiveButton(label, { dialogInterface, i ->
             closeFunction?.let { if(error.shouldCloseView) it() }.guard {
                 Timber.e("View closure was requested but view haven't specified a CloseFunction in ViewErrorController constructor, ignoring.")

@@ -19,6 +19,7 @@ interface MessageEmbeddedContract {
         fun addHtmlViewer()
         fun addTextViewer()
         fun showTitle(message : Message)
+        fun setHighPeakHeight()
     }
 
     interface Presenter : BasePresenter<MessageEmbeddedContract.View> {

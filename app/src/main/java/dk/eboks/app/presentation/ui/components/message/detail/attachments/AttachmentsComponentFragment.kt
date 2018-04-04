@@ -67,12 +67,12 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
         if(!FileUtils.openExternalViewer(context, filename, mimeType))
         {   // could not be opened in external viewer, ask if user wanna save to downloads
             AlertDialog.Builder(context)
-                    .setTitle("_Could not open")
-                    .setMessage("_Document could not be opened, save to Downloads instead?")
-                    .setPositiveButton("_Save", {dialogInterface, i ->
+                    .setTitle(Translation.error.attachmentErrorTitle)
+                    .setMessage(Translation.error.attachmentErrorMessage)
+                    .setPositiveButton(Translation.error.attachmentErrorSaveBtn, {dialogInterface, i ->
                         presenter.saveAttachment(attachment)
                     })
-                    .setNegativeButton("_Close", {dialogInterface, i ->
+                    .setNegativeButton(Translation.error.attachmentErrorNegativeBtn, {dialogInterface, i ->
 
                     })
                     .show()

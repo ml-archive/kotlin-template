@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.message.Message
@@ -36,6 +37,8 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
     }
 
     override fun updateView(message: Message) {
+        setDrawerHeader(message)
+
         when(message.type)
         {
             MessageType.RECEIVED -> {
@@ -70,6 +73,27 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
                     Glide.with(context).load(it).into(senderLogoIv)
                 }
             }
+        }
+    }
+
+    private fun setDrawerHeader(message: Message) {
+        if (message.numberOfAttachments > 0) {
+            attachmentsTv.text = "" + message.numberOfAttachments + " _Attachments"
+            attachmentsTv.visibility = View.VISIBLE
+            attachmentsIv.visibility = View.VISIBLE
+            dotIv.visibility = View.VISIBLE
+        } else {
+            attachmentsTv.visibility = View.GONE
+            dotIv.visibility = View.GONE
+            attachmentsIv.visibility = View.GONE
+        }
+
+        if (message.note.isNullOrBlank()) {
+            dotIv.visibility = View.GONE
+            notesTv.visibility = View.GONE
+        } else {
+            notesTv.visibility = View.VISIBLE
+            notesTv.text = "_note test"
         }
     }
 }
