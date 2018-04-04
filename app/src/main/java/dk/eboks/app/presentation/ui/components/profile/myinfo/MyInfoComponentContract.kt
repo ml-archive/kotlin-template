@@ -18,6 +18,8 @@ interface MyInfoComponentContract {
         fun getSecondaryEmail() : String
         fun getMobileNumber() : String
         fun getNewsletter() : Boolean
+        fun showProgress(show : Boolean)
+        fun setSaveEnabled(enabled : Boolean)
     }
 
     interface Presenter : BasePresenter<View> {

@@ -37,6 +37,7 @@ class MyInfoComponentPresenter @Inject constructor(val appState: AppStateManager
                 user.secondaryEmail = v.getSecondaryEmail()
                 user.mobileNumber = v.getMobileNumber()
                 user.newsletter = v.getNewsletter()
+                v.showProgress(true)
                 saveUserInteractor.input = SaveUserInteractor.Input(user)
                 saveUserInteractor.run()
             }
@@ -45,9 +46,17 @@ class MyInfoComponentPresenter @Inject constructor(val appState: AppStateManager
 
     override fun onSaveUser(user: User, numberOfUsers: Int) {
         Timber.e("User saved")
+        runAction { v->
+            v.setSaveEnabled(false)
+            v.showProgress(false)
+            v.showToast("_Your information was saved")
+        }
     }
 
     override fun onSaveUserError(error: ViewError) {
-        runAction { v->v.showErrorDialog(error) }
+        runAction { v->
+            v.showProgress(false)
+            v.showErrorDialog(error)
+        }
     }
 }

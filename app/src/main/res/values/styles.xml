@@ -346,7 +346,7 @@
         <!-- https://stackoverflow.com/a/30977835/1502079 -->
         <item name="actionBarItemBackground">?attr/selectableItemBackground</item>
         <item name="colorControlNormal">@color/toolbarNormalColor</item>
-        <item name="actionMenuTextColor">@color/toolbarNormalColor</item>
+        <item name="actionMenuTextColor">@color/toolbar_item_selector</item>
     </style>
 
     <style name="ToolbarTheme.Secondary">

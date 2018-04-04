@@ -1,10 +1,13 @@
 package dk.eboks.app.presentation.ui.components.profile.myinfo
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
@@ -12,10 +15,11 @@ import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.fragment_profile_myinformation_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
-class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, OnLanguageChangedListener {
+class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, OnLanguageChangedListener, TextWatcher {
     @Inject
     lateinit var presenter: MyInfoComponentContract.Presenter
     var menuSave : MenuItem? = null
@@ -46,6 +50,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         }
 
         menuSave = mainTb.menu.add(Translation.defaultSection.save)
+        menuSave?.isEnabled = false
         menuSave?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         menuSave?.setOnMenuItemClickListener { item: MenuItem ->
             presenter.save()
@@ -54,13 +59,31 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
 
     }
 
+    private fun attachListeners()
+    {
+        nameEt.addTextChangedListener(this)
+        primaryMailEt.addTextChangedListener(this)
+        secondaryMailEt.addTextChangedListener(this)
+        mobilEt.addTextChangedListener(this)
+        newsletterSw.setOnCheckedChangeListener { compoundButton, b ->
+            afterTextChanged(null)
+        }
+    }
+
+    private fun detachListeners()
+    {
+        nameEt.removeTextChangedListener(this)
+    }
+
     override fun onResume() {
         super.onResume()
         NStack.addLanguageChangeListener(this)
+        attachListeners()
     }
 
     override fun onPause() {
         NStack.removeLanguageChangeListener(this)
+        detachListeners()
         super.onPause()
     }
 
@@ -117,4 +140,20 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
     override fun getNewsletter(): Boolean {
         return newsletterSw.isChecked
     }
+
+    override fun showProgress(show: Boolean) {
+        progressFl.visibility = if(show) View.VISIBLE else View.GONE
+    }
+
+    override fun setSaveEnabled(enabled: Boolean) {
+        menuSave?.isEnabled = enabled
+    }
+
+    override fun afterTextChanged(p0: Editable?) {
+        menuSave?.isEnabled = true
+    }
+
+    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 }

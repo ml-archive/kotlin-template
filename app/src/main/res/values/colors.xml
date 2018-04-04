@@ -33,6 +33,8 @@
     <color name="toolbarSelectedColor">@color/darkGreyBlue</color>
     <color name="toolbarNormalColor">@color/rouge</color>
     <color name="toolbarTitleColor">@color/darkGreyBlue</color>
+    <color name="toolbarDisabledColor">@color/blueGrey</color>
+
 
     <color name="outerCircleImageColor">#c1ced2</color>
     <color name="innerCircleImageColor">#eceff3</color>
