@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import dk.eboks.app.R
+import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.Translation
@@ -21,6 +22,9 @@ import javax.inject.Inject
 class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContract.View {
     @Inject
     lateinit var presenter : AttachmentsComponentContract.Presenter
+
+    @Inject
+    lateinit var formatter : EboksFormatter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_attachments_component, container, false)
@@ -41,7 +45,7 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
                 for (attachment in it) {
                     val v = li.inflate(R.layout.viewholder_attachment, attachmentsLl, false)
                     v.findViewById<TextView>(R.id.nameTv)?.text = attachment.title
-                    v.findViewById<TextView>(R.id.sizeTv)?.text = "${attachment.fileSize}"
+                    v.findViewById<TextView>(R.id.sizeTv)?.text = "${formatter.formatSize(attachment)}"
                     attachmentsLl.addView(v)
                     v.setOnClickListener {
                         presenter.openAttachment(attachment)

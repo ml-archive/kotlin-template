@@ -21,8 +21,7 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_verification_component, container, false)
-        // TODO para brian translata
-        cancelTv.text = Translation.defaultSection.cancel
+        // This will to change translations based on if its signup with nemID, BankID etc
         return rootView
     }
 

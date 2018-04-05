@@ -112,8 +112,8 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
     private fun showDeleteDialog(user : User)
     {
         AlertDialog.Builder(activity)
-                .setTitle("_Delete ${user.name}")
-                .setMessage("_Are you sure you want to remove this user?")
+                .setTitle(Translation.start.confimRemoveUserTitle)
+                .setMessage(Translation.start.confirmRemoveUserMessage)
                 .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
                     //(viewPager.adapter as UserPagerAdapter).users.remove(user)
                     //viewPager.adapter.notifyDataSetChanged()
