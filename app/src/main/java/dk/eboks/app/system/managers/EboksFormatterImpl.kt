@@ -7,7 +7,9 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
+import dk.nodes.nstack.kotlin.NStack
 import timber.log.Timber
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -16,13 +18,26 @@ import java.util.*
  */
 class EboksFormatterImpl(val context: Context) : EboksFormatter {
     val messageDateFormat: SimpleDateFormat by lazy {
-        SimpleDateFormat("d. MMM", Locale.getDefault())
+        try {
+            SimpleDateFormat("d. MMM", NStack.language)
+        } catch (t : Throwable) {
+            SimpleDateFormat()
+        }
     }
     val messageDateYearFormat: SimpleDateFormat by lazy {
-        SimpleDateFormat("d. MMM YYYY", Locale.getDefault())
+        try {
+        SimpleDateFormat("d. MMM YYYY", NStack.language)
+        } catch (t : Throwable) {
+            SimpleDateFormat()
+        }
     }
     val dayDateFormat: SimpleDateFormat by lazy {
-        SimpleDateFormat("E", Locale.getDefault())
+        try {
+            SimpleDateFormat("E", NStack.language)
+
+        } catch (t : Throwable) {
+            SimpleDateFormat()
+        }
     }
 
     override fun formatCpr(cpr: String): String {

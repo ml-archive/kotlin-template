@@ -45,6 +45,7 @@ class CompletedComponentFragment : BaseFragment(), SignupComponentContract.Compl
         //(activity as StartActivity).showLogo(false)
         showProgress(true)
         content.postDelayed({
+            presenter.createUserAndLogin()
             (activity as StartActivity).startMain()
         }, 1000)
     }

@@ -147,6 +147,8 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
 
     fun onContinueClicked() {
         //(activity as StartActivity).showLogo(false)
+        presenter.setName(nameEt.text.toString().trim())
+        presenter.setEmail(emailEt.text.toString().trim())
         showProgress(true)
         content.postDelayed({
             showProgress(false)

@@ -144,6 +144,9 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             continueBtn.visibility = View.VISIBLE
         }
         setupAltLoginProviders(altLoginProviders)
+        user?.let {
+            addSkipLoginProvider()
+        }
     }
 
     private fun createUser(verified : Boolean)
@@ -157,6 +160,24 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
             getBaseActivity()?.setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
         }
+    }
+
+    fun addSkipLoginProvider() {
+        val li = LayoutInflater.from(context)
+        val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
+        v.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.ic_fingerprint)
+        v.findViewById<TextView>(R.id.nameTv).text = "Force login (DEBUG)"
+        v.findViewById<TextView>(R.id.descTv).text = "Warning sucks all the midiclorians out of the room"
+
+        v.setOnClickListener {
+            currentUser?.let { user ->
+                currentProvider?.let { provider ->
+                    presenter.login(user, provider.id)
+                }
+            }
+        }
+        loginProvidersLl.addView(v)
+        loginProvidersLl.visibility = View.VISIBLE
     }
 
     override fun addFingerPrintProvider() {

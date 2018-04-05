@@ -50,10 +50,12 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         setupViewPager()
         signupBtn.setOnClickListener { getBaseActivity()?.addFragmentOnTop(R.id.containerFl, NameMailComponentFragment(), true) }
         if(BuildConfig.DEBUG) {
+            /*
             debugCreateBtn.visibility = View.VISIBLE
             debugCreateBtn.setOnClickListener {
                 (activity as StartActivity).startMain()
             }
+            */
             debugOptionsTv.visibility = View.VISIBLE
             debugOptionsTv.setOnClickListener {
                 getBaseActivity()?.openComponentDrawer(DebugOptionsComponentFragment::class.java)
@@ -91,6 +93,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         viewPager.adapter = UserPagerAdapter(users)
         if(users.isEmpty())
         {
+            presenter.clearSelectedUser()
             getBaseActivity()?.setRootFragment(R.id.containerFl, WelcomeComponentFragment())
         }
     }

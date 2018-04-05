@@ -145,6 +145,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
 
     fun onContinueClicked() {
         //(activity as StartActivity).showLogo(false)
+        presenter.setPassword(passwordEt.text.toString().trim())
         showProgress(true)
         content.postDelayed({
             showProgress(false)

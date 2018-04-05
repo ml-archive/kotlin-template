@@ -21,6 +21,7 @@ class LoginComponentPresenter @Inject constructor(val appState: AppStateManager,
 {
 
     init {
+        appState.state?.currentUser = null
         createUserInteractor.output = this
     }
 

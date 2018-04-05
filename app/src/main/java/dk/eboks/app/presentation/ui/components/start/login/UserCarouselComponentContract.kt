@@ -19,5 +19,6 @@ interface UserCarouselComponentContract {
         fun login(user: User)
         fun addAnotherUser()
         fun deleteUser(user : User)
+        fun clearSelectedUser()
     }
 }

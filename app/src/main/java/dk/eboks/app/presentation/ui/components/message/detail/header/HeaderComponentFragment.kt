@@ -11,6 +11,7 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.base.BaseSheetActivity
 import kotlinx.android.synthetic.main.fragment_header_component.*
 import javax.inject.Inject
 

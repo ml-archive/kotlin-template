@@ -37,5 +37,9 @@ interface SignupComponentContract {
     }
 
     interface Presenter : BasePresenter<SignupView> {
+        fun setName(name : String)
+        fun setEmail(email : String)
+        fun setPassword(password : String)
+        fun createUserAndLogin()
     }
 }

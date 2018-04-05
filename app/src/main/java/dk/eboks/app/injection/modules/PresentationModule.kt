@@ -148,6 +148,8 @@ import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailContrac
 import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailPresenter
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
+import dk.nodes.arch.domain.injection.scopes.AppScope
+import javax.inject.Singleton
 
 /**
  * Created by bison on 07/12/17.
@@ -403,8 +405,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideSignupComponentPresenter(stateManager: AppStateManager): SignupComponentContract.Presenter {
-        return SignupComponentPresenter(stateManager)
+    fun provideSignupComponentPresenter(stateManager: AppStateManager, createUserInteractor: CreateUserInteractor): SignupComponentContract.Presenter {
+        return SignupComponentPresenter(stateManager, createUserInteractor)
     }
 
     @ActivityScope

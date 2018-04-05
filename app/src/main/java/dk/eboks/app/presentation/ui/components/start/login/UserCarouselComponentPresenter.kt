@@ -40,6 +40,11 @@ class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateM
         runAction { v-> v.openLogin() }
     }
 
+    override fun clearSelectedUser()
+    {
+        appState.state?.loginState?.selectedUser = null
+    }
+
     override fun deleteUser(user: User) {
         deleteUserInteractor.input = DeleteUserInteractor.Input(user)
         deleteUserInteractor.run()
