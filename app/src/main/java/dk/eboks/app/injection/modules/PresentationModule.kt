@@ -93,6 +93,7 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContract
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
+import dk.eboks.app.presentation.ui.components.profile.drawer.*
 import dk.eboks.app.presentation.ui.components.profile.main.ProfileInfoComponentContract
 import dk.eboks.app.presentation.ui.components.profile.main.ProfileInfoComponentPresenter
 import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentContract
@@ -649,6 +650,35 @@ class PresentationModule {
         return DebugUserPresenter(stateManager, createUserInteractor, saveUserInteractor)
     }
 
+    @ActivityScope
+    @Provides
+    fun provideEmailVerificationComponentPresenter(stateManager: AppStateManager) : EmailVerificationComponentContract.Presenter {
+        return EmailVerificationComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun providePhoneVerificationComponentPresenter(stateManager: AppStateManager) : PhoneVerificationComponentContract.Presenter {
+        return PhoneVerificationComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideFingerHintComponentPresenter(stateManager: AppStateManager) : FingerHintComponentContract.Presenter {
+        return FingerHintComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideFingerPrintComponentPresenter(stateManager: AppStateManager) : FingerPrintComponentContract.Presenter {
+        return FingerPrintComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideMergeAccountComponentPresenter(stateManager: AppStateManager) : MergeAccountComponentContract.Presenter {
+        return MergeAccountComponentPresenter(stateManager)
+    }
 
     /* Pasta
     @ActivityScope

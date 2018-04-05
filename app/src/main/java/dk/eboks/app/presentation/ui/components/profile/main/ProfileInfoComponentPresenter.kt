@@ -24,6 +24,9 @@ class ProfileInfoComponentPresenter @Inject constructor(val appState: AppStateMa
         runAction { v->
             v.setName(currentUser.name)
             v.setProfileImage(currentUser.avatarUri)
+            v.setFingerprintEnabled(currentUser.hasFingerprint, currentUser.lastLoginProvider)
+            v.setVerified(currentUser.verified)
+            v.setKeepMeSignedIn(false)
         }
     }
 

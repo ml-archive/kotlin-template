@@ -42,7 +42,12 @@ class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateM
 
     override fun clearSelectedUser()
     {
-        appState.state?.loginState?.selectedUser = null
+        appState.state?.loginState?.let { state ->
+            state.selectedUser = null
+            state.lastUser = null
+            state.firstLogin = false
+            appState.save()
+        }
     }
 
     override fun deleteUser(user: User) {

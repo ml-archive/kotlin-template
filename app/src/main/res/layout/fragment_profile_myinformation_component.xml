@@ -78,6 +78,7 @@
                             app:met_underlineColor="@color/ProfileUnderlineColor"/>
 
                         <Button
+                            android:id="@+id/verifyEmailBtn"
                             style="@style/button.SolidGradient"
                             android:layout_width="80dp"
                             android:layout_height="20dp"
@@ -120,6 +121,7 @@
                             app:met_underlineColor="@color/ProfileUnderlineColor"/>
 
                         <Button
+                            android:id="@+id/verifySecondaryEmailBtn"
                             style="@style/button.SolidGradient"
                             android:layout_width="80dp"
                             android:layout_height="20dp"
@@ -166,6 +168,7 @@
                             app:met_underlineColor="@color/ProfileUnderlineColor"/>
 
                         <Button
+                            android:id="@+id/verifyMobileNumberBtn"
                             style="@style/button.SolidGradient"
                             android:layout_width="80dp"
                             android:layout_height="20dp"

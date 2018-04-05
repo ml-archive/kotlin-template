@@ -8,11 +8,15 @@ import com.bumptech.glide.Glide
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.profile.drawer.FingerHintComponentFragment
+import dk.eboks.app.presentation.ui.components.profile.drawer.FingerPrintComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFragment
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentFragment
+import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import kotlinx.android.synthetic.main.fragment_profile_main_component.*
 import kotlinx.android.synthetic.main.include_profile_bottom.*
+import kotlinx.android.synthetic.main.viewholder_channel_cards.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -58,18 +62,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
             }
         }
 
-        profileDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        R.drawable.icon_48_checkmark_white,
-                        0
-                )
-            } else {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-            }
-        }
+
         profileDetailTB.setNavigationOnClickListener {
             activity.finish()
         }
@@ -81,6 +74,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
         } else {
             null
         }
+
 
         profileDetailContainerMyInformation.setOnClickListener {
             Timber.d("profileDetailContainerMyInformation Clicked")
@@ -120,7 +114,6 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
     }
 
-
     override fun setName(name: String) {
         Timber.d("setName: %s", name)
         toolbarTitle = name
@@ -134,6 +127,55 @@ class ProfileInfoComponentFragment : BaseFragment(),
         Glide.with(context)
                 .load(url)
                 .into(profileDetailIv)
+    }
+
+    override fun setVerified(verified: Boolean) {
+        profileDetailRegisterTB.isChecked = verified
+        if (verified) {
+            profileDetailRegisterTB.button.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.icon_48_checkmark_white,
+                    0
+            )
+        } else {
+            profileDetailRegisterTB.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+        }
+        profileDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                buttonView.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.icon_48_checkmark_white,
+                        0
+                )
+                getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
+            }
+        }
+    }
+
+    override fun setFingerprintEnabled(enabled: Boolean, lastProviderId : String?) {
+        profileDetailSwFingerprint.isChecked = enabled
+        profileDetailSwFingerprint.setOnCheckedChangeListener { compoundButton, b ->
+            if(b)
+            {
+                if(lastProviderId == "email")
+                {
+                    getBaseActivity()?.openComponentDrawer(FingerHintComponentFragment::class.java)
+                }
+                else
+                {
+                    getBaseActivity()?.openComponentDrawer(FingerPrintComponentFragment::class.java)
+                }
+            }
+        }
+    }
+
+    override fun setKeepMeSignedIn(enabled: Boolean) {
+        profileDetailSwKeepSignedIn.isChecked = enabled
+        profileDetailSwKeepSignedIn.setOnCheckedChangeListener { compoundButton, b ->
+
+        }
     }
 
     private fun setupVersionNumber() {

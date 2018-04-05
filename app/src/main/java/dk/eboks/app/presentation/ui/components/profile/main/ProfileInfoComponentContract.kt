@@ -7,6 +7,9 @@ interface ProfileInfoComponentContract {
     interface View : BaseView {
         fun setName(name: String)
         fun setProfileImage(url: String?)
+        fun setVerified(verified : Boolean)
+        fun setFingerprintEnabled(enabled : Boolean, lastProviderId : String? = null)
+        fun setKeepMeSignedIn(enabled : Boolean)
     }
 
     interface Presenter : BasePresenter<View> {

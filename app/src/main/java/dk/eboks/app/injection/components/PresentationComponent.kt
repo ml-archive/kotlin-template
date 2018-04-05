@@ -73,6 +73,7 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
+import dk.eboks.app.presentation.ui.components.profile.drawer.*
 import dk.eboks.app.presentation.ui.components.profile.main.ProfileInfoComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.main.ProfileInfoComponentPresenter
 import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFragment
@@ -264,6 +265,16 @@ interface PresentationComponent {
     fun inject(target: ProfileInfoComponentPresenter)
     fun inject(target: MyInfoComponentFragment)
     fun inject(target: MyInfoComponentPresenter)
+    fun inject(target: EmailVerificationComponentPresenter)
+    fun inject(target: EmailVerificationComponentFragment)
+    fun inject(target: PhoneVerificationComponentPresenter)
+    fun inject(target: PhoneVerificationComponentFragment)
+    fun inject(target: MergeAccountComponentPresenter)
+    fun inject(target: MergeAccountComponentFragment)
+    fun inject(target: FingerHintComponentPresenter)
+    fun inject(target: FingerHintComponentFragment)
+    fun inject(target: FingerPrintComponentPresenter)
+    fun inject(target: FingerPrintComponentFragment)
 
     // home
     fun inject(target : HomeComponentFragment)

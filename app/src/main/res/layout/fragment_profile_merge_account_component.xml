@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="32dp"
-        android:text="_Verify your account" />
+        android:text="_You already something" />
 
     <TextView
         style="@style/text.body6"
@@ -27,8 +27,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="8dp"
-        android:text="_You will need to sign in with NemID.
-Don't worry, its a one time thing. You will be sent to the NemID app to log in."
+        android:text="_Do you want to merge profiles yada yada bla bla balba bla."
         android:textColor="@color/blueGrey" />
 
     <Button
@@ -37,7 +36,7 @@ Don't worry, its a one time thing. You will be sent to the NemID app to log in."
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_marginTop="24dp"
-        android:text="_Sign on with NemID"
+        android:text="_Merge my accounts"
         android:textSize="16dp"/>
 
     <Button

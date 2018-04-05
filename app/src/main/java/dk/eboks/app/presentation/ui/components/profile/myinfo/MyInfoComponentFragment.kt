@@ -11,6 +11,8 @@ import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.profile.drawer.EmailVerificationComponentFragment
+import dk.eboks.app.presentation.ui.components.profile.drawer.PhoneVerificationComponentFragment
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.fragment_profile_myinformation_component.*
@@ -68,6 +70,19 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         newsletterSw.setOnCheckedChangeListener { compoundButton, b ->
             afterTextChanged(null)
         }
+
+        verifyEmailBtn.setOnClickListener {
+            getBaseActivity()?.openComponentDrawer(EmailVerificationComponentFragment::class.java)
+        }
+
+        verifySecondaryEmailBtn.setOnClickListener {
+            getBaseActivity()?.openComponentDrawer(EmailVerificationComponentFragment::class.java)
+        }
+
+        verifyMobileNumberBtn.setOnClickListener {
+            getBaseActivity()?.openComponentDrawer(PhoneVerificationComponentFragment::class.java)
+        }
+
     }
 
     private fun detachListeners()
