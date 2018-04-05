@@ -15,6 +15,7 @@ class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateMan
     override fun setup() {
         Timber.e("Current message ${stateManager.state?.currentMessage}")
         message = stateManager.state?.currentMessage
+        setupDrawerHeader()
         startViewer()
         runAction { v->
             v.addHeaderComponentFragment()
@@ -25,6 +26,11 @@ class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateMan
             v.addFolderInfoComponentFragment()
             message?.let { v.showTitle(it) }
         }
+    }
+
+    private fun setupDrawerHeader() {
+        if (message?.numberOfAttachments?:0 > 0)
+        runAction { v-> v.setHighPeakHeight() }
     }
 
     fun startViewer()

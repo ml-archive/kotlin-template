@@ -75,6 +75,7 @@
         <Button
             android:id="@+id/cancelBtn"
             style="@style/button.borderless"
+            nstack:key="@string/nstack_default_cancel"
             android:text="_Cancel"
             android:textSize="14dp"
             android:gravity="center"

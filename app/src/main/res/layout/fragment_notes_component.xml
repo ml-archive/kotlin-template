@@ -32,7 +32,6 @@
         android:scrollHorizontally="false"
         android:background="@drawable/attachment_background"
         android:backgroundTint="@color/white"
-        android:hint="_write a note"
         android:textColor="@color/blueGrey"
         android:textSize="15sp"
         android:autoLink="all"

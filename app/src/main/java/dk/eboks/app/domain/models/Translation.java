@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Tue Apr 03 13:39:33 CEST 2018 
+ * Generated: Wed Apr 04 14:14:06 CEST 2018 
  */
 
 public class Translation {
@@ -30,6 +30,11 @@ public class Translation {
 		public static String genericStorageMessage = "An error occured accessing the persistent storage on this device.";
 		public static String genericOOMTitle = "Out of memory";
 		public static String genericOOMMessage = "There is not enough free resources on this device to accomplish the requested operation. Try shutting down other apps to free up more resources.";
+		public static String attachmentErrorTitle = "Could not open";
+		public static String attachmentErrorMessage = "Document could not be opened, save to downloads instead?";
+		public static String attachmentErrorSaveBtn = "Save";
+		public static String attachmentErrorNegativeBtn = "Close";
+		public static String attachmentOpenWith = "Open with";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";

@@ -106,7 +106,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 holder?.cardContainerCv?.visibility = View.GONE
                 holder?.headerTv?.setText(Translation.channels.channelsHeader)
             } else {
-
+                holder?.headerTv?.visibility = View.GONE
                 if (currentCard.background != null) {
                     holder?.backgroundIv?.let {
                         val requestOptions = RequestOptions()

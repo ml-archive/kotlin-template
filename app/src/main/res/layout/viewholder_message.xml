@@ -7,13 +7,13 @@
     android:orientation="vertical">
 
     <View
-        android:visibility="gone"
         android:id="@+id/topDividerV"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginEnd="@dimen/margin_normal"
         android:layout_marginStart="@dimen/margin_normal"
-        android:background="@color/dividerGreyBlue" />
+        android:background="@color/dividerGreyBlue"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -65,13 +65,27 @@
                 android:visibility="gone" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/dateTv"
-            style="@style/text.subHeader5"
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="_Today"
-            android:textColor="@color/blueGrey" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dateTv"
+                style="@style/text.subHeader5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="_Today"
+                android:textColor="@color/blueGrey" />
+            
+            <ImageView
+                android:id="@+id/clipIv"
+                android:visibility="gone"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_48_attachment_small_grey"/>
+        </LinearLayout>
     </LinearLayout>
 
     <View

@@ -158,6 +158,10 @@ abstract class BaseSheetActivity : BaseActivity() {
         }
     }
 
+    fun setupPeakHeight(height: Int){
+        sheetBehavior?.peekHeight = (resources.displayMetrics.density * height).toInt()
+    }
+
     fun setDrawableColor(background: Drawable, color : Int)
     {
         if (background is ShapeDrawable) {

@@ -35,19 +35,13 @@
 
         </LinearLayout>
 
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-
             <Switch
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:trackTint="@color/textColorTertiary"
-                android:thumbTint="@color/textColorTertiary"
+                android:trackTint="@drawable/switch_thumb"
+                android:thumbTint="@drawable/switch_thumb"
                 />
-
-        </FrameLayout>
 
     </LinearLayout>
 

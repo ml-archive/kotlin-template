@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.managers.UIManager
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.FileUtils
@@ -60,12 +61,12 @@ class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View
         if(!FileUtils.openExternalViewer(context, filename, mimeType))
         {   // could not be opened in external viewer, ask if user wanna save to downloads
             AlertDialog.Builder(context)
-                    .setTitle("_Could not open")
-                    .setMessage("_Document could not be opened, save to Downloads instead?")
-                    .setPositiveButton("_Save", {dialogInterface, i ->
+                    .setTitle(Translation.error.attachmentErrorTitle)
+                    .setMessage(Translation.error.attachmentErrorMessage)
+                    .setPositiveButton(Translation.error.attachmentErrorSaveBtn, {dialogInterface, i ->
                         currentMessage?.content?.let { presenter.saveAttachment(it) }
                     })
-                    .setNegativeButton("_Close", {dialogInterface, i ->
+                    .setNegativeButton(Translation.error.attachmentErrorNegativeBtn, {dialogInterface, i ->
 
                     })
                     .show()
