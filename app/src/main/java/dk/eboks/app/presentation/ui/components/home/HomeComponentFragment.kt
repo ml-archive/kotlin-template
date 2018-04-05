@@ -3,12 +3,13 @@ package dk.eboks.app.presentation.ui.components.home
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.media.VolumeProviderCompat
+import android.support.v7.app.AlertDialog
+import android.support.v7.widget.AlertDialogLayout
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
@@ -38,9 +39,11 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
 
     //mock data
     var emailCount = 0
-    override var verifiedUser : Boolean = false
+    var channelCount = 2
+    override var verifiedUser: Boolean = false
     var messages: MutableList<dk.eboks.app.domain.models.message.Message> = ArrayList()
     var channels: MutableList<dk.eboks.app.domain.models.home.Control> = ArrayList()
+    var redidValues = false
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_home_overview_mail_component, container, false)
@@ -60,8 +63,8 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
 
     override fun setupViews() {
         //  This is just a semi mock setup function to test ui
-// create mocks
-        createMockChannels(true)
+        // create mocks
+        createMockChannels(channelCount)
         createMockMails(emailCount)
         if (verifiedUser) {
             showMails()
@@ -85,6 +88,9 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             bottomChannelBtn.isEnabled = (emailCount > 0)
             bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderNoChannels
             bottomChannelTextTv.text = Translation.home.bottomChannelTextNoChannels
+            bottomChannelBtn.visibility = View.VISIBLE
+            bottomChannelHeaderTv.visibility = View.VISIBLE
+            bottomChannelTextTv.visibility = View.VISIBLE
         } else {
             if (channels.size < 2) {
                 bottomChannelBtn.isEnabled = false
@@ -317,8 +323,66 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         }
     }
 
-    private fun createMockChannels(showChannels: Boolean) {
-        if (showChannels) {
+    override fun onShake() {
+       if(!redidValues){
+           redidValues = true
+           val alert = AlertDialog.Builder(context)
+           var layout = inflator.inflate(R.layout.debug_dialog,null,false)
+           var mailEt = layout.findViewById<EditText>(R.id.firstEt)
+           var channelEt = layout.findViewById<EditText>(R.id.middleEt)
+           var verifiedEt = layout.findViewById<EditText>(R.id.lastEt)
+
+           // Builder
+           with (alert) {
+               setTitle("Setup Data")
+               setMessage("channelmode 0=none, 1=1, 2= all ")
+
+               // Add any  input field here
+               mailEt!!.hint="MailCount"
+               channelEt!!.hint="channelmode(0,1,2)"
+               verifiedEt!!.hint="Verified:1 = true"
+
+               setPositiveButton("OK") {
+                   dialog, whichButton ->
+                   emailCount = Integer.parseInt(mailEt.text.toString())
+                   channelCount = Integer.parseInt(channelEt.text.toString())
+                   verifiedUser = (Integer.parseInt(verifiedEt.text.toString())==1)
+                   channels.clear()
+                   messages.clear()
+                   val channelContentLl = view?.findViewById<LinearLayout>(R.id.channelsContentLL)
+                   channelContentLl?.removeAllViews()
+                   setupViews()
+                   dialog.dismiss()
+
+               }
+
+               setNegativeButton("NO") {
+                   dialog, whichButton ->
+                   dialog.dismiss()
+               }
+           }
+
+           // Dialog
+           val dialog = alert.create()
+           dialog.setView(layout)
+           dialog.show()
+       }
+    }
+
+    private fun createMockChannels(showChannelsMode: Int) {
+
+        // showsChannelsMode: 0  = none, 1 = 1, 2 = all
+
+        // shows 1
+        if(showChannelsMode == 1){
+            var items: ArrayList<Item> = ArrayList()
+            items.add(Item("ID-receipt", "Title-reciept", "Description-reciept", Date(), Currency(111.01, "DKK"), null, null, Image("https://picsum.photos/200/?random")))
+            items.add(Item("ID-receipt2", "Title-reciept2", null, null, Currency(222.02, "DK2"), null, null, null))
+            channels.add(Control("control receipts", ItemType.RECEIPTS, items))
+
+        }
+        // shows all
+        if (showChannelsMode == 2) {
             // receipt
             var items: ArrayList<Item> = ArrayList()
             items.add(Item("ID-receipt", "Title-reciept", "Description-reciept", Date(), Currency(111.01, "DKK"), null, null, Image("https://picsum.photos/200/?random")))
@@ -416,7 +480,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                     circleIv.isSelected = true
                 }
 
-                if(currentMessage.status != null && currentMessage.status!!.important){
+                if (currentMessage.status != null && currentMessage.status!!.important) {
                     urgentTv.visibility = View.VISIBLE
                     urgentTv.text = currentMessage.status?.text
                 }
@@ -445,12 +509,14 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             val random = Random()
             var unread = (random.nextInt(i) == 0)
 
-            var randomStatus = Status(false,"important title","important text",0,Date())
-            if(random.nextInt(i) == 0){
+            var randomStatus = Status(false, "important title", "important text", 0, Date())
+            if (random.nextInt(i) == 0) {
                 randomStatus.important = true
             }
             messages.add(dk.eboks.app.domain.models.message.Message("id" + i, "subject" + i, Date(), unread, null, null, null, null, null, null, 0, null, null, null, null, randomStatus, "note string"))
         }
     }
+
+
 
 }

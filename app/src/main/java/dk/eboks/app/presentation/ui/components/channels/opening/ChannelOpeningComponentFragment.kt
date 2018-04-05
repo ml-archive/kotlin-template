@@ -47,6 +47,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     {
         headerTv.text = channel.payoff
         nameTv.text = channel.name
+        nameTv.setTextColor(Color.parseColor(channel.background?.rgba))
         channel.description?.let { descriptionTv.text = it.text }
         channel.background?.let {
             backgroundIv.setColorFilter(Color.parseColor(it.rgba), PorterDuff.Mode.OVERLAY)
