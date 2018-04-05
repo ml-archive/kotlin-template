@@ -12,4 +12,12 @@ class HomeComponentPresenter @Inject constructor(val appState: AppStateManager) 
     init {
     }
 
+    override fun setup() {
+        appState.state?.currentUser?.let { user->
+            runAction { v->
+                v.verifiedUser = user.verified
+                v.setupViews()
+            }
+        }
+    }
 }

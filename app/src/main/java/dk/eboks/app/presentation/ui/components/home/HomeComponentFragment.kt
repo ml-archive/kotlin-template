@@ -38,7 +38,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
 
     //mock data
     var emailCount = 0
-    var verifiedUser = false
+    override var verifiedUser : Boolean = false
     var messages: MutableList<dk.eboks.app.domain.models.message.Message> = ArrayList()
     var channels: MutableList<dk.eboks.app.domain.models.home.Control> = ArrayList()
 
@@ -52,16 +52,17 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         NStack.translate()
-        // create mocks
-        createMockChannels(false)
-        createMockMails(emailCount)
+
+
         // setup mocks
-        setupViews()
+        presenter.setup()
     }
 
-    private fun setupViews() {
+    override fun setupViews() {
         //  This is just a semi mock setup function to test ui
-
+// create mocks
+        createMockChannels(true)
+        createMockMails(emailCount)
         if (verifiedUser) {
             showMails()
         } else {
@@ -451,4 +452,5 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             messages.add(dk.eboks.app.domain.models.message.Message("id" + i, "subject" + i, Date(), unread, null, null, null, null, null, null, 0, null, null, null, null, randomStatus, "note string"))
         }
     }
+
 }

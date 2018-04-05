@@ -8,9 +8,11 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface HomeComponentContract {
     interface View : BaseView {
-
+        var verifiedUser : Boolean
+        fun setupViews()
     }
 
     interface Presenter : BasePresenter<View> {
+        fun setup()
     }
 }

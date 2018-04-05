@@ -4,6 +4,7 @@ import android.animation.LayoutTransition
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
@@ -14,6 +15,9 @@ import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
 import kotlinx.android.synthetic.main.activity_start.*
+import net.hockeyapp.android.CrashManager
+import net.hockeyapp.android.CrashManagerListener
+import net.hockeyapp.android.UpdateManager
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -39,6 +43,23 @@ class StartActivity : BaseActivity(), StartContract.View {
                     finish()
             }
         }
+
+        CrashManager.register(this, object : CrashManagerListener() {
+            override fun onNoCrashesFound() {
+                super.onNoCrashesFound()
+                Timber.d("No crashes found")
+            }
+
+            override fun onNewCrashesFound() {
+                super.onNewCrashesFound()
+                Timber.d("New crashes found")
+            }
+
+            override fun shouldAutoUploadCrashes(): Boolean {
+                return true
+            }
+        })
+
         presenter.startup()
     }
 
@@ -115,6 +136,19 @@ class StartActivity : BaseActivity(), StartContract.View {
             supportFragmentManager.popBackStack()
         } else {
             finish()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if(BuildConfig.DEBUG)
+            UpdateManager.unregister()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(BuildConfig.DEBUG) {
+            UpdateManager.register(this)
         }
     }
 }
