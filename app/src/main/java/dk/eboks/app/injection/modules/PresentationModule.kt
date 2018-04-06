@@ -680,6 +680,12 @@ class PresentationModule {
         return MergeAccountComponentPresenter(stateManager)
     }
 
+    @ActivityScope
+    @Provides
+    fun provideForgotPasswordDoneComponentPresenter(stateManager: AppStateManager) : ForgotPasswordDoneComponentContract.Presenter {
+        return ForgotPasswordDoneComponentPresenter(stateManager)
+    }
+
     /* Pasta
     @ActivityScope
     @Provides

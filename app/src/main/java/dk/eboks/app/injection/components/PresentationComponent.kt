@@ -249,6 +249,8 @@ interface PresentationComponent {
     fun inject(target : LoginComponentPresenter)
     fun inject(target : ForgotPasswordComponentFragment)
     fun inject(target : ForgotPasswordComponentPresenter)
+    fun inject(target : ForgotPasswordDoneComponentFragment)
+    fun inject(target : ForgotPasswordDoneComponentPresenter)
     fun inject(target : ActivationCodeComponentFragment)
     fun inject(target : ActivationCodeComponentPresenter)
     fun inject(target : NemIdComponentFragment)

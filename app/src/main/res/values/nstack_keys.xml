@@ -24,6 +24,8 @@
   <string name='nstack_error_attachmentErrorSaveBtn' formatted='false'>error_attachmentErrorSaveBtn</string>
   <string name='nstack_error_attachmentErrorNegativeBtn' formatted='false'>error_attachmentErrorNegativeBtn</string>
   <string name='nstack_error_attachmentOpenWith' formatted='false'>error_attachmentOpenWith</string>
+  <string name='nstack_error_emptyField' formatted='false'>error_emptyField</string>
+  <string name='nstack_error_invalidActivationCodeNrOfChars' formatted='false'>error_invalidActivationCodeNrOfChars</string>
   <string name='nstack_mail_senderHeader' formatted='false'>mail_senderHeader</string>
   <string name='nstack_mail_showAllSendersButton' formatted='false'>mail_showAllSendersButton</string>
   <string name='nstack_mail_smartFolderHeader' formatted='false'>mail_smartFolderHeader</string>
@@ -59,6 +61,7 @@
   <string name='nstack_channels_drawerHeader' formatted='false'>channels_drawerHeader</string>
   <string name='nstack_channels_drawerSubHeader' formatted='false'>channels_drawerSubHeader</string>
   <string name='nstack_channels_drawerHeaderText' formatted='false'>channels_drawerHeaderText</string>
+  <string name='nstack_channels_allowButton' formatted='false'>channels_allowButton</string>
   <string name='nstack_senders_title' formatted='false'>senders_title</string>
   <string name='nstack_senders_registrations' formatted='false'>senders_registrations</string>
   <string name='nstack_senders_register' formatted='false'>senders_register</string>
@@ -214,6 +217,8 @@
   <string name='nstack_settings_header' formatted='false'>settings_header</string>
   <string name='nstack_settings_creditCardHeader' formatted='false'>settings_creditCardHeader</string>
   <string name='nstack_settings_removeChannelBtn' formatted='false'>settings_removeChannelBtn</string>
+  <string name='nstack_settings_pinHeader' formatted='false'>settings_pinHeader</string>
+  <string name='nstack_settings_pinSubHeader' formatted='false'>settings_pinSubHeader</string>
   <string name='nstack_uploads_uploadsHeader' formatted='false'>uploads_uploadsHeader</string>
   <string name='nstack_uploads_title' formatted='false'>uploads_title</string>
   <string name='nstack_uploads_takePhoto' formatted='false'>uploads_takePhoto</string>
@@ -235,6 +240,9 @@
   <string name='nstack_profile_faceID' formatted='false'>profile_faceID</string>
   <string name='nstack_profile_version' formatted='false'>profile_version</string>
   <string name='nstack_profile_title' formatted='false'>profile_title</string>
+  <string name='nstack_profile_takePhoto' formatted='false'>profile_takePhoto</string>
+  <string name='nstack_profile_chooseFromLibrary' formatted='false'>profile_chooseFromLibrary</string>
+  <string name='nstack_profile_verified' formatted='false'>profile_verified</string>
   <string name='nstack_myInformation_title' formatted='false'>myInformation_title</string>
   <string name='nstack_myInformation_name' formatted='false'>myInformation_name</string>
   <string name='nstack_myInformation_primaryEmail' formatted='false'>myInformation_primaryEmail</string>
@@ -246,8 +254,6 @@
   <string name='nstack_myInformation_verifyNumber' formatted='false'>myInformation_verifyNumber</string>
   <string name='nstack_myInformation_notifyBySMSText' formatted='false'>myInformation_notifyBySMSText</string>
   <string name='nstack_myInformation_newsletter' formatted='false'>myInformation_newsletter</string>
-  <string name='nstack_myInformation_takePhoto' formatted='false'>myInformation_takePhoto</string>
-  <string name='nstack_myInformation_chooseFromLibrary' formatted='false'>myInformation_chooseFromLibrary</string>
   <string name='nstack_home_messagesEmptyButton' formatted='false'>home_messagesEmptyButton</string>
   <string name='nstack_home_bottomChannelHeaderNoChannels' formatted='false'>home_bottomChannelHeaderNoChannels</string>
   <string name='nstack_home_messagesEmptyTitle' formatted='false'>home_messagesEmptyTitle</string>
@@ -265,4 +271,14 @@
   <string name='nstack_home_messagesUnverifiedMessage' formatted='false'>home_messagesUnverifiedMessage</string>
   <string name='nstack_home_messagesUnverifiedButton' formatted='false'>home_messagesUnverifiedButton</string>
   <string name='nstack_home_windowHeader' formatted='false'>home_windowHeader</string>
+  <string name='nstack_systemfolders_inbox' formatted='false'>systemfolders_inbox</string>
+  <string name='nstack_systemfolders_highlights' formatted='false'>systemfolders_highlights</string>
+  <string name='nstack_channelsettings_pinTitle' formatted='false'>channelsettings_pinTitle</string>
+  <string name='nstack_channelsettings_pinSubtitle' formatted='false'>channelsettings_pinSubtitle</string>
+  <string name='nstack_channelsettings_pushTitle' formatted='false'>channelsettings_pushTitle</string>
+  <string name='nstack_channelsettings_pushSubtitle' formatted='false'>channelsettings_pushSubtitle</string>
+  <string name='nstack_channelsettings_title' formatted='false'>channelsettings_title</string>
+  <string name='nstack_channelsettings_removeButton' formatted='false'>channelsettings_removeButton</string>
+  <string name='nstack_channelsettings_confirmDeleteTitle' formatted='false'>channelsettings_confirmDeleteTitle</string>
+  <string name='nstack_channelsettings_confirmDeleteMessageReplaceChannelName' formatted='false'>channelsettings_confirmDeleteMessageReplaceChannelName</string>
 </resources>

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
@@ -27,6 +28,12 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        removeChannelBtn.setOnClickListener {
+            //todo remove channel
+        }
+        pinSliderSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            //todo do something when the slider is checked
+        }
     }
 
 }
