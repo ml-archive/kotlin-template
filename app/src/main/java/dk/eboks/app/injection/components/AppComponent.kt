@@ -3,6 +3,7 @@ package dk.eboks.app.injection.components
 import dagger.Component
 import dk.eboks.app.App
 import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
@@ -79,6 +80,7 @@ interface AppComponent
     fun getUsersInteractor() : GetUsersInteractor
     fun getSenderCategoriesInteractor() : GetSenderCategoriesInteractor
     fun getChannelInteractor() : GetChannelInteractor
+    fun getChannelHomeContentInteractor() : GetChannelHomeContentInteractor
     fun registerInteractor(): RegisterInteractor
     fun getRegistrationsInteractor(): GetRegistrationsInteractor
     fun getPendingInteractor(): GetPendingInteractor

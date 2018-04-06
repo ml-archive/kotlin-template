@@ -1,8 +1,5 @@
 package dk.eboks.app.domain.models.home
 
-import dk.eboks.app.domain.models.Image
-import dk.eboks.app.domain.models.shared.Status
-import dk.eboks.app.domain.models.shared.Description
 import java.io.Serializable
 
 /**
@@ -11,5 +8,5 @@ import java.io.Serializable
 data class Control(
         var id : String?,
         var type : ItemType,
-        var items : ArrayList<Item>
+        var items : List<Item>
 ) : Serializable

@@ -9,6 +9,6 @@ import java.util.*
  */
 
 data class Currency(
-        var value : Double?,
-        var curreny : String?
+    var value : Double?,
+    var currency : String?
 ) : Serializable

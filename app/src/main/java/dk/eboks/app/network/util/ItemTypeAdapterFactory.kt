@@ -35,7 +35,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
 
                 var jsonElement = elementAdapter.read(`in`)
                 if (jsonElement.isJsonObject) {
-//                    Timber.e("parsing element " + jsonElement.toString())
+                    //imber.e("parsing element " + jsonElement.toString())
                     val jsonObject = jsonElement.asJsonObject
                     val entry_set = jsonObject.entrySet()
                     listElement = null
@@ -46,7 +46,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                         {
                             val key : String = entry.key
                             val ele : JsonElement = entry.value
-                            //Timber.e("Examining key $key")
+                            Timber.e("Examining key $key")
                             if(rootContainerNames.contains(key))
                             {
                                 if(ele.isJsonArray)
@@ -64,22 +64,21 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                                 }
                             }
                         }
-                        if(listElement != null)
+                        if(listElement != null && metadata != null)
                         {
                             val listobj = delegate.fromJsonTree(listElement)
-                            metadata?.let {
-                                try {
-                                    val meta = gson.fromJson(metadata, Metadata::class.java)
-                                    _metaDataMap[listobj as Any] = meta
-                                    //Timber.e("Parsed metadata object = $meta")
-                                }
-                                catch (t : Throwable)
-                                {
-                                    Timber.e("Could not deserialize metadata object, ignoring...")
-                                }
+                            try {
+                                val meta = gson.fromJson(metadata, Metadata::class.java)
+                                _metaDataMap[listobj as Any] = meta
+                                //Timber.e("Parsed metadata object = $meta")
+                            }
+                            catch (t : Throwable)
+                            {
+                                Timber.e("Could not deserialize metadata object, ignoring...")
                             }
                             return listobj
                         }
+                        return delegate.fromJsonTree(jsonElement)
                     }
                 }
                 return delegate.fromJsonTree(jsonElement)
