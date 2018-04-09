@@ -1,6 +1,7 @@
 package dk.eboks.app.injection.components
 
 import dagger.Component
+import dagger.Subcomponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentFragment
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
@@ -122,12 +123,13 @@ import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailActivit
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
-@Component(dependencies = [(AppComponent::class)], modules = [(PresentationModule::class)])
+@Subcomponent(modules = [PresentationModule::class])
 @ActivityScope
 interface PresentationComponent {
-    // Screens
-    fun inject(target: PastaActivity)
 
+    // Screens
+
+    fun inject(target: PastaActivity)
     fun inject(target: PastaPresenter)
     fun inject(target: MailOverviewActivity)
     fun inject(target: MailOverviewPresenter)
@@ -157,6 +159,7 @@ interface PresentationComponent {
     // Components
 
     // message
+
     fun inject(target : HeaderComponentFragment)
     fun inject(target : HeaderComponentPresenter)
     fun inject(target : NotesComponentFragment)
@@ -191,6 +194,7 @@ interface PresentationComponent {
     fun inject(target : PromulgationComponentPresenter)
 
     // mail
+
     fun inject(target : FoldersComponentFragment)
     fun inject(target : FoldersComponentPresenter)
     fun inject(target : FolderShortcutsComponentFragment)
@@ -202,10 +206,12 @@ interface PresentationComponent {
     fun inject(target : SearchSendersActivity)
 
     // generic
+
     fun inject(target : NavBarComponentFragment)
     fun inject(target : NavBarComponentPresenter)
 
     // channels
+
     fun inject(target : ChannelOverviewComponentFragment)
     fun inject(target : ChannelOverviewComponentPresenter)
     fun inject(target : ChannelRequirementsComponentFragment)
@@ -222,6 +228,7 @@ interface PresentationComponent {
     fun inject(target : ChannelSettingsComponentPresenter)
 
     // senders
+
     fun inject(target : CategoriesComponentFragment)
     fun inject(target : CategoriesComponentPresenter)
     fun inject(target : BrowseCategoryActivity)
@@ -233,7 +240,8 @@ interface PresentationComponent {
     fun inject(target : SegmentDetailActivity)
     fun inject(target : RegistrationsActivity)
 
-    // signup
+    // sign up
+
     fun inject(target : SignupComponentPresenter)
     fun inject(target : NameMailComponentFragment)
     fun inject(target : PasswordComponentFragment)
@@ -243,6 +251,7 @@ interface PresentationComponent {
     fun inject(target : AcceptTermsComponentFragment)
 
     // login
+
     fun inject(target : UserCarouselComponentFragment)
     fun inject(target : UserCarouselComponentPresenter)
     fun inject(target : LoginComponentFragment)
@@ -261,6 +270,7 @@ interface PresentationComponent {
     fun inject(target : BankIdNOComponentPresenter)
   
     // profile
+
     fun inject(target: ProfileInfoComponentFragment)
     fun inject(target: ProfileInfoComponentPresenter)
     fun inject(target: MyInfoComponentFragment)
@@ -281,18 +291,22 @@ interface PresentationComponent {
     fun inject(target : HomeComponentPresenter)
 
     // verification
+
     fun inject(target : VerificationComponentFragment)
     fun inject(target : VerificationComponentPresenter)
 
     // brother
+
     fun inject(target : HintActivity)
     fun inject(target : PermissionRequestActivity)
 
-    //upload
+    // upload
+
     fun inject(target : UploadOverviewComponentFragment)
     fun inject(target : UploadOverviewComponentPresenter)
 
     // debug
+
     fun inject(target : DebugOptionsComponentFragment)
     fun inject(target : DebugOptionsComponentPresenter)
     fun inject(target : DebugUserActivity)

@@ -22,136 +22,226 @@ import dk.nodes.arch.domain.executor.Executor
  */
 @Module
 class InteractorModule {
-    @Provides fun provideLoginInteractor(executor: Executor, api: Api, protocolManager: ProtocolManager) : LoginInteractor
-    {
+    @Provides
+    fun provideLoginInteractor(
+            executor: Executor,
+            api: Api,
+            protocolManager: ProtocolManager
+    ): LoginInteractor {
         return LoginInteractorImpl(executor, api, protocolManager)
     }
 
-    @Provides fun provideBootstrapInteractor(executor: Executor, guidManager: GuidManager, settingsRepository: SettingsRepository,
-                                             protocolManager: ProtocolManager, appStateManager: AppStateManager,
-                                             fileCacheManager: FileCacheManager, userManager: UserManager) : BootstrapInteractor
-    {
-        return BootstrapInteractorImpl(executor, guidManager, settingsRepository, protocolManager, appStateManager, fileCacheManager, userManager)
+    @Provides
+    fun provideBootstrapInteractor(
+            executor: Executor, guidManager: GuidManager, settingsRepository: SettingsRepository,
+            protocolManager: ProtocolManager, appStateManager: AppStateManager,
+            fileCacheManager: FileCacheManager, userManager: UserManager
+    ): BootstrapInteractor {
+        return BootstrapInteractorImpl(
+                executor,
+                guidManager,
+                settingsRepository,
+                protocolManager,
+                appStateManager,
+                fileCacheManager,
+                userManager
+        )
     }
 
     @Provides
-    fun provideGetCategoriesInteractor(executor: Executor, mailCategoriesRepository: MailCategoriesRepository) : GetCategoriesInteractor {
+    fun provideGetCategoriesInteractor(
+            executor: Executor,
+            mailCategoriesRepository: MailCategoriesRepository
+    ): GetCategoriesInteractor {
         return GetMailCategoriesInteractorImpl(executor, mailCategoriesRepository)
     }
 
-    @Provides fun provideGetFoldersInteractor(executor: Executor, foldersRepository: FoldersRepository, resourceManager: ResourceManager) : GetFoldersInteractor
-    {
+    @Provides
+    fun provideGetFoldersInteractor(
+            executor: Executor,
+            foldersRepository: FoldersRepository,
+            resourceManager: ResourceManager
+    ): GetFoldersInteractor {
         return GetFoldersInteractorImpl(executor, foldersRepository, resourceManager)
     }
 
-    @Provides fun provideGetMessagesInteractor(executor: Executor, messagesRepository: MessagesRepository) : GetMessagesInteractor
-    {
+    @Provides
+    fun provideGetMessagesInteractor(
+            executor: Executor,
+            messagesRepository: MessagesRepository
+    ): GetMessagesInteractor {
         return GetMessagesInteractorImpl(executor, messagesRepository)
     }
 
-    @Provides fun provideOpenFolderInteractor(executor: Executor, appStateManager: AppStateManager, uiManager: UIManager) : OpenFolderInteractor
-    {
+    @Provides
+    fun provideOpenFolderInteractor(
+            executor: Executor,
+            appStateManager: AppStateManager,
+            uiManager: UIManager
+    ): OpenFolderInteractor {
         return OpenFolderInteractorImpl(executor, appStateManager, uiManager)
     }
 
-    @Provides fun provideOpenMessageInteractor(executor: Executor, appStateManager: AppStateManager, uiManager: UIManager, downloadManager: DownloadManager,
-                                               fileCacheManager: FileCacheManager, messagesRepository: MessagesRepository) : OpenMessageInteractor
-    {
-        return OpenMessageInteractorImpl(executor, appStateManager, uiManager, downloadManager, fileCacheManager, messagesRepository)
+    @Provides
+    fun provideOpenMessageInteractor(
+            executor: Executor,
+            appStateManager: AppStateManager,
+            uiManager: UIManager,
+            downloadManager: DownloadManager,
+            fileCacheManager: FileCacheManager,
+            messagesRepository: MessagesRepository
+    ): OpenMessageInteractor {
+        return OpenMessageInteractorImpl(
+                executor,
+                appStateManager,
+                uiManager,
+                downloadManager,
+                fileCacheManager,
+                messagesRepository
+        )
     }
 
-    @Provides fun provideOpenAttachmentInteractor(executor: Executor, appStateManager: AppStateManager, uiManager: UIManager, downloadManager: DownloadManager,
-                                                  fileCacheManager: FileCacheManager) : OpenAttachmentInteractor
-    {
-        return OpenAttachmentInteractorImpl(executor, appStateManager, uiManager, downloadManager, fileCacheManager)
+    @Provides
+    fun provideOpenAttachmentInteractor(
+            executor: Executor,
+            appStateManager: AppStateManager,
+            uiManager: UIManager,
+            downloadManager: DownloadManager,
+            fileCacheManager: FileCacheManager
+    ): OpenAttachmentInteractor {
+        return OpenAttachmentInteractorImpl(
+                executor,
+                appStateManager,
+                uiManager,
+                downloadManager,
+                fileCacheManager
+        )
     }
 
-    @Provides fun provideSaveAttachmentInteractor(executor: Executor, appStateManager: AppStateManager,
-                                                  fileCacheManager: FileCacheManager, permissionManager: PermissionManager) : SaveAttachmentInteractor
-    {
-        return SaveAttachmentInteractorImpl(executor, appStateManager, fileCacheManager, permissionManager)
+    @Provides
+    fun provideSaveAttachmentInteractor(
+            executor: Executor, appStateManager: AppStateManager,
+            fileCacheManager: FileCacheManager, permissionManager: PermissionManager
+    ): SaveAttachmentInteractor {
+        return SaveAttachmentInteractorImpl(
+                executor,
+                appStateManager,
+                fileCacheManager,
+                permissionManager
+        )
     }
 
-    @Provides fun provideGetChannelsInteractor(executor: Executor, channelsRepository: ChannelsRepository) : GetChannelsInteractor
-    {
+    @Provides
+    fun provideGetChannelsInteractor(
+            executor: Executor,
+            channelsRepository: ChannelsRepository
+    ): GetChannelsInteractor {
         return GetChannelsInteractorImpl(executor, channelsRepository)
     }
 
-    @Provides fun provideCreateUserInteractor(executor: Executor, userManager: UserManager) : CreateUserInteractor
-    {
+    @Provides
+    fun provideCreateUserInteractor(
+            executor: Executor,
+            userManager: UserManager
+    ): CreateUserInteractor {
         return CreateUserInteractorImpl(executor, userManager)
     }
 
-    @Provides fun provideSaveUserInteractor(executor: Executor, userManager: UserManager) : SaveUserInteractor
-    {
+    @Provides
+    fun provideSaveUserInteractor(
+            executor: Executor,
+            userManager: UserManager
+    ): SaveUserInteractor {
         return SaveUserInteractorImpl(executor, userManager)
     }
 
-    @Provides fun provideDeleteUserInteractor(executor: Executor, userManager: UserManager) : DeleteUserInteractor
-    {
+    @Provides
+    fun provideDeleteUserInteractor(
+            executor: Executor,
+            userManager: UserManager
+    ): DeleteUserInteractor {
         return DeleteUserInteractorImpl(executor, userManager)
     }
 
-    @Provides fun provideGetUsersInteractor(executor: Executor, userManager: UserManager) : GetUsersInteractor
-    {
+    @Provides
+    fun provideGetUsersInteractor(
+            executor: Executor,
+            userManager: UserManager
+    ): GetUsersInteractor {
         return GetUsersInteractorImpl(executor, userManager)
     }
 
-    @Provides fun provideGetChannelInteractor(executor: Executor, channelsRepository: ChannelsRepository) : GetChannelInteractor
-    {
+    @Provides
+    fun provideGetChannelInteractor(
+            executor: Executor,
+            channelsRepository: ChannelsRepository
+    ): GetChannelInteractor {
         return GetChannelInteractorImpl(executor, channelsRepository)
     }
 
-    @Provides fun provideGetChannelHomeContentInteractor(executor: Executor, channelsRepository: ChannelsRepository) : GetChannelHomeContentInteractor
-    {
+    @Provides
+    fun provideGetChannelHomeContentInteractor(
+            executor: Executor,
+            channelsRepository: ChannelsRepository
+    ): GetChannelHomeContentInteractor {
         return GetChannelHomeContentInteractorImpl(executor, channelsRepository)
     }
 
     @Provides
-    fun provideGetSenderCategoriesInteractor(executor: Executor, senderCategoriesRepository: SenderCategoriesRepository) : GetSenderCategoriesInteractor {
+    fun provideGetSenderCategoriesInteractor(
+            executor: Executor,
+            senderCategoriesRepository: SenderCategoriesRepository
+    ): GetSenderCategoriesInteractor {
         return GetSenderCategoriesInteractorImpl(executor, senderCategoriesRepository)
     }
 
     @Provides
-    fun provideGetSendersInteractor(executor: Executor, sendersRepository: SendersRepository, senderCategoriesRepository: SenderCategoriesRepository) : GetSendersInteractor {
+    fun provideGetSendersInteractor(
+            executor: Executor,
+            sendersRepository: SendersRepository,
+            senderCategoriesRepository: SenderCategoriesRepository
+    ): GetSendersInteractor {
         return GetSendersInteractorImpl(executor, sendersRepository, senderCategoriesRepository)
     }
 
     @Provides
-    fun provideGetSenderDetailInteractor(executor: Executor, sendersRepository: SendersRepository) : GetSenderDetailInteractor {
+    fun provideGetSenderDetailInteractor(
+            executor: Executor,
+            sendersRepository: SendersRepository
+    ): GetSenderDetailInteractor {
         return GetSenderDetailInteractorImpl(executor, sendersRepository)
     }
 
     @Provides
-    fun provideGetSegmentDetailInteractor(executor: Executor, api: Api) : GetSegmentInteractor {
+    fun provideGetSegmentDetailInteractor(executor: Executor, api: Api): GetSegmentInteractor {
         return GetSegmentInteractorImpl(executor, api)
     }
 
     @Provides
-    fun provideGetPendingInteractor(executor: Executor, api: Api) : GetPendingInteractor {
+    fun provideGetPendingInteractor(executor: Executor, api: Api): GetPendingInteractor {
         return GetPendingInteractorImpl(executor, api)
     }
 
     @Provides
-    fun provideGetCollectionsInteractor(executor: Executor, collectionsRepository: CollectionsRepository) : GetCollectionsInteractor {
+    fun provideGetCollectionsInteractor(
+            executor: Executor,
+            collectionsRepository: CollectionsRepository
+    ): GetCollectionsInteractor {
         return GetCollectionsInteractorImpl(executor, collectionsRepository)
     }
 
-    @Provides fun provideRegisterInteractor(executor: Executor, api: Api) : RegisterInteractor {
+    @Provides
+    fun provideRegisterInteractor(executor: Executor, api: Api): RegisterInteractor {
         return RegisterInteractorImpl(executor, api)
     }
 
-    @Provides fun provideUnRegisterInteractor(executor: Executor, api: Api) : UnRegisterInteractor {
+    @Provides
+    fun provideUnRegisterInteractor(executor: Executor, api: Api): UnRegisterInteractor {
         return UnRegisterInteractorImpl(executor, api)
     }
 
-    @Provides fun provideRegistrationsInteractor(executor: Executor, api: Api) : GetRegistrationsInteractor {
+    @Provides
+    fun provideRegistrationsInteractor(executor: Executor, api: Api): GetRegistrationsInteractor {
         return GetRegistrationsInteractorImpl(executor, api)
     }
-
-
-//    @Provides
-//    fun provideSearchSendersInterActor(executor: Executor) : GetSendersInteractor {
-//        return SearchSendersInteractorImpl(executor)
-//    }
 }

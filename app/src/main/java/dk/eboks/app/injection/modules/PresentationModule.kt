@@ -2,7 +2,8 @@ package dk.eboks.app.injection.modules
 
 import dagger.Module
 import dagger.Provides
-import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.domain.interactors.BootstrapInteractor
+import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
@@ -22,20 +23,6 @@ import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentContract
-import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
-import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentContract
-import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentPresenter
-import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentContract
-import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentPresenter
-import dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentContract
-import dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentPresenter
-import dk.eboks.app.presentation.ui.screens.mail.folder.FolderContract
-import dk.eboks.app.presentation.ui.screens.mail.folder.FolderPresenter
-import dk.eboks.app.presentation.ui.screens.mail.list.MailListContract
-import dk.eboks.app.presentation.ui.screens.mail.list.MailListPresenter
-import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewContract
-import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentContract
@@ -54,12 +41,16 @@ import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVeri
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentPresenter
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentContract
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentPresenter
+import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentContract
+import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
 import dk.eboks.app.presentation.ui.components.home.HomeComponentContract
 import dk.eboks.app.presentation.ui.components.home.HomeComponentPresenter
-import dk.eboks.app.presentation.ui.screens.message.MessageContract
-import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
-import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedContract
-import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedPresenter
+import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentContract
+import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentPresenter
+import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentContract
+import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentPresenter
+import dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentContract
+import dk.eboks.app.presentation.ui.components.mail.sendercarousel.SenderCarouselComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.attachments.AttachmentsComponentContract
 import dk.eboks.app.presentation.ui.components.message.detail.attachments.AttachmentsComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.document.DocumentComponentContract
@@ -70,14 +61,14 @@ import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderCompo
 import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentContract
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentPresenter
-import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentContract
-import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentPresenter
-import dk.eboks.app.presentation.ui.components.message.opening.protectedmessage.ProtectedMessageComponentContract
-import dk.eboks.app.presentation.ui.components.message.opening.protectedmessage.ProtectedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.share.ShareComponentContract
 import dk.eboks.app.presentation.ui.components.message.detail.share.ShareComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentContract
+import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.opening.promulgation.PromulgationComponentContract
 import dk.eboks.app.presentation.ui.components.message.opening.promulgation.PromulgationComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.opening.protectedmessage.ProtectedMessageComponentContract
+import dk.eboks.app.presentation.ui.components.message.opening.protectedmessage.ProtectedMessageComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.opening.quarantine.QuarantineComponentContract
 import dk.eboks.app.presentation.ui.components.message.opening.quarantine.QuarantineComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.opening.recalled.RecalledComponentContract
@@ -130,8 +121,16 @@ import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserContract
 import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserPresenter
 import dk.eboks.app.presentation.ui.screens.home.HomeContract
 import dk.eboks.app.presentation.ui.screens.home.HomePresenter
-import dk.eboks.app.presentation.ui.screens.start.StartContract
-import dk.eboks.app.presentation.ui.screens.start.StartPresenter
+import dk.eboks.app.presentation.ui.screens.mail.folder.FolderContract
+import dk.eboks.app.presentation.ui.screens.mail.folder.FolderPresenter
+import dk.eboks.app.presentation.ui.screens.mail.list.MailListContract
+import dk.eboks.app.presentation.ui.screens.mail.list.MailListPresenter
+import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewContract
+import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
+import dk.eboks.app.presentation.ui.screens.message.MessageContract
+import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
+import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedContract
+import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningContract
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
 import dk.eboks.app.presentation.ui.screens.profile.ProfileContract
@@ -144,18 +143,14 @@ import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewCont
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.senders.registrations.PendingContract
 import dk.eboks.app.presentation.ui.screens.senders.registrations.PendingPresenter
-import dk.eboks.app.presentation.ui.screens.senders.registrations.RegistrationsPresenter
 import dk.eboks.app.presentation.ui.screens.senders.registrations.RegistrationsContract
+import dk.eboks.app.presentation.ui.screens.senders.registrations.RegistrationsPresenter
 import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailContract
 import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailPresenter
+import dk.eboks.app.presentation.ui.screens.start.StartContract
+import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
-import dk.nodes.arch.domain.injection.scopes.AppScope
-import javax.inject.Singleton
-
-/**
- * Created by bison on 07/12/17.
- */
 
 @Module
 class PresentationModule {
@@ -213,13 +208,13 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideHeaderComponentPresenter(stateManager: AppStateManager) : HeaderComponentContract.Presenter {
+    fun provideHeaderComponentPresenter(stateManager: AppStateManager): HeaderComponentContract.Presenter {
         return HeaderComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideNotesComponentPresenter(stateManager: AppStateManager) : NotesComponentContract.Presenter {
+    fun provideNotesComponentPresenter(stateManager: AppStateManager): NotesComponentContract.Presenter {
         return NotesComponentPresenter(stateManager)
     }
 
@@ -245,7 +240,10 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideDocumentComponentPresenter(stateManager: AppStateManager, saveAttachmentInteractor: SaveAttachmentInteractor) : DocumentComponentContract.Presenter {
+    fun provideDocumentComponentPresenter(
+            stateManager: AppStateManager,
+            saveAttachmentInteractor: SaveAttachmentInteractor
+    ): DocumentComponentContract.Presenter {
         return DocumentComponentPresenter(stateManager, saveAttachmentInteractor)
     }
 
@@ -329,31 +327,46 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideQuarantineComponentPresenter(stateManager: AppStateManager, executor: Executor) : QuarantineComponentContract.Presenter {
+    fun provideQuarantineComponentPresenter(
+            stateManager: AppStateManager,
+            executor: Executor
+    ): QuarantineComponentContract.Presenter {
         return QuarantineComponentPresenter(stateManager, executor)
     }
 
     @ActivityScope
     @Provides
-    fun provideRecalledMessageComponentPresenter(stateManager: AppStateManager, executor: Executor) : RecalledComponentContract.Presenter {
+    fun provideRecalledMessageComponentPresenter(
+            stateManager: AppStateManager,
+            executor: Executor
+    ): RecalledComponentContract.Presenter {
         return RecalledComponentPresenter(stateManager, executor)
     }
 
     @ActivityScope
     @Provides
-    fun providePromulgationComponentPresenter(stateManager: AppStateManager, executor: Executor) : PromulgationComponentContract.Presenter {
+    fun providePromulgationComponentPresenter(
+            stateManager: AppStateManager,
+            executor: Executor
+    ): PromulgationComponentContract.Presenter {
         return PromulgationComponentPresenter(stateManager, executor)
     }
 
     @ActivityScope
     @Provides
-    fun provideProtectedMessageComponentPresenter(stateManager: AppStateManager, executor: Executor) : ProtectedMessageComponentContract.Presenter {
+    fun provideProtectedMessageComponentPresenter(
+            stateManager: AppStateManager,
+            executor: Executor
+    ): ProtectedMessageComponentContract.Presenter {
         return ProtectedMessageComponentPresenter(stateManager, executor)
     }
 
     @ActivityScope
     @Provides
-    fun provideOpeningReceiptComponentPresenter(stateManager: AppStateManager, executor: Executor) : OpeningReceiptComponentContract.Presenter {
+    fun provideOpeningReceiptComponentPresenter(
+            stateManager: AppStateManager,
+            executor: Executor
+    ): OpeningReceiptComponentContract.Presenter {
         return OpeningReceiptComponentPresenter(stateManager, executor)
     }
 
@@ -407,7 +420,10 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideSignupComponentPresenter(stateManager: AppStateManager, createUserInteractor: CreateUserInteractor): SignupComponentContract.Presenter {
+    fun provideSignupComponentPresenter(
+            stateManager: AppStateManager,
+            createUserInteractor: CreateUserInteractor
+    ): SignupComponentContract.Presenter {
         return SignupComponentPresenter(stateManager, createUserInteractor)
     }
 
@@ -544,7 +560,10 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideRegistrationsPresenter(stateManager: AppStateManager, registrationsInteractor: GetRegistrationsInteractor): RegistrationsContract.Presenter {
+    fun provideRegistrationsPresenter(
+            stateManager: AppStateManager,
+            registrationsInteractor: GetRegistrationsInteractor
+    ): RegistrationsContract.Presenter {
         return RegistrationsPresenter(stateManager, registrationsInteractor)
     }
 
@@ -578,9 +597,14 @@ class PresentationModule {
             registerInteractor: RegisterInteractor,
             unRegisterInteractor: UnRegisterInteractor
     ): PendingContract.Presenter {
-        return PendingPresenter(stateManager, getPendingInteractor, registerInteractor, unRegisterInteractor)
+        return PendingPresenter(
+                stateManager,
+                getPendingInteractor,
+                registerInteractor,
+                unRegisterInteractor
+        )
     }
-  
+
     @ActivityScope
     @Provides
     fun provideSenderDetailPresenter(
@@ -599,8 +623,18 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideSegmentDetailPresenter(stateManager: AppStateManager, getSegmentInteractor: GetSegmentInteractor, registerInteractor: RegisterInteractor, unRegisterInteractor: UnRegisterInteractor): SegmentDetailContract.Presenter {
-        return SegmentDetailPresenter(stateManager, getSegmentInteractor, registerInteractor, unRegisterInteractor)
+    fun provideSegmentDetailPresenter(
+            stateManager: AppStateManager,
+            getSegmentInteractor: GetSegmentInteractor,
+            registerInteractor: RegisterInteractor,
+            unRegisterInteractor: UnRegisterInteractor
+    ): SegmentDetailContract.Presenter {
+        return SegmentDetailPresenter(
+                stateManager,
+                getSegmentInteractor,
+                registerInteractor,
+                unRegisterInteractor
+        )
     }
 
 
@@ -612,7 +646,10 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideHomeComponentPresenter(stateManager: AppStateManager, getChannelHomeContentInteractor: GetChannelHomeContentInteractor): HomeComponentContract.Presenter {
+    fun provideHomeComponentPresenter(
+            stateManager: AppStateManager,
+            getChannelHomeContentInteractor: GetChannelHomeContentInteractor
+    ): HomeComponentContract.Presenter {
         return HomeComponentPresenter(stateManager, getChannelHomeContentInteractor)
     }
 
@@ -637,7 +674,10 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMyInfoComponentPresenter(stateManager: AppStateManager, saveUserInteractor: SaveUserInteractor): MyInfoComponentContract.Presenter {
+    fun provideMyInfoComponentPresenter(
+            stateManager: AppStateManager,
+            saveUserInteractor: SaveUserInteractor
+    ): MyInfoComponentContract.Presenter {
         return MyInfoComponentPresenter(stateManager, saveUserInteractor)
     }
 
@@ -653,31 +693,31 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideEmailVerificationComponentPresenter(stateManager: AppStateManager) : EmailVerificationComponentContract.Presenter {
+    fun provideEmailVerificationComponentPresenter(stateManager: AppStateManager): EmailVerificationComponentContract.Presenter {
         return EmailVerificationComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun providePhoneVerificationComponentPresenter(stateManager: AppStateManager) : PhoneVerificationComponentContract.Presenter {
+    fun providePhoneVerificationComponentPresenter(stateManager: AppStateManager): PhoneVerificationComponentContract.Presenter {
         return PhoneVerificationComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideFingerHintComponentPresenter(stateManager: AppStateManager) : FingerHintComponentContract.Presenter {
+    fun provideFingerHintComponentPresenter(stateManager: AppStateManager): FingerHintComponentContract.Presenter {
         return FingerHintComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideFingerPrintComponentPresenter(stateManager: AppStateManager) : FingerPrintComponentContract.Presenter {
+    fun provideFingerPrintComponentPresenter(stateManager: AppStateManager): FingerPrintComponentContract.Presenter {
         return FingerPrintComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideMergeAccountComponentPresenter(stateManager: AppStateManager) : MergeAccountComponentContract.Presenter {
+    fun provideMergeAccountComponentPresenter(stateManager: AppStateManager): MergeAccountComponentContract.Presenter {
         return MergeAccountComponentPresenter(stateManager)
     }
 
