@@ -22,6 +22,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
         val elementAdapter = gson.getAdapter(JsonElement::class.java)
         var listElement: JsonElement? = null
         var metadata: JsonElement? = null
+        //Timber.e("Creating typeadaptor for $type")
 
         return object : TypeAdapter<T>() {
 
@@ -31,11 +32,20 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
             }
 
             @Throws(IOException::class)
-            override fun read(`in`: JsonReader): T {
+            override fun read(reader: JsonReader): T {
+                var jsonElement = elementAdapter.read(reader)
+                /*
+                Timber.e("Path ${reader.path}")
+                Timber.e("parsing element " + jsonElement.toString())
+                */
 
-                var jsonElement = elementAdapter.read(`in`)
+                if(reader.path != "$")
+                {
+                    //Timber.e("Not root path, not doing custom shit")
+                    return delegate.fromJsonTree(jsonElement)
+                }
+
                 if (jsonElement.isJsonObject) {
-                    //imber.e("parsing element " + jsonElement.toString())
                     val jsonObject = jsonElement.asJsonObject
                     val entry_set = jsonObject.entrySet()
                     listElement = null
@@ -46,15 +56,17 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                         {
                             val key : String = entry.key
                             val ele : JsonElement = entry.value
-                            Timber.e("Examining key $key")
+                            //Timber.e("Examining key $key (${reader.path})")
                             if(rootContainerNames.contains(key))
                             {
                                 if(ele.isJsonArray)
                                 {
                                     listElement = ele
                                 }
+                                /*
                                 else    // if we cannot find a list with one of the whitelisted names we abort and let gson treat it as usual
                                     return delegate.fromJsonTree(jsonElement)
+                                */
                             }
                             if(key.contentEquals("metadata"))
                             {
@@ -64,7 +76,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                                 }
                             }
                         }
-                        if(listElement != null && metadata != null)
+                        if(listElement != null)
                         {
                             val listobj = delegate.fromJsonTree(listElement)
                             try {
@@ -78,7 +90,8 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                             }
                             return listobj
                         }
-                        return delegate.fromJsonTree(jsonElement)
+                        else
+                            return delegate.fromJsonTree(jsonElement)
                     }
                 }
                 return delegate.fromJsonTree(jsonElement)

@@ -2,10 +2,7 @@ package dk.eboks.app.presentation.ui.components.home
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.media.VolumeProviderCompat
 import android.support.v7.app.AlertDialog
-import android.support.v7.widget.AlertDialogLayout
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +12,10 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
 import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.home.ItemType
-import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.shared.Currency
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
@@ -64,6 +61,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     override fun setupViews() {
         //  This is just a semi mock setup function to test ui
         // create mocks
+
         createMockChannels(channelCount)
         createMockMails(emailCount)
         if (verifiedUser) {
@@ -112,16 +110,19 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
 
                 //todo set the logo - is this the correct image ? Most likely we need the logo from the initial api call
-                logoIv?.let {
-                    if (currentChannel.items?.isNotEmpty() && currentChannel.items?.first()?.Image != null)
-                        Glide.with(context).load(currentChannel.items.first().Image?.url).into(it)
+                logoIv?.let { logo->
+                    currentChannel?.items?.let {
+                        if (it.isNotEmpty() && it.first()?.Image != null)
+                            Glide.with(context).load(it.first().Image?.url).into(logo)
+                    }
+
                 }
                 headerTv.text = currentChannel.id
 
                 //inflating the rows based on itemtype
                 when (currentChannel.type) {
                     ItemType.RECEIPTS -> {
-                        addRecieptCard(currentChannel, rowsContainerLl)
+                        addReceiptCard(currentChannel, rowsContainerLl)
                     }
                     ItemType.NEWS -> {
                         addNewsCard(currentChannel, rowsContainerLl)
@@ -151,73 +152,135 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         }
     }
 
-    private fun addFilesCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
-        for (currentItem in currentChannel.items) {
-            val v = inflator.inflate(R.layout.viewholder_message, rowsContainerLl, false)
-            val title = v.findViewById<TextView>(R.id.titleTv)
-            val subtitle = v.findViewById<TextView>(R.id.subTitleTv)
-            val date = v.findViewById<TextView>(R.id.dateTv)
-            val image = v.findViewById<ImageView>(R.id.circleIv)
-            val urgent = v.findViewById<TextView>(R.id.urgentTv)
-            val bottomDivider = v.findViewById<View>(R.id.dividerV)
-            val topDivider = v.findViewById<View>(R.id.topDividerV)
 
-            bottomDivider.visibility = View.GONE
-            topDivider.visibility = View.VISIBLE
+    override fun setupChannels(channels: List<Channel>) {
+        for (i in 0..channels.size-1) {
+            var currentChannel = channels[i]
 
+            //setting the header
+            val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContainerLl, false)
+            val logoIv = v.findViewById<ImageView>(R.id.logoIv)
+            val headerTv = v.findViewById<TextView>(R.id.headerTv)
+            val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
 
-            title.text = currentItem.title
-            subtitle.text = currentItem.description
-            date.text = formatter.formatDateRelative(currentItem)
-            image?.let {
-                if (currentItem.Image != null)
-                    Glide.with(context).load(R.drawable.ic_menu_uploads).into(it)
+            //todo set the logo - is this the correct image ? Most likely we need the logo from the initial api call
+
+            logoIv?.let {
+                currentChannel?.logo?.let { logo->
+                    Glide.with(context).load(logo.url).into(it)
+                }
             }
 
-            rowsContainerLl.addView(v)
-            rowsContainerLl.requestLayout()
+            v.tag = currentChannel
+            headerTv.text = "id ${currentChannel.id}"
+            channelsContentLL.addView(v)
+
+            //inflating the rows based on itemtype
+            /*
+            when (currentChannel.type) {
+                ItemType.RECEIPTS -> {
+                    addReceiptCard(currentChannel, rowsContainerLl)
+                }
+                ItemType.NEWS -> {
+                    addNewsCard(currentChannel, rowsContainerLl)
+                }
+                ItemType.IMAGES -> {
+                    //contrained to only show 1 row
+                    addImageCard(currentChannel, rowsContainerLl)
+
+                }
+                ItemType.NOTIFICATIONS -> {
+                    addNotificationCard(currentChannel, rowsContainerLl)
+
+                }
+                ItemType.MESSAGES -> {
+                    addMessageCard(currentChannel, rowsContainerLl)
+
+                }
+                ItemType.FILES -> {
+                    addFilesCard(currentChannel, rowsContainerLl)
+                }
+            }
+            channelsContentLL.requestLayout()
+            */
+        }
+    }
+
+    override fun setupChannelControl(control: Control) {
+
+    }
+
+    private fun addFilesCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
+        currentChannel.items?.let { items ->
+            for (currentItem in items) {
+                val v = inflator.inflate(R.layout.viewholder_message, rowsContainerLl, false)
+                val title = v.findViewById<TextView>(R.id.titleTv)
+                val subtitle = v.findViewById<TextView>(R.id.subTitleTv)
+                val date = v.findViewById<TextView>(R.id.dateTv)
+                val image = v.findViewById<ImageView>(R.id.circleIv)
+                val urgent = v.findViewById<TextView>(R.id.urgentTv)
+                val bottomDivider = v.findViewById<View>(R.id.dividerV)
+                val topDivider = v.findViewById<View>(R.id.topDividerV)
+
+                bottomDivider.visibility = View.GONE
+                topDivider.visibility = View.VISIBLE
+
+
+                title.text = currentItem.title
+                subtitle.text = currentItem.description
+                date.text = formatter.formatDateRelative(currentItem)
+                image?.let {
+                    if (currentItem.Image != null)
+                        Glide.with(context).load(R.drawable.ic_menu_uploads).into(it)
+                }
+
+                rowsContainerLl.addView(v)
+                rowsContainerLl.requestLayout()
+            }
         }
     }
 
     private fun addMessageCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
-        for (currentItem in currentChannel.items) {
-            val v = inflator.inflate(R.layout.viewholder_message, rowsContainerLl, false)
-            val title = v.findViewById<TextView>(R.id.titleTv)
-            val subtitle = v.findViewById<TextView>(R.id.subTitleTv)
-            val date = v.findViewById<TextView>(R.id.dateTv)
-            val image = v.findViewById<ImageView>(R.id.circleIv)
-            val urgent = v.findViewById<TextView>(R.id.urgentTv)
-            val bottomDivider = v.findViewById<View>(R.id.dividerV)
-            val topDivider = v.findViewById<View>(R.id.topDividerV)
+        currentChannel.items?.let { items->
+            for (currentItem in items) {
+                val v = inflator.inflate(R.layout.viewholder_message, rowsContainerLl, false)
+                val title = v.findViewById<TextView>(R.id.titleTv)
+                val subtitle = v.findViewById<TextView>(R.id.subTitleTv)
+                val date = v.findViewById<TextView>(R.id.dateTv)
+                val image = v.findViewById<ImageView>(R.id.circleIv)
+                val urgent = v.findViewById<TextView>(R.id.urgentTv)
+                val bottomDivider = v.findViewById<View>(R.id.dividerV)
+                val topDivider = v.findViewById<View>(R.id.topDividerV)
 
-            bottomDivider.visibility = View.GONE
-            topDivider.visibility = View.VISIBLE
+                bottomDivider.visibility = View.GONE
+                topDivider.visibility = View.VISIBLE
 
-            val currentStatus = currentItem.status
-            if (currentStatus != null && currentStatus.important) {
-                urgent.visibility = View.VISIBLE
-                urgent.text = currentStatus.title
+                val currentStatus = currentItem.status
+                if (currentStatus != null && currentStatus.important) {
+                    urgent.visibility = View.VISIBLE
+                    urgent.text = currentStatus.title
+                }
+
+
+                title.text = currentItem.title
+                subtitle.text = currentItem.description
+                date.text = formatter.formatDateRelative(currentItem)
+                image.isSelected = true
+                image?.let {
+                    if (currentItem.Image != null)
+                        Glide.with(context).load(currentItem.Image?.url).into(it)
+                }
+
+                rowsContainerLl.addView(v)
+                rowsContainerLl.requestLayout()
             }
-
-
-            title.text = currentItem.title
-            subtitle.text = currentItem.description
-            date.text = formatter.formatDateRelative(currentItem)
-            image.isSelected = true
-            image?.let {
-                if (currentItem.Image != null)
-                    Glide.with(context).load(currentItem.Image?.url).into(it)
-            }
-
-            rowsContainerLl.addView(v)
-            rowsContainerLl.requestLayout()
         }
     }
 
     private fun addNotificationCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
 
         // empty state
-        if (currentChannel.items.isEmpty()) {
+        if (currentChannel.items?.isEmpty() != false) {
             val v = inflator.inflate(R.layout.viewholder_home_notification_row, rowsContainerLl, false)
             val emptyContainer = v.findViewById<LinearLayout>(R.id.emptyContentContainer)
             val contentContainer = v.findViewById<LinearLayout>(R.id.contentContainer)
@@ -230,18 +293,20 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         }
 
         // non-empty state
-        for (currentItem in currentChannel.items) {
-            val v = inflator.inflate(R.layout.viewholder_home_notification_row, rowsContainerLl, false)
-            val title = v.findViewById<TextView>(R.id.titleTv)
-            val subtitle = v.findViewById<TextView>(R.id.subTitleTv)
-            val date = v.findViewById<TextView>(R.id.dateTv)
+        currentChannel.items?.let { items ->
+            for (currentItem in items) {
+                val v = inflator.inflate(R.layout.viewholder_home_notification_row, rowsContainerLl, false)
+                val title = v.findViewById<TextView>(R.id.titleTv)
+                val subtitle = v.findViewById<TextView>(R.id.subTitleTv)
+                val date = v.findViewById<TextView>(R.id.dateTv)
 
-            title.text = currentItem.title
-            subtitle.text = currentItem.description
-            date.text = formatter.formatDateRelative(currentItem)
+                title.text = currentItem.title
+                subtitle.text = currentItem.description
+                date.text = formatter.formatDateRelative(currentItem)
 
-            rowsContainerLl.addView(v)
-            rowsContainerLl.requestLayout()
+                rowsContainerLl.addView(v)
+                rowsContainerLl.requestLayout()
+            }
         }
     }
 
@@ -256,10 +321,11 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         var tintColor = "#bf112233"
         background?.background?.setTint(Color.parseColor(tintColor))
 
-        title.text = currentItem.title
+        title.text = currentItem?.title
         image?.let {
-            if (currentItem.Image != null)
-                Glide.with(context).load(currentItem.Image?.url).into(it)
+            currentItem?.Image?.let { im ->
+                Glide.with(context).load(im).into(it)
+            }
         }
 
         rowsContainerLl.addView(v)
@@ -267,59 +333,63 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     }
 
     private fun addNewsCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
-        for (currentItem in currentChannel.items) {
-            val v = inflator.inflate(R.layout.viewholder_home_news_row, rowsContainerLl, false)
-            val title = v.findViewById<TextView>(R.id.titleTv)
-            val image = v.findViewById<ImageView>(R.id.imageIv)
-            val date = v.findViewById<TextView>(R.id.dateTv)
+        currentChannel.items?.let { items ->
+            for (currentItem in items) {
+                val v = inflator.inflate(R.layout.viewholder_home_news_row, rowsContainerLl, false)
+                val title = v.findViewById<TextView>(R.id.titleTv)
+                val image = v.findViewById<ImageView>(R.id.imageIv)
+                val date = v.findViewById<TextView>(R.id.dateTv)
 
-            title.text = currentItem.title
-            date.text = formatter.formatDateRelative(currentItem)
-            image?.let {
-                if (currentItem.Image != null)
-                    Glide.with(context).load(currentItem.Image?.url).into(it)
+                title.text = currentItem.title
+                date.text = formatter.formatDateRelative(currentItem)
+                image?.let {
+                    if (currentItem.Image != null)
+                        Glide.with(context).load(currentItem.Image?.url).into(it)
+                }
+
+                rowsContainerLl.addView(v)
+                rowsContainerLl.requestLayout()
             }
-
-            rowsContainerLl.addView(v)
-            rowsContainerLl.requestLayout()
         }
     }
 
-    private fun addRecieptCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
-        for (row in currentChannel.items) {
-            val v = inflator.inflate(R.layout.viewholder_home_reciept_row, rowsContainerLl, false)
+    private fun addReceiptCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
+        currentChannel.items?.let { items ->
+            for (row in items) {
+                val v = inflator.inflate(R.layout.viewholder_home_reciept_row, rowsContainerLl, false)
 
-            val nameContainer = v.findViewById<LinearLayout>(R.id.nameSubTitleContainerLl)
-            val amountDateContainer = v.findViewById<LinearLayout>(R.id.amountDateContainerLl)
-            val soloName = v.findViewById<TextView>(R.id.soloTitleTv)
-            val soloAmount = v.findViewById<TextView>(R.id.soloAmountTv)
-            val name = v.findViewById<TextView>(R.id.titleTv)
-            val adress = v.findViewById<TextView>(R.id.subTitleTv)
-            val amount = v.findViewById<TextView>(R.id.amountTv)
-            val date = v.findViewById<TextView>(R.id.dateTv)
+                val nameContainer = v.findViewById<LinearLayout>(R.id.nameSubTitleContainerLl)
+                val amountDateContainer = v.findViewById<LinearLayout>(R.id.amountDateContainerLl)
+                val soloName = v.findViewById<TextView>(R.id.soloTitleTv)
+                val soloAmount = v.findViewById<TextView>(R.id.soloAmountTv)
+                val name = v.findViewById<TextView>(R.id.titleTv)
+                val adress = v.findViewById<TextView>(R.id.subTitleTv)
+                val amount = v.findViewById<TextView>(R.id.amountTv)
+                val date = v.findViewById<TextView>(R.id.dateTv)
 
-            var value = row.amount?.value.toString()
-            if (row.date == null) {
-                //Todo need to format the string to use comma seperator
-                soloAmount.text = value
-                soloAmount.visibility = View.VISIBLE
-                amountDateContainer.visibility = View.GONE
-            } else {
-                amount.text = value
-                date.text = formatter.formatDateRelative(row)
+                var value = row.amount?.value.toString()
+                if (row.date == null) {
+                    //Todo need to format the string to use comma seperator
+                    soloAmount.text = value
+                    soloAmount.visibility = View.VISIBLE
+                    amountDateContainer.visibility = View.GONE
+                } else {
+                    amount.text = value
+                    date.text = formatter.formatDateRelative(row)
+                }
+
+                if (row.description == null) {
+                    soloName.text = row.id
+                    soloName.visibility = View.VISIBLE
+                    nameContainer.visibility = View.GONE
+                } else {
+                    name.text = row.id
+                    adress.text = row.description
+                }
+
+                rowsContainerLl.addView(v)
+                rowsContainerLl.requestLayout()
             }
-
-            if (row.description == null) {
-                soloName.text = row.id
-                soloName.visibility = View.VISIBLE
-                nameContainer.visibility = View.GONE
-            } else {
-                name.text = row.id
-                adress.text = row.description
-            }
-
-            rowsContainerLl.addView(v)
-            rowsContainerLl.requestLayout()
         }
     }
 
@@ -367,79 +437,6 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
            dialog.setView(layout)
            dialog.show()
        }
-    }
-
-    private fun createMockChannels(showChannelsMode: Int) {
-
-        // showsChannelsMode: 0  = none, 1 = 1, 2 = all
-
-        // shows 1
-        if(showChannelsMode == 1){
-            var items: ArrayList<Item> = ArrayList()
-            items.add(Item("ID-receipt", "Title-reciept", "Description-reciept", Date(), Currency(111.01, "DKK"), null, null, Image("https://picsum.photos/200/?random")))
-            items.add(Item("ID-receipt2", "Title-reciept2", null, null, Currency(222.02, "DK2"), null, null, null))
-            channels.add(Control("control receipts", ItemType.RECEIPTS, items))
-
-        }
-        // shows all
-        if (showChannelsMode == 2) {
-            // receipt
-            var items: ArrayList<Item> = ArrayList()
-            items.add(Item("ID-receipt", "Title-reciept", "Description-reciept", Date(), Currency(111.01, "DKK"), null, null, Image("https://picsum.photos/200/?random")))
-            items.add(Item("ID-receipt2", "Title-reciept2", null, null, Currency(222.02, "DK2"), null, null, null))
-            channels.add(Control("control receipts", ItemType.RECEIPTS, items))
-
-            var items2: ArrayList<Item> = ArrayList()
-            items2.add(Item("ID-receipt3", "Title-reciept3", null, Date(), Currency(333.03, "DK3"), null, null, Image("https://picsum.photos/200/?random")))
-            items2.add(Item("ID-receipt4", "Title-reciept4", null, null, Currency(444.04, "DK4"), null, null, null))
-            channels.add(Control("control receipts2", ItemType.RECEIPTS, items2))
-
-            // news
-            var items3: ArrayList<Item> = ArrayList()
-            items3.add(Item("ID-news1", "Title-news1", "Description-news1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control news1", ItemType.NEWS, items3))
-
-            var items4: ArrayList<Item> = ArrayList()
-            items4.add(Item("ID-news2", "Title-news2", "Description-news2", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            items4.add(Item("ID-news3", "Title-news3", "Description-news3", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control news2", ItemType.NEWS, items4))
-
-            // image
-            var items5: ArrayList<Item> = ArrayList()
-            items5.add(Item("ID-image1", "Title-image1", "Description-image1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control image1", ItemType.IMAGES, items5))
-
-            // notification
-            var items6: ArrayList<Item> = ArrayList()
-            items6.add(Item("ID-notification1", "Title-notification1", "Description-notification1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            items6.add(Item("ID-notification1", "Title-notification1", "Description-notification1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            items6.add(Item("ID-notification1", "Title-notification1", "Description-notification1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control notification1", ItemType.NOTIFICATIONS, items6))
-
-            var items7: ArrayList<Item> = ArrayList()
-            channels.add(Control("control notification2", ItemType.NOTIFICATIONS, items7))
-
-            // message
-            var items8: ArrayList<Item> = ArrayList()
-            items8.add(Item("ID-message1", "Title-Message1", "Description-message1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control message1", ItemType.MESSAGES, items8))
-
-            var items9: ArrayList<Item> = ArrayList()
-            items9.add(Item("ID-message2", "Title-Message2", "Description-message2", Date(), null, Status(true, "important title", "important text", 0, Date()), null, Image("https://picsum.photos/200/?random")))
-            items9.add(Item("ID-message2", "Title-Message2", "Description-message2", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control message1", ItemType.MESSAGES, items9))
-
-            //files
-            var items10: ArrayList<Item> = ArrayList()
-            items10.add(Item("ID-files1", "Title-Files1", "Description-files1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control files1", ItemType.FILES, items10))
-
-            var items11: ArrayList<Item> = ArrayList()
-            items11.add(Item("ID-files2", "Title-Files2", "Description-files2", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            items11.add(Item("ID-files3", "Title-Files3", "Description-files3", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            items11.add(Item("ID-files4", "Title-Files4", "Description-files4", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control files2", ItemType.FILES, items11))
-        }
     }
 
     private fun showMails() {
@@ -517,6 +514,76 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         }
     }
 
+    private fun createMockChannels(showChannelsMode: Int) {
 
+        // showsChannelsMode: 0  = none, 1 = 1, 2 = all
 
+        // shows 1
+        if(showChannelsMode == 1){
+            var items: ArrayList<Item> = ArrayList()
+            items.add(Item("ID-receipt", "Title-reciept", "Description-reciept", Date(), Currency(111.01, "DKK"), null, null, Image("https://picsum.photos/200/?random")))
+            items.add(Item("ID-receipt2", "Title-reciept2", null, null, Currency(222.02, "DK2"), null, null, null))
+            channels.add(Control("control receipts", ItemType.RECEIPTS, items))
+
+        }
+        // shows all
+        if (showChannelsMode == 2) {
+            // receipt
+            var items: ArrayList<Item> = ArrayList()
+            items.add(Item("ID-receipt", "Title-reciept", "Description-reciept", Date(), Currency(111.01, "DKK"), null, null, Image("https://picsum.photos/200/?random")))
+            items.add(Item("ID-receipt2", "Title-reciept2", null, null, Currency(222.02, "DK2"), null, null, null))
+            channels.add(Control("control receipts", ItemType.RECEIPTS, items))
+
+            var items2: ArrayList<Item> = ArrayList()
+            items2.add(Item("ID-receipt3", "Title-reciept3", null, Date(), Currency(333.03, "DK3"), null, null, Image("https://picsum.photos/200/?random")))
+            items2.add(Item("ID-receipt4", "Title-reciept4", null, null, Currency(444.04, "DK4"), null, null, null))
+            channels.add(Control("control receipts2", ItemType.RECEIPTS, items2))
+
+            // news
+            var items3: ArrayList<Item> = ArrayList()
+            items3.add(Item("ID-news1", "Title-news1", "Description-news1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+            channels.add(Control("control news1", ItemType.NEWS, items3))
+
+            var items4: ArrayList<Item> = ArrayList()
+            items4.add(Item("ID-news2", "Title-news2", "Description-news2", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+            items4.add(Item("ID-news3", "Title-news3", "Description-news3", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+            channels.add(Control("control news2", ItemType.NEWS, items4))
+
+            // image
+            var items5: ArrayList<Item> = ArrayList()
+            items5.add(Item("ID-image1", "Title-image1", "Description-image1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+            channels.add(Control("control image1", ItemType.IMAGES, items5))
+
+            // notification
+            var items6: ArrayList<Item> = ArrayList()
+            items6.add(Item("ID-notification1", "Title-notification1", "Description-notification1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+            items6.add(Item("ID-notification1", "Title-notification1", "Description-notification1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+            items6.add(Item("ID-notification1", "Title-notification1", "Description-notification1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+            channels.add(Control("control notification1", ItemType.NOTIFICATIONS, items6))
+
+            var items7: ArrayList<Item> = ArrayList()
+            channels.add(Control("control notification2", ItemType.NOTIFICATIONS, items7))
+
+            // message
+            var items8: ArrayList<Item> = ArrayList()
+            items8.add(Item("ID-message1", "Title-Message1", "Description-message1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+            channels.add(Control("control message1", ItemType.MESSAGES, items8))
+
+            var items9: ArrayList<Item> = ArrayList()
+            items9.add(Item("ID-message2", "Title-Message2", "Description-message2", Date(), null, Status(true, "important title", "important text", 0, Date()), null, Image("https://picsum.photos/200/?random")))
+            items9.add(Item("ID-message2", "Title-Message2", "Description-message2", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+            channels.add(Control("control message1", ItemType.MESSAGES, items9))
+
+            //files
+            var items10: ArrayList<Item> = ArrayList()
+            items10.add(Item("ID-files1", "Title-Files1", "Description-files1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+            channels.add(Control("control files1", ItemType.FILES, items10))
+
+            var items11: ArrayList<Item> = ArrayList()
+            items11.add(Item("ID-files2", "Title-Files2", "Description-files2", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+            items11.add(Item("ID-files3", "Title-Files3", "Description-files3", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+            items11.add(Item("ID-files4", "Title-Files4", "Description-files4", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
+            channels.add(Control("control files2", ItemType.FILES, items11))
+        }
+    }
 }

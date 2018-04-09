@@ -8,5 +8,5 @@ import java.io.Serializable
 data class Control(
         var id : String?,
         var type : ItemType,
-        var items : List<Item>
+        var items : List<Item>? = null
 ) : Serializable

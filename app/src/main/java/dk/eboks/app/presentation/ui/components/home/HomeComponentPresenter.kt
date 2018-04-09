@@ -36,6 +36,7 @@ class HomeComponentPresenter @Inject constructor(val appState: AppStateManager, 
 
     override fun onGetPinnedChannelList(channels: MutableList<Channel>) {
         Timber.e("Received list of ${channels.size} pinned channels")
+        runAction { v->v.setupChannels(channels) }
     }
 
     override fun onGetChannelHomeContent(content: HomeContent) {

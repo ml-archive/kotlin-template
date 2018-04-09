@@ -24,7 +24,7 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
             if(pinnedChannels.isNotEmpty())
             {
                 Timber.e("channel home content loading started for ${pinnedChannels.size} channels")
-                /*
+
                 val controls : MutableList<Deferred<HomeContent>> = ArrayList()
                 for (channel in pinnedChannels) {
                     val d = async { channelsRepository.getChannelHomeContent(channel.id.toLong()) }
@@ -34,31 +34,24 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
 
                 runBlocking {
                     launch(CommonPool) {
-                        controls.forEach {
-                            it.await()
-                            val content = it.getCompleted()
-                            //Timber.e("Got HomeContent $content")
-                            /*
-                            runOnUIThread {
-                                output?.onGetChannelHomeContent(it.getCompleted())
+                        try {
+                            controls.forEach {
+                                it.await()
+                                val content = it.getCompleted()
+                                Timber.e("Got HomeContent $content")
+                                runOnUIThread {
+                                    output?.onGetChannelHomeContent(it.getCompleted())
+                                }
                             }
-                            */
+                        }
+                        catch(t : Throwable)
+                        {
+                            t.printStackTrace()
                         }
                     }
                 }
 
                 Timber.e("channel home content loading completed, loaded ${controls.size} controls")
-                */
-                val c = channelsRepository.getChannelHomeContent(1)
-                Timber.e("Got homecontent $c")
-
-                /*
-                for(channel in pinnedChannels)
-                {
-                    val c = channelsRepository.getChannelHomeContent(channel.id.toLong())
-                    Timber.e("Got homecontent $c")
-                }
-                */
             }
             else    // there are no pinned channels
             {
