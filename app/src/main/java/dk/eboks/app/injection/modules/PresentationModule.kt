@@ -147,6 +147,8 @@ import dk.eboks.app.presentation.ui.screens.senders.registrations.RegistrationsP
 import dk.eboks.app.presentation.ui.screens.senders.registrations.RegistrationsContract
 import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailContract
 import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailPresenter
+import dk.eboks.app.presentation.ui.screens.uploads.UploadsContract
+import dk.eboks.app.presentation.ui.screens.uploads.UploadsPresenter
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 import dk.nodes.arch.domain.injection.scopes.AppScope
@@ -684,6 +686,12 @@ class PresentationModule {
     @Provides
     fun provideForgotPasswordDoneComponentPresenter(stateManager: AppStateManager) : ForgotPasswordDoneComponentContract.Presenter {
         return ForgotPasswordDoneComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideUploadsPresenter(stateManager: AppStateManager): UploadsContract.Presenter {
+        return UploadsPresenter(stateManager)
     }
 
     /* Pasta

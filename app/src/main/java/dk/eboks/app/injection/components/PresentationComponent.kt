@@ -119,6 +119,8 @@ import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActi
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.senders.registrations.RegistrationsActivity
 import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailActivity
+import dk.eboks.app.presentation.ui.screens.uploads.UploadsActivity
+import dk.eboks.app.presentation.ui.screens.uploads.UploadsPresenter
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
@@ -153,6 +155,8 @@ interface PresentationComponent {
     fun inject(target: ProfilePresenter)
     fun inject(target: HomeActivity)
     fun inject(target: HomePresenter)
+    fun inject(target: UploadsActivity)
+    fun inject(target: UploadsPresenter)
 
     // Components
 

@@ -7,6 +7,7 @@
   <string name='nstack_default_yesterday' formatted='false'>default_yesterday</string>
   <string name='nstack_default_save' formatted='false'>default_save</string>
   <string name='nstack_default_close' formatted='false'>default_close</string>
+  <string name='nstack_default_no' formatted='false'>default_no</string>
   <string name='nstack_error_genericMessage' formatted='false'>error_genericMessage</string>
   <string name='nstack_error_genericTitle' formatted='false'>error_genericTitle</string>
   <string name='nstack_error_noInternetTitle' formatted='false'>error_noInternetTitle</string>
@@ -194,6 +195,11 @@
   <string name='nstack_message_promulgationOkButton' formatted='false'>message_promulgationOkButton</string>
   <string name='nstack_message_numberOfAttachmentsPluralSuffix' formatted='false'>message_numberOfAttachmentsPluralSuffix</string>
   <string name='nstack_message_numberOfAttachmentsSingularSuffix' formatted='false'>message_numberOfAttachmentsSingularSuffix</string>
+  <string name='nstack_message_promulgationMessage' formatted='false'>message_promulgationMessage</string>
+  <string name='nstack_message_voluntaryReceiptTitle' formatted='false'>message_voluntaryReceiptTitle</string>
+  <string name='nstack_message_voluntaryReceiptMessage' formatted='false'>message_voluntaryReceiptMessage</string>
+  <string name='nstack_message_openMessageWithReceiptButton' formatted='false'>message_openMessageWithReceiptButton</string>
+  <string name='nstack_message_openMessageWithoutReceiptButton' formatted='false'>message_openMessageWithoutReceiptButton</string>
   <string name='nstack_iosbiometrics_errorAuthentication' formatted='false'>iosbiometrics_errorAuthentication</string>
   <string name='nstack_iosbiometrics_errorUserCancel' formatted='false'>iosbiometrics_errorUserCancel</string>
   <string name='nstack_iosbiometrics_errorUserFallback' formatted='false'>iosbiometrics_errorUserFallback</string>
@@ -223,6 +229,10 @@
   <string name='nstack_uploads_title' formatted='false'>uploads_title</string>
   <string name='nstack_uploads_takePhoto' formatted='false'>uploads_takePhoto</string>
   <string name='nstack_uploads_chooseFile' formatted='false'>uploads_chooseFile</string>
+  <string name='nstack_uploads_rowHeader' formatted='false'>uploads_rowHeader</string>
+  <string name='nstack_uploads_storageRowHeader' formatted='false'>uploads_storageRowHeader</string>
+  <string name='nstack_uploads_storageRowSubHeader' formatted='false'>uploads_storageRowSubHeader</string>
+  <string name='nstack_uploads_storageRowButton' formatted='false'>uploads_storageRowButton</string>
   <string name='nstack_loginproviders_nemidTitle' formatted='false'>loginproviders_nemidTitle</string>
   <string name='nstack_loginproviders_idPortenTitle' formatted='false'>loginproviders_idPortenTitle</string>
   <string name='nstack_loginproviders_bankSeTitle' formatted='false'>loginproviders_bankSeTitle</string>
@@ -243,6 +253,9 @@
   <string name='nstack_profile_takePhoto' formatted='false'>profile_takePhoto</string>
   <string name='nstack_profile_chooseFromLibrary' formatted='false'>profile_chooseFromLibrary</string>
   <string name='nstack_profile_verified' formatted='false'>profile_verified</string>
+  <string name='nstack_profile_verifyingAccountTitle' formatted='false'>profile_verifyingAccountTitle</string>
+  <string name='nstack_profile_verifyingAccountBody' formatted='false'>profile_verifyingAccountBody</string>
+  <string name='nstack_profile_logOnWithNemID' formatted='false'>profile_logOnWithNemID</string>
   <string name='nstack_myInformation_title' formatted='false'>myInformation_title</string>
   <string name='nstack_myInformation_name' formatted='false'>myInformation_name</string>
   <string name='nstack_myInformation_primaryEmail' formatted='false'>myInformation_primaryEmail</string>
@@ -281,4 +294,5 @@
   <string name='nstack_channelsettings_removeButton' formatted='false'>channelsettings_removeButton</string>
   <string name='nstack_channelsettings_confirmDeleteTitle' formatted='false'>channelsettings_confirmDeleteTitle</string>
   <string name='nstack_channelsettings_confirmDeleteMessageReplaceChannelName' formatted='false'>channelsettings_confirmDeleteMessageReplaceChannelName</string>
+  <string name='nstack_channelsettings_confirmRemoveButton' formatted='false'>channelsettings_confirmRemoveButton</string>
 </resources>

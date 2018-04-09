@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Fri Apr 06 13:57:04 CEST 2018 
+ * Generated: Mon Apr 09 13:27:29 CEST 2018 
  */
 
 public class Translation {
@@ -16,6 +16,7 @@ public class Translation {
 		public static String yesterday = "Yesterday";
 		public static String save = "Save";
 		public static String close = "Close";
+		public static String no = "No";
 	}
 	public final static class error {
 		public static String genericMessage = "An error occured";
@@ -230,9 +231,14 @@ public class Translation {
 		public static String quarantinedTitle = "Quarantined";
 		public static String quarantinedMessage = "This message is quarantined due to a problem found";
 		public static String promulgationTopBarTitle = "Promulgation";
-		public static String promulgationOkButton = "okay";
+		public static String promulgationOkButton = "Okay";
 		public static String numberOfAttachmentsPluralSuffix = "attachments \u2022";
 		public static String numberOfAttachmentsSingularSuffix = "attachment \u2022";
+		public static String promulgationMessage = "You have received a court message that you have opened or otherwise processed. The message and exhibits, if any, have been properly serviced to you.    It is important that you thoroughly read the court message and exhibits, if any.    The message may for example include a summons, a call for a court hearing, or a judicial decision that all may have certain ramifications for you.   Any time limits apply as of today.    The court has received a return receipt in evidence of the message being serviced to you. You will find the return receipt under the folder Sent Items.";
+		public static String voluntaryReceiptTitle = "Opening receipt (voluntary)";
+		public static String voluntaryReceiptMessage = "Voluntary Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
+		public static String openMessageWithReceiptButton = "Open message with receipt";
+		public static String openMessageWithoutReceiptButton = "Open message without receipt";
 	}
 	public final static class iosbiometrics {
 		public static String errorAuthentication = "There was a problem verifying your identity";
@@ -270,6 +276,10 @@ public class Translation {
 		public static String title = "Uploads";
 		public static String takePhoto = "Take Photo";
 		public static String chooseFile = "Choose a File";
+		public static String rowHeader = "Latest uploads";
+		public static String storageRowHeader = "Get 1 GB free storage";
+		public static String storageRowSubHeader = "and much more";
+		public static String storageRowButton = "Verify profile";
 	}
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";
@@ -294,6 +304,9 @@ public class Translation {
 		public static String takePhoto = "Take photo";
 		public static String chooseFromLibrary = "Choose from library";
 		public static String verified = "Verified";
+		public static String verifyingAccountTitle = "Verifying your account";
+		public static String verifyingAccountBody = "You will need to sign in with NemID. Don\'t worry, it\'s a one time thing. You will be sent to the NemID app to log in.";
+		public static String logOnWithNemID = "Log on with NemID";
 	}
 	public final static class myInformation {
 		public static String title = "My Information";
@@ -337,8 +350,9 @@ public class Translation {
 		public static String pushTitle = "Push notifications";
 		public static String pushSubtitle = "Get notified whenever something new happens";
 		public static String title = "Settings";
-		public static String removeButton = "Remove";
+		public static String removeButton = "Remove channel";
 		public static String confirmDeleteTitle = "Are you sure you want to remove this channel?";
 		public static String confirmDeleteMessageReplaceChannelName = "Removing this channel will delete it from your e-Boks app, but will not delete your user at [channelname].";
+		public static String confirmRemoveButton = "Remove";
 	}
 }
