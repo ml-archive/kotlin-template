@@ -6,9 +6,8 @@
 
     <include layout="@layout/include_toolbar" />
 
-    <fragment
-        android:id="@+id/contentFragment"
-        android:name="dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentFragment"
+    <FrameLayout
+        android:id="@+id/contentFl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

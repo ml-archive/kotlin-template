@@ -96,6 +96,8 @@ import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemId
 import dk.eboks.app.presentation.ui.components.start.signup.*
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentFragment
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentPresenter
+import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentFragment
+import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
@@ -297,6 +299,8 @@ interface PresentationComponent {
     //upload
     fun inject(target : UploadOverviewComponentFragment)
     fun inject(target : UploadOverviewComponentPresenter)
+    fun inject(target : MyUploadsComponentFragment)
+    fun inject(target : MyUploadsComponentPresenter)
 
     // debug
     fun inject(target : DebugOptionsComponentFragment)

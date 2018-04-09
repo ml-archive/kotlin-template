@@ -13,6 +13,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentFragment
 import kotlinx.android.synthetic.main.fragment_upload_overview_component.*
 import java.util.*
 import javax.inject.Inject
@@ -66,6 +67,13 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             // user is verified
             nonVerifiedUserContainerLl.visibility = View.GONE
             contentVerifiedUSerLl.visibility = View.VISIBLE
+            fileBtn.setOnClickListener {
+                //todo something when clicking file
+                getBaseActivity()?.addFragmentOnTop(R.id.contentFl, MyUploadsComponentFragment(), true)
+            }
+            photoBtn.setOnClickListener{
+                //todo something when clicking photo
+            }
             contentRowHeaderTv.visibility = View.VISIBLE
 
             if (uploads.size > 0) {
@@ -139,7 +147,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             // Builder
             with(alert) {
                 setTitle("Setup Data")
-                setMessage("channelmode 0=none, 1=1, 2= all ")
+                setMessage("debug helper")
 
                 // Add any  input field here
                 numberOfRowsEt!!.hint = "numberOfRows"

@@ -119,6 +119,8 @@ import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContr
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentPresenter
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentContract
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentPresenter
+import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentContract
+import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContract
@@ -692,6 +694,12 @@ class PresentationModule {
     @Provides
     fun provideUploadsPresenter(stateManager: AppStateManager): UploadsContract.Presenter {
         return UploadsPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideMyUploadsComponentPresenter(stateManager: AppStateManager): MyUploadsComponentContract.Presenter {
+        return MyUploadsComponentPresenter(stateManager)
     }
 
     /* Pasta
