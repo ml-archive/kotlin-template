@@ -215,6 +215,10 @@
   <string name='nstack_iosbiometrics_nextTimeFaceIdMessage' formatted='false'>iosbiometrics_nextTimeFaceIdMessage</string>
   <string name='nstack_iosbiometrics_nextTimeEnableButton' formatted='false'>iosbiometrics_nextTimeEnableButton</string>
   <string name='nstack_iosbiometrics_nextTimeDontUseButton' formatted='false'>iosbiometrics_nextTimeDontUseButton</string>
+  <string name='nstack_iosbiometrics_enableMobileAccessTouchID' formatted='false'>iosbiometrics_enableMobileAccessTouchID</string>
+  <string name='nstack_iosbiometrics_enableMobileAccessFaceID' formatted='false'>iosbiometrics_enableMobileAccessFaceID</string>
+  <string name='nstack_iosbiometrics_enableMobileAccessMessageTouchID' formatted='false'>iosbiometrics_enableMobileAccessMessageTouchID</string>
+  <string name='nstack_iosbiometrics_enableMobileAccessMessageFaceID' formatted='false'>iosbiometrics_enableMobileAccessMessageFaceID</string>
   <string name='nstack_logonmethods_mobileAccess' formatted='false'>logonmethods_mobileAccess</string>
   <string name='nstack_logonmethods_ssn' formatted='false'>logonmethods_ssn</string>
   <string name='nstack_logonmethods_nemId' formatted='false'>logonmethods_nemId</string>
@@ -233,6 +237,7 @@
   <string name='nstack_uploads_storageRowHeader' formatted='false'>uploads_storageRowHeader</string>
   <string name='nstack_uploads_storageRowSubHeader' formatted='false'>uploads_storageRowSubHeader</string>
   <string name='nstack_uploads_storageRowButton' formatted='false'>uploads_storageRowButton</string>
+  <string name='nstack_uploads_topbarEdit' formatted='false'>uploads_topbarEdit</string>
   <string name='nstack_loginproviders_nemidTitle' formatted='false'>loginproviders_nemidTitle</string>
   <string name='nstack_loginproviders_idPortenTitle' formatted='false'>loginproviders_idPortenTitle</string>
   <string name='nstack_loginproviders_bankSeTitle' formatted='false'>loginproviders_bankSeTitle</string>
@@ -256,6 +261,25 @@
   <string name='nstack_profile_verifyingAccountTitle' formatted='false'>profile_verifyingAccountTitle</string>
   <string name='nstack_profile_verifyingAccountBody' formatted='false'>profile_verifyingAccountBody</string>
   <string name='nstack_profile_logOnWithNemID' formatted='false'>profile_logOnWithNemID</string>
+  <string name='nstack_profile_verifyEmailHeader' formatted='false'>profile_verifyEmailHeader</string>
+  <string name='nstack_profile_verifyEmailText' formatted='false'>profile_verifyEmailText</string>
+  <string name='nstack_profile_verifyEmailBtn' formatted='false'>profile_verifyEmailBtn</string>
+  <string name='nstack_profile_verifyEmailCancel' formatted='false'>profile_verifyEmailCancel</string>
+  <string name='nstack_profile_fingerHintTitle' formatted='false'>profile_fingerHintTitle</string>
+  <string name='nstack_profile_fingerHintText' formatted='false'>profile_fingerHintText</string>
+  <string name='nstack_profile_fingerDrawerHeader' formatted='false'>profile_fingerDrawerHeader</string>
+  <string name='nstack_profile_fingerDrawerText' formatted='false'>profile_fingerDrawerText</string>
+  <string name='nstack_profile_enable' formatted='false'>profile_enable</string>
+  <string name='nstack_profile_mergeAccountHeader' formatted='false'>profile_mergeAccountHeader</string>
+  <string name='nstack_profile_mergeAccountText' formatted='false'>profile_mergeAccountText</string>
+  <string name='nstack_profile_mergeAccountBtn' formatted='false'>profile_mergeAccountBtn</string>
+  <string name='nstack_profile_mergeAccountCancel' formatted='false'>profile_mergeAccountCancel</string>
+  <string name='nstack_profile_verifyMobilHeader' formatted='false'>profile_verifyMobilHeader</string>
+  <string name='nstack_profile_verifyMobilText' formatted='false'>profile_verifyMobilText</string>
+  <string name='nstack_profile_verifyMobilResend' formatted='false'>profile_verifyMobilResend</string>
+  <string name='nstack_profile_verifyMobileContinueBtn' formatted='false'>profile_verifyMobileContinueBtn</string>
+  <string name='nstack_profile_verifyMobilCancel' formatted='false'>profile_verifyMobilCancel</string>
+  <string name='nstack_profile_verifyMobilHintText' formatted='false'>profile_verifyMobilHintText</string>
   <string name='nstack_myInformation_title' formatted='false'>myInformation_title</string>
   <string name='nstack_myInformation_name' formatted='false'>myInformation_name</string>
   <string name='nstack_myInformation_primaryEmail' formatted='false'>myInformation_primaryEmail</string>
@@ -295,4 +319,5 @@
   <string name='nstack_channelsettings_confirmDeleteTitle' formatted='false'>channelsettings_confirmDeleteTitle</string>
   <string name='nstack_channelsettings_confirmDeleteMessageReplaceChannelName' formatted='false'>channelsettings_confirmDeleteMessageReplaceChannelName</string>
   <string name='nstack_channelsettings_confirmRemoveButton' formatted='false'>channelsettings_confirmRemoveButton</string>
+  <string name='nstack_storeboxlist_title' formatted='false'>storeboxlist_title</string>
 </resources>

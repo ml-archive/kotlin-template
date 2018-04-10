@@ -698,8 +698,16 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMyUploadsComponentPresenter(stateManager: AppStateManager): MyUploadsComponentContract.Presenter {
-        return MyUploadsComponentPresenter(stateManager)
+    fun provideMyUploadComponentPresenter(
+            stateManager: AppStateManager,
+            getMessagesInteractor: GetMessagesInteractor,
+            openMessageInteractor: OpenMessageInteractor
+    ): MyUploadsComponentContract.Presenter {
+        return MyUploadsComponentPresenter(
+                stateManager,
+                getMessagesInteractor,
+                openMessageInteractor
+        )
     }
 
     /* Pasta
