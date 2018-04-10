@@ -11,9 +11,9 @@ import dk.eboks.app.presentation.base.BaseView
 interface HomeComponentContract {
     interface View : BaseView {
         var verifiedUser : Boolean
-        fun setupViews()
+        //fun setupViews()
         fun setupChannels(channels : List<Channel>)
-        fun setupChannelControl(control : Control)
+        fun setupChannelControl(channelId : Int, control : Control)
     }
 
     interface Presenter : BasePresenter<View> {

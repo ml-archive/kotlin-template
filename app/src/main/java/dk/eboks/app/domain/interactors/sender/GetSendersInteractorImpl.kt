@@ -36,6 +36,7 @@ class GetSendersInteractorImpl(executor: Executor, val sendersRepository: Sender
             }
         } catch (t: Throwable) {
             runOnUIThread {
+                t.printStackTrace()
                 output?.onGetSendersError(exceptionToViewError(t))
             }
         }
@@ -50,6 +51,7 @@ class GetSendersInteractorImpl(executor: Executor, val sendersRepository: Sender
             }
         } catch (t: Throwable) {
             runOnUIThread {
+                t.printStackTrace()
                 output?.onGetSendersError(exceptionToViewError(t))
             }
         }

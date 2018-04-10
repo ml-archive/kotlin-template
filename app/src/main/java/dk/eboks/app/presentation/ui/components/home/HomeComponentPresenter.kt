@@ -23,14 +23,12 @@ class HomeComponentPresenter @Inject constructor(val appState: AppStateManager, 
     }
 
     override fun setup() {
-        /*
+
         appState.state?.currentUser?.let { user->
             runAction { v->
                 v.verifiedUser = user.verified
-                v.setupViews()
             }
         }
-        */
         getChannelHomeContentInteractor.run()
     }
 
@@ -39,8 +37,9 @@ class HomeComponentPresenter @Inject constructor(val appState: AppStateManager, 
         runAction { v->v.setupChannels(channels) }
     }
 
-    override fun onGetChannelHomeContent(content: HomeContent) {
+    override fun onGetChannelHomeContent(channelId : Int, content: HomeContent) {
         Timber.e("Received channel content for channel id ${content.control.id}")
+        runAction { v->v.setupChannelControl(channelId, content.control) }
     }
 
     override fun onGetChannelHomeContentError(error: ViewError) {

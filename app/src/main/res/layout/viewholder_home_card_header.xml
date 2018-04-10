@@ -31,14 +31,23 @@
                     android:layout_gravity="center"
                     android:layout_marginEnd="@dimen/margin_half"
                     android:layout_marginStart="@dimen/margin_normal"
+                    android:animateLayoutChanges="true"
                     android:background="@drawable/square_white_greyboarder_rounded_corners">
 
                     <ImageView
                         android:id="@+id/logoIv"
+                        android:visibility="invisible"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_attachment_black" />
+
+                    <ProgressBar
+                        android:id="@+id/progressPb"
+                        android:visibility="visible"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"/>
 
                 </FrameLayout>
 

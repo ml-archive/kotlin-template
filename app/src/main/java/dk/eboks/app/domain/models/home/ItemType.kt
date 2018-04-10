@@ -8,7 +8,7 @@ import dk.eboks.app.R
  */
 enum class ItemType(val type : String) {
     @SerializedName("list-messages") MESSAGES("list-messages"),
-    @SerializedName("list-recipts") RECEIPTS("list-recipts"),
+    @SerializedName("list-receipts") RECEIPTS("list-receipts"),
     @SerializedName("list-news") NEWS("list-news"),
     @SerializedName("list-files") FILES("list-files"),
     @SerializedName("list-images") IMAGES("list-images"),

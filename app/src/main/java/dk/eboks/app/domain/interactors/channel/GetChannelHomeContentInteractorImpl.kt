@@ -15,6 +15,8 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
     override var output: GetChannelHomeContentInteractor.Output? = null
     override var input: GetChannelHomeContentInteractor.Input? = null
 
+
+
     override fun execute() {
         try {
             val pinnedChannels = channelsRepository.getPinnedChannels()
@@ -25,22 +27,23 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
             {
                 Timber.e("channel home content loading started for ${pinnedChannels.size} channels")
 
-                val controls : MutableList<Deferred<HomeContent>> = ArrayList()
+                val channelMap : MutableMap<Int, Deferred<HomeContent>> = HashMap()
                 for (channel in pinnedChannels) {
                     val d = async { channelsRepository.getChannelHomeContent(channel.id.toLong()) }
-                    controls.add(d)
+                    channelMap[channel.id] = d
                 }
                 //val result : MutableList<Control> = ArrayList()
 
                 runBlocking {
                     launch(CommonPool) {
                         try {
-                            controls.forEach {
-                                it.await()
-                                val content = it.getCompleted()
+                            for(entry in channelMap)
+                            {
+                                entry.value.await()
+                                val content = entry.value.getCompleted()
                                 Timber.e("Got HomeContent $content")
                                 runOnUIThread {
-                                    output?.onGetChannelHomeContent(it.getCompleted())
+                                    output?.onGetChannelHomeContent(entry.key, content)
                                 }
                             }
                         }
@@ -51,7 +54,7 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
                     }
                 }
 
-                Timber.e("channel home content loading completed, loaded ${controls.size} controls")
+                Timber.e("channel home content loading completed, loaded ${channelMap.size} controls")
             }
             else    // there are no pinned channels
             {

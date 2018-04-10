@@ -1,8 +1,5 @@
 package dk.eboks.app.network.util
-import com.google.gson.Gson
-import com.google.gson.JsonElement
-import com.google.gson.TypeAdapter
-import com.google.gson.TypeAdapterFactory
+import com.google.gson.*
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
@@ -13,6 +10,7 @@ import java.io.IOException
 /**
  * Created by bison on 26/07/17.
  */
+
 class ItemTypeAdapterFactory : TypeAdapterFactory {
     var rootContainerNames = listOf("data", "items")
 
@@ -34,6 +32,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
             @Throws(IOException::class)
             override fun read(reader: JsonReader): T {
                 var jsonElement = elementAdapter.read(reader)
+
                 /*
                 Timber.e("Path ${reader.path}")
                 Timber.e("parsing element " + jsonElement.toString())
@@ -63,10 +62,6 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                                 {
                                     listElement = ele
                                 }
-                                /*
-                                else    // if we cannot find a list with one of the whitelisted names we abort and let gson treat it as usual
-                                    return delegate.fromJsonTree(jsonElement)
-                                */
                             }
                             if(key.contentEquals("metadata"))
                             {

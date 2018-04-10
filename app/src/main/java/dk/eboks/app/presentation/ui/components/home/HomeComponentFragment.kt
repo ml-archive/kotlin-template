@@ -19,8 +19,10 @@ import dk.eboks.app.domain.models.home.ItemType
 import dk.eboks.app.domain.models.shared.Currency
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.util.views
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_home_overview_mail_component.*
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -35,12 +37,12 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     lateinit var formatter: EboksFormatter
 
     //mock data
-    var emailCount = 0
-    var channelCount = 2
+    //var emailCount = 0
+    //var channelCount = 2
     override var verifiedUser: Boolean = false
-    var messages: MutableList<dk.eboks.app.domain.models.message.Message> = ArrayList()
-    var channels: MutableList<dk.eboks.app.domain.models.home.Control> = ArrayList()
-    var redidValues = false
+    //var messages: MutableList<dk.eboks.app.domain.models.message.Message> = ArrayList()
+    //var channels: MutableList<dk.eboks.app.domain.models.home.Control> = ArrayList()
+    //var redidValues = false
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_home_overview_mail_component, container, false)
@@ -58,112 +60,15 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         presenter.setup()
     }
 
-    override fun setupViews() {
-        //  This is just a semi mock setup function to test ui
-        // create mocks
-
-        createMockChannels(channelCount)
-        createMockMails(emailCount)
-        if (verifiedUser) {
-            showMails()
-        } else {
-            showEmptyState()
-        }
-        setupBottomView()
-    }
-
-    private fun showEmptyState() {
-        emptyStateLl.visibility = View.VISIBLE
-        emailContainerLl.visibility = View.GONE
-        if (channels.size > 0) {
-            emptyStateImageIv.visibility = View.GONE
-        }
-    }
-
-    private fun setupBottomView() {
-        if (channels.size == 0) {
-            channelsHeaderFL.visibility = View.GONE
-            bottomChannelBtn.isEnabled = (emailCount > 0)
-            bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderNoChannels
-            bottomChannelTextTv.text = Translation.home.bottomChannelTextNoChannels
-            bottomChannelBtn.visibility = View.VISIBLE
-            bottomChannelHeaderTv.visibility = View.VISIBLE
-            bottomChannelTextTv.visibility = View.VISIBLE
-        } else {
-            if (channels.size < 2) {
-                bottomChannelBtn.isEnabled = false
-                bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderChannels
-                bottomChannelTextTv.text = Translation.home.bottomChannelTextChannels
-            } else {
-                bottomChannelBtn.visibility = View.GONE
-                bottomChannelHeaderTv.visibility = View.GONE
-                bottomChannelTextTv.visibility = View.GONE
-            }
-
-            for (i in 1..channels.size) {
-                var currentChannel = channels[i - 1]
-
-                //setting the header
-                val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContainerLl, false)
-                val logoIv = v.findViewById<ImageView>(R.id.logoIv)
-                val headerTv = v.findViewById<TextView>(R.id.headerTv)
-                val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
-
-                //todo set the logo - is this the correct image ? Most likely we need the logo from the initial api call
-                logoIv?.let { logo->
-                    currentChannel?.items?.let {
-                        if (it.isNotEmpty() && it.first()?.Image != null)
-                            Glide.with(context).load(it.first().Image?.url).into(logo)
-                    }
-
-                }
-                headerTv.text = currentChannel.id
-
-                //inflating the rows based on itemtype
-                when (currentChannel.type) {
-                    ItemType.RECEIPTS -> {
-                        addReceiptCard(currentChannel, rowsContainerLl)
-                    }
-                    ItemType.NEWS -> {
-                        addNewsCard(currentChannel, rowsContainerLl)
-                    }
-                    ItemType.IMAGES -> {
-                        //contrained to only show 1 row
-                        addImageCard(currentChannel, rowsContainerLl)
-
-                    }
-                    ItemType.NOTIFICATIONS -> {
-                        addNotificationCard(currentChannel, rowsContainerLl)
-
-                    }
-                    ItemType.MESSAGES -> {
-                        addMessageCard(currentChannel, rowsContainerLl)
-
-                    }
-                    ItemType.FILES -> {
-                        addFilesCard(currentChannel, rowsContainerLl)
-                    }
-                }
-
-                channelsContentLL.addView(v)
-                channelsContentLL.requestLayout()
-
-            }
-        }
-    }
-
-
     override fun setupChannels(channels: List<Channel>) {
         for (i in 0..channels.size-1) {
-            var currentChannel = channels[i]
+            val currentChannel = channels[i]
 
             //setting the header
             val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContainerLl, false)
             val logoIv = v.findViewById<ImageView>(R.id.logoIv)
             val headerTv = v.findViewById<TextView>(R.id.headerTv)
-            val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
-
-            //todo set the logo - is this the correct image ? Most likely we need the logo from the initial api call
+            //val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
 
             logoIv?.let {
                 currentChannel?.logo?.let { logo->
@@ -171,43 +76,50 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 }
             }
 
-            v.tag = currentChannel
-            headerTv.text = "id ${currentChannel.id}"
+            v.tag = currentChannel.id
+            headerTv.text = "${currentChannel.name}"
             channelsContentLL.addView(v)
-
-            //inflating the rows based on itemtype
-            /*
-            when (currentChannel.type) {
-                ItemType.RECEIPTS -> {
-                    addReceiptCard(currentChannel, rowsContainerLl)
-                }
-                ItemType.NEWS -> {
-                    addNewsCard(currentChannel, rowsContainerLl)
-                }
-                ItemType.IMAGES -> {
-                    //contrained to only show 1 row
-                    addImageCard(currentChannel, rowsContainerLl)
-
-                }
-                ItemType.NOTIFICATIONS -> {
-                    addNotificationCard(currentChannel, rowsContainerLl)
-
-                }
-                ItemType.MESSAGES -> {
-                    addMessageCard(currentChannel, rowsContainerLl)
-
-                }
-                ItemType.FILES -> {
-                    addFilesCard(currentChannel, rowsContainerLl)
-                }
-            }
-            channelsContentLL.requestLayout()
-            */
         }
     }
 
-    override fun setupChannelControl(control: Control) {
+    override fun setupChannelControl(channelId : Int, control: Control) {
+        for(v in channelsContentLL.views)
+        {
+            if(v.tag == channelId)
+            {
+                Timber.e("Found control for channel id $channelId instantiating content")
+                val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
+                val logoIv = v.findViewById<ImageView>(R.id.logoIv)
+                val progressPb = v.findViewById<ProgressBar>(R.id.progressPb)
+                progressPb.visibility = View.INVISIBLE
+                logoIv.visibility = View.VISIBLE
+                when (control.type) {
+                    ItemType.RECEIPTS -> {
+                        addReceiptCard(control, rowsContainerLl)
+                    }
+                    ItemType.NEWS -> {
+                        addNewsCard(control, rowsContainerLl)
+                    }
+                    ItemType.IMAGES -> {
+                        //contrained to only show 1 row
+                        addImageCard(control, rowsContainerLl)
 
+                    }
+                    ItemType.NOTIFICATIONS -> {
+                        addNotificationCard(control, rowsContainerLl)
+
+                    }
+                    ItemType.MESSAGES -> {
+                        addMessageCard(control, rowsContainerLl)
+
+                    }
+                    ItemType.FILES -> {
+                        addFilesCard(control, rowsContainerLl)
+                    }
+                }
+                return
+            }
+        }
     }
 
     private fun addFilesCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
@@ -367,7 +279,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 val amount = v.findViewById<TextView>(R.id.amountTv)
                 val date = v.findViewById<TextView>(R.id.dateTv)
 
-                var value = row.amount?.value.toString()
+                val value = row.amount?.value.toString()
                 if (row.date == null) {
                     //Todo need to format the string to use comma seperator
                     soloAmount.text = value
@@ -393,14 +305,116 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         }
     }
 
+
+    // TODO Old crap that might be reusable
+
+    /*
+    override fun setupViews() {
+        //  This is just a semi mock setup function to test ui
+        // create mocks
+
+        createMockChannels(channelCount)
+        createMockMails(emailCount)
+        if (verifiedUser) {
+            showMails()
+        } else {
+            showEmptyState()
+        }
+        setupBottomView()
+    }
+
+    private fun setupBottomView() {
+        if (channels.size == 0) {
+            channelsHeaderFL.visibility = View.GONE
+            bottomChannelBtn.isEnabled = (emailCount > 0)
+            bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderNoChannels
+            bottomChannelTextTv.text = Translation.home.bottomChannelTextNoChannels
+            bottomChannelBtn.visibility = View.VISIBLE
+            bottomChannelHeaderTv.visibility = View.VISIBLE
+            bottomChannelTextTv.visibility = View.VISIBLE
+        } else {
+            if (channels.size < 2) {
+                bottomChannelBtn.isEnabled = false
+                bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderChannels
+                bottomChannelTextTv.text = Translation.home.bottomChannelTextChannels
+            } else {
+                bottomChannelBtn.visibility = View.GONE
+                bottomChannelHeaderTv.visibility = View.GONE
+                bottomChannelTextTv.visibility = View.GONE
+            }
+
+            for (i in 1..channels.size) {
+                val currentChannel = channels[i - 1]
+
+                //setting the header
+                val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContainerLl, false)
+                val logoIv = v.findViewById<ImageView>(R.id.logoIv)
+                val headerTv = v.findViewById<TextView>(R.id.headerTv)
+                val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
+
+                //todo set the logo - is this the correct image ? Most likely we need the logo from the initial api call
+                logoIv?.let { logo->
+                    currentChannel?.items?.let {
+                        if (it.isNotEmpty() && it.first()?.Image != null)
+                            Glide.with(context).load(it.first().Image?.url).into(logo)
+                    }
+
+                }
+                headerTv.text = currentChannel.id
+
+                //inflating the rows based on itemtype
+                when (currentChannel.type) {
+                    ItemType.RECEIPTS -> {
+                        addReceiptCard(currentChannel, rowsContainerLl)
+                    }
+                    ItemType.NEWS -> {
+                        addNewsCard(currentChannel, rowsContainerLl)
+                    }
+                    ItemType.IMAGES -> {
+                        //contrained to only show 1 row
+                        addImageCard(currentChannel, rowsContainerLl)
+
+                    }
+                    ItemType.NOTIFICATIONS -> {
+                        addNotificationCard(currentChannel, rowsContainerLl)
+
+                    }
+                    ItemType.MESSAGES -> {
+                        addMessageCard(currentChannel, rowsContainerLl)
+
+                    }
+                    ItemType.FILES -> {
+                        addFilesCard(currentChannel, rowsContainerLl)
+                    }
+                }
+
+                channelsContentLL.addView(v)
+                channelsContentLL.requestLayout()
+
+            }
+        }
+    }
+    */
+
+    /*
+    private fun showEmptyState() {
+        emptyStateLl.visibility = View.VISIBLE
+        emailContainerLl.visibility = View.GONE
+        if (channels.size > 0) {
+            emptyStateImageIv.visibility = View.GONE
+        }
+    }
+    */
+
+    /*
     override fun onShake() {
        if(!redidValues){
            redidValues = true
            val alert = AlertDialog.Builder(context)
-           var layout = inflator.inflate(R.layout.debug_dialog,null,false)
-           var mailEt = layout.findViewById<EditText>(R.id.firstEt)
-           var channelEt = layout.findViewById<EditText>(R.id.middleEt)
-           var verifiedEt = layout.findViewById<EditText>(R.id.lastEt)
+           val layout = inflator.inflate(R.layout.debug_dialog,null,false)
+           val mailEt = layout.findViewById<EditText>(R.id.firstEt)
+           val channelEt = layout.findViewById<EditText>(R.id.middleEt)
+           val verifiedEt = layout.findViewById<EditText>(R.id.lastEt)
 
            // Builder
            with (alert) {
@@ -500,7 +514,9 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             }
         }
     }
+    */
 
+    /*
     fun createMockMails(emailCount: Int) {
         for (i in 1..emailCount) {
             val random = Random()
@@ -586,4 +602,5 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             channels.add(Control("control files2", ItemType.FILES, items11))
         }
     }
+    */
 }
