@@ -162,6 +162,17 @@ class SheetComponentActivity : BaseActivity() {
         }
     }
 
+    fun replaceFragment(fragment : BaseFragment?)
+    {
+        fragment?.let{
+            supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_bottom,R.anim.slide_out_top)
+                    .replace(R.id.sheetComponentFl, it, fragment.javaClass.simpleName)
+                    .addToBackStack(fragment.javaClass.simpleName)
+                    .commit()
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         firstExpand = true

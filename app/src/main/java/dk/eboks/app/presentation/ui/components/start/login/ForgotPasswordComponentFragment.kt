@@ -1,5 +1,7 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
+import android.app.Activity
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -7,6 +9,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
@@ -21,7 +24,7 @@ import javax.inject.Inject
 class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentContract.View {
 
     @Inject
-    lateinit var presenter : ForgotPasswordComponentContract.Presenter
+    lateinit var presenter: ForgotPasswordComponentContract.Presenter
 
     var handler = Handler()
 
@@ -39,9 +42,13 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
             (activity as SheetComponentActivity).onBackPressed()
         }
 
-        resetPasswordBtn.setOnClickListener{
-            if(emailEt.text.isValidEmail()){
-//            do resetMyPassword
+        resetPasswordBtn.setOnClickListener {
+            if (emailEt.text.isValidEmail()) {
+                //hiding the keyboard
+                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(activity.currentFocus.windowToken, 0)
+                //todo do resetMyPassword api call and spinner. Starting ForgotPasswordDoneComponent should be done once we get the callback
+                (activity as SheetComponentActivity).replaceFragment(ForgotPasswordDoneComponentFragment())
             }
         }
 
@@ -68,7 +75,7 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
                 handler?.postDelayed({
                     if (s?.isValidEmail() ?: false) {
                         emailTil.error = null
-                    } else  {
+                    } else {
                         emailTil.error = Translation.forgotpassword.invalidEmail
                     }
                 }, 1200)

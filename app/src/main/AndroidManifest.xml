@@ -66,6 +66,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.profile.ProfileActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.home.HomeActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.uploads.UploadsActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.registrations.RegistrationsActivity" />
 

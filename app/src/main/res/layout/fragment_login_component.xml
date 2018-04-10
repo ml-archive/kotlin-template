@@ -58,7 +58,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="12dp"
                         android:gravity="center"
-                        android:text="Helena L. Christensen"
+                        android:text="_Helena L. Christensen"
                         android:textColor="@color/darkGreyBlue" />
 
                     <TextView
@@ -78,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Header"
+                    android:text="_Header"
                     android:visibility="gone"
                     nstack:key="@string/nstack_logoncredentials_topLabel" />
 
@@ -120,20 +120,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:hint="_Password"
                     android:textColorHint="@color/blueGrey"
                     android:theme="@style/TextInputLayoutTheme"
                     android:visibility="gone"
                     app:errorTextAppearance="@style/errorappearance"
                     app:hintTextAppearance="@style/HintTextAppearance"
-                    nstack:hint="@string/nstack_logoncredentials_passwordfieldHeader">
+                    >
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/passwordEt"
                         style="@style/EditText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:inputType="textPassword" />
+                        android:inputType="textPassword"
+                        nstack:hint="@string/nstack_logoncredentials_passwordfieldHeader"/>
 
                 </android.support.design.widget.TextInputLayout>
 

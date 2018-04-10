@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Wed Apr 04 14:14:06 CEST 2018 
+ * Generated: Tue Apr 10 13:14:45 CEST 2018 
  */
 
 public class Translation {
@@ -16,6 +16,7 @@ public class Translation {
 		public static String yesterday = "Yesterday";
 		public static String save = "Save";
 		public static String close = "Close";
+		public static String no = "No";
 	}
 	public final static class error {
 		public static String genericMessage = "An error occured";
@@ -35,6 +36,8 @@ public class Translation {
 		public static String attachmentErrorSaveBtn = "Save";
 		public static String attachmentErrorNegativeBtn = "Close";
 		public static String attachmentOpenWith = "Open with";
+		public static String emptyField = "Empty field";
+		public static String invalidActivationCodeNrOfChars = "Invalid activation code. Must be [numberOfChars] chars.";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -79,7 +82,8 @@ public class Translation {
 		public static String missing = "Missing";
 		public static String drawerHeader = "e-Boks Sign Up";
 		public static String drawerSubHeader = "Let\u2019s help you to get started";
-		public static String drawerHeaderText = "The Mecenat channel needs the following information to create a user for you.";
+		public static String drawerHeaderText = "The [channelname] channel needs the following information to create a user for you.";
+		public static String allowButton = "Allow";
 	}
 	public final static class senders {
 		public static String title = "Senders";
@@ -155,7 +159,7 @@ public class Translation {
 		public static String signupWithMMButton = "Sign up with Mina meddelan";
 		public static String invalidName = "Invalid Name";
 		public static String invalidPassword = "Invalid Password";
-		public static String invalidPasswordMatch = "Password does not match";
+		public static String invalidPasswordMatch = "Passwords don\'t match";
 		public static String termsClickAbleText = "By doing this you accept the [Terms & Conditions]";
 		public static String invalidEmail = "Invalid email";
 		public static String mmInvalidCprNumber = "mm Invalid cpr number";
@@ -227,9 +231,14 @@ public class Translation {
 		public static String quarantinedTitle = "Quarantined";
 		public static String quarantinedMessage = "This message is quarantined due to a problem found";
 		public static String promulgationTopBarTitle = "Promulgation";
-		public static String promulgationOkButton = "okay";
+		public static String promulgationOkButton = "Okay";
 		public static String numberOfAttachmentsPluralSuffix = "attachments \u2022";
 		public static String numberOfAttachmentsSingularSuffix = "attachment \u2022";
+		public static String promulgationMessage = "You have received a court message that you have opened or otherwise processed. The message and exhibits, if any, have been properly serviced to you.    It is important that you thoroughly read the court message and exhibits, if any.    The message may for example include a summons, a call for a court hearing, or a judicial decision that all may have certain ramifications for you.   Any time limits apply as of today.    The court has received a return receipt in evidence of the message being serviced to you. You will find the return receipt under the folder Sent Items.";
+		public static String voluntaryReceiptTitle = "Opening receipt (voluntary)";
+		public static String voluntaryReceiptMessage = "Voluntary Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
+		public static String openMessageWithReceiptButton = "Open message with receipt";
+		public static String openMessageWithoutReceiptButton = "Open message without receipt";
 	}
 	public final static class iosbiometrics {
 		public static String errorAuthentication = "There was a problem verifying your identity";
@@ -247,6 +256,10 @@ public class Translation {
 		public static String nextTimeFaceIdMessage = "Sign in just by looking by enabling FaceID in the e-Boks app";
 		public static String nextTimeEnableButton = "Enable [idtype]";
 		public static String nextTimeDontUseButton = "I don\'t want to use [idtype]";
+		public static String enableMobileAccessTouchID = "Enable Mobile access to use TouchID";
+		public static String enableMobileAccessFaceID = "Enable Mobile access to  use FaceID";
+		public static String enableMobileAccessMessageTouchID = "You need to enable mobile access on the  e-boks website to use Touch ID on your device.";
+		public static String enableMobileAccessMessageFaceID = "You need to enable mobile access on the e-boks website to use Face ID on your device.";
 	}
 	public final static class logonmethods {
 		public static String mobileAccess = "Mobile access";
@@ -259,12 +272,19 @@ public class Translation {
 		public static String header = "Settings";
 		public static String creditCardHeader = "Credit Cards";
 		public static String removeChannelBtn = "Remove Channel";
+		public static String pinHeader = "Pin to home screen";
+		public static String pinSubHeader = "Show this channel on the e-boks home screen";
 	}
 	public final static class uploads {
 		public static String uploadsHeader = "Upload and store your important files and pictures in one secure place";
 		public static String title = "Uploads";
 		public static String takePhoto = "Take Photo";
 		public static String chooseFile = "Choose a File";
+		public static String rowHeader = "Latest uploads";
+		public static String storageRowHeader = "Get 1 GB free storage";
+		public static String storageRowSubHeader = "and much more";
+		public static String storageRowButton = "Verify profile";
+		public static String topbarEdit = "EDIT";
 	}
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";
@@ -286,6 +306,31 @@ public class Translation {
 		public static String faceID = "Face ID";
 		public static String version = "Version";
 		public static String title = "Profile";
+		public static String takePhoto = "Take photo";
+		public static String chooseFromLibrary = "Choose from library";
+		public static String verified = "Verified";
+		public static String verifyingAccountTitle = "Verifying your account";
+		public static String verifyingAccountBody = "You will need to sign in with NemID. Don\'t worry, it\'s a one time thing. You will be sent to the NemID app to log in.";
+		public static String logOnWithNemID = "Log on with NemID";
+		public static String verifyEmailHeader = "Verify your Email";
+		public static String verifyEmailText = "Confirm your email by clicking the link sent to you by e-mail to: helenachristensen@gmail.com";
+		public static String verifyEmailBtn = "Resend confirmation email";
+		public static String verifyEmailCancel = "Cancel";
+		public static String fingerHintTitle = "Enable Mobile access to use fingerprint";
+		public static String fingerHintText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer cursus, dui vel pretium laoreet, sapien nunc laoreet neque, ac vestibulum velit tellus at diam.";
+		public static String fingerDrawerHeader = "Enable fingerprint";
+		public static String fingerDrawerText = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Integer cursus dui.";
+		public static String enable = "Enable";
+		public static String mergeAccountHeader = "You already have a verified e-Boks profile";
+		public static String mergeAccountText = "Do you want to merge your profiles so you only have one single account ?";
+		public static String mergeAccountBtn = "Merge my profiles";
+		public static String mergeAccountCancel = "Keep profiles seperated";
+		public static String verifyMobilHeader = "Verify your mobile number";
+		public static String verifyMobilText = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Integer cursus dui.";
+		public static String verifyMobilResend = "Resend code";
+		public static String verifyMobileContinueBtn = "Continue";
+		public static String verifyMobilCancel = "Cancel";
+		public static String verifyMobilHintText = "Verification code";
 	}
 	public final static class myInformation {
 		public static String title = "My Information";
@@ -299,8 +344,6 @@ public class Translation {
 		public static String verifyNumber = "Verify number";
 		public static String notifyBySMSText = "You will be notified by SMS when you receive new mail";
 		public static String newsletter = "Newsletter";
-		public static String takePhoto = "Take photo";
-		public static String chooseFromLibrary = "Choose from library";
 	}
 	public final static class home {
 		public static String messagesEmptyButton = "See all mail";
@@ -320,5 +363,23 @@ public class Translation {
 		public static String messagesUnverifiedMessage = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.";
 		public static String messagesUnverifiedButton = "Get started";
 		public static String windowHeader = "Home";
+	}
+	public final static class systemfolders {
+		public static String inbox = "Inbox";
+		public static String highlights = "Highlights";
+	}
+	public final static class channelsettings {
+		public static String pinTitle = "Pin to Home screen";
+		public static String pinSubtitle = "Show this channel on the e-Boks home screen";
+		public static String pushTitle = "Push notifications";
+		public static String pushSubtitle = "Get notified whenever something new happens";
+		public static String title = "Settings";
+		public static String removeButton = "Remove channel";
+		public static String confirmDeleteTitle = "Are you sure you want to remove this channel?";
+		public static String confirmDeleteMessageReplaceChannelName = "Removing this channel will delete it from your e-Boks app, but will not delete your user at [channelname].";
+		public static String confirmRemoveButton = "Remove";
+	}
+	public final static class storeboxlist {
+		public static String title = "Storebox";
 	}
 }

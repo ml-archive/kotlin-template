@@ -97,6 +97,8 @@ import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemId
 import dk.eboks.app.presentation.ui.components.start.signup.*
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentFragment
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentPresenter
+import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentFragment
+import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
@@ -120,6 +122,8 @@ import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActi
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.senders.registrations.RegistrationsActivity
 import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailActivity
+import dk.eboks.app.presentation.ui.screens.uploads.UploadsActivity
+import dk.eboks.app.presentation.ui.screens.uploads.UploadsPresenter
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
@@ -155,6 +159,8 @@ interface PresentationComponent {
     fun inject(target: ProfilePresenter)
     fun inject(target: HomeActivity)
     fun inject(target: HomePresenter)
+    fun inject(target: UploadsActivity)
+    fun inject(target: UploadsPresenter)
 
     // Components
 
@@ -258,6 +264,8 @@ interface PresentationComponent {
     fun inject(target : LoginComponentPresenter)
     fun inject(target : ForgotPasswordComponentFragment)
     fun inject(target : ForgotPasswordComponentPresenter)
+    fun inject(target : ForgotPasswordDoneComponentFragment)
+    fun inject(target : ForgotPasswordDoneComponentPresenter)
     fun inject(target : ActivationCodeComponentFragment)
     fun inject(target : ActivationCodeComponentPresenter)
     fun inject(target : NemIdComponentFragment)
@@ -304,6 +312,8 @@ interface PresentationComponent {
 
     fun inject(target : UploadOverviewComponentFragment)
     fun inject(target : UploadOverviewComponentPresenter)
+    fun inject(target : MyUploadsComponentFragment)
+    fun inject(target : MyUploadsComponentPresenter)
 
     // debug
 

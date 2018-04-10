@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,7 +27,8 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="40dp"
-                android:text="_Upload and store your important files and pictures in one secure place" />
+                android:text="_Upload and store your important files and pictures in one secure place"
+                nstack:key="@string/nstack_uploads_uploadsHeader" />
 
             <!--progresstext-->
             <LinearLayout
@@ -84,7 +88,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:text="_take photo" />
+                    android:text="_take photo"
+                    nstack:key="@string/nstack_uploads_takePhoto" />
 
                 <Button
                     android:id="@+id/fileBtn"
@@ -93,7 +98,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="_choose a file" />
+                    android:text="_choose a file"
+                    nstack:key="@string/nstack_uploads_chooseFile" />
 
             </LinearLayout>
 
@@ -116,7 +122,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="get 1 fb free" />
+                    android:text="_Get 1 GB for free asd"
+                    nstack:key="@string/nstack_uploads_storageRowHeader" />
 
                 <TextView
                     style="@style/text.subHeader5"
@@ -125,7 +132,8 @@
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="10dp"
                     android:text="_and much more"
-                    android:textColor="@color/blueGrey" />
+                    android:textColor="@color/blueGrey"
+                    nstack:key="@string/nstack_uploads_storageRowSubHeader" />
 
                 <Button
                     style="@style/buttonRoundedCorners.darkBlueGrey"
@@ -133,7 +141,8 @@
                     android:layout_height="40dp"
                     android:layout_gravity="end|center_vertical"
                     android:gravity="center"
-                    android:text="_Verify profile" />
+                    android:text="_Verify profile"
+                    nstack:key="@string/nstack_uploads_storageRowButton" />
 
             </FrameLayout>
 
@@ -141,24 +150,82 @@
                 layout="@layout/include_divider"
                 android:visibility="visible" />
 
+            <!--Show Verified user content-->
+            <TextView
+                android:id="@+id/contentRowHeaderTv"
+                style="@style/text.header3"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginBottom="@dimen/margin_half"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="20dp"
+                android:background="@color/backgroundColor"
+                android:text="_latest uploads"
+                nstack:key="@string/nstack_uploads_rowHeader" />
+
             <LinearLayout
-                android:id="@+id/contentBottom"
+                android:id="@+id/contentVerifiedUSerLl"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+
+            </LinearLayout>
+
+            <!--show emptystate for verified user-->
+            <TextView
+                android:id="@+id/emptyVerifiedUserTv"
+                style="@style/text.body6.secondary"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@color/backgroundColor"
-                android:orientation="vertical">
+                android:gravity="center"
+                android:text="_You havent uploaded anything yet"
+                android:visibility="gone" />
+
+            <!--show state for non verified user-->
+            <LinearLayout
+                android:id="@+id/nonVerifiedUserContainerLl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/backgroundColor"
+                android:orientation="vertical"
+                android:paddingLeft="32dp"
+                android:paddingRight="32dp"
+                android:visibility="gone">
 
                 <TextView
-                    android:visibility="gone"
+                    style="@style/text.header2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center"
+                    android:text="_Get 1 GB free storage" />
+
+                <TextView
                     style="@style/text.body6.secondary"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_normal"
                     android:gravity="center"
-                    android:text="_You havent uploaded anything yet" />
+                    android:text="_All you have to do is verify your profile lorem ipsum dolor sit amet integer lorem lorem ipsum dolor sit" />
 
-                <include layout="@layout/fragment_upload_bottom_verifieduser_empty"></include>
+                <Button
+                    android:id="@+id/verifyProfileBtn"
+                    style="@style/buttonRoundedCorners.darkBlueGrey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/margin_normal"
+                    android:paddingRight="@dimen/margin_normal"
+                    android:text="_verify profile"
+                    android:textColor="@color/darkGreyBlue" />
 
             </LinearLayout>
         </LinearLayout>

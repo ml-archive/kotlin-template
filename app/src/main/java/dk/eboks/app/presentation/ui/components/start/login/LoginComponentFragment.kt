@@ -65,6 +65,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         presenter.onViewCreated(this, lifecycle)
 
         setupTopBar()
+        presenter.setup()
 
         arguments?.let { args ->
             showGreeting = args.getBoolean("showGreeting", true)
@@ -96,7 +97,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         super.onResume()
         setupCprEmailListeners()
         setupPasswordListener()
-        presenter.setup()
+
     }
 
     override fun onPause() {

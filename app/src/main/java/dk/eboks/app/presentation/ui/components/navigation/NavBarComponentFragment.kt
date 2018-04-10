@@ -15,6 +15,7 @@ import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewAct
 import dk.eboks.app.presentation.ui.screens.home.HomeActivity
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity
+import dk.eboks.app.presentation.ui.screens.uploads.UploadsActivity
 import dk.eboks.app.util.disableShiftingMode
 import kotlinx.android.synthetic.main.fragment_navbar_component.*
 import javax.inject.Inject
@@ -78,6 +79,11 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
                     activityCls = SendersOverviewActivity::class.java
                     currentMenuItem = R.id.actionSenders
                 }
+                R.id.actionUploads -> {
+                    activityCls = UploadsActivity::class.java
+                    currentMenuItem = R.id.actionUploads
+                }
+
                 else -> { }
             }
             activityCls?.let {

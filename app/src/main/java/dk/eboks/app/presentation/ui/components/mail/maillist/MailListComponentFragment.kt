@@ -112,6 +112,17 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         override fun onBindViewHolder(holder: MessageViewHolder?, position: Int) {
             var currentItem = messages[position]
 
+            if(currentItem.unread){
+                holder?.titleTv?.setTypeface(null, Typeface.BOLD)
+                holder?.dateTv?.setTypeface(null, Typeface.BOLD)
+                holder?.subTitleTv?.setTypeface(null, Typeface.BOLD)
+                holder?.dateTv?.setTextColor(resources.getColor(R.color.darkGreyBlue))
+            } else {
+                holder?.titleTv?.setTypeface(null, Typeface.NORMAL)
+                holder?.dateTv?.setTypeface(null, Typeface.NORMAL)
+                holder?.subTitleTv?.setTypeface(null, Typeface.NORMAL)
+            }
+
             if(currentItem.sender != null) {
                 holder?.circleIv?.let {
                     Glide.with(context)
@@ -122,10 +133,9 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 }
             }
             holder?.titleTv?.text = currentItem.sender?.name
-            if(!currentItem.unread){
-                holder?.titleTv?.setTypeface(null, Typeface.NORMAL)
-            }
+            holder?.dateTv?.text = formatter.formatDateRelative(messages[position])
             holder?.subTitleTv?.text = currentItem.subject
+
             if(currentItem.status?.text != null){
                 holder?.urgentTv?.visibility = View.VISIBLE
                 holder?.urgentTv?.text = currentItem.status?.text
@@ -142,10 +152,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             holder?.root?.setOnClickListener {
                 presenter.openMessage(messages[position])
             }
-            if(messages[position].unread) {
-                holder?.dateTv?.setTextColor(resources.getColor(R.color.darkGreyBlue))
-            }
-            holder?.dateTv?.text = formatter.formatDateRelative(messages[position])
+
         }
     }
 

@@ -1,114 +1,250 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="vertical"
     xmlns:nstack="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical"
     tools:ignore="MissingPrefix">
 
-        <LinearLayout
+
+        <TextView
+            android:id="@+id/headerTv"
+            style="@style/text.header1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_top_corners"
-            android:orientation="vertical">
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp"
+            android:text="_Settings"
+            nstack:key="@string/nstack_settings_header" />
+
+
+    <!--pin home screen and push notifications view-->
+    <LinearLayout
+        android:id="@+id/mainSwitchContainerLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backgroundColor"
+        android:orientation="vertical"
+        android:paddingBottom="8dp">
+
+
+        <LinearLayout
+            android:id="@+id/pinContainerLl"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/headerTv"
-                    nstack:key="@string/nstack_settings_header"
-                    style="@style/text.header1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:paddingBottom="20dp"
-                    android:paddingTop="20dp"
-                    android:text="_Settings" />
+                    android:id="@+id/pinHeaderTv"
+                    style="@style/text.header4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    nstack:key="@string/nstack_settings_pinHeader" />
+
+                <TextView
+                    android:id="@+id/pinSubHeaderTv"
+                    style="@style/text.subHeader5.quaternary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    nstack:key="@string/nstack_settings_pinSubHeader" />
+
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/pinSliderSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:thumbTint="@drawable/switch_thumb"
+                android:trackTint="@drawable/switch_track" />
 
         </LinearLayout>
 
-        <!--pin home screen and push notifications view-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="top"
+            android:layout_marginLeft="16dp"
+            android:background="@color/dividerGreyBlue" />
+
+
+        <LinearLayout
+            android:id="@+id/notificationContainerLl"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/notificationHeaderTv"
+                    style="@style/text.header4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="_Pin to home screen" />
+
+                <TextView
+                    android:id="@+id/notificationSubHeaderTv"
+                    style="@style/text.subHeader5.quaternary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="_Show this channel on the e-Boks home screen" />
+
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/notificationSliderSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:thumbTint="@drawable/switch_thumb"
+                android:trackTint="@drawable/switch_track" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="top"
+            android:layout_marginLeft="16dp"
+            android:background="@color/dividerGreyBlue" />
+
+
+    </LinearLayout>
+
+    <!-- optional pins -->
+    <LinearLayout
+        android:id="@+id/optionalSwitchContainerLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/optionalHeaderTv"
+                    style="@style/text.header4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="_Pin to home screen" />
+
+                <TextView
+                    android:id="@+id/optionalSubHeaderTv"
+                    style="@style/text.subHeader5.quaternary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:text="_Show this channel on the e-Boks home screen" />
+
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/optionalSliderSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:thumbTint="@drawable/switch_thumb"
+                android:trackTint="@drawable/switch_track" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="top"
+            android:layout_marginLeft="16dp"
+            android:background="@color/dividerGreyBlue" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/creditCardContainerLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/creditCardHeaderTv"
+            style="@style/text.header3"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
             android:background="@color/backgroundColor"
-            android:orientation="vertical"
-            android:paddingBottom="8dp">
+            android:paddingBottom="8dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="20dp"
+            android:text="_Credit cards"
+            nstack:key="@string/nstack_settings_creditCardHeader" />
 
-                <include layout="@layout/include_channel_settings_switch_row"></include>
-
-                <include layout="@layout/include_channel_settings_switch_row"></include>
-
-        </LinearLayout>
-
-        <!-- optional pins -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-                <include layout="@layout/include_channel_settings_switch_row"></include>
+            <include layout="@layout/include_channel_settings_creditcard_row"></include>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+            <include layout="@layout/include_channel_settings_creditcard_row"></include>
 
-                        <TextView
-                            android:id="@+id/creditCardHeaderTv"
-                            nstack:key="@string/nstack_settings_creditCardHeader"
-                            style="@style/text.header3"
-                            android:text="_Credit cards"
-                            android:paddingLeft="16dp"
-                            android:paddingBottom="8dp"
-                            android:paddingTop="20dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:background="@color/backgroundColor"
-                            />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                                <include layout="@layout/include_channel_settings_creditcard_row"></include>
-
-                                <include layout="@layout/include_channel_settings_creditcard_row"></include>
-
-                                <include layout="@layout/include_channel_settings_addcard_row"></include>
-
-                        </LinearLayout>
-
-
-                </LinearLayout>
+            <include layout="@layout/include_channel_settings_addcard_row"></include>
 
         </LinearLayout>
 
-        <!--bottom with bottom-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+
+    </LinearLayout>
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:background="@color/backgroundColor"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+    <!--bottom button-->
 
-                        <Button
-                            android:id="@+id/removeChannelBtn"
-                            nstack:key="@string/nstack_settings_removeChannelBtn"
-                            style="@style/buttonRoundedCorners"
-                            android:layout_width="140.5dp"
-                            android:layout_height="36dp"
-                            android:text="_Remove channel"
-                            android:textColor="@color/colorPrimaryDark" />
+        <Button
+            android:id="@+id/removeChannelBtn"
+            style="@style/buttonRoundedCorners"
+            android:layout_width="140dp"
+            android:layout_height="40dp"
+            android:text="_Remove channel"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginBottom="24dp"
+            android:textColor="@color/colorPrimaryDark"
+            nstack:key="@string/nstack_settings_removeChannelBtn" />
 
-                </LinearLayout>
-
-        </LinearLayout>
 </LinearLayout>

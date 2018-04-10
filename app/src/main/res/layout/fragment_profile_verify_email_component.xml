@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
@@ -19,7 +22,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="32dp"
-        android:text="_Verify your email" />
+        android:text="_Verify your email"
+        nstack:key="@string/nstack_profile_verifyEmailHeader"/>
 
     <TextView
         style="@style/text.body6"
@@ -28,6 +32,7 @@
         android:gravity="center"
         android:paddingTop="8dp"
         android:text="_Confirm your email by clicking th link sent to you by e-mail to: helenachristensen@gmail.com"
+        nstack:key="@string/nstack_profile_verifyEmailText"
         android:textColor="@color/blueGrey" />
 
     <Button
@@ -37,6 +42,7 @@
         android:layout_height="52dp"
         android:layout_marginTop="24dp"
         android:text="_Resend confirmation email"
+        nstack:key="@string/nstack_profile_verifyEmailBtn"
         android:textSize="16dp"/>
 
     <Button
@@ -48,6 +54,7 @@
         android:layout_gravity="center"
         style="@style/button.borderless"
         android:text="_Cancel"
+        nstack:key="@string/nstack_profile_verifyEmailCancel"
         android:textStyle="bold"/>
 
 </LinearLayout>
