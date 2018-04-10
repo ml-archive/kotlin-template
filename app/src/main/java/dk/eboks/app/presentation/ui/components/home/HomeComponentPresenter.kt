@@ -1,10 +1,15 @@
 package dk.eboks.app.presentation.ui.components.home
 
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
+import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
+import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -12,14 +17,19 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class HomeComponentPresenter @Inject constructor(val appState: AppStateManager, val getChannelHomeContentInteractor: GetChannelHomeContentInteractor) :
+class HomeComponentPresenter @Inject constructor(val appState: AppStateManager, val getChannelHomeContentInteractor: GetChannelHomeContentInteractor,
+                                                 val getMessagesInteractor : GetMessagesInteractor, val openMessageInteractor: OpenMessageInteractor) :
         HomeComponentContract.Presenter,
         BasePresenterImpl<HomeComponentContract.View>(),
-        GetChannelHomeContentInteractor.Output
+        GetChannelHomeContentInteractor.Output,
+        GetMessagesInteractor.Output,
+        OpenMessageInteractor.Output
 {
 
     init {
         getChannelHomeContentInteractor.output = this
+        getMessagesInteractor.output = this
+        openMessageInteractor.output = this
     }
 
     override fun setup() {
@@ -29,7 +39,16 @@ class HomeComponentPresenter @Inject constructor(val appState: AppStateManager, 
                 v.verifiedUser = user.verified
             }
         }
+
+        getMessagesInteractor.input = GetMessagesInteractor.Input(false, Folder(type = FolderType.HIGHLIGHTS))
+        getMessagesInteractor.run()
         getChannelHomeContentInteractor.run()
+    }
+
+    override fun openMessage(message: Message) {
+        runAction { v->v.showProgress(true) }
+        openMessageInteractor.input = OpenMessageInteractor.Input(message)
+        openMessageInteractor.run()
     }
 
     override fun onGetPinnedChannelList(channels: MutableList<Channel>) {
@@ -44,5 +63,26 @@ class HomeComponentPresenter @Inject constructor(val appState: AppStateManager, 
 
     override fun onGetChannelHomeContentError(error: ViewError) {
         runAction { v->v.showErrorDialog(error) }
+    }
+
+    // messages
+    override fun onGetMessages(messages: List<Message>) {
+        runAction { v->v.showHighlights(messages) }
+    }
+
+    override fun onGetMessagesError(error: ViewError) {
+        runAction { v->v.showErrorDialog(error) }
+    }
+
+    // open message
+    override fun onOpenMessageDone() {
+        runAction { v->v.showProgress(false) }
+    }
+
+    override fun onOpenMessageError(error: ViewError) {
+        runAction { v->
+            v.showErrorDialog(error)
+            v.showProgress(false)
+        }
     }
 }

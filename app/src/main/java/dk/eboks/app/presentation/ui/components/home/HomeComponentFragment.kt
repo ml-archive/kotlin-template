@@ -16,6 +16,7 @@ import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
 import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.home.ItemType
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.shared.Currency
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
@@ -305,6 +306,78 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         }
     }
 
+    override fun showHighlights(messages: List<Message>) {
+        Timber.e("Got them highlights $messages")
+        if (messages.size == 0) {
+            emptyStateLl.visibility = View.VISIBLE
+            emailContainerLl.visibility = View.GONE
+            emptyStateBtn.isEnabled = verifiedUser
+            emptyStateImageIv.visibility = View.GONE
+            emptyStateBtn.text = Translation.home.messagesEmptyButton
+            emptyStateHeaderTv.text = Translation.home.messagesEmptyTitle
+            emptyStateTextTv.text = Translation.home.messagesEmptyMessage
+        }
+        else
+        {
+            emptyStateLl.visibility = View.GONE
+            emailContainerLl.visibility = View.VISIBLE
+            mailListContentLL.removeAllViews()
+
+
+            var showCount = 3 // Not allowed to show more than 3
+            if (messages.size < showCount) {
+                showCount = messages.size
+            }
+
+            for (i in 0..showCount-1) {
+                val v = inflator.inflate(R.layout.viewholder_message, mailListContentLL, false)
+                var currentMessage = messages[i]
+                val circleIv = v.findViewById<ImageView>(R.id.circleIv)
+                val titleTv = v.findViewById<TextView>(R.id.titleTv)
+                val subTitleTv = v.findViewById<TextView>(R.id.subTitleTv)
+                val urgentTv = v.findViewById<TextView>(R.id.urgentTv)
+                val dateTv = v.findViewById<TextView>(R.id.dateTv)
+                val dividerV = v.findViewById<View>(R.id.dividerV)
+                val rootLl = v.findViewById<LinearLayout>(R.id.rootLl)
+                //todo set the logo
+                circleIv.let {
+                    Glide.with(context).load("https://picsum.photos/200/?random").into(it)
+                }
+                if (currentMessage.unread) {
+                    circleIv.isSelected = true
+                }
+
+                if (currentMessage.status != null && currentMessage.status!!.important) {
+                    urgentTv.visibility = View.VISIBLE
+                    urgentTv.text = currentMessage.status?.text
+                }
+                titleTv.text = currentMessage.sender?.name ?: ""
+                subTitleTv.text = currentMessage.subject
+                dateTv.text = formatter.formatDateRelative(currentMessage)
+                //rootLl.setBackgroundColor(resources.getColor(R.color.white))
+                if (i == showCount) {
+                    dividerV.visibility = View.GONE
+                }
+
+                rootLl?.setOnClickListener {
+                    presenter.openMessage(currentMessage)
+                }
+                mailListContentLL.addView(v)
+
+                // for this sprint it should not show the 3+ mail button, it should always show all
+//                if (messages.size > 3) {
+//                    showBtn.isEnabled = true
+//                    showBtn.text = Translation.home.messagesSectionHeaderButtonNewMessagesSuffix.replace("[value]", messages.size.toString())
+//                }
+
+            }
+        }
+    }
+
+    override fun showProgress(show: Boolean) {
+        contentLl.visibility = if(!show) View.VISIBLE else View.GONE
+        progressFl.visibility = if(show) View.VISIBLE else View.GONE
+    }
 
     // TODO Old crap that might be reusable
 

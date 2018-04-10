@@ -53,7 +53,6 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
                         }
                     }
                 }
-
                 Timber.e("channel home content loading completed, loaded ${channelMap.size} controls")
             }
             else    // there are no pinned channels

@@ -648,9 +648,11 @@ class PresentationModule {
     @Provides
     fun provideHomeComponentPresenter(
             stateManager: AppStateManager,
-            getChannelHomeContentInteractor: GetChannelHomeContentInteractor
+            getChannelHomeContentInteractor: GetChannelHomeContentInteractor,
+            getMessagesInteractor: GetMessagesInteractor,
+            openMessageInteractor: OpenMessageInteractor
     ): HomeComponentContract.Presenter {
-        return HomeComponentPresenter(stateManager, getChannelHomeContentInteractor)
+        return HomeComponentPresenter(stateManager, getChannelHomeContentInteractor, getMessagesInteractor, openMessageInteractor)
     }
 
 

@@ -1,212 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:nstack="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:ignore="MissingPrefix">
+    android:layout_height="match_parent">
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/contentLl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingPrefix">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <!--Top half - Mails-->
             <LinearLayout
-                android:id="@+id/emailContainerLl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="visible">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/margin_normal"
-                    android:paddingRight="@dimen/margin_normal">
-
-                    <TextView
-                        style="@style/text.header2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        nstack:key="@string/nstack_home_messagesHeader"
-                        android:textStyle="normal" />
-
-                    <Button
-                        android:id="@+id/showBtn"
-                        style="@style/enabledButtton.DarkText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="28dp"
-                        android:layout_gravity="right|center_vertical"
-                        android:enabled="false"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"
-                        nstack:key="@string/nstack_home_messagesSectionHeaderShowAllButton"
-                        android:textSize="14dp"
-                        android:visibility="visible" />
-
-                </FrameLayout>
-
-                <LinearLayout
-                    android:id="@+id/mailListContentLL"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:animateLayoutChanges="true"
-                    android:orientation="vertical" />
-
-            </LinearLayout>
-
-            <!--Empty state - Mail-->
-            <LinearLayout
-                android:id="@+id/emptyStateLl"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingLeft="32dp"
-                android:paddingRight="32dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/emptyStateHeaderTv"
-                    style="@style/text.header2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:gravity="center"
-                    nstack:key = "@string/nstack_home_messagesUnverifiedTitle"
-                    android:textStyle="normal" />
-
-                <ImageView
-                    android:id="@+id/emptyStateImageIv"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/visual_mail" />
-
-                <TextView
-                    android:id="@+id/emptyStateTextTv"
-                    style="@style/text.header3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    nstack:key="@string/nstack_home_messagesUnverifiedMessage"
-                    android:textAlignment="center"
-                    android:textColor="@color/blueGrey"
-                    android:textStyle="normal" />
-
-                <Button
-                    android:id="@+id/emptyStateBtn"
-                    style="@style/button.SolidGradient"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    nstack:key="@string/nstack_home_messagesUnverifiedButton"
-                    android:textAppearance="@style/text.buttonSmall" />
-
-            </LinearLayout>
-
-            <!--Bottom half - Channels-->
-
-            <include layout="@layout/include_divider" android:visibility="visible"/>
-            <LinearLayout
-                android:id="@+id/channelsContainerLl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <FrameLayout
-                    android:id="@+id/channelsHeaderFL"
+                <!--Top half - Mails-->
+                <LinearLayout
+                    android:id="@+id/emailContainerLl"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="@color/backgroundColor"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/margin_normal"
-                    android:paddingRight="@dimen/margin_normal">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/margin_normal"
+                        android:paddingRight="@dimen/margin_normal">
+
+                        <TextView
+                            style="@style/text.header2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            nstack:key="@string/nstack_home_messagesHeader"
+                            android:textStyle="normal" />
+
+                        <Button
+                            android:id="@+id/showBtn"
+                            style="@style/enabledButtton.DarkText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:layout_gravity="right|center_vertical"
+                            android:enabled="false"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="12dp"
+                            nstack:key="@string/nstack_home_messagesSectionHeaderShowAllButton"
+                            android:textSize="14dp"
+                            android:visibility="visible" />
+
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:id="@+id/mailListContentLL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical" />
+
+                </LinearLayout>
+
+                <!--Empty state - Mail-->
+                <LinearLayout
+                    android:id="@+id/emptyStateLl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingLeft="32dp"
+                    android:paddingRight="32dp"
+                    android:visibility="gone">
 
                     <TextView
+                        android:id="@+id/emptyStateHeaderTv"
                         style="@style/text.header2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
                         android:gravity="center"
-                        nstack:key="@string/nstack_home_channelsHeader"
+                        nstack:key = "@string/nstack_home_messagesUnverifiedTitle"
+                        android:textStyle="normal" />
+
+                    <ImageView
+                        android:id="@+id/emptyStateImageIv"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/visual_mail" />
+
+                    <TextView
+                        android:id="@+id/emptyStateTextTv"
+                        style="@style/text.header3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        nstack:key="@string/nstack_home_messagesUnverifiedMessage"
+                        android:textAlignment="center"
+                        android:textColor="@color/blueGrey"
                         android:textStyle="normal" />
 
                     <Button
-                        android:id="@+id/editChannelsBtn"
-                        style="@style/buttonRoundedCorners"
+                        android:id="@+id/emptyStateBtn"
+                        style="@style/button.SolidGradient"
                         android:layout_width="wrap_content"
-                        android:layout_height="28dp"
-                        android:layout_gravity="right|center_vertical"
-                        nstack:key ="@string/nstack_home_channelsHeaderButton"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14dp"
-                        android:visibility="visible" />
+                        android:layout_height="36dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="24dp"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        nstack:key="@string/nstack_home_messagesUnverifiedButton"
+                        android:textAppearance="@style/text.buttonSmall" />
 
-                </FrameLayout>
+                </LinearLayout>
 
+                <!--Bottom half - Channels-->
+
+                <include layout="@layout/include_divider" android:visibility="visible"/>
                 <LinearLayout
-                    android:id="@+id/channelsContentLL"
+                    android:id="@+id/channelsContainerLl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:animateLayoutChanges="true"
-                    android:orientation="vertical" />
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:id="@+id/channelsHeaderFL"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="@color/backgroundColor"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/margin_normal"
+                        android:paddingRight="@dimen/margin_normal">
+
+                        <TextView
+                            style="@style/text.header2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            nstack:key="@string/nstack_home_channelsHeader"
+                            android:textStyle="normal" />
+
+                        <Button
+                            android:id="@+id/editChannelsBtn"
+                            style="@style/buttonRoundedCorners"
+                            android:layout_width="wrap_content"
+                            android:layout_height="28dp"
+                            android:layout_gravity="right|center_vertical"
+                            nstack:key ="@string/nstack_home_channelsHeaderButton"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="14dp"
+                            android:visibility="visible" />
+
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:id="@+id/channelsContentLL"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:animateLayoutChanges="true"
+                        android:orientation="vertical" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/bottomChannelHeaderTv"
+                    style="@style/text.header2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+
+                    android:gravity="center"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/bottomChannelTextTv"
+                    style="@style/text.header3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginTop="@dimen/default_padding_top"
+                    android:gravity="center"
+                    android:textColor="@color/blueGrey"
+                    android:textStyle="normal" />
+
+                <Button
+                    android:id="@+id/bottomChannelBtn"
+                    style="@style/enabledButtton.DarkText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="12dp"
+                    android:enabled="false"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    nstack:key="@string/nstack_home_bottomChannelBtn"
+                    android:textSize="14dp" />
+
 
             </LinearLayout>
-
-            <View
-                android:layout_marginTop="24dp"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <TextView
-                android:id="@+id/bottomChannelHeaderTv"
-                style="@style/text.header2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-
-                android:gravity="center"
-                android:textStyle="normal" />
-
-            <TextView
-                android:id="@+id/bottomChannelTextTv"
-                style="@style/text.header3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:layout_marginTop="@dimen/default_padding_top"
-                android:gravity="center"
-                android:textColor="@color/blueGrey"
-                android:textStyle="normal" />
-
-            <Button
-                android:id="@+id/bottomChannelBtn"
-                style="@style/enabledButtton.DarkText"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="12dp"
-                android:enabled="false"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                nstack:key="@string/nstack_home_bottomChannelBtn"
-                android:textSize="14dp" />
-
-
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:id="@+id/progressFl">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+</FrameLayout>
