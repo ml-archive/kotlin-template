@@ -96,6 +96,7 @@
   <string name='nstack_logoncredentials_ssnHeader' formatted='false'>logoncredentials_ssnHeader</string>
   <string name='nstack_logoncredentials_invalidSSN' formatted='false'>logoncredentials_invalidSSN</string>
   <string name='nstack_logoncredentials_logonWithProvider' formatted='false'>logoncredentials_logonWithProvider</string>
+  <string name='nstack_logoncredentials_invalidVerification' formatted='false'>logoncredentials_invalidVerification</string>
   <string name='nstack_forgotpassword_title' formatted='false'>forgotpassword_title</string>
   <string name='nstack_forgotpassword_subtitle' formatted='false'>forgotpassword_subtitle</string>
   <string name='nstack_forgotpassword_emailHeader' formatted='false'>forgotpassword_emailHeader</string>
@@ -215,10 +216,6 @@
   <string name='nstack_iosbiometrics_nextTimeFaceIdMessage' formatted='false'>iosbiometrics_nextTimeFaceIdMessage</string>
   <string name='nstack_iosbiometrics_nextTimeEnableButton' formatted='false'>iosbiometrics_nextTimeEnableButton</string>
   <string name='nstack_iosbiometrics_nextTimeDontUseButton' formatted='false'>iosbiometrics_nextTimeDontUseButton</string>
-  <string name='nstack_iosbiometrics_enableMobileAccessTouchID' formatted='false'>iosbiometrics_enableMobileAccessTouchID</string>
-  <string name='nstack_iosbiometrics_enableMobileAccessFaceID' formatted='false'>iosbiometrics_enableMobileAccessFaceID</string>
-  <string name='nstack_iosbiometrics_enableMobileAccessMessageTouchID' formatted='false'>iosbiometrics_enableMobileAccessMessageTouchID</string>
-  <string name='nstack_iosbiometrics_enableMobileAccessMessageFaceID' formatted='false'>iosbiometrics_enableMobileAccessMessageFaceID</string>
   <string name='nstack_logonmethods_mobileAccess' formatted='false'>logonmethods_mobileAccess</string>
   <string name='nstack_logonmethods_ssn' formatted='false'>logonmethods_ssn</string>
   <string name='nstack_logonmethods_nemId' formatted='false'>logonmethods_nemId</string>
@@ -280,6 +277,13 @@
   <string name='nstack_profile_verifyMobileContinueBtn' formatted='false'>profile_verifyMobileContinueBtn</string>
   <string name='nstack_profile_verifyMobilCancel' formatted='false'>profile_verifyMobilCancel</string>
   <string name='nstack_profile_verifyMobilHintText' formatted='false'>profile_verifyMobilHintText</string>
+  <string name='nstack_profile_enableMobileAccessTitle' formatted='false'>profile_enableMobileAccessTitle</string>
+  <string name='nstack_profile_enableMobileAccessMessage' formatted='false'>profile_enableMobileAccessMessage</string>
+  <string name='nstack_profile_enableBiometricsTitle' formatted='false'>profile_enableBiometricsTitle</string>
+  <string name='nstack_profile_enableBiometricsMessage' formatted='false'>profile_enableBiometricsMessage</string>
+  <string name='nstack_profile_ssn' formatted='false'>profile_ssn</string>
+  <string name='nstack_profile_password' formatted='false'>profile_password</string>
+  <string name='nstack_profile_typeHere' formatted='false'>profile_typeHere</string>
   <string name='nstack_myInformation_title' formatted='false'>myInformation_title</string>
   <string name='nstack_myInformation_name' formatted='false'>myInformation_name</string>
   <string name='nstack_myInformation_primaryEmail' formatted='false'>myInformation_primaryEmail</string>
@@ -320,4 +324,9 @@
   <string name='nstack_channelsettings_confirmDeleteMessageReplaceChannelName' formatted='false'>channelsettings_confirmDeleteMessageReplaceChannelName</string>
   <string name='nstack_channelsettings_confirmRemoveButton' formatted='false'>channelsettings_confirmRemoveButton</string>
   <string name='nstack_storeboxlist_title' formatted='false'>storeboxlist_title</string>
+  <string name='nstack_storeboxreceipt_orderNo' formatted='false'>storeboxreceipt_orderNo</string>
+  <string name='nstack_storeboxreceipt_receipt' formatted='false'>storeboxreceipt_receipt</string>
+  <string name='nstack_storeboxreceipt_deliveredByStorebox' formatted='false'>storeboxreceipt_deliveredByStorebox</string>
+  <string name='nstack_storeboxreceipt_total' formatted='false'>storeboxreceipt_total</string>
+  <string name='nstack_storeboxreceipt_vatAmount' formatted='false'>storeboxreceipt_vatAmount</string>
 </resources>

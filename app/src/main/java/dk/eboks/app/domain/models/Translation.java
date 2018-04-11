@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Tue Apr 10 13:14:45 CEST 2018 
+ * Generated: Wed Apr 11 11:15:08 CEST 2018 
  */
 
 public class Translation {
@@ -123,6 +123,7 @@ public class Translation {
 		public static String ssnHeader = "Social security number";
 		public static String invalidSSN = "Invalid social security number";
 		public static String logonWithProvider = "Logon with [provider]";
+		public static String invalidVerification = "Invalid verification code";
 	}
 	public final static class forgotpassword {
 		public static String title = "Forgot your password?";
@@ -256,10 +257,6 @@ public class Translation {
 		public static String nextTimeFaceIdMessage = "Sign in just by looking by enabling FaceID in the e-Boks app";
 		public static String nextTimeEnableButton = "Enable [idtype]";
 		public static String nextTimeDontUseButton = "I don\'t want to use [idtype]";
-		public static String enableMobileAccessTouchID = "Enable Mobile access to use TouchID";
-		public static String enableMobileAccessFaceID = "Enable Mobile access to  use FaceID";
-		public static String enableMobileAccessMessageTouchID = "You need to enable mobile access on the  e-boks website to use Touch ID on your device.";
-		public static String enableMobileAccessMessageFaceID = "You need to enable mobile access on the e-boks website to use Face ID on your device.";
 	}
 	public final static class logonmethods {
 		public static String mobileAccess = "Mobile access";
@@ -331,6 +328,13 @@ public class Translation {
 		public static String verifyMobileContinueBtn = "Continue";
 		public static String verifyMobilCancel = "Cancel";
 		public static String verifyMobilHintText = "Verification code";
+		public static String enableMobileAccessTitle = "Enable Mobile access to use [idtype]";
+		public static String enableMobileAccessMessage = "You need to enable mobile access on the  e-boks website to use [idtype] on your device.";
+		public static String enableBiometricsTitle = "Enable [idtype]";
+		public static String enableBiometricsMessage = "Type your password to enable [idtype]";
+		public static String ssn = "Social Security Number";
+		public static String password = "Password";
+		public static String typeHere = "Type here";
 	}
 	public final static class myInformation {
 		public static String title = "My Information";
@@ -381,5 +385,12 @@ public class Translation {
 	}
 	public final static class storeboxlist {
 		public static String title = "Storebox";
+	}
+	public final static class storeboxreceipt {
+		public static String orderNo = "Order number";
+		public static String receipt = "Receipt";
+		public static String deliveredByStorebox = "Delivered by Storebox";
+		public static String total = "Total";
+		public static String vatAmount = "VAT amount";
 	}
 }

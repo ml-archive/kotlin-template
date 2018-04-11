@@ -12,6 +12,7 @@ import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.BaseSheetActivity
+import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity
 import kotlinx.android.synthetic.main.fragment_header_component.*
 import javax.inject.Inject
 
@@ -20,7 +21,7 @@ import javax.inject.Inject
  */
 class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
     @Inject
-    lateinit var presenter : HeaderComponentContract.Presenter
+    lateinit var presenter: HeaderComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_header_component, container, false)
@@ -31,8 +32,8 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        arguments?.let { args->
-            if(args.getBoolean("show_divider", false))
+        arguments?.let { args ->
+            if (args.getBoolean("show_divider", false))
                 dividerV.visibility = View.VISIBLE
         }
     }
@@ -40,8 +41,7 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
     override fun updateView(message: Message) {
         setDrawerHeader(message)
 
-        when(message.type)
-        {
+        when (message.type) {
             MessageType.RECEIVED -> {
                 senderTv.text = message.sender?.name ?: ""
                 titleTv.text = message.subject
@@ -55,7 +55,8 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
                 senderLogoIv.visibility = View.GONE
             }
             MessageType.SENT -> {
-                senderTv.text = "${Translation.message.recipientPrefixTo} ${message.sender?.name ?: ""}"
+                senderTv.text = "${Translation.message.recipientPrefixTo} ${message.sender?.name
+                        ?: ""}"
                 titleTv.text = message.subject
                 senderLogoIv.visibility = View.GONE
             }
@@ -66,8 +67,7 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
                     Glide.with(context).load(it).into(senderLogoIv)
                 }
             }
-            else ->
-            {
+            else -> {
                 senderTv.text = message.sender?.name ?: ""
                 titleTv.text = message.subject
                 message.sender?.logo.let {
@@ -78,23 +78,30 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
     }
 
     private fun setDrawerHeader(message: Message) {
-        if (message.numberOfAttachments > 0) {
-            attachmentsTv.text = "" + message.numberOfAttachments + " _Attachments"
-            attachmentsTv.visibility = View.VISIBLE
-            attachmentsIv.visibility = View.VISIBLE
-            dotIv.visibility = View.VISIBLE
-        } else {
-            attachmentsTv.visibility = View.GONE
-            dotIv.visibility = View.GONE
-            attachmentsIv.visibility = View.GONE
-        }
 
-        if (message.note.isNullOrBlank()) {
-            dotIv.visibility = View.GONE
-            notesTv.visibility = View.GONE
+        if (activity is MessageEmbeddedActivity) {
+            // only showing the ekstra row if its a MessageEmbeddedActivitiy
+            ekstraInfoContainerLl.visibility = View.VISIBLE
+            if (message.numberOfAttachments > 0) {
+                attachmentsTv.text = "" + message.numberOfAttachments + " _Attachments"
+                attachmentsTv.visibility = View.VISIBLE
+                attachmentsIv.visibility = View.VISIBLE
+                dotIv.visibility = View.VISIBLE
+            } else {
+                attachmentsTv.visibility = View.GONE
+                dotIv.visibility = View.GONE
+                attachmentsIv.visibility = View.GONE
+            }
+
+            if (message.note.isNullOrBlank()) {
+                dotIv.visibility = View.GONE
+                notesTv.visibility = View.GONE
+            } else {
+                notesTv.visibility = View.VISIBLE
+                notesTv.text = "_note test"
+            }
         } else {
-            notesTv.visibility = View.VISIBLE
-            notesTv.text = "_note test"
+            ekstraInfoContainerLl.visibility = View.GONE
         }
     }
 }

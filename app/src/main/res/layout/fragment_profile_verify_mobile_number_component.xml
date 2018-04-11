@@ -56,7 +56,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/signupBtn"
+        android:id="@+id/resendBtn"
         style="@style/buttonRoundedCorners.darkBlueGrey"
         android:backgroundTint="#0D223944"
         android:layout_width="match_parent"
@@ -68,7 +68,7 @@
         nstack:key="@string/nstack_profile_verifyMobilResend"/>
 
     <Button
-        android:id="@+id/logonBtn"
+        android:id="@+id/verifyBtn"
         style="@style/button.SolidGradient"
         android:layout_width="match_parent"
         android:layout_height="52dp"

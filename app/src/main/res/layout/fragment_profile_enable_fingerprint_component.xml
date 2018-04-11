@@ -51,7 +51,7 @@
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="text"
+            android:inputType="number"
             nstack:hint="@string/nstack_logoncredentials_ssnHeader"/>
 
     </android.support.design.widget.TextInputLayout>
@@ -76,7 +76,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
-        android:id="@+id/resetPasswordBtn"
+        android:id="@+id/enableBtn"
         style="@style/enabledButtton"
         android:textColor="@drawable/enabled_button"
         android:layout_width="match_parent"
