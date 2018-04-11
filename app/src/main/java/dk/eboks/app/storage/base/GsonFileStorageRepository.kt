@@ -2,6 +2,7 @@ package dk.eboks.app.storage.base
 
 import android.content.Context
 import com.google.gson.Gson
+import dk.eboks.app.BuildConfig
 import timber.log.Timber
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -49,7 +50,9 @@ abstract class GsonFileStorageRepository<T>(val context: Context, val gson: Gson
         }
         catch (e : Exception)
         {
-            Timber.e("Catching file not found ($filename)")
+            //if(BuildConfig.DEBUG)
+            //    e.printStackTrace()
+            Timber.e("Caching file not found ($filename)")
             throw(RuntimeException("File $filename could not be read from internal storage"))
         }
     }

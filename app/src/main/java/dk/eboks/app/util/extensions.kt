@@ -19,6 +19,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 import java.io.IOException
+import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -130,6 +131,7 @@ fun FastScrollRecyclerView.setBubbleDrawable(drawable: Drawable) {
 fun BaseInteractor.exceptionToViewError(t : Throwable, shouldClose : Boolean = false, shouldDisplay : Boolean = true) : ViewError
 {
     when(t) {
+        is ConnectException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage, shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
         is UnknownHostException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage, shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
         is IOException -> return ViewError(title = Translation.error.genericStorageTitle, message = Translation.error.genericStorageMessage, shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
         is SocketTimeoutException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage, shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)

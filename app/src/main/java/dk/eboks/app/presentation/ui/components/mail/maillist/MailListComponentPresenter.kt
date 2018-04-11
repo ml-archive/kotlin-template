@@ -24,12 +24,14 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
     init {
         openMessageInteractor.output = this
         getMessagesInteractor.output = this
+    }
+
+    override fun setup() {
         folder?.let {
             getMessagesInteractor.input = GetMessagesInteractor.Input(true, it)
             getMessagesInteractor.run()
             runAction { v-> v.showProgress(true) }
         }.guard {  runAction { v-> v.showEmpty(true) } }
-
     }
 
     override fun refresh() {

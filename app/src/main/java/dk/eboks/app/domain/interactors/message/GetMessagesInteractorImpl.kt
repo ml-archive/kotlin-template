@@ -1,7 +1,9 @@
 package dk.eboks.app.domain.interactors.message
 
+import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.network.util.metaData
 import dk.eboks.app.util.exceptionToViewError
@@ -20,35 +22,44 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
     override fun execute() {
         try {
             input?.folder?.let { folder->
-                val messages = if(folder.type == FolderType.FOLDER) messagesRepository.getMessages(input?.cached ?: true, folder.id)
-                    else messagesRepository.getMessages(input?.cached ?: true, folder.type)
-
-                messages.metaData?.let { metadata -> Timber.e("Found metadata on messagelist: $metadata") }
-
-                /* Simulated error
-                throw(ServerErrorException(ServerError(
-                        id = "",
-                        type = ErrorType.ERROR,
-                        description = Description(
-                                title = "Hej Per",
-                                text = "Har du savnet mig?"
-                        )
-                )))
-                */
-
+                val wasCached = messagesRepository.hasCachedMessageFolder(folder)
+                val messages = getMessages(input?.cached ?: true, folder)
                 runOnUIThread {
                     output?.onGetMessages(messages)
                 }
-            }.guard {
-                        runOnUIThread {
-                            output?.onGetMessagesError(ViewError())
-                        }
+
+                if(wasCached)
+                    Timber.e("Emitting cached messages")
+                else {
+                    Timber.e("Emitting fresh messages")
+                    return
+                }
+
+                if(wasCached)
+                {
+                    val fresh_msgs = getMessages(false, folder)
+                    runOnUIThread {
+                        Timber.e("Emitting refreshed messages")
+                        output?.onGetMessages(fresh_msgs)
                     }
+                }
+            }.guard {
+                runOnUIThread {
+                    output?.onGetMessagesError(ViewError())
+                }
+            }
 
         } catch (t: Throwable) {
             runOnUIThread {
+                t.printStackTrace()
                 output?.onGetMessagesError(exceptionToViewError(t, shouldClose = true))
             }
         }
+    }
+
+    private fun getMessages(cached : Boolean, folder: Folder) : List<Message>
+    {
+        return if(folder.type == FolderType.FOLDER) messagesRepository.getMessages(cached, folder.id)
+        else messagesRepository.getMessages(cached, folder.type)
     }
 }

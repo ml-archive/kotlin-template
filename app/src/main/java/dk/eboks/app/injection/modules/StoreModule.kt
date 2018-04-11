@@ -18,6 +18,8 @@ import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.network.Api
+import dk.eboks.app.storage.base.CacheStore
+import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.injection.scopes.AppScope
 import okio.BufferedSource
 
@@ -33,16 +35,54 @@ typealias MailCategoryStore = Store<List<Folder>, Long>
 typealias FolderStore = Store<List<Folder>, Int>
 
 data class ListMessageStoreKey(var folderId : Long)
-typealias ListMessageStore = Store<List<Message>, ListMessageStoreKey>
-typealias FolderTypeMessageStore = Store<List<Message>, FolderType>
+//typealias ListMessageStore = Store<List<Message>, ListMessageStoreKey>
+//typealias FolderTypeMessageStore = Store<List<Message>, FolderType>
 
 data class MessageStoreKey(var folderId : Long, var id : String)
-typealias MessageStore = Store<Message, MessageStoreKey>
-
+//typealias MessageStore = Store<Message, MessageStoreKey>
 typealias ListChannelStore = Store<List<Channel>, Long>
+
+
+// new ones
+typealias FolderIdMessageStore = CacheStore<Long, List<Message>>
+typealias FolderTypeMessageStore = CacheStore<String, List<Message>>
 
 @Module
 class StoreModule {
+
+    @Provides
+    @AppScope
+    fun provideFolderIdMessageStore(api: Api, gson : Gson, context : Context) : FolderIdMessageStore
+    {
+        return FolderIdMessageStore(context, gson, "folder_id_message_store.json", { key ->
+            val response = api.getMessages(key).execute()
+            var result : List<Message>? = null
+            response?.let {
+                if(it.isSuccessful)
+                    result = it.body()
+            }
+            result
+        })
+    }
+
+    @Provides
+    @AppScope
+    fun provideFolderTypeMessageStore(api: Api, gson : Gson, context : Context) : FolderTypeMessageStore
+    {
+        return FolderTypeMessageStore(context, gson, "folder_type_message_store.json", { key ->
+            val response = api.getMessagesByType(key).execute()
+            var result : List<Message>? = null
+            response?.let {
+                if(it.isSuccessful)
+                    result = it.body()
+            }
+            result
+        })
+    }
+
+
+
+    // old ones ------------------------------------------------------------------------------------------
 
     @Provides
     @AppScope
@@ -86,18 +126,8 @@ class StoreModule {
                 .open()
     }
 
-    @Provides
-    @AppScope
-    fun provideListMessageStore(api: Api, gson : Gson, context : Context) : ListMessageStore
-    {
-        return StoreBuilder.parsedWithKey<ListMessageStoreKey, BufferedSource, List<Message>>()
-                .fetcher { key -> api.getMessages(key.folderId) }
-                .persister(FileSystemPersister.create(FileSystemFactory.create(context.cacheDir), { key -> "MessageList$key"}))
-                .parser(GsonParserFactory.createSourceParser<List<Message>>(gson, object : TypeToken<List<Message>>() {}.type))
-                .open()
-    }
 
-
+    /*
     @Provides
     @AppScope
     fun provideFolderTypeMessageStore(api: Api, gson : Gson, context : Context) : FolderTypeMessageStore
@@ -108,6 +138,7 @@ class StoreModule {
                 .parser(GsonParserFactory.createSourceParser<List<Message>>(gson, object : TypeToken<List<Message>>() {}.type))
                 .open()
     }
+    */
 
     @Provides
     @AppScope

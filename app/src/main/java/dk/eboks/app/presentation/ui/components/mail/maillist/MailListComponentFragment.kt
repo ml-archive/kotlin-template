@@ -50,6 +50,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         refreshSrl.setOnRefreshListener {
             presenter.refresh()
         }
+        presenter.setup()
     }
 
     override fun onShake() {

@@ -26,11 +26,10 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideMessagesRepository(api: Api, gson: Gson, listMessageStore: ListMessageStore, folderTypeMessageStore: FolderTypeMessageStore) : MessagesRepository
+    fun provideMessagesRepository(api: Api, gson: Gson, folderIdMessageStore: FolderIdMessageStore, folderTypeMessageStore: FolderTypeMessageStore) : MessagesRepository
     {
-        return MessagesRestRepository(api, gson, listMessageStore, folderTypeMessageStore)
+        return MessagesRestRepository(api, gson, folderIdMessageStore, folderTypeMessageStore)
     }
-
 
     @Provides
     @AppScope
