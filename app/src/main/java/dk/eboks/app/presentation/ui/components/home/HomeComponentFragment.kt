@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.home
 
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
@@ -143,7 +144,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 subtitle.text = currentItem.description
                 date.text = formatter.formatDateRelative(currentItem)
                 image?.let {
-                    if (currentItem.Image != null)
+                    if (currentItem.image != null)
                         Glide.with(context).load(R.drawable.ic_menu_uploads).into(it)
                 }
 
@@ -180,8 +181,8 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 date.text = formatter.formatDateRelative(currentItem)
                 image.isSelected = true
                 image?.let {
-                    if (currentItem.Image != null)
-                        Glide.with(context).load(currentItem.Image?.url).into(it)
+                    if (currentItem.image != null)
+                        Glide.with(context).load(currentItem.image?.url).into(it)
                 }
 
                 rowsContainerLl.addView(v)
@@ -236,8 +237,8 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
 
         title.text = currentItem?.title
         image?.let {
-            currentItem?.Image?.let { im ->
-                Glide.with(context).load(im).into(it)
+            currentItem?.image?.let {
+                Glide.with(context).load(currentItem.image?.url).into(image)
             }
         }
 
@@ -256,8 +257,8 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 title.text = currentItem.title
                 date.text = formatter.formatDateRelative(currentItem)
                 image?.let {
-                    if (currentItem.Image != null)
-                        Glide.with(context).load(currentItem.Image?.url).into(it)
+                    if (currentItem.image != null)
+                        Glide.with(context).load(currentItem.image?.url).into(it)
                 }
 
                 rowsContainerLl.addView(v)

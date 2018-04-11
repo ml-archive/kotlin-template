@@ -43,6 +43,8 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
                                 val content = entry.value.getCompleted()
                                 Timber.e("Got HomeContent $content")
                                 runOnUIThread {
+                                    var channel = pinnedChannels[entry.key]
+                                    println(channel.toString())
                                     output?.onGetChannelHomeContent(entry.key, content)
                                 }
                             }

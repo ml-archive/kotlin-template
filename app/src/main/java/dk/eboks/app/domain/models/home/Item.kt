@@ -17,5 +17,5 @@ data class Item(
         var amount : Currency?,
         var status : Status?,
         var tag : String?,
-        var Image : Image?
+        var image : Image?
 ) : Serializable
