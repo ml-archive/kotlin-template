@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.uploads.myuploads
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -19,6 +20,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentContract
 import kotlinx.android.synthetic.main.fragment_upload_myuploadoverview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import kotlinx.coroutines.experimental.delay
 import java.util.*
 import javax.inject.Inject
 
@@ -32,6 +34,7 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
     var numberOfMocks = 10
     var uploads: MutableList<Message> = ArrayList()
     var modeEdit: Boolean = false
+    var handler = Handler()
 
     @Inject
     lateinit var mailPresenter: MailListComponentContract.Presenter
@@ -58,9 +61,36 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
     }
 
     private fun setupFab() {
-        fab.setOnClickListener {
-            var temp = "iwas clicked"
-            println(temp)
+        mainFab.setOnClickListener {
+            if(fabContainerRl.visibility == View.GONE) {
+                fabContainerRl.visibility = View.VISIBLE
+                openInFab.show()
+                handler?.postDelayed({
+                    mailFab.show()
+                }, 50)
+                handler?.postDelayed({
+                    printFab.show()
+                }, 100)
+                handler?.postDelayed({
+                    deleteFab.show()
+                }, 150)
+                handler?.postDelayed({
+                    moveFab.show()
+                }, 200)
+            } else {
+                openInFab.hide()
+                mailFab.hide()
+                printFab.hide()
+                deleteFab.hide()
+                moveFab.hide()
+                handler?.postDelayed({
+                    fabContainerRl.visibility = View.GONE
+                }, 300)
+
+            }
+
+
+
         }
     }
 
@@ -105,9 +135,9 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
 
     private fun checkFabState() {
         if (checkedList.size > 0) {
-            fab.show()
+            mainFab.show()
         } else {
-            fab.hide()
+            mainFab.hide()
         }
     }
 
