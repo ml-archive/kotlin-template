@@ -111,6 +111,8 @@ import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContr
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentPresenter
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentContract
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentPresenter
+import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentContract
+import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContract
@@ -149,6 +151,8 @@ import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailContrac
 import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailPresenter
 import dk.eboks.app.presentation.ui.screens.start.StartContract
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
+import dk.eboks.app.presentation.ui.screens.uploads.UploadsContract
+import dk.eboks.app.presentation.ui.screens.uploads.UploadsPresenter
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
@@ -722,6 +726,25 @@ class PresentationModule {
     fun provideMergeAccountComponentPresenter(stateManager: AppStateManager): MergeAccountComponentContract.Presenter {
         return MergeAccountComponentPresenter(stateManager)
     }
+
+    @ActivityScope
+    @Provides
+    fun provideUploadsPresenter(stateManager: AppStateManager) : UploadsContract.Presenter {
+        return UploadsPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideMyUploadsComponentPresenter(stateManager: AppStateManager, getMessagesInteractor: GetMessagesInteractor, openMessageInteractor: OpenMessageInteractor) : MyUploadsComponentContract.Presenter {
+        return MyUploadsComponentPresenter(stateManager, getMessagesInteractor, openMessageInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideForgotPasswordDoneComponentPresenter(stateManager: AppStateManager) : ForgotPasswordDoneComponentContract.Presenter {
+        return ForgotPasswordDoneComponentPresenter(stateManager)
+    }
+
 
     /* Pasta
     @ActivityScope
