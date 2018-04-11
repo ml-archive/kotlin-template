@@ -14,12 +14,14 @@ interface HomeComponentContract {
         var verifiedUser : Boolean
 
         fun setupChannels(channels : List<Channel>)
-        fun setupChannelControl(channelId : Int, control : Control)
+        fun setupChannelControl(channel : Channel, control : Control)
         fun showHighlights(messages : List<Message>)
         fun showProgress(show : Boolean)
+        fun showRefreshProgress(show : Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
+        fun refresh()
         fun setup()
         fun openMessage(message: Message)
     }

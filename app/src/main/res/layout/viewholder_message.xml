@@ -81,7 +81,7 @@
             
             <ImageView
                 android:id="@+id/clipIv"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="end|center"

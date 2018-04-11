@@ -9,6 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Image
@@ -24,6 +27,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.views
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_home_overview_mail_component.*
+import kotlinx.android.synthetic.main.viewholder_home_card_header.view.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -39,7 +43,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     lateinit var formatter: EboksFormatter
 
     //mock data
-    //var emailCount = 0
+    var emailCount = 0
     //var channelCount = 2
     override var verifiedUser: Boolean = false
     //var messages: MutableList<dk.eboks.app.domain.models.message.Message> = ArrayList()
@@ -56,14 +60,29 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         NStack.translate()
+        refreshSrl.setOnRefreshListener {
+            var stilLoading = false
+            for (v in channelsContentLL.views) {
+                if (v.progressPb.visibility == View.VISIBLE) {
+                    stilLoading = true
+                }
+            }
+            if (!stilLoading) {
+                mailListContentLL.removeAllViews()
+                channelsContentLL.removeAllViews()
+                presenter.refresh()
+            }
+        }
 
-
-        // setup mocks
         presenter.setup()
     }
 
+    override fun showRefreshProgress(show: Boolean) {
+        refreshSrl.isRefreshing = show
+    }
+
     override fun setupChannels(channels: List<Channel>) {
-        for (i in 0..channels.size-1) {
+        for (i in 0..channels.size - 1) {
             val currentChannel = channels[i]
 
             //setting the header
@@ -73,7 +92,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             //val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
 
             logoIv?.let {
-                currentChannel?.logo?.let { logo->
+                currentChannel?.logo?.let { logo ->
                     Glide.with(context).load(logo.url).into(it)
                 }
             }
@@ -82,14 +101,13 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             headerTv.text = "${currentChannel.name}"
             channelsContentLL.addView(v)
         }
+        setupBottomView(channels)
     }
 
-    override fun setupChannelControl(channelId : Int, control: Control) {
-        for(v in channelsContentLL.views)
-        {
-            if(v.tag == channelId)
-            {
-                Timber.e("Found control for channel id $channelId instantiating content")
+    override fun setupChannelControl(channel: Channel, control: Control) {
+        for (v in channelsContentLL.views) {
+            if (v.tag == channel.id) {
+                Timber.e("Found control for channel id ${channel.id} instantiating content")
                 val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
                 val logoIv = v.findViewById<ImageView>(R.id.logoIv)
                 val progressPb = v.findViewById<ProgressBar>(R.id.progressPb)
@@ -104,7 +122,8 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                     }
                     ItemType.IMAGES -> {
                         //contrained to only show 1 row
-                        addImageCard(control, rowsContainerLl)
+                        var backgroundColor = channel?.background?.rgba
+                        addImageCard(control, rowsContainerLl, backgroundColor)
 
                     }
                     ItemType.NOTIFICATIONS -> {
@@ -155,7 +174,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     }
 
     private fun addMessageCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
-        currentChannel.items?.let { items->
+        currentChannel.items?.let { items ->
             for (currentItem in items) {
                 val v = inflator.inflate(R.layout.viewholder_message, rowsContainerLl, false)
                 val title = v.findViewById<TextView>(R.id.titleTv)
@@ -224,7 +243,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         }
     }
 
-    private fun addImageCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
+    private fun addImageCard(currentChannel: Control, rowsContainerLl: ViewGroup, backgroundColor: String?) {
         val v = inflator.inflate(R.layout.viewholder_home_image_row, rowsContainerLl, false)
         val title = v.findViewById<TextView>(R.id.titleTv)
         val image = v.findViewById<ImageView>(R.id.backgroundIv)
@@ -232,9 +251,9 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
 
         val currentItem = currentChannel.items?.first()
         //todo this color should come from the channels object
-        var tintColor = "#bf112233"
-        background?.background?.setTint(Color.parseColor(tintColor))
-
+        backgroundColor.let {
+            background?.background?.setTint(Color.parseColor(it))
+        }
         title.text = currentItem?.title
         image?.let {
             currentItem?.image?.let {
@@ -257,8 +276,15 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 title.text = currentItem.title
                 date.text = formatter.formatDateRelative(currentItem)
                 image?.let {
-                    if (currentItem.image != null)
-                        Glide.with(context).load(currentItem.image?.url).into(it)
+                    if (currentItem.image != null) {
+                        var reqoptions = RequestOptions()
+                        reqoptions = reqoptions.transform(RoundedCorners(8))
+
+                        Glide.with(context)
+                                .load(currentItem.image?.url)
+                                .apply(reqoptions)
+                                .into(it)
+                    }
                 }
 
                 rowsContainerLl.addView(v)
@@ -297,7 +323,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                     soloName.visibility = View.VISIBLE
                     nameContainer.visibility = View.GONE
                 } else {
-                    name.text = row.id
+                    name.text = row.title
                     adress.text = row.description
                 }
 
@@ -309,6 +335,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
 
     override fun showHighlights(messages: List<Message>) {
         Timber.e("Got them highlights $messages")
+        emailCount = messages.size
         if (messages.size == 0) {
             emptyStateLl.visibility = View.VISIBLE
             emailContainerLl.visibility = View.GONE
@@ -317,9 +344,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             emptyStateBtn.text = Translation.home.messagesEmptyButton
             emptyStateHeaderTv.text = Translation.home.messagesEmptyTitle
             emptyStateTextTv.text = Translation.home.messagesEmptyMessage
-        }
-        else
-        {
+        } else {
             emptyStateLl.visibility = View.GONE
             emailContainerLl.visibility = View.VISIBLE
             mailListContentLL.removeAllViews()
@@ -330,7 +355,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 showCount = messages.size
             }
 
-            for (i in 0..showCount-1) {
+            for (i in 0..showCount - 1) {
                 val v = inflator.inflate(R.layout.viewholder_message, mailListContentLL, false)
                 var currentMessage = messages[i]
                 val circleIv = v.findViewById<ImageView>(R.id.circleIv)
@@ -355,7 +380,6 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 titleTv.text = currentMessage.sender?.name ?: ""
                 subTitleTv.text = currentMessage.subject
                 dateTv.text = formatter.formatDateRelative(currentMessage)
-                //rootLl.setBackgroundColor(resources.getColor(R.color.white))
                 if (i == showCount) {
                     dividerV.visibility = View.GONE
                 }
@@ -376,28 +400,11 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     }
 
     override fun showProgress(show: Boolean) {
-        contentLl.visibility = if(!show) View.VISIBLE else View.GONE
-        progressFl.visibility = if(show) View.VISIBLE else View.GONE
+        contentLl.visibility = if (!show) View.VISIBLE else View.GONE
+        progressFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    // TODO Old crap that might be reusable
-
-    /*
-    override fun setupViews() {
-        //  This is just a semi mock setup function to test ui
-        // create mocks
-
-        createMockChannels(channelCount)
-        createMockMails(emailCount)
-        if (verifiedUser) {
-            showMails()
-        } else {
-            showEmptyState()
-        }
-        setupBottomView()
-    }
-
-    private fun setupBottomView() {
+    private fun setupBottomView(channels: List<Channel>) {
         if (channels.size == 0) {
             channelsHeaderFL.visibility = View.GONE
             bottomChannelBtn.isEnabled = (emailCount > 0)
@@ -417,68 +424,19 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 bottomChannelTextTv.visibility = View.GONE
             }
 
-            for (i in 1..channels.size) {
-                val currentChannel = channels[i - 1]
-
-                //setting the header
-                val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContainerLl, false)
-                val logoIv = v.findViewById<ImageView>(R.id.logoIv)
-                val headerTv = v.findViewById<TextView>(R.id.headerTv)
-                val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
-
-                //todo set the logo - is this the correct image ? Most likely we need the logo from the initial api call
-                logoIv?.let { logo->
-                    currentChannel?.items?.let {
-                        if (it.isNotEmpty() && it.first()?.Image != null)
-                            Glide.with(context).load(it.first().Image?.url).into(logo)
-                    }
-
-                }
-                headerTv.text = currentChannel.id
-
-                //inflating the rows based on itemtype
-                when (currentChannel.type) {
-                    ItemType.RECEIPTS -> {
-                        addReceiptCard(currentChannel, rowsContainerLl)
-                    }
-                    ItemType.NEWS -> {
-                        addNewsCard(currentChannel, rowsContainerLl)
-                    }
-                    ItemType.IMAGES -> {
-                        //contrained to only show 1 row
-                        addImageCard(currentChannel, rowsContainerLl)
-
-                    }
-                    ItemType.NOTIFICATIONS -> {
-                        addNotificationCard(currentChannel, rowsContainerLl)
-
-                    }
-                    ItemType.MESSAGES -> {
-                        addMessageCard(currentChannel, rowsContainerLl)
-
-                    }
-                    ItemType.FILES -> {
-                        addFilesCard(currentChannel, rowsContainerLl)
-                    }
-                }
-
-                channelsContentLL.addView(v)
-                channelsContentLL.requestLayout()
-
-            }
         }
     }
-    */
 
-    /*
-    private fun showEmptyState() {
-        emptyStateLl.visibility = View.VISIBLE
-        emailContainerLl.visibility = View.GONE
-        if (channels.size > 0) {
-            emptyStateImageIv.visibility = View.GONE
-        }
-    }
-    */
+// TODO Old crap that might be reusable
+
+//    private fun showEmptyState() {
+//        emptyStateLl.visibility = View.VISIBLE
+//        emailContainerLl.visibility = View.GONE
+//        if (channels.size > 0) {
+//            emptyStateImageIv.visibility = View.GONE
+//        }
+//    }
+
 
     /*
     override fun onShake() {
@@ -526,69 +484,70 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
            dialog.show()
        }
     }
+    */
 
-    private fun showMails() {
-        if (emailCount == 0) {
-            emptyStateLl.visibility = View.VISIBLE
-            emailContainerLl.visibility = View.GONE
-            emptyStateBtn.isEnabled = verifiedUser
-            emptyStateImageIv.visibility = View.GONE
-            emptyStateBtn.text = Translation.home.messagesEmptyButton
-            emptyStateHeaderTv.text = Translation.home.messagesEmptyTitle
-            emptyStateTextTv.text = Translation.home.messagesEmptyMessage
-        } else {
-            emptyStateLl.visibility = View.GONE
-            emailContainerLl.visibility = View.VISIBLE
-            mailListContentLL.removeAllViews()
+//    private fun showMails() {
+//        if (emailCount == 0) {
+//            emptyStateLl.visibility = View.VISIBLE
+//            emailContainerLl.visibility = View.GONE
+//            emptyStateBtn.isEnabled = verifiedUser
+//            emptyStateImageIv.visibility = View.GONE
+//            emptyStateBtn.text = Translation.home.messagesEmptyButton
+//            emptyStateHeaderTv.text = Translation.home.messagesEmptyTitle
+//            emptyStateTextTv.text = Translation.home.messagesEmptyMessage
+//        } else {
+//            emptyStateLl.visibility = View.GONE
+//            emailContainerLl.visibility = View.VISIBLE
+//            mailListContentLL.removeAllViews()
+//
+//
+//            var showCount = 3 // Not allowed to show more than 3
+//            if (messages.size < showCount) {
+//                showCount = messages.size
+//            }
+//
+//            for (i in 1..showCount) {
+//                val v = inflator.inflate(R.layout.viewholder_message, mailListContentLL, false)
+//                var currentMessage = messages[i - 1]
+//                val circleIv = v.findViewById<ImageView>(R.id.circleIv)
+//                val titleTv = v.findViewById<TextView>(R.id.titleTv)
+//                val subTitleTv = v.findViewById<TextView>(R.id.subTitleTv)
+//                val urgentTv = v.findViewById<TextView>(R.id.urgentTv)
+//                val dateTv = v.findViewById<TextView>(R.id.dateTv)
+//                val dividerV = v.findViewById<View>(R.id.dividerV)
+//                val rootLl = v.findViewById<LinearLayout>(R.id.rootLl)
+//                //todo set the logo
+//                circleIv.let {
+//                    Glide.with(context).load("https://picsum.photos/200/?random").into(it)
+//                }
+//                if (currentMessage.unread) {
+//                    circleIv.isSelected = true
+//                }
+//
+//                if (currentMessage.status != null && currentMessage.status!!.important) {
+//                    urgentTv.visibility = View.VISIBLE
+//                    urgentTv.text = currentMessage.status?.text
+//                }
+//                titleTv.text = currentMessage.id
+//                subTitleTv.text = currentMessage.subject
+//                dateTv.text = formatter.formatDateRelative(currentMessage)
+//                rootLl.setBackgroundColor(resources.getColor(R.color.white))
+//                if (i == showCount) {
+//                    dividerV.visibility = View.GONE
+//                }
+//                mailListContentLL.addView(v)
+//                mailListContentLL.requestLayout()
 
-
-            var showCount = 3 // Not allowed to show more than 3
-            if (messages.size < showCount) {
-                showCount = messages.size
-            }
-
-            for (i in 1..showCount) {
-                val v = inflator.inflate(R.layout.viewholder_message, mailListContentLL, false)
-                var currentMessage = messages[i - 1]
-                val circleIv = v.findViewById<ImageView>(R.id.circleIv)
-                val titleTv = v.findViewById<TextView>(R.id.titleTv)
-                val subTitleTv = v.findViewById<TextView>(R.id.subTitleTv)
-                val urgentTv = v.findViewById<TextView>(R.id.urgentTv)
-                val dateTv = v.findViewById<TextView>(R.id.dateTv)
-                val dividerV = v.findViewById<View>(R.id.dividerV)
-                val rootLl = v.findViewById<LinearLayout>(R.id.rootLl)
-                //todo set the logo
-                circleIv.let {
-                    Glide.with(context).load("https://picsum.photos/200/?random").into(it)
-                }
-                if (currentMessage.unread) {
-                    circleIv.isSelected = true
-                }
-
-                if (currentMessage.status != null && currentMessage.status!!.important) {
-                    urgentTv.visibility = View.VISIBLE
-                    urgentTv.text = currentMessage.status?.text
-                }
-                titleTv.text = currentMessage.id
-                subTitleTv.text = currentMessage.subject
-                dateTv.text = formatter.formatDateRelative(currentMessage)
-                rootLl.setBackgroundColor(resources.getColor(R.color.white))
-                if (i == showCount) {
-                    dividerV.visibility = View.GONE
-                }
-                mailListContentLL.addView(v)
-                mailListContentLL.requestLayout()
-
-                // for this sprint it should not show the 3+ mail button, it should always show all
+    // for this sprint it should not show the 3+ mail button, it should always show all
 //                if (messages.size > 3) {
 //                    showBtn.isEnabled = true
 //                    showBtn.text = Translation.home.messagesSectionHeaderButtonNewMessagesSuffix.replace("[value]", messages.size.toString())
 //                }
 
-            }
-        }
-    }
-    */
+//            }
+//        }
+//    }
+
 
     /*
     fun createMockMails(emailCount: Int) {

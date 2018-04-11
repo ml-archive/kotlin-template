@@ -2,7 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/sheetComponentsLl"
-    android:background="@color/backgroundColorSheet"
+    android:background="@color/backgroundColor"
     android:orientation="vertical"
     android:minHeight="116dp"
     android:layout_width="match_parent"

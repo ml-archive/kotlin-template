@@ -18,13 +18,12 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class HomeComponentPresenter @Inject constructor(val appState: AppStateManager, val getChannelHomeContentInteractor: GetChannelHomeContentInteractor,
-                                                 val getMessagesInteractor : GetMessagesInteractor, val openMessageInteractor: OpenMessageInteractor) :
+                                                 val getMessagesInteractor: GetMessagesInteractor, val openMessageInteractor: OpenMessageInteractor) :
         HomeComponentContract.Presenter,
         BasePresenterImpl<HomeComponentContract.View>(),
         GetChannelHomeContentInteractor.Output,
         GetMessagesInteractor.Output,
-        OpenMessageInteractor.Output
-{
+        OpenMessageInteractor.Output {
 
     init {
         getChannelHomeContentInteractor.output = this
@@ -34,8 +33,8 @@ class HomeComponentPresenter @Inject constructor(val appState: AppStateManager, 
 
     override fun setup() {
 
-        appState.state?.currentUser?.let { user->
-            runAction { v->
+        appState.state?.currentUser?.let { user ->
+            runAction { v ->
                 v.verifiedUser = user.verified
             }
         }
@@ -45,42 +44,71 @@ class HomeComponentPresenter @Inject constructor(val appState: AppStateManager, 
         getChannelHomeContentInteractor.run()
     }
 
+    override fun refresh() {
+
+        getMessagesInteractor.input = GetMessagesInteractor.Input(false, Folder(type = FolderType.HIGHLIGHTS))
+        getMessagesInteractor.run()
+        getChannelHomeContentInteractor.run()
+    }
+
+
     override fun openMessage(message: Message) {
-        runAction { v->v.showProgress(true) }
+        runAction { v ->
+            v.showRefreshProgress(false)
+            v.showProgress(true)
+        }
         openMessageInteractor.input = OpenMessageInteractor.Input(message)
         openMessageInteractor.run()
     }
 
     override fun onGetPinnedChannelList(channels: MutableList<Channel>) {
         Timber.e("Received list of ${channels.size} pinned channels")
-        runAction { v->v.setupChannels(channels) }
+        runAction { v ->
+            v.showRefreshProgress(false)
+            v.setupChannels(channels)
+        }
     }
 
-    override fun onGetChannelHomeContent(channelId : Int, content: HomeContent) {
+    override fun onGetChannelHomeContent(channel: Channel, content: HomeContent) {
         Timber.e("Received channel content for channel id ${content.control.id}")
-        runAction { v->v.setupChannelControl(channelId, content.control) }
+        runAction { v ->
+            v.showRefreshProgress(false)
+            v.setupChannelControl(channel, content.control)
+        }
     }
 
     override fun onGetChannelHomeContentError(error: ViewError) {
-        runAction { v->v.showErrorDialog(error) }
+        runAction { v ->
+            v.showRefreshProgress(false)
+            v.showErrorDialog(error)
+        }
     }
 
     // messages
     override fun onGetMessages(messages: List<Message>) {
-        runAction { v->v.showHighlights(messages) }
+        runAction { v ->
+            v.showRefreshProgress(false)
+            v.showHighlights(messages)
+        }
     }
 
     override fun onGetMessagesError(error: ViewError) {
-        runAction { v->v.showErrorDialog(error) }
+        runAction { v ->
+            v.showRefreshProgress(false)
+            v.showErrorDialog(error)
+        }
     }
 
     // open message
     override fun onOpenMessageDone() {
-        runAction { v->v.showProgress(false) }
+        runAction { v ->
+            v.showRefreshProgress(false)
+            v.showProgress(false) }
     }
 
     override fun onOpenMessageError(error: ViewError) {
-        runAction { v->
+        runAction { v ->
+            v.showRefreshProgress(false)
             v.showErrorDialog(error)
             v.showProgress(false)
         }
