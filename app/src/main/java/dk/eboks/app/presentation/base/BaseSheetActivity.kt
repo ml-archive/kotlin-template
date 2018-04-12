@@ -20,7 +20,6 @@ import android.view.animation.*
 import android.view.inputmethod.InputMethodManager
 import timber.log.Timber
 
-
 /**
  * Created by bison on 05/02/18.
  */
