@@ -115,6 +115,8 @@ import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsCompon
 import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
+import dk.eboks.app.presentation.ui.screens.Overlay.OverlayContract
+import dk.eboks.app.presentation.ui.screens.Overlay.OverlayPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContract
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewContract
@@ -743,6 +745,12 @@ class PresentationModule {
     @Provides
     fun provideForgotPasswordDoneComponentPresenter(stateManager: AppStateManager) : ForgotPasswordDoneComponentContract.Presenter {
         return ForgotPasswordDoneComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideOverlayPresenter(stateManager: AppStateManager) : OverlayContract.Presenter {
+        return OverlayPresenter(stateManager)
     }
 
 
