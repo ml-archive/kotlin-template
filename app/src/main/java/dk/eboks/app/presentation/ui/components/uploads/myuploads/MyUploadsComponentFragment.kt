@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.uploads.myuploads
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
@@ -9,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import dk.eboks.app.App
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
@@ -18,6 +20,8 @@ import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentContract
+import dk.eboks.app.presentation.ui.screens.Overlay.OverlayActivity
+import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_upload_myuploadoverview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import kotlinx.coroutines.experimental.delay
@@ -62,45 +66,47 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
 
     private fun setupFab() {
         mainFab.setOnClickListener {
-            if(fabContainerRl.visibility == View.GONE) {
-                fabContainerRl.visibility = View.VISIBLE
-                openInFab.show()
-                handler?.postDelayed({
-                    openInTv.visibility = View.VISIBLE
-                    mailFab.show()
-                }, 50)
-                handler?.postDelayed({
-                    mailTv.visibility = View.VISIBLE
-                    printFab.show()
-                }, 100)
-                handler?.postDelayed({
-                    printTv.visibility = View.VISIBLE
-                    deleteFab.show()
-                }, 150)
-                handler?.postDelayed({
-                    deleteTv.visibility = View.VISIBLE
-                    moveFab.show()
-                    moveTv.visibility = View.VISIBLE
-                }, 200)
-            } else {
-                openInFab.hide()
-                mailFab.hide()
-                printFab.hide()
-                deleteFab.hide()
-                moveFab.hide()
-                openInTv.visibility = View.GONE
-                mailTv.visibility = View.GONE
-                printTv.visibility = View.GONE
-                deleteTv.visibility = View.GONE
-                moveTv.visibility = View.GONE
-                handler?.postDelayed({
-                    fabContainerRl.visibility = View.GONE
-                }, 100)
+//            if(fabContainerRl.visibility == View.GONE) {
+//                fabContainerRl.visibility = View.VISIBLE
+//                openInFab.show()
+//                handler?.postDelayed({
+//                    openInTv.visibility = View.VISIBLE
+//                    mailFab.show()
+//                }, 50)
+//                handler?.postDelayed({
+//                    mailTv.visibility = View.VISIBLE
+//                    printFab.show()
+//                }, 100)
+//                handler?.postDelayed({
+//                    printTv.visibility = View.VISIBLE
+//                    deleteFab.show()
+//                }, 150)
+//                handler?.postDelayed({
+//                    deleteTv.visibility = View.VISIBLE
+//                    moveFab.show()
+//                    moveTv.visibility = View.VISIBLE
+//                }, 200)
+//            } else {
+//                openInFab.hide()
+//                mailFab.hide()
+//                printFab.hide()
+//                deleteFab.hide()
+//                moveFab.hide()
+//                openInTv.visibility = View.GONE
+//                mailTv.visibility = View.GONE
+//                printTv.visibility = View.GONE
+//                deleteTv.visibility = View.GONE
+//                moveTv.visibility = View.GONE
+//                handler?.postDelayed({
+//                    fabContainerRl.visibility = View.GONE
+//                }, 100)
+//
+//            }
 
-            }
+            startActivityForResult(Intent(context,OverlayActivity::class.java),1)
 
-
-
+//            App.currentActivity()?.let { it.startActivity(Intent(context, OverlayActivity::class.java)); it.overridePendingTransition(0,0) }
+//                    .guard { context.startActivity(Intent(context, OverlayActivity::class.java)) }
         }
     }
 

@@ -52,6 +52,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.debug.DebugActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.debug.user.DebugUserActivity" />
         <activity android:name="dk.eboks.app.pasta.activity.PastaActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.Overlay.OverlayActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity" />
