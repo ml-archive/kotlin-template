@@ -20,13 +20,16 @@ import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentContract
+import dk.eboks.app.presentation.ui.screens.Overlay.ButtonType
 import dk.eboks.app.presentation.ui.screens.Overlay.OverlayActivity
+import dk.eboks.app.presentation.ui.screens.Overlay.OverlayButton
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_upload_myuploadoverview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import kotlinx.coroutines.experimental.delay
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 /**
  * Created by bison on 09-02-2018.
@@ -66,8 +69,15 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
 
     private fun setupFab() {
         mainFab.setOnClickListener {
-
-            startActivityForResult(Intent(context,OverlayActivity::class.java),1)
+            var i = Intent(context,OverlayActivity::class.java)
+            var buttons: ArrayList<OverlayButton> = ArrayList()
+            buttons.add(OverlayButton(ButtonType.MOVE))
+            buttons.add(OverlayButton(ButtonType.MAIL))
+            buttons.add(OverlayButton(ButtonType.DELETE))
+            buttons.add(OverlayButton(ButtonType.OPEN))
+            buttons.add(OverlayButton(ButtonType.PRINT))
+            i.putExtra("buttons",buttons)
+            startActivityForResult(i,1)
 
 
         }

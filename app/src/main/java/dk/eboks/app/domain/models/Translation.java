@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Wed Apr 11 11:15:08 CEST 2018 
+ * Generated: Thu Apr 12 15:08:34 CEST 2018 
  */
 
 public class Translation {
@@ -38,6 +38,8 @@ public class Translation {
 		public static String attachmentOpenWith = "Open with";
 		public static String emptyField = "Empty field";
 		public static String invalidActivationCodeNrOfChars = "Invalid activation code. Must be [numberOfChars] chars.";
+		public static String printReceiptErrorMessage = "Cannot print receipt";
+		public static String forwardReceiptErrorMessage = "Cannot forward receipt";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -387,10 +389,28 @@ public class Translation {
 		public static String title = "Storebox";
 	}
 	public final static class storeboxreceipt {
-		public static String orderNo = "Order number";
+		public static String orderNo = "Order nr.";
 		public static String receipt = "Receipt";
 		public static String deliveredByStorebox = "Delivered by Storebox";
 		public static String total = "Total";
 		public static String vatAmount = "VAT amount";
+		public static String delete = "Delete";
+		public static String print = "Print";
+		public static String forward = "Forward";
+	}
+	public final static class channelsettingsstoreboxadditions {
+		public static String digitalReceiptsTitle = "Receive only receipts digitally";
+		public static String digitalReceiptsMessage = "Accepting this means you will not receive paper \u2028receipts in shops that have signed up.";
+		public static String creditCardsSectionHeader = "Credit cards";
+		public static String addCardTitle = "Add another credit card";
+		public static String deleteCardAlertTitle = "Are you sure you want to remove this credit card?";
+		public static String deleteCardAlertButton = "Remove";
+	}
+	public final static class overlaymenu {
+		public static String move = "Move";
+		public static String delete = "Delete";
+		public static String print = "Print";
+		public static String mail = "E-Mail";
+		public static String openIn = "Open in...";
 	}
 }

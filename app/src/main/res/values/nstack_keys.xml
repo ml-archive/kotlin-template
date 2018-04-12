@@ -27,6 +27,8 @@
   <string name='nstack_error_attachmentOpenWith' formatted='false'>error_attachmentOpenWith</string>
   <string name='nstack_error_emptyField' formatted='false'>error_emptyField</string>
   <string name='nstack_error_invalidActivationCodeNrOfChars' formatted='false'>error_invalidActivationCodeNrOfChars</string>
+  <string name='nstack_error_printReceiptErrorMessage' formatted='false'>error_printReceiptErrorMessage</string>
+  <string name='nstack_error_forwardReceiptErrorMessage' formatted='false'>error_forwardReceiptErrorMessage</string>
   <string name='nstack_mail_senderHeader' formatted='false'>mail_senderHeader</string>
   <string name='nstack_mail_showAllSendersButton' formatted='false'>mail_showAllSendersButton</string>
   <string name='nstack_mail_smartFolderHeader' formatted='false'>mail_smartFolderHeader</string>
@@ -329,4 +331,18 @@
   <string name='nstack_storeboxreceipt_deliveredByStorebox' formatted='false'>storeboxreceipt_deliveredByStorebox</string>
   <string name='nstack_storeboxreceipt_total' formatted='false'>storeboxreceipt_total</string>
   <string name='nstack_storeboxreceipt_vatAmount' formatted='false'>storeboxreceipt_vatAmount</string>
+  <string name='nstack_storeboxreceipt_delete' formatted='false'>storeboxreceipt_delete</string>
+  <string name='nstack_storeboxreceipt_print' formatted='false'>storeboxreceipt_print</string>
+  <string name='nstack_storeboxreceipt_forward' formatted='false'>storeboxreceipt_forward</string>
+  <string name='nstack_channelsettingsstoreboxadditions_digitalReceiptsTitle' formatted='false'>channelsettingsstoreboxadditions_digitalReceiptsTitle</string>
+  <string name='nstack_channelsettingsstoreboxadditions_digitalReceiptsMessage' formatted='false'>channelsettingsstoreboxadditions_digitalReceiptsMessage</string>
+  <string name='nstack_channelsettingsstoreboxadditions_creditCardsSectionHeader' formatted='false'>channelsettingsstoreboxadditions_creditCardsSectionHeader</string>
+  <string name='nstack_channelsettingsstoreboxadditions_addCardTitle' formatted='false'>channelsettingsstoreboxadditions_addCardTitle</string>
+  <string name='nstack_channelsettingsstoreboxadditions_deleteCardAlertTitle' formatted='false'>channelsettingsstoreboxadditions_deleteCardAlertTitle</string>
+  <string name='nstack_channelsettingsstoreboxadditions_deleteCardAlertButton' formatted='false'>channelsettingsstoreboxadditions_deleteCardAlertButton</string>
+  <string name='nstack_overlaymenu_move' formatted='false'>overlaymenu_move</string>
+  <string name='nstack_overlaymenu_delete' formatted='false'>overlaymenu_delete</string>
+  <string name='nstack_overlaymenu_print' formatted='false'>overlaymenu_print</string>
+  <string name='nstack_overlaymenu_mail' formatted='false'>overlaymenu_mail</string>
+  <string name='nstack_overlaymenu_openIn' formatted='false'>overlaymenu_openIn</string>
 </resources>
