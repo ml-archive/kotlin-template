@@ -12,7 +12,7 @@ import dk.eboks.app.injection.modules.CollectionsStore
 class CollectionsRestRepository(val collectionsStore: CollectionsStore) : CollectionsRepository {
 
     override fun getCollections(cached: Boolean): List<CollectionContainer> {
-        val result = if (cached) collectionsStore.get(0).blockingGet() else collectionsStore.fetch(0).blockingGet()
+        val result = if (cached) collectionsStore.get(0) else collectionsStore.fetch(0)
         if (result == null) {
             throw(RuntimeException("dang!"))
         }

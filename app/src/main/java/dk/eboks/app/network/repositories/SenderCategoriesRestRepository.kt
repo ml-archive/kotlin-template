@@ -19,9 +19,9 @@ class SenderCategoriesRestRepository(val api: Api, val gson: Gson, val senderCat
 
     override fun getSenderCategories(cached: Boolean): List<SenderCategory> {
             val result = if(cached) {
-                senderCategoryStore.get(0).blockingGet()
+                senderCategoryStore.get("private")
             } else {
-                senderCategoryStore.fetch(0).blockingGet()
+                senderCategoryStore.fetch("private")
             }
             if(result == null) {
                 throw(RuntimeException("dang"))

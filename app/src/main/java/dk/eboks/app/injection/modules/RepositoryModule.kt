@@ -59,14 +59,14 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideFoldersRepository(folderStore: FolderStore) : FoldersRepository
+    fun provideFoldersRepository(folderStore: FolderListStore) : FoldersRepository
     {
         return FoldersRestRepository(folderStore)
     }
 
     @Provides
     @AppScope
-    fun provideChannelsRepository(api: Api, gson: Gson, channelStore: ListChannelStore) : ChannelsRepository
+    fun provideChannelsRepository(api: Api, gson: Gson, channelStore: ChannelListStore) : ChannelsRepository
     {
         return ChannelsRestRepository(api, gson, channelStore)
     }

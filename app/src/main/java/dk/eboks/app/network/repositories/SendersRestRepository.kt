@@ -18,7 +18,7 @@ import java.net.UnknownHostException
 class SendersRestRepository(val api: Api, val gson: Gson, val senderStore: SenderStore) : SendersRepository {
 
     override fun getSenders(cached: Boolean): List<Sender> {
-        val result = if (cached) senderStore.get(0).blockingGet() else senderStore.fetch(0).blockingGet()
+        val result = if (cached) senderStore.get(0) else senderStore.fetch(0)
         if (result == null) {
             throw(RuntimeException("darn"))
         }

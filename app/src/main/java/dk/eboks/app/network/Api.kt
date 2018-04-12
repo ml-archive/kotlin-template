@@ -2,6 +2,7 @@ package dk.eboks.app.network
 
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.AliasBody
@@ -21,16 +22,16 @@ import retrofit2.http.*
 
 interface Api {
     // @GET("regions") fun getRegions() : Call<List<Region>>
-    @GET("api/mail/categories") fun getMailCategories() : Single<BufferedSource>
-    @GET("api/mail/folders") fun getFolders() : Single<BufferedSource>
+    @GET("api/mail/categories") fun getMailCategories() : Call<List<Folder>>
+    @GET("api/mail/folders") fun getFolders() : Call<List<Folder>>
     @GET("api/folders/{id}/messages") fun getMessages(@Path("id") id : Long) : Call<List<Message>>
     @GET("mail/folders/{folderId}/messages/{id}") fun getMessage(@Path("id") id : String, @Path("folderId") folderId : Long, @Query("receipt") receipt : Boolean? = null, @Query("terms") terms : Boolean? = null) : Call<Message>
     @GET("mail/{type}/messages") fun getMessagesByType(@Path("type") type : String) : Call<List<Message>>
-    @GET("api/senders") fun getSenders() : Single<BufferedSource>
+    @GET("api/senders") fun getSenders() : Call<List<Sender>>
     @PUT("session") fun login(@Body body : LoginRequest) : Single<BufferedSource>
 
     // channels
-    @GET("api/channels") fun getChannels(@Query("pinned") pinned : Boolean? = null) : Single<BufferedSource>
+    @GET("api/channels") fun getChannels(@Query("pinned") pinned : Boolean? = null) : Call<MutableList<Channel>>
     @GET("api/channels?pinned=true") fun getChannelsPinned() : Call<MutableList<Channel>>
     @GET("api/channels/{id}") fun getChannel(@Path("id") id : Long) : Call<Channel>
     @GET("channels/{id}/home/content") fun getChannelHomeContent(@Path("id") id : Long) : Call<HomeContent>
@@ -38,8 +39,8 @@ interface Api {
     // groups
     @GET("api/groups/registrations") fun getRegistrations() : Call<Registrations> // get all my registrations
     @GET("api/groups/registrations/pending/collections") fun getPendingRegistrations() : Call<List<CollectionContainer>>
-    @GET("api/groups/collections") fun getCollections() : Single<BufferedSource> // for the Senders-landing page
-    @GET("api/groups/{segment}/categories") fun getSenderCategories(@Path("segment") segment: String ) : Single<BufferedSource> // private or public
+    @GET("api/groups/collections") fun getCollections() : Call<List<CollectionContainer>> // for the Senders-landing page
+    @GET("api/groups/{segment}/categories") fun getSenderCategories(@Path("segment") segment: String ) : Call<List<SenderCategory>> // private or public
     @GET("api/groups/categories/{id}/senders") fun getSenders(@Path("id") categoryId : Long) : Call<SenderCategory>   // TODO: shouldn't this be called "/api/groups/private/categories/{id}" ??
     @GET("api/groups/senders") fun searchSenders(@Query("searchText") searchText : String) : Call<List<Sender>>
     @GET("api/groups/segments/{id}") fun getSegmentDetail(@Path("id") segmentId : Long) : Call<Segment>               // segment detail

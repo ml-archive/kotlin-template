@@ -132,7 +132,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
     override fun setVerified(verified: Boolean) {
         profileDetailRegisterTB.isChecked = verified
         if (verified) {
-            profileDetailRegisterTB.button.setCompoundDrawablesWithIntrinsicBounds(
+            profileDetailRegisterTB.setCompoundDrawablesWithIntrinsicBounds(
                     0,
                     0,
                     R.drawable.icon_48_checkmark_white,
