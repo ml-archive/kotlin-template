@@ -38,6 +38,7 @@ class OverlayActivity : BaseActivity(), OverlayContract.View {
                 moveTv.visibility = View.GONE
                 handler?.postDelayed({
                     fabContainerRl.visibility = View.GONE
+                    finish()
                 }, 100)
     }
 
