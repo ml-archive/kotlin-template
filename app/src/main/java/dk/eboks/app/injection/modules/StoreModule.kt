@@ -67,10 +67,7 @@ class StoreModule {
     fun provideChannelListStore(api: Api, gson : Gson, context : Context) : ChannelListStore
     {
         return ChannelListStore(context, gson, "channel_list_store.json", { key ->
-            var pinned : Boolean? = null
-            if(key == "pinned")
-                pinned = true
-            val response = api.getChannels(pinned).execute()
+            val response = if(key == "pinned") api.getChannelsPinned().execute() else api.getChannels().execute()
             var result : MutableList<Channel>? = null
             response?.let {
                 if(it.isSuccessful)

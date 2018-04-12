@@ -17,7 +17,6 @@ import timber.log.Timber
 class ChannelsRestRepository(val api: Api, val gson: Gson, val channelStore: ChannelListStore) : ChannelsRepository {
 
     override fun getChannels(cached: Boolean): List<Channel> {
-
         val res = if(cached) channelStore.get("main") else channelStore.fetch("main")
         if(res != null)
             return res

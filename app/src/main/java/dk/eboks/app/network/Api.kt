@@ -31,7 +31,7 @@ interface Api {
     @PUT("session") fun login(@Body body : LoginRequest) : Single<BufferedSource>
 
     // channels
-    @GET("api/channels") fun getChannels(@Query("pinned") pinned : Boolean? = null) : Call<MutableList<Channel>>
+    @GET("api/channels") fun getChannels() : Call<MutableList<Channel>>
     @GET("api/channels?pinned=true") fun getChannelsPinned() : Call<MutableList<Channel>>
     @GET("api/channels/{id}") fun getChannel(@Path("id") id : Long) : Call<Channel>
     @GET("channels/{id}/home/content") fun getChannelHomeContent(@Path("id") id : Long) : Call<HomeContent>
