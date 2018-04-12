@@ -28,9 +28,9 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
                 Timber.e("channel home content loading started for ${pinnedChannels.size} channels")
 
                 val channelMap : MutableMap<Int, Deferred<HomeContent>> = HashMap()
-                for (channel in pinnedChannels) {
+                pinnedChannels.forEachIndexed { index, channel ->
                     val d = async { channelsRepository.getChannelHomeContent(channel.id.toLong()) }
-                    channelMap[channel.id] = d
+                    channelMap[index] = d
                 }
                 //val result : MutableList<Control> = ArrayList()
 
@@ -43,7 +43,8 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
                                 val content = entry.value.getCompleted()
                                 Timber.e("Got HomeContent $content")
                                 runOnUIThread {
-                                    output?.onGetChannelHomeContent(entry.key, content)
+                                    var channel = pinnedChannels[entry.key]
+                                    output?.onGetChannelHomeContent(channel, content)
                                 }
                             }
                         }

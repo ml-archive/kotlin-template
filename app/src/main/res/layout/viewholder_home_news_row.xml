@@ -50,6 +50,8 @@
             android:id="@+id/imageIv"
             android:layout_width="64dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_visual_mail" />
+            android:src="@drawable/ic_visual_mail"
+            android:background="@drawable/rounded_mask"
+            android:backgroundTint="@color/transparent"/>
     </LinearLayout>
 </LinearLayout>

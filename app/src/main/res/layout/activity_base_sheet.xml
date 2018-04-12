@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                    android:background="@color/white"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
-    <include layout="@layout/include_toolbar"  />
+    <include layout="@layout/include_toolbar" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#aaa"
-        android:layout_marginTop="?attr/actionBarSize">
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="#aaa">
 
         <FrameLayout
             android:id="@+id/viewerFl"
@@ -28,42 +28,42 @@
                 -->
 
         </FrameLayout>
+
         <View
             android:id="@+id/touchVeilV"
-            android:background="#88000000"
-            android:visibility="gone"
-            android:alpha="0"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:alpha="0"
+            android:background="#88000000"
+            android:visibility="gone" />
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/contextSheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
         android:clipChildren="false"
         android:clipToPadding="false"
+        android:paddingTop="8dp"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
         <dk.eboks.app.presentation.widgets.MaxHeightScrollView
             android:id="@+id/contextSheetSv"
-            android:background="@drawable/context_sheet_background"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:paddingTop="16dp"
-            android:clipToPadding="true" />
+            android:background="@drawable/context_sheet_background"
+            android:clipToPadding="true"
+            android:paddingTop="16dp" />
 
         <View
             android:id="@+id/contextSheetHandle"
-            android:elevation="2dp"
             android:layout_width="52dp"
             android:layout_height="5dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="28dp"
             android:background="@drawable/sheet_handle"
-            android:layout_gravity="center_horizontal"
-            />
+            android:elevation="2dp" />
     </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>
