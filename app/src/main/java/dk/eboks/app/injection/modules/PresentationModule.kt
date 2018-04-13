@@ -113,6 +113,8 @@ import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentCo
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentPresenter
 import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentContract
 import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentPresenter
+import dk.eboks.app.presentation.ui.components.uploads.uploadfile.UploadFileComponentContract
+import dk.eboks.app.presentation.ui.components.uploads.uploadfile.UploadFileComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.Overlay.OverlayContract
@@ -751,6 +753,12 @@ class PresentationModule {
     @Provides
     fun provideOverlayPresenter(stateManager: AppStateManager) : OverlayContract.Presenter {
         return OverlayPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideUploadFilePresenter(stateManager: AppStateManager) : UploadFileComponentContract.Presenter {
+        return UploadFileComponentPresenter(stateManager)
     }
 
 

@@ -296,6 +296,12 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
+    <style name="HintSmallTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
 
     <style name="TextInputLayoutTheme" parent="AppTheme">
         <item name="colorAccent">@color/textColorSecondary</item>

@@ -78,30 +78,29 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
     }
 
     private fun setDrawerHeader(message: Message) {
+        // only showing the ekstra row if its a MessageEmbeddedActivitiy
+        ekstraInfoContainerLl.visibility = View.GONE
 
         if (activity is MessageEmbeddedActivity) {
-            // only showing the ekstra row if its a MessageEmbeddedActivitiy
             ekstraInfoContainerLl.visibility = View.VISIBLE
+
             if (message.numberOfAttachments > 0) {
-                attachmentsTv.text = "" + message.numberOfAttachments + " _Attachments"
+
                 attachmentsTv.visibility = View.VISIBLE
                 attachmentsIv.visibility = View.VISIBLE
-                dotIv.visibility = View.VISIBLE
+                notesTv.visibility = View.VISIBLE
+                notesTv.text = " " + Translation.message.note
+
+                if (message.numberOfAttachments == 1) {
+                    attachmentsTv.text = "" + message.numberOfAttachments + " " + Translation.message.numberOfAttachmentsSingularSuffix
+                } else {
+                    attachmentsTv.text = "" + message.numberOfAttachments + " " + Translation.message.numberOfAttachmentsPluralSuffix
+                }
             } else {
                 attachmentsTv.visibility = View.GONE
-                dotIv.visibility = View.GONE
                 attachmentsIv.visibility = View.GONE
-            }
-
-            if (message.note.isNullOrBlank()) {
-                dotIv.visibility = View.GONE
                 notesTv.visibility = View.GONE
-            } else {
-                notesTv.visibility = View.VISIBLE
-                notesTv.text = "_note test"
             }
-        } else {
-            ekstraInfoContainerLl.visibility = View.GONE
         }
     }
 }

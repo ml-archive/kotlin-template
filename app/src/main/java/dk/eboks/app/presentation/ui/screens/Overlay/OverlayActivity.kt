@@ -1,9 +1,13 @@
 package dk.eboks.app.presentation.ui.screens.Overlay
 
+import android.app.Activity
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.FloatingActionButton
 import android.view.View
+import android.view.Window
 import android.widget.LinearLayout
 import android.widget.TextView
 import dk.eboks.app.R
@@ -17,6 +21,10 @@ import kotlinx.android.synthetic.main.viewholder_overlay_row.view.*
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
+import android.graphics.PixelFormat
+import android.view.WindowManager
+
+
 
 class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedListener {
 
@@ -25,21 +33,19 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
 
     var buttons: ArrayList<OverlayButton> = ArrayList()
     var handler = Handler()
+    var animationTime = 50L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(dk.eboks.app.R.layout.activity_overlay)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        NStack.addLanguageChangeListener(this)
 
         getButtons()
-
         inflateButtons()
-
-        NStack.addLanguageChangeListener(this)
-        openAnimation()
         mainFab.setOnClickListener {
-            closeAnimation()
+            closeAnimation(null)
         }
     }
 
@@ -49,16 +55,27 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
 
     private fun inflateButtons() {
         var buttonContainerLl = findViewById<LinearLayout>(R.id.buttonContainerLl)
+        var delay = animationTime
         for (item in buttons) {
-            val v = inflator.inflate(R.layout.viewholder_overlay_row, buttonContainerLl, false)
-            val button = v.findViewById<FloatingActionButton>(R.id.buttonFab)
-            val text = v.findViewById<TextView>(R.id.textTv)
+            handler?.postDelayed({
+                val v = inflator.inflate(R.layout.viewholder_overlay_row, buttonContainerLl, false)
+                val button = v.findViewById<FloatingActionButton>(R.id.buttonFab)
+                val text = v.findViewById<TextView>(R.id.textTv)
 
-            text.text = item.text
-            button.setImageDrawable(getDrawable(item.icon!!))
-            v.tag = button
-            buttonContainerLl.addView(v)
-            buttonContainerLl.requestLayout()
+                text.text = item.text
+                item.icon?.let {
+                    button.setImageResource(it)
+                }
+                v.tag = button
+                button.setOnClickListener {
+                    closeAnimation(item.type)
+                }
+                buttonContainerLl.addView(v)
+                buttonContainerLl.requestLayout()
+                button.show()
+                text.visibility = View.VISIBLE
+            }, delay)
+            delay = delay + animationTime
         }
     }
 
@@ -69,56 +86,25 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
         }
     }
 
-    private fun closeAnimation() {
-//        openInFab.hide()
-//                mailFab.hide()
-//                printFab.hide()
-//                deleteFab.hide()
-//                moveFab.hide()
-//                openInTv.visibility = View.GONE
-//                mailTv.visibility = View.GONE
-//                printTv.visibility = View.GONE
-//                deleteTv.visibility = View.GONE
-//                moveTv.visibility = View.GONE
-//                handler?.postDelayed({
-//                    fabContainerRl.visibility = View.GONE
-//                    finish()
-//                }, 100)
-        finish()
-    }
-
-    private fun openAnimation() {
-
-        var delay = 0L
+    private fun closeAnimation(item: ButtonType?) {
+        var delay = animationTime
         for (v in buttonContainerLl.views) {
             handler?.postDelayed({
-                v.textTv.visibility = View.VISIBLE
-                v.buttonFab.show()
+                v.textTv.visibility = View.GONE
+                v.buttonFab.hide()
             }, delay)
-            delay = delay + 1500
+            delay = delay + animationTime
         }
-
+        handler?.postDelayed({
+            if (item == null) {
+                setResult(Activity.RESULT_CANCELED)
+                finish()
+            }
+            var intent = Intent()
+            intent.putExtra("res", item)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        }, delay)
     }
-
-//        openInFab.show()
-//                handler?.postDelayed({
-//                    openInTv.visibility = View.VISIBLE
-//                    mailFab.show()
-//                }, 50)
-//                handler?.postDelayed({
-//                    mailTv.visibility = View.VISIBLE
-//                    printFab.show()
-//                }, 90)
-//                handler?.postDelayed({
-//                    printTv.visibility = View.VISIBLE
-//                    deleteFab.show()
-//                }, 120)
-//                handler?.postDelayed({
-//                    deleteTv.visibility = View.VISIBLE
-//                    moveFab.show()
-//                    moveTv.visibility = View.VISIBLE
-//                }, 140)
-//    }
-
 
 }
