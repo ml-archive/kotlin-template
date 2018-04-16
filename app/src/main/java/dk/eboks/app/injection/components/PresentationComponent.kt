@@ -107,6 +107,8 @@ import dk.eboks.app.presentation.ui.screens.Overlay.OverlayActivity
 import dk.eboks.app.presentation.ui.screens.Overlay.OverlayPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserActivity
@@ -167,6 +169,8 @@ interface PresentationComponent {
     fun inject(target: UploadsPresenter)
     fun inject(target: OverlayActivity)
     fun inject(target: OverlayPresenter)
+    fun inject(target: StoreboxContentActivity)
+    fun inject(target: StoreboxContentPresenter)
 
     // Components
 

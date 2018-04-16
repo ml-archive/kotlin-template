@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.channels.opening
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -19,7 +20,9 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.ViewErrorController
 import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentStoreboxComponentFragment
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
 import kotlinx.android.synthetic.main.fragment_channel_opening_component.*
+import kotlinx.android.synthetic.main.fragment_navbar_component.*
 import kotlinx.android.synthetic.main.include_channel_detail_top.*
 import javax.inject.Inject
 
@@ -120,7 +123,6 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     }
 
     override fun openStoreBoxContent() {
-        val fragment = ChannelContentStoreboxComponentFragment()
-        getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
+        startActivity(Intent(context, StoreboxContentActivity::class.java))
     }
 }

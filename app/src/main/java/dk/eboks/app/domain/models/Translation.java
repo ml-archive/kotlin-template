@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Fri Apr 13 15:34:50 CEST 2018 
+ * Generated: Mon Apr 16 18:59:40 CEST 2018 
  */
 
 public class Translation {
@@ -50,7 +50,7 @@ public class Translation {
 		public static String sendersEmptyHeader = "No mails from your senders";
 		public static String sendersEmptyMessage = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
 		public static String addMoreSendersButton = "Add more senders";
-		public static String noMessagesToDisplay = "Theres no mail to display in this folder";
+		public static String noMessagesToDisplay = "There\'s no mail to display in this folder.";
 	}
 	public final static class mainnav {
 		public static String homeButton = "Home";
@@ -87,6 +87,7 @@ public class Translation {
 		public static String drawerSubHeader = "Let\u2019s help you to get started";
 		public static String drawerHeaderText = "The [channelname] channel needs the following information to create a user for you.";
 		public static String allowButton = "Allow";
+		public static String drawerNeedsVerification = "Needs verification";
 	}
 	public final static class senders {
 		public static String title = "Senders";
@@ -408,7 +409,10 @@ public class Translation {
 		public static String creditCardsSectionHeader = "Credit cards";
 		public static String addCardTitle = "Add another credit card";
 		public static String deleteCardAlertTitle = "Are you sure you want to remove this credit card?";
-		public static String deleteCardAlertButton = "Remove";
+		public static String deleteCardAlertButton = "REMOVE";
+		public static String deleteCardCancelButton = "CANCEL";
+		public static String removeChannelTitle = "Are you sure you want to remove this channel?";
+		public static String removeChannelMessage = "Removing this channel will delete it from your e-boks app, but will not delete your user at storebox.";
 	}
 	public final static class overlaymenu {
 		public static String move = "Move";
@@ -426,5 +430,14 @@ public class Translation {
 	}
 	public final static class reply {
 		public static String title = "Reply";
+	}
+	public final static class androidfingerprint {
+		public static String successMessage = "Successfully Authenticated";
+		public static String errorMessage = "Unable to Authenticate";
+		public static String errorInvalidData = "Data is not valid encrypted data";
+		public static String dialogTitle = "Fingerprint Authenthication";
+		public static String dialogSubtitle = "Verify your fingerprint";
+		public static String dialogDescription = "Touch the fingerprint sensor to authorize your account";
+		public static String errorGeneric = "Unable to complete action";
 	}
 }

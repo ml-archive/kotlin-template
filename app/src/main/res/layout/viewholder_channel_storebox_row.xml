@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rowLl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -27,76 +28,49 @@
         </FrameLayout>
 
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/headerTv"
+            style="@style/text.header4"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="_Super Brugsen" />
+
+
+        <LinearLayout
+            android:id="@+id/amountDateContainerLl"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingLeft="16dp">
+            android:paddingTop="8dp"
+            android:visibility="gone">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/amountTv"
+                style="@style/text.header4"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingTop="8dp">
+                android:layout_height="wrap_content"
+                android:text="_431,50"
+                android:textAlignment="viewEnd" />
 
-                <TextView
-                    android:id="@+id/headerTv"
-                    style="@style/text.header4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="_Super Brugsen"
-                    android:textAlignment="viewStart"/>
-
-                <TextView
-                    android:id="@+id/subHeaderTv"
-                    style="@style/text.subHeader5.quaternary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="_Rødovre"
-                    android:textAlignment="viewStart"/>
-
-            </LinearLayout>
-
-
+            <TextView
+                android:id="@+id/dateTv"
+                style="@style/text.subHeader5.quaternary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="_today"
+                android:textAlignment="viewEnd" />
         </LinearLayout>
 
-        <FrameLayout
+        <TextView
+            android:id="@+id/soloAmountTv"
+            style="@style/text.header4"
             android:layout_width="80dp"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingTop="8dp">
-
-                    <TextView
-                        android:id="@+id/amountTv"
-                        style="@style/text.header4"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="_431,50"
-                        android:textAlignment="viewEnd"/>
-
-                    <TextView
-                        android:id="@+id/dateTv"
-                        style="@style/text.subHeader5.quaternary"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="_today"
-                        android:textAlignment="viewEnd"/>
-
-                </LinearLayout>
-            </LinearLayout>
-        </FrameLayout>
+            android:layout_height="wrap_content"
+            android:text="_431,50"
+            android:textAlignment="viewEnd" />
 
     </LinearLayout>
 
