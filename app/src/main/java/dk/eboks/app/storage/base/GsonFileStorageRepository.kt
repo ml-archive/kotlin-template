@@ -19,7 +19,7 @@ abstract class GsonFileStorageRepository<T>(val context: Context, val gson: Gson
         val outputStream: FileOutputStream
         try {
             val json = gson.toJson(objects)
-            Timber.d("Saving json = $json")
+            Timber.e("Saving cache file $filename")
             outputStream = context.openFileOutput(filename, Context.MODE_PRIVATE)
             outputStream.write(json.toByteArray())
             outputStream.close()
@@ -44,7 +44,7 @@ abstract class GsonFileStorageRepository<T>(val context: Context, val gson: Gson
                 out.append(buffer, 0, rsz)
             }
             val json = out.toString()
-            Timber.d("Read json = $json")
+            Timber.e("Loaded cache file $filename")
             val objects : T = gson.fromJson(json, type)
             return objects
         }

@@ -16,7 +16,7 @@ class CacheStore<K,V>(val context: Context, val gson: Gson, val filename : Strin
     init {
         try {
             cacheMap = store.load(mapType)
-            Timber.e("Cache map: $cacheMap")
+            //Timber.e("Cache map: $cacheMap")
         }
         catch (t : Throwable)
         {

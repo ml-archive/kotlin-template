@@ -8,6 +8,7 @@ import dagger.Provides
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Sender
@@ -23,6 +24,9 @@ import dk.nodes.arch.domain.injection.scopes.AppScope
 typealias FolderIdMessageStore = CacheStore<Long, List<Message>>
 typealias FolderTypeMessageStore = CacheStore<String, List<Message>>
 typealias ChannelListStore = CacheStore<String, MutableList<Channel>>
+
+typealias ChannelControlStore = CacheStore<Long, HomeContent>
+
 typealias FolderListStore = CacheStore<Int, List<Folder>>
 typealias MailCategoryStore = CacheStore<Long, List<Folder>>
 typealias CollectionsStore = CacheStore<Int, List<CollectionContainer>>
@@ -70,6 +74,21 @@ class StoreModule {
         return ChannelListStore(context, gson, "channel_list_store.json", object : TypeToken<MutableMap<String, MutableList<Channel>>>() {}.type, { key ->
             val response = if(key == "pinned") api.getChannelsPinned().execute() else api.getChannels().execute()
             var result : MutableList<Channel>? = null
+            response?.let {
+                if(it.isSuccessful)
+                    result = it.body()
+            }
+            result
+        })
+    }
+
+    @Provides
+    @AppScope
+    fun provideChannelControlStore(api: Api, gson : Gson, context : Context) : ChannelControlStore
+    {
+        return ChannelControlStore(context, gson, "channel_control_store.json", object : TypeToken<MutableMap<Long, HomeContent>>() {}.type, { key ->
+            val response = api.getChannelHomeContent(key).execute()
+            var result : HomeContent? = null
             response?.let {
                 if(it.isSuccessful)
                     result = it.body()
