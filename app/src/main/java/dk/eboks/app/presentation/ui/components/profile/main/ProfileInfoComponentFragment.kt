@@ -1,8 +1,6 @@
 package dk.eboks.app.presentation.ui.components.profile.main
 
-import android.os.Build
 import android.os.Bundle
-import android.support.annotation.RequiresApi
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +8,12 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.profile.drawer.FingerPrintComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFragment
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
-import dk.nodes.locksmith.core.Locksmith
-import dk.nodes.locksmith.core.fingerprint.FingerprintDialog
 import kotlinx.android.synthetic.main.fragment_profile_main_component.*
 import kotlinx.android.synthetic.main.include_profile_bottom.*
 import timber.log.Timber
@@ -169,13 +164,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
             Log.d("DEBUG", "setFingerprintEnabled $enabled")
 
             if (b) {
-                // TODO implement full route once the API's are in
-                showFingerprintDialog()
-//                if (lastProviderId == "email") {
-//                    getBaseActivity()?.openComponentDrawer(FingerHintComponentFragment::class.java)
-//                } else {
-//                    getBaseActivity()?.openComponentDrawer(FingerPrintComponentFragment::class.java)
-//                }
+                getBaseActivity()?.openComponentDrawer(FingerPrintComponentFragment::class.java)
             } else {
                 presenter.enableUserFingerprint(false)
             }
@@ -187,45 +176,6 @@ class ProfileInfoComponentFragment : BaseFragment(),
         profileDetailSwKeepSignedIn.setOnCheckedChangeListener { compoundButton, b ->
 
         }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun showFingerprintDialog() {
-        Locksmith.getFingerprintDialogBuilder(context)
-                .setTitle(Translation.androidfingerprint.dialogTitle)
-                .setSubtitle(Translation.androidfingerprint.dialogSubtitle)
-                .setDescription(Translation.androidfingerprint.dialogDescription)
-                .setSuccessMessage(Translation.androidfingerprint.successMessage)
-                .setErrorMessage(Translation.androidfingerprint.errorMessage)
-                .setCancelText(Translation.defaultSection.cancel)
-                .setKeyValidityDuration(60)
-                .setEventListener {
-                    when (it) {
-                        FingerprintDialog.FingerprintDialogEvent.CANCEL  -> {
-                            // Do nothing?
-                        }
-                        FingerprintDialog.FingerprintDialogEvent.SUCCESS -> {
-                            // If we successfully Authed then our user is now using fingerprint Auth
-                            presenter.enableUserFingerprint(true)
-                        }
-                        FingerprintDialog.FingerprintDialogEvent.ERROR_CIPHER,
-                        FingerprintDialog.FingerprintDialogEvent.ERROR_ENROLLMENT,
-                        FingerprintDialog.FingerprintDialogEvent.ERROR_HARDWARE,
-                        FingerprintDialog.FingerprintDialogEvent.ERROR_SECURE,
-                        FingerprintDialog.FingerprintDialogEvent.ERROR   -> {
-                            showErrorDialog(
-                                    ViewError(
-                                            Translation.error.genericTitle,
-                                            Translation.androidfingerprint.errorGeneric,
-                                            true,
-                                            false
-                                    )
-                            )
-                        }
-                    }
-                }
-                .build()
-                .show()
     }
 
     private fun setupVersionNumber() {
