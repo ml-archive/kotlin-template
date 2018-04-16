@@ -99,6 +99,8 @@ import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentFr
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentPresenter
 import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentFragment
 import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentPresenter
+import dk.eboks.app.presentation.ui.components.uploads.uploadfile.UploadFileComponentFragment
+import dk.eboks.app.presentation.ui.components.uploads.uploadfile.UploadFileComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.Overlay.OverlayActivity
@@ -318,6 +320,8 @@ interface PresentationComponent {
     fun inject(target : UploadOverviewComponentPresenter)
     fun inject(target : MyUploadsComponentFragment)
     fun inject(target : MyUploadsComponentPresenter)
+    fun inject(target : UploadFileComponentFragment)
+    fun inject(target : UploadFileComponentPresenter)
 
     // debug
 

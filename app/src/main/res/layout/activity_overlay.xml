@@ -1,172 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
+    android:id="@+id/testrl"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@drawable/transparent_gradiant"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:paddingBottom="?actionBarSize">
 
-    <RelativeLayout
-        android:id="@+id/fabContainerRl"
+    <LinearLayout
+        android:id="@+id/buttonContainerLl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="bottom|right"
-        android:clickable="true"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:layout_above="@+id/mainFab">
 
-
-        <!--Move-->
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/moveFab"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_above="@+id/deleteFab"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="right"
-            android:layout_marginBottom="@dimen/margin_normal"
-            android:layout_marginRight="24dp"
-            android:backgroundTint="@color/white"
-            android:clickable="true"
-            android:src="@drawable/ic_folder"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/moveTv"
-            style="@style/text.body6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/deleteFab"
-            android:layout_marginBottom="24dp"
-            android:layout_marginRight="@dimen/margin_half"
-            android:layout_toLeftOf="@id/moveFab"
-            android:text="_Move"
-            android:textColor="@color/white"
-            android:visibility="gone" />
-
-        <!--deleteFab-->
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/deleteFab"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_above="@+id/printFab"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="right"
-            android:layout_marginBottom="@dimen/margin_normal"
-            android:layout_marginRight="24dp"
-            android:backgroundTint="@color/white"
-            android:clickable="true"
-            android:src="@drawable/icon_48_delete_red"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/deleteTv"
-            style="@style/text.body6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/printFab"
-            android:layout_marginBottom="24dp"
-            android:layout_marginRight="@dimen/margin_half"
-            android:layout_toLeftOf="@id/deleteFab"
-            android:text="_Delete"
-            android:textColor="@color/white"
-            android:visibility="gone" />
-
-
-        <!--Print-->
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/printFab"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_above="@+id/mailFab"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="right"
-            android:layout_marginBottom="@dimen/margin_normal"
-            android:layout_marginRight="24dp"
-            android:backgroundTint="@color/white"
-            android:clickable="true"
-            android:src="@drawable/icon_48_print_red"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/printTv"
-            style="@style/text.body6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/mailFab"
-            android:layout_marginBottom="24dp"
-            android:layout_marginRight="@dimen/margin_half"
-            android:layout_toLeftOf="@id/printFab"
-            android:text="_Print"
-            android:textColor="@color/white"
-            android:visibility="gone" />
-
-        <!--Mail-->
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/mailFab"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_above="@+id/openInFab"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="right"
-            android:layout_marginBottom="@dimen/margin_normal"
-            android:layout_marginRight="24dp"
-            android:backgroundTint="@color/white"
-            android:clickable="true"
-            android:src="@drawable/icon_48_forward_red"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/mailTv"
-            style="@style/text.body6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/openInFab"
-            android:layout_marginBottom="24dp"
-            android:layout_marginRight="@dimen/margin_half"
-            android:layout_toLeftOf="@id/mailFab"
-            android:text="_E-mail"
-            android:textColor="@color/white"
-            android:visibility="gone" />
-
-
-        <!--Open in..-->
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/openInFab"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="right"
-            android:layout_marginBottom="88dp"
-            android:layout_marginRight="24dp"
-            android:backgroundTint="@color/white"
-            android:clickable="true"
-            android:src="@drawable/icon_48_share_red"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/openInTv"
-            style="@style/text.body6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="100dp"
-            android:layout_marginRight="@dimen/margin_half"
-            android:layout_toLeftOf="@id/openInFab"
-            android:text="_Open in..."
-            android:textColor="@color/white"
-            android:visibility="gone" />
-
-    </RelativeLayout>
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/mainFab"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
         android:clickable="true"
-        android:src="@drawable/icon_48_option_white" />
+        android:src="@drawable/icon_48_close_white" />
 
 
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>

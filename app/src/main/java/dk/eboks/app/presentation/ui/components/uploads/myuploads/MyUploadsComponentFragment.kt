@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.uploads.myuploads
 
+import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -10,7 +11,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import dk.eboks.app.App
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
@@ -20,13 +20,14 @@ import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentContract
+import dk.eboks.app.presentation.ui.screens.Overlay.ButtonType
 import dk.eboks.app.presentation.ui.screens.Overlay.OverlayActivity
-import dk.eboks.app.util.guard
+import dk.eboks.app.presentation.ui.screens.Overlay.OverlayButton
 import kotlinx.android.synthetic.main.fragment_upload_myuploadoverview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import kotlinx.coroutines.experimental.delay
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 /**
  * Created by bison on 09-02-2018.
@@ -64,53 +65,47 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            1 -> if (resultCode == RESULT_OK) {
+                var res = data?.extras
+                var buttonTypeClicked = res?.get("res")
+                println(buttonTypeClicked.toString())
+                // todo something you know what buttontype was clicked!
+            }
+            else {
+
+            }
+        }
+    }
+
+
     private fun setupFab() {
         mainFab.setOnClickListener {
-//            if(fabContainerRl.visibility == View.GONE) {
-//                fabContainerRl.visibility = View.VISIBLE
-//                openInFab.show()
-//                handler?.postDelayed({
-//                    openInTv.visibility = View.VISIBLE
-//                    mailFab.show()
-//                }, 50)
-//                handler?.postDelayed({
-//                    mailTv.visibility = View.VISIBLE
-//                    printFab.show()
-//                }, 100)
-//                handler?.postDelayed({
-//                    printTv.visibility = View.VISIBLE
-//                    deleteFab.show()
-//                }, 150)
-//                handler?.postDelayed({
-//                    deleteTv.visibility = View.VISIBLE
-//                    moveFab.show()
-//                    moveTv.visibility = View.VISIBLE
-//                }, 200)
-//            } else {
-//                openInFab.hide()
-//                mailFab.hide()
-//                printFab.hide()
-//                deleteFab.hide()
-//                moveFab.hide()
-//                openInTv.visibility = View.GONE
-//                mailTv.visibility = View.GONE
-//                printTv.visibility = View.GONE
-//                deleteTv.visibility = View.GONE
-//                moveTv.visibility = View.GONE
-//                handler?.postDelayed({
-//                    fabContainerRl.visibility = View.GONE
-//                }, 100)
-//
-//            }
+            var i = Intent(context, OverlayActivity::class.java)
+            var buttons: ArrayList<OverlayButton> = ArrayList()
+            buttons.add(OverlayButton(ButtonType.MOVE))
+            buttons.add(OverlayButton(ButtonType.DELETE))
+            buttons.add(OverlayButton(ButtonType.PRINT))
+            buttons.add(OverlayButton(ButtonType.MAIL))
+            buttons.add(OverlayButton(ButtonType.OPEN))
 
-            startActivityForResult(Intent(context,OverlayActivity::class.java),1)
+            i.putExtra("buttons", buttons)
+            startActivityForResult(i, 1)
 
-//            App.currentActivity()?.let { it.startActivity(Intent(context, OverlayActivity::class.java)); it.overridePendingTransition(0,0) }
-//                    .guard { context.startActivity(Intent(context, OverlayActivity::class.java)) }
+
         }
     }
 
     private fun setupTopBar() {
+        getBaseActivity()?.mainTb?.menu?.clear()
+
+        getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+        getBaseActivity()?.mainTb?.setNavigationOnClickListener {
+            getBaseActivity()?.mainTb?.setNavigationIcon(null)
+            onBackPressed()
+        }
+
         val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.uploads.topbarEdit)
         menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
@@ -118,6 +113,12 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
             true
         }
     }
+
+    private fun onBackPressed(){
+        fragmentManager.popBackStack()
+    }
+
+
 
     private fun switchMode() {
         modeEdit = !modeEdit

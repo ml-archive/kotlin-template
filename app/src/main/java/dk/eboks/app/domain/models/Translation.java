@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Wed Apr 11 11:15:08 CEST 2018 
+ * Generated: Fri Apr 13 15:34:50 CEST 2018 
  */
 
 public class Translation {
@@ -17,6 +17,7 @@ public class Translation {
 		public static String save = "Save";
 		public static String close = "Close";
 		public static String no = "No";
+		public static String delete = "Delete";
 	}
 	public final static class error {
 		public static String genericMessage = "An error occured";
@@ -38,6 +39,8 @@ public class Translation {
 		public static String attachmentOpenWith = "Open with";
 		public static String emptyField = "Empty field";
 		public static String invalidActivationCodeNrOfChars = "Invalid activation code. Must be [numberOfChars] chars.";
+		public static String printReceiptErrorMessage = "Cannot print receipt";
+		public static String forwardReceiptErrorMessage = "Cannot forward receipt";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -179,6 +182,8 @@ public class Translation {
 		public static String cancelDialogDiscardBtn = "DISCARD";
 		public static String cancelDialogCancelBtn = "CANCEL";
 		public static String termsWhyAcceptButton = "Why do I need to accept this?";
+		public static String termsInfoTitle = "A safe, fair and legal handling of your information is important";
+		public static String termsInfoMessage = "The Terms & Conditions are here to ensure that your information is handled in a safe and fair way, and to have a clear agreement about what is allowed and what isn\'t.";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";
@@ -240,6 +245,7 @@ public class Translation {
 		public static String voluntaryReceiptMessage = "Voluntary Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
 		public static String openMessageWithReceiptButton = "Open message with receipt";
 		public static String openMessageWithoutReceiptButton = "Open message without receipt";
+		public static String note = "Note";
 	}
 	public final static class iosbiometrics {
 		public static String errorAuthentication = "There was a problem verifying your identity";
@@ -382,15 +388,43 @@ public class Translation {
 		public static String confirmDeleteTitle = "Are you sure you want to remove this channel?";
 		public static String confirmDeleteMessageReplaceChannelName = "Removing this channel will delete it from your e-Boks app, but will not delete your user at [channelname].";
 		public static String confirmRemoveButton = "Remove";
+		public static String removeChannelButtonRemovedState = "Removed!";
 	}
 	public final static class storeboxlist {
 		public static String title = "Storebox";
 	}
 	public final static class storeboxreceipt {
-		public static String orderNo = "Order number";
+		public static String orderNo = "Order nr.";
 		public static String receipt = "Receipt";
 		public static String deliveredByStorebox = "Delivered by Storebox";
 		public static String total = "Total";
 		public static String vatAmount = "VAT amount";
+		public static String confirmDeleteTitle = "Are you sure you want to delete this receipt?";
+		public static String confirmDeleteMessage = "Removing this receipt will delete it from your e-Boks app.";
+	}
+	public final static class channelsettingsstoreboxadditions {
+		public static String digitalReceiptsTitle = "Receive only receipts digitally";
+		public static String digitalReceiptsMessage = "Accepting this means you will not receive paper \u2028receipts in shops that have signed up.";
+		public static String creditCardsSectionHeader = "Credit cards";
+		public static String addCardTitle = "Add another credit card";
+		public static String deleteCardAlertTitle = "Are you sure you want to remove this credit card?";
+		public static String deleteCardAlertButton = "Remove";
+	}
+	public final static class overlaymenu {
+		public static String move = "Move";
+		public static String delete = "Delete";
+		public static String print = "Print";
+		public static String mail = "E-Mail";
+		public static String openIn = "Open in...";
+		public static String forward = "Forward";
+	}
+	public final static class senderregistration {
+		public static String title = "Registration Needed";
+		public static String body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+		public static String register = "Register";
+		public static String placeholder = "Type here";
+	}
+	public final static class reply {
+		public static String title = "Reply";
 	}
 }
