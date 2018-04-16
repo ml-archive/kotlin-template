@@ -98,20 +98,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:hint="_cpr"
                     android:textColorHint="@color/blueGrey"
                     android:theme="@style/TextInputLayoutTheme"
                     android:visibility="gone"
                     app:errorTextAppearance="@style/errorappearance"
                     app:hintTextAppearance="@style/HintTextAppearance"
-                    nstack:hint="@string/nstack_logoncredentials_emailOrSSNHeader">
+                    >
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/cprEmailEt"
                         style="@style/EditText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        nstack:hint="@string/nstack_logoncredentials_emailOrSSNHeader"/>
 
                 </android.support.design.widget.TextInputLayout>
 

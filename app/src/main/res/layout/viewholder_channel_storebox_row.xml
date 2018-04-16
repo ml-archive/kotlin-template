@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -19,6 +19,7 @@
             android:background="@drawable/square_white_greyboarder">
 
             <ImageView
+                android:id="@+id/logoIv"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
@@ -41,6 +42,7 @@
                 android:paddingTop="8dp">
 
                 <TextView
+                    android:id="@+id/headerTv"
                     style="@style/text.header4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -48,6 +50,7 @@
                     android:textAlignment="viewStart"/>
 
                 <TextView
+                    android:id="@+id/subHeaderTv"
                     style="@style/text.subHeader5.quaternary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -76,6 +79,7 @@
                     android:paddingTop="8dp">
 
                     <TextView
+                        android:id="@+id/amountTv"
                         style="@style/text.header4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -83,6 +87,7 @@
                         android:textAlignment="viewEnd"/>
 
                     <TextView
+                        android:id="@+id/dateTv"
                         style="@style/text.subHeader5.quaternary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

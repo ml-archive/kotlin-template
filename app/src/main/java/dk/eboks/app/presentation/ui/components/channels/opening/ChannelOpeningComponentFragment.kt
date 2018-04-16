@@ -18,6 +18,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.ViewErrorController
 import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentStoreboxComponentFragment
 import kotlinx.android.synthetic.main.fragment_channel_opening_component.*
 import kotlinx.android.synthetic.main.include_channel_detail_top.*
 import javax.inject.Inject
@@ -116,5 +117,10 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
             fragmentManager.beginTransaction().add(R.id.content, it, ChannelContentComponentFragment::class.java.simpleName).commit()
         }
         */
+    }
+
+    override fun openStoreBoxContent() {
+        val fragment = ChannelContentStoreboxComponentFragment()
+        getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
     }
 }
