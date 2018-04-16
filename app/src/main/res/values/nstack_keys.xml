@@ -66,6 +66,7 @@
   <string name='nstack_channels_drawerSubHeader' formatted='false'>channels_drawerSubHeader</string>
   <string name='nstack_channels_drawerHeaderText' formatted='false'>channels_drawerHeaderText</string>
   <string name='nstack_channels_allowButton' formatted='false'>channels_allowButton</string>
+  <string name='nstack_channels_drawerNeedsVerification' formatted='false'>channels_drawerNeedsVerification</string>
   <string name='nstack_senders_title' formatted='false'>senders_title</string>
   <string name='nstack_senders_registrations' formatted='false'>senders_registrations</string>
   <string name='nstack_senders_register' formatted='false'>senders_register</string>
@@ -355,4 +356,11 @@
   <string name='nstack_senderregistration_register' formatted='false'>senderregistration_register</string>
   <string name='nstack_senderregistration_placeholder' formatted='false'>senderregistration_placeholder</string>
   <string name='nstack_reply_title' formatted='false'>reply_title</string>
+  <string name='nstack_androidfingerprint_successMessage' formatted='false'>androidfingerprint_successMessage</string>
+  <string name='nstack_androidfingerprint_errorMessage' formatted='false'>androidfingerprint_errorMessage</string>
+  <string name='nstack_androidfingerprint_errorInvalidData' formatted='false'>androidfingerprint_errorInvalidData</string>
+  <string name='nstack_androidfingerprint_dialogTitle' formatted='false'>androidfingerprint_dialogTitle</string>
+  <string name='nstack_androidfingerprint_dialogSubtitle' formatted='false'>androidfingerprint_dialogSubtitle</string>
+  <string name='nstack_androidfingerprint_dialogDescription' formatted='false'>androidfingerprint_dialogDescription</string>
+  <string name='nstack_androidfingerprint_errorGeneric' formatted='false'>androidfingerprint_errorGeneric</string>
 </resources>

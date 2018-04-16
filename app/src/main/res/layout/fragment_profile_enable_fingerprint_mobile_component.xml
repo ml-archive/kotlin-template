@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:nstack="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingPrefix"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     android:orientation="vertical"
     android:paddingLeft="40dp"
-    android:paddingRight="40dp">
+    android:paddingRight="40dp"
+    tools:ignore="MissingPrefix">
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"></View>
+        android:layout_weight="1" />
 
     <TextView
         style="@style/text.header2"
@@ -23,7 +22,7 @@
         android:gravity="center"
         android:paddingTop="32dp"
         android:text="_Enable Mobile access to use fingerprint"
-        nstack:key="@string/nstack_profile_fingerHintTitle"/>
+        nstack:key="@string/nstack_profile_fingerHintTitle" />
 
     <TextView
         style="@style/text.body6"
@@ -32,8 +31,8 @@
         android:gravity="center"
         android:paddingTop="8dp"
         android:text="_Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer cursus, dui vel pretium laoreet, sapien nunc laoreet neque, ac vestibulum velit tellus at diam. "
-        nstack:key="@string/nstack_profile_fingerHintText"
-        android:textColor="@color/blueGrey" />
+        android:textColor="@color/blueGrey"
+        nstack:key="@string/nstack_profile_fingerHintText" />
 
     <Button
         android:id="@+id/signupBtn"
@@ -44,8 +43,8 @@
         android:layout_marginTop="16dp"
         android:backgroundTint="#0D223944"
         android:text="_Ok"
-        nstack:key="@string/nstack_default_ok"
-        android:textSize="16dp" />
+        android:textSize="16dp"
+        nstack:key="@string/nstack_default_ok" />
 
 
 </LinearLayout>

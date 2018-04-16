@@ -21,13 +21,18 @@ class ProfileInfoComponentPresenter @Inject constructor(val appState: AppStateMa
             return
         }
 
-        runAction { v->
+        runAction { v ->
             v.setName(currentUser.name)
             v.setProfileImage(currentUser.avatarUri)
             v.setFingerprintEnabled(currentUser.hasFingerprint, currentUser.lastLoginProvider)
             v.setVerified(currentUser.verified)
             v.setKeepMeSignedIn(false)
         }
+    }
+
+    override fun enableUserFingerprint(isEnabled: Boolean) {
+        appState.state?.currentUser?.hasFingerprint = isEnabled
+        appState.save()
     }
 
     override fun doLogout() {
