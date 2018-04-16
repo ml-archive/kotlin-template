@@ -1,8 +1,10 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
 import android.app.Activity
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.support.annotation.RequiresApi
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -10,29 +12,30 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethod
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
-import dk.eboks.app.BuildConfig
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.isValidEmail
+import dk.nodes.locksmith.core.Locksmith
+import dk.nodes.locksmith.core.fingerprint.FingerprintDialog.FingerprintDialogEvent.*
 import kotlinx.android.synthetic.main.fragment_login_component.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.Glide
-import dk.eboks.app.presentation.ui.screens.start.StartActivity
-import kotlinx.android.synthetic.main.include_toolbar.*
 
 
 /**
@@ -45,16 +48,20 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     var handler = Handler()
 
     @Inject
-    lateinit var presenter : LoginComponentContract.Presenter
+    lateinit var presenter: LoginComponentContract.Presenter
 
     @Inject
     lateinit var formatter: EboksFormatter
 
-    var showGreeting : Boolean = true
+    var showGreeting: Boolean = true
     var currentProvider: LoginProvider? = null
     var currentUser: User? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater?,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater?.inflate(R.layout.fragment_login_component, container, false)
         return rootView
     }
@@ -112,8 +119,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
 
-    private fun onContinue()
-    {
+    private fun onContinue() {
         Timber.e("onContinue")
         currentUser?.let { user ->
             currentProvider?.let { provider ->
@@ -129,9 +135,13 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
 
-    override fun setupView(loginProvider: LoginProvider?, user: User?, altLoginProviders: List<LoginProvider>) {
+    override fun setupView(
+            loginProvider: LoginProvider?,
+            user: User?,
+            altLoginProviders: List<LoginProvider>
+    ) {
         Timber.e("SetupView called loginProvider = $loginProvider user = $user altProviders = $altLoginProviders")
-        loginProvider?.let { provider->
+        loginProvider?.let { provider ->
             currentProvider = provider
             headerTv.visibility = View.GONE
             detailTv.visibility = View.GONE
@@ -150,11 +160,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
     }
 
-    private fun createUser(verified : Boolean)
-    {
+    private fun createUser(verified: Boolean) {
         val emailOrCpr = cprEmailEt.text?.toString()?.trim() ?: ""
         if (emailOrCpr.isNotBlank()) {
-            if(emailOrCpr.contains("@"))
+            if (emailOrCpr.contains("@"))
                 presenter.createUserAndLogin(email = emailOrCpr, cpr = null, verified = verified)
             else
                 presenter.createUserAndLogin(email = null, cpr = emailOrCpr, verified = verified)
@@ -171,11 +180,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         v.findViewById<TextView>(R.id.descTv).text = "Warning sucks all the midiclorians out of the room"
 
         v.setOnClickListener {
-            currentUser?.let { user ->
-                currentProvider?.let { provider ->
-                    presenter.login(user, provider.id)
-                }
-            }
+            doUserLogin()
         }
         loginProvidersLl.addView(v)
         loginProvidersLl.visibility = View.VISIBLE
@@ -186,14 +191,55 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
         v.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.ic_fingerprint)
         v.findViewById<TextView>(R.id.nameTv).text = "_Logon with Fingerprint"
+
         v.setOnClickListener {
-            // TODO fingerprinty stuff
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                showFingerprintDialog()
+            }
         }
+
         loginProvidersLl.addView(v)
     }
 
-    private fun setupUserView(user : User)
-    {
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun showFingerprintDialog() {
+        Locksmith.getFingerprintDialogBuilder(context)
+                .setTitle(Translation.androidfingerprint.dialogTitle)
+                .setSubtitle(Translation.androidfingerprint.dialogSubtitle)
+                .setDescription(Translation.androidfingerprint.dialogDescription)
+                .setSuccessMessage(Translation.androidfingerprint.successMessage)
+                .setErrorMessage(Translation.androidfingerprint.errorMessage)
+                .setCancelText(Translation.defaultSection.cancel)
+                .setKeyValidityDuration(60)
+                .setEventListener {
+                    when (it) {
+                        CANCEL  -> {
+                            // Do nothing?
+                        }
+                        SUCCESS -> {
+                            doUserLogin()
+                        }
+                        ERROR_CIPHER,
+                        ERROR_ENROLLMENT,
+                        ERROR_HARDWARE,
+                        ERROR_SECURE,
+                        ERROR   -> {
+                            showErrorDialog(
+                                    ViewError(
+                                            Translation.error.genericTitle,
+                                            Translation.androidfingerprint.errorGeneric,
+                                            true,
+                                            false
+                                    )
+                            )
+                        }
+                    }
+                }
+                .build()
+                .show()
+    }
+
+    private fun setupUserView(user: User) {
         currentUser = user
         userLl.visibility = View.VISIBLE
         userNameTv.text = user.name
@@ -208,11 +254,9 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 .into(userAvatarIv)
     }
 
-    private fun setupViewForProvider(user : User?)
-    {
-        currentProvider?.let { provider->
-            when(provider.id)
-            {
+    private fun setupViewForProvider(user: User?) {
+        currentProvider?.let { provider ->
+            when (provider.id) {
                 "email" -> {
                     user?.let { setupUserView(it) }
                     cprEmailEt.inputType = InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
@@ -220,7 +264,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                     passwordTil.visibility = View.VISIBLE
                     continueBtn.visibility = View.VISIBLE
                 }
-                "cpr" -> {
+                "cpr"   -> {
                     user?.let { setupUserView(it) }
                     cprEmailEt.inputType = InputType.TYPE_CLASS_NUMBER
                     cprEmailTil.visibility = View.VISIBLE
@@ -228,17 +272,18 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                     passwordTil.visibility = View.VISIBLE
                     continueBtn.visibility = View.VISIBLE
                 }
-                else -> {
-                    getBaseActivity()?.addFragmentOnTop(R.id.containerFl, provider.fragmentClass?.newInstance())
+                else    -> {
+                    getBaseActivity()?.addFragmentOnTop(
+                            R.id.containerFl,
+                            provider.fragmentClass?.newInstance()
+                    )
                 }
             }
         }
     }
 
-    private fun setupAltLoginProviders(providers: List<LoginProvider>)
-    {
-        if(providers.isEmpty())
-        {
+    private fun setupAltLoginProviders(providers: List<LoginProvider>) {
+        if (providers.isEmpty()) {
             loginProvidersLl.visibility = View.GONE
             return
         }
@@ -246,13 +291,15 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         loginProvidersLl.visibility = View.VISIBLE
         val li = LayoutInflater.from(context)
 
-        for(provider in providers)
-        {
+        for (provider in providers) {
             val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
-            if(provider.icon != -1)
+            if (provider.icon != -1)
                 v.findViewById<ImageView>(R.id.iconIv).setImageResource(provider.icon)
 
-            v.findViewById<TextView>(R.id.nameTv).text = Translation.logoncredentials.logonWithProvider.replace("[provider]",provider.name)
+            v.findViewById<TextView>(R.id.nameTv).text = Translation.logoncredentials.logonWithProvider.replace(
+                    "[provider]",
+                    provider.name
+            )
             provider.description?.let { v.findViewById<TextView>(R.id.descTv).text = it }.guard {
                 v.findViewById<TextView>(R.id.descTv).visibility = View.GONE
             }
@@ -268,8 +315,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             override fun afterTextChanged(password: Editable?) {
                 setContinueButton()
                 handler?.postDelayed({
-                    setErrorMessages()
-                }, 1200)
+                                         setErrorMessages()
+                                     }, 1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -279,19 +326,15 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
     private fun setupCprEmailListeners() {
-        cprEmailEt.onFocusChangeListener = object : View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
-
-            }
-        }
+        cprEmailEt.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus -> }
 
         cprEmailEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(text: Editable?) {
                 cprEmailTil.error = null
                 setContinueButton()
-                handler?.postDelayed({
-                    setErrorMessages()
-                }, 1200)
+                handler.postDelayed({
+                                        setErrorMessages()
+                                    }, 1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -303,13 +346,13 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     private fun setErrorMessages() {
         if (emailCprIsValid) {
             cprEmailTil.error = null
-        } else  {
+        } else {
             cprEmailTil.error = Translation.logoncredentials.invalidCprorEmail
         }
 
-        if (!passwordIsValid && !passwordEt.text.isNullOrBlank()){
+        if (!passwordIsValid && !passwordEt.text.isNullOrBlank()) {
             passwordTil.error = Translation.logoncredentials.invalidPassword
-        }else {
+        } else {
             passwordTil.error = null
         }
     }
@@ -318,14 +361,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         emailCprIsValid = (cprEmailEt.text.isValidEmail() || cprEmailEt.text.isValidCpr())
         passwordIsValid = (!passwordEt.text.isNullOrBlank())
 
-        currentProvider?.let { provider->
-            if(provider.id == "cpr")
-            {
+        currentProvider?.let { provider ->
+            if (provider.id == "cpr") {
                 val enabled = (emailCprIsValid && passwordIsValid)
                 continueBtn.isEnabled = enabled
             }
-            if(provider.id == "email")
-            {
+            if (provider.id == "email") {
                 continueBtn.isEnabled = passwordIsValid
             }
         }.guard {
@@ -333,5 +374,13 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             continueBtn.isEnabled = enabled
         }
 
+    }
+
+    private fun doUserLogin() {
+        currentUser?.let { user ->
+            currentProvider?.let { provider ->
+                presenter.login(user, provider.id)
+            }
+        }
     }
 }

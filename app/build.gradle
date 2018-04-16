@@ -10,7 +10,6 @@ translation {
     appId = "5Rg3muDHQL8J19lb6sZzjD6ANSOrigg5x55u"
     apiKey = "htCPriWP9yoaeoHHnPgYKYw68BoejYhJnR8w"
     acceptHeader = "en-US"
-    autoRunUpdate = false
 }
 
 bitrise {
