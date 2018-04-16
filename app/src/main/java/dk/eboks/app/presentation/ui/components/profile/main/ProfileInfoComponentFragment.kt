@@ -3,7 +3,6 @@ package dk.eboks.app.presentation.ui.components.profile.main
 import android.os.Build
 import android.os.Bundle
 import android.support.annotation.RequiresApi
-import android.support.design.widget.Snackbar
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import com.bumptech.glide.Glide
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFragment
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentFragment
@@ -213,7 +213,14 @@ class ProfileInfoComponentFragment : BaseFragment(),
                         FingerprintDialog.FingerprintDialogEvent.ERROR_HARDWARE,
                         FingerprintDialog.FingerprintDialogEvent.ERROR_SECURE,
                         FingerprintDialog.FingerprintDialogEvent.ERROR   -> {
-                            showSnackBarError(Translation.androidfingerprint.errorGeneric)
+                            showErrorDialog(
+                                    ViewError(
+                                            Translation.error.genericTitle,
+                                            Translation.androidfingerprint.errorGeneric,
+                                            true,
+                                            false
+                                    )
+                            )
                         }
                     }
                 }
@@ -223,9 +230,5 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
     private fun setupVersionNumber() {
         profileDetailTvVersion.text = "${BuildConfig.VERSION_NAME} (build ${BuildConfig.VERSION_CODE})"
-    }
-
-    private fun showSnackBarError(error: String) {
-        Snackbar.make(profileFragmentRootContainer, error, Snackbar.LENGTH_SHORT)
     }
 }

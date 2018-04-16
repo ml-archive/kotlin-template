@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.support.annotation.RequiresApi
-import android.support.design.widget.Snackbar
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -24,6 +23,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
@@ -224,7 +224,14 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                         ERROR_HARDWARE,
                         ERROR_SECURE,
                         ERROR   -> {
-                            showSnackBarError(Translation.androidfingerprint.errorGeneric)
+                            showErrorDialog(
+                                    ViewError(
+                                            Translation.error.genericTitle,
+                                            Translation.androidfingerprint.errorGeneric,
+                                            true,
+                                            false
+                                    )
+                            )
                         }
                     }
                 }
@@ -375,9 +382,5 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 presenter.login(user, provider.id)
             }
         }
-    }
-
-    private fun showSnackBarError(error: String) {
-        Snackbar.make(loginComponentFragmentRoot, error, Snackbar.LENGTH_SHORT)
     }
 }
