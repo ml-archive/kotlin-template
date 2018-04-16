@@ -2,6 +2,7 @@ package dk.eboks.app.injection.modules
 
 import android.content.Context
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.models.SenderCategory
@@ -36,7 +37,7 @@ class StoreModule {
     @AppScope
     fun provideFolderIdMessageStore(api: Api, gson : Gson, context : Context) : FolderIdMessageStore
     {
-        return FolderIdMessageStore(context, gson, "folder_id_message_store.json", { key ->
+        return FolderIdMessageStore(context, gson, "folder_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
             val response = api.getMessages(key).execute()
             var result : List<Message>? = null
             response?.let {
@@ -51,7 +52,7 @@ class StoreModule {
     @AppScope
     fun provideFolderTypeMessageStore(api: Api, gson : Gson, context : Context) : FolderTypeMessageStore
     {
-        return FolderTypeMessageStore(context, gson, "folder_type_message_store.json", { key ->
+        return FolderTypeMessageStore(context, gson, "folder_type_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
             val response = api.getMessagesByType(key).execute()
             var result : List<Message>? = null
             response?.let {
@@ -66,7 +67,7 @@ class StoreModule {
     @AppScope
     fun provideChannelListStore(api: Api, gson : Gson, context : Context) : ChannelListStore
     {
-        return ChannelListStore(context, gson, "channel_list_store.json", { key ->
+        return ChannelListStore(context, gson, "channel_list_store.json", object : TypeToken<MutableMap<String, MutableList<Channel>>>() {}.type, { key ->
             val response = if(key == "pinned") api.getChannelsPinned().execute() else api.getChannels().execute()
             var result : MutableList<Channel>? = null
             response?.let {
@@ -81,7 +82,7 @@ class StoreModule {
     @AppScope
     fun provideFolderListStore(api: Api, gson : Gson, context : Context) : FolderListStore
     {
-        return FolderListStore(context, gson, "folder_list_store.json", { key ->
+        return FolderListStore(context, gson, "folder_list_store.json", object : TypeToken<MutableMap<Int, List<Folder>>>() {}.type, { key ->
             val response = api.getFolders().execute()
             var result : List<Folder>? = null
             response?.let {
@@ -96,7 +97,7 @@ class StoreModule {
     @AppScope
     fun provideMailCategoryStore(api: Api, gson : Gson, context : Context) : MailCategoryStore
     {
-        return MailCategoryStore(context, gson, "mail_category_store.json", { key ->
+        return MailCategoryStore(context, gson, "mail_category_store.json", object : TypeToken<MutableMap<Long, List<Folder>>>() {}.type, { key ->
             val response = api.getMailCategories().execute()
             var result : List<Folder>? = null
             response?.let {
@@ -110,7 +111,7 @@ class StoreModule {
     @Provides
     @AppScope
     fun provideCollectionsStore(api: Api, gson : Gson, context : Context) : CollectionsStore {
-        return CollectionsStore(context, gson, "collectons_store.json", { key ->
+        return CollectionsStore(context, gson, "collectons_store.json", object : TypeToken<MutableMap<Int, List<CollectionContainer>>>() {}.type, { key ->
             val response = api.getCollections().execute()
             var result : List<CollectionContainer>? = null
             response?.let {
@@ -125,7 +126,7 @@ class StoreModule {
     @AppScope
     fun provideSenderStore(api: Api, gson : Gson, context : Context) : SenderStore
     {
-        return SenderStore(context, gson, "sender_store.json", { key ->
+        return SenderStore(context, gson, "sender_store.json", object : TypeToken<MutableMap<Int, List<Sender>>>() {}.type, { key ->
             val response = api.getSenders().execute()
             var result : List<Sender>? = null
             response?.let {
@@ -139,7 +140,7 @@ class StoreModule {
     @Provides
     @AppScope
     fun provideSenderCategoryStore(api: Api, gson : Gson, context : Context) : SenderCategoryStore {
-        return SenderCategoryStore(context, gson, "sender_category_store.json", { key ->
+        return SenderCategoryStore(context, gson, "sender_category_store.json", object : TypeToken<MutableMap<String, List<SenderCategory>>>() {}.type, { key ->
             val response = api.getSenderCategories(key).execute()
             var result : List<SenderCategory>? = null
             response?.let {

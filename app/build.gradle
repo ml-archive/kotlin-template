@@ -237,7 +237,7 @@ dependencies {
 
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-    implementation "dk.nodes.nstack:nstack-kotlin:2.0.7"
+    implementation "dk.nodes.nstack:nstack-kotlin:2.0.8"
 
     implementation "dk.nodes.arch:base:$nodes_arch_version"
     //implementation "dk.nodes.arch:base:LOCAL"
@@ -252,6 +252,9 @@ dependencies {
     implementation "com.l4digital.fastscroll:fastscroll:1.0.4"
 
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+
+    // Encryption Lib
+    implementation 'dk.nodes.locksmith:core:1.0.2'
 
     // Testing
     testImplementation "junit:junit:$junit_version"
