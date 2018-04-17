@@ -15,7 +15,6 @@ import dk.nodes.arch.domain.injection.scopes.AppScope
             ExecutorModule::class,
             InteractorModule::class,
             RestModule::class,
-            StoreModule::class,
             RepositoryModule::class,
             StorageModule::class,
             UtilModule::class

@@ -10,11 +10,13 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.repositories.MessagesRepository
-import dk.eboks.app.injection.modules.FolderIdMessageStore
-import dk.eboks.app.injection.modules.FolderTypeMessageStore
-import dk.eboks.app.injection.modules.SenderIdMessageStore
 import dk.eboks.app.network.Api
+import dk.eboks.app.storage.base.CacheStore
 import timber.log.Timber
+
+typealias SenderIdMessageStore = CacheStore<Long, List<Message>>
+typealias FolderIdMessageStore = CacheStore<Long, List<Message>>
+typealias FolderTypeMessageStore = CacheStore<String, List<Message>>
 
 /**
  * Created by bison on 01/02/18.
