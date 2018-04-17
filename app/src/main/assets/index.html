@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+    <!--   Login     -->
+    <h3 class="mt-5">User</h3>
+    <div class="form-group  w-100">
+        <input type="text" class="form-control" id="username" readonly placeholder="Retrived Value">
+    </div>
+    <button type="button" id="login" class="btn btn-secondary btn-lg btn-block mb-5" onclick="login()">Login</button>
+    <!--   Share     -->
+    <h3>Share</h3>
+    <button type="button" id="share" class="btn btn-secondary btn-lg btn-block mb-5" onclick="share()">Share</button>
+    <!--   Save     -->
+    <h3>Save</h3>
+    <form class="form-inline">
+        <div class="form-group w-100">
+            <input type="text" class="form-control" id="sendKey" placeholder="Enter Key to Save">
+        </div>
+        <label for="sendKey" class="sr-only">Key</label>
+        <div class="form-group w-100">
+            <input type="text" class="form-control" id="sendValue" placeholder="Enter Value to Save">
+        </div>
+        <label for="sendValue" class="sr-only">Value</label>
+    </form>
+    <button type="button" id="send" class="btn btn-secondary btn-lg btn-block mb-5" onclick="send()">Save</button>
+    <!--   Rerieve     -->
+    <h3>Retrieve</h3>
+    <form class="form-inline">
+        <div class="form-group  w-100">
+            <input type="text" class="form-control" id="retrieveKey" placeholder="Enter Key">
+        </div>
+        <div class="form-group  w-100">
+            <input type="text" class="form-control" id="retrieveValue" readonly placeholder="Retrived Value">
+        </div>
+    </form>
+    <button type="button" id="send" class="btn btn-secondary btn-lg btn-block mb-5" onclick="retrieve()">Retrive</button>
+    <!--   Actions     -->
+    <h3>Actions Button</h3>
+    <div class="row">
+        <div class="col">
+            <button type="button" id="call" class="btn btn-secondary btn-lg btn-block" onclick="call()">Call</button>
+        </div>
+        <div class="col">
+            <button type="button" id="email" class="btn btn-secondary btn-lg btn-block" onclick="email()">Email</button>
+        </div>
+    </div>
+    <button type="button" id="map" class="btn btn-secondary btn-lg btn-block mt-5 mb-5" onclick="openMap()">Open Map</button>
+    <!--   Next Page    -->
+    <button type="button" id="pushWebpage" class="btn btn-secondary btn-lg btn-block mb-5" onclick="pushWebpage()">Next Page</button>
+</div>
+<!--   Scripts     -->
+<script>
+            function login() {
+                var msg = "login msg";
+                try {
+                    android.login(msg);
+                } catch(err) {
+                    console.log(err);
+                }
+                try {
+                    webkit.messageHandlers.login.postMessage(msg);
+                } catch(err) {
+                    console.log('error');
+                }
+            }
+        
+            function updateUser(data) {
+                var ele = document.getElementById('username');
+                ele.placeholder = data['username'];
+            }
+        
+            function share() {
+                var shareText = "This is the text we want to share";
+                try {
+                    android.share(shareText);
+                } catch(err) {
+                    console.log(err);
+                }
+                try {
+                    webkit.messageHandlers.share.postMessage(shareText);
+                } catch(err) {
+                    console.log('error');
+                }
+            }
+        
+            function send() {
+                var sendKey = document.getElementById('sendKey').value;
+                var sendValue = document.getElementById('sendValue').value;
+                try {
+                    android.send(sendKey, sendValue);
+                } catch(err) {
+                    console.log(err);
+                }
+                try {
+                    webkit.messageHandlers.send.postMessage({sendKey: sendKey, sendValue: sendValue});
+                } catch(err) {
+                    console.log('error');
+                }
+            }
+        
+            function retrieve() {
+                var key = document.getElementById('retrieveKey').value;
+                try {
+                    android.retrieve(key);
+                } catch(err) {
+                    console.log(err);
+                }
+                try {
+                    webkit.messageHandlers.retrieve.postMessage(key);
+                } catch(err) {
+                    console.log('error');
+                }
+            }
+        
+            function displayValue(data) {
+                var ele = document.getElementById('retrieveValue');
+                ele.placeholder = data['value'];
+            }
+        
+            function call() {
+                var number = "tel://+4528831141";
+                try {
+                    android.call(number);
+                } catch(err) {
+                    console.log(err);
+                }
+                try {
+                    webkit.messageHandlers.call.postMessage(number);
+                } catch(err) {
+                    console.log('error');
+                }
+            }
+        
+            function email() {
+                var address = "anho@nodes.dk";
+                var subject = "Dummy mail";
+                var body = "Dummy body";
+                try {
+                    android.email(address, subject, body);
+                } catch(err) {
+                    console.log(err);
+                }
+                try {
+                    webkit.messageHandlers.email.postMessage({address: address, subject: subject, body: body});
+                } catch(err) {
+                    console.log('error');
+                }
+            }
+        
+            function pushWebpage() {
+                var newWebPage = "index2";
+                try {
+                    android.pushWebpage(newWebPage);
+                } catch(err) {
+                    console.log(err);
+                }
+                try {
+                    webkit.messageHandlers.pushWebpage.postMessage(newWebPage);
+                } catch(err) {
+                    console.log('error');
+                }
+            }
+        
+            function openMap() {
+                var name = "Nodes Office";
+                var address = "Artillerivej 86, 2300 København";
+                try {
+                    android.map(name, address);
+                } catch(err) {
+                    console.log(err);
+                }
+                try {
+                    webkit.messageHandlers.map.postMessage({name: name, address: address});
+                } catch(err) {
+                    console.log('error');
+                }
+            }
+</script>
+</body>
+</html>

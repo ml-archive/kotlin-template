@@ -122,6 +122,8 @@ import dk.eboks.app.presentation.ui.screens.Overlay.OverlayContract
 import dk.eboks.app.presentation.ui.screens.Overlay.OverlayPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContract
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentContract
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewContract
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserContract
@@ -786,6 +788,12 @@ class PresentationModule {
         return UploadFileComponentPresenter(stateManager)
     }
 
+
+    @ActivityScope
+    @Provides
+    fun provideStoreboxContentPresenter(stateManager: AppStateManager) : StoreboxContentContract.Presenter {
+        return StoreboxContentPresenter(stateManager)
+    }
 
     /* Pasta
     @ActivityScope

@@ -22,20 +22,21 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
     override fun execute() {
         try {
             input?.folder?.let { folder->
-                val wasCached = messagesRepository.hasCachedMessageFolder(folder)
-                val messages = getMessages(input?.cached ?: true, folder)
+                val hasCached = messagesRepository.hasCachedMessageFolder(folder)
+
+                val messages = getMessages(hasCached, folder)
                 runOnUIThread {
                     output?.onGetMessages(messages)
                 }
 
-                if(wasCached)
+                if(hasCached)
                     Timber.e("Emitting cached messages")
                 else {
                     Timber.e("Emitting fresh messages")
                     return
                 }
 
-                if(wasCached)
+                if(hasCached)
                 {
                     val fresh_msgs = getMessages(false, folder)
                     runOnUIThread {

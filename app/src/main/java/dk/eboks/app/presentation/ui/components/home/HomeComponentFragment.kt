@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.home
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -24,6 +25,7 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.shared.Currency
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.eboks.app.util.views
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_home_overview_mail_component.*
@@ -44,7 +46,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
 
     //mock data
     var emailCount = 0
-    //var channelCount = 2
+    var channelCount = 0
     override var verifiedUser: Boolean = false
     //var messages: MutableList<dk.eboks.app.domain.models.message.Message> = ArrayList()
     //var channels: MutableList<dk.eboks.app.domain.models.home.Control> = ArrayList()
@@ -84,6 +86,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     override fun setupChannels(channels: List<Channel>) {
         for (i in 0..channels.size - 1) {
             val currentChannel = channels[i]
+            channelCount = channels.size
 
             //setting the header
             val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContainerLl, false)
@@ -334,16 +337,22 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     }
 
     override fun showHighlights(messages: List<Message>) {
-        Timber.e("Got them highlights $messages")
+        //Timber.e("Got them highlights $messages")
         emailCount = messages.size
         if (messages.size == 0) {
             emptyStateLl.visibility = View.VISIBLE
             emailContainerLl.visibility = View.GONE
-            emptyStateBtn.isEnabled = verifiedUser
-            emptyStateImageIv.visibility = View.GONE
-            emptyStateBtn.text = Translation.home.messagesEmptyButton
-            emptyStateHeaderTv.text = Translation.home.messagesEmptyTitle
-            emptyStateTextTv.text = Translation.home.messagesEmptyMessage
+            if(channelCount>0) {
+                emptyStateImageIv.visibility = View.GONE
+            }
+            if(verifiedUser) {
+                emptyStateBtn.text = Translation.home.messagesEmptyButton
+                emptyStateHeaderTv.text = Translation.home.messagesEmptyTitle
+                emptyStateTextTv.text = Translation.home.messagesEmptyMessage
+                emptyStateBtn.setOnClickListener {
+                    startActivity(Intent(context, MailOverviewActivity::class.java))
+                }
+            }
         } else {
             emptyStateLl.visibility = View.GONE
             emailContainerLl.visibility = View.VISIBLE
@@ -389,12 +398,6 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 }
                 mailListContentLL.addView(v)
 
-                // for this sprint it should not show the 3+ mail button, it should always show all
-//                if (messages.size > 3) {
-//                    showBtn.isEnabled = true
-//                    showBtn.text = Translation.home.messagesSectionHeaderButtonNewMessagesSuffix.replace("[value]", messages.size.toString())
-//                }
-
             }
         }
     }
@@ -428,14 +431,6 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     }
 
 // TODO Old crap that might be reusable
-
-//    private fun showEmptyState() {
-//        emptyStateLl.visibility = View.VISIBLE
-//        emailContainerLl.visibility = View.GONE
-//        if (channels.size > 0) {
-//            emptyStateImageIv.visibility = View.GONE
-//        }
-//    }
 
 
     /*
@@ -486,70 +481,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     }
     */
 
-//    private fun showMails() {
-//        if (emailCount == 0) {
-//            emptyStateLl.visibility = View.VISIBLE
-//            emailContainerLl.visibility = View.GONE
-//            emptyStateBtn.isEnabled = verifiedUser
-//            emptyStateImageIv.visibility = View.GONE
-//            emptyStateBtn.text = Translation.home.messagesEmptyButton
-//            emptyStateHeaderTv.text = Translation.home.messagesEmptyTitle
-//            emptyStateTextTv.text = Translation.home.messagesEmptyMessage
-//        } else {
-//            emptyStateLl.visibility = View.GONE
-//            emailContainerLl.visibility = View.VISIBLE
-//            mailListContentLL.removeAllViews()
-//
-//
-//            var showCount = 3 // Not allowed to show more than 3
-//            if (messages.size < showCount) {
-//                showCount = messages.size
-//            }
-//
-//            for (i in 1..showCount) {
-//                val v = inflator.inflate(R.layout.viewholder_message, mailListContentLL, false)
-//                var currentMessage = messages[i - 1]
-//                val circleIv = v.findViewById<ImageView>(R.id.circleIv)
-//                val titleTv = v.findViewById<TextView>(R.id.titleTv)
-//                val subTitleTv = v.findViewById<TextView>(R.id.subTitleTv)
-//                val urgentTv = v.findViewById<TextView>(R.id.urgentTv)
-//                val dateTv = v.findViewById<TextView>(R.id.dateTv)
-//                val dividerV = v.findViewById<View>(R.id.dividerV)
-//                val rootLl = v.findViewById<LinearLayout>(R.id.rootLl)
-//                //todo set the logo
-//                circleIv.let {
-//                    Glide.with(context).load("https://picsum.photos/200/?random").into(it)
-//                }
-//                if (currentMessage.unread) {
-//                    circleIv.isSelected = true
-//                }
-//
-//                if (currentMessage.status != null && currentMessage.status!!.important) {
-//                    urgentTv.visibility = View.VISIBLE
-//                    urgentTv.text = currentMessage.status?.text
-//                }
-//                titleTv.text = currentMessage.id
-//                subTitleTv.text = currentMessage.subject
-//                dateTv.text = formatter.formatDateRelative(currentMessage)
-//                rootLl.setBackgroundColor(resources.getColor(R.color.white))
-//                if (i == showCount) {
-//                    dividerV.visibility = View.GONE
-//                }
-//                mailListContentLL.addView(v)
-//                mailListContentLL.requestLayout()
-
-    // for this sprint it should not show the 3+ mail button, it should always show all
-//                if (messages.size > 3) {
-//                    showBtn.isEnabled = true
-//                    showBtn.text = Translation.home.messagesSectionHeaderButtonNewMessagesSuffix.replace("[value]", messages.size.toString())
-//                }
-
-//            }
-//        }
-//    }
-
-
-    /*
+/*
     fun createMockMails(emailCount: Int) {
         for (i in 1..emailCount) {
             val random = Random()

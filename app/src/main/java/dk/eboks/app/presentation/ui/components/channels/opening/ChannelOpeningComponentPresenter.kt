@@ -16,42 +16,43 @@ import javax.inject.Inject
 class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStateManager, val getChannelInteractor: GetChannelInteractor) :
         ChannelOpeningComponentContract.Presenter,
         BasePresenterImpl<ChannelOpeningComponentContract.View>(),
-        GetChannelInteractor.Output
-{
+        GetChannelInteractor.Output {
 
     init {
         appState.state?.channelState?.selectedChannel?.let { channel ->
             getChannelInteractor.output = this
             getChannelInteractor.input = GetChannelInteractor.Input(channel.id.toLong())
             getChannelInteractor.run()
-            runAction {
-                v-> v.showProgress(true)
+            runAction { v ->
+                v.showProgress(true)
             }
         }
     }
 
-    override fun install(channel: Channel, provider : LoginProvider) {
-        runAction { v->
+    override fun install(channel: Channel, provider: LoginProvider) {
+        runAction { v ->
             //v.showProgress(true)
             v.showVerifyState(channel, provider)
         }
     }
 
-    override fun open(channel: Channel)
-    {
-        runAction { v->v.openChannelContent() }
+    override fun open(channel: Channel) {
+        //storebox channels id 1 - 3
+        if (channel.id > 0 && channel.id < 4) {
+            runAction { v -> v.openStoreBoxContent() }
+        } else {
+            runAction { v -> v.openChannelContent() }
+        }
     }
 
     override fun onGetChannel(channel: Channel) {
-        runAction { v->v.showProgress(false) }
-        if(appState.state?.channelState?.openOrInstallImmediately == false) {
+        runAction { v -> v.showProgress(false) }
+        if (appState.state?.channelState?.openOrInstallImmediately == false) {
             if (channel.installed) {
                 runAction { v -> v.showOpenState(channel) }
             } else
                 runAction { v -> v.showInstallState(channel) }
-        }
-        else
-        {
+        } else {
             if (!channel.installed) {
                 runAction { v ->
                     Config.getLoginProvider("nemid")?.let {
@@ -64,8 +65,8 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
         }
     }
 
-    override fun onGetChannelError(error : ViewError) {
-        runAction { v->
+    override fun onGetChannelError(error: ViewError) {
+        runAction { v ->
             v.showProgress(false)
             v.showErrorDialog(error)
         }
