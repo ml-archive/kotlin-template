@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors.channel
 
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.repositories.ChannelsRepository
 import dk.eboks.app.util.exceptionToViewError
@@ -21,8 +22,10 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
 
     override fun execute() {
         had_channels = false
+        controlCachedMap.clear()
         try {
-            fetchData(true)
+            emitCachedData()
+            //refreshCachedData()
         } catch (t: Throwable) {
             runOnUIThread {
                 t.printStackTrace()
@@ -32,31 +35,22 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
         }
     }
 
-    private fun fetchData(cached : Boolean)
+    private fun emitCachedData()
     {
-
-        if(cached)
-        {
-            had_channels = channelsRepository.hasCachedChannelList("pinned")
-        }
-        val pinnedChannels = channelsRepository.getPinnedChannels(cached)
+        had_channels = channelsRepository.hasCachedChannelList("pinned")
+        val pinnedChannels = channelsRepository.getPinnedChannels(true)
         runOnUIThread {
             output?.onGetPinnedChannelList(pinnedChannels)
         }
 
         if(pinnedChannels.isNotEmpty())
         {
-            Timber.e("channel home content loading started for ${pinnedChannels.size} channels")
             val channelMap : MutableMap<Int, Deferred<HomeContent>> = HashMap()
             pinnedChannels.forEachIndexed { index, channel ->
-                if(cached)
-                {
-                    controlCachedMap[index] = channelsRepository.hasCachedChannelControl(channel.id.toLong())
-                }
-                val d = async { channelsRepository.getChannelHomeContent(channel.id.toLong(), cached) }
+                controlCachedMap[index] = channelsRepository.hasCachedChannelControl(channel.id.toLong())
+                val d = async { channelsRepository.getChannelHomeContent(channel.id.toLong(), true) }
                 channelMap[index] = d
             }
-            //val result : MutableList<Control> = ArrayList()
 
             runBlocking {
                 launch(CommonPool) {
@@ -65,10 +59,10 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
                         {
                             entry.value.await()
                             val content = entry.value.getCompleted()
-                            Timber.e("Got HomeContent $content")
                             runOnUIThread {
                                 var channel = pinnedChannels[entry.key]
                                 output?.onGetChannelHomeContent(channel, content)
+                                Timber.e("emitCachedData channel ${channel.name}")
                             }
                         }
                     }
@@ -78,11 +72,49 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
                     }
                 }
             }
-            Timber.e("channel home content loading completed, loaded ${channelMap.size} controls")
+            Timber.e("emitCachedData completed, loaded ${channelMap.size} controls")
         }
-        else    // there are no pinned channels
-        {
+    }
 
+    private fun refreshCachedData()
+    {
+        // do not load the channels from the network if we just did
+        val pinnedChannels = channelsRepository.getPinnedChannels(!had_channels)
+        runOnUIThread {
+            output?.onGetPinnedChannelList(pinnedChannels)
+        }
+        if(pinnedChannels.isNotEmpty())
+        {
+            val channelMap : MutableMap<Int, Deferred<HomeContent>> = HashMap()
+            pinnedChannels.forEachIndexed { index, channel ->
+                // don't reload channel control from network if we just did
+                if(controlCachedMap[index] == true) {
+                    val d = async { channelsRepository.getChannelHomeContent(channel.id.toLong(), false) }
+                    channelMap[index] = d
+                }
+            }
+
+            runBlocking {
+                launch(CommonPool) {
+                    try {
+                        for(entry in channelMap)
+                        {
+                            entry.value.await()
+                            val content = entry.value.getCompleted()
+                            runOnUIThread {
+                                var channel = pinnedChannels[entry.key]
+                                output?.onGetChannelHomeContent(channel, content)
+                                Timber.e("refreshCachedData channel ${channel.name}")
+                            }
+                        }
+                    }
+                    catch(t : Throwable)
+                    {
+                        t.printStackTrace()
+                    }
+                }
+            }
+            Timber.e("refreshCachedData completed, loaded ${channelMap.size} controls")
         }
     }
 }

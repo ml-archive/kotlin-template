@@ -345,6 +345,9 @@
   <string name='nstack_channelsettingsstoreboxadditions_addCardTitle' formatted='false'>channelsettingsstoreboxadditions_addCardTitle</string>
   <string name='nstack_channelsettingsstoreboxadditions_deleteCardAlertTitle' formatted='false'>channelsettingsstoreboxadditions_deleteCardAlertTitle</string>
   <string name='nstack_channelsettingsstoreboxadditions_deleteCardAlertButton' formatted='false'>channelsettingsstoreboxadditions_deleteCardAlertButton</string>
+  <string name='nstack_channelsettingsstoreboxadditions_deleteCardCancelButton' formatted='false'>channelsettingsstoreboxadditions_deleteCardCancelButton</string>
+  <string name='nstack_channelsettingsstoreboxadditions_removeChannelTitle' formatted='false'>channelsettingsstoreboxadditions_removeChannelTitle</string>
+  <string name='nstack_channelsettingsstoreboxadditions_removeChannelMessage' formatted='false'>channelsettingsstoreboxadditions_removeChannelMessage</string>
   <string name='nstack_overlaymenu_move' formatted='false'>overlaymenu_move</string>
   <string name='nstack_overlaymenu_delete' formatted='false'>overlaymenu_delete</string>
   <string name='nstack_overlaymenu_print' formatted='false'>overlaymenu_print</string>

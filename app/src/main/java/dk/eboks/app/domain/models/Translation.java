@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Mon Apr 16 15:22:58 CEST 2018 
+ * Generated: Tue Apr 17 10:32:03 CEST 2018 
  */
 
 public class Translation {
@@ -409,7 +409,10 @@ public class Translation {
 		public static String creditCardsSectionHeader = "Credit cards";
 		public static String addCardTitle = "Add another credit card";
 		public static String deleteCardAlertTitle = "Are you sure you want to remove this credit card?";
-		public static String deleteCardAlertButton = "Remove";
+		public static String deleteCardAlertButton = "REMOVE";
+		public static String deleteCardCancelButton = "CANCEL";
+		public static String removeChannelTitle = "Are you sure you want to remove this channel?";
+		public static String removeChannelMessage = "Removing this channel will delete it from your e-boks app, but will not delete your user at storebox.";
 	}
 	public final static class overlaymenu {
 		public static String move = "Move";

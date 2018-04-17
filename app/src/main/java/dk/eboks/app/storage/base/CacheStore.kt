@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dk.eboks.app.domain.models.message.Message
 import timber.log.Timber
+import java.util.concurrent.ConcurrentHashMap
 
 class CacheStore<K,V>(val context: Context, val gson: Gson, val filename : String, mapType: Type, val fetchFunction : (K)->V?) {
 
@@ -20,7 +21,7 @@ class CacheStore<K,V>(val context: Context, val gson: Gson, val filename : Strin
         }
         catch (t : Throwable)
         {
-            cacheMap = HashMap()
+            cacheMap = ConcurrentHashMap()
         }
         Timber.d("Initialized object cache ${store.filename} with ${cacheMap.size} entries")
     }
