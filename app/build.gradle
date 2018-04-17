@@ -16,7 +16,9 @@ bitrise {
     defaultDeployMode = "release|debug"
     branchMode = true
 }
-
+androidExtensions {
+    experimental = true
+}
 android {
     compileSdkVersion 26
     buildToolsVersion '27.0.3'
@@ -253,7 +255,7 @@ dependencies {
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 
     // Encryption Lib
-    implementation 'dk.nodes.locksmith:core:1.0.2'
+    implementation 'dk.nodes.locksmith:core:1.0.4'
 
     // Testing
     testImplementation "junit:junit:$junit_version"

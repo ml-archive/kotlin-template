@@ -7,6 +7,7 @@ import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
+import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
@@ -723,8 +724,16 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideFingerHintComponentPresenter(stateManager: AppStateManager): FingerHintComponentContract.Presenter {
-        return FingerHintComponentPresenter(stateManager)
+    fun provideFingerHintComponentPresenter(
+            stateManager: AppStateManager,
+            encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,
+            saveUserInteractor: SaveUserInteractor
+    ): FingerHintComponentContract.Presenter {
+        return FingerHintComponentPresenter(
+                stateManager,
+                encryptUserLoginInfoInteractor,
+                saveUserInteractor
+        )
     }
 
     @ActivityScope

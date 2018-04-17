@@ -4,6 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
 import dk.eboks.app.domain.interactors.channel.*
+import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
+import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractorImpl
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractorImpl
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
@@ -221,6 +223,17 @@ class InteractorModule {
     fun provideGetPendingInteractor(executor: Executor, api: Api): GetPendingInteractor {
         return GetPendingInteractorImpl(executor, api)
     }
+
+
+    @Provides
+    fun provideEncryptUserLoginInfoInteractor(
+            executor: Executor,
+            encryptionPreferenceManager: EncryptionPreferenceManager,
+            prefManager: PrefManager
+    ): EncryptUserLoginInfoInteractor {
+        return EncryptUserLoginInfoInteractorImpl(executor, encryptionPreferenceManager)
+    }
+
 
     @Provides
     fun provideGetCollectionsInteractor(

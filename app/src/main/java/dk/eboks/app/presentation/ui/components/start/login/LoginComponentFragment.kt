@@ -203,14 +203,15 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun showFingerprintDialog() {
-        Locksmith.getFingerprintDialogBuilder(context)
+        Locksmith
+                .getInstance()
+                .getFingerprintDialogBuilder(context)
                 .setTitle(Translation.androidfingerprint.dialogTitle)
                 .setSubtitle(Translation.androidfingerprint.dialogSubtitle)
                 .setDescription(Translation.androidfingerprint.dialogDescription)
                 .setSuccessMessage(Translation.androidfingerprint.successMessage)
                 .setErrorMessage(Translation.androidfingerprint.errorMessage)
                 .setCancelText(Translation.defaultSection.cancel)
-                .setKeyValidityDuration(60)
                 .setEventListener {
                     when (it) {
                         CANCEL  -> {

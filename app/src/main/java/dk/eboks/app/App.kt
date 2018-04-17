@@ -2,6 +2,7 @@ package dk.eboks.app
 
 import android.app.Activity
 import android.app.Application
+import android.os.Build
 import android.os.Bundle
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.injection.components.AppComponent
@@ -29,7 +30,16 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
         NStack.debugMode = BuildConfig.DEBUG
         NStack.init(this)
 
-        Locksmith.init(this)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Locksmith.Builder(this)
+                    .setKeyValidityDuration(120)
+                    .setUseFingerprint(true)
+                    .build()
+        } else {
+            Locksmith.Builder(this)
+                    .build()
+                    .init()
+        }
 
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())

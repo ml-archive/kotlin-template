@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.login.LoginInfo
+import dk.eboks.app.domain.models.login.LoginInfoType
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.components.profile.drawer.FingerPrintComponentContract.Mode.EMAIL
-import dk.eboks.app.presentation.ui.components.profile.drawer.FingerPrintComponentContract.Mode.SOCIAL_SECURITY
 import dk.eboks.app.util.addAfterTextChangeListener
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_profile_enable_fingerprint_component.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContract.View {
@@ -21,7 +22,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     lateinit var presenter: FingerPrintComponentContract.Presenter
 
     var handler = Handler()
-    var mode: FingerPrintComponentContract.Mode? = null
+    private var mode: LoginInfoType? = null
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -39,18 +40,22 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+
+        enableBtn.setOnClickListener {
+            startHintFragment()
+        }
     }
 
     // Setters
 
-    override fun setProviderMode(mode: FingerPrintComponentContract.Mode) {
+    override fun setProviderMode(mode: LoginInfoType) {
         this.mode = mode
 
         when (mode) {
-            EMAIL           -> {
+            LoginInfoType.EMAIL           -> {
                 setupEmailFingerprintEnrollment()
             }
-            SOCIAL_SECURITY -> {
+            LoginInfoType.SOCIAL_SECURITY -> {
                 setupSocialSecurityEnrollment()
             }
         }
@@ -59,12 +64,16 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     // Setup Methods
 
     private fun setupEmailFingerprintEnrollment() {
+        Timber.d("setupEmailFingerprintEnrollment")
+
         socialSecurityTil.setVisible(false)
-        
+
         setupPasswordListener()
     }
 
     private fun setupSocialSecurityEnrollment() {
+        Timber.d("setupSocialSecurityEnrollment")
+
         socialSecurityTil.setVisible(true)
 
         setupSocialSecurityListeners()
@@ -74,10 +83,10 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     private fun setupPasswordListener() {
         passwordEt.addAfterTextChangeListener {
             when (mode) {
-                EMAIL           -> {
+                LoginInfoType.EMAIL           -> {
                     checkEmailContinueState()
                 }
-                SOCIAL_SECURITY -> {
+                LoginInfoType.SOCIAL_SECURITY -> {
                     checkCprContinueState()
                 }
             }
@@ -126,7 +135,13 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     // Routing Functions
 
     private fun startHintFragment() {
-        getBaseActivity()?.openComponentDrawer(FingerHintComponentFragment::class.java)
+     mode?.let {
+         val bundle = Bundle()
+         val loginInfo = LoginInfo(it,socialSecurityEt.text.toString(),passwordEt.text.toString())
+         bundle.putParcelable(LoginInfo.KEY,loginInfo)
+         getBaseActivity()?.onBackPressed()
+         getBaseActivity()?.openComponentDrawer(FingerHintComponentFragment::class.java, bundle)
+     }
     }
 
     // Error Handlers
