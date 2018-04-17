@@ -39,7 +39,11 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        isStorebox = (arguments.getCharSequence("arguments") == "storebox")
+
+        arguments?.getCharSequence("arguments")?.let {
+                isStorebox = (arguments.getCharSequence("arguments") == "storebox")
+            }
+
         setup()
 
     }
