@@ -70,11 +70,11 @@
             android:text="_attachment"
             android:textColor="@color/blueGrey" />
 
-        <ImageView
-            android:id="@+id/dotIv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/icon_48_dot" />
+        <!--<ImageView-->
+            <!--android:id="@+id/dotIv"-->
+            <!--android:layout_width="24dp"-->
+            <!--android:layout_height="24dp"-->
+            <!--android:src="@drawable/icon_48_dot" />-->
 
         <TextView
             android:id="@+id/notesTv"

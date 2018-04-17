@@ -10,5 +10,7 @@ interface ChannelsRepository {
     fun getChannels(cached : Boolean = false) : List<Channel>
     fun getPinnedChannels(cached : Boolean = false) : MutableList<Channel>
     fun getChannel(id: Long) : Channel
-    fun getChannelHomeContent(id : Long) : HomeContent
+    fun getChannelHomeContent(id : Long, cached: Boolean = false) : HomeContent
+    fun hasCachedChannelList(key : String) : Boolean
+    fun hasCachedChannelControl(key : Long) : Boolean
 }

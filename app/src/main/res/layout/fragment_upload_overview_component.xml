@@ -151,18 +151,35 @@
                 android:visibility="visible" />
 
             <!--Show Verified user content-->
-            <TextView
-                android:id="@+id/contentRowHeaderTv"
-                style="@style/text.header3"
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginBottom="@dimen/margin_half"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="20dp"
+                android:layout_height="wrap_content"
                 android:background="@color/backgroundColor"
-                android:text="_latest uploads"
-                nstack:key="@string/nstack_uploads_rowHeader" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/contentRowHeaderTv"
+                    style="@style/text.header3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="@dimen/margin_half"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="20dp"
+                    android:text="_latest uploads"
+                    nstack:key="@string/nstack_uploads_rowHeader" />
+
+                <Button
+                    android:id="@+id/showAllBtn"
+                    style="@style/buttonRoundedCorners.darkBlueGrey"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_width="80dp"
+                    android:layout_height="30dp"
+                    android:layout_marginEnd="@dimen/margin_normal"
+                    android:text="_show all"
+                    nstack:key="@string/nstack_home_messagesSectionHeaderShowAllButton"/>
+            </FrameLayout>
 
             <LinearLayout
                 android:id="@+id/contentVerifiedUSerLl"

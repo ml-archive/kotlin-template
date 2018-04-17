@@ -1,14 +1,25 @@
 package dk.eboks.app.presentation.ui.components.profile.main
 
+import android.arch.lifecycle.Lifecycle
+import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
 
-class ProfileInfoComponentPresenter @Inject constructor(val appState: AppStateManager) :
+class ProfileInfoComponentPresenter @Inject constructor(
+        val appState: AppStateManager,
+        private val saveUserInteractor: SaveUserInteractor
+) :
         ProfileInfoComponentContract.Presenter,
-        BasePresenterImpl<ProfileInfoComponentContract.View>() {
-
+        BasePresenterImpl<ProfileInfoComponentContract.View>(),
+        SaveUserInteractor.Output {
+    override fun onViewCreated(view: ProfileInfoComponentContract.View, lifecycle: Lifecycle) {
+        super.onViewCreated(view, lifecycle)
+        saveUserInteractor.output = this
+    }
 
     override fun loadUserData() {
         Timber.d("loadUserData")
@@ -21,13 +32,31 @@ class ProfileInfoComponentPresenter @Inject constructor(val appState: AppStateMa
             return
         }
 
-        runAction { v->
+        runAction { v ->
             v.setName(currentUser.name)
             v.setProfileImage(currentUser.avatarUri)
             v.setFingerprintEnabled(currentUser.hasFingerprint, currentUser.lastLoginProvider)
             v.setVerified(currentUser.verified)
             v.setKeepMeSignedIn(false)
         }
+    }
+
+    override fun enableUserFingerprint(isEnabled: Boolean) {
+        appState.state?.currentUser?.hasFingerprint = isEnabled
+        appState.save()
+
+        appState.state?.currentUser?.let {
+            saveUserInteractor.input = SaveUserInteractor.Input(it)
+            saveUserInteractor.run()
+        }
+    }
+
+    override fun onSaveUser(user: User, numberOfUsers: Int) {
+        loadUserData()
+    }
+
+    override fun onSaveUserError(error: ViewError) {
+        view?.showErrorDialog(error)
     }
 
     override fun doLogout() {

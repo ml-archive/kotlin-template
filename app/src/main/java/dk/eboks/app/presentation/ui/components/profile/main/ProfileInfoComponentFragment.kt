@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.profile.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,6 @@ import com.bumptech.glide.Glide
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.components.profile.drawer.FingerHintComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.FingerPrintComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFragment
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentFragment
@@ -16,7 +16,6 @@ import dk.eboks.app.presentation.ui.components.verification.VerificationComponen
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import kotlinx.android.synthetic.main.fragment_profile_main_component.*
 import kotlinx.android.synthetic.main.include_profile_bottom.*
-import kotlinx.android.synthetic.main.viewholder_channel_cards.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -78,10 +77,15 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
         profileDetailContainerMyInformation.setOnClickListener {
             Timber.d("profileDetailContainerMyInformation Clicked")
-            getBaseActivity()?.addFragmentOnTop(R.id.profileActivityContainerFragment, MyInfoComponentFragment())
+            getBaseActivity()?.addFragmentOnTop(
+                    R.id.profileActivityContainerFragment,
+                    MyInfoComponentFragment()
+            )
         }
 
         profileDetailSwFingerprint.setOnClickListener {
+
+
             Timber.d("Fingerprint: Toggled -> %s", profileDetailSwFingerprint.isChecked)
         }
 
@@ -154,19 +158,15 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
     }
 
-    override fun setFingerprintEnabled(enabled: Boolean, lastProviderId : String?) {
+    override fun setFingerprintEnabled(enabled: Boolean, lastProviderId: String?) {
         profileDetailSwFingerprint.isChecked = enabled
         profileDetailSwFingerprint.setOnCheckedChangeListener { compoundButton, b ->
-            if(b)
-            {
-                if(lastProviderId == "email")
-                {
-                    getBaseActivity()?.openComponentDrawer(FingerHintComponentFragment::class.java)
-                }
-                else
-                {
-                    getBaseActivity()?.openComponentDrawer(FingerPrintComponentFragment::class.java)
-                }
+            Log.d("DEBUG", "setFingerprintEnabled $enabled")
+
+            if (b) {
+                getBaseActivity()?.openComponentDrawer(FingerPrintComponentFragment::class.java)
+            } else {
+                presenter.enableUserFingerprint(false)
             }
         }
     }

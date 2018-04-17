@@ -66,9 +66,9 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideChannelsRepository(api: Api, gson: Gson, channelStore: ChannelListStore) : ChannelsRepository
+    fun provideChannelsRepository(api: Api, gson: Gson, channelStore: ChannelListStore, channelControlStore: ChannelControlStore) : ChannelsRepository
     {
-        return ChannelsRestRepository(api, gson, channelStore)
+        return ChannelsRestRepository(api, gson, channelStore, channelControlStore)
     }
 
     @Provides

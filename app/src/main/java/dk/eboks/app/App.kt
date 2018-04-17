@@ -7,6 +7,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.injection.components.AppComponent
 import dk.eboks.app.injection.components.DaggerAppComponent
 import dk.eboks.app.injection.modules.AppModule
+import dk.nodes.locksmith.core.Locksmith
 import dk.nodes.nstack.kotlin.NStack
 import timber.log.Timber
 import java.lang.ref.WeakReference
@@ -28,11 +29,14 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
         NStack.debugMode = BuildConfig.DEBUG
         NStack.init(this)
 
+        Locksmith.init(this)
+
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
 
         appComponent.inject(this)
+
         registerActivityLifecycleCallbacks(this)
     }
 

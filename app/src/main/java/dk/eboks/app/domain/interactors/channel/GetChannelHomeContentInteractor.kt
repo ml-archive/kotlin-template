@@ -12,7 +12,7 @@ interface GetChannelHomeContentInteractor : Interactor {
     var output : Output?
     var input : Input?
 
-    data class Input(val id : Long)
+    data class Input(val cached: Boolean = true)
 
     interface Output {
         fun onGetPinnedChannelList(channels : MutableList<Channel>)

@@ -67,9 +67,12 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             // user is verified
             nonVerifiedUserContainerLl.visibility = View.GONE
             contentVerifiedUSerLl.visibility = View.VISIBLE
+            showAllBtn.setOnClickListener {
+                getBaseActivity()?.addFragmentOnTop(R.id.contentFl, MyUploadsComponentFragment(), true)
+            }
             fileBtn.setOnClickListener {
                 //todo something when clicking file
-                getBaseActivity()?.addFragmentOnTop(R.id.contentFl, MyUploadsComponentFragment(), true)
+
             }
             photoBtn.setOnClickListener{
                 //todo something when clicking photo

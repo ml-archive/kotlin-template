@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f4F6F8"
+    tools:ignore="MissingPrefix">
+
+    <TextView
+        style="@style/text.header1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_normal"
+        android:gravity="center"
+        android:text="_Upload file" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/fileNameTil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColorHint="@color/blueGrey"
+        android:theme="@style/TextInputLayoutTheme"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/errorappearance"
+        app:hintTextAppearance="@style/HintSmallTextAppearance">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/fileNameEt"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="_File name"
+            android:inputType="textPersonName" />
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/choseFolderLl"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_white_background"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/folderTv"
+            style="@style/text.header3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="_Folder" />
+
+        <TextView
+            android:id="@+id/destinationTv"
+            style="@style/text.header4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:gravity="end|center_vertical"
+            android:text="_Inbox" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/saveBtn"
+        style="@style/enabledButtton"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="24dp"
+        android:enabled="false"
+        android:text="_Save"
+        android:textColor="@drawable/enabled_button"
+        nstack:key="@string/nstack_signup_continueButton" />
+
+    <Button
+        android:id="@+id/cancelBtn"
+        style="@style/button.borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_vertical"
+        android:layout_marginTop="20dp"
+        android:text="_cancel"
+        nstack:key="@string/nstack_default_cancel" />
+
+</LinearLayout>

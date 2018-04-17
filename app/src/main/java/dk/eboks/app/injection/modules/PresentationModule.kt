@@ -113,6 +113,8 @@ import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentCo
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentPresenter
 import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentContract
 import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentPresenter
+import dk.eboks.app.presentation.ui.components.uploads.uploadfile.UploadFileComponentContract
+import dk.eboks.app.presentation.ui.components.uploads.uploadfile.UploadFileComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.Overlay.OverlayContract
@@ -658,7 +660,12 @@ class PresentationModule {
             getMessagesInteractor: GetMessagesInteractor,
             openMessageInteractor: OpenMessageInteractor
     ): HomeComponentContract.Presenter {
-        return HomeComponentPresenter(stateManager, getChannelHomeContentInteractor, getMessagesInteractor, openMessageInteractor)
+        return HomeComponentPresenter(
+                stateManager,
+                getChannelHomeContentInteractor,
+                getMessagesInteractor,
+                openMessageInteractor
+        )
     }
 
 
@@ -676,8 +683,11 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideProfileInfoComponentPresenter(stateManager: AppStateManager): ProfileInfoComponentContract.Presenter {
-        return ProfileInfoComponentPresenter(stateManager)
+    fun provideProfileInfoComponentPresenter(
+            stateManager: AppStateManager,
+            saveUserInteractor: SaveUserInteractor
+    ): ProfileInfoComponentContract.Presenter {
+        return ProfileInfoComponentPresenter(stateManager, saveUserInteractor)
     }
 
     @ActivityScope
@@ -731,26 +741,40 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideUploadsPresenter(stateManager: AppStateManager) : UploadsContract.Presenter {
+    fun provideUploadsPresenter(stateManager: AppStateManager): UploadsContract.Presenter {
         return UploadsPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideMyUploadsComponentPresenter(stateManager: AppStateManager, getMessagesInteractor: GetMessagesInteractor, openMessageInteractor: OpenMessageInteractor) : MyUploadsComponentContract.Presenter {
-        return MyUploadsComponentPresenter(stateManager, getMessagesInteractor, openMessageInteractor)
+    fun provideMyUploadsComponentPresenter(
+            stateManager: AppStateManager,
+            getMessagesInteractor: GetMessagesInteractor,
+            openMessageInteractor: OpenMessageInteractor
+    ): MyUploadsComponentContract.Presenter {
+        return MyUploadsComponentPresenter(
+                stateManager,
+                getMessagesInteractor,
+                openMessageInteractor
+        )
     }
 
     @ActivityScope
     @Provides
-    fun provideForgotPasswordDoneComponentPresenter(stateManager: AppStateManager) : ForgotPasswordDoneComponentContract.Presenter {
+    fun provideForgotPasswordDoneComponentPresenter(stateManager: AppStateManager): ForgotPasswordDoneComponentContract.Presenter {
         return ForgotPasswordDoneComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideOverlayPresenter(stateManager: AppStateManager) : OverlayContract.Presenter {
+    fun provideOverlayPresenter(stateManager: AppStateManager): OverlayContract.Presenter {
         return OverlayPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideUploadFilePresenter(stateManager: AppStateManager): UploadFileComponentContract.Presenter {
+        return UploadFileComponentPresenter(stateManager)
     }
 
 

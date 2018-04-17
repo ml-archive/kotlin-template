@@ -17,8 +17,7 @@ class FingerHintComponentFragment : BaseFragment(), FingerHintComponentContract.
     lateinit var presenter : FingerHintComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_profile_enable_fingerprint_mobile_component, container, false)
-        return rootView
+        return inflater?.inflate(R.layout.fragment_profile_enable_fingerprint_mobile_component, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {

@@ -334,7 +334,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     }
 
     override fun showHighlights(messages: List<Message>) {
-        Timber.e("Got them highlights $messages")
+        //Timber.e("Got them highlights $messages")
         emailCount = messages.size
         if (messages.size == 0) {
             emptyStateLl.visibility = View.VISIBLE

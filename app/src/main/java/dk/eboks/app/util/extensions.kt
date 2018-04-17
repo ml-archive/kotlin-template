@@ -7,9 +7,11 @@ import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
 import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.domain.config.Config
@@ -78,19 +80,19 @@ fun BottomNavigationView.disableShiftingMode() {
 
 }
 
-fun Editable.isValidEmail() : Boolean {
+fun Editable.isValidEmail(): Boolean {
     return !TextUtils.isEmpty(toString().trim()) && Patterns.EMAIL_ADDRESS.matcher(toString().trim()).matches()
 
 }
 
-fun Editable.isValidCpr() : Boolean {
+fun Editable.isValidCpr(): Boolean {
     var cprLength = Config.currentMode.cprLength
-    val cprRegex = Regex("^[0-9]{"+cprLength+"}$")
+    val cprRegex = Regex("^[0-9]{" + cprLength + "}$")
     val text = toString().trim()
     return !TextUtils.isEmpty(text) && text.matches(cprRegex)
 }
 
-fun Editable.isValidActivationCode() : Boolean {
+fun Editable.isValidActivationCode(): Boolean {
     val cprRegex = Regex("^[a-zA-Z0-9]{8}$")
     val text = toString().trim()
     return !TextUtils.isEmpty(text) && text.matches(cprRegex)
@@ -101,8 +103,8 @@ inline fun <T> T.guard(block: T.() -> Unit): T {
     if (this == null) block(); return this
 }
 
-fun View.setVisible(isVisible:Boolean){
-    this.visibility = if (isVisible){
+fun View.setVisible(isVisible: Boolean) {
+    this.visibility = if (isVisible) {
         View.VISIBLE
     } else {
         View.GONE
@@ -122,23 +124,65 @@ fun FastScrollRecyclerView.setBubbleDrawable(drawable: Drawable) {
     }
 }
 
+fun EditText.addAfterTextChangeListener(listener: ((Editable?) -> Unit)) {
+    this.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+            listener(s)
+        }
+
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+    })
+}
+
 /**
  * Add cases to this where you want to use the standard exception to view error method
  * Memba you can always create your own custom ViewError in the interactor instead of using this
  *
  * Its just for convenience yall
  */
-fun BaseInteractor.exceptionToViewError(t : Throwable, shouldClose : Boolean = false, shouldDisplay : Boolean = true) : ViewError
-{
-    when(t) {
-        is ConnectException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage, shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
-        is UnknownHostException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage, shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
-        is IOException -> return ViewError(title = Translation.error.genericStorageTitle, message = Translation.error.genericStorageMessage, shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
-        is SocketTimeoutException -> return ViewError(title = Translation.error.noInternetTitle, message = Translation.error.noInternetMessage, shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
-        is ServerErrorException -> {
-            return ViewError(title = t.error.description?.title, message = t.error.description?.text, shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
+fun BaseInteractor.exceptionToViewError(
+        t: Throwable,
+        shouldClose: Boolean = false,
+        shouldDisplay: Boolean = true
+): ViewError {
+    when (t) {
+        is ConnectException       -> return ViewError(
+                title = Translation.error.noInternetTitle,
+                message = Translation.error.noInternetMessage,
+                shouldDisplay = shouldDisplay,
+                shouldCloseView = shouldClose
+        )
+        is UnknownHostException   -> return ViewError(
+                title = Translation.error.noInternetTitle,
+                message = Translation.error.noInternetMessage,
+                shouldDisplay = shouldDisplay,
+                shouldCloseView = shouldClose
+        )
+        is IOException            -> return ViewError(
+                title = Translation.error.genericStorageTitle,
+                message = Translation.error.genericStorageMessage,
+                shouldDisplay = shouldDisplay,
+                shouldCloseView = shouldClose
+        )
+        is SocketTimeoutException -> return ViewError(
+                title = Translation.error.noInternetTitle,
+                message = Translation.error.noInternetMessage,
+                shouldDisplay = shouldDisplay,
+                shouldCloseView = shouldClose
+        )
+        is ServerErrorException   -> {
+            return ViewError(
+                    title = t.error.description?.title,
+                    message = t.error.description?.text,
+                    shouldDisplay = shouldDisplay,
+                    shouldCloseView = shouldClose
+            )
         }
-        else -> return ViewError(shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
+        else                      -> return ViewError(
+                shouldDisplay = shouldDisplay,
+                shouldCloseView = shouldClose
+        )
     }
     return ViewError(shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
 }
