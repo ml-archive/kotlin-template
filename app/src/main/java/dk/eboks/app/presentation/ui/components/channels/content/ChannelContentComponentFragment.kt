@@ -61,7 +61,6 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             getBaseActivity()?.openComponentDrawer(ChannelSettingsComponentFragment::class.java)
             true
         }
-
     }
 
     override fun showChannel(channel: Channel) {
