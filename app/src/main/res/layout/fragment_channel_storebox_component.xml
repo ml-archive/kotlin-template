@@ -4,17 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/receiptRv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"/>
 
-        <include layout="@layout/include_channel_storebox_row"></include>
-
-        <include layout="@layout/include_channel_storebox_row"></include>
-
-        <include layout="@layout/include_channel_storebox_row"></include>
-
-        <include layout="@layout/include_channel_storebox_row"></include>
-    </LinearLayout>
 </LinearLayout>

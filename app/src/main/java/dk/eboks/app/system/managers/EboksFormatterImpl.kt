@@ -4,6 +4,7 @@ import android.content.Context
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.channel.StoreboxReceipt
 import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
@@ -67,7 +68,11 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         return formatDateRelative(target.received)
     }
 
-    private fun formatDateRelative(target:Date): String{
+    override fun formatDateRelative(target: StoreboxReceipt): String {
+        return formatDateRelative(target.purchaseDate)
+    }
+
+    private fun formatDateRelative(target:Date?): String{
         var result = ""
         val currentLocale = getCurrentLocale(context)
         val cal_recv = Calendar.getInstance(currentLocale)

@@ -16,6 +16,7 @@ interface ChannelOpeningComponentContract {
         fun showVerifyState(channel: Channel, provider : LoginProvider)
         fun showProgress(show : Boolean)
         fun openChannelContent()
+        fun openStoreBoxContent()
     }
 
     interface Presenter : BasePresenter<View> {

@@ -143,6 +143,7 @@
         android:id="@+id/optionalSwitchContainerLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -166,7 +167,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="_Pin to home screen" />
+                    android:text="_Receive only receipts digitally" />
 
                 <TextView
                     android:id="@+id/optionalSubHeaderTv"
@@ -174,7 +175,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="_Show this channel on the e-Boks home screen" />
+                    android:text="_Accepting this you not recieve paper" />
 
             </LinearLayout>
 
@@ -216,16 +217,42 @@
             android:text="_Credit cards"
             nstack:key="@string/nstack_settings_creditCardHeader" />
 
-        <LinearLayout
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/creditcardRv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"/>
 
-            <include layout="@layout/include_channel_settings_creditcard_row"></include>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:orientation="horizontal"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:background="@color/white">
 
-            <include layout="@layout/include_channel_settings_creditcard_row"></include>
+                <FrameLayout
+                    android:id="@+id/addCardFl"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circle_white_greyborder">
 
-            <include layout="@layout/include_channel_settings_addcard_row"></include>
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/icon_48_plus_black_big"></ImageView>
+                </FrameLayout>
+
+                <TextView
+                    style="@style/text.header4"
+                    android:paddingLeft="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="_Add another credit card" />
+
 
         </LinearLayout>
 
@@ -240,9 +267,8 @@
             style="@style/buttonRoundedCorners"
             android:layout_width="140dp"
             android:layout_height="40dp"
-            android:text="_Remove channel"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
             android:textColor="@color/colorPrimaryDark"
             nstack:key="@string/nstack_settings_removeChannelBtn" />
