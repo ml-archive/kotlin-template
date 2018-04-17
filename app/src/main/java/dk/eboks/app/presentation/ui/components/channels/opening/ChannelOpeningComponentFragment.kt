@@ -110,6 +110,9 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
 
     override fun openChannelContent() {
         val fragment = ChannelContentComponentFragment()
+        val args = Bundle()
+        args.putString(Channel::class.simpleName, "file:///android_asset/index.html")
+        fragment.arguments = args
         getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
         /*
         fragment?.let{
