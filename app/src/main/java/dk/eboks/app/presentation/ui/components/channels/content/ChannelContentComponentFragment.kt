@@ -153,11 +153,21 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             }
         }
         @JavascriptInterface
-        fun pushWebpage(uri: String) {
+        fun pushWebpage(uri: String) { // Same as presentWebpage(), but perhaps with different animation
             Timber.v("PushWebPage: $uri")
             val fragment = ChannelContentComponentFragment()
             val args = Bundle()
-            args.putString(Channel::class.simpleName, "file:///android_asset/index2.html")
+            args.putString(Channel::class.simpleName, "file:///android_asset/index2.html") // TODO: remove me and use the URI instead
+//            args.putString(Channel::class.simpleName, uri)
+            fragment.arguments = args
+            baseFragment.getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, true)
+        }
+        @JavascriptInterface
+        fun presentWebpage(uri: String) { // Same as pushWebpage(), but perhaps with different animation
+            Timber.v("presentWebpage: $uri")
+            val fragment = ChannelContentComponentFragment()
+            val args = Bundle()
+            args.putString(Channel::class.simpleName, uri)
             fragment.arguments = args
             baseFragment.getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, true)
         }
