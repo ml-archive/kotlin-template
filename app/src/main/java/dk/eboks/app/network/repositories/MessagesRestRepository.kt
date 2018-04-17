@@ -1,21 +1,65 @@
 package dk.eboks.app.network.repositories
 
+import android.content.Context
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.ServerError
+import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.injection.modules.FolderIdMessageStore
 import dk.eboks.app.injection.modules.FolderTypeMessageStore
+import dk.eboks.app.injection.modules.SenderIdMessageStore
 import dk.eboks.app.network.Api
 import timber.log.Timber
 
 /**
  * Created by bison on 01/02/18.
  */
-class MessagesRestRepository(val api: Api, val gson: Gson, val folderIdMessageStore: FolderIdMessageStore, val folderTypeMessageStore: FolderTypeMessageStore) : MessagesRepository {
+class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson) : MessagesRepository {
+
+    val folderIdMessageStore: FolderIdMessageStore by lazy {
+        FolderIdMessageStore(context, gson, "folder_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
+            val response = api.getMessages(key).execute()
+            var result : List<Message>? = null
+            response?.let {
+                if(it.isSuccessful)
+                    result = it.body()
+            }
+            result
+        })
+    }
+
+    val folderTypeMessageStore: FolderTypeMessageStore by lazy {
+        FolderTypeMessageStore(context, gson, "folder_type_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
+            val response = api.getMessagesByType(key).execute()
+            var result : List<Message>? = null
+            response?.let {
+                if(it.isSuccessful)
+                    result = it.body()
+            }
+            result
+        })
+    }
+
+    val senderIdMessageStore: SenderIdMessageStore by lazy {
+        SenderIdMessageStore(context, gson, "folder_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
+            val response = api.getMessagesBySender(key).execute()
+            var result : List<Message>? = null
+            response?.let {
+                if(it.isSuccessful)
+                    result = it.body()
+            }
+            result
+        })
+    }
+
+    init {
+
+    }
 
     override fun getMessages(cached: Boolean, folderId : Long): List<Message>
     {
@@ -33,6 +77,15 @@ class MessagesRestRepository(val api: Api, val gson: Gson, val folderIdMessageSt
         else
             return ArrayList()
     }
+
+    override fun getMessagesBySender(cached: Boolean, senderId : Long): List<Message> {
+        val res = if(cached) senderIdMessageStore.get(senderId) else senderIdMessageStore.fetch(senderId)
+        if(res != null)
+            return res
+        else
+            return ArrayList()
+    }
+
 
 
     override fun getMessage(folderId: Long, id: String, receipt : Boolean?, terms : Boolean?) : Message {
@@ -61,4 +114,7 @@ class MessagesRestRepository(val api: Api, val gson: Gson, val folderIdMessageSt
             return folderTypeMessageStore.containsKey(folder.type.toString())
     }
 
+    override fun hasCachedMessageSender(sender: Sender): Boolean {
+        return senderIdMessageStore.containsKey(sender.id)
+    }
 }

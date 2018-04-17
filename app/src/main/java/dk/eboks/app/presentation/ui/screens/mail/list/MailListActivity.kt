@@ -2,8 +2,12 @@ package dk.eboks.app.presentation.ui.screens.mail.list
 
 import android.os.Bundle
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentFragment
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class MailListActivity : BaseActivity(), MailListContract.View {
@@ -14,6 +18,33 @@ class MailListActivity : BaseActivity(), MailListContract.View {
         setContentView(R.layout.activity_mail_list)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        val frag = MailListComponentFragment()
+        intent?.extras?.let { extras->
+            if(extras.containsKey("sender"))
+            {
+                val args = Bundle()
+                val sender = extras.getSerializable("sender") as Sender
+                args.putSerializable("sender", sender)
+                presenter.setupSender(sender)
+                frag.arguments = args
+            }
+            if(extras.containsKey("folder"))
+            {
+                val args = Bundle()
+                val folder = extras.getSerializable("folder") as Folder
+                args.putSerializable("folder", folder)
+                presenter.setupFolder(folder)
+                frag.arguments = args
+            }
+        }
+
+        setRootFragment(R.id.containerFl, frag)
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                if (!isDestroyed)
+                    finish()
+            }
+        }
     }
 
     override fun onShake() {

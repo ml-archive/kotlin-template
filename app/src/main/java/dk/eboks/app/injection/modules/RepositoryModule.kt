@@ -11,6 +11,7 @@ import dk.eboks.app.network.repositories.*
 import dk.eboks.app.storage.repositories.AppStateRepositoryImpl
 import dk.eboks.app.storage.repositories.SharedPrefsSettingsRepository
 import dk.nodes.arch.domain.injection.scopes.AppScope
+import javax.inject.Named
 
 /**
  * Created by bison on 25-07-2017.
@@ -26,9 +27,9 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideMessagesRepository(api: Api, gson: Gson, folderIdMessageStore: FolderIdMessageStore, folderTypeMessageStore: FolderTypeMessageStore) : MessagesRepository
+    fun provideMessagesRepository(context: Context, api: Api, gson: Gson) : MessagesRepository
     {
-        return MessagesRestRepository(api, gson, folderIdMessageStore, folderTypeMessageStore)
+        return MessagesRestRepository(context, api, gson)
     }
 
     @Provides

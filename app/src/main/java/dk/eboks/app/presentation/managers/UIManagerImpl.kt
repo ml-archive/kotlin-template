@@ -2,9 +2,11 @@ package dk.eboks.app.presentation.managers
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.os.Handler
 import dk.eboks.app.App
 import dk.eboks.app.domain.managers.UIManager
+import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
 import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity
@@ -41,10 +43,12 @@ class UIManagerImpl(val context: Context) : UIManager {
         }
     }
 
-    override fun showFolderContentScreen() {
+    override fun showFolderContentScreen(folder : Folder) {
+        val intent = Intent(context, MailListActivity::class.java)
+        intent.putExtra("folder", folder)
         handler.post {
-            App.currentActivity()?.let { it.startActivity(Intent(context, MailListActivity::class.java)) }
-                    .guard { context.startActivity(Intent(context, MailListActivity::class.java)) }
+            App.currentActivity()?.let { it.startActivity(intent) }
+                    .guard { context.startActivity(intent) }
         }
     }
 

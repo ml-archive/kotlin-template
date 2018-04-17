@@ -15,18 +15,15 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
 import dk.nodes.arch.domain.injection.scopes.AppScope
+import javax.inject.Named
 
 /**
  * Created by bison on 01/02/18.
  */
 
 // new ones
-typealias FolderIdMessageStore = CacheStore<Long, List<Message>>
-typealias FolderTypeMessageStore = CacheStore<String, List<Message>>
 typealias ChannelListStore = CacheStore<String, MutableList<Channel>>
-
 typealias ChannelControlStore = CacheStore<Long, HomeContent>
-
 typealias FolderListStore = CacheStore<Int, List<Folder>>
 typealias MailCategoryStore = CacheStore<Long, List<Folder>>
 typealias CollectionsStore = CacheStore<Int, List<CollectionContainer>>
@@ -34,14 +31,34 @@ typealias SenderStore = CacheStore<Int, List<Sender>>
 typealias SenderCategoryStore = CacheStore<String, List<SenderCategory>>
 
 
+typealias SenderIdMessageStore = CacheStore<Long, List<Message>>
+typealias FolderIdMessageStore = CacheStore<Long, List<Message>>
+typealias FolderTypeMessageStore = CacheStore<String, List<Message>>
+
 @Module
 class StoreModule {
 
+    /*
     @Provides
     @AppScope
     fun provideFolderIdMessageStore(api: Api, gson : Gson, context : Context) : FolderIdMessageStore
     {
         return FolderIdMessageStore(context, gson, "folder_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
+            val response = api.getMessages(key).execute()
+            var result : List<Message>? = null
+            response?.let {
+                if(it.isSuccessful)
+                    result = it.body()
+            }
+            result
+        })
+    }
+
+    @Provides
+    @AppScope
+    fun provideSenderIdMessageStore(api: Api, gson : Gson, context : Context) : SenderIdMessageStore
+    {
+        return SenderIdMessageStore(context, gson, "folder_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
             val response = api.getMessages(key).execute()
             var result : List<Message>? = null
             response?.let {
@@ -66,6 +83,8 @@ class StoreModule {
             result
         })
     }
+    */
+
 
     @Provides
     @AppScope

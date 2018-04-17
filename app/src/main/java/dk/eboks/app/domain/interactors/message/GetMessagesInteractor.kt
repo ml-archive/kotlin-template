@@ -3,6 +3,7 @@ package dk.eboks.app.domain.interactors.message
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**
@@ -12,7 +13,7 @@ interface GetMessagesInteractor : Interactor {
     var output : Output?
     var input : Input?
 
-    data class Input(val cached: Boolean, var folder: Folder)
+    data class Input(val cached: Boolean, var folder: Folder? = null, var sender: Sender? = null)
 
     interface Output {
         fun onGetMessages(messages : List<Message>)
