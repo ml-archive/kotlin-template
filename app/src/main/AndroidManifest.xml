@@ -52,7 +52,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.debug.DebugActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.debug.user.DebugUserActivity" />
         <activity android:name="dk.eboks.app.pasta.activity.PastaActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.Overlay.OverlayActivity"
+        <activity android:name="dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity"
             android:theme="@style/TransTheme" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity" android:launchMode="singleTop" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity" android:launchMode="singleTop" />
@@ -68,6 +68,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.profile.ProfileActivity" android:launchMode="singleTop" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.profile.myinfo.MyInfoActivity"  />
         <activity android:name="dk.eboks.app.presentation.ui.screens.home.HomeActivity" android:launchMode="singleTop" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.uploads.UploadsActivity" android:launchMode="singleTop" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailActivity" />

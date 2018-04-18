@@ -29,10 +29,10 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
         }
     }
 
-    override fun install(channel: Channel, provider: LoginProvider) {
+    override fun install(channel: Channel) {
         runAction { v ->
             //v.showProgress(true)
-            v.showVerifyState(channel, provider)
+            v.showVerifyDrawer(channel)
         }
     }
 
@@ -47,50 +47,29 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
 
     override fun onGetChannel(channel: Channel) {
         runAction { v -> v.showProgress(false) }
-
-        //install = true  -> webview
         if (channel.installed) {
             runAction { v -> v.goToWebView(channel) }
         } else {
-            //install = false:
-            // channel.status= 0 -> install
-            if (channel.status?.type == 0) {
-                runAction { v -> v.showInstallState(channel) }
-            }
-
-            // channel.status= 1 -> log on with nemid
-            if (channel.status?.type == 1) {
-                runAction { v ->
-                    Config.getLoginProvider("nemid")?.let {
-                        v.showVerifyState(channel, it)
+            when (channel.status?.type) {
+                0 -> {
+                    runAction { v -> v.showInstallState(channel) }
+                }
+                1 -> {
+                    runAction { v ->
+                        Config.getLoginProvider("nemid")?.let {
+                            v.showVerifyState(channel, it)
+                        }
                     }
                 }
-            }
-            // channel.status= 2 -> not available
-            if (channel.status?.type == 2) {
-                runAction { v -> v.showDisabledState(channel) }
-            }
-            // fallback
-            runAction { v -> v.showDisabledState(channel) }
-        }
-//        ------------------------------------------------
+                2 -> {
+                    runAction { v -> v.showDisabledState(channel) }
+                }
+                else -> {
+                    runAction { v -> v.showDisabledState(channel) }
+                }
 
-//        if (appState.state?.channelState?.openOrInstallImmediately == false) {
-//            if (channel.installed) {
-//                runAction { v -> v.showOpenState(channel) }
-//            } else
-//                runAction { v -> v.showInstallState(channel) }
-//        } else {
-//            if (!channel.installed) {
-//                runAction { v ->
-//                    Config.getLoginProvider("nemid")?.let {
-//                        v.showVerifyState(channel, it)
-//                    }
-//
-//                }
-//            } else
-//                runAction { v -> v.openChannelContent() }
-//        }
+            }
+        }
     }
 
     override fun onGetChannelError(error: ViewError) {

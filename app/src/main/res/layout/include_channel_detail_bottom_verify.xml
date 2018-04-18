@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/backgroundColor"
@@ -10,10 +9,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/dividerGreyBlue"
         android:layout_gravity="top"
         android:layout_marginBottom="16dp"
-        />
+        android:background="@color/dividerGreyBlue" />
 
     <TextView
         android:id="@+id/descriptionTv"
@@ -21,17 +19,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="_Verify your profile to access this channel"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:text="_Verify your profile to access this channel" />
 
     <Button
-        style="@style/buttonRoundedCorners.Tintable"
         android:id="@+id/verifyBtn"
-        android:backgroundTint="#0fa5c5"
-        android:layout_marginBottom="40dp"
+        style="@style/buttonRoundedCorners.Tintable"
         android:layout_width="295dp"
         android:layout_height="52dp"
         android:layout_gravity="center"
-        android:text="_log on with NemId"/>
-
+        android:layout_marginBottom="40dp"
+        android:text="_log on with NemId" />
 </LinearLayout>

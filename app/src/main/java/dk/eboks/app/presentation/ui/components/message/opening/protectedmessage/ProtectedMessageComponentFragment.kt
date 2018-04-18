@@ -41,6 +41,7 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         loginTv.visibility = View.VISIBLE
         setupTopBar()
         updateTranslation()
+        iconIv.setImageDrawable(resources.getDrawable(R.drawable.icon_48_lock_white))
     }
 
     override fun onResume() {

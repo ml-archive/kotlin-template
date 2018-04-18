@@ -57,40 +57,44 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
             println(temp)
         }
 
-        if (isStorebox) {
-            pinContainerLl.visibility = View.VISIBLE
-            notificationContainerLl.visibility = View.GONE
-            optionalSwitchContainerLl.visibility = View.VISIBLE
-            creditCardContainerLl.visibility = View.VISIBLE
-            creditcardRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            creditcardRv.adapter = CreditcardAdapter()
+        if (isStorebox) { setupStorebox() } else {
 
-            optionalSliderSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-                //todo do something when the slider is checked
-                var temp = "_optional slider checked" + isChecked
-                println(temp)
-            }
+        }
+    }
 
-            addCardFl.setOnClickListener {
-                //todo something happends when you click add card
-                var temp = "_add card clicked"
-                println(temp)
-            }
+    private fun setupStorebox() {
+        pinContainerLl.visibility = View.VISIBLE
+        notificationContainerLl.visibility = View.GONE
+        optionalSwitchContainerLl.visibility = View.VISIBLE
+        creditCardContainerLl.visibility = View.VISIBLE
+        creditcardRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        creditcardRv.adapter = CreditcardAdapter()
 
-            removeChannelBtn.setOnClickListener {
-                val dialog = AlertDialog.Builder(context)
-                        .setTitle(Translation.channelsettingsstoreboxadditions.removeChannelTitle)
-                        .setMessage(Translation.channelsettingsstoreboxadditions.removeChannelMessage)
-                        .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton) { dialog, which ->
-                            //todo send API call to remove channel
-                            Toast.makeText(context, "_Positive button clicked.", Toast.LENGTH_SHORT).show()
-                        }
-                        .setNegativeButton(Translation.channelsettingsstoreboxadditions.deleteCardCancelButton) { dialog, which ->
-                            Toast.makeText(context, "_Negative button clicked", Toast.LENGTH_SHORT).show()
-                        }
-                        .create()
-                        .show()
-            }
+        optionalSliderSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            //todo do something when the slider is checked
+            var temp = "_optional slider checked" + isChecked
+            println(temp)
+        }
+
+        addCardFl.setOnClickListener {
+            //todo something happends when you click add card
+            var temp = "_add card clicked"
+            println(temp)
+        }
+
+        removeChannelBtn.setOnClickListener {
+            val dialog = AlertDialog.Builder(context)
+                    .setTitle(Translation.channelsettingsstoreboxadditions.removeChannelTitle)
+                    .setMessage(Translation.channelsettingsstoreboxadditions.removeChannelMessage)
+                    .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton) { dialog, which ->
+                        //todo send API call to remove channel
+                        Toast.makeText(context, "_Positive button clicked.", Toast.LENGTH_SHORT).show()
+                    }
+                    .setNegativeButton(Translation.channelsettingsstoreboxadditions.deleteCardCancelButton) { dialog, which ->
+                        Toast.makeText(context, "_Negative button clicked", Toast.LENGTH_SHORT).show()
+                    }
+                    .create()
+                    .show()
         }
     }
 

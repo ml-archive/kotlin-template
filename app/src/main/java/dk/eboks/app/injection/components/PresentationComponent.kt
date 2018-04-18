@@ -1,6 +1,5 @@
 package dk.eboks.app.injection.components
 
-import dagger.Component
 import dagger.Subcomponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentFragment
@@ -103,8 +102,8 @@ import dk.eboks.app.presentation.ui.components.uploads.uploadfile.UploadFileComp
 import dk.eboks.app.presentation.ui.components.uploads.uploadfile.UploadFileComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
-import dk.eboks.app.presentation.ui.screens.Overlay.OverlayActivity
-import dk.eboks.app.presentation.ui.screens.Overlay.OverlayPresenter
+import dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity
+import dk.eboks.app.presentation.ui.screens.overlay.OverlayPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
@@ -121,6 +120,8 @@ import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivi
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import dk.eboks.app.presentation.ui.screens.profile.ProfilePresenter
+import dk.eboks.app.presentation.ui.screens.profile.myinfo.MyInfoActivity
+import dk.eboks.app.presentation.ui.screens.profile.myinfo.MyInfoPresenter
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity
 import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
@@ -171,6 +172,8 @@ interface PresentationComponent {
     fun inject(target: OverlayPresenter)
     fun inject(target: StoreboxContentActivity)
     fun inject(target: StoreboxContentPresenter)
+    fun inject(target: MyInfoActivity)
+    fun inject(target: MyInfoPresenter)
 
     // Components
 

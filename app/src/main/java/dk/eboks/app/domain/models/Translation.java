@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Wed Apr 18 09:55:52 CEST 2018 
+ * Generated: Wed Apr 18 16:57:51 CEST 2018 
  */
 
 public class Translation {
@@ -430,14 +430,19 @@ public class Translation {
 	}
 	public final static class reply {
 		public static String title = "Reply";
+		public static String required = "Required";
+		public static String typeHere = "Type here";
 	}
 	public final static class androidfingerprint {
 		public static String successMessage = "Successfully Authenticated";
 		public static String errorMessage = "Unable to Authenticate";
 		public static String errorInvalidData = "Data is not valid encrypted data";
-		public static String dialogTitle = "Fingerprint Authenthication";
-		public static String dialogSubtitle = "Verify your fingerprint";
-		public static String dialogDescription = "Touch the fingerprint sensor to authorize your account";
+		public static String dialogTitle = "Fingerprint login";
+		public static String dialogSubtitle = "Use your fingerprint for faster, easier access to your account";
+		public static String dialogDescription = "Confirm fingerprint to continue";
 		public static String errorGeneric = "Unable to complete action";
+		public static String dialogDefaultMessage = "Touch sensor";
+		public static String dialogCancelButton = "Cancel";
+		public static String dialogUsePasswordButton = "Use Password";
 	}
 }

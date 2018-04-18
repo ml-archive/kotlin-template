@@ -118,8 +118,8 @@ import dk.eboks.app.presentation.ui.components.uploads.uploadfile.UploadFileComp
 import dk.eboks.app.presentation.ui.components.uploads.uploadfile.UploadFileComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
-import dk.eboks.app.presentation.ui.screens.Overlay.OverlayContract
-import dk.eboks.app.presentation.ui.screens.Overlay.OverlayPresenter
+import dk.eboks.app.presentation.ui.screens.overlay.OverlayContract
+import dk.eboks.app.presentation.ui.screens.overlay.OverlayPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContract
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentContract
@@ -144,6 +144,8 @@ import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningContra
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
 import dk.eboks.app.presentation.ui.screens.profile.ProfileContract
 import dk.eboks.app.presentation.ui.screens.profile.ProfilePresenter
+import dk.eboks.app.presentation.ui.screens.profile.myinfo.MyInfoContract
+import dk.eboks.app.presentation.ui.screens.profile.myinfo.MyInfoPresenter
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryContract
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryPresenter
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailContract
@@ -795,6 +797,12 @@ class PresentationModule {
         return StoreboxContentPresenter(stateManager)
     }
 
+
+    @ActivityScope
+    @Provides
+    fun provideMyInfoPresenter(stateManager: AppStateManager) : MyInfoContract.Presenter {
+        return MyInfoPresenter(stateManager)
+    }
     /* Pasta
     @ActivityScope
     @Provides

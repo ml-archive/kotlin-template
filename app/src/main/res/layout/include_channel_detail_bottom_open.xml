@@ -14,8 +14,7 @@
 
         <Button
             android:id="@+id/openBtn"
-            style="@style/buttonRoundedCorners.darkBlueGrey"
-            android:backgroundTint="#fff"
+            style="@style/buttonRoundedCorners.Tintable"
             android:layout_width="295dp"
             android:layout_height="52dp"
             android:layout_gravity="center"

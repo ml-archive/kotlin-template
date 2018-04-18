@@ -359,6 +359,8 @@
   <string name='nstack_senderregistration_register' formatted='false'>senderregistration_register</string>
   <string name='nstack_senderregistration_placeholder' formatted='false'>senderregistration_placeholder</string>
   <string name='nstack_reply_title' formatted='false'>reply_title</string>
+  <string name='nstack_reply_required' formatted='false'>reply_required</string>
+  <string name='nstack_reply_typeHere' formatted='false'>reply_typeHere</string>
   <string name='nstack_androidfingerprint_successMessage' formatted='false'>androidfingerprint_successMessage</string>
   <string name='nstack_androidfingerprint_errorMessage' formatted='false'>androidfingerprint_errorMessage</string>
   <string name='nstack_androidfingerprint_errorInvalidData' formatted='false'>androidfingerprint_errorInvalidData</string>
@@ -366,4 +368,7 @@
   <string name='nstack_androidfingerprint_dialogSubtitle' formatted='false'>androidfingerprint_dialogSubtitle</string>
   <string name='nstack_androidfingerprint_dialogDescription' formatted='false'>androidfingerprint_dialogDescription</string>
   <string name='nstack_androidfingerprint_errorGeneric' formatted='false'>androidfingerprint_errorGeneric</string>
+  <string name='nstack_androidfingerprint_dialogDefaultMessage' formatted='false'>androidfingerprint_dialogDefaultMessage</string>
+  <string name='nstack_androidfingerprint_dialogCancelButton' formatted='false'>androidfingerprint_dialogCancelButton</string>
+  <string name='nstack_androidfingerprint_dialogUsePasswordButton' formatted='false'>androidfingerprint_dialogUsePasswordButton</string>
 </resources>
