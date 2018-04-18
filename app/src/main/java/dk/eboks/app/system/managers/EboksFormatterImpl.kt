@@ -4,13 +4,12 @@ import android.content.Context
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.StoreboxReceipt
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
 import dk.nodes.nstack.kotlin.NStack
 import timber.log.Timber
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 

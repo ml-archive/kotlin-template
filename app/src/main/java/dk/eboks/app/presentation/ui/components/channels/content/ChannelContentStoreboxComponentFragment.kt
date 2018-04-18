@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.components.channels.content
 
-import android.media.tv.TvContract
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -15,13 +14,11 @@ import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Image
-import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.StoreboxReceipt
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.shared.Currency
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import kotlinx.android.synthetic.main.fragment_channel_storebox_component.*
-import kotlinx.android.synthetic.main.viewholder_channel_storebox_row.*
 import java.util.*
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -87,9 +84,31 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(), ChannelContentSt
             var amount = (i * 100) + 0.1
 
             if (i % 2 == 0) {
-                receipts.add(StoreboxReceipt("id" + i, "store" + i, Date(), Currency(amount, "DK" + i), Image("https://picsum.photos/200/?random")))
+                receipts.add(
+                        StoreboxReceipt(
+                                "id$i",
+                                "store$i",
+                                Date(),
+                                Currency(
+                                        amount,
+                                        "DK$i"
+                                ),
+                                Image("https://picsum.photos/200/?random")
+                        )
+                )
             } else {
-                receipts.add(StoreboxReceipt("id" + i, "store" + i, null, Currency(amount, "DK" + i), Image("https://picsum.photos/200/?random")))
+                receipts.add(
+                        StoreboxReceipt(
+                                "id$i",
+                                "store$i",
+                                null,
+                                Currency(
+                                        amount,
+                                        "DK$i"
+                                ),
+                                Image("https://picsum.photos/200/?random")
+                        )
+                )
             }
 
         }
@@ -99,7 +118,6 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(), ChannelContentSt
     inner class StoreboxAdapter : RecyclerView.Adapter<StoreboxAdapter.StoreboxViewHolder>() {
 
         inner class StoreboxViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
-
             //cards
             var amountDateContainer = root.findViewById<LinearLayout>(R.id.amountDateContainerLl)
             var soloAmountTv = root.findViewById<TextView>(R.id.soloAmountTv)

@@ -1,10 +1,9 @@
 package dk.eboks.app.domain.managers
 
-import dk.eboks.app.domain.models.channel.StoreboxReceipt
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
-import java.util.*
 
 /**
  * Created by bison on 19/02/18.
