@@ -1,7 +1,10 @@
 package dk.eboks.app.util
 
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.os.Parcelable
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
@@ -21,6 +24,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 import java.io.IOException
+import java.io.Serializable
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -185,4 +189,37 @@ fun BaseInteractor.exceptionToViewError(
         )
     }
     return ViewError(shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
+}
+
+class ActivityStarter2(val callingActivity: Activity) {
+    private var activityClass: Class<out Activity>? = null
+
+    private val intent = Intent(callingActivity, activityClass )
+
+    fun activity(activity: Class<out Activity>) = apply { this.activityClass = activity }
+
+    fun putExtra(name : String, value : Serializable) : ActivityStarter2 = apply { this.intent.putExtra(name, value) }
+    fun putExtra(name: String, value: Boolean): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
+    fun putExtra(name: String, value: Byte): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
+    fun putExtra(name: String, value: Char): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
+    fun putExtra(name: String, value: Short): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
+    fun putExtra(name: String, value: Int): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
+    fun putExtra(name: String, value: Long): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
+    fun putExtra(name: String, value: Float): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
+    fun putExtra(name: String, value: Double): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
+    fun putExtra(name: String, value: String): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
+    fun putExtra(name: String, value: CharSequence): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
+    fun putExtra(name: String, value: Parcelable): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
+    fun putExtra(name: String, value: Array<Parcelable>): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
+
+    fun start()
+    {
+        callingActivity.startActivity(intent)
+    }
+    //fun build() = ActivityStarter(this)
+}
+
+fun Activity.Starter() : ActivityStarter2
+{
+    return ActivityStarter2(this)
 }

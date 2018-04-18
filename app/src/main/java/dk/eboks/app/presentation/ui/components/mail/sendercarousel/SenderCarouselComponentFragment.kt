@@ -12,13 +12,10 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
-import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
-import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
+import dk.eboks.app.util.Starter
 import kotlinx.android.synthetic.main.fragment_sender_carousel_component.*
-import kotlinx.android.synthetic.main.viewholder_circular_sender.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -97,6 +94,13 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
             holder?.root?.let {
                 it.isSelected = senders[position].messages?.metadata?.unreadCount ?: 0 > 0
                 it.setOnClickListener {
+                    /*
+                    activity.Starter()
+                            .activity(MailListActivity::class.java)
+                            .putExtra("sender", senders[position])
+                            .start()
+                            */
+
                     val i = Intent(context, MailListActivity::class.java )
                     i.putExtra("sender", senders[position])
                     startActivity(i)
