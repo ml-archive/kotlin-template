@@ -68,7 +68,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
     }
 
     override fun formatDateRelative(target: StoreboxReceipt): String {
-        return formatDateRelative(target.purchaseDate)
+        return formatDateRelative(target.purchaseDateTime)
     }
 
     private fun formatDateRelative(target:Date?): String{
