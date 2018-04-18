@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Test</title>
-        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-                
-    </head>
-    <body>
-        <div class="container">
-            <h3 class="mt-5">New Webpage in app</h3>
-            <button type="button" class="btn btn-secondary btn-lg btn-block mb-5" id="presentWebpage" onclick="presentWebpage()">Open Webpage</button>
-        </div>
-        <!--   Scripts     -->
-        <script>
-        function presentWebpage() {
-            try {
-                webkit.messageHandlers.presentWebpage.postMessage("https://www.nodesagency.com/");
-            } catch(err) {
-                console.log('error');
-            }
+<head>
+    <title>Test</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+</head>
+<body>
+<div class="container">
+    <h3 class="mt-5">New Webpage in app</h3>
+    <button type="button" class="btn btn-secondary btn-lg btn-block mb-5" id="presentWebpage"
+            onclick="presentWebpage()">Open Webpage
+    </button>
+</div>
+<!--   Scripts     -->
+<script>
+    function presentWebpage() {
+        var newWebPage = "https://www.nodesagency.com/";
+        try {
+            android.presentWebpage(newWebPage);
+        } catch(err) {
+            console.log(err);
         }
-        </script>
-    </body>
+        try {
+            webkit.messageHandlers.presentWebpage.postMessage(newWebPage);
+        } catch(err) {
+            console.log('error');
+        }
+    }
+</script>
+</body>
 </html>
 
