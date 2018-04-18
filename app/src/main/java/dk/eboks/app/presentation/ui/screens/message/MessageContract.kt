@@ -10,8 +10,16 @@ import dk.eboks.app.presentation.base.BaseView
 interface MessageContract {
     interface View : BaseView {
         fun showTitle(message: Message)
+        fun addHeaderComponentFragment()
+        fun addDocumentComponentFragment()
+        fun addReplyButtonComponentFragment()
+        fun addNotesComponentFragment()
+        fun addAttachmentsComponentFragment()
+        fun addFolderInfoComponentFragment()
+        fun addShareComponentFragment()
     }
 
     interface Presenter : BasePresenter<MessageContract.View> {
+        fun setup()
     }
 }

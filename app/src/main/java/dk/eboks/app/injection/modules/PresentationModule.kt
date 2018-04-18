@@ -62,6 +62,8 @@ import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderCompo
 import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentContract
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.detail.reply.ReplyButtonComponentContract
+import dk.eboks.app.presentation.ui.components.message.detail.reply.ReplyButtonComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.share.ShareComponentContract
 import dk.eboks.app.presentation.ui.components.message.detail.share.ShareComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentContract
@@ -227,6 +229,12 @@ class PresentationModule {
     @Provides
     fun provideNotesComponentPresenter(stateManager: AppStateManager): NotesComponentContract.Presenter {
         return NotesComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideReplyButtonComponentPresenter(stateManager: AppStateManager): ReplyButtonComponentContract.Presenter {
+        return ReplyButtonComponentPresenter(stateManager)
     }
 
     @ActivityScope

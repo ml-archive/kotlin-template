@@ -50,6 +50,8 @@ import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderCompo
 import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentFragment
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.components.message.detail.reply.ReplyButtonComponentFragment
+import dk.eboks.app.presentation.ui.components.message.detail.reply.ReplyButtonComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentFragment
 import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentPresenter
 import dk.eboks.app.presentation.ui.components.message.opening.protectedmessage.ProtectedMessageComponentFragment
@@ -209,6 +211,8 @@ interface PresentationComponent {
     fun inject(target : RecalledComponentPresenter)
     fun inject(target : PromulgationComponentFragment)
     fun inject(target : PromulgationComponentPresenter)
+    fun inject(target : ReplyButtonComponentFragment)
+    fun inject(target : ReplyButtonComponentPresenter)
 
     // mail
 

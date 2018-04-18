@@ -13,6 +13,7 @@ import dk.eboks.app.presentation.ui.components.message.detail.attachments.Attach
 import dk.eboks.app.presentation.ui.components.message.detail.folderinfo.FolderInfoComponentFragment
 import dk.eboks.app.presentation.ui.components.message.detail.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentFragment
+import dk.eboks.app.presentation.ui.components.message.detail.reply.ReplyButtonComponentFragment
 import dk.eboks.app.presentation.ui.components.message.detail.share.ShareComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.html.HtmlViewComponentFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.image.ImageViewComponentFragment
@@ -33,6 +34,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     lateinit var formatter: EboksFormatter
 
     var headerComponentFragment: HeaderComponentFragment? = null
+    var replyButtonComponentFragment: ReplyButtonComponentFragment? = null
     var shareComponentFragment: ShareComponentFragment? = null
     var notesComponentFragment: NotesComponentFragment? = null
     var attachmentsComponentFragment: AttachmentsComponentFragment? = null
@@ -73,6 +75,16 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
             it.arguments = Bundle()
             it.arguments.putBoolean("show_divider", true)
             supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, HeaderComponentFragment::class.java.simpleName).commit()
+        }
+    }
+
+    override fun addReplyButtonComponentFragment()
+    {
+        replyButtonComponentFragment = ReplyButtonComponentFragment()
+        replyButtonComponentFragment?.let{
+            it.arguments = Bundle()
+            it.arguments.putBoolean("show_divider", true)
+            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, ReplyButtonComponentFragment::class.java.simpleName).commit()
         }
     }
 

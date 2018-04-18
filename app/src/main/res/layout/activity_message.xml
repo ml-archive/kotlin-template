@@ -19,53 +19,39 @@
                 android:clipToPadding="true">
 
                 <LinearLayout
+                    android:id="@+id/containerLl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/headerLl"
+                        android:id="@+id/headerContainerLl"
                         android:orientation="vertical"
+                        android:paddingTop="@dimen/margin_normal"
                         android:background="@color/backgroundColor"
                         android:layout_width="match_parent"
                         android:layout_height="156dp">
-                        <fragment
-                            android:id="@+id/headerFragment"
-                            android:name="dk.eboks.app.presentation.ui.components.message.detail.header.HeaderComponentFragment"
-                            android:layout_marginTop="16dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-                        <fragment
-                            android:id="@+id/documentFragment"
-                            android:name="dk.eboks.app.presentation.ui.components.message.detail.document.DocumentComponentFragment"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
                     </LinearLayout>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.5dp"
                         android:background="@color/dividerGreyBlue" />
 
-                    <fragment
-                        android:id="@+id/notesFragment"
-                        android:name="dk.eboks.app.presentation.ui.components.message.detail.notes.NotesComponentFragment"
+                    <LinearLayout
+                        android:id="@+id/bodyContainerLl"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
 
-                    <fragment
-                        android:id="@+id/attachmentsFragment"
-                        android:name="dk.eboks.app.presentation.ui.components.message.detail.attachments.AttachmentsComponentFragment"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
+                    </LinearLayout>
                 </LinearLayout>
             </android.support.v4.widget.NestedScrollView>
-        <fragment
-            android:id="@+id/folderInfoFragment"
-            android:name="dk.eboks.app.presentation.ui.components.message.detail.folderinfo.FolderInfoComponentFragment"
+        <FrameLayout
+            android:id="@+id/footerContainerLl"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_gravity="bottom" />
+            android:layout_gravity="bottom">
+
+        </FrameLayout>
     </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

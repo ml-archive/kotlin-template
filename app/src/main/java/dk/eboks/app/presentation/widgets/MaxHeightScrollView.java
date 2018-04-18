@@ -12,6 +12,7 @@ public class MaxHeightScrollView extends NestedScrollView {
 
     private int maxHeight;
     private final int defaultHeight = 300;
+    private int topPaddingPixel;
 
     public MaxHeightScrollView(Context context) {
         super(context);
@@ -33,6 +34,7 @@ public class MaxHeightScrollView extends NestedScrollView {
 
     private void init(Context context, AttributeSet attrs) {
         if (attrs != null) {
+            topPaddingPixel = (int) (context.getResources().getDisplayMetrics().density * 48.0f);
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.MaxHeightScrollView);
             //200 is a defualt value
             int defMaxHeight = context.getResources().getDisplayMetrics().heightPixels;
@@ -49,7 +51,7 @@ public class MaxHeightScrollView extends NestedScrollView {
                 actionBarHeight = (int) (getResources().getDisplayMetrics().density * 56.0f);
             }
 
-            defMaxHeight = defMaxHeight - actionBarHeight;
+            defMaxHeight = defMaxHeight - actionBarHeight - topPaddingPixel;
             maxHeight = styledAttrs.getDimensionPixelSize(R.styleable.MaxHeightScrollView_maxHeight, defMaxHeight);
             styledAttrs.recycle();
         }

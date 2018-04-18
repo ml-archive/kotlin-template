@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/componentRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    >
+
+    <Button
+        android:id="@+id/replyBtn"
+        style="@style/enabledButtton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="16dp"
+        android:enabled="true"
+        android:text="_Reply"
+        nstack:key="@string/nstack_reply_title" />
+</FrameLayout>

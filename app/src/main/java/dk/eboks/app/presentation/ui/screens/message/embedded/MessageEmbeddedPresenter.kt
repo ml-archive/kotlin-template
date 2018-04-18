@@ -19,10 +19,13 @@ class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateMan
         startViewer()
         runAction { v->
             v.addHeaderComponentFragment()
-            v.addShareComponentFragment()
+            message?.reply?.let {
+                v.addReplyButtonComponentFragment()
+            }
             v.addNotesComponentFragment()
             if(message?.attachments != null)
                 v.addAttachmentsComponentFragment()
+            v.addShareComponentFragment()
             v.addFolderInfoComponentFragment()
             message?.let { v.showTitle(it) }
         }
