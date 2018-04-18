@@ -126,6 +126,7 @@ import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
+import dk.eboks.app.presentation.ui.screens.senders.registrations.PendingActivity
 import dk.eboks.app.presentation.ui.screens.senders.registrations.RegistrationsActivity
 import dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailActivity
 import dk.eboks.app.presentation.ui.screens.uploads.UploadsActivity
@@ -255,6 +256,7 @@ interface PresentationComponent {
     fun inject(target : SenderComponentFragment)
     fun inject(target : SegmentDetailActivity)
     fun inject(target : RegistrationsActivity)
+    fun inject(target : PendingActivity)
 
     // sign up
 

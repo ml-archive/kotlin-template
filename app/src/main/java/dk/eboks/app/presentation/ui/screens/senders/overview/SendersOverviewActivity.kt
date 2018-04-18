@@ -14,6 +14,7 @@ import dk.eboks.app.presentation.ui.components.senders.SegmentComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
+import dk.eboks.app.presentation.ui.screens.senders.registrations.PendingActivity
 import dk.eboks.app.presentation.ui.screens.senders.registrations.RegistrationsActivity
 import kotlinx.android.synthetic.main.activity_senders_overview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -30,6 +31,10 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
+
+        senderPendingBtn.setOnClickListener { v ->
+            startActivity(Intent(this, PendingActivity::class.java))
+        }
     }
 
     // TODO add translation

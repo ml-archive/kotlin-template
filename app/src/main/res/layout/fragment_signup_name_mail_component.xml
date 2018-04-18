@@ -81,7 +81,7 @@
                         style="@style/EditText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:inputType="textPersonName"
+                        android:inputType="textPersonName|textCapWords"
                         nstack:hint="@string/nstack_signup_nameHint" />
                 </android.support.design.widget.TextInputLayout>
 
