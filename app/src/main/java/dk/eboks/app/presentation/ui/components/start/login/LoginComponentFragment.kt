@@ -31,7 +31,7 @@ import dk.eboks.app.util.guard
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.isValidEmail
 import dk.nodes.locksmith.core.Locksmith
-import dk.nodes.locksmith.core.fingerprint.FingerprintDialog.FingerprintDialogEvent.*
+import dk.nodes.locksmith.core.models.FingerprintDialogEvent.*
 import kotlinx.android.synthetic.main.fragment_login_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber

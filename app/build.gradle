@@ -255,7 +255,7 @@ dependencies {
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 
     // Encryption Lib
-    implementation 'dk.nodes.locksmith:core:1.0.4'
+    implementation 'dk.nodes.locksmith:core:1.1.0'
 
     // Testing
     testImplementation "junit:junit:$junit_version"

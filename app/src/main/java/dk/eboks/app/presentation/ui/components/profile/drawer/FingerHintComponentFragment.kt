@@ -13,6 +13,7 @@ import dk.eboks.app.domain.models.login.LoginInfo
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.nodes.locksmith.core.Locksmith
 import dk.nodes.locksmith.core.fingerprint.FingerprintDialog
+import dk.nodes.locksmith.core.models.FingerprintDialogEvent
 import kotlinx.android.synthetic.main.fragment_profile_enable_fingerprint_mobile_component.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -71,17 +72,17 @@ class FingerHintComponentFragment : BaseFragment(), FingerHintComponentContract.
                 .setCancelText(Translation.defaultSection.cancel)
                 .setEventListener {
                     when (it) {
-                        FingerprintDialog.FingerprintDialogEvent.CANCEL  -> {
+                        FingerprintDialogEvent.CANCEL  -> {
                             // Do nothing?
                         }
-                        FingerprintDialog.FingerprintDialogEvent.SUCCESS -> {
+                        FingerprintDialogEvent.SUCCESS -> {
                             presenter.encryptUserLoginInfo()
                         }
-                        FingerprintDialog.FingerprintDialogEvent.ERROR_CIPHER,
-                        FingerprintDialog.FingerprintDialogEvent.ERROR_ENROLLMENT,
-                        FingerprintDialog.FingerprintDialogEvent.ERROR_HARDWARE,
-                        FingerprintDialog.FingerprintDialogEvent.ERROR_SECURE,
-                        FingerprintDialog.FingerprintDialogEvent.ERROR   -> {
+                        FingerprintDialogEvent.ERROR_CIPHER,
+                        FingerprintDialogEvent.ERROR_ENROLLMENT,
+                        FingerprintDialogEvent.ERROR_HARDWARE,
+                        FingerprintDialogEvent.ERROR_SECURE,
+                        FingerprintDialogEvent.ERROR   -> {
                             showErrorDialog(
                                     ViewError(
                                             Translation.error.genericTitle,
