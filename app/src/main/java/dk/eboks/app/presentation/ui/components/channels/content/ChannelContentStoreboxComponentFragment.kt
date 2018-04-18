@@ -13,7 +13,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
-import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import kotlinx.android.synthetic.main.fragment_channel_storebox_component.*
@@ -82,14 +82,14 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         getBaseActivity()?.onBackPressed()
     }
 
-    override fun setReceipts(data: ArrayList<StoreboxReceipt>) {
+    override fun setReceipts(data: ArrayList<StoreboxReceiptItem>) {
         Timber.d("setReceipts: %s", data.size)
         adapter.receipts = data
         adapter.notifyDataSetChanged()
     }
 
     inner class StoreboxAdapter : RecyclerView.Adapter<StoreboxAdapter.StoreboxViewHolder>() {
-        var receipts: MutableList<StoreboxReceipt> = ArrayList()
+        var receipts: MutableList<StoreboxReceiptItem> = ArrayList()
 
         inner class StoreboxViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
             //cards
@@ -119,13 +119,13 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         override fun onBindViewHolder(holder: StoreboxViewHolder?, position: Int) {
             var currentReceipt = receipts[position]
 
-            holder?.headerTv?.text = currentReceipt.merchant?.name
+            holder?.headerTv?.text = currentReceipt.storeName
 
-            if (currentReceipt.purchaseDateTime != null) {
+            if (currentReceipt.purchaseDate != null) {
                 holder?.amountDateContainer?.visibility = View.VISIBLE
                 holder?.soloAmountTv?.visibility = View.GONE
 
-                holder?.amountTv?.text = currentReceipt.receiptLines?.total.toString()
+                holder?.amountTv?.text = currentReceipt.grantTotal?.value.toString()
 
                 holder?.dateTv?.text = formatter.formatDateRelative(currentReceipt)
             } else {
@@ -134,9 +134,9 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
 
                 holder?.soloAmountTv?.text = currentReceipt.grantTotal?.value.toString()
             }
-            if (currentReceipt.merchant?.logo?.url != null) {
+            if (currentReceipt.logo?.url != null) {
                 holder?.logoIv?.let {
-                    Glide.with(context).load(currentReceipt.merchant?.logo?.url).into(it)
+                    Glide.with(context).load(currentReceipt.logo?.url).into(it)
                 }
             }
             holder?.row?.setOnClickListener {

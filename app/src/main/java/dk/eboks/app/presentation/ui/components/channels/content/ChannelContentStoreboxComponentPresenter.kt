@@ -3,7 +3,7 @@ package dk.eboks.app.presentation.ui.components.channels.content
 import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptsInteractor
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
@@ -31,7 +31,7 @@ class ChannelContentStoreboxComponentPresenter @Inject constructor(
         getStoreboxReceiptsInteractor.run()
     }
 
-    override fun onGetReceipts(messages: ArrayList<StoreboxReceipt>) {
+    override fun onGetReceipts(messages: ArrayList<StoreboxReceiptItem>) {
         Timber.d("onGetReceipts: %s", messages.size)
         view?.setReceipts(messages)
     }

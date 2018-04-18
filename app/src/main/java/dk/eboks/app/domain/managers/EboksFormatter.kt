@@ -1,6 +1,7 @@
 package dk.eboks.app.domain.managers
 
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
@@ -13,6 +14,7 @@ interface EboksFormatter
     fun formatDate(target : Message) : String
     fun formatDateRelative(target : Message) : String
     fun formatDateRelative(target : StoreboxReceipt) : String
+    fun formatDateRelative(target : StoreboxReceiptItem) : String
     fun formatDateRelative(target : Item) : String
     fun formatSize(target : Content) : String
     fun formatCpr(cpr: String) : String

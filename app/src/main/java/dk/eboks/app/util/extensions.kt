@@ -17,7 +17,6 @@ import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import retrofit2.Response
@@ -145,7 +144,7 @@ fun EditText.addAfterTextChangeListener(listener: ((Editable?) -> Unit)) {
  */
 
 fun BaseInteractor.errorBodyToViewError(
-        response: Response<ArrayList<StoreboxReceipt>>,
+        response: Response<*>,
         shouldClose: Boolean = false
 ): ViewError {
     val responseString = response.errorBody()?.string()

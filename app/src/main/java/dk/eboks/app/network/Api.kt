@@ -3,6 +3,7 @@ package dk.eboks.app.network
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.message.Message
@@ -38,7 +39,7 @@ interface Api {
     @GET("api/channels/{id}") fun getChannel(@Path("id") id : Long) : Call<Channel>
     @GET("channels/{id}/home/content") fun getChannelHomeContent(@Path("id") id : Long) : Call<HomeContent>
 
-    @GET("/channels/storebox/receipts") fun getStoreboxReceipts() : Call<ArrayList<StoreboxReceipt>>
+    @GET("/channels/storebox/receipts") fun getStoreboxReceipts() : Call<ArrayList<StoreboxReceiptItem>>
     @GET("/channels/storebox/receipts/{id}") fun getStoreboxReceipt(@Path("id") id : String) : Call<StoreboxReceipt>
 
     // groups
