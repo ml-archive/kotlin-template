@@ -25,6 +25,12 @@
             android:paddingTop="@dimen/margin_normal"
             android:animateLayoutChanges="true">
 
+            <Button
+                android:id="@+id/senderPendingBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="pending"/>
+
             <LinearLayout
                 android:id="@+id/sendersCollectionContainerLl"
                 android:layout_width="match_parent"
