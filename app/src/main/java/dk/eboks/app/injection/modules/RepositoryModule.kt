@@ -11,6 +11,7 @@ import dk.eboks.app.network.repositories.*
 import dk.eboks.app.storage.repositories.AppStateRepositoryImpl
 import dk.eboks.app.storage.repositories.SharedPrefsSettingsRepository
 import dk.nodes.arch.domain.injection.scopes.AppScope
+import javax.inject.Named
 
 /**
  * Created by bison on 25-07-2017.
@@ -26,28 +27,28 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideMessagesRepository(api: Api, gson: Gson, folderIdMessageStore: FolderIdMessageStore, folderTypeMessageStore: FolderTypeMessageStore) : MessagesRepository
+    fun provideMessagesRepository(context: Context, api: Api, gson: Gson) : MessagesRepository
     {
-        return MessagesRestRepository(api, gson, folderIdMessageStore, folderTypeMessageStore)
+        return MessagesRestRepository(context, api, gson)
     }
 
     @Provides
     @AppScope
-    fun provideSendersRepository(api: Api, gson: Gson, senderStore: SenderStore) : SendersRepository {
-        return SendersRestRepository(api, gson, senderStore)
+    fun provideSendersRepository(context: Context, api: Api, gson: Gson) : SendersRepository {
+        return SendersRestRepository(context, api, gson)
     }
 
     @Provides
     @AppScope
-    fun provideSenderCategoriesRepository(api: Api, gson: Gson, senderCategoryStore: SenderCategoryStore) : SenderCategoriesRepository {
-        return SenderCategoriesRestRepository(api, gson, senderCategoryStore)
+    fun provideSenderCategoriesRepository(context: Context, api: Api, gson: Gson) : SenderCategoriesRepository {
+        return SenderCategoriesRestRepository(context, api, gson)
     }
 
     @Provides
     @AppScope
-    fun provideMailCategoriesRepository(mailCategoryStore: MailCategoryStore) : MailCategoriesRepository
+    fun provideMailCategoriesRepository(context: Context, api: Api, gson: Gson) : MailCategoriesRepository
     {
-        return MailCategoriesRestRepository(mailCategoryStore)
+        return MailCategoriesRestRepository(context, api, gson)
     }
 
     @Provides
@@ -59,21 +60,21 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideFoldersRepository(folderStore: FolderListStore) : FoldersRepository
+    fun provideFoldersRepository(context: Context, api: Api, gson: Gson) : FoldersRepository
     {
-        return FoldersRestRepository(folderStore)
+        return FoldersRestRepository(context, api, gson)
     }
 
     @Provides
     @AppScope
-    fun provideChannelsRepository(api: Api, gson: Gson, channelStore: ChannelListStore, channelControlStore: ChannelControlStore) : ChannelsRepository
+    fun provideChannelsRepository(context: Context, api: Api, gson: Gson) : ChannelsRepository
     {
-        return ChannelsRestRepository(api, gson, channelStore, channelControlStore)
+        return ChannelsRestRepository(context, api, gson)
     }
 
     @Provides
     @AppScope
-    fun provideCollectionsRepository(collectionStore: CollectionsStore) : CollectionsRepository {
-        return CollectionsRestRepository(collectionStore)
+    fun provideCollectionsRepository(context: Context, api: Api, gson: Gson) : CollectionsRepository {
+        return CollectionsRestRepository(context, api, gson)
     }
 }

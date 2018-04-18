@@ -6,6 +6,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import timber.log.Timber
 
 /**
  * Created by bison on 01/02/18.
@@ -17,15 +18,14 @@ class OpenFolderInteractorImpl(executor: Executor, val appStateManager: AppState
     override fun execute() {
         try {
             input?.folder?.let {
-                appStateManager.state?.currentFolder = it
-                appStateManager.save()
-                uiManager.showFolderContentScreen()
+                uiManager.showFolderContentScreen(it)
                 runOnUIThread {
                     output?.onOpenFolderDone()
                 }
             }
         } catch (e: Throwable) {
             runOnUIThread {
+                Timber.e(e)
                 output?.onOpenFolderError(exceptionToViewError(e))
             }
         }

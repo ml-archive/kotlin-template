@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.components.mail.maillist
 
-import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -14,13 +13,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
-import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
-import kotlinx.android.synthetic.main.viewholder_circular_sender.*
-import kotlinx.android.synthetic.main.viewholder_message.*
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -50,7 +47,21 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         refreshSrl.setOnRefreshListener {
             presenter.refresh()
         }
-        presenter.setup()
+
+        arguments?.let { args->
+            if(args.containsKey("folder"))
+            {
+                val folder = args.getSerializable("folder") as Folder
+                presenter.setup(folder)
+            }
+            if(args.containsKey("sender"))
+            {
+                val sender = args.getSerializable("sender") as Sender
+                presenter.setup(sender)
+            }
+        }
+
+
     }
 
     override fun onShake() {

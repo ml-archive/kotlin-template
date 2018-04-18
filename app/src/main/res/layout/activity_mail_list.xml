@@ -21,12 +21,22 @@
             android:layout_height="0.5dp"
             android:background="@color/dividerGreyBlue" />
 
+                <FrameLayout
+                    android:id="@+id/containerFl"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                </FrameLayout>
+
+                <!--
                 <fragment
                     android:id="@+id/mailListComponentFragment"
                     android:name="dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentFragment"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1" />
+                    -->
 
         <FrameLayout
             android:layout_width="match_parent"

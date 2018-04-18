@@ -36,6 +36,10 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        openBtn.setOnClickListener {
+            presenter.setShouldProceed(true)
+            activity.onBackPressed()
+        }
         openBtn.visibility = View.VISIBLE
         setupTopBar()
         updateTranslation()

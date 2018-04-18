@@ -10,6 +10,7 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface ChannelOpeningComponentContract {
     interface View : BaseView {
+        fun goToWebView(channel: Channel)
         fun showOpenState(channel : Channel)
         fun showDisabledState(channel: Channel)
         fun showInstallState(channel: Channel)

@@ -14,6 +14,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
 import kotlinx.android.synthetic.main.fragment_sender_carousel_component.*
 import kotlinx.android.synthetic.main.viewholder_circular_sender.*
@@ -94,12 +95,12 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
             }
             holder?.senderNameTv?.text = senders[position].name
             holder?.root?.let {
-                it.isSelected = senders[position].unreadCount > 0
+                it.isSelected = senders[position].messages?.metadata?.unreadCount ?: 0 > 0
                 it.setOnClickListener {
-                val i = Intent(context, SenderDetailActivity::class.java )
-                i.putExtra(Sender::class.simpleName, senders[position])
-                startActivity(i)
-            }
+                    val i = Intent(context, MailListActivity::class.java )
+                    i.putExtra("sender", senders[position])
+                    startActivity(i)
+                }
             }
         }
     }

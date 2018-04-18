@@ -25,6 +25,7 @@ interface Api {
     @GET("api/mail/categories") fun getMailCategories() : Call<List<Folder>>
     @GET("api/mail/folders") fun getFolders() : Call<List<Folder>>
     @GET("api/folders/{id}/messages") fun getMessages(@Path("id") id : Long) : Call<List<Message>>
+    @GET("mail/senders/{id}/messages") fun getMessagesBySender(@Path("id") id : Long) : Call<List<Message>>
     @GET("mail/folders/{folderId}/messages/{id}") fun getMessage(@Path("id") id : String, @Path("folderId") folderId : Long, @Query("receipt") receipt : Boolean? = null, @Query("terms") terms : Boolean? = null) : Call<Message>
     @GET("mail/{type}/messages") fun getMessagesByType(@Path("type") type : String) : Call<List<Message>>
     @GET("api/senders") fun getSenders() : Call<List<Sender>>

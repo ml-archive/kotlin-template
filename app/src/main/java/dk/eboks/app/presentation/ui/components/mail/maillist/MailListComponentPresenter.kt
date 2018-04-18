@@ -3,8 +3,10 @@ package dk.eboks.app.presentation.ui.components.mail.maillist
 import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
@@ -19,26 +21,47 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
         GetMessagesInteractor.Output,
         OpenMessageInteractor.Output {
 
-    val folder = appState.state?.currentFolder
+
+    companion object {
+        val FOLDER_MODE = 1
+        val SENDER_MODE = 2
+    }
+
+    var mode = -1
+
+    var currentFolder : Folder? = null
 
     init {
         openMessageInteractor.output = this
         getMessagesInteractor.output = this
     }
 
-    override fun setup() {
-        folder?.let {
-            getMessagesInteractor.input = GetMessagesInteractor.Input(true, it)
-            getMessagesInteractor.run()
-            runAction { v-> v.showProgress(true) }
-        }.guard {  runAction { v-> v.showEmpty(true) } }
+    override fun setup(folder : Folder) {
+        currentFolder = folder
+        mode = FOLDER_MODE
+        getMessagesInteractor.input = GetMessagesInteractor.Input(true, folder)
+        getMessagesInteractor.run()
+        runAction { v-> v.showProgress(true) }
+    }
+
+    override fun setup(sender : Sender) {
+        mode = SENDER_MODE
+        getMessagesInteractor.input = GetMessagesInteractor.Input(true, null, sender)
+        getMessagesInteractor.run()
+        runAction { v-> v.showProgress(true) }
     }
 
     override fun refresh() {
-        folder?.let {
-            getMessagesInteractor.input = GetMessagesInteractor.Input(false, it)
-            getMessagesInteractor.run()
+        when(mode)
+        {
+            FOLDER_MODE -> {
+                currentFolder?.let {
+                    getMessagesInteractor.input = GetMessagesInteractor.Input(false, it)
+                    getMessagesInteractor.run()
+                }
+            }
         }
+
     }
 
     override fun openMessage(message: Message) {
