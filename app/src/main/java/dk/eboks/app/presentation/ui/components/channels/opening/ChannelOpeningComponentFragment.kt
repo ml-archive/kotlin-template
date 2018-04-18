@@ -108,6 +108,10 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         }
     }
 
+    override fun goToWebView(channel: Channel) {
+        presenter.open(channel)
+    }
+
     override fun showProgress(show: Boolean) {
         progress.visibility = if(show) View.VISIBLE else View.GONE
     }
@@ -123,6 +127,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     }
 
     override fun openStoreBoxContent() {
+        // todo it still opens the storebox view and adds it to backstack
         startActivity(Intent(context, StoreboxContentActivity::class.java))
     }
 }
