@@ -27,9 +27,17 @@
 
             <Button
                 android:id="@+id/senderPendingBtn"
+                style="@style/button.SolidGradient"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="pending"/>
+                android:minHeight="48dp"
+                android:layout_marginLeft="@dimen/margin_normal"
+                android:layout_marginRight="@dimen/margin_normal"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:drawableLeft="@drawable/icon_48_senders_white"
+                android:drawablePadding="@dimen/margin_normal"
+                android:gravity="left|center_vertical"
+                android:text="Yending"/>
 
             <LinearLayout
                 android:id="@+id/sendersCollectionContainerLl"
