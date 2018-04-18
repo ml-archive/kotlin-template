@@ -12,12 +12,12 @@ data class Channel(
         var id : Int,
         var name : String,
         var payoff : String,
-        var description: Description?,
+        var description: Description?,  // this is removed in swagger 17. april
         var status: Status?,
         var logo : Image?,
         var image : Image?,
-        var background : ChannelColor?,
-        var requirements : Array<Requirement>? = null,
+        var background : ChannelColor?,   // this is changed in swagger 17. april  now a string
+        var requirements : Array<Requirement>? = null,  // this is removed in swagger 17. april Requirement  changed
         var installed : Boolean,
         var pinned : Boolean?
 ) : Serializable

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:ignore="MissingPrefix">
+
+    <TextView
+        android:id="@+id/dialogCustomFingerprintTvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:lineSpacingExtra="8sp"
+        android:textColor="#de000000"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        nstack:text="@string/nstack_androidfingerprint_dialogTitle"
+        tools:text="Fingerprint login" />
+
+    <TextView
+        android:id="@+id/dialogCustomFingerprintTvDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:fontFamily="sans-serif"
+        android:lineSpacingExtra="8sp"
+        android:textColor="#8a000000"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        nstack:text="@string/nstack_androidfingerprint_dialogSubtitle"
+        tools:text="Use your fingerprint for faster, easier access to your account" />
+
+    <TextView
+        android:id="@+id/dialogCustomFingerprintTvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif"
+        android:lineSpacingExtra="8sp"
+        android:textColor="#8a000000"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        nstack:text="@string/nstack_androidfingerprint_dialogDescription"
+        tools:text="Confirm fingerprint to continue" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/dialogCustomFingerprintIvFingerprint"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/circle_gradiant"
+            android:padding="@dimen/padding_medium"
+            android:src="@drawable/ic_fingerprint"
+            android:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/dialogCustomFingerprintTvMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="10sp"
+            android:textColor="#8a000000"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            nstack:text="@string/nstack_androidfingerprint_dialogDefaultMessage"
+            tools:text="Example message goes here" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical|end"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dialogCustomFingerprintBtnUsePassword"
+            style="?android:attr/buttonBarNegativeButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.02"
+            android:textColor="#bc1e3d"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            nstack:text="@string/nstack_androidfingerprint_dialogUsePasswordButton"
+            tools:text="Use Password" />
+
+        <Button
+            android:id="@+id/dialogCustomFingerprintBtnCancel"
+            style="?android:attr/buttonBarNegativeButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.02"
+            android:textColor="#bc1e3d"
+            android:textSize="14sp"
+
+            android:textStyle="normal"
+            nstack:text="@string/nstack_androidfingerprint_dialogCancelButton"
+            tools:text="Cancel" />
+
+    </LinearLayout>
+
+</LinearLayout>

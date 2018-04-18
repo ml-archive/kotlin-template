@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
-import android.support.design.widget.Snackbar
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
@@ -9,7 +8,6 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import kotlinx.android.synthetic.main.fragment_login_component.*
 import timber.log.Timber
 import javax.inject.Inject
 

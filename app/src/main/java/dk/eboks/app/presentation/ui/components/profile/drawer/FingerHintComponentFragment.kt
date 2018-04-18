@@ -11,8 +11,8 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.LoginInfo
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.nodes.locksmith.core.Locksmith
-import dk.nodes.locksmith.core.fingerprint.FingerprintDialog
+import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
+import dk.nodes.locksmith.core.models.FingerprintDialogEvent
 import kotlinx.android.synthetic.main.fragment_profile_enable_fingerprint_mobile_component.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -60,40 +60,37 @@ class FingerHintComponentFragment : BaseFragment(), FingerHintComponentContract.
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun showFingerprintDialog() {
-        Locksmith
-                .getInstance()
-                .getFingerprintDialogBuilder(context)
-                .setTitle(Translation.androidfingerprint.dialogTitle)
-                .setSubtitle(Translation.androidfingerprint.dialogSubtitle)
-                .setDescription(Translation.androidfingerprint.dialogDescription)
-                .setSuccessMessage(Translation.androidfingerprint.successMessage)
-                .setErrorMessage(Translation.androidfingerprint.errorMessage)
-                .setCancelText(Translation.defaultSection.cancel)
-                .setEventListener {
-                    when (it) {
-                        FingerprintDialog.FingerprintDialogEvent.CANCEL  -> {
-                            // Do nothing?
-                        }
-                        FingerprintDialog.FingerprintDialogEvent.SUCCESS -> {
-                            presenter.encryptUserLoginInfo()
-                        }
-                        FingerprintDialog.FingerprintDialogEvent.ERROR_CIPHER,
-                        FingerprintDialog.FingerprintDialogEvent.ERROR_ENROLLMENT,
-                        FingerprintDialog.FingerprintDialogEvent.ERROR_HARDWARE,
-                        FingerprintDialog.FingerprintDialogEvent.ERROR_SECURE,
-                        FingerprintDialog.FingerprintDialogEvent.ERROR   -> {
-                            showErrorDialog(
-                                    ViewError(
-                                            Translation.error.genericTitle,
-                                            Translation.androidfingerprint.errorGeneric,
-                                            true,
-                                            false
-                                    )
-                            )
-                        }
-                    }
+        val customFingerprintDialog = CustomFingerprintDialog(context)
+
+        customFingerprintDialog.setOnFingerprintDialogEventListener {
+            when (it) {
+                FingerprintDialogEvent.CANCEL  -> {
+                    // Do nothing?
                 }
-                .build()
-                .show()
+                FingerprintDialogEvent.SUCCESS -> {
+                    presenter.encryptUserLoginInfo()
+                }
+                FingerprintDialogEvent.ERROR_CIPHER,
+                FingerprintDialogEvent.ERROR_ENROLLMENT,
+                FingerprintDialogEvent.ERROR_HARDWARE,
+                FingerprintDialogEvent.ERROR_SECURE,
+                FingerprintDialogEvent.ERROR   -> {
+                    showErrorDialog(
+                            ViewError(
+                                    Translation.error.genericTitle,
+                                    Translation.androidfingerprint.errorGeneric,
+                                    true,
+                                    false
+                            )
+                    )
+                }
+            }
+        }
+
+        customFingerprintDialog.onUsePasswordBtnListener = {
+            // Todo add use password section
+        }
+
+        customFingerprintDialog.show()
     }
 }

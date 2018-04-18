@@ -27,7 +27,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 26
+        versionCode 27
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -255,7 +255,7 @@ dependencies {
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 
     // Encryption Lib
-    implementation 'dk.nodes.locksmith:core:1.0.4'
+    implementation 'dk.nodes.locksmith:core:1.1.1'
 
     // Testing
     testImplementation "junit:junit:$junit_version"

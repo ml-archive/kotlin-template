@@ -47,22 +47,50 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
 
     override fun onGetChannel(channel: Channel) {
         runAction { v -> v.showProgress(false) }
-        if (appState.state?.channelState?.openOrInstallImmediately == false) {
-            if (channel.installed) {
-                runAction { v -> v.showOpenState(channel) }
-            } else
-                runAction { v -> v.showInstallState(channel) }
+
+        //install = true  -> webview
+        if (channel.installed) {
+            runAction { v -> v.goToWebView(channel) }
         } else {
-            if (!channel.installed) {
+            //install = false:
+            // channel.status= 0 -> install
+            if (channel.status?.type == 0) {
+                runAction { v -> v.showInstallState(channel) }
+            }
+
+            // channel.status= 1 -> log on with nemid
+            if (channel.status?.type == 1) {
                 runAction { v ->
                     Config.getLoginProvider("nemid")?.let {
                         v.showVerifyState(channel, it)
                     }
-
                 }
-            } else
-                runAction { v -> v.openChannelContent() }
+            }
+            // channel.status= 2 -> not available
+            if (channel.status?.type == 2) {
+                runAction { v -> v.showDisabledState(channel) }
+            }
+            // fallback
+            runAction { v -> v.showDisabledState(channel) }
         }
+//        ------------------------------------------------
+
+//        if (appState.state?.channelState?.openOrInstallImmediately == false) {
+//            if (channel.installed) {
+//                runAction { v -> v.showOpenState(channel) }
+//            } else
+//                runAction { v -> v.showInstallState(channel) }
+//        } else {
+//            if (!channel.installed) {
+//                runAction { v ->
+//                    Config.getLoginProvider("nemid")?.let {
+//                        v.showVerifyState(channel, it)
+//                    }
+//
+//                }
+//            } else
+//                runAction { v -> v.openChannelContent() }
+//        }
     }
 
     override fun onGetChannelError(error: ViewError) {

@@ -26,12 +26,12 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.isValidEmail
-import dk.nodes.locksmith.core.Locksmith
-import dk.nodes.locksmith.core.fingerprint.FingerprintDialog.FingerprintDialogEvent.*
+import dk.nodes.locksmith.core.models.FingerprintDialogEvent.*
 import kotlinx.android.synthetic.main.fragment_login_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -203,41 +203,38 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun showFingerprintDialog() {
-        Locksmith
-                .getInstance()
-                .getFingerprintDialogBuilder(context)
-                .setTitle(Translation.androidfingerprint.dialogTitle)
-                .setSubtitle(Translation.androidfingerprint.dialogSubtitle)
-                .setDescription(Translation.androidfingerprint.dialogDescription)
-                .setSuccessMessage(Translation.androidfingerprint.successMessage)
-                .setErrorMessage(Translation.androidfingerprint.errorMessage)
-                .setCancelText(Translation.defaultSection.cancel)
-                .setEventListener {
-                    when (it) {
-                        CANCEL  -> {
-                            // Do nothing?
-                        }
-                        SUCCESS -> {
-                            doUserLogin()
-                        }
-                        ERROR_CIPHER,
-                        ERROR_ENROLLMENT,
-                        ERROR_HARDWARE,
-                        ERROR_SECURE,
-                        ERROR   -> {
-                            showErrorDialog(
-                                    ViewError(
-                                            Translation.error.genericTitle,
-                                            Translation.androidfingerprint.errorGeneric,
-                                            true,
-                                            false
-                                    )
-                            )
-                        }
-                    }
+        val customFingerprintDialog = CustomFingerprintDialog(context)
+
+        customFingerprintDialog.setOnFingerprintDialogEventListener {
+            when (it) {
+                CANCEL  -> {
+                    // Do nothing?
                 }
-                .build()
-                .show()
+                SUCCESS -> {
+                    doUserLogin()
+                }
+                ERROR_CIPHER,
+                ERROR_ENROLLMENT,
+                ERROR_HARDWARE,
+                ERROR_SECURE,
+                ERROR   -> {
+                    showErrorDialog(
+                            ViewError(
+                                    Translation.error.genericTitle,
+                                    Translation.androidfingerprint.errorGeneric,
+                                    true,
+                                    false
+                            )
+                    )
+                }
+            }
+        }
+
+        customFingerprintDialog.onUsePasswordBtnListener = {
+            // Todo add use password section
+        }
+
+        customFingerprintDialog.show()
     }
 
     private fun setupUserView(user: User) {
