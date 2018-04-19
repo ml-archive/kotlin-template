@@ -19,7 +19,7 @@ class MessagePresenter @Inject constructor(val appState: AppStateManager) : Mess
             v.addHeaderComponentFragment()
             v.addDocumentComponentFragment()
             message?.reply?.let {
-                v.addReplyButtonComponentFragment()
+                v.addReplyButtonComponentFragment(message!!)
             }
             v.addNotesComponentFragment()
             if(message?.attachments != null)

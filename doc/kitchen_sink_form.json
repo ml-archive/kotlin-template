@@ -35,9 +35,10 @@
 			"type" : "text",
 			"label" : "text label",
 			"value" : "text prefilled value",
+			"validate" : "^[A-Za-z]*$",
 			"maxLength" : 25,
 			"required" : true,
-			"error" : "Please enter less than 25 characters"
+			"error" : "Text must only contain letters and be less than 25 characters long"
 		},
 		{
 			"name" : "textarea",
@@ -88,6 +89,28 @@
 					"value" : "value3"
 				}
 			]
+		},
+		{
+			"name" : "radiobox",
+			"type" : "radiobox",
+			"label" : "radiobox label"
+		},
+		{
+			"name" : "date",
+			"type" : "date",
+			"label" : "date label",
+			"value" : "2018-03-15T05:45:00+0000"
+		},
+		{
+			"name" : "datetime",
+			"type" : "datetime",
+			"label" : "datetime label",
+			"value" : "2018-03-15T05:45:00+0000"
+		},
+		{
+			"name" : "upload",
+			"type" : "upload",
+			"label" : "upload label"
 		}
 	]
 }

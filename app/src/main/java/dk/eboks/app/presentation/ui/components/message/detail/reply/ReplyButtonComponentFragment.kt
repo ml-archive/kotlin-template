@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.message.reply.ReplyFormActivity
+import dk.eboks.app.util.Starter
+import kotlinx.android.synthetic.main.fragment_reply_button_component.*
 import javax.inject.Inject
 
 /**
@@ -25,6 +29,18 @@ class ReplyButtonComponentFragment : BaseFragment(), ReplyButtonComponentContrac
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        arguments?.getSerializable(Message::class.java.simpleName)?.let { msg ->
+            replyBtn.setOnClickListener {
+                presenter.reply(msg as Message)
+            }
+        }
+    }
+
+    override fun showReplyForm(msg: Message) {
+        activity.Starter()
+                .activity(ReplyFormActivity::class.java)
+                .putExtra(Message::class.java.simpleName, msg)
+                .start()
     }
 
 }

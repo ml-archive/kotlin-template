@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.domain.models.sender.Sender
@@ -91,8 +92,25 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
 
 
     override fun getMessage(folderId: Long, id: String, receipt : Boolean?, terms : Boolean?) : Message {
-
         val call = api.getMessage(id, folderId, receipt, terms)
+        val result = call.execute()
+        result?.let { response ->
+            if(response.isSuccessful)
+            {
+                return response.body() ?: throw(RuntimeException("Unknown"))
+            }
+            // attempt to parse error
+            response.errorBody()?.string()?.let { error_str ->
+                Timber.e("Received error body $error_str")
+                throw(ServerErrorException(gson.fromJson<ServerError>(error_str, ServerError::class.java)))
+            }
+        }
+
+        throw(RuntimeException())
+    }
+
+    override fun getMessageReplyForm(folderId: Long, id: String) : ReplyForm {
+        val call = api.getMessageReplyForm(id, folderId)
         val result = call.execute()
         result?.let { response ->
             if(response.isSuccessful)

@@ -10,7 +10,7 @@ import dk.eboks.app.presentation.base.BaseView
 interface MessageEmbeddedContract {
     interface View : BaseView {
         fun addHeaderComponentFragment()
-        fun addReplyButtonComponentFragment()
+        fun addReplyButtonComponentFragment(message: Message)
         fun addNotesComponentFragment()
         fun addAttachmentsComponentFragment()
         fun addFolderInfoComponentFragment()

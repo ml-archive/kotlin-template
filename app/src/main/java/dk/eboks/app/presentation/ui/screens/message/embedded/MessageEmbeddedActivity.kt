@@ -78,13 +78,14 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         }
     }
 
-    override fun addReplyButtonComponentFragment()
+    override fun addReplyButtonComponentFragment(message: Message)
     {
         replyButtonComponentFragment = ReplyButtonComponentFragment()
+        val args = Bundle()
+        args.putSerializable(Message::class.java.simpleName, message)
         replyButtonComponentFragment?.let{
-            it.arguments = Bundle()
-            it.arguments.putBoolean("show_divider", true)
-            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, ReplyButtonComponentFragment::class.java.simpleName).commit()
+            it.arguments = args
+            supportFragmentManager.beginTransaction().add(R.id.bodyContainerLl, it, ReplyButtonComponentFragment::class.java.simpleName).commit()
         }
     }
 

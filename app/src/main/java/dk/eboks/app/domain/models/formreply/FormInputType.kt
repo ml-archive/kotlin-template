@@ -1,8 +1,9 @@
 package dk.eboks.app.domain.models.formreply
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-enum class FormInputType(val type : String) {
+enum class FormInputType(val type : String) : Serializable {
     @SerializedName("description") DESCRIPTION("description"),
     @SerializedName("link") LINK("link"),
     @SerializedName("text") TEXT("text"),

@@ -20,7 +20,7 @@ class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateMan
         runAction { v->
             v.addHeaderComponentFragment()
             message?.reply?.let {
-                v.addReplyButtonComponentFragment()
+                v.addReplyButtonComponentFragment(message!!)
             }
             v.addNotesComponentFragment()
             if(message?.attachments != null)

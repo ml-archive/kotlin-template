@@ -12,7 +12,7 @@ interface MessageContract {
         fun showTitle(message: Message)
         fun addHeaderComponentFragment()
         fun addDocumentComponentFragment()
-        fun addReplyButtonComponentFragment()
+        fun addReplyButtonComponentFragment(message: Message)
         fun addNotesComponentFragment()
         fun addAttachmentsComponentFragment()
         fun addFolderInfoComponentFragment()

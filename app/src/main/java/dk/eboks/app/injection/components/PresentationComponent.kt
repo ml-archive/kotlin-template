@@ -117,6 +117,8 @@ import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
+import dk.eboks.app.presentation.ui.screens.message.reply.ReplyFormActivity
+import dk.eboks.app.presentation.ui.screens.message.reply.ReplyFormPresenter
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import dk.eboks.app.presentation.ui.screens.profile.ProfilePresenter
 import dk.eboks.app.presentation.ui.screens.profile.myinfo.MyInfoActivity
@@ -213,6 +215,8 @@ interface PresentationComponent {
     fun inject(target : PromulgationComponentPresenter)
     fun inject(target : ReplyButtonComponentFragment)
     fun inject(target : ReplyButtonComponentPresenter)
+    fun inject(target : ReplyFormActivity)
+    fun inject(target : ReplyFormPresenter)
 
     // mail
 

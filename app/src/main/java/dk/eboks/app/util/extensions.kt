@@ -213,35 +213,36 @@ fun BaseInteractor.exceptionToViewError(
     return ViewError(shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
 }
 
-class ActivityStarter2(val callingActivity: Activity) {
+class ActivityStarter(val callingActivity: Activity) {
     private var activityClass: Class<out Activity>? = null
+    private var intent : Intent? = null
 
-    private val intent = Intent(callingActivity, activityClass )
+    fun activity(activity: Class<out Activity>) = apply {
+        this.activityClass = activity
+        this.intent = Intent(callingActivity, activityClass )
+    }
 
-    fun activity(activity: Class<out Activity>) = apply { this.activityClass = activity }
-
-    fun putExtra(name : String, value : Serializable) : ActivityStarter2 = apply { this.intent.putExtra(name, value) }
-    fun putExtra(name: String, value: Boolean): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
-    fun putExtra(name: String, value: Byte): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
-    fun putExtra(name: String, value: Char): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
-    fun putExtra(name: String, value: Short): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
-    fun putExtra(name: String, value: Int): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
-    fun putExtra(name: String, value: Long): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
-    fun putExtra(name: String, value: Float): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
-    fun putExtra(name: String, value: Double): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
-    fun putExtra(name: String, value: String): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
-    fun putExtra(name: String, value: CharSequence): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
-    fun putExtra(name: String, value: Parcelable): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
-    fun putExtra(name: String, value: Array<Parcelable>): ActivityStarter2 = apply { this.intent.putExtra(name, value) }
+    fun putExtra(name : String, value : Serializable) : ActivityStarter = apply { this.intent?.putExtra(name, value) }
+    fun putExtra(name: String, value: Boolean): ActivityStarter = apply { this.intent?.putExtra(name, value) }
+    fun putExtra(name: String, value: Byte): ActivityStarter = apply { this.intent?.putExtra(name, value) }
+    fun putExtra(name: String, value: Char): ActivityStarter = apply { this.intent?.putExtra(name, value) }
+    fun putExtra(name: String, value: Short): ActivityStarter = apply { this.intent?.putExtra(name, value) }
+    fun putExtra(name: String, value: Int): ActivityStarter = apply { this.intent?.putExtra(name, value) }
+    fun putExtra(name: String, value: Long): ActivityStarter = apply { this.intent?.putExtra(name, value) }
+    fun putExtra(name: String, value: Float): ActivityStarter = apply { this.intent?.putExtra(name, value) }
+    fun putExtra(name: String, value: Double): ActivityStarter = apply { this.intent?.putExtra(name, value) }
+    fun putExtra(name: String, value: String): ActivityStarter = apply { this.intent?.putExtra(name, value) }
+    fun putExtra(name: String, value: CharSequence): ActivityStarter = apply { this.intent?.putExtra(name, value) }
+    fun putExtra(name: String, value: Parcelable): ActivityStarter = apply { this.intent?.putExtra(name, value) }
+    fun putExtra(name: String, value: Array<Parcelable>): ActivityStarter = apply { this.intent?.putExtra(name, value) }
 
     fun start()
     {
         callingActivity.startActivity(intent)
     }
-    //fun build() = ActivityStarter(this)
 }
 
-fun Activity.Starter() : ActivityStarter2
+fun Activity.Starter() : ActivityStarter
 {
-    return ActivityStarter2(this)
+    return ActivityStarter(this)
 }

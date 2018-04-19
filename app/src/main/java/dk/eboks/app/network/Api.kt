@@ -5,6 +5,7 @@ import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.AliasBody
@@ -32,6 +33,7 @@ interface Api {
     @GET("mail/{type}/messages") fun getMessagesByType(@Path("type") type : String) : Call<List<Message>>
     @GET("api/senders") fun getSenders() : Call<List<Sender>>
     @PUT("session") fun login(@Body body : LoginRequest) : Single<BufferedSource>
+    @GET("mail/folders/{folderId}/messages/{id}/reply") fun getMessageReplyForm(@Path("id") id : String, @Path("folderId") folderId : Long) : Call<ReplyForm>
 
     // channels
     @GET("api/channels") fun getChannels() : Call<MutableList<Channel>>
