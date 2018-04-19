@@ -125,20 +125,21 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
                 holder?.amountDateContainer?.visibility = View.VISIBLE
                 holder?.soloAmountTv?.visibility = View.GONE
 
-                holder?.amountTv?.text = currentReceipt.grantTotal?.value.toString()
+                holder?.amountTv?.text = currentReceipt.grandTotal?.value.toString()
 
                 holder?.dateTv?.text = formatter.formatDateRelative(currentReceipt)
             } else {
                 holder?.amountDateContainer?.visibility = View.GONE
                 holder?.soloAmountTv?.visibility = View.VISIBLE
 
-                holder?.soloAmountTv?.text = currentReceipt.grantTotal?.value.toString()
+                holder?.soloAmountTv?.text = currentReceipt.grandTotal?.value.toString()
             }
             if (currentReceipt.logo?.url != null) {
                 holder?.logoIv?.let {
                     Glide.with(context).load(currentReceipt.logo?.url).into(it)
                 }
             }
+
             holder?.row?.setOnClickListener {
                 //todo open the receipt details
                 var temp = "receipt clicked! ID: " + currentReceipt.id
