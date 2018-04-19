@@ -11,22 +11,22 @@ data class StoreboxReceipt(
         var id: String,
         @SerializedName("merchantId")
         var merchantId: String,
-        @SerializedName("grantTotal")
-        var grantTotal: StoreboxReceiptPrice? = null,
         @SerializedName("purchaseDateTime")
         var purchaseDateTime: Date? = null,
+        @SerializedName("grantTotal")
+        var grantTotal: StoreboxReceiptPrice? = null,
         @SerializedName("merchant")
         var merchant: StoreboxMerchant? = null,
-        @SerializedName("receiptLines")
-        var receiptLines: StoreboxReceiptLines? = null,
-        @SerializedName("payments")
-        var payments: MutableList<StoreboxPayment>? = arrayListOf(),
         @SerializedName("barcode")
         var barcode: StoreboxBarcode? = null,
         @SerializedName("optionals")
-        var optionals: StoreboxOptionals? = null
+        var optionals: StoreboxOptionals? = null,
+        @SerializedName("payments")
+        var payments: ArrayList<StoreboxPayment>? = arrayListOf(),
+        @SerializedName("receiptLines")
+        var receiptLines: StoreboxReceiptLines? = null
 ) : Parcelable {
     companion object {
-        val KEY = StoreboxReceipt::class.simpleName
+        val KEY_ID = StoreboxReceipt::class.simpleName
     }
 }

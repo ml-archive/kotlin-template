@@ -7,31 +7,36 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
 import javax.inject.Inject
 
-class ChannelContentStoreboxDetailComponentFragment : BaseFragment() {
+class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
+                                                      ChannelContentStoreboxDetailComponentContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
+    @Inject
+    lateinit var presenter: ChannelContentStoreboxDetailComponentContract.Presenter
 
     override fun onCreateView(
             inflater: LayoutInflater?,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater?.inflate(
-                R.layout.fragment_channel_storebox_component,
+        return inflater?.inflate(
+                R.layout.fragment_channel_storebox_detail_component,
                 container,
                 false
         )
-        return rootView
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
+        presenter.onViewCreated(this, lifecycle)
         setupTopbar()
     }
 
@@ -59,5 +64,13 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment() {
 
     private fun onBackPressed() {
         getBaseActivity()?.onBackPressed()
+    }
+
+    override fun getReceiptId(): String? {
+        return arguments?.getString(StoreboxReceipt.KEY_ID)
+    }
+
+    override fun setReceipt(receipt: StoreboxReceipt) {
+        Timber.d("Setting Receipt: %s", receipt)
     }
 }
