@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Thu Apr 19 13:59:49 CEST 2018 
+ * Generated: Thu Apr 19 15:14:19 CEST 2018 
  */
 
 public class Translation {
@@ -441,6 +441,7 @@ public class Translation {
 		public static String title = "Reply";
 		public static String required = "Required";
 		public static String typeHere = "Type here";
+		public static String select = "Select";
 	}
 	public final static class androidfingerprint {
 		public static String successMessage = "Successfully Authenticated";

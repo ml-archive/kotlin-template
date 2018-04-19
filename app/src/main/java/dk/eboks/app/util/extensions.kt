@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.os.Parcelable
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -246,3 +248,16 @@ fun Activity.Starter() : ActivityStarter
 {
     return ActivityStarter(this)
 }
+
+fun Fragment.putArg(name : String, value : Serializable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putSerializable(name, value) }
+fun Fragment.putArg(name: String, value: Boolean) = apply { arguments.guard { arguments = Bundle() }; arguments?.putBoolean(name, value) }
+fun Fragment.putArg(name: String, value: Byte) = apply { arguments.guard { arguments = Bundle() }; arguments?.putByte(name, value) }
+fun Fragment.putArg(name: String, value: Char) = apply { arguments.guard { arguments = Bundle() }; arguments?.putChar(name, value) }
+fun Fragment.putArg(name: String, value: Short)= apply { arguments.guard { arguments = Bundle() }; arguments?.putShort(name, value) }
+fun Fragment.putArg(name: String, value: Int) = apply { arguments.guard { arguments = Bundle() }; arguments?.putInt(name, value) }
+fun Fragment.putArg(name: String, value: Long) = apply { arguments.guard { arguments = Bundle() }; arguments?.putLong(name, value) }
+fun Fragment.putArg(name: String, value: Float) = apply { arguments.guard { arguments = Bundle() }; arguments?.putFloat(name, value) }
+fun Fragment.putArg(name: String, value: Double) = apply { arguments.guard { arguments = Bundle() }; arguments?.putDouble(name, value) }
+fun Fragment.putArg(name: String, value: String) = apply { arguments.guard { arguments = Bundle() }; arguments?.putString(name, value) }
+fun Fragment.putArg(name: String, value: CharSequence) = apply { arguments.guard { arguments = Bundle() }; arguments?.putCharSequence(name, value) }
+fun Fragment.putArg(name: String, value: Parcelable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putParcelable(name, value) }

@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.message.reply
 
+import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.eboks.app.presentation.base.BaseView
 
@@ -11,5 +12,6 @@ interface ReplyFormContract {
     }
 
     interface Presenter : BasePresenter<View> {
+        fun setup(msg : Message)
     }
 }
