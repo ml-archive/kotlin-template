@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Thu Apr 19 12:39:35 CEST 2018 
+ * Generated: Thu Apr 19 14:39:33 CEST 2018 
  */
 
 public class Translation {
@@ -185,6 +185,12 @@ public class Translation {
 		public static String termsWhyAcceptButton = "Why do I need to accept this?";
 		public static String termsInfoTitle = "A safe, fair and legal handling of your information is important";
 		public static String termsInfoMessage = "The Terms & Conditions are here to ensure that your information is handled in a safe and fair way, and to have a clear agreement about what is allowed and what isn\'t.";
+		public static String signOnNemIdTitle = "Sign on with Nem ID";
+		public static String signOnNemIdMessage = "NEMID MSG ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit ametLorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum.";
+		public static String signOnNemIdButton = "Sign on with NemID";
+		public static String signOnBankIDMessageNOR = "NOR MSG You will need to sign in with BankID: Don\'t worry, it\'s a one time thing. You will be sent to the BankID app to log in.";
+		public static String signOnBankIDtitleNOR = "Sign on with Bank ID";
+		public static String signOnBankIDButtonNOR = "Sign on with Bank ID";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";
@@ -390,6 +396,9 @@ public class Translation {
 		public static String confirmDeleteMessageReplaceChannelName = "Removing this channel will delete it from your e-Boks app, but will not delete your user at [channelname].";
 		public static String confirmRemoveButton = "Remove";
 		public static String removeChannelButtonRemovedState = "Removed!";
+		public static String receiptsTitle = "Receive only receipts digitally";
+		public static String receiptsSubtitle = "Accepting this then you will receive paper receipts";
+		public static String addAnotherCard = "Add another credit card";
 	}
 	public final static class storeboxlist {
 		public static String title = "Storebox";

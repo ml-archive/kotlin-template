@@ -11,6 +11,8 @@ interface ChannelContentStoreboxDetailComponentContract {
     interface View : BaseView {
         fun getReceiptId(): String?
         fun setReceipt(receipt: StoreboxReceipt)
+
+        fun showProgress(isLoading: Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
