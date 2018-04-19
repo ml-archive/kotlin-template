@@ -10,6 +10,7 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -63,7 +64,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     }
 
     private fun onBackPressed() {
-        getBaseActivity()?.onBackPressed()
+        (activity as StoreboxContentActivity).goToRoot()
     }
 
     override fun getReceiptId(): String? {

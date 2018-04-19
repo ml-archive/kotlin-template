@@ -15,24 +15,37 @@ class StoreboxContentActivity : BaseActivity(), StoreboxContentContract.View {
     @Inject
     lateinit var presenter: StoreboxContentContract.Presenter
 
+    val rootFragment = ChannelContentStoreboxComponentFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(dk.eboks.app.R.layout.activity_storebox_content)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         updateTranslation()
-
-        val fragment = ChannelContentStoreboxComponentFragment()
-
-        fragment.let {
-            supportFragmentManager.beginTransaction().add(
-                    R.id.content,
-                    it,
-                    ChannelContentStoreboxComponentFragment::class.java.simpleName
-            ).commit()
-        }
+        goToRoot()
     }
 
+    fun goToRoot() {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(
+                        R.id.content,
+                        rootFragment,
+                        ChannelContentStoreboxComponentFragment::class.java.simpleName
+                )
+                .commit()
+    }
+
+    override fun onBackPressed() {
+        Timber.d("onBackPressed: %s", supportFragmentManager.backStackEntryCount)
+
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack()
+        } else {
+            super.onBackPressed()
+        }
+    }
 
     fun showDetailFragment(receiptID: String) {
         Timber.d("showDetailFragment: %s", receiptID)
@@ -49,6 +62,7 @@ class StoreboxContentActivity : BaseActivity(), StoreboxContentContract.View {
                         fragment,
                         ChannelContentStoreboxDetailComponentFragment::class.java.simpleName
                 )
+                .addToBackStack(ChannelContentStoreboxDetailComponentFragment::class.java.simpleName)
                 .commit()
     }
 
