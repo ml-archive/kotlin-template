@@ -20,6 +20,7 @@ import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettings
 import kotlinx.android.synthetic.main.fragment_channel_storebox_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 class ChannelContentStoreboxComponentFragment : BaseFragment(),
@@ -126,15 +127,13 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
                 holder?.amountDateContainer?.visibility = View.VISIBLE
                 holder?.soloAmountTv?.visibility = View.GONE
 
-                holder?.amountTv?.text = currentReceipt.grandTotal?.value.toString()
-
+                holder?.amountTv?.text = String.format("%.2f", currentReceipt.grandTotal?.value).replace(".",",")
                 holder?.dateTv?.text = formatter.formatDateRelative(currentReceipt)
             } else {
                 holder?.amountDateContainer?.visibility = View.GONE
                 holder?.soloAmountTv?.visibility = View.VISIBLE
 
-                holder?.soloAmountTv?.text = currentReceipt.grandTotal?.value.toString()
-            }
+                holder?.amountTv?.text = String.format("%.2f", currentReceipt.grandTotal?.value).replace(".",",")            }
             if (currentReceipt.logo?.url != null) {
                 holder?.logoIv?.let {
                     Glide.with(context).load(currentReceipt.logo?.url).into(it)

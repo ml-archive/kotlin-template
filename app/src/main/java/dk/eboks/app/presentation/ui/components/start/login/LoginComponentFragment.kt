@@ -177,7 +177,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
         v.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.ic_fingerprint)
         v.findViewById<TextView>(R.id.nameTv).text = "_Force login (DEBUG)"
-        v.findViewById<TextView>(R.id.descTv).text = "_Warning sucks all the midiclorians out of the room"
+        v.findViewById<TextView>(R.id.descTv).text = "Inkluderer post fra offentlige myndigheter"
 
         v.setOnClickListener {
             doUserLogin()

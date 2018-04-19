@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.profile.myinfo
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,14 +11,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.EmailVerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.PhoneVerificationComponentFragment
+import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.fragment_profile_myinformation_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -25,7 +27,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
     @Inject
     lateinit var presenter: MyInfoComponentContract.Presenter
     var menuSave: MenuItem? = null
-
+    lateinit var currentChannel: Channel
     override fun onCreateView(
             inflater: LayoutInflater?,
             container: ViewGroup?,
@@ -42,6 +44,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         setupTopBar()
         onLanguageChanged(NStack.language)
         presenter.setup()
+        currentChannel = arguments.getSerializable("channel")as Channel
     }
 
     // shamelessly ripped from chnt
@@ -52,7 +55,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         }
 
         menuSave = mainTb.menu.add(Translation.defaultSection.save)
-        menuSave?.isEnabled = false
+        menuSave?.isEnabled = true
         menuSave?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         menuSave?.setOnMenuItemClickListener { item: MenuItem ->
             presenter.save()
@@ -86,6 +89,13 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
 
     private fun detachListeners() {
         nameEt.removeTextChangedListener(this)
+    }
+
+    override fun onDone() {
+        //todo ChannelContentAcitivity currently uses the appstate for current item, Stinus said he wanted to change that,
+        // if he does that then we need to send channel with the activity
+        // also needs to do save the options and redo API call for the channel, to see if the requirements has been met.
+        startActivity(Intent(activity, ChannelContentActivity::class.java))
     }
 
     override fun onResume() {

@@ -20,6 +20,7 @@ interface MyInfoComponentContract {
         fun getNewsletter() : Boolean
         fun showProgress(show : Boolean)
         fun setSaveEnabled(enabled : Boolean)
+        fun onDone()
     }
 
     interface Presenter : BasePresenter<View> {

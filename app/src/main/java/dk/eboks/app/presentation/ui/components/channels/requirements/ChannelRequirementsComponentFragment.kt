@@ -41,14 +41,16 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         updateProfileBtn.setOnClickListener {
-            startActivity(Intent(context, MyInfoActivity::class.java))
+            var intent = Intent(context, MyInfoActivity::class.java)
+            intent.putExtra("channel",currentItem)
+            startActivity(intent)
         }
         cancelBtn.setOnClickListener {
             // cancel clicked
             getBaseActivity()?.onBackPressed()
         }
         requirementRowsRv.layoutManager = LinearLayoutManager(context)
-        var item = arguments?.getSerializable(("req"))
+        var item = arguments?.getSerializable(("channel"))
         item?.let {
             currentItem = item as Channel
             currentItem?.requirements?.let {

@@ -12,6 +12,8 @@
         <LinearLayout
             android:orientation="vertical"
             android:paddingTop="16dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -30,17 +32,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     style="@style/text.body6.secondary"
-                    android:text="Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit ametLorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum."/>
+                    android:text="_Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit ametLorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum."/>
 
                 <Button
                     android:id="@+id/verifyBtn"
                     style="@style/button.SolidGradient"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="52dp"
-                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_height="52dp"
                     android:layout_marginBottom="24dp"
-                    android:layout_marginStart="36dp"
-                    android:layout_marginEnd="36dp"
                     android:text="_Verify with NemID" />
 
                 <TextView
