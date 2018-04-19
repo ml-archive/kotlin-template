@@ -28,7 +28,7 @@
                 android:layout_height="120dp"
                 android:padding="@dimen/margin_normal"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_menu_home"/>
+                android:src="@drawable/icon_64_senders_private"/>
 
             <include
                 layout="@layout/include_divider"

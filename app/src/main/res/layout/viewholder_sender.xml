@@ -31,7 +31,7 @@
             android:layout_marginRight="@dimen/margin_normal"
             android:background="@drawable/circle_white_greyborder"
             android:padding="8dp"
-            android:src="@drawable/icon_48_delete_red"/>
+            android:src="@drawable/icon_64_senders_private"/>
 
         <FrameLayout
             android:layout_width="0dp"
