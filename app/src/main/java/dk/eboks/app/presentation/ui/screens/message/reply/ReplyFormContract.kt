@@ -9,6 +9,7 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface ReplyFormContract {
     interface View : BaseView {
+        fun showProgress(show : Boolean)
     }
 
     interface Presenter : BasePresenter<View> {

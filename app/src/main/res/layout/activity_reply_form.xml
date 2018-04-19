@@ -6,7 +6,21 @@
                                                  xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include layout="@layout/include_toolbar"  />
-    <include layout="@layout/include_navigation_view"  />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <FrameLayout
+            android:id="@+id/progressFl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+    </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

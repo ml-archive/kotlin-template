@@ -6,6 +6,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
+import kotlinx.android.synthetic.main.activity_reply_form.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import java.util.*
@@ -36,5 +37,9 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
 
     override fun onLanguageChanged(locale: Locale) {
         mainTb.title = Translation.reply.title
+    }
+
+    override fun showProgress(show: Boolean) {
+
     }
 }
