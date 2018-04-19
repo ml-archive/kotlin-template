@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:nstack="http://schemas.android.com/apk/res-auto"
-    tools:ignore="MissingPrefix"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:animateLayoutChanges="true"
-    android:background="@color/backgroundColor">
+             xmlns:nstack="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:animateLayoutChanges="true"
+             android:background="@color/backgroundColor"
+             tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:id="@+id/content"
@@ -16,67 +15,57 @@
         android:background="@color/backgroundColor"
         android:orientation="vertical">
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp">
+
+            <ProgressBar
+                style="@style/Progress.Onboarding"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingLeft="40dp"
-                android:paddingRight="40dp">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="40dp"
+                android:progress="100"/>
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginEnd="1dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="40dp"
-                    android:background="@color/backgroundColor"
-                    android:elevation="0.5dp">
+            <TextView
+                android:id="@+id/headerTv"
+                style="@style/text.header1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Header"
+                nstack:key="@string/nstack_signup_completedHeader"/>
 
-                    <ProgressBar
-                        style="@style/OnboardingProgress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:progress="100"
-                        android:progressBackgroundTint="@color/white" />
-                </FrameLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"></View>
 
-                <TextView
-                    android:id="@+id/headerTv"
-                    nstack:key="@string/nstack_signup_completedHeader"
-                    style="@style/text.header1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Header" />
+            <ImageView
+                android:layout_width="224dp"
+                android:layout_height="224dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="32dp"
+                android:src="@drawable/visual_new_user"/>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"></View>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"></View>
 
-                <ImageView
-                    android:layout_width="224dp"
-                    android:layout_height="224dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="32dp"
-                    android:src="@drawable/visual_new_user" />
+            <Button
+                android:id="@+id/continueBtn"
+                style="@style/button.SolidGradient"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginBottom="32dp"
+                android:layout_marginTop="52dp"
+                android:text="_Continue to app"
+                nstack:key="@string/nstack_signup_continueToAppButton"/>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"></View>
-
-                <Button
-                    android:id="@+id/continueBtn"
-                    nstack:key="@string/nstack_signup_continueToAppButton"
-                    style="@style/button.SolidGradient"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:layout_marginBottom="32dp"
-                    android:layout_marginTop="52dp"
-                    android:text="_Continue to app" />
-
-            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
     <FrameLayout
@@ -89,6 +78,6 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"/>
     </FrameLayout>
 </FrameLayout>

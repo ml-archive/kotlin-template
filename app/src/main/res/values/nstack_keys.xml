@@ -154,6 +154,12 @@
   <string name='nstack_signup_termsWhyAcceptButton' formatted='false'>signup_termsWhyAcceptButton</string>
   <string name='nstack_signup_termsInfoTitle' formatted='false'>signup_termsInfoTitle</string>
   <string name='nstack_signup_termsInfoMessage' formatted='false'>signup_termsInfoMessage</string>
+  <string name='nstack_signup_signOnNemIdTitle' formatted='false'>signup_signOnNemIdTitle</string>
+  <string name='nstack_signup_signOnNemIdMessage' formatted='false'>signup_signOnNemIdMessage</string>
+  <string name='nstack_signup_signOnNemIdButton' formatted='false'>signup_signOnNemIdButton</string>
+  <string name='nstack_signup_signOnBankIDMessageNOR' formatted='false'>signup_signOnBankIDMessageNOR</string>
+  <string name='nstack_signup_signOnBankIDtitleNOR' formatted='false'>signup_signOnBankIDtitleNOR</string>
+  <string name='nstack_signup_signOnBankIDButtonNOR' formatted='false'>signup_signOnBankIDButtonNOR</string>
   <string name='nstack_activationcode_title' formatted='false'>activationcode_title</string>
   <string name='nstack_activationcode_subtitle' formatted='false'>activationcode_subtitle</string>
   <string name='nstack_activationcode_textFieldHeader' formatted='false'>activationcode_textFieldHeader</string>
@@ -331,6 +337,9 @@
   <string name='nstack_channelsettings_confirmDeleteMessageReplaceChannelName' formatted='false'>channelsettings_confirmDeleteMessageReplaceChannelName</string>
   <string name='nstack_channelsettings_confirmRemoveButton' formatted='false'>channelsettings_confirmRemoveButton</string>
   <string name='nstack_channelsettings_removeChannelButtonRemovedState' formatted='false'>channelsettings_removeChannelButtonRemovedState</string>
+  <string name='nstack_channelsettings_receiptsTitle' formatted='false'>channelsettings_receiptsTitle</string>
+  <string name='nstack_channelsettings_receiptsSubtitle' formatted='false'>channelsettings_receiptsSubtitle</string>
+  <string name='nstack_channelsettings_addAnotherCard' formatted='false'>channelsettings_addAnotherCard</string>
   <string name='nstack_storeboxlist_title' formatted='false'>storeboxlist_title</string>
   <string name='nstack_storeboxreceipt_orderNo' formatted='false'>storeboxreceipt_orderNo</string>
   <string name='nstack_storeboxreceipt_receipt' formatted='false'>storeboxreceipt_receipt</string>
