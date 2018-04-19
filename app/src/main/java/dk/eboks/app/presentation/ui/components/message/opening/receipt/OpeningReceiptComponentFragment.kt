@@ -43,6 +43,7 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
         openBtn.visibility = View.VISIBLE
         setupTopBar()
         updateTranslation()
+        iconIv.setImageDrawable(resources.getDrawable(R.drawable.icon_48_read_receipt_white))
     }
 
     override fun onResume() {

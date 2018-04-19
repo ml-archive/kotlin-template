@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="wrap_content"
               xmlns:nstack="http://schemas.android.com/apk/res-auto"
               android:background="@color/backgroundColor"
     >
@@ -12,7 +12,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?actionBarSize">
+        android:layout_marginTop="?actionBarSize"
+        >
 
         <ScrollView
             android:layout_width="match_parent"
@@ -194,7 +195,7 @@
                     android:paddingStart="@dimen/margin_normal"
                     android:paddingEnd="@dimen/margin_normal"
                     nstack:text="@string/nstack_myInformation_newsletter"
-                    android:text="newsletter"
+                    android:text="_newsletter"
                     style="@style/text.header4"
                     android:background="@color/white"
                     android:thumbTint="@color/textColorTertiary"

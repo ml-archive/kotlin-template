@@ -54,6 +54,7 @@ class PrivateSenderWarningComponentFragment : BaseFragment(), PrivateSenderWarni
         openBtn.visibility = View.VISIBLE
         setupTopBar()
         updateTranslation()
+        iconIv.setImageDrawable(resources.getDrawable(R.drawable.icon_48_mail_white))
     }
 
     private fun updateTranslation()

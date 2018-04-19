@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.screens.Overlay
+package dk.eboks.app.presentation.ui.screens.overlay
 
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation

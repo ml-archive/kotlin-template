@@ -1,9 +1,11 @@
 package dk.eboks.app.presentation.ui.components.channels.opening
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +22,12 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.ViewErrorController
 import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentStoreboxComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.requirements.ChannelRequirementsComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentFragment_MembersInjector
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
+import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_channel_opening_component.*
 import kotlinx.android.synthetic.main.fragment_navbar_component.*
 import kotlinx.android.synthetic.main.include_channel_detail_top.*
@@ -72,7 +79,8 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         contentBottom.addView(v)
         val button = v.findViewById<Button>(R.id.openBtn)
         button?.text = Translation.channels.openChannel
-
+        val colorTint =  Color.parseColor(channel.background?.rgb)
+        button.backgroundTintList = ColorStateList.valueOf(colorTint)
         button?.setOnClickListener {
             presenter.open(channel)
         }
@@ -90,21 +98,25 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         contentBottom.addView(v)
         val button = v.findViewById<Button>(R.id.installBtn)
         button?.text = Translation.channels.installChannel
+        val colorTint =  Color.parseColor(channel.background?.rgb)
+        button.backgroundTintList = ColorStateList.valueOf(colorTint)
         button?.setOnClickListener {
-            Config.getLoginProvider("nemid")?.let {
-                presenter.install(channel, it)
-            }
+                presenter.install(channel)
+
         }
     }
 
     override fun showVerifyState(channel: Channel, provider : LoginProvider) {
         contentBottom.removeAllViews()
         val v = inflater.inflate(R.layout.include_channel_detail_bottom_verify, contentBottom, false)
+        setupTopView(channel)
         contentBottom.addView(v)
         val button = v.findViewById<Button>(R.id.verifyBtn)
         v.findViewById<TextView>(R.id.descriptionTv)?.text = Translation.channels.verifyYourProfile
+        val colorTint =  Color.parseColor(channel.background?.rgb)
+        button.backgroundTintList = ColorStateList.valueOf(colorTint)
         button?.setOnClickListener {
-            presenter.open(channel)
+            presenter.install(channel)
         }
     }
 
@@ -122,11 +134,16 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         args.putString(Channel::class.simpleName, "file:///android_asset/index.html")
         fragment.arguments = args
         getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
-        /*
-        fragment?.let{
-            fragmentManager.beginTransaction().add(R.id.content, it, ChannelContentComponentFragment::class.java.simpleName).commit()
+    }
+
+    override fun showVerifyDrawer(channel: Channel) {
+        channel?.requirements?.let {
+            var requirements = Bundle()
+            requirements.putSerializable("req", channel)
+            getBaseActivity()?.openComponentDrawer(ChannelRequirementsComponentFragment::class.java, requirements)
+        }.guard {
+            showOpenState(channel)
         }
-        */
     }
 
     override fun openStoreBoxContent() {

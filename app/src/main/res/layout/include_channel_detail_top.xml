@@ -36,17 +36,12 @@
             android:orientation="vertical"
             android:paddingBottom="24dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"
-                android:orientation="vertical">
-
                 <TextView
                     android:id="@+id/headerTv"
                     style="@style/text.header1"
                     android:layout_width="wrap_content"
                     android:layout_height="28dp"
+                    android:layout_marginTop="52dp"
                     android:layout_gravity="center_horizontal"
                     android:text="_Få dine kvitteringer digitalt" />
 
@@ -69,7 +64,6 @@
                     android:paddingRight="40dp"
                     android:text="_By sending your invoice to the betalingsservice app, you also accept that e-Boks provides Betalingsservice by NETS with your civil registration number and payment information. This information is used to identify you to Betalingsservice" />
 
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

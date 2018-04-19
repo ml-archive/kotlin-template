@@ -176,8 +176,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         val li = LayoutInflater.from(context)
         val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
         v.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.ic_fingerprint)
-        v.findViewById<TextView>(R.id.nameTv).text = "Force login (DEBUG)"
-        v.findViewById<TextView>(R.id.descTv).text = "Warning sucks all the midiclorians out of the room"
+        v.findViewById<TextView>(R.id.nameTv).text = "_Force login (DEBUG)"
+        v.findViewById<TextView>(R.id.descTv).text = "_Warning sucks all the midiclorians out of the room"
 
         v.setOnClickListener {
             doUserLogin()
@@ -266,7 +266,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                     user?.let { setupUserView(it) }
                     cprEmailEt.inputType = InputType.TYPE_CLASS_NUMBER
                     cprEmailTil.visibility = View.VISIBLE
-                    cprEmailTil.hint = "_Social security number"
+                    cprEmailTil.hint = Translation.logoncredentials.ssnHeader
                     passwordTil.visibility = View.VISIBLE
                     continueBtn.visibility = View.VISIBLE
                 }

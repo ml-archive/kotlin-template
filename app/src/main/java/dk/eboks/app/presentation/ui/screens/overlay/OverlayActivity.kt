@@ -1,13 +1,11 @@
-package dk.eboks.app.presentation.ui.screens.Overlay
+package dk.eboks.app.presentation.ui.screens.overlay
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.FloatingActionButton
 import android.view.View
-import android.view.Window
 import android.widget.LinearLayout
 import android.widget.TextView
 import dk.eboks.app.R
@@ -16,14 +14,10 @@ import dk.eboks.app.util.views
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.activity_overlay.*
-import kotlinx.android.synthetic.main.viewholder_channel_cards.view.*
 import kotlinx.android.synthetic.main.viewholder_overlay_row.view.*
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
-import android.graphics.PixelFormat
-import android.view.WindowManager
-
 
 
 class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedListener {

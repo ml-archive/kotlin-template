@@ -38,6 +38,7 @@ class RecalledComponentFragment : BaseFragment(), RecalledComponentContract.View
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
         updateTranslation()
+        iconIv.setImageDrawable(resources.getDrawable(R.drawable.ic_reply_white))
     }
 
     override fun onResume() {

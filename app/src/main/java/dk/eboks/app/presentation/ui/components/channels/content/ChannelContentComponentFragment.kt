@@ -41,9 +41,6 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
 
         presenter.onViewCreated(this, lifecycle)
 
-        Handler(Looper.getMainLooper()).post({
-            getBaseActivity()?.openComponentDrawer(ChannelRequirementsComponentFragment::class.java)
-        })
         setupTopBar()
     }
 

@@ -17,7 +17,6 @@
     <Button
         style="@style/buttonRoundedCorners.Tintable"
         android:id="@+id/installBtn"
-        android:backgroundTint="#ff3f40"
         android:layout_marginBottom="40dp"
         android:layout_width="295dp"
         android:layout_height="52dp"

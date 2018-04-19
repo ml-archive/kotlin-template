@@ -20,9 +20,9 @@ import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentContract
-import dk.eboks.app.presentation.ui.screens.Overlay.ButtonType
-import dk.eboks.app.presentation.ui.screens.Overlay.OverlayActivity
-import dk.eboks.app.presentation.ui.screens.Overlay.OverlayButton
+import dk.eboks.app.presentation.ui.screens.overlay.ButtonType
+import dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity
+import dk.eboks.app.presentation.ui.screens.overlay.OverlayButton
 import kotlinx.android.synthetic.main.fragment_upload_myuploadoverview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import java.util.*

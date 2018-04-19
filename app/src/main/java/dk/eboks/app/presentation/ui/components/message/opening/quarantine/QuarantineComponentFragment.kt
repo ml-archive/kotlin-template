@@ -38,6 +38,9 @@ class QuarantineComponentFragment : BaseFragment(), QuarantineComponentContract.
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
         updateTranslation()
+
+        //todo there was no design for quarantine message. Right now it has a lock - this might have to be changed.
+        iconIv.setImageDrawable(resources.getDrawable(R.drawable.icon_48_lock_white))
     }
 
     override fun onResume() {

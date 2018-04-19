@@ -24,7 +24,7 @@ import javax.inject.Inject
 class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, OnLanguageChangedListener, TextWatcher {
     @Inject
     lateinit var presenter: MyInfoComponentContract.Presenter
-    var menuSave : MenuItem? = null
+    var menuSave: MenuItem? = null
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -61,8 +61,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
 
     }
 
-    private fun attachListeners()
-    {
+    private fun attachListeners() {
         nameEt.addTextChangedListener(this)
         primaryMailEt.addTextChangedListener(this)
         secondaryMailEt.addTextChangedListener(this)
@@ -85,8 +84,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
 
     }
 
-    private fun detachListeners()
-    {
+    private fun detachListeners() {
         nameEt.removeTextChangedListener(this)
     }
 
@@ -157,7 +155,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if(show) View.VISIBLE else View.GONE
+        progressFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun setSaveEnabled(enabled: Boolean) {
