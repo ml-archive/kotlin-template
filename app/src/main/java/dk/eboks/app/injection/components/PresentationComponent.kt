@@ -20,10 +20,7 @@ import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
 import dk.eboks.app.pasta.activity.PastaActivity
 import dk.eboks.app.pasta.activity.PastaPresenter
-import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentFragment
-import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentPresenter
-import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentStoreboxComponentFragment
-import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentStoreboxComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.*
 import dk.eboks.app.presentation.ui.components.channels.requirements.*
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
@@ -239,6 +236,7 @@ interface PresentationComponent {
     fun inject(target : ChannelContentComponentFragment)
     fun inject(target : ChannelContentComponentPresenter)
     fun inject(target : ChannelContentStoreboxComponentFragment)
+    fun inject(target : ChannelContentStoreboxDetailComponentFragment)
     fun inject(target : ChannelContentStoreboxComponentPresenter)
     fun inject(target : ChannelSettingsComponentFragment)
     fun inject(target : ChannelSettingsComponentPresenter)

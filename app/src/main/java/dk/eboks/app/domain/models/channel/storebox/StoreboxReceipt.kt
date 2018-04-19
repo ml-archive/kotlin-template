@@ -25,4 +25,8 @@ data class StoreboxReceipt(
         var barcode: StoreboxBarcode? = null,
         @SerializedName("optionals")
         var optionals: StoreboxOptionals? = null
-) : Parcelable
+) : Parcelable {
+    companion object {
+        val KEY = StoreboxReceipt::class.simpleName
+    }
+}

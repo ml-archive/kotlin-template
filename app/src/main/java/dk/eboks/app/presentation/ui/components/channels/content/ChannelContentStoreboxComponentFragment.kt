@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
@@ -142,9 +143,14 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
 
             holder?.row?.setOnClickListener {
                 //todo open the receipt details
-                var temp = "receipt clicked! ID: " + currentReceipt.id
-                println(temp)
-
+                Timber.d("Receipt Clicked: %s", currentReceipt.id)
+                val bundle = Bundle()
+                bundle.putParcelable(StoreboxReceipt.KEY, currentReceipt)
+                
+                getBaseActivity()?.openComponentDrawer(
+                        ChannelContentStoreboxDetailComponentFragment::class.java,
+                        bundle
+                )
             }
 
         }
