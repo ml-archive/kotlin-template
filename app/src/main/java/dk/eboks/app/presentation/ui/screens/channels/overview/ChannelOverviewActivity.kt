@@ -21,7 +21,6 @@ class ChannelOverviewActivity : BaseActivity(), ChannelOverviewContract.View {
     }
 
     private fun setupTopBar() {
-        mainTb.setNavigationIcon(R.drawable.ic_menu_channels)
         mainTb.title = Translation.channels.title
     }
 
