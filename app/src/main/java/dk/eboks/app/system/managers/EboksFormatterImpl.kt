@@ -4,13 +4,13 @@ import android.content.Context
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.StoreboxReceipt
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
 import dk.nodes.nstack.kotlin.NStack
 import timber.log.Timber
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -21,14 +21,14 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
     val messageDateFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("d. MMM", NStack.language)
-        } catch (t : Throwable) {
+        } catch (t: Throwable) {
             SimpleDateFormat()
         }
     }
     val messageDateYearFormat: SimpleDateFormat by lazy {
         try {
-        SimpleDateFormat("d. MMM YYYY", NStack.language)
-        } catch (t : Throwable) {
+            SimpleDateFormat("d. MMM YYYY", NStack.language)
+        } catch (t: Throwable) {
             SimpleDateFormat()
         }
     }
@@ -36,7 +36,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         try {
             SimpleDateFormat("E", NStack.language)
 
-        } catch (t : Throwable) {
+        } catch (t: Throwable) {
             SimpleDateFormat()
         }
     }
@@ -69,10 +69,14 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
     }
 
     override fun formatDateRelative(target: StoreboxReceipt): String {
+        return formatDateRelative(target.purchaseDateTime)
+    }
+
+    override fun formatDateRelative(target: StoreboxReceiptItem): String {
         return formatDateRelative(target.purchaseDate)
     }
 
-    private fun formatDateRelative(target:Date?): String{
+    private fun formatDateRelative(target: Date?): String {
         var result = ""
         val currentLocale = getCurrentLocale(context)
         val cal_recv = Calendar.getInstance(currentLocale)
@@ -82,11 +86,15 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         val cal2 = Calendar.getInstance(currentLocale)
 
         val isThisYear = cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR)
-        val isToday = cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR) && cal_recv.get(Calendar.DAY_OF_YEAR) == cal.get(Calendar.DAY_OF_YEAR)
+        val isToday = cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR) && cal_recv.get(Calendar.DAY_OF_YEAR) == cal.get(
+                Calendar.DAY_OF_YEAR
+        )
 
         cal.add(Calendar.DATE, -1)
         // set call to yesterday
-        val isYesterday = cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR) && cal_recv.get(Calendar.DAY_OF_YEAR) == cal.get(Calendar.DAY_OF_YEAR)
+        val isYesterday = cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR) && cal_recv.get(
+                Calendar.DAY_OF_YEAR
+        ) == cal.get(Calendar.DAY_OF_YEAR)
 
         if (isToday) {
             result = Translation.defaultSection.today

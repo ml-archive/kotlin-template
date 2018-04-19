@@ -22,6 +22,7 @@ import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import retrofit2.Response
 import timber.log.Timber
 import java.io.IOException
 import java.io.Serializable
@@ -145,6 +146,27 @@ fun EditText.addAfterTextChangeListener(listener: ((Editable?) -> Unit)) {
  *
  * Its just for convenience yall
  */
+
+fun BaseInteractor.errorBodyToViewError(
+        response: Response<*>,
+        shouldClose: Boolean = false
+): ViewError {
+    val responseString = response.errorBody()?.string()
+
+    //Todo add more cases like 401,402, ect ect
+
+    return when (response.code()) {
+        else -> {
+            ViewError(
+                    Translation.error.genericTitle,
+                    Translation.error.genericMessage,
+                    true,
+                    shouldClose
+            )
+        }
+    }
+}
+
 fun BaseInteractor.exceptionToViewError(
         t: Throwable,
         shouldClose: Boolean = false,

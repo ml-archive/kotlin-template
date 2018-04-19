@@ -7,6 +7,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
+
 class ChannelContentComponentPresenter @Inject constructor(val appState: AppStateManager) : ChannelContentComponentContract.Presenter, BasePresenterImpl<ChannelContentComponentContract.View>() {
 
     init {

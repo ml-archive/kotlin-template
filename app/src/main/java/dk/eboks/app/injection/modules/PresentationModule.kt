@@ -19,6 +19,7 @@ import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
+import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptsInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
@@ -535,8 +536,11 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelContentStoreboxComponentPresenter(stateManager: AppStateManager): ChannelContentStoreboxComponentContract.Presenter {
-        return ChannelContentStoreboxComponentPresenter(stateManager)
+    fun provideChannelContentStoreboxComponentPresenter(
+            stateManager: AppStateManager,
+            getStoreboxReceiptsInteractor: GetStoreboxReceiptsInteractor
+    ): ChannelContentStoreboxComponentContract.Presenter {
+        return ChannelContentStoreboxComponentPresenter(stateManager, getStoreboxReceiptsInteractor)
     }
 
     @ActivityScope
@@ -799,7 +803,7 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideStoreboxContentPresenter(stateManager: AppStateManager) : StoreboxContentContract.Presenter {
+    fun provideStoreboxContentPresenter(stateManager: AppStateManager): StoreboxContentContract.Presenter {
         return StoreboxContentPresenter(stateManager)
     }
 
