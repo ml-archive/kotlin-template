@@ -62,8 +62,8 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
                 Glide.with(context)
                         .load(it.logo?.url)
                         .apply(RequestOptions()
-                                .fallback(R.drawable.icon_72_senders_private)
-                                .placeholder(R.drawable.icon_72_senders_private)
+                                .fallback(R.drawable.icon_64_senders_private)
+                                .placeholder(R.drawable.icon_64_senders_private)
                         )
                         .into(senderLogoIv)
                 senderNameTv.text = it.name

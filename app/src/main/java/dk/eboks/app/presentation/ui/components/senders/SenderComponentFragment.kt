@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Sender
@@ -45,7 +46,13 @@ class SenderComponentFragment : BaseFragment(), RegistrationContract.View {
 
         val sender = arguments.getSerializable(Sender::class.simpleName) as Sender?
         sender?.let {
-            Glide.with(context).load(sender.logo?.url).into(senderIv)
+            Glide.with(context)
+                    .load(sender.logo?.url)
+                    .apply(RequestOptions()
+                            .fallback(R.drawable.icon_64_senders_private)
+                            .placeholder(R.drawable.icon_64_senders_private)
+                    )
+                    .into(senderIv)
             senderNameTv.text = it.name
             senderCv.setOnClickListener {
                 val i = Intent(context, SenderDetailActivity::class.java)

@@ -9,6 +9,8 @@
         <item name="android:windowBackground">@color/backgroundColor</item>
         <item name="android:windowContentTransitions">true</item>
 
+        <item name="android:indeterminateTint">@color/colorAccent</item>
+        <item name="android:indeterminateTintMode">src_in</item>
         <!--
         <item name="android:windowActivityTransitions">false</item>
         <item name="android:windowEnterTransition">@transition/fade</item>
@@ -279,12 +281,18 @@
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="OnboardingProgress" parent="Widget.AppCompat.ProgressBar.Horizontal">
-        <item name="android:progressBackgroundTint">@color/white</item>
+    <style name="Progress" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="elevation">1dp</item>
+        <item name="android:maxHeight">4dp</item>
+        <item name="android:minHeight">4dp</item>
     </style>
 
-    <style name="UploadProgress" parent="Widget.AppCompat.ProgressBar.Horizontal">
-        <item name="android:progressBackgroundTint">@color/greyBoarder</item>
+    <style name="Progress.Onboarding">
+        <item name="android:progressDrawable">@drawable/progress_red_white</item>
+    </style>
+
+    <style name="Progress.Upload">
+        <item name="android:progressDrawable">@drawable/progress_red_grey</item>
     </style>
 
     <style name="EboksTextInputLayout">
