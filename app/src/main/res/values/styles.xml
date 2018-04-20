@@ -77,6 +77,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="text.header3.secondary">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
     <!-- Header 4 -->
     <style name="text.header4">
         <item name="android:textSize">@dimen/text_size_header_4</item>

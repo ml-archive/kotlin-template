@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    >
+<Button
+
+    android:id="@+id/linkBtn"
+    style="@style/enabledButtton"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    android:layout_marginStart="@dimen/padding_normal"
+    android:layout_marginEnd="@dimen/padding_normal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    />
+</FrameLayout>

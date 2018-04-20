@@ -123,6 +123,14 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideGetReplyFormInteractor(
+            executor: Executor,
+            messagesRepository: MessagesRepository
+    ): GetReplyFormInteractor {
+        return GetReplyFormInteractorImpl(executor, messagesRepository)
+    }
+
+    @Provides
     fun provideSaveAttachmentInteractor(
             executor: Executor, appStateManager: AppStateManager,
             fileCacheManager: FileCacheManager, permissionManager: PermissionManager

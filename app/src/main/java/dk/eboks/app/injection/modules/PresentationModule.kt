@@ -10,10 +10,7 @@ import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
-import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
-import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
-import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
-import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
+import dk.eboks.app.domain.interactors.message.*
 import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
@@ -820,8 +817,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideReplyFormPresenter(appState: AppStateManager): ReplyFormContract.Presenter {
-        return ReplyFormPresenter(appState)
+    fun provideReplyFormPresenter(appState: AppStateManager, getReplyFormInteractor: GetReplyFormInteractor): ReplyFormContract.Presenter {
+        return ReplyFormPresenter(appState, getReplyFormInteractor)
     }
 
     /* Pasta

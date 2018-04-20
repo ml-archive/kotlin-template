@@ -31,7 +31,6 @@ interface AppComponent {
 
     // expose functions to components dependent on this component
     fun executor(): Executor
-
     fun api(): Api
 
     // managers

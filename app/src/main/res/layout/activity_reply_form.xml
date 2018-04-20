@@ -10,10 +10,46 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/formInputLl"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp">
+                    <Button
+                        android:id="@+id/submitBtn"
+                        style="@style/enabledButtton"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="@dimen/padding_normal"
+                        android:layout_marginEnd="@dimen/padding_normal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="_Submit"
+                        />
+                </FrameLayout>
+
+            </LinearLayout>
+        </ScrollView>
 
         <FrameLayout
             android:id="@+id/progressFl"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <ProgressBar

@@ -52,7 +52,7 @@ class OpenAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
                 }
             }
         } catch (e: Throwable) {
-            e.printStackTrace()
+            Timber.e(e)
             runOnUIThread {
                 output?.onOpenAttachmentError(exceptionToViewError(e))
             }
