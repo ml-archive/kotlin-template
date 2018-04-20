@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Fri Apr 20 13:37:39 CEST 2018 
+ * Generated: Fri Apr 20 15:03:05 CEST 2018 
  */
 
 public class Translation {
@@ -295,6 +295,12 @@ public class Translation {
 		public static String storageRowSubHeader = "and much more";
 		public static String storageRowButton = "Verify profile";
 		public static String topbarEdit = "EDIT";
+		public static String nonVerifiedMsg = "All you have to do is verify your profile lorem ipsum dolor sit amet integer lorem lorem ipsum dolor sit";
+		public static String nonVerifiedHeader = "Get 1 GB free storage";
+		public static String nonVerifiedButton = "Verify profile";
+		public static String verifiedEmptyMsg = "You haven\u2019t uploaded anything yet";
+		public static String uploadingFile = "Uploading file";
+		public static String chosen = "chosen";
 	}
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";

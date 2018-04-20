@@ -46,7 +46,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="_1 GB " />
+                    android:text="_X GB " />
 
                 <TextView
                     android:id="@+id/rightProgressTv"
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:text="_700 Mb left"
+                    android:text="_XXX Mb left"
                     android:textColor="@color/blueGrey"
                     android:visibility="visible" />
             </LinearLayout>
@@ -153,6 +153,7 @@
             <!--Show Verified user content-->
 
             <FrameLayout
+                android:id="@+id/lastestUploadsFl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/backgroundColor"
@@ -201,8 +202,9 @@
                 android:layout_weight="1"
                 android:background="@color/backgroundColor"
                 android:gravity="center"
-                android:text="_You havent uploaded anything yet"
-                android:visibility="gone" />
+                android:visibility="gone"
+                nstack:key="@string/nstack_uploads_verifiedEmptyMsg"
+                />
 
             <!--show state for non verified user-->
             <LinearLayout
@@ -221,7 +223,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:gravity="center"
-                    android:text="_Get 1 GB free storage" />
+                    android:text="_Get 1 GB free storage"
+                    nstack:key="@string/nstack_uploads_nonVerifiedHeader"
+                    />
 
                 <TextView
                     style="@style/text.body6.secondary"
@@ -229,7 +233,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_normal"
                     android:gravity="center"
-                    android:text="_All you have to do is verify your profile lorem ipsum dolor sit amet integer lorem lorem ipsum dolor sit" />
+                    android:text="_All you have to do is verify your profile lorem ipsum dolor sit amet integer lorem lorem ipsum dolor sit"
+                    nstack:key="@string/nstack_uploads_nonVerifiedMsg"/>
 
                 <Button
                     android:id="@+id/verifyProfileBtn"
@@ -242,7 +247,8 @@
                     android:paddingLeft="@dimen/margin_normal"
                     android:paddingRight="@dimen/margin_normal"
                     android:text="_verify profile"
-                    android:textColor="@color/darkGreyBlue" />
+                    android:textColor="@color/darkGreyBlue"
+                    nstack:key="@string/nstack_uploads_nonVerifiedButton"/>
 
             </LinearLayout>
         </LinearLayout>

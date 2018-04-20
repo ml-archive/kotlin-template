@@ -76,7 +76,9 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             showGreeting = args.getBoolean("showGreeting", true)
         }
 
-        continueBtn.setOnClickListener { onContinue() }
+        continueBtn.setOnClickListener {
+            onContinue()
+        }
     }
 
 
@@ -142,9 +144,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         Timber.e("SetupView called loginProvider = $loginProvider user = $user altProviders = $altLoginProviders")
         loginProvider?.let { provider ->
             currentProvider = provider
+            currentUser = user
             headerTv.visibility = View.GONE
             detailTv.visibility = View.GONE
             setupViewForProvider(user)
+
         }.guard {
             // no provider given setup for cpr/email (mobile access)
             headerTv.visibility = View.VISIBLE
@@ -184,17 +188,6 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         loginProvidersLl.addView(v)
         loginProvidersLl.visibility = View.VISIBLE
 
-//        -------------------test---------------
-        val li2 = LayoutInflater.from(context)
-        val v2 = li2.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
-        v2.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.ic_fingerprint)
-        v2.findViewById<TextView>(R.id.nameTv).text = "_Force login (DEBUG)"
-        v.findViewById<TextView>(R.id.descTv).visibility = View.GONE
-        v2.setOnClickListener {
-            doUserLogin()
-        }
-        loginProvidersLl.addView(v2)
-//        -------------------------------------
     }
 
     override fun addFingerPrintProvider() {
@@ -248,7 +241,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         customFingerprintDialog.show()
     }
 
-    private fun setupUserView(user: User) {
+    private fun setupUserView(user: User?) {
 
         continueBtn.visibility = View.GONE
         passwordTil.visibility = View.VISIBLE
@@ -281,10 +274,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         currentProvider?.let { provider ->
             when (provider.id) {
                 "email" -> {
-                    user?.let { setupUserView(it) }
+                    setupUserView(user)
                     cprEmailEt.inputType = InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
                     cprEmailTil.visibility = View.GONE
                     userLl.visibility = View.VISIBLE
+
                 }
                 "cpr" -> {
                     user?.let { setupUserView(it) }

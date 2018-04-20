@@ -123,7 +123,16 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
     private fun switchMode() {
         modeEdit = !modeEdit
         checkedList.clear()
+        setTopBar()
         uploadsRv.adapter.notifyDataSetChanged()
+    }
+
+    private fun setTopBar() {
+        if(checkedList.size > 0){
+            activity.mainTb.title = checkedList.size.toString() + " " + Translation.uploads.chosen
+        } else {
+            activity.mainTb.title = Translation.uploads.title
+        }
     }
 
     fun setupRecyclerView() {
@@ -156,6 +165,7 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
         } else {
             mainFab.hide()
         }
+        setTopBar()
     }
 
     override fun showProgress(show: Boolean) {
