@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f3f3f3">
+    android:background="#f3f3f3"
+    tools:ignore="MissingPrefix">
 
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/storeboxDetailContentContainer"
@@ -116,6 +118,98 @@
                 android:id="@+id/storeboxDetailRvReceiptLines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:background="@color/dividerDarkGreyBlue" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_normal">
+
+                <TextView
+                    android:id="@+id/storeboxDetailTvLabelTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:lineSpacingExtra="4sp"
+                    android:textColor="#233e4b"
+                    android:textSize="16sp"
+                    nstack:text="@string/nstack_storeboxreceipt_total"
+                    tools:text="Total" />
+
+                <TextView
+                    android:id="@+id/storeboxDetailTvTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:lineSpacingExtra="4sp"
+                    android:textColor="#233e4b"
+                    android:textSize="16sp"
+                    tools:text="1,288.70" />
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small">
+
+                <TextView
+                    android:id="@+id/storeboxDetailTvLabelVat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:lineSpacingExtra="4sp"
+                    android:textColor="#6d757a"
+                    android:textSize="12sp"
+                    nstack:text="@string/nstack_storeboxreceipt_vatAmount"
+                    tools:text="VAT amount" />
+
+                <TextView
+                    android:id="@+id/storeboxDetailTvVat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:lineSpacingExtra="4sp"
+                    android:textColor="#6d757a"
+                    android:textSize="12sp"
+                    tools:text="257.74" />
+
+            </FrameLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/storeboxDetailRvPayments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small" />
+
+            <LinearLayout
+                android:id="@+id/storeboxDetailBarcodeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginEnd="@dimen/margin_small"
+                    android:layout_marginStart="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:background="@color/dividerDarkGreyBlue" />
+
+                <ImageView
+                    android:id="@+id/storeboxDetailIvBarcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_normal" />
+            </LinearLayout>
 
         </LinearLayout>
 

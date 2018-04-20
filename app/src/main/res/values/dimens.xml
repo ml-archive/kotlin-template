@@ -18,7 +18,9 @@
     <dimen name="text_size_header_3">15sp</dimen>
     <dimen name="text_size_header_4">16sp</dimen>
     <dimen name="text_size_subheader_5">13sp</dimen>
+    <dimen name="text_size_subheader_6">12sp</dimen>
     <dimen name="text_size_body_6">15dp</dimen>
+    <dimen name="text_size_body_2">12dp</dimen>
     <dimen name="text_size_button">14dp</dimen>
     <dimen name="text_size_button_large">16dp</dimen>
     <dimen name="text_size_button_small">14dp</dimen>

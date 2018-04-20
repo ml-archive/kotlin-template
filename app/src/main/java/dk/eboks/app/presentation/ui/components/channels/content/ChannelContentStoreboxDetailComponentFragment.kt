@@ -1,5 +1,7 @@
 package dk.eboks.app.presentation.ui.components.channels.content
 
+import android.graphics.Bitmap
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -10,18 +12,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
-import dk.eboks.app.domain.models.channel.storebox.StoreboxMerchant
-import dk.eboks.app.domain.models.channel.storebox.StoreboxOptionals
-import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
-import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptLine
+import dk.eboks.app.domain.models.channel.storebox.*
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_storebox_detail_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import kotlinx.android.synthetic.main.viewholder_payment_line.view.*
 import kotlinx.android.synthetic.main.viewholder_receipt_line.view.*
 import timber.log.Timber
 import java.util.*
@@ -35,6 +37,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     lateinit var presenter: ChannelContentStoreboxDetailComponentContract.Presenter
 
     private var adapter = ReceiptLineAdapter()
+    private var paymentAdapter = PaymentLineAdapter()
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -56,7 +59,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         presenter.onViewCreated(this, lifecycle)
 
         setupTopbar()
-        setupRecycler()
+        setupRecyclers()
     }
 
     private fun setupTopbar() {
@@ -68,8 +71,10 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         }
 
         val menuSearch = getBaseActivity()?.mainTb?.menu?.add("_settings")
+
         menuSearch?.setIcon(R.drawable.ic_settings_red)
         menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+
         menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
             val arguments = Bundle()
             arguments.putCharSequence("arguments", "storebox")
@@ -81,11 +86,16 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         }
     }
 
-    private fun setupRecycler() {
+    private fun setupRecyclers() {
         storeboxDetailRvReceiptLines.layoutManager = LinearLayoutManager(context)
         storeboxDetailRvReceiptLines.adapter = adapter
 
         ViewCompat.setNestedScrollingEnabled(storeboxDetailRvReceiptLines, false)
+
+        storeboxDetailRvPayments.layoutManager = LinearLayoutManager(context)
+        storeboxDetailRvPayments.adapter = paymentAdapter
+
+        ViewCompat.setNestedScrollingEnabled(storeboxDetailRvPayments, false)
     }
 
     private fun onBackPressed() {
@@ -108,9 +118,13 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         setStoreInfo(receipt.merchant, receipt.optionals)
         setReceiptDate(receipt.purchaseDateTime ?: Date(), receipt.optionals)
         setLogo(receipt.merchant?.logo?.url ?: "")
+        setReceiptAmount(receipt.grandTotal)
         setReceiptLines(receipt.receiptLines)
+        setPayments(receipt.payments)
+        setBarcode(receipt.barcode)
 
         showProgress(false)
+
     }
 
     private fun setLogo(url: String?) {
@@ -141,9 +155,87 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         storeboxDetailTvPhoneNumber.text = optionals?.storeRegNumber
     }
 
+    private fun setReceiptAmount(grandTotal: StoreboxReceiptPrice?) {
+        if (grandTotal == null) {
+            return
+        }
+
+        storeboxDetailTvTotal.text = grandTotal.value.toString()
+        storeboxDetailTvVat.text = grandTotal.vat.toString()
+    }
+
     private fun setReceiptLines(data: ArrayList<StoreboxReceiptLine>) {
         adapter.receiptLines = data
         adapter.notifyDataSetChanged()
+    }
+
+    private fun setPayments(data: ArrayList<StoreboxPayment>) {
+        paymentAdapter.payments = data
+        paymentAdapter.notifyDataSetChanged()
+    }
+
+    private fun setBarcode(barcode: StoreboxBarcode?) {
+        if (barcode == null) {
+            storeboxDetailBarcodeContainer.setVisible(false)
+            return
+        }
+
+        try {
+            val barcodeFormat = when (barcode.type) {
+                "code39" -> BarcodeFormat.CODE_39
+                else     -> BarcodeFormat.ITF
+            }
+
+            val writer = MultiFormatWriter()
+            val bm = writer.encode(barcode.value, barcodeFormat, 150, 150)
+            val imageBitmap = Bitmap.createBitmap(180, 40, Bitmap.Config.ARGB_8888)
+
+            for (i in 0..179) {//width
+                for (j in 0..39) {//height
+                    imageBitmap.setPixel(i, j, if (bm.get(i, j)) Color.BLACK else Color.WHITE)
+                }
+            }
+
+            if (imageBitmap != null) {
+                storeboxDetailBarcodeContainer.setVisible(true)
+                storeboxDetailIvBarcode.setImageBitmap(imageBitmap)
+            } else {
+                storeboxDetailBarcodeContainer.setVisible(false)
+            }
+        } catch (e: Exception) {
+            storeboxDetailBarcodeContainer.setVisible(false)
+            Timber.e(e)
+        }
+    }
+
+
+    inner class PaymentLineAdapter : RecyclerView.Adapter<PaymentLineAdapter.PaymentLineViewHolder>() {
+        var payments: ArrayList<StoreboxPayment> = arrayListOf()
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentLineViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(
+                    R.layout.viewholder_payment_line,
+                    parent,
+                    false
+            )
+            return PaymentLineViewHolder(view)
+        }
+
+        override fun getItemCount(): Int {
+            return payments.size
+        }
+
+        override fun onBindViewHolder(holder: PaymentLineViewHolder, position: Int) {
+            val payment = payments[position]
+            holder.bind(payment)
+        }
+
+        inner class PaymentLineViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            fun bind(payment: StoreboxPayment) {
+                itemView.viewHolderPaymentTvCardName.text = payment.cardName
+                itemView.viewHolderPaymentTvAmount.text = payment.priceValue
+            }
+        }
     }
 
     inner class ReceiptLineAdapter : RecyclerView.Adapter<ReceiptLineAdapter.ReceiptLineViewHolder>() {
@@ -163,8 +255,8 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         }
 
         override fun onBindViewHolder(holder: ReceiptLineViewHolder, position: Int) {
-            val receiptLine = receiptLines[position]
-            holder.bind(receiptLine)
+            val payment = receiptLines[position]
+            holder.bind(payment)
         }
 
         inner class ReceiptLineViewHolder(view: View) : RecyclerView.ViewHolder(view) {

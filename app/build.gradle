@@ -257,6 +257,10 @@ dependencies {
     // Encryption Lib
     implementation 'dk.nodes.locksmith:core:1.1.1'
 
+    // Barcode Generation Library
+    implementation 'com.google.zxing:core:3.3.0'
+    implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+
     // Testing
     testImplementation "junit:junit:$junit_version"
     // required if you want to use Mockito for unit tests

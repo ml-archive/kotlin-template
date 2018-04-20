@@ -13,8 +13,8 @@ data class StoreboxReceipt(
         var merchantId: String,
         @SerializedName("purchaseDateTime")
         var purchaseDateTime: Date? = null,
-        @SerializedName("grantTotal")
-        var grantTotal: StoreboxReceiptPrice? = null,
+        @SerializedName("grandTotal")
+        var grandTotal: StoreboxReceiptPrice? = null,
         @SerializedName("merchant")
         var merchant: StoreboxMerchant? = null,
         @SerializedName("barcode")
