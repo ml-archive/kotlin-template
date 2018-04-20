@@ -1,7 +1,8 @@
 package dk.eboks.app.presentation.ui.components.channels.content
 
 import android.graphics.Bitmap
-import android.graphics.Color
+import android.graphics.Color.BLACK
+import android.graphics.Color.WHITE
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -28,6 +29,7 @@ import kotlinx.android.synthetic.main.viewholder_receipt_line.view.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
+
 
 class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
                                                       ChannelContentStoreboxDetailComponentContract.View {
@@ -121,6 +123,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         setReceiptAmount(receipt.grandTotal)
         setReceiptLines(receipt.receiptLines)
         setPayments(receipt.payments)
+        setOptionals(receipt.optionals)
         setBarcode(receipt.barcode)
 
         showProgress(false)
@@ -174,6 +177,34 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         paymentAdapter.notifyDataSetChanged()
     }
 
+    private fun setOptionals(optionals: StoreboxOptionals?) {
+        if (optionals == null) {
+            return
+        }
+
+        val headerIsValid = !optionals.footerText.isNullOrEmpty()
+        val footerIsValid = !optionals.footerText.isNullOrEmpty()
+
+        if (!headerIsValid && !footerIsValid) {
+            return
+        }
+
+        storeboxDetailOptionalsContainer.setVisible(true)
+
+        if (headerIsValid) {
+            storeboxDetailTvOptionalHeader.text = optionals.headerText
+        } else {
+            storeboxDetailTvOptionalHeader.setVisible(false)
+        }
+
+        if (footerIsValid) {
+            storeboxDetailTvOptionalFooter.text = optionals.footerText
+        } else {
+            storeboxDetailTvOptionalFooter.setVisible(false)
+        }
+
+    }
+
     private fun setBarcode(barcode: StoreboxBarcode?) {
         if (barcode == null) {
             storeboxDetailBarcodeContainer.setVisible(false)
@@ -181,24 +212,27 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         }
 
         try {
-            val barcodeFormat = when (barcode.type) {
-                "code39" -> BarcodeFormat.CODE_39
-                else     -> BarcodeFormat.ITF
-            }
-
             val writer = MultiFormatWriter()
-            val bm = writer.encode(barcode.value, barcodeFormat, 150, 150)
-            val imageBitmap = Bitmap.createBitmap(180, 40, Bitmap.Config.ARGB_8888)
+            val bm = writer.encode(barcode.value, BarcodeFormat.CODE_39, 300, 150)
 
-            for (i in 0..179) {//width
-                for (j in 0..39) {//height
-                    imageBitmap.setPixel(i, j, if (bm.get(i, j)) Color.BLACK else Color.WHITE)
+            val width = bm.width
+            val height = bm.height
+            val pixels = IntArray(width * height)
+
+            for (y in 0 until height) {
+                val offset = y * width
+                for (x in 0 until width) {
+                    pixels[offset + x] = if (bm.get(x, y)) BLACK else WHITE
                 }
             }
 
-            if (imageBitmap != null) {
+            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            bitmap.setPixels(pixels, 0, width, 0, 0, width, height)
+
+            if (bitmap != null) {
                 storeboxDetailBarcodeContainer.setVisible(true)
-                storeboxDetailIvBarcode.setImageBitmap(imageBitmap)
+                storeboxDetailIvBarcode.setImageBitmap(bitmap)
+                storeboxDetailTvBarcode.text = barcode.displayValue
             } else {
                 storeboxDetailBarcodeContainer.setVisible(false)
             }
