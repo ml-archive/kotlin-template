@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.SenderCategory
@@ -133,7 +134,13 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
             fun bind(sender: Sender) {
                 indexTv.text = "${sender.name.first().toUpperCase()}"
                 nameTv.text = sender.name
-                Glide.with(v.context).load(sender.logo?.url).into(iconIv)
+                Glide.with(v.context)
+                        .load(sender.logo?.url)
+                        .apply(RequestOptions()
+                                .fallback(R.drawable.icon_64_senders_private)
+                                .placeholder(R.drawable.icon_64_senders_private)
+                        )
+                        .into(iconIv)
 
                 mainLl.setOnClickListener {
                     val i = Intent(this@BrowseCategoryActivity, SenderDetailActivity::class.java)

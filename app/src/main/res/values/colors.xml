@@ -44,6 +44,7 @@
     <color name="transparent">#0000</color>
     <color name="transparentWhite">#3fff</color>
     <color name="transparentBlack">#3000</color>
+    <color name="almostTransparentBlack">#19000000</color>
     <color name="greyBoarder">#c1ced2</color>
     <color name="ProfileUnderlineColor">#25294350</color>
 

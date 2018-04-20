@@ -1,84 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/backgroundColor"
-    android:animateLayoutChanges="true"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:nstack="http://schemas.android.com/apk/res-auto"
-    tools:ignore="MissingPrefix">
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:nstack="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:animateLayoutChanges="true"
+             android:background="@color/backgroundColor"
+             tools:ignore="MissingPrefix">
+
     <LinearLayout
         android:id="@+id/content"
-        android:orientation="vertical"
-        android:background="@color/backgroundColor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar" />
+        <include layout="@layout/include_toolbar"/>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:paddingLeft="36dp"
                 android:paddingRight="36dp">
 
-                <FrameLayout
+                <ProgressBar
+                    style="@style/Progress.Onboarding"
                     android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:background="@color/backgroundColor"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="40dp"
-                    android:elevation="0.5dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginEnd="1dp"
-                    android:layout_marginBottom="20dp">
-                    <ProgressBar
-                        style="@style/OnboardingProgress"
-                        android:progressBackgroundTint="@color/white"
-                        android:progress="85"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </FrameLayout>
+                    android:progress="85"/>
 
                 <TextView
                     android:id="@+id/headerTv"
-                    nstack:key="@string/nstack_signup_mmHeader"
+                    style="@style/text.header1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/text.header1"
-                    android:text="Header"/>
+                    android:text="Header"
+                    nstack:key="@string/nstack_signup_mmHeader"/>
 
                 <TextView
                     android:id="@+id/detailTv"
-                    nstack:key="@string/nstack_signup_mmDetail"
+                    style="@style/text.body6.secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    style="@style/text.body6.secondary"
-                    android:text="_Please fill in the information below"/>
+                    android:text="_Please fill in the information below"
+                    nstack:key="@string/nstack_signup_mmDetail"/>
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/cprTil"
-                    nstack:key="@string/nstack_signup_cprHint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:theme="@style/TextInputLayoutTheme"
+                    android:hint="_cpr"
                     android:textColorHint="@color/blueGrey"
+                    android:theme="@style/TextInputLayoutTheme"
                     app:hintTextAppearance="@style/HintTextAppearance"
-                    android:hint="_cpr">
+                    nstack:key="@string/nstack_signup_cprHint">
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/cprEt"
                         style="@style/EditText"
-                        android:inputType="number"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        android:inputType="number"/>
 
                 </android.support.design.widget.TextInputLayout>
 
@@ -89,35 +82,37 @@
 
                 <Button
                     android:id="@+id/signupWithMMBtn"
-                    nstack:key="@string/nstack_signup_signupWithMMButton"
                     style="@style/enabledButtton"
-                    android:textColor="@drawable/enabled_button"
                     android:layout_width="match_parent"
-                    android:layout_marginTop="32dp"
                     android:layout_height="52dp"
                     android:layout_marginBottom="24dp"
+                    android:layout_marginTop="32dp"
                     android:enabled="false"
-                    android:text="_Continue" />
+                    android:text="_Continue"
+                    android:textColor="@drawable/enabled_button"
+                    nstack:key="@string/nstack_signup_signupWithMMButton"/>
 
                 <TextView
                     android:id="@+id/continueWithoutMMTv"
-                    nstack:key="@string/nstack_signup_continueWithoutMMButton"
+                    style="@style/text.button.tertiary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="20dp"
-                    style="@style/text.button.tertiary"
-                    android:text="_Continue without verification"/>
+                    android:text="_Continue without verification"
+                    nstack:key="@string/nstack_signup_continueWithoutMMButton"/>
 
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/progress"
-        android:visibility="gone"
-        android:background="@color/backgroundColor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:visibility="gone">
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

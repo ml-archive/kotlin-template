@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:nstack="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
-    android:background="@color/backgroundColor"
-    tools:ignore="MissingPrefix">
+             xmlns:nstack="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:animateLayoutChanges="true"
+             android:background="@color/backgroundColor"
+             tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:id="@+id/content"
@@ -16,7 +15,7 @@
         android:background="@color/backgroundColor"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar" />
+        <include layout="@layout/include_toolbar"/>
 
         <ScrollView
             android:layout_width="match_parent"
@@ -30,23 +29,14 @@
                 android:paddingLeft="36dp"
                 android:paddingRight="36dp">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginEnd="1dp"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginTop="40dp"
-                    android:background="@color/backgroundColor"
-                    android:elevation="0.5dp">
 
-                    <ProgressBar
-                        style="@style/OnboardingProgress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:progress="75"
-                        android:progressBackgroundTint="@color/white" />
-                </FrameLayout>
+                <ProgressBar
+                    style="@style/Progress.Onboarding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="40dp"
+                    android:progress="75"/>
 
                 <TextView
                     android:id="@+id/headerTv"
@@ -54,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Header"
-                    nstack:key="@string/nstack_signup_verificationHeader" />
+                    nstack:key="@string/nstack_signup_verificationHeader"/>
 
                 <TextView
                     android:id="@+id/detailTv"
@@ -63,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="_Please fill in the information below"
-                    nstack:key="@string/nstack_signup_verificationDetail" />
+                    nstack:key="@string/nstack_signup_verificationDetail"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -77,7 +67,7 @@
                     android:layout_height="52dp"
                     android:layout_marginTop="52dp"
                     android:text="_Verify my account"
-                    nstack:key="@string/nstack_signup_verifyButton" />
+                    nstack:key="@string/nstack_signup_verifyButton"/>
 
                 <Button
                     android:id="@+id/continueWithoutVerificationBtn"
@@ -88,7 +78,7 @@
                     android:layout_marginBottom="24dp"
                     android:layout_marginTop="10dp"
                     android:text="_Continue without verification"
-                    nstack:key="@string/nstack_signup_continueWithoutVerificationButton" />
+                    nstack:key="@string/nstack_signup_continueWithoutVerificationButton"/>
 
             </LinearLayout>
         </ScrollView>
@@ -104,6 +94,6 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"/>
     </FrameLayout>
 </FrameLayout>

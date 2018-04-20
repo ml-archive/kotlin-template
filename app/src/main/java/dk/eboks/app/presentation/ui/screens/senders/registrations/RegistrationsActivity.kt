@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
@@ -124,7 +125,13 @@ class RegistrationsActivity : BaseActivity(), RegistrationsContract.View {
             fun bind(sender: Sender) {
                 indexTv.text = "${sender.name.first().toUpperCase()}"
                 nameTv.text = sender.name
-                Glide.with(v.context).load(sender.logo?.url).into(iconIv)
+                Glide.with(v.context)
+                        .load(sender.logo?.url)
+                        .apply(RequestOptions()
+                                .fallback(R.drawable.icon_64_senders_private)
+                                .placeholder(R.drawable.icon_64_senders_private)
+                        )
+                        .into(iconIv)
 
                 mainLl.setOnClickListener {
                     val i = Intent(this@RegistrationsActivity, SenderDetailActivity::class.java)

@@ -51,7 +51,9 @@ class MessageActivity : BaseActivity(), MessageContract.View {
         mainTb.subtitle = formatter.formatDate(message)
     }
 
-    override fun getNavigationMenuAction(): Int { return R.id.actionMail }
+    override fun getNavigationMenuAction(): Int {
+        return R.id.actionMail
+    }
 
     override fun addHeaderComponentFragment()
     {
