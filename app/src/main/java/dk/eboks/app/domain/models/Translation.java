@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Thu Apr 19 15:29:35 CEST 2018 
+ * Generated: Fri Apr 20 13:37:39 CEST 2018 
  */
 
 public class Translation {
