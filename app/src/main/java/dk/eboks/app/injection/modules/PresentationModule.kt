@@ -145,6 +145,8 @@ import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedCont
 import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningContract
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
+import dk.eboks.app.presentation.ui.screens.message.reply.ReplyFormContract
+import dk.eboks.app.presentation.ui.screens.message.reply.ReplyFormPresenter
 import dk.eboks.app.presentation.ui.screens.profile.ProfileContract
 import dk.eboks.app.presentation.ui.screens.profile.ProfilePresenter
 import dk.eboks.app.presentation.ui.screens.profile.myinfo.MyInfoContract
@@ -815,6 +817,13 @@ class PresentationModule {
     fun provideMyInfoPresenter(stateManager: AppStateManager) : MyInfoContract.Presenter {
         return MyInfoPresenter(stateManager)
     }
+
+    @ActivityScope
+    @Provides
+    fun provideReplyFormPresenter(appState: AppStateManager): ReplyFormContract.Presenter {
+        return ReplyFormPresenter(appState)
+    }
+
     /* Pasta
     @ActivityScope
     @Provides

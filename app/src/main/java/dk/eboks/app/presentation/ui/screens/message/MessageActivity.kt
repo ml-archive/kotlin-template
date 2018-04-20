@@ -75,10 +75,13 @@ class MessageActivity : BaseActivity(), MessageContract.View {
         }
     }
 
-    override fun addReplyButtonComponentFragment()
+    override fun addReplyButtonComponentFragment(message: Message)
     {
         replyButtonComponentFragment = ReplyButtonComponentFragment()
+        val args = Bundle()
+        args.putSerializable(Message::class.java.simpleName, message)
         replyButtonComponentFragment?.let{
+            it.arguments = args
             supportFragmentManager.beginTransaction().add(R.id.bodyContainerLl, it, ReplyButtonComponentFragment::class.java.simpleName).commit()
         }
     }

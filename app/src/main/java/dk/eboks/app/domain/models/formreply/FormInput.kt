@@ -1,5 +1,7 @@
 package dk.eboks.app.domain.models.formreply
 
+import java.io.Serializable
+
 data class FormInput (
        var name : String,
        var type : FormInputType,
@@ -13,4 +15,4 @@ data class FormInput (
        var error : String? = null,
        var value : String? = null,
        var options : List<FormInputOption>?
-)
+) : Serializable

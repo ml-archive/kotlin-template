@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.message.detail.reply
 
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
@@ -12,4 +13,7 @@ class ReplyButtonComponentPresenter @Inject constructor(val appState: AppStateMa
     init {
     }
 
+    override fun reply(msg: Message) {
+        runAction { v->v.showReplyForm(msg) }
+    }
 }
