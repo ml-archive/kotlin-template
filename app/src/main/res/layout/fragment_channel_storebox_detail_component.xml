@@ -28,18 +28,26 @@
                 android:overScrollMode="never"
                 android:padding="@dimen/margin_normal">
 
-                <ImageView
-                    android:id="@+id/storeboxDetailIvLogo"
+                <LinearLayout
+                    android:id="@+id/storeboxDetailImageContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_large" />
+                    android:orientation="vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginEnd="@dimen/margin_small"
-                    android:layout_marginStart="@dimen/margin_small"
-                    android:background="@color/dividerDarkGreyBlue" />
+                    <ImageView
+                        android:id="@+id/storeboxDetailIvLogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_large" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:background="@color/dividerDarkGreyBlue" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

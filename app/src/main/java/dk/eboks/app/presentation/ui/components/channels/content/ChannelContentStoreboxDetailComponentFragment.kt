@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.components.channels.content
 import android.graphics.Bitmap
 import android.graphics.Color.BLACK
 import android.graphics.Color.WHITE
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -12,7 +13,11 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import dk.eboks.app.R
@@ -132,6 +137,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
 
     private fun setLogo(url: String?) {
         if (url == null) {
+            storeboxDetailImageContainer.setVisible(false)
             return
         }
 
@@ -143,6 +149,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
                 .load(url)
                 .apply(requestOptions)
                 .into(storeboxDetailIvLogo)
+
     }
 
     private fun setReceiptDate(date: Date, optionals: StoreboxOptionals?) {
@@ -213,7 +220,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
 
         try {
             val writer = MultiFormatWriter()
-            val bm = writer.encode(barcode.value, BarcodeFormat.CODE_39, 300, 150)
+            val bm = writer.encode(barcode.value, BarcodeFormat.CODE_39, 400, 150)
 
             val width = bm.width
             val height = bm.height
