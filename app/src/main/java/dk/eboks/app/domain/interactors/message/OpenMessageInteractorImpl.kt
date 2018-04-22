@@ -103,7 +103,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
 
             appStateManager.state?.currentMessage = msg
             appStateManager.state?.currentViewerFileName = cacheManager.getAbsolutePath(filename)
-            appStateManager.save()
+            //appStateManager.save()
 
             if(isEmbeddedType(msg))
             {

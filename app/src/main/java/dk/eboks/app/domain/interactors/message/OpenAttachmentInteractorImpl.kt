@@ -43,7 +43,7 @@ class OpenAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
                 }
 
                 val abs_path = cacheManager.getAbsolutePath(filename)
-                appStateManager.save()
+                //appStateManager.save()
 
                 enrichType(content)
 
