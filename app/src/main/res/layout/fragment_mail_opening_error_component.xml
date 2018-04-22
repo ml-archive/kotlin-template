@@ -74,15 +74,28 @@
                     android:paddingRight="40dp"
                     android:text="Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh." />
 
-                <Button
-                    style="@style/button.SolidGradient.large"
-                    android:visibility="gone"
-                    android:id="@+id/openBtn"
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
                     android:layout_marginTop="20dp"
-                    android:layout_width="280dp"
-                    android:layout_height="52dp"
-                    android:layout_gravity="center"
-                    android:text="_Open message"/>
+                    android:animateLayoutChanges="true">
+                    <Button
+                        style="@style/button.SolidGradient.large"
+                        android:visibility="gone"
+                        android:id="@+id/openBtn"
+                        android:layout_width="280dp"
+                        android:layout_height="52dp"
+                        android:layout_gravity="center"
+                        android:text="_Open message"/>
+
+                    <ProgressBar
+                        android:id="@+id/progressPb"
+                        android:visibility="gone"
+                        android:layout_gravity="center"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp" />
+
+                </FrameLayout>
 
                 <Button
                     style="@style/button.SolidGradient.large"

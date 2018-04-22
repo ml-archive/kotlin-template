@@ -23,6 +23,5 @@ interface HomeComponentContract {
     interface Presenter : BasePresenter<View> {
         fun refresh()
         fun setup()
-        fun openMessage(message: Message)
     }
 }

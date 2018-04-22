@@ -26,6 +26,8 @@ import dk.eboks.app.domain.models.shared.Currency
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
+import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
+import dk.eboks.app.util.Starter
 import dk.eboks.app.util.views
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_home_overview_mail_component.*
@@ -366,7 +368,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
 
             for (i in 0..showCount - 1) {
                 val v = inflator.inflate(R.layout.viewholder_message, mailListContentLL, false)
-                var currentMessage = messages[i]
+                val currentMessage = messages[i]
                 val circleIv = v.findViewById<ImageView>(R.id.circleIv)
                 val titleTv = v.findViewById<TextView>(R.id.titleTv)
                 val subTitleTv = v.findViewById<TextView>(R.id.subTitleTv)
@@ -394,7 +396,10 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 }
 
                 rootLl?.setOnClickListener {
-                    presenter.openMessage(currentMessage)
+                    activity.Starter()
+                            .activity(MessageOpeningActivity::class.java)
+                            .putExtra(Message::class.java.simpleName, currentMessage)
+                            .start()
                 }
                 mailListContentLL.addView(v)
 

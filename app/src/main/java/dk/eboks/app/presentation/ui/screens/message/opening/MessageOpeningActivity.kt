@@ -1,10 +1,14 @@
 package dk.eboks.app.presentation.ui.screens.message.opening
 
 import android.os.Bundle
+import android.view.View
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentFragment
+import dk.eboks.app.util.guard
+import kotlinx.android.synthetic.main.activity_message_opening.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -16,10 +20,14 @@ class MessageOpeningActivity : BaseActivity(), MessageOpeningContract.View {
         setContentView(dk.eboks.app.R.layout.activity_message_opening)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        intent?.extras?.getSerializable(Message::class.java.simpleName)?.let {
+            presenter.setup(it as Message)
+        }.guard { finish() }
     }
 
     override fun setOpeningFragment(cls: Class<out BaseFragment>) {
         val fragment = cls.newInstance()
+        progressPb.visibility = View.GONE
         fragment?.let{
             supportFragmentManager.beginTransaction().add(R.id.contentFl, it, it::class.java.simpleName).commit()
         }

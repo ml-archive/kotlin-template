@@ -10,6 +10,7 @@ import dk.eboks.app.injection.components.DaggerAppComponent
 import dk.eboks.app.injection.modules.AppModule
 import dk.nodes.locksmith.core.Locksmith
 import dk.nodes.nstack.kotlin.NStack
+import dk.nodes.nstack.kotlin.util.NLog
 import timber.log.Timber
 import java.lang.ref.WeakReference
 
@@ -28,6 +29,7 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
         // NStack.customRequestUrl = Config.currentMode.customTranslationUrl
         NStack.translationClass = Translation::class.java
         NStack.debugMode = BuildConfig.DEBUG
+        NStack.debugLogLevel = NLog.Level.Error
         NStack.init(this)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

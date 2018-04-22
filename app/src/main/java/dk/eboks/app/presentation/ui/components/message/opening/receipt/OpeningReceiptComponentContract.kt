@@ -8,7 +8,7 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface OpeningReceiptComponentContract {
     interface View : BaseView {
-
+        fun showOpeningProgress(show : Boolean)
     }
 
     interface Presenter : BasePresenter<View> {

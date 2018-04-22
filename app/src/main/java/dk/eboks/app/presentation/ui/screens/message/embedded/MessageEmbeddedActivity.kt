@@ -61,7 +61,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     }
 
     override fun setHighPeakHeight() {
-            setupPeakHeight(140)
+        setupPeakHeight(140)
     }
 
     override fun showTitle(message: Message) {

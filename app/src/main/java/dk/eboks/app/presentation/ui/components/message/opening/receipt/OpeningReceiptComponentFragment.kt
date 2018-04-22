@@ -38,7 +38,6 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
         presenter.onViewCreated(this, lifecycle)
         openBtn.setOnClickListener {
             presenter.setShouldProceed(true)
-            activity.onBackPressed()
         }
         openBtn.visibility = View.VISIBLE
         setupTopBar()
@@ -70,5 +69,10 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
             presenter.setShouldProceed(false)
             activity.onBackPressed()
         }
+    }
+
+    override fun showOpeningProgress(show: Boolean) {
+        progressPb.visibility = if(show) View.VISIBLE else View.GONE
+        openBtn.visibility = if(!show) View.VISIBLE else View.GONE
     }
 }

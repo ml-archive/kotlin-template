@@ -214,9 +214,10 @@ class PresentationModule {
     @Provides
     fun provideMessageOpeningPresenter(
             stateManager: AppStateManager,
-            executor: Executor
+            executor: Executor,
+            openMessageInteractor: OpenMessageInteractor
     ): MessageOpeningContract.Presenter {
-        return MessageOpeningPresenter(stateManager, executor)
+        return MessageOpeningPresenter(stateManager, executor, openMessageInteractor)
     }
 
     @ActivityScope
@@ -309,13 +310,11 @@ class PresentationModule {
     @Provides
     fun provideMailListComponentPresenter(
             stateManager: AppStateManager,
-            getMessagesInteractor: GetMessagesInteractor,
-            openMessageInteractor: OpenMessageInteractor
+            getMessagesInteractor: GetMessagesInteractor
     ): MailListComponentContract.Presenter {
         return MailListComponentPresenter(
                 stateManager,
-                getMessagesInteractor,
-                openMessageInteractor
+                getMessagesInteractor
         )
     }
 
@@ -684,14 +683,12 @@ class PresentationModule {
     fun provideHomeComponentPresenter(
             stateManager: AppStateManager,
             getChannelHomeContentInteractor: GetChannelHomeContentInteractor,
-            getMessagesInteractor: GetMessagesInteractor,
-            openMessageInteractor: OpenMessageInteractor
+            getMessagesInteractor: GetMessagesInteractor
     ): HomeComponentContract.Presenter {
         return HomeComponentPresenter(
                 stateManager,
                 getChannelHomeContentInteractor,
-                getMessagesInteractor,
-                openMessageInteractor
+                getMessagesInteractor
         )
     }
 

@@ -48,7 +48,8 @@ class ServerErrorHandler(val uiManager: UIManager, val executor: Executor, val a
                 state.openingState.shouldProceedWithOpening = false
                 state.openingState.serverError = error
             }
-            uiManager.showMessageOpeningScreen()
+
+            //uiManager.showMessageOpeningScreen()
             executor.sleepUntilSignalled("messageOpenDone")
             if(appStateManager.state?.openingState?.shouldProceedWithOpening ?: false)
                 return PROCEED

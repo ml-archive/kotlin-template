@@ -20,9 +20,11 @@ import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentContract
+import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.screens.overlay.ButtonType
 import dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity
 import dk.eboks.app.presentation.ui.screens.overlay.OverlayButton
+import dk.eboks.app.util.Starter
 import kotlinx.android.synthetic.main.fragment_upload_myuploadoverview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import java.util.*
@@ -241,7 +243,10 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
                         checkFabState()
 
                         if (uploadFl.visibility == View.VISIBLE) {
-                            mailPresenter.openMessage(currentItem)
+                            activity.Starter()
+                                    .activity(MessageOpeningActivity::class.java)
+                                    .putExtra(Message::class.java.simpleName, currentItem)
+                                    .start()
                         }
                     }
 
