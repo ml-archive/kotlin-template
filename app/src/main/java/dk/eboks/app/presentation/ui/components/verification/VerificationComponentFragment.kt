@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
 import kotlinx.android.synthetic.main.fragment_verification_component.*
@@ -20,7 +22,6 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_verification_component, container, false)
-        // This will to change translations based on if its signup with nemID, BankID etc
         return rootView
     }
 
@@ -30,6 +31,30 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
         presenter.onViewCreated(this, lifecycle)
         cancelTv.setOnClickListener {
             (activity as SheetComponentActivity).onBackPressed()
+        }
+
+        when (Config.getCurrentConfigName()){
+            "danish" ->{
+                headerTv.text = Translation.signup.signOnNemIdTitle
+                detailTv.text = Translation.signup.signOnNemIdMessage
+                verifyBtn.text = Translation.signup.signOnNemIdButton
+            }
+            "swedish" ->{
+                headerTv.text = Translation.signup.signOnBankIDtitle
+                detailTv.text = Translation.signup.signOnBankIDMessage
+                verifyBtn.text = Translation.signup.signOnBankIDButton
+            }
+            "norwegian" -> {
+                headerTv.text = Translation.signup.signOnBankIDtitleNOR
+                detailTv.text = Translation.signup.signOnBankIDMessageNOR
+                verifyBtn.text = Translation.signup.signOnBankIDButtonNOR
+            }
+            else ->{
+                // fallback setting using the danish translations
+                headerTv.text = Translation.signup.signOnNemIdTitle
+                detailTv.text = Translation.signup.signOnNemIdMessage
+                verifyBtn.text = Translation.signup.signOnNemIdButton
+            }
         }
     }
 }

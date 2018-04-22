@@ -18,7 +18,7 @@
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
             android:text="_Settings"
-            nstack:key="@string/nstack_settings_header" />
+            nstack:text="@string/nstack_settings_header" />
 
 
     <!--pin home screen and push notifications view-->
@@ -53,7 +53,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    nstack:key="@string/nstack_settings_pinHeader" />
+                    nstack:text="@string/nstack_settings_pinHeader" />
 
                 <TextView
                     android:id="@+id/pinSubHeaderTv"
@@ -61,7 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    nstack:key="@string/nstack_settings_pinSubHeader" />
+                    nstack:text="@string/nstack_settings_pinSubHeader" />
 
             </LinearLayout>
 
@@ -106,7 +106,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="_Pin to home screen" />
+                    android:text="_Pin to home screen"
+                    nstack:text="@string/nstack_channelsettings_pushTitle"/>
 
                 <TextView
                     android:id="@+id/notificationSubHeaderTv"
@@ -114,7 +115,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="_Show this channel on the e-Boks home screen" />
+                    android:text="_Show this channel on the e-Boks home screen"
+                    nstack:text="@string/nstack_channelsettings_pushSubtitle"/>
 
             </LinearLayout>
 
@@ -167,7 +169,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="_Receive only receipts digitally" />
+                    android:text="_Receive only receipts digitally"
+                    nstack:text="@string/nstack_channelsettings_receiptsTitle"/>
 
                 <TextView
                     android:id="@+id/optionalSubHeaderTv"
@@ -175,7 +178,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="_Accepting this you not recieve paper" />
+                    android:text="_Accepting this you not recieve paper"
+                    nstack:text="@string/nstack_channelsettings_receiptsSubtitle"/>
 
             </LinearLayout>
 
@@ -215,7 +219,7 @@
             android:paddingLeft="16dp"
             android:paddingTop="20dp"
             android:text="_Credit cards"
-            nstack:key="@string/nstack_settings_creditCardHeader" />
+            nstack:text="@string/nstack_settings_creditCardHeader" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/creditcardRv"
@@ -251,7 +255,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:text="_Add another credit card" />
+                    android:text="_Add another credit card"
+                    nstack:text="@string/nstack_channelsettings_addAnotherCard"/>
 
 
         </LinearLayout>
