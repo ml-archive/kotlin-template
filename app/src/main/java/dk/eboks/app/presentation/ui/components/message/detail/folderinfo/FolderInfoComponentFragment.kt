@@ -30,7 +30,7 @@ class FolderInfoComponentFragment : BaseFragment(), FolderInfoComponentContract.
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun updateView(folder: Folder) {
-        folderNameTv.text = folder.name
+    override fun updateView(name : String) {
+        folderNameTv.text = name
     }
 }

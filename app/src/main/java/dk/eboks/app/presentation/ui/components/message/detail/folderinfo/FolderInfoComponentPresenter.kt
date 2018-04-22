@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.message.detail.folderinfo
 
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
@@ -11,7 +12,12 @@ class FolderInfoComponentPresenter @Inject constructor(val appState: AppStateMan
 
     init {
         runAction { v->
-            appState.state?.currentFolder?.let { v.updateView(it) }
+
+            appState.state?.currentMessage?.folder?.let {
+                v.updateView(it.name)
+            }.guard {
+                appState.state?.currentFolder?.let { v.updateView(it.name) }
+            }
         }
     }
 
