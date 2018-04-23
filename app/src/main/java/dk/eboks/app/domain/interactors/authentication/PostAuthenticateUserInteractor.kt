@@ -15,7 +15,7 @@ interface PostAuthenticateUserInteractor : Interactor
     var input : Input?
     var output : Output?
 
-    data class Input(val user: User, val password: String)
+    data class Input(val user: User, val password: String, val activationCode: String?)
 
     interface Output {
         fun onAuthenticationsSuccess(response: LoginResponse)

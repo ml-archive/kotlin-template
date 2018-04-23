@@ -27,7 +27,7 @@ import retrofit2.http.*
 interface Api {
     // login Mox
     @FormUrlEncoded
-    @POST("http://authenticationservice20180404012549.azurewebsites.net/connect/token") fun loginNoCode(@FieldMap bodyMap: Map<String, String>): Call<LoginResponse>
+    @POST("http://authenticationservice20180404012549.azurewebsites.net/connect/token") fun postLogin(@FieldMap bodyMap: Map<String, String>): Call<LoginResponse>
 
 
     // @GET("regions") fun getRegions() : Call<List<Region>>

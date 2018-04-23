@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:alpha="0"
             android:background="#88000000"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
     </FrameLayout>
 
     <FrameLayout
