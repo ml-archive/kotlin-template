@@ -15,13 +15,14 @@ enum class FolderType(val type : String) {
     @SerializedName("highlights") HIGHLIGHTS("highlights"),
     @SerializedName("unread") UNREAD("unread"),
     @SerializedName("latest") LATEST("latest"),
-    @SerializedName("folder") FOLDER("folder");
+    @SerializedName("folder") FOLDER("folder"),
+    @SerializedName("uploads") UPLOADS("uploads");
 
     fun isSystemFolder() : Boolean
     {
         when(this)
         {
-            INBOX, DRAFTS, ARCHIVE, SENT, DELETED, HIGHLIGHTS, UNREAD, LATEST -> return true
+            INBOX, DRAFTS, ARCHIVE, SENT, DELETED, HIGHLIGHTS, UNREAD, LATEST, UPLOADS -> return true
             else -> return false
         }
     }
@@ -38,6 +39,7 @@ enum class FolderType(val type : String) {
             HIGHLIGHTS -> return R.drawable.ic_highlights
             UNREAD -> return R.drawable.ic_folder
             LATEST -> return R.drawable.ic_folder
+            UPLOADS -> return R.drawable.ic_folder
             else -> return R.drawable.ic_folder
         }
     }
@@ -54,6 +56,7 @@ enum class FolderType(val type : String) {
             UNREAD -> return "unread"
             LATEST -> return "latest"
             FOLDER -> return "folder"
+            UPLOADS -> return "uploads"
             else -> return super.toString()
         }
     }

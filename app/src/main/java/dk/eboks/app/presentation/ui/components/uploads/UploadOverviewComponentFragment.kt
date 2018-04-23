@@ -11,9 +11,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.uploads.myuploads.MyUploadsComponentFragment
+import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
+import dk.eboks.app.util.Starter
 import kotlinx.android.synthetic.main.fragment_upload_overview_component.*
 import java.util.*
 import javax.inject.Inject
@@ -68,7 +72,8 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             nonVerifiedUserContainerLl.visibility = View.GONE
             contentVerifiedUSerLl.visibility = View.VISIBLE
             showAllBtn.setOnClickListener {
-                getBaseActivity()?.addFragmentOnTop(R.id.contentFl, MyUploadsComponentFragment(), true)
+                activity.Starter().activity(MailListActivity::class.java).putExtra("folder", Folder(type = FolderType.UPLOADS)).start()
+                //getBaseActivity()?.addFragmentOnTop(R.id.contentFl, MyUploadsComponentFragment(), true)
             }
             fileBtn.setOnClickListener {
                 //todo something when clicking file

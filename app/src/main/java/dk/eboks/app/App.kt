@@ -27,6 +27,7 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
 
         App.Companion._instance = this
         // NStack.customRequestUrl = Config.currentMode.customTranslationUrl
+        NStack.debugLogLevel
         NStack.translationClass = Translation::class.java
         NStack.debugMode = BuildConfig.DEBUG
         NStack.debugLogLevel = NLog.Level.Error
