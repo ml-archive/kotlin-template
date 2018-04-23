@@ -22,12 +22,11 @@ class PostAuthenticateUserInteractorImpl(executor: Executor, val api: Api) : Bas
             input?.let {
                 val map = mapOf(
                         Pair("grant_type", "password"),
+                        Pair("username", "nodes-user1"), // TODO: what to use as username for login?
+                        Pair("password", it.password),
                         Pair("scope", "mobileapi offline_access"),
                         Pair("client_Id", "simplelogin"),
-                        Pair("username", it.user.name), // TODO: what to use as username for login?
-                        Pair("password", it.password),
                         Pair("secret", "2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B") // TODO: what's this?
-
                 )
                 it.activationCode?.let {
                     map.plus(Pair("acr_values", "activationcode:$it"))
@@ -37,7 +36,7 @@ class PostAuthenticateUserInteractorImpl(executor: Executor, val api: Api) : Bas
                 runOnUIThread {
                     if (result.isSuccessful) {
                         result?.body()?.let {
-                            output?.onAuthenticationsSuccess(it)
+                            output?.onAuthenticationsSuccess(input!!.user, it)
                         }
                     } else {
                         output?.onAuthenticationsDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error

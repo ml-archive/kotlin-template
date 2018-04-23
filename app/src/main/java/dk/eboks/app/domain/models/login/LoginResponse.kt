@@ -11,4 +11,8 @@ data class LoginResponse(
         var expiresIn: Int,
         var tokenType: String,
         var refreshToken: String
-)
+) {
+    override fun toString() : String {
+        return "Type: $tokenType \nToken: $accessToken \nRefresh: $refreshToken"
+    }
+}

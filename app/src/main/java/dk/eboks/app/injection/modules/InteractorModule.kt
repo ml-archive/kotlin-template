@@ -3,6 +3,8 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.domain.interactors.authentication.PostAuthenticateUserInteractor
+import dk.eboks.app.domain.interactors.authentication.PostAuthenticateUserInteractorImpl
 import dk.eboks.app.domain.interactors.channel.*
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractorImpl
@@ -35,6 +37,11 @@ class InteractorModule {
             protocolManager: ProtocolManager
     ): LoginInteractor {
         return LoginInteractorImpl(executor, api, protocolManager)
+    }
+
+    @Provides
+    fun providePostAuthenticateUserInteractor(executor: Executor, api: Api): PostAuthenticateUserInteractor {
+        return PostAuthenticateUserInteractorImpl(executor, api);
     }
 
     @Provides

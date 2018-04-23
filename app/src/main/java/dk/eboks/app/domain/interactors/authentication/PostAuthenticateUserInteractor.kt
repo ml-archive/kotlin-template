@@ -18,8 +18,11 @@ interface PostAuthenticateUserInteractor : Interactor
     data class Input(val user: User, val password: String, val activationCode: String?)
 
     interface Output {
-        fun onAuthenticationsSuccess(response: LoginResponse)
+        /** All good! */
+        fun onAuthenticationsSuccess(user: User, response: LoginResponse)
+        /** Auth-fail */
         fun onAuthenticationsDenied(error : ViewError)
+        /** Network-fail */
         fun onAuthenticationsError(error : ViewError)
     }
 }
