@@ -35,7 +35,7 @@
                     android:background="@drawable/circle_white_white_ring"
                     android:padding="19dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/icon_72_camera_add" />
+                    android:src="@drawable/ic_profile" />
 
                 <TextView
                     android:id="@+id/profileDetailNameTv"
@@ -62,9 +62,7 @@
                     android:paddingTop="@dimen/margin_half"
                     android:textAllCaps="false"
                     android:textColor="@color/selector_red_grey_white"
-                    android:textSize="14sp"
-                    nstack:textOff="@string/nstack_channels_verifyYourProfile"
-                    nstack:textOn="@string/nstack_senders_registered" />
+                    android:textSize="14sp"/>
 
             </LinearLayout>
 

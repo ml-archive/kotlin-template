@@ -43,8 +43,7 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
     var modeEdit: Boolean = false
     var handler = Handler()
 
-    @Inject
-    lateinit var mailPresenter: MailListComponentContract.Presenter
+
     @Inject
     lateinit var presenter: MyUploadsComponentContract.Presenter
     @Inject
@@ -94,8 +93,6 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
 
             i.putExtra("buttons", buttons)
             startActivityForResult(i, 1)
-
-
         }
     }
 
@@ -168,6 +165,11 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
             mainFab.hide()
         }
         setTopBar()
+    }
+
+    override fun onDestroy() {
+        getBaseActivity()?.mainTb?.menu?.clear()
+        super.onDestroy()
     }
 
     override fun showProgress(show: Boolean) {

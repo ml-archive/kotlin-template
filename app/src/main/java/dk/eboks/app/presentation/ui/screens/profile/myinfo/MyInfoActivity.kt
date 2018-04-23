@@ -22,6 +22,13 @@ class MyInfoActivity : BaseActivity(), MyInfoContract.View {
         args.putSerializable("channel",channel)
         fragment.arguments = args
         setRootFragment(R.id.contentFl,fragment )
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                if (!isDestroyed)
+                    finish()
+            }
+        }
     }
 
 }

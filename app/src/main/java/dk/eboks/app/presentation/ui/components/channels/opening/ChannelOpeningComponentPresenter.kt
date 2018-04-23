@@ -6,6 +6,7 @@ import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.util.isStorebox
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -38,7 +39,7 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
 
     override fun open(channel: Channel) {
         //storebox channels id 1 - 3
-        if (channel.id > 0 && channel.id < 4) {
+        if (channel.isStorebox()) {
             runAction { v -> v.openStoreBoxContent() }
         } else {
             runAction { v -> v.openChannelContent() }

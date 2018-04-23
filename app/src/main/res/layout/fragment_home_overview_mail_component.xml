@@ -52,7 +52,7 @@
 
                             <Button
                                 android:id="@+id/showBtn"
-                                style="@style/enabledButtton.DarkText"
+                                style="@style/buttonRoundedCorners"
                                 android:layout_width="wrap_content"
                                 android:layout_height="28dp"
                                 android:layout_gravity="right|center_vertical"
@@ -60,8 +60,10 @@
                                 android:paddingLeft="12dp"
                                 android:paddingRight="12dp"
                                 android:textSize="14dp"
+                                android:textColor="@color/colorPrimaryDark"
                                 android:visibility="visible"
                                 nstack:key="@string/nstack_home_messagesSectionHeaderShowAllButton" />
+
 
                         </FrameLayout>
 
