@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.message.reply
 
+import dk.eboks.app.domain.models.formreply.FormInput
 import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.eboks.app.presentation.base.BaseView
@@ -10,6 +11,7 @@ import dk.eboks.app.presentation.base.BaseView
 interface ReplyFormContract {
     interface View : BaseView {
         fun showProgress(show : Boolean)
+        fun showFormInput(input : FormInput)
     }
 
     interface Presenter : BasePresenter<View> {

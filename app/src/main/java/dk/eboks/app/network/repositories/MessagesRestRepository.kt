@@ -49,7 +49,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
     }
 
     val senderIdMessageStore: SenderIdMessageStore by lazy {
-        SenderIdMessageStore(context, gson, "folder_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
+        SenderIdMessageStore(context, gson, "sender_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
             val response = api.getMessagesBySender(key).execute()
             var result : List<Message>? = null
             response?.let {

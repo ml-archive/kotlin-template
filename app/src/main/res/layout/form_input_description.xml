@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:paddingTop="20dp"
+    android:paddingBottom="8dp"
+    android:paddingStart="@dimen/padding_normal"
+    android:paddingEnd="@dimen/padding_normal"
+    android:background="@color/backgroundColor"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/headlineTv"
+        style="@style/text.header1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Headline" />
+    <!--
+    <TextView
+        android:id="@+id/descriptionTv"
+        style="@style/text.header4.secondary"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ipsum loret dollar kødhat" />
+        -->
+</LinearLayout>

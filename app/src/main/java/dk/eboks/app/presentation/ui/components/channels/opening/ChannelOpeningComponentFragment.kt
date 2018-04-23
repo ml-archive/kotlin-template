@@ -131,18 +131,19 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     override fun openChannelContent() {
         val fragment = ChannelContentComponentFragment()
         val args = Bundle()
+        // todo API call: '/channels/{channelId}/content/link'  returns a string with the url
         args.putString(Channel::class.simpleName, "file:///android_asset/index.html")
         fragment.arguments = args
         getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
     }
 
-    override fun showVerifyDrawer(channel: Channel) {
-        channel?.requirements?.let {
-            var requirements = Bundle()
-            requirements.putSerializable("req", channel)
-            getBaseActivity()?.openComponentDrawer(ChannelRequirementsComponentFragment::class.java, requirements)
+    override fun showVerifyDrawer(currentChannel: Channel) {
+        currentChannel?.requirements?.let {
+            var channel = Bundle()
+            channel.putSerializable("channel", currentChannel)
+            getBaseActivity()?.openComponentDrawer(ChannelRequirementsComponentFragment::class.java, channel)
         }.guard {
-            showOpenState(channel)
+            showOpenState(currentChannel)
         }
     }
 

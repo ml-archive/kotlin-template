@@ -6,6 +6,7 @@ import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.EboksContentType
+import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.util.FieldMapper
 import dk.eboks.app.util.exceptionToViewError
@@ -25,8 +26,6 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
     override var output: OpenMessageInteractor.Output? = null
     override var input: OpenMessageInteractor.Input? = null
 
-    private var errorHandler = ServerErrorHandler(uiManager, executor, appStateManager)
-
     override fun execute() {
         try {
             input?.msg?.let { msg->
@@ -40,7 +39,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
         catch (t: Throwable) {
 
             if(t is ServerErrorException) {
-                input?.msg?.let { handleServerException(t, it) }.guard { output?.onOpenMessageError(exceptionToViewError(t)) }
+                input?.msg?.let { handleServerException(t, it) }.guard { output?.onOpenMessageError(exceptionToViewError(t, shouldClose = true)) }
             }
             else runOnUIThread {
                 output?.onOpenMessageError(exceptionToViewError(t))
@@ -48,11 +47,48 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
         }
     }
 
+    /*
+        Handles the server error, returns true if the interactor
+        should continue with whatever it was doing, otherwise
+        it returns false to indicate the interactor should abort
+     */
+    fun handle(error : ServerError) : Int
+    {
+        Timber.e("Handling server error $error")
+        // this is probably slow as we allocate a collection just to do a check :)
+        if(setOf(
+                        NO_PRIVATE_SENDER_WARNING,
+                        MANDATORY_OPEN_RECEIPT,
+                        VOLUNTARY_OPEN_RECEIPT,
+                        MESSAGE_QUARANTINED,
+                        MESSAGE_RECALLED,
+                        MESSAGE_LOCKED,
+                        PROMULGATION).contains(error.code))
+        {
+            appStateManager.state?.let { state->
+                state.openingState.shouldProceedWithOpening = false
+                state.openingState.serverError = error
+            }
+
+            runOnUIThread {
+                output?.onOpenMessageServerError(error)
+            }
+            //uiManager.showMessageOpeningScreen()
+            executor.sleepUntilSignalled("messageOpenDone")
+            if(appStateManager.state?.openingState?.shouldProceedWithOpening ?: false)
+                return PROCEED
+            else
+                return ABORT
+        }
+        else
+            return SHOW_ERROR
+    }
+
     fun handleServerException(e : ServerErrorException, msg : Message)
     {
         Timber.e("ServerException arose from getMessage api call")
 
-        val outcome = errorHandler.handle(e.error)
+        val outcome = handle(e.error)
 
         when(outcome)
         {
@@ -67,15 +103,14 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                 }
                 catch (t : Throwable)
                 {
-                    runOnUIThread { output?.onOpenMessageError(exceptionToViewError(t)) }
+                    runOnUIThread { output?.onOpenMessageError(exceptionToViewError(t, shouldClose = true)) }
                 }
             }
             ServerErrorHandler.SHOW_ERROR -> {
-                runOnUIThread { output?.onOpenMessageError(exceptionToViewError(e)) }
+                runOnUIThread { output?.onOpenMessageError(exceptionToViewError(e, shouldClose = true)) }
             }
             else -> {
-                val ve = ViewError()
-                ve.shouldDisplay = false
+                val ve = ViewError(shouldCloseView = true, shouldDisplay = true)
                 runOnUIThread { output?.onOpenMessageError(ve) }
             }
         }
@@ -103,17 +138,16 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
 
             appStateManager.state?.currentMessage = msg
             appStateManager.state?.currentViewerFileName = cacheManager.getAbsolutePath(filename)
-            appStateManager.save()
+            //appStateManager.save()
 
             if(isEmbeddedType(msg))
             {
-                //uiManager.showMessageScreen()
                 uiManager.showEmbeddedMessageScreen()
             }
             else {
                 uiManager.showMessageScreen()
             }
-            Thread.sleep(500)
+            //Thread.sleep(500)
             runOnUIThread {
                 output?.onOpenMessageDone()
             }
@@ -157,5 +191,17 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                 EboksContentType("htm", "text/html"),
                 EboksContentType("txt", "text/plain")
         )
+
+        val NO_PRIVATE_SENDER_WARNING = 9100
+        val MANDATORY_OPEN_RECEIPT = 9200
+        val VOLUNTARY_OPEN_RECEIPT = 9201
+        val MESSAGE_QUARANTINED = 9300
+        val MESSAGE_RECALLED = 9301
+        val MESSAGE_LOCKED = 9302
+        val PROMULGATION = 9400
+
+        val PROCEED = 1
+        val ABORT = 2
+        val SHOW_ERROR = 3
     }
 }

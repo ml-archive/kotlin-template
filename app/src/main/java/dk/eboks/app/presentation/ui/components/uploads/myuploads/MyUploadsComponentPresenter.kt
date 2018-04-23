@@ -5,6 +5,7 @@ import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
@@ -48,6 +49,10 @@ class MyUploadsComponentPresenter @Inject constructor(val appState: AppStateMana
     }
 
     override fun onOpenMessageError(error: ViewError) {
+    }
+
+    override fun onOpenMessageServerError(serverError: ServerError) {
+
     }
 
     override fun onGetMessages(messages: List<Message>) {

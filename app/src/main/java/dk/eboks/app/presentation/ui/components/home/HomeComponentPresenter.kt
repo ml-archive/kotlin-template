@@ -18,17 +18,15 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class HomeComponentPresenter @Inject constructor(val appState: AppStateManager, val getChannelHomeContentInteractor: GetChannelHomeContentInteractor,
-                                                 val getMessagesInteractor: GetMessagesInteractor, val openMessageInteractor: OpenMessageInteractor) :
+                                                 val getMessagesInteractor: GetMessagesInteractor) :
         HomeComponentContract.Presenter,
         BasePresenterImpl<HomeComponentContract.View>(),
         GetChannelHomeContentInteractor.Output,
-        GetMessagesInteractor.Output,
-        OpenMessageInteractor.Output {
+        GetMessagesInteractor.Output {
 
     init {
         getChannelHomeContentInteractor.output = this
         getMessagesInteractor.output = this
-        openMessageInteractor.output = this
     }
 
     override fun setup() {
@@ -51,16 +49,6 @@ class HomeComponentPresenter @Inject constructor(val appState: AppStateManager, 
         getMessagesInteractor.input = GetMessagesInteractor.Input(false, Folder(type = FolderType.HIGHLIGHTS))
         getMessagesInteractor.run()
         getChannelHomeContentInteractor.run()
-    }
-
-
-    override fun openMessage(message: Message) {
-        runAction { v ->
-            v.showRefreshProgress(false)
-            v.showProgress(true)
-        }
-        openMessageInteractor.input = OpenMessageInteractor.Input(message)
-        openMessageInteractor.run()
     }
 
     override fun onGetPinnedChannelList(channels: MutableList<Channel>) {
@@ -99,21 +87,6 @@ class HomeComponentPresenter @Inject constructor(val appState: AppStateManager, 
         runAction { v ->
             v.showRefreshProgress(false)
             v.showErrorDialog(error)
-        }
-    }
-
-    // open message
-    override fun onOpenMessageDone() {
-        runAction { v ->
-            v.showRefreshProgress(false)
-            v.showProgress(false) }
-    }
-
-    override fun onOpenMessageError(error: ViewError) {
-        runAction { v ->
-            v.showRefreshProgress(false)
-            v.showErrorDialog(error)
-            v.showProgress(false)
         }
     }
 }

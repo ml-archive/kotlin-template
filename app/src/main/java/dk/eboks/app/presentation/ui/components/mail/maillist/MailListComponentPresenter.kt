@@ -15,11 +15,10 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class MailListComponentPresenter @Inject constructor(val appState: AppStateManager, val getMessagesInteractor : GetMessagesInteractor, val openMessageInteractor: OpenMessageInteractor) :
+class MailListComponentPresenter @Inject constructor(val appState: AppStateManager, val getMessagesInteractor : GetMessagesInteractor) :
         MailListComponentContract.Presenter,
         BasePresenterImpl<MailListComponentContract.View>(),
-        GetMessagesInteractor.Output,
-        OpenMessageInteractor.Output {
+        GetMessagesInteractor.Output {
 
 
     companion object {
@@ -32,7 +31,6 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
     var currentFolder : Folder? = null
 
     init {
-        openMessageInteractor.output = this
         getMessagesInteractor.output = this
     }
 
@@ -64,12 +62,6 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
 
     }
 
-    override fun openMessage(message: Message) {
-        runAction { v-> v.showProgress(true) }
-        openMessageInteractor.input = OpenMessageInteractor.Input(message)
-        openMessageInteractor.run()
-    }
-
     override fun onGetMessages(messages: List<Message>) {
         runAction { v->
             v.showProgress(false)
@@ -89,19 +81,6 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
             v.showProgress(false)
             v.showRefreshProgress(false)
             v.showEmpty(true)
-        }
-    }
-
-    override fun onOpenMessageDone() {
-        runAction {
-            v-> v.showProgress(false)
-        }
-    }
-
-    override fun onOpenMessageError(error : ViewError) {
-        runAction { v->
-            v.showProgress(false)
-            v.showErrorDialog(error)
         }
     }
 }

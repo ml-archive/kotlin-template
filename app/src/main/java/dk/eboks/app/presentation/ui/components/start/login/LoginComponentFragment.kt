@@ -8,10 +8,7 @@ import android.support.annotation.RequiresApi
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
@@ -28,6 +25,7 @@ import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
+import dk.eboks.app.util.KeyboardUtils
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.isValidEmail
@@ -78,8 +76,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             showGreeting = args.getBoolean("showGreeting", true)
         }
 
-        continueBtn.setOnClickListener { onContinue() }
+        continueBtn.setOnClickListener {
+            onContinue()
+        }
     }
+
 
 
     // shamelessly ripped from chnt
@@ -143,9 +144,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         Timber.e("SetupView called loginProvider = $loginProvider user = $user altProviders = $altLoginProviders")
         loginProvider?.let { provider ->
             currentProvider = provider
+            currentUser = user
             headerTv.visibility = View.GONE
             detailTv.visibility = View.GONE
             setupViewForProvider(user)
+
         }.guard {
             // no provider given setup for cpr/email (mobile access)
             headerTv.visibility = View.VISIBLE
@@ -177,13 +180,14 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
         v.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.ic_fingerprint)
         v.findViewById<TextView>(R.id.nameTv).text = "_Force login (DEBUG)"
-        v.findViewById<TextView>(R.id.descTv).text = "_Warning sucks all the midiclorians out of the room"
+        v.findViewById<TextView>(R.id.descTv).text = "Inkluderer post fra offentlige myndigheter"
 
         v.setOnClickListener {
             doUserLogin()
         }
         loginProvidersLl.addView(v)
         loginProvidersLl.visibility = View.VISIBLE
+
     }
 
     override fun addFingerPrintProvider() {
@@ -207,7 +211,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
         customFingerprintDialog.setOnFingerprintDialogEventListener {
             when (it) {
-                CANCEL  -> {
+                CANCEL -> {
                     // Do nothing?
                 }
                 SUCCESS -> {
@@ -217,7 +221,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 ERROR_ENROLLMENT,
                 ERROR_HARDWARE,
                 ERROR_SECURE,
-                ERROR   -> {
+                ERROR -> {
                     showErrorDialog(
                             ViewError(
                                     Translation.error.genericTitle,
@@ -237,40 +241,52 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         customFingerprintDialog.show()
     }
 
-    private fun setupUserView(user: User) {
-        currentUser = user
-        userLl.visibility = View.VISIBLE
-        userNameTv.text = user.name
-        var emailCpr = ""
-        user.email?.let { emailCpr = it }
-        user.cpr?.let { emailCpr = formatter.formatCpr(it) }
-        userEmailCprTv.text = emailCpr
+    private fun setupUserView(user: User?) {
 
+        continueBtn.visibility = View.GONE
+        passwordTil.visibility = View.VISIBLE
+
+        KeyboardUtils.addKeyboardToggleListener(activity, KeyboardUtils.SoftKeyboardToggleListener {
+            if (it) {
+                loginProvidersLl.visibility = View.GONE
+                continueBtn.visibility = View.VISIBLE
+            } else {
+                loginProvidersLl.visibility = View.VISIBLE
+                continueBtn.visibility = View.GONE
+            }
+        })
+
+        // setting profile view
+        userNameTv.text = user?.name
+        userEmailCprTv.text = user?.email
+
+        var options  = RequestOptions()
+        options.error(R.drawable.ic_profile)
+        options.transforms(CenterCrop(), RoundedCorners(30))
         Glide.with(context)
-                .load(user.avatarUri)
-                .apply(RequestOptions().transforms(CenterCrop(), RoundedCorners(30)))
+                .load(user?.avatarUri)
+                .apply(options)
                 .into(userAvatarIv)
+
     }
 
     private fun setupViewForProvider(user: User?) {
         currentProvider?.let { provider ->
             when (provider.id) {
                 "email" -> {
-                    user?.let { setupUserView(it) }
+                    setupUserView(user)
                     cprEmailEt.inputType = InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
                     cprEmailTil.visibility = View.GONE
-                    passwordTil.visibility = View.VISIBLE
-                    continueBtn.visibility = View.VISIBLE
+                    userLl.visibility = View.VISIBLE
+
                 }
-                "cpr"   -> {
+                "cpr" -> {
                     user?.let { setupUserView(it) }
                     cprEmailEt.inputType = InputType.TYPE_CLASS_NUMBER
                     cprEmailTil.visibility = View.VISIBLE
                     cprEmailTil.hint = Translation.logoncredentials.ssnHeader
-                    passwordTil.visibility = View.VISIBLE
-                    continueBtn.visibility = View.VISIBLE
                 }
-                else    -> {
+                else -> {
                     getBaseActivity()?.addFragmentOnTop(
                             R.id.containerFl,
                             provider.fragmentClass?.newInstance()
@@ -313,8 +329,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             override fun afterTextChanged(password: Editable?) {
                 setContinueButton()
                 handler?.postDelayed({
-                                         setErrorMessages()
-                                     }, 1200)
+                    setErrorMessages()
+                }, 1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -331,8 +347,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 cprEmailTil.error = null
                 setContinueButton()
                 handler.postDelayed({
-                                        setErrorMessages()
-                                    }, 1200)
+                    setErrorMessages()
+                }, 1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -381,4 +397,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             }
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        KeyboardUtils.removeAllKeyboardToggleListeners()
+    }
 }
+

@@ -17,6 +17,8 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
+import dk.eboks.app.util.Starter
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
 import java.util.*
 import javax.inject.Inject
@@ -162,7 +164,10 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             }
 
             holder?.root?.setOnClickListener {
-                presenter.openMessage(messages[position])
+                activity.Starter()
+                        .activity(MessageOpeningActivity::class.java)
+                        .putExtra(Message::class.java.simpleName, messages[position])
+                        .start()
             }
 
         }

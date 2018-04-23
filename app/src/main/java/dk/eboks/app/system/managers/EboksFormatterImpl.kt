@@ -4,7 +4,6 @@ import android.content.Context
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.message.Content
@@ -18,6 +17,8 @@ import java.util.*
  * Created by bison on 19/02/18.
  */
 class EboksFormatterImpl(val context: Context) : EboksFormatter {
+
+
     val messageDateFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("d. MMM", NStack.language)
@@ -32,6 +33,16 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
             SimpleDateFormat()
         }
     }
+
+    val hourDateFormat: SimpleDateFormat by lazy {
+        try {
+            SimpleDateFormat("hh:mm:ss", NStack.language)
+
+        } catch (t: Throwable) {
+            SimpleDateFormat()
+        }
+    }
+
     val dayDateFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("E", NStack.language)
@@ -40,6 +51,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
             SimpleDateFormat()
         }
     }
+
 
     override fun formatCpr(cpr: String): String {
         if (Config.isDK()) {
@@ -66,10 +78,6 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
 
     override fun formatDateRelative(target: Message): String {
         return formatDateRelative(target.received)
-    }
-
-    override fun formatDateRelative(target: StoreboxReceipt): String {
-        return formatDateRelative(target.purchaseDateTime)
     }
 
     override fun formatDateRelative(target: StoreboxReceiptItem): String {
@@ -159,6 +167,15 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
 
     fun getCurrentLocale(context: Context): Locale {
         return context.resources.configuration.locale
+    }
+
+
+    override fun formatDateToDay(date: Date): String {
+        return messageDateYearFormat.format(date)
+    }
+
+    override fun formatDateToTime(date: Date): String {
+        return hourDateFormat.format(date)
     }
 
 }

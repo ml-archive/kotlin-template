@@ -20,6 +20,7 @@ class OpeningReceiptComponentPresenter @Inject constructor(val appState: AppStat
         appState.state?.openingState?.let { state ->
             state.shouldProceedWithOpening = proceed
         }
+        runAction { v->v.showOpeningProgress(true) }
         executor.signal("messageOpenDone")
     }
 

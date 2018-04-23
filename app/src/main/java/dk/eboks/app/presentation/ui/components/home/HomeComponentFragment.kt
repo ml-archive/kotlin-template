@@ -18,6 +18,8 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.home.Control
 import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.home.ItemType
@@ -25,7 +27,10 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.shared.Currency
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
+import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
+import dk.eboks.app.util.Starter
 import dk.eboks.app.util.views
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_home_overview_mail_component.*
@@ -63,6 +68,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         presenter.onViewCreated(this, lifecycle)
         NStack.translate()
         refreshSrl.setOnRefreshListener {
+            /*
             var stilLoading = false
             for (v in channelsContentLL.views) {
                 if (v.progressPb.visibility == View.VISIBLE) {
@@ -72,8 +78,14 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             if (!stilLoading) {
                 mailListContentLL.removeAllViews()
                 channelsContentLL.removeAllViews()
-                presenter.refresh()
+
             }
+            */
+            presenter.refresh()
+        }
+
+        showBtn.setOnClickListener {
+            activity.Starter().activity(MailListActivity::class.java).putExtra("folder", Folder(type = FolderType.HIGHLIGHTS)).start()
         }
 
         presenter.setup()
@@ -84,6 +96,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     }
 
     override fun setupChannels(channels: List<Channel>) {
+        channelsContentLL.removeAllViews()
         for (i in 0..channels.size - 1) {
             val currentChannel = channels[i]
             channelCount = channels.size
@@ -337,6 +350,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     }
 
     override fun showHighlights(messages: List<Message>) {
+        mailListContentLL.removeAllViews()
         //Timber.e("Got them highlights $messages")
         emailCount = messages.size
         if (messages.size == 0) {
@@ -366,7 +380,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
 
             for (i in 0..showCount - 1) {
                 val v = inflator.inflate(R.layout.viewholder_message, mailListContentLL, false)
-                var currentMessage = messages[i]
+                val currentMessage = messages[i]
                 val circleIv = v.findViewById<ImageView>(R.id.circleIv)
                 val titleTv = v.findViewById<TextView>(R.id.titleTv)
                 val subTitleTv = v.findViewById<TextView>(R.id.subTitleTv)
@@ -394,7 +408,10 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 }
 
                 rootLl?.setOnClickListener {
-                    presenter.openMessage(currentMessage)
+                    activity.Starter()
+                            .activity(MessageOpeningActivity::class.java)
+                            .putExtra(Message::class.java.simpleName, currentMessage)
+                            .start()
                 }
                 mailListContentLL.addView(v)
 

@@ -1,7 +1,10 @@
 package dk.eboks.app.presentation.ui.screens.message.opening
 
+import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.ServerErrorHandler
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentFragment
 import dk.eboks.app.presentation.ui.components.message.opening.promulgation.PromulgationComponentFragment
@@ -17,17 +20,40 @@ import timber.log.Timber
 /**
  * Created by bison on 20-05-2017.
  */
-class MessageOpeningPresenter(val appStateManager: AppStateManager, val executor: Executor) : MessageOpeningContract.Presenter, BasePresenterImpl<MessageOpeningContract.View>() {
-    val serverError : ServerError? = appStateManager.state?.openingState?.serverError
+class MessageOpeningPresenter(val appStateManager: AppStateManager, val executor: Executor, val openMessageInteractor: OpenMessageInteractor) :
+        MessageOpeningContract.Presenter,
+        BasePresenterImpl<MessageOpeningContract.View>(),
+        OpenMessageInteractor.Output
+{
+    //val serverError : ServerError? = appStateManager.state?.openingState?.serverError
 
     init {
+        openMessageInteractor.output = this
+        /*
         serverError?.let { error ->
             processError(error)
         }.guard { Timber.e("No ServerError found") }
+        */
     }
 
-    fun processError(error: ServerError)
-    {
+    override fun setup(msg: Message) {
+        openMessageInteractor.input = OpenMessageInteractor.Input(msg)
+        openMessageInteractor.run()
+    }
+
+    override fun signalMessageOpenDone() {
+        executor.signal("messageOpenDone")
+    }
+
+    override fun onOpenMessageDone() {
+        runAction { v->v.finish() }
+    }
+
+    override fun onOpenMessageError(error: ViewError) {
+        runAction { v->v.showErrorDialog(error) }
+    }
+
+    override fun onOpenMessageServerError(error: ServerError) {
         when(error.code)
         {
             ServerErrorHandler.NO_PRIVATE_SENDER_WARNING -> runAction { v-> v.setOpeningFragment(PrivateSenderWarningComponentFragment::class.java) }
@@ -38,9 +64,5 @@ class MessageOpeningPresenter(val appStateManager: AppStateManager, val executor
             ServerErrorHandler.MESSAGE_RECALLED -> runAction { v-> v.setOpeningFragment(RecalledComponentFragment::class.java) }
             ServerErrorHandler.PROMULGATION -> runAction { v-> v.setOpeningFragment(PromulgationComponentFragment::class.java) }
         }
-    }
-
-    override fun signalMessageOpenDone() {
-        executor.signal("messageOpenDone")
     }
 }

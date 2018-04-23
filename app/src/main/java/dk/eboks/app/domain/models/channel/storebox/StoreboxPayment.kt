@@ -12,7 +12,7 @@ data class StoreboxPayment(
         @SerializedName("priceValue")
         var priceValue: String? = null,
         @SerializedName("priceCurrency")
-        var priceCurrency: Double? = null,
+        var priceCurrency: String? = null,
         @SerializedName("truncatedCardNumber")
         var truncatedCardNumber: String? = null,
         @SerializedName("cardName")

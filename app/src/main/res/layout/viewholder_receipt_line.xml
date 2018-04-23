@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_small">
+
+    <TextView
+        android:id="@+id/viewHolderReceiptTvItemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:lineSpacingExtra="4sp"
+        android:textColor="#233e4b"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Thise Letmælk" />
+
+    <TextView
+        android:id="@+id/viewHolderReceiptTvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:lineSpacingExtra="4sp"
+        android:textColor="#6d757a"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewHolderReceiptTvItemName"
+        tools:text="Med 25% Jerseymælk" />
+
+
+    <TextView
+        android:id="@+id/viewHolderReceiptTvAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:lineSpacingExtra="4sp"
+        android:textColor="#6d757a"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewHolderReceiptTvSubtitle"
+        tools:text="2 x 5,00" />
+
+    <TextView
+        android:id="@+id/viewHolderReceiptTvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:lineSpacingExtra="4sp"
+        android:textColor="#233e4b"
+        android:textSize="16sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="10,00" />
+
+</android.support.constraint.ConstraintLayout>

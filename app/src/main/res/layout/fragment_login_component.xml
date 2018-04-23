@@ -32,17 +32,21 @@
                 android:paddingLeft="36dp"
                 android:paddingRight="36dp">
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
+
+                <!-- Profile container-->
                 <LinearLayout
                     android:id="@+id/userLl"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="vertical"
-                    android:paddingBottom="16dp"
-                    android:paddingTop="16dp"
-                    android:visibility="gone">
+                    android:paddingTop="44dp"
+                    android:visibility="visible">
 
                     <ImageView
                         android:id="@+id/userAvatarIv"
@@ -68,11 +72,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text=""
+                        android:text="_name@mail.dk"
                         android:textSize="13sp" />
 
                 </LinearLayout>
 
+                <!--Header and detail view-->
                 <TextView
                     android:id="@+id/headerTv"
                     style="@style/text.header1"
@@ -94,62 +99,72 @@
                     nstack:key="@string/nstack_logoncredentials_topSublabel" />
 
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/cprEmailTil"
+                <!-- Input container-->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:textColorHint="@color/blueGrey"
-                    android:theme="@style/TextInputLayoutTheme"
-                    android:visibility="gone"
-                    app:errorTextAppearance="@style/errorappearance"
-                    app:hintTextAppearance="@style/HintTextAppearance"
-                    >
+                    android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/cprEmailEt"
-                        style="@style/EditText"
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/cprEmailTil"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="text"
-                        nstack:hint="@string/nstack_logoncredentials_emailOrSSNHeader"/>
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/blueGrey"
+                        android:theme="@style/TextInputLayoutTheme"
+                        android:visibility="gone"
+                        app:errorTextAppearance="@style/errorappearance"
+                        app:hintTextAppearance="@style/HintTextAppearance">
 
-                </android.support.design.widget.TextInputLayout>
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/cprEmailEt"
+                            style="@style/EditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="text"
+                            nstack:hint="@string/nstack_logoncredentials_emailOrSSNHeader" />
 
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/passwordTil"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:textColorHint="@color/blueGrey"
-                    android:theme="@style/TextInputLayoutTheme"
-                    android:visibility="gone"
-                    app:errorTextAppearance="@style/errorappearance"
-                    app:hintTextAppearance="@style/HintTextAppearance">
+                    </android.support.design.widget.TextInputLayout>
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/passwordEt"
-                        style="@style/EditText"
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/passwordTil"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="textPassword"
-                        nstack:hint="@string/nstack_logoncredentials_passwordfieldHeader" />
+                        android:layout_height="wrap_content"
+                        android:textColorHint="@color/blueGrey"
+                        android:theme="@style/TextInputLayoutTheme"
+                        android:visibility="gone"
+                        app:errorTextAppearance="@style/errorappearance"
+                        app:hintTextAppearance="@style/HintTextAppearance">
 
-                </android.support.design.widget.TextInputLayout>
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/passwordEt"
+                            style="@style/EditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:inputType="textPassword"
+                            nstack:hint="@string/nstack_logoncredentials_passwordfieldHeader" />
+
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/continueBtn"
                     style="@style/enabledButtton"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="52dp"
                     android:layout_marginBottom="32dp"
                     android:layout_marginEnd="36dp"
                     android:layout_marginStart="36dp"
                     android:layout_marginTop="16dp"
                     android:enabled="false"
                     android:text="_Continue"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     nstack:key="@string/nstack_logoncredentials_continueButton" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
             </LinearLayout>
         </ScrollView>
 

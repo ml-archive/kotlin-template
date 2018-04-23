@@ -80,6 +80,9 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             contentRowHeaderTv.visibility = View.VISIBLE
 
             if (uploads.size > 0) {
+                emptyVerifiedUserTv.visibility = View.GONE
+                contentVerifiedUSerLl.visibility = View.VISIBLE
+                lastestUploadsFl.visibility = View.VISIBLE
                 for (i in 1..uploads.size) {
                     var currentItem = uploads[i - 1]
 
@@ -115,6 +118,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
                     contentVerifiedUSerLl.requestLayout()
                 }
             } else {
+                lastestUploadsFl.visibility = View.GONE
                 emptyVerifiedUserTv.visibility = View.VISIBLE
                 contentVerifiedUSerLl.visibility = View.GONE
             }

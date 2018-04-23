@@ -40,6 +40,7 @@ class MyInfoComponentPresenter @Inject constructor(val appState: AppStateManager
                 v.showProgress(true)
                 saveUserInteractor.input = SaveUserInteractor.Input(user)
                 saveUserInteractor.run()
+                v.onDone()
             }
         }
     }

@@ -13,13 +13,14 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
-import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
 import kotlinx.android.synthetic.main.fragment_channel_storebox_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
+import java.text.DecimalFormat
 import javax.inject.Inject
 
 class ChannelContentStoreboxComponentFragment : BaseFragment(),
@@ -126,15 +127,13 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
                 holder?.amountDateContainer?.visibility = View.VISIBLE
                 holder?.soloAmountTv?.visibility = View.GONE
 
-                holder?.amountTv?.text = currentReceipt.grandTotal?.value.toString()
-
+                holder?.amountTv?.text = String.format("%.2f", currentReceipt.grandTotal?.value).replace(".",",")
                 holder?.dateTv?.text = formatter.formatDateRelative(currentReceipt)
             } else {
                 holder?.amountDateContainer?.visibility = View.GONE
                 holder?.soloAmountTv?.visibility = View.VISIBLE
 
-                holder?.soloAmountTv?.text = currentReceipt.grandTotal?.value.toString()
-            }
+                holder?.amountTv?.text = String.format("%.2f", currentReceipt.grandTotal?.value).replace(".",",")            }
             if (currentReceipt.logo?.url != null) {
                 holder?.logoIv?.let {
                     Glide.with(context).load(currentReceipt.logo?.url).into(it)
@@ -144,13 +143,7 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
             holder?.row?.setOnClickListener {
                 //todo open the receipt details
                 Timber.d("Receipt Clicked: %s", currentReceipt.id)
-                val bundle = Bundle()
-                bundle.putParcelable(StoreboxReceipt.KEY, currentReceipt)
-                
-                getBaseActivity()?.openComponentDrawer(
-                        ChannelContentStoreboxDetailComponentFragment::class.java,
-                        bundle
-                )
+                (activity as StoreboxContentActivity).showDetailFragment(currentReceipt.id)
             }
 
         }

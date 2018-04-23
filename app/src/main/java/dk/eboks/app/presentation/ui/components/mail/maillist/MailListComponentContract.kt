@@ -18,7 +18,6 @@ interface MailListComponentContract {
     interface Presenter : BasePresenter<MailListComponentContract.View> {
         fun setup(folder : Folder)
         fun setup(sender : Sender)
-        fun openMessage(message: Message)
         fun refresh()
     }
 }

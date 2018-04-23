@@ -13,6 +13,8 @@ import dk.eboks.app.domain.interactors.folder.OpenFolderInteractorImpl
 import dk.eboks.app.domain.interactors.message.*
 import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.*
+import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptInteractor
+import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptInteractorImpl
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptsInteractor
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptsInteractorImpl
 import dk.eboks.app.domain.interactors.user.*
@@ -123,6 +125,14 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideGetReplyFormInteractor(
+            executor: Executor,
+            messagesRepository: MessagesRepository
+    ): GetReplyFormInteractor {
+        return GetReplyFormInteractorImpl(executor, messagesRepository)
+    }
+
+    @Provides
     fun provideSaveAttachmentInteractor(
             executor: Executor, appStateManager: AppStateManager,
             fileCacheManager: FileCacheManager, permissionManager: PermissionManager
@@ -223,6 +233,14 @@ class InteractorModule {
             api: Api
     ): GetStoreboxReceiptsInteractor {
         return GetStoreboxReceiptsInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun provideGetStoreboxReceiptInteractor(
+            executor: Executor,
+            api: Api
+    ): GetStoreboxReceiptInteractor {
+        return GetStoreboxReceiptInteractorImpl(executor, api)
     }
 
     @Provides

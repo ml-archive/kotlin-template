@@ -2,6 +2,7 @@ package dk.eboks.app.domain.interactors.message
 
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.protocol.ServerError
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**
@@ -15,6 +16,7 @@ interface OpenMessageInteractor : Interactor {
 
     interface Output {
         fun onOpenMessageDone()
+        fun onOpenMessageServerError(serverError : ServerError)
         fun onOpenMessageError(error : ViewError)
     }
 }

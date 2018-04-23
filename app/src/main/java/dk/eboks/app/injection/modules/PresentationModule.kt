@@ -10,15 +10,13 @@ import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
-import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
-import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
-import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
-import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
+import dk.eboks.app.domain.interactors.message.*
 import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
+import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptInteractor
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptsInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
@@ -27,10 +25,7 @@ import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
-import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentContract
-import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentPresenter
-import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentStoreboxComponentContract
-import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentStoreboxComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.*
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentContract
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentContract
@@ -219,9 +214,10 @@ class PresentationModule {
     @Provides
     fun provideMessageOpeningPresenter(
             stateManager: AppStateManager,
-            executor: Executor
+            executor: Executor,
+            openMessageInteractor: OpenMessageInteractor
     ): MessageOpeningContract.Presenter {
-        return MessageOpeningPresenter(stateManager, executor)
+        return MessageOpeningPresenter(stateManager, executor, openMessageInteractor)
     }
 
     @ActivityScope
@@ -314,13 +310,11 @@ class PresentationModule {
     @Provides
     fun provideMailListComponentPresenter(
             stateManager: AppStateManager,
-            getMessagesInteractor: GetMessagesInteractor,
-            openMessageInteractor: OpenMessageInteractor
+            getMessagesInteractor: GetMessagesInteractor
     ): MailListComponentContract.Presenter {
         return MailListComponentPresenter(
                 stateManager,
-                getMessagesInteractor,
-                openMessageInteractor
+                getMessagesInteractor
         )
     }
 
@@ -549,6 +543,18 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
+    fun provideChannelContentStoreboxDetailComponentPresenter(
+            stateManager: AppStateManager,
+            getStoreboxReceiptInteractor: GetStoreboxReceiptInteractor
+    ): ChannelContentStoreboxDetailComponentContract.Presenter {
+        return ChannelContentStoreboxDetailComponentPresenter(
+                stateManager,
+                getStoreboxReceiptInteractor
+        )
+    }
+
+    @ActivityScope
+    @Provides
     fun provideChannelSettingsComponentPresenter(stateManager: AppStateManager): ChannelSettingsComponentContract.Presenter {
         return ChannelSettingsComponentPresenter(stateManager)
     }
@@ -558,6 +564,7 @@ class PresentationModule {
     fun provideChannelContentPresenter(stateManager: AppStateManager): ChannelContentContract.Presenter {
         return ChannelContentPresenter(stateManager)
     }
+
 
     @ActivityScope
     @Provides
@@ -676,14 +683,12 @@ class PresentationModule {
     fun provideHomeComponentPresenter(
             stateManager: AppStateManager,
             getChannelHomeContentInteractor: GetChannelHomeContentInteractor,
-            getMessagesInteractor: GetMessagesInteractor,
-            openMessageInteractor: OpenMessageInteractor
+            getMessagesInteractor: GetMessagesInteractor
     ): HomeComponentContract.Presenter {
         return HomeComponentPresenter(
                 stateManager,
                 getChannelHomeContentInteractor,
-                getMessagesInteractor,
-                openMessageInteractor
+                getMessagesInteractor
         )
     }
 
@@ -820,8 +825,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideReplyFormPresenter(appState: AppStateManager): ReplyFormContract.Presenter {
-        return ReplyFormPresenter(appState)
+    fun provideReplyFormPresenter(appState: AppStateManager, getReplyFormInteractor: GetReplyFormInteractor): ReplyFormContract.Presenter {
+        return ReplyFormPresenter(appState, getReplyFormInteractor)
     }
 
     /* Pasta

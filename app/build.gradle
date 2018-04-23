@@ -27,7 +27,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 28
+        versionCode 29
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -256,6 +256,9 @@ dependencies {
 
     // Encryption Lib
     implementation 'dk.nodes.locksmith:core:1.1.1'
+
+    // Barcode Generation Library
+    implementation 'com.google.zxing:core:3.3.0'
 
     // Testing
     testImplementation "junit:junit:$junit_version"
