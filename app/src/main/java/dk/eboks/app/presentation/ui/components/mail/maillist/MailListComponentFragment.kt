@@ -35,6 +35,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     var messages: MutableList<Message> = ArrayList()
 
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_mail_list_component, container, false)
         return rootView

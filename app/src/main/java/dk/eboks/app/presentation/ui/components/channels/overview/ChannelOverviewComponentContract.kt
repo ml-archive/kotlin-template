@@ -10,14 +10,12 @@ import dk.eboks.app.presentation.base.BaseView
 interface ChannelOverviewComponentContract {
     interface View : BaseView {
         fun showChannels(channels : List<Channel>)
-        fun showChannelOpening()
+        fun showChannelOpening(channel: Channel)
         fun showProgress(show : Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
         fun openChannel(channel : Channel)
-        fun install(channel : Channel)
-        fun open(channel : Channel)
         fun refresh()
     }
 }

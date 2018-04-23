@@ -46,7 +46,7 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
                 senderTv.text = message.sender?.name ?: ""
                 titleTv.text = message.subject
                 message.sender?.logo.let {
-                    Glide.with(context).load(it).into(senderLogoIv)
+                    Glide.with(context).load(it?.url).into(senderLogoIv)
                 }
             }
             MessageType.DRAFT -> {
@@ -64,14 +64,14 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
                 senderTv.text = Translation.message.uploadedByYou
                 titleTv.text = message.subject
                 message.sender?.logo.let {
-                    Glide.with(context).load(it).into(senderLogoIv)
+                    Glide.with(context).load(it?.url).into(senderLogoIv)
                 }
             }
             else -> {
                 senderTv.text = message.sender?.name ?: ""
                 titleTv.text = message.subject
                 message.sender?.logo.let {
-                    Glide.with(context).load(it).into(senderLogoIv)
+                    Glide.with(context).load(it?.url).into(senderLogoIv)
                 }
             }
         }

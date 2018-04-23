@@ -148,7 +148,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     }
 
     override fun openStoreBoxContent() {
-        // todo it still opens the storebox view and adds it to backstack
         startActivity(Intent(context, StoreboxContentActivity::class.java))
+        activity.finish()
     }
 }

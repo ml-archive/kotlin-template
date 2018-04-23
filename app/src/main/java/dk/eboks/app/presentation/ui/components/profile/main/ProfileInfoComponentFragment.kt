@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.FingerPrintComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFragment
@@ -20,7 +24,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class ProfileInfoComponentFragment : BaseFragment(),
-                                     ProfileInfoComponentContract.View {
+        ProfileInfoComponentContract.View {
     @Inject
     lateinit var presenter: ProfileInfoComponentContract.Presenter
 
@@ -128,13 +132,20 @@ class ProfileInfoComponentFragment : BaseFragment(),
     override fun setProfileImage(url: String?) {
         Timber.d("setProfileImage: %s", url)
 
+        var options = RequestOptions()
+        options.error(R.drawable.ic_profile)
+        options.placeholder(R.drawable.ic_profile)
+        options.transforms(CenterCrop(), RoundedCorners(30))
         Glide.with(context)
                 .load(url)
+                .apply(options)
                 .into(profileDetailIv)
     }
 
     override fun setVerified(verified: Boolean) {
         profileDetailRegisterTB.isChecked = verified
+        profileDetailRegisterTB.textOff = Translation.profile.verifyButton
+        profileDetailRegisterTB.textOn = Translation.senders.registered
         if (verified) {
             profileDetailRegisterTB.setCompoundDrawablesWithIntrinsicBounds(
                     0,
@@ -142,9 +153,12 @@ class ProfileInfoComponentFragment : BaseFragment(),
                     R.drawable.icon_48_checkmark_white,
                     0
             )
+            profileDetailRegisterTB.text = Translation.senders.registered
         } else {
             profileDetailRegisterTB.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            profileDetailRegisterTB.text = Translation.profile.verifyButton
         }
+
         profileDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 buttonView.setCompoundDrawablesWithIntrinsicBounds(
@@ -153,7 +167,8 @@ class ProfileInfoComponentFragment : BaseFragment(),
                         R.drawable.icon_48_checkmark_white,
                         0
                 )
-                getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
+
+//                getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
             }
         }
     }
