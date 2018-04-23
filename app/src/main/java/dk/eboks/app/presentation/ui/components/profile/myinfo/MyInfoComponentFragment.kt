@@ -27,7 +27,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
     @Inject
     lateinit var presenter: MyInfoComponentContract.Presenter
     var menuSave: MenuItem? = null
-    lateinit var currentChannel: Channel
+
     override fun onCreateView(
             inflater: LayoutInflater?,
             container: ViewGroup?,
@@ -44,7 +44,6 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         setupTopBar()
         onLanguageChanged(NStack.language)
         presenter.setup()
-        currentChannel = arguments.getSerializable("channel")as Channel
     }
 
     // shamelessly ripped from chnt

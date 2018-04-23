@@ -6,7 +6,6 @@
     android:background="@color/white"
     >
 <Button
-
     android:id="@+id/linkBtn"
     style="@style/enabledButtton"
     android:layout_marginTop="20dp"
