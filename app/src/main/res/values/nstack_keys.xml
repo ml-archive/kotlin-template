@@ -248,6 +248,12 @@
   <string name='nstack_uploads_storageRowSubHeader' formatted='false'>uploads_storageRowSubHeader</string>
   <string name='nstack_uploads_storageRowButton' formatted='false'>uploads_storageRowButton</string>
   <string name='nstack_uploads_topbarEdit' formatted='false'>uploads_topbarEdit</string>
+  <string name='nstack_uploads_nonVerifiedMsg' formatted='false'>uploads_nonVerifiedMsg</string>
+  <string name='nstack_uploads_nonVerifiedHeader' formatted='false'>uploads_nonVerifiedHeader</string>
+  <string name='nstack_uploads_nonVerifiedButton' formatted='false'>uploads_nonVerifiedButton</string>
+  <string name='nstack_uploads_verifiedEmptyMsg' formatted='false'>uploads_verifiedEmptyMsg</string>
+  <string name='nstack_uploads_uploadingFile' formatted='false'>uploads_uploadingFile</string>
+  <string name='nstack_uploads_chosen' formatted='false'>uploads_chosen</string>
   <string name='nstack_loginproviders_nemidTitle' formatted='false'>loginproviders_nemidTitle</string>
   <string name='nstack_loginproviders_idPortenTitle' formatted='false'>loginproviders_idPortenTitle</string>
   <string name='nstack_loginproviders_bankSeTitle' formatted='false'>loginproviders_bankSeTitle</string>

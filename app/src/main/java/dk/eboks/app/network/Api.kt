@@ -7,6 +7,7 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.home.HomeContent
+import dk.eboks.app.domain.models.login.LoginResponse
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.AliasBody
 import dk.eboks.app.domain.models.protocol.LoginRequest
@@ -24,6 +25,11 @@ import retrofit2.http.*
  */
 
 interface Api {
+    // login Mox
+    @FormUrlEncoded
+    @POST("http://authenticationservice20180404012549.azurewebsites.net/connect/token") fun loginNoCode(@FieldMap bodyMap: Map<String, String>): Call<LoginResponse>
+
+
     // @GET("regions") fun getRegions() : Call<List<Region>>
     @GET("api/mail/categories") fun getMailCategories() : Call<List<Folder>>
     @GET("api/mail/folders") fun getFolders() : Call<List<Folder>>
