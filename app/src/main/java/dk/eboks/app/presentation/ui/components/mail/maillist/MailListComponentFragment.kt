@@ -59,7 +59,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupRecyclerView()
-        setupFab()
+        setupFab(createFabButtonMocks())
         checkFabState()
 
         refreshSrl.setOnRefreshListener {
@@ -82,15 +82,19 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         }
     }
 
-    private fun setupFab() {
+    private fun createFabButtonMocks(): ArrayList<OverlayButton> {
+        var buttons: ArrayList<OverlayButton> = ArrayList()
+        buttons.add(OverlayButton(ButtonType.MOVE))
+        buttons.add(OverlayButton(ButtonType.DELETE))
+        buttons.add(OverlayButton(ButtonType.PRINT))
+        buttons.add(OverlayButton(ButtonType.MAIL))
+        buttons.add(OverlayButton(ButtonType.OPEN))
+        return buttons
+    }
+
+    private fun setupFab(buttons: ArrayList<OverlayButton> = ArrayList()) {
         mainFab.setOnClickListener {
             var i = Intent(context, OverlayActivity::class.java)
-            var buttons: ArrayList<OverlayButton> = ArrayList()
-            buttons.add(OverlayButton(ButtonType.MOVE))
-            buttons.add(OverlayButton(ButtonType.DELETE))
-            buttons.add(OverlayButton(ButtonType.PRINT))
-            buttons.add(OverlayButton(ButtonType.MAIL))
-            buttons.add(OverlayButton(ButtonType.OPEN))
 
             i.putExtra("buttons", buttons)
             startActivityForResult(i, 1)
