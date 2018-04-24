@@ -46,6 +46,9 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
         progressFl.visibility = if(show) View.VISIBLE else View.INVISIBLE
     }
 
+    override fun clearForm() {
+        formInputLl.removeAllViews()
+    }
     override fun showFormInput(input: FormInput) {
         //Timber.e("showing form input $input")
         when(input.type)

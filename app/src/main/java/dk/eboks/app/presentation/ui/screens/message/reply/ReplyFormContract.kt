@@ -11,6 +11,7 @@ import dk.eboks.app.presentation.base.BaseView
 interface ReplyFormContract {
     interface View : BaseView {
         fun showProgress(show : Boolean)
+        fun clearForm()
         fun showFormInput(input : FormInput)
     }
 

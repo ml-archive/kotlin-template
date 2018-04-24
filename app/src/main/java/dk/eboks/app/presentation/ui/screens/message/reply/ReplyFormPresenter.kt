@@ -24,6 +24,7 @@ class ReplyFormPresenter(val appStateManager: AppStateManager, val getReplyFormI
         Timber.e("Setting up reply form for message $msg")
         getReplyFormInteractor.input = GetReplyFormInteractor.Input(msg.id, msg.folder?.id ?:0)
         getReplyFormInteractor.run()
+        runAction { v->v.clearForm() }
     }
 
     override fun onGetReplyForm(form: ReplyForm) {

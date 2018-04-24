@@ -23,6 +23,35 @@ class TextFormInput(formInput: FormInput, inflater: LayoutInflater) : ReplyFormI
             textEt?.setText(it)
         }
         textEt?.isEnabled = !formInput.readonly
+        setupValidation()
         return v
+    }
+
+    fun setupValidation()
+    {
+        val text : String = textEt?.text.toString().trim()
+        textEt?.setOnFocusChangeListener { view, b ->
+            if(!b) // on focus lost
+            {
+                if(formInput.required && text.isNullOrBlank())
+                {
+                    textEt?.error = "_Please fill out"
+                    return@setOnFocusChangeListener
+                }
+                formInput.minLength?.let { min ->
+                    if(text.length < min)
+                    {
+                        textEt?.error = "_Please enter at least $min characters"
+                    }
+                }
+                formInput.maxLength?.let { max ->
+                    if(text.length > max)
+                    {
+                        textEt?.error = "_Please enter at less than $max characters"
+                    }
+                }
+
+            }
+        }
     }
 }

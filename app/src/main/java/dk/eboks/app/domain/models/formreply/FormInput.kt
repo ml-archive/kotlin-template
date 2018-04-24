@@ -10,6 +10,7 @@ data class FormInput (
        var minValue : Double? = null,
        var maxValue : Double? = null,
        var minLength : Int? = null,
+       var maxLength : Int? = null,
        var required : Boolean = false,
        var readonly : Boolean = false,
        var error : String? = null,

@@ -10,7 +10,9 @@ abstract class ReplyFormInput(val formInput : FormInput, val inflater : LayoutIn
 
     fun addViewGroup(vg : ViewGroup)
     {
-        vg.addView(buildView(vg))
+        val view = buildView(vg)
+        view.tag = this
+        vg.addView(view)
     }
 
     fun removeViewGroup(vg : ViewGroup)
