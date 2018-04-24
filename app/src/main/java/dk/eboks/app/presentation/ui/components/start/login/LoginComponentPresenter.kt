@@ -117,13 +117,9 @@ class LoginComponentPresenter @Inject constructor(
 
     override fun login(user: User, providerId: String, password: String, activationCode: String?) {
         user.lastLoginProvider = providerId
-        appState.state?.currentUser = user
-        appState.save()
-        runAction { v -> v.proceedToApp() }
-        /*
         postAuthenticateUserInteractor.input = PostAuthenticateUserInteractor.Input(user, password, activationCode)
         postAuthenticateUserInteractor.run()
-        */
+
     }
 
     // TODO not much loggin going on

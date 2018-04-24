@@ -261,7 +261,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             }
 
             private fun setUpload(currentItem: Message, last: Boolean) {
-                headerTv.text = currentItem.id
+                headerTv.text = currentItem.sender?.name
                 subHeaderTv.text = currentItem.subject
                 dateTv.text = formatter.formatDateRelative(currentItem)
                 urgentTv.visibility = View.GONE
