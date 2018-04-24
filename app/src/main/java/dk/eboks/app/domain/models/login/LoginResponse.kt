@@ -7,12 +7,12 @@ package dk.eboks.app.domain.models.login
  * @since    4/20/2018.
  */
 data class LoginResponse(
-        var accessToken: String,
-        var expiresIn: Int,
-        var tokenType: String,
-        var refreshToken: String
+        var access_token: String,
+        var expires_in: Int,
+        var token_type: String,
+        var refresh_token: String
 ) {
     override fun toString() : String {
-        return "Type: $tokenType \nToken: $accessToken \nRefresh: $refreshToken"
+        return "Type: $token_type \nToken: $access_token \nRefresh: $refresh_token"
     }
 }
