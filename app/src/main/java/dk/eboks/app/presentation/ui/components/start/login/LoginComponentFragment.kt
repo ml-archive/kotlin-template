@@ -124,7 +124,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         Timber.e("onContinue")
         currentUser?.let { user ->
             currentProvider?.let { provider ->
-                presenter.login(user, provider.id)
+                presenter.login(user, provider.id, passwordEt.text.toString().trim(), activationCode = null)
             }
         }.guard {
             createUser(false)
@@ -397,7 +397,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     private fun doUserLogin() {
         currentUser?.let { user ->
             currentProvider?.let { provider ->
-                presenter.login(user, provider.id)
+                presenter.login(user, provider.id, "todo", "todo") // TODO add credentials
             }
         }
     }

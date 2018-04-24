@@ -12,6 +12,7 @@ class MockHeaderInterceptor : okhttp3.Interceptor  {
 
         val newRequest = originalRequest.newBuilder()
                 .header("X-Api-Key", BuildConfig.MOCK_API_KEY)
+                .header("Authorization", "Basic c2ltcGxlbG9naW46c2VjcmV0")  // TODO is this the same everytime?
                 .build()
 
         return chain.proceed(newRequest)
