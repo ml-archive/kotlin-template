@@ -10,6 +10,7 @@ import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.DownloadManager
 import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.managers.ProtocolManager
+import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.DownloadManagerImpl
 import dk.eboks.app.network.managers.protocol.EboksHeaderInterceptor
@@ -18,6 +19,7 @@ import dk.eboks.app.network.managers.protocol.ProtocolManagerImpl
 import dk.eboks.app.network.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.util.DateDeserializer
 import dk.eboks.app.network.util.ItemTypeAdapterFactory
+import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.nstack.kotlin.providers.NMetaInterceptor
 import okhttp3.OkHttpClient
@@ -94,6 +96,9 @@ class RestModule {
         return EboksHeaderInterceptor(eboksProtocol)
     }
 
+    var token: AccessToken? = null
+
+
     @Provides
     @AppScope
     fun provideHttpClient(eboksHeaderInterceptor: EboksHeaderInterceptor): OkHttpClient {
@@ -101,6 +106,40 @@ class RestModule {
                 .connectTimeout(45, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
+                .authenticator { route, response ->
+                    val tokenClient = provideApi(
+                            provideRetrofit(
+                                    provideHttpClient(
+                                            provideEboksHeaderInterceptor(
+                                                    provideProtocolManager()
+                                            )
+                                    ),
+                                    provideGsonConverter(
+                                            provideGson(
+                                                    provideTypeFactory(),
+                                                    provideDateDeserializer()
+                                            )
+                                    ),
+                                    provideBaseUrlString()
+                            )
+                    )
+                    try {
+                        val tokenresponse = tokenClient.getRefreshAccessToken(mapOf(
+                                Pair("hello", "world")
+                        )).execute()
+
+                        if (tokenresponse.isSuccessful) {
+                            tokenresponse.body()?.let {
+                                token = it
+                                response.request().newBuilder().header("Authorization", it.token_type + " " + it.access_token).build()
+                            }
+
+                        }
+                        null
+                    } catch (e: Throwable) {
+                        null
+                    }
+                }
                 //.addInterceptor(eboksHeaderInterceptor)
                 .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
 

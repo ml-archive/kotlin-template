@@ -1,7 +1,7 @@
 package dk.eboks.app.domain.interactors.authentication
 
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.login.LoginResponse
+import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.domain.interactor.Interactor
 
@@ -19,7 +19,7 @@ interface PostAuthenticateUserInteractor : Interactor
 
     interface Output {
         /** All good! */
-        fun onAuthenticationsSuccess(user: User, response: LoginResponse)
+        fun onAuthenticationsSuccess(user: User, response: AccessToken)
         /** Auth-fail */
         fun onAuthenticationsDenied(error : ViewError)
         /** Network-fail */
