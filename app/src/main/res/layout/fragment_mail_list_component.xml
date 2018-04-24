@@ -24,6 +24,14 @@
                     />
 
         </android.support.v4.widget.SwipeRefreshLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/mainFab"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:src="@drawable/icon_48_option_white" />
     </FrameLayout>
 
     <FrameLayout
@@ -50,6 +58,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:visibility="visible"
         android:id="@+id/progressFl"
         android:background="@color/white"
         android:orientation="vertical"
