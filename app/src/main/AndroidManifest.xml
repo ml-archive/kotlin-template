@@ -54,23 +54,23 @@
         <activity android:name="dk.eboks.app.pasta.activity.PastaActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity"
             android:theme="@style/TransTheme" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity" android:launchMode="singleTop" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity" android:launchMode="singleTask" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity" android:launchMode="singleTop" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity" android:launchMode="singleTop" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.message.MessageActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity" android:launchMode="singleTop" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity" android:launchMode="singleTask" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity" android:launchMode="singleTop" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity" android:launchMode="singleTask" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.profile.ProfileActivity" android:launchMode="singleTop" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.profile.ProfileActivity" android:launchMode="singleTask" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.profile.myinfo.MyInfoActivity"  />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.home.HomeActivity" android:launchMode="singleTop" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.uploads.UploadsActivity" android:launchMode="singleTop" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.home.HomeActivity" android:launchMode="singleTask" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.uploads.UploadsActivity" android:launchMode="singleTask" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.registrations.RegistrationsActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.registrations.PendingActivity" />
