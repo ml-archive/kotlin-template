@@ -16,6 +16,7 @@
             android:id="@+id/inputTiEt"
             android:inputType="text"
             android:maxLines="1"
+            android:ellipsize="end"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 

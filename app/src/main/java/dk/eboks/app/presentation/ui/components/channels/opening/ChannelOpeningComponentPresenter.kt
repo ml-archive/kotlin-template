@@ -30,6 +30,17 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
         }
     }
 
+    override fun refreshChannel(){
+        appState.state?.channelState?.selectedChannel?.let { channel ->
+            getChannelInteractor.output = this
+            getChannelInteractor.input = GetChannelInteractor.Input(channel.id.toLong())
+            getChannelInteractor.run()
+            runAction { v ->
+                v.showProgress(true)
+            }
+        }
+    }
+
     override fun install(channel: Channel) {
         runAction { v ->
             //v.showProgress(true)

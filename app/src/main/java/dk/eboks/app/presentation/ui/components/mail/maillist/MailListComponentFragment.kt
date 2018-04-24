@@ -47,6 +47,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     var checkedList: MutableList<Message> = ArrayList()
     lateinit var folder: Folder
     var modeEdit: Boolean = false
+    var editEnabled: Boolean = false
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -76,6 +77,10 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             if (args.containsKey("sender")) {
                 val sender = args.getSerializable("sender") as Sender
                 presenter.setup(sender)
+            }
+
+            if (args.containsKey("edit")) {
+                editEnabled = args.getSerializable("edit") as Boolean
             }
             // cannot setup topbar before folder been initialized
             setupTopBar()
@@ -110,11 +115,13 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             onBackPressed()
         }
 
-        val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.uploads.topbarEdit)
-        menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
-            switchMode()
-            true
+        if (editEnabled) {
+            val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.uploads.topbarEdit)
+            menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
+                switchMode()
+                true
+            }
         }
     }
 
@@ -201,17 +208,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
 
             fun bind(currentItem: Message, last: Boolean) {
-                if (folder.type != FolderType.UPLOADS && !modeEdit) {
-                    setMessage(currentItem, last)
-                } else {
-                    setUpload(currentItem, last)
-                }
-
-
-            }
-
-            private fun setMessage(currentItem: Message, last: Boolean) {
-
+                // generic
                 if (currentItem.unread) {
                     headerTv.setTypeface(null, Typeface.BOLD)
                     dateTv?.setTypeface(null, Typeface.BOLD)
@@ -223,19 +220,10 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                     subHeaderTv.setTypeface(null, Typeface.NORMAL)
                 }
 
-                currentItem?.sender?.let {
-                    imageIv?.let {
-                        Glide.with(context)
-                                .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
-                                .load(currentItem.sender?.logo?.url)
-                                .into(it)
+                headerTv.text = currentItem.sender?.name
+                subHeaderTv.text = currentItem.subject
+                dateTv.text = formatter.formatDateRelative(currentItem)
 
-                        uploadFl.isSelected = currentItem.unread
-                    }
-                }
-                headerTv?.text = currentItem.sender?.name
-                dateTv?.text = formatter.formatDateRelative(messages[position])
-                subHeaderTv?.text = currentItem.subject
 
                 if (currentItem.status?.text != null) {
                     urgentTv?.visibility = View.VISIBLE
@@ -250,6 +238,30 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                     clipIv?.visibility = View.GONE
                 }
 
+                // specific
+                if (folder.type != FolderType.UPLOADS && !modeEdit) {
+                    setMessage(currentItem)
+                } else {
+                    setUpload(currentItem, last)
+                }
+
+
+            }
+
+            private fun setMessage(currentItem: Message) {
+
+                currentItem?.sender?.let {
+                    imageIv?.let {
+                        Glide.with(context)
+                                .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
+                                .load(currentItem.sender?.logo?.url)
+                                .into(it)
+
+                        uploadFl.isSelected = currentItem.unread
+                    }
+                }
+
+
                 if (!modeEdit) {
                     root?.setOnClickListener {
                         activity.Starter()
@@ -261,10 +273,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             }
 
             private fun setUpload(currentItem: Message, last: Boolean) {
-                headerTv.text = currentItem.sender?.name
-                subHeaderTv.text = currentItem.subject
-                dateTv.text = formatter.formatDateRelative(currentItem)
-                urgentTv.visibility = View.GONE
 
                 if (last) {
                     dividerV.visibility = View.GONE
@@ -275,12 +283,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 } else {
                     uploadFl.visibility = View.VISIBLE
                     checkBox.visibility = View.GONE
-                }
-
-                if (currentItem.numberOfAttachments > 0) {
-                    clipIv?.visibility = View.VISIBLE
-                } else {
-                    clipIv?.visibility = View.GONE
                 }
 
                 root.setOnClickListener {

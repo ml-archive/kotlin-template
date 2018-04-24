@@ -34,6 +34,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="bottom"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:text="_Herning levere vildt comeback på isen testte" />
 
                 <TextView
@@ -43,6 +45,8 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="top"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:text="_dec 19" />
             </LinearLayout>
 

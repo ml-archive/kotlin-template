@@ -20,7 +20,7 @@
         android:layout_marginBottom="@dimen/margin_normal"
         android:layout_marginTop="@dimen/margin_normal"
         android:orientation="horizontal"
-        android:paddingEnd="@dimen/margin_normal"
+        android:paddingEnd="8dp"
         android:paddingStart="@dimen/margin_normal"
         android:visibility="visible">
 
@@ -36,6 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="bottom"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="_Notification" />
 
             <TextView
@@ -44,6 +46,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="_Don't move to a new home without your mail" />
         </LinearLayout>
 
@@ -53,6 +57,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="_12:45" />
     </LinearLayout>
 
@@ -72,6 +78,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="_Theres currently no notifications" />
     </LinearLayout>
 </LinearLayout>

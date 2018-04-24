@@ -41,7 +41,8 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     val inflater by lazy { LayoutInflater.from(context) }
 
     @Inject
-    lateinit var presenter : ChannelOpeningComponentContract.Presenter
+    lateinit var presenter: ChannelOpeningComponentContract.Presenter
+    var refreshChannel = false
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_channel_opening_component, container, false)
@@ -54,8 +55,14 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         presenter.onViewCreated(this, lifecycle)
     }
 
-    private fun setupTopView(channel: Channel)
-    {
+    override fun onResume() {
+        if (refreshChannel) {
+            presenter.refreshChannel()
+        }
+        super.onResume()
+    }
+
+    private fun setupTopView(channel: Channel) {
         headerTv.text = channel.payoff
         nameTv.text = channel.name
         nameTv.setTextColor(Color.parseColor(channel.background?.rgba))
@@ -79,7 +86,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         contentBottom.addView(v)
         val button = v.findViewById<Button>(R.id.openBtn)
         button?.text = Translation.channels.openChannel
-        val colorTint =  Color.parseColor(channel.background?.rgb)
+        val colorTint = Color.parseColor(channel.background?.rgb)
         button.backgroundTintList = ColorStateList.valueOf(colorTint)
         button?.setOnClickListener {
             presenter.open(channel)
@@ -98,22 +105,23 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         contentBottom.addView(v)
         val button = v.findViewById<Button>(R.id.installBtn)
         button?.text = Translation.channels.installChannel
-        val colorTint =  Color.parseColor(channel.background?.rgb)
+        val colorTint = Color.parseColor(channel.background?.rgb)
         button.backgroundTintList = ColorStateList.valueOf(colorTint)
         button?.setOnClickListener {
-                presenter.install(channel)
+            presenter.install(channel)
+            refreshChannel = true
 
         }
     }
 
-    override fun showVerifyState(channel: Channel, provider : LoginProvider) {
+    override fun showVerifyState(channel: Channel, provider: LoginProvider) {
         contentBottom.removeAllViews()
         val v = inflater.inflate(R.layout.include_channel_detail_bottom_verify, contentBottom, false)
         setupTopView(channel)
         contentBottom.addView(v)
         val button = v.findViewById<Button>(R.id.verifyBtn)
         v.findViewById<TextView>(R.id.descriptionTv)?.text = Translation.channels.verifyYourProfile
-        val colorTint =  Color.parseColor(channel.background?.rgb)
+        val colorTint = Color.parseColor(channel.background?.rgb)
         button.backgroundTintList = ColorStateList.valueOf(colorTint)
         button?.setOnClickListener {
             presenter.install(channel)
@@ -125,7 +133,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     }
 
     override fun showProgress(show: Boolean) {
-        progress.visibility = if(show) View.VISIBLE else View.GONE
+        progress.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun openChannelContent() {
