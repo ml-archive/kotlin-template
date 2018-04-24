@@ -12,31 +12,37 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
-        <FrameLayout
-            android:id="@+id/uploadFl"
+        <LinearLayout
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:background="@drawable/circular_image_view_no_inner_circle_background"
-            android:visibility="visible">
+            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/imageIv"
+            <FrameLayout
+                android:id="@+id/uploadFl"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/circular_image_view_no_inner_circle_background"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/imageIv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_menu_uploads"/>
+            </FrameLayout>
+
+            <ImageButton
+                android:id="@+id/checkboxIb"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_menu_uploads"></ImageView>
-        </FrameLayout>
+                android:background="@drawable/square_gradiant_selector"
+                android:src="@drawable/icon_48_checkmark_white"
+                android:visibility="gone" />
 
-        <ImageButton
-            android:visibility="gone"
-            android:id="@+id/checkboxIb"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center"
-            android:background="@drawable/square_gradiant_selector"
-            android:src="@drawable/icon_48_checkmark_white" />
-
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/showContainerLl"
@@ -86,11 +92,11 @@
 
                 <ImageView
                     android:id="@+id/clipIv"
-                    android:visibility="gone"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/icon_48_attachment_small_grey"/>
+                    android:src="@drawable/icon_48_attachment_small_grey"
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <TextView

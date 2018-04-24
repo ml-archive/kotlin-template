@@ -46,6 +46,7 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
         presenter.onViewCreated(this, lifecycle)
         updateProfileBtn.setOnClickListener {
             activity.Starter().activity(MyInfoActivity::class.java).putExtra("channel", currentItem).start()
+            activity.finish()
         }
         cancelBtn.setOnClickListener {
             getBaseActivity()?.onBackPressed()

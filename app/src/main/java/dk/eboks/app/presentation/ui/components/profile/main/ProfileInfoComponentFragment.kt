@@ -47,6 +47,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
         setupVersionNumber()
         setupCollapsingToolbar()
         setupListeners()
+
     }
 
     override fun onResume() {
@@ -76,6 +77,17 @@ class ProfileInfoComponentFragment : BaseFragment(),
             (activity as ProfileActivity)
         } else {
             null
+        }
+
+        profileDetailRegisterTB.textOn = Translation.senders.registered
+        profileDetailRegisterTB.textOff = Translation.profile.verifyButton
+        profileDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_48_checkmark_white, 0)
+                getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
+            } else {
+                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            }
         }
 
 
@@ -144,33 +156,6 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
     override fun setVerified(verified: Boolean) {
         profileDetailRegisterTB.isChecked = verified
-        profileDetailRegisterTB.textOff = Translation.profile.verifyButton
-        profileDetailRegisterTB.textOn = Translation.senders.registered
-        if (verified) {
-            profileDetailRegisterTB.setCompoundDrawablesWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.icon_48_checkmark_white,
-                    0
-            )
-            profileDetailRegisterTB.text = Translation.senders.registered
-        } else {
-            profileDetailRegisterTB.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-            profileDetailRegisterTB.text = Translation.profile.verifyButton
-        }
-
-        profileDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        R.drawable.icon_48_checkmark_white,
-                        0
-                )
-
-//                getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
-            }
-        }
     }
 
     override fun setFingerprintEnabled(enabled: Boolean, lastProviderId: String?) {

@@ -94,7 +94,11 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         //todo ChannelContentAcitivity currently uses the appstate for current item, Stinus said he wanted to change that,
         // if he does that then we need to send channel with the activity
         // also needs to do save the options and redo API call for the channel, to see if the requirements has been met.
-        startActivity(Intent(activity, ChannelContentActivity::class.java))
+
+        //todo also need redirect it to the propper acitivity - if it comes from home it should not go channelContentActivity
+//        startActivity(Intent(activity, ChannelContentActivity::class.java))
+//        fragmentManager.popBackStack()
+        activity.finish()
     }
 
     override fun onResume() {

@@ -23,6 +23,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:maxLines="1"
+        android:ellipsize="end"
         android:paddingTop="4dp"
         android:paddingBottom="20dp"
         android:text="_Skatteministeriet"

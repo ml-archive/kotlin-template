@@ -49,13 +49,9 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
 
-    //mock data
     var emailCount = 0
     var channelCount = 0
     override var verifiedUser: Boolean = false
-    //var messages: MutableList<dk.eboks.app.domain.models.message.Message> = ArrayList()
-    //var channels: MutableList<dk.eboks.app.domain.models.home.Control> = ArrayList()
-    //var redidValues = false
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_home_overview_mail_component, container, false)
@@ -68,19 +64,6 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         presenter.onViewCreated(this, lifecycle)
         NStack.translate()
         refreshSrl.setOnRefreshListener {
-            /*
-            var stilLoading = false
-            for (v in channelsContentLL.views) {
-                if (v.progressPb.visibility == View.VISIBLE) {
-                    stilLoading = true
-                }
-            }
-            if (!stilLoading) {
-                mailListContentLL.removeAllViews()
-                channelsContentLL.removeAllViews()
-
-            }
-            */
             presenter.refresh()
         }
 
@@ -356,10 +339,10 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
         if (messages.size == 0) {
             emptyStateLl.visibility = View.VISIBLE
             emailContainerLl.visibility = View.GONE
-            if(channelCount>0) {
+            if (channelCount > 0) {
                 emptyStateImageIv.visibility = View.GONE
             }
-            if(verifiedUser) {
+            if (verifiedUser) {
                 emptyStateBtn.text = Translation.home.messagesEmptyButton
                 emptyStateHeaderTv.text = Translation.home.messagesEmptyTitle
                 emptyStateTextTv.text = Translation.home.messagesEmptyMessage
@@ -446,143 +429,4 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
 
         }
     }
-
-// TODO Old crap that might be reusable
-
-
-    /*
-    override fun onShake() {
-       if(!redidValues){
-           redidValues = true
-           val alert = AlertDialog.Builder(context)
-           val layout = inflator.inflate(R.layout.debug_dialog,null,false)
-           val mailEt = layout.findViewById<EditText>(R.id.firstEt)
-           val channelEt = layout.findViewById<EditText>(R.id.middleEt)
-           val verifiedEt = layout.findViewById<EditText>(R.id.lastEt)
-
-           // Builder
-           with (alert) {
-               setTitle("Setup Data")
-               setMessage("channelmode 0=none, 1=1, 2= all ")
-
-               // Add any  input field here
-               mailEt!!.hint="MailCount"
-               channelEt!!.hint="channelmode(0,1,2)"
-               verifiedEt!!.hint="Verified:1 = true"
-
-               setPositiveButton("OK") {
-                   dialog, whichButton ->
-                   emailCount = Integer.parseInt(mailEt.text.toString())
-                   channelCount = Integer.parseInt(channelEt.text.toString())
-                   verifiedUser = (Integer.parseInt(verifiedEt.text.toString())==1)
-                   channels.clear()
-                   messages.clear()
-                   val channelContentLl = view?.findViewById<LinearLayout>(R.id.channelsContentLL)
-                   channelContentLl?.removeAllViews()
-                   setupViews()
-                   dialog.dismiss()
-
-               }
-
-               setNegativeButton("NO") {
-                   dialog, whichButton ->
-                   dialog.dismiss()
-               }
-           }
-
-           // Dialog
-           val dialog = alert.create()
-           dialog.setView(layout)
-           dialog.show()
-       }
-    }
-    */
-
-/*
-    fun createMockMails(emailCount: Int) {
-        for (i in 1..emailCount) {
-            val random = Random()
-            var unread = (random.nextInt(i) == 0)
-
-            var randomStatus = Status(false, "important title", "important text", 0, Date())
-            if (random.nextInt(i) == 0) {
-                randomStatus.important = true
-            }
-            messages.add(dk.eboks.app.domain.models.message.Message("id" + i, "subject" + i, Date(), unread, null, null, null, null, null, null, 0, null, null, null, null, randomStatus, "note string"))
-        }
-    }
-
-    private fun createMockChannels(showChannelsMode: Int) {
-
-        // showsChannelsMode: 0  = none, 1 = 1, 2 = all
-
-        // shows 1
-        if(showChannelsMode == 1){
-            var items: ArrayList<Item> = ArrayList()
-            items.add(Item("ID-receipt", "Title-reciept", "Description-reciept", Date(), Currency(111.01, "DKK"), null, null, Image("https://picsum.photos/200/?random")))
-            items.add(Item("ID-receipt2", "Title-reciept2", null, null, Currency(222.02, "DK2"), null, null, null))
-            channels.add(Control("control receipts", ItemType.RECEIPTS, items))
-
-        }
-        // shows all
-        if (showChannelsMode == 2) {
-            // receipt
-            var items: ArrayList<Item> = ArrayList()
-            items.add(Item("ID-receipt", "Title-reciept", "Description-reciept", Date(), Currency(111.01, "DKK"), null, null, Image("https://picsum.photos/200/?random")))
-            items.add(Item("ID-receipt2", "Title-reciept2", null, null, Currency(222.02, "DK2"), null, null, null))
-            channels.add(Control("control receipts", ItemType.RECEIPTS, items))
-
-            var items2: ArrayList<Item> = ArrayList()
-            items2.add(Item("ID-receipt3", "Title-reciept3", null, Date(), Currency(333.03, "DK3"), null, null, Image("https://picsum.photos/200/?random")))
-            items2.add(Item("ID-receipt4", "Title-reciept4", null, null, Currency(444.04, "DK4"), null, null, null))
-            channels.add(Control("control receipts2", ItemType.RECEIPTS, items2))
-
-            // news
-            var items3: ArrayList<Item> = ArrayList()
-            items3.add(Item("ID-news1", "Title-news1", "Description-news1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control news1", ItemType.NEWS, items3))
-
-            var items4: ArrayList<Item> = ArrayList()
-            items4.add(Item("ID-news2", "Title-news2", "Description-news2", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            items4.add(Item("ID-news3", "Title-news3", "Description-news3", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control news2", ItemType.NEWS, items4))
-
-            // image
-            var items5: ArrayList<Item> = ArrayList()
-            items5.add(Item("ID-image1", "Title-image1", "Description-image1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control image1", ItemType.IMAGES, items5))
-
-            // notification
-            var items6: ArrayList<Item> = ArrayList()
-            items6.add(Item("ID-notification1", "Title-notification1", "Description-notification1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            items6.add(Item("ID-notification1", "Title-notification1", "Description-notification1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            items6.add(Item("ID-notification1", "Title-notification1", "Description-notification1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control notification1", ItemType.NOTIFICATIONS, items6))
-
-            var items7: ArrayList<Item> = ArrayList()
-            channels.add(Control("control notification2", ItemType.NOTIFICATIONS, items7))
-
-            // message
-            var items8: ArrayList<Item> = ArrayList()
-            items8.add(Item("ID-message1", "Title-Message1", "Description-message1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control message1", ItemType.MESSAGES, items8))
-
-            var items9: ArrayList<Item> = ArrayList()
-            items9.add(Item("ID-message2", "Title-Message2", "Description-message2", Date(), null, Status(true, "important title", "important text", 0, Date()), null, Image("https://picsum.photos/200/?random")))
-            items9.add(Item("ID-message2", "Title-Message2", "Description-message2", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control message1", ItemType.MESSAGES, items9))
-
-            //files
-            var items10: ArrayList<Item> = ArrayList()
-            items10.add(Item("ID-files1", "Title-Files1", "Description-files1", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control files1", ItemType.FILES, items10))
-
-            var items11: ArrayList<Item> = ArrayList()
-            items11.add(Item("ID-files2", "Title-Files2", "Description-files2", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            items11.add(Item("ID-files3", "Title-Files3", "Description-files3", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            items11.add(Item("ID-files4", "Title-Files4", "Description-files4", Date(), null, null, null, Image("https://picsum.photos/200/?random")))
-            channels.add(Control("control files2", ItemType.FILES, items11))
-        }
-    }
-    */
 }
