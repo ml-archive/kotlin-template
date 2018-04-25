@@ -64,9 +64,6 @@ class LoginComponentPresenter @Inject constructor(
             if (!user.verified) {
                 runAction { v ->
                     v.setupView(loginProvider = lp, user = user, altLoginProviders = ArrayList())
-                    if (user.hasFingerprint) {
-                        v.addFingerPrintProvider()
-                    }
                 }
             } else // user is verified
             {
@@ -88,9 +85,6 @@ class LoginComponentPresenter @Inject constructor(
 
                 runAction { v ->
                     v.setupView(loginProvider = lp, user = user, altLoginProviders = altproviders)
-                    if (user.hasFingerprint) {
-                        v.addFingerPrintProvider()
-                    }
                 }
             }
         }.guard {

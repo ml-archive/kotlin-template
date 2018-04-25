@@ -2,6 +2,7 @@ package dk.eboks.app.domain.config
 
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentFragment
@@ -213,8 +214,8 @@ object Config {
                     id = "nemid",
                     name = "NemID",
                     onlyVerified = true,
-                    icon = -1,
-                    description = null,
+                    icon = R.drawable.black,
+                    description = Translation.loginproviders.nemidDescription,
                     fragmentClass = NemIdComponentFragment::class.java,
                     fallbackProvider = "cpr"
             ),
@@ -223,7 +224,7 @@ object Config {
                     name = "ID-Porten",
                     onlyVerified = true,
                     icon = R.drawable.ic_idporten,
-                    description = "_Use this to see mail from public authorities",
+                    description = Translation.loginproviders.idPortenDescription,
                     fragmentClass = IdPortenComponentFragment::class.java,
                     fallbackProvider = "cpr"
             ),
@@ -232,7 +233,7 @@ object Config {
                     name = "Bank ID",
                     onlyVerified = true,
                     icon = R.drawable.ic_bankid,
-                    description = null,
+                    description = Translation.loginproviders.bankSeDescription,
                     fragmentClass = BankIdSEComponentFragment::class.java,
                     fallbackProvider = "cpr"
             ),
@@ -241,7 +242,7 @@ object Config {
                     name = "Bank ID",
                     onlyVerified = true,
                     icon = R.drawable.ic_bankid,
-                    description = null,
+                    description = Translation.loginproviders.bankNoDescription,
                     fragmentClass = BankIdNOComponentFragment::class.java,
                     fallbackProvider = "cpr"
             )

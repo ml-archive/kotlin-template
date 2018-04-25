@@ -33,12 +33,16 @@ class ChannelContentStoreboxComponentPresenter @Inject constructor(
 
     override fun onGetReceipts(messages: ArrayList<StoreboxReceiptItem>) {
         Timber.d("onGetReceipts: %s", messages.size)
-        view?.setReceipts(messages)
+        runAction {
+            view?.setReceipts(messages)
+        }
     }
 
     override fun onGetReceiptsError(error: ViewError) {
         Timber.e("onGetReceiptsError: %s", error)
-        view?.showErrorDialog(error)
+        runAction {
+            view?.showErrorDialog(error)
+        }
     }
 
 }

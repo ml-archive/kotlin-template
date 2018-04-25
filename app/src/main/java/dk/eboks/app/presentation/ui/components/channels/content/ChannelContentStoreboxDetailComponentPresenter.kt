@@ -36,11 +36,15 @@ class ChannelContentStoreboxDetailComponentPresenter @Inject constructor(
     }
 
     override fun onGetReceipt(storeboxReceipt: StoreboxReceipt) {
-        view?.setReceipt(storeboxReceipt)
+        runAction {
+            it?.setReceipt(storeboxReceipt)
+        }
     }
 
     override fun onGetReceiptsError(error: ViewError) {
-        view?.showErrorDialog(error)
+        runAction {
+            it?.showErrorDialog(error)
+        }
     }
 
 }

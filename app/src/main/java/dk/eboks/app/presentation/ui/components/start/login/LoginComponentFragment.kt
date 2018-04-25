@@ -82,7 +82,6 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
 
-
     // shamelessly ripped from chnt
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.ic_red_close)
@@ -136,10 +135,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
 
-    override fun setupView(
-            loginProvider: LoginProvider?,
-            user: User?,
-            altLoginProviders: List<LoginProvider>
+    override fun setupView(loginProvider: LoginProvider?, user: User?, altLoginProviders: List<LoginProvider>
     ) {
         Timber.e("SetupView called loginProvider = $loginProvider user = $user altProviders = $altLoginProviders")
         loginProvider?.let { provider ->
@@ -179,7 +175,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     fun addSkipLoginProvider() {
         val li = LayoutInflater.from(context)
         val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
-        v.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.ic_fingerprint)
+        v.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.icon_48_forward_red)
         v.findViewById<TextView>(R.id.nameTv).text = "Force login (DEBUG)"
         v.findViewById<TextView>(R.id.descTv).text = "Inkluderer post fra offentlige myndigheter"
 
@@ -195,7 +191,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         val li = LayoutInflater.from(context)
         val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
         v.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.ic_fingerprint)
-        v.findViewById<TextView>(R.id.nameTv).text = Translation.logoncredentials.logonWithProvider.replace("[provider]",Translation.profile.fingerprint)
+        v.findViewById<TextView>(R.id.nameTv).text = Translation.logoncredentials.logonWithProvider.replace("[provider]", Translation.profile.fingerprint)
         v.findViewById<TextView>(R.id.descTv).visibility = View.GONE
 
         v.setOnClickListener {
@@ -262,7 +258,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         userNameTv.text = user?.name
         userEmailCprTv.text = user?.email
 
-        var options  = RequestOptions()
+        var options = RequestOptions()
         options.error(R.drawable.ic_profile_placeholder)
         options.placeholder(R.drawable.ic_profile_placeholder)
         options.transforms(CenterCrop(), RoundedCorners(30))
@@ -301,24 +297,29 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
     private fun setupAltLoginProviders(providers: List<LoginProvider>) {
-        if (providers.isEmpty()) {
-            loginProvidersLl.visibility = View.GONE
-            return
-        }
+
         loginProvidersLl.removeAllViews()
         loginProvidersLl.visibility = View.VISIBLE
+        if(currentUser?.hasFingerprint ?: false){
+            addFingerPrintProvider()
+        }
         val li = LayoutInflater.from(context)
 
         for (provider in providers) {
             val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
-            if (provider.icon != -1)
-                v.findViewById<ImageView>(R.id.iconIv).setImageResource(provider.icon)
 
-            v.findViewById<TextView>(R.id.nameTv).text = Translation.logoncredentials.logonWithProvider.replace(
-                    "[provider]",
-                    provider.name
-            )
-            provider.description?.let { v.findViewById<TextView>(R.id.descTv).text = it }.guard {
+            // setting icon
+            if (provider.icon != -1) {
+                v.findViewById<ImageView>(R.id.iconIv).setImageResource(provider.icon)
+            }
+
+            //header
+            v.findViewById<TextView>(R.id.nameTv).text = Translation.logoncredentials.logonWithProvider.replace("[provider]", provider.name)
+
+            //description
+            provider.description?.let {
+                v.findViewById<TextView>(R.id.descTv).text = it
+            }.guard {
                 v.findViewById<TextView>(R.id.descTv).visibility = View.GONE
             }
             v.setOnClickListener {

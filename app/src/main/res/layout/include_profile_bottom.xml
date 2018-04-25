@@ -92,8 +92,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:thumbTint="@color/textColorTertiary"
-                        android:trackTint="@color/textColorTertiary" />
+                        android:thumbTint="@drawable/switch_thumb"
+                        android:trackTint="@drawable/switch_track" />
 
                 </FrameLayout>
 
@@ -141,8 +141,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:thumbTint="@color/textColorTertiary"
-                        android:trackTint="@color/textColorTertiary" />
+                        android:thumbTint="@drawable/switch_thumb"
+                        android:trackTint="@drawable/switch_track" />
 
                 </FrameLayout>
 

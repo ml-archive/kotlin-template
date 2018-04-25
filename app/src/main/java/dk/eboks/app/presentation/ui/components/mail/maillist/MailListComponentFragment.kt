@@ -77,17 +77,20 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             }
             if (args.containsKey("sender")) {
                 val sender = args.getSerializable("sender") as Sender
+                //todo correct folder type ?
+                this.folder = Folder(type = FolderType.LATEST,name = Translation.mail.allMail )
                 presenter.setup(sender)
             }
 
             if (args.containsKey("edit")) {
                 editEnabled = args.getSerializable("edit") as Boolean
-            }
-            else
+            } else
                 editEnabled = true // enable edit mode as a default
-            // cannot setup topbar before folder been initialized
-            setupTopBar()
+        }.guard{
+            onBackPressed()
         }
+        // cannot setup topbar before folder been initialized
+        setupTopBar()
     }
 
     private fun createFabButtonMocks(): ArrayList<OverlayButton> {
@@ -126,6 +129,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 true
             }
         }
+        setTopBar()
     }
 
     private fun onBackPressed() {
@@ -138,12 +142,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         checkedList.clear()
         setTopBar()
         checkFabState()
-        /*
-        messagesRv.adapter = null
-        messagesRv.layoutManager = null
-        setupRecyclerView()
-        */
-        //messagesRv.adapter.notifyDataSetChanged()
         messagesRv.adapter.notifyItemRangeChanged(0, messages.size)
     }
 
@@ -213,7 +211,17 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
 
             fun bind(currentItem: Message, last: Boolean) {
-                // generic
+
+                setGeneric(currentItem)
+                if (modeEdit) {
+                    setSelectable(currentItem, last)
+                } else {
+                    setMessage(currentItem)
+                }
+
+            }
+
+            private fun setGeneric(currentItem: Message) {
                 if (currentItem.unread) {
                     headerTv.setTypeface(null, Typeface.BOLD)
                     dateTv?.setTypeface(null, Typeface.BOLD)
@@ -243,30 +251,32 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 } else {
                     clipIv?.visibility = View.GONE
                 }
-
-                // specific
-                folder?.let {
-                    if (it.type != FolderType.UPLOADS && !modeEdit) {
-                        setMessage(currentItem)
-                    } else {
-                        setUpload(currentItem, last)
-                    }
-                }.guard { setMessage(currentItem) }
             }
 
             private fun setMessage(currentItem: Message) {
 
-                currentItem?.sender?.let {
-                    imageIv?.let {
-                        Glide.with(context)
-                                .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
-                                .load(currentItem.sender?.logo?.url)
-                                .into(it)
+                uploadFl.visibility = View.VISIBLE
+                checkBox.visibility = View.GONE
 
-                        uploadFl.isSelected = currentItem.unread
+
+                folder?.let {
+                    if (it.type == FolderType.UPLOADS) {
+                        imageIv.setImageDrawable(resources.getDrawable(R.drawable.ic_menu_uploads))
+                        uploadFl.isSelected = false
+
+                    } else {
+                        currentItem?.sender?.let {
+                            imageIv?.let {
+                                Glide.with(context)
+                                        .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
+                                        .load(currentItem.sender?.logo?.url)
+                                        .into(it)
+
+                                uploadFl.isSelected = currentItem.unread
+                            }
+                        }
                     }
                 }
-
                 val messageListener = View.OnClickListener {
                     activity.Starter()
                             .activity(MessageOpeningActivity::class.java)
@@ -274,24 +284,20 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                             .start()
                 }
 
-                if (!modeEdit) {
-                    root.setOnClickListener(messageListener)
-                    checkBox.setOnClickListener(messageListener)
-                }
+                root.setOnClickListener(messageListener)
+                checkBox.setOnClickListener(messageListener)
+
             }
 
-            private fun setUpload(currentItem: Message, last: Boolean) {
+            private fun setSelectable(currentItem: Message, last: Boolean) {
 
                 if (last) {
                     dividerV.visibility = View.GONE
                 }
-                if (modeEdit) {
-                    uploadFl.visibility = View.GONE
-                    checkBox.visibility = View.VISIBLE
-                } else {
-                    uploadFl.visibility = View.VISIBLE
-                    checkBox.visibility = View.GONE
-                }
+
+                uploadFl.visibility = View.GONE
+                checkBox.visibility = View.VISIBLE
+
 
                 val uploadListener = View.OnClickListener {
                     if (checkBox.visibility == View.VISIBLE) {
@@ -319,8 +325,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             }
         }
 
-        fun updateViews()
-        {
+        fun updateViews() {
 
         }
 

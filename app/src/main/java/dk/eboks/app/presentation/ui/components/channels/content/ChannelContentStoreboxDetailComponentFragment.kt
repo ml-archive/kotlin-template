@@ -120,7 +120,6 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
 
     override fun setReceipt(receipt: StoreboxReceipt) {
         Timber.d("Setting Receipt: %s", receipt)
-
         receipt.receiptLines
         setStoreInfo(receipt.merchant, receipt.optionals)
         setReceiptDate(receipt.purchaseDateTime ?: Date(), receipt.optionals)
