@@ -259,6 +259,10 @@
   <string name='nstack_loginproviders_idPortenTitle' formatted='false'>loginproviders_idPortenTitle</string>
   <string name='nstack_loginproviders_bankSeTitle' formatted='false'>loginproviders_bankSeTitle</string>
   <string name='nstack_loginproviders_bankNoTitle' formatted='false'>loginproviders_bankNoTitle</string>
+  <string name='nstack_loginproviders_nemidDescription' formatted='false'>loginproviders_nemidDescription</string>
+  <string name='nstack_loginproviders_idPortenDescription' formatted='false'>loginproviders_idPortenDescription</string>
+  <string name='nstack_loginproviders_bankSeDescription' formatted='false'>loginproviders_bankSeDescription</string>
+  <string name='nstack_loginproviders_bankNoDescription' formatted='false'>loginproviders_bankNoDescription</string>
   <string name='nstack_profile_signOut' formatted='false'>profile_signOut</string>
   <string name='nstack_profile_help' formatted='false'>profile_help</string>
   <string name='nstack_profile_privacyStatement' formatted='false'>profile_privacyStatement</string>

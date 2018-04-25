@@ -72,7 +72,9 @@ object Config {
                 helpUrl = "https://m.e-boks.dk/app/help.aspx",
                 logonUrl = "https://m.e-boks.dk/app/logon.aspx?logontype="
             ),
-            customTranslationUrl = "https://m.e-boks.dk/app/resources/android/eboks.android.3.3.0.json"
+            customTranslationUrl = "https://m.e-boks.dk/app/resources/android/eboks.android.3.3.0.json",
+
+            alternativeLoginProviders = listOf("nemid")
     )
 
     private val norwegian : Mode = Mode(
@@ -130,7 +132,8 @@ object Config {
                     helpUrl = "https://m.e-boks.dk/app/help.aspx",
                     logonUrl = "https://m.e-boks.dk/app/logon.aspx?logontype="
             ),
-            customTranslationUrl = "https://m.e-boks.no/app/resources/android/eboks.android.3.5.0.json"
+            customTranslationUrl = "https://m.e-boks.no/app/resources/android/eboks.android.3.5.0.json",
+            alternativeLoginProviders = listOf("idporten", "bankid_no")
     )
 
     private val swedish : Mode = Mode(
@@ -187,7 +190,8 @@ object Config {
                     helpUrl = "https://m.e-boks.dk/app/help.aspx",
                     logonUrl = "https://m.e-boks.dk/app/logon.aspx?logontype="
             ),
-            customTranslationUrl = "https://m.e-boks.se/app/resources/android/eboks.android.3.5.0.json"
+            customTranslationUrl = "https://m.e-boks.se/app/resources/android/eboks.android.3.5.0.json",
+            alternativeLoginProviders = listOf("bankid_se")
     )
 
     val loginProviders: Map<String, LoginProvider> = mapOf(
@@ -250,6 +254,18 @@ object Config {
     fun getLoginProvider(id : String) : LoginProvider?
     {
         return loginProviders[id]
+    }
+
+    fun getAlternativeLoginProviders() : MutableList<LoginProvider>
+    {
+        val providers : MutableList<LoginProvider> = ArrayList()
+        for(provider_id in currentMode.alternativeLoginProviders)
+        {
+            getLoginProvider(provider_id)?.let { provider ->
+                providers.add(provider)
+            }
+        }
+        return providers
     }
 
     fun isDK() : Boolean { return currentMode == danish }

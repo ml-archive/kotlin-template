@@ -29,5 +29,6 @@ data class Mode (
     var test: Environments? = null,
     var maxFileUploadSize : Int = 1024 * 1024 * 10,
     var maxFileUploadNameLength : Int = 50,
-    var customTranslationUrl : String = ""
+    var customTranslationUrl : String = "",
+    var alternativeLoginProviders: List<String>
 )

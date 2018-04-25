@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Wed Apr 25 16:24:06 CEST 2018 
+ * Generated: Wed Apr 25 19:41:59 CEST 2018 
  */
 
 public class Translation {
@@ -308,6 +308,10 @@ public class Translation {
 		public static String idPortenTitle = "IdPorten";
 		public static String bankSeTitle = "BankID";
 		public static String bankNoTitle = "BankID";
+		public static String nemidDescription = "Login med NemID";
+		public static String idPortenDescription = "Login med ID-Porten";
+		public static String bankSeDescription = "Login med Bank SE";
+		public static String bankNoDescription = "Login med Bank NOR";
 	}
 	public final static class profile {
 		public static String signOut = "Sign Out";

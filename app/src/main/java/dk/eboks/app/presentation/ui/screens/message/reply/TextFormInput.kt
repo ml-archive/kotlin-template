@@ -53,6 +53,9 @@ class TextFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
                 return
             }
         }
+        formInput.validate?.let {
+
+        }
         textTil?.error = null
         isValid = true
         return
