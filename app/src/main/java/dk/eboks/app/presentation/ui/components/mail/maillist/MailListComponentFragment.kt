@@ -28,6 +28,7 @@ import dk.eboks.app.presentation.ui.screens.overlay.ButtonType
 import dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity
 import dk.eboks.app.presentation.ui.screens.overlay.OverlayButton
 import dk.eboks.app.util.Starter
+import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import java.util.*
@@ -45,7 +46,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     var messages: MutableList<Message> = ArrayList()
     var checkedList: MutableList<Message> = ArrayList()
-    lateinit var folder: Folder
+    var folder: Folder? = null
     var modeEdit: Boolean = false
     var editEnabled: Boolean = false
 
@@ -82,6 +83,8 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             if (args.containsKey("edit")) {
                 editEnabled = args.getSerializable("edit") as Boolean
             }
+            else
+                editEnabled = true // enable edit mode as a default
             // cannot setup topbar before folder been initialized
             setupTopBar()
         }
@@ -135,10 +138,13 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         checkedList.clear()
         setTopBar()
         checkFabState()
+        /*
         messagesRv.adapter = null
         messagesRv.layoutManager = null
         setupRecyclerView()
-        messagesRv.adapter.notifyDataSetChanged()
+        */
+        //messagesRv.adapter.notifyDataSetChanged()
+        messagesRv.adapter.notifyItemRangeChanged(0, messages.size)
     }
 
     private fun checkFabState() {
@@ -154,18 +160,17 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         if (checkedList.size > 0) {
             activity.mainTb.title = checkedList.size.toString() + " " + Translation.uploads.chosen
         } else {
-            if (::folder.isInitialized) {
-                folder?.let {
-                    when (folder.type) {
-                        FolderType.UPLOADS -> {
-                            activity.mainTb.title = Translation.uploads.title
-                        }
-                        else -> {
-                            activity.mainTb.title = folder.name
-                        }
+            folder?.let {
+                when (it.type) {
+                    FolderType.UPLOADS -> {
+                        activity.mainTb.title = Translation.uploads.title
+                    }
+                    else -> {
+                        activity.mainTb.title = it.name
                     }
                 }
             }
+
         }
     }
 
@@ -223,6 +228,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 headerTv.text = currentItem.sender?.name
                 subHeaderTv.text = currentItem.subject
                 dateTv.text = formatter.formatDateRelative(currentItem)
+                checkBox.isSelected = false
 
 
                 if (currentItem.status?.text != null) {
@@ -238,14 +244,16 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                     clipIv?.visibility = View.GONE
                 }
 
+
+
                 // specific
-                if (folder.type != FolderType.UPLOADS && !modeEdit) {
-                    setMessage(currentItem)
-                } else {
-                    setUpload(currentItem, last)
-                }
-
-
+                folder?.let {
+                    if (it.type != FolderType.UPLOADS && !modeEdit) {
+                        setMessage(currentItem)
+                    } else {
+                        setUpload(currentItem, last)
+                    }
+                }.guard { setMessage(currentItem) }
             }
 
             private fun setMessage(currentItem: Message) {
@@ -308,6 +316,11 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
                 }
             }
+        }
+
+        fun updateViews()
+        {
+
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
