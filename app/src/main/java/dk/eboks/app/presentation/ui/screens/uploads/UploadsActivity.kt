@@ -21,6 +21,14 @@ class UploadsActivity : BaseActivity(), UploadsContract.View {
         presenter.onViewCreated(this, lifecycle)
         updateTranslation()
         setRootFragment(R.id.contentFl,UploadOverviewComponentFragment())
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                if (!isDestroyed)
+                    finish()
+            }
+        }
     }
 
     private fun updateTranslation() {

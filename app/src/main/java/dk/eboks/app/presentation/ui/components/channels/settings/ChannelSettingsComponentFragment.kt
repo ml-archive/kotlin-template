@@ -64,7 +64,11 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
     private fun setupStorebox() {
         pinContainerLl.visibility = View.VISIBLE
+
+        //hide rowdivider if notifications container is also hidden
         notificationContainerLl.visibility = View.GONE
+        rowDivider.visibility = notificationContainerLl.visibility
+
         optionalSwitchContainerLl.visibility = View.VISIBLE
         creditCardContainerLl.visibility = View.VISIBLE
         creditcardRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)

@@ -156,6 +156,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             cprEmailTil.visibility = View.VISIBLE
             passwordTil.visibility = View.VISIBLE
             continueBtn.visibility = View.VISIBLE
+            userLl.visibility = View.GONE
         }
         setupAltLoginProviders(altLoginProviders)
         user?.let {
@@ -179,7 +180,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         val li = LayoutInflater.from(context)
         val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
         v.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.ic_fingerprint)
-        v.findViewById<TextView>(R.id.nameTv).text = "_Force login (DEBUG)"
+        v.findViewById<TextView>(R.id.nameTv).text = "Force login (DEBUG)"
         v.findViewById<TextView>(R.id.descTv).text = "Inkluderer post fra offentlige myndigheter"
 
         v.setOnClickListener {
@@ -194,7 +195,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         val li = LayoutInflater.from(context)
         val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
         v.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.ic_fingerprint)
-        v.findViewById<TextView>(R.id.nameTv).text = "_Logon with Fingerprint"
+        v.findViewById<TextView>(R.id.nameTv).text = Translation.logoncredentials.logonWithProvider.replace("[provider]",Translation.profile.fingerprint)
+        v.findViewById<TextView>(R.id.descTv).visibility = View.GONE
 
         v.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -261,7 +263,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         userEmailCprTv.text = user?.email
 
         var options  = RequestOptions()
-        options.error(R.drawable.ic_profile)
+        options.error(R.drawable.ic_profile_placeholder)
+        options.placeholder(R.drawable.ic_profile_placeholder)
         options.transforms(CenterCrop(), RoundedCorners(30))
         Glide.with(context)
                 .load(user?.avatarUri)
@@ -283,6 +286,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 "cpr" -> {
                     user?.let { setupUserView(it) }
                     cprEmailEt.inputType = InputType.TYPE_CLASS_NUMBER
+                    userLl.visibility = View.VISIBLE
                     cprEmailTil.visibility = View.VISIBLE
                     cprEmailTil.hint = Translation.logoncredentials.ssnHeader
                 }

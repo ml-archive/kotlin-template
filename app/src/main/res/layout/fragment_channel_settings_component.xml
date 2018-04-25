@@ -19,6 +19,11 @@
             android:paddingTop="20dp"
             android:text="_Settings"
             nstack:text="@string/nstack_settings_header" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_gravity="top"
+        android:background="@color/dividerGreyBlue" />
 
 
     <!--pin home screen and push notifications view-->
@@ -34,15 +39,17 @@
         <LinearLayout
             android:id="@+id/pinContainerLl"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -50,7 +57,7 @@
                     android:id="@+id/pinHeaderTv"
                     style="@style/text.header4"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     nstack:text="@string/nstack_settings_pinHeader" />
@@ -59,7 +66,7 @@
                     android:id="@+id/pinSubHeaderTv"
                     style="@style/text.subHeader5.quaternary"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     nstack:text="@string/nstack_settings_pinSubHeader" />
 
@@ -75,27 +82,32 @@
 
         </LinearLayout>
 
+
+
         <View
+            android:id="@+id/rowDivider"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_gravity="top"
             android:layout_marginLeft="16dp"
             android:background="@color/dividerGreyBlue" />
 
-
         <LinearLayout
             android:id="@+id/notificationContainerLl"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="horizontal"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:visibility="gone">
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:visibility="visible">
+
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
@@ -103,7 +115,7 @@
                     android:id="@+id/notificationHeaderTv"
                     style="@style/text.header4"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="_Pin to home screen"
@@ -113,7 +125,7 @@
                     android:id="@+id/notificationSubHeaderTv"
                     style="@style/text.subHeader5.quaternary"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="_Show this channel on the e-Boks home screen"
                     nstack:text="@string/nstack_channelsettings_pushSubtitle"/>
@@ -134,39 +146,45 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_gravity="top"
-            android:layout_marginLeft="16dp"
             android:background="@color/dividerGreyBlue" />
 
 
     </LinearLayout>
 
     <!-- optional pins -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_gravity="top"
+        android:background="@color/dividerGreyBlue" />
     <LinearLayout
         android:id="@+id/optionalSwitchContainerLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/optionalHeaderTv"
                     style="@style/text.header4"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="_Receive only receipts digitally"
@@ -176,10 +194,11 @@
                     android:id="@+id/optionalSubHeaderTv"
                     style="@style/text.subHeader5.quaternary"
                     android:layout_width="wrap_content"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="_Accepting this you not recieve paper"
-                    nstack:text="@string/nstack_channelsettings_receiptsSubtitle"/>
+                    nstack:text="@string/nstack_channelsettings_receiptsSubtitle"
+                    />
 
             </LinearLayout>
 
@@ -197,7 +216,6 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_gravity="top"
-            android:layout_marginLeft="16dp"
             android:background="@color/dividerGreyBlue" />
 
     </LinearLayout>
@@ -207,7 +225,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/creditCardHeaderTv"
@@ -220,6 +238,12 @@
             android:paddingTop="20dp"
             android:text="_Credit cards"
             nstack:text="@string/nstack_settings_creditCardHeader" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="top"
+            android:background="@color/dividerGreyBlue" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/creditcardRv"
@@ -260,7 +284,11 @@
 
 
         </LinearLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="top"
+            android:background="@color/dividerGreyBlue" />
 
     </LinearLayout>
 
@@ -277,5 +305,6 @@
             android:layout_marginBottom="24dp"
             android:textColor="@color/colorPrimaryDark"
             nstack:key="@string/nstack_settings_removeChannelBtn" />
+
 
 </LinearLayout>

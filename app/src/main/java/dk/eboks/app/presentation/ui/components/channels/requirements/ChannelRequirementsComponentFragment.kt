@@ -12,10 +12,14 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.Requirement
 import dk.eboks.app.domain.models.channel.RequirementType
+import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFragment
 import dk.eboks.app.presentation.ui.screens.profile.myinfo.MyInfoActivity
+import dk.eboks.app.util.Starter
 import dk.eboks.app.util.guard
+import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.fragment_channel_requirements_component.*
 import kotlinx.android.synthetic.main.viewholder_channel_setting_boxrow.*
 import kotlinx.android.synthetic.main.viewholder_channel_setting_boxrow.view.*
@@ -41,12 +45,10 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         updateProfileBtn.setOnClickListener {
-            var intent = Intent(context, MyInfoActivity::class.java)
-            intent.putExtra("channel",currentItem)
-            startActivity(intent)
+            activity.Starter().activity(MyInfoActivity::class.java).putExtra("channel", currentItem).start()
+            activity.finish()
         }
         cancelBtn.setOnClickListener {
-            // cancel clicked
             getBaseActivity()?.onBackPressed()
         }
         requirementRowsRv.layoutManager = LinearLayoutManager(context)

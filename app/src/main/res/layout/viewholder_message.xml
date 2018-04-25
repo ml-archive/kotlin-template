@@ -34,7 +34,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="4dp"
             android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -45,6 +45,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="7sp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="_Name" />
 
             <TextView
@@ -53,6 +55,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="4sp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="_Inbox" />
 
             <TextView
@@ -61,7 +65,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="7sp"
-                android:text="_Inbox"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="_urgent text"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -73,20 +79,22 @@
             <TextView
                 android:id="@+id/dateTv"
                 style="@style/text.subHeader5"
-                android:layout_width="100dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="_Today"
                 android:gravity="end"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="_Today"
                 android:textColor="@color/blueGrey" />
-            
+
             <ImageView
                 android:id="@+id/clipIv"
-                android:visibility="gone"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="end|center"
                 android:layout_marginEnd="@dimen/margin_half"
-                android:src="@drawable/icon_48_attachment_small_grey"/>
+                android:src="@drawable/icon_48_attachment_small_grey"
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 

@@ -8,6 +8,7 @@ import dk.eboks.app.domain.models.formreply.FormInput
 import dk.eboks.app.domain.models.formreply.FormInputType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.util.views
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.activity_reply_form.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -28,6 +29,7 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
         intent?.extras?.getSerializable(Message::class.java.simpleName)?.let { msg ->
             presenter.setup(msg as Message)
         }
+
     }
 
     private fun setupTopBar(txt : String) {
@@ -38,6 +40,32 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        for(v in formInputLl.views)
+        {
+            if(v.tag is ReplyFormInput)
+            {
+                val input = v.tag as ReplyFormInput
+                Timber.e("Calling onresume for input")
+                input.onResume()
+            }
+        }
+    }
+
+    override fun onPause() {
+        for(v in formInputLl.views)
+        {
+            if(v.tag is ReplyFormInput)
+            {
+                val input = v.tag as ReplyFormInput
+                Timber.e("Calling onpause for input")
+                input.onPause()
+            }
+        }
+        super.onPause()
+    }
+
     override fun onLanguageChanged(locale: Locale) {
         mainTb.title = Translation.reply.title
     }
@@ -46,20 +74,24 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
         progressFl.visibility = if(show) View.VISIBLE else View.INVISIBLE
     }
 
+    override fun clearForm() {
+        formInputLl.removeAllViews()
+    }
+
     override fun showFormInput(input: FormInput) {
         //Timber.e("showing form input $input")
         when(input.type)
         {
             FormInputType.DESCRIPTION -> {
-                val fi = DescriptionFormInput(input, inflator)
+                val fi = DescriptionFormInput(input, inflator, mainHandler)
                 fi.addViewGroup(formInputLl)
             }
             FormInputType.LINK -> {
-                val fi = LinkFormInput(input, inflator)
+                val fi = LinkFormInput(input, inflator, mainHandler)
                 fi.addViewGroup(formInputLl)
             }
             FormInputType.TEXT -> {
-                val fi = TextFormInput(input, inflator)
+                val fi = TextFormInput(input, inflator, mainHandler)
                 fi.addViewGroup(formInputLl)
             }
             else -> {}

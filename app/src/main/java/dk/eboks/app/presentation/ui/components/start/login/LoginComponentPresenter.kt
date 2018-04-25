@@ -119,6 +119,7 @@ class LoginComponentPresenter @Inject constructor(
         user.lastLoginProvider = providerId
         postAuthenticateUserInteractor.input = PostAuthenticateUserInteractor.Input(user, password, activationCode)
         postAuthenticateUserInteractor.run()
+
     }
 
     // TODO not much loggin going on

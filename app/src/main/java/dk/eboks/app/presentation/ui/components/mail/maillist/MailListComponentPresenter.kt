@@ -39,7 +39,9 @@ class MailListComponentPresenter @Inject constructor(val appState: AppStateManag
         mode = FOLDER_MODE
         getMessagesInteractor.input = GetMessagesInteractor.Input(true, folder)
         getMessagesInteractor.run()
-        runAction { v-> v.showProgress(true) }
+        runAction { v->
+            v.showProgress(true)
+        }
     }
 
     override fun setup(sender : Sender) {

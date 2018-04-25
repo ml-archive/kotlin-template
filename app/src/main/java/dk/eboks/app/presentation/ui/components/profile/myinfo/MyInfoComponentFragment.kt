@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.components.profile.myinfo
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,14 +7,11 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.EmailVerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.PhoneVerificationComponentFragment
-import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.fragment_profile_myinformation_component.*
@@ -27,7 +23,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
     @Inject
     lateinit var presenter: MyInfoComponentContract.Presenter
     var menuSave: MenuItem? = null
-    lateinit var currentChannel: Channel
+
     override fun onCreateView(
             inflater: LayoutInflater?,
             container: ViewGroup?,
@@ -44,7 +40,6 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         setupTopBar()
         onLanguageChanged(NStack.language)
         presenter.setup()
-        currentChannel = arguments.getSerializable("channel")as Channel
     }
 
     // shamelessly ripped from chnt
@@ -95,7 +90,11 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         //todo ChannelContentAcitivity currently uses the appstate for current item, Stinus said he wanted to change that,
         // if he does that then we need to send channel with the activity
         // also needs to do save the options and redo API call for the channel, to see if the requirements has been met.
-        startActivity(Intent(activity, ChannelContentActivity::class.java))
+
+        //todo also need redirect it to the propper acitivity - if it comes from home it should not go channelContentActivity
+//        startActivity(Intent(activity, ChannelContentActivity::class.java))
+//        fragmentManager.popBackStack()
+        activity.finish()
     }
 
     override fun onResume() {

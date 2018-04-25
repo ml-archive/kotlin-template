@@ -23,6 +23,8 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.*
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
+import dk.eboks.app.util.isStorebox
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
 import javax.inject.Inject
@@ -67,8 +69,12 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
         channelRv.adapter = ChannelAdapter()
     }
 
-    override fun showChannelOpening() {
-        startActivity(Intent(activity, ChannelContentActivity::class.java))
+    override fun showChannelOpening(channel: Channel) {
+        if (channel.isStorebox()) {
+            startActivity(Intent(context, StoreboxContentActivity::class.java))
+        } else {
+            startActivity(Intent(activity, ChannelContentActivity::class.java))
+        }
     }
 
     inner class ChannelAdapter : RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder>() {
@@ -130,14 +136,11 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 holder?.headlineTv?.setText(currentCard.payoff)
 
                 holder?.nameTv?.setText(currentCard.name)
-                // todo get translations and confirm the logic is correct
-                if (currentCard.installed == true) {
-                    holder?.button?.setText(Translation.channels.open)
-                    holder?.button?.setOnClickListener { presenter.open(currentCard) }
 
+                if (currentCard.installed == true) {
+                    holder?.button?.text = Translation.channels.open
                 } else {
-                    holder?.button?.setText(Translation.channels.install)
-                    holder?.button?.setOnClickListener { presenter.install(currentCard) }
+                    holder?.button?.text = Translation.channels.install
                 }
 
                 holder?.cardContainerCv?.setOnClickListener(View.OnClickListener {

@@ -21,17 +21,18 @@
         android:paddingStart="16dp">
 
         <FrameLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/soloTitleTv"
                 style="@style/text.header3"
-                android:textStyle="normal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="_Name"
+                android:textStyle="normal"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -43,12 +44,14 @@
                 <TextView
                     android:id="@+id/titleTv"
                     style="@style/text.header3"
-                    android:textStyle="normal"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="bottom"
-                    android:text="_Name" />
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="_Name"
+                    android:textStyle="normal" />
 
                 <TextView
                     android:id="@+id/subTitleTv"
@@ -57,44 +60,49 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="top"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:text="Inbox"
                     android:visibility="visible" />
             </LinearLayout>
         </FrameLayout>
 
         <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/soloAmountTv"
                 style="@style/text.header3"
-                android:textStyle="normal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="_Name"
                 android:gravity="end"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="_Name"
+                android:textStyle="normal"
                 android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/amountDateContainerLl"
-                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="end"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/amountTv"
                     style="@style/text.header3"
-                    android:textStyle="normal"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="end|bottom"
-                    android:text="_555.5" />
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="_555.5"
+                    android:textStyle="normal" />
 
                 <TextView
                     android:id="@+id/dateTv"
@@ -103,8 +111,10 @@
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:gravity="top"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:text="Today"
-                    android:textColor="@color/blueGrey"/>
+                    android:textColor="@color/blueGrey" />
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>

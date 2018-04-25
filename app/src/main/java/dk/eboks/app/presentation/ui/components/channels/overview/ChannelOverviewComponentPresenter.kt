@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.channels.overview
 
+import android.content.Intent
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
 import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.managers.AppStateManager
@@ -35,19 +36,7 @@ class ChannelOverviewComponentPresenter @Inject constructor(val appState: AppSta
     override fun openChannel(channel: Channel) {
         appState.state?.channelState?.selectedChannel = channel
         appState.state?.channelState?.openOrInstallImmediately = false
-        runAction { v-> v.showChannelOpening() }
-    }
-
-    override fun install(channel: Channel) {
-        appState.state?.channelState?.selectedChannel = channel
-        appState.state?.channelState?.openOrInstallImmediately = true
-        runAction { v-> v.showChannelOpening() }
-    }
-
-    override fun open(channel: Channel) {
-        appState.state?.channelState?.selectedChannel = channel
-        appState.state?.channelState?.openOrInstallImmediately = true
-        runAction { v-> v.showChannelOpening() }
+        runAction { v-> v.showChannelOpening(channel) }
     }
 
     override fun onGetChannels(channels: List<Channel>) {

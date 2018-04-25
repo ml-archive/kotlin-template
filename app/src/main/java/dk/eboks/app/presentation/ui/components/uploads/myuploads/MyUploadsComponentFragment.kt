@@ -19,11 +19,7 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentContract
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
-import dk.eboks.app.presentation.ui.screens.overlay.ButtonType
-import dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity
-import dk.eboks.app.presentation.ui.screens.overlay.OverlayButton
 import dk.eboks.app.util.Starter
 import kotlinx.android.synthetic.main.fragment_upload_myuploadoverview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -43,8 +39,7 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
     var modeEdit: Boolean = false
     var handler = Handler()
 
-    @Inject
-    lateinit var mailPresenter: MailListComponentContract.Presenter
+
     @Inject
     lateinit var presenter: MyUploadsComponentContract.Presenter
     @Inject
@@ -63,7 +58,7 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
         setupRows()
         setupTopBar()
         setupFab()
-        checkFabState()
+//        checkFabState()
 
     }
 
@@ -83,20 +78,18 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
 
 
     private fun setupFab() {
-        mainFab.setOnClickListener {
-            var i = Intent(context, OverlayActivity::class.java)
-            var buttons: ArrayList<OverlayButton> = ArrayList()
-            buttons.add(OverlayButton(ButtonType.MOVE))
-            buttons.add(OverlayButton(ButtonType.DELETE))
-            buttons.add(OverlayButton(ButtonType.PRINT))
-            buttons.add(OverlayButton(ButtonType.MAIL))
-            buttons.add(OverlayButton(ButtonType.OPEN))
-
-            i.putExtra("buttons", buttons)
-            startActivityForResult(i, 1)
-
-
-        }
+//        mainFab.setOnClickListener {
+//            var i = Intent(context, OverlayActivity::class.java)
+//            var buttons: ArrayList<OverlayButton> = ArrayList()
+//            buttons.add(OverlayButton(ButtonType.MOVE))
+//            buttons.add(OverlayButton(ButtonType.DELETE))
+//            buttons.add(OverlayButton(ButtonType.PRINT))
+//            buttons.add(OverlayButton(ButtonType.MAIL))
+//            buttons.add(OverlayButton(ButtonType.OPEN))
+//
+//            i.putExtra("buttons", buttons)
+//            startActivityForResult(i, 1)
+//        }
     }
 
     private fun setupTopBar() {
@@ -161,13 +154,18 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
         uploadsRv.adapter.notifyDataSetChanged()
     }
 
-    private fun checkFabState() {
-        if (checkedList.size > 0) {
-            mainFab.show()
-        } else {
-            mainFab.hide()
-        }
-        setTopBar()
+//    private fun checkFabState() {
+//        if (checkedList.size > 0) {
+//            mainFab.show()
+//        } else {
+//            mainFab.hide()
+//        }
+//        setTopBar()
+//    }
+
+    override fun onDestroy() {
+        getBaseActivity()?.mainTb?.menu?.clear()
+        super.onDestroy()
     }
 
     override fun showProgress(show: Boolean) {
@@ -190,7 +188,7 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
     inner class UploadsAdapter(val uploads: List<dk.eboks.app.domain.models.message.Message>) : RecyclerView.Adapter<UploadsAdapter.UploadsViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UploadsViewHolder {
-            return UploadsViewHolder(inflator.inflate(R.layout.viewholder_upload_myuploads_row, parent, false))
+            return UploadsViewHolder(inflator.inflate(R.layout.viewholder_message_row, parent, false))
         }
 
         override fun onBindViewHolder(holder: UploadsViewHolder?, position: Int) {
@@ -240,7 +238,7 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
 
                         // UI
                         checkBox.isSelected = !checkBox.isSelected
-                        checkFabState()
+//                        checkFabState()
 
                         if (uploadFl.visibility == View.VISIBLE) {
                             activity.Starter()

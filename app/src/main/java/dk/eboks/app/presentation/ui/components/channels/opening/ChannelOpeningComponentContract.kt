@@ -19,10 +19,12 @@ interface ChannelOpeningComponentContract {
         fun showVerifyDrawer(channel: Channel)
         fun openChannelContent()
         fun openStoreBoxContent()
+
     }
 
     interface Presenter : BasePresenter<View> {
         fun install(channel : Channel)
         fun open(channel: Channel)
+        fun refreshChannel()
     }
 }

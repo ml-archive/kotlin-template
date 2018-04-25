@@ -22,6 +22,7 @@ import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import retrofit2.Response
@@ -140,6 +141,13 @@ fun EditText.addAfterTextChangeListener(listener: ((Editable?) -> Unit)) {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
     })
+}
+
+fun Channel.isStorebox() : Boolean{
+    if (this.id>0 && this.id<4){
+        return true
+    }
+    return false
 }
 
 /**
