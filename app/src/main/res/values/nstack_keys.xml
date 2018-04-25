@@ -382,6 +382,11 @@
   <string name='nstack_reply_required' formatted='false'>reply_required</string>
   <string name='nstack_reply_typeHere' formatted='false'>reply_typeHere</string>
   <string name='nstack_reply_select' formatted='false'>reply_select</string>
+  <string name='nstack_reply_minLengthError' formatted='false'>reply_minLengthError</string>
+  <string name='nstack_reply_maxLengthError' formatted='false'>reply_maxLengthError</string>
+  <string name='nstack_reply_minValueError' formatted='false'>reply_minValueError</string>
+  <string name='nstack_reply_maxValueError' formatted='false'>reply_maxValueError</string>
+  <string name='nstack_reply_nanError' formatted='false'>reply_nanError</string>
   <string name='nstack_androidfingerprint_successMessage' formatted='false'>androidfingerprint_successMessage</string>
   <string name='nstack_androidfingerprint_errorMessage' formatted='false'>androidfingerprint_errorMessage</string>
   <string name='nstack_androidfingerprint_errorInvalidData' formatted='false'>androidfingerprint_errorInvalidData</string>
