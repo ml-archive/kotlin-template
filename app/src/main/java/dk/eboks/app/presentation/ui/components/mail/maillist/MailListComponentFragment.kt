@@ -244,8 +244,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                     clipIv?.visibility = View.GONE
                 }
 
-
-
                 // specific
                 folder?.let {
                     if (it.type != FolderType.UPLOADS && !modeEdit) {
@@ -269,14 +267,16 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                     }
                 }
 
+                val messageListener = View.OnClickListener {
+                    activity.Starter()
+                            .activity(MessageOpeningActivity::class.java)
+                            .putExtra(Message::class.java.simpleName, messages[position])
+                            .start()
+                }
 
                 if (!modeEdit) {
-                    root?.setOnClickListener {
-                        activity.Starter()
-                                .activity(MessageOpeningActivity::class.java)
-                                .putExtra(Message::class.java.simpleName, messages[position])
-                                .start()
-                    }
+                    root.setOnClickListener(messageListener)
+                    checkBox.setOnClickListener(messageListener)
                 }
             }
 
@@ -293,7 +293,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                     checkBox.visibility = View.GONE
                 }
 
-                root.setOnClickListener {
+                val uploadListener = View.OnClickListener {
                     if (checkBox.visibility == View.VISIBLE) {
                         //adding or removing item to checked list
                         if (!checkBox.isSelected) {
@@ -313,8 +313,9 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                                     .start()
                         }
                     }
-
                 }
+                root.setOnClickListener(uploadListener)
+                checkBox.setOnClickListener(uploadListener)
             }
         }
 
