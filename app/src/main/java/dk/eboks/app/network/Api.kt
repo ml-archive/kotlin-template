@@ -28,7 +28,8 @@ interface Api {
     // login Mox
     @FormUrlEncoded
     @POST("http://authenticationservice20180404012549.azurewebsites.net/connect/token") fun getNewAccessToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
-    @POST("http://authenticationservice20180404012549.azurewebsites.net/connect/token") fun getRefreshAccessToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
+    @FormUrlEncoded
+    @POST("http://authenticationservice20180404012549.azurewebsites.net/connect/token") fun refreshAccessToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
 
 
     // @GET("regions") fun getRegions() : Call<List<Region>>
