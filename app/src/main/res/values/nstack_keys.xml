@@ -38,6 +38,7 @@
   <string name='nstack_mail_sendersEmptyMessage' formatted='false'>mail_sendersEmptyMessage</string>
   <string name='nstack_mail_addMoreSendersButton' formatted='false'>mail_addMoreSendersButton</string>
   <string name='nstack_mail_noMessagesToDisplay' formatted='false'>mail_noMessagesToDisplay</string>
+  <string name='nstack_mail_allMail' formatted='false'>mail_allMail</string>
   <string name='nstack_mainnav_homeButton' formatted='false'>mainnav_homeButton</string>
   <string name='nstack_mainnav_mailButton' formatted='false'>mainnav_mailButton</string>
   <string name='nstack_mainnav_sendersButton' formatted='false'>mainnav_sendersButton</string>

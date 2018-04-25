@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Wed Apr 25 09:58:22 CEST 2018 
+ * Generated: Wed Apr 25 16:24:06 CEST 2018 
  */
 
 public class Translation {
@@ -51,6 +51,7 @@ public class Translation {
 		public static String sendersEmptyMessage = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
 		public static String addMoreSendersButton = "Add more senders";
 		public static String noMessagesToDisplay = "There\'s no mail to display in this folder.";
+		public static String allMail = "All mail";
 	}
 	public final static class mainnav {
 		public static String homeButton = "Home";
@@ -420,7 +421,7 @@ public class Translation {
 	}
 	public final static class channelsettingsstoreboxadditions {
 		public static String digitalReceiptsTitle = "Receive only receipts digitally";
-		public static String digitalReceiptsMessage = "Accepting this means you will not receive paper \u2028receipts in shops that have signed up.";
+		public static String digitalReceiptsMessage = "Accepting this means you will not receive paper receipts in shops that have signed up.";
 		public static String creditCardsSectionHeader = "Credit cards";
 		public static String addCardTitle = "Add another credit card";
 		public static String deleteCardAlertTitle = "Are you sure you want to remove this credit card?";
