@@ -4,18 +4,21 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
+import timber.log.Timber
 import java.util.regex.Pattern
 
-class DropdownFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) : ReplyFormInput(formInput, inflater, handler)
+class DropdownFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) : ReplyFormInput(formInput, inflater, handler), AdapterView.OnItemSelectedListener
 {
     var dropdownSpr : Spinner? = null
     var labelTv : TextView? = null
+    var errorTv : TextView? = null
     var options : MutableList<String> = ArrayList()
 
     // lazy compile the pattern only if we get one
@@ -30,9 +33,10 @@ class DropdownFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
         val v = inflater.inflate(R.layout.form_input_dropdown, vg, false)
         dropdownSpr = v.findViewById(R.id.dropdownSpr)
         labelTv = v.findViewById(R.id.labelTv)
+        errorTv = v.findViewById(R.id.errorTv)
 
         dropdownSpr?.isEnabled = !formInput.readonly
-        labelTv?.text = formInput.label
+        labelTv?.text = if(!formInput.required) formInput.label else "${formInput.label}*"
         options.add(Translation.reply.select)
         formInput.options?.let { opts ->
             for(option in opts)
@@ -47,10 +51,27 @@ class DropdownFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         // Apply the adapter to the spinner
         dropdownSpr?.adapter = adapter
-        dropdownSpr?.setSelection(0)
+        dropdownSpr?.setSelected(false)  // otherwise listener will be called on initialization
+        dropdownSpr?.setSelection(0,true)  // otherwise listener will be called on initialization
+        dropdownSpr?.onItemSelectedListener = this
 
         validate(silent = true)
         return v
+    }
+
+    private fun setError(error : String?)
+    {
+        errorTv?.let {
+            if(error != null) {
+                it.text = error
+                it.visibility = View.VISIBLE
+            }
+            else
+            {
+                it.text = ""
+                it.visibility = View.INVISIBLE
+            }
+        }
     }
 
     override fun validate(silent : Boolean) {
@@ -58,24 +79,26 @@ class DropdownFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
         isValid = false
         if(formInput.required)
         {
-
-            return
+            if(formInput.required && dropdownSpr?.selectedItemPosition == 0)
+            {
+                if(!silent)
+                    setError(Translation.reply.required)
+                return
+            }
         }
 
+        setError(null)
         isValid = true
         return
     }
 
-    override fun onResume()
-    {
-
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        validate()
+        setChanged()
+        notifyObservers()
     }
 
-    override fun onPause() {
-
-    }
-
-    val validateDelayedRunnable = Runnable {
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         validate()
         setChanged()
         notifyObservers()

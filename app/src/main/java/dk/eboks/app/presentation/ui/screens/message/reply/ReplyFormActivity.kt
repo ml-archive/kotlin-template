@@ -138,6 +138,21 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
                 fi.addObserver(inputObserver)
                 fi.addViewGroup(formInputLl)
             }
+            FormInputType.DATE -> {
+                val fi = DateFormInput(input, inflator, mainHandler)
+                fi.addObserver(inputObserver)
+                fi.addViewGroup(formInputLl)
+            }
+            FormInputType.DATETIME -> {
+                val fi = DateFormInput(input, inflator, mainHandler, isDateTime = true)
+                fi.addObserver(inputObserver)
+                fi.addViewGroup(formInputLl)
+            }
+            FormInputType.RADIOBOX -> {
+                val fi = RadioBoxFormInput(input, inflator, mainHandler)
+                fi.addObserver(inputObserver)
+                fi.addViewGroup(formInputLl)
+            }
             else -> {}
         }
     }

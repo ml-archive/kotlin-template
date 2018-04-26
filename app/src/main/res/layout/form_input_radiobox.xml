@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:paddingBottom="8dp"
-    android:paddingTop="8dp"
-    android:paddingStart="@dimen/padding_normal"
-    android:paddingEnd="@dimen/padding_normal"
-    android:background="@color/white"
     android:layout_width="match_parent"
-    android:animateLayoutChanges="true"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/margin_normal"
+    android:paddingEnd="@dimen/margin_normal"
+    android:background="@color/white"
+    >
     <TextView
         android:id="@+id/labelTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/blueGrey"
-        android:paddingStart="6dp"
         style="@style/HintTextAppearance"
         android:fontFamily="sans-serif-regular"
         />
-    <Spinner
-        android:id="@+id/dropdownSpr"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+    </RadioGroup>
     <TextView
         android:id="@+id/errorTv"
         android:visibility="invisible"

@@ -372,4 +372,9 @@
         <item name="actionMenuTextColor">@color/textColorPrimary</item>
     </style>
 
+    <style name="DatePickerTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/rouge</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+    </style>
 </resources>
