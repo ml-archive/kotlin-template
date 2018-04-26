@@ -15,55 +15,31 @@ class StoreboxContentActivity : BaseActivity(), StoreboxContentContract.View {
     @Inject
     lateinit var presenter: StoreboxContentContract.Presenter
 
-    val rootFragment = ChannelContentStoreboxComponentFragment()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(dk.eboks.app.R.layout.activity_storebox_content)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         updateTranslation()
-        goToRoot()
-    }
+        setRootFragment(R.id.content, ChannelContentStoreboxComponentFragment())
 
-    fun goToRoot() {
-        supportFragmentManager
-                .beginTransaction()
-                .replace(
-                        R.id.content,
-                        rootFragment,
-                        ChannelContentStoreboxComponentFragment::class.java.simpleName
-                )
-                .commit()
-    }
-
-    override fun onBackPressed() {
-        Timber.d("onBackPressed: %s", supportFragmentManager.backStackEntryCount)
-
-        if (supportFragmentManager.backStackEntryCount > 0) {
-            supportFragmentManager.popBackStack()
-        } else {
-            super.onBackPressed()
+        supportFragmentManager.addOnBackStackChangedListener {
+            Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                if (!isDestroyed)
+                    finish()
+            }
         }
     }
 
     fun showDetailFragment(receiptID: String) {
         Timber.d("showDetailFragment: %s", receiptID)
-
         val bundle = Bundle()
         bundle.putString(StoreboxReceipt.KEY_ID, receiptID)
         val fragment = ChannelContentStoreboxDetailComponentFragment()
         fragment.arguments = bundle
 
-        supportFragmentManager
-                .beginTransaction()
-                .add(
-                        R.id.content,
-                        fragment,
-                        ChannelContentStoreboxDetailComponentFragment::class.java.simpleName
-                )
-                .addToBackStack(ChannelContentStoreboxDetailComponentFragment::class.java.simpleName)
-                .commit()
+        addFragmentOnTop(R.id.content, fragment, true)
     }
 
 

@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.screens.message.reply
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Handler
 import android.support.v4.content.ContextCompat.startActivity
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,13 @@ import android.widget.Button
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.formreply.FormInput
 
-class LinkFormInput(formInput: FormInput, inflater: LayoutInflater) : ReplyFormInput(formInput, inflater)
+class LinkFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) : ReplyFormInput(formInput, inflater, handler)
 {
     var linkBtn : Button? = null
+
+    init {
+        isValid = true
+    }
 
     override fun buildView(vg : ViewGroup): View {
         val v = inflater.inflate(R.layout.form_input_link, vg, false)

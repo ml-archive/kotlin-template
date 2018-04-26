@@ -26,6 +26,8 @@ class LoginComponentPresenter @Inject constructor(
         CreateUserInteractor.Output,
         PostAuthenticateUserInteractor.Output {
 
+    var altProviders : List<LoginProvider> = Config.getAlternativeLoginProviders()
+
     init {
         appState.state?.currentUser = null
         createUserInteractor.output = this
@@ -39,56 +41,26 @@ class LoginComponentPresenter @Inject constructor(
                         it,
                         it.lastLoginProvider
                 )
-            }.guard { setupFirstLogin() }
+            }.guard {
+                runAction { v -> v.setupView(null, null, altProviders) }
+            }
         }
-    }
-
-    private fun setupFirstLogin() {
-        val altproviders: MutableList<LoginProvider> = ArrayList()
-        if (Config.isDK()) {
-            Config.getLoginProvider("nemid")?.let { altproviders.add(it) }
-        }
-        if (Config.isNO()) {
-            Config.getLoginProvider("idporten")?.let { altproviders.add(it) }
-            Config.getLoginProvider("bankid_no")?.let { altproviders.add(it) }
-        }
-        if (Config.isSE()) {
-            Config.getLoginProvider("bankid_se")?.let { altproviders.add(it) }
-        }
-        runAction { v -> v.setupView(null, null, altproviders) }
     }
 
     private fun setupLogin(user: User?, provider: String?) {
         val lp = if (provider != null) Config.getLoginProvider(provider) else null
-        user?.let {
-            if (!user.verified) {
-                runAction { v ->
+        runAction { v->
+            user?.let { // setup for existing user
+                if (!user.verified) {   // user is not verified
                     v.setupView(loginProvider = lp, user = user, altLoginProviders = ArrayList())
+                } else {
+                    // user is verified
+                    v.setupView(loginProvider = lp, user = user, altLoginProviders = altProviders)
                 }
-            } else // user is verified
-            {
-                // add secure alternate login providers based on country
-                val altproviders: MutableList<LoginProvider> = ArrayList()
-
-                if (Config.isDK()) {
-                    Config.getLoginProvider("nemid")?.let { altproviders.add(it) }
+                if (user.hasFingerprint) {
+                    v.addFingerPrintProvider()
                 }
-
-                if (Config.isNO()) {
-                    Config.getLoginProvider("idporten")?.let { altproviders.add(it) }
-                    Config.getLoginProvider("bankid_no")?.let { altproviders.add(it) }
-                }
-
-                if (Config.isSE()) {
-                    Config.getLoginProvider("bankid_se")?.let { altproviders.add(it) }
-                }
-
-                runAction { v ->
-                    v.setupView(loginProvider = lp, user = user, altLoginProviders = altproviders)
-                }
-            }
-        }.guard {
-            runAction { v ->
+            }.guard {   // setup for first time login
                 v.setupView(loginProvider = lp, user = null, altLoginProviders = ArrayList())
             }
         }
@@ -101,6 +73,7 @@ class LoginComponentPresenter @Inject constructor(
         runAction { v -> v.proceedToApp() }
     }
 
+    // all admire chnt's jurassic joke (its from '94 ffs :p)
     override fun onAuthenticationsDenied(error: ViewError) {
         Timber.w(" \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word!")
     }

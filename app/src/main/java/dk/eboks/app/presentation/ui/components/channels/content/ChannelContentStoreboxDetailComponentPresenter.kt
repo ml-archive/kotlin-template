@@ -17,33 +17,28 @@ class ChannelContentStoreboxDetailComponentPresenter @Inject constructor(
         BasePresenterImpl<ChannelContentStoreboxDetailComponentContract.View>(),
         GetStoreboxReceiptInteractor.Output {
 
-    override fun onViewCreated(
-            view: ChannelContentStoreboxDetailComponentContract.View,
-            lifecycle: Lifecycle
-    ) {
-        super.onViewCreated(view, lifecycle)
-        loadReceipt()
+
+    init {
+        getStoreboxReceiptInteractor.output = this
     }
 
     override fun loadReceipt() {
         Timber.d("loadReceipt")
-
         val storeboxId = view?.getReceiptId() ?: return
-
         getStoreboxReceiptInteractor.input = GetStoreboxReceiptInteractor.Input(storeboxId)
-        getStoreboxReceiptInteractor.output = this
         getStoreboxReceiptInteractor.run()
     }
 
     override fun onGetReceipt(storeboxReceipt: StoreboxReceipt) {
-        runAction {
-            it?.setReceipt(storeboxReceipt)
+        runAction { v->
+            v.setReceipt(storeboxReceipt)
         }
+
     }
 
     override fun onGetReceiptsError(error: ViewError) {
-        runAction {
-            it?.showErrorDialog(error)
+        runAction { v ->
+            v.showErrorDialog(error)
         }
     }
 

@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.components.profile.myinfo
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,14 +7,11 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.EmailVerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.PhoneVerificationComponentFragment
-import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.fragment_profile_myinformation_component.*

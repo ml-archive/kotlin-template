@@ -3,7 +3,6 @@ package dk.eboks.app.presentation.ui.components.channels.content
 import android.graphics.Bitmap
 import android.graphics.Color.BLACK
 import android.graphics.Color.WHITE
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -13,11 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import dk.eboks.app.R
@@ -25,7 +20,6 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.channel.storebox.*
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
-import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_storebox_detail_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -67,6 +61,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
 
         setupTopbar()
         setupRecyclers()
+        presenter.loadReceipt()
     }
 
     private fun setupTopbar() {
@@ -74,7 +69,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
 
         getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         getBaseActivity()?.mainTb?.setNavigationOnClickListener {
-            onBackPressed()
+            fragmentManager.popBackStack()
         }
 
         val menuSearch = getBaseActivity()?.mainTb?.menu?.add("_settings")
@@ -105,10 +100,6 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         ViewCompat.setNestedScrollingEnabled(storeboxDetailRvPayments, false)
     }
 
-    private fun onBackPressed() {
-        (activity as StoreboxContentActivity).goToRoot()
-    }
-
     override fun getReceiptId(): String? {
         return arguments?.getString(StoreboxReceipt.KEY_ID)
     }
@@ -120,7 +111,8 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
 
     override fun setReceipt(receipt: StoreboxReceipt) {
         Timber.d("Setting Receipt: %s", receipt)
-        receipt.receiptLines
+
+        //receipt.receiptLines
         setStoreInfo(receipt.merchant, receipt.optionals)
         setReceiptDate(receipt.purchaseDateTime ?: Date(), receipt.optionals)
         setLogo(receipt.merchant?.logo?.url ?: "")

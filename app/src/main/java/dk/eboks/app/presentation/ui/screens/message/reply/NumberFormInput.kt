@@ -17,7 +17,7 @@ import timber.log.Timber
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-class TextFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler, val multiline : Boolean = false) : ReplyFormInput(formInput, inflater, handler), TextWatcher
+class NumberFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) : ReplyFormInput(formInput, inflater, handler), TextWatcher
 {
     var textTil : TextInputLayout? = null
     var textEt : EditText? = null
@@ -31,8 +31,7 @@ class TextFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
     }
 
     override fun buildView(vg : ViewGroup): View {
-        val resid = if(multiline) R.layout.form_input_text_multiline else R.layout.form_input_text
-        val v = inflater.inflate(resid, vg, false)
+        val v = inflater.inflate(R.layout.form_input_number, vg, false)
         textTil = v.findViewById(R.id.textTil)
         textEt = v.findViewById(R.id.textEt)
 
@@ -54,25 +53,23 @@ class TextFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
             textTil?.error = if(silent) null else Translation.reply.required
             return
         }
-        formInput.minLength?.let { min ->
-            if(text.length < min)
+        val doubleval = text.toDoubleOrNull()
+        if(doubleval == null)
+        {
+            textTil?.error = if(silent) null else Translation.reply.nanError
+            return
+        }
+        formInput.minValue?.let { min ->
+            if(doubleval < min)
             {
-                textTil?.error = if(silent) null else Translation.reply.minLengthError.replace("[CHARS]", "$min")
+                textTil?.error = if(silent) null else Translation.reply.minValueError.replace("[VALUE]", "$min")
                 return
             }
         }
-        formInput.maxLength?.let { max ->
-            if(text.length > max)
+        formInput.maxValue?.let { max ->
+            if(doubleval > max)
             {
-                textTil?.error = if(silent) null else Translation.reply.maxLengthError.replace("[CHARS]", "$max")
-                return
-            }
-        }
-        formInput.validate?.let {
-            val matcher = pattern?.matcher(text)
-            if(matcher?.matches() == false)
-            {
-                textTil?.error = if(silent) null else formInput.error
+                textTil?.error = if(silent) null else Translation.reply.maxValueError.replace("[VALUE]", "$max")
                 return
             }
         }

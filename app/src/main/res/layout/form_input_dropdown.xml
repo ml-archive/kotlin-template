@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:paddingTop="20dp"
     android:paddingBottom="8dp"
+    android:paddingTop="8dp"
     android:paddingStart="@dimen/padding_normal"
     android:paddingEnd="@dimen/padding_normal"
     android:background="@color/white"
@@ -11,16 +12,19 @@
     android:layout_height="wrap_content">
     <TextView
         android:id="@+id/labelTv"
-        style="@style/text.header1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/blueGrey"
+        android:paddingStart="6dp"
+        style="@style/HintTextAppearance"
+        android:fontFamily="sans-serif-regular"
         />
-
-    <TextView
-        android:id="@+id/descriptionTv"
-        style="@style/text.header4.secondary"
+    <Spinner
+        android:id="@+id/dropdownSpr"
         android:layout_marginTop="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ipsum loret dollar kødhat" />
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

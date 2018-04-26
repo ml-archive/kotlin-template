@@ -6,21 +6,14 @@
     android:paddingBottom="8dp"
     android:paddingStart="@dimen/padding_normal"
     android:paddingEnd="@dimen/padding_normal"
-    android:background="@color/white"
+    android:background="@color/backgroundColor"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <TextView
         android:id="@+id/labelTv"
-        style="@style/text.header1"
+        style="@style/text.header3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         />
 
-    <TextView
-        android:id="@+id/descriptionTv"
-        style="@style/text.header4.secondary"
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Ipsum loret dollar kødhat" />
 </LinearLayout>
