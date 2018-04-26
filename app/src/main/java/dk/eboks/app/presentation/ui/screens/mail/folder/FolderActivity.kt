@@ -4,6 +4,9 @@ import android.os.Bundle
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentFragment
+import dk.eboks.app.util.putArg
+import kotlinx.android.synthetic.main.activity_folder.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
@@ -16,6 +19,17 @@ class FolderActivity : BaseActivity(), FolderContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
+        val frag = FoldersComponentFragment()
+        intent?.extras?.let { extras->
+            if(extras.containsKey("pick")) { frag.putArg("pick", true) }
+        }
+        setRootFragment(R.id.foldersComponentFragment, frag)
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                if (!isDestroyed)
+                    finish()
+            }
+        }
     }
 
     private fun setupTopBar() {
@@ -26,18 +40,10 @@ class FolderActivity : BaseActivity(), FolderContract.View {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-    }
-
-    override fun onShake() {
-        if(showEmptyState)
-        {
-        }
-        else
-        {
-        }
-    }
 
     override fun getNavigationMenuAction(): Int { return R.id.actionMail }
+
+    companion object {
+        val REQUEST_ID: Int = 2468
+    }
 }

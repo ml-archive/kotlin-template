@@ -19,16 +19,21 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
         GetFoldersInteractor.Output,
         OpenFolderInteractor.Output {
 
+  var pickermode : Boolean = false
 
     init {
         openFolderInteractor.output = this
         getFoldersInteractor.output = this
-        runAction { v -> v.showProgress(true) }
-        refresh()
+        runAction { v ->
+            v.showProgress(true)
+            pickermode = v.isEditMode()
+            refresh()
+        }
+
     }
 
     override fun refresh() {
-        getFoldersInteractor.input = GetFoldersInteractor.Input(false)
+        getFoldersInteractor.input = GetFoldersInteractor.Input(false, pickermode )
         getFoldersInteractor.run()
     }
 

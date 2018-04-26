@@ -9,10 +9,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
@@ -23,6 +20,8 @@ import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity
+import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.screens.overlay.ButtonType
 import dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity
@@ -49,6 +48,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     var folder: Folder? = null
     var modeEdit: Boolean = false
     var editEnabled: Boolean = false
+    var editAction: ButtonType? = null
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -78,7 +78,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             if (args.containsKey("sender")) {
                 val sender = args.getSerializable("sender") as Sender
                 //todo correct folder type ?
-                this.folder = Folder(type = FolderType.LATEST,name = Translation.mail.allMail )
+                this.folder = Folder(type = FolderType.LATEST, name = Translation.mail.allMail)
                 presenter.setup(sender)
             }
 
@@ -86,7 +86,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 editEnabled = args.getSerializable("edit") as Boolean
             } else
                 editEnabled = true // enable edit mode as a default
-        }.guard{
+        }.guard {
             onBackPressed()
         }
         // cannot setup topbar before folder been initialized
@@ -108,7 +108,48 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             var i = Intent(context, OverlayActivity::class.java)
 
             i.putExtra("buttons", buttons)
-            startActivityForResult(i, 1)
+            startActivityForResult(i, OverlayActivity.REQUEST_ID)
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == OverlayActivity.REQUEST_ID) {
+            when (data?.getSerializableExtra("res")) {
+                (ButtonType.MOVE) -> {
+                    editAction = ButtonType.MOVE
+                    var i = Intent(context, FolderActivity::class.java)
+                    i.putExtra("pick", true)
+                    startActivityForResult(i, FolderActivity.REQUEST_ID)
+                }
+                (ButtonType.DELETE) -> {
+                    editAction = ButtonType.DELETE
+                }
+                (ButtonType.PRINT) -> {
+                    editAction = ButtonType.PRINT
+                }
+                (ButtonType.MAIL) -> {
+                    editAction = ButtonType.MAIL
+                }
+                (ButtonType.OPEN) -> {
+                    editAction = ButtonType.OPEN
+                }
+                else -> {
+                    //request cancled
+                    editAction = null
+                    var temp = "_dsfdfs"
+                    println(temp)
+                }
+            }
+        }
+
+        if (requestCode == FolderActivity.REQUEST_ID) {
+            data?.extras?.let {
+                //todo  send api  with checkedlist, action and folder
+                var moveToFolder = data?.getSerializableExtra("res")
+                println(moveToFolder?.toString())
+            }
         }
     }
 

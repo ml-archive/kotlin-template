@@ -57,9 +57,6 @@ class LoginComponentPresenter @Inject constructor(
                     // user is verified
                     v.setupView(loginProvider = lp, user = user, altLoginProviders = altProviders)
                 }
-                if (user.hasFingerprint) {
-                    v.addFingerPrintProvider()
-                }
             }.guard {   // setup for first time login
                 v.setupView(loginProvider = lp, user = null, altLoginProviders = ArrayList())
             }

@@ -1,15 +1,25 @@
 package dk.eboks.app.presentation.ui.components.folder.folders
 
+import android.app.Activity
+import android.content.Intent
+import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.util.guard
+import kotlinx.android.synthetic.main.abc_list_menu_item_checkbox.view.*
 import kotlinx.android.synthetic.main.fragment_folders_component.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -23,6 +33,9 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     lateinit var presenter: FoldersComponentContract.Presenter
 
     var folders: MutableList<Folder> = ArrayList()
+    var pickerMode: Boolean = false
+    var pickedFolder: Folder? = null
+    var pickedCheckBox: ImageButton? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_folders_component, container, false)
@@ -32,10 +45,60 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
+        arguments?.let { args ->
+            if (args.containsKey("pick")) { pickerMode = true}
+        }
+
         presenter.onViewCreated(this, lifecycle)
+
+        refreshSrl.isEnabled = !pickerMode
         refreshSrl.setOnRefreshListener {
             presenter.refresh()
         }
+            setupTopbar()
+    }
+
+    private fun setupTopbar() {
+        if (pickerMode) {
+            getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
+            getBaseActivity()?.mainTb?.setNavigationOnClickListener {
+                activity.onBackPressed()
+            }
+
+            getBaseActivity()?.mainTb?.title = "_Choose location"
+
+            val menuProfile = getBaseActivity()?.mainTb?.menu?.add("_DONE")
+            menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
+                //todo should end activiy for result with selected folder
+                pickedFolder?.let{
+                var intent = Intent()
+                intent.putExtra("res", it)
+                getBaseActivity()?.setResult(Activity.RESULT_OK, intent)
+                getBaseActivity()?.finish()
+                }.guard {
+                    getBaseActivity()?.setResult(Activity.RESULT_CANCELED, Intent())
+                    getBaseActivity()?.finish()
+                }
+                true
+
+            }
+        } else {
+            getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+            getBaseActivity()?.mainTb?.title = Translation.folders.foldersHeader
+            getBaseActivity()?.mainTb?.setNavigationOnClickListener {
+                activity.onBackPressed()
+            }
+        }
+    }
+
+    override fun isEditMode(): Boolean {
+        return pickerMode
+    }
+
+    override fun showSelectFolders(folders: List<Folder>) {
+        foldersLl.removeAllViews()
+        processFoldersRecursive(folders, 0)
     }
 
     override fun showSystemFolders(folders: List<Folder>) {
@@ -62,7 +125,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
     override fun showUserFolders(folders: List<Folder>) {
         foldersLl.removeAllViews()
-        processFoldersRecursive(folders,0)
+        processFoldersRecursive(folders, 0)
     }
 
     fun processFoldersRecursive(folders: List<Folder>, level: Int) {
@@ -88,13 +151,45 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
             val iv = v.findViewById<ImageView>(R.id.iconIv)
             iv?.let { it.setImageResource(folder.type.getIconResId()) }
-            v.setOnClickListener { presenter.openFolder(folder) }
+
+            if (pickerMode) {
+                v.findViewById<FrameLayout>(R.id.arrowFl)?.visibility = View.GONE
+                val checkbox = v.findViewById<ImageButton>(R.id.checkboxIb)
+                checkbox?.visibility = View.VISIBLE
+                checkbox.setOnClickListener {
+                    setSelected(checkbox, folder)
+                }
+                v.setOnClickListener {
+                    setSelected(checkbox, folder)
+                }
+            } else {
+                v.setOnClickListener { presenter.openFolder(folder) }
+            }
             foldersLl.addView(v)
 
 
             if (folder.folders.isNotEmpty()) {
-                processFoldersRecursive(folder.folders,level+1)
+                processFoldersRecursive(folder.folders, level + 1)
             }
+        }
+    }
+
+    private fun setSelected(checkbox: ImageButton?, folder: Folder) {
+        checkbox?.isSelected?.let { isSelected ->
+            if (isSelected) {
+                unSelectCurrent()
+            } else {
+                checkbox?.isSelected = true
+                unSelectCurrent()
+                pickedFolder = folder
+                pickedCheckBox = checkbox
+            }
+        }
+    }
+
+    private fun unSelectCurrent() {
+        pickedCheckBox?.let {
+            pickedCheckBox?.isSelected = false
         }
     }
 

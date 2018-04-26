@@ -11,7 +11,7 @@ interface GetFoldersInteractor : Interactor {
     var output : Output?
     var input : Input?
 
-    data class Input(val cached: Boolean)
+    data class Input(val cached: Boolean, val pickermode: Boolean)
 
     interface Output {
         fun onGetFolders(folders : List<Folder>)
