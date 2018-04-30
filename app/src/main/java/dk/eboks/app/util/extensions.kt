@@ -3,12 +3,14 @@ package dk.eboks.app.util
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
+import android.support.design.widget.CoordinatorLayout
 import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextUtils
@@ -119,6 +121,12 @@ fun View.setVisible(isVisible: Boolean) {
     }
 }
 
+fun dpToPx(dp: Int): Int {
+
+    return (dp * Resources.getSystem().displayMetrics.density).toInt()
+
+}
+
 fun FastScrollRecyclerView.setBubbleDrawable(drawable: Drawable) {
     FastScrollRecyclerView::class.java.getDeclaredField("mFastScroller").let {
         it.isAccessible = true
@@ -143,8 +151,8 @@ fun EditText.addAfterTextChangeListener(listener: ((Editable?) -> Unit)) {
     })
 }
 
-fun Channel.isStorebox() : Boolean{
-    if (this.id>0 && this.id<4){
+fun Channel.isStorebox(): Boolean {
+    if (this.id > 0 && this.id < 4) {
         return true
     }
     return false
@@ -183,19 +191,19 @@ fun BaseInteractor.exceptionToViewError(
         shouldDisplay: Boolean = true
 ): ViewError {
     when (t) {
-        is ConnectException       -> return ViewError(
+        is ConnectException -> return ViewError(
                 title = Translation.error.noInternetTitle,
                 message = Translation.error.noInternetMessage,
                 shouldDisplay = shouldDisplay,
                 shouldCloseView = shouldClose
         )
-        is UnknownHostException   -> return ViewError(
+        is UnknownHostException -> return ViewError(
                 title = Translation.error.noInternetTitle,
                 message = Translation.error.noInternetMessage,
                 shouldDisplay = shouldDisplay,
                 shouldCloseView = shouldClose
         )
-        is IOException            -> return ViewError(
+        is IOException -> return ViewError(
                 title = Translation.error.genericStorageTitle,
                 message = Translation.error.genericStorageMessage,
                 shouldDisplay = shouldDisplay,
@@ -207,7 +215,7 @@ fun BaseInteractor.exceptionToViewError(
                 shouldDisplay = shouldDisplay,
                 shouldCloseView = shouldClose
         )
-        is ServerErrorException   -> {
+        is ServerErrorException -> {
             return ViewError(
                     title = t.error.description?.title,
                     message = t.error.description?.text,
@@ -215,7 +223,7 @@ fun BaseInteractor.exceptionToViewError(
                     shouldCloseView = shouldClose
             )
         }
-        else                      -> return ViewError(
+        else -> return ViewError(
                 shouldDisplay = shouldDisplay,
                 shouldCloseView = shouldClose
         )
@@ -225,14 +233,14 @@ fun BaseInteractor.exceptionToViewError(
 
 class ActivityStarter(val callingActivity: Activity) {
     private var activityClass: Class<out Activity>? = null
-    private var intent : Intent? = null
+    private var intent: Intent? = null
 
     fun activity(activity: Class<out Activity>) = apply {
         this.activityClass = activity
-        this.intent = Intent(callingActivity, activityClass )
+        this.intent = Intent(callingActivity, activityClass)
     }
 
-    fun putExtra(name : String, value : Serializable) : ActivityStarter = apply { this.intent?.putExtra(name, value) }
+    fun putExtra(name: String, value: Serializable): ActivityStarter = apply { this.intent?.putExtra(name, value) }
     fun putExtra(name: String, value: Boolean): ActivityStarter = apply { this.intent?.putExtra(name, value) }
     fun putExtra(name: String, value: Byte): ActivityStarter = apply { this.intent?.putExtra(name, value) }
     fun putExtra(name: String, value: Char): ActivityStarter = apply { this.intent?.putExtra(name, value) }
@@ -246,22 +254,20 @@ class ActivityStarter(val callingActivity: Activity) {
     fun putExtra(name: String, value: Parcelable): ActivityStarter = apply { this.intent?.putExtra(name, value) }
     fun putExtra(name: String, value: Array<Parcelable>): ActivityStarter = apply { this.intent?.putExtra(name, value) }
 
-    fun start()
-    {
+    fun start() {
         callingActivity.startActivity(intent)
     }
 }
 
-fun Activity.Starter() : ActivityStarter
-{
+fun Activity.Starter(): ActivityStarter {
     return ActivityStarter(this)
 }
 
-fun Fragment.putArg(name : String, value : Serializable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putSerializable(name, value) }
+fun Fragment.putArg(name: String, value: Serializable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putSerializable(name, value) }
 fun Fragment.putArg(name: String, value: Boolean) = apply { arguments.guard { arguments = Bundle() }; arguments?.putBoolean(name, value) }
 fun Fragment.putArg(name: String, value: Byte) = apply { arguments.guard { arguments = Bundle() }; arguments?.putByte(name, value) }
 fun Fragment.putArg(name: String, value: Char) = apply { arguments.guard { arguments = Bundle() }; arguments?.putChar(name, value) }
-fun Fragment.putArg(name: String, value: Short)= apply { arguments.guard { arguments = Bundle() }; arguments?.putShort(name, value) }
+fun Fragment.putArg(name: String, value: Short) = apply { arguments.guard { arguments = Bundle() }; arguments?.putShort(name, value) }
 fun Fragment.putArg(name: String, value: Int) = apply { arguments.guard { arguments = Bundle() }; arguments?.putInt(name, value) }
 fun Fragment.putArg(name: String, value: Long) = apply { arguments.guard { arguments = Bundle() }; arguments?.putLong(name, value) }
 fun Fragment.putArg(name: String, value: Float) = apply { arguments.guard { arguments = Bundle() }; arguments?.putFloat(name, value) }

@@ -179,7 +179,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     private fun switchMode() {
         modeEdit = !modeEdit
-        refreshSrl.isEnabled = !modeEdit
+        refreshSrl?.isEnabled = !modeEdit
         checkedList.clear()
         setTopBar()
         checkFabState()
@@ -216,6 +216,12 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     fun setupRecyclerView() {
         messagesRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         messagesRv.adapter = MessageAdapter()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        activity?.mainTb?.menu?.clear()
+        activity?.mainTb?.title = ""
     }
 
     override fun showRefreshProgress(show: Boolean) {

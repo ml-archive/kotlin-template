@@ -6,26 +6,28 @@
                                                  xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include layout="@layout/include_toolbar"  />
-    <include layout="@layout/include_navigation_view"  />
+    <!--<include layout="@layout/include_navigation_view"/>-->
 
 
     <FrameLayout
+        android:id="@+id/foldersContainerFl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginBottom="?android:actionBarSize">
 
-        <!--
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/dividerGreyBlue" />
-        -->
         <FrameLayout
-            android:id="@+id/foldersComponentFragment"
+            android:id="@+id/foldersFl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            />
 
     </FrameLayout>
 
+    <FrameLayout
+        android:id="@+id/navBarContainer"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:layout_gravity="bottom"/>
 
 </android.support.design.widget.CoordinatorLayout>
