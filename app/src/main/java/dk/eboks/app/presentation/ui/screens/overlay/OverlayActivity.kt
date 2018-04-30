@@ -101,4 +101,8 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
         }, delay)
     }
 
+    companion object {
+        val REQUEST_ID: Int = 1454
+    }
+
 }
