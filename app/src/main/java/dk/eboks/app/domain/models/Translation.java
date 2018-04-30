@@ -1,11 +1,5 @@
 package dk.eboks.app.domain.models;
 
-/**
- * Created by nstack.io gradle translation plugin
- * Built from Accept Header: en-US 
- * Generated: Thu Apr 26 15:15:08 CEST 2018 
- */
-
 public class Translation {
 	public final static class defaultSection {
 		public static String ok = "Ok";
