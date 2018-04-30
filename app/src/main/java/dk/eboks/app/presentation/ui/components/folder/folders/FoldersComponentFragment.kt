@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -47,6 +48,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         component.inject(this)
         arguments?.let { args ->
             if (args.containsKey("pick")) { pickerMode = true}
+
         }
 
         presenter.onViewCreated(this, lifecycle)
@@ -58,6 +60,15 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             setupTopbar()
     }
 
+    private fun animateView (){
+        //view should only animate in pickerview
+        if (pickerMode){
+            var animation = AnimationUtils.loadAnimation(context,R.anim.abc_slide_in_bottom)
+            animation.duration = 1000
+            view?.startAnimation(animation)
+        }
+    }
+
     private fun setupTopbar() {
         if (pickerMode) {
             getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
@@ -65,9 +76,9 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 activity.onBackPressed()
             }
 
-            getBaseActivity()?.mainTb?.title = "_Choose location"
+            getBaseActivity()?.mainTb?.title = Translation.overlaymenu.chooseLocation
 
-            val menuProfile = getBaseActivity()?.mainTb?.menu?.add("_DONE")
+            val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.overlaymenu.done)
             menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
                 //todo should end activiy for result with selected folder
@@ -174,6 +185,8 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         }
     }
 
+
+
     private fun setSelected(checkbox: ImageButton?, folder: Folder) {
         checkbox?.isSelected?.let { isSelected ->
             if (isSelected) {
@@ -195,6 +208,9 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
     override fun showRefreshProgress(show: Boolean) {
         refreshSrl.isRefreshing = show
+        if (!show){
+            animateView()
+        }
     }
 
     override fun showProgress(show: Boolean) {

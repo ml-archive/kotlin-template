@@ -19,6 +19,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentFragment
 import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.fragment_upload_overview_component.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import java.util.*
 import javax.inject.Inject
 
@@ -52,6 +53,8 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
     }
 
     private fun setupView() {
+        activity?.mainTb?.title = Translation.uploads.title
+
         //create mocks
         createMockRows(numberOfRows)
 
