@@ -63,6 +63,8 @@ class FingerHintComponentFragment : BaseFragment(), FingerHintComponentContract.
         val customFingerprintDialog = CustomFingerprintDialog(context)
 
         customFingerprintDialog.setOnFingerprintDialogEventListener {
+            customFingerprintDialog.dismiss()
+
             when (it) {
                 FingerprintDialogEvent.CANCEL  -> {
                     // Do nothing?

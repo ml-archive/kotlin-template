@@ -374,6 +374,8 @@
   <string name='nstack_overlaymenu_mail' formatted='false'>overlaymenu_mail</string>
   <string name='nstack_overlaymenu_openIn' formatted='false'>overlaymenu_openIn</string>
   <string name='nstack_overlaymenu_forward' formatted='false'>overlaymenu_forward</string>
+  <string name='nstack_overlaymenu_done' formatted='false'>overlaymenu_done</string>
+  <string name='nstack_overlaymenu_chooseLocation' formatted='false'>overlaymenu_chooseLocation</string>
   <string name='nstack_senderregistration_title' formatted='false'>senderregistration_title</string>
   <string name='nstack_senderregistration_body' formatted='false'>senderregistration_body</string>
   <string name='nstack_senderregistration_register' formatted='false'>senderregistration_register</string>

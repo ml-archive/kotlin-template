@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.profile.main
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,13 +19,14 @@ import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFra
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
+import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_profile_main_component.*
 import kotlinx.android.synthetic.main.include_profile_bottom.*
 import timber.log.Timber
 import javax.inject.Inject
 
 class ProfileInfoComponentFragment : BaseFragment(),
-        ProfileInfoComponentContract.View {
+                                     ProfileInfoComponentContract.View {
     @Inject
     lateinit var presenter: ProfileInfoComponentContract.Presenter
 
@@ -79,11 +81,19 @@ class ProfileInfoComponentFragment : BaseFragment(),
             null
         }
 
+        // Show our fingerprint stuff only if we are above API M
+        profileDetailFingerprintContainer.setVisible(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+
         profileDetailRegisterTB.textOn = Translation.senders.registered
         profileDetailRegisterTB.textOff = Translation.profile.verifyButton
         profileDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_48_checkmark_white, 0)
+                buttonView.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.icon_48_checkmark_white,
+                        0
+                )
                 getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
             } else {
                 buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
@@ -100,8 +110,6 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
 
         profileDetailSwFingerprint.setOnClickListener {
-
-
             Timber.d("Fingerprint: Toggled -> %s", profileDetailSwFingerprint.isChecked)
         }
 

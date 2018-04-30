@@ -8,7 +8,10 @@ import android.support.annotation.RequiresApi
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
@@ -55,7 +58,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     var currentProvider: LoginProvider? = null
     var currentUser: User? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater?,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater?.inflate(R.layout.fragment_login_component, container, false)
         return rootView
     }
@@ -119,7 +126,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         Timber.e("onContinue")
         currentUser?.let { user ->
             currentProvider?.let { provider ->
-                presenter.login(user, provider.id, passwordEt.text.toString().trim(), activationCode = null)
+                presenter.login(
+                        user,
+                        provider.id,
+                        passwordEt.text.toString().trim(),
+                        activationCode = null
+                )
             }
         }.guard {
             createUser(false)
@@ -131,7 +143,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
 
-    override fun setupView(loginProvider: LoginProvider?, user: User?, altLoginProviders: List<LoginProvider>
+    override fun setupView(
+            loginProvider: LoginProvider?, user: User?, altLoginProviders: List<LoginProvider>
     ) {
         Timber.e("SetupView called loginProvider = $loginProvider user = $user altProviders = $altLoginProviders")
         loginProvider?.let { provider ->
@@ -184,19 +197,24 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
     override fun addFingerPrintProvider() {
-        val li = LayoutInflater.from(context)
-        val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
-        v.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.ic_fingerprint)
-        v.findViewById<TextView>(R.id.nameTv).text = Translation.logoncredentials.logonWithProvider.replace("[provider]", Translation.profile.fingerprint)
-        v.findViewById<TextView>(R.id.descTv).visibility = View.GONE
+        if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            val li = LayoutInflater.from(context)
+            val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
+            v.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.ic_fingerprint)
+            v.findViewById<TextView>(R.id.nameTv).text = Translation.logoncredentials.logonWithProvider.replace(
+                    "[provider]",
+                    Translation.profile.fingerprint
+            )
+            v.findViewById<TextView>(R.id.descTv).visibility = View.GONE
 
-        v.setOnClickListener {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                showFingerprintDialog()
+            v.setOnClickListener {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    showFingerprintDialog()
+                }
             }
-        }
 
-        loginProvidersLl.addView(v)
+            loginProvidersLl.addView(v)
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -204,8 +222,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         val customFingerprintDialog = CustomFingerprintDialog(context)
 
         customFingerprintDialog.setOnFingerprintDialogEventListener {
+            customFingerprintDialog.dismiss()
+            
             when (it) {
-                CANCEL -> {
+                CANCEL  -> {
                     // Do nothing?
                 }
                 SUCCESS -> {
@@ -215,7 +235,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 ERROR_ENROLLMENT,
                 ERROR_HARDWARE,
                 ERROR_SECURE,
-                ERROR -> {
+                ERROR   -> {
                     showErrorDialog(
                             ViewError(
                                     Translation.error.genericTitle,
@@ -275,14 +295,14 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                     userLl.visibility = View.VISIBLE
 
                 }
-                "cpr" -> {
+                "cpr"   -> {
                     user?.let { setupUserView(it) }
                     cprEmailEt.inputType = InputType.TYPE_CLASS_NUMBER
                     userLl.visibility = View.VISIBLE
                     cprEmailTil.visibility = View.VISIBLE
                     cprEmailTil.hint = Translation.logoncredentials.ssnHeader
                 }
-                else -> {
+                else    -> {
                     getBaseActivity()?.addFragmentOnTop(
                             R.id.containerFl,
                             provider.fragmentClass?.newInstance()
@@ -296,7 +316,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
         loginProvidersLl.removeAllViews()
         loginProvidersLl.visibility = View.VISIBLE
-        if(currentUser?.hasFingerprint ?: false){
+        if (currentUser?.hasFingerprint ?: false) {
             addFingerPrintProvider()
         }
         val li = LayoutInflater.from(context)
@@ -310,7 +330,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             }
 
             //header
-            v.findViewById<TextView>(R.id.nameTv).text = Translation.logoncredentials.logonWithProvider.replace("[provider]", provider.name)
+            v.findViewById<TextView>(R.id.nameTv).text = Translation.logoncredentials.logonWithProvider.replace(
+                    "[provider]",
+                    provider.name
+            )
 
             //description
             provider.description?.let {
@@ -330,8 +353,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             override fun afterTextChanged(password: Editable?) {
                 setContinueButton()
                 handler?.postDelayed({
-                    setErrorMessages()
-                }, 1200)
+                                         setErrorMessages()
+                                     }, 1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -348,8 +371,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 cprEmailTil.error = null
                 setContinueButton()
                 handler.postDelayed({
-                    setErrorMessages()
-                }, 1200)
+                                        setErrorMessages()
+                                    }, 1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
