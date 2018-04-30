@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Mon Apr 30 14:54:10 CEST 2018 
+ * Generated: Mon Apr 30 16:18:17 CEST 2018 
  */
 
 public class Translation {
@@ -472,5 +472,10 @@ public class Translation {
 		public static String dialogDefaultMessage = "Touch sensor";
 		public static String dialogCancelButton = "Cancel";
 		public static String dialogUsePasswordButton = "Use Password";
+	}
+	public final static class inbox {
+		public static String actionMove = "Move";
+		public static String actionDelete = "Delete";
+		public static String actionMarkAsRead = "Mark as read";
 	}
 }

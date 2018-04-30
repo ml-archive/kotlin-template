@@ -399,4 +399,7 @@
   <string name='nstack_androidfingerprint_dialogDefaultMessage' formatted='false'>androidfingerprint_dialogDefaultMessage</string>
   <string name='nstack_androidfingerprint_dialogCancelButton' formatted='false'>androidfingerprint_dialogCancelButton</string>
   <string name='nstack_androidfingerprint_dialogUsePasswordButton' formatted='false'>androidfingerprint_dialogUsePasswordButton</string>
+  <string name='nstack_inbox_actionMove' formatted='false'>inbox_actionMove</string>
+  <string name='nstack_inbox_actionDelete' formatted='false'>inbox_actionDelete</string>
+  <string name='nstack_inbox_actionMarkAsRead' formatted='false'>inbox_actionMarkAsRead</string>
 </resources>
