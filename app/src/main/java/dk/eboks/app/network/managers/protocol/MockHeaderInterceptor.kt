@@ -12,7 +12,7 @@ class MockHeaderInterceptor : okhttp3.Interceptor  {
 
         val newRequest = originalRequest.newBuilder()
                 .header("X-Api-Key", BuildConfig.MOCK_API_KEY)
-                .header("Authorization", "Basic c2ltcGxlbG9naW46c2VjcmV0")  // TODO is this the same everytime?
+                .header("Authorization", "Basic c2ltcGxlbG9naW46c2VjcmV0")  // TODO: temporary this enables basic login. remove when auth is ready in restmodule
                 .build()
 
         return chain.proceed(newRequest)

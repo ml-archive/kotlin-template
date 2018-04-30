@@ -6,7 +6,7 @@ import dk.eboks.app.domain.interactors.authentication.PostAuthenticateUserIntera
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.login.LoginResponse
+import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -63,7 +63,7 @@ class LoginComponentPresenter @Inject constructor(
         }
     }
 
-    override fun onAuthenticationsSuccess(user: User, response: LoginResponse) {
+    override fun onAuthenticationsSuccess(user: User, response: AccessToken) {
         Timber.i("Login Sucess: $response")
         appState.state?.currentUser = user
         appState.save()
