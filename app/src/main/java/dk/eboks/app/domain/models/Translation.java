@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Mon Apr 30 10:05:46 CEST 2018 
+ * Generated: Mon Apr 30 14:07:55 CEST 2018 
  */
 
 public class Translation {
@@ -441,6 +441,8 @@ public class Translation {
 		public static String mail = "E-Mail";
 		public static String openIn = "Open in...";
 		public static String forward = "Forward";
+		public static String done = "Done";
+		public static String chooseLocation = "Choose location";
 	}
 	public final static class senderregistration {
 		public static String title = "Registration Needed";
