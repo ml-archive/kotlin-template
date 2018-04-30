@@ -138,8 +138,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 else -> {
                     //request cancled
                     editAction = null
-                    var temp = "_dsfdfs"
-                    println(temp)
                 }
             }
         }
@@ -372,10 +370,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             }
         }
 
-        fun updateViews() {
-
-        }
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
             val v = LayoutInflater.from(context).inflate(R.layout.viewholder_message_row, parent, false)
             val vh = MessageViewHolder(v)
@@ -390,8 +384,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             var last = (position == messages.size)
             holder?.bind(messages[position], last)
         }
-
-
     }
 
 }

@@ -82,6 +82,7 @@ import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentFrag
 import dk.eboks.app.presentation.ui.components.senders.SenderListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.list.SenderAllListComponentFragment
 import dk.eboks.app.presentation.ui.components.senders.register.RegisterGroupComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.*
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentFragment
@@ -126,6 +127,8 @@ import dk.eboks.app.presentation.ui.screens.profile.myinfo.MyInfoPresenter
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity
 import dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
+import dk.eboks.app.presentation.ui.screens.senders.list.SenderAllListActivity
+import dk.eboks.app.presentation.ui.screens.senders.list.SenderAllListPresenter
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.senders.registrations.PendingActivity
@@ -176,6 +179,8 @@ interface PresentationComponent {
     fun inject(target: StoreboxContentPresenter)
     fun inject(target: MyInfoActivity)
     fun inject(target: MyInfoPresenter)
+    fun inject(target: SenderAllListActivity)
+    fun inject(target: SenderAllListPresenter)
 
     // Components
 
@@ -266,6 +271,7 @@ interface PresentationComponent {
     fun inject(target : SegmentDetailActivity)
     fun inject(target : RegistrationsActivity)
     fun inject(target : PendingActivity)
+    fun inject(target : SenderAllListComponentFragment)
 
     // sign up
 

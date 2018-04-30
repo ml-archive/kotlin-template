@@ -57,8 +57,6 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
         setupRecyclerView()
         setupRows()
         setupTopBar()
-        setupFab()
-//        checkFabState()
 
     }
 
@@ -76,21 +74,6 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
         }
     }
 
-
-    private fun setupFab() {
-//        mainFab.setOnClickListener {
-//            var i = Intent(context, OverlayActivity::class.java)
-//            var buttons: ArrayList<OverlayButton> = ArrayList()
-//            buttons.add(OverlayButton(ButtonType.MOVE))
-//            buttons.add(OverlayButton(ButtonType.DELETE))
-//            buttons.add(OverlayButton(ButtonType.PRINT))
-//            buttons.add(OverlayButton(ButtonType.MAIL))
-//            buttons.add(OverlayButton(ButtonType.OPEN))
-//
-//            i.putExtra("buttons", buttons)
-//            startActivityForResult(i, 1)
-//        }
-    }
 
     private fun setupTopBar() {
         getBaseActivity()?.mainTb?.menu?.clear()
@@ -153,15 +136,6 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
         createmock(numberOfMocks)
         uploadsRv.adapter.notifyDataSetChanged()
     }
-
-//    private fun checkFabState() {
-//        if (checkedList.size > 0) {
-//            mainFab.show()
-//        } else {
-//            mainFab.hide()
-//        }
-//        setTopBar()
-//    }
 
     override fun onDestroy() {
         getBaseActivity()?.mainTb?.menu?.clear()

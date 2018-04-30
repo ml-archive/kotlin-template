@@ -14,6 +14,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
+import dk.eboks.app.presentation.ui.screens.senders.list.SenderAllListActivity
 import dk.eboks.app.util.Starter
 import kotlinx.android.synthetic.main.fragment_sender_carousel_component.*
 import javax.inject.Inject
@@ -38,6 +39,11 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupRecyclerView()
+
+        sendersShowAllTv.setOnClickListener {
+
+            startActivity(Intent(context, SenderAllListActivity::class.java))
+        }
     }
 
     fun setupRecyclerView()

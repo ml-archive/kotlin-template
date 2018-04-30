@@ -94,6 +94,8 @@ import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentCont
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentContract
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.list.SenderAllListComponentContract
+import dk.eboks.app.presentation.ui.components.senders.list.SenderAllListComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.register.RegisterPresenter
 import dk.eboks.app.presentation.ui.components.senders.register.RegistrationContract
 import dk.eboks.app.presentation.ui.components.start.login.*
@@ -151,6 +153,8 @@ import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryContrac
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryPresenter
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailContract
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailPresenter
+import dk.eboks.app.presentation.ui.screens.senders.list.SenderAllListContract
+import dk.eboks.app.presentation.ui.screens.senders.list.SenderAllListPresenter
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewContract
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.senders.registrations.PendingContract
@@ -829,6 +833,18 @@ class PresentationModule {
     @Provides
     fun provideReplyFormPresenter(appState: AppStateManager, getReplyFormInteractor: GetReplyFormInteractor): ReplyFormContract.Presenter {
         return ReplyFormPresenter(appState, getReplyFormInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideSenderAllListPresenter(appState: AppStateManager): SenderAllListContract.Presenter {
+        return SenderAllListPresenter(appState)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideSenderAllListComponentPresenter(stateManager: AppStateManager) : SenderAllListComponentContract.Presenter {
+        return SenderAllListComponentPresenter(stateManager)
     }
 
     /* Pasta
