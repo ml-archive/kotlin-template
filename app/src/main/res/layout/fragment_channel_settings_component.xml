@@ -188,7 +188,7 @@
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:text="_Receive only receipts digitally"
-                    nstack:text="@string/nstack_channelsettings_receiptsTitle"/>
+                    nstack:text="@string/nstack_channelsettingsstoreboxadditions_digitalReceiptsTitle"/>
 
                 <TextView
                     android:id="@+id/optionalSubHeaderTv"
@@ -197,7 +197,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="_Accepting this you not recieve paper"
-                    nstack:text="@string/nstack_channelsettings_receiptsSubtitle"
+                    nstack:text="@string/nstack_channelsettingsstoreboxadditions_digitalReceiptsMessage"
                     />
 
             </LinearLayout>
