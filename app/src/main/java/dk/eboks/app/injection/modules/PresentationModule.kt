@@ -825,7 +825,7 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMyInfoPresenter(stateManager: AppStateManager) : MyInfoContract.Presenter {
+    fun provideMyInfoPresenter(stateManager: AppStateManager): MyInfoContract.Presenter {
         return MyInfoPresenter(stateManager)
     }
 
@@ -843,8 +843,9 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideSenderAllListComponentPresenter(stateManager: AppStateManager) : SenderAllListComponentContract.Presenter {
-        return SenderAllListComponentPresenter(stateManager)
+    fun provideSenderAllListComponentPresenter(stateManager: AppStateManager,
+                                               sendersInteractor: GetSendersInteractor): SenderAllListComponentContract.Presenter {
+        return SenderAllListComponentPresenter(stateManager, sendersInteractor)
     }
 
     /* Pasta

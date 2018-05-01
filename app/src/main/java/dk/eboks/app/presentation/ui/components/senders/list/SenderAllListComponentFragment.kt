@@ -1,9 +1,11 @@
 package dk.eboks.app.presentation.ui.components.senders.list
 
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -23,8 +25,11 @@ import dk.eboks.app.domain.models.message.Messages
 import dk.eboks.app.domain.models.protocol.Metadata
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
 import dk.eboks.app.util.Starter
+import kotlinx.android.synthetic.main.activity_senders_list.*
+import kotlinx.android.synthetic.main.fragment_sender_carousel_component.*
 import kotlinx.android.synthetic.main.fragment_sender_list.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -38,6 +43,8 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
     lateinit var presenter: SenderAllListComponentContract.Presenter
 
     var senders: MutableList<Sender> = ArrayList()
+    var filteredSenders: MutableList<Sender> = ArrayList()
+    var searchMode: Boolean = false
 
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -51,12 +58,56 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         presenter.onViewCreated(this, lifecycle)
 
         refreshSrl.setOnRefreshListener {
-           //todo onrefresh
-            // presenter.refresh()
+             presenter.refresh()
         }
         setupRecyclerView()
-        createMocks()
         setupTopBar()
+        setupSearchBar()
+    }
+
+    private fun setupSearchBar() {
+
+        getBaseActivity()?.searchAllSenderTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+        getBaseActivity()?.searchAllSenderTb?.setNavigationOnClickListener {
+            switchMode()
+        }
+
+        activity?.searchAllSenderSv?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            private val deBounce = Runnable {
+                var text = activity?.searchAllSenderSv?.query?.toString()?.trim() ?:""
+//                presenter.searchSenders(text)
+                filterSenders(text)
+            }
+
+            private fun filterSenders(text: String) {
+                filteredSenders.clear()
+                senders.let {
+                    for(sender in senders){
+                        if(sender.name.contains(text, true)){
+                            filteredSenders.add(sender)
+                        }
+                    }
+                }
+                allSendersRv.adapter.notifyDataSetChanged()
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                activity?.searchAllSenderSv?.removeCallbacks(deBounce)
+                activity?.searchAllSenderSv?.post(deBounce)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if(newText.isBlank()) {
+                    filteredSenders.clear()
+                    allSendersRv?.adapter?.notifyDataSetChanged()
+                } else {
+                    activity?.searchAllSenderSv?.removeCallbacks(deBounce)
+                    activity?.searchAllSenderSv?.postDelayed(deBounce, 500)
+                }
+                return true
+            }
+        })
     }
 
     private fun setupTopBar() {
@@ -69,37 +120,51 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
             fragmentManager.popBackStack()
         }
 
+
+         val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.uploads.topbarEdit)
+        menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
+            switchMode()
+            true
+        }
     }
 
-    private fun createMocks() {
-        var items: List<Message> = arrayListOf()
-        senders.add(Sender(1, "name1", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 5))))
-        senders.add(Sender(1, "name2", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 0))))
-        senders.add(Sender(1, "name3", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 3))))
-        senders.add(Sender(1, "name4", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 1))))
-        senders.add(Sender(1, "name5", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 0))))
-        senders.add(Sender(1, "name6", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 0))))
-        senders.add(Sender(1, "name1", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 5))))
-        senders.add(Sender(1, "name2", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 0))))
-        senders.add(Sender(1, "name3", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 3))))
-        senders.add(Sender(1, "name4", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 1))))
-        senders.add(Sender(1, "name5", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 0))))
-        senders.add(Sender(1, "name6", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 0))))
-        senders.add(Sender(1, "name1", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 5))))
-        senders.add(Sender(1, "name2", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 0))))
-        senders.add(Sender(1, "name3", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 3))))
-        senders.add(Sender(1, "name4", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 1))))
-        senders.add(Sender(1, "name5", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 0))))
-        senders.add(Sender(1, "name6", null, null, 0, Image("https://picsum.photos/200/?random"), null, null, Messages(items, Metadata(5, 0))))
-        sendersRv.adapter.notifyDataSetChanged()
+    private fun switchMode() {
+
+        searchMode = !searchMode
+        if(searchMode) {
+            getBaseActivity()?.mainAb?.visibility = View.GONE
+            getBaseActivity()?.mainAllSenderAb?.visibility = View.VISIBLE
+
+        } else {
+            getBaseActivity()?.mainAb?.visibility = View.VISIBLE
+            getBaseActivity()?.mainAllSenderAb?.visibility = View.GONE
+            filteredSenders.addAll(senders)
+            allSendersRv.adapter.notifyDataSetChanged()
+        }
     }
 
     private fun setupRecyclerView() {
-        sendersRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        sendersRv.adapter = SendersAdapter()
+        allSendersRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        allSendersRv.adapter = SendersAdapter()
 
     }
 
+    override fun showProgress(show: Boolean) {
+        progressBarFl.visibility = if(show) View.VISIBLE else View.GONE
+        refreshSrl.isRefreshing = show
+    }
+
+    override fun showEmpty(show: Boolean) {
+       // currently no emptystate - it should not happend as the showAll button is not shown if you dont have any mail from senders
+    }
+
+    override fun showSenders(senders: List<Sender>) {
+        this.senders.clear()
+        this.senders.addAll(senders)
+        filteredSenders.addAll(senders)
+        allSendersRv.adapter.notifyDataSetChanged()
+    }
 
     inner class SendersAdapter : RecyclerView.Adapter<SendersAdapter.SenderViewHolder>() {
 
@@ -136,7 +201,9 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
                 }
 
                 val senderListener = View.OnClickListener {
-                    //todo item clicked  start something ?
+                    val i = Intent(context, MailListActivity::class.java )
+                    i.putExtra("sender", currentItem)
+                    startActivity(i)
 
                 }
                 root.setOnClickListener(senderListener)
@@ -151,12 +218,12 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         }
 
         override fun getItemCount(): Int {
-            return senders.size
+            return filteredSenders.size
         }
 
         override fun onBindViewHolder(holder: SenderViewHolder?, position: Int) {
-            var last = (position == senders.size)
-            holder?.bind(senders[position], last)
+            var last = (position == filteredSenders.size)
+            holder?.bind(filteredSenders[position], last)
         }
     }
 }

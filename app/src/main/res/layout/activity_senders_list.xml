@@ -5,10 +5,35 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true">
 
-    <include layout="@layout/include_toolbar" />
 
-    <include layout="@layout/include_navigation_view" />
+    <include layout="@layout/include_toolbar"/>
 
+    <android.support.design.widget.AppBarLayout
+        android:visibility="gone"
+        android:id="@+id/mainAllSenderAb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:theme="@style/ToolbarTheme">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/searchAllSenderTb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="4dp"
+            app:navigationIcon="@drawable/search"
+            app:elevation="4dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            <android.support.v7.widget.SearchView
+                android:id="@+id/searchAllSenderSv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconifiedByDefault="false"
+                app:searchIcon="@null"
+                app:closeIcon="@drawable/ic_cross"/>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
         android:id="@+id/sendersListContainerLl"
@@ -18,5 +43,7 @@
         android:layout_marginBottom="?attr/actionBarSize"
         android:animateLayoutChanges="true"
         android:orientation="vertical" />
+
+    <include layout="@layout/include_navigation_view" />
 
 </android.support.design.widget.CoordinatorLayout>
