@@ -313,14 +313,16 @@ class PresentationModule {
             stateManager: AppStateManager,
             getMessagesInteractor: GetMessagesInteractor,
             deleteMessagesInteractor: DeleteMessagesInteractor,
-            moveMessagesInteractor: MoveMessagesInteractor
+            moveMessagesInteractor: MoveMessagesInteractor,
+            openMessageInteractor: OpenMessageInteractor
 
     ): MailListComponentContract.Presenter {
         return MailListComponentPresenter(
                 stateManager,
                 getMessagesInteractor,
                 deleteMessagesInteractor,
-                moveMessagesInteractor
+                moveMessagesInteractor,
+                openMessageInteractor
         )
     }
 
