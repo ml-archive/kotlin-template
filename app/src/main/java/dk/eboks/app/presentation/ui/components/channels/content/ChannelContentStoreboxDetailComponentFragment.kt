@@ -17,6 +17,7 @@ import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.storebox.*
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
@@ -146,7 +147,12 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     private fun setReceiptDate(date: Date, optionals: StoreboxOptionals?) {
         storeboxDetailTvDate.text = formatter.formatDateToDay(date)
         storeboxDetailTvTime.text = formatter.formatDateToTime(date)
-        storeboxDetailTvOrderNumber.text = optionals?.orderNumber
+
+        storeboxDetailTvOrderNumber.text = String.format(
+                "%s %s",
+                Translation.storeboxreceipt.orderNo,
+                optionals?.orderNumber
+        )
     }
 
     private fun setStoreInfo(merchant: StoreboxMerchant?, optionals: StoreboxOptionals?) {
