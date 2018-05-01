@@ -4,7 +4,7 @@ import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
-class DeleteMessagesInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) :
+class DeleteMessagesInteractorImpl(executor: Executor) :
         BaseInteractor(executor),
         DeleteMessagesInteractor {
     override var output: DeleteMessagesInteractor.Output? = null

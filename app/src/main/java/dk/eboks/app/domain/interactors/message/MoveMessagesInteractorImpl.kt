@@ -4,7 +4,7 @@ import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
-class MoveMessagesInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) :
+class MoveMessagesInteractorImpl(executor: Executor) :
         BaseInteractor(executor),
         MoveMessagesInteractor {
     override var output: MoveMessagesInteractor.Output? = null

@@ -83,18 +83,14 @@ class InteractorModule {
 
     @Provides
     fun provideDeleteMessagesInteractor(
-            executor: Executor,
-            messagesRepository: MessagesRepository
+            executor: Executor
     ): DeleteMessagesInteractor {
-        return DeleteMessagesInteractorImpl(executor, messagesRepository)
+        return DeleteMessagesInteractorImpl(executor)
     }
 
     @Provides
-    fun provideMoveMessagesInteractor(
-            executor: Executor,
-            messagesRepository: MessagesRepository
-    ): MoveMessagesInteractor {
-        return MoveMessagesInteractorImpl(executor, messagesRepository)
+    fun provideMoveMessagesInteractor(executor: Executor): MoveMessagesInteractor {
+        return MoveMessagesInteractorImpl(executor)
     }
 
 

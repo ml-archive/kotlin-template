@@ -133,15 +133,19 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 (ButtonType.DELETE) -> {
                     editAction = ButtonType.DELETE
                     presenter.deleteMessages(checkedList)
+                    switchMode()
                 }
                 (ButtonType.PRINT)  -> {
                     editAction = ButtonType.PRINT
+                    switchMode()
                 }
                 (ButtonType.MAIL)   -> {
                     editAction = ButtonType.MAIL
+                    switchMode()
                 }
                 (ButtonType.OPEN)   -> {
                     editAction = ButtonType.OPEN
+                    switchMode()
                 }
                 else                -> {
                     // Request do nothing
@@ -155,7 +159,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 val moveToFolder = data.getSerializableExtra("res")
                 Timber.d("Move To Folder ${moveToFolder?.toString()}")
                 presenter.moveMessages(moveToFolder?.toString(), checkedList)
-                println()
+                switchMode()
             }
         }
     }
