@@ -40,7 +40,10 @@ class InteractorModule {
     }
 
     @Provides
-    fun providePostAuthenticateUserInteractor(executor: Executor, api: Api): PostAuthenticateUserInteractor {
+    fun providePostAuthenticateUserInteractor(
+            executor: Executor,
+            api: Api
+    ): PostAuthenticateUserInteractor {
         return PostAuthenticateUserInteractorImpl(executor, api);
     }
 
@@ -77,6 +80,23 @@ class InteractorModule {
     ): GetFoldersInteractor {
         return GetFoldersInteractorImpl(executor, foldersRepository, resourceManager)
     }
+
+    @Provides
+    fun provideDeleteMessagesInteractor(
+            executor: Executor,
+            messagesRepository: MessagesRepository
+    ): DeleteMessagesInteractor {
+        return DeleteMessagesInteractorImpl(executor, messagesRepository)
+    }
+
+    @Provides
+    fun provideMoveMessagesInteractor(
+            executor: Executor,
+            messagesRepository: MessagesRepository
+    ): MoveMessagesInteractor {
+        return MoveMessagesInteractorImpl(executor, messagesRepository)
+    }
+
 
     @Provides
     fun provideGetMessagesInteractor(

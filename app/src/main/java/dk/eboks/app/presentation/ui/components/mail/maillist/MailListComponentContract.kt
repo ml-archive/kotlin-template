@@ -11,13 +11,16 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface MailListComponentContract {
     interface View : ComponentBaseView {
-        fun showRefreshProgress(show : Boolean)
-        fun showMessages(messages : List<Message>)
+        fun showRefreshProgress(show: Boolean)
+        fun showMessages(messages: List<Message>)
     }
 
     interface Presenter : BasePresenter<MailListComponentContract.View> {
-        fun setup(folder : Folder)
-        fun setup(sender : Sender)
+        fun setup(folder: Folder)
+        fun setup(sender: Sender)
         fun refresh()
+
+        fun deleteMessages(selectedMessages: MutableList<Message>)
+        fun moveMessages(folderName: String?, selectedMessages: MutableList<Message>)
     }
 }

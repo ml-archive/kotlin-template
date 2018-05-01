@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Mon Apr 30 16:18:17 CEST 2018 
+ * Generated: Tue May 01 12:02:58 CEST 2018 
  */
 
 public class Translation {
@@ -106,6 +106,7 @@ public class Translation {
 		public static String cannotUnregister = "Cannot unregister";
 		public static String cannotUnregisterDescription = "You are automatically registered mail from [sender] if this is part of your customer agreements or your conditions of employment";
 		public static String cannotUnregisterPublicDescription = "You are automatically registered mail from the public sector if this is part of your customer agreements or your conditions of employment";
+		public static String allSenders = "All Senders";
 	}
 	public final static class start {
 		public static String signupButton = "Sign up";
@@ -254,6 +255,7 @@ public class Translation {
 		public static String openMessageWithReceiptButton = "Open message with receipt";
 		public static String openMessageWithoutReceiptButton = "Open message without receipt";
 		public static String note = "Note";
+		public static String reply = "Reply";
 	}
 	public final static class iosbiometrics {
 		public static String errorAuthentication = "There was a problem verifying your identity";

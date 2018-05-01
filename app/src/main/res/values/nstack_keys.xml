@@ -83,6 +83,7 @@
   <string name='nstack_senders_cannotUnregister' formatted='false'>senders_cannotUnregister</string>
   <string name='nstack_senders_cannotUnregisterDescription' formatted='false'>senders_cannotUnregisterDescription</string>
   <string name='nstack_senders_cannotUnregisterPublicDescription' formatted='false'>senders_cannotUnregisterPublicDescription</string>
+  <string name='nstack_senders_allSenders' formatted='false'>senders_allSenders</string>
   <string name='nstack_start_signupButton' formatted='false'>start_signupButton</string>
   <string name='nstack_start_addNewUser' formatted='false'>start_addNewUser</string>
   <string name='nstack_start_logonButton' formatted='false'>start_logonButton</string>
@@ -215,6 +216,7 @@
   <string name='nstack_message_openMessageWithReceiptButton' formatted='false'>message_openMessageWithReceiptButton</string>
   <string name='nstack_message_openMessageWithoutReceiptButton' formatted='false'>message_openMessageWithoutReceiptButton</string>
   <string name='nstack_message_note' formatted='false'>message_note</string>
+  <string name='nstack_message_reply' formatted='false'>message_reply</string>
   <string name='nstack_iosbiometrics_errorAuthentication' formatted='false'>iosbiometrics_errorAuthentication</string>
   <string name='nstack_iosbiometrics_errorUserCancel' formatted='false'>iosbiometrics_errorUserCancel</string>
   <string name='nstack_iosbiometrics_errorUserFallback' formatted='false'>iosbiometrics_errorUserFallback</string>

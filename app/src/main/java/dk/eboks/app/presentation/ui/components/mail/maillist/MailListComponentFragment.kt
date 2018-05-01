@@ -9,7 +9,10 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.FrameLayout
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
@@ -21,7 +24,6 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity
-import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.screens.overlay.ButtonType
 import dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity
@@ -30,6 +32,7 @@ import dk.eboks.app.util.Starter
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -51,7 +54,11 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     var editAction: ButtonType? = null
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater?,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater?.inflate(R.layout.fragment_mail_list_component, container, false)
         return rootView
     }
@@ -105,7 +112,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     private fun setupFab(buttons: ArrayList<OverlayButton> = ArrayList()) {
         mainFab.setOnClickListener {
-            var i = Intent(context, OverlayActivity::class.java)
+            val i = Intent(context, OverlayActivity::class.java)
 
             i.putExtra("buttons", buttons)
             startActivityForResult(i, OverlayActivity.REQUEST_ID)
@@ -117,38 +124,38 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
         if (requestCode == OverlayActivity.REQUEST_ID) {
             when (data?.getSerializableExtra("res")) {
-                (ButtonType.MOVE) -> {
+                (ButtonType.MOVE)   -> {
                     editAction = ButtonType.MOVE
-                    var i = Intent(context, FolderActivity::class.java)
+                    val i = Intent(context, FolderActivity::class.java)
                     i.putExtra("pick", true)
                     startActivityForResult(i, FolderActivity.REQUEST_ID)
                 }
                 (ButtonType.DELETE) -> {
                     editAction = ButtonType.DELETE
+                    presenter.deleteMessages(checkedList)
                 }
-                (ButtonType.PRINT) -> {
+                (ButtonType.PRINT)  -> {
                     editAction = ButtonType.PRINT
                 }
-                (ButtonType.MAIL) -> {
+                (ButtonType.MAIL)   -> {
                     editAction = ButtonType.MAIL
                 }
-                (ButtonType.OPEN) -> {
+                (ButtonType.OPEN)   -> {
                     editAction = ButtonType.OPEN
                 }
-                else -> {
-                    //request cancled
+                else                -> {
+                    // Request do nothing
                     editAction = null
-                    var temp = "_dsfdfs"
-                    println(temp)
                 }
             }
         }
 
         if (requestCode == FolderActivity.REQUEST_ID) {
             data?.extras?.let {
-                //todo  send api  with checkedlist, action and folder
-                var moveToFolder = data?.getSerializableExtra("res")
-                println(moveToFolder?.toString())
+                val moveToFolder = data.getSerializableExtra("res")
+                Timber.d("Move To Folder ${moveToFolder?.toString()}")
+                presenter.moveMessages(moveToFolder?.toString(), checkedList)
+                println()
             }
         }
     }
@@ -204,7 +211,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                     FolderType.UPLOADS -> {
                         activity.mainTb.title = Translation.uploads.title
                     }
-                    else -> {
+                    else               -> {
                         activity.mainTb.title = it.name
                     }
                 }
@@ -213,7 +220,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         }
     }
 
-    fun setupRecyclerView() {
+    private fun setupRecyclerView() {
         messagesRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         messagesRv.adapter = MessageAdapter()
     }
@@ -312,7 +319,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                         uploadFl.isSelected = false
 
                     } else {
-                        currentItem?.sender?.let {
+                        currentItem.sender?.let {
                             imageIv?.let {
                                 Glide.with(context)
                                         .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
@@ -377,7 +384,11 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
-            val v = LayoutInflater.from(context).inflate(R.layout.viewholder_message_row, parent, false)
+            val v = LayoutInflater.from(context).inflate(
+                    R.layout.viewholder_message_row,
+                    parent,
+                    false
+            )
             val vh = MessageViewHolder(v)
             return vh
         }
