@@ -68,7 +68,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupRecyclerView()
-        setupFab(createFabButtonMocks())
+        setupFab()
         checkFabState()
 
         refreshSrl.setOnRefreshListener {
@@ -84,7 +84,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             }
             if (args.containsKey("sender")) {
                 val sender = args.getSerializable("sender") as Sender
-                //todo correct folder type ?
+                // todo correct folder type ?
                 this.folder = Folder(type = FolderType.LATEST, name = Translation.mail.allMail)
                 presenter.setup(sender)
             }
@@ -96,7 +96,9 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         }.guard {
             onBackPressed()
         }
+
         // cannot setup topbar before folder been initialized
+
         setupTopBar()
     }
 
@@ -104,17 +106,24 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         var buttons: ArrayList<OverlayButton> = ArrayList()
         buttons.add(OverlayButton(ButtonType.MOVE))
         buttons.add(OverlayButton(ButtonType.DELETE))
-        buttons.add(OverlayButton(ButtonType.PRINT))
-        buttons.add(OverlayButton(ButtonType.MAIL))
-        buttons.add(OverlayButton(ButtonType.OPEN))
+
+        if (checkedList.size == 1) {
+            buttons.add(OverlayButton(ButtonType.PRINT))
+            buttons.add(OverlayButton(ButtonType.MAIL))
+            buttons.add(OverlayButton(ButtonType.OPEN))
+        }
+
         return buttons
     }
 
-    private fun setupFab(buttons: ArrayList<OverlayButton> = ArrayList()) {
+    private fun setupFab() {
         mainFab.setOnClickListener {
+            val buttons = createFabButtonMocks()
+
             val i = Intent(context, OverlayActivity::class.java)
 
             i.putExtra("buttons", buttons)
+
             startActivityForResult(i, OverlayActivity.REQUEST_ID)
         }
     }
@@ -137,14 +146,17 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 }
                 (ButtonType.PRINT)  -> {
                     editAction = ButtonType.PRINT
+                    openSelectedMessage()
                     switchMode()
                 }
                 (ButtonType.MAIL)   -> {
                     editAction = ButtonType.MAIL
+                    openSelectedMessage()
                     switchMode()
                 }
                 (ButtonType.OPEN)   -> {
                     editAction = ButtonType.OPEN
+                    openSelectedMessage()
                     switchMode()
                 }
                 else                -> {
@@ -162,6 +174,12 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 switchMode()
             }
         }
+    }
+
+    private fun openSelectedMessage() {
+        val firstMessage = checkedList.firstOrNull() ?: return
+        val buttonType = editAction ?: return
+        presenter.openMessage(firstMessage, buttonType)
     }
 
     private fun setupTopBar() {
