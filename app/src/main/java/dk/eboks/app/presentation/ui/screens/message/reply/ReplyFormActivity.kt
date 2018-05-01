@@ -153,6 +153,11 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
                 fi.addObserver(inputObserver)
                 fi.addViewGroup(formInputLl)
             }
+            FormInputType.LIST -> {
+                val fi = CheckBoxFormInput(input, inflator, mainHandler)
+                fi.addObserver(inputObserver)
+                fi.addViewGroup(formInputLl)
+            }
             else -> {}
         }
     }
