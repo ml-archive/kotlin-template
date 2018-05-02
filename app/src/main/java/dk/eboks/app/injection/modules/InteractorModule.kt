@@ -25,9 +25,6 @@ import dk.eboks.app.domain.repositories.*
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.Executor
 
-/**
- * Created by bison on 09/10/17.
- */
 @Module
 class InteractorModule {
     @Provides

@@ -12,7 +12,7 @@ data class Channel(
         var id : Int,
         var name : String,
         var payoff : String,
-        var description: Description?,  // this is removed in swagger 17. april
+        var description: Description?,  // this is removed in swagger 17. april (Been readded in the latest)
         var status: Status?,
         var logo : Image?,
         var image : Image?,

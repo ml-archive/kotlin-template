@@ -31,11 +31,7 @@ class SendersRestRepository(val context: Context, val api: Api, val gson: Gson) 
     }
 
     override fun getSenders(cached: Boolean): List<Sender> {
-        val result = if (cached) senderStore.get(0) else senderStore.fetch(0)
-        if (result == null) {
-            throw(RuntimeException("darn"))
-        }
-        return result
+        return (if (cached) senderStore.get(0) else senderStore.fetch(0)) ?: throw(RuntimeException("darn"))
     }
 
     override fun searchSenders(search: String): List<Sender> {
