@@ -404,4 +404,5 @@
   <string name='nstack_inbox_actionMove' formatted='false'>inbox_actionMove</string>
   <string name='nstack_inbox_actionDelete' formatted='false'>inbox_actionDelete</string>
   <string name='nstack_inbox_actionMarkAsRead' formatted='false'>inbox_actionMarkAsRead</string>
+  <string name='nstack_inbox_editButton' formatted='false'>inbox_editButton</string>
 </resources>

@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Tue May 01 15:31:49 CEST 2018 
+ * Generated: Wed May 02 11:38:43 CEST 2018 
  */
 
 public class Translation {
@@ -479,5 +479,6 @@ public class Translation {
 		public static String actionMove = "Move";
 		public static String actionDelete = "Delete";
 		public static String actionMarkAsRead = "Mark as read";
+		public static String editButton = "Edit";
 	}
 }

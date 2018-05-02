@@ -16,7 +16,7 @@ interface SenderAllListComponentContract {
 
     interface Presenter : BasePresenter<SenderAllListComponentContract.View> {
         fun refresh()
-        fun loadSenders(senderId : Long)
+        fun loadAllSenders()
         fun searchSenders(searchText : String)
     }
 }

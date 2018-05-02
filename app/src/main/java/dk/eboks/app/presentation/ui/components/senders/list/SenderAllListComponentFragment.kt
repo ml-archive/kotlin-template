@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.components.senders.list
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
@@ -58,7 +59,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         presenter.onViewCreated(this, lifecycle)
 
         refreshSrl.setOnRefreshListener {
-             presenter.refresh()
+            presenter.refresh()
         }
         setupRecyclerView()
         setupTopBar()
@@ -73,42 +74,31 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         }
 
         activity?.searchAllSenderSv?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            private val deBounce = Runnable {
-                var text = activity?.searchAllSenderSv?.query?.toString()?.trim() ?:""
-//                presenter.searchSenders(text)
-                filterSenders(text)
+            var filterSenders = Runnable{
+                var text = activity?.searchAllSenderSv?.query?.toString()?.trim() ?: ""
+                presenter.searchSenders(text)
+
             }
 
-            private fun filterSenders(text: String) {
-                filteredSenders.clear()
-                senders.let {
-                    for(sender in senders){
-                        if(sender.name.contains(text, true)){
-                            filteredSenders.add(sender)
-                        }
-                    }
-                }
-                allSendersRv.adapter.notifyDataSetChanged()
-            }
-
-            override fun onQueryTextSubmit(query: String): Boolean {
-                activity?.searchAllSenderSv?.removeCallbacks(deBounce)
-                activity?.searchAllSenderSv?.post(deBounce)
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                activity?.searchAllSenderSv?.removeCallbacks(filterSenders)
+                activity?.searchAllSenderSv?.post(filterSenders)
                 return false
             }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                if(newText.isBlank()) {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if(newText.isNullOrBlank()) {
                     filteredSenders.clear()
                     allSendersRv?.adapter?.notifyDataSetChanged()
                 } else {
-                    activity?.searchAllSenderSv?.removeCallbacks(deBounce)
-                    activity?.searchAllSenderSv?.postDelayed(deBounce, 500)
+                    activity?.searchAllSenderSv?.removeCallbacks(filterSenders)
+                    activity?.searchAllSenderSv?.postDelayed(filterSenders, 500)
                 }
                 return true
             }
         })
     }
+
 
     private fun setupTopBar() {
         getBaseActivity()?.mainTb?.menu?.clear()
@@ -121,7 +111,8 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         }
 
 
-         val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.uploads.topbarEdit)
+        val menuProfile = getBaseActivity()?.mainTb?.menu?.add("_search")
+        menuProfile?.setIcon(R.drawable.search)
         menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
             switchMode()
@@ -132,14 +123,14 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
     private fun switchMode() {
 
         searchMode = !searchMode
-        if(searchMode) {
+        if (searchMode) {
             getBaseActivity()?.mainAb?.visibility = View.GONE
             getBaseActivity()?.mainAllSenderAb?.visibility = View.VISIBLE
 
         } else {
             getBaseActivity()?.mainAb?.visibility = View.VISIBLE
             getBaseActivity()?.mainAllSenderAb?.visibility = View.GONE
-            filteredSenders.addAll(senders)
+            presenter.loadAllSenders()
             allSendersRv.adapter.notifyDataSetChanged()
         }
     }
@@ -151,16 +142,17 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
     }
 
     override fun showProgress(show: Boolean) {
-        progressBarFl.visibility = if(show) View.VISIBLE else View.GONE
+        progressBarFl.visibility = if (show) View.VISIBLE else View.GONE
         refreshSrl.isRefreshing = show
     }
 
     override fun showEmpty(show: Boolean) {
-       // currently no emptystate - it should not happend as the showAll button is not shown if you dont have any mail from senders
+        // currently no emptystate - it should not happend as the showAll button is not shown if you dont have any mail from senders
     }
 
     override fun showSenders(senders: List<Sender>) {
         this.senders.clear()
+        filteredSenders.clear()
         this.senders.addAll(senders)
         filteredSenders.addAll(senders)
         allSendersRv.adapter.notifyDataSetChanged()
@@ -201,7 +193,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
                 }
 
                 val senderListener = View.OnClickListener {
-                    val i = Intent(context, MailListActivity::class.java )
+                    val i = Intent(context, MailListActivity::class.java)
                     i.putExtra("sender", currentItem)
                     startActivity(i)
 

@@ -14,11 +14,14 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class SenderAllListComponentPresenter @Inject constructor(val appState: AppStateManager, val getSendersInteractor: GetSendersInteractor) : SenderAllListComponentContract.Presenter, BasePresenterImpl<SenderAllListComponentContract.View>(),GetSendersInteractor.Output {
+class SenderAllListComponentPresenter @Inject constructor(val appState: AppStateManager, val getSendersInteractor: GetSendersInteractor) : SenderAllListComponentContract.Presenter, BasePresenterImpl<SenderAllListComponentContract.View>(), GetSendersInteractor.Output {
+
+    var senders: MutableList<Sender> = ArrayList()
+    var filteredSenders: MutableList<Sender> = ArrayList()
 
     init {
         refresh()
-        runAction { v-> v.showProgress(true) }
+        runAction { v -> v.showProgress(true) }
     }
 
     override fun refresh() {
@@ -29,31 +32,52 @@ class SenderAllListComponentPresenter @Inject constructor(val appState: AppState
 
     override fun onGetSenders(senders: List<Sender>) {
 
+        saveSenders(senders)
+
         runAction { v ->
             v.showProgress(false)
-            if(senders.isNotEmpty()) {
+            if (senders.isNotEmpty()) {
                 v.showEmpty(false)
-                v.showSenders(senders)
-            }
-            else
-            {
+                v.showSenders(filteredSenders)
+            } else {
                 v.showEmpty(true)
             }
         }
     }
 
+    private fun saveSenders(senders: List<Sender>) {
+        this.senders.clear()
+        this.filteredSenders.clear()
+        this.senders.addAll(senders)
+        filteredSenders.addAll(this.senders)
+
+    }
+
     override fun onGetSendersError(error: ViewError) {
-        runAction { v->
+        runAction { v ->
             v.showProgress(false)
             v.showErrorDialog(error)
         }
     }
 
-    override fun loadSenders(senderId: Long) {
-
+    override fun loadAllSenders() {
+        filteredSenders.clear()
+        filteredSenders.addAll(senders)
+        runAction { v->
+            v.showSenders(filteredSenders)
+        }
     }
 
     override fun searchSenders(searchText: String) {
-
+        filteredSenders.clear()
+        for (sender in senders) {
+            if (sender.name.contains(searchText, true)) {
+                filteredSenders.add(sender)
+            }
+        }
+        runAction { v->
+            v.showSenders(filteredSenders)
+        }
     }
+
 }
