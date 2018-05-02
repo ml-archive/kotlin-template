@@ -44,6 +44,14 @@ class CheckBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
                 cb.text = option.value
                 cb.tag = option
                 checkBoxesLl?.addView(cb)
+                // preselect an option from the server
+                formInput.value?.let { value ->
+                    if(value == option.value)
+                    {
+                        selectedOptions.add(option)
+                        cb.isChecked = true
+                    }
+                }
                 cb.setOnCheckedChangeListener { compoundButton, b ->
                     val opt : FormInputOption? = compoundButton.tag as FormInputOption
                     opt?.let {
@@ -55,8 +63,12 @@ class CheckBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
                         {
                             selectedOptions.remove(opt)
                         }
+                        validate()
+                        setChanged()
+                        notifyObservers()
                     }
                 }
+
             }
         }
 
@@ -69,6 +81,7 @@ class CheckBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
             }
         })
         */
+        validate(silent = true)
         return v
     }
 

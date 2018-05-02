@@ -33,6 +33,14 @@ class DateFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
         }
     }
 
+    val serverDateFormat: SimpleDateFormat by lazy {
+        try {
+            SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", NStack.language)
+        } catch (t: Throwable) {
+            SimpleDateFormat()
+        }
+    }
+
     val dateTimeFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("d. MMM YYYY hh:mm", NStack.language)
@@ -60,7 +68,10 @@ class DateFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
                 parsedDate = dateformat.parse(it)
                 textEt?.setText(dateformat.format(parsedDate))
             }
-            catch (t : Throwable) { textEt?.setText(dateformat.format(Date())) }
+            catch (t : Throwable) {
+                parsedDate = Date()
+                textEt?.setText(dateformat.format(parsedDate))
+            }
         }
         //textEt?.isEnabled = false
         v?.setOnClickListener(clickListener)
@@ -90,9 +101,9 @@ class DateFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
             }
         }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
 
-        dlg.setTitle("_Choose date")
+        val title = if(isDateTime) Translation.reply.dateTimePickerCaption else Translation.reply.datePickerCaption
+        dlg.setTitle(title)
         dlg.setOnDismissListener { it ->
-            Timber.e("dismiss tisser")
             if(isDateTime)
                 handler.post {
                     showTimePicker()
@@ -124,7 +135,8 @@ class DateFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
             }
         }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true)
 
-        dlg.setTitle("_Choose time")
+        val title = if(isDateTime) Translation.reply.dateTimePickerCaption else Translation.reply.datePickerCaption
+        dlg.setTitle(title)
         dlg.setOnDismissListener { it ->
             it.dismiss()
         }
@@ -141,6 +153,15 @@ class DateFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
         if(formInput.required && text.isNullOrBlank())
         {
             textTil?.error = if(silent) null else Translation.reply.required
+            return
+        }
+
+        try {
+            formInput.value = serverDateFormat.format(parsedDate)
+        }
+        catch (t : Throwable)
+        {
+            Timber.e(t)
             return
         }
 

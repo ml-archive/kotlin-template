@@ -840,9 +840,10 @@ class PresentationModule {
     @Provides
     fun provideReplyFormPresenter(
             appState: AppStateManager,
-            getReplyFormInteractor: GetReplyFormInteractor
+            getReplyFormInteractor: GetReplyFormInteractor,
+            submitReplyFormInteractor: SubmitReplyFormInteractor
     ): ReplyFormContract.Presenter {
-        return ReplyFormPresenter(appState, getReplyFormInteractor)
+        return ReplyFormPresenter(appState, getReplyFormInteractor, submitReplyFormInteractor)
     }
 
     /* Pasta

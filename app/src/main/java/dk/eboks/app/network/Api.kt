@@ -41,7 +41,10 @@ interface Api {
     @GET("mail/{type}/messages") fun getMessagesByType(@Path("type") type : String) : Call<List<Message>>
     @GET("api/senders") fun getSenders() : Call<List<Sender>>
     @PUT("session") fun login(@Body body : LoginRequest) : Single<BufferedSource>
+
+    // reply forms
     @GET("mail/folders/{folderId}/messages/{id}/reply") fun getMessageReplyForm(@Path("id") id : String, @Path("folderId") folderId : Long) : Call<ReplyForm>
+    @PATCH("mail/folders/{folderId}/messages/{id}/reply") fun submitMessageReplyForm(@Path("id") id : String, @Path("folderId") folderId : Long, @Body body : ReplyForm) : Call<Any>
 
     // channels
     @GET("api/channels") fun getChannels() : Call<MutableList<Channel>>

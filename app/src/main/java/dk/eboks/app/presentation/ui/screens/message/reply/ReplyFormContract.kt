@@ -13,9 +13,11 @@ interface ReplyFormContract {
         fun showProgress(show : Boolean)
         fun clearForm()
         fun showFormInput(input : FormInput)
+        fun finish()
     }
 
     interface Presenter : BasePresenter<View> {
         fun setup(msg : Message)
+        fun submit()
     }
 }

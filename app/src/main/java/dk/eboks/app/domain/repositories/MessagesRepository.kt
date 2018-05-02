@@ -14,6 +14,7 @@ interface MessagesRepository {
     fun getMessages(cached : Boolean = false, type : FolderType) : List<Message>
     fun getMessage(folderId: Long, id : String, receipt : Boolean? = null, terms : Boolean? = null) : Message
     fun getMessageReplyForm(folderId: Long, id : String) : ReplyForm
+    fun submitMessageReplyForm(msg : Message, form: ReplyForm)
     fun getMessagesBySender(cached: Boolean, senderId : Long): List<Message>
     fun hasCachedMessageFolder(folder: Folder): Boolean
     fun hasCachedMessageSender(sender: Sender): Boolean

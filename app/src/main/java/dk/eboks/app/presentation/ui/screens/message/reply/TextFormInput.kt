@@ -76,6 +76,9 @@ class TextFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
                 return
             }
         }
+
+        formInput.value = text
+
         textTil?.error = null
         isValid = true
         return
