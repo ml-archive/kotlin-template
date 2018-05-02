@@ -9,7 +9,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface FoldersComponentContract {
     interface View : ComponentBaseView {
-        fun isEditMode():Boolean
+        fun getModeType():FolderMode
         fun showUserFolders(folders : List<Folder>)
         fun showSystemFolders(folders : List<Folder>)
         fun showRefreshProgress(show : Boolean)
