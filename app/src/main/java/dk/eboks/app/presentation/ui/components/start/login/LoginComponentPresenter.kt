@@ -7,6 +7,7 @@ import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
+import dk.eboks.app.domain.models.login.ContactPoint
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -26,7 +27,7 @@ class LoginComponentPresenter @Inject constructor(
         CreateUserInteractor.Output,
         PostAuthenticateUserInteractor.Output {
 
-    var altProviders : List<LoginProvider> = Config.getAlternativeLoginProviders()
+    var altProviders: List<LoginProvider> = Config.getAlternativeLoginProviders()
 
     init {
         appState.state?.currentUser = null
@@ -49,15 +50,17 @@ class LoginComponentPresenter @Inject constructor(
 
     private fun setupLogin(user: User?, provider: String?) {
         val lp = if (provider != null) Config.getLoginProvider(provider) else null
-        runAction { v->
-            user?.let { // setup for existing user
+        runAction { v ->
+            user?.let {
+                // setup for existing user
                 if (!user.verified) {   // user is not verified
                     v.setupView(loginProvider = lp, user = user, altLoginProviders = ArrayList())
                 } else {
                     // user is verified
                     v.setupView(loginProvider = lp, user = user, altLoginProviders = altProviders)
                 }
-            }.guard {   // setup for first time login
+            }.guard {
+                // setup for first time login
                 v.setupView(loginProvider = lp, user = null, altLoginProviders = ArrayList())
             }
         }
@@ -81,7 +84,11 @@ class LoginComponentPresenter @Inject constructor(
 
     override fun login(user: User, providerId: String, password: String, activationCode: String?) {
         user.lastLoginProvider = providerId
-        postAuthenticateUserInteractor.input = PostAuthenticateUserInteractor.Input(user, password, activationCode)
+        postAuthenticateUserInteractor.input = PostAuthenticateUserInteractor.Input(
+                user,
+                password,
+                activationCode
+        )
         postAuthenticateUserInteractor.run()
 
     }
@@ -91,10 +98,11 @@ class LoginComponentPresenter @Inject constructor(
         val provider = if (email != null) Config.getLoginProvider("email") else Config.getLoginProvider(
                 "cpr"
         )
+
         val user: User = User(
                 id = -1,
                 name = "Name McLastName",
-                email = email,
+                emails = arrayListOf(ContactPoint(email ?: "", true)),
                 cpr = cpr,
                 avatarUri = null,
                 lastLoginProvider = provider?.id,

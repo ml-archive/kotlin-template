@@ -223,7 +223,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
         customFingerprintDialog.setOnFingerprintDialogEventListener {
             customFingerprintDialog.dismiss()
-            
+
             when (it) {
                 CANCEL  -> {
                     // Do nothing?
@@ -272,7 +272,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
         // setting profile view
         userNameTv.text = user?.name
-        userEmailCprTv.text = user?.email
+        userEmailCprTv.text = user?.emails?.firstOrNull()?.value
 
         var options = RequestOptions()
         options.error(R.drawable.ic_profile_placeholder)
