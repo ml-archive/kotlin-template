@@ -3,7 +3,7 @@ package dk.eboks.app.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: en-US 
- * Generated: Wed May 02 11:38:43 CEST 2018 
+ * Generated: Wed May 02 13:21:30 CEST 2018 
  */
 
 public class Translation {
@@ -462,6 +462,7 @@ public class Translation {
 		public static String minValueError = "Value must be [VALUE] or above";
 		public static String maxValueError = "Value must be [VALUE] or below";
 		public static String nanError = "Must be a number";
+		public static String submitButton = "Submit";
 	}
 	public final static class androidfingerprint {
 		public static String successMessage = "Successfully Authenticated";

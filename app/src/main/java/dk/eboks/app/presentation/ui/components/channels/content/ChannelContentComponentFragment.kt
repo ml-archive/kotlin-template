@@ -41,6 +41,14 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
 
         presenter.onViewCreated(this, lifecycle)
 
+        refreshSrl.isEnabled = true
+        refreshSrl.setOnRefreshListener {
+            //todo user refreshed the webview
+            //todo when we know what to refresh, add some logic to stop the refreshing
+            var temp = "_refresh view"
+            Timber.e(temp)
+        }
+
         setupTopBar()
     }
 

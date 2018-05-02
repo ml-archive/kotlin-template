@@ -81,7 +81,6 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.overlaymenu.done)
             menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
-                //todo should end activiy for result with selected folder
                 pickedFolder?.let{
                 var intent = Intent()
                 intent.putExtra("res", it)

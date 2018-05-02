@@ -391,6 +391,7 @@
   <string name='nstack_reply_minValueError' formatted='false'>reply_minValueError</string>
   <string name='nstack_reply_maxValueError' formatted='false'>reply_maxValueError</string>
   <string name='nstack_reply_nanError' formatted='false'>reply_nanError</string>
+  <string name='nstack_reply_submitButton' formatted='false'>reply_submitButton</string>
   <string name='nstack_androidfingerprint_successMessage' formatted='false'>androidfingerprint_successMessage</string>
   <string name='nstack_androidfingerprint_errorMessage' formatted='false'>androidfingerprint_errorMessage</string>
   <string name='nstack_androidfingerprint_errorInvalidData' formatted='false'>androidfingerprint_errorInvalidData</string>

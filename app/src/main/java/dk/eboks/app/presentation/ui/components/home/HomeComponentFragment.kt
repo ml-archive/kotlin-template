@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.components.home
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.Typeface
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
@@ -334,9 +335,9 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
 
     override fun showHighlights(messages: List<Message>) {
         mailListContentLL.removeAllViews()
-        //Timber.e("Got them highlights $messages")
         emailCount = messages.size
         if (messages.size == 0) {
+            //empty states
             emptyStateLl.visibility = View.VISIBLE
             emailContainerLl.visibility = View.GONE
             if (channelCount > 0) {
@@ -351,6 +352,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 }
             }
         } else {
+            // not empty
             emptyStateLl.visibility = View.GONE
             emailContainerLl.visibility = View.VISIBLE
             mailListContentLL.removeAllViews()
@@ -377,7 +379,12 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
                 }
                 if (currentMessage.unread) {
                     circleIv.isSelected = true
-                }
+                    dateTv.setTypeface(null,Typeface.BOLD)
+                    titleTv.setTypeface(null,Typeface.BOLD)
+                } else {
+                    dateTv.setTypeface(null,Typeface.NORMAL)
+                    titleTv.setTypeface(null,Typeface.NORMAL)
+                    }
 
                 if (currentMessage.status != null && currentMessage.status!!.important) {
                     urgentTv.visibility = View.VISIBLE
