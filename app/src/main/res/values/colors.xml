@@ -48,4 +48,6 @@
     <color name="greyBoarder">#c1ced2</color>
     <color name="ProfileUnderlineColor">#25294350</color>
 
+    <color name="transparentOverlay">#80345768</color>
+
 </resources>

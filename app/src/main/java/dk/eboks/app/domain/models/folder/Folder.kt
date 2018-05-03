@@ -11,5 +11,6 @@ data class Folder(
     var type : FolderType = FolderType.FOLDER,
     var unreadCount : Int = 0,
     var iconImageUrl : String = "",
-    var folders : List<Folder> = ArrayList()
+    var folders : List<Folder> = ArrayList(),
+    var parentFolder: Folder? = null
 ) : Serializable

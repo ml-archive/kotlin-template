@@ -30,6 +30,8 @@ import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVeri
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentPresenter
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentFragment
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentPresenter
+import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentFragment
+import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentPresenter
 import dk.eboks.app.presentation.ui.components.home.HomeComponentFragment
 import dk.eboks.app.presentation.ui.components.home.HomeComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
@@ -183,6 +185,12 @@ interface PresentationComponent {
     fun inject(target: SenderAllListPresenter)
 
     // Components
+
+    //folder
+
+    fun inject(target : NewFolderComponentFragment)
+    fun inject(target : NewFolderComponentPresenter)
+
 
     // message
 

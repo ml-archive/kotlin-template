@@ -41,6 +41,8 @@ import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentContra
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentPresenter
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentContract
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
+import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentContract
+import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentPresenter
 import dk.eboks.app.presentation.ui.components.home.HomeComponentContract
 import dk.eboks.app.presentation.ui.components.home.HomeComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentContract
@@ -846,6 +848,12 @@ class PresentationModule {
     fun provideSenderAllListComponentPresenter(stateManager: AppStateManager,
                                                sendersInteractor: GetSendersInteractor): SenderAllListComponentContract.Presenter {
         return SenderAllListComponentPresenter(stateManager, sendersInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideNewFolderComponentPresenter(stateManager: AppStateManager) : NewFolderComponentContract.Presenter {
+        return NewFolderComponentPresenter(stateManager)
     }
 
     /* Pasta

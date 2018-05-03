@@ -75,4 +75,14 @@
         android:layout_marginStart="56dp"
         android:background="@color/dividerGreyBlue"
         android:visibility="gone" />
+
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/overlayFl"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/transparentOverlay"-->
+        <!--android:visibility="gone"-->
+        <!--/>-->
+
 </FrameLayout>

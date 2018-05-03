@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.components.folder.folders
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.local.ViewError
@@ -26,6 +27,7 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
         getFoldersInteractor.output = this
         runAction { v ->
             v.showProgress(true)
+            v.setUser( appState.state?.currentUser)
             pickermode = v.getModeType()
             refresh()
         }
@@ -48,8 +50,8 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
             v.showUserFolders(folders)
             v.showRefreshProgress(false)
         }
-
     }
+
 
     override fun onGetSystemFolders(folders: List<Folder>) {
         //Timber.e("system folders $folders")

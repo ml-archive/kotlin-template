@@ -106,7 +106,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     private fun setupFab(buttons: ArrayList<OverlayButton> = ArrayList()) {
         mainFab.setOnClickListener {
             var i = Intent(context, OverlayActivity::class.java)
-
             i.putExtra("buttons", buttons)
             startActivityForResult(i, OverlayActivity.REQUEST_ID)
         }

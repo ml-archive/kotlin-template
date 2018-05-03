@@ -12,14 +12,22 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentFragment
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.views
 import kotlinx.android.synthetic.main.fragment_folders_component.*
+import kotlinx.android.synthetic.main.fragment_list_component.view.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import kotlinx.android.synthetic.main.viewholder_folder.view.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -35,8 +43,10 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     var systemfolders: MutableList<Folder> = ArrayList()
     var userfolders: MutableList<Folder> = ArrayList()
     var mode: FolderMode = FolderMode.NORMAL
+    var selectFolder: Boolean = false
     var pickedFolder: Folder? = null
     var pickedCheckBox: ImageButton? = null
+    var currentUser: User? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_folders_component, container, false)
@@ -50,15 +60,17 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             if (args.containsKey("pick")) {
                 mode = FolderMode.SELECT
             }
+            if (args.containsKey("selectFolder")) {
+                selectFolder = true
+            }
         }
 
         presenter.onViewCreated(this, lifecycle)
 
 
         mainFab.setOnClickListener {
-            //todo
-            var temp = "_FAB clicked"
-            println(temp)
+            getBaseActivity()?.openComponentDrawer(NewFolderComponentFragment::class.java)
+
         }
         refreshSrl.setOnRefreshListener {
             presenter.refresh()
@@ -81,6 +93,9 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         getBaseActivity()?.mainTb?.menu?.clear()
         mainFab.visibility = View.GONE
 
+        systemFoldersLl.alpha = 1f
+        systemFoldersLl.isClickable = true
+
         when (mode) {
             FolderMode.NORMAL -> {
                 setNormalTopbar()
@@ -94,6 +109,14 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             }
             FolderMode.SELECT -> {
                 setSelectTopbar()
+
+                if (selectFolder) {
+                    for (folder in userfolders) {
+                        if (folder.type == FolderType.INBOX) {
+
+                        }
+                    }
+                }
                 showUserFolders(userfolders)
             }
             FolderMode.EDIT -> {
@@ -101,6 +124,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
                 for (view in systemFoldersLl.views) {
                     editView(view)
+                    systemFoldersLl.alpha = 0.5f
                 }
 
                 for (view in foldersLl.views) {
@@ -119,7 +143,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             activity.onBackPressed()
         }
 
-        val menuProfile = getBaseActivity()?.mainTb?.menu?.add("_Edit")
+        val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.folders.topbarEdit)
         menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
             mode = FolderMode.EDIT
@@ -131,7 +155,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
     private fun setEditTopBar() {
         getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
-        getBaseActivity()?.mainTb?.title = "_Edit"
+        getBaseActivity()?.mainTb?.title = Translation.folders.topbarEdit
         getBaseActivity()?.mainTb?.setNavigationOnClickListener {
             mode = FolderMode.NORMAL
             setupMode()
@@ -163,13 +187,17 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         }
     }
 
+    override fun setUser(user: User?) {
+        currentUser = user
+    }
+
     override fun getModeType(): FolderMode {
         return mode
     }
 
     override fun showSelectFolders(folders: List<Folder>) {
         foldersLl.removeAllViews()
-        processFoldersRecursive(folders, 0)
+        processFoldersRecursive(folders, 0, null)
     }
 
     override fun showSystemFolders(folders: List<Folder>) {
@@ -213,9 +241,15 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         processFoldersRecursive(folders, 0)
     }
 
-    fun processFoldersRecursive(folders: List<Folder>, level: Int) {
+    fun processFoldersRecursive(folders: List<Folder>, level: Int, parentFolder: Folder? = null) {
         val li: LayoutInflater = LayoutInflater.from(context)
         for (folder in folders) {
+
+            parentFolder?.let {
+                var parent = parentFolder
+                folder.parentFolder = parent
+            }.guard { folder.parentFolder = null }
+
             val v = li.inflate(R.layout.viewholder_folder, foldersLl, false)
             v.tag = folder
             var left = resources.displayMetrics.density * 40.0f * level.toFloat()
@@ -258,7 +292,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
 
             if (folder.folders.isNotEmpty()) {
-                processFoldersRecursive(folder.folders, level + 1)
+                processFoldersRecursive(folder.folders, level + 1, folder)
             }
         }
     }
@@ -274,6 +308,18 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         v.setOnClickListener {
             setSelected(checkbox, folder)
         }
+
+        if (folder.type == FolderType.INBOX) {
+            currentUser?.let { user ->
+                v.nameTv.text = user.name
+                v.iconIv?.let {
+                    Glide.with(context)
+                            .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
+                            .load(user.avatarUri)
+                            .into(it)
+                }
+            }
+        }
     }
 
     private fun normalView(v: View, folder: Folder) {
@@ -288,18 +334,27 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         v.findViewById<FrameLayout>(R.id.arrowFl)?.visibility = View.GONE
         v.findViewById<ImageButton>(R.id.checkboxIb)?.visibility = View.GONE
         val edit = v.findViewById<ImageButton>(R.id.editIb)
-        edit?.visibility = View.VISIBLE
-        edit.setOnClickListener {
-            //todo edit button clicked
-            var temp = "_edit clicked " + v.tag.toString()
-            println(temp)
+        var folder = v.tag as Folder
 
+        if (!folder.type.isSystemFolder()) {
+            edit?.visibility = View.VISIBLE
+
+            edit.setOnClickListener {
+                editButtonClicked(v)
+            }
+            v.setOnClickListener {
+                editButtonClicked(v)
+            }
+        } else {
+            v.isClickable = false
         }
-        v.setOnClickListener {
-            //todo edit button clicked
-            var temp = "_edit clicked" + v.tag.toString()
-            println(temp)
-        }
+    }
+
+    private fun editButtonClicked(v: View) {
+        var arguments = Bundle()
+        var editFolder = v.tag as Folder
+        arguments.putSerializable("editFolder", editFolder)
+        getBaseActivity()?.openComponentDrawer(NewFolderComponentFragment::class.java, arguments)
     }
 
 
