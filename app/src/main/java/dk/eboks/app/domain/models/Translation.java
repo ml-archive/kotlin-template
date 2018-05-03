@@ -66,6 +66,7 @@ public class Translation {
 		public static String newFolderTitle = "Add new folder";
 		public static String newfolderHint = "Folder name";
 		public static String folder = "Folder";
+		public static String editFolder = "Edit folder";
 	}
 	public final static class attachments {
 		public static String lockedTitle = "Locked attachment";

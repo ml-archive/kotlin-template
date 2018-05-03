@@ -137,16 +137,12 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
                     uploadFl.isSelected = false
 
                 } else {
-                    currentItem.sender?.let {
-                        imageIv?.let {
-                            Glide.with(itemView.context)
-                                    .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
-                                    .load(currentItem.sender?.logo?.url)
-                                    .into(it)
+                    Glide.with(itemView.context)
+                            .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
+                            .load(currentItem.sender?.logo?.url)
+                            .into(imageIv)
 
-                            uploadFl.isSelected = currentItem.unread
-                        }
-                    }
+                    uploadFl.isSelected = currentItem.unread
                 }
             }
 
@@ -168,7 +164,6 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
             uploadFl.visibility = View.GONE
             checkBox.visibility = View.VISIBLE
 
-
             val uploadListener = View.OnClickListener {
                 if (checkBox.visibility == View.VISIBLE) {
 
@@ -182,6 +177,7 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
 
                 }
             }
+
             contentContainer.setOnClickListener(uploadListener)
             checkBox.setOnClickListener(uploadListener)
         }
