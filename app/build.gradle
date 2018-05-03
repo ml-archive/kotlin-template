@@ -224,6 +224,8 @@ dependencies {
     implementation "com.android.support:cardview-v7:$support_library_version"
     implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
 
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 

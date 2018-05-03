@@ -1,9 +1,6 @@
 package dk.eboks.app.presentation.ui.components.mail.maillist
 
-import dk.eboks.app.domain.interactors.message.DeleteMessagesInteractor
-import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
-import dk.eboks.app.domain.interactors.message.MoveMessagesInteractor
-import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
+import dk.eboks.app.domain.interactors.message.*
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
@@ -20,12 +17,14 @@ class MailListComponentPresenter @Inject constructor(
         val getMessagesInteractor: GetMessagesInteractor,
         val deleteMessagesInteractor: DeleteMessagesInteractor,
         val moveMessagesInteractor: MoveMessagesInteractor,
-        val openMessageInteractor: OpenMessageInteractor
+        val openMessageInteractor: OpenMessageInteractor,
+        val updateMessageInteractor: UpdateMessageInteractor
 ) :
         MailListComponentContract.Presenter,
         BasePresenterImpl<MailListComponentContract.View>(),
         GetMessagesInteractor.Output, DeleteMessagesInteractor.Output,
-        MoveMessagesInteractor.Output, OpenMessageInteractor.Output {
+        MoveMessagesInteractor.Output, OpenMessageInteractor.Output,
+        UpdateMessageInteractor.Output {
 
     companion object {
         val FOLDER_MODE = 1
@@ -66,6 +65,15 @@ class MailListComponentPresenter @Inject constructor(
                 }
             }
         }
+    }
+
+    override fun updateMessage(message: Message) {
+        view?.showProgress(true)
+
+        updateMessageInteractor.input = UpdateMessageInteractor.Input(message)
+        updateMessageInteractor.output = this
+
+        updateMessageInteractor.run()
     }
 
     override fun openMessage(message: Message, type: ButtonType) {
@@ -183,4 +191,23 @@ class MailListComponentPresenter @Inject constructor(
             view.showErrorDialog(error)
         }
     }
+
+    // Update Message
+
+    override fun onUpdateMessageSuccess() {
+        Timber.d("onUpdateMessageSuccess")
+        runAction { v ->
+            v.showProgress(true)
+            refresh()
+        }
+    }
+
+    override fun onUpdateMessageError(error: ViewError) {
+        Timber.d("onUpdateMessageError")
+        runAction { view ->
+            view.showProgress(false)
+            view.showErrorDialog(error)
+        }
+    }
+
 }

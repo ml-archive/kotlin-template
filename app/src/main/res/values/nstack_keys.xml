@@ -46,6 +46,10 @@
   <string name='nstack_mainnav_uploadsButton' formatted='false'>mainnav_uploadsButton</string>
   <string name='nstack_folders_foldersHeader' formatted='false'>folders_foldersHeader</string>
   <string name='nstack_folders_searchBarPlaceholder' formatted='false'>folders_searchBarPlaceholder</string>
+  <string name='nstack_folders_topbarEdit' formatted='false'>folders_topbarEdit</string>
+  <string name='nstack_folders_newFolderTitle' formatted='false'>folders_newFolderTitle</string>
+  <string name='nstack_folders_newfolderHint' formatted='false'>folders_newfolderHint</string>
+  <string name='nstack_folders_folder' formatted='false'>folders_folder</string>
   <string name='nstack_attachments_lockedTitle' formatted='false'>attachments_lockedTitle</string>
   <string name='nstack_attachments_lockedMessage' formatted='false'>attachments_lockedMessage</string>
   <string name='nstack_channels_channelsHeader' formatted='false'>channels_channelsHeader</string>

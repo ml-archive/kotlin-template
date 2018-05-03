@@ -1,6 +1,5 @@
 package dk.eboks.app.domain.interactors.message
 
-import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
@@ -14,6 +13,10 @@ class MoveMessagesInteractorImpl(executor: Executor) :
     override fun execute() {
         // Todo implement move route?
         Thread.sleep(1000)
-        output?.onMoveMessagesSuccess()
+
+        runOnUIThread {
+            output?.onMoveMessagesSuccess()
+        }
+
     }
 }

@@ -314,7 +314,8 @@ class PresentationModule {
             getMessagesInteractor: GetMessagesInteractor,
             deleteMessagesInteractor: DeleteMessagesInteractor,
             moveMessagesInteractor: MoveMessagesInteractor,
-            openMessageInteractor: OpenMessageInteractor
+            openMessageInteractor: OpenMessageInteractor,
+            updateMessageInteractor: UpdateMessageInteractor
 
     ): MailListComponentContract.Presenter {
         return MailListComponentPresenter(
@@ -322,7 +323,8 @@ class PresentationModule {
                 getMessagesInteractor,
                 deleteMessagesInteractor,
                 moveMessagesInteractor,
-                openMessageInteractor
+                openMessageInteractor,
+                updateMessageInteractor
         )
     }
 

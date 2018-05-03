@@ -214,6 +214,13 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideUpdateMessageInteractor(
+            executor: Executor
+    ): UpdateMessageInteractor {
+        return UpdateMessageInteractorImpl(executor)
+    }
+
+    @Provides
     fun provideGetChannelInteractor(
             executor: Executor,
             channelsRepository: ChannelsRepository
