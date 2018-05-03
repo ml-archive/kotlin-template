@@ -21,6 +21,7 @@ interface MailListComponentContract {
         fun setup(sender: Sender)
         fun refresh()
 
+        fun updateMessage(message: Message)
         fun openMessage(message: Message, type: ButtonType)
         fun deleteMessages(selectedMessages: MutableList<Message>)
         fun moveMessages(folderName: String?, selectedMessages: MutableList<Message>)

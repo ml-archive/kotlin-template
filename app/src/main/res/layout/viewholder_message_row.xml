@@ -1,128 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainSwipeLayout"
     android:layout_width="match_parent"
     android:layout_height="68dp"
-    android:background="?selectableItemBackground"
-    android:orientation="vertical">
+    tools:ignore="MissingPrefix">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:id="@+id/containerMarkAsRead"
+        android:layout_width="88dp"
+        android:layout_height="68dp"
+        android:background="@drawable/square_gradient"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:gravity="center">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/ic_menu_mail" />
 
-            <FrameLayout
-                android:id="@+id/uploadFl"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/circular_image_view_no_inner_circle_background"
-                android:visibility="visible">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="3sp"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            nstack:text="@string/nstack_inbox_actionMarkAsRead" />
+    </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageIv"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/ic_menu_uploads"/>
-            </FrameLayout>
+    <LinearLayout
+        android:id="@+id/containerMove"
+        android:layout_width="88dp"
+        android:layout_height="68dp"
+        android:background="@drawable/square_gradient_gray"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/checkboxIb"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="@drawable/square_gradiant_selector"
-                android:src="@drawable/icon_48_checkmark_white"
-                android:visibility="gone" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/ic_folder" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/showContainerLl"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:paddingLeft="12dp"
-            android:paddingRight="5dp"
-            android:visibility="visible">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/headerTv"
-                    style="@style/text.header4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="bottom"
-                    android:text="_Add another credit card" />
-
-                <TextView
-                    android:id="@+id/dateTv"
-                    style="@style/text.subHeader5.quaternary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignBaseline="@id/headerTv"
-                    android:layout_alignParentEnd="true"
-                    android:text="_today" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/subHeaderTv"
-                    style="@style/text.subHeader5.quaternary"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="top"
-                    android:text="_uploads" />
-
-                <ImageView
-                    android:id="@+id/clipIv"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentEnd="true"
-                    android:src="@drawable/icon_48_attachment_small_grey"
-                    android:visibility="gone" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/urgentTv"
-                style="@style/text.subHeader5.tertiary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:lineSpacingExtra="7sp"
-                android:text="_Inbox"
-                android:visibility="gone" />
-        </LinearLayout>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="3sp"
+            android:text="Move"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            nstack:text="@string/nstack_inbox_actionMove" />
 
     </LinearLayout>
 
-    <View
+    <LinearLayout
+        android:id="@+id/mainContainerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="68dp"
+        android:background="?selectableItemBackground"
+        android:orientation="vertical">
 
-    <View
-        android:id="@+id/dividerV"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_gravity="top"
-        android:layout_marginLeft="72dp"
-        android:background="@color/dividerGreyBlue" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <FrameLayout
+                    android:id="@+id/uploadFl"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/circular_image_view_no_inner_circle_background"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/imageIv"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_menu_uploads" />
+                </FrameLayout>
+
+                <ImageButton
+                    android:id="@+id/checkboxIb"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/square_gradiant_selector"
+                    android:src="@drawable/icon_48_checkmark_white"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/showContainerLl"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="12dp"
+                android:paddingRight="5dp"
+                android:visibility="visible">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/headerTv"
+                        style="@style/text.header4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="bottom"
+                        android:text="_Add another credit card" />
+
+                    <TextView
+                        android:id="@+id/dateTv"
+                        style="@style/text.subHeader5.quaternary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignBaseline="@id/headerTv"
+                        android:layout_alignParentEnd="true"
+                        android:text="_today" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/subHeaderTv"
+                        style="@style/text.subHeader5.quaternary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="top"
+                        android:text="_uploads" />
+
+                    <ImageView
+                        android:id="@+id/clipIv"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_alignParentEnd="true"
+                        android:src="@drawable/icon_48_attachment_small_grey"
+                        android:visibility="gone" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/urgentTv"
+                    style="@style/text.subHeader5.tertiary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="7sp"
+                    android:text="_Inbox"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/dividerV"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="top"
+            android:layout_marginLeft="72dp"
+            android:background="@color/dividerGreyBlue" />
+
+    </LinearLayout>
+</com.daimajia.swipe.SwipeLayout>
