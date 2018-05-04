@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="darkGreyBlue">#294350</color>
-    <color name="transparentDarkGreyBlue">#0d345768</color>
-    <color name="greyButton">#16223944</color>
-    <color name="greyButtonTrans">#0d223944</color>
 
-    <color name="blueGrey">#7f9aa3</color>
+    <color name="transparentDarkGreyBlue">#0D345768</color>
+
+    <color name="greyButton">#16223944</color>
+    <color name="greyButtonTrans">#0D223944</color>
+
+    <color name="blueGrey">#7F9AA3</color>
     <color name="rouge">#A8242F</color>
     <color name="rougeTwo">#BC1E3D</color>
     <color name="rougeThree">#872058</color>
-    <color name="rougeFour">#be1c36</color>
     <color name="silver">#C1CED2</color>
     <color name="white">#FFF</color>
-
 
 
     <color name="colorPrimary">@color/white</color>
@@ -25,7 +25,6 @@
     <color name="textColorQuaternary">@color/silver</color>
 
     <color name="backgroundColor">#F4F6F8</color>
-    <!--<color name="backgroundColorSheet">#F2F3F4</color>-->
     <color name="actionBarColor">#FCFDFD</color>
 
     <color name="dividerGreyBlue">#26294350</color>
@@ -37,17 +36,12 @@
     <color name="toolbarDisabledColor">@color/blueGrey</color>
 
 
-    <color name="outerCircleImageColor">#c1ced2</color>
-    <color name="innerCircleImageColor">#eceff3</color>
+    <color name="blueGreyBorderLight">#ECEFF3</color>
+    <color name="blueGreyBorder">@color/silver</color>
 
-    <color name="blueGreyBorderColor">#c1ced2</color>
     <color name="transparent">#0000</color>
-    <color name="transparentWhite">#3fff</color>
-    <color name="transparentBlack">#3000</color>
-    <color name="almostTransparentBlack">#19000000</color>
-    <color name="greyBoarder">#c1ced2</color>
-    <color name="ProfileUnderlineColor">#25294350</color>
-
-    <color name="transparentOverlay">#80345768</color>
+    <color name="transparentWhite20">#3FFF</color>
+    <color name="transparentBlack20">#3000</color>
+    <color name="transparentBlack10">#19000000</color>
 
 </resources>

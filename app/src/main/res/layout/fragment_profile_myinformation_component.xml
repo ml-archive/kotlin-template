@@ -76,7 +76,7 @@
                             app:met_floatingLabel="normal"
                             app:met_floatingLabelText="_Primary email"
                             app:met_hideUnderline="false"
-                            app:met_underlineColor="@color/ProfileUnderlineColor"/>
+                            app:met_underlineColor="@color/dividerGreyBlue"/>
 
                         <Button
                             android:id="@+id/verifyEmailBtn"
@@ -119,7 +119,7 @@
                             app:met_floatingLabel="normal"
                             app:met_floatingLabelText="_Secondary email"
                             app:met_hideUnderline="false"
-                            app:met_underlineColor="@color/ProfileUnderlineColor"/>
+                            app:met_underlineColor="@color/dividerGreyBlue"/>
 
                         <Button
                             android:id="@+id/verifySecondaryEmailBtn"
@@ -166,7 +166,7 @@
                             app:met_floatingLabel="normal"
                             app:met_floatingLabelText="_Mobile number"
                             app:met_hideUnderline="false"
-                            app:met_underlineColor="@color/ProfileUnderlineColor"/>
+                            app:met_underlineColor="@color/dividerGreyBlue"/>
 
                         <Button
                             android:id="@+id/verifyMobileNumberBtn"

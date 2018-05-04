@@ -12,7 +12,7 @@
         android:radius="2dp" />
     <stroke
         android:width="0.5dp"
-        android:color="@color/greyBoarder">
+        android:color="@color/silver">
 
     </stroke>
 </shape>

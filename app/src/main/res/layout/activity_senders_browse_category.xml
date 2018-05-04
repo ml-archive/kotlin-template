@@ -20,7 +20,7 @@
         app:bubbleColor="@null"
         app:bubbleTextColor="@color/colorPrimary"
         app:handleColor="@color/rouge"
-        app:trackColor="@color/transparentBlack"
+        app:trackColor="@color/transparentBlack20"
         app:hideScrollbar="false"
         app:showTrack="true">
 
