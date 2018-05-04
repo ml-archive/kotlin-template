@@ -28,7 +28,6 @@
     <color name="actionBarColor">#FCFDFD</color>
 
     <color name="dividerGreyBlue">#26294350</color>
-    <color name="dividerDarkGreyBlue">#26416780</color>
 
     <color name="toolbarSelectedColor">@color/darkGreyBlue</color>
     <color name="toolbarNormalColor">@color/rouge</color>
