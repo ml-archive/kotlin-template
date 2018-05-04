@@ -43,6 +43,8 @@ import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentCo
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentContract
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentPresenter
+import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentContract
+import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentPresenter
 import dk.eboks.app.presentation.ui.components.home.HomeComponentContract
 import dk.eboks.app.presentation.ui.components.home.HomeComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentContract
@@ -871,6 +873,12 @@ class PresentationModule {
     @Provides
     fun provideNewFolderComponentPresenter(stateManager: AppStateManager) : NewFolderComponentContract.Presenter {
         return NewFolderComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideFolderSelectUserComponentPresenter(stateManager: AppStateManager) : FolderSelectUserComponentContract.Presenter {
+        return FolderSelectUserComponentPresenter(stateManager)
     }
 
     /* Pasta

@@ -32,6 +32,8 @@ import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentFragme
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentPresenter
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentFragment
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentPresenter
+import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentFragment
+import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentPresenter
 import dk.eboks.app.presentation.ui.components.home.HomeComponentFragment
 import dk.eboks.app.presentation.ui.components.home.HomeComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
@@ -190,6 +192,8 @@ interface PresentationComponent {
 
     fun inject(target : NewFolderComponentFragment)
     fun inject(target : NewFolderComponentPresenter)
+    fun inject(target : FolderSelectUserComponentFragment)
+    fun inject(target : FolderSelectUserComponentPresenter)
 
 
     // message

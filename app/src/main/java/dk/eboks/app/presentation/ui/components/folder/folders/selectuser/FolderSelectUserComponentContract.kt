@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.screens.mail.overview
+package dk.eboks.app.presentation.ui.components.folder.folders.selectuser
 
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenter
@@ -7,13 +7,11 @@ import dk.eboks.app.presentation.base.BaseView
 /**
  * Created by bison on 07-11-2017.
  */
-interface MailOverviewContract {
+interface FolderSelectUserComponentContract {
     interface View : BaseView {
-        fun showProgress(show: Boolean)
         fun setUser(user: User?)
     }
 
     interface Presenter : BasePresenter<View> {
-        fun refresh()
     }
 }
