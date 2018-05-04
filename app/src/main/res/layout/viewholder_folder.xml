@@ -51,12 +51,19 @@
         </FrameLayout>
 
 
-            <ImageButton
-                android:id="@+id/checkboxIb"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="@drawable/circle_checkbox_selector"
-                android:visibility="gone" />
+        <ImageButton
+            android:id="@+id/checkboxIb"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/circle_checkbox_selector"
+            android:visibility="gone" />
+
+        <ImageButton
+            android:id="@+id/editIb"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/icon_48_edit_red"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -68,4 +75,14 @@
         android:layout_marginStart="56dp"
         android:background="@color/dividerGreyBlue"
         android:visibility="gone" />
+
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/overlayFl"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/transparentOverlay"-->
+        <!--android:visibility="gone"-->
+        <!--/>-->
+
 </FrameLayout>

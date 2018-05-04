@@ -82,6 +82,16 @@
 
     </FrameLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/mainFab"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:src="@drawable/icon_48_plus_white_big"
+        android:visibility="gone"/>
+
     <FrameLayout
         android:id="@+id/progressFl"
         android:layout_width="match_parent"

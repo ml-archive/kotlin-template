@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.folder.folders
 
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.ComponentBaseView
 import dk.nodes.arch.presentation.base.BasePresenter
 
@@ -9,15 +10,18 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface FoldersComponentContract {
     interface View : ComponentBaseView {
-        fun isEditMode():Boolean
+        fun getModeType():FolderMode
         fun showUserFolders(folders : List<Folder>)
         fun showSystemFolders(folders : List<Folder>)
         fun showRefreshProgress(show : Boolean)
         fun showSelectFolders(folders : List<Folder>)
+        fun setUser(user: User?)
+
     }
 
     interface Presenter : BasePresenter<FoldersComponentContract.View> {
         fun openFolder(folder: Folder)
         fun refresh()
+
     }
 }

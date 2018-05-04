@@ -5,6 +5,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.repositories.FoldersRepository
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.presentation.ui.components.folder.folders.FolderMode
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -18,8 +19,8 @@ class GetFoldersInteractorImpl(executor: Executor, val foldersRepository: Folder
     override var input: GetFoldersInteractor.Input? = null
 
     override fun execute() {
-        val pickermode = input?.pickermode ?: false
-        if (pickermode) {
+        val modeType = input?.pickermode ?: FolderMode.NORMAL
+        if (modeType == FolderMode.SELECT) {
             val folders = foldersRepository.getFolders(input?.cached ?: true)
             runOnUIThread {
                 val pickerfolders = ArrayList<Folder>()

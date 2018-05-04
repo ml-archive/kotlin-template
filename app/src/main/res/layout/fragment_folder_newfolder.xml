@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp">
+
+        <TextView
+            android:id="@+id/titleTv"
+            style="@style/text.header1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            nstack:text="@string/nstack_folders_newFolderTitle" />
+
+        <ImageView
+            android:id="@+id/deleteIv"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="right"
+
+            android:src="@drawable/icon_48_delete_red"/>
+
+    </FrameLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/nameTil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="8dp"
+        android:textColorHint="@color/textColorTertiary"
+        android:theme="@style/TextInputLayoutTheme.red"
+        app:errorEnabled="true"
+        app:errorTextAppearance="@style/errorappearance"
+        app:hintTextAppearance="@style/HintSmallTextAppearance.red">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/nameEt"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="text"
+            nstack:hint="@string/nstack_folders_newfolderHint" />
+    </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/selectFolderLl"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/channels_card_background_rounded"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text.header3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp"
+            android:gravity="center_vertical"
+            nstack:key="@string/nstack_folders_folder" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/folderRootTv"
+            style="@style/text.header4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="_user name" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/saveBtn"
+        style="@style/button.SolidGradient"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        android:text="_save"
+        nstack:key="@string/nstack_default_save" />
+
+    <Button
+        android:id="@+id/cancelBtn"
+        style="@style/button.borderless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="_Cancel"
+        android:textSize="14dp"
+        nstack:key="@string/nstack_default_cancel" />
+</LinearLayout>

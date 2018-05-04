@@ -41,6 +41,8 @@ import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentContra
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentPresenter
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentContract
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
+import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentContract
+import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentPresenter
 import dk.eboks.app.presentation.ui.components.home.HomeComponentContract
 import dk.eboks.app.presentation.ui.components.home.HomeComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentContract
@@ -94,6 +96,8 @@ import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentCont
 import dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentContract
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentPresenter
+import dk.eboks.app.presentation.ui.components.senders.list.SenderAllListComponentContract
+import dk.eboks.app.presentation.ui.components.senders.list.SenderAllListComponentPresenter
 import dk.eboks.app.presentation.ui.components.senders.register.RegisterPresenter
 import dk.eboks.app.presentation.ui.components.senders.register.RegistrationContract
 import dk.eboks.app.presentation.ui.components.start.login.*
@@ -151,6 +155,8 @@ import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryContrac
 import dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryPresenter
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailContract
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailPresenter
+import dk.eboks.app.presentation.ui.screens.senders.list.SenderAllListContract
+import dk.eboks.app.presentation.ui.screens.senders.list.SenderAllListPresenter
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewContract
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.senders.registrations.PendingContract
@@ -846,6 +852,25 @@ class PresentationModule {
             submitReplyFormInteractor: SubmitReplyFormInteractor
     ): ReplyFormContract.Presenter {
         return ReplyFormPresenter(appState, getReplyFormInteractor, submitReplyFormInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideSenderAllListPresenter(appState: AppStateManager): SenderAllListContract.Presenter {
+        return SenderAllListPresenter(appState)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideSenderAllListComponentPresenter(stateManager: AppStateManager,
+                                               sendersInteractor: GetSendersInteractor): SenderAllListComponentContract.Presenter {
+        return SenderAllListComponentPresenter(stateManager, sendersInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideNewFolderComponentPresenter(stateManager: AppStateManager) : NewFolderComponentContract.Presenter {
+        return NewFolderComponentPresenter(stateManager)
     }
 
     /* Pasta

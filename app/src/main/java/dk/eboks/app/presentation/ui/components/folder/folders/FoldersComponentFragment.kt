@@ -2,7 +2,6 @@ package dk.eboks.app.presentation.ui.components.folder.folders
 
 import android.app.Activity
 import android.content.Intent
-import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -13,14 +12,22 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentFragment
 import dk.eboks.app.util.guard
-import kotlinx.android.synthetic.main.abc_list_menu_item_checkbox.view.*
+import dk.eboks.app.util.views
 import kotlinx.android.synthetic.main.fragment_folders_component.*
+import kotlinx.android.synthetic.main.fragment_list_component.view.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import kotlinx.android.synthetic.main.viewholder_folder.view.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
@@ -33,10 +40,13 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     @Inject
     lateinit var presenter: FoldersComponentContract.Presenter
 
-    var folders: MutableList<Folder> = ArrayList()
-    var pickerMode: Boolean = false
+    var systemfolders: MutableList<Folder> = ArrayList()
+    var userfolders: MutableList<Folder> = ArrayList()
+    var mode: FolderMode = FolderMode.NORMAL
+    var selectFolder: Boolean = false
     var pickedFolder: Folder? = null
     var pickedCheckBox: ImageButton? = null
+    var currentUser: User? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_folders_component, container, false)
@@ -47,76 +57,157 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         arguments?.let { args ->
-            if (args.containsKey("pick")) { pickerMode = true}
-
+            if (args.containsKey("pick")) {
+                mode = FolderMode.SELECT
+            }
+            if (args.containsKey("selectFolder")) {
+                selectFolder = true
+            }
         }
 
         presenter.onViewCreated(this, lifecycle)
 
-        refreshSrl.isEnabled = !pickerMode
+
+        mainFab.setOnClickListener {
+            getBaseActivity()?.openComponentDrawer(NewFolderComponentFragment::class.java)
+
+        }
         refreshSrl.setOnRefreshListener {
             presenter.refresh()
         }
-            setupTopbar()
+        setupMode()
     }
 
-    private fun animateView (){
-        //view should only animate in pickerview
-        if (pickerMode){
-            var animation = AnimationUtils.loadAnimation(context,R.anim.abc_slide_in_bottom)
+    private fun animateView() {
+        //view should only animate in selectview
+        if (mode == FolderMode.SELECT) {
+            var animation = AnimationUtils.loadAnimation(context, R.anim.abc_slide_in_bottom)
             animation.duration = 1000
             view?.startAnimation(animation)
         }
     }
 
-    private fun setupTopbar() {
-        if (pickerMode) {
-            getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
-            getBaseActivity()?.mainTb?.setNavigationOnClickListener {
-                activity.onBackPressed()
+    private fun setupMode() {
+
+        refreshSrl.isEnabled = (mode == FolderMode.NORMAL)
+        getBaseActivity()?.mainTb?.menu?.clear()
+        mainFab.visibility = View.GONE
+
+        systemFoldersLl.alpha = 1f
+        systemFoldersLl.isClickable = true
+
+        when (mode) {
+            FolderMode.NORMAL -> {
+                setNormalTopbar()
+                for (view in systemFoldersLl.views) {
+                    normalView(view, view.tag as Folder)
+                }
+
+                for (view in foldersLl.views) {
+                    normalView(view, view.tag as Folder)
+                }
+            }
+            FolderMode.SELECT -> {
+                setSelectTopbar()
+
+                if (selectFolder) {
+                    for (folder in userfolders) {
+                        if (folder.type == FolderType.INBOX) {
+
+                        }
+                    }
+                }
+                showUserFolders(userfolders)
+            }
+            FolderMode.EDIT -> {
+                setEditTopBar()
+
+                for (view in systemFoldersLl.views) {
+                    editView(view)
+                    systemFoldersLl.alpha = 0.5f
+                }
+
+                for (view in foldersLl.views) {
+                    editView(view)
+                }
+                mainFab.visibility = View.VISIBLE
             }
 
-            getBaseActivity()?.mainTb?.title = Translation.overlaymenu.chooseLocation
+        }
+    }
 
-            val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.overlaymenu.done)
-            menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-            menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
-                //todo should end activiy for result with selected folder
-                pickedFolder?.let{
+    private fun setNormalTopbar() {
+        getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+        getBaseActivity()?.mainTb?.title = Translation.folders.foldersHeader
+        getBaseActivity()?.mainTb?.setNavigationOnClickListener {
+            activity.onBackPressed()
+        }
+
+        val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.folders.topbarEdit)
+        menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
+            mode = FolderMode.EDIT
+            setupMode()
+            true
+        }
+
+    }
+
+    private fun setEditTopBar() {
+        getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+        getBaseActivity()?.mainTb?.title = Translation.folders.topbarEdit
+        getBaseActivity()?.mainTb?.setNavigationOnClickListener {
+            mode = FolderMode.NORMAL
+            setupMode()
+        }
+    }
+
+    private fun setSelectTopbar() {
+        getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
+        getBaseActivity()?.mainTb?.setNavigationOnClickListener {
+            activity.onBackPressed()
+        }
+
+        getBaseActivity()?.mainTb?.title = Translation.overlaymenu.chooseLocation
+
+        val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.overlaymenu.done)
+        menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
+            pickedFolder?.let {
                 var intent = Intent()
                 intent.putExtra("res", it)
                 getBaseActivity()?.setResult(Activity.RESULT_OK, intent)
                 getBaseActivity()?.finish()
-                }.guard {
-                    getBaseActivity()?.setResult(Activity.RESULT_CANCELED, Intent())
-                    getBaseActivity()?.finish()
-                }
-                true
+            }.guard {
+                getBaseActivity()?.setResult(Activity.RESULT_CANCELED, Intent())
+                getBaseActivity()?.finish()
+            }
+            true
 
-            }
-        } else {
-            getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
-            getBaseActivity()?.mainTb?.title = Translation.folders.foldersHeader
-            getBaseActivity()?.mainTb?.setNavigationOnClickListener {
-                activity.onBackPressed()
-            }
         }
     }
 
-    override fun isEditMode(): Boolean {
-        return pickerMode
+    override fun setUser(user: User?) {
+        currentUser = user
+    }
+
+    override fun getModeType(): FolderMode {
+        return mode
     }
 
     override fun showSelectFolders(folders: List<Folder>) {
         foldersLl.removeAllViews()
-        processFoldersRecursive(folders, 0)
+        processFoldersRecursive(folders, 0, null)
     }
 
     override fun showSystemFolders(folders: List<Folder>) {
+        systemfolders.clear()
+        systemfolders.addAll(folders)
         systemFoldersLl.removeAllViews()
         val li: LayoutInflater = LayoutInflater.from(context)
         for (folder in folders) {
             var v = li.inflate(R.layout.viewholder_folder, systemFoldersLl, false)
+            v.tag = folder
             v.findViewById<TextView>(R.id.nameTv)?.text = folder.name
             if (folder.unreadCount != 0) {
                 v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.VISIBLE
@@ -127,24 +218,40 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.VISIBLE
             }
 
+            when (mode) {
+                FolderMode.EDIT -> {
+                    editView(v)
+                }
+                else -> {
+                    //default to normal
+                    normalView(v, folder)
+                }
+            }
+
             val iv = v.findViewById<ImageView>(R.id.iconIv)
             iv?.let { it.setImageResource(folder.type.getIconResId()) }
-            v.setOnClickListener { presenter.openFolder(folder) }
             systemFoldersLl.addView(v)
         }
     }
 
     override fun showUserFolders(folders: List<Folder>) {
+        userfolders.clear()
+        userfolders.addAll(folders)
         foldersLl.removeAllViews()
         processFoldersRecursive(folders, 0)
     }
 
-    fun processFoldersRecursive(folders: List<Folder>, level: Int) {
+    fun processFoldersRecursive(folders: List<Folder>, level: Int, parentFolder: Folder? = null) {
         val li: LayoutInflater = LayoutInflater.from(context)
         for (folder in folders) {
-            Timber.e("$level: ${folder.name}")
+
+            parentFolder?.let {
+                var parent = parentFolder
+                folder.parentFolder = parent
+            }.guard { folder.parentFolder = null }
 
             val v = li.inflate(R.layout.viewholder_folder, foldersLl, false)
+            v.tag = folder
             var left = resources.displayMetrics.density * 40.0f * level.toFloat()
             if (left == 0f)
                 left = resources.displayMetrics.density * 16f
@@ -163,28 +270,92 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             val iv = v.findViewById<ImageView>(R.id.iconIv)
             iv?.let { it.setImageResource(folder.type.getIconResId()) }
 
-            if (pickerMode) {
-                v.findViewById<FrameLayout>(R.id.arrowFl)?.visibility = View.GONE
-                val checkbox = v.findViewById<ImageButton>(R.id.checkboxIb)
-                checkbox?.visibility = View.VISIBLE
-                checkbox.setOnClickListener {
-                    setSelected(checkbox, folder)
+
+            // custom
+            when (mode) {
+                FolderMode.NORMAL -> {
+                    normalView(v, folder)
                 }
-                v.setOnClickListener {
-                    setSelected(checkbox, folder)
+
+                FolderMode.SELECT -> {
+                    selectView(v, folder)
                 }
-            } else {
-                v.setOnClickListener { presenter.openFolder(folder) }
+
+                FolderMode.EDIT -> {
+                    editView(v)
+                }
+
             }
+
+
             foldersLl.addView(v)
 
 
             if (folder.folders.isNotEmpty()) {
-                processFoldersRecursive(folder.folders, level + 1)
+                processFoldersRecursive(folder.folders, level + 1, folder)
             }
         }
     }
 
+    private fun selectView(v: View, folder: Folder) {
+        v.findViewById<FrameLayout>(R.id.arrowFl)?.visibility = View.GONE
+        v.findViewById<ImageButton>(R.id.editIb)?.visibility = View.GONE
+        val checkbox = v.findViewById<ImageButton>(R.id.checkboxIb)
+        checkbox?.visibility = View.VISIBLE
+        checkbox.setOnClickListener {
+            setSelected(checkbox, folder)
+        }
+        v.setOnClickListener {
+            setSelected(checkbox, folder)
+        }
+
+        if (folder.type == FolderType.INBOX) {
+            currentUser?.let { user ->
+                v.nameTv.text = user.name
+                v.iconIv?.let {
+                    Glide.with(context)
+                            .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
+                            .load(user.avatarUri)
+                            .into(it)
+                }
+            }
+        }
+    }
+
+    private fun normalView(v: View, folder: Folder) {
+        v.findViewById<FrameLayout>(R.id.arrowFl)?.visibility = View.VISIBLE
+        v.findViewById<ImageButton>(R.id.checkboxIb)?.visibility = View.GONE
+        v.findViewById<ImageButton>(R.id.editIb)?.visibility = View.GONE
+        v.setOnClickListener { presenter.openFolder(folder) }
+
+    }
+
+    private fun editView(v: View) {
+        v.findViewById<FrameLayout>(R.id.arrowFl)?.visibility = View.GONE
+        v.findViewById<ImageButton>(R.id.checkboxIb)?.visibility = View.GONE
+        val edit = v.findViewById<ImageButton>(R.id.editIb)
+        var folder = v.tag as Folder
+
+        if (!folder.type.isSystemFolder()) {
+            edit?.visibility = View.VISIBLE
+
+            edit.setOnClickListener {
+                editButtonClicked(v)
+            }
+            v.setOnClickListener {
+                editButtonClicked(v)
+            }
+        } else {
+            v.isClickable = false
+        }
+    }
+
+    private fun editButtonClicked(v: View) {
+        var arguments = Bundle()
+        var editFolder = v.tag as Folder
+        arguments.putSerializable("editFolder", editFolder)
+        getBaseActivity()?.openComponentDrawer(NewFolderComponentFragment::class.java, arguments)
+    }
 
 
     private fun setSelected(checkbox: ImageButton?, folder: Folder) {
@@ -208,7 +379,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
     override fun showRefreshProgress(show: Boolean) {
         refreshSrl.isRefreshing = show
-        if (!show){
+        if (!show) {
             animateView()
         }
     }

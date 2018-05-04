@@ -27,7 +27,6 @@ class UploadsActivity : BaseActivity(), UploadsContract.View {
         setRootFragment(R.id.contentFl, UploadOverviewComponentFragment())
 
         supportFragmentManager.addOnBackStackChangedListener {
-            Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")
             if (supportFragmentManager.backStackEntryCount == 0) {
                 if (!isDestroyed)
                     finish()

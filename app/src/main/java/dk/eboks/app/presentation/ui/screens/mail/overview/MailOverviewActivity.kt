@@ -27,7 +27,6 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
             presenter.refresh()
         }
 
-        //HintActivity.showHint(this, "- Shake to show empty state\n- Tap 'you mail' to preview confirm dialog\n- Folders open the treeview the rest opens the individual list views\n- Pull to refresh")
         mainTb.setNavigationIcon(R.drawable.ic_menu_mail)
     }
 
