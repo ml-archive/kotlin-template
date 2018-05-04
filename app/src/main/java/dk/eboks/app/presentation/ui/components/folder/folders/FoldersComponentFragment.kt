@@ -56,14 +56,21 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
-        arguments?.let { args ->
-            if (args.containsKey("pick")) {
-                mode = FolderMode.SELECT
-            }
-            if (args.containsKey("selectFolder")) {
-                selectFolder = true
-            }
+//        arguments?.let { args ->
+//            if (args.containsKey("pick")) {
+//                mode = FolderMode.SELECT
+//            }
+//            if (args.containsKey("selectFolder")) {
+//                selectFolder = true
+//            }
+//        }
+
+        //todo test stuff
+        if (activity.intent.getBooleanExtra("pick", false)) {
+            mode = FolderMode.SELECT
         }
+        selectFolder = activity.intent.getBooleanExtra("selectFolder", false)
+        //
 
         presenter.onViewCreated(this, lifecycle)
 
@@ -175,6 +182,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
             pickedFolder?.let {
                 var intent = Intent()
+                it.parentFolder = null
                 intent.putExtra("res", it)
                 getBaseActivity()?.setResult(Activity.RESULT_OK, intent)
                 getBaseActivity()?.finish()
@@ -309,14 +317,16 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             setSelected(checkbox, folder)
         }
 
-        if (folder.type == FolderType.INBOX) {
-            currentUser?.let { user ->
-                v.nameTv.text = user.name
-                v.iconIv?.let {
-                    Glide.with(context)
-                            .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
-                            .load(user.avatarUri)
-                            .into(it)
+        if (selectFolder) {
+            if (folder.type == FolderType.INBOX) {
+                currentUser?.let { user ->
+                    v.nameTv.text = user.name
+                    v.iconIv?.let {
+                        Glide.with(context)
+                                .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
+                                .load(user.avatarUri)
+                                .into(it)
+                    }
                 }
             }
         }
