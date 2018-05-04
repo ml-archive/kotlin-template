@@ -113,13 +113,13 @@ class RestModule {
                     var token: AccessToken? = null
                     try {
                         token = Gson().fromJson<AccessToken>(prefManager.getString(eAuth2.keyAccesstoken, ""), AccessToken::class.java)
+                        token?.let {
+                            request = chain.request().newBuilder()
+                                    .header("Authorization", it.token_type + " " + it.access_token)
+                                    .build()
+                        }
                     } catch (e: Throwable) {
                         Timber.w("Couldn't load AccessToken from prefs")
-                    }
-                    token?.let {
-                        request = chain.request().newBuilder()
-                                .header("Authorization", it.token_type + " " + it.access_token)
-                                .build()
                     }
                     chain.proceed(request)
                 }
@@ -202,11 +202,14 @@ class RestModule {
         return EAuth2(prefManager)
     }
 
+    /**
+     * E-boks Authenticator, based on OAuth2
+     */
     inner class EAuth2(val prefManager: PrefManager) : Authenticator {
         val keyAccesstoken = "eauth.accesstoken"
 
         private var newTokenApi: Api
-        private lateinit var refreshTokenApi: Api // TODO maybe we need separate api-clients for other auth-calls
+        private var refreshTokenApi: Api // TODO maybe we need separate api-clients for other auth-calls
 
         init {
             val newTokenClient = provideHttpClient(
@@ -217,7 +220,20 @@ class RestModule {
                     .addInterceptor { chain ->
                         val originalRequest = chain.request()
                         val newRequest = originalRequest.newBuilder()
-                                .header("Authorization", "Basic c2ltcGxlbG9naW46c2VjcmV0")  // TODO is this the same everytime?
+                                .header("Authorization", "Basic c2ltcGxlbG9naW46c2VjcmV0")  // NOTE: The header token is different!
+                                .build()
+                        chain.proceed(newRequest)
+                    }
+                    .build()
+            val refreshTokenClient = provideHttpClient(
+                    provideEboksHeaderInterceptor(
+                            provideProtocolManager()
+                    ), this, prefManager)
+                    .newBuilder()
+                    .addInterceptor { chain ->
+                        val originalRequest = chain.request()
+                        val newRequest = originalRequest.newBuilder()
+                                .header("Authorization", "Basic dG9rZW50cmFuc2Zvcm06c2VjcmV0")  // NOTE: The header token is different!
                                 .build()
                         chain.proceed(newRequest)
                     }
@@ -235,52 +251,102 @@ class RestModule {
                             provideBaseUrlString()
                     )
             )
+            refreshTokenApi = provideApi(
+                    provideRetrofit(
+                            refreshTokenClient,
+                            provideGsonConverter(
+                                    provideGson(
+                                            provideTypeFactory(),
+                                            provideDateDeserializer()
+                                    )
+                            ),
+                            provideBaseUrlString()
+                    )
+            )
         }
 
         override fun authenticate(route: Route?, response: Response): Request? {
             Timber.w("Authenticate")
+            // If we've failed 3 times, give up. Otherwise this would be an infinite loop, asking for authentication
+            // because of failing authentication...
             if (responseCount(response) >= 3) {
                 Timber.e("Authenticate failed several times")
-                return null // If we've failed 3 times, give up.
+                return null
             }
 
+            var token = Gson().fromJson<AccessToken>(prefManager.getString(keyAccesstoken, ""), AccessToken::class.java)
+            Timber.w("Token doesn't work! ${token.access_token} \nTrying for a new one...")
+            token = newToken()
+            // todo?
+//            if(token is kspWebGrantToken) {
+//                token = transformToken()
+//            }
+
+            token?.let {
+                // save the token
+                prefManager.setString(keyAccesstoken, Gson().toJson(it))
+                Timber.w("Authenticate token : $it")
+                // attach it to this request.
+                // the main HttpClient will handle subsequent ones
+                return response.request().newBuilder()
+                        .header("Authorization", it.token_type + " " + it.access_token)
+                        .build()
+            }
+            return null
+        }
+
+        private fun newToken(): AccessToken? {
             try {
-                val tokenResponse = newTokenApi.getNewAccessToken(mapOf(
+                // request a new token, using the stored user info
+                val tokenResponse = newTokenApi.getToken(mapOf(
                         Pair("grant_type", "password"),
-                        Pair("username", "nodes-user1"), // TODO: what to use as username for login?
+                        Pair("username", "nodes-user1"), // TODO: username + password from where? Fingerprint? nCrypt?
                         Pair("password", "pwd"),
+                        Pair("acr_values", "activationcode:12324"), // <--- optional
                         Pair("scope", "mobileapi offline_access"),
                         Pair("client_Id", "simplelogin"),
                         Pair("secret", "2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B") // TODO: probably hardcoded
                 )).execute()
 
                 if (tokenResponse.isSuccessful) {
-                    tokenResponse.body()?.let {
-                        val token = it
-
-                        prefManager.setString(keyAccesstoken, Gson().toJson(token))
-
-                        Timber.w("Authenticate token : $token")
-                        return response.request().newBuilder()
-                                .url("https://60582528-965e-4f53-8ab4-e09a1aebd008.mock.pstmn.io/user/profile")
-                                .header("Authorization", it.token_type + " " + it.access_token)
-                                .build()
-                    }
+                    return tokenResponse.body()
                 }
             } catch (e: Throwable) {
-                Timber.e("Authenticate fail $e")
+                Timber.e("Authenticate fail: $e")
+            } finally {
+                return null
             }
-            return null
         }
 
+        private fun transformToken(): AccessToken? {
+            try {
+                // request a new token, using the stored user info
+                val tokenResponse = newTokenApi.getToken(mapOf(
+                        Pair("grant_type", "KspWebGrantValidator"),
+                        Pair("kspwebtoken", "sdf9jklsjdlf9suwljfsdpofusdpfoudsf"), // TODO: kspwebtoken from where? nemID?
+                        Pair("scope", "mobileapi offline_access"),
+                        Pair("client_Id", "tokentransform"),
+                        Pair("secret", "2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B")  // TODO: probably hardcoded
+                )).execute()
+
+                if (tokenResponse.isSuccessful) {
+                    return tokenResponse.body()
+                }
+            } catch (e: Throwable) {
+                Timber.e("Token transform fail: $e")
+            } finally {
+                return null
+            }
+        }
+
+        /**
+         * count how many times we've tried
+         */
         private fun responseCount(response: Response): Int {
             var result = 1
             var tempResponse: Response? = response
 
             while (tempResponse != null) {
-//                if(tempResponse != tempResponse.priorResponse()) {
-//                    break
-//                }
                 Timber.i("$result - $tempResponse")
                 tempResponse = tempResponse.priorResponse()
                 result++

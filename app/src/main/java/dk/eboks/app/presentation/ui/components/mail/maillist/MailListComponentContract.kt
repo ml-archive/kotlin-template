@@ -4,6 +4,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.ComponentBaseView
+import dk.eboks.app.presentation.ui.screens.overlay.ButtonType
 import dk.nodes.arch.presentation.base.BasePresenter
 
 /**
@@ -11,13 +12,18 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface MailListComponentContract {
     interface View : ComponentBaseView {
-        fun showRefreshProgress(show : Boolean)
-        fun showMessages(messages : List<Message>)
+        fun showRefreshProgress(show: Boolean)
+        fun showMessages(messages: List<Message>)
     }
 
     interface Presenter : BasePresenter<MailListComponentContract.View> {
-        fun setup(folder : Folder)
-        fun setup(sender : Sender)
+        fun setup(folder: Folder)
+        fun setup(sender: Sender)
         fun refresh()
+
+        fun updateMessage(message: Message)
+        fun openMessage(message: Message, type: ButtonType)
+        fun deleteMessages(selectedMessages: MutableList<Message>)
+        fun moveMessages(folderName: String?, selectedMessages: MutableList<Message>)
     }
 }

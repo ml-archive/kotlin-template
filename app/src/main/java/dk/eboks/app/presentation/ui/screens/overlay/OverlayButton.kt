@@ -8,9 +8,9 @@ import java.io.Serializable
  * Created by thsk on 12/04/2018.
  */
 class OverlayButton(type: ButtonType) : Serializable {
-     var type : ButtonType
-     var text : String?
-     var icon : Int?
+    var type: ButtonType
+    var text: String?
+    var icon: Int?
 
     init {
         this.type = type
@@ -20,12 +20,12 @@ class OverlayButton(type: ButtonType) : Serializable {
 
     public fun getText(type: ButtonType): String {
         when (type) {
-            ButtonType.MOVE -> return Translation.overlaymenu.move
+            ButtonType.MOVE   -> return Translation.overlaymenu.move
             ButtonType.DELETE -> return Translation.overlaymenu.delete
-            ButtonType.PRINT -> return Translation.overlaymenu.print
-            ButtonType.MAIL -> return Translation.overlaymenu.mail
-            ButtonType.OPEN -> return Translation.overlaymenu.openIn
-            else ->{
+            ButtonType.PRINT  -> return Translation.overlaymenu.print
+            ButtonType.MAIL   -> return Translation.overlaymenu.mail
+            ButtonType.OPEN   -> return Translation.overlaymenu.openIn
+            else              -> {
                 return ""
             }
         }
@@ -34,12 +34,12 @@ class OverlayButton(type: ButtonType) : Serializable {
 
     private fun getIcon(type: ButtonType): Int? {
         when (type) {
-            ButtonType.MOVE -> return R.drawable.ic_folder
+            ButtonType.MOVE   -> return R.drawable.ic_folder
             ButtonType.DELETE -> return R.drawable.icon_48_delete_red
-            ButtonType.PRINT -> return R.drawable.icon_48_print_red
-            ButtonType.MAIL -> return R.drawable.icon_48_forward_red
-            ButtonType.OPEN -> return R.drawable.icon_48_share_red
-            else ->{
+            ButtonType.PRINT  -> return R.drawable.icon_48_print_red
+            ButtonType.MAIL   -> return R.drawable.icon_48_forward_red
+            ButtonType.OPEN   -> return R.drawable.icon_48_share_red
+            else              -> {
                 return null
             }
         }
@@ -48,7 +48,6 @@ class OverlayButton(type: ButtonType) : Serializable {
 }
 
 
-
 enum class ButtonType {
-    MOVE, DELETE, PRINT, MAIL,OPEN
+    MOVE, DELETE, PRINT, MAIL, OPEN, READ, UNREAD
 }

@@ -12,10 +12,7 @@ data class AccessToken(
         var access_token: String,
         var expires_in: Int,
         var token_type: String,
-        var refresh_token: String,
-        var scope: String? = "mobileapi offline_access",
-        var client_id: String? = "simplelogin",
-        var client_secret: String? = "2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B"
+        var refresh_token: String
 ) : Serializable {
     override fun toString() : String {
         return "Type: $token_type \nToken: $access_token \nRefresh: $refresh_token"

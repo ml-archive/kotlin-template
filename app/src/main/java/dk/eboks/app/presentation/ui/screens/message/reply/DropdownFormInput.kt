@@ -38,10 +38,20 @@ class DropdownFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
         dropdownSpr?.isEnabled = !formInput.readonly
         labelTv?.text = if(!formInput.required) formInput.label else "${formInput.label}*"
         options.add(Translation.reply.select)
+        var i = 0
+        var preselect = 0
         formInput.options?.let { opts ->
             for(option in opts)
             {
                 options.add(option.value)
+                // preselect an option from the server
+                formInput.value?.let { value ->
+                    if(option.value == value)
+                    {
+                        preselect = i+1
+                    }
+                }
+                i++
             }
         }
 
@@ -52,7 +62,7 @@ class DropdownFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
         // Apply the adapter to the spinner
         dropdownSpr?.adapter = adapter
         dropdownSpr?.setSelected(false)  // otherwise listener will be called on initialization
-        dropdownSpr?.setSelection(0,true)  // otherwise listener will be called on initialization
+        dropdownSpr?.setSelection(preselect,true)  // otherwise listener will be called on initialization
         dropdownSpr?.onItemSelectedListener = this
 
         validate(silent = true)
@@ -87,6 +97,7 @@ class DropdownFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
             }
         }
 
+        formInput.value = dropdownSpr?.adapter?.getItem(dropdownSpr?.selectedItemPosition ?: 0) as String
         setError(null)
         isValid = true
         return

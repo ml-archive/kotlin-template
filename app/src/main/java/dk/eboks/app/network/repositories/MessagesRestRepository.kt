@@ -13,6 +13,7 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
+import dk.eboks.app.util.guard
 import timber.log.Timber
 
 typealias SenderIdMessageStore = CacheStore<Long, List<Message>>
@@ -90,7 +91,6 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
     }
 
 
-
     override fun getMessage(folderId: Long, id: String, receipt : Boolean?, terms : Boolean?) : Message {
         val call = api.getMessage(id, folderId, receipt, terms)
         val result = call.execute()
@@ -105,7 +105,6 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
                 throw(ServerErrorException(gson.fromJson<ServerError>(error_str, ServerError::class.java)))
             }
         }
-
         throw(RuntimeException())
     }
 
@@ -125,6 +124,28 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
         }
 
         throw(RuntimeException())
+    }
+
+    override fun submitMessageReplyForm(msg : Message, form: ReplyForm) {
+        msg.folder?.let {
+            val call = api.submitMessageReplyForm(msg.id, msg.folder?.id ?: 0, form)
+            val result = call.execute()
+            result?.let { response ->
+                if(response.isSuccessful)
+                {
+                    return
+                }
+                // attempt to parse error
+                response.errorBody()?.string()?.let { error_str ->
+                    Timber.e("Received error body $error_str")
+                    throw(ServerErrorException(gson.fromJson<ServerError>(error_str, ServerError::class.java)))
+                }
+            }
+            throw(RuntimeException())
+        }.guard {
+            throw(RuntimeException("submitMessageReplyForm message.folder is null"))
+        }
+
     }
 
     override fun hasCachedMessageFolder(folder: Folder): Boolean {

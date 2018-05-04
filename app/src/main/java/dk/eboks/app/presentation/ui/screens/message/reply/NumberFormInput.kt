@@ -73,6 +73,7 @@ class NumberFormInput(formInput: FormInput, inflater: LayoutInflater, handler: H
                 return
             }
         }
+        formInput.value = "$doubleval"
         textTil?.error = null
         isValid = true
         return

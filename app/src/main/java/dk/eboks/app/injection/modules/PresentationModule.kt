@@ -121,8 +121,6 @@ import dk.eboks.app.presentation.ui.components.uploads.uploadfile.UploadFileComp
 import dk.eboks.app.presentation.ui.components.uploads.uploadfile.UploadFileComponentPresenter
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentContract
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
-import dk.eboks.app.presentation.ui.screens.overlay.OverlayContract
-import dk.eboks.app.presentation.ui.screens.overlay.OverlayPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContract
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentContract
@@ -147,6 +145,8 @@ import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningContra
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningPresenter
 import dk.eboks.app.presentation.ui.screens.message.reply.ReplyFormContract
 import dk.eboks.app.presentation.ui.screens.message.reply.ReplyFormPresenter
+import dk.eboks.app.presentation.ui.screens.overlay.OverlayContract
+import dk.eboks.app.presentation.ui.screens.overlay.OverlayPresenter
 import dk.eboks.app.presentation.ui.screens.profile.ProfileContract
 import dk.eboks.app.presentation.ui.screens.profile.ProfilePresenter
 import dk.eboks.app.presentation.ui.screens.profile.myinfo.MyInfoContract
@@ -317,11 +317,20 @@ class PresentationModule {
     @Provides
     fun provideMailListComponentPresenter(
             stateManager: AppStateManager,
-            getMessagesInteractor: GetMessagesInteractor
+            getMessagesInteractor: GetMessagesInteractor,
+            deleteMessagesInteractor: DeleteMessagesInteractor,
+            moveMessagesInteractor: MoveMessagesInteractor,
+            openMessageInteractor: OpenMessageInteractor,
+            updateMessageInteractor: UpdateMessageInteractor
+
     ): MailListComponentContract.Presenter {
         return MailListComponentPresenter(
                 stateManager,
-                getMessagesInteractor
+                getMessagesInteractor,
+                deleteMessagesInteractor,
+                moveMessagesInteractor,
+                openMessageInteractor,
+                updateMessageInteractor
         )
     }
 
@@ -503,7 +512,11 @@ class PresentationModule {
             createUserInteractor: CreateUserInteractor,
             postAuthenticateUserInteractor: PostAuthenticateUserInteractor
     ): LoginComponentContract.Presenter {
-        return LoginComponentPresenter(stateManager, createUserInteractor, postAuthenticateUserInteractor)
+        return LoginComponentPresenter(
+                stateManager,
+                createUserInteractor,
+                postAuthenticateUserInteractor
+        )
     }
 
     @ActivityScope
@@ -833,8 +846,12 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideReplyFormPresenter(appState: AppStateManager, getReplyFormInteractor: GetReplyFormInteractor): ReplyFormContract.Presenter {
-        return ReplyFormPresenter(appState, getReplyFormInteractor)
+    fun provideReplyFormPresenter(
+            appState: AppStateManager,
+            getReplyFormInteractor: GetReplyFormInteractor,
+            submitReplyFormInteractor: SubmitReplyFormInteractor
+    ): ReplyFormContract.Presenter {
+        return ReplyFormPresenter(appState, getReplyFormInteractor, submitReplyFormInteractor)
     }
 
     @ActivityScope

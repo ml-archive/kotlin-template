@@ -40,6 +40,9 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
             finish()    // finish if we didn't get a message
         }
 
+        submitBtn.setOnClickListener {
+            presenter.submit()
+        }
     }
 
     private fun setupTopBar(txt : String) {
@@ -85,8 +88,10 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
             if(v.tag is ReplyFormInput)
             {
                 val input = v.tag as ReplyFormInput
-                if(!input.isValid)
+                if(!input.isValid) {
+                    Timber.e("${input.formInput.label} shit does not validate")
                     return false
+                }
             }
         }
         return true // alles sehr gut
@@ -150,6 +155,11 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
             }
             FormInputType.RADIOBOX -> {
                 val fi = RadioBoxFormInput(input, inflator, mainHandler)
+                fi.addObserver(inputObserver)
+                fi.addViewGroup(formInputLl)
+            }
+            FormInputType.LIST -> {
+                val fi = CheckBoxFormInput(input, inflator, mainHandler)
                 fi.addObserver(inputObserver)
                 fi.addViewGroup(formInputLl)
             }

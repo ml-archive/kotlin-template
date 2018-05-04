@@ -19,7 +19,6 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-
 class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedListener {
 
     @Inject
@@ -48,28 +47,32 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
     }
 
     private fun inflateButtons() {
-        var buttonContainerLl = findViewById<LinearLayout>(R.id.buttonContainerLl)
+        val buttonContainerLl = findViewById<LinearLayout>(R.id.buttonContainerLl)
         var delay = animationTime
         for (item in buttons) {
-            handler?.postDelayed({
-                val v = inflator.inflate(R.layout.viewholder_overlay_row, buttonContainerLl, false)
-                val button = v.findViewById<FloatingActionButton>(R.id.buttonFab)
-                val text = v.findViewById<TextView>(R.id.textTv)
+            handler.postDelayed({
+                                    val v = inflator.inflate(
+                                            R.layout.viewholder_overlay_row,
+                                            buttonContainerLl,
+                                            false
+                                    )
+                                    val button = v.findViewById<FloatingActionButton>(R.id.buttonFab)
+                                    val text = v.findViewById<TextView>(R.id.textTv)
 
-                text.text = item.text
-                item.icon?.let {
-                    button.setImageResource(it)
-                }
-                v.tag = button
-                button.setOnClickListener {
-                    closeAnimation(item.type)
-                }
-                buttonContainerLl.addView(v)
-                buttonContainerLl.requestLayout()
-                button.show()
-                text.visibility = View.VISIBLE
-            }, delay)
-            delay = delay + animationTime
+                                    text.text = item.text
+                                    item.icon?.let {
+                                        button.setImageResource(it)
+                                    }
+                                    v.tag = button
+                                    button.setOnClickListener {
+                                        closeAnimation(item.type)
+                                    }
+                                    buttonContainerLl.addView(v)
+                                    buttonContainerLl.requestLayout()
+                                    button.show()
+                                    text.visibility = View.VISIBLE
+                                }, delay)
+            delay += animationTime
         }
     }
 
@@ -83,22 +86,23 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
     private fun closeAnimation(item: ButtonType?) {
         var delay = animationTime
         for (v in buttonContainerLl.views) {
-            handler?.postDelayed({
-                v.textTv.visibility = View.GONE
-                v.buttonFab.hide()
-            }, delay)
-            delay = delay + animationTime
+            handler.postDelayed({
+                                    v.textTv.visibility = View.GONE
+                                    v.buttonFab.hide()
+                                }
+                                , delay)
+            delay += animationTime
         }
-        handler?.postDelayed({
-            if (item == null) {
-                setResult(Activity.RESULT_CANCELED)
-                finish()
-            }
-            var intent = Intent()
-            intent.putExtra("res", item)
-            setResult(Activity.RESULT_OK, intent)
-            finish()
-        }, delay)
+        handler.postDelayed({
+                                if (item == null) {
+                                    setResult(Activity.RESULT_CANCELED)
+                                    finish()
+                                }
+                                val intent = Intent()
+                                intent.putExtra("res", item)
+                                setResult(Activity.RESULT_OK, intent)
+                                finish()
+                            }, delay)
     }
 
     companion object {

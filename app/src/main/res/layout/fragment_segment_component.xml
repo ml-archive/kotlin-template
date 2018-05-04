@@ -31,25 +31,21 @@
                     android:id="@+id/segmentIv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="0.25dp"
                     android:background="@drawable/rounded_mask"
                     android:outlineProvider="background"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_menu_home"/>
-
-                <!-- Foreground on the Iv doesn't work until sdk-25, so we'll have to do with an overlay-tint -->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/rounded_gradient_card"/>
 
                 <TextView
                     android:id="@+id/segmentTitleTv"
                     style="@style/text.buttonLarge"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="@dimen/margin_normal"
+                    android:padding="@dimen/margin_normal"
                     android:gravity="center"
                     android:text="_Modtag din post digitalt fra alle offentlige myndigheder"
+                    android:background="@drawable/rounded_gradient_card"
                     android:textColor="@color/colorPrimary"/>
             </FrameLayout>
 

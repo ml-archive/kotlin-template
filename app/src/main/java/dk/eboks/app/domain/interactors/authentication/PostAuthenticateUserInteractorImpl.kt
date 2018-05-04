@@ -32,7 +32,7 @@ class PostAuthenticateUserInteractorImpl(executor: Executor, val api: Api) : Bas
                     map.plus(Pair("acr_values", "activationcode:$it nationality:DK"))
                 }
 
-                val result = api.getNewAccessToken(map).execute()
+                val result = api.getToken(map).execute()
                 runOnUIThread {
                     if (result.isSuccessful) {
                         result?.body()?.let {

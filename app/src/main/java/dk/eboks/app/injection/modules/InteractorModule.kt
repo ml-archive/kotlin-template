@@ -25,9 +25,6 @@ import dk.eboks.app.domain.repositories.*
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.Executor
 
-/**
- * Created by bison on 09/10/17.
- */
 @Module
 class InteractorModule {
     @Provides
@@ -40,7 +37,10 @@ class InteractorModule {
     }
 
     @Provides
-    fun providePostAuthenticateUserInteractor(executor: Executor, api: Api): PostAuthenticateUserInteractor {
+    fun providePostAuthenticateUserInteractor(
+            executor: Executor,
+            api: Api
+    ): PostAuthenticateUserInteractor {
         return PostAuthenticateUserInteractorImpl(executor, api);
     }
 
@@ -77,6 +77,19 @@ class InteractorModule {
     ): GetFoldersInteractor {
         return GetFoldersInteractorImpl(executor, foldersRepository, resourceManager)
     }
+
+    @Provides
+    fun provideDeleteMessagesInteractor(
+            executor: Executor
+    ): DeleteMessagesInteractor {
+        return DeleteMessagesInteractorImpl(executor)
+    }
+
+    @Provides
+    fun provideMoveMessagesInteractor(executor: Executor): MoveMessagesInteractor {
+        return MoveMessagesInteractorImpl(executor)
+    }
+
 
     @Provides
     fun provideGetMessagesInteractor(
@@ -140,6 +153,14 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideSubmitReplyFormInteractor(
+            executor: Executor,
+            messagesRepository: MessagesRepository
+    ): SubmitReplyFormInteractor {
+        return SubmitReplyFormInteractorImpl(executor, messagesRepository)
+    }
+
+    @Provides
     fun provideSaveAttachmentInteractor(
             executor: Executor, appStateManager: AppStateManager,
             fileCacheManager: FileCacheManager, permissionManager: PermissionManager
@@ -190,6 +211,13 @@ class InteractorModule {
             userManager: UserManager
     ): GetUsersInteractor {
         return GetUsersInteractorImpl(executor, userManager)
+    }
+
+    @Provides
+    fun provideUpdateMessageInteractor(
+            executor: Executor
+    ): UpdateMessageInteractor {
+        return UpdateMessageInteractorImpl(executor)
     }
 
     @Provides

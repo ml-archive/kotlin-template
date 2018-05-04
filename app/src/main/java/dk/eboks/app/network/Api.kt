@@ -27,9 +27,7 @@ import retrofit2.http.*
 interface Api {
     // login Mox
     @FormUrlEncoded
-    @POST("http://authenticationservice20180404012549.azurewebsites.net/connect/token") fun getNewAccessToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
-    @FormUrlEncoded
-    @POST("http://authenticationservice20180404012549.azurewebsites.net/connect/token") fun refreshAccessToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
+    @POST("http://authenticationservice20180404012549.azurewebsites.net/connect/token") fun getToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
 
 
     // @GET("regions") fun getRegions() : Call<List<Region>>
@@ -41,7 +39,10 @@ interface Api {
     @GET("mail/{type}/messages") fun getMessagesByType(@Path("type") type : String) : Call<List<Message>>
     @GET("api/senders") fun getSenders() : Call<List<Sender>>
     @PUT("session") fun login(@Body body : LoginRequest) : Single<BufferedSource>
+
+    // reply forms
     @GET("mail/folders/{folderId}/messages/{id}/reply") fun getMessageReplyForm(@Path("id") id : String, @Path("folderId") folderId : Long) : Call<ReplyForm>
+    @PATCH("mail/folders/{folderId}/messages/{id}/reply") fun submitMessageReplyForm(@Path("id") id : String, @Path("folderId") folderId : Long, @Body body : ReplyForm) : Call<Any>
 
     // channels
     @GET("api/channels") fun getChannels() : Call<MutableList<Channel>>

@@ -11,6 +11,7 @@ import dk.eboks.app.domain.models.formreply.FormInput
 import android.util.TypedValue
 import android.widget.TextView
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.formreply.FormInputOption
 import dk.eboks.app.util.views
 
 
@@ -19,7 +20,7 @@ class RadioBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
     var radioGroup : RadioGroup? = null
     var labelTv : TextView? = null
     var errorTv : TextView? = null
-    var selectedItem : String? = null
+    var selectedOption : FormInputOption? = null
 
     init {
         isValid = true
@@ -43,25 +44,39 @@ class RadioBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
                 rb.setCompoundDrawablesWithIntrinsicBounds(0,0,typedValue.resourceId,0)
                 rb.buttonDrawable = null
                 rb.text = option.value
-                rb.tag = option.name
+                rb.tag = option
+
+                // preselect an option from the server
+                formInput.value?.let { value ->
+                    if(value == option.value)
+                    {
+                        selectedOption= option
+                        rb.isChecked = true
+                    }
+                }
                 radioGroup?.addView(rb)
             }
         }
-
         radioGroup?.setOnCheckedChangeListener({radioGroup, i ->
             for(rb in radioGroup.views)
             {
                 if((rb as RadioButton).isChecked)
-                    selectedItem = rb.tag as String
+                    selectedOption = rb.tag as FormInputOption
             }
+            formInput.value = selectedOption?.value
+            validate()
+            setChanged()
+            notifyObservers()
         })
+
+        validate(silent = true)
         return v
     }
 
     override fun validate(silent : Boolean) {
         //Timber.e("Validating $formInput")
         isValid = false
-        if(formInput.required && selectedItem == null)
+        if(formInput.required && selectedOption == null)
         {
             if(!silent)
                 setError(Translation.reply.required)

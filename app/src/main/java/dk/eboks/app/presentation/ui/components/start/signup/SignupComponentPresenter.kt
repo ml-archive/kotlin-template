@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.components.start.signup
 
-import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
@@ -11,7 +10,10 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class SignupComponentPresenter @Inject constructor(val appState: AppStateManager, val createUserInteractor: CreateUserInteractor) :
+class SignupComponentPresenter @Inject constructor(
+        val appState: AppStateManager,
+        val createUserInteractor: CreateUserInteractor
+) :
         SignupComponentContract.Presenter,
         BasePresenterImpl<SignupComponentContract.SignupView>(),
         CreateUserInteractor.Output {
@@ -25,7 +27,7 @@ class SignupComponentPresenter @Inject constructor(val appState: AppStateManager
     }
 
     override fun setEmail(email: String) {
-        tempUser.email = email
+        tempUser.setPrimaryEmail(email)
     }
 
     override fun setPassword(password: String) {
@@ -45,7 +47,7 @@ class SignupComponentPresenter @Inject constructor(val appState: AppStateManager
     }
 
     override fun onCreateUserError(error: ViewError) {
-        runAction { v->v.showErrorDialog(error) }
+        runAction { v -> v.showErrorDialog(error) }
     }
 
     companion object {

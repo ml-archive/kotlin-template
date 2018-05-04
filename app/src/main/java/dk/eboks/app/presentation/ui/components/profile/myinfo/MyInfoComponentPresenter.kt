@@ -8,34 +8,37 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
 
-class MyInfoComponentPresenter @Inject constructor(val appState: AppStateManager, val saveUserInteractor: SaveUserInteractor) :
+class MyInfoComponentPresenter @Inject constructor(
+        val appState: AppStateManager,
+        val saveUserInteractor: SaveUserInteractor
+) :
         MyInfoComponentContract.Presenter,
         BasePresenterImpl<MyInfoComponentContract.View>(),
-        SaveUserInteractor.Output
-{
+        SaveUserInteractor.Output {
     init {
         saveUserInteractor.output = this
     }
 
     override fun setup() {
-        appState.state?.currentUser?.let { user->
-            runAction { v->
+        appState.state?.currentUser?.let { user ->
+            runAction { v ->
                 v.setName(user.name)
-                user.email?.let { v.setPrimaryEmail(it) }
-                user.secondaryEmail?.let { v.setSecondaryEmail(it) }
-                user.mobileNumber?.let { v.setMobileNumber(it) }
+                user.getPrimaryEmail()?.let { v.setPrimaryEmail(it) }
+                user.getSecondaryEmail()?.let { v.setSecondaryEmail(it) }
+                user.mobileNumber?.value?.let { v.setMobileNumber(it) }
                 v.setNewsletter(user.newsletter)
             }
         }
     }
 
     override fun save() {
-        runAction { v->
+        runAction { v ->
             appState.state?.currentUser?.let { user ->
+                user.setPrimaryEmail(v.getPrimaryEmail())
+                user.setSecondaryEmail(v.getSecondaryEmail())
+
                 user.name = v.getName()
-                user.email = v.getPrimaryEmail()
-                user.secondaryEmail = v.getSecondaryEmail()
-                user.mobileNumber = v.getMobileNumber()
+                user.mobileNumber?.value = v.getMobileNumber()
                 user.newsletter = v.getNewsletter()
                 v.showProgress(true)
                 saveUserInteractor.input = SaveUserInteractor.Input(user)
@@ -47,7 +50,7 @@ class MyInfoComponentPresenter @Inject constructor(val appState: AppStateManager
 
     override fun onSaveUser(user: User, numberOfUsers: Int) {
         Timber.e("User saved")
-        runAction { v->
+        runAction { v ->
             v.setSaveEnabled(false)
             v.showProgress(false)
             v.showToast("_Your information was saved")
@@ -55,7 +58,7 @@ class MyInfoComponentPresenter @Inject constructor(val appState: AppStateManager
     }
 
     override fun onSaveUserError(error: ViewError) {
-        runAction { v->
+        runAction { v ->
             v.showProgress(false)
             v.showErrorDialog(error)
         }

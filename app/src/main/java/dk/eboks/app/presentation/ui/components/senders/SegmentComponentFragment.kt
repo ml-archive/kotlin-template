@@ -43,6 +43,7 @@ class SegmentComponentFragment : BaseFragment() {
                                 .placeholder(R.drawable.icon_72_senders_private)
                         )
                         .into(segmentIv)
+                segmentIv.clipToOutline = true
 
                 segmentCv.setOnClickListener {
                     val i = Intent(context, SegmentDetailActivity::class.java)
