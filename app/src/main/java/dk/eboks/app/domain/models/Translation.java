@@ -197,6 +197,7 @@ public class Translation {
 		public static String signOnBankIDMessageNOR = "NOR MSG You will need to sign in with BankID: Don\'t worry, it\'s a one time thing. You will be sent to the BankID app to log in.";
 		public static String signOnBankIDtitleNOR = "Sign on with Bank ID";
 		public static String signOnBankIDButtonNOR = "Sign on with Bank ID";
+		public static String signupTermsAcceptHeader = "One last thing. To use e-Boks you need to accept the Terms & Conditions.";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";
@@ -365,6 +366,7 @@ public class Translation {
 		public static String ssn = "Social Security Number";
 		public static String password = "Password";
 		public static String typeHere = "Type here";
+		public static String myProfile = "My profile";
 	}
 	public final static class myInformation {
 		public static String title = "My Information";
@@ -449,6 +451,9 @@ public class Translation {
 		public static String forward = "Forward";
 		public static String done = "Done";
 		public static String chooseLocation = "Choose location";
+		public static String markAsRead = "Mark as read";
+		public static String markAsUnread = "Mark as unread";
+		public static String archive = "Archive";
 	}
 	public final static class senderregistration {
 		public static String title = "Registration Needed";
@@ -487,5 +492,6 @@ public class Translation {
 		public static String actionDelete = "Delete";
 		public static String actionMarkAsRead = "Mark as read";
 		public static String editButton = "Edit";
+		public static String actionMarkAsUnread = "Mark as unread";
 	}
 }
