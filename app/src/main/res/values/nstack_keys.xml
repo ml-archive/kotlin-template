@@ -167,6 +167,7 @@
   <string name='nstack_signup_signOnBankIDMessageNOR' formatted='false'>signup_signOnBankIDMessageNOR</string>
   <string name='nstack_signup_signOnBankIDtitleNOR' formatted='false'>signup_signOnBankIDtitleNOR</string>
   <string name='nstack_signup_signOnBankIDButtonNOR' formatted='false'>signup_signOnBankIDButtonNOR</string>
+  <string name='nstack_signup_signupTermsAcceptHeader' formatted='false'>signup_signupTermsAcceptHeader</string>
   <string name='nstack_activationcode_title' formatted='false'>activationcode_title</string>
   <string name='nstack_activationcode_subtitle' formatted='false'>activationcode_subtitle</string>
   <string name='nstack_activationcode_textFieldHeader' formatted='false'>activationcode_textFieldHeader</string>
@@ -262,6 +263,9 @@
   <string name='nstack_uploads_verifiedEmptyMsg' formatted='false'>uploads_verifiedEmptyMsg</string>
   <string name='nstack_uploads_uploadingFile' formatted='false'>uploads_uploadingFile</string>
   <string name='nstack_uploads_chosen' formatted='false'>uploads_chosen</string>
+  <string name='nstack_uploads_uploadFile' formatted='false'>uploads_uploadFile</string>
+  <string name='nstack_uploads_fileName' formatted='false'>uploads_fileName</string>
+  <string name='nstack_uploads_incorrectFileName' formatted='false'>uploads_incorrectFileName</string>
   <string name='nstack_loginproviders_nemidTitle' formatted='false'>loginproviders_nemidTitle</string>
   <string name='nstack_loginproviders_idPortenTitle' formatted='false'>loginproviders_idPortenTitle</string>
   <string name='nstack_loginproviders_bankSeTitle' formatted='false'>loginproviders_bankSeTitle</string>
@@ -315,6 +319,7 @@
   <string name='nstack_profile_ssn' formatted='false'>profile_ssn</string>
   <string name='nstack_profile_password' formatted='false'>profile_password</string>
   <string name='nstack_profile_typeHere' formatted='false'>profile_typeHere</string>
+  <string name='nstack_profile_myProfile' formatted='false'>profile_myProfile</string>
   <string name='nstack_myInformation_title' formatted='false'>myInformation_title</string>
   <string name='nstack_myInformation_name' formatted='false'>myInformation_name</string>
   <string name='nstack_myInformation_primaryEmail' formatted='false'>myInformation_primaryEmail</string>
@@ -383,6 +388,9 @@
   <string name='nstack_overlaymenu_forward' formatted='false'>overlaymenu_forward</string>
   <string name='nstack_overlaymenu_done' formatted='false'>overlaymenu_done</string>
   <string name='nstack_overlaymenu_chooseLocation' formatted='false'>overlaymenu_chooseLocation</string>
+  <string name='nstack_overlaymenu_markAsRead' formatted='false'>overlaymenu_markAsRead</string>
+  <string name='nstack_overlaymenu_markAsUnread' formatted='false'>overlaymenu_markAsUnread</string>
+  <string name='nstack_overlaymenu_archive' formatted='false'>overlaymenu_archive</string>
   <string name='nstack_senderregistration_title' formatted='false'>senderregistration_title</string>
   <string name='nstack_senderregistration_body' formatted='false'>senderregistration_body</string>
   <string name='nstack_senderregistration_register' formatted='false'>senderregistration_register</string>
@@ -413,4 +421,5 @@
   <string name='nstack_inbox_actionDelete' formatted='false'>inbox_actionDelete</string>
   <string name='nstack_inbox_actionMarkAsRead' formatted='false'>inbox_actionMarkAsRead</string>
   <string name='nstack_inbox_editButton' formatted='false'>inbox_editButton</string>
+  <string name='nstack_inbox_actionMarkAsUnread' formatted='false'>inbox_actionMarkAsUnread</string>
 </resources>

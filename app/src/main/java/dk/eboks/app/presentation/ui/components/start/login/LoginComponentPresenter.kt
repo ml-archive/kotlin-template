@@ -84,6 +84,13 @@ class LoginComponentPresenter @Inject constructor(
 
     override fun login(user: User, providerId: String, password: String, activationCode: String?) {
         user.lastLoginProvider = providerId
+
+        // save the required login info
+        appState.state?.loginState?.userName = "nodes-user1" //user.name // todo shouldn't be hardcoded
+        appState.state?.loginState?.userPassWord = "pwd" // password // todo shouldn't be hardcoded
+        appState.state?.loginState?.activationCode = null // activationCode // todo shouldn't be hardcoded
+        appState.save()
+
         postAuthenticateUserInteractor.input = PostAuthenticateUserInteractor.Input(
                 user,
                 password,

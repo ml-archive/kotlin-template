@@ -11,15 +11,28 @@ import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
 import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
+import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
+import dk.eboks.app.util.ActivityStarter
 import dk.eboks.app.util.guard
 
 /**
  * Created by bison on 16-02-2018.
  */
 class UIManagerImpl(val context: Context) : UIManager {
+
     val handler by lazy {
         Handler(context.mainLooper)
+    }
+
+    override fun showLoginScreen() {
+        handler.post {
+            App.currentActivity()?.let {
+                ActivityStarter(it).activity(StartActivity::class.java).start()
+            }.guard {
+               context.startActivity(Intent(context, StartActivity::class.java))
+            }
+        }
     }
 
     override fun showMessageScreen() {

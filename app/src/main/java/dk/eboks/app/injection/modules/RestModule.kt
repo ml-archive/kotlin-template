@@ -5,12 +5,10 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
+import dk.eboks.app.App
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
-import dk.eboks.app.domain.managers.DownloadManager
-import dk.eboks.app.domain.managers.FileCacheManager
-import dk.eboks.app.domain.managers.PrefManager
-import dk.eboks.app.domain.managers.ProtocolManager
+import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.DownloadManagerImpl
@@ -20,6 +18,9 @@ import dk.eboks.app.network.managers.protocol.ProtocolManagerImpl
 import dk.eboks.app.network.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.util.DateDeserializer
 import dk.eboks.app.network.util.ItemTypeAdapterFactory
+import dk.eboks.app.presentation.managers.UIManagerImpl
+import dk.eboks.app.util.guard
+import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.nstack.kotlin.providers.NMetaInterceptor
 import okhttp3.*
@@ -30,6 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import javax.inject.Named
 
 
@@ -112,7 +114,7 @@ class RestModule {
                     var request = chain.request()
                     var token: AccessToken? = null
                     try {
-                        token = Gson().fromJson<AccessToken>(prefManager.getString(eAuth2.keyAccesstoken, ""), AccessToken::class.java)
+                        token = Gson().fromJson<AccessToken>(prefManager.getString(Keys.keyAccesstoken, ""), AccessToken::class.java)
                         token?.let {
                             request = chain.request().newBuilder()
                                     .header("Authorization", it.token_type + " " + it.access_token)
@@ -198,20 +200,32 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideAuthenticator(prefManager: PrefManager): EAuth2 {
-        return EAuth2(prefManager)
+    fun provideAuthenticator(prefManager: PrefManager, appStateManager: AppStateManager): EAuth2 {
+        return EAuth2(prefManager, appStateManager)
+    }
+
+    companion object Keys {
+        const val keyAccesstoken = "eauth.accesstoken"
+        const val keyKspToken = "eauth.kspToken"
     }
 
     /**
      * E-boks Authenticator, based on OAuth2
      */
-    inner class EAuth2(val prefManager: PrefManager) : Authenticator {
-        val keyAccesstoken = "eauth.accesstoken"
+    inner class EAuth2(val prefManager: PrefManager, val appStateManager: AppStateManager) : Authenticator {
 
         private var newTokenApi: Api
-        private var refreshTokenApi: Api // TODO maybe we need separate api-clients for other auth-calls
+        private var refreshTokenApi: Api
+        // TODO maybe we need separate api-clients for other auth-calls?
+
+        @Inject
+        lateinit var executer: Executor
+        @Inject
+        lateinit var uiManager: UIManager
 
         init {
+            App.instance().appComponent.inject(this)
+
             val newTokenClient = provideHttpClient(
                     provideEboksHeaderInterceptor(
                             provideProtocolManager()
@@ -220,7 +234,7 @@ class RestModule {
                     .addInterceptor { chain ->
                         val originalRequest = chain.request()
                         val newRequest = originalRequest.newBuilder()
-                                .header("Authorization", "Basic c2ltcGxlbG9naW46c2VjcmV0")  // NOTE: The header token is different!
+                                .header("Authorization", "Basic c2ltcGxlbG9naW46c2VjcmV0")  // NOTE: The basic token is different!
                                 .build()
                         chain.proceed(newRequest)
                     }
@@ -233,7 +247,7 @@ class RestModule {
                     .addInterceptor { chain ->
                         val originalRequest = chain.request()
                         val newRequest = originalRequest.newBuilder()
-                                .header("Authorization", "Basic dG9rZW50cmFuc2Zvcm06c2VjcmV0")  // NOTE: The header token is different!
+                                .header("Authorization", "Basic dG9rZW50cmFuc2Zvcm06c2VjcmV0")  // NOTE: The basic token is different!
                                 .build()
                         chain.proceed(newRequest)
                     }
@@ -274,13 +288,13 @@ class RestModule {
                 return null
             }
 
-            var token = Gson().fromJson<AccessToken>(prefManager.getString(keyAccesstoken, ""), AccessToken::class.java)
-            Timber.w("Token doesn't work! ${token.access_token} \nTrying for a new one...")
-            token = newToken()
-            // todo?
-//            if(token is kspWebGrantToken) {
-//                token = transformToken()
-//            }
+            // try to see if we can transform a web-token
+            var token = transformToken()
+
+            token?.guard {
+                // None or invalid web-token - try for a new AccessToken
+                token = newToken()
+            }
 
             token?.let {
                 // save the token
@@ -291,22 +305,38 @@ class RestModule {
                 return response.request().newBuilder()
                         .header("Authorization", it.token_type + " " + it.access_token)
                         .build()
+            }.guard {
+                // Todo login
+                uiManager.showLoginScreen()
+                executer.sleepUntilSignalled("login_condition", 0)
+                return authenticate(route, response)
             }
+
+
             return null
         }
 
         private fun newToken(): AccessToken? {
             try {
+                val userName = appStateManager.state?.loginState?.userName
+                val password = appStateManager.state?.loginState?.userPassWord
+                val actiCode = appStateManager.state?.loginState?.activationCode
+                if(userName.isNullOrBlank() || password.isNullOrBlank()) {
+                    return null // todo much, much, much more drastic error here - this is when the authenticator was started without a user being selected
+                }
                 // request a new token, using the stored user info
-                val tokenResponse = newTokenApi.getToken(mapOf(
+                val params = mapOf(
                         Pair("grant_type", "password"),
-                        Pair("username", "nodes-user1"), // TODO: username + password from where? Fingerprint? nCrypt?
-                        Pair("password", "pwd"),
-                        Pair("acr_values", "activationcode:12324"), // <--- optional
+                        Pair("username", userName!!),
+                        Pair("password", password!!),
                         Pair("scope", "mobileapi offline_access"),
                         Pair("client_Id", "simplelogin"),
                         Pair("secret", "2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B") // TODO: probably hardcoded
-                )).execute()
+                )
+                if(!actiCode.isNullOrBlank()) {
+                    params.plus(Pair("acr_values", "activationcode:$actiCode"))
+                }
+                val tokenResponse = newTokenApi.getToken(params).execute()
 
                 if (tokenResponse.isSuccessful) {
                     return tokenResponse.body()
@@ -319,11 +349,16 @@ class RestModule {
         }
 
         private fun transformToken(): AccessToken? {
+            val kspToken = appStateManager.state?.loginState?.kspToken
+            if (kspToken.isNullOrBlank()) {
+                return null // no web token
+            }
+            appStateManager.state?.loginState?.kspToken = null // consume it
             try {
                 // request a new token, using the stored user info
                 val tokenResponse = newTokenApi.getToken(mapOf(
                         Pair("grant_type", "KspWebGrantValidator"),
-                        Pair("kspwebtoken", "sdf9jklsjdlf9suwljfsdpofusdpfoudsf"), // TODO: kspwebtoken from where? nemID?
+                        Pair("kspwebtoken", kspToken!!),
                         Pair("scope", "mobileapi offline_access"),
                         Pair("client_Id", "tokentransform"),
                         Pair("secret", "2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B")  // TODO: probably hardcoded
