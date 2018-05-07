@@ -6,14 +6,17 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.components.start.welcome.SplashComponentFragment
 import dk.eboks.app.presentation.ui.screens.home.HomeActivity
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import dk.nodes.nstack.kotlin.NStack
+import dk.nodes.nstack.kotlin.managers.ConnectionManager
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
+import dk.nodes.nstack.kotlin.providers.NMetaInterceptor
 import kotlinx.android.synthetic.main.activity_start.*
 import net.hockeyapp.android.CrashManager
 import net.hockeyapp.android.CrashManagerListener
@@ -35,6 +38,18 @@ class StartActivity : BaseActivity(), StartContract.View {
         presenter.onViewCreated(this, lifecycle)
 
         addFragmentOnTop(R.id.containerFl, splashFragment, false)
+
+        if(!ConnectionManager(this).isConnected())
+        {
+            AlertDialog.Builder(this)
+                    .setTitle(Translation.error.noInternetTitle)
+                    .setMessage(Translation.error.noInternetMessage)
+                    .setPositiveButton(Translation.defaultSection.close) { dialog, which ->
+                        finish()
+                    }
+                    .show()
+            return
+        }
 
         supportFragmentManager.addOnBackStackChangedListener {
             Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")
@@ -65,11 +80,12 @@ class StartActivity : BaseActivity(), StartContract.View {
 
     override fun performVersionControl() {
         //NStack.appOpen({ success -> Timber.e("appopen success = $success") })
-        NStack.appOpen()
         NStack.onAppUpdateListener = {
             Timber.e("ONAPPUPDATELISTENER")
+
             showUpdateDialog(it)
         }
+        NStack.appOpen()
     }
 
     private fun showUpdateDialog(appUpdate: AppUpdate) {

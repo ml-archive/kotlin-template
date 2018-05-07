@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.components.folder.folders.newfolder
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,12 +50,23 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
     }
 
     private fun setup() {
-        if (mode == FolderDrawerMode.EDIT) {
-            titleTv.text = Translation.folders.editFolder
-            folderRootTv.text = parentFolder?.name
 
-            deleteIv.setOnClickListener {
-                //todo delete folder
+        when (mode){
+            FolderDrawerMode.EDIT->{
+                titleTv.text = Translation.folders.editFolder
+                folderRootTv.text = parentFolder?.name
+                deleteIv.visibility = View.VISIBLE
+                editFolder?.name?.let {
+                    var editableString = SpannableStringBuilder(it)
+                    nameEt.text = editableString
+                }
+                deleteIv.setOnClickListener {
+                    //todo delete folder
+                }
+            }
+
+            FolderDrawerMode.NEW->{
+                deleteIv.visibility = View.GONE
             }
         }
 
@@ -80,6 +92,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         selectFolderLl.setOnClickListener {
             var i = Intent(context, FolderActivity::class.java)
             i.putExtra("pick", true)
+            i.putExtra("selectFolder", true)
             startActivityForResult(i, FolderActivity.REQUEST_ID)
         }
     }
@@ -96,7 +109,8 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                         }
                         FolderDrawerMode.EDIT ->{
                             // todo API move folder to new location
-                            // should also return a new parent folder so the new parent location gets shown correct
+                            parentFolder = data?.getSerializableExtra("res") as Folder
+                            folderRootTv.text = parentFolder?.name
                         }
                     }
                 }

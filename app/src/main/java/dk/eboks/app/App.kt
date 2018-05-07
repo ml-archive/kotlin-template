@@ -30,7 +30,7 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
         NStack.debugLogLevel
         NStack.translationClass = Translation::class.java
         NStack.debugMode = BuildConfig.DEBUG
-        NStack.debugLogLevel = NLog.Level.Error
+        NStack.debugLogLevel = NLog.Level.OFF
         NStack.init(this)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

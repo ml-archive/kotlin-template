@@ -38,15 +38,11 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     private var editEnabled: Boolean = false
     private var editAction: ButtonType? = null
 
-    private var multiActionButtons = arrayListOf(
+    private var actionButtons = arrayListOf(
             OverlayButton(ButtonType.MOVE),
-            OverlayButton(ButtonType.DELETE),
-            OverlayButton(ButtonType.PRINT),
-            OverlayButton(ButtonType.MAIL),
-            OverlayButton(ButtonType.OPEN)
-    )
-    private var singleActionButtons = arrayListOf(
-            OverlayButton(ButtonType.MOVE),
+            OverlayButton(ButtonType.ARCHIVE),
+            OverlayButton(ButtonType.READ),
+            OverlayButton(ButtonType.UNREAD),
             OverlayButton(ButtonType.DELETE)
     )
 
@@ -119,22 +115,10 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         }
     }
 
-    private fun getActionButtons(): ArrayList<OverlayButton> {
-        return if (checkedList.size == 1) {
-            singleActionButtons
-        } else {
-            multiActionButtons
-        }
-    }
-
     private fun setupFab() {
         mainFab.setOnClickListener {
-            val buttons = getActionButtons()
-
             val i = Intent(context, OverlayActivity::class.java)
-
-            i.putExtra("buttons", buttons)
-
+            i.putExtra("buttons", actionButtons)
             startActivityForResult(i, OverlayActivity.REQUEST_ID)
         }
     }
@@ -142,6 +126,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        // Deal with return from document action sheet
         if (requestCode == OverlayActivity.REQUEST_ID) {
             when (data?.getSerializableExtra("res")) {
                 (ButtonType.MOVE)   -> {
@@ -151,30 +136,32 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 (ButtonType.DELETE) -> {
                     editAction = ButtonType.DELETE
                     presenter.deleteMessages(checkedList)
-                    switchMode()
+                    toggleEditMode()
                 }
-                (ButtonType.PRINT)  -> {
-                    editAction = ButtonType.PRINT
-                    openSelectedMessage()
-                    switchMode()
+                (ButtonType.ARCHIVE)  -> {
+                    editAction = ButtonType.ARCHIVE
+                    presenter.archiveMessages(checkedList)
+                    toggleEditMode()
                 }
-                (ButtonType.MAIL)   -> {
-                    editAction = ButtonType.MAIL
-                    openSelectedMessage()
-                    switchMode()
+                (ButtonType.READ)  -> {
+                    editAction = ButtonType.READ
+                    presenter.markReadMessages(checkedList)
+                    toggleEditMode()
                 }
-                (ButtonType.OPEN)   -> {
-                    editAction = ButtonType.OPEN
-                    openSelectedMessage()
-                    switchMode()
+                (ButtonType.UNREAD)  -> {
+                    editAction = ButtonType.UNREAD
+                    presenter.markUnreadMessages(checkedList)
+                    toggleEditMode()
                 }
                 else                -> {
                     // Request do nothing
                     editAction = null
+                    toggleEditMode()
                 }
             }
         }
 
+        // deal with return from folder picker
         if (requestCode == FolderActivity.REQUEST_ID) {
             data?.extras?.let {
                 val moveToFolder = data.getSerializableExtra("res")
@@ -186,17 +173,11 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 checkedList.clear()
 
                 if (modeEdit) {
-                    switchMode()
+                    toggleEditMode()
                 }
 
             }
         }
-    }
-
-    private fun openSelectedMessage() {
-        val firstMessage = checkedList.firstOrNull() ?: return
-        val buttonType = editAction ?: return
-        presenter.openMessage(firstMessage, buttonType)
     }
 
     private fun setupTopBar() {
@@ -212,7 +193,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.uploads.topbarEdit)
             menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
-                switchMode()
+                toggleEditMode()
                 true
             }
         }
@@ -223,7 +204,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         fragmentManager.popBackStack()
     }
 
-    private fun switchMode() {
+    private fun toggleEditMode() {
         modeEdit = !modeEdit
         refreshSrl?.isEnabled = !modeEdit
         checkedList.clear()
