@@ -61,11 +61,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             adapter.editMode = value
         }
 
-    override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_mail_list_component, container, false)
     }
 

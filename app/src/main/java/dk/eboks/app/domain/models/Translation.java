@@ -497,4 +497,13 @@ public class Translation {
 		public static String editButton = "Edit";
 		public static String actionMarkAsUnread = "Mark as unread";
 	}
+	public final static class sharedusers {
+		public static String title = "Select user";
+		public static String sharedAccountsHeader = "My shared accounts";
+		public static String permissionA = "Administrator";
+		public static String permissionL = "Read only";
+		public static String permissionF = "Editor";
+		public static String permissionO = "Administration access (mail from authorities)";
+		public static String myProfile = "My profile";
+	}
 }

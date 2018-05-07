@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/headerTv"
+                style="@style/text.header1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:text="_Headline" />
+
+            <TextView
+                android:id="@+id/itemTextTv"
+                style="@style/text.body6.secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="_Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor" />
+
+            <Button
+                android:id="@+id/itemButtonBtn"
+                android:layout_width="125dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rounded_gradient_button"
+                android:text="_add item"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:textStyle="normal" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/keysContentRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

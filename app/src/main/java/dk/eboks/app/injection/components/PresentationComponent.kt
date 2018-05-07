@@ -20,6 +20,8 @@ import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
 import dk.eboks.app.pasta.activity.PastaActivity
 import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.*
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.requirements.*
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
@@ -110,6 +112,8 @@ import dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity
 import dk.eboks.app.presentation.ui.screens.overlay.OverlayPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity
+import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity
@@ -185,6 +189,8 @@ interface PresentationComponent {
     fun inject(target: MyInfoPresenter)
     fun inject(target: SenderAllListActivity)
     fun inject(target: SenderAllListPresenter)
+    fun inject(target: EkeyContentActivity)
+    fun inject(target: EkeyContentPresenter)
 
     // Components
 
@@ -269,6 +275,8 @@ interface PresentationComponent {
     fun inject(target : ChannelContentStoreboxComponentPresenter)
     fun inject(target : ChannelSettingsComponentFragment)
     fun inject(target : ChannelSettingsComponentPresenter)
+    fun inject(target : EkeyComponentFragment)
+    fun inject(target : EkeyComponentPresenter)
 
     // senders
 

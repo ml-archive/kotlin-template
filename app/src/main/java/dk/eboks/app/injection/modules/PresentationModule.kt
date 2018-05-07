@@ -27,6 +27,8 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.*
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentContract
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentContract
@@ -125,6 +127,8 @@ import dk.eboks.app.presentation.ui.components.verification.VerificationComponen
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContract
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentContract
+import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentContract
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewContract
@@ -879,6 +883,18 @@ class PresentationModule {
     @Provides
     fun provideFolderSelectUserComponentPresenter(stateManager: AppStateManager) : FolderSelectUserComponentContract.Presenter {
         return FolderSelectUserComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyContentPresenter(stateManager: AppStateManager) : EkeyContentContract.Presenter {
+        return EkeyContentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyComponentPresenter(stateManager: AppStateManager) : EkeyComponentContract.Presenter {
+        return EkeyComponentPresenter(stateManager)
     }
 
     /* Pasta
