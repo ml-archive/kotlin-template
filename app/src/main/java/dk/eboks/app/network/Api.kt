@@ -8,6 +8,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.login.AccessToken
+import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.AliasBody
 import dk.eboks.app.domain.models.protocol.LoginRequest
@@ -29,6 +30,7 @@ interface Api {
     @FormUrlEncoded
     @POST("http://authenticationservice20180404012549.azurewebsites.net/connect/token") fun getToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
 
+    @GET("api/user/profile") fun getUserProfile() : Call<User>
 
     // @GET("regions") fun getRegions() : Call<List<Region>>
     @GET("api/mail/categories") fun getMailCategories() : Call<List<Folder>>

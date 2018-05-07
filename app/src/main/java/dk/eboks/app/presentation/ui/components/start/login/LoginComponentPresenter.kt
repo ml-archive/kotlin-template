@@ -10,6 +10,7 @@ import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.ContactPoint
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.util.guard
+import dk.nodes.arch.domain.executor.SignalDispatcher.signal
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -86,17 +87,21 @@ class LoginComponentPresenter @Inject constructor(
         user.lastLoginProvider = providerId
 
         // save the required login info
-        appState.state?.loginState?.userName = "nodes-user1" //user.name // todo shouldn't be hardcoded
-        appState.state?.loginState?.userPassWord = "pwd" // password // todo shouldn't be hardcoded
-        appState.state?.loginState?.activationCode = null // activationCode // todo shouldn't be hardcoded
+        appState.state?.loginState?.userName = "nodes-user1" //user.name // todo shouldn't be hardcoded!
+        appState.state?.loginState?.userPassWord = "pwd" // password // todo shouldn't be hardcoded!
+        appState.state?.loginState?.activationCode = null // activationCode // todo shouldn't be hardcoded!
         appState.save()
 
-        postAuthenticateUserInteractor.input = PostAuthenticateUserInteractor.Input(
-                user,
-                password,
-                activationCode
-        )
-        postAuthenticateUserInteractor.run()
+
+        Timber.v("Signal - login_condition")
+        signal("login_condition")
+        Timber.v("Signalled - login_condition")
+//        postAuthenticateUserInteractor.input = PostAuthenticateUserInteractor.Input(
+//                user,
+//                password,
+//                activationCode
+//        )
+//        postAuthenticateUserInteractor.run()
 
     }
 

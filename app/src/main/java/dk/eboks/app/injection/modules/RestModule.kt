@@ -18,7 +18,6 @@ import dk.eboks.app.network.managers.protocol.ProtocolManagerImpl
 import dk.eboks.app.network.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.util.DateDeserializer
 import dk.eboks.app.network.util.ItemTypeAdapterFactory
-import dk.eboks.app.presentation.managers.UIManagerImpl
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.AppScope
@@ -215,7 +214,7 @@ class RestModule {
     inner class EAuth2(val prefManager: PrefManager, val appStateManager: AppStateManager) : Authenticator {
 
         private var newTokenApi: Api
-        private var refreshTokenApi: Api
+        private var transformTokenApi: Api
         // TODO maybe we need separate api-clients for other auth-calls?
 
         @Inject
@@ -239,7 +238,7 @@ class RestModule {
                         chain.proceed(newRequest)
                     }
                     .build()
-            val refreshTokenClient = provideHttpClient(
+            val transformTokenClient = provideHttpClient(
                     provideEboksHeaderInterceptor(
                             provideProtocolManager()
                     ), this, prefManager)
@@ -265,9 +264,9 @@ class RestModule {
                             provideBaseUrlString()
                     )
             )
-            refreshTokenApi = provideApi(
+            transformTokenApi = provideApi(
                     provideRetrofit(
-                            refreshTokenClient,
+                            transformTokenClient,
                             provideGsonConverter(
                                     provideGson(
                                             provideTypeFactory(),
@@ -306,9 +305,11 @@ class RestModule {
                         .header("Authorization", it.token_type + " " + it.access_token)
                         .build()
             }.guard {
-                // Todo login
+                // Todo doing login
                 uiManager.showLoginScreen()
+                Timber.v("Sleep - login_condition")
                 executer.sleepUntilSignalled("login_condition", 0)
+                Timber.v("Wake - login_condition")
                 return authenticate(route, response)
             }
 

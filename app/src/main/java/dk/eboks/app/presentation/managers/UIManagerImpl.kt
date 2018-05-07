@@ -2,7 +2,6 @@ package dk.eboks.app.presentation.managers
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
 import android.os.Handler
 import dk.eboks.app.App
 import dk.eboks.app.domain.managers.UIManager
@@ -28,23 +27,28 @@ class UIManagerImpl(val context: Context) : UIManager {
     override fun showLoginScreen() {
         handler.post {
             App.currentActivity()?.let {
-                ActivityStarter(it).activity(StartActivity::class.java).start()
+                ActivityStarter(it)
+                        .activity(StartActivity::class.java)
+                        .putExtra("noboot", true)
+                        .start()
             }.guard {
-               context.startActivity(Intent(context, StartActivity::class.java))
+                val i = Intent(context, StartActivity::class.java)
+                i.putExtra("noboot", true)
+                context.startActivity(i)
             }
         }
     }
 
     override fun showMessageScreen() {
         handler.post {
-            App.currentActivity()?.let { it.startActivity(Intent(context, MessageActivity::class.java)); it.overridePendingTransition(0,0) }
+            App.currentActivity()?.let { it.startActivity(Intent(context, MessageActivity::class.java)); it.overridePendingTransition(0, 0) }
                     .guard { context.startActivity(Intent(context, MessageActivity::class.java)) }
         }
     }
 
     override fun showEmbeddedMessageScreen() {
         handler.post {
-            App.currentActivity()?.let { it.startActivity(Intent(context, MessageEmbeddedActivity::class.java)); it.overridePendingTransition(0,0) }
+            App.currentActivity()?.let { it.startActivity(Intent(context, MessageEmbeddedActivity::class.java)); it.overridePendingTransition(0, 0) }
                     .guard { context.startActivity(Intent(context, MessageEmbeddedActivity::class.java)) }
         }
     }
@@ -56,7 +60,7 @@ class UIManagerImpl(val context: Context) : UIManager {
         }
     }
 
-    override fun showFolderContentScreen(folder : Folder) {
+    override fun showFolderContentScreen(folder: Folder) {
         val intent = Intent(context, MailListActivity::class.java)
         intent.putExtra("folder", folder)
         handler.post {
@@ -65,8 +69,7 @@ class UIManagerImpl(val context: Context) : UIManager {
         }
     }
 
-    override fun showPermissionRequestScreen()
-    {
+    override fun showPermissionRequestScreen() {
         handler.post {
             App.currentActivity()?.let { it.startActivity(Intent(context, PermissionRequestActivity::class.java)) }
                     .guard { context.startActivity(Intent(context, PermissionRequestActivity::class.java)) }

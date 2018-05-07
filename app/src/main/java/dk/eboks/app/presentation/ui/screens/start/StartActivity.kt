@@ -9,6 +9,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentFragment
 import dk.eboks.app.presentation.ui.components.start.welcome.SplashComponentFragment
 import dk.eboks.app.presentation.ui.screens.home.HomeActivity
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
@@ -36,6 +37,11 @@ class StartActivity : BaseActivity(), StartContract.View {
 
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+
+        if(intent.getBooleanExtra("noboot", false)) {
+            addFragmentOnTop(R.id.containerFl, UserCarouselComponentFragment(), false)
+            return
+        }
 
         addFragmentOnTop(R.id.containerFl, splashFragment, false)
 

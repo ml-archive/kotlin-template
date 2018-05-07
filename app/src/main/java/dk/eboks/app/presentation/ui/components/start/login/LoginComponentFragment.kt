@@ -123,7 +123,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
 
     private fun onContinue() {
-        Timber.e("onContinue")
+        Timber.i("onContinue with ${currentUser?.name}")
         currentUser?.let { user ->
             currentProvider?.let { provider ->
                 presenter.login(
