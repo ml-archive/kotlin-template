@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.profile.main
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +21,9 @@ import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponent
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import dk.eboks.app.util.setVisible
+import dk.nodes.filepicker.FilePickerActivity
+import dk.nodes.filepicker.FilePickerConstants
+import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_profile_main_component.*
 import kotlinx.android.synthetic.main.include_profile_bottom.*
 import timber.log.Timber
@@ -31,6 +35,8 @@ class ProfileInfoComponentFragment : BaseFragment(),
     lateinit var presenter: ProfileInfoComponentContract.Presenter
 
     var toolbarTitle = ""
+
+    private val CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 4532
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -50,6 +56,9 @@ class ProfileInfoComponentFragment : BaseFragment(),
         setupCollapsingToolbar()
         setupListeners()
 
+        profileDetailIv.setOnClickListener {
+            acquireUserImage()
+        }
     }
 
     override fun onResume() {
@@ -139,6 +148,22 @@ class ProfileInfoComponentFragment : BaseFragment(),
         profileDetailBtnSignout.setOnClickListener {
             Timber.d("profileDetailBtnSignout Clicked")
             presenter.doLogout()
+        }
+    }
+
+    private fun acquireUserImage()
+    {
+        val intent = Intent(activity, FilePickerActivity::class.java)
+        intent.putExtra(FilePickerConstants.CAMERA, true)
+        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            data?.let {
+                val file = FilePickerUriHelper.getFile(activity, data)
+                val uri = FilePickerUriHelper.getUri(data)
+            }
         }
     }
 

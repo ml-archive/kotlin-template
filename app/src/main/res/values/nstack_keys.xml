@@ -30,6 +30,8 @@
   <string name='nstack_error_invalidActivationCodeNrOfChars' formatted='false'>error_invalidActivationCodeNrOfChars</string>
   <string name='nstack_error_printReceiptErrorMessage' formatted='false'>error_printReceiptErrorMessage</string>
   <string name='nstack_error_forwardReceiptErrorMessage' formatted='false'>error_forwardReceiptErrorMessage</string>
+  <string name='nstack_error_timeoutTitle' formatted='false'>error_timeoutTitle</string>
+  <string name='nstack_error_timeoutMessage' formatted='false'>error_timeoutMessage</string>
   <string name='nstack_mail_senderHeader' formatted='false'>mail_senderHeader</string>
   <string name='nstack_mail_showAllSendersButton' formatted='false'>mail_showAllSendersButton</string>
   <string name='nstack_mail_smartFolderHeader' formatted='false'>mail_smartFolderHeader</string>

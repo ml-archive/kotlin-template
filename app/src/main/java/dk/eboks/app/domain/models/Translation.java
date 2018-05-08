@@ -40,6 +40,8 @@ public class Translation {
 		public static String invalidActivationCodeNrOfChars = "Invalid activation code. Must be [numberOfChars] chars.";
 		public static String printReceiptErrorMessage = "Cannot print receipt";
 		public static String forwardReceiptErrorMessage = "Cannot forward receipt";
+		public static String timeoutTitle = "Timeout";
+		public static String timeoutMessage = "The request timed out";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";

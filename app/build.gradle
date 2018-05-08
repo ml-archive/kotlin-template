@@ -245,6 +245,7 @@ dependencies {
 
     implementation "dk.nodes.arch:base:$nodes_arch_version"
     //implementation "dk.nodes.arch:base:LOCAL"
+    implementation 'dk.nodes.filepicker:filepicker:2.0.+'
 
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
