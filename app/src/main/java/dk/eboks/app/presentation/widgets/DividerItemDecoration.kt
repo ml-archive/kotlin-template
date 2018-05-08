@@ -20,7 +20,9 @@ import dk.eboks.app.util.dpToPx
  * @param indentationDp How many DP to indent from the LEFT edge
  * @param backgroundColor Sometimes you may need a background, otherwise transparent is used
  */
-class DividerItemDecoration(val drawable : Drawable = ColorDrawable(Color.GRAY), private val indentationDp: Int = 0, private val backgroundColor: Int = Color.TRANSPARENT)  : RecyclerView.ItemDecoration() {
+class DividerItemDecoration(private val drawable : Drawable = ColorDrawable(Color.GRAY),
+                            private val indentationDp: Int = 0,
+                            private val backgroundColor: Int = Color.TRANSPARENT)  : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
