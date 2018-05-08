@@ -69,8 +69,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View {
         menuSearch?.setIcon(R.drawable.ic_settings_red)
         menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
-            getBaseActivity()?.openComponentDrawer(
-                    ChannelSettingsComponentFragment::class.java)
+            getBaseActivity()?.openComponentDrawer( ChannelSettingsComponentFragment::class.java)
             true
         }
     }
