@@ -122,9 +122,11 @@ fun View.setVisible(isVisible: Boolean) {
 }
 
 fun dpToPx(dp: Int): Int {
-
     return (dp * Resources.getSystem().displayMetrics.density).toInt()
+}
 
+fun dpToPx(dp: Float): Float {
+    return (dp * Resources.getSystem().displayMetrics.density)
 }
 
 fun FastScrollRecyclerView.setBubbleDrawable(drawable: Drawable) {
