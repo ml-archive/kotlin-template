@@ -38,6 +38,8 @@ class StartActivity : BaseActivity(), StartContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
+        // this will happen when we need to authorize - the user will be sent here, but the
+        // boot has already happened, so skip it. Otherwise, we'll end in a, infinite loop
         if(intent.getBooleanExtra("noboot", false)) {
             addFragmentOnTop(R.id.containerFl, UserCarouselComponentFragment(), false)
             return

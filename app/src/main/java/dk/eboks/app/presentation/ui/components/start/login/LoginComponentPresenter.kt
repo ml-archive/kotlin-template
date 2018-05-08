@@ -20,8 +20,7 @@ import javax.inject.Inject
  */
 class LoginComponentPresenter @Inject constructor(
         val appState: AppStateManager,
-        val createUserInteractor: CreateUserInteractor,
-        val postAuthenticateUserInteractor: PostAuthenticateUserInteractor
+        val createUserInteractor: CreateUserInteractor
 ) :
         LoginComponentContract.Presenter,
         BasePresenterImpl<LoginComponentContract.View>(),
@@ -33,7 +32,6 @@ class LoginComponentPresenter @Inject constructor(
     init {
         appState.state?.currentUser = null
         createUserInteractor.output = this
-        postAuthenticateUserInteractor.output = this
     }
 
     override fun setup() {
@@ -94,15 +92,7 @@ class LoginComponentPresenter @Inject constructor(
 
 
         Timber.v("Signal - login_condition")
-        signal("login_condition")
-        Timber.v("Signalled - login_condition")
-//        postAuthenticateUserInteractor.input = PostAuthenticateUserInteractor.Input(
-//                user,
-//                password,
-//                activationCode
-//        )
-//        postAuthenticateUserInteractor.run()
-
+        signal("login_condition") // allow the eAuth2 authenticator to continue
     }
 
     // TODO not much loggin going on

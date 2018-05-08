@@ -24,6 +24,8 @@ class UIManagerImpl(val context: Context) : UIManager {
         Handler(context.mainLooper)
     }
 
+    // used when triggered from an authorization, but the boot should already have happened,
+    // so it needs to be skipped (using the "noboot" extra). Otherwise, we'll end in a, infinite loop
     override fun showLoginScreen() {
         handler.post {
             App.currentActivity()?.let {
