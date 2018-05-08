@@ -4,14 +4,19 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.ekey.Login
 import dk.eboks.app.domain.models.channel.ekey.Note
 import dk.eboks.app.domain.models.channel.ekey.Pin
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import kotlinx.android.synthetic.main.fragment_channel_ekey.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 
@@ -40,6 +45,31 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View {
 
         createMocks()
         setupRecyclerView()
+        setupTopBar()
+        addItemBtn.setOnClickListener {
+            getBaseActivity()?.addFragmentOnTop(R.id.content, EkeyAddItemComponentFragment(), true)
+        }
+    }
+
+
+    private fun setupTopBar() {
+        getBaseActivity()?.mainTb?.menu?.clear()
+
+        getBaseActivity()?.mainTb?.title = Translation.ekey.topBarTitle
+
+        getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+        getBaseActivity()?.mainTb?.setNavigationOnClickListener {
+            getBaseActivity()?.onBackPressed()
+        }
+
+        val menuSearch = getBaseActivity()?.mainTb?.menu?.add("_settings")
+        menuSearch?.setIcon(R.drawable.ic_settings_red)
+        menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
+            getBaseActivity()?.openComponentDrawer(
+                    ChannelSettingsComponentFragment::class.java)
+            true
+        }
     }
 
     private fun setupRecyclerView() {

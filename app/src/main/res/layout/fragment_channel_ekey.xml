@@ -35,7 +35,7 @@
                 android:text="_Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor" />
 
             <Button
-                android:id="@+id/itemButtonBtn"
+                android:id="@+id/addItemBtn"
                 android:layout_width="125dp"
                 android:layout_height="36dp"
                 android:layout_gravity="center"

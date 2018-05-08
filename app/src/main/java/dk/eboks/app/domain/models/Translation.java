@@ -440,7 +440,7 @@ public class Translation {
 		public static String creditCardsSectionHeader = "Credit cards";
 		public static String addCardTitle = "Add another credit card";
 		public static String deleteCardAlertTitle = "Are you sure you want to remove this credit card?";
-		public static String deleteCardAlertButton = "REMOVE";
+		public static String deleteCardAlertButton = "Remove";
 		public static String deleteCardCancelButton = "CANCEL";
 		public static String removeChannelTitle = "Are you sure you want to remove this channel?";
 		public static String removeChannelMessage = "Removing this channel will delete it from your e-boks app, but will not delete your user at storebox.";
@@ -505,5 +505,8 @@ public class Translation {
 		public static String permissionF = "Editor";
 		public static String permissionO = "Administration access (mail from authorities)";
 		public static String myProfile = "My profile";
+	}
+	public final static class ekey {
+		public static String topBarTitle = "e-Key";
 	}
 }

@@ -22,6 +22,8 @@ import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.*
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.requirements.*
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
@@ -277,6 +279,8 @@ interface PresentationComponent {
     fun inject(target : ChannelSettingsComponentPresenter)
     fun inject(target : EkeyComponentFragment)
     fun inject(target : EkeyComponentPresenter)
+    fun inject(target : EkeyAddItemComponentFragment)
+    fun inject(target : EkeyAddItemComponentPresenter)
 
     // senders
 

@@ -86,12 +86,6 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 startActivity(Intent(activity, EkeyContentActivity::class.java))
             }
         }
-
-//        if (channel.isStorebox()) {
-//            startActivity(Intent(context, StoreboxContentActivity::class.java))
-//        } else {
-//            startActivity(Intent(activity, ChannelContentActivity::class.java))
-//        }
     }
 
     inner class ChannelAdapter : RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder>() {
