@@ -61,4 +61,8 @@ class MyUploadsComponentPresenter @Inject constructor(val appState: AppStateMana
     override fun onGetMessagesError(error: ViewError) {
 
     }
+
+    override fun isViewAttached(): Boolean {
+        return view != null
+    }
 }

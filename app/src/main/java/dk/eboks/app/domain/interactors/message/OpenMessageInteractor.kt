@@ -18,5 +18,6 @@ interface OpenMessageInteractor : Interactor {
         fun onOpenMessageDone()
         fun onOpenMessageServerError(serverError : ServerError)
         fun onOpenMessageError(error : ViewError)
+        fun isViewAttached() : Boolean
     }
 }

@@ -18,14 +18,17 @@ class OverlayButton(type: ButtonType) : Serializable {
         this.icon = getIcon(type)
     }
 
-    public fun getText(type: ButtonType): String {
+    fun getText(type: ButtonType): String {
         when (type) {
-            ButtonType.MOVE   -> return Translation.overlaymenu.move
-            ButtonType.DELETE -> return Translation.overlaymenu.delete
-            ButtonType.PRINT  -> return Translation.overlaymenu.print
-            ButtonType.MAIL   -> return Translation.overlaymenu.mail
-            ButtonType.OPEN   -> return Translation.overlaymenu.openIn
-            else              -> {
+            ButtonType.MOVE     -> return Translation.overlaymenu.move
+            ButtonType.DELETE   -> return Translation.overlaymenu.delete
+            ButtonType.PRINT    -> return Translation.overlaymenu.print
+            ButtonType.MAIL     -> return Translation.overlaymenu.mail
+            ButtonType.OPEN     -> return Translation.overlaymenu.openIn
+            ButtonType.ARCHIVE  -> return Translation.overlaymenu.archive
+            ButtonType.READ     -> return Translation.overlaymenu.markAsRead
+            ButtonType.UNREAD   -> return Translation.overlaymenu.markAsUnread
+            else                -> {
                 return ""
             }
         }
@@ -39,6 +42,9 @@ class OverlayButton(type: ButtonType) : Serializable {
             ButtonType.PRINT  -> return R.drawable.icon_48_print_red
             ButtonType.MAIL   -> return R.drawable.icon_48_forward_red
             ButtonType.OPEN   -> return R.drawable.icon_48_share_red
+            ButtonType.ARCHIVE   -> return R.drawable.icon_48_archive_red
+            ButtonType.READ   -> return R.drawable.icon_48_mail_open_red
+            ButtonType.UNREAD   -> return R.drawable.icon_48_mail_red
             else              -> {
                 return null
             }
@@ -49,5 +55,5 @@ class OverlayButton(type: ButtonType) : Serializable {
 
 
 enum class ButtonType {
-    MOVE, DELETE, PRINT, MAIL, OPEN, READ, UNREAD
+    MOVE, DELETE, PRINT, MAIL, OPEN, READ, UNREAD, ARCHIVE
 }

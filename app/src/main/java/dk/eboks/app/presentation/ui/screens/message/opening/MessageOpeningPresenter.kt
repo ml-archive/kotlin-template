@@ -65,4 +65,8 @@ class MessageOpeningPresenter(val appStateManager: AppStateManager, val executor
             ServerErrorHandler.PROMULGATION -> runAction { v-> v.setOpeningFragment(PromulgationComponentFragment::class.java) }
         }
     }
+
+    override fun isViewAttached(): Boolean {
+        return view != null
+    }
 }

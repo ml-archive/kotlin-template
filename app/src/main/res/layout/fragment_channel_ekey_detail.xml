@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/margin_normal"
+        android:paddingRight="@dimen/margin_normal">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/nameTil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/blueGrey"
+            android:theme="@style/TextInputLayoutTheme">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/nameEt"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName|textCapWords"
+                nstack:hint="@string/nstack_ekey_inputHintName" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--Pin-->
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/pinTil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/blueGrey"
+            android:theme="@style/TextInputLayoutTheme">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/pinEt"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName|textCapWords"
+                nstack:hint="@string/nstack_ekey_inputHintPin" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--Login -->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/usernameTil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/blueGrey"
+            android:theme="@style/TextInputLayoutTheme">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/usernameEt"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName|textCapWords"
+                nstack:hint="@string/nstack_ekey_inputHintUsername" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/passwordTil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/blueGrey"
+            android:theme="@style/TextInputLayoutTheme">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/passwordEt"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName|textCapWords"
+                nstack:hint="@string/nstack_ekey_inputHintPassword" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!--note-->
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/noteTil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColorHint="@color/blueGrey"
+            android:theme="@style/TextInputLayoutTheme">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/noteEt"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName|textCapWords"
+                nstack:hint="@string/nstack_ekey_inputHintNote" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_marginTop="20dp"
+            nstack:text="@string/nstack_ekey_requiredFields" />
+    </LinearLayout>
+</LinearLayout>

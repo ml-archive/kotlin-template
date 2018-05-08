@@ -5,6 +5,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -14,6 +15,7 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_channel_settings_component.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 /**
@@ -45,8 +47,8 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
             }
 
         setup()
-
     }
+
 
     private fun setup() {
         createMocks(3)
@@ -90,7 +92,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
             val dialog = AlertDialog.Builder(context)
                     .setTitle(Translation.channelsettingsstoreboxadditions.removeChannelTitle)
                     .setMessage(Translation.channelsettingsstoreboxadditions.removeChannelMessage)
-                    .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton) { dialog, which ->
+                    .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
                         //todo send API call to remove channel
                         Toast.makeText(context, "_Positive button clicked.", Toast.LENGTH_SHORT).show()
                     }
@@ -134,7 +136,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
                 val dialog = AlertDialog.Builder(context)
                         .setTitle(Translation.channelsettingsstoreboxadditions.deleteCardAlertTitle)
-                        .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton) { dialog, which ->
+                        .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
                             //todo send API call to remove card
                             Toast.makeText(context, "_Positive button clicked.", Toast.LENGTH_SHORT).show()
                         }

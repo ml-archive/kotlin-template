@@ -29,6 +29,10 @@ import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.*
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentContract
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentContract
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentContract
@@ -326,7 +330,6 @@ class PresentationModule {
             getMessagesInteractor: GetMessagesInteractor,
             deleteMessagesInteractor: DeleteMessagesInteractor,
             moveMessagesInteractor: MoveMessagesInteractor,
-            openMessageInteractor: OpenMessageInteractor,
             updateMessageInteractor: UpdateMessageInteractor
 
     ): MailListComponentContract.Presenter {
@@ -335,7 +338,6 @@ class PresentationModule {
                 getMessagesInteractor,
                 deleteMessagesInteractor,
                 moveMessagesInteractor,
-                openMessageInteractor,
                 updateMessageInteractor
         )
     }
@@ -895,6 +897,18 @@ class PresentationModule {
     @Provides
     fun provideEkeyComponentPresenter(stateManager: AppStateManager) : EkeyComponentContract.Presenter {
         return EkeyComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyAddItemComponentPresenter(stateManager: AppStateManager) : EkeyAddItemComponentContract.Presenter {
+        return EkeyAddItemComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyDetailComponentPresenter(stateManager: AppStateManager) : EkeyDetailComponentContract.Presenter {
+        return EkeyDetailComponentPresenter(stateManager)
     }
 
     /* Pasta

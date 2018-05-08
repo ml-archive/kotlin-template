@@ -140,6 +140,14 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
             appStateManager.state?.currentViewerFileName = cacheManager.getAbsolutePath(filename)
             //appStateManager.save()
 
+            // abort opening if view is no longer attached
+            output?.let {
+                if(!it.isViewAttached()) {
+                    Timber.e("User dismissed the view, abort opening")
+                    return
+                }
+            }
+
             if(isEmbeddedType(msg))
             {
                 uiManager.showEmbeddedMessageScreen()

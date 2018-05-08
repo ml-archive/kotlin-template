@@ -19,6 +19,7 @@ interface ChannelOpeningComponentContract {
         fun showVerifyDrawer(channel: Channel)
         fun openChannelContent()
         fun openStoreBoxContent()
+        fun openEkeyContent()
 
     }
 

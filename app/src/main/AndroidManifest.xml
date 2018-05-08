@@ -63,6 +63,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity" android:launchMode="singleTask" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity" android:launchMode="singleTask" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity" />
