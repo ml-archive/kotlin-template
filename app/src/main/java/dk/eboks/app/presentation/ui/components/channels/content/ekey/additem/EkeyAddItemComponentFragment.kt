@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_channel_ekey_additem.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 /**
@@ -25,6 +28,23 @@ class EkeyAddItemComponentFragment : BaseFragment(), EkeyAddItemComponentContrac
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+
+        setupTopBar()
+
+        notesLl.setOnClickListener {  }
+        cardsLl.setOnClickListener {  }
+        loginLl.setOnClickListener {  }
+    }
+
+    private fun setupTopBar() {
+        getBaseActivity()?.mainTb?.menu?.clear()
+
+        getBaseActivity()?.mainTb?.title = Translation.ekey.addItemTopBarTitle
+
+        getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
+        getBaseActivity()?.mainTb?.setNavigationOnClickListener {
+            getBaseActivity()?.onBackPressed()
+        }
     }
 
 }

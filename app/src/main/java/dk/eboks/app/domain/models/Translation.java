@@ -508,5 +508,10 @@ public class Translation {
 	}
 	public final static class ekey {
 		public static String topBarTitle = "e-Key";
+		public static String addItemTopBarTitle = "Add item";
+		public static String addItemLogin = "Login";
+		public static String addItemCards = "Card";
+		public static String addItemNote = "Note";
+		public static String addItemSelectCategory = "Select Category";
 	}
 }

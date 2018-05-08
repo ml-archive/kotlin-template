@@ -430,4 +430,9 @@
   <string name='nstack_sharedusers_permissionO' formatted='false'>sharedusers_permissionO</string>
   <string name='nstack_sharedusers_myProfile' formatted='false'>sharedusers_myProfile</string>
   <string name='nstack_ekey_topBarTitle' formatted='false'>ekey_topBarTitle</string>
+  <string name='nstack_ekey_addItemTopBarTitle' formatted='false'>ekey_addItemTopBarTitle</string>
+  <string name='nstack_ekey_addItemLogin' formatted='false'>ekey_addItemLogin</string>
+  <string name='nstack_ekey_addItemCards' formatted='false'>ekey_addItemCards</string>
+  <string name='nstack_ekey_addItemNote' formatted='false'>ekey_addItemNote</string>
+  <string name='nstack_ekey_addItemSelectCategory' formatted='false'>ekey_addItemSelectCategory</string>
 </resources>
