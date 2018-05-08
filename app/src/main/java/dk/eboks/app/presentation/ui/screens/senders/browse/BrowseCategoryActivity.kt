@@ -19,6 +19,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity
+import dk.eboks.app.presentation.widgets.DividerItemDecoration
 import dk.eboks.app.util.setBubbleDrawable
 import kotlinx.android.synthetic.main.activity_senders_browse_category.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -58,6 +59,13 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
 
         browseCatRv.adapter = SenderAdapter(senders)
         browseCatRv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        browseCatRv.addItemDecoration(
+                DividerItemDecoration(
+                        drawable = resources.getDrawable(R.drawable.shape_divider),
+                        indentationDp = 72,
+                        backgroundColor = resources.getColor(R.color.white)
+                )
+        )
 
         presenter.onViewCreated(this, lifecycle)
 
