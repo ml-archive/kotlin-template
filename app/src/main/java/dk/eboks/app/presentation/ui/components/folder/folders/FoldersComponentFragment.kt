@@ -56,21 +56,11 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
-//        arguments?.let { args ->
-//            if (args.containsKey("pick")) {
-//                mode = FolderMode.SELECT
-//            }
-//            if (args.containsKey("selectFolder")) {
-//                selectFolder = true
-//            }
-//        }
 
-        //todo test stuff
         if (activity.intent.getBooleanExtra("pick", false)) {
             mode = FolderMode.SELECT
         }
         selectFolder = activity.intent.getBooleanExtra("selectFolder", false)
-        //
 
         presenter.onViewCreated(this, lifecycle)
 

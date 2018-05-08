@@ -89,7 +89,7 @@ class UploadFileComponentFragment : BaseFragment(), UploadFileComponentContract.
                 saveBtn.isEnabled = fileNameValid
                 if(!fileNameValid){
                     //todo in the design the hint changes color. Not sure if they want that or the more android way
-                    fileNameTil.error = "_incorrect filename"
+                    fileNameTil.error = Translation.uploads.incorrectFileName
                 }
             }
 

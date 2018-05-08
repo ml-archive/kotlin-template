@@ -26,6 +26,7 @@ import dk.eboks.app.presentation.ui.components.channels.requirements.ChannelRequ
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentFragment_MembersInjector
+import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_channel_opening_component.*
@@ -157,6 +158,11 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
 
     override fun openStoreBoxContent() {
         startActivity(Intent(context, StoreboxContentActivity::class.java))
+        activity.finish()
+    }
+
+    override fun openEkeyContent() {
+        startActivity(Intent(context, EkeyContentActivity::class.java))
         activity.finish()
     }
 }

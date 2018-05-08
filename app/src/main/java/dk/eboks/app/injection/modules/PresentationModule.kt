@@ -27,6 +27,10 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.*
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentContract
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentContract
@@ -43,6 +47,8 @@ import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentCo
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentContract
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentPresenter
+import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentContract
+import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentPresenter
 import dk.eboks.app.presentation.ui.components.home.HomeComponentContract
 import dk.eboks.app.presentation.ui.components.home.HomeComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentContract
@@ -123,6 +129,8 @@ import dk.eboks.app.presentation.ui.components.verification.VerificationComponen
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContract
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentContract
+import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentContract
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewContract
@@ -869,6 +877,30 @@ class PresentationModule {
     @Provides
     fun provideNewFolderComponentPresenter(stateManager: AppStateManager) : NewFolderComponentContract.Presenter {
         return NewFolderComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideFolderSelectUserComponentPresenter(stateManager: AppStateManager) : FolderSelectUserComponentContract.Presenter {
+        return FolderSelectUserComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyContentPresenter(stateManager: AppStateManager) : EkeyContentContract.Presenter {
+        return EkeyContentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyComponentPresenter(stateManager: AppStateManager) : EkeyComponentContract.Presenter {
+        return EkeyComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyAddItemComponentPresenter(stateManager: AppStateManager) : EkeyAddItemComponentContract.Presenter {
+        return EkeyAddItemComponentPresenter(stateManager)
     }
 
     /* Pasta

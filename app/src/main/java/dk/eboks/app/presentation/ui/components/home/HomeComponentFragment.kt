@@ -2,31 +2,24 @@ package dk.eboks.app.presentation.ui.components.home
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.graphics.Typeface
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
-import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.home.Control
-import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.home.ItemType
 import dk.eboks.app.domain.models.message.Message
-import dk.eboks.app.domain.models.shared.Currency
-import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
@@ -35,9 +28,7 @@ import dk.eboks.app.util.Starter
 import dk.eboks.app.util.views
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_home_overview_mail_component.*
-import kotlinx.android.synthetic.main.viewholder_home_card_header.view.*
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 /**
@@ -146,7 +137,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     private fun addFilesCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
         currentChannel.items?.let { items ->
             for (currentItem in items) {
-                val v = inflator.inflate(R.layout.viewholder_message, rowsContainerLl, false)
+                val v = inflator.inflate(R.layout.viewholder_home_message, rowsContainerLl, false)
                 val title = v.findViewById<TextView>(R.id.titleTv)
                 val subtitle = v.findViewById<TextView>(R.id.subTitleTv)
                 val date = v.findViewById<TextView>(R.id.dateTv)
@@ -176,7 +167,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
     private fun addMessageCard(currentChannel: Control, rowsContainerLl: ViewGroup) {
         currentChannel.items?.let { items ->
             for (currentItem in items) {
-                val v = inflator.inflate(R.layout.viewholder_message, rowsContainerLl, false)
+                val v = inflator.inflate(R.layout.viewholder_home_message, rowsContainerLl, false)
                 val title = v.findViewById<TextView>(R.id.titleTv)
                 val subtitle = v.findViewById<TextView>(R.id.subTitleTv)
                 val date = v.findViewById<TextView>(R.id.dateTv)
@@ -364,7 +355,7 @@ class HomeComponentFragment : BaseFragment(), HomeComponentContract.View {
             }
 
             for (i in 0..showCount - 1) {
-                val v = inflator.inflate(R.layout.viewholder_message, mailListContentLL, false)
+                val v = inflator.inflate(R.layout.viewholder_home_message, mailListContentLL, false)
                 val currentMessage = messages[i]
                 val circleIv = v.findViewById<ImageView>(R.id.circleIv)
                 val titleTv = v.findViewById<TextView>(R.id.titleTv)
