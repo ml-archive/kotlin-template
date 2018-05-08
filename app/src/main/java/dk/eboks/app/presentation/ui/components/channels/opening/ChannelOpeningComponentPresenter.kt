@@ -6,7 +6,7 @@ import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.util.isStorebox
+import dk.eboks.app.util.getType
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -30,7 +30,7 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
         }
     }
 
-    override fun refreshChannel(){
+    override fun refreshChannel() {
         appState.state?.channelState?.selectedChannel?.let { channel ->
             getChannelInteractor.output = this
             getChannelInteractor.input = GetChannelInteractor.Input(channel.id.toLong())
@@ -50,11 +50,26 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
 
     override fun open(channel: Channel) {
         //storebox channels id 1 - 3
-        if (channel.isStorebox()) {
-            runAction { v -> v.openStoreBoxContent() }
-        } else {
-            runAction { v -> v.openChannelContent() }
+        //ekey channels id 101 - 103
+
+        when (channel.getType()) {
+            "channel" -> {
+                runAction { v ->
+                    v.openChannelContent() }
+            }
+            "storebox" -> {
+                runAction { v ->
+                    v.openStoreBoxContent() }
+            }
+            "ekey" -> {
+
+            }
         }
+//        if (channel.isStorebox()) {
+//            runAction { v -> v.openStoreBoxContent() }
+//        } else {
+//            runAction { v -> v.openChannelContent() }
+//        }
     }
 
     override fun onGetChannel(channel: Channel) {

@@ -23,8 +23,9 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.*
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
+import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
-import dk.eboks.app.util.isStorebox
+import dk.eboks.app.util.getType
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
 import javax.inject.Inject
@@ -70,17 +71,34 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
     }
 
     override fun showChannelOpening(channel: Channel) {
-        if (channel.isStorebox()) {
-            startActivity(Intent(context, StoreboxContentActivity::class.java))
-        } else {
-            startActivity(Intent(activity, ChannelContentActivity::class.java))
+
+        //storebox channels id 1 - 3
+        //ekey channels id 101 - 103
+
+        when (channel.getType()) {
+            "channel" -> {
+                startActivity(Intent(activity, ChannelContentActivity::class.java))
+            }
+            "storebox" -> {
+                startActivity(Intent(context, StoreboxContentActivity::class.java))
+            }
+            "ekey" -> {
+                startActivity(Intent(activity, EkeyContentActivity::class.java))
+            }
         }
+
+//        if (channel.isStorebox()) {
+//            startActivity(Intent(context, StoreboxContentActivity::class.java))
+//        } else {
+//            startActivity(Intent(activity, ChannelContentActivity::class.java))
+//        }
     }
 
     inner class ChannelAdapter : RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder>() {
 
         inner class ChannelViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
 
+            val base = root
             //header
             val headerTv = root.findViewById<TextView>(R.id.headerTv)
 
@@ -113,6 +131,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 holder?.headerTv?.setText(Translation.channels.channelsHeader)
             } else {
                 holder?.headerTv?.visibility = View.GONE
+                holder?.cardContainerCv?.visibility = View.VISIBLE
                 if (currentCard.background != null) {
                     holder?.backgroundIv?.let {
                         val requestOptions = RequestOptions()
@@ -156,6 +175,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                     })?.start()
                 })
             }
+            holder?.root?.invalidate()
         }
     }
 

@@ -90,7 +90,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
             val dialog = AlertDialog.Builder(context)
                     .setTitle(Translation.channelsettingsstoreboxadditions.removeChannelTitle)
                     .setMessage(Translation.channelsettingsstoreboxadditions.removeChannelMessage)
-                    .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton) { dialog, which ->
+                    .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
                         //todo send API call to remove channel
                         Toast.makeText(context, "_Positive button clicked.", Toast.LENGTH_SHORT).show()
                     }
@@ -134,7 +134,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
                 val dialog = AlertDialog.Builder(context)
                         .setTitle(Translation.channelsettingsstoreboxadditions.deleteCardAlertTitle)
-                        .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton) { dialog, which ->
+                        .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
                             //todo send API call to remove card
                             Toast.makeText(context, "_Positive button clicked.", Toast.LENGTH_SHORT).show()
                         }

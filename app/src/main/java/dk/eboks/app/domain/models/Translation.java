@@ -309,6 +309,9 @@ public class Translation {
 		public static String verifiedEmptyMsg = "You haven\u2019t uploaded anything yet";
 		public static String uploadingFile = "Uploading file";
 		public static String chosen = "chosen";
+		public static String uploadFile = "Upload file";
+		public static String fileName = "File name";
+		public static String incorrectFileName = "Incorrect filename";
 	}
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";
@@ -493,5 +496,14 @@ public class Translation {
 		public static String actionMarkAsRead = "Mark as read";
 		public static String editButton = "Edit";
 		public static String actionMarkAsUnread = "Mark as unread";
+	}
+	public final static class sharedusers {
+		public static String title = "Select user";
+		public static String sharedAccountsHeader = "My shared accounts";
+		public static String permissionA = "Administrator";
+		public static String permissionL = "Read only";
+		public static String permissionF = "Editor";
+		public static String permissionO = "Administration access (mail from authorities)";
+		public static String myProfile = "My profile";
 	}
 }

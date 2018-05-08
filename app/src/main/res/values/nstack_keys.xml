@@ -263,6 +263,9 @@
   <string name='nstack_uploads_verifiedEmptyMsg' formatted='false'>uploads_verifiedEmptyMsg</string>
   <string name='nstack_uploads_uploadingFile' formatted='false'>uploads_uploadingFile</string>
   <string name='nstack_uploads_chosen' formatted='false'>uploads_chosen</string>
+  <string name='nstack_uploads_uploadFile' formatted='false'>uploads_uploadFile</string>
+  <string name='nstack_uploads_fileName' formatted='false'>uploads_fileName</string>
+  <string name='nstack_uploads_incorrectFileName' formatted='false'>uploads_incorrectFileName</string>
   <string name='nstack_loginproviders_nemidTitle' formatted='false'>loginproviders_nemidTitle</string>
   <string name='nstack_loginproviders_idPortenTitle' formatted='false'>loginproviders_idPortenTitle</string>
   <string name='nstack_loginproviders_bankSeTitle' formatted='false'>loginproviders_bankSeTitle</string>
@@ -419,4 +422,11 @@
   <string name='nstack_inbox_actionMarkAsRead' formatted='false'>inbox_actionMarkAsRead</string>
   <string name='nstack_inbox_editButton' formatted='false'>inbox_editButton</string>
   <string name='nstack_inbox_actionMarkAsUnread' formatted='false'>inbox_actionMarkAsUnread</string>
+  <string name='nstack_sharedusers_title' formatted='false'>sharedusers_title</string>
+  <string name='nstack_sharedusers_sharedAccountsHeader' formatted='false'>sharedusers_sharedAccountsHeader</string>
+  <string name='nstack_sharedusers_permissionA' formatted='false'>sharedusers_permissionA</string>
+  <string name='nstack_sharedusers_permissionL' formatted='false'>sharedusers_permissionL</string>
+  <string name='nstack_sharedusers_permissionF' formatted='false'>sharedusers_permissionF</string>
+  <string name='nstack_sharedusers_permissionO' formatted='false'>sharedusers_permissionO</string>
+  <string name='nstack_sharedusers_myProfile' formatted='false'>sharedusers_myProfile</string>
 </resources>
