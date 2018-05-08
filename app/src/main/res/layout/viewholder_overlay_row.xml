@@ -2,13 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="right|center_vertical"
+    android:layout_marginBottom="16dp"
+    android:layout_marginRight="24dp"
     android:orientation="horizontal">
-
-    <View
-        android:background="@color/transparent"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"></View>
 
     <TextView
         android:id="@+id/textTv"
@@ -25,8 +22,6 @@
         android:id="@+id/buttonFab"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginRight="24dp"
         android:backgroundTint="@color/white"
         android:clickable="true"
         android:src="@drawable/icon_48_share_red"
