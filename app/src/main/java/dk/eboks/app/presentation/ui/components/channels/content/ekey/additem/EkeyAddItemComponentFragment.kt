@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailMode
 import kotlinx.android.synthetic.main.fragment_channel_ekey_additem.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -31,9 +33,10 @@ class EkeyAddItemComponentFragment : BaseFragment(), EkeyAddItemComponentContrac
 
         setupTopBar()
 
-        notesLl.setOnClickListener {  }
-        cardsLl.setOnClickListener {  }
-        loginLl.setOnClickListener {  }
+        //todo set the on click listeners
+        notesLl.setOnClickListener { showNextView(EkeyDetailMode.NOTE) }
+        cardsLl.setOnClickListener { showNextView(EkeyDetailMode.PIN) }
+        loginLl.setOnClickListener { showNextView(EkeyDetailMode.LOGIN) }
     }
 
     private fun setupTopBar() {
@@ -45,6 +48,15 @@ class EkeyAddItemComponentFragment : BaseFragment(), EkeyAddItemComponentContrac
         getBaseActivity()?.mainTb?.setNavigationOnClickListener {
             getBaseActivity()?.onBackPressed()
         }
+    }
+
+    private fun showNextView(category: EkeyDetailMode){
+
+        val fragment = EkeyDetailComponentFragment()
+        val args = Bundle()
+        args.putSerializable("category", category)
+        fragment.arguments = args
+        getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, true)
     }
 
 }

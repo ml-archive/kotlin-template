@@ -344,7 +344,7 @@ public class Translation {
 		public static String verifyingAccountBody = "You will need to sign in with NemID. Don\'t worry, it\'s a one time thing. You will be sent to the NemID app to log in.";
 		public static String logOnWithNemID = "Log on with NemID";
 		public static String verifyEmailHeader = "Verify your Email";
-		public static String verifyEmailText = "Confirm your email by clicking the link sent to you by e-mail to: helenachristensen@gmail.com";
+		public static String verifyEmailText = "Confirm your email by clicking the link sent to you by e-mail to: [email]";
 		public static String verifyEmailBtn = "Resend confirmation email";
 		public static String verifyEmailCancel = "Cancel";
 		public static String fingerHintTitle = "Enable Mobile access to use fingerprint";
@@ -357,7 +357,7 @@ public class Translation {
 		public static String mergeAccountBtn = "Merge my profiles";
 		public static String mergeAccountCancel = "Keep profiles seperated";
 		public static String verifyMobilHeader = "Verify your mobile number";
-		public static String verifyMobilText = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Integer cursus dui.";
+		public static String verifyMobilText = "Confirm your mobile number by entering the code sent to you by SMS on [mobileNumber]";
 		public static String verifyMobilResend = "Resend code";
 		public static String verifyMobileContinueBtn = "Continue";
 		public static String verifyMobilCancel = "Cancel";
@@ -510,8 +510,15 @@ public class Translation {
 		public static String topBarTitle = "e-Key";
 		public static String addItemTopBarTitle = "Add item";
 		public static String addItemLogin = "Login";
-		public static String addItemCards = "Card";
+		public static String addItemCards = "Pin Code";
 		public static String addItemNote = "Note";
 		public static String addItemSelectCategory = "Select Category";
+		public static String saveTopbar = "Add [item]";
+		public static String inputHintName = "Name *";
+		public static String inputHintNote = "Note";
+		public static String requiredFields = "*Required fields";
+		public static String inputHintPin = "Pin Code *";
+		public static String inputHintUsername = "Username *";
+		public static String inputHintPassword = "Password *";
 	}
 }

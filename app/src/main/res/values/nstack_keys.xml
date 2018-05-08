@@ -435,4 +435,11 @@
   <string name='nstack_ekey_addItemCards' formatted='false'>ekey_addItemCards</string>
   <string name='nstack_ekey_addItemNote' formatted='false'>ekey_addItemNote</string>
   <string name='nstack_ekey_addItemSelectCategory' formatted='false'>ekey_addItemSelectCategory</string>
+  <string name='nstack_ekey_saveTopbar' formatted='false'>ekey_saveTopbar</string>
+  <string name='nstack_ekey_inputHintName' formatted='false'>ekey_inputHintName</string>
+  <string name='nstack_ekey_inputHintNote' formatted='false'>ekey_inputHintNote</string>
+  <string name='nstack_ekey_requiredFields' formatted='false'>ekey_requiredFields</string>
+  <string name='nstack_ekey_inputHintPin' formatted='false'>ekey_inputHintPin</string>
+  <string name='nstack_ekey_inputHintUsername' formatted='false'>ekey_inputHintUsername</string>
+  <string name='nstack_ekey_inputHintPassword' formatted='false'>ekey_inputHintPassword</string>
 </resources>
