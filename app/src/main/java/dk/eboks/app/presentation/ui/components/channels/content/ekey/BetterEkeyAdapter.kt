@@ -12,15 +12,15 @@ import dk.eboks.app.domain.models.channel.ekey.Note
 import dk.eboks.app.domain.models.channel.ekey.Pin
 import timber.log.Timber
 
-class BetterEkeyAdapter(val keyList: List<ListItem>) : RecyclerView.Adapter<BetterEkeyAdapter.EKeyHolder>() {
+class BetterEkeyAdapter(private val keyList: List<ListItem>) : RecyclerView.Adapter<BetterEkeyAdapter.EKeyHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return when (keyList[position]) {
             is Header -> {
-                R.layout.item_header // layout ref is used as an ID
+                HeaderViewHolder.identifier
             }
             else -> {
-                R.layout.item_ekey // layout ref is used as an ID
+                super.getItemViewType(position)
             }
         }
     }
@@ -31,7 +31,7 @@ class BetterEkeyAdapter(val keyList: List<ListItem>) : RecyclerView.Adapter<Bett
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EKeyHolder {
         return when (viewType) {
-            R.layout.item_header -> {
+            HeaderViewHolder.identifier -> {
                 HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_header, parent, false))
             }
             else -> {
@@ -44,27 +44,29 @@ class BetterEkeyAdapter(val keyList: List<ListItem>) : RecyclerView.Adapter<Bett
         holder?.bind(keyList[position])
     }
 
-    abstract inner class EKeyHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    abstract class EKeyHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
         abstract fun bind(item: ListItem)
     }
 
-    inner class HeaderViewHolder(val root: View) : EKeyHolder(root) {
-        private var title = root.findViewById<TextView>(R.id.titleHeaderTv)
+    class HeaderViewHolder(val root: View) : EKeyHolder(root) {
+        companion object {
+            const val identifier = 42762461 // random identifier
+        }
+
+        private var titleTv = root.findViewById<TextView>(R.id.titleHeaderTv)
 
         override fun bind(item: ListItem) {
-            title.text = (item as Header).text
+            titleTv.text = (item as Header).text
         }
     }
 
-    inner class EKeyViewHolder(val root: View) : EKeyHolder(root) {
+    class EKeyViewHolder(val root: View) : EKeyHolder(root) {
 
-        private var logo = root.findViewById<ImageView>(R.id.logoIv)
-        private var header = root.findViewById<TextView>(R.id.headingTv)
-        private var subHeader = root.findViewById<TextView>(R.id.subHeadingTv)
-
+        private var logoIv = root.findViewById<ImageView>(R.id.logoIv)
+        private var headingTv = root.findViewById<TextView>(R.id.headingTv)
+        private var subHeadingTv = root.findViewById<TextView>(R.id.subHeadingTv)
 
         override fun bind(item: ListItem) {
-
             val eKey = item as EkeyItem
 
             root.setOnClickListener {
@@ -73,20 +75,20 @@ class BetterEkeyAdapter(val keyList: List<ListItem>) : RecyclerView.Adapter<Bett
             }
             when (eKey.data) {
                 is Note -> {
-                    header.text = eKey.data.name
-                    subHeader.text = "_note"
-                    logo.setImageResource(R.drawable.icon_48_edit_white)
+                    headingTv.text = eKey.data.name
+                    subHeadingTv.text = "_note"
+                    logoIv.setImageResource(R.drawable.icon_48_edit_white)
                 }
                 is Pin -> {
-                    header.text = eKey.data.name
-                    subHeader.text = "_Pin"
-                    logo.setImageResource(R.drawable.icon_48_payment_white)
+                    headingTv.text = eKey.data.name
+                    subHeadingTv.text = "_Pin"
+                    logoIv.setImageResource(R.drawable.icon_48_payment_white)
 
                 }
                 is Login -> {
-                    header.text = eKey.data.name
-                    subHeader.text = eKey.data.username
-                    logo.setImageResource(R.drawable.icon_48_lock_white)
+                    headingTv.text = eKey.data.name
+                    subHeadingTv.text = eKey.data.username
+                    logoIv.setImageResource(R.drawable.icon_48_lock_white)
                 }
             }
         }
