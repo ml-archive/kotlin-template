@@ -42,6 +42,10 @@ import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderS
 import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentPresenter
 import dk.eboks.app.presentation.ui.components.home.HomeComponentFragment
 import dk.eboks.app.presentation.ui.components.home.HomeComponentPresenter
+import dk.eboks.app.presentation.ui.components.home.channelcontrol.ChannelControlComponentFragment
+import dk.eboks.app.presentation.ui.components.home.channelcontrol.ChannelControlComponentPresenter
+import dk.eboks.app.presentation.ui.components.home.folderpreview.FolderPreviewComponentFragment
+import dk.eboks.app.presentation.ui.components.home.folderpreview.FolderPreviewComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
 import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity
@@ -181,8 +185,6 @@ interface PresentationComponent {
     fun inject(target: StartPresenter)
     fun inject(target: ProfileActivity)
     fun inject(target: ProfilePresenter)
-    fun inject(target: HomeActivity)
-    fun inject(target: HomePresenter)
     fun inject(target: UploadsActivity)
     fun inject(target: UploadsPresenter)
     fun inject(target: OverlayActivity)
@@ -350,8 +352,15 @@ interface PresentationComponent {
     fun inject(target: FingerPrintComponentFragment)
 
     // home
+    fun inject(target: HomeActivity)
+    fun inject(target: HomePresenter)
     fun inject(target : HomeComponentFragment)
     fun inject(target : HomeComponentPresenter)
+    fun inject(target : FolderPreviewComponentFragment)
+    fun inject(target : FolderPreviewComponentPresenter)
+    fun inject(target : ChannelControlComponentFragment)
+    fun inject(target : ChannelControlComponentPresenter)
+
 
     // verification
 

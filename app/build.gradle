@@ -41,6 +41,7 @@ android {
         buildConfigField "String", "MOCK_API_KEY", "\"2d00bf67a1cf4024a88e7e99c89557fe\""
         buildConfigField "Boolean", "MOCK_API_ENABLED", "true"
         buildConfigField "Boolean", "FORCE_REQUEST_PIPELINING", "false"
+        buildConfigField "Boolean", "ENABLE_PROFILE_PICTURE", "true"
         buildConfigField "Long", "INPUT_VALIDATION_DELAY", "1200L"
     }
 

@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.profile.main
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -27,6 +28,7 @@ import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_profile_main_component.*
 import kotlinx.android.synthetic.main.include_profile_bottom.*
 import timber.log.Timber
+import java.io.File
 import javax.inject.Inject
 
 class ProfileInfoComponentFragment : BaseFragment(),
@@ -56,8 +58,10 @@ class ProfileInfoComponentFragment : BaseFragment(),
         setupCollapsingToolbar()
         setupListeners()
 
-        profileDetailIv.setOnClickListener {
-            acquireUserImage()
+        if(BuildConfig.ENABLE_PROFILE_PICTURE) {
+            profileDetailIv.setOnClickListener {
+                acquireUserImage()
+            }
         }
     }
 
@@ -163,6 +167,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
             data?.let {
                 val file = FilePickerUriHelper.getFile(activity, data)
                 val uri = FilePickerUriHelper.getUri(data)
+                setProfileImageLocal(file)
             }
         }
     }
@@ -175,7 +180,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
     }
 
     override fun setProfileImage(url: String?) {
-        Timber.d("setProfileImage: %s", url)
+        Timber.d("setProfileImage: $url")
 
         var options = RequestOptions()
         options.error(R.drawable.ic_profile)
@@ -183,6 +188,19 @@ class ProfileInfoComponentFragment : BaseFragment(),
         options.transforms(CenterCrop(), RoundedCorners(30))
         Glide.with(context)
                 .load(url)
+                .apply(options)
+                .into(profileDetailIv)
+    }
+
+    private fun setProfileImageLocal(imgfile: File) {
+        Timber.d("setProfileImageLocal: $imgfile")
+
+        var options = RequestOptions()
+        options.error(R.drawable.ic_profile)
+        options.placeholder(R.drawable.ic_profile)
+        options.transforms(CenterCrop(), RoundedCorners(30))
+        Glide.with(context)
+                .load(Uri.fromFile(imgfile))
                 .apply(options)
                 .into(profileDetailIv)
     }

@@ -75,6 +75,7 @@
   <string name='nstack_channels_drawerHeaderText' formatted='false'>channels_drawerHeaderText</string>
   <string name='nstack_channels_allowButton' formatted='false'>channels_allowButton</string>
   <string name='nstack_channels_drawerNeedsVerification' formatted='false'>channels_drawerNeedsVerification</string>
+  <string name='nstack_channels_storeboxAlreadyHaveProfileButton' formatted='false'>channels_storeboxAlreadyHaveProfileButton</string>
   <string name='nstack_senders_title' formatted='false'>senders_title</string>
   <string name='nstack_senders_registrations' formatted='false'>senders_registrations</string>
   <string name='nstack_senders_register' formatted='false'>senders_register</string>
@@ -444,4 +445,21 @@
   <string name='nstack_ekey_inputHintPin' formatted='false'>ekey_inputHintPin</string>
   <string name='nstack_ekey_inputHintUsername' formatted='false'>ekey_inputHintUsername</string>
   <string name='nstack_ekey_inputHintPassword' formatted='false'>ekey_inputHintPassword</string>
+  <string name='nstack_ekey_overviewAddItemHeadline' formatted='false'>ekey_overviewAddItemHeadline</string>
+  <string name='nstack_ekey_overviewAddItemText' formatted='false'>ekey_overviewAddItemText</string>
+  <string name='nstack_ekey_overviewAddItemBtn' formatted='false'>ekey_overviewAddItemBtn</string>
+  <string name='nstack_ekey_overviewNote' formatted='false'>ekey_overviewNote</string>
+  <string name='nstack_ekey_overviewLogins' formatted='false'>ekey_overviewLogins</string>
+  <string name='nstack_ekey_overviewPins' formatted='false'>ekey_overviewPins</string>
+  <string name='nstack_ekey_overviewNotes' formatted='false'>ekey_overviewNotes</string>
+  <string name='nstack_storeboxlogin_header' formatted='false'>storeboxlogin_header</string>
+  <string name='nstack_storeboxlogin_subheader' formatted='false'>storeboxlogin_subheader</string>
+  <string name='nstack_storeboxlogin_title' formatted='false'>storeboxlogin_title</string>
+  <string name='nstack_storeboxlogin_emailHeader' formatted='false'>storeboxlogin_emailHeader</string>
+  <string name='nstack_storeboxlogin_phoneHeader' formatted='false'>storeboxlogin_phoneHeader</string>
+  <string name='nstack_storeboxlogin_required' formatted='false'>storeboxlogin_required</string>
+  <string name='nstack_storeboxlogin_placeholder' formatted='false'>storeboxlogin_placeholder</string>
+  <string name='nstack_storeboxlogin_errorNoExistingProfileMessage' formatted='false'>storeboxlogin_errorNoExistingProfileMessage</string>
+  <string name='nstack_storeboxlogin_createUserButton' formatted='false'>storeboxlogin_createUserButton</string>
+  <string name='nstack_storeboxlogin_errorAlreadyExistsMessage' formatted='false'>storeboxlogin_errorAlreadyExistsMessage</string>
 </resources>

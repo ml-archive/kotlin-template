@@ -53,6 +53,10 @@ import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderS
 import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentPresenter
 import dk.eboks.app.presentation.ui.components.home.HomeComponentContract
 import dk.eboks.app.presentation.ui.components.home.HomeComponentPresenter
+import dk.eboks.app.presentation.ui.components.home.channelcontrol.ChannelControlComponentContract
+import dk.eboks.app.presentation.ui.components.home.channelcontrol.ChannelControlComponentPresenter
+import dk.eboks.app.presentation.ui.components.home.folderpreview.FolderPreviewComponentContract
+import dk.eboks.app.presentation.ui.components.home.folderpreview.FolderPreviewComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentContract
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentContract
@@ -909,6 +913,18 @@ class PresentationModule {
     @Provides
     fun provideEkeyDetailComponentPresenter(stateManager: AppStateManager) : EkeyDetailComponentContract.Presenter {
         return EkeyDetailComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideFolderPreviewComponentPresenter(stateManager: AppStateManager, getMessagesInteractor: GetMessagesInteractor) : FolderPreviewComponentContract.Presenter {
+        return FolderPreviewComponentPresenter(stateManager, getMessagesInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelControlComponentPresenter(stateManager: AppStateManager) : ChannelControlComponentContract.Presenter {
+        return ChannelControlComponentPresenter(stateManager)
     }
 
     /* Pasta

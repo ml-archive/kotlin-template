@@ -1,18 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 xmlns:nstack="http://schemas.android.com/apk/res-auto"
+                                                 tools:ignore="MissingPrefix">
 
     <include layout="@layout/include_toolbar" />
 
-    <fragment
-        android:id="@+id/contentFragment"
-        android:name="dk.eboks.app.presentation.ui.components.home.HomeComponentFragment"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refreshSrl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_marginBottom="?actionBarSize"/>
+        android:layout_marginBottom="?actionBarSize"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:id="@+id/mailHeaderFl"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:paddingLeft="@dimen/margin_normal"
+                    android:paddingRight="@dimen/margin_normal">
+
+                    <TextView
+                        style="@style/text.header2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textStyle="normal"
+                        nstack:key="@string/nstack_home_messagesHeader" />
+
+                    <Button
+                        android:id="@+id/showBtn"
+                        style="@style/buttonRoundedCorners"
+                        android:layout_width="wrap_content"
+                        android:layout_height="28dp"
+                        android:layout_gravity="right|center_vertical"
+                        android:enabled="true"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:textSize="14dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:visibility="visible"
+                        nstack:key="@string/nstack_home_messagesSectionHeaderShowAllButton" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/folderPreviewFl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <FrameLayout
+                    android:id="@+id/channelsHeaderFl"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@color/backgroundColor"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/margin_normal"
+                    android:paddingRight="@dimen/margin_normal">
+
+                    <TextView
+                        style="@style/text.header2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:textStyle="normal"
+                        nstack:key="@string/nstack_home_channelsHeader" />
+
+                    <Button
+                        android:id="@+id/editChannelsBtn"
+                        style="@style/buttonRoundedCorners"
+                        android:layout_width="wrap_content"
+                        android:layout_height="28dp"
+                        android:layout_gravity="right|center_vertical"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="14dp"
+                        android:visibility="visible"
+                        nstack:key="@string/nstack_home_channelsHeaderButton" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/channelControlFl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <include layout="@layout/include_navigation_view" />
 
