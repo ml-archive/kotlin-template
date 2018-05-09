@@ -20,7 +20,7 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>) : RecyclerView.Adap
                 HeaderViewHolder.identifier
             }
             else -> {
-                EKeyViewHolder.identifier
+                super.getItemViewType(position)
             }
         }
     }
@@ -61,9 +61,6 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>) : RecyclerView.Adap
     }
 
     class EKeyViewHolder(val root: View) : EKeyHolder(root) {
-        companion object {
-            const val identifier = 61729128 // random identifier
-        }
 
         private var logoIv = root.findViewById<ImageView>(R.id.logoIv)
         private var headingTv = root.findViewById<TextView>(R.id.headingTv)
