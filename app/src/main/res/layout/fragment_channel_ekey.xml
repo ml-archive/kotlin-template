@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -21,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:gravity="center"
-                android:text="_Headline" />
+                nstack:text="@string/nstack_ekey_overviewAddItemHeadline"/>
 
             <TextView
                 android:id="@+id/itemTextTv"
@@ -32,7 +35,7 @@
                 android:layout_marginRight="32dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="_Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor" />
+                nstack:text="@string/nstack_ekey_overviewAddItemText"/>
 
             <Button
                 android:id="@+id/addItemBtn"
@@ -41,7 +44,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/rounded_gradient_button"
-                android:text="_add item"
+                nstack:text="@string/nstack_ekey_overviewAddItemBtn"
                 android:textColor="@color/white"
                 android:textSize="14dp"
                 android:textStyle="normal" />
@@ -54,5 +57,5 @@
                 android:layout_marginTop="24dp" />
 
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

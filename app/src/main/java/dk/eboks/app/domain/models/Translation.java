@@ -95,6 +95,7 @@ public class Translation {
 		public static String drawerHeaderText = "The [channelname] channel needs the following information to create a user for you.";
 		public static String allowButton = "Allow";
 		public static String drawerNeedsVerification = "Needs verification";
+		public static String storeboxAlreadyHaveProfileButton = "I already have a Storebox profile";
 	}
 	public final static class senders {
 		public static String title = "Senders";
@@ -522,5 +523,26 @@ public class Translation {
 		public static String inputHintPin = "Pin Code *";
 		public static String inputHintUsername = "Username *";
 		public static String inputHintPassword = "Password *";
+		public static String overviewAddItemHeadline = "Headline";
+		public static String overviewAddItemText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
+		public static String overviewAddItemBtn = "Add Item";
+		public static String overviewNote = "Note";
+		public static String overviewLogins = "Logins";
+		public static String overviewPins = "Pin Codes";
+		public static String overviewNotes = "Notes";
+	}
+	public final static class storeboxlogin {
+		public static String header = "Connect your Storebox profile";
+		public static String subheader = "Connect your Storebox profile to e-Boks by entering the email address and optional mobile number from your Storebox Profile.";
+		public static String title = "Sign in";
+		public static String emailHeader = "Email";
+		public static String phoneHeader = "Phone number";
+		public static String required = "Required";
+		public static String placeholder = "Type here";
+		public static String errorNoExistingProfileMessage = "We couldn\'t find an exisiting Storebox profile with this email";
+		public static String createUserButton = "Create user";
+		public static String errorAlreadyExistsMessage = "You already have a Storebox account with this information";
+		public static String signInButton = "Sign in";
+		public static String continueButton = "Continue";
 	}
 }

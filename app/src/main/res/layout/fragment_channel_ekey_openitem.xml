@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/margin_normal"
+    android:paddingRight="@dimen/margin_normal">
+
+    <!--Name-->
+    <TextView
+        style="@style/text.subHeader5.quaternary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="_name" />
+
+    <TextView
+        android:id="@+id/nameTv"
+        style="@style/text.header4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="_masterCard" />
+
+    <!--Pin-->
+    <FrameLayout
+        android:id="@+id/pinContainerFl"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/text.subHeader5.quaternary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="_Pin Code" />
+
+        <TextView
+            android:id="@+id/pinTv"
+            style="@style/text.header4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="_Pin code" />
+
+        <ImageButton
+            android:id="@+id/pinShowPasswordIb"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="right|center"
+            android:background="@color/white"
+            android:src="@drawable/show_password_selector" />
+    </FrameLayout>
+
+    <!--username and login-->
+    <LinearLayout
+        android:id="@+id/loginContainerLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/text.subHeader5.quaternary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="_Username" />
+
+        <TextView
+            android:id="@+id/usernameTv"
+            style="@style/text.header4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="_Username" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                style="@style/text.subHeader5.quaternary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="_Password" />
+
+            <TextView
+                android:id="@+id/passwordTv"
+                style="@style/text.header4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="_Password" />
+
+            <ImageButton
+                android:id="@+id/passwordShowPasswordIb"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="right|center"
+                android:background="@color/white"
+                android:src="@drawable/show_password_selector" />
+        </FrameLayout>
+    </LinearLayout>
+    <!--Note -->
+    <TextView
+        style="@style/text.subHeader5.quaternary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="_Note" />
+
+    <TextView
+        android:id="@+id/noteTv"
+        style="@style/text.header4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="22dp"
+        android:text="_Note" />
+
+</LinearLayout>
