@@ -84,10 +84,10 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
 
                 editKey?.let {
                     if (it is Login) {
-                        nameEt.text = getEditableText(it.name)
-                        usernameEt.text = getEditableText(it.username)
-                        passwordEt.text = getEditablePassword(it.password)
-                        noteEt.text = getEditableText(it.note)
+                        nameEt.setText(it.name)
+                        usernameEt.setText(it.username)
+                        passwordEt.setText(it.password)
+                        noteEt.setText(it.note)
                         loginShowPasswordIb.visibility = View.VISIBLE
                     }
                 }
@@ -99,9 +99,9 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
 
                 editKey?.let {
                     if (it is Pin) {
-                        nameEt.text = getEditableText(it.name)
-                        pinEt.text = getEditablePassword(it.pin)
-                        noteEt.text = getEditableText(it.note)
+                        nameEt.setText(it.name)
+                        pinEt.setText(it.pin)
+                        noteEt.setText(it.note)
                         pinShowPasswordIb.visibility = View.VISIBLE
                     }
                 }
@@ -113,8 +113,8 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
 
                 editKey?.let {
                     if (it is Note) {
-                        nameEt.text = getEditableText(it.name)
-                        noteEt.text = getEditableText(it.note)
+                        nameEt.setText(it.name)
+                        noteEt.setText(it.note)
                     }
                 }
             }
@@ -135,13 +135,6 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
             loginShowPasswordIb.isSelected = true
 
         }
-    }
-    private fun getEditableText(text: String?): Editable? {
-        text?.let { return SpannableStringBuilder(text) } ?: return SpannableStringBuilder("")
-    }
-
-    private fun getEditablePassword(text: String?): Editable? {
-        text?.let { return SpannableStringBuilder(text) } ?: return SpannableStringBuilder("")
     }
 
     private fun setupTopBar() {
