@@ -84,7 +84,7 @@
                         android:visibility="gone"
                         android:id="@+id/openBtn"
                         android:layout_width="280dp"
-                        android:layout_height="52dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="_Open message"/>
 
@@ -103,7 +103,7 @@
                     android:visibility="gone"
                     android:layout_marginTop="20dp"
                     android:layout_width="280dp"
-                    android:layout_height="52dp"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="_Log on with NemID"/>
 

@@ -128,7 +128,6 @@ import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentPre
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.ConnectStoreboxActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentPresenter
-import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxSignInFragment
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserActivity
@@ -195,7 +194,6 @@ interface PresentationComponent {
     fun inject(target: OverlayActivity)
     fun inject(target: OverlayPresenter)
     fun inject(target: ConnectStoreboxActivity)
-    fun inject(target: StoreboxSignInFragment)
     fun inject(target: StoreboxContentActivity)
     fun inject(target: StoreboxContentPresenter)
     fun inject(target: MyInfoActivity)
