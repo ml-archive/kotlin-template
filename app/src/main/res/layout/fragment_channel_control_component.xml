@@ -8,12 +8,71 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:id="@+id/channelsContentLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical" />
+
+
+    <!-- empty state -->
+    <LinearLayout
+        android:id="@+id/emptyStateLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:visibility="gone">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/bottomChannelHeaderTv"
+            style="@style/text.header2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:gravity="center"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/bottomChannelTextTv"
             style="@style/text.header3"
-            android:text="Not Implemented"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="@dimen/default_padding_top"
+            android:gravity="center"
+            android:textColor="@color/blueGrey"
+            android:textStyle="normal" />
+
+        <Button
+            android:id="@+id/bottomChannelBtn"
+            style="@style/enabledButtton.DarkText"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="12dp"
+            android:enabled="false"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:textSize="14dp"
+            nstack:key="@string/nstack_home_bottomChannelBtn" />
+    </LinearLayout>
+
+    <!-- progress -->
+    <FrameLayout
+        android:id="@+id/progressFl"
+        android:layout_width="match_parent"
+        android:layout_height="140dp">
+        <ProgressBar
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
 
 </FrameLayout>

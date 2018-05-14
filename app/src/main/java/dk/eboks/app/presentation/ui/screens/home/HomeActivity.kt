@@ -9,6 +9,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.presentation.ui.components.home.channelcontrol.ChannelControlComponentFragment
 import dk.eboks.app.presentation.ui.components.home.folderpreview.FolderPreviewComponentFragment
 import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
@@ -24,6 +25,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     @Inject lateinit var presenter: HomeContract.Presenter
 
     var folderPreviewFragment : FolderPreviewComponentFragment? = null
+    var channelControlFragment : ChannelControlComponentFragment? = null
 
     val onLanguageChange : (Locale)->Unit = { locale ->
         Timber.e("Locale changed to locale")
@@ -76,6 +78,14 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         folderPreviewFragment = FolderPreviewComponentFragment().putArg(Folder::class.java.simpleName, folder) as FolderPreviewComponentFragment
         folderPreviewFragment?.let{
             supportFragmentManager.beginTransaction().add(R.id.folderPreviewFl, it, it::class.java.simpleName).commit()
+        }
+    }
+
+    override fun addChannelControlComponentFragment()
+    {
+        channelControlFragment = ChannelControlComponentFragment()
+        channelControlFragment?.let{
+            supportFragmentManager.beginTransaction().add(R.id.channelControlFl, it, it::class.java.simpleName).commit()
         }
     }
 

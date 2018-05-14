@@ -48,7 +48,7 @@
                         android:enabled="true"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:textColor="@color/colorPrimaryDark"
                         android:visibility="visible"
                         nstack:key="@string/nstack_home_messagesSectionHeaderShowAllButton" />
@@ -84,7 +84,7 @@
                         android:layout_height="28dp"
                         android:layout_gravity="right|center_vertical"
                         android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:visibility="visible"
                         nstack:key="@string/nstack_home_channelsHeaderButton" />
 

@@ -25,6 +25,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        presenter.setup()
     }
 
 }

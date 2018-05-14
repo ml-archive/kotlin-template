@@ -10,6 +10,7 @@ import dk.eboks.app.presentation.base.BaseView
 interface HomeContract {
     interface View : BaseView {
         fun addFolderPreviewComponentFragment(folder : Folder)
+        fun addChannelControlComponentFragment()
         fun showMailsHeader(show : Boolean)
         fun showChannelControlsHeader(show : Boolean)
     }
