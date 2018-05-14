@@ -925,8 +925,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelControlComponentPresenter(stateManager: AppStateManager) : ChannelControlComponentContract.Presenter {
-        return ChannelControlComponentPresenter(stateManager)
+    fun provideChannelControlComponentPresenter(stateManager: AppStateManager, getChannelHomeContentInteractor: GetChannelHomeContentInteractor) : ChannelControlComponentContract.Presenter {
+        return ChannelControlComponentPresenter(stateManager, getChannelHomeContentInteractor)
     }
 
 
