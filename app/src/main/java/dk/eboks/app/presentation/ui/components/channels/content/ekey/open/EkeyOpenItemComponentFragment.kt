@@ -99,10 +99,13 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
     private fun setup() {
         ekey?.let {
             nameTv.text = it.name
-            noteTv.text = it.note
 
-
-
+            if(it.note != null) {
+                noteTv.text = it.note
+            } else {
+                noteHeaderTv.visibility = View.GONE
+                noteTv.visibility = View.GONE
+            }
             when (it) {
                 is Login -> {
                     loginContainerLl.visibility = View.VISIBLE
