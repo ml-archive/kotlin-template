@@ -4,11 +4,13 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.ekey.Ekey
@@ -92,8 +94,15 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
         menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
 
-            //todo show dialog to delete
-            getBaseActivity()?.openComponentDrawer(ChannelSettingsComponentFragment::class.java)
+            AlertDialog.Builder(context)
+                    .setMessage(Translation.ekey.deleteDialogMsg.replace("[item]", category.toString()))
+                    .setPositiveButton(Translation.ekey.deleteDialogRemoveBtn) { dialog, which ->
+                                //todo delete pin
+                    }
+                    .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+
+                    }
+                    .show()
             true
         }
     }
@@ -126,13 +135,15 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
 
                     copyPasswordBtn.setOnClickListener { view ->
                         var clipboard  = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        var clip = android.content.ClipData.newPlainText("_copied password text", it.password)
+                        var clip = android.content.ClipData.newPlainText("copied password", it.password)
                         clipboard?.primaryClip = clip
-                    }
+                        Toast.makeText(context, (Translation.ekey.copiedToClipboard), Toast.LENGTH_SHORT).show()
+                }
                     copyUsernameBtn.setOnClickListener { view ->
                         var clipboard  = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        var clip = android.content.ClipData.newPlainText("_copied username text", it.username)
+                        var clip = android.content.ClipData.newPlainText("copied username", it.username)
                         clipboard?.primaryClip = clip
+                        Toast.makeText(context, (Translation.ekey.copiedToClipboard), Toast.LENGTH_SHORT).show()
                     }
                 }
                 is Pin -> {

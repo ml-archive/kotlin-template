@@ -538,6 +538,7 @@ public class Translation {
 		public static String deleteDialogMsg = "Are you sure want to delete this [item]?";
 		public static String deleteDialogRemoveBtn = "Remove";
 		public static String noContent = "You haven\'t added anything yet";
+		public static String copiedToClipboard = "Copied to clipboard!";
 	}
 	public final static class storeboxlogin {
 		public static String header = "Connect your Storebox profile";
