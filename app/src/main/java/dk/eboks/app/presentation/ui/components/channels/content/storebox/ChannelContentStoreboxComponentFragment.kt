@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.channels.content
+package dk.eboks.app.presentation.ui.components.channels.content.storebox
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -20,11 +20,10 @@ import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxCo
 import kotlinx.android.synthetic.main.fragment_channel_storebox_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
-import java.text.DecimalFormat
 import javax.inject.Inject
 
 class ChannelContentStoreboxComponentFragment : BaseFragment(),
-                                                ChannelContentStoreboxComponentContract.View {
+        ChannelContentStoreboxComponentContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
     @Inject

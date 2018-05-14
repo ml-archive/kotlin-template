@@ -26,6 +26,9 @@ import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.Eke
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxDetailComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.requirements.*
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
@@ -122,8 +125,10 @@ import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActiv
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.ConnectStoreboxActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxSignInFragment
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserActivity
@@ -189,6 +194,8 @@ interface PresentationComponent {
     fun inject(target: UploadsPresenter)
     fun inject(target: OverlayActivity)
     fun inject(target: OverlayPresenter)
+    fun inject(target: ConnectStoreboxActivity)
+    fun inject(target: StoreboxSignInFragment)
     fun inject(target: StoreboxContentActivity)
     fun inject(target: StoreboxContentPresenter)
     fun inject(target: MyInfoActivity)

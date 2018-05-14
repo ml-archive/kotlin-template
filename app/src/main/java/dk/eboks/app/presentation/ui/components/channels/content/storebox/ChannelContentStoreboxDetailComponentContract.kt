@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.channels.content
+package dk.eboks.app.presentation.ui.components.channels.content.storebox
 
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.presentation.base.BaseView
@@ -14,7 +14,7 @@ interface ChannelContentStoreboxDetailComponentContract {
         fun showProgress(isLoading: Boolean)
     }
 
-    interface Presenter : BasePresenter<ChannelContentStoreboxDetailComponentContract.View> {
+    interface Presenter : BasePresenter<View> {
         fun loadReceipt()
     }
 }

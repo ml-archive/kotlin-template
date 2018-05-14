@@ -3,36 +3,33 @@ package dk.eboks.app.presentation.ui.components.channels.opening
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
-import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.base.ViewErrorController
 import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentFragment
-import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentStoreboxComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.requirements.ChannelRequirementsComponentFragment
-import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
-import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentFragment
-import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentFragment_MembersInjector
 import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.ConnectStoreboxActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
+import dk.eboks.app.presentation.widgets.GlideAlphaTransform
+import dk.eboks.app.util.getType
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_channel_opening_component.*
-import kotlinx.android.synthetic.main.fragment_navbar_component.*
+import kotlinx.android.synthetic.main.include_channel_detail_bottom_install.*
 import kotlinx.android.synthetic.main.include_channel_detail_top.*
 import javax.inject.Inject
+
 
 /**
  * Created by bison on 09-02-2018.
@@ -63,19 +60,27 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         super.onResume()
     }
 
+
     private fun setupTopView(channel: Channel) {
         headerTv.text = channel.payoff
         nameTv.text = channel.name
         nameTv.setTextColor(Color.parseColor(channel.background?.rgba))
         channel.description?.let { descriptionTv.text = it.text }
+
         channel.background?.let {
-            backgroundIv.setColorFilter(Color.parseColor(it.rgba), PorterDuff.Mode.OVERLAY)
+            backgroundIv.background = ColorDrawable(Color.parseColor(it.rgb))
         }
 
         channel.image?.let {
-            Glide.with(context).load(it.url).into(backgroundIv)
+            val url = it.url
 
+            channel.background?.let {
+                Glide.with(context).load(url).apply(RequestOptions.bitmapTransform(GlideAlphaTransform(Color.parseColor(it.rgb)))).into(backgroundIv)
+            }.guard {
+                Glide.with(context).load(url).into(backgroundIv)
+            }
         }
+
         channel.logo?.let {
             Glide.with(context).load(it.url).into(logoIv)
         }
@@ -104,14 +109,20 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         val v = inflater.inflate(R.layout.include_channel_detail_bottom_install, contentBottom, false)
         setupTopView(channel)
         contentBottom.addView(v)
-        val button = v.findViewById<Button>(R.id.installBtn)
-        button?.text = Translation.channels.installChannel
+
+        installBtn?.text = Translation.channels.installChannel
         val colorTint = Color.parseColor(channel.background?.rgb)
-        button.backgroundTintList = ColorStateList.valueOf(colorTint)
-        button?.setOnClickListener {
+        installBtn.backgroundTintList = ColorStateList.valueOf(colorTint)
+        installBtn?.setOnClickListener {
             presenter.install(channel)
             refreshChannel = true
-
+        }
+        if(channel.getType() == "storebox") {
+            linkStoreboxBtn.visibility = View.VISIBLE
+            linkStoreboxBtn.setOnClickListener {
+                startActivity(Intent(context, ConnectStoreboxActivity::class.java))
+                activity.finish() // todo: double-chack that we're to close this one, or return to here after linking storebox channel
+            }
         }
     }
 
