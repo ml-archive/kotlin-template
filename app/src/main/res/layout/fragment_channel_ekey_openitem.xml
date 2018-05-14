@@ -65,21 +65,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
-            <TextView
-                style="@style/text.subHeader5.quaternary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:text="_Username" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp">
 
-            <TextView
-                android:id="@+id/usernameTv"
-                style="@style/text.header4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="_Username" />
+                <TextView
+                    style="@style/text.subHeader5.quaternary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="_Username" />
+
+                <TextView
+                    android:id="@+id/usernameTv"
+                    style="@style/text.header4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:text="_Username" />
+
+                <ImageButton
+                    android:id="@+id/copyUsernameBtn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="right|center"
+                    android:background="@color/white"
+                    android:src="@drawable/icon_48_copy_red" />
+            </FrameLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -106,8 +121,17 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="right|center"
+                    android:layout_marginRight="40dp"
                     android:background="@color/white"
                     android:src="@drawable/show_password_selector" />
+
+                <ImageButton
+                    android:id="@+id/copyPasswordBtn"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="right|center"
+                    android:background="@color/white"
+                    android:src="@drawable/icon_48_copy_red" />
             </FrameLayout>
         </LinearLayout>
         <!--Note -->
@@ -131,8 +155,8 @@
 
 
     <Button
-        style="@style/buttonRoundedCorners"
         android:id="@+id/editBtn"
+        style="@style/buttonRoundedCorners"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -140,6 +164,6 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:text="_Edit"
-        android:textColor="@color/darkGreyBlue"/>
+        android:textColor="@color/darkGreyBlue" />
 
 </FrameLayout>

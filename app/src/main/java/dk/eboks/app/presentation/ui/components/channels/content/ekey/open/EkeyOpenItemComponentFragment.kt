@@ -1,5 +1,7 @@
 package dk.eboks.app.presentation.ui.components.channels.content.ekey.open
 
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
@@ -120,6 +122,17 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
                             it as Login
                             passwordTv.text = getPassword(it.password)
                         }
+                    }
+
+                    copyPasswordBtn.setOnClickListener { view ->
+                        var clipboard  = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        var clip = android.content.ClipData.newPlainText("_copied password text", it.password)
+                        clipboard?.primaryClip = clip
+                    }
+                    copyUsernameBtn.setOnClickListener { view ->
+                        var clipboard  = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        var clip = android.content.ClipData.newPlainText("_copied username text", it.username)
+                        clipboard?.primaryClip = clip
                     }
                 }
                 is Pin -> {
