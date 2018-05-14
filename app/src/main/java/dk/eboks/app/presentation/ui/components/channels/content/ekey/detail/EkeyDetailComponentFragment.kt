@@ -16,6 +16,7 @@ import dk.eboks.app.domain.models.channel.ekey.Login
 import dk.eboks.app.domain.models.channel.ekey.Note
 import dk.eboks.app.domain.models.channel.ekey.Pin
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyItem
 import kotlinx.android.synthetic.main.include_toolbar.*
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.util.guard
@@ -44,14 +45,20 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        category = arguments.getSerializable("category") as EkeyDetailMode
-//        editKey = arguments.getSerializable("ekey") as Ekey
-        //mock--------------------------
-        editKey = Login("test@test.dk", "gr8test", "facebook", null)
-//        editKey = Pin("4343", "Visa Dankort", "Mors")
-//        editKey = Note("husk fødselsdag","køb blomster og kage")
-//        --------------------------------
+        arguments?.let { args ->
+            category = args.getSerializable("category") as EkeyDetailMode
+            if (args.containsKey("login")) {
+                editKey = args.get("login") as Login
+            }
 
+            if (args.containsKey("pin")) {
+                editKey = args.get("pin") as Pin
+            }
+
+            if (args.containsKey("note")) {
+                editKey = args.get("note") as Note
+            }
+        }
 
         pinShowPasswordIb.setOnClickListener {
             showPassword()

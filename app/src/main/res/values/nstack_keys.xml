@@ -464,4 +464,8 @@
   <string name='nstack_storeboxlogin_errorAlreadyExistsMessage' formatted='false'>storeboxlogin_errorAlreadyExistsMessage</string>
   <string name='nstack_storeboxlogin_signInButton' formatted='false'>storeboxlogin_signInButton</string>
   <string name='nstack_storeboxlogin_continueButton' formatted='false'>storeboxlogin_continueButton</string>
+  <string name='nstack_storeboxlogin_tryAgainButton' formatted='false'>storeboxlogin_tryAgainButton</string>
+  <string name='nstack_storeboxverify_header' formatted='false'>storeboxverify_header</string>
+  <string name='nstack_storeboxverify_subheader' formatted='false'>storeboxverify_subheader</string>
+  <string name='nstack_storeboxverify_confirmationCodeHeader' formatted='false'>storeboxverify_confirmationCodeHeader</string>
 </resources>

@@ -544,5 +544,11 @@ public class Translation {
 		public static String errorAlreadyExistsMessage = "You already have a Storebox account with this information";
 		public static String signInButton = "Sign in";
 		public static String continueButton = "Continue";
+		public static String tryAgainButton = "Try again";
+	}
+	public final static class storeboxverify {
+		public static String header = "We sent you a confirmation code";
+		public static String subheader = "Find the confirmation we just sent you, and type it in below to verify your identity.";
+		public static String confirmationCodeHeader = "Confirmation code";
 	}
 }
