@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:nstack="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainSwipeLayout"
     android:layout_width="match_parent"
-    android:layout_height="68dp"
+    android:layout_height="wrap_content"
     tools:ignore="MissingPrefix">
 
     <LinearLayout
@@ -63,13 +62,16 @@
     <LinearLayout
         android:id="@+id/mainContainerView"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
+        android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="0dp"
+        android:paddingTop="12dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingLeft="16dp"
             android:paddingRight="16dp">
@@ -109,57 +111,32 @@
             <LinearLayout
                 android:id="@+id/showContainerLl"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical"
                 android:paddingLeft="12dp"
                 android:paddingRight="5dp"
                 android:visibility="visible">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
 
-                    <TextView
-                        android:id="@+id/headerTv"
-                        style="@style/text.header4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="bottom"
-                        android:text="_Add another credit card" />
+                <TextView
+                    android:id="@+id/headerTv"
+                    style="@style/text.header4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="bottom"
+                    android:lines="1"
+                    android:text="_Add another credit card" />
 
-                    <TextView
-                        android:id="@+id/dateTv"
-                        style="@style/text.subHeader5.quaternary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignBaseline="@id/headerTv"
-                        android:layout_alignParentEnd="true"
-                        android:text="_today" />
-                </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
-
-                    <TextView
-                        android:id="@+id/subHeaderTv"
-                        style="@style/text.subHeader5.quaternary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="top"
-                        android:text="_uploads" />
-
-                    <ImageView
-                        android:id="@+id/clipIv"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentEnd="true"
-                        android:src="@drawable/icon_48_attachment_small_grey"
-                        android:visibility="gone" />
-                </RelativeLayout>
+                <TextView
+                    android:id="@+id/subHeaderTv"
+                    style="@style/text.subHeader5.quaternary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:text="_uploads" />
 
                 <TextView
                     android:id="@+id/urgentTv"
@@ -168,17 +145,34 @@
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="7sp"
                     android:text="_Inbox"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
+
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/dateTv"
+                    style="@style/text.subHeader5.quaternary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:gravity="bottom"
+                    android:text="_today" />
+
+                <ImageView
+                    android:id="@+id/clipIv"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="right"
+                    android:src="@drawable/icon_48_attachment_small_grey"
+                    android:visibility="visible" />
+            </LinearLayout>
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
         <View
             android:id="@+id/dividerV"
             android:layout_width="match_parent"
@@ -186,6 +180,5 @@
             android:layout_gravity="top"
             android:layout_marginLeft="72dp"
             android:background="@color/dividerGreyBlue" />
-
     </LinearLayout>
 </com.daimajia.swipe.SwipeLayout>

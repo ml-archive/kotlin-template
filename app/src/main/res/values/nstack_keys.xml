@@ -368,6 +368,10 @@
   <string name='nstack_channelsettings_receiptsSubtitle' formatted='false'>channelsettings_receiptsSubtitle</string>
   <string name='nstack_channelsettings_addAnotherCard' formatted='false'>channelsettings_addAnotherCard</string>
   <string name='nstack_storeboxlist_title' formatted='false'>storeboxlist_title</string>
+  <string name='nstack_storeboxlist_emptyCardsHeader' formatted='false'>storeboxlist_emptyCardsHeader</string>
+  <string name='nstack_storeboxlist_emptyCardsMessage' formatted='false'>storeboxlist_emptyCardsMessage</string>
+  <string name='nstack_storeboxlist_addCardButton' formatted='false'>storeboxlist_addCardButton</string>
+  <string name='nstack_storeboxlist_emptyLabel' formatted='false'>storeboxlist_emptyLabel</string>
   <string name='nstack_storeboxreceipt_orderNo' formatted='false'>storeboxreceipt_orderNo</string>
   <string name='nstack_storeboxreceipt_receipt' formatted='false'>storeboxreceipt_receipt</string>
   <string name='nstack_storeboxreceipt_deliveredByStorebox' formatted='false'>storeboxreceipt_deliveredByStorebox</string>
@@ -453,6 +457,9 @@
   <string name='nstack_ekey_overviewLogins' formatted='false'>ekey_overviewLogins</string>
   <string name='nstack_ekey_overviewPins' formatted='false'>ekey_overviewPins</string>
   <string name='nstack_ekey_overviewNotes' formatted='false'>ekey_overviewNotes</string>
+  <string name='nstack_ekey_deleteDialogMsg' formatted='false'>ekey_deleteDialogMsg</string>
+  <string name='nstack_ekey_deleteDialogRemoveBtn' formatted='false'>ekey_deleteDialogRemoveBtn</string>
+  <string name='nstack_ekey_noContent' formatted='false'>ekey_noContent</string>
   <string name='nstack_storeboxlogin_header' formatted='false'>storeboxlogin_header</string>
   <string name='nstack_storeboxlogin_subheader' formatted='false'>storeboxlogin_subheader</string>
   <string name='nstack_storeboxlogin_title' formatted='false'>storeboxlogin_title</string>
