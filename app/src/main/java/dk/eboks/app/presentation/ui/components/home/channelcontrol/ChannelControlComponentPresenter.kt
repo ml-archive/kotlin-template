@@ -23,18 +23,22 @@ class ChannelControlComponentPresenter @Inject constructor(val appState: AppStat
     }
 
     override fun setup() {
-        Timber.e("Setup")
+        getChannelHomeContentInteractor.input = GetChannelHomeContentInteractor.Input(cached = true)
+        getChannelHomeContentInteractor.run()
     }
 
     override fun onGetPinnedChannelList(channels: MutableList<Channel>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        runAction { v ->
+            v.showProgress(false)
+            v.setupChannels(channels)
+        }
     }
 
     override fun onGetChannelHomeContent(channel: Channel, content: HomeContent) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun onGetChannelHomeContentError(error: ViewError) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        runAction { v->v.showErrorDialog(error) }
     }
 }
