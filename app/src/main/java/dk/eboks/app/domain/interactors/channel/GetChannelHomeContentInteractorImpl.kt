@@ -24,8 +24,10 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
         had_channels = false
         controlCachedMap.clear()
         try {
-            emitCachedData()
+            if(input?.cached == true)
+                emitCachedData()
             refreshCachedData()
+            runOnUIThread { output?.onGetChannelHomeContentDone() }
         } catch (t: Throwable) {
             runOnUIThread {
                 t.printStackTrace()
@@ -53,22 +55,14 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
             }
 
             runBlocking {
-                launch(CommonPool) {
-                    try {
-                        for(entry in channelMap)
-                        {
-                            entry.value.await()
-                            val content = entry.value.getCompleted()
-                            runOnUIThread {
-                                var channel = pinnedChannels[entry.key]
-                                output?.onGetChannelHomeContent(channel, content)
-                                Timber.e("emitCachedData channel ${channel.name}")
-                            }
-                        }
-                    }
-                    catch(t : Throwable)
-                    {
-                        t.printStackTrace()
+                for(entry in channelMap)
+                {
+                    entry.value.await()
+                    val content = entry.value.getCompleted()
+                    runOnUIThread {
+                        var channel = pinnedChannels[entry.key]
+                        output?.onGetChannelHomeContent(channel, content)
+                        //Timber.e("emitCachedData channel ${channel.name}")
                     }
                 }
             }
@@ -86,30 +80,19 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
             val channelMap : MutableMap<Int, Deferred<HomeContent>> = HashMap()
             pinnedChannels.forEachIndexed { index, channel ->
                 // don't reload channel control from network if we just did
-                if(controlCachedMap[index] == true) {
-                    Timber.e("Attempting to parse control id ${channel.id.toLong()}")
+                if(controlCachedMap[index] == true || input?.cached == false) {
                     val d = async { channelsRepository.getChannelHomeContent(channel.id.toLong(), false) }
                     channelMap[index] = d
                 }
             }
             // force uncached controls to finish loading
-
             runBlocking {
-                try {
-                    for(entry in channelMap)
-                    {
-                        entry.value.await()
-                    }
-                    Timber.e("Fetch ran to completion")
-                }
-                catch(t : Throwable)
+                for(entry in channelMap)
                 {
-                    Timber.e("Entry id $")
-                    //t.printStackTrace()
+                    entry.value.await()
                 }
             }
 
-            Timber.e("this should come after fetch ran to completion")
             // refresh controls in one big swoop the second time around
             runOnUIThread {
                 output?.onGetPinnedChannelList(pinnedChannels)
@@ -118,7 +101,7 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
                     var channel = pinnedChannels[entry.key]
                     val content = entry.value.getCompleted()
                     output?.onGetChannelHomeContent(channel, content)
-                    Timber.e("refreshCachedData channel ${channel.name}")
+                    //Timber.e("refreshCachedData channel ${channel.name}")
                 }
             }
             Timber.e("refreshCachedData completed, loaded ${channelMap.size} controls")

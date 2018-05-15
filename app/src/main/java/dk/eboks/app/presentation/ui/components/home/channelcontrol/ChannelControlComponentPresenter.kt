@@ -6,6 +6,7 @@ import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -27,6 +28,11 @@ class ChannelControlComponentPresenter @Inject constructor(val appState: AppStat
         getChannelHomeContentInteractor.run()
     }
 
+    override fun refresh() {
+        getChannelHomeContentInteractor.input = GetChannelHomeContentInteractor.Input(cached = false)
+        getChannelHomeContentInteractor.run()
+    }
+
     override fun onGetPinnedChannelList(channels: MutableList<Channel>) {
         runAction { v ->
             v.showProgress(false)
@@ -38,8 +44,12 @@ class ChannelControlComponentPresenter @Inject constructor(val appState: AppStat
         runAction { v -> v.updateControl(channel, content.control) }
     }
 
+    override fun onGetChannelHomeContentDone() {
+        EventBus.getDefault().post(RefreshChannelControlDoneEvent())
+    }
 
     override fun onGetChannelHomeContentError(error: ViewError) {
+        EventBus.getDefault().post(RefreshChannelControlDoneEvent())
         runAction { v->v.showErrorDialog(error) }
     }
 }

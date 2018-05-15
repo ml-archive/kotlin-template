@@ -19,7 +19,4 @@ class HomePresenter(val appStateManager: AppStateManager) : HomeContract.Present
         }
     }
 
-    override fun refresh() {
-
-    }
 }

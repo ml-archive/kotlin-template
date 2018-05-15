@@ -23,6 +23,9 @@ import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivi
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_folder_preview_component.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -52,6 +55,16 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
         }.guard {
             showEmptyState(true, false)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onPause() {
+        EventBus.getDefault().unregister(this)
+        super.onPause()
     }
 
     override fun showEmptyState(show: Boolean, verifiedUser : Boolean) {
@@ -152,5 +165,10 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
     override fun onShake() {
         val show = emptyStateLl.visibility != View.VISIBLE
         showEmptyState(show, presenter.isVerified)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: RefreshFolderPreviewEvent) {
+        presenter.refresh(false)
     }
 }

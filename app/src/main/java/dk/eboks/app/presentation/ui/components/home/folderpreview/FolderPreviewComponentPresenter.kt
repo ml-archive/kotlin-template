@@ -6,6 +6,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -28,18 +29,19 @@ class FolderPreviewComponentPresenter @Inject constructor(val appState: AppState
     override fun setup(folder: Folder) {
         Timber.e("Got folder $folder")
         currentFolder = folder
-        refresh()
+        refresh(true)
     }
 
-    override fun refresh() {
+    override fun refresh(cached : Boolean) {
         currentFolder?.let {
-            getMessagesInteractor.input = GetMessagesInteractor.Input(cached = true, folder = it)
+            getMessagesInteractor.input = GetMessagesInteractor.Input(cached = cached, folder = it)
             getMessagesInteractor.run()
         }
     }
 
     override fun onGetMessages(messages: List<Message>) {
         runAction { v->
+            EventBus.getDefault().post(RefreshFolderPreviewDoneEvent())
             v.showProgress(false)
             v.showFolder(messages, isVerified)
         }
@@ -47,6 +49,7 @@ class FolderPreviewComponentPresenter @Inject constructor(val appState: AppState
 
     override fun onGetMessagesError(error: ViewError) {
         runAction { v->
+            EventBus.getDefault().post(RefreshFolderPreviewDoneEvent())
             v.showProgress(false)
             v.showErrorDialog(error)
         }

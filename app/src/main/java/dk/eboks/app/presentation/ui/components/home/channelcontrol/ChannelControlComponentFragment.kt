@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
@@ -15,9 +14,13 @@ import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
 import dk.eboks.app.domain.models.home.ItemType
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.home.channelcontrol.controls.*
 import dk.eboks.app.presentation.ui.screens.home.HomeActivity
 import dk.eboks.app.util.views
 import kotlinx.android.synthetic.main.fragment_channel_control_component.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -34,6 +37,8 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
 
     val channelControlMap : MutableMap<Int, ChannelControl> = HashMap()
 
+    // TODO channel controls empty state is dependent on info from the folderpreview in the top (for retarded design reasons)
+    // find a clean way of getting this info to the right place (both run a the same time so maybe a countdown latch)
     var emailCount = 0
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -46,6 +51,16 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         presenter.setup()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        EventBus.getDefault().register(this)
+    }
+
+    override fun onPause() {
+        EventBus.getDefault().unregister(this)
+        super.onPause()
     }
 
     override fun setupChannels(channels: MutableList<Channel>) {
@@ -122,7 +137,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
             }
             else    // widget not yet instantiated, do that and more
             {
-                val cc = instantiateChannelControl(control, view)
+                val cc = instantiateChannelControl(channel, control, view)
                 cc?.let {
                     it.buildView()
                     channelControlMap[channel.id] = it
@@ -132,31 +147,33 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
         }
     }
 
-    fun instantiateChannelControl(control: Control, view: View) : ChannelControl?
+    fun instantiateChannelControl(channel: Channel, control: Control, view: View) : ChannelControl?
     {
         when (control.type) {
             ItemType.RECEIPTS -> {
-                return ReceiptChannelControl(control, view, inflator, mainHandler, eboksFormatter)
+                return ReceiptsChannelControl(channel, control, view, inflator, mainHandler, eboksFormatter)
             }
             ItemType.NEWS -> {
-
+                return NewsChannelControl(channel, control, view, inflator, mainHandler, eboksFormatter)
             }
             ItemType.IMAGES -> {
-
-
+                return ImagesChannelControl(channel, control, view, inflator, mainHandler, eboksFormatter)
             }
             ItemType.NOTIFICATIONS -> {
-
-
+                return NotificationsChannelControl(channel, control, view, inflator, mainHandler, eboksFormatter)
             }
             ItemType.MESSAGES -> {
-
-
+                return MessagesChannelControl(channel, control, view, inflator, mainHandler, eboksFormatter)
             }
             ItemType.FILES -> {
-
+                return FilesChannelControl(channel, control, view, inflator, mainHandler, eboksFormatter)
             }
         }
         return null
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onEvent(event: RefreshChannelControlEvent) {
+        presenter.refresh()
     }
 }

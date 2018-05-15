@@ -42,8 +42,6 @@ import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolde
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentPresenter
 import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentFragment
 import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentPresenter
-import dk.eboks.app.presentation.ui.components.home.HomeComponentFragment
-import dk.eboks.app.presentation.ui.components.home.HomeComponentPresenter
 import dk.eboks.app.presentation.ui.components.home.channelcontrol.ChannelControlComponentFragment
 import dk.eboks.app.presentation.ui.components.home.channelcontrol.ChannelControlComponentPresenter
 import dk.eboks.app.presentation.ui.components.home.folderpreview.FolderPreviewComponentFragment
@@ -358,8 +356,6 @@ interface PresentationComponent {
     // home
     fun inject(target: HomeActivity)
     fun inject(target: HomePresenter)
-    fun inject(target : HomeComponentFragment)
-    fun inject(target : HomeComponentPresenter)
     fun inject(target : FolderPreviewComponentFragment)
     fun inject(target : FolderPreviewComponentPresenter)
     fun inject(target : ChannelControlComponentFragment)

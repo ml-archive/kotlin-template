@@ -53,8 +53,6 @@ import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolde
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentPresenter
 import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentContract
 import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentPresenter
-import dk.eboks.app.presentation.ui.components.home.HomeComponentContract
-import dk.eboks.app.presentation.ui.components.home.HomeComponentPresenter
 import dk.eboks.app.presentation.ui.components.home.channelcontrol.ChannelControlComponentContract
 import dk.eboks.app.presentation.ui.components.home.channelcontrol.ChannelControlComponentPresenter
 import dk.eboks.app.presentation.ui.components.home.folderpreview.FolderPreviewComponentContract
@@ -712,21 +710,6 @@ class PresentationModule {
     fun provideHomePresenter(stateManager: AppStateManager): HomeContract.Presenter {
         return HomePresenter(stateManager)
     }
-
-    @ActivityScope
-    @Provides
-    fun provideHomeComponentPresenter(
-            stateManager: AppStateManager,
-            getChannelHomeContentInteractor: GetChannelHomeContentInteractor,
-            getMessagesInteractor: GetMessagesInteractor
-    ): HomeComponentContract.Presenter {
-        return HomeComponentPresenter(
-                stateManager,
-                getChannelHomeContentInteractor,
-                getMessagesInteractor
-        )
-    }
-
 
     @ActivityScope
     @Provides

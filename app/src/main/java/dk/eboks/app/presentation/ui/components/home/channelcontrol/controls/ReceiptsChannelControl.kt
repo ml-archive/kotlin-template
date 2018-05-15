@@ -1,16 +1,16 @@
-package dk.eboks.app.presentation.ui.components.home.channelcontrol
+package dk.eboks.app.presentation.ui.components.home.channelcontrol.controls
 
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
 
-class ReceiptChannelControl(control : Control, view: View, inflater : LayoutInflater, handler: Handler, val formatter: EboksFormatter) : ChannelControl(control, view, inflater, handler) {
+class ReceiptsChannelControl(channel: Channel, control : Control, view: View, inflater : LayoutInflater, handler: Handler, val formatter: EboksFormatter) : ChannelControl(channel, control, view, inflater, handler) {
     lateinit var nameContainer : LinearLayout
     lateinit var amountDateContainer : LinearLayout
     lateinit var soloName : TextView

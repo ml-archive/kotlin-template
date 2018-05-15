@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.home.channelcontrol
+package dk.eboks.app.presentation.ui.components.home.channelcontrol.controls
 
 import android.os.Handler
 import android.view.LayoutInflater
@@ -9,10 +9,11 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
 import java.util.*
 
-abstract class ChannelControl(val control : Control, val view: View, val inflater : LayoutInflater, val handler: Handler) : Observable() {
+abstract class ChannelControl(val channel: Channel, val control : Control, val view: View, val inflater : LayoutInflater, val handler: Handler) : Observable() {
     var logoIv : ImageView
     var progressPb : ProgressBar
     var headerTv : TextView

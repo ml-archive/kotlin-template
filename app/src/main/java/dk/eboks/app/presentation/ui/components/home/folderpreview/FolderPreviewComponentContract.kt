@@ -17,7 +17,7 @@ interface FolderPreviewComponentContract {
 
     interface Presenter : BasePresenter<View> {
         fun setup(folder : Folder)
-        fun refresh()
+        fun refresh(cached : Boolean)
         val isVerified : Boolean
     }
 }
