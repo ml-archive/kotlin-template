@@ -74,13 +74,13 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
 
         when (ekey) {
             is Login -> {
-                getBaseActivity()?.mainTb?.title = "_Login"
+                getBaseActivity()?.mainTb?.title = Translation.ekey.addItemLogin
             }
             is Pin -> {
-                getBaseActivity()?.mainTb?.title = "_Pin code"
+                getBaseActivity()?.mainTb?.title = Translation.ekey.addItemCards
             }
             is Note -> {
-                getBaseActivity()?.mainTb?.title = "_Note"
+                getBaseActivity()?.mainTb?.title = Translation.ekey.addItemNote
             }
         }
 
@@ -148,7 +148,10 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
                 }
                 is Pin -> {
                     pinContainerFl.visibility = View.VISIBLE
+                    cardholderHintTv.visibility = View.VISIBLE
+                    cardholderTv.visibility = View.VISIBLE
                     pinTv.text = getPassword(it.pin)
+                    cardholderTv.text = it.cardholderName
                     pinShowPasswordIb.isSelected = !hidePassword
                     category = EkeyDetailMode.PIN
                     pinShowPasswordIb.setOnClickListener {

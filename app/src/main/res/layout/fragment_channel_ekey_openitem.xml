@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundColor">
+    android:background="@color/backgroundColor"
+    tools:ignore="MissingPrefix">
 
 
     <ScrollView
@@ -11,176 +14,193 @@
         android:fillViewport="true">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/margin_normal"
-        android:paddingRight="@dimen/margin_normal">
-        <!--Name-->
-        <TextView
-            style="@style/text.subHeader5.quaternary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:text="_name" />
-
-        <TextView
-            android:id="@+id/nameTv"
-            style="@style/text.header4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="_masterCard" />
-
-        <!--Pin-->
-        <FrameLayout
-            android:id="@+id/pinContainerFl"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="20dp"
-            android:visibility="gone">
-
-            <TextView
-                style="@style/text.subHeader5.quaternary"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="_Pin Code" />
-
-            <TextView
-                android:id="@+id/pinTv"
-                style="@style/text.header4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="_Pin code" />
-
-            <ImageButton
-                android:id="@+id/pinShowPasswordIb"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="right|center"
                 android:background="@color/white"
-                android:src="@drawable/show_password_selector" />
-        </FrameLayout>
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/margin_normal"
+                android:paddingRight="@dimen/margin_normal">
 
-        <!--username and login-->
-        <LinearLayout
-            android:id="@+id/loginContainerLl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp">
-
+                <!--Name-->
                 <TextView
                     style="@style/text.subHeader5.quaternary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="_Username" />
+                    android:layout_marginTop="22dp"
+                    nstack:text="@string/nstack_ekey_name"/>
 
                 <TextView
-                    android:id="@+id/usernameTv"
+                    android:id="@+id/nameTv"
                     style="@style/text.header4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:text="_Username" />
+                     />
 
-                <ImageButton
-                    android:id="@+id/copyUsernameBtn"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="right|center"
-                    android:background="@color/white"
-                    android:src="@drawable/icon_48_copy_red" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp">
-
+                <!--Pin-->
                 <TextView
+                    android:visibility="gone"
+                    android:id="@+id/cardholderHintTv"
                     style="@style/text.subHeader5.quaternary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="_Password" />
+                    android:layout_marginTop="20dp"
+                    nstack:text="@string/nstack_ekey_cardholderName" />
 
                 <TextView
-                    android:id="@+id/passwordTv"
+                    android:visibility="gone"
+                    android:id="@+id/cardholderTv"
                     style="@style/text.header4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:text="_Password" />
+                    android:text="_[Cardholder Name]" />
 
-                <ImageButton
-                    android:id="@+id/passwordShowPasswordIb"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="right|center"
-                    android:layout_marginRight="40dp"
-                    android:background="@color/white"
-                    android:src="@drawable/show_password_selector" />
+                <FrameLayout
+                    android:id="@+id/pinContainerFl"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone">
 
-                <ImageButton
-                    android:id="@+id/copyPasswordBtn"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="right|center"
-                    android:background="@color/white"
-                    android:src="@drawable/icon_48_copy_red" />
-            </FrameLayout>
-        </LinearLayout>
-        <!--Note -->
-        <TextView
-            android:id="@+id/noteHeaderTv"
-            style="@style/text.subHeader5.quaternary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:text="_Note" />
+                    <TextView
+                        style="@style/text.subHeader5.quaternary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        nstack:text="@string/nstack_ekey_pincode" />
 
-        <TextView
-            android:id="@+id/noteTv"
-            style="@style/text.header4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="22dp"
-            android:inputType="textMultiLine"
-            android:text="_Note" />
-    </LinearLayout>
+                    <TextView
+                        android:id="@+id/pinTv"
+                        style="@style/text.header4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:text="_Pin code" />
+
+                    <ImageButton
+                        android:id="@+id/pinShowPasswordIb"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="right|center"
+                        android:background="@color/white"
+                        android:src="@drawable/show_password_selector" />
+                </FrameLayout>
+
+                <!--username and login-->
+                <LinearLayout
+                    android:id="@+id/loginContainerLl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp">
+
+                        <TextView
+                            style="@style/text.subHeader5.quaternary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            nstack:text="@string/nstack_ekey_username" />
+
+                        <TextView
+                            android:id="@+id/usernameTv"
+                            style="@style/text.header4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:text="_Username" />
+
+                        <ImageButton
+                            android:id="@+id/copyUsernameBtn"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="right|center"
+                            android:background="@color/white"
+                            android:src="@drawable/icon_48_copy_red" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="20dp">
+
+                        <TextView
+                            style="@style/text.subHeader5.quaternary"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            nstack:text="@string/nstack_ekey_password" />
+
+                        <TextView
+                            android:id="@+id/passwordTv"
+                            style="@style/text.header4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:text="_Password" />
+
+                        <ImageButton
+                            android:id="@+id/passwordShowPasswordIb"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="right|center"
+                            android:layout_marginRight="40dp"
+                            android:background="@color/white"
+                            android:src="@drawable/show_password_selector" />
+
+                        <ImageButton
+                            android:id="@+id/copyPasswordBtn"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="right|center"
+                            android:background="@color/white"
+                            android:src="@drawable/icon_48_copy_red" />
+                    </FrameLayout>
+                </LinearLayout>
+                <!--Note -->
+                <TextView
+                    android:id="@+id/noteHeaderTv"
+                    style="@style/text.subHeader5.quaternary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    nstack:text="@string/nstack_ekey_addItemNote" />
+
+                <TextView
+                    android:id="@+id/noteTv"
+                    style="@style/text.header4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="22dp"
+                    android:inputType="textMultiLine" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
 
-    <Button
-        android:id="@+id/editBtn"
-        style="@style/buttonRoundedCorners"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:text="_Edit"
-        android:textColor="@color/darkGreyBlue" />
+            <Button
+                android:id="@+id/editBtn"
+                style="@style/buttonRoundedCorners"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="40dp"
+                nstack:text="@string/nstack_ekey_edit"
+                android:textColor="@color/darkGreyBlue" />
         </LinearLayout>
     </ScrollView>
 </FrameLayout>

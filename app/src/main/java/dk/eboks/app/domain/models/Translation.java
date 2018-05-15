@@ -539,6 +539,13 @@ public class Translation {
 		public static String deleteDialogRemoveBtn = "Remove";
 		public static String noContent = "You haven\'t added anything yet";
 		public static String copiedToClipboard = "Copied to clipboard!";
+		public static String inputHintCardholder = "Cardholder Name *";
+		public static String edit = "Edit";
+		public static String name = "Name";
+		public static String cardholderName = "Cardholder Name";
+		public static String pincode = "Pin Code";
+		public static String username = "Username";
+		public static String password = "Password";
 	}
 	public final static class storeboxlogin {
 		public static String header = "Connect your Storebox profile";

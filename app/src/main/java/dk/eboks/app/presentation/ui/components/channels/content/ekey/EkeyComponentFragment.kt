@@ -31,14 +31,14 @@ import javax.inject.Inject
 class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, BetterEkeyAdapter.Ekeyclicklistener {
     override fun onEkeyClicked(ekey: Ekey) {
         val frag = EkeyOpenItemComponentFragment()
-        when (ekey){
-            is Login ->{
+        when (ekey) {
+            is Login -> {
                 frag.putArg("login", ekey)
             }
-            is Pin ->{
+            is Pin -> {
                 frag.putArg("pin", ekey)
             }
-            is Note ->{
+            is Note -> {
                 frag.putArg("note", ekey)
             }
         }
@@ -62,7 +62,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
 
         keysContentRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         keysContentRv.addItemDecoration(DividerDecoration())
-        keysContentRv.adapter = BetterEkeyAdapter(items,  this)
+        keysContentRv.adapter = BetterEkeyAdapter(items, this)
 
         setupTopBar()
         addItemBtn.setOnClickListener {
@@ -88,13 +88,23 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         menuSearch?.setIcon(R.drawable.ic_settings_red)
         menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
-            getBaseActivity()?.openComponentDrawer( ChannelSettingsComponentFragment::class.java)
+            getBaseActivity()?.openComponentDrawer(ChannelSettingsComponentFragment::class.java)
             true
+        }
+    }
+
+    private fun setEmptyState(empty: Boolean) {
+        if (empty) {
+            emptyStateTv.visibility = View.VISIBLE
+        } else {
+            emptyStateTv.visibility = View.GONE
         }
     }
 
     override fun showKeys(keys: List<Ekey>) {
         items.clear()
+
+        setEmptyState(keys.isEmpty())
 
         // group by type
         keys.filter { it is Login }.forEach { items.add(EkeyItem(it)) }
@@ -136,10 +146,10 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
                 var marginLeft = dpToPx(72)
 
                 val aPos = parent.getChildAdapterPosition(child)
-                if(parent.adapter.getItemViewType(aPos) == R.layout.item_header) {
+                if (parent.adapter.getItemViewType(aPos) == R.layout.item_header) {
                     marginLeft = 0
                 }
-                if(parent.adapter.getItemViewType(aPos+1) == R.layout.item_header) {
+                if (parent.adapter.getItemViewType(aPos + 1) == R.layout.item_header) {
                     marginLeft = 0
                 }
 

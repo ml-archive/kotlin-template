@@ -461,6 +461,13 @@
   <string name='nstack_ekey_deleteDialogRemoveBtn' formatted='false'>ekey_deleteDialogRemoveBtn</string>
   <string name='nstack_ekey_noContent' formatted='false'>ekey_noContent</string>
   <string name='nstack_ekey_copiedToClipboard' formatted='false'>ekey_copiedToClipboard</string>
+  <string name='nstack_ekey_inputHintCardholder' formatted='false'>ekey_inputHintCardholder</string>
+  <string name='nstack_ekey_edit' formatted='false'>ekey_edit</string>
+  <string name='nstack_ekey_name' formatted='false'>ekey_name</string>
+  <string name='nstack_ekey_cardholderName' formatted='false'>ekey_cardholderName</string>
+  <string name='nstack_ekey_pincode' formatted='false'>ekey_pincode</string>
+  <string name='nstack_ekey_username' formatted='false'>ekey_username</string>
+  <string name='nstack_ekey_password' formatted='false'>ekey_password</string>
   <string name='nstack_storeboxlogin_header' formatted='false'>storeboxlogin_header</string>
   <string name='nstack_storeboxlogin_subheader' formatted='false'>storeboxlogin_subheader</string>
   <string name='nstack_storeboxlogin_title' formatted='false'>storeboxlogin_title</string>
