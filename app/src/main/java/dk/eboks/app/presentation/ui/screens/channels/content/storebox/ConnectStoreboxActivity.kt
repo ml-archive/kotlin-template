@@ -6,12 +6,14 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.util.addAfterTextChangeListener
 import dk.eboks.app.util.isValidEmail
+import kotlinx.android.synthetic.main.fragment_storeboxconnect_confirm.*
 import kotlinx.android.synthetic.main.fragment_storeboxconnect_userinfo.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -54,16 +56,18 @@ class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
 
     override fun showFound() {
         Timber.i("showFound")
-        AlertDialog.Builder(this)
-                .setMessage(Translation.storeboxlogin.errorAlreadyExistsMessage)
-                .setPositiveButton(Translation.storeboxlogin.signInButton) { dialog, which ->
-                    dialog.dismiss()
-                }
-                .setNegativeButton(Translation.defaultSection.ok) { dialog, which ->
-                    dialog.dismiss()
-                }
-                .create()
-                .show()
+        supportFragmentManager.beginTransaction().replace(R.id.content, conFrag).commit()
+
+//        AlertDialog.Builder(this)
+//                .setMessage(Translation.storeboxlogin.errorAlreadyExistsMessage)
+//                .setPositiveButton(Translation.storeboxlogin.signInButton) { dialog, which ->
+//                    dialog.dismiss()
+//                }
+//                .setNegativeButton(Translation.defaultSection.ok) { dialog, which ->
+//                    dialog.dismiss()
+//                }
+//                .create()
+//                .show()
     }
 
     override fun showNotFound() {
@@ -131,6 +135,17 @@ class ConfirmCodeFragment : Fragment() {
     var presenter: ConnectStoreboxContract.Presenter? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_storeboxconnect_userinfo, container, false)
+        return inflater?.inflate(R.layout.fragment_storeboxconnect_confirm, container, false)
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        connectCodeTil.editText?.setOnEditorActionListener { v, actionId, event ->
+            if(actionId == EditorInfo.IME_ACTION_GO) {
+                presenter?.confirm(v.text.toString().trim())
+            }
+            false
+        }
     }
 }

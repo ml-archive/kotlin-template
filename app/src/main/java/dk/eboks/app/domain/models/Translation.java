@@ -316,6 +316,8 @@ public class Translation {
 		public static String fileName = "File name";
 		public static String incorrectFileName = "Incorrect filename";
 		public static String verifiedInitialAvailableSpace = "1 GB free storage available";
+		public static String notVerifiedInitialAvailableSpace = "100 MB free storage available";
+		public static String remainingText = "Left";
 	}
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";
@@ -374,6 +376,7 @@ public class Translation {
 		public static String password = "Password";
 		public static String typeHere = "Type here";
 		public static String myProfile = "My profile";
+		public static String yourInfoWasSaved = "Your information was saved";
 	}
 	public final static class myInformation {
 		public static String title = "My Information";

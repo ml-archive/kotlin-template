@@ -55,7 +55,6 @@ class ConnectStoreboxPresenter(val appStateManager: AppStateManager,
     }
 
     override fun signIn(email: String, password: String) {
-        Timber.d("signIn: $email, $password")
         linkStoreboxInteractor.input = LinkStoreboxInteractor.Input(email, password)
         linkStoreboxInteractor.run()
     }
