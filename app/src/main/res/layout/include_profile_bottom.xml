@@ -283,7 +283,7 @@
         android:layout_height="36dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:backgroundTint="@color/darkGreyBlue15"
+        android:backgroundTint="@color/dividerColor"
         android:text="_Sign out"
         nstack:text="@string/nstack_profile_signOut" />
 

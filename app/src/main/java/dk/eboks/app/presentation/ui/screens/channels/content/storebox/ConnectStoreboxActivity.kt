@@ -2,15 +2,19 @@ package dk.eboks.app.presentation.ui.screens.channels.content.storebox
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.util.addAfterTextChangeListener
+import dk.eboks.app.util.isValidEmail
 import kotlinx.android.synthetic.main.fragment_storeboxconnect_userinfo.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -49,11 +53,47 @@ class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
     }
 
     override fun showFound() {
+        Timber.i("showFound")
+        AlertDialog.Builder(this)
+                .setMessage(Translation.storeboxlogin.errorAlreadyExistsMessage)
+                .setPositiveButton(Translation.storeboxlogin.signInButton) { dialog, which ->
+                    dialog.dismiss()
+                }
+                .setNegativeButton(Translation.defaultSection.ok) { dialog, which ->
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
     }
 
     override fun showNotFound() {
+        Timber.i("showNotFound")
+        AlertDialog.Builder(this)
+                .setMessage(Translation.storeboxlogin.errorNoExistingProfileMessage)
+                .setPositiveButton(Translation.storeboxlogin.createUserButton) { dialog, which ->
+                    dialog.dismiss()
+                }
+                .setNegativeButton(Translation.storeboxlogin.tryAgainButton) { dialog, which ->
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
     }
 
+    override fun showWrongCode() {
+        Timber.i("showWrongCode")
+        AlertDialog.Builder(this)
+                .setMessage(Translation.activationcode.invalidActivationCode)
+                .setNegativeButton(Translation.defaultSection.ok) { dialog, which ->
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
+    }
+
+    override fun showSuccess() {
+        Timber.i("showSuccess")
+    }
 }
 
 class UserInfoFragment : Fragment() {
@@ -67,10 +107,18 @@ class UserInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         userinfoEmailTil.editText?.addAfterTextChangeListener {
-            userinfoContinueBtn.isEnabled = ( it.toString().trim().isNotBlank() && userinfoPhoneTil.editText?.text.toString().trim().isNotBlank() )
+            val isEmail = it?.isValidEmail()?:false
+            if(!isEmail) {
+                userinfoEmailTil.error = Translation.signup.invalidEmail
+            }
+            userinfoEmailTil.isErrorEnabled = !isEmail
+
+            userinfoContinueBtn.isEnabled = ( isEmail && userinfoPhoneTil.editText?.text.toString().trim().isNotBlank() )
         }
         userinfoPhoneTil.editText?.addAfterTextChangeListener {
-            userinfoContinueBtn.isEnabled = ( it.toString().trim().isNotBlank() && userinfoEmailTil.editText?.text.toString().trim().isNotBlank() )
+            val isEmail = userinfoEmailTil.editText?.text?.isValidEmail()?:false
+
+            userinfoContinueBtn.isEnabled = ( isEmail && it.toString().trim().isNotBlank())
         }
 
         userinfoContinueBtn.setOnClickListener {

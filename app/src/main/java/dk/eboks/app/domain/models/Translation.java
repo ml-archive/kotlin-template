@@ -428,6 +428,10 @@ public class Translation {
 	}
 	public final static class storeboxlist {
 		public static String title = "Storebox";
+		public static String emptyCardsHeader = "Get started";
+		public static String emptyCardsMessage = "To receive your receipts in Storebox, \u2028you need to add a credit card.";
+		public static String addCardButton = "Add credit card";
+		public static String emptyLabel = "No receipts to show yet";
 	}
 	public final static class storeboxreceipt {
 		public static String orderNo = "Order nr.";
@@ -531,6 +535,13 @@ public class Translation {
 		public static String overviewLogins = "Logins";
 		public static String overviewPins = "Pin Codes";
 		public static String overviewNotes = "Notes";
+		public static String deleteDialogMsg = "Are you sure want to delete this [item]?";
+		public static String deleteDialogRemoveBtn = "Remove";
+		public static String noContent = "You haven\'t added anything yet";
+		public static String copiedToClipboard = "Copied to clipboard!";
+		public static String inputHintCardholder = "Cardholder Name *";
+		public static String edit = "Edit";
+		public static String name = "Name";
 	}
 	public final static class storeboxlogin {
 		public static String header = "Connect your Storebox profile";

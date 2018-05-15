@@ -13,6 +13,8 @@ interface ConnectStoreboxContract {
     interface View : BaseView {
         fun showFound()
         fun showNotFound()
+        fun showWrongCode()
+        fun showSuccess()
     }
 
     interface Presenter : BasePresenter<View> {

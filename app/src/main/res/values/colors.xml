@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="darkGreyBlue">#294350</color>
-    <color name="darkGreyBlue15">#0D345768</color>
+    <color name="darkGreyBlue15">#26294350</color>
 
     <color name="greyButton">#16223944</color>
-    <color name="greyButton15">#0D223944</color>
+    <color name="greyButton15">#26223944</color>
 
     <color name="blueGrey">#7F9AA3</color>
     <color name="rouge">#A8242F</color>
@@ -26,7 +26,7 @@
     <color name="backgroundColor">#F4F6F8</color>
     <color name="actionBarColor">#FCFDFD</color>
 
-    <color name="dividerGreyBlue">#26294350</color>
+    <color name="dividerColor">@color/darkGreyBlue15</color>
 
     <color name="toolbarSelectedColor">@color/darkGreyBlue</color>
     <color name="toolbarNormalColor">@color/rouge</color>
