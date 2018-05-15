@@ -35,8 +35,9 @@ class ChannelControlComponentPresenter @Inject constructor(val appState: AppStat
     }
 
     override fun onGetChannelHomeContent(channel: Channel, content: HomeContent) {
-
+        runAction { v -> v.updateControl(channel, content.control) }
     }
+
 
     override fun onGetChannelHomeContentError(error: ViewError) {
         runAction { v->v.showErrorDialog(error) }

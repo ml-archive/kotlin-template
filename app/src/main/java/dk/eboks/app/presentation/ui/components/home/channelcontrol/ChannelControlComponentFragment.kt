@@ -5,14 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
+import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.home.Control
+import dk.eboks.app.domain.models.home.ItemType
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.home.HomeActivity
+import dk.eboks.app.util.views
 import kotlinx.android.synthetic.main.fragment_channel_control_component.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -22,6 +28,11 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
 
     @Inject
     lateinit var presenter : ChannelControlComponentContract.Presenter
+
+    @Inject
+    lateinit var eboksFormatter: EboksFormatter
+
+    val channelControlMap : MutableMap<Int, ChannelControl> = HashMap()
 
     var emailCount = 0
 
@@ -39,6 +50,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
 
     override fun setupChannels(channels: MutableList<Channel>) {
         channelsContentLL.removeAllViews()
+        channelControlMap.clear()
         for (i in 0..channels.size - 1) {
             val currentChannel = channels[i]
             //channelCount = channels.size
@@ -90,4 +102,61 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
         progressFl.visibility = if(show) View.VISIBLE else View.GONE
     }
 
+    fun findControlView(channelId : Int) : View?
+    {
+        for (v in channelsContentLL.views) {
+            if (v.tag as Int == channelId)
+            {
+                return v
+            }
+        }
+        return null
+    }
+
+    override fun updateControl(channel: Channel, control: Control) {
+        // find the view associated with the channel
+        findControlView(channel.id)?.let { view ->
+            if(channelControlMap.containsKey(channel.id)) // already instantiated, we're updating
+            {
+                Timber.e("Already instantiated should update")
+            }
+            else    // widget not yet instantiated, do that and more
+            {
+                val cc = instantiateChannelControl(control, view)
+                cc?.let {
+                    it.buildView()
+                    channelControlMap[channel.id] = it
+                    it.showProgress(false)
+                }
+            }
+        }
+    }
+
+    fun instantiateChannelControl(control: Control, view: View) : ChannelControl?
+    {
+        when (control.type) {
+            ItemType.RECEIPTS -> {
+                return ReceiptChannelControl(control, view, inflator, mainHandler, eboksFormatter)
+            }
+            ItemType.NEWS -> {
+
+            }
+            ItemType.IMAGES -> {
+
+
+            }
+            ItemType.NOTIFICATIONS -> {
+
+
+            }
+            ItemType.MESSAGES -> {
+
+
+            }
+            ItemType.FILES -> {
+
+            }
+        }
+        return null
+    }
 }
