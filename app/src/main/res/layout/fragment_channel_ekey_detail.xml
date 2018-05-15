@@ -29,6 +29,7 @@
                 style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:importantForAutofill="noExcludeDescendants"
                 android:inputType="textPersonName|textCapWords"
                 nstack:hint="@string/nstack_ekey_inputHintName" />
         </android.support.design.widget.TextInputLayout>
@@ -36,7 +37,7 @@
         <!--Pin-->
 
         <android.support.design.widget.TextInputLayout
-            android:id="@+id/pinTil"
+            android:id="@+id/cardholderTil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -44,14 +45,45 @@
             android:theme="@style/TextInputLayoutTheme">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/pinEt"
+                android:id="@+id/cardholderEt"
                 style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:importantForAutofill="noExcludeDescendants"
                 android:inputType="textPersonName|textCapWords"
-                nstack:hint="@string/nstack_ekey_inputHintPin" />
+                nstack:hint="@string/nstack_ekey_inputHintCardholder" />
         </android.support.design.widget.TextInputLayout>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/pinTil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColorHint="@color/blueGrey"
+                android:theme="@style/TextInputLayoutTheme">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/pinEt"
+                    style="@style/EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:importantForAutofill="noExcludeDescendants"
+                    android:inputType="textPassword"
+                    nstack:hint="@string/nstack_ekey_inputHintPin" />
+            </android.support.design.widget.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/pinShowPasswordIb"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="right|center"
+                android:background="@color/white"
+                android:src="@drawable/show_password_selector" />
+        </FrameLayout>
         <!--Login -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/usernameTil"
@@ -66,26 +98,41 @@
                 style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:importantForAutofill="noExcludeDescendants"
                 android:inputType="textPersonName|textCapWords"
                 nstack:hint="@string/nstack_ekey_inputHintUsername" />
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/passwordTil"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textColorHint="@color/blueGrey"
-            android:theme="@style/TextInputLayoutTheme">
+            android:layout_height="wrap_content">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/passwordEt"
-                style="@style/EditText"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/passwordTil"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="textPersonName|textCapWords"
-                nstack:hint="@string/nstack_ekey_inputHintPassword" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:textColorHint="@color/blueGrey"
+                android:theme="@style/TextInputLayoutTheme">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/passwordEt"
+                    style="@style/EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:importantForAutofill="noExcludeDescendants"
+                    android:inputType="textPersonName|textCapWords"
+                    nstack:hint="@string/nstack_ekey_inputHintPassword" />
+            </android.support.design.widget.TextInputLayout>
+
+            <ImageButton
+                android:id="@+id/loginShowPasswordIb"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="right|center"
+                android:background="@color/white"
+                android:src="@drawable/show_password_selector" />
+        </FrameLayout>
 
         <!--note-->
         <android.support.design.widget.TextInputLayout
@@ -101,16 +148,18 @@
                 style="@style/EditText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="textPersonName|textCapWords"
+                android:importantForAutofill="noExcludeDescendants"
+                android:inputType="textPersonName|textMultiLine"
                 nstack:hint="@string/nstack_ekey_inputHintNote" />
         </android.support.design.widget.TextInputLayout>
 
         <TextView
+            style="@style/text.subHeader5.quaternary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:layout_marginLeft="@dimen/margin_normal"
             android:layout_marginTop="20dp"
+            android:textSize="@dimen/text_size_subheader_6"
             nstack:text="@string/nstack_ekey_requiredFields" />
     </LinearLayout>
 </LinearLayout>

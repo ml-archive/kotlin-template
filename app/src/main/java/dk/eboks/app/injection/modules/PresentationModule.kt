@@ -35,6 +35,8 @@ import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.Eke
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentContract
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxComponentContract
 import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxDetailComponentContract
@@ -936,8 +938,15 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelControlComponentPresenter(stateManager: AppStateManager) : ChannelControlComponentContract.Presenter {
-        return ChannelControlComponentPresenter(stateManager)
+    fun provideChannelControlComponentPresenter(stateManager: AppStateManager, getChannelHomeContentInteractor: GetChannelHomeContentInteractor) : ChannelControlComponentContract.Presenter {
+        return ChannelControlComponentPresenter(stateManager, getChannelHomeContentInteractor)
+    }
+
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyOpenItemComponentPresenter(stateManager: AppStateManager) : EkeyOpenItemComponentContract.Presenter {
+        return EkeyOpenItemComponentPresenter(stateManager)
     }
 
 

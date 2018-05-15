@@ -14,6 +14,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.FingerPrintComponentFragment
@@ -21,6 +22,7 @@ import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFra
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
+import dk.eboks.app.util.dpToPx
 import dk.eboks.app.util.setVisible
 import dk.nodes.filepicker.FilePickerActivity
 import dk.nodes.filepicker.FilePickerConstants
@@ -182,10 +184,13 @@ class ProfileInfoComponentFragment : BaseFragment(),
     override fun setProfileImage(url: String?) {
         Timber.d("setProfileImage: $url")
 
+        if (!url.isNullOrEmpty()) {
+            profileDetailIv.setPadding(dpToPx(4), dpToPx(4), dpToPx(4), dpToPx(4))
+        }
         var options = RequestOptions()
         options.error(R.drawable.ic_profile)
         options.placeholder(R.drawable.ic_profile)
-        options.transforms(CenterCrop(), RoundedCorners(30))
+        options.circleCrop()
         Glide.with(context)
                 .load(url)
                 .apply(options)
@@ -195,10 +200,14 @@ class ProfileInfoComponentFragment : BaseFragment(),
     private fun setProfileImageLocal(imgfile: File) {
         Timber.d("setProfileImageLocal: $imgfile")
 
+        profileDetailIv.setPadding(dpToPx(4),dpToPx(4),dpToPx(4),dpToPx(4))
+        //todo should save image on server ?
+        presenter.saveUserImg(Uri.fromFile(imgfile).toString())
+
         var options = RequestOptions()
         options.error(R.drawable.ic_profile)
         options.placeholder(R.drawable.ic_profile)
-        options.transforms(CenterCrop(), RoundedCorners(30))
+        options.circleCrop()
         Glide.with(context)
                 .load(Uri.fromFile(imgfile))
                 .apply(options)

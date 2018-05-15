@@ -7,12 +7,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.channel.ekey.Ekey
 import dk.eboks.app.domain.models.channel.ekey.Login
 import dk.eboks.app.domain.models.channel.ekey.Note
 import dk.eboks.app.domain.models.channel.ekey.Pin
 import timber.log.Timber
 
-class BetterEkeyAdapter(private val keyList: List<ListItem>) : RecyclerView.Adapter<BetterEkeyAdapter.EKeyHolder>() {
+class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklistener: BetterEkeyAdapter.Ekeyclicklistener? = null) : RecyclerView.Adapter<BetterEkeyAdapter.EKeyHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return when (keyList[position]) {
@@ -60,7 +62,11 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>) : RecyclerView.Adap
         }
     }
 
-    class EKeyViewHolder(val root: View) : EKeyHolder(root) {
+    interface Ekeyclicklistener {
+        fun onEkeyClicked(ekey: Ekey)
+    }
+
+    inner class EKeyViewHolder(val root: View) : EKeyHolder(root) {
 
         private var logoIv = root.findViewById<ImageView>(R.id.logoIv)
         private var headingTv = root.findViewById<TextView>(R.id.headingTv)
@@ -72,16 +78,19 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>) : RecyclerView.Adap
             root.setOnClickListener {
                 //todo clicked
                 Timber.i(item.toString())
+                ekeyclicklistener?.let{
+                    it.onEkeyClicked(eKey.data)
+                }
             }
             when (eKey.data) {
                 is Note -> {
                     headingTv.text = eKey.data.name
-                    subHeadingTv.text = "_note"
+                    subHeadingTv.text = Translation.ekey.overviewNote
                     logoIv.setImageResource(R.drawable.icon_48_edit_white)
                 }
                 is Pin -> {
                     headingTv.text = eKey.data.name
-                    subHeadingTv.text = "_Pin"
+                    subHeadingTv.text = eKey.data.cardholderName
                     logoIv.setImageResource(R.drawable.icon_48_payment_white)
 
                 }

@@ -21,14 +21,14 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager) 
 
     private fun createMocks() : List<Ekey>{
         val keyList = mutableListOf<Ekey>()
-        keyList.add(Login("test1@gmail.com", "gmailPW1", "Gmail", null))
-        keyList.add(Pin("1234", "Visa", null))
+        keyList.add(Login("test1@gmail.com", "gmailPW1", "Gmail", "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"))
+        keyList.add(Pin("Peter","1234", "Visa", null))
         keyList.add(Login("test1@hotmail.com", "hotmailPW1", "Hotmail", null))
         keyList.add(Login("test1@hotmail.com", "hotmailPW1", "Hotmail", null))
         keyList.add(Login("test1@hotmail.com", "hotmailPW1", "Hotmail", null))
         keyList.add(Login("test1@hotmail.com", "hotmailPW1", "Hotmail", null))
         keyList.add(Note("Summerhouse", "Lorem ipsum dolor sit amet"))
-        keyList.add(Pin("4321", "MasterCard", null))
+        keyList.add(Pin("Knud","4321", "MasterCard", null))
 
         return keyList
     }

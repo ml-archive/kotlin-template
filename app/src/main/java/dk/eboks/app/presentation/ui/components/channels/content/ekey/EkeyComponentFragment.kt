@@ -17,8 +17,10 @@ import dk.eboks.app.domain.models.channel.ekey.Note
 import dk.eboks.app.domain.models.channel.ekey.Pin
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.util.dpToPx
+import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.fragment_channel_ekey.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -26,7 +28,22 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View {
+class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, BetterEkeyAdapter.Ekeyclicklistener {
+    override fun onEkeyClicked(ekey: Ekey) {
+        val frag = EkeyOpenItemComponentFragment()
+        when (ekey) {
+            is Login -> {
+                frag.putArg("login", ekey)
+            }
+            is Pin -> {
+                frag.putArg("pin", ekey)
+            }
+            is Note -> {
+                frag.putArg("note", ekey)
+            }
+        }
+        getBaseActivity()?.addFragmentOnTop(R.id.content, frag, true)
+    }
 
     @Inject
     lateinit var presenter: EkeyComponentContract.Presenter
@@ -45,7 +62,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View {
 
         keysContentRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         keysContentRv.addItemDecoration(DividerDecoration())
-        keysContentRv.adapter = BetterEkeyAdapter(items)
+        keysContentRv.adapter = BetterEkeyAdapter(items, this)
 
         setupTopBar()
         addItemBtn.setOnClickListener {
@@ -53,6 +70,8 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View {
         }
 
         presenter.getKeys()
+        keysContentRv.isFocusable = false
+        headerTv.requestFocus()
     }
 
     private fun setupTopBar() {
@@ -69,13 +88,23 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View {
         menuSearch?.setIcon(R.drawable.ic_settings_red)
         menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
-            getBaseActivity()?.openComponentDrawer( ChannelSettingsComponentFragment::class.java)
+            getBaseActivity()?.openComponentDrawer(ChannelSettingsComponentFragment::class.java)
             true
+        }
+    }
+
+    private fun setEmptyState(empty: Boolean) {
+        if (empty) {
+            emptyStateTv.visibility = View.VISIBLE
+        } else {
+            emptyStateTv.visibility = View.GONE
         }
     }
 
     override fun showKeys(keys: List<Ekey>) {
         items.clear()
+
+        setEmptyState(keys.isEmpty())
 
         // group by type
         keys.filter { it is Login }.forEach { items.add(EkeyItem(it)) }
@@ -85,15 +114,15 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View {
         // add headers
         var index = items.indexOfFirst { it is EkeyItem && it.data is Login }
         if (index >= 0) {
-            items.add(index, Header("_Logins_")) // TODO: translate
+            items.add(index, Header(Translation.ekey.overviewLogins))
         }
         index = items.indexOfFirst { it is EkeyItem && it.data is Pin }
         if (index >= 0) {
-            items.add(index, Header("_Pins_")) // TODO: translate
+            items.add(index, Header(Translation.ekey.overviewPins))
         }
         index = items.indexOfFirst { it is EkeyItem && it.data is Note }
         if (index >= 0) {
-            items.add(index, Header("_Notes_")) // TODO: translate
+            items.add(index, Header(Translation.ekey.overviewNotes))
         }
 
         // all done
@@ -117,10 +146,10 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View {
                 var marginLeft = dpToPx(72)
 
                 val aPos = parent.getChildAdapterPosition(child)
-                if(parent.adapter.getItemViewType(aPos) == R.layout.item_header) {
+                if (parent.adapter.getItemViewType(aPos) == R.layout.item_header) {
                     marginLeft = 0
                 }
-                if(parent.adapter.getItemViewType(aPos+1) == R.layout.item_header) {
+                if (parent.adapter.getItemViewType(aPos + 1) == R.layout.item_header) {
                     marginLeft = 0
                 }
 

@@ -7,6 +7,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
+import java.io.File
 import javax.inject.Inject
 
 class ProfileInfoComponentPresenter @Inject constructor(
@@ -39,6 +40,12 @@ class ProfileInfoComponentPresenter @Inject constructor(
             v.setVerified(currentUser.verified)
             v.setKeepMeSignedIn(false)
         }
+    }
+
+
+
+    override fun saveUserImg(uri: String) {
+        appState.state?.currentUser?.avatarUri = uri
     }
 
     override fun enableUserFingerprint(isEnabled: Boolean) {

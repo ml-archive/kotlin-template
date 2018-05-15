@@ -1,15 +1,44 @@
 package dk.eboks.app.presentation.ui.components.home.channelcontrol
 
+import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.home.HomeContent
+import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-class ChannelControlComponentPresenter @Inject constructor(val appState: AppStateManager) : ChannelControlComponentContract.Presenter, BasePresenterImpl<ChannelControlComponentContract.View>() {
+class ChannelControlComponentPresenter @Inject constructor(val appState: AppStateManager, val getChannelHomeContentInteractor: GetChannelHomeContentInteractor) :
+        ChannelControlComponentContract.Presenter,
+        BasePresenterImpl<ChannelControlComponentContract.View>(),
+        GetChannelHomeContentInteractor.Output
+{
 
     init {
+        getChannelHomeContentInteractor.output = this
     }
 
+    override fun setup() {
+        getChannelHomeContentInteractor.input = GetChannelHomeContentInteractor.Input(cached = true)
+        getChannelHomeContentInteractor.run()
+    }
+
+    override fun onGetPinnedChannelList(channels: MutableList<Channel>) {
+        runAction { v ->
+            v.showProgress(false)
+            v.setupChannels(channels)
+        }
+    }
+
+    override fun onGetChannelHomeContent(channel: Channel, content: HomeContent) {
+
+    }
+
+    override fun onGetChannelHomeContentError(error: ViewError) {
+        runAction { v->v.showErrorDialog(error) }
+    }
 }

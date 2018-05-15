@@ -13,7 +13,10 @@ class HomePresenter(val appStateManager: AppStateManager) : HomeContract.Present
     }
 
     override fun setup() {
-        runAction { v->v.addFolderPreviewComponentFragment(Folder(type = FolderType.HIGHLIGHTS)) }
+        runAction { v->
+            v.addFolderPreviewComponentFragment(Folder(type = FolderType.HIGHLIGHTS))
+            v.addChannelControlComponentFragment()
+        }
     }
 
     override fun refresh() {

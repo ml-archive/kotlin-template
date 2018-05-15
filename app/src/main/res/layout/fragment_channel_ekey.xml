@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white"
+            >
 
             <TextView
                 android:id="@+id/headerTv"
@@ -21,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:gravity="center"
-                android:text="_Headline" />
+                nstack:text="@string/nstack_ekey_overviewAddItemHeadline"/>
 
             <TextView
                 android:id="@+id/itemTextTv"
@@ -32,7 +38,7 @@
                 android:layout_marginRight="32dp"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="_Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor" />
+                nstack:text="@string/nstack_ekey_overviewAddItemText"/>
 
             <Button
                 android:id="@+id/addItemBtn"
@@ -41,7 +47,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/rounded_gradient_button"
-                android:text="_add item"
+                nstack:text="@string/nstack_ekey_overviewAddItemBtn"
                 android:textColor="@color/white"
                 android:textSize="14dp"
                 android:textStyle="normal" />
@@ -51,8 +57,21 @@
                 android:id="@+id/keysContentRv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp" />
+                android:layout_marginTop="24dp"
+                />
+
+            <TextView
+                style="@style/text.body6.secondary"
+                android:id="@+id/emptyStateTv"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/backgroundColor"
+                nstack:text="@string/nstack_ekey_noContent"
+                android:gravity="center"
+                />
 
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

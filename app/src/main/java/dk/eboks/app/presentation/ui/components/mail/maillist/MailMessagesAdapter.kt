@@ -77,6 +77,7 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
             setGeneric(currentItem)
 
             swipeLayout.isLeftSwipeEnabled = !editMode
+            swipeLayout.isRightSwipeEnabled = !editMode
 
             if (editMode) {
                 setSelectable(currentItem, last)

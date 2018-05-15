@@ -23,12 +23,17 @@
         android:layout_height="0.5dp"
         android:background="@color/dividerColor" />
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <!--Mail-->
     <LinearLayout
         android:id="@+id/loginLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="?attr/selectableItemBackground"
         android:minHeight="60dp"
         android:orientation="horizontal">
 
@@ -73,7 +78,7 @@
         android:id="@+id/cardsLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="?attr/selectableItemBackground"
         android:minHeight="60dp"
         android:orientation="horizontal">
 
@@ -118,7 +123,7 @@
         android:id="@+id/notesLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="?attr/selectableItemBackground"
         android:minHeight="60dp"
         android:orientation="horizontal">
 
@@ -156,4 +161,5 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/dividerColor" />
+    </LinearLayout>
 </LinearLayout>
