@@ -67,8 +67,9 @@ data class Note(override val name: String, override val note: String?) : Ekey(na
     }
 }
 
-data class Pin(var pin: String, override val name: String, override val note: String?) : Parcelable,Ekey(name, note) {
+data class Pin(var cardholderName: String, var pin: String, override val name: String, override val note: String?) : Parcelable,Ekey(name, note) {
     constructor(parcel: Parcel) : this(
+            parcel.readString(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString()) {
@@ -80,6 +81,7 @@ data class Pin(var pin: String, override val name: String, override val note: St
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
 //        super.writeToParcel(parcel, flags)
+        dest!!.writeString(cardholderName)
         dest!!.writeString(pin)
         dest.writeString(name)
         dest.writeString(note)

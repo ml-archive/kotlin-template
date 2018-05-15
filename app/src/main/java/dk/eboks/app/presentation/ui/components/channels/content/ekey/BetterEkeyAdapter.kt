@@ -90,7 +90,7 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
                 }
                 is Pin -> {
                     headingTv.text = eKey.data.name
-                    subHeadingTv.text = "_Cardholder name"
+                    subHeadingTv.text = eKey.data.cardholderName
                     logoIv.setImageResource(R.drawable.icon_48_payment_white)
 
                 }

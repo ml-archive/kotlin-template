@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.uploads
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
@@ -18,8 +19,12 @@ import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentFragment
 import dk.eboks.app.util.putArg
+import dk.nodes.filepicker.FilePickerActivity
+import dk.nodes.filepicker.FilePickerConstants
+import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_upload_overview_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import java.io.File
 import java.util.*
 import javax.inject.Inject
 
@@ -32,6 +37,9 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
     lateinit var presenter: UploadOverviewComponentContract.Presenter
     @Inject
     lateinit var formatter: EboksFormatter
+
+    private val CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1682
+    private val PICK_FILE_ACTIVITY_REQUEST_CODE = 4685
 
     //mock data
     var redidValues = false
@@ -80,11 +88,11 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
                 getBaseActivity()?.addFragmentOnTop(R.id.contentFl, frag, true)
             }
             fileBtn.setOnClickListener {
-                //todo something when clicking file
+                findFile()
 
             }
             photoBtn.setOnClickListener{
-                //todo something when clicking photo
+                getPhoto()
             }
             contentRowHeaderTv.visibility = View.VISIBLE
 
@@ -134,6 +142,41 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
         }
 
     }
+
+    private fun findFile() {
+        val intent = Intent(activity, FilePickerActivity::class.java)
+        intent.putExtra(FilePickerConstants.FILE, true)
+        startActivityForResult(intent, PICK_FILE_ACTIVITY_REQUEST_CODE)
+    }
+
+    private fun getPhoto() {
+        val intent = Intent(activity, FilePickerActivity::class.java)
+        intent.putExtra(FilePickerConstants.CAMERA, true)
+        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            data?.let {
+                val file = FilePickerUriHelper.getFile(activity, data)
+                val uri = FilePickerUriHelper.getUri(data)
+                uploadFile(file)
+            }
+        }
+        if (requestCode == PICK_FILE_ACTIVITY_REQUEST_CODE) {
+            data?.let {
+                val file = FilePickerUriHelper.getFile(activity, data)
+                val uri = FilePickerUriHelper.getUri(data)
+                uploadFile(file)
+            }
+        }
+
+    }
+
+    private fun uploadFile(imgfile: File) {
+        //todo upload file
+    }
+
 
 
 

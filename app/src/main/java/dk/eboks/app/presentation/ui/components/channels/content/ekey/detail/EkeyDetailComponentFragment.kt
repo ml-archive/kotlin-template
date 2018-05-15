@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.include_toolbar.*
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_channel_ekey_detail.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -75,10 +76,13 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
     private fun setupInputfields() {
         pinShowPasswordIb.visibility = View.GONE
         loginShowPasswordIb.visibility = View.GONE
+        pinTil.visibility = View.GONE
+        cardholderTil.visibility = View.GONE
+        usernameTil.visibility = View.GONE
+        passwordTil.visibility = View.GONE
 
         when (category) {
             EkeyDetailMode.LOGIN -> {
-                pinTil.visibility = View.GONE
                 usernameTil.visibility = View.VISIBLE
                 passwordTil.visibility = View.VISIBLE
 
@@ -94,8 +98,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
             }
             EkeyDetailMode.PIN -> {
                 pinTil.visibility = View.VISIBLE
-                usernameTil.visibility = View.GONE
-                passwordTil.visibility = View.GONE
+                cardholderTil.visibility = View.VISIBLE
 
                 editKey?.let {
                     if (it is Pin) {
@@ -107,10 +110,6 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
                 }
             }
             EkeyDetailMode.NOTE -> {
-                pinTil.visibility = View.GONE
-                usernameTil.visibility = View.GONE
-                passwordTil.visibility = View.GONE
-
                 editKey?.let {
                     if (it is Note) {
                         nameEt.setText(it.name)
@@ -168,7 +167,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
         menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
             //todo save clicked
             var temp = "_Save clicked"
-            println(temp)
+            Timber.e(temp)
             true
         }
     }

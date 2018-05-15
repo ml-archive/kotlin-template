@@ -5,17 +5,20 @@
     tools:ignore="MissingPrefix"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white"
+            >
 
             <TextView
                 android:id="@+id/headerTv"
@@ -54,7 +57,20 @@
                 android:id="@+id/keysContentRv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp" />
+                android:layout_marginTop="24dp"
+                />
+
+            <TextView
+                style="@style/text.body6.secondary"
+                android:id="@+id/emptyStateTv"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/backgroundColor"
+                nstack:text="@string/nstack_ekey_noContent"
+                android:gravity="center"
+                />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
