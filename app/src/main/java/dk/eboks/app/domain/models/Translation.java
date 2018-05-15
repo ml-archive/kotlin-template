@@ -316,6 +316,8 @@ public class Translation {
 		public static String fileName = "File name";
 		public static String incorrectFileName = "Incorrect filename";
 		public static String verifiedInitialAvailableSpace = "1 GB free storage available";
+		public static String notVerifiedInitialAvailableSpace = "100 MB free storage available";
+		public static String remainingText = "Left";
 	}
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";
@@ -542,6 +544,10 @@ public class Translation {
 		public static String inputHintCardholder = "Cardholder Name *";
 		public static String edit = "Edit";
 		public static String name = "Name";
+		public static String cardholderName = "Cardholder Name";
+		public static String pincode = "Pin Code";
+		public static String username = "Username";
+		public static String password = "Password";
 	}
 	public final static class storeboxlogin {
 		public static String header = "Connect your Storebox profile";
