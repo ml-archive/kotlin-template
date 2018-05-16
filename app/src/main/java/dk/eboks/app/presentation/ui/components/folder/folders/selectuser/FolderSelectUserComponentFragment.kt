@@ -44,8 +44,6 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-
-
         setup()
     }
 
@@ -77,10 +75,10 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
 
 
     private fun createMocks() {
-        sharedUsers.add(SharedUser(1, 2, "_Peter Petersen", "_Administrator", null, null))
-        sharedUsers.add(SharedUser(1, 3, "_John Johnson", "_Read only", null, null))
-        sharedUsers.add(SharedUser(1, 4, "_Søren Sørensen", "_Read only", null, null))
-        sharedUsers.add(SharedUser(1, 5, "_Ole Olsen", "_Administrator", null, null))
+        sharedUsers.add(SharedUser(1, 2, "_*Peter Petersen", "_*Administrator", null, null))
+        sharedUsers.add(SharedUser(1, 3, "_*John Johnson", "_*Read only", null, null))
+        sharedUsers.add(SharedUser(1, 4, "_*Søren Sørensen", "_*Read only", null, null))
+        sharedUsers.add(SharedUser(1, 5, "_*Ole Olsen", "_*Administrator", null, null))
     }
 
     private fun setup() {

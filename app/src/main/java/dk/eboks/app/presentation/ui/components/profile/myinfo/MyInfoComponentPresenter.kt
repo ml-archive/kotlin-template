@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.components.profile.myinfo
 
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -53,7 +54,7 @@ class MyInfoComponentPresenter @Inject constructor(
         runAction { v ->
             v.setSaveEnabled(false)
             v.showProgress(false)
-            v.showToast("_Your information was saved")
+            v.showToast(Translation.profile.yourInfoWasSaved)
         }
     }
 
