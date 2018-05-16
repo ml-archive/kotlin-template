@@ -56,17 +56,6 @@ class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
     override fun showFound() {
         Timber.i("showFound")
         supportFragmentManager.beginTransaction().replace(R.id.content, conFrag).commit()
-
-//        AlertDialog.Builder(this)
-//                .setMessage(Translation.storeboxlogin.errorAlreadyExistsMessage)
-//                .setPositiveButton(Translation.storeboxlogin.signInButton) { dialog, which ->
-//                    dialog.dismiss()
-//                }
-//                .setNegativeButton(Translation.defaultSection.ok) { dialog, which ->
-//                    dialog.dismiss()
-//                }
-//                .create()
-//                .show()
     }
 
     override fun showNotFound() {

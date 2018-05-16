@@ -121,7 +121,6 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
             linkStoreboxBtn.visibility = View.VISIBLE
             linkStoreboxBtn.setOnClickListener {
                 startActivity(Intent(context, ConnectStoreboxActivity::class.java))
-                activity.finish() // todo: double-chack that we're to close this one, or return to here after linking storebox channel
             }
         }
     }
@@ -159,15 +158,6 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
 
     override fun showVerifyDrawer(channel: Channel) {
         channel.requirements?.let {
-            var allMet = true
-            for(req in it) {
-                // TODO how to check that the requirements are met?
-                allMet = allMet && req.verified == true
-            }
-            if(allMet) {
-                presenter.open(channel)
-                return
-            }
             val data = Bundle()
             data.putSerializable("channel", channel)
             getBaseActivity()?.openComponentDrawer(ChannelRequirementsComponentFragment::class.java, data)
