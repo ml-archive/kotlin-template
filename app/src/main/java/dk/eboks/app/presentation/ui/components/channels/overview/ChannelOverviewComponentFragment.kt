@@ -20,7 +20,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.*
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity
@@ -29,7 +29,6 @@ import dk.eboks.app.util.getType
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 /**
  * Created by bison on 09-02-2018.
@@ -80,7 +79,8 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 startActivity(Intent(activity, ChannelContentActivity::class.java))
             }
             "storebox" -> {
-                startActivity(Intent(context, StoreboxContentActivity::class.java))
+//                startActivity(Intent(context, StoreboxContentActivity::class.java))
+                startActivity(Intent(activity, ChannelContentActivity::class.java))
             }
             "ekey" -> {
                 startActivity(Intent(activity, EkeyContentActivity::class.java))
@@ -155,10 +155,8 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 } else {
                     holder?.button?.text = Translation.channels.install
                 }
-
-                holder?.cardContainerCv?.setOnClickListener(View.OnClickListener {
-
-                    holder?.cardContainerCv?.animate()?.scaleX(0.9f)?.scaleY(0.9f)?.setDuration(100)?.setInterpolator(CycleInterpolator(0.5f))?.setListener(object : Animator.AnimatorListener {
+                holder?.cardContainerCv?.setOnClickListener({ v ->
+                    v.animate().scaleX(1.05f).scaleY(1.05f).setDuration(150).setInterpolator(CycleInterpolator(0.5f)).setListener(object : Animator.AnimatorListener {
                         override fun onAnimationRepeat(p0: Animator?) {}
                         override fun onAnimationEnd(p0: Animator?) {
                             presenter.openChannel(currentCard)
@@ -166,8 +164,9 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
 
                         override fun onAnimationCancel(p0: Animator?) {}
                         override fun onAnimationStart(p0: Animator?) {}
-                    })?.start()
+                    }).start()
                 })
+
             }
             holder?.root?.invalidate()
         }

@@ -49,8 +49,10 @@ interface Api {
     @GET("channels?pinned=true") fun getChannelsPinned() : Call<MutableList<Channel>>
     @GET("channels/{id}") fun getChannel(@Path("id") id : Long) : Call<Channel>
     @GET("channels/{id}/home/content") fun getChannelHomeContent(@Path("id") id : Long) : Call<HomeContent>
-    @GET("channels/storebox/receipts") fun getStoreboxReceipts() : Call<ArrayList<StoreboxReceiptItem>>
+    @GET("channels/storebox/receipts") fun getStoreboxReceipts() : Call<List<StoreboxReceiptItem>>
     @GET("channels/storebox/receipts/{id}") fun getStoreboxReceipt(@Path("id") id : String) : Call<StoreboxReceipt>
+    @POST("channels/storebox/user/signup/link") fun postLinkStorebox(@Body bodyMap: Map<String, String>) : Call<Any>
+    @POST("channels/storebox/user/signup/link/activate") fun postActivateStorebox(@Body bodyMap: Map<String, String>) : Call<Any>
 
     // groups
     @GET("groups/registrations") fun getRegistrations() : Call<Registrations> // get all my registrations

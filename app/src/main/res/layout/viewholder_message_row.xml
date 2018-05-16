@@ -179,6 +179,7 @@
             android:layout_height="0.5dp"
             android:layout_gravity="top"
             android:layout_marginLeft="72dp"
-            android:background="@color/dividerGreyBlue" />
+            android:background="@color/dividerColor" />
+
     </LinearLayout>
 </com.daimajia.swipe.SwipeLayout>

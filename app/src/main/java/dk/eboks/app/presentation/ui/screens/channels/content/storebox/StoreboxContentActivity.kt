@@ -5,8 +5,8 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentStoreboxComponentFragment
-import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentStoreboxDetailComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxDetailComponentFragment
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject

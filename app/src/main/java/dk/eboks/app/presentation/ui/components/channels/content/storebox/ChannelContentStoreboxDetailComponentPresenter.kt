@@ -1,6 +1,5 @@
-package dk.eboks.app.presentation.ui.components.channels.content
+package dk.eboks.app.presentation.ui.components.channels.content.storebox
 
-import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt

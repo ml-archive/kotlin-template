@@ -14,7 +14,7 @@
                 android:bottomRightRadius="0dp"
                 android:topLeftRadius="10dp"
                 android:topRightRadius="10dp" />
-            <stroke android:width="0.5dp" android:color="@color/dividerGreyBlue" />
+            <stroke android:width="0.5dp" android:color="@color/dividerColor" />
 
         </shape>
     </item>

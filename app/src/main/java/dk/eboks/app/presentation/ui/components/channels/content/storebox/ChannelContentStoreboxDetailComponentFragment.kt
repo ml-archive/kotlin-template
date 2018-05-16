@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.channels.content
+package dk.eboks.app.presentation.ui.components.channels.content.storebox
 
 import android.graphics.Bitmap
 import android.graphics.Color.BLACK
@@ -32,7 +32,7 @@ import javax.inject.Inject
 
 
 class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
-                                                      ChannelContentStoreboxDetailComponentContract.View {
+        ChannelContentStoreboxDetailComponentContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
     @Inject

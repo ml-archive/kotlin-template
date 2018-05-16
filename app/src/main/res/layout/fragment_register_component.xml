@@ -42,7 +42,7 @@
         nstack:key="@string/nstack_senderdetails_register"
         style="@style/button.SolidGradient.large"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half"
         android:text="nstack_senderdetails_register"/>
 
