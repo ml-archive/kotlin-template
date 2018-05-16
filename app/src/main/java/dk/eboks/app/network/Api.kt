@@ -34,7 +34,7 @@ interface Api {
     @GET("mail/categories") fun getMailCategories() : Call<List<Folder>>
     @GET("mail/folders") fun getFolders() : Call<List<Folder>>
     @GET("mail/folders/{id}/messages") fun getMessages(@Path("id") id : Long) : Call<List<Message>>
-    @GET("mail/senders/{id}/messages") fun getMessagesBySender(@Path("id") id : Long) : Call<List<Message>>
+    @GET("mail/messages/senders/{id}") fun getMessagesBySender(@Path("id") id : Long) : Call<List<Message>>
     @GET("mail/folders/{folderId}/messages/{id}") fun getMessage(@Path("id") id : String, @Path("folderId") folderId : Long, @Query("receipt") receipt : Boolean? = null, @Query("terms") terms : Boolean? = null) : Call<Message>
     @GET("mail/{type}/messages") fun getMessagesByType(@Path("type") type : String) : Call<List<Message>>
     @GET("mail/senders") fun getSenders() : Call<List<Sender>>
@@ -48,7 +48,7 @@ interface Api {
     @GET("channels") fun getChannels() : Call<MutableList<Channel>>
     @GET("channels?pinned=true") fun getChannelsPinned() : Call<MutableList<Channel>>
     @GET("channels/{id}") fun getChannel(@Path("id") id : Long) : Call<Channel>
-    @GET("channels/{id}/home/content") fun getChannelHomeContent(@Path("id") id : Long) : Call<HomeContent>
+    @GET("channels/{id}/content/home") fun getChannelHomeContent(@Path("id") id : Long) : Call<HomeContent>
     @GET("channels/storebox/receipts") fun getStoreboxReceipts() : Call<ArrayList<StoreboxReceiptItem>>
     @GET("channels/storebox/receipts/{id}") fun getStoreboxReceipt(@Path("id") id : String) : Call<StoreboxReceipt>
 
