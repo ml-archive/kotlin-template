@@ -74,6 +74,8 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         headerTv.requestFocus()
     }
 
+
+
     private fun setupTopBar() {
         getBaseActivity()?.mainTb?.menu?.clear()
 
@@ -81,7 +83,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
 
         getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         getBaseActivity()?.mainTb?.setNavigationOnClickListener {
-            getBaseActivity()?.onBackPressed()
+            getBaseActivity()?.finish()
         }
 
         val menuSearch = getBaseActivity()?.mainTb?.menu?.add("_settings")
@@ -146,10 +148,10 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
                 var marginLeft = dpToPx(72)
 
                 val aPos = parent.getChildAdapterPosition(child)
-                if (parent.adapter.getItemViewType(aPos) == R.layout.item_header) {
+                if (parent.adapter.getItemViewType(aPos) == 42762461) {
                     marginLeft = 0
                 }
-                if (parent.adapter.getItemViewType(aPos + 1) == R.layout.item_header) {
+                if (parent.adapter.getItemViewType(aPos + 1) == 42762461) {
                     marginLeft = 0
                 }
 
