@@ -9,7 +9,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface ChannelContentStoreboxComponentContract {
     interface View : BaseView {
-        fun setReceipts(data: ArrayList<StoreboxReceiptItem>)
+        fun setReceipts(data: List<StoreboxReceiptItem>)
     }
 
     interface Presenter : BasePresenter<View> {

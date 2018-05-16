@@ -318,6 +318,10 @@ public class Translation {
 		public static String verifiedInitialAvailableSpace = "1 GB free storage available";
 		public static String notVerifiedInitialAvailableSpace = "100 MB free storage available";
 		public static String remainingText = "Left";
+		public static String filesHeaderShowAll = "Show all";
+		public static String outOfStorageAlertVerify = "Verify";
+		public static String outOfStorageAlertTitle = "You are out of storage space";
+		public static String outOfStorageAlertMessage = "Verify your profile and get 1 GB free space for all your uploads";
 	}
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";
@@ -538,7 +542,7 @@ public class Translation {
 		public static String overviewLogins = "Logins";
 		public static String overviewPins = "Pin Codes";
 		public static String overviewNotes = "Notes";
-		public static String deleteDialogMsg = "Are you sure want to delete this [item]?";
+		public static String deleteDialogMsg = "Are you sure you want to remove this [item]?";
 		public static String deleteDialogRemoveBtn = "Remove";
 		public static String noContent = "You haven\'t added anything yet";
 		public static String copiedToClipboard = "Copied to clipboard!";

@@ -31,7 +31,7 @@ class ChannelContentStoreboxComponentPresenter @Inject constructor(
         getStoreboxReceiptsInteractor.run()
     }
 
-    override fun onGetReceipts(messages: ArrayList<StoreboxReceiptItem>) {
+    override fun onGetReceipts(messages: List<StoreboxReceiptItem>) {
         Timber.d("onGetReceipts: %s", messages.size)
         runAction {
             view?.setReceipts(messages)

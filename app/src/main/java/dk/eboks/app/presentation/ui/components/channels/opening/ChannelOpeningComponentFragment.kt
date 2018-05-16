@@ -54,10 +54,10 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     }
 
     override fun onResume() {
+        super.onResume()
         if (refreshChannel) {
             presenter.refreshChannel()
         }
-        super.onResume()
     }
 
 
@@ -157,13 +157,22 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
     }
 
-    override fun showVerifyDrawer(currentChannel: Channel) {
-        currentChannel?.requirements?.let {
-            var channel = Bundle()
-            channel.putSerializable("channel", currentChannel)
-            getBaseActivity()?.openComponentDrawer(ChannelRequirementsComponentFragment::class.java, channel)
+    override fun showVerifyDrawer(channel: Channel) {
+        channel.requirements?.let {
+            var allMet = true
+            for(req in it) {
+                // TODO how to check that the requirements are met?
+                allMet = allMet && req.verified == true
+            }
+            if(allMet) {
+                presenter.open(channel)
+                return
+            }
+            val data = Bundle()
+            data.putSerializable("channel", channel)
+            getBaseActivity()?.openComponentDrawer(ChannelRequirementsComponentFragment::class.java, data)
         }.guard {
-            showOpenState(currentChannel)
+            showOpenState(channel)
         }
     }
 
