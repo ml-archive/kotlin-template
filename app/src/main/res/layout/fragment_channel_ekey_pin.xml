@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="32dp"
+    android:paddingRight="32dp">
+
+    <TextView
+        style="@style/text.header3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:gravity="center"
+        android:text="_Indtast din 4-cifrede kode" />
+
+    <TextView
+        style="@style/text.subHeader5.quaternary"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_half"
+        android:text="_Lorem ipsum dolor sit amet, consectur adipiscing elit, sed do  eisumod tempor" />
+
+    <EditText
+        android:id="@+id/thief"
+        android:layout_width="1px"
+        android:layout_height="1px"
+        android:inputType="number"
+        android:maxLength="4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="1dp">
+
+        <EditText
+            android:id="@+id/pin1Et"
+            android:layout_width="56dp"
+            android:layout_height="68dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/rounded8_mask"
+            android:backgroundTint="@color/white"
+            android:elevation="2dp"
+            android:enabled="false"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:maxLength="1"
+            android:textColor="@color/darkGreyBlue"
+            android:textSize="60dp"/>
+
+        <EditText
+            android:id="@+id/pin2Et"
+            android:layout_width="56dp"
+            android:layout_height="68dp"
+            android:layout_marginRight="16dp"
+
+            android:background="@drawable/rounded8_mask"
+            android:backgroundTint="@color/white"
+            android:elevation="2dp"
+            android:enabled="false"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:maxLength="1"
+            android:textColor="@color/darkGreyBlue"
+            android:textSize="60dp"/>
+
+        <EditText
+            android:id="@+id/pin3Et"
+            android:layout_width="56dp"
+            android:layout_height="68dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/rounded8_mask"
+            android:backgroundTint="@color/white"
+            android:elevation="2dp"
+            android:enabled="false"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:maxLength="1"
+            android:textColor="@color/darkGreyBlue"
+            android:textSize="60dp"/>
+
+        <EditText
+            android:id="@+id/pin4Et"
+            android:layout_width="56dp"
+            android:layout_height="68dp"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/rounded8_mask"
+            android:backgroundTint="@color/white"
+            android:elevation="2dp"
+            android:enabled="false"
+            android:gravity="center"
+            android:inputType="numberPassword"
+            android:maxLength="1"
+            android:textColor="@color/darkGreyBlue"
+            android:textSize="60dp"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

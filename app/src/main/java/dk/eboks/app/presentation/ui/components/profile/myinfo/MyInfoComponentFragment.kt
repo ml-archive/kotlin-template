@@ -38,6 +38,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
+        newsletterSw.text = Translation.myInformation.newsletter
         onLanguageChanged(NStack.language)
         presenter.setup()
     }

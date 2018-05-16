@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              xmlns:nstack="http://schemas.android.com/apk/res-auto"
-              android:background="@color/backgroundColor"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="MissingPrefix">
 
-    <include layout="@layout/include_toolbar"  />
+    <include layout="@layout/include_toolbar" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?actionBarSize"
-        >
+        android:layout_marginTop="?actionBarSize">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fillViewport="true">
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -31,22 +30,21 @@
                     android:orientation="vertical">
 
                     <!--Name-->
-                        <com.rengwuxian.materialedittext.MaterialEditText
-                            android:id="@+id/nameEt"
-                            style="@style/EditText"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
-                            android:layout_marginTop="12dp"
-                            android:inputType="text"
-                            android:hint="_Name"
-                            nstack:hint="@string/nstack_myInformation_name"
-                            android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
-                            app:met_textColorHint="@color/blueGrey"
-                            app:met_floatingLabel="normal"
-                            app:met_floatingLabelText="_name"
-                            />
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/nameEt"
+                        style="@style/EditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="12dp"
+                        android:hint="_Name"
+                        android:inputType="text"
+                        android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
+                        app:met_floatingLabel="normal"
+                        app:met_floatingLabelText="_name"
+                        app:met_textColorHint="@color/blueGrey"
+                        nstack:hint="@string/nstack_myInformation_name" />
 
 
                     <!--Primary email-->
@@ -63,20 +61,20 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
                             android:layout_marginTop="12dp"
+                            android:hint="_Primary email"
                             android:inputType="textEmailAddress"
                             android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
-                            android:hint="_Primary email"
-                            nstack:hint="@string/nstack_myInformation_primaryEmail"
-                            app:met_primaryColor="@color/blueGrey"
-                            app:met_textColorHint="@color/blueGrey"
-                            app:met_helperText="_You will be notified by e-mail when you recieve new mail"
-                            app:met_helperTextColor="@color/blueGrey"
-                            app:met_helperTextAlwaysShown="true"
                             app:met_bottomTextSize="12dp"
                             app:met_floatingLabel="normal"
                             app:met_floatingLabelText="_Primary email"
+                            app:met_helperText="_You will be notified by e-mail when you recieve new mail"
+                            app:met_helperTextAlwaysShown="true"
+                            app:met_helperTextColor="@color/blueGrey"
                             app:met_hideUnderline="false"
-                            app:met_underlineColor="@color/dividerColor"/>
+                            app:met_primaryColor="@color/blueGrey"
+                            app:met_textColorHint="@color/blueGrey"
+                            app:met_underlineColor="@color/dividerGreyBlue"
+                            nstack:hint="@string/nstack_myInformation_primaryEmail" />
 
                         <Button
                             android:id="@+id/verifyEmailBtn"
@@ -84,12 +82,12 @@
                             android:layout_width="80dp"
                             android:layout_height="20dp"
                             android:layout_gravity="end"
-                            android:layout_marginTop="12dp"
                             android:layout_marginEnd="16dp"
-                            nstack:text="@string/nstack_myInformation_verifyEmail"
+                            android:layout_marginTop="12dp"
                             android:text="_Verify email"
                             android:textSize="7dp"
-                            android:textStyle="normal" />
+                            android:textStyle="normal"
+                            nstack:text="@string/nstack_myInformation_verifyEmail" />
 
 
                     </FrameLayout>
@@ -109,17 +107,17 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
                             android:layout_marginTop="12dp"
-                            android:inputType="textEmailAddress"
                             android:hint="_Secondary email"
-                            nstack:hint="@string/nstack_myInformation_secondaryEmail"
-                            android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
-                            app:met_textColorHint="@color/blueGrey"
+                            android:inputType="textEmailAddress"
                             android:textColorHint="@color/blueGrey"
+                            android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
                             app:met_bottomTextSize="8dp"
                             app:met_floatingLabel="normal"
                             app:met_floatingLabelText="_Secondary email"
                             app:met_hideUnderline="false"
-                            app:met_underlineColor="@color/dividerColor"/>
+                            app:met_textColorHint="@color/blueGrey"
+                            app:met_underlineColor="@color/dividerGreyBlue"
+                            nstack:hint="@string/nstack_myInformation_secondaryEmail" />
 
                         <Button
                             android:id="@+id/verifySecondaryEmailBtn"
@@ -127,12 +125,12 @@
                             android:layout_width="80dp"
                             android:layout_height="20dp"
                             android:layout_gravity="end"
-                            android:layout_marginTop="12dp"
                             android:layout_marginEnd="16dp"
-                            nstack:text="@string/nstack_myInformation_verifyEmail"
+                            android:layout_marginTop="12dp"
                             android:text="_Verify email"
                             android:textSize="7dp"
-                            android:textStyle="normal" />
+                            android:textStyle="normal"
+                            nstack:text="@string/nstack_myInformation_verifyEmail" />
 
 
                     </FrameLayout>
@@ -152,21 +150,21 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
                             android:layout_marginTop="12dp"
-                            android:paddingBottom="20dp"
-                            android:inputType="phone"
-                            nstack:hint="@string/nstack_myInformation_mobileNumber"
                             android:hint="_Mobile number"
-                            android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
-                            app:met_textColorHint="@color/blueGrey"
+                            android:inputType="phone"
+                            android:paddingBottom="20dp"
                             android:textColorHint="@color/blueGrey"
-                            app:met_helperText="_You will be notified by SMS when you recieve new mail"
-                            app:met_helperTextColor="@color/blueGrey"
-                            app:met_helperTextAlwaysShown="true"
+                            android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
                             app:met_bottomTextSize="12dp"
                             app:met_floatingLabel="normal"
                             app:met_floatingLabelText="_Mobile number"
+                            app:met_helperText="_You will be notified by SMS when you recieve new mail"
+                            app:met_helperTextAlwaysShown="true"
+                            app:met_helperTextColor="@color/blueGrey"
                             app:met_hideUnderline="false"
-                            app:met_underlineColor="@color/dividerColor"/>
+                            app:met_textColorHint="@color/blueGrey"
+                            app:met_underlineColor="@color/dividerGreyBlue"
+                            nstack:hint="@string/nstack_myInformation_mobileNumber" />
 
                         <Button
                             android:id="@+id/verifyMobileNumberBtn"
@@ -174,46 +172,59 @@
                             android:layout_width="80dp"
                             android:layout_height="20dp"
                             android:layout_gravity="end"
-                            android:layout_marginTop="12dp"
                             android:layout_marginEnd="16dp"
+                            android:layout_marginTop="12dp"
                             android:text="_Verify email"
-                            nstack:text="@string/nstack_myInformation_verifyNumber"
                             android:textSize="7dp"
-                            android:textStyle="normal" />
+                            android:textStyle="normal"
+                            nstack:text="@string/nstack_myInformation_verifyNumber" />
 
 
                     </FrameLayout>
                 </LinearLayout>
 
                 <!--Newsletter-->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/dividerGreyBlue" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="@dimen/margin_half"
+                    android:background="@color/dividerGreyBlue" />
+
                 <Switch
                     android:id="@+id/newsletterSw"
+                    style="@style/text.header4"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/margin_half"
-                    android:paddingStart="@dimen/margin_normal"
-                    android:paddingEnd="@dimen/margin_normal"
-                    nstack:text="@string/nstack_myInformation_newsletter"
-                    android:text="_newsletter"
-                    style="@style/text.header4"
                     android:background="@color/white"
-                    android:thumbTint="@color/textColorTertiary"
-                    android:trackTint="@color/textColorTertiary" />
+                    android:paddingEnd="@dimen/margin_normal"
+                    android:paddingStart="@dimen/margin_normal"
+                    android:text="_newsletter" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/dividerGreyBlue" />
 
             </LinearLayout>
         </ScrollView>
     </FrameLayout>
+
     <FrameLayout
         android:id="@+id/progressFl"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/backgroundColor">
+        android:visibility="gone">
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
 
     </FrameLayout>
 </FrameLayout>
