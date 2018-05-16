@@ -79,12 +79,20 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
         {
             val channelMap : MutableMap<Int, Deferred<HomeContent>> = HashMap()
             pinnedChannels.forEachIndexed { index, channel ->
-                // don't reload channel control from network if we just did
+                // if we had to fetch the data in emitCachedData() dont load it from the network again
                 if(controlCachedMap[index] == true || input?.cached == false) {
                     val d = async { channelsRepository.getChannelHomeContent(channel.id.toLong(), false) }
                     channelMap[index] = d
                 }
+                else // fetch from cache since it was refreshed last go
+                {
+                    val d = async { channelsRepository.getChannelHomeContent(channel.id.toLong(), true) }
+                    channelMap[index] = d
+                }
+
             }
+
+
             // force uncached controls to finish loading
             runBlocking {
                 for(entry in channelMap)

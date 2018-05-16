@@ -24,6 +24,7 @@ class DateDeserializer : JsonDeserializer<Date> {
             try {
                 return formatters[format]?.parse(jsonElement.asString) ?: Date()
             } catch (e: ParseException) {
+                throw(JsonParseException("Died parsing jsonElement ${jsonElement.asString}"))
             }
 
         }
