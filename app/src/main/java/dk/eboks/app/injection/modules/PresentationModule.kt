@@ -35,6 +35,8 @@ import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.Ekey
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentContract
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentContract
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentContract
@@ -934,6 +936,12 @@ class PresentationModule {
     @Provides
     fun provideEkeyOpenItemComponentPresenter(stateManager: AppStateManager) : EkeyOpenItemComponentContract.Presenter {
         return EkeyOpenItemComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyPinComponentPresenter(stateManager: AppStateManager) : EkeyPinComponentContract.Presenter {
+        return EkeyPinComponentPresenter(stateManager)
     }
 
     /* Pasta

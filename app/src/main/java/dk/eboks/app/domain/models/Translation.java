@@ -322,6 +322,7 @@ public class Translation {
 		public static String outOfStorageAlertVerify = "Verify";
 		public static String outOfStorageAlertTitle = "You are out of storage space";
 		public static String outOfStorageAlertMessage = "Verify your profile and get 1 GB free space for all your uploads";
+		public static String photos = "Photos";
 	}
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";
