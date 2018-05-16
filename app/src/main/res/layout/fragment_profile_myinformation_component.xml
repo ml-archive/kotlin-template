@@ -73,7 +73,7 @@
                             app:met_hideUnderline="false"
                             app:met_primaryColor="@color/blueGrey"
                             app:met_textColorHint="@color/blueGrey"
-                            app:met_underlineColor="@color/dividerGreyBlue"
+                            app:met_underlineColor="@color/dividerColor"
                             nstack:hint="@string/nstack_myInformation_primaryEmail" />
 
                         <Button
@@ -116,7 +116,7 @@
                             app:met_floatingLabelText="_Secondary email"
                             app:met_hideUnderline="false"
                             app:met_textColorHint="@color/blueGrey"
-                            app:met_underlineColor="@color/dividerGreyBlue"
+                            app:met_underlineColor="@color/dividerColor"
                             nstack:hint="@string/nstack_myInformation_secondaryEmail" />
 
                         <Button
@@ -163,7 +163,7 @@
                             app:met_helperTextColor="@color/blueGrey"
                             app:met_hideUnderline="false"
                             app:met_textColorHint="@color/blueGrey"
-                            app:met_underlineColor="@color/dividerGreyBlue"
+                            app:met_underlineColor="@color/dividerColor"
                             nstack:hint="@string/nstack_myInformation_mobileNumber" />
 
                         <Button
@@ -187,13 +187,13 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/dividerGreyBlue" />
+                    android:background="@color/dividerColor" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginTop="@dimen/margin_half"
-                    android:background="@color/dividerGreyBlue" />
+                    android:background="@color/dividerColor" />
 
                 <Switch
                     android:id="@+id/newsletterSw"
@@ -209,7 +209,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/dividerGreyBlue" />
+                    android:background="@color/dividerColor" />
 
             </LinearLayout>
         </ScrollView>
