@@ -15,6 +15,7 @@ import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Registrations
 import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.domain.models.sender.Sender
+import dk.eboks.app.domain.models.shared.BooleanReply
 import io.reactivex.Single
 import okio.BufferedSource
 import retrofit2.Call
@@ -28,6 +29,10 @@ interface Api {
     // login Mox
     @FormUrlEncoded
     @POST("http://authenticationservice20180404012549.azurewebsites.net/connect/token") fun getToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
+
+    // user
+    @GET("user/email/{email}") fun checkUserEmail(@Path("email") email : String) : Call<BooleanReply>
+    @GET("user/identity/{identity}") fun checkUserIdentity(@Path("identity") cpr : String) : Call<BooleanReply>
 
 
     // @GET("regions") fun getRegions() : Call<List<Region>>
