@@ -55,7 +55,7 @@ class FingerHintComponentPresenter @Inject constructor(
     }
 
     override fun onSuccess() {
-        Timber.d("onSuccess")
+        Timber.d("onLinkingSuccess")
         saveFingerprintEnrollmentState()
     }
 

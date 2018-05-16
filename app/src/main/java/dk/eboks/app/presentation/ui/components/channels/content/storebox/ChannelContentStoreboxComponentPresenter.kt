@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.channels.content
+package dk.eboks.app.presentation.ui.components.channels.content.storebox
 
 import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptsInteractor
@@ -31,7 +31,7 @@ class ChannelContentStoreboxComponentPresenter @Inject constructor(
         getStoreboxReceiptsInteractor.run()
     }
 
-    override fun onGetReceipts(messages: ArrayList<StoreboxReceiptItem>) {
+    override fun onGetReceipts(messages: List<StoreboxReceiptItem>) {
         Timber.d("onGetReceipts: %s", messages.size)
         runAction {
             view?.setReceipts(messages)

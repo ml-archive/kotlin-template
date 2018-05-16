@@ -15,7 +15,7 @@ data class StoreboxReceiptItem(
         @SerializedName("purchaseDate")
         var purchaseDate: Date? = null,
         @SerializedName("grandTotal")
-        var grandTotal: Currency? = null,
+        var grandTotal: Double? = null,
         @SerializedName("logo")
         var logo: StoreboxMerchantLogo? = null
 ) : Parcelable

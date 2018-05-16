@@ -11,7 +11,7 @@
         android:layout_height="0.5dp"
         android:layout_marginEnd="@dimen/margin_normal"
         android:layout_marginStart="@dimen/margin_normal"
-        android:background="@color/dividerGreyBlue" />
+        android:background="@color/dividerColor" />
 
     <LinearLayout
         android:id="@+id/contentContainer"

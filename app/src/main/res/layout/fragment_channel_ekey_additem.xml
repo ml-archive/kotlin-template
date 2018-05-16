@@ -21,7 +21,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/dividerGreyBlue" />
+        android:background="@color/dividerColor" />
 
     <LinearLayout
         android:orientation="vertical"
@@ -71,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginLeft="72dp"
-        android:background="@color/dividerGreyBlue" />
+        android:background="@color/dividerColor" />
 
     <!--Cards-->
     <LinearLayout
@@ -116,7 +116,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginLeft="72dp"
-        android:background="@color/dividerGreyBlue" />
+        android:background="@color/dividerColor" />
 
     <!--Notes-->
     <LinearLayout
@@ -160,6 +160,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/dividerGreyBlue" />
+        android:background="@color/dividerColor" />
     </LinearLayout>
 </LinearLayout>

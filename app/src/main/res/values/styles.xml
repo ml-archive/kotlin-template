@@ -219,6 +219,7 @@
 
     <style name="button.SolidGradient.large">
         <item name="android:textSize">@dimen/text_size_button_large</item>
+        <item name="android:height">52dp</item>
     </style>
 
     <style name="button.OutlineGradient">

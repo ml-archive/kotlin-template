@@ -45,7 +45,7 @@
                         android:layout_height="1dp"
                         android:layout_marginEnd="@dimen/margin_small"
                         android:layout_marginStart="@dimen/margin_small"
-                        android:background="@color/dividerGreyBlue" />
+                        android:background="@color/dividerColor" />
 
                 </LinearLayout>
 
@@ -126,7 +126,7 @@
                     android:layout_marginEnd="@dimen/margin_small"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_marginTop="@dimen/margin_normal"
-                    android:background="@color/dividerGreyBlue" />
+                    android:background="@color/dividerColor" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/storeboxDetailRvReceiptLines"
@@ -139,7 +139,7 @@
                     android:layout_marginEnd="@dimen/margin_small"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_marginTop="@dimen/margin_normal"
-                    android:background="@color/dividerGreyBlue" />
+                    android:background="@color/dividerColor" />
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -217,7 +217,7 @@
                         android:layout_marginEnd="@dimen/margin_small"
                         android:layout_marginStart="@dimen/margin_small"
                         android:layout_marginTop="@dimen/margin_normal"
-                        android:background="@color/dividerGreyBlue" />
+                        android:background="@color/dividerColor" />
 
                     <TextView
                         android:id="@+id/storeboxDetailTvOptionalHeader"
@@ -251,7 +251,7 @@
                         android:layout_marginEnd="@dimen/margin_small"
                         android:layout_marginStart="@dimen/margin_small"
                         android:layout_marginTop="@dimen/margin_normal"
-                        android:background="@color/dividerGreyBlue" />
+                        android:background="@color/dividerColor" />
 
                     <ImageView
                         android:id="@+id/storeboxDetailIvBarcode"

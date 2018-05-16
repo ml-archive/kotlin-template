@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.channels.content
+package dk.eboks.app.presentation.ui.components.channels.content.storebox
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -20,11 +20,10 @@ import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxCo
 import kotlinx.android.synthetic.main.fragment_channel_storebox_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
-import java.text.DecimalFormat
 import javax.inject.Inject
 
 class ChannelContentStoreboxComponentFragment : BaseFragment(),
-                                                ChannelContentStoreboxComponentContract.View {
+        ChannelContentStoreboxComponentContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
     @Inject
@@ -84,9 +83,10 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         getBaseActivity()?.onBackPressed()
     }
 
-    override fun setReceipts(data: ArrayList<StoreboxReceiptItem>) {
+    override fun setReceipts(data: List<StoreboxReceiptItem>) {
         Timber.d("setReceipts: %s", data.size)
-        adapter.receipts = data
+        adapter.receipts.clear()
+        adapter.receipts.addAll(data)
         adapter.notifyDataSetChanged()
     }
 
@@ -127,13 +127,13 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
                 holder?.amountDateContainer?.visibility = View.VISIBLE
                 holder?.soloAmountTv?.visibility = View.GONE
 
-                holder?.amountTv?.text = String.format("%.2f", currentReceipt.grandTotal?.value).replace(".",",")
+                holder?.amountTv?.text = String.format("%.2f", currentReceipt.grandTotal).replace(".",",")
                 holder?.dateTv?.text = formatter.formatDateRelative(currentReceipt)
             } else {
                 holder?.amountDateContainer?.visibility = View.GONE
                 holder?.soloAmountTv?.visibility = View.VISIBLE
 
-                holder?.amountTv?.text = String.format("%.2f", currentReceipt.grandTotal?.value).replace(".",",")            }
+                holder?.amountTv?.text = String.format("%.2f", currentReceipt.grandTotal).replace(".",",")            }
             if (currentReceipt.logo?.url != null) {
                 holder?.logoIv?.let {
                     Glide.with(context).load(currentReceipt.logo?.url).into(it)

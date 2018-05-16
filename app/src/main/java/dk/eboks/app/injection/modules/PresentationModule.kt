@@ -17,8 +17,10 @@ import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
+import dk.eboks.app.domain.interactors.storebox.ConfirmStoreboxInteractor
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptInteractor
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptsInteractor
+import dk.eboks.app.domain.interactors.storebox.LinkStoreboxInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
@@ -35,6 +37,10 @@ import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.Ekey
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentContract
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxDetailComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxDetailComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentContract
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentContract
@@ -137,6 +143,8 @@ import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContr
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentContract
 import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.ConnectStoreboxContract
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.ConnectStoreboxPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentContract
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewContract
@@ -834,6 +842,11 @@ class PresentationModule {
         return StoreboxContentPresenter(stateManager)
     }
 
+    @ActivityScope
+    @Provides
+    fun provideConnectStoreboxPresenter(stateManager: AppStateManager, linkStoreboxInteractor: LinkStoreboxInteractor, confirmStoreboxInteractor: ConfirmStoreboxInteractor): ConnectStoreboxContract.Presenter {
+        return ConnectStoreboxPresenter(stateManager, linkStoreboxInteractor, confirmStoreboxInteractor)
+    }
 
     @ActivityScope
     @Provides
@@ -918,6 +931,7 @@ class PresentationModule {
     fun provideEkeyOpenItemComponentPresenter(stateManager: AppStateManager) : EkeyOpenItemComponentContract.Presenter {
         return EkeyOpenItemComponentPresenter(stateManager)
     }
+
 
     /* Pasta
     @ActivityScope
