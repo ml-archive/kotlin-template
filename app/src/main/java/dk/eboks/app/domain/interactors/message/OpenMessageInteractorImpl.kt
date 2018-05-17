@@ -146,6 +146,10 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                     Timber.e("User dismissed the view, abort opening")
                     return
                 }
+                else
+                {
+                    Timber.e("View is still attached, proceeding")
+                }
             }
 
             if(isEmbeddedType(msg))

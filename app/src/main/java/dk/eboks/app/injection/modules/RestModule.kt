@@ -300,12 +300,12 @@ class RestModule {
                 // request a new token, using the stored user info
                 val tokenResponse = newTokenApi.getToken(mapOf(
                         Pair("grant_type", "password"),
-                        Pair("username", "nodes-user1"), // TODO: username + password from where? Fingerprint? nCrypt?
-                        Pair("password", "pwd"),
-                        Pair("acr_values", "activationcode:12324"), // <--- optional
+                        Pair("username", "3110276111"), // TODO: username + password from where? Fingerprint? nCrypt?
+                        Pair("password", "147258369"),
+                        Pair("acr_values", "activationcode:Cr4x3N6Q"), // <--- optional
                         Pair("scope", "mobileapi offline_access"),
-                        Pair("client_Id", "simplelogin"),
-                        Pair("secret", "2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B") // TODO: probably hardcoded
+                        Pair("client_id", "MobileApp-Long-id"),
+                        Pair("client_secret", "Mobile-Long-secret") // TODO: probably hardcoded
                 )).execute()
 
                 if (tokenResponse.isSuccessful) {

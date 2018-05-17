@@ -29,6 +29,10 @@ interface Api {
     // login Mox
     @FormUrlEncoded
     @POST("http://authenticationservice20180404012549.azurewebsites.net/connect/token") fun getToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
+    /*
+        @FormUrlEncoded
+    @POST("http://test401-oauth-api-dk.e-boks.com/connect/token") fun getToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
+     */
 
     // user
     @GET("user/email/{email}") fun checkUserEmail(@Path("email") email : String) : Call<BooleanReply>
