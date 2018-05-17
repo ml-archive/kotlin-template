@@ -7,8 +7,8 @@ data class LoginState(
         var firstLogin: Boolean = true,
         var lastUser: User? = null,
         var selectedUser: User? = null,
-        var userName: String? = null,
-        var userPassWord: String? = null,
-        var activationCode: String? = null,
+        var userName: String? = "3110276111",
+        var userPassWord: String? = "147258369",
+        var activationCode: String? = "Cr4x3N6Q",
         var kspToken: String? = null
 )

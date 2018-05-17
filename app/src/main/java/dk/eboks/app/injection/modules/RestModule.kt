@@ -326,13 +326,21 @@ class RestModule {
                     return null // todo much, much, much more drastic error here - this is when the authenticator was started without a user being selected
                 }
                 // request a new token, using the stored user info
-                val params = mapOf(
+                /*val params = mapOf(
                         Pair("grant_type", "password"),
                         Pair("username", userName!!),
                         Pair("password", password!!),
                         Pair("scope", "mobileapi offline_access"),
                         Pair("client_Id", "simplelogin"),
                         Pair("secret", "2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B") // TODO: probably hardcoded
+                )*/
+                val params = mapOf(
+                        Pair("grant_type", "password"),
+                        Pair("username", userName!!),
+                        Pair("password", password!!),
+                        Pair("scope", "mobileapi offline_access"),
+                        Pair("client_id", "MobileApp-Long-id"),
+                        Pair("client_secret", "MobileApp-Long-secret")
                 )
                 if(!actiCode.isNullOrBlank()) {
                     params.plus(Pair("acr_values", "activationcode:$actiCode"))
@@ -358,11 +366,11 @@ class RestModule {
             try {
                 // request a new token, using the stored user info
                 val tokenResponse = newTokenApi.getToken(mapOf(
-                        Pair("grant_type", "KspWebGrantValidator"),
-                        Pair("kspwebtoken", kspToken!!),
+                        Pair("token", kspToken!!),
+                        Pair("grant_type", "kspwebtoken"),
                         Pair("scope", "mobileapi offline_access"),
-                        Pair("client_Id", "tokentransform"),
-                        Pair("secret", "2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B")  // TODO: probably hardcoded
+                        Pair("client_id", "MobileApp-Long-Custom-id"),
+                        Pair("client_secret", "MobileApp-Long-Custom-secret")
                 )).execute()
 
                 if (tokenResponse.isSuccessful) {

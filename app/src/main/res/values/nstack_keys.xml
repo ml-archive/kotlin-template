@@ -30,6 +30,8 @@
   <string name='nstack_error_invalidActivationCodeNrOfChars' formatted='false'>error_invalidActivationCodeNrOfChars</string>
   <string name='nstack_error_printReceiptErrorMessage' formatted='false'>error_printReceiptErrorMessage</string>
   <string name='nstack_error_forwardReceiptErrorMessage' formatted='false'>error_forwardReceiptErrorMessage</string>
+  <string name='nstack_error_timeoutTitle' formatted='false'>error_timeoutTitle</string>
+  <string name='nstack_error_timeoutMessage' formatted='false'>error_timeoutMessage</string>
   <string name='nstack_mail_senderHeader' formatted='false'>mail_senderHeader</string>
   <string name='nstack_mail_showAllSendersButton' formatted='false'>mail_showAllSendersButton</string>
   <string name='nstack_mail_smartFolderHeader' formatted='false'>mail_smartFolderHeader</string>
@@ -73,6 +75,7 @@
   <string name='nstack_channels_drawerHeaderText' formatted='false'>channels_drawerHeaderText</string>
   <string name='nstack_channels_allowButton' formatted='false'>channels_allowButton</string>
   <string name='nstack_channels_drawerNeedsVerification' formatted='false'>channels_drawerNeedsVerification</string>
+  <string name='nstack_channels_storeboxAlreadyHaveProfileButton' formatted='false'>channels_storeboxAlreadyHaveProfileButton</string>
   <string name='nstack_senders_title' formatted='false'>senders_title</string>
   <string name='nstack_senders_registrations' formatted='false'>senders_registrations</string>
   <string name='nstack_senders_register' formatted='false'>senders_register</string>
@@ -266,6 +269,14 @@
   <string name='nstack_uploads_uploadFile' formatted='false'>uploads_uploadFile</string>
   <string name='nstack_uploads_fileName' formatted='false'>uploads_fileName</string>
   <string name='nstack_uploads_incorrectFileName' formatted='false'>uploads_incorrectFileName</string>
+  <string name='nstack_uploads_verifiedInitialAvailableSpace' formatted='false'>uploads_verifiedInitialAvailableSpace</string>
+  <string name='nstack_uploads_notVerifiedInitialAvailableSpace' formatted='false'>uploads_notVerifiedInitialAvailableSpace</string>
+  <string name='nstack_uploads_remainingText' formatted='false'>uploads_remainingText</string>
+  <string name='nstack_uploads_filesHeaderShowAll' formatted='false'>uploads_filesHeaderShowAll</string>
+  <string name='nstack_uploads_outOfStorageAlertVerify' formatted='false'>uploads_outOfStorageAlertVerify</string>
+  <string name='nstack_uploads_outOfStorageAlertTitle' formatted='false'>uploads_outOfStorageAlertTitle</string>
+  <string name='nstack_uploads_outOfStorageAlertMessage' formatted='false'>uploads_outOfStorageAlertMessage</string>
+  <string name='nstack_uploads_photos' formatted='false'>uploads_photos</string>
   <string name='nstack_loginproviders_nemidTitle' formatted='false'>loginproviders_nemidTitle</string>
   <string name='nstack_loginproviders_idPortenTitle' formatted='false'>loginproviders_idPortenTitle</string>
   <string name='nstack_loginproviders_bankSeTitle' formatted='false'>loginproviders_bankSeTitle</string>
@@ -320,6 +331,7 @@
   <string name='nstack_profile_password' formatted='false'>profile_password</string>
   <string name='nstack_profile_typeHere' formatted='false'>profile_typeHere</string>
   <string name='nstack_profile_myProfile' formatted='false'>profile_myProfile</string>
+  <string name='nstack_profile_yourInfoWasSaved' formatted='false'>profile_yourInfoWasSaved</string>
   <string name='nstack_myInformation_title' formatted='false'>myInformation_title</string>
   <string name='nstack_myInformation_name' formatted='false'>myInformation_name</string>
   <string name='nstack_myInformation_primaryEmail' formatted='false'>myInformation_primaryEmail</string>
@@ -364,6 +376,10 @@
   <string name='nstack_channelsettings_receiptsSubtitle' formatted='false'>channelsettings_receiptsSubtitle</string>
   <string name='nstack_channelsettings_addAnotherCard' formatted='false'>channelsettings_addAnotherCard</string>
   <string name='nstack_storeboxlist_title' formatted='false'>storeboxlist_title</string>
+  <string name='nstack_storeboxlist_emptyCardsHeader' formatted='false'>storeboxlist_emptyCardsHeader</string>
+  <string name='nstack_storeboxlist_emptyCardsMessage' formatted='false'>storeboxlist_emptyCardsMessage</string>
+  <string name='nstack_storeboxlist_addCardButton' formatted='false'>storeboxlist_addCardButton</string>
+  <string name='nstack_storeboxlist_emptyLabel' formatted='false'>storeboxlist_emptyLabel</string>
   <string name='nstack_storeboxreceipt_orderNo' formatted='false'>storeboxreceipt_orderNo</string>
   <string name='nstack_storeboxreceipt_receipt' formatted='false'>storeboxreceipt_receipt</string>
   <string name='nstack_storeboxreceipt_deliveredByStorebox' formatted='false'>storeboxreceipt_deliveredByStorebox</string>
@@ -422,4 +438,68 @@
   <string name='nstack_inbox_actionMarkAsRead' formatted='false'>inbox_actionMarkAsRead</string>
   <string name='nstack_inbox_editButton' formatted='false'>inbox_editButton</string>
   <string name='nstack_inbox_actionMarkAsUnread' formatted='false'>inbox_actionMarkAsUnread</string>
+  <string name='nstack_sharedusers_title' formatted='false'>sharedusers_title</string>
+  <string name='nstack_sharedusers_sharedAccountsHeader' formatted='false'>sharedusers_sharedAccountsHeader</string>
+  <string name='nstack_sharedusers_permissionA' formatted='false'>sharedusers_permissionA</string>
+  <string name='nstack_sharedusers_permissionL' formatted='false'>sharedusers_permissionL</string>
+  <string name='nstack_sharedusers_permissionF' formatted='false'>sharedusers_permissionF</string>
+  <string name='nstack_sharedusers_permissionO' formatted='false'>sharedusers_permissionO</string>
+  <string name='nstack_sharedusers_myProfile' formatted='false'>sharedusers_myProfile</string>
+  <string name='nstack_ekey_topBarTitle' formatted='false'>ekey_topBarTitle</string>
+  <string name='nstack_ekey_addItemTopBarTitle' formatted='false'>ekey_addItemTopBarTitle</string>
+  <string name='nstack_ekey_addItemLogin' formatted='false'>ekey_addItemLogin</string>
+  <string name='nstack_ekey_addItemCards' formatted='false'>ekey_addItemCards</string>
+  <string name='nstack_ekey_addItemNote' formatted='false'>ekey_addItemNote</string>
+  <string name='nstack_ekey_addItemSelectCategory' formatted='false'>ekey_addItemSelectCategory</string>
+  <string name='nstack_ekey_saveTopbar' formatted='false'>ekey_saveTopbar</string>
+  <string name='nstack_ekey_inputHintName' formatted='false'>ekey_inputHintName</string>
+  <string name='nstack_ekey_inputHintNote' formatted='false'>ekey_inputHintNote</string>
+  <string name='nstack_ekey_requiredFields' formatted='false'>ekey_requiredFields</string>
+  <string name='nstack_ekey_inputHintPin' formatted='false'>ekey_inputHintPin</string>
+  <string name='nstack_ekey_inputHintUsername' formatted='false'>ekey_inputHintUsername</string>
+  <string name='nstack_ekey_inputHintPassword' formatted='false'>ekey_inputHintPassword</string>
+  <string name='nstack_ekey_overviewAddItemHeadline' formatted='false'>ekey_overviewAddItemHeadline</string>
+  <string name='nstack_ekey_overviewAddItemText' formatted='false'>ekey_overviewAddItemText</string>
+  <string name='nstack_ekey_overviewAddItemBtn' formatted='false'>ekey_overviewAddItemBtn</string>
+  <string name='nstack_ekey_overviewNote' formatted='false'>ekey_overviewNote</string>
+  <string name='nstack_ekey_overviewLogins' formatted='false'>ekey_overviewLogins</string>
+  <string name='nstack_ekey_overviewPins' formatted='false'>ekey_overviewPins</string>
+  <string name='nstack_ekey_overviewNotes' formatted='false'>ekey_overviewNotes</string>
+  <string name='nstack_ekey_deleteDialogMsg' formatted='false'>ekey_deleteDialogMsg</string>
+  <string name='nstack_ekey_deleteDialogRemoveBtn' formatted='false'>ekey_deleteDialogRemoveBtn</string>
+  <string name='nstack_ekey_noContent' formatted='false'>ekey_noContent</string>
+  <string name='nstack_ekey_copiedToClipboard' formatted='false'>ekey_copiedToClipboard</string>
+  <string name='nstack_ekey_inputHintCardholder' formatted='false'>ekey_inputHintCardholder</string>
+  <string name='nstack_ekey_edit' formatted='false'>ekey_edit</string>
+  <string name='nstack_ekey_name' formatted='false'>ekey_name</string>
+  <string name='nstack_ekey_cardholderName' formatted='false'>ekey_cardholderName</string>
+  <string name='nstack_ekey_pincode' formatted='false'>ekey_pincode</string>
+  <string name='nstack_ekey_username' formatted='false'>ekey_username</string>
+  <string name='nstack_ekey_password' formatted='false'>ekey_password</string>
+  <string name='nstack_ekey_addItemCardsSubtitle' formatted='false'>ekey_addItemCardsSubtitle</string>
+  <string name='nstack_ekey_addItemLoginSubtitle' formatted='false'>ekey_addItemLoginSubtitle</string>
+  <string name='nstack_ekey_addItemNoteSubtitle' formatted='false'>ekey_addItemNoteSubtitle</string>
+  <string name='nstack_ekey_addPinCode' formatted='false'>ekey_addPinCode</string>
+  <string name='nstack_storeboxlogin_header' formatted='false'>storeboxlogin_header</string>
+  <string name='nstack_storeboxlogin_subheader' formatted='false'>storeboxlogin_subheader</string>
+  <string name='nstack_storeboxlogin_title' formatted='false'>storeboxlogin_title</string>
+  <string name='nstack_storeboxlogin_emailHeader' formatted='false'>storeboxlogin_emailHeader</string>
+  <string name='nstack_storeboxlogin_phoneHeader' formatted='false'>storeboxlogin_phoneHeader</string>
+  <string name='nstack_storeboxlogin_required' formatted='false'>storeboxlogin_required</string>
+  <string name='nstack_storeboxlogin_placeholder' formatted='false'>storeboxlogin_placeholder</string>
+  <string name='nstack_storeboxlogin_errorNoExistingProfileMessage' formatted='false'>storeboxlogin_errorNoExistingProfileMessage</string>
+  <string name='nstack_storeboxlogin_createUserButton' formatted='false'>storeboxlogin_createUserButton</string>
+  <string name='nstack_storeboxlogin_errorAlreadyExistsMessage' formatted='false'>storeboxlogin_errorAlreadyExistsMessage</string>
+  <string name='nstack_storeboxlogin_signInButton' formatted='false'>storeboxlogin_signInButton</string>
+  <string name='nstack_storeboxlogin_continueButton' formatted='false'>storeboxlogin_continueButton</string>
+  <string name='nstack_storeboxlogin_tryAgainButton' formatted='false'>storeboxlogin_tryAgainButton</string>
+  <string name='nstack_storeboxverify_header' formatted='false'>storeboxverify_header</string>
+  <string name='nstack_storeboxverify_subheader' formatted='false'>storeboxverify_subheader</string>
+  <string name='nstack_storeboxverify_confirmationCodeHeader' formatted='false'>storeboxverify_confirmationCodeHeader</string>
+  <string name='nstack_uploadspreview_uploadsHeader' formatted='false'>uploadspreview_uploadsHeader</string>
+  <string name='nstack_uploadspreview_folderTitle' formatted='false'>uploadspreview_folderTitle</string>
+  <string name='nstack_uploadspreview_fileTitle' formatted='false'>uploadspreview_fileTitle</string>
+  <string name='nstack_uploadspreview_uploadPreview' formatted='false'>uploadspreview_uploadPreview</string>
+  <string name='nstack_uploadspreview_defaultFolder' formatted='false'>uploadspreview_defaultFolder</string>
+  <string name='nstack_uploadspreview_noPreviewAvailable' formatted='false'>uploadspreview_noPreviewAvailable</string>
 </resources>

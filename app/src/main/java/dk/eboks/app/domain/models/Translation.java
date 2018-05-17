@@ -40,6 +40,8 @@ public class Translation {
 		public static String invalidActivationCodeNrOfChars = "Invalid activation code. Must be [numberOfChars] chars.";
 		public static String printReceiptErrorMessage = "Cannot print receipt";
 		public static String forwardReceiptErrorMessage = "Cannot forward receipt";
+		public static String timeoutTitle = "Timeout";
+		public static String timeoutMessage = "The request timed out";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -93,6 +95,7 @@ public class Translation {
 		public static String drawerHeaderText = "The [channelname] channel needs the following information to create a user for you.";
 		public static String allowButton = "Allow";
 		public static String drawerNeedsVerification = "Needs verification";
+		public static String storeboxAlreadyHaveProfileButton = "I already have a Storebox profile";
 	}
 	public final static class senders {
 		public static String title = "Senders";
@@ -312,6 +315,14 @@ public class Translation {
 		public static String uploadFile = "Upload file";
 		public static String fileName = "File name";
 		public static String incorrectFileName = "Incorrect filename";
+		public static String verifiedInitialAvailableSpace = "1 GB free storage available";
+		public static String notVerifiedInitialAvailableSpace = "100 MB free storage available";
+		public static String remainingText = "Left";
+		public static String filesHeaderShowAll = "Show all";
+		public static String outOfStorageAlertVerify = "Verify";
+		public static String outOfStorageAlertTitle = "You are out of storage space";
+		public static String outOfStorageAlertMessage = "Verify your profile and get 1 GB free space for all your uploads";
+		public static String photos = "Photos";
 	}
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";
@@ -344,7 +355,7 @@ public class Translation {
 		public static String verifyingAccountBody = "You will need to sign in with NemID. Don\'t worry, it\'s a one time thing. You will be sent to the NemID app to log in.";
 		public static String logOnWithNemID = "Log on with NemID";
 		public static String verifyEmailHeader = "Verify your Email";
-		public static String verifyEmailText = "Confirm your email by clicking the link sent to you by e-mail to: helenachristensen@gmail.com";
+		public static String verifyEmailText = "Confirm your email by clicking the link sent to you by e-mail to: [email]";
 		public static String verifyEmailBtn = "Resend confirmation email";
 		public static String verifyEmailCancel = "Cancel";
 		public static String fingerHintTitle = "Enable Mobile access to use fingerprint";
@@ -357,7 +368,7 @@ public class Translation {
 		public static String mergeAccountBtn = "Merge my profiles";
 		public static String mergeAccountCancel = "Keep profiles seperated";
 		public static String verifyMobilHeader = "Verify your mobile number";
-		public static String verifyMobilText = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Integer cursus dui.";
+		public static String verifyMobilText = "Confirm your mobile number by entering the code sent to you by SMS on [mobileNumber]";
 		public static String verifyMobilResend = "Resend code";
 		public static String verifyMobileContinueBtn = "Continue";
 		public static String verifyMobilCancel = "Cancel";
@@ -370,6 +381,7 @@ public class Translation {
 		public static String password = "Password";
 		public static String typeHere = "Type here";
 		public static String myProfile = "My profile";
+		public static String yourInfoWasSaved = "Your information was saved";
 	}
 	public final static class myInformation {
 		public static String title = "My Information";
@@ -424,6 +436,10 @@ public class Translation {
 	}
 	public final static class storeboxlist {
 		public static String title = "Storebox";
+		public static String emptyCardsHeader = "Get started";
+		public static String emptyCardsMessage = "To receive your receipts in Storebox, \u2028you need to add a credit card.";
+		public static String addCardButton = "Add credit card";
+		public static String emptyLabel = "No receipts to show yet";
 	}
 	public final static class storeboxreceipt {
 		public static String orderNo = "Order nr.";
@@ -440,7 +456,7 @@ public class Translation {
 		public static String creditCardsSectionHeader = "Credit cards";
 		public static String addCardTitle = "Add another credit card";
 		public static String deleteCardAlertTitle = "Are you sure you want to remove this credit card?";
-		public static String deleteCardAlertButton = "REMOVE";
+		public static String deleteCardAlertButton = "Remove";
 		public static String deleteCardCancelButton = "CANCEL";
 		public static String removeChannelTitle = "Are you sure you want to remove this channel?";
 		public static String removeChannelMessage = "Removing this channel will delete it from your e-boks app, but will not delete your user at storebox.";
@@ -496,5 +512,79 @@ public class Translation {
 		public static String actionMarkAsRead = "Mark as read";
 		public static String editButton = "Edit";
 		public static String actionMarkAsUnread = "Mark as unread";
+	}
+	public final static class sharedusers {
+		public static String title = "Select user";
+		public static String sharedAccountsHeader = "My shared accounts";
+		public static String permissionA = "Administrator";
+		public static String permissionL = "Read only";
+		public static String permissionF = "Editor";
+		public static String permissionO = "Administration access (mail from authorities)";
+		public static String myProfile = "My profile";
+	}
+	public final static class ekey {
+		public static String topBarTitle = "e-Key";
+		public static String addItemTopBarTitle = "Add item";
+		public static String addItemLogin = "Login";
+		public static String addItemCards = "Pin Code";
+		public static String addItemNote = "Note";
+		public static String addItemSelectCategory = "Select Category";
+		public static String saveTopbar = "Add [item]";
+		public static String inputHintName = "Name *";
+		public static String inputHintNote = "Note";
+		public static String requiredFields = "*Required fields";
+		public static String inputHintPin = "Pin Code *";
+		public static String inputHintUsername = "Username *";
+		public static String inputHintPassword = "Password *";
+		public static String overviewAddItemHeadline = "Headline";
+		public static String overviewAddItemText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
+		public static String overviewAddItemBtn = "Add Item";
+		public static String overviewNote = "Note";
+		public static String overviewLogins = "Logins";
+		public static String overviewPins = "Pin Codes";
+		public static String overviewNotes = "Notes";
+		public static String deleteDialogMsg = "Are you sure you want to remove this [item]?";
+		public static String deleteDialogRemoveBtn = "Remove";
+		public static String noContent = "You haven\'t added anything yet";
+		public static String copiedToClipboard = "Copied to clipboard!";
+		public static String inputHintCardholder = "Cardholder Name *";
+		public static String edit = "Edit";
+		public static String name = "Name";
+		public static String cardholderName = "Cardholder Name";
+		public static String pincode = "Pin Code";
+		public static String username = "Username";
+		public static String password = "Password";
+		public static String addItemCardsSubtitle = "Pin Codes to your creditcards";
+		public static String addItemLoginSubtitle = "E.g. Mail, Facebook";
+		public static String addItemNoteSubtitle = "E.g. Lorem ipsum dolor";
+		public static String addPinCode = "Add Pin Code";
+	}
+	public final static class storeboxlogin {
+		public static String header = "Connect your Storebox profile";
+		public static String subheader = "Connect your Storebox profile to e-Boks by entering the email address and optional mobile number from your Storebox Profile.";
+		public static String title = "Sign in";
+		public static String emailHeader = "Email";
+		public static String phoneHeader = "Phone number";
+		public static String required = "Required";
+		public static String placeholder = "Type here";
+		public static String errorNoExistingProfileMessage = "We couldn\'t find an exisiting Storebox profile with this email";
+		public static String createUserButton = "Create user";
+		public static String errorAlreadyExistsMessage = "You already have a Storebox account with this information";
+		public static String signInButton = "Sign in";
+		public static String continueButton = "Continue";
+		public static String tryAgainButton = "Try again";
+	}
+	public final static class storeboxverify {
+		public static String header = "We sent you a confirmation code";
+		public static String subheader = "Find the confirmation we just sent you, and type it in below to verify your identity.";
+		public static String confirmationCodeHeader = "Confirmation code";
+	}
+	public final static class uploadspreview {
+		public static String uploadsHeader = "Upload File";
+		public static String folderTitle = "Folder";
+		public static String fileTitle = "File name";
+		public static String uploadPreview = "Save";
+		public static String defaultFolder = "Default";
+		public static String noPreviewAvailable = "No preview available";
 	}
 }

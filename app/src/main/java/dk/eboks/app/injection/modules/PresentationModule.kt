@@ -510,8 +510,7 @@ class PresentationModule {
     ): LoginComponentContract.Presenter {
         return LoginComponentPresenter(
                 stateManager,
-                createUserInteractor,
-                postAuthenticateUserInteractor
+                createUserInteractor
         )
     }
 
