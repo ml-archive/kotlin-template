@@ -11,6 +11,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentFragment
 import dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity
@@ -28,6 +29,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
 
     var parentFolder: Folder? = null
     var editFolder: Folder? = null
+    var rootFolderName: String? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_folder_newfolder, container, false)
@@ -51,8 +53,8 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
 
     private fun setup() {
 
-        when (mode){
-            FolderDrawerMode.EDIT->{
+        when (mode) {
+            FolderDrawerMode.EDIT -> {
                 titleTv.text = Translation.folders.editFolder
                 folderRootTv.text = parentFolder?.name
                 deleteIv.visibility = View.VISIBLE
@@ -65,7 +67,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                 }
             }
 
-            FolderDrawerMode.NEW->{
+            FolderDrawerMode.NEW -> {
                 deleteIv.visibility = View.GONE
             }
         }
@@ -105,9 +107,13 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                     when (mode) {
                         FolderDrawerMode.NEW -> {
                             parentFolder = data?.getSerializableExtra("res") as Folder
-                            folderRootTv.text = parentFolder?.name
+                            if (parentFolder?.type == FolderType.INBOX) {
+                                folderRootTv.text = rootFolderName
+                            } else {
+                                folderRootTv.text = parentFolder?.name
+                            }
                         }
-                        FolderDrawerMode.EDIT ->{
+                        FolderDrawerMode.EDIT -> {
                             // todo API move folder to new location
                             parentFolder = data?.getSerializableExtra("res") as Folder
                             folderRootTv.text = parentFolder?.name
@@ -122,8 +128,9 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
 
     override fun setRootFolder(name: String) {
         //should only set root folder if there is no selected parrentfolder
+        rootFolderName = name
         if (parentFolder == null) {
-            folderRootTv.text = name
+            folderRootTv.text = rootFolderName
         }
     }
 }

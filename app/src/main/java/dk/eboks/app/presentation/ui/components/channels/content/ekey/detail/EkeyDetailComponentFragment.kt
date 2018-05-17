@@ -99,6 +99,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
             EkeyDetailMode.PIN -> {
                 pinTil.visibility = View.VISIBLE
                 cardholderTil.visibility = View.VISIBLE
+                nameTil.hint = Translation.ekey.inputHintCardtype
 
                 editKey?.let {
                     if (it is Pin) {
@@ -144,7 +145,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
                 item = Translation.ekey.addItemLogin
             }
             EkeyDetailMode.PIN -> {
-                item = Translation.ekey.addItemCards
+                item = Translation.ekey.addPinCode
             }
             EkeyDetailMode.NOTE -> {
                 item = Translation.ekey.addItemNote

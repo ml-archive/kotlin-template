@@ -554,6 +554,12 @@ public class Translation {
 		public static String pincode = "Pin Code";
 		public static String username = "Username";
 		public static String password = "Password";
+		public static String addItemCardsSubtitle = "Pin Codes to your creditcards";
+		public static String addItemLoginSubtitle = "E.g. Mail, Facebook";
+		public static String addItemNoteSubtitle = "E.g. Lorem ipsum dolor";
+		public static String addPinCode = "Add Pin Code";
+		public static String inputHintCardtype = "Card type *";
+		public static String cardType = "Card Type";
 	}
 	public final static class storeboxlogin {
 		public static String header = "Connect your Storebox profile";
@@ -574,5 +580,13 @@ public class Translation {
 		public static String header = "We sent you a confirmation code";
 		public static String subheader = "Find the confirmation we just sent you, and type it in below to verify your identity.";
 		public static String confirmationCodeHeader = "Confirmation code";
+	}
+	public final static class uploadspreview {
+		public static String uploadsHeader = "Upload File";
+		public static String folderTitle = "Folder";
+		public static String fileTitle = "File name";
+		public static String uploadPreview = "Save";
+		public static String defaultFolder = "Default";
+		public static String noPreviewAvailable = "No preview available";
 	}
 }

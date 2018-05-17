@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.profile.myinfo
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
@@ -47,6 +49,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.setNavigationOnClickListener {
+            hideKeyboard()
             activity.onBackPressed()
         }
 
@@ -58,6 +61,11 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
             true
         }
 
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
     private fun attachListeners() {
