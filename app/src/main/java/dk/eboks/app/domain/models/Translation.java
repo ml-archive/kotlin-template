@@ -560,6 +560,7 @@ public class Translation {
 		public static String addPinCode = "Add Pin Code";
 		public static String inputHintCardtype = "Card type *";
 		public static String cardType = "Card Type";
+		public static String overviewEkey = "e-Key";
 	}
 	public final static class storeboxlogin {
 		public static String header = "Connect your Storebox profile";

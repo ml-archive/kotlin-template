@@ -482,6 +482,7 @@
   <string name='nstack_ekey_addPinCode' formatted='false'>ekey_addPinCode</string>
   <string name='nstack_ekey_inputHintCardtype' formatted='false'>ekey_inputHintCardtype</string>
   <string name='nstack_ekey_cardType' formatted='false'>ekey_cardType</string>
+  <string name='nstack_ekey_overviewEkey' formatted='false'>ekey_overviewEkey</string>
   <string name='nstack_storeboxlogin_header' formatted='false'>storeboxlogin_header</string>
   <string name='nstack_storeboxlogin_subheader' formatted='false'>storeboxlogin_subheader</string>
   <string name='nstack_storeboxlogin_title' formatted='false'>storeboxlogin_title</string>

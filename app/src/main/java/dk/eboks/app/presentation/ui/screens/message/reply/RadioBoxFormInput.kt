@@ -46,6 +46,7 @@ class RadioBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
                 rb.text = option.value
                 rb.tag = option
 
+                radioGroup?.addView(rb)
                 // preselect an option from the server
                 formInput.value?.let { value ->
                     if(value == option.value)
@@ -54,7 +55,6 @@ class RadioBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
                         rb.isChecked = true
                     }
                 }
-                radioGroup?.addView(rb)
             }
         }
         radioGroup?.setOnCheckedChangeListener({radioGroup, i ->

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="right|center_vertical"
     android:layout_marginBottom="16dp"
     android:layout_marginRight="24dp"
@@ -18,11 +19,12 @@
         android:textColor="@color/white"
         android:visibility="gone" />
 
+    <!-- Using android: backgroundtint will crash on android 5-->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/buttonFab"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:backgroundTint="@color/white"
+        app:backgroundTint="@color/white"
         android:clickable="true"
         android:src="@drawable/icon_48_share_red"
         android:visibility="gone" />
