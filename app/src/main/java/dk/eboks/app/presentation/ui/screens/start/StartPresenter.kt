@@ -58,6 +58,7 @@ class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteract
     }
 
     override fun onGetUserError(error: ViewError) {
+        Timber.w("WARNING: SERVER COULDN'T FIND THE USER")
         runAction { v ->
             v.showUserCarouselComponent()
         }

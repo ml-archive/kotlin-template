@@ -109,21 +109,21 @@ class RestModule {
                 .authenticator(eAuth2)
                 //.addInterceptor(eboksHeaderInterceptor)
                 .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
-                .addInterceptor { chain ->
-                    var request = chain.request()
-                    var token: AccessToken? = null
-                    try {
-                        token = Gson().fromJson<AccessToken>(prefManager.getString(Keys.keyAccesstoken, ""), AccessToken::class.java)
-                        token?.let {
-                            request = chain.request().newBuilder()
-                                    .header("Authorization", it.token_type + " " + it.access_token)
-                                    .build()
-                        }
-                    } catch (e: Throwable) {
-                        Timber.w("Couldn't load AccessToken from prefs")
-                    }
-                    chain.proceed(request)
-                }
+//                .addInterceptor { chain ->
+//                    var request = chain.request()
+//                    var token: AccessToken? = null
+//                    try {
+//                        token = Gson().fromJson<AccessToken>(prefManager.getString(Keys.keyAccesstoken, ""), AccessToken::class.java)
+//                        token?.let {
+//                            request = chain.request().newBuilder()
+//                                    .header("Authorization", it.token_type + " " + it.access_token)
+//                                    .build()
+//                        }
+//                    } catch (e: Throwable) {
+//                        Timber.w("Couldn't load AccessToken from prefs")
+//                    }
+//                    chain.proceed(request)
+//                }
 
 
         // this only work if we use retrofit enqueue() which in turn uses okhttp enqueue
@@ -214,8 +214,6 @@ class RestModule {
     inner class EAuth2(val prefManager: PrefManager, val appStateManager: AppStateManager) : Authenticator {
 
         private var newTokenApi: Api
-        private var transformTokenApi: Api
-        // TODO maybe we need separate api-clients for other auth-calls?
 
         @Inject
         lateinit var executer: Executor
@@ -233,20 +231,6 @@ class RestModule {
                     .addInterceptor { chain ->
                         val originalRequest = chain.request()
                         val newRequest = originalRequest.newBuilder()
-                                .header("Authorization", "Basic c2ltcGxlbG9naW46c2VjcmV0")  // NOTE: The basic token is different!
-                                .build()
-                        chain.proceed(newRequest)
-                    }
-                    .build()
-            val transformTokenClient = provideHttpClient(
-                    provideEboksHeaderInterceptor(
-                            provideProtocolManager()
-                    ), this, prefManager)
-                    .newBuilder()
-                    .addInterceptor { chain ->
-                        val originalRequest = chain.request()
-                        val newRequest = originalRequest.newBuilder()
-                                .header("Authorization", "Basic dG9rZW50cmFuc2Zvcm06c2VjcmV0")  // NOTE: The basic token is different!
                                 .build()
                         chain.proceed(newRequest)
                     }
@@ -255,18 +239,6 @@ class RestModule {
             newTokenApi = provideApi(
                     provideRetrofit(
                             newTokenClient,
-                            provideGsonConverter(
-                                    provideGson(
-                                            provideTypeFactory(),
-                                            provideDateDeserializer()
-                                    )
-                            ),
-                            provideBaseUrlString()
-                    )
-            )
-            transformTokenApi = provideApi(
-                    provideRetrofit(
-                            transformTokenClient,
                             provideGsonConverter(
                                     provideGson(
                                             provideTypeFactory(),
