@@ -109,67 +109,11 @@ class RestModule {
                 .authenticator(eAuth2)
                 //.addInterceptor(eboksHeaderInterceptor)
                 .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
-//                .addInterceptor { chain ->
-//                    var request = chain.request()
-//                    var token: AccessToken? = null
-//                    try {
-//                        token = Gson().fromJson<AccessToken>(prefManager.getString(Keys.keyAccesstoken, ""), AccessToken::class.java)
-//                        token?.let {
-//                            request = chain.request().newBuilder()
-//                                    .header("Authorization", it.token_type + " " + it.access_token)
-//                                    .build()
-//                        }
-//                    } catch (e: Throwable) {
-//                        Timber.w("Couldn't load AccessToken from prefs")
-//                    }
-//                    chain.proceed(request)
-//                }
-
-
-        // this only work if we use retrofit enqueue() which in turn uses okhttp enqueue
-        // pipelining is solved in a baseclass of the repositories instead
-        /*
-        if(BuildConfig.FORCE_REQUEST_PIPELINING)
-            clientBuilder.dispatcher(Dispatcher(Executors.newSingleThreadExecutor()))
-        */
-
-        if (BuildConfig.MOCK_API_ENABLED) {
-//            clientBuilder.addInterceptor(MockHeaderInterceptor())
-        }
 
         if (BuildConfig.DEBUG) {
             val logging = okhttp3.logging.HttpLoggingInterceptor()
             logging.level = okhttp3.logging.HttpLoggingInterceptor.Level.BODY
             clientBuilder.addInterceptor(logging)
-
-            /*
-            try {
-                // Create a trust manager that does not validate certificate chains
-                val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-                    @Throws(CertificateException::class)
-                    override fun checkClientTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {
-                    }
-
-                    @Throws(CertificateException::class)
-                    override fun checkServerTrusted(chain: Array<java.security.cert.X509Certificate>, authType: String) {
-                    }
-
-                    override fun getAcceptedIssuers(): Array<java.security.cert.X509Certificate> {
-                        return arrayOf()
-                    }
-                })
-
-                // Install the all-trusting trust manager
-                val sslContext = SSLContext.getInstance("SSL")
-                sslContext.init(null, trustAllCerts, java.security.SecureRandom())
-                // Create an ssl socket factory with our all-trusting manager
-                val sslSocketFactory = sslContext.socketFactory
-                clientBuilder.sslSocketFactory(sslSocketFactory)
-                clientBuilder.hostnameVerifier(HostnameVerifier { hostname, session -> true })
-            } catch (e: Exception) {
-                throw RuntimeException(e)
-            }
-            */
         }
 
         return clientBuilder.build()
@@ -184,7 +128,6 @@ class RestModule {
         return Retrofit.Builder()
                 .client(client)
                 .baseUrl(baseUrl)
-                //.addConverterFactory(SimpleXmlConverterFactory.createNonStrict(Persister(AnnotationStrategy())))
                 .addConverterFactory(BufferedSourceConverterFactory())
                 .addConverterFactory(converter)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -228,12 +171,6 @@ class RestModule {
                             provideProtocolManager()
                     ), this, prefManager)
                     .newBuilder()
-                    .addInterceptor { chain ->
-                        val originalRequest = chain.request()
-                        val newRequest = originalRequest.newBuilder()
-                                .build()
-                        chain.proceed(newRequest)
-                    }
                     .build()
 
             newTokenApi = provideApi(
@@ -298,14 +235,6 @@ class RestModule {
                     return null // todo much, much, much more drastic error here - this is when the authenticator was started without a user being selected
                 }
                 // request a new token, using the stored user info
-                /*val params = mapOf(
-                        Pair("grant_type", "password"),
-                        Pair("username", userName!!),
-                        Pair("password", password!!),
-                        Pair("scope", "mobileapi offline_access"),
-                        Pair("client_Id", "simplelogin"),
-                        Pair("secret", "2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B") // TODO: probably hardcoded
-                )*/
                 val params = mapOf(
                         Pair("grant_type", "password"),
                         Pair("username", userName!!),

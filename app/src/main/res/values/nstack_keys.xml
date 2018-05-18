@@ -489,6 +489,7 @@
   <string name='nstack_ekey_editPin' formatted='false'>ekey_editPin</string>
   <string name='nstack_ekey_editLogin' formatted='false'>ekey_editLogin</string>
   <string name='nstack_ekey_editNote' formatted='false'>ekey_editNote</string>
+  <string name='nstack_ekey_typeHere' formatted='false'>ekey_typeHere</string>
   <string name='nstack_storeboxlogin_header' formatted='false'>storeboxlogin_header</string>
   <string name='nstack_storeboxlogin_subheader' formatted='false'>storeboxlogin_subheader</string>
   <string name='nstack_storeboxlogin_title' formatted='false'>storeboxlogin_title</string>
