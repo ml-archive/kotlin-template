@@ -12,7 +12,7 @@ import timber.log.Timber
  * Created by bison on 24-06-2017.
  */
 class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, val settingsRepository: SettingsRepository,
-                              val protocolManager: ProtocolManager, val appStateManager: AppStateManager,
+                              val appStateManager: AppStateManager,
                               val fileCacheManager: FileCacheManager, val userManager: UserManager) : BaseInteractor(executor), BootstrapInteractor {
     override var output: BootstrapInteractor.Output? = null
     override var input: BootstrapInteractor.Input? = null
@@ -36,9 +36,6 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, 
                 Timber.d("No device ID found, generating new id: ${settings.deviceId}")
             }
             settingsRepository.put(settings)
-
-            // Initialize eboks protocol
-            protocolManager.init(settings.deviceId)
 
             Timber.d("LoginState: $loginState?")
             //Thread.sleep(2000)

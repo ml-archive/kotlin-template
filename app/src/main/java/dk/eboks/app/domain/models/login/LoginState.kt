@@ -10,5 +10,6 @@ data class LoginState(
         var userName: String? = "3110276111",
         var userPassWord: String? = "147258369",
         var activationCode: String? = "Cr4x3N6Q",
-        var kspToken: String? = null
+        var kspToken: String? = null,
+        var token: AccessToken? = null
 )

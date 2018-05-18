@@ -14,7 +14,6 @@ import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.DownloadManagerImpl
 import dk.eboks.app.network.managers.protocol.EboksHeaderInterceptor
 import dk.eboks.app.network.managers.protocol.MockHeaderInterceptor
-import dk.eboks.app.network.managers.protocol.ProtocolManagerImpl
 import dk.eboks.app.network.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.util.DateDeserializer
 import dk.eboks.app.network.util.ItemTypeAdapterFactory
@@ -78,12 +77,6 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideProtocolManager(): ProtocolManager {
-        return ProtocolManagerImpl()
-    }
-
-    @Provides
-    @AppScope
     fun provideDownloadManager(
             context: Context,
             client: OkHttpClient,
@@ -94,8 +87,8 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideEboksHeaderInterceptor(eboksProtocol: ProtocolManager): EboksHeaderInterceptor {
-        return EboksHeaderInterceptor(eboksProtocol)
+    fun provideEboksHeaderInterceptor(appStateManager: AppStateManager): EboksHeaderInterceptor {
+        return EboksHeaderInterceptor(appStateManager)
     }
 
     @Provides
@@ -107,7 +100,7 @@ class RestModule {
                 .readTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
                 .authenticator(eAuth2)
-                //.addInterceptor(eboksHeaderInterceptor)
+                .addInterceptor(eboksHeaderInterceptor)
                 .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
 //                .addInterceptor { chain ->
 //                    var request = chain.request()
@@ -219,14 +212,14 @@ class RestModule {
         lateinit var executer: Executor
         @Inject
         lateinit var uiManager: UIManager
+        @Inject
+        lateinit var gson: Gson
 
         init {
             App.instance().appComponent.inject(this)
 
             val newTokenClient = provideHttpClient(
-                    provideEboksHeaderInterceptor(
-                            provideProtocolManager()
-                    ), this, prefManager)
+                    provideEboksHeaderInterceptor(appStateManager), this, prefManager)
                     .newBuilder()
                     .addInterceptor { chain ->
                         val originalRequest = chain.request()

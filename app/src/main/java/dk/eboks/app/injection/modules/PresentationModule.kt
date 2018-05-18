@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.GetCategoriesInteractor
+import dk.eboks.app.domain.interactors.authentication.LoginInteractor
 import dk.eboks.app.domain.interactors.authentication.PostAuthenticateUserInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
@@ -470,10 +471,9 @@ class PresentationModule {
     @Provides
     fun provideStartPresenter(
             stateManager: AppStateManager,
-            bootstrapInteractor: BootstrapInteractor,
-            userProfileInteractor: GetUserProfileInteractor
+            bootstrapInteractor: BootstrapInteractor
     ): StartContract.Presenter {
-        return StartPresenter(stateManager, bootstrapInteractor, userProfileInteractor)
+        return StartPresenter(stateManager, bootstrapInteractor)
     }
 
     @ActivityScope
@@ -534,11 +534,12 @@ class PresentationModule {
     fun provideLoginComponentPresenter(
             stateManager: AppStateManager,
             createUserInteractor: CreateUserInteractor,
-            postAuthenticateUserInteractor: PostAuthenticateUserInteractor
+            loginInteractor: LoginInteractor
     ): LoginComponentContract.Presenter {
         return LoginComponentPresenter(
                 stateManager,
-                createUserInteractor
+                createUserInteractor,
+                loginInteractor
         )
     }
 

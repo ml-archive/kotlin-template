@@ -3,6 +3,8 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.domain.interactors.authentication.LoginInteractor
+import dk.eboks.app.domain.interactors.authentication.LoginInteractorImpl
 import dk.eboks.app.domain.interactors.authentication.PostAuthenticateUserInteractor
 import dk.eboks.app.domain.interactors.authentication.PostAuthenticateUserInteractorImpl
 import dk.eboks.app.domain.interactors.channel.*
@@ -28,9 +30,9 @@ class InteractorModule {
     fun provideLoginInteractor(
             executor: Executor,
             api: Api,
-            protocolManager: ProtocolManager
+            appStateManager: AppStateManager
     ): LoginInteractor {
-        return LoginInteractorImpl(executor, api, protocolManager)
+        return LoginInteractorImpl(executor, api, appStateManager)
     }
 
     @Provides
@@ -44,14 +46,13 @@ class InteractorModule {
     @Provides
     fun provideBootstrapInteractor(
             executor: Executor, guidManager: GuidManager, settingsRepository: SettingsRepository,
-            protocolManager: ProtocolManager, appStateManager: AppStateManager,
+            appStateManager: AppStateManager,
             fileCacheManager: FileCacheManager, userManager: UserManager
     ): BootstrapInteractor {
         return BootstrapInteractorImpl(
                 executor,
                 guidManager,
                 settingsRepository,
-                protocolManager,
                 appStateManager,
                 fileCacheManager,
                 userManager

@@ -567,6 +567,7 @@ public class Translation {
 		public static String editPin = "Edit Pin Code";
 		public static String editLogin = "Edit Login";
 		public static String editNote = "Edit Note";
+		public static String typeHere = "Type here";
 	}
 	public final static class storeboxlogin {
 		public static String header = "Connect your Storebox profile";

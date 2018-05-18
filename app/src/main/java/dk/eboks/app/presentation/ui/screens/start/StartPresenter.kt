@@ -11,7 +11,7 @@ import timber.log.Timber
 /**
  * Created by bison on 20-05-2017.
  */
-class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteractor: BootstrapInteractor, val userProfileInteractor: GetUserProfileInteractor) :
+class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteractor: BootstrapInteractor) :
         StartContract.Presenter,
         BasePresenterImpl<StartContract.View>(),
         BootstrapInteractor.Output,
@@ -19,7 +19,6 @@ class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteract
 
     init {
         bootstrapInteractor.output = this
-        userProfileInteractor.output = this
     }
 
     override fun startup() {
@@ -36,15 +35,11 @@ class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteract
         Timber.e("Boostrap done")
         runAction { v ->
             if (hasUsers) {
-                userProfileInteractor.run()
+                v.showUserCarouselComponent()
             } else {
                 v.showWelcomeComponent()
             }
         }
-        /*
-        loginInteractor.input = LoginInteractor.Input(UserInfo(identity = "0703151319", identityType = "P", nationality = "DK", pincode = "a12345", activationCode = "Rg9d2X3D"))
-        loginInteractor.run()
-        */
     }
 
     override fun onBootstrapError(error: ViewError) {

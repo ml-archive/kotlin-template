@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.components.start.login
 
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
+import dk.eboks.app.domain.interactors.authentication.LoginInteractor
 import dk.eboks.app.domain.interactors.authentication.PostAuthenticateUserInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
@@ -14,24 +15,27 @@ import dk.nodes.arch.domain.executor.SignalDispatcher.signal
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.math.log
 
 /**
  * Created by bison on 20-05-2017.
  */
 class LoginComponentPresenter @Inject constructor(
         val appState: AppStateManager,
-        val createUserInteractor: CreateUserInteractor
+        val createUserInteractor: CreateUserInteractor,
+        val loginInteractor: LoginInteractor
 ) :
         LoginComponentContract.Presenter,
         BasePresenterImpl<LoginComponentContract.View>(),
         CreateUserInteractor.Output,
-        PostAuthenticateUserInteractor.Output {
+        LoginInteractor.Output {
 
     var altProviders: List<LoginProvider> = Config.getAlternativeLoginProviders()
 
     init {
         appState.state?.currentUser = null
         createUserInteractor.output = this
+        loginInteractor.output = this
     }
 
     override fun setup() {
@@ -65,19 +69,21 @@ class LoginComponentPresenter @Inject constructor(
         }
     }
 
-    override fun onAuthenticationsSuccess(user: User, response: AccessToken) {
-        Timber.i("Login Sucess: $response")
+    override fun onLoginSuccess(response: AccessToken) {
+        Timber.i("Login Success: $response")
+        /*
         appState.state?.currentUser = user
         appState.save()
+        */
         runAction { v -> v.proceedToApp() }
     }
 
     // all admire chnt's jurassic joke (its from '94 ffs :p)
-    override fun onAuthenticationsDenied(error: ViewError) {
+    override fun onLoginDenied(error: ViewError) {
         Timber.w(" \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word!")
     }
 
-    override fun onAuthenticationsError(error: ViewError) {
+    override fun onLoginError(error: ViewError) {
         Timber.e("Login Error!!")
     }
 
@@ -85,14 +91,19 @@ class LoginComponentPresenter @Inject constructor(
         user.lastLoginProvider = providerId
 
         // save the required login info
+        /*
         appState.state?.loginState?.userName = "nodes-user1" //user.name // todo shouldn't be hardcoded!
         appState.state?.loginState?.userPassWord = "pwd" // password // todo shouldn't be hardcoded!
         appState.state?.loginState?.activationCode = null // activationCode // todo shouldn't be hardcoded!
         appState.save()
+        */
 
 
-        Timber.v("Signal - login_condition")
-        signal("login_condition") // allow the eAuth2 authenticator to continue
+
+        //Timber.v("Signal - login_condition")
+        //signal("login_condition") // allow the eAuth2 authenticator to continue
+        loginInteractor.input = LoginInteractor.Input(username = "3110276111", password = "147258369", activationCode = "Cr4x3N6Q")
+        loginInteractor.run()
     }
 
     // TODO not much loggin going on
