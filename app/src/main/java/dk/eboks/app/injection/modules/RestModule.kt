@@ -134,7 +134,7 @@ class RestModule {
         */
 
         if (BuildConfig.MOCK_API_ENABLED) {
-            clientBuilder.addInterceptor(MockHeaderInterceptor())
+//            clientBuilder.addInterceptor(MockHeaderInterceptor())
         }
 
         if (BuildConfig.DEBUG) {
