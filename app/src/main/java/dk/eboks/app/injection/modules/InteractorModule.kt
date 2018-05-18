@@ -211,6 +211,15 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideGetUserProfileInteractor(
+            executor: Executor,
+            api: Api,
+            userManager: UserManager
+    ): GetUserProfileInteractor {
+        return GetUserProfileInteractorImpl(executor, api, userManager)
+    }
+
+    @Provides
     fun provideUpdateMessageInteractor(
             executor: Executor
     ): UpdateMessageInteractor {

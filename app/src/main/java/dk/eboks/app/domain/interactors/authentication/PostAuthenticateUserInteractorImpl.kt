@@ -18,35 +18,36 @@ class PostAuthenticateUserInteractorImpl(executor: Executor, val api: Api) : Bas
 
     override fun execute() {
 
-        try {
-            input?.let {
-                val map = mapOf(
-                        Pair("grant_type", "password"),
-                        Pair("username", "nodes-user1"), // TODO: what to use as username for login?
-                        Pair("password", "pwd"),
-                        Pair("scope", "mobileapi offline_access"),
-                        Pair("client_Id", "simplelogin"),
-                        Pair("secret", "2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B") // TODO: what's this?
-                )
-                it.activationCode?.let {
-                    map.plus(Pair("acr_values", "activationcode:$it nationality:DK"))
-                }
-
-                val result = api.getToken(map).execute()
-                runOnUIThread {
-                    if (result.isSuccessful) {
-                        result?.body()?.let {
-                            output?.onAuthenticationsSuccess(input!!.user, it)
-                        }
-                    } else {
-                        output?.onAuthenticationsDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
-                    }
-                }
-            }
-        } catch (t: Throwable) {
-            runOnUIThread {
-                output?.onAuthenticationsError(exceptionToViewError(t))
-            }
-        }
+        executor.signal("login_condition")
+//        try {
+//            input?.let {
+//                val map = mapOf(
+//                        Pair("grant_type", "password"),
+//                        Pair("username", "nodes-user1"), // TODO: what to use as username for login?
+//                        Pair("password", "pwd"),
+//                        Pair("scope", "mobileapi offline_access"),
+//                        Pair("client_Id", "simplelogin"),
+//                        Pair("secret", "2BB80D537B1DA3E38BD30361AA855686BDE0EACD7162FEF6A25FE97BF527A25B") // TODO: what's this?
+//                )
+//                it.activationCode?.let {
+//                    map.plus(Pair("acr_values", "activationcode:$it nationality:DK"))
+//                }
+//
+//                val result = api.getToken(map).execute()
+//                runOnUIThread {
+//                    if (result.isSuccessful) {
+//                        result?.body()?.let {
+//                            output?.onAuthenticationsSuccess(input!!.user, it)
+//                        }
+//                    } else {
+//                        output?.onAuthenticationsDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
+//                    }
+//                }
+//            }
+//        } catch (t: Throwable) {
+//            runOnUIThread {
+//                output?.onAuthenticationsError(exceptionToViewError(t))
+//            }
+//        }
     }
 }

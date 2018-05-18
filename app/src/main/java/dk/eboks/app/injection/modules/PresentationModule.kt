@@ -25,6 +25,7 @@ import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
+import dk.eboks.app.domain.interactors.user.*
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
@@ -469,9 +470,10 @@ class PresentationModule {
     @Provides
     fun provideStartPresenter(
             stateManager: AppStateManager,
-            bootstrapInteractor: BootstrapInteractor
+            bootstrapInteractor: BootstrapInteractor,
+            userProfileInteractor: GetUserProfileInteractor
     ): StartContract.Presenter {
-        return StartPresenter(stateManager, bootstrapInteractor)
+        return StartPresenter(stateManager, bootstrapInteractor, userProfileInteractor)
     }
 
     @ActivityScope
@@ -536,8 +538,7 @@ class PresentationModule {
     ): LoginComponentContract.Presenter {
         return LoginComponentPresenter(
                 stateManager,
-                createUserInteractor,
-                postAuthenticateUserInteractor
+                createUserInteractor
         )
     }
 

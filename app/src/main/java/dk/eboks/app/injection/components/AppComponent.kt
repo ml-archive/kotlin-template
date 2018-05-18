@@ -25,6 +25,7 @@ import dk.nodes.arch.domain.injection.scopes.AppScope
 interface AppComponent {
     fun inject(app: App)
     fun inject(t: PermissionRequestActivity)
+    fun inject(eAuth2: RestModule.EAuth2)
 
     // For Interactor Injection
     fun plus(presentationModule: PresentationModule): PresentationComponent

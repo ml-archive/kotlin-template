@@ -7,7 +7,6 @@ import dk.eboks.app.domain.repositories.SettingsRepository
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
-import java.io.IOException
 
 /**
  * Created by bison on 24-06-2017.
@@ -15,8 +14,8 @@ import java.io.IOException
 class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, val settingsRepository: SettingsRepository,
                               val protocolManager: ProtocolManager, val appStateManager: AppStateManager,
                               val fileCacheManager: FileCacheManager, val userManager: UserManager) : BaseInteractor(executor), BootstrapInteractor {
-    override var output : BootstrapInteractor.Output? = null
-    override var input : BootstrapInteractor.Input? = null
+    override var output: BootstrapInteractor.Output? = null
+    override var input: BootstrapInteractor.Input? = null
 
     override fun execute() {
 
@@ -28,10 +27,11 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, 
             }
             val hasUsers = userManager.users.isNotEmpty()
 
-            appStateManager.state?.loginState?.firstLogin = !hasUsers
+            val loginState = appStateManager.state?.loginState
+            loginState?.firstLogin = !hasUsers
 
             val settings = settingsRepository.get()
-            if(settings.deviceId.isBlank()) {
+            if (settings.deviceId.isBlank()) {
                 settings.deviceId = guidManager.generateGuid()
                 Timber.d("No device ID found, generating new id: ${settings.deviceId}")
             }
@@ -40,6 +40,7 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, 
             // Initialize eboks protocol
             protocolManager.init(settings.deviceId)
 
+            Timber.d("LoginState: $loginState?")
             //Thread.sleep(2000)
             runOnUIThread {
                 output?.onBootstrapDone(hasUsers)

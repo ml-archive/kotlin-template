@@ -123,7 +123,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
 
     private fun onContinue() {
-        Timber.e("onContinue")
+        Timber.i("onContinue with ${currentUser?.name}")
         currentUser?.let { user ->
             currentProvider?.let { provider ->
                 presenter.login(
@@ -396,6 +396,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
     private fun setContinueButton() {
+
+        continueBtn.isEnabled = true // TODO: remove these lines!!!
+        return  // TODO PostAuthenticateUserInteractorImpl can be run with its hardcoded user-data
+
         emailCprIsValid = (cprEmailEt.text.isValidEmail() || cprEmailEt.text.isValidCpr())
         passwordIsValid = (!passwordEt.text.isNullOrBlank())
 
