@@ -151,6 +151,7 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
                     cardholderHintTv.visibility = View.VISIBLE
                     cardholderTv.visibility = View.VISIBLE
                     pinTv.text = getPassword(it.pin)
+                    nameHintTv.text = Translation.ekey.cardType
                     cardholderTv.text = it.cardholderName
                     pinShowPasswordIb.isSelected = !hidePassword
                     category = EkeyDetailMode.PIN

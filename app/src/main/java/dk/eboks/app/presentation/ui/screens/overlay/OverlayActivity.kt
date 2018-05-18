@@ -51,27 +51,27 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
         var delay = animationTime
         for (item in buttons) {
             handler.postDelayed({
-                                    val v = inflator.inflate(
-                                            R.layout.viewholder_overlay_row,
-                                            buttonContainerLl,
-                                            false
-                                    )
-                                    val button = v.findViewById<FloatingActionButton>(R.id.buttonFab)
-                                    val text = v.findViewById<TextView>(R.id.textTv)
+                val v = inflator.inflate(
+                        R.layout.viewholder_overlay_row,
+                        buttonContainerLl,
+                        false
+                )
+                val button = v.findViewById<FloatingActionButton>(R.id.buttonFab)
+                val text = v.findViewById<TextView>(R.id.textTv)
 
-                                    text.text = item.text
-                                    item.icon?.let {
-                                        button.setImageResource(it)
-                                    }
-                                    v.tag = button
-                                    button.setOnClickListener {
-                                        closeAnimation(item.type)
-                                    }
-                                    buttonContainerLl.addView(v)
-                                    buttonContainerLl.requestLayout()
-                                    button.show()
-                                    text.visibility = View.VISIBLE
-                                }, delay)
+                text.text = item.text
+                item.icon?.let {
+                    button.setImageResource(it)
+                }
+                v.tag = button
+                button.setOnClickListener {
+                    closeAnimation(item.type)
+                }
+                buttonContainerLl.addView(v)
+                buttonContainerLl.requestLayout()
+                button.show()
+                text.visibility = View.VISIBLE
+            }, delay)
             delay += animationTime
         }
     }
@@ -87,22 +87,22 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
         var delay = animationTime
         for (v in buttonContainerLl.views) {
             handler.postDelayed({
-                                    v.textTv.visibility = View.GONE
-                                    v.buttonFab.hide()
-                                }
-                                , delay)
+                v.textTv.visibility = View.GONE
+                v.buttonFab.hide()
+            }
+                    , delay)
             delay += animationTime
         }
         handler.postDelayed({
-                                if (item == null) {
-                                    setResult(Activity.RESULT_CANCELED)
-                                    finish()
-                                }
-                                val intent = Intent()
-                                intent.putExtra("res", item)
-                                setResult(Activity.RESULT_OK, intent)
-                                finish()
-                            }, delay)
+            if (item == null) {
+                setResult(Activity.RESULT_CANCELED)
+                finish()
+            }
+            val intent = Intent()
+            intent.putExtra("res", item)
+            setResult(Activity.RESULT_OK, intent)
+            finish()
+        }, delay)
     }
 
     companion object {

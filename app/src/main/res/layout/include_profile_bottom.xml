@@ -166,6 +166,7 @@
         android:layout_marginTop="8dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
+        android:gravity="center_vertical"
         android:text="_Keep me signed in when i close the e-boks app orem ipsum dolor sit amet"
         android:textColor="@color/blueGrey"
         nstack:text="@string/nstack_profile_keepMeSignedInDescription" />

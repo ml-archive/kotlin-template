@@ -423,7 +423,6 @@
   <string name='nstack_reply_submitButton' formatted='false'>reply_submitButton</string>
   <string name='nstack_reply_datePickerCaption' formatted='false'>reply_datePickerCaption</string>
   <string name='nstack_reply_dateTimePickerCaption' formatted='false'>reply_dateTimePickerCaption</string>
-  <string name='nstack_reply_uploadingFile' formatted='false'>reply_uploadingFile</string>
   <string name='nstack_androidfingerprint_successMessage' formatted='false'>androidfingerprint_successMessage</string>
   <string name='nstack_androidfingerprint_errorMessage' formatted='false'>androidfingerprint_errorMessage</string>
   <string name='nstack_androidfingerprint_errorInvalidData' formatted='false'>androidfingerprint_errorInvalidData</string>
@@ -484,11 +483,6 @@
   <string name='nstack_ekey_inputHintCardtype' formatted='false'>ekey_inputHintCardtype</string>
   <string name='nstack_ekey_cardType' formatted='false'>ekey_cardType</string>
   <string name='nstack_ekey_overviewEkey' formatted='false'>ekey_overviewEkey</string>
-  <string name='nstack_ekey_addLogin' formatted='false'>ekey_addLogin</string>
-  <string name='nstack_ekey_addNote' formatted='false'>ekey_addNote</string>
-  <string name='nstack_ekey_editPin' formatted='false'>ekey_editPin</string>
-  <string name='nstack_ekey_editLogin' formatted='false'>ekey_editLogin</string>
-  <string name='nstack_ekey_editNote' formatted='false'>ekey_editNote</string>
   <string name='nstack_storeboxlogin_header' formatted='false'>storeboxlogin_header</string>
   <string name='nstack_storeboxlogin_subheader' formatted='false'>storeboxlogin_subheader</string>
   <string name='nstack_storeboxlogin_title' formatted='false'>storeboxlogin_title</string>

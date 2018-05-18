@@ -107,13 +107,13 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             FolderMode.SELECT -> {
                 setSelectTopbar()
 
-                if (selectFolder) {
-                    for (folder in userfolders) {
-                        if (folder.type == FolderType.INBOX) {
-
-                        }
-                    }
-                }
+//                if (selectFolder) {
+//                    for (folder in userfolders) {
+//                        if (folder.type == FolderType.INBOX) {
+//
+//                        }
+//                    }
+//                }
                 showUserFolders(userfolders)
             }
             FolderMode.EDIT -> {

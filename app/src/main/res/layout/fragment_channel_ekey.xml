@@ -2,75 +2,89 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:nstack="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="MissingPrefix"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
-        >
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/white"
-            >
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/headerTv"
-                style="@style/text.header1"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:gravity="center"
-                nstack:text="@string/nstack_ekey_overviewAddItemHeadline"/>
+                android:background="@color/white"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/itemTextTv"
-                style="@style/text.body6.secondary"
+                <TextView
+                    android:id="@+id/headerTv"
+                    style="@style/text.header1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:gravity="center"
+                    nstack:text="@string/nstack_ekey_overviewAddItemHeadline" />
+
+                <TextView
+                    android:id="@+id/itemTextTv"
+                    style="@style/text.body6.secondary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center"
+                    nstack:text="@string/nstack_ekey_overviewAddItemText" />
+
+                <Button
+                    android:id="@+id/addItemBtn"
+                    android:layout_width="125dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/rounded_gradient_button"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    android:textStyle="normal"
+                    nstack:text="@string/nstack_ekey_overviewAddItemBtn" />
+
+            </LinearLayout>
+
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:layout_marginTop="8dp"
-                android:gravity="center"
-                nstack:text="@string/nstack_ekey_overviewAddItemText"/>
-
-            <Button
-                android:id="@+id/addItemBtn"
-                android:layout_width="125dp"
-                android:layout_height="36dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="12dp"
-                android:background="@drawable/rounded_gradient_button"
-                nstack:text="@string/nstack_ekey_overviewAddItemBtn"
-                android:textColor="@color/white"
-                android:textSize="14dp"
-                android:textStyle="normal" />
-
+                android:layout_height="0.5dp"
+                android:background="@color/dividerColor" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/keysContentRv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                />
+                android:background="@color/white"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:background="@color/dividerColor" />
 
             <TextView
-                style="@style/text.body6.secondary"
                 android:id="@+id/emptyStateTv"
-                android:visibility="gone"
+                style="@style/text.body6.secondary"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@color/backgroundColor"
-                nstack:text="@string/nstack_ekey_noContent"
                 android:gravity="center"
-                />
+                android:visibility="gone"
+                nstack:text="@string/nstack_ekey_noContent" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

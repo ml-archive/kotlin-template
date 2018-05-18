@@ -22,6 +22,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentFragment
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
@@ -83,7 +84,17 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 startActivity(Intent(activity, ChannelContentActivity::class.java))
             }
             "ekey" -> {
-                startActivity(Intent(activity, EkeyContentActivity::class.java))
+                if (channel.installed) {
+                    //todo should check if we have mastervault then go straight to activity
+                    startActivity(Intent(activity, EkeyContentActivity::class.java))
+                } else{
+                    //todo api call to get vault
+                    //todo should maybe move EkeyPinComponentFragment to its own activity ?
+
+                    var intent = Intent(activity, EkeyContentActivity::class.java)
+                    intent.putExtra("showPin",true)
+                    startActivity(intent)
+                }
             }
         }
     }

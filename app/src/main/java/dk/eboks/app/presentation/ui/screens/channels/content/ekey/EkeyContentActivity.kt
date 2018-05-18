@@ -4,6 +4,7 @@ import android.os.Bundle
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentFragment
 import javax.inject.Inject
 
 class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
@@ -15,8 +16,12 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        setRootFragment(R.id.content, EkeyComponentFragment())
-
+        if (intent.getBooleanExtra("showPin",false)){
+            addFragmentOnTop(R.id.content,EkeyPinComponentFragment(),false)
+//            setRootFragment(R.id.content, EkeyPinComponentFragment())
+        } else {
+            setRootFragment(R.id.content, EkeyComponentFragment())
+        }
         supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount == 0) {
                 if (!isDestroyed)
@@ -25,6 +30,13 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if (supportFragmentManager.backStackEntryCount == 0) {
+            if (!isDestroyed)
+                finish()
+        }
+    }
 
 
 }
