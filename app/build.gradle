@@ -39,7 +39,7 @@ android {
 
         buildConfigField "String", "MOCK_API_URL", "\"https://60582528-965e-4f53-8ab4-e09a1aebd008.mock.pstmn.io\""
         buildConfigField "String", "MOCK_API_KEY", "\"2d00bf67a1cf4024a88e7e99c89557fe\""
-        buildConfigField "Boolean", "MOCK_API_ENABLED", "true"
+        buildConfigField "Boolean", "MOCK_API_ENABLED", "false"
         buildConfigField "Boolean", "FORCE_REQUEST_PIPELINING", "false"
         buildConfigField "Boolean", "ENABLE_PROFILE_PICTURE", "true"
         buildConfigField "Long", "INPUT_VALIDATION_DELAY", "1200L"

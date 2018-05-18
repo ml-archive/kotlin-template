@@ -133,7 +133,7 @@ class RestModule {
         */
 
         if (BuildConfig.MOCK_API_ENABLED) {
-            clientBuilder.addInterceptor(MockHeaderInterceptor())
+            //clientBuilder.addInterceptor(MockHeaderInterceptor())
         }
 
         if (BuildConfig.DEBUG) {
@@ -220,7 +220,7 @@ class RestModule {
                     .addInterceptor { chain ->
                         val originalRequest = chain.request()
                         val newRequest = originalRequest.newBuilder()
-                                .header("Authorization", "Basic c2ltcGxlbG9naW46c2VjcmV0")  // NOTE: The header token is different!
+                                //.header("Authorization", "Basic c2ltcGxlbG9naW46c2VjcmV0")  // NOTE: The header token is different!
                                 .build()
                         chain.proceed(newRequest)
                     }
@@ -233,7 +233,7 @@ class RestModule {
                     .addInterceptor { chain ->
                         val originalRequest = chain.request()
                         val newRequest = originalRequest.newBuilder()
-                                .header("Authorization", "Basic dG9rZW50cmFuc2Zvcm06c2VjcmV0")  // NOTE: The header token is different!
+                                //.header("Authorization", "Basic dG9rZW50cmFuc2Zvcm06c2VjcmV0")  // NOTE: The header token is different!
                                 .build()
                         chain.proceed(newRequest)
                     }
@@ -285,7 +285,7 @@ class RestModule {
             token?.let {
                 // save the token
                 prefManager.setString(keyAccesstoken, Gson().toJson(it))
-                Timber.w("Authenticate token : $it")
+                Timber.w("Authenticate kæmpik token : $it")
                 // attach it to this request.
                 // the main HttpClient will handle subsequent ones
                 return response.request().newBuilder()
