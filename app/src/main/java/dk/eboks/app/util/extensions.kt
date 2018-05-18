@@ -122,9 +122,11 @@ fun View.setVisible(isVisible: Boolean) {
 }
 
 fun dpToPx(dp: Int): Int {
-
     return (dp * Resources.getSystem().displayMetrics.density).toInt()
+}
 
+fun dpToPx(dp: Float): Float {
+    return (dp * Resources.getSystem().displayMetrics.density)
 }
 
 fun FastScrollRecyclerView.setBubbleDrawable(drawable: Drawable) {
@@ -151,11 +153,21 @@ fun EditText.addAfterTextChangeListener(listener: ((Editable?) -> Unit)) {
     })
 }
 
-fun Channel.isStorebox(): Boolean {
+//fun Channel.isStorebox(): Boolean {
+//    if (this.id > 0 && this.id < 4) {
+//        return true
+//    }
+//    return false
+//}
+
+fun Channel.getType(): String {
     if (this.id > 0 && this.id < 4) {
-        return true
+        return "storebox"
     }
-    return false
+    if (this.id > 100 && this.id < 104) {
+        return "ekey"
+    }
+    return "channel"
 }
 
 /**

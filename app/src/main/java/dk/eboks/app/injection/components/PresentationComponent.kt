@@ -20,6 +20,19 @@ import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
 import dk.eboks.app.pasta.activity.PastaActivity
 import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.*
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxDetailComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.requirements.*
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
@@ -32,8 +45,12 @@ import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentFragme
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentPresenter
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentFragment
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentPresenter
-import dk.eboks.app.presentation.ui.components.home.HomeComponentFragment
-import dk.eboks.app.presentation.ui.components.home.HomeComponentPresenter
+import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentFragment
+import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentPresenter
+import dk.eboks.app.presentation.ui.components.home.channelcontrol.ChannelControlComponentFragment
+import dk.eboks.app.presentation.ui.components.home.channelcontrol.ChannelControlComponentPresenter
+import dk.eboks.app.presentation.ui.components.home.folderpreview.FolderPreviewComponentFragment
+import dk.eboks.app.presentation.ui.components.home.folderpreview.FolderPreviewComponentPresenter
 import dk.eboks.app.presentation.ui.screens.message.MessageActivity
 import dk.eboks.app.presentation.ui.screens.message.MessagePresenter
 import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity
@@ -108,6 +125,9 @@ import dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity
 import dk.eboks.app.presentation.ui.screens.overlay.OverlayPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity
+import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.ConnectStoreboxActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity
@@ -171,18 +191,19 @@ interface PresentationComponent {
     fun inject(target: StartPresenter)
     fun inject(target: ProfileActivity)
     fun inject(target: ProfilePresenter)
-    fun inject(target: HomeActivity)
-    fun inject(target: HomePresenter)
     fun inject(target: UploadsActivity)
     fun inject(target: UploadsPresenter)
     fun inject(target: OverlayActivity)
     fun inject(target: OverlayPresenter)
+    fun inject(target: ConnectStoreboxActivity)
     fun inject(target: StoreboxContentActivity)
     fun inject(target: StoreboxContentPresenter)
     fun inject(target: MyInfoActivity)
     fun inject(target: MyInfoPresenter)
     fun inject(target: SenderAllListActivity)
     fun inject(target: SenderAllListPresenter)
+    fun inject(target: EkeyContentActivity)
+    fun inject(target: EkeyContentPresenter)
 
     // Components
 
@@ -190,6 +211,8 @@ interface PresentationComponent {
 
     fun inject(target : NewFolderComponentFragment)
     fun inject(target : NewFolderComponentPresenter)
+    fun inject(target : FolderSelectUserComponentFragment)
+    fun inject(target : FolderSelectUserComponentPresenter)
 
 
     // message
@@ -265,6 +288,16 @@ interface PresentationComponent {
     fun inject(target : ChannelContentStoreboxComponentPresenter)
     fun inject(target : ChannelSettingsComponentFragment)
     fun inject(target : ChannelSettingsComponentPresenter)
+    fun inject(target : EkeyComponentFragment)
+    fun inject(target : EkeyComponentPresenter)
+    fun inject(target : EkeyAddItemComponentFragment)
+    fun inject(target : EkeyAddItemComponentPresenter)
+    fun inject(target : EkeyDetailComponentFragment)
+    fun inject(target : EkeyDetailComponentPresenter)
+    fun inject(target : EkeyOpenItemComponentFragment)
+    fun inject(target : EkeyOpenItemComponentPresenter)
+    fun inject(target : EkeyPinComponentFragment)
+    fun inject(target : EkeyPinComponentPresenter)
 
     // senders
 
@@ -330,8 +363,13 @@ interface PresentationComponent {
     fun inject(target: FingerPrintComponentFragment)
 
     // home
-    fun inject(target : HomeComponentFragment)
-    fun inject(target : HomeComponentPresenter)
+    fun inject(target: HomeActivity)
+    fun inject(target: HomePresenter)
+    fun inject(target : FolderPreviewComponentFragment)
+    fun inject(target : FolderPreviewComponentPresenter)
+    fun inject(target : ChannelControlComponentFragment)
+    fun inject(target : ChannelControlComponentPresenter)
+
 
     // verification
 

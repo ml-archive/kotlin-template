@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:animateLayoutChanges="false"
+    tools:ignore="MissingPrefix">
+
+
+    <LinearLayout
+        android:id="@+id/mailListContentLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" />
+
+    <!--Empty state - Mail-->
+    <LinearLayout
+        android:id="@+id/emptyStateLl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/emptyStateHeaderTv"
+            style="@style/text.header2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:textStyle="normal"
+            nstack:key="@string/nstack_home_messagesUnverifiedTitle" />
+
+        <ImageView
+            android:id="@+id/emptyStateImageIv"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:src="@drawable/visual_mail" />
+
+        <TextView
+            android:id="@+id/emptyStateTextTv"
+            style="@style/text.header3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/blueGrey"
+            android:textStyle="normal"
+            nstack:key="@string/nstack_home_messagesUnverifiedMessage" />
+
+        <Button
+            android:id="@+id/emptyStateBtn"
+            style="@style/button.SolidGradient"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:textAppearance="@style/text.buttonSmall"
+            nstack:key="@string/nstack_home_messagesUnverifiedButton" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/progressFl"
+        android:layout_width="match_parent"
+        android:layout_height="140dp">
+        <ProgressBar
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+
+
+</FrameLayout>

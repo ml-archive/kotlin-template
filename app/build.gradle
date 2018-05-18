@@ -27,7 +27,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 33
+        versionCode 34
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -41,6 +41,7 @@ android {
         buildConfigField "String", "MOCK_API_KEY", "\"2d00bf67a1cf4024a88e7e99c89557fe\""
         buildConfigField "Boolean", "MOCK_API_ENABLED", "true"
         buildConfigField "Boolean", "FORCE_REQUEST_PIPELINING", "false"
+        buildConfigField "Boolean", "ENABLE_PROFILE_PICTURE", "true"
         buildConfigField "Long", "INPUT_VALIDATION_DELAY", "1200L"
     }
 
@@ -245,6 +246,7 @@ dependencies {
 
     implementation "dk.nodes.arch:base:$nodes_arch_version"
     //implementation "dk.nodes.arch:base:LOCAL"
+    implementation 'dk.nodes.filepicker:filepicker:2.0.+'
 
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"

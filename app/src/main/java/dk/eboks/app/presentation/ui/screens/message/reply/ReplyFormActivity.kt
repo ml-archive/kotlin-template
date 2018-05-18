@@ -89,7 +89,7 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
             {
                 val input = v.tag as ReplyFormInput
                 if(!input.isValid) {
-                    Timber.e("${input.formInput.label} shit does not validate")
+                    //Timber.e("${input.formInput.label} shit does not validate")
                     return false
                 }
             }

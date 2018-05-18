@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_gravity="top"
-        android:background="@color/dividerGreyBlue" />
+        android:background="@color/dividerColor" />
 
 
     <!--pin home screen and push notifications view-->
@@ -90,7 +90,7 @@
             android:layout_height="0.5dp"
             android:layout_gravity="top"
             android:layout_marginLeft="16dp"
-            android:background="@color/dividerGreyBlue" />
+            android:background="@color/dividerColor" />
 
         <LinearLayout
             android:id="@+id/notificationContainerLl"
@@ -146,7 +146,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_gravity="top"
-            android:background="@color/dividerGreyBlue" />
+            android:background="@color/dividerColor" />
 
 
     </LinearLayout>
@@ -156,7 +156,7 @@
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_gravity="top"
-        android:background="@color/dividerGreyBlue" />
+        android:background="@color/dividerColor" />
     <LinearLayout
         android:id="@+id/optionalSwitchContainerLl"
         android:layout_width="match_parent"
@@ -216,7 +216,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_gravity="top"
-            android:background="@color/dividerGreyBlue" />
+            android:background="@color/dividerColor" />
 
     </LinearLayout>
 
@@ -243,7 +243,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_gravity="top"
-            android:background="@color/dividerGreyBlue" />
+            android:background="@color/dividerColor" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/creditcardRv"
@@ -288,7 +288,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:layout_gravity="top"
-            android:background="@color/dividerGreyBlue" />
+            android:background="@color/dividerColor" />
 
     </LinearLayout>
 

@@ -23,7 +23,9 @@ class MailOverviewPresenter @Inject constructor(val appState: AppStateManager) :
     var refreshingSenders = false
 
     init {
-
+        runAction { v ->
+            v.setUser(appState.state?.currentUser)
+        }
     }
 
     override fun onViewCreated(view: MailOverviewContract.View, lifecycle: Lifecycle) {

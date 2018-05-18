@@ -15,10 +15,7 @@ import dk.eboks.app.domain.interactors.folder.OpenFolderInteractorImpl
 import dk.eboks.app.domain.interactors.message.*
 import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.*
-import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptInteractor
-import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptInteractorImpl
-import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptsInteractor
-import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptsInteractorImpl
+import dk.eboks.app.domain.interactors.storebox.*
 import dk.eboks.app.domain.interactors.user.*
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.repositories.*
@@ -329,5 +326,15 @@ class InteractorModule {
     @Provides
     fun provideRegistrationsInteractor(executor: Executor, api: Api): GetRegistrationsInteractor {
         return GetRegistrationsInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun provideLinkStoreboxInteractor(executor: Executor, api: Api): LinkStoreboxInteractor {
+        return LinkStoreboxInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun provideConfirmStoreboxInteractor(executor: Executor, api: Api): ConfirmStoreboxInteractor {
+        return ConfirmStoreboxInteractorImpl(executor, api)
     }
 }

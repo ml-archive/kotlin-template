@@ -1,6 +1,8 @@
 package dk.eboks.app.presentation.ui.screens.home
 
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderType
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 
 /**
@@ -8,6 +10,13 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
  */
 class HomePresenter(val appStateManager: AppStateManager) : HomeContract.Presenter, BasePresenterImpl<HomeContract.View>() {
     init {
+    }
+
+    override fun setup() {
+        runAction { v->
+            v.addFolderPreviewComponentFragment(Folder(type = FolderType.HIGHLIGHTS))
+            v.addChannelControlComponentFragment()
+        }
     }
 
 }

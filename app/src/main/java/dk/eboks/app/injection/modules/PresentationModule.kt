@@ -17,13 +17,33 @@ import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
+import dk.eboks.app.domain.interactors.storebox.ConfirmStoreboxInteractor
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptInteractor
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptsInteractor
+import dk.eboks.app.domain.interactors.storebox.LinkStoreboxInteractor
+import dk.eboks.app.domain.interactors.user.CreateUserInteractor
+import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
+import dk.eboks.app.domain.interactors.user.GetUsersInteractor
+import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.interactors.user.*
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.*
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxDetailComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxDetailComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentContract
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentContract
@@ -40,8 +60,12 @@ import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentCo
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentContract
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentPresenter
-import dk.eboks.app.presentation.ui.components.home.HomeComponentContract
-import dk.eboks.app.presentation.ui.components.home.HomeComponentPresenter
+import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentContract
+import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentPresenter
+import dk.eboks.app.presentation.ui.components.home.channelcontrol.ChannelControlComponentContract
+import dk.eboks.app.presentation.ui.components.home.channelcontrol.ChannelControlComponentPresenter
+import dk.eboks.app.presentation.ui.components.home.folderpreview.FolderPreviewComponentContract
+import dk.eboks.app.presentation.ui.components.home.folderpreview.FolderPreviewComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentContract
 import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.FolderShortcutsComponentPresenter
 import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentContract
@@ -120,6 +144,10 @@ import dk.eboks.app.presentation.ui.components.verification.VerificationComponen
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentContract
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentContract
+import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentPresenter
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.ConnectStoreboxContract
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.ConnectStoreboxPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentContract
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewContract
@@ -696,21 +724,6 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideHomeComponentPresenter(
-            stateManager: AppStateManager,
-            getChannelHomeContentInteractor: GetChannelHomeContentInteractor,
-            getMessagesInteractor: GetMessagesInteractor
-    ): HomeComponentContract.Presenter {
-        return HomeComponentPresenter(
-                stateManager,
-                getChannelHomeContentInteractor,
-                getMessagesInteractor
-        )
-    }
-
-
-    @ActivityScope
-    @Provides
     fun provideDebugOptionsComponentPresenter(stateManager: AppStateManager): DebugOptionsComponentContract.Presenter {
         return DebugOptionsComponentPresenter(stateManager)
     }
@@ -832,6 +845,11 @@ class PresentationModule {
         return StoreboxContentPresenter(stateManager)
     }
 
+    @ActivityScope
+    @Provides
+    fun provideConnectStoreboxPresenter(stateManager: AppStateManager, linkStoreboxInteractor: LinkStoreboxInteractor, confirmStoreboxInteractor: ConfirmStoreboxInteractor): ConnectStoreboxContract.Presenter {
+        return ConnectStoreboxPresenter(stateManager, linkStoreboxInteractor, confirmStoreboxInteractor)
+    }
 
     @ActivityScope
     @Provides
@@ -866,6 +884,61 @@ class PresentationModule {
     @Provides
     fun provideNewFolderComponentPresenter(stateManager: AppStateManager) : NewFolderComponentContract.Presenter {
         return NewFolderComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideFolderSelectUserComponentPresenter(stateManager: AppStateManager) : FolderSelectUserComponentContract.Presenter {
+        return FolderSelectUserComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyContentPresenter(stateManager: AppStateManager) : EkeyContentContract.Presenter {
+        return EkeyContentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyComponentPresenter(stateManager: AppStateManager) : EkeyComponentContract.Presenter {
+        return EkeyComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyAddItemComponentPresenter(stateManager: AppStateManager) : EkeyAddItemComponentContract.Presenter {
+        return EkeyAddItemComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyDetailComponentPresenter(stateManager: AppStateManager) : EkeyDetailComponentContract.Presenter {
+        return EkeyDetailComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideFolderPreviewComponentPresenter(stateManager: AppStateManager, getMessagesInteractor: GetMessagesInteractor) : FolderPreviewComponentContract.Presenter {
+        return FolderPreviewComponentPresenter(stateManager, getMessagesInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideChannelControlComponentPresenter(stateManager: AppStateManager, getChannelHomeContentInteractor: GetChannelHomeContentInteractor) : ChannelControlComponentContract.Presenter {
+        return ChannelControlComponentPresenter(stateManager, getChannelHomeContentInteractor)
+    }
+
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyOpenItemComponentPresenter(stateManager: AppStateManager) : EkeyOpenItemComponentContract.Presenter {
+        return EkeyOpenItemComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideEkeyPinComponentPresenter(stateManager: AppStateManager) : EkeyPinComponentContract.Presenter {
+        return EkeyPinComponentPresenter(stateManager)
     }
 
     /* Pasta

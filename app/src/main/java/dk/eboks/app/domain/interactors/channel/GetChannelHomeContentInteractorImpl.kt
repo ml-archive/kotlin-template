@@ -24,8 +24,10 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
         had_channels = false
         controlCachedMap.clear()
         try {
-            emitCachedData()
-            //refreshCachedData()
+            if(input?.cached == true)
+                emitCachedData()
+            refreshCachedData()
+            runOnUIThread { output?.onGetChannelHomeContentDone() }
         } catch (t: Throwable) {
             runOnUIThread {
                 t.printStackTrace()
@@ -53,22 +55,14 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
             }
 
             runBlocking {
-                launch(CommonPool) {
-                    try {
-                        for(entry in channelMap)
-                        {
-                            entry.value.await()
-                            val content = entry.value.getCompleted()
-                            runOnUIThread {
-                                var channel = pinnedChannels[entry.key]
-                                output?.onGetChannelHomeContent(channel, content)
-                                Timber.e("emitCachedData channel ${channel.name}")
-                            }
-                        }
-                    }
-                    catch(t : Throwable)
-                    {
-                        t.printStackTrace()
+                for(entry in channelMap)
+                {
+                    entry.value.await()
+                    val content = entry.value.getCompleted()
+                    runOnUIThread {
+                        var channel = pinnedChannels[entry.key]
+                        output?.onGetChannelHomeContent(channel, content)
+                        //Timber.e("emitCachedData channel ${channel.name}")
                     }
                 }
             }
@@ -78,43 +72,48 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
 
     private fun refreshCachedData()
     {
-        // do not load the channels from the network if we just did
+        // do not load the channels from the network if we just did, then we'll just reuse the cached stuff
         val pinnedChannels = channelsRepository.getPinnedChannels(!had_channels)
-        runOnUIThread {
-            output?.onGetPinnedChannelList(pinnedChannels)
-        }
+
         if(pinnedChannels.isNotEmpty())
         {
             val channelMap : MutableMap<Int, Deferred<HomeContent>> = HashMap()
             pinnedChannels.forEachIndexed { index, channel ->
-                // don't reload channel control from network if we just did
-                if(controlCachedMap[index] == true) {
+                // if we had to fetch the data in emitCachedData() dont load it from the network again
+                if(controlCachedMap[index] == true || input?.cached == false) {
                     val d = async { channelsRepository.getChannelHomeContent(channel.id.toLong(), false) }
                     channelMap[index] = d
                 }
+                else // fetch from cache since it was refreshed last go
+                {
+                    val d = async { channelsRepository.getChannelHomeContent(channel.id.toLong(), true) }
+                    channelMap[index] = d
+                }
+
             }
 
+
+            // force uncached controls to finish loading
             runBlocking {
-                launch(CommonPool) {
-                    try {
-                        for(entry in channelMap)
-                        {
-                            entry.value.await()
-                            val content = entry.value.getCompleted()
-                            runOnUIThread {
-                                var channel = pinnedChannels[entry.key]
-                                output?.onGetChannelHomeContent(channel, content)
-                                Timber.e("refreshCachedData channel ${channel.name}")
-                            }
-                        }
-                    }
-                    catch(t : Throwable)
-                    {
-                        t.printStackTrace()
-                    }
+                for(entry in channelMap)
+                {
+                    entry.value.await()
+                }
+            }
+
+            // refresh controls in one big swoop the second time around
+            runOnUIThread {
+                output?.onGetPinnedChannelList(pinnedChannels)
+                for(entry in channelMap)
+                {
+                    var channel = pinnedChannels[entry.key]
+                    val content = entry.value.getCompleted()
+                    output?.onGetChannelHomeContent(channel, content)
+                    //Timber.e("refreshCachedData channel ${channel.name}")
                 }
             }
             Timber.e("refreshCachedData completed, loaded ${channelMap.size} controls")
+
         }
     }
 }

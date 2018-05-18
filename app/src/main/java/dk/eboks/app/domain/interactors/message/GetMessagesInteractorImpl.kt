@@ -44,7 +44,10 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
 
     private fun getMessageFolder(folder: Folder)
     {
-        val hasCached = messagesRepository.hasCachedMessageFolder(folder)
+        val hasCached = if(input?.cached == true)
+            messagesRepository.hasCachedMessageFolder(folder)
+        else
+            false
 
         val messages = getMessages(hasCached, folder)
         runOnUIThread {
@@ -70,7 +73,10 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
 
     private fun getMessageSender(sender: Sender)
     {
-        val hasCached = messagesRepository.hasCachedMessageSender(sender)
+        val hasCached = if(input?.cached == true)
+            messagesRepository.hasCachedMessageSender(sender)
+        else
+            false
 
         val messages = messagesRepository.getMessagesBySender(hasCached, sender.id)
         runOnUIThread {

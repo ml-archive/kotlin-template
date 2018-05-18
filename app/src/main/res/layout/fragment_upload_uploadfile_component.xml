@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#f4F6F8"
+    android:orientation="vertical"
     tools:ignore="MissingPrefix">
 
     <TextView
@@ -15,15 +15,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_normal"
         android:gravity="center"
-        android:text="_Upload file" />
+        nstack:key="@string/nstack_uploads_uploadFile" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/fileNameTil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="8dp"
         android:textColorHint="@color/blueGrey"
         android:theme="@style/TextInputLayoutTheme"
         app:errorEnabled="true"
@@ -35,8 +35,8 @@
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="_File name"
-            android:inputType="textPersonName" />
+            android:inputType="text"
+            nstack:hint="@string/nstack_uploads_fileName" />
     </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
@@ -57,7 +57,7 @@
             android:layout_marginStart="20dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="_Folder" />
+            nstack:key="@string/nstack_folders_folder" />
 
         <TextView
             android:id="@+id/destinationTv"

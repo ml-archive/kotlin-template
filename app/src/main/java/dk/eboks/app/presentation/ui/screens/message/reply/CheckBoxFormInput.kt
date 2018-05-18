@@ -45,13 +45,15 @@ class CheckBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
                 cb.tag = option
                 checkBoxesLl?.addView(cb)
                 // preselect an option from the server
-                formInput.value?.let { value ->
-                    if(value == option.value)
+
+                formInput.value?.split(",")?.forEach { part ->
+                    if(part == option.value)
                     {
                         selectedOptions.add(option)
                         cb.isChecked = true
                     }
                 }
+
                 cb.setOnCheckedChangeListener { compoundButton, b ->
                     val opt : FormInputOption? = compoundButton.tag as FormInputOption
                     opt?.let {

@@ -52,7 +52,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="text"
-            nstack:hint="@string/nstack_folders_newfolderHint" />
+            nstack:hint="@string/nstack_folders_newfolderHint"
+            android:importantForAutofill="noExcludeDescendants"/>
     </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
