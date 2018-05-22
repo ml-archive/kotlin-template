@@ -54,38 +54,8 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
 
 
     override fun onGetSystemFolders(folders: List<Folder>) {
-        //Timber.e("system folders $folders")
-        var proccessedList = processFolders(folders)
-        runAction { v -> v.showSystemFolders(proccessedList) }
-    }
 
-    private fun processFolders(folders: List<Folder>): List<Folder> {
-            // only showing the following folders:
-            // "inbox","Archive","Draft","Sent","Deleted"
-        val proccessedList: MutableList<Folder> = mutableListOf<Folder>(Folder(), Folder(), Folder(), Folder(), Folder())
-        for (folder in folders) {
-            if (folder.type.equals(FolderType.INBOX)) {
-                proccessedList.removeAt(0)
-                proccessedList.add(0, folder)
-            }
-            if (folder.type.equals(FolderType.ARCHIVE)) {
-                proccessedList.removeAt(1)
-                proccessedList.add(1, folder)
-            }
-            if (folder.type.equals(FolderType.DRAFTS)) {
-                proccessedList.removeAt(2)
-                proccessedList.add(2, folder)
-            }
-            if (folder.type.equals(FolderType.SENT)) {
-                proccessedList.removeAt(3)
-                proccessedList.add(3, folder)
-            }
-            if (folder.type.equals(FolderType.DELETED)) {
-                proccessedList.removeAt(4)
-                proccessedList.add(4, folder)
-            }
-        }
-        return proccessedList
+        runAction { v -> v.showSystemFolders(folders) }
     }
 
     override fun onGetFoldersError(error : ViewError) {
