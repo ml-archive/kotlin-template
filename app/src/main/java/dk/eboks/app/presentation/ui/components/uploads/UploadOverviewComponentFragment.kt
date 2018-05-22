@@ -189,7 +189,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             if (random.nextInt(i) == 0) {
                 randomStatus.important = true
             }
-            uploads.add(dk.eboks.app.domain.models.message.Message("id" + i, "subject" + i, Date(), unread, null, null, null, null, null, null, 0, null, null, null, null, randomStatus, "note string"))
+            uploads.add(dk.eboks.app.domain.models.message.Message("id" + i, "subject" + i, Date(), unread, null, null, null, null, 0, null, null, 0, null, null, null, null, randomStatus, "note string"))
         }
 
     }

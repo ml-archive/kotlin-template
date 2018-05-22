@@ -512,4 +512,12 @@
   <string name='nstack_uploadspreview_uploadPreview' formatted='false'>uploadspreview_uploadPreview</string>
   <string name='nstack_uploadspreview_defaultFolder' formatted='false'>uploadspreview_defaultFolder</string>
   <string name='nstack_uploadspreview_noPreviewAvailable' formatted='false'>uploadspreview_noPreviewAvailable</string>
+  <string name='nstack_editFolder_folderNameTitle' formatted='false'>editFolder_folderNameTitle</string>
+  <string name='nstack_editFolder_editTitle' formatted='false'>editFolder_editTitle</string>
+  <string name='nstack_editFolder_saveButton' formatted='false'>editFolder_saveButton</string>
+  <string name='nstack_editFolder_defaultFolderLocation' formatted='false'>editFolder_defaultFolderLocation</string>
+  <string name='nstack_editFolder_folderNameNonEmpty' formatted='false'>editFolder_folderNameNonEmpty</string>
+  <string name='nstack_editFolder_deleteAlertTitle' formatted='false'>editFolder_deleteAlertTitle</string>
+  <string name='nstack_editFolder_deleteAlertMessage' formatted='false'>editFolder_deleteAlertMessage</string>
+  <string name='nstack_editFolder_createTitle' formatted='false'>editFolder_createTitle</string>
 </resources>

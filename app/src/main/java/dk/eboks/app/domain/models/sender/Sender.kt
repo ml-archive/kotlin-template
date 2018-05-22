@@ -13,15 +13,14 @@ import java.io.Serializable
 data class Sender(
         var id: Long,
         var name: String = "",
-        var logo: Image? = null,
+        // TODO change this back when the api is fixed
+        @Transient var logo: Image? = null,
         var description: Description? = null,
         var address: Address? = null,
         val type: String? = null,
-
         var authority: Int = 0,
         var groups: List<SenderGroup>? = null,
         var registered: Int? = 0, // (0: No, 1: Yes, 2: Partial)
-
         var messages: Messages? = null,
         var status: Status? = null,
         var unreadMessageCount: Int = 0 // todo this should be removed - its not in the draft

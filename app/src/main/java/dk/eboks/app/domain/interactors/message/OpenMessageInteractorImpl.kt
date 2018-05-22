@@ -29,7 +29,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
     override fun execute() {
         try {
             input?.msg?.let { msg->
-                val updated_msg = messagesRepository.getMessage(msg.folder?.id ?: 0, msg.id)
+                val updated_msg = messagesRepository.getMessage(msg.folderId, msg.id)
                 // update the (perhaps) more detailed message object with the extra info from the backend
                 // because the JVM can only deal with reference types silly reflection tricks like this are necessary
                 FieldMapper.copyAllFields(msg, updated_msg)

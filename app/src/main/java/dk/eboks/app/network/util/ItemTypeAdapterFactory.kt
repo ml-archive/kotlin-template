@@ -12,7 +12,7 @@ import java.io.IOException
  */
 
 class ItemTypeAdapterFactory : TypeAdapterFactory {
-    var rootContainerNames = listOf("data", "items")
+    var rootContainerNames = listOf("data", "items", "folders")
 
     override fun <T> create(gson: Gson, type: TypeToken<T>): TypeAdapter<T> {
 
@@ -33,10 +33,8 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
             override fun read(reader: JsonReader): T {
                 var jsonElement = elementAdapter.read(reader)
 
-                /*
-                Timber.e("Path ${reader.path}")
+                //Timber.e("Path ${reader.path}")
                 Timber.e("parsing element " + jsonElement.toString())
-                */
 
                 if(reader.path != "$")
                 {

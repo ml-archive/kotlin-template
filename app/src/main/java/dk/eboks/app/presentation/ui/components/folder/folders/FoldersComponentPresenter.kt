@@ -3,12 +3,10 @@ package dk.eboks.app.presentation.ui.components.folder.folders
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -62,30 +60,32 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
     private fun processFolders(folders: List<Folder>): List<Folder> {
             // only showing the following folders:
             // "inbox","Archive","Draft","Sent","Deleted"
-        val proccessedList: MutableList<Folder> = mutableListOf<Folder>(Folder(), Folder(), Folder(), Folder(), Folder())
+        val processedList: MutableList<Folder> = mutableListOf<Folder>(Folder(), Folder(), Folder(), Folder(), Folder())
         for (folder in folders) {
-            if (folder.type.equals(FolderType.INBOX)) {
-                proccessedList.removeAt(0)
-                proccessedList.add(0, folder)
-            }
-            if (folder.type.equals(FolderType.ARCHIVE)) {
-                proccessedList.removeAt(1)
-                proccessedList.add(1, folder)
-            }
-            if (folder.type.equals(FolderType.DRAFTS)) {
-                proccessedList.removeAt(2)
-                proccessedList.add(2, folder)
-            }
-            if (folder.type.equals(FolderType.SENT)) {
-                proccessedList.removeAt(3)
-                proccessedList.add(3, folder)
-            }
-            if (folder.type.equals(FolderType.DELETED)) {
-                proccessedList.removeAt(4)
-                proccessedList.add(4, folder)
+            folder.type?.let { type->
+                if (type.equals(FolderType.INBOX)) {
+                    processedList.removeAt(0)
+                    processedList.add(0, folder)
+                }
+                if (type.equals(FolderType.ARCHIVE)) {
+                    processedList.removeAt(1)
+                    processedList.add(1, folder)
+                }
+                if (type.equals(FolderType.DRAFTS)) {
+                    processedList.removeAt(2)
+                    processedList.add(2, folder)
+                }
+                if (type.equals(FolderType.SENT)) {
+                    processedList.removeAt(3)
+                    processedList.add(3, folder)
+                }
+                if (type.equals(FolderType.DELETED)) {
+                    processedList.removeAt(4)
+                    processedList.add(4, folder)
+                }
             }
         }
-        return proccessedList
+        return processedList
     }
 
     override fun onGetFoldersError(error : ViewError) {

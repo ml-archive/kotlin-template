@@ -7,7 +7,7 @@ import dk.eboks.app.R
  * Created by bison on 09-02-2018.
  */
 enum class FolderType(val type : String) {
-    @SerializedName("inbox") INBOX("inbox"),
+    @SerializedName("Inbox") INBOX("inbox"),
     @SerializedName("drafts") DRAFTS("drafts"),
     @SerializedName("archive") ARCHIVE("archive"),
     @SerializedName("sentitems") SENT("sentitems"),

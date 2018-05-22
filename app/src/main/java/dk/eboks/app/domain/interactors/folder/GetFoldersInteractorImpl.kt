@@ -43,7 +43,7 @@ class GetFoldersInteractorImpl(executor: Executor, val foldersRepository: Folder
                 val system = ArrayList<Folder>()
                 val user = ArrayList<Folder>()
                 folders.forEach { f ->
-                    if (f.type.isSystemFolder()) {
+                    if (f.type?.isSystemFolder() == true) {
                         system.add(f)
                     }
                     if (f.type == FolderType.FOLDER)

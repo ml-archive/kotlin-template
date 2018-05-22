@@ -53,8 +53,11 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
                 v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.VISIBLE
             }
 
-            val iv = v.findViewById<ImageView>(R.id.iconIv)
-            iv?.let { it.setImageResource(folder.type.getIconResId()) }
+            folder.type?.let { type->
+                val iv = v.findViewById<ImageView>(R.id.iconIv)
+                iv?.let { it.setImageResource(type.getIconResId()) }
+            }
+
             v.setOnClickListener { presenter.openFolder(folder) }
             yourMailLl.addView(v)
         }

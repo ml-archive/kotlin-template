@@ -22,14 +22,15 @@ class DateDeserializer : JsonDeserializer<Date> {
             }
 
             try {
-                return formatters[format]?.parse(jsonElement.asString) ?: Date()
+                val res = formatters[format]?.parse(jsonElement.asString) ?: Date()
+                return res
             } catch (e: ParseException) {
-                throw(JsonParseException("Died parsing jsonElement ${jsonElement.asString}"))
+                //throw(JsonParseException("Died parsing jsonElement ${jsonElement.asString}"))
             }
 
         }
 
-        return null
+        return Date()
     }
 
     // replacement for a static member

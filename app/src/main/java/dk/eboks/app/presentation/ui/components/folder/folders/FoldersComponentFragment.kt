@@ -226,8 +226,12 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 }
             }
 
-            val iv = v.findViewById<ImageView>(R.id.iconIv)
-            iv?.let { it.setImageResource(folder.type.getIconResId()) }
+
+            folder.type?.let { type->
+                val iv = v.findViewById<ImageView>(R.id.iconIv)
+                iv?.let { it.setImageResource(type.getIconResId()) }
+            }
+
             systemFoldersLl.addView(v)
         }
     }
@@ -265,8 +269,10 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.VISIBLE
             }
 
-            val iv = v.findViewById<ImageView>(R.id.iconIv)
-            iv?.let { it.setImageResource(folder.type.getIconResId()) }
+            folder.type?.let { type->
+                val iv = v.findViewById<ImageView>(R.id.iconIv)
+                iv?.let { it.setImageResource(type.getIconResId()) }
+            }
 
 
             // custom
@@ -336,7 +342,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         val edit = v.findViewById<ImageButton>(R.id.editIb)
         var folder = v.tag as Folder
 
-        if (!folder.type.isSystemFolder()) {
+        if (folder.type?.isSystemFolder() == false) {
             edit?.visibility = View.VISIBLE
 
             edit.setOnClickListener {
