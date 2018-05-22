@@ -84,7 +84,6 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
     }
 
-
     // shamelessly ripped from chnt
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.ic_red_close)
@@ -146,7 +145,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     override fun setupView(
             loginProvider: LoginProvider?, user: User?, altLoginProviders: List<LoginProvider>
     ) {
-        Timber.e("SetupView called loginProvider = $loginProvider user = $user altProviders = $altLoginProviders")
+        Timber.i("SetupView called loginProvider = $loginProvider user = $user altProviders = $altLoginProviders")
         loginProvider?.let { provider ->
             currentProvider = provider
             currentUser = user

@@ -44,6 +44,11 @@ android {
         buildConfigField "Boolean", "FORCE_REQUEST_PIPELINING", "false"
         buildConfigField "Boolean", "ENABLE_PROFILE_PICTURE", "true"
         buildConfigField "Long", "INPUT_VALIDATION_DELAY", "1200L"
+
+        buildConfigField "String", "OAUTH_SHORT_ID", "\"MobileApp-Short-id\""
+        buildConfigField "String", "OAUTH_SHORT_SECRET", "\"MobileApp-Short-secret\""
+        buildConfigField "String", "OAUTH_LONG_ID", "\"MobileApp-Long-id\""
+        buildConfigField "String", "OAUTH_LONG_SECRET", "\"MobileApp-Long-secret\""
     }
 
     signingConfigs {
