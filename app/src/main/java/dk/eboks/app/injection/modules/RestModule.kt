@@ -13,7 +13,6 @@ import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.DownloadManagerImpl
 import dk.eboks.app.network.managers.protocol.EboksHeaderInterceptor
-import dk.eboks.app.network.managers.protocol.MockHeaderInterceptor
 import dk.eboks.app.network.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.util.DateDeserializer
 import dk.eboks.app.network.util.ItemTypeAdapterFactory
@@ -66,7 +65,7 @@ class RestModule {
         if (BuildConfig.MOCK_API_ENABLED)
             return BuildConfig.MOCK_API_URL
         return Config.currentMode.environment?.baseUrl + "/" + Config.currentMode.urlPrefix + "/"
-                ?: throw(IllegalStateException("No base URL set"))
+                ?: throw(IllegalStateException("No base URL set") as Throwable)
     }
 
     @Provides
@@ -139,11 +138,6 @@ class RestModule {
         return EAuth2(prefManager, appStateManager)
     }
 
-    companion object Keys {
-        const val keyAccesstoken = "eauth.accesstoken"
-        const val keyKspToken = "eauth.kspToken"
-    }
-
     /**
      * E-boks Authenticator, based on OAuth2
      */
@@ -189,9 +183,13 @@ class RestModule {
                 return null
             }
 
-            // try to see if we can transform a web-token
-            var token = transformToken()
+            // Any chance of a quick refresh?
+            var token = refreshToken()
 
+            token?.guard {
+                // try to see if we can transform a web-token
+                token = transformToken()
+            }
             token?.guard {
                 // None or invalid web-token - try for a new AccessToken
                 token = newToken()
@@ -199,7 +197,9 @@ class RestModule {
 
             token?.let {
                 // save the token
-                prefManager.setString(keyAccesstoken, Gson().toJson(it))
+                appStateManager.state?.loginState?.token = it
+                appStateManager.save()
+
                 Timber.w("Authenticate token : $it")
                 // attach it to this request.
                 // the main HttpClient will handle subsequent ones
@@ -219,25 +219,51 @@ class RestModule {
             return null
         }
 
+        private fun refreshToken(): AccessToken? {
+            val reToken = appStateManager.state?.loginState?.token?.refresh_token
+            if (reToken.isNullOrBlank()) {
+                return null // no refresh token
+            }
+            appStateManager.state?.loginState?.token = null // consume it. IUf we can't refresh it, we need a new one anyway
+            try {
+                // request a new token, using the stored user info
+                val tokenResponse = newTokenApi.getToken(mapOf(
+                        Pair("grant_type", "refresh_token"),
+                        Pair("refresh_token", reToken!!),
+                        Pair("scope", "mobileapi offline_access"),
+                        Pair("client_id", BuildConfig.OAUTH_LONG_ID),
+                        Pair("client_secret", BuildConfig.OAUTH_LONG_SECRET)
+                )).execute()
+
+                if (tokenResponse.isSuccessful) {
+                    return tokenResponse.body()
+                }
+            } catch (e: Throwable) {
+                Timber.e("Token transform fail: $e")
+            } finally {
+                return null
+            }
+        }
+
         private fun newToken(): AccessToken? {
             try {
                 val userName = appStateManager.state?.loginState?.userName
                 val password = appStateManager.state?.loginState?.userPassWord
                 val actiCode = appStateManager.state?.loginState?.activationCode
-                if(userName.isNullOrBlank() || password.isNullOrBlank()) {
+                if (userName.isNullOrBlank() || password.isNullOrBlank()) {
                     return null // todo much, much, much more drastic error here - this is when the authenticator was started without a user being selected
                 }
                 // request a new token, using the stored user info
-                val params = mapOf(
+                var params = mapOf(
                         Pair("grant_type", "password"),
                         Pair("username", userName!!),
                         Pair("password", password!!),
                         Pair("scope", "mobileapi offline_access"),
-                        Pair("client_id", "MobileApp-Long-id"),
-                        Pair("client_secret", "MobileApp-Long-secret")
+                        Pair("client_id", BuildConfig.OAUTH_LONG_ID),
+                        Pair("client_secret", BuildConfig.OAUTH_LONG_SECRET)
                 )
-                if(!actiCode.isNullOrBlank()) {
-                    params.plus(Pair("acr_values", "activationcode:$actiCode"))
+                if (!actiCode.isNullOrBlank()) {
+                    params = params.plus(Pair("acr_values", "activationcode:${actiCode} nationality:DK"))
                 }
                 val tokenResponse = newTokenApi.getToken(params).execute()
 
@@ -263,8 +289,8 @@ class RestModule {
                         Pair("token", kspToken!!),
                         Pair("grant_type", "kspwebtoken"),
                         Pair("scope", "mobileapi offline_access"),
-                        Pair("client_id", "MobileApp-Long-Custom-id"),
-                        Pair("client_secret", "MobileApp-Long-Custom-secret")
+                        Pair("client_id", BuildConfig.OAUTH_LONG_ID),
+                        Pair("client_secret", BuildConfig.OAUTH_LONG_SECRET)
                 )).execute()
 
                 if (tokenResponse.isSuccessful) {

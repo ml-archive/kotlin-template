@@ -112,7 +112,7 @@ class LoginComponentPresenter @Inject constructor(
                 "cpr"
         )
 
-        val user: User = User(
+        val user = User(
                 id = -1,
                 name = "Name McLastName",
                 emails = arrayListOf(ContactPoint(email ?: "", true)),

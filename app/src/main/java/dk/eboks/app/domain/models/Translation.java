@@ -597,4 +597,14 @@ public class Translation {
 		public static String defaultFolder = "Default";
 		public static String noPreviewAvailable = "No preview available";
 	}
+	public final static class editFolder {
+		public static String folderNameTitle = "Folder Name";
+		public static String editTitle = "Edit Folder";
+		public static String saveButton = "Save";
+		public static String defaultFolderLocation = "Default";
+		public static String folderNameNonEmpty = "Folder name can\'t be empty";
+		public static String deleteAlertTitle = "Delete?";
+		public static String deleteAlertMessage = "Are you sure?";
+		public static String createTitle = "Add Folder";
+	}
 }
