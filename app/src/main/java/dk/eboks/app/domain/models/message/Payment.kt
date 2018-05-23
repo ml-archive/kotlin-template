@@ -15,7 +15,7 @@ data class Payment(
         var options : List<PaymentOption>? = null,
         var disclaimer : String?,
         var receipt : List<PaymentReceiptGroup>? = null,
-        var amount : String?,  // To be anounced, not yet implemented.
+        var amount : Double?,
         var currency: String?,
         var notfication: Boolean,
         var cancel: Int?
