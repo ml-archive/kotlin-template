@@ -2,7 +2,6 @@ package dk.eboks.app.presentation.ui.components.channels.overview
 
 import android.animation.Animator
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
@@ -21,11 +20,10 @@ import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.channel.ChannelColor
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentFragment
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity
-import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
 import dk.eboks.app.util.getType
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
@@ -41,7 +39,11 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
     @Inject
     lateinit var presenter: ChannelOverviewComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater?,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater?.inflate(R.layout.fragment_channel_list_component, container, false)
         return rootView
     }
@@ -76,23 +78,23 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
         //ekey channels id 101 - 103
 
         when (channel.getType()) {
-            "channel" -> {
+            "channel"  -> {
                 startActivity(Intent(activity, ChannelContentActivity::class.java))
             }
             "storebox" -> {
 //                startActivity(Intent(context, StoreboxContentActivity::class.java))
                 startActivity(Intent(activity, ChannelContentActivity::class.java))
             }
-            "ekey" -> {
+            "ekey"     -> {
                 if (channel.installed) {
                     //todo should check if we have mastervault then go straight to activity
                     startActivity(Intent(activity, EkeyContentActivity::class.java))
-                } else{
+                } else {
                     //todo api call to get vault
                     //todo should maybe move EkeyPinComponentFragment to its own activity ?
 
                     var intent = Intent(activity, EkeyContentActivity::class.java)
-                    intent.putExtra("showPin",true)
+                    intent.putExtra("showPin", true)
                     startActivity(intent)
                 }
             }
@@ -118,7 +120,11 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChannelViewHolder {
-            val v = LayoutInflater.from(context).inflate(R.layout.viewholder_channel_cards, parent, false)
+            val v = LayoutInflater.from(context).inflate(
+                    R.layout.viewholder_channel_cards,
+                    parent,
+                    false
+            )
             val vh = ChannelViewHolder(v)
             return vh
         }
@@ -133,7 +139,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
             if (currentCard.id == -1) {
                 holder?.headerTv?.visibility = View.VISIBLE
                 holder?.cardContainerCv?.visibility = View.GONE
-                holder?.headerTv?.setText(Translation.channels.channelsHeader)
+                holder?.headerTv?.text = Translation.channels.channelsHeader
             } else {
                 holder?.headerTv?.visibility = View.GONE
                 holder?.cardContainerCv?.visibility = View.VISIBLE
@@ -143,7 +149,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                                 .transform(RoundedCorners(15))
 
                         Glide.with(context)
-                                .load(currentCard?.image?.url)
+                                .load(currentCard.image?.url)
                                 .apply(requestOptions)
                                 .into(it)
                     }
@@ -151,34 +157,48 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
 
                 if (currentCard.logo != null) {
                     holder?.logoIv?.let {
-                        Glide.with(context).load(currentCard?.logo?.url).into(it)
+                        Glide.with(context).load(currentCard.logo?.url).into(it)
                     }
                 }
 
-                var backgroundcolor = currentCard.background?.rgba
-                holder?.backgroundColorLl?.background?.setTint(Color.parseColor(backgroundcolor))
-                holder?.headlineTv?.setText(currentCard.payoff)
+                holder?.backgroundColorLl?.background?.setTint(currentCard.background.color)
+                holder?.headlineTv?.text = currentCard.payoff
 
-                holder?.nameTv?.setText(currentCard.name)
+                holder?.nameTv?.text = currentCard.name
 
-                if (currentCard.installed == true) {
+                if (currentCard.installed) {
                     holder?.button?.text = Translation.channels.open
                 } else {
                     holder?.button?.text = Translation.channels.install
                 }
+
                 holder?.cardContainerCv?.setOnClickListener({ v ->
-                    v.animate().scaleX(1.05f).scaleY(1.05f).setDuration(150).setInterpolator(CycleInterpolator(0.5f)).setListener(object : Animator.AnimatorListener {
-                        override fun onAnimationRepeat(p0: Animator?) {}
-                        override fun onAnimationEnd(p0: Animator?) {
-                            presenter.openChannel(currentCard)
-                        }
+                                                                v.animate().scaleX(1.05f).scaleY(
+                                                                        1.05f
+                                                                ).setDuration(150).setInterpolator(
+                                                                        CycleInterpolator(0.5f)
+                                                                ).setListener(object : Animator.AnimatorListener {
+                                                                    override fun onAnimationRepeat(
+                                                                            p0: Animator?
+                                                                    ) {
+                                                                    }
 
-                        override fun onAnimationCancel(p0: Animator?) {}
-                        override fun onAnimationStart(p0: Animator?) {}
-                    }).start()
-                })
+                                                                    override fun onAnimationEnd(p0: Animator?) {
+                                                                        presenter.openChannel(
+                                                                                currentCard
+                                                                        )
+                                                                    }
 
+                                                                    override fun onAnimationCancel(
+                                                                            p0: Animator?
+                                                                    ) {
+                                                                    }
+
+                                                                    override fun onAnimationStart(p0: Animator?) {}
+                                                                }).start()
+                                                            })
             }
+
             holder?.root?.invalidate()
         }
     }
@@ -188,7 +208,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
 
         //adding header card added to the top of the list
         cards.clear()
-        cards.add(Channel(-1, "", "", null, null, null, null, null, null, false, null))
+        cards.add(Channel(-1, "", "", null, null, null, null, ChannelColor(), null, false, null))
         //addings channels
         for (channel in channels) {
             cards.add(channel)

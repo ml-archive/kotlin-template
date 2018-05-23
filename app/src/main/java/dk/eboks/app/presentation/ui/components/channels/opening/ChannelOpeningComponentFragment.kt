@@ -64,18 +64,18 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     private fun setupTopView(channel: Channel) {
         headerTv.text = channel.payoff
         nameTv.text = channel.name
-        nameTv.setTextColor(Color.parseColor(channel.background?.rgba))
-        channel.description?.let { descriptionTv.text = it.text }
+        nameTv.setTextColor(channel.background.color)
+        channel.description?.let { descriptionTv.text = it }
 
-        channel.background?.let {
-            backgroundIv.background = ColorDrawable(Color.parseColor(it.rgb))
+        channel.background.let {
+            backgroundIv.setBackgroundColor(it.color)
         }
 
         channel.image?.let {
             val url = it.url
 
-            channel.background?.let {
-                Glide.with(context).load(url).apply(RequestOptions.bitmapTransform(GlideAlphaTransform(Color.parseColor(it.rgb)))).into(backgroundIv)
+            channel.background.let {
+                Glide.with(context).load(url).apply(RequestOptions.bitmapTransform(GlideAlphaTransform(it.color))).into(backgroundIv)
             }.guard {
                 Glide.with(context).load(url).into(backgroundIv)
             }
@@ -111,7 +111,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         contentBottom.addView(v)
 
         installBtn?.text = Translation.channels.installChannel
-        val colorTint = Color.parseColor(channel.background?.rgb)
+        val colorTint = channel.background.color
         installBtn.backgroundTintList = ColorStateList.valueOf(colorTint)
         installBtn?.setOnClickListener {
             presenter.install(channel)

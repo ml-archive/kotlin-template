@@ -12,11 +12,11 @@ data class Channel(
         var id : Int,
         var name : String,
         var payoff : String,
-        var description: Description?,  // this is removed in swagger 17. april (Been readded in the latest)
+        var description: String?,  // this is removed in swagger 17. april (Been readded in the latest)
         var status: Status?,
         var logo : Image?,
         var image : Image?,
-        var background : ChannelColor?,   // this is changed in swagger 17. april  now a string
+        var background : ChannelColor,   // this is changed in swagger 17. april  now a string
         var requirements : Array<Requirement>? = null,  // this is removed in swagger 17. april Requirement  changed
         var installed : Boolean,
         var pinned : Boolean?
