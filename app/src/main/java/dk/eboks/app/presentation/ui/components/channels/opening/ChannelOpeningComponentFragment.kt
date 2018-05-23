@@ -65,7 +65,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         headerTv.text = channel.payoff
         nameTv.text = channel.name
         nameTv.setTextColor(Color.parseColor(channel.background?.rgba))
-        channel.description?.let { descriptionTv.text = it.text }
+        channel.description?.let { descriptionTv.text = it }
 
         channel.background?.let {
             backgroundIv.background = ColorDrawable(Color.parseColor(it.rgb))
