@@ -17,7 +17,7 @@ import dk.eboks.app.util.guard
 import timber.log.Timber
 
 typealias SenderIdMessageStore = CacheStore<Long, List<Message>>
-typealias FolderIdMessageStore = CacheStore<Long, List<Message>>
+typealias FolderIdMessageStore = CacheStore<Int, List<Message>>
 typealias FolderTypeMessageStore = CacheStore<String, List<Message>>
 
 /**
@@ -65,7 +65,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
 
     }
 
-    override fun getMessages(cached: Boolean, folderId : Long): List<Message>
+    override fun getMessages(cached: Boolean, folderId : Int): List<Message>
     {
         val res = if(cached) folderIdMessageStore.get(folderId) else folderIdMessageStore.fetch(folderId)
         if(res != null)
@@ -91,7 +91,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
     }
 
 
-    override fun getMessage(folderId: Long, id: String, receipt : Boolean?, terms : Boolean?) : Message {
+    override fun getMessage(folderId: Int, id: String, receipt : Boolean?, terms : Boolean?) : Message {
         val call = api.getMessage(id, folderId, receipt, terms)
         val result = call.execute()
         result?.let { response ->
@@ -108,7 +108,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
         throw(RuntimeException())
     }
 
-    override fun getMessageReplyForm(folderId: Long, id: String) : ReplyForm {
+    override fun getMessageReplyForm(folderId: Int, id: String) : ReplyForm {
         val call = api.getMessageReplyForm(id, folderId)
         val result = call.execute()
         result?.let { response ->
