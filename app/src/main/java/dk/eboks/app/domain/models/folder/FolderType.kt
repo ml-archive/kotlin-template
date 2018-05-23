@@ -10,12 +10,14 @@ enum class FolderType(val type : String) {
     @SerializedName("Inbox") INBOX("Inbox"),
     @SerializedName("Drafts") DRAFTS("Drafts"),
     @SerializedName("Archive") ARCHIVE("Archive"),
-    @SerializedName("Sentitems") SENT("Sentitems"),
-    @SerializedName("Deleteditems") DELETED("Deleteditems"),
+    @SerializedName("SentItems") SENT("SentItems"),
+    @SerializedName("Trash") TRASH("Trash"),
+    @SerializedName("DeletedItems") DELETED("DeletedItems"),
     @SerializedName("Highlights") HIGHLIGHTS("Highlights"),
     @SerializedName("Unread") UNREAD("Unread"),
     @SerializedName("Latest") LATEST("Latest"),
     @SerializedName("Folder") FOLDER("Folder"),
+    @SerializedName("Receipts") RECEIPTS("Receipts"),
     @SerializedName("Uploads") UPLOADS("Uploads");
 
     fun isSystemFolder() : Boolean

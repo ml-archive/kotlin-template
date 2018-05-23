@@ -103,7 +103,7 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
 
     private fun getMessages(cached : Boolean, folder: Folder) : List<Message>
     {
-        if(folder.id != 0L)
+        if(folder.id != 0)
         {
             return messagesRepository.getMessages(cached, folder.id)
         }

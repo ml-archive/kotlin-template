@@ -7,6 +7,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.repositories.FoldersRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
+import timber.log.Timber
 
 typealias FolderListStore = CacheStore<Int, List<Folder>>
 
@@ -29,8 +30,10 @@ class FoldersRestRepository(val context: Context, val api: Api, val gson: Gson) 
 
     override fun getFolders(cached: Boolean): List<Folder> {
         val res = if(cached) folderStore.get(0) else folderStore.fetch(0)
-        if(res != null)
-            return res
+        if(res != null) {
+            // TODO remove hack at some point
+            return res[0].folders
+        }
         else
             return ArrayList()
     }
