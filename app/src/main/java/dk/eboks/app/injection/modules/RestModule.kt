@@ -241,9 +241,8 @@ class RestModule {
                 }
             } catch (e: Throwable) {
                 Timber.e("Token transform fail: $e")
-            } finally {
-                return null
             }
+            return null
         }
 
         private fun newToken(): AccessToken? {
@@ -273,9 +272,8 @@ class RestModule {
                 }
             } catch (e: Throwable) {
                 Timber.e("Authenticate fail: $e")
-            } finally {
-                return null
             }
+            return null
         }
 
         private fun transformToken(): AccessToken? {
@@ -299,9 +297,8 @@ class RestModule {
                 }
             } catch (e: Throwable) {
                 Timber.e("Token transform fail: $e")
-            } finally {
-                return null
             }
+            return null
         }
 
         /**

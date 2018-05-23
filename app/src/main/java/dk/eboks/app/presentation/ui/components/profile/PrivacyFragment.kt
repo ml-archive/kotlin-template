@@ -42,7 +42,6 @@ class PrivacyFragment: BaseWebFragment(), PrivacyContract.View {
     }
 
     override fun loadUrl(urlString: String) {
-        Timber.v("URL: $urlString")
         webView.loadUrl(urlString)
     }
 

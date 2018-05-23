@@ -43,7 +43,6 @@ class HelpFragment: BaseWebFragment(), HelpContract.View {
     }
 
     override fun loadUrl(urlString: String) {
-        Timber.v("URL: $urlString")
         webView.loadUrl(urlString)
     }
 }
