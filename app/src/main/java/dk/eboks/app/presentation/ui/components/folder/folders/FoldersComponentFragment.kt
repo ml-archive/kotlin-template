@@ -106,14 +106,6 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             }
             FolderMode.SELECT -> {
                 setSelectTopbar()
-
-//                if (selectFolder) {
-//                    for (folder in userfolders) {
-//                        if (folder.type == FolderType.INBOX) {
-//
-//                        }
-//                    }
-//                }
                 showUserFolders(userfolders)
             }
             FolderMode.EDIT -> {
@@ -240,7 +232,12 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         userfolders.clear()
         userfolders.addAll(folders)
         foldersLl.removeAllViews()
-        processFoldersRecursive(folders, 0)
+        if (folders.size == 0) {
+            userFolderEmptyTv.visibility = View.VISIBLE
+        } else {
+            userFolderEmptyTv.visibility = View.GONE
+            processFoldersRecursive(folders, 0, null)
+        }
     }
 
     fun processFoldersRecursive(folders: List<Folder>, level: Int, parentFolder: Folder? = null) {
@@ -395,7 +392,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     }
 
     override fun showEmpty(show: Boolean) {
-        emptyFl.visibility = if (show) View.VISIBLE else View.GONE
-        refreshSrl.visibility = if (!show) View.VISIBLE else View.GONE
+//        emptyFl.visibility = if (show) View.VISIBLE else View.GONE
+//        refreshSrl.visibility = if (!show) View.VISIBLE else View.GONE
     }
 }
