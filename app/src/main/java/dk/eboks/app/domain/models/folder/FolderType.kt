@@ -7,16 +7,18 @@ import dk.eboks.app.R
  * Created by bison on 09-02-2018.
  */
 enum class FolderType(val type : String) {
-    @SerializedName("Inbox") INBOX("inbox"),
-    @SerializedName("drafts") DRAFTS("drafts"),
-    @SerializedName("archive") ARCHIVE("archive"),
-    @SerializedName("sentitems") SENT("sentitems"),
-    @SerializedName("deleteditems") DELETED("deleteditems"),
-    @SerializedName("highlights") HIGHLIGHTS("highlights"),
-    @SerializedName("unread") UNREAD("unread"),
-    @SerializedName("latest") LATEST("latest"),
-    @SerializedName("folder") FOLDER("folder"),
-    @SerializedName("uploads") UPLOADS("uploads");
+    @SerializedName("Inbox") INBOX("Inbox"),
+    @SerializedName("Drafts") DRAFTS("Drafts"),
+    @SerializedName("Archive") ARCHIVE("Archive"),
+    @SerializedName("SentItems") SENT("SentItems"),
+    @SerializedName("Trash") TRASH("Trash"),
+    @SerializedName("DeletedItems") DELETED("DeletedItems"),
+    @SerializedName("Highlights") HIGHLIGHTS("Highlights"),
+    @SerializedName("Unread") UNREAD("Unread"),
+    @SerializedName("Latest") LATEST("Latest"),
+    @SerializedName("Folder") FOLDER("Folder"),
+    @SerializedName("Receipts") RECEIPTS("Receipts"),
+    @SerializedName("Uploads") UPLOADS("Uploads");
 
     fun isSystemFolder() : Boolean
     {
@@ -47,16 +49,16 @@ enum class FolderType(val type : String) {
     override fun toString(): String {
         when(this)
         {
-            INBOX -> return "inbox"
-            DRAFTS -> return "drafts"
-            ARCHIVE -> return "archive"
-            SENT -> return "sentitems"
-            DELETED -> return "deleteditems"
-            HIGHLIGHTS -> return "highlights"
-            UNREAD -> return "unread"
-            LATEST -> return "latest"
-            FOLDER -> return "folder"
-            UPLOADS -> return "uploads"
+            INBOX -> return "Inbox"
+            DRAFTS -> return "Drafts"
+            ARCHIVE -> return "Archive"
+            SENT -> return "Sentitems"
+            DELETED -> return "Deleteditems"
+            HIGHLIGHTS -> return "Highlights"
+            UNREAD -> return "Unread"
+            LATEST -> return "Latest"
+            FOLDER -> return "Folder"
+            UPLOADS -> return "Uploads"
             else -> return super.toString()
         }
     }

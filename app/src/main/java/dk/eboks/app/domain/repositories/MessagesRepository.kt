@@ -10,10 +10,10 @@ import dk.eboks.app.domain.models.sender.Sender
  * Created by bison on 01/02/18.
  */
 interface MessagesRepository {
-    fun getMessages(cached : Boolean = false, folderId : Long) : List<Message>
+    fun getMessages(cached : Boolean = false, folderId : Int) : List<Message>
     fun getMessages(cached : Boolean = false, type : FolderType) : List<Message>
-    fun getMessage(folderId: Long, id : String, receipt : Boolean? = null, terms : Boolean? = null) : Message
-    fun getMessageReplyForm(folderId: Long, id : String) : ReplyForm
+    fun getMessage(folderId: Int, id : String, receipt : Boolean? = null, terms : Boolean? = null) : Message
+    fun getMessageReplyForm(folderId: Int, id : String) : ReplyForm
     fun submitMessageReplyForm(msg : Message, form: ReplyForm)
     fun getMessagesBySender(cached: Boolean, senderId : Long): List<Message>
     fun hasCachedMessageFolder(folder: Folder): Boolean

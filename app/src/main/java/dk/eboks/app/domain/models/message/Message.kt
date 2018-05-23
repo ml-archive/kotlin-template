@@ -19,7 +19,7 @@ data class Message(
         var type: MessageType? = MessageType.RECEIVED,
         var recipient: Sender? = null,
         var folder : Folder? = null,
-        var folderId : Long = 0,
+        var folderId : Int = 0,
         var content : Content? = null,
         var attachments : List<Content>? = null,
         var numberOfAttachments: Int = 0,
