@@ -103,7 +103,16 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
 
     private fun getMessages(cached : Boolean, folder: Folder) : List<Message>
     {
-        return if(folder.type == FolderType.FOLDER) messagesRepository.getMessages(cached, folder.id)
-        else messagesRepository.getMessages(cached, folder.type!!)
+        if(folder.id != 0L)
+        {
+            return messagesRepository.getMessages(cached, folder.id)
+        }
+        else
+        {
+            folder.type?.let {
+                return messagesRepository.getMessages(cached, it)
+            }
+        }
+        return ArrayList()
     }
 }
