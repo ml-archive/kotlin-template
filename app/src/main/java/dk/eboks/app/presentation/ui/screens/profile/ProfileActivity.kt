@@ -29,17 +29,4 @@ class ProfileActivity : BaseActivity(), ProfileContract.View {
     fun showMyInformationFragment() {
         //TODO setup fragment¬
     }
-
-    fun showTerms() {
-        //TODO setup fragment
-    }
-
-    fun showHelp() {
-        //TODO setup fragment
-    }
-
-    fun showPrivacy() {
-        //TODO setup fragment
-    }
-
 }

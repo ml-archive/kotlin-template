@@ -61,6 +61,7 @@ class RestModule {
 
     @Provides
     @Named("NAME_BASE_URL")
+    @AppScope
     fun provideBaseUrlString(): String {
         if (BuildConfig.MOCK_API_ENABLED)
             return BuildConfig.MOCK_API_URL

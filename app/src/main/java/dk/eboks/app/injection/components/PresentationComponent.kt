@@ -91,6 +91,9 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
+import dk.eboks.app.presentation.ui.components.profile.HelpFragment
+import dk.eboks.app.presentation.ui.components.profile.PrivacyFragment
+import dk.eboks.app.presentation.ui.components.profile.PrivacyPresenter
 import dk.eboks.app.presentation.ui.components.profile.drawer.*
 import dk.eboks.app.presentation.ui.components.profile.main.ProfileInfoComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.main.ProfileInfoComponentPresenter
@@ -370,6 +373,8 @@ interface PresentationComponent {
     fun inject(target : ChannelControlComponentFragment)
     fun inject(target : ChannelControlComponentPresenter)
 
+    fun inject(target: PrivacyFragment)
+    fun inject(target: HelpFragment)
 
     // verification
 

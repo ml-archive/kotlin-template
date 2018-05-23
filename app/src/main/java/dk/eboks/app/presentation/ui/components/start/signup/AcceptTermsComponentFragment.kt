@@ -1,13 +1,13 @@
 package dk.eboks.app.presentation.ui.components.start.signup
 
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
@@ -50,6 +50,8 @@ class AcceptTermsComponentFragment : BaseFragment(), AcceptTermsComponentContrac
 
         acceptBtn.setOnClickListener { getBaseActivity()?.addFragmentOnTop(R.id.containerFl, CompletedComponentFragment(), true) }
         cancelBtn.setOnClickListener { showDialog() }
+
+        termsWV.loadUrl("http://test401-mobile-api-dk.e-boks.com/2/resources/${Config.currentMode.countryCode}/terms")
     }
 
     private fun showDialog() {

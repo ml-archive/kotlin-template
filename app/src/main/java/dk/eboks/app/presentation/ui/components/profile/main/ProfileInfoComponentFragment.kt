@@ -17,6 +17,8 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.profile.HelpFragment
+import dk.eboks.app.presentation.ui.components.profile.PrivacyFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.FingerPrintComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFragment
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentFragment
@@ -97,7 +99,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
 
         // Show our fingerprint stuff only if we are above API M
-        profileDetailFingerprintContainer.setVisible(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+        profileDetailSwFingerprint.setVisible(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
 
         profileDetailRegisterTB.textOn = Translation.senders.registered
         profileDetailRegisterTB.textOff = Translation.profile.verifyButton
@@ -143,12 +145,12 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
         profileDetailContainerPrivacy.setOnClickListener {
             Timber.d("profileDetailContainerPrivacy Clicked")
-            profileActivity?.showPrivacy()
+            getBaseActivity()?.addFragmentOnTop(R.id.profileActivityContainerFragment, PrivacyFragment())
         }
 
         profileDetailContainerHelp.setOnClickListener {
             Timber.d("profileDetailContainerHelp Clicked")
-            profileActivity?.showHelp()
+            getBaseActivity()?.addFragmentOnTop(R.id.profileActivityContainerFragment, HelpFragment())
         }
 
         profileDetailBtnSignout.setOnClickListener {
