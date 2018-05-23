@@ -3,16 +3,16 @@ package dk.eboks.app.domain.models.protocol
 import com.google.gson.annotations.SerializedName
 
 enum class ErrorType(val type : String) {
-    @SerializedName("error") ERROR("error"),
-    @SerializedName("warning") WARNING("warning"),
-    @SerializedName("information") INFORMATION("information");
+    @SerializedName("Error") ERROR("Error"),
+    @SerializedName("Warning") WARNING("Warning"),
+    @SerializedName("Information") INFORMATION("Information");
     override fun toString(): String {
         when(this)
         {
-            ERROR -> return "error"
-            WARNING -> return "warning"
-            INFORMATION -> return "information"
-            else -> return "error"
+            ERROR -> return "Error"
+            WARNING -> return "Warning"
+            INFORMATION -> return "Information"
+            else -> return "Error"
         }
     }
 }
