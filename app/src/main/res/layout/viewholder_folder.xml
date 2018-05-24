@@ -21,7 +21,7 @@
 
         <TextView
             android:id="@+id/nameTv"
-            style="@style/text.header3"
+            style="@style/text.header4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_normal"
@@ -76,13 +76,5 @@
         android:background="@color/dividerColor"
         android:visibility="gone" />
 
-
-    <!--<FrameLayout-->
-        <!--android:id="@+id/overlayFl"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:background="@color/transparentOverlay"-->
-        <!--android:visibility="gone"-->
-        <!--/>-->
 
 </FrameLayout>

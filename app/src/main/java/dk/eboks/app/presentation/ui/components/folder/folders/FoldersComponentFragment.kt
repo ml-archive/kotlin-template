@@ -23,10 +23,12 @@ import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentFragment
 import dk.eboks.app.util.guard
+import dk.eboks.app.util.putArg
 import dk.eboks.app.util.views
 import kotlinx.android.synthetic.main.fragment_folders_component.*
 import kotlinx.android.synthetic.main.fragment_list_component.view.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import kotlinx.android.synthetic.main.viewholder_folder.*
 import kotlinx.android.synthetic.main.viewholder_folder.view.*
 import timber.log.Timber
 import java.util.*
@@ -66,7 +68,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
 
         mainFab.setOnClickListener {
-            getBaseActivity()?.openComponentDrawer(NewFolderComponentFragment::class.java)
+            openDrawer()
 
         }
         refreshSrl.setOnRefreshListener {
@@ -82,6 +84,15 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             animation.duration = 1000
             view?.startAnimation(animation)
         }
+    }
+
+    private fun openDrawer() {
+        var fragment = NewFolderComponentFragment()
+        var arguments = Bundle()
+        if (userfolders.size == 0) {
+            arguments.putSerializable("disableFolderSelection", true)
+        }
+        getBaseActivity()?.openComponentDrawer(fragment::class.java, arguments)
     }
 
     private fun setupMode() {
@@ -104,9 +115,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                     normalView(view, view.tag as Folder)
                 }
                 addFolderBtn.setOnClickListener {
-                    //todo create a new folder
-                    var temp = "_addFolder clicked"
-                    println(temp)
+                    openDrawer()
                 }
             }
             FolderMode.SELECT -> {
@@ -224,7 +233,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             }
 
 
-            folder.type?.let { type->
+            folder.type?.let { type ->
                 val iv = v.findViewById<ImageView>(R.id.iconIv)
                 iv?.let { it.setImageResource(type.getIconResId()) }
             }
@@ -239,8 +248,10 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         foldersLl.removeAllViews()
         if (folders.size == 0) {
             userFolderEmptyLl.visibility = View.VISIBLE
+            bottomDivider.visibility = View.GONE
         } else {
             userFolderEmptyLl.visibility = View.GONE
+            bottomDivider.visibility = View.VISIBLE
             processFoldersRecursive(folders, 0, null)
         }
     }
@@ -271,7 +282,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.VISIBLE
             }
 
-            folder.type?.let { type->
+            folder.type?.let { type ->
                 val iv = v.findViewById<ImageView>(R.id.iconIv)
                 iv?.let { it.setImageResource(type.getIconResId()) }
             }
@@ -299,6 +310,8 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
             if (folder.folders.isNotEmpty()) {
                 processFoldersRecursive(folder.folders, level + 1, folder)
+            } else {
+                v.findViewById<View>(R.id.underLineV)?.visibility = View.GONE
             }
         }
     }
@@ -397,7 +410,5 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     }
 
     override fun showEmpty(show: Boolean) {
-//        emptyFl.visibility = if (show) View.VISIBLE else View.GONE
-//        refreshSrl.visibility = if (!show) View.VISIBLE else View.GONE
     }
 }
