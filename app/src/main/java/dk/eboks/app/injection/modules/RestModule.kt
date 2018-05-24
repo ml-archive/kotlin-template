@@ -178,7 +178,7 @@ class RestModule {
 
         @Synchronized
         override fun authenticate(route: Route?, response: Response): Request? {
-            Timber.w("Authenticate")
+            Timber.w("authenticate; attempt number-${responseCount(response)}")
             // If we've failed 3 times, give up. Otherwise this would be an infinite loop, asking for authentication
             // because of failing authentication...
             if (responseCount(response) >= 3) {
@@ -186,14 +186,29 @@ class RestModule {
                 return null
             }
 
+            var token = appStateManager.state?.loginState?.token
+
+            // Have we tried with the newest token? Give it a shot!
+            // (happens if multiple calls triggered 401 while we were running authenticate() on another call )
+            if (responseCount(response) <= 1) {
+                token?.let {
+                    return response.request().newBuilder()
+                            .header("Authorization", it.token_type + " " + it.access_token)
+                            .build()
+                }
+            }
+
             // Any chance of a quick refresh?
-            var token = refreshToken()
+            Timber.w("Trying refresh")
+            token = refreshToken()
 
             token?.guard {
+                Timber.w("Trying transform")
                 // try to see if we can transform a web-token
                 token = transformToken()
             }
             token?.guard {
+                Timber.w("Trying newtoken")
                 // None or invalid web-token - try for a new AccessToken
                 token = newToken()
             }
@@ -203,7 +218,7 @@ class RestModule {
                 appStateManager.state?.loginState?.token = it
                 appStateManager.save()
 
-                Timber.w("Authenticate token : $it")
+                Timber.w("Got Authentication token : $it")
                 // attach it to this request.
                 // the main HttpClient will handle subsequent ones
                 return response.request().newBuilder()
