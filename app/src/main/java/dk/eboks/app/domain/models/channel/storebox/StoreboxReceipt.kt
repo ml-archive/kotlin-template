@@ -8,9 +8,9 @@ import java.util.*
 @Parcelize
 data class StoreboxReceipt(
         @SerializedName("id")
-        var id: String,
+        var id: String = "",
         @SerializedName("merchantId")
-        var merchantId: String,
+        var merchantId: String = "",
         @SerializedName("purchaseDateTime")
         var purchaseDateTime: Date? = null,
         @SerializedName("grandTotal")

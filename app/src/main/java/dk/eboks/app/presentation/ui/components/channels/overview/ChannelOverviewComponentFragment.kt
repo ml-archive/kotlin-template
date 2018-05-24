@@ -24,6 +24,7 @@ import dk.eboks.app.domain.models.channel.ChannelColor
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
 import dk.eboks.app.util.getType
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
@@ -82,8 +83,9 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 startActivity(Intent(activity, ChannelContentActivity::class.java))
             }
             "storebox" -> {
-//                startActivity(Intent(context, StoreboxContentActivity::class.java))
-                startActivity(Intent(activity, ChannelContentActivity::class.java))
+                // TODO SWITCH BACK TO NORMAL ONCE API IS WORKING
+               startActivity(Intent(context, StoreboxContentActivity::class.java))
+               // startActivity(Intent(activity, ChannelContentActivity::class.java))
             }
             "ekey"     -> {
                 if (channel.installed) {

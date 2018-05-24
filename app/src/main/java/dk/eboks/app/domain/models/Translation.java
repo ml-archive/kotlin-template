@@ -69,6 +69,9 @@ public class Translation {
 		public static String newfolderHint = "Folder name";
 		public static String folder = "Folder";
 		public static String editFolder = "Edit folder";
+		public static String noFoldersHeader = "You have not added any folders";
+		public static String noFoldersSubHeader = "You can create your own folders to organize your mails.";
+		public static String noFoldersBtn = "Create a folder";
 	}
 	public final static class attachments {
 		public static String lockedTitle = "Locked attachment";

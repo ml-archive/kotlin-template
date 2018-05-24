@@ -3,7 +3,6 @@ package dk.eboks.app.presentation.ui.components.channels.opening
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -30,21 +29,25 @@ import kotlinx.android.synthetic.main.include_channel_detail_bottom_install.*
 import kotlinx.android.synthetic.main.include_channel_detail_top.*
 import javax.inject.Inject
 
-
-/**
- * Created by bison on 09-02-2018.
- */
 class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentContract.View {
 
     val inflater by lazy { LayoutInflater.from(context) }
 
     @Inject
     lateinit var presenter: ChannelOpeningComponentContract.Presenter
+
     var refreshChannel = false
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_channel_opening_component, container, false)
-        return rootView
+    override fun onCreateView(
+            inflater: LayoutInflater?,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
+        return inflater?.inflate(
+                R.layout.fragment_channel_opening_component,
+                container,
+                false
+        )
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -75,7 +78,11 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
             val url = it.url
 
             channel.background.let {
-                Glide.with(context).load(url).apply(RequestOptions.bitmapTransform(GlideAlphaTransform(it.color))).into(backgroundIv)
+                Glide.with(context).load(url).apply(
+                        RequestOptions.bitmapTransform(
+                                GlideAlphaTransform(it.color)
+                        )
+                ).into(backgroundIv)
             }.guard {
                 Glide.with(context).load(url).into(backgroundIv)
             }
@@ -100,13 +107,21 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     }
 
     override fun showDisabledState(channel: Channel) {
-        val v = inflater.inflate(R.layout.include_channel_detail_bottom_not_available, contentBottom, false)
+        val v = inflater.inflate(
+                R.layout.include_channel_detail_bottom_not_available,
+                contentBottom,
+                false
+        )
         setupTopView(channel)
         contentBottom.addView(v)
     }
 
     override fun showInstallState(channel: Channel) {
-        val v = inflater.inflate(R.layout.include_channel_detail_bottom_install, contentBottom, false)
+        val v = inflater.inflate(
+                R.layout.include_channel_detail_bottom_install,
+                contentBottom,
+                false
+        )
         setupTopView(channel)
         contentBottom.addView(v)
 
@@ -117,7 +132,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
             presenter.install(channel)
             refreshChannel = true
         }
-        if(channel.getType() == "storebox") {
+        if (channel.getType() == "storebox") {
             linkStoreboxBtn.visibility = View.VISIBLE
             linkStoreboxBtn.setOnClickListener {
                 startActivity(Intent(context, ConnectStoreboxActivity::class.java))
@@ -127,7 +142,11 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
 
     override fun showVerifyState(channel: Channel, provider: LoginProvider) {
         contentBottom.removeAllViews()
-        val v = inflater.inflate(R.layout.include_channel_detail_bottom_verify, contentBottom, false)
+        val v = inflater.inflate(
+                R.layout.include_channel_detail_bottom_verify,
+                contentBottom,
+                false
+        )
         setupTopView(channel)
         contentBottom.addView(v)
         val button = v.findViewById<Button>(R.id.verifyBtn)
@@ -160,7 +179,10 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         channel.requirements?.let {
             val data = Bundle()
             data.putSerializable("channel", channel)
-            getBaseActivity()?.openComponentDrawer(ChannelRequirementsComponentFragment::class.java, data)
+            getBaseActivity()?.openComponentDrawer(
+                    ChannelRequirementsComponentFragment::class.java,
+                    data
+            )
         }.guard {
             showOpenState(channel)
         }

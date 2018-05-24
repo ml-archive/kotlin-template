@@ -1,5 +1,9 @@
 package dk.eboks.app.network.util
-import com.google.gson.*
+
+import com.google.gson.Gson
+import com.google.gson.JsonElement
+import com.google.gson.TypeAdapter
+import com.google.gson.TypeAdapterFactory
 import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
@@ -34,10 +38,9 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                 var jsonElement = elementAdapter.read(reader)
 
                 //Timber.e("Path ${reader.path}")
-                Timber.e("parsing element " + jsonElement.toString())
+//                Timber.e("parsing element " + jsonElement.toString())
 
-                if(reader.path != "$")
-                {
+                if (reader.path != "$") {
                     //Timber.e("Not root path, not doing custom shit")
                     return delegate.fromJsonTree(jsonElement)
                 }
@@ -47,43 +50,33 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                     val entry_set = jsonObject.entrySet()
                     listElement = null
                     metadata = null
-                    if(entry_set.isNotEmpty())
-                    {
-                        for(entry in entry_set)
-                        {
-                            val key : String = entry.key
-                            val ele : JsonElement = entry.value
+                    if (entry_set.isNotEmpty()) {
+                        for (entry in entry_set) {
+                            val key: String = entry.key
+                            val ele: JsonElement = entry.value
                             //Timber.e("Examining key $key (${reader.path})")
-                            if(rootContainerNames.contains(key))
-                            {
-                                if(ele.isJsonArray)
-                                {
+                            if (rootContainerNames.contains(key)) {
+                                if (ele.isJsonArray) {
                                     listElement = ele
                                 }
                             }
-                            if(key.contentEquals("metadata"))
-                            {
-                                if(ele.isJsonObject)
-                                {
+                            if (key.contentEquals("metadata")) {
+                                if (ele.isJsonObject) {
                                     metadata = ele
                                 }
                             }
                         }
-                        if(listElement != null)
-                        {
+                        if (listElement != null) {
                             val listobj = delegate.fromJsonTree(listElement)
                             try {
                                 val meta = gson.fromJson(metadata, Metadata::class.java)
                                 _metaDataMap[listobj as Any] = meta
                                 //Timber.e("Parsed metadata object = $meta")
-                            }
-                            catch (t : Throwable)
-                            {
-                                Timber.e("Could not deserialize metadata object, ignoring...")
+                            } catch (t: Throwable) {
+                               // Timber.e("Could not deserialize metadata object, ignoring...")
                             }
                             return listobj
-                        }
-                        else
+                        } else
                             return delegate.fromJsonTree(jsonElement)
                     }
                 }
@@ -93,11 +86,10 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
     }
 }
 
-private val _metaDataMap : MutableMap<Any, Metadata> = HashMap()
+private val _metaDataMap: MutableMap<Any, Metadata> = HashMap()
 
-private fun <T> _findMetadata(list : List<T>) : Metadata?
-{
-    if(_metaDataMap.containsKey(list))
+private fun <T> _findMetadata(list: List<T>): Metadata? {
+    if (_metaDataMap.containsKey(list))
         return _metaDataMap[list]
     else
         return null
