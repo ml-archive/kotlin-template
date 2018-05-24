@@ -40,15 +40,21 @@ interface Api {
     // @GET("regions") fun getRegions() : Call<List<Region>>
     @GET("mail/folders/selected") fun getMailCategories() : Call<List<Folder>>
     @GET("mail/folders") fun getFolders() : Call<List<Folder>>
-    @GET("mail/folders/{id}/messages") fun getMessages(@Path("id") id : Long) : Call<List<Message>>
+    @GET("mail/folders/{id}/messages") fun getMessages(@Path("id") id : Int) : Call<List<Message>>
     @GET("mail/messages/senders/{id}") fun getMessagesBySender(@Path("id") id : Long) : Call<List<Message>>
-    @GET("mail/folders/{folderId}/messages/{id}") fun getMessage(@Path("id") id : String, @Path("folderId") folderId : Long, @Query("receipt") receipt : Boolean? = null, @Query("terms") terms : Boolean? = null) : Call<Message>
-    @GET("mail/messages/{type}") fun getMessagesByType(@Path("type") type : String) : Call<List<Message>>
+    @GET("mail/folders/{folderId}/messages/{id}") fun getMessage(@Path("id") id : String, @Path("folderId") folderId : Int, @Query("receipt") receipt : Boolean? = null, @Query("terms") terms : Boolean? = null) : Call<Message>
     @GET("mail/senders") fun getSenders() : Call<List<Sender>>
 
+    // get types of messages, used to be by folder type but now its just a couple of hardcoded endpoints
+    @GET("mail/messages/highlights") fun getHighlights() : Call<List<Message>>
+    @GET("mail/messages/latest") fun getLatest() : Call<List<Message>>
+    @GET("mail/messages/unread") fun getUnread() : Call<List<Message>>
+    @GET("mail/messages/uploads") fun getUploads() : Call<List<Message>>
+
+
     // reply forms
-    @GET("mail/folders/{folderId}/messages/{id}/reply") fun getMessageReplyForm(@Path("id") id : String, @Path("folderId") folderId : Long) : Call<ReplyForm>
-    @PATCH("mail/folders/{folderId}/messages/{id}/reply") fun submitMessageReplyForm(@Path("id") id : String, @Path("folderId") folderId : Long, @Body body : ReplyForm) : Call<Any>
+    @GET("mail/folders/{folderId}/messages/{id}/reply") fun getMessageReplyForm(@Path("id") id : String, @Path("folderId") folderId : Int) : Call<ReplyForm>
+    @PATCH("mail/folders/{folderId}/messages/{id}/reply") fun submitMessageReplyForm(@Path("id") id : String, @Path("folderId") folderId : Int, @Body body : ReplyForm) : Call<Any>
 
     // channels
     @GET("channels") fun getChannels() : Call<MutableList<Channel>>

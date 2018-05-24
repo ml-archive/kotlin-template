@@ -8,7 +8,6 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface AcceptTermsComponentContract {
     interface View : BaseView {
-
     }
 
     interface Presenter : BasePresenter<View> {

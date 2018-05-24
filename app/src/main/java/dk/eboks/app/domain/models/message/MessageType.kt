@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 enum class MessageType(val type : String) {
     @SerializedName("upload") UPLOAD("upload"),
     @SerializedName("draft") DRAFT("draft"),
-    @SerializedName("sent") SENT("SENT"),
+    @SerializedName("sent") SENT("sent"),
     @SerializedName("received") RECEIVED("received");
     override fun toString(): String {
         when(this)

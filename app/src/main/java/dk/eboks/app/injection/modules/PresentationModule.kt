@@ -109,6 +109,10 @@ import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.components.message.viewers.text.TextViewComponentPresenter
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentContract
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
+import dk.eboks.app.presentation.ui.components.profile.HelpContract
+import dk.eboks.app.presentation.ui.components.profile.HelpPresenter
+import dk.eboks.app.presentation.ui.components.profile.PrivacyContract
+import dk.eboks.app.presentation.ui.components.profile.PrivacyPresenter
 import dk.eboks.app.presentation.ui.components.profile.drawer.*
 import dk.eboks.app.presentation.ui.components.profile.main.ProfileInfoComponentContract
 import dk.eboks.app.presentation.ui.components.profile.main.ProfileInfoComponentPresenter
@@ -197,6 +201,7 @@ import dk.eboks.app.presentation.ui.screens.uploads.UploadsContract
 import dk.eboks.app.presentation.ui.screens.uploads.UploadsPresenter
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
+import javax.inject.Named
 
 @Module
 class PresentationModule {
@@ -940,6 +945,18 @@ class PresentationModule {
     @Provides
     fun provideEkeyPinComponentPresenter(stateManager: AppStateManager) : EkeyPinComponentContract.Presenter {
         return EkeyPinComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun providePrivacyPresenter(@Named("NAME_BASE_URL") baseUrlString: String) : PrivacyContract.Presenter {
+        return PrivacyPresenter(baseUrlString)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideHelpPresenter(@Named("NAME_BASE_URL") baseUrlString: String) : HelpContract.Presenter {
+        return HelpPresenter(baseUrlString)
     }
 
     /* Pasta

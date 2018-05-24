@@ -13,10 +13,17 @@ interface GetMessagesInteractor : Interactor {
     var output : Output?
     var input : Input?
 
+
     data class Input(val cached: Boolean, var folder: Folder? = null, var sender: Sender? = null)
 
     interface Output {
         fun onGetMessages(messages : List<Message>)
         fun onGetMessagesError(error : ViewError)
     }
+
+    /* Dont know if were gonna go down this road yet or let it still try to match api call to foldertype
+    enum class MessageCategory {
+        HIGHLIGHTS, LATEST, UNREAD, UPLOADS
+    }
+    */
 }

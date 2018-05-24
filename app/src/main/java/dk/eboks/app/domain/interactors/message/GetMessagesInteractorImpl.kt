@@ -103,14 +103,33 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
 
     private fun getMessages(cached : Boolean, folder: Folder) : List<Message>
     {
-        if(folder.id != 0L)
+        if(folder.id != 0)
         {
             return messagesRepository.getMessages(cached, folder.id)
         }
         else
         {
-            folder.type?.let {
-                return messagesRepository.getMessages(cached, it)
+            folder.type?.let { type ->
+                when(type)
+                {
+                    FolderType.HIGHLIGHTS -> {
+                        return messagesRepository.getHighlights(cached)
+                    }
+                    FolderType.LATEST -> {
+                        return messagesRepository.getLatest(cached)
+                    }
+                    FolderType.UNREAD -> {
+                        return messagesRepository.getUnread(cached)
+                    }
+                    FolderType.UPLOADS -> {
+                        return messagesRepository.getUploads(cached)
+                    }
+                    else -> {
+                        Timber.e("No API call exists to fetch messages of type $type")
+                        return ArrayList()
+                    }
+                }
+
             }
         }
         return ArrayList()

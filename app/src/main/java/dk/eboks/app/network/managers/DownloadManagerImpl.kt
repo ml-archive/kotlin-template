@@ -24,7 +24,8 @@ class DownloadManagerImpl(val context: Context, val client: OkHttpClient, val ca
     override fun downloadContent(message: Message, content: Content) : String? {
         try {
             Timber.e("Downloading content...")
-            var url = "${BuildConfig.MOCK_API_URL}/mail/folders/1/messages/${content.id}/content"
+            var folderId = if(message.folder != null) message.folder!!.id else message.folderId
+            var url = "${BuildConfig.MOCK_API_URL}mail/folders/$folderId/messages/${content.id}/content"
             content.contentUrlMock?.let { url = it } // if we have a mock url on the content object, use it instead
 
             val request = Request.Builder().url(url)
@@ -50,13 +51,8 @@ class DownloadManagerImpl(val context: Context, val client: OkHttpClient, val ca
     override fun downloadAttachmentContent(message : Message, content: Content) : String? {
         try {
             Timber.e("Downloading attachment content...")
-            val folderId = message.folder?.id
-            if(folderId == null)
-            {
-                Timber.e("message does not have folder!!!")
-                return null
-            }
-            var url = "${BuildConfig.MOCK_API_URL}/mail/folders/$folderId/messages/${message.id}/attachment/${content.id}/content"
+            var folderId = if(message.folder != null) message.folder!!.id else message.folderId
+            var url = "${BuildConfig.MOCK_API_URL}mail/folders/$folderId/messages/${message.id}/attachment/${content.id}/content"
             content.contentUrlMock?.let { url = it } // if we have a mock url on the content object, use it instead
 
             val request = Request.Builder().url(url)

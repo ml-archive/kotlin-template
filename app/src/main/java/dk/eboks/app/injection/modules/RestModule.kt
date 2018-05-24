@@ -28,6 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.util.*
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -61,6 +62,7 @@ class RestModule {
 
     @Provides
     @Named("NAME_BASE_URL")
+    @AppScope
     fun provideBaseUrlString(): String {
         if (BuildConfig.MOCK_API_ENABLED)
             return BuildConfig.MOCK_API_URL
@@ -141,7 +143,7 @@ class RestModule {
     /**
      * E-boks Authenticator, based on OAuth2
      */
-    inner class EAuth2(val prefManager: PrefManager, val appStateManager: AppStateManager) : Authenticator {
+    inner class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager) : Authenticator {
 
         private var newTokenApi: Api
 
@@ -174,6 +176,7 @@ class RestModule {
             )
         }
 
+        @Synchronized
         override fun authenticate(route: Route?, response: Response): Request? {
             Timber.w("Authenticate")
             // If we've failed 3 times, give up. Otherwise this would be an infinite loop, asking for authentication
@@ -239,10 +242,9 @@ class RestModule {
                     return tokenResponse.body()
                 }
             } catch (e: Throwable) {
-                Timber.e("Token transform fail: $e")
-            } finally {
-                return null
+                Timber.e("Token refresh fail: $e")
             }
+            return null
         }
 
         private fun newToken(): AccessToken? {
@@ -271,10 +273,9 @@ class RestModule {
                     return tokenResponse.body()
                 }
             } catch (e: Throwable) {
-                Timber.e("Authenticate fail: $e")
-            } finally {
-                return null
+                Timber.e("New token fail: $e")
             }
+            return null
         }
 
         private fun transformToken(): AccessToken? {
@@ -298,9 +299,8 @@ class RestModule {
                 }
             } catch (e: Throwable) {
                 Timber.e("Token transform fail: $e")
-            } finally {
-                return null
             }
+            return null
         }
 
         /**

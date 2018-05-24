@@ -11,7 +11,7 @@ interface GetReplyFormInteractor : Interactor {
     var output : Output?
     var input : Input?
 
-    data class Input(var messageId: String, var folderId: Long)
+    data class Input(var messageId: String, var folderId: Int)
 
     interface Output {
         fun onGetReplyForm(form : ReplyForm)

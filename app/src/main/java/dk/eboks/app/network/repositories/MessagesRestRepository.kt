@@ -17,8 +17,8 @@ import dk.eboks.app.util.guard
 import timber.log.Timber
 
 typealias SenderIdMessageStore = CacheStore<Long, List<Message>>
-typealias FolderIdMessageStore = CacheStore<Long, List<Message>>
-typealias FolderTypeMessageStore = CacheStore<String, List<Message>>
+typealias FolderIdMessageStore = CacheStore<Int, List<Message>>
+typealias CategoryMessageStore = CacheStore<String, List<Message>>
 
 /**
  * Created by bison on 01/02/18.
@@ -37,9 +37,9 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
         })
     }
 
-    val folderTypeMessageStore: FolderTypeMessageStore by lazy {
-        FolderTypeMessageStore(context, gson, "folder_type_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
-            val response = api.getMessagesByType(key).execute()
+    val highlightsMessageStore: CategoryMessageStore by lazy {
+        CategoryMessageStore(context, gson, "highlights_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
+            val response = api.getHighlights().execute()
             var result : List<Message>? = null
             response?.let {
                 if(it.isSuccessful)
@@ -48,6 +48,43 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
             result
         })
     }
+
+    val latestMessageStore: CategoryMessageStore by lazy {
+        CategoryMessageStore(context, gson, "latest_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
+            val response = api.getLatest().execute()
+            var result : List<Message>? = null
+            response?.let {
+                if(it.isSuccessful)
+                    result = it.body()
+            }
+            result
+        })
+    }
+
+    val unreadMessageStore: CategoryMessageStore by lazy {
+        CategoryMessageStore(context, gson, "unread_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
+            val response = api.getUnread().execute()
+            var result : List<Message>? = null
+            response?.let {
+                if(it.isSuccessful)
+                    result = it.body()
+            }
+            result
+        })
+    }
+
+    val uploadsMessageStore: CategoryMessageStore by lazy {
+        CategoryMessageStore(context, gson, "uploads_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
+            val response = api.getUploads().execute()
+            var result : List<Message>? = null
+            response?.let {
+                if(it.isSuccessful)
+                    result = it.body()
+            }
+            result
+        })
+    }
+
 
     val senderIdMessageStore: SenderIdMessageStore by lazy {
         SenderIdMessageStore(context, gson, "sender_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
@@ -65,7 +102,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
 
     }
 
-    override fun getMessages(cached: Boolean, folderId : Long): List<Message>
+    override fun getMessages(cached: Boolean, folderId : Int): List<Message>
     {
         val res = if(cached) folderIdMessageStore.get(folderId) else folderIdMessageStore.fetch(folderId)
         if(res != null)
@@ -74,6 +111,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
             return ArrayList()
     }
 
+    /*
     override fun getMessages(cached: Boolean, type: FolderType): List<Message> {
         val res = if(cached) folderTypeMessageStore.get(type.toString()) else folderTypeMessageStore.fetch(type.toString())
         if(res != null)
@@ -81,6 +119,40 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
         else
             return ArrayList()
     }
+    */
+
+    override fun getHighlights(cached: Boolean): List<Message> {
+        val res = if(cached) highlightsMessageStore.get("highlights") else highlightsMessageStore.fetch("highlights")
+        if(res != null)
+            return res
+        else
+            return ArrayList()
+    }
+
+    override fun getLatest(cached: Boolean): List<Message> {
+        val res = if(cached) latestMessageStore.get("latest") else latestMessageStore.fetch("latest")
+        if(res != null)
+            return res
+        else
+            return ArrayList()
+    }
+
+    override fun getUnread(cached: Boolean): List<Message> {
+        val res = if(cached) unreadMessageStore.get("unread") else unreadMessageStore.fetch("unread")
+        if(res != null)
+            return res
+        else
+            return ArrayList()
+    }
+
+    override fun getUploads(cached: Boolean): List<Message> {
+        val res = if(cached) uploadsMessageStore.get("uploads") else unreadMessageStore.fetch("uploads")
+        if(res != null)
+            return res
+        else
+            return ArrayList()
+    }
+
 
     override fun getMessagesBySender(cached: Boolean, senderId : Long): List<Message> {
         val res = if(cached) senderIdMessageStore.get(senderId) else senderIdMessageStore.fetch(senderId)
@@ -91,7 +163,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
     }
 
 
-    override fun getMessage(folderId: Long, id: String, receipt : Boolean?, terms : Boolean?) : Message {
+    override fun getMessage(folderId: Int, id: String, receipt : Boolean?, terms : Boolean?) : Message {
         val call = api.getMessage(id, folderId, receipt, terms)
         val result = call.execute()
         result?.let { response ->
@@ -108,7 +180,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
         throw(RuntimeException())
     }
 
-    override fun getMessageReplyForm(folderId: Long, id: String) : ReplyForm {
+    override fun getMessageReplyForm(folderId: Int, id: String) : ReplyForm {
         val call = api.getMessageReplyForm(id, folderId)
         val result = call.execute()
         result?.let { response ->
@@ -149,10 +221,24 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
     }
 
     override fun hasCachedMessageFolder(folder: Folder): Boolean {
-        if(folder.type == FolderType.FOLDER)
-            return folderIdMessageStore.containsKey(folder.id)
-        else
-            return folderTypeMessageStore.containsKey(folder.type.toString())
+        when(folder.type)
+        {
+            FolderType.HIGHLIGHTS -> {
+                return highlightsMessageStore.containsKey("highlights")
+            }
+            FolderType.LATEST -> {
+                return latestMessageStore.containsKey("latest")
+            }
+            FolderType.UNREAD -> {
+                return unreadMessageStore.containsKey("unread")
+            }
+            FolderType.UPLOADS -> {
+                return uploadsMessageStore.containsKey("uploads")
+            }
+            else -> {
+                return folderIdMessageStore.containsKey(folder.id)
+            }
+        }
     }
 
     override fun hasCachedMessageSender(sender: Sender): Boolean {

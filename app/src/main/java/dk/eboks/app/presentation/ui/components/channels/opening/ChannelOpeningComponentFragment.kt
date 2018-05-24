@@ -67,7 +67,9 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     private fun setupTopView(channel: Channel) {
         headerTv.text = channel.payoff
         nameTv.text = channel.name
+
         nameTv.setTextColor(channel.background.color)
+
         channel.description?.let { descriptionTv.text = it }
 
         channel.background.let {
