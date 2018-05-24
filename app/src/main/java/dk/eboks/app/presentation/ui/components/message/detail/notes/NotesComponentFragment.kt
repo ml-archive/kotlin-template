@@ -1,9 +1,12 @@
 package dk.eboks.app.presentation.ui.components.message.detail.notes
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.Translation
@@ -14,7 +17,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class NotesComponentFragment : BaseFragment(), NotesComponentContract.View {
+class NotesComponentFragment : BaseFragment(), NotesComponentContract.View, TextWatcher {
     @Inject
     lateinit var presenter : NotesComponentContract.Presenter
 
@@ -28,9 +31,35 @@ class NotesComponentFragment : BaseFragment(), NotesComponentContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         focusThiefV.requestFocus()
+
     }
 
     override fun updateView(message: Message) {
+        noteEt.setText(message.note)
+    }
 
+    override fun onResume() {
+        super.onResume()
+        noteEt.addTextChangedListener(this)
+    }
+
+    override fun onPause() {
+        noteEt.removeTextChangedListener(this)
+        super.onPause()
+    }
+
+    val delayedRunnable = Runnable {
+
+    }
+
+    override fun afterTextChanged(p0: Editable?) {
+        mainHandler.removeCallbacks(delayedRunnable)
+        mainHandler.postDelayed(delayedRunnable, BuildConfig.INPUT_VALIDATION_DELAY)
+    }
+
+    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+    }
+
+    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
     }
 }

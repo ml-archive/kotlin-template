@@ -10,6 +10,7 @@ import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.models.protocol.AliasBody
 import dk.eboks.app.domain.models.protocol.LoginRequest
 import dk.eboks.app.domain.models.sender.CollectionContainer
@@ -44,6 +45,9 @@ interface Api {
     @GET("mail/messages/senders/{id}") fun getMessagesBySender(@Path("id") id : Long) : Call<List<Message>>
     @GET("mail/folders/{folderId}/messages/{id}") fun getMessage(@Path("id") id : String, @Path("folderId") folderId : Int, @Query("receipt") receipt : Boolean? = null, @Query("terms") terms : Boolean? = null) : Call<Message>
     @GET("mail/senders") fun getSenders() : Call<List<Sender>>
+
+    // edit message / document/message operations
+    @PATCH("mail/folders/{folderId}/messages/{messageId}") fun updateMessage(@Path("id") id : String, @Path("folderId") folderId : Int, @Body body : MessagePatch) : Call<Any>
 
     // get types of messages, used to be by folder type but now its just a couple of hardcoded endpoints
     @GET("mail/messages/highlights") fun getHighlights() : Call<List<Message>>

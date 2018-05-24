@@ -222,9 +222,10 @@ class InteractorModule {
 
     @Provides
     fun provideUpdateMessageInteractor(
-            executor: Executor
+            executor: Executor,
+            messagesRepository: MessagesRepository
     ): UpdateMessageInteractor {
-        return UpdateMessageInteractorImpl(executor)
+        return UpdateMessageInteractorImpl(executor, messagesRepository)
     }
 
     @Provides
