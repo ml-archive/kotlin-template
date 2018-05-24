@@ -103,6 +103,11 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 for (view in foldersLl.views) {
                     normalView(view, view.tag as Folder)
                 }
+                addFolderBtn.setOnClickListener {
+                    //todo create a new folder
+                    var temp = "_addFolder clicked"
+                    println(temp)
+                }
             }
             FolderMode.SELECT -> {
                 setSelectTopbar()
@@ -233,9 +238,9 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         userfolders.addAll(folders)
         foldersLl.removeAllViews()
         if (folders.size == 0) {
-            userFolderEmptyTv.visibility = View.VISIBLE
+            userFolderEmptyLl.visibility = View.VISIBLE
         } else {
-            userFolderEmptyTv.visibility = View.GONE
+            userFolderEmptyLl.visibility = View.GONE
             processFoldersRecursive(folders, 0, null)
         }
     }
