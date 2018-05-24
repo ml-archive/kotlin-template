@@ -24,7 +24,7 @@ data class StoreboxReceipt(
         @SerializedName("payments")
         var payments: ArrayList<StoreboxPayment> = arrayListOf(),
         @SerializedName("receiptLines")
-        var receiptLines: ArrayList<StoreboxReceiptLine> = arrayListOf()
+        var receiptLines: StoreboxReceiptLines = StoreboxReceiptLines()
 ) : Parcelable {
     companion object {
         val KEY_ID = StoreboxReceipt::class.simpleName

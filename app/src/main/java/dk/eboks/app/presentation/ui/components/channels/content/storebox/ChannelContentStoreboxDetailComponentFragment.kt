@@ -32,7 +32,7 @@ import javax.inject.Inject
 
 
 class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
-        ChannelContentStoreboxDetailComponentContract.View {
+                                                      ChannelContentStoreboxDetailComponentContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
     @Inject
@@ -118,7 +118,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         setReceiptDate(receipt.purchaseDateTime ?: Date(), receipt.optionals)
         setLogo(receipt.merchant?.logo?.url ?: "")
         setReceiptAmount(receipt.grandTotal)
-        setReceiptLines(receipt.receiptLines)
+        setReceiptLines(receipt.receiptLines.items)
         setPayments(receipt.payments)
         setOptionals(receipt.optionals)
         setBarcode(receipt.barcode)
