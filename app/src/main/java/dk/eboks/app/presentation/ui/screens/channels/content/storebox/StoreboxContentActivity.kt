@@ -5,8 +5,8 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxComponentFragment
-import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxDetailComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.content.ChannelContentStoreboxComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.detail.ChannelContentStoreboxDetailComponentFragment
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,7 +21,9 @@ class StoreboxContentActivity : BaseActivity(), StoreboxContentContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         updateTranslation()
-        setRootFragment(R.id.content, ChannelContentStoreboxComponentFragment())
+        setRootFragment(R.id.content,
+                        ChannelContentStoreboxComponentFragment()
+        )
 
         supportFragmentManager.addOnBackStackChangedListener {
             Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")

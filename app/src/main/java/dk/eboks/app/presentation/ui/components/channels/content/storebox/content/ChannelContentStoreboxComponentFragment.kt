@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.channels.content.storebox
+package dk.eboks.app.presentation.ui.components.channels.content.storebox.content
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -23,7 +23,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class ChannelContentStoreboxComponentFragment : BaseFragment(),
-        ChannelContentStoreboxComponentContract.View {
+                                                ChannelContentStoreboxComponentContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
     @Inject
@@ -127,13 +127,13 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
                 holder?.amountDateContainer?.visibility = View.VISIBLE
                 holder?.soloAmountTv?.visibility = View.GONE
 
-                holder?.amountTv?.text = String.format("%.2f", currentReceipt.grandTotal).replace(".",",")
+                holder?.amountTv?.text = String.format("%.2f", currentReceipt.grandTotal).replace("", ",")
                 holder?.dateTv?.text = formatter.formatDateRelative(currentReceipt)
             } else {
                 holder?.amountDateContainer?.visibility = View.GONE
                 holder?.soloAmountTv?.visibility = View.VISIBLE
 
-                holder?.amountTv?.text = String.format("%.2f", currentReceipt.grandTotal).replace(".",",")            }
+                holder?.amountTv?.text = String.format("%.2f", currentReceipt.grandTotal).replace("", ",")            }
             if (currentReceipt.logo?.url != null) {
                 holder?.logoIv?.let {
                     Glide.with(context).load(currentReceipt.logo?.url).into(it)

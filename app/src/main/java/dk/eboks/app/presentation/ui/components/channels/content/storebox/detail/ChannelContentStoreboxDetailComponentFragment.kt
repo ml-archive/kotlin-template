@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.channels.content.storebox
+package dk.eboks.app.presentation.ui.components.channels.content.storebox.detail
 
 import android.graphics.Bitmap
 import android.graphics.Color.BLACK

@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.channels.content.storebox
+package dk.eboks.app.presentation.ui.components.channels.content.storebox.detail
 
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptInteractor
 import dk.eboks.app.domain.managers.AppStateManager
