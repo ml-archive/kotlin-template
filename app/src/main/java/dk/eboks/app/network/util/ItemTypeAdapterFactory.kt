@@ -34,7 +34,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                 var jsonElement = elementAdapter.read(reader)
 
                 //Timber.e("Path ${reader.path}")
-                Timber.e("parsing element " + jsonElement.toString())
+                //Timber.e("parsing element " + jsonElement.toString())
 
                 if(reader.path != "$")
                 {

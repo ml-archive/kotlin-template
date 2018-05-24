@@ -53,7 +53,9 @@
   <string name='nstack_folders_newfolderHint' formatted='false'>folders_newfolderHint</string>
   <string name='nstack_folders_folder' formatted='false'>folders_folder</string>
   <string name='nstack_folders_editFolder' formatted='false'>folders_editFolder</string>
-  <string name='nstack_folders_noFoldersAdded' formatted='false'>folders_noFoldersAdded</string>
+  <string name='nstack_folders_noFoldersHeader' formatted='false'>folders_noFoldersHeader</string>
+  <string name='nstack_folders_noFoldersSubHeader' formatted='false'>folders_noFoldersSubHeader</string>
+  <string name='nstack_folders_noFoldersBtn' formatted='false'>folders_noFoldersBtn</string>
   <string name='nstack_attachments_lockedTitle' formatted='false'>attachments_lockedTitle</string>
   <string name='nstack_attachments_lockedMessage' formatted='false'>attachments_lockedMessage</string>
   <string name='nstack_channels_channelsHeader' formatted='false'>channels_channelsHeader</string>

@@ -3,18 +3,18 @@ package dk.eboks.app.domain.models.message
 import com.google.gson.annotations.SerializedName
 
 enum class MessageType(val type : String) {
-    @SerializedName("Upload") UPLOAD("Upload"),
-    @SerializedName("Draft") DRAFT("Draft"),
-    @SerializedName("Sent") SENT("Sent"),
-    @SerializedName("Received") RECEIVED("Received");
+    @SerializedName("upload") UPLOAD("upload"),
+    @SerializedName("draft") DRAFT("draft"),
+    @SerializedName("sent") SENT("sent"),
+    @SerializedName("received") RECEIVED("received");
     override fun toString(): String {
         when(this)
         {
-            UPLOAD -> return "Upload"
-            DRAFT -> return "Draft"
-            SENT -> return "Sent"
-            RECEIVED -> return "Received"
-            else -> return "Received"
+            UPLOAD -> return "upload"
+            DRAFT -> return "draft"
+            SENT -> return "sent"
+            RECEIVED -> return "received"
+            else -> return "received"
         }
     }
 }
