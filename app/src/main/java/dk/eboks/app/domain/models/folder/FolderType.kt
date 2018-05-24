@@ -10,7 +10,7 @@ enum class FolderType(val type : String) {
     @SerializedName("inbox") INBOX("inbox"),
     @SerializedName("drafts") DRAFTS("drafts"),
     @SerializedName("archive") ARCHIVE("archive"),
-    @SerializedName("sentItems") SENT("sentitems"),
+    @SerializedName("sentitems") SENT("sentitems"),
     @SerializedName("trash") TRASH("trash"),
     @SerializedName("deleteditems") DELETED("deleteditems"),
     @SerializedName("highlights") HIGHLIGHTS("highlights"),
@@ -24,7 +24,7 @@ enum class FolderType(val type : String) {
     {
         when(this)
         {
-            INBOX, DRAFTS, ARCHIVE, SENT, DELETED, HIGHLIGHTS, UNREAD, LATEST, UPLOADS -> return true
+            INBOX, DRAFTS, ARCHIVE, SENT, TRASH, DELETED, HIGHLIGHTS, UNREAD, LATEST, RECEIPTS, UPLOADS -> return true
             else -> return false
         }
     }
