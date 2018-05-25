@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:nstack="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:animateLayoutChanges="false"
-    tools:ignore="MissingPrefix"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="false"
+    tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:id="@+id/channelsContentLL"
@@ -39,28 +38,28 @@
 
         <TextView
             android:id="@+id/bottomChannelTextTv"
-            style="@style/text.header3"
+            style="@style/text.body6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
             android:layout_marginTop="@dimen/default_padding_top"
             android:gravity="center"
-            android:textColor="@color/blueGrey"
-            android:textStyle="normal" />
+            android:textColor="@color/blueGrey" />
 
         <Button
             android:id="@+id/bottomChannelBtn"
-            style="@style/enabledButtton.DarkText"
+            style="@style/buttonRoundedCorners.darkBlueGrey"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:layout_marginTop="12dp"
-            android:enabled="false"
+            android:fontFamily="sans-serif-medium"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:textSize="14dp"
+            android:textStyle="normal"
             nstack:key="@string/nstack_home_bottomChannelBtn" />
     </LinearLayout>
 
@@ -70,9 +69,9 @@
         android:layout_width="match_parent"
         android:layout_height="140dp">
         <ProgressBar
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
     </FrameLayout>
 
 </FrameLayout>

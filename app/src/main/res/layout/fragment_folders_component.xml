@@ -56,6 +56,8 @@
                     android:layout_height="0.5dp"
                     android:background="@color/dividerColor" />
 
+                <!--Empty state-->
+
                 <LinearLayout
                     android:id="@+id/userFolderEmptyLl"
                     android:layout_width="match_parent"
@@ -71,7 +73,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:gravity="center"
-                        android:text="_asdad"
                         nstack:text="folders_noFoldersHeader" />
 
                     <TextView
@@ -80,7 +81,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_half"
                         android:gravity="center"
-                        android:text="_You haven’t added any channels yet. Channels give you relevant information and actions right at your fingertips."
                         android:textColor="@color/blueGrey"
                         nstack:text="folders_noFoldersSubHeader" />
 
