@@ -17,10 +17,7 @@ import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
-import dk.eboks.app.domain.interactors.storebox.ConfirmStoreboxInteractor
-import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptInteractor
-import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptsInteractor
-import dk.eboks.app.domain.interactors.storebox.LinkStoreboxInteractor
+import dk.eboks.app.domain.interactors.storebox.*
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
@@ -28,7 +25,8 @@ import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
-import dk.eboks.app.presentation.ui.components.channels.content.*
+import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentContract
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentContract
@@ -37,12 +35,12 @@ import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.Ekey
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentContract
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.storebox.content.ChannelContentStoreboxComponentContract
 import dk.eboks.app.presentation.ui.components.channels.content.storebox.content.ChannelContentStoreboxComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.storebox.detail.ChannelContentStoreboxDetailComponentContract
 import dk.eboks.app.presentation.ui.components.channels.content.storebox.detail.ChannelContentStoreboxDetailComponentPresenter
-import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentContract
-import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentContract
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentContract
@@ -606,8 +604,12 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelSettingsComponentPresenter(stateManager: AppStateManager): ChannelSettingsComponentContract.Presenter {
-        return ChannelSettingsComponentPresenter(stateManager)
+    fun provideChannelSettingsComponentPresenter(
+            stateManager: AppStateManager,
+            getStoreboxCreditCardsInteractor: GetStoreboxCreditCardsInteractor,
+            deleteStoreboxCreditCardInteractor: DeleteStoreboxCreditCardInteractor
+    ): ChannelSettingsComponentContract.Presenter {
+        return ChannelSettingsComponentPresenter(stateManager,getStoreboxCreditCardsInteractor,deleteStoreboxCreditCardInteractor)
     }
 
     @ActivityScope
@@ -854,8 +856,16 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideConnectStoreboxPresenter(stateManager: AppStateManager, linkStoreboxInteractor: LinkStoreboxInteractor, confirmStoreboxInteractor: ConfirmStoreboxInteractor): ConnectStoreboxContract.Presenter {
-        return ConnectStoreboxPresenter(stateManager, linkStoreboxInteractor, confirmStoreboxInteractor)
+    fun provideConnectStoreboxPresenter(
+            stateManager: AppStateManager,
+            linkStoreboxInteractor: LinkStoreboxInteractor,
+            confirmStoreboxInteractor: ConfirmStoreboxInteractor
+    ): ConnectStoreboxContract.Presenter {
+        return ConnectStoreboxPresenter(
+                stateManager,
+                linkStoreboxInteractor,
+                confirmStoreboxInteractor
+        )
     }
 
     @ActivityScope
@@ -882,81 +892,89 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideSenderAllListComponentPresenter(stateManager: AppStateManager,
-                                               sendersInteractor: GetSendersInteractor): SenderAllListComponentContract.Presenter {
+    fun provideSenderAllListComponentPresenter(
+            stateManager: AppStateManager,
+            sendersInteractor: GetSendersInteractor
+    ): SenderAllListComponentContract.Presenter {
         return SenderAllListComponentPresenter(stateManager, sendersInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideNewFolderComponentPresenter(stateManager: AppStateManager) : NewFolderComponentContract.Presenter {
+    fun provideNewFolderComponentPresenter(stateManager: AppStateManager): NewFolderComponentContract.Presenter {
         return NewFolderComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideFolderSelectUserComponentPresenter(stateManager: AppStateManager) : FolderSelectUserComponentContract.Presenter {
+    fun provideFolderSelectUserComponentPresenter(stateManager: AppStateManager): FolderSelectUserComponentContract.Presenter {
         return FolderSelectUserComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideEkeyContentPresenter(stateManager: AppStateManager) : EkeyContentContract.Presenter {
+    fun provideEkeyContentPresenter(stateManager: AppStateManager): EkeyContentContract.Presenter {
         return EkeyContentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideEkeyComponentPresenter(stateManager: AppStateManager) : EkeyComponentContract.Presenter {
+    fun provideEkeyComponentPresenter(stateManager: AppStateManager): EkeyComponentContract.Presenter {
         return EkeyComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideEkeyAddItemComponentPresenter(stateManager: AppStateManager) : EkeyAddItemComponentContract.Presenter {
+    fun provideEkeyAddItemComponentPresenter(stateManager: AppStateManager): EkeyAddItemComponentContract.Presenter {
         return EkeyAddItemComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideEkeyDetailComponentPresenter(stateManager: AppStateManager) : EkeyDetailComponentContract.Presenter {
+    fun provideEkeyDetailComponentPresenter(stateManager: AppStateManager): EkeyDetailComponentContract.Presenter {
         return EkeyDetailComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideFolderPreviewComponentPresenter(stateManager: AppStateManager, getMessagesInteractor: GetMessagesInteractor) : FolderPreviewComponentContract.Presenter {
+    fun provideFolderPreviewComponentPresenter(
+            stateManager: AppStateManager,
+            getMessagesInteractor: GetMessagesInteractor
+    ): FolderPreviewComponentContract.Presenter {
         return FolderPreviewComponentPresenter(stateManager, getMessagesInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideChannelControlComponentPresenter(stateManager: AppStateManager, getChannelHomeContentInteractor: GetChannelHomeContentInteractor) : ChannelControlComponentContract.Presenter {
+    fun provideChannelControlComponentPresenter(
+            stateManager: AppStateManager,
+            getChannelHomeContentInteractor: GetChannelHomeContentInteractor
+    ): ChannelControlComponentContract.Presenter {
         return ChannelControlComponentPresenter(stateManager, getChannelHomeContentInteractor)
     }
 
 
     @ActivityScope
     @Provides
-    fun provideEkeyOpenItemComponentPresenter(stateManager: AppStateManager) : EkeyOpenItemComponentContract.Presenter {
+    fun provideEkeyOpenItemComponentPresenter(stateManager: AppStateManager): EkeyOpenItemComponentContract.Presenter {
         return EkeyOpenItemComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun provideEkeyPinComponentPresenter(stateManager: AppStateManager) : EkeyPinComponentContract.Presenter {
+    fun provideEkeyPinComponentPresenter(stateManager: AppStateManager): EkeyPinComponentContract.Presenter {
         return EkeyPinComponentPresenter(stateManager)
     }
 
     @ActivityScope
     @Provides
-    fun providePrivacyPresenter(@Named("NAME_BASE_URL") baseUrlString: String) : PrivacyContract.Presenter {
+    fun providePrivacyPresenter(@Named("NAME_BASE_URL") baseUrlString: String): PrivacyContract.Presenter {
         return PrivacyPresenter(baseUrlString)
     }
 
     @ActivityScope
     @Provides
-    fun provideHelpPresenter(@Named("NAME_BASE_URL") baseUrlString: String) : HelpContract.Presenter {
+    fun provideHelpPresenter(@Named("NAME_BASE_URL") baseUrlString: String): HelpContract.Presenter {
         return HelpPresenter(baseUrlString)
     }
 

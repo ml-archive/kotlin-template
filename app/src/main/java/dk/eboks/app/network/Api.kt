@@ -2,6 +2,7 @@ package dk.eboks.app.network
 
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.folder.Folder
@@ -11,14 +12,11 @@ import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.AliasBody
-import dk.eboks.app.domain.models.protocol.LoginRequest
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Registrations
 import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.shared.BooleanReply
-import io.reactivex.Single
-import okio.BufferedSource
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -65,6 +63,9 @@ interface Api {
     @GET("channels/storebox/receipts/{id}") fun getStoreboxReceipt(@Path("id") id : String) : Call<StoreboxReceipt>
     @POST("channels/storebox/user/signup/link") fun postLinkStorebox(@Body bodyMap: Map<String, String>) : Call<Any>
     @POST("channels/storebox/user/signup/link/activate") fun postActivateStorebox(@Body bodyMap: Map<String, String>) : Call<Any>
+
+    @GET("channels/storebox/user/cards") fun getStoreboxCreditCards():Call<MutableList<StoreboxCreditCard>>
+    @DELETE("channels/storebox/user/cards/{cardId}") fun deleteStoreboxCreditCard(@Path("cardId") id:String): Call<Any>
 
     // groups
     @GET("groups/registrations") fun getRegistrations() : Call<Registrations> // get all my registrations

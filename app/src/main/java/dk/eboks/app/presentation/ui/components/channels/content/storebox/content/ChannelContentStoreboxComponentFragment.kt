@@ -134,13 +134,13 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
 
         inner class StoreboxViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
             //cards
-            var amountDateContainer = root.findViewById<LinearLayout>(R.id.amountDateContainerLl)
-            var soloAmountTv = root.findViewById<TextView>(R.id.soloAmountTv)
-            val row = root.findViewById<LinearLayout>(R.id.rowLl)
-            val headerTv = root.findViewById<TextView>(R.id.headerTv)
-            val amountTv = root.findViewById<TextView>(R.id.amountTv)
-            val dateTv = root.findViewById<TextView>(R.id.dateTv)
-            val logoIv = root.findViewById<ImageView>(R.id.logoIv)
+            private var amountDateContainer = root.findViewById<LinearLayout>(R.id.amountDateContainerLl)
+            private var soloAmountTv = root.findViewById<TextView>(R.id.soloAmountTv)
+            private val row = root.findViewById<LinearLayout>(R.id.rowLl)
+            private val headerTv = root.findViewById<TextView>(R.id.headerTv)
+            private val amountTv = root.findViewById<TextView>(R.id.amountTv)
+            private val dateTv = root.findViewById<TextView>(R.id.dateTv)
+            private val logoIv = root.findViewById<ImageView>(R.id.logoIv)
 
             fun bind(currentReceipt: StoreboxReceiptItem) {
                 headerTv?.text = currentReceipt.storeName
@@ -171,7 +171,6 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
                 }
 
                 row?.setOnClickListener {
-                    //todo open the receipt details
                     Timber.d("Receipt Clicked: %s", currentReceipt.id)
                     (activity as StoreboxContentActivity).showDetailFragment(currentReceipt.id)
                 }
