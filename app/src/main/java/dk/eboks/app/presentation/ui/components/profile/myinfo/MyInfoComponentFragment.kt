@@ -14,6 +14,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.EmailVerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.PhoneVerificationComponentFragment
+import dk.eboks.app.util.isValidEmail
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.fragment_profile_myinformation_component.*
@@ -78,7 +79,12 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         }
 
         verifyEmailBtn.setOnClickListener {
-            getBaseActivity()?.openComponentDrawer(EmailVerificationComponentFragment::class.java)
+
+            if (primaryMailEt.text.isValidEmail()) {
+                var args = Bundle()
+                args.putSerializable("mail", primaryMailEt.text.toString())
+                getBaseActivity()?.openComponentDrawer(EmailVerificationComponentFragment::class.java, args)
+            }
         }
 
         verifySecondaryEmailBtn.setOnClickListener {

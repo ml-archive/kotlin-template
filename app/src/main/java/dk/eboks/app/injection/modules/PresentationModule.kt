@@ -753,9 +753,10 @@ class PresentationModule {
     @Provides
     fun provideMyInfoComponentPresenter(
             stateManager: AppStateManager,
-            saveUserInteractor: SaveUserInteractor
+            saveUserInteractor: SaveUserInteractor,
+            updateUserInteractor: UpdateUserInteractor
     ): MyInfoComponentContract.Presenter {
-        return MyInfoComponentPresenter(stateManager, saveUserInteractor)
+        return MyInfoComponentPresenter(stateManager, saveUserInteractor, updateUserInteractor )
     }
 
     @ActivityScope
@@ -770,8 +771,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideEmailVerificationComponentPresenter(stateManager: AppStateManager): EmailVerificationComponentContract.Presenter {
-        return EmailVerificationComponentPresenter(stateManager)
+    fun provideEmailVerificationComponentPresenter(stateManager: AppStateManager, verifyEmailInteractor: VerifyEmailInteractor): EmailVerificationComponentContract.Presenter {
+        return EmailVerificationComponentPresenter(stateManager, verifyEmailInteractor)
     }
 
     @ActivityScope

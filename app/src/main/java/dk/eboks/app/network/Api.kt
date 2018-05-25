@@ -88,4 +88,9 @@ interface Api {
     @DELETE("groups/senders/{id}") fun unregisterSender(@Path("id") senderId : Long) : Call<Any>
     @DELETE("groups/senders/{sId}/sendergroups/{gId}/alias/{aId}") fun unregisterSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long) : Call<Any> // bodyless version // TODO check URL!!!
     //    @DELETE("groups/senders/{sId}/sendergroups/{gId}") fun unregisterSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long, @Body aliasRegistrations : AliasBody) : Call<Any> // TODO: This needs to be a PATCH or POST or be bodyless as the one above
+
+    //myprofile
+    @PATCH("user/profile") fun updateProfile(@Body user: User) : Call<Any>
+    @POST("user/current/email/{email}/verify") fun verifyEmail(@Path("email") email: String) : Call<Any>
+
 }

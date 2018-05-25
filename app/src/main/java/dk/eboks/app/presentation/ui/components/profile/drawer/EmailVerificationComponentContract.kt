@@ -12,5 +12,6 @@ interface EmailVerificationComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
+        fun verifyMail(mail:String)
     }
 }
