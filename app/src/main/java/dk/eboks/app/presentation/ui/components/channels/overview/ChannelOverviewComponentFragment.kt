@@ -45,8 +45,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_channel_list_component, container, false)
-        return rootView
+        return inflater?.inflate(R.layout.fragment_channel_list_component, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -74,18 +73,16 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
     }
 
     override fun showChannelOpening(channel: Channel) {
-
         //storebox channels id 1 - 3
         //ekey channels id 101 - 103
-
         when (channel.getType()) {
             "channel"  -> {
                 startActivity(Intent(activity, ChannelContentActivity::class.java))
             }
             "storebox" -> {
                 // TODO SWITCH BACK TO NORMAL ONCE API IS WORKING
-               startActivity(Intent(context, StoreboxContentActivity::class.java))
-               // startActivity(Intent(activity, ChannelContentActivity::class.java))
+                startActivity(Intent(context, StoreboxContentActivity::class.java))
+                //startActivity(Intent(activity, ChannelContentActivity::class.java))
             }
             "ekey"     -> {
                 if (channel.installed) {
@@ -106,7 +103,6 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
     inner class ChannelAdapter : RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder>() {
 
         inner class ChannelViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
-
             val base = root
             //header
             val headerTv = root.findViewById<TextView>(R.id.headerTv)
@@ -127,8 +123,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                     parent,
                     false
             )
-            val vh = ChannelViewHolder(v)
-            return vh
+            return  ChannelViewHolder(v)
         }
 
         override fun getItemCount(): Int {
@@ -145,16 +140,15 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
             } else {
                 holder?.headerTv?.visibility = View.GONE
                 holder?.cardContainerCv?.visibility = View.VISIBLE
-                if (currentCard.background != null) {
-                    holder?.backgroundIv?.let {
-                        val requestOptions = RequestOptions()
-                                .transform(RoundedCorners(15))
 
-                        Glide.with(context)
-                                .load(currentCard.image?.url)
-                                .apply(requestOptions)
-                                .into(it)
-                    }
+                holder?.backgroundIv?.let {
+                    val requestOptions = RequestOptions()
+                            .transform(RoundedCorners(15))
+
+                    Glide.with(context)
+                            .load(currentCard.image?.url)
+                            .apply(requestOptions)
+                            .into(it)
                 }
 
                 if (currentCard.logo != null) {
@@ -174,34 +168,37 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                     holder?.button?.text = Translation.channels.install
                 }
 
-                holder?.cardContainerCv?.setOnClickListener({ v ->
-                                                                v.animate().scaleX(1.05f).scaleY(
-                                                                        1.05f
-                                                                ).setDuration(150).setInterpolator(
-                                                                        CycleInterpolator(0.5f)
-                                                                ).setListener(object : Animator.AnimatorListener {
-                                                                    override fun onAnimationRepeat(
-                                                                            p0: Animator?
-                                                                    ) {
-                                                                    }
-
-                                                                    override fun onAnimationEnd(p0: Animator?) {
-                                                                        presenter.openChannel(
-                                                                                currentCard
-                                                                        )
-                                                                    }
-
-                                                                    override fun onAnimationCancel(
-                                                                            p0: Animator?
-                                                                    ) {
-                                                                    }
-
-                                                                    override fun onAnimationStart(p0: Animator?) {}
-                                                                }).start()
-                                                            })
+                holder
+                        ?.cardContainerCv
+                        ?.setOnClickListener({ v ->
+                                                 onCardContainerClicked(v, currentCard)
+                                             })
             }
 
             holder?.root?.invalidate()
+        }
+
+        private fun onCardContainerClicked(v: View, currentCard: Channel) {
+            v.animate()
+                    .scaleX(1.05f)
+                    .scaleY(1.05f)
+                    .setDuration(150)
+                    .setInterpolator(CycleInterpolator(0.5f))
+                    .setListener(object : Animator.AnimatorListener {
+                        override fun onAnimationRepeat(p0: Animator?) {
+                        }
+
+                        override fun onAnimationEnd(p0: Animator?) {
+                            presenter.openChannel(currentCard)
+                        }
+
+                        override fun onAnimationCancel(p0: Animator?) {
+                        }
+
+                        override fun onAnimationStart(p0: Animator?) {
+                        }
+                    })
+                    .start()
         }
     }
 

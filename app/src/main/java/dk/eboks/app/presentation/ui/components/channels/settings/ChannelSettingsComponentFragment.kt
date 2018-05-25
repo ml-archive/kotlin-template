@@ -33,8 +33,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     var creditcards: MutableList<String> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_channel_settings_component, container, false)
-        return rootView
+        return inflater?.inflate(R.layout.fragment_channel_settings_component, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -55,7 +54,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
         pinSliderSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             //todo do something when the slider is checked
-            var temp = "_pin slider checked" + isChecked
+            var temp = "_pin slider checked$isChecked"
             println(temp)
         }
 
@@ -78,7 +77,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
         optionalSliderSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             //todo do something when the slider is checked
-            var temp = "_optional slider checked" + isChecked
+            var temp = "_optional slider checked$isChecked"
             println(temp)
         }
 
@@ -106,7 +105,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
     private fun createMocks(numberOfMocks: Int) {
         for (i in 1..numberOfMocks) {
-            creditcards.add("_XXXX XXXX XXXX " + i + i + i + i)
+            creditcards.add("_XXXX XXXX XXXX $i$i$i$i")
         }
     }
 
