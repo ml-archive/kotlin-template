@@ -127,7 +127,7 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
             if (random.nextInt(i) == 0) {
                 randomStatus.important = true
             }
-            uploads.add(dk.eboks.app.domain.models.message.Message("17", "subject" + i, Date(), unread, null, MessageType.UPLOAD, null, Folder(1), 0, null, null, 0, null, null, null, null, randomStatus, "note string"))
+            uploads.add(Message("17", "subject" + i, Date(), unread, null, MessageType.UPLOAD, null, Folder(1), 0, null, null, 0, null, null, null, null, null, null, null, null, randomStatus, "note string"))
         }
     }
 

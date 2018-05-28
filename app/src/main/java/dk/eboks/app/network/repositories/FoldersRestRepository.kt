@@ -31,8 +31,7 @@ class FoldersRestRepository(val context: Context, val api: Api, val gson: Gson) 
     override fun getFolders(cached: Boolean): List<Folder> {
         val res = if(cached) folderStore.get(0) else folderStore.fetch(0)
         if(res != null) {
-            // TODO remove hack at some point
-            return res[0].folders
+            return res
         }
         else
             return ArrayList()

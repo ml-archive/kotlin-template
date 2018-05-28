@@ -22,6 +22,7 @@ import dk.eboks.app.domain.interactors.user.*
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.repositories.*
 import dk.eboks.app.network.Api
+import dk.eboks.app.network.repositories.UserRestRepository
 import dk.nodes.arch.domain.executor.Executor
 
 @Module
@@ -33,6 +34,25 @@ class InteractorModule {
             appStateManager: AppStateManager
     ): LoginInteractor {
         return LoginInteractorImpl(executor, api, appStateManager)
+    }
+
+    @Provides
+    fun provideVerifyEmailInteractor(
+            executor: Executor,
+            api: Api,
+            userRestRepository: UserRestRepository
+    ): VerifyEmailInteractor {
+        return VerifyEmailInteractorImpl(executor, api, userRestRepository)
+    }
+
+
+    @Provides
+    fun provideUpdateUserInteractor(
+            executor: Executor,
+            api: Api,
+            userRestRepository: UserRestRepository
+    ): UpdateUserInteractor {
+        return UpdateUserInteractorImpl(executor, api, userRestRepository)
     }
 
     @Provides
@@ -95,6 +115,22 @@ class InteractorModule {
             messagesRepository: MessagesRepository
     ): GetMessagesInteractor {
         return GetMessagesInteractorImpl(executor, messagesRepository)
+    }
+
+    @Provides
+    fun provideGetStoreboxCreditCardsInteractor(
+            executor: Executor,
+            api: Api
+    ): GetStoreboxCreditCardsInteractor {
+        return GetStoreboxCreditCardsInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun provideDeleteStoreboxCreditCardInteractor(
+            executor: Executor,
+            api: Api
+    ): DeleteStoreboxCreditCardInteractor {
+        return DeleteStoreboxCreditCardInteractorImpl(executor, api)
     }
 
     @Provides
@@ -222,9 +258,10 @@ class InteractorModule {
 
     @Provides
     fun provideUpdateMessageInteractor(
-            executor: Executor
+            executor: Executor,
+            messagesRepository: MessagesRepository
     ): UpdateMessageInteractor {
-        return UpdateMessageInteractorImpl(executor)
+        return UpdateMessageInteractorImpl(executor, messagesRepository)
     }
 
     @Provides

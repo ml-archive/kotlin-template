@@ -2,6 +2,7 @@ package dk.eboks.app.network
 
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.folder.Folder
@@ -10,15 +11,13 @@ import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.models.protocol.AliasBody
-import dk.eboks.app.domain.models.protocol.LoginRequest
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Registrations
 import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.shared.BooleanReply
-import io.reactivex.Single
-import okio.BufferedSource
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -45,6 +44,9 @@ interface Api {
     @GET("mail/folders/{folderId}/messages/{id}") fun getMessage(@Path("id") id : String, @Path("folderId") folderId : Int, @Query("receipt") receipt : Boolean? = null, @Query("terms") terms : Boolean? = null) : Call<Message>
     @GET("mail/senders") fun getSenders() : Call<List<Sender>>
 
+    // edit message / document/message operations
+    @POST("mail/folders/{folderId}/messages/{messageId}") fun updateMessage(@Path("folderId") folderId : Int, @Path("messageId") messageId : String, @Body body : MessagePatch) : Call<Void>
+
     // get types of messages, used to be by folder type but now its just a couple of hardcoded endpoints
     @GET("mail/messages/highlights") fun getHighlights() : Call<List<Message>>
     @GET("mail/messages/latest") fun getLatest() : Call<List<Message>>
@@ -65,6 +67,9 @@ interface Api {
     @GET("channels/storebox/receipts/{id}") fun getStoreboxReceipt(@Path("id") id : String) : Call<StoreboxReceipt>
     @POST("channels/storebox/user/signup/link") fun postLinkStorebox(@Body bodyMap: Map<String, String>) : Call<Any>
     @POST("channels/storebox/user/signup/link/activate") fun postActivateStorebox(@Body bodyMap: Map<String, String>) : Call<Any>
+
+    @GET("channels/storebox/user/cards") fun getStoreboxCreditCards():Call<MutableList<StoreboxCreditCard>>
+    @DELETE("channels/storebox/user/cards/{cardId}") fun deleteStoreboxCreditCard(@Path("cardId") id:String): Call<Any>
 
     // groups
     @GET("groups/registrations") fun getRegistrations() : Call<Registrations> // get all my registrations
@@ -88,4 +93,9 @@ interface Api {
     @DELETE("groups/senders/{id}") fun unregisterSender(@Path("id") senderId : Long) : Call<Any>
     @DELETE("groups/senders/{sId}/sendergroups/{gId}/alias/{aId}") fun unregisterSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long) : Call<Any> // bodyless version // TODO check URL!!!
     //    @DELETE("groups/senders/{sId}/sendergroups/{gId}") fun unregisterSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long, @Body aliasRegistrations : AliasBody) : Call<Any> // TODO: This needs to be a PATCH or POST or be bodyless as the one above
+
+    //myprofile
+    @PATCH("user/profile") fun updateProfile(@Body user: User) : Call<Any>
+    @POST("user/current/email/{email}/verify") fun verifyEmail(@Path("email") email: String) : Call<Any>
+
 }

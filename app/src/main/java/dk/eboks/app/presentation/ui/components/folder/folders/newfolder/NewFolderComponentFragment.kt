@@ -2,7 +2,9 @@ package dk.eboks.app.presentation.ui.components.folder.folders.newfolder
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +32,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
     var parentFolder: Folder? = null
     var editFolder: Folder? = null
     var rootFolderName: String? = null
+    var disableFolderSelection: Boolean = false
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_folder_newfolder, container, false)
@@ -45,6 +48,9 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                 mode = FolderDrawerMode.EDIT
                 editFolder = args.getSerializable("editFolder") as Folder
                 parentFolder = editFolder?.parentFolder
+            }
+            if (args.containsKey("disableFolderSelection")) {
+                disableFolderSelection = true
             }
         }
 
@@ -71,7 +77,10 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                 deleteIv.visibility = View.GONE
             }
         }
-
+        if (disableFolderSelection) {
+            selectFolderLl.isEnabled = false
+            folderRootTv.setTextColor(ContextCompat.getColor(context,R.color.blueGrey))
+        }
         setupButtons()
     }
 

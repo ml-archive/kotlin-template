@@ -4,6 +4,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.models.sender.Sender
 
 /**
@@ -22,4 +23,5 @@ interface MessagesRepository {
     fun getLatest(cached: Boolean): List<Message>
     fun getUnread(cached: Boolean): List<Message>
     fun getUploads(cached: Boolean): List<Message>
+    fun updateMessage(message: Message, messagePatch: MessagePatch)
 }

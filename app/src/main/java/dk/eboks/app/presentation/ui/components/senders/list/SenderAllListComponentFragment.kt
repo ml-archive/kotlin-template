@@ -1,9 +1,7 @@
 package dk.eboks.app.presentation.ui.components.senders.list
 
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
-import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
@@ -11,26 +9,15 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.folder.FolderType
-import dk.eboks.app.domain.models.message.Message
-import dk.eboks.app.domain.models.message.Messages
-import dk.eboks.app.domain.models.protocol.Metadata
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
-import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
-import dk.eboks.app.util.Starter
 import kotlinx.android.synthetic.main.activity_senders_list.*
-import kotlinx.android.synthetic.main.fragment_sender_carousel_component.*
 import kotlinx.android.synthetic.main.fragment_sender_list.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject

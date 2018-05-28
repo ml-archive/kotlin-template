@@ -92,7 +92,7 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
 
         if(hasCached)
         {
-            val fresh_msgs = messagesRepository.getMessagesBySender(hasCached, sender.id)
+            val fresh_msgs = messagesRepository.getMessagesBySender(false, sender.id)
             runOnUIThread {
                 Timber.e("Emitting refreshed messages")
                 output?.onGetMessages(fresh_msgs)

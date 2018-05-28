@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.channels.content.storebox
+package dk.eboks.app.presentation.ui.components.channels.content.storebox.content
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -17,13 +17,14 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
+import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_storebox_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
 
 class ChannelContentStoreboxComponentFragment : BaseFragment(),
-        ChannelContentStoreboxComponentContract.View {
+                                                ChannelContentStoreboxComponentContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
     @Inject
@@ -36,12 +37,11 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater?.inflate(
+        return inflater?.inflate(
                 R.layout.fragment_channel_storebox_component,
                 container,
                 false
         )
-        return rootView
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -50,6 +50,8 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         presenter.onViewCreated(this, lifecycle)
         setup()
         setupTopbar()
+
+        showProgress(true)
     }
 
     private fun setupTopbar() {
@@ -83,26 +85,34 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         getBaseActivity()?.onBackPressed()
     }
 
+    override fun showProgress(show: Boolean) {
+        Timber.d("Show Progress View: %s", show)
+
+        progressBar.setVisible(show)
+        receiptRv.setVisible(!show)
+        containerEmpty.setVisible(false)
+    }
+
+    override fun showEmptyView(show: Boolean) {
+        Timber.d("Show Empty View: %s", show)
+
+        containerEmpty.setVisible(show)
+        receiptRv.setVisible(!show)
+        progressBar.setVisible(false)
+    }
+
     override fun setReceipts(data: List<StoreboxReceiptItem>) {
         Timber.d("setReceipts: %s", data.size)
+
         adapter.receipts.clear()
         adapter.receipts.addAll(data)
         adapter.notifyDataSetChanged()
+
+        showEmptyView(data.isEmpty())
     }
 
     inner class StoreboxAdapter : RecyclerView.Adapter<StoreboxAdapter.StoreboxViewHolder>() {
         var receipts: MutableList<StoreboxReceiptItem> = ArrayList()
-
-        inner class StoreboxViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
-            //cards
-            var amountDateContainer = root.findViewById<LinearLayout>(R.id.amountDateContainerLl)
-            var soloAmountTv = root.findViewById<TextView>(R.id.soloAmountTv)
-            val row = root.findViewById<LinearLayout>(R.id.rowLl)
-            val headerTv = root.findViewById<TextView>(R.id.headerTv)
-            val amountTv = root.findViewById<TextView>(R.id.amountTv)
-            val dateTv = root.findViewById<TextView>(R.id.dateTv)
-            val logoIv = root.findViewById<ImageView>(R.id.logoIv)
-        }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoreboxViewHolder {
             val v = LayoutInflater.from(context).inflate(
@@ -110,8 +120,7 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
                     parent,
                     false
             )
-            val vh = StoreboxViewHolder(v)
-            return vh
+            return StoreboxViewHolder(v)
         }
 
         override fun getItemCount(): Int {
@@ -119,34 +128,53 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         }
 
         override fun onBindViewHolder(holder: StoreboxViewHolder?, position: Int) {
-            var currentReceipt = receipts[position]
-
-            holder?.headerTv?.text = currentReceipt.storeName
-
-            if (currentReceipt.purchaseDate != null) {
-                holder?.amountDateContainer?.visibility = View.VISIBLE
-                holder?.soloAmountTv?.visibility = View.GONE
-
-                holder?.amountTv?.text = String.format("%.2f", currentReceipt.grandTotal).replace(".",",")
-                holder?.dateTv?.text = formatter.formatDateRelative(currentReceipt)
-            } else {
-                holder?.amountDateContainer?.visibility = View.GONE
-                holder?.soloAmountTv?.visibility = View.VISIBLE
-
-                holder?.amountTv?.text = String.format("%.2f", currentReceipt.grandTotal).replace(".",",")            }
-            if (currentReceipt.logo?.url != null) {
-                holder?.logoIv?.let {
-                    Glide.with(context).load(currentReceipt.logo?.url).into(it)
-                }
-            }
-
-            holder?.row?.setOnClickListener {
-                //todo open the receipt details
-                Timber.d("Receipt Clicked: %s", currentReceipt.id)
-                (activity as StoreboxContentActivity).showDetailFragment(currentReceipt.id)
-            }
-
+            val currentReceipt = receipts[position]
+            holder?.bind(currentReceipt)
         }
 
+        inner class StoreboxViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
+            //cards
+            private var amountDateContainer = root.findViewById<LinearLayout>(R.id.amountDateContainerLl)
+            private var soloAmountTv = root.findViewById<TextView>(R.id.soloAmountTv)
+            private val row = root.findViewById<LinearLayout>(R.id.rowLl)
+            private val headerTv = root.findViewById<TextView>(R.id.headerTv)
+            private val amountTv = root.findViewById<TextView>(R.id.amountTv)
+            private val dateTv = root.findViewById<TextView>(R.id.dateTv)
+            private val logoIv = root.findViewById<ImageView>(R.id.logoIv)
+
+            fun bind(currentReceipt: StoreboxReceiptItem) {
+                headerTv?.text = currentReceipt.storeName
+
+                if (currentReceipt.purchaseDate != null) {
+                    amountDateContainer?.visibility = View.VISIBLE
+                    soloAmountTv?.visibility = View.GONE
+
+                    amountTv?.text = String.format(
+                            "%.2f",
+                            currentReceipt.grandTotal
+                    ).replace("", ",")
+
+                    dateTv?.text = formatter.formatDateRelative(currentReceipt)
+                } else {
+                    amountDateContainer?.visibility = View.GONE
+                    soloAmountTv?.visibility = View.VISIBLE
+
+                    amountTv?.text = String.format(
+                            "%.2f",
+                            currentReceipt.grandTotal
+                    ).replace("", ",")
+                }
+                if (currentReceipt.logo?.url != null) {
+                    logoIv?.let {
+                        Glide.with(context).load(currentReceipt.logo?.url).into(it)
+                    }
+                }
+
+                row?.setOnClickListener {
+                    Timber.d("Receipt Clicked: %s", currentReceipt.id)
+                    (activity as StoreboxContentActivity).showDetailFragment(currentReceipt.id)
+                }
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.channels.content.storebox
+package dk.eboks.app.presentation.ui.components.channels.content.storebox.detail
 
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.presentation.base.BaseView

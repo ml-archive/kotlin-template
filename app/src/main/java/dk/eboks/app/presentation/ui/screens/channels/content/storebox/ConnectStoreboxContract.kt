@@ -9,7 +9,6 @@ import dk.nodes.arch.presentation.base.BasePresenter
  * @since    5/14/2018.
  */
 interface ConnectStoreboxContract {
-
     interface View : BaseView {
         fun showFound()
         fun showNotFound()

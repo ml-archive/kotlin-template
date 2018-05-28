@@ -36,7 +36,7 @@
         android:textColor="@color/blueGrey" />
 
     <Button
-        android:id="@+id/logonBtn"
+        android:id="@+id/verifyBtn"
         style="@style/button.SolidGradient"
         android:layout_width="match_parent"
         android:layout_height="52dp"
@@ -46,7 +46,7 @@
         android:textSize="16dp"/>
 
     <Button
-        android:id="@+id/redOptionTv"
+        android:id="@+id/cancelTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"

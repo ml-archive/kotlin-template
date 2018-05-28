@@ -50,7 +50,6 @@ class SenderAllListComponentPresenter @Inject constructor(val appState: AppState
         this.filteredSenders.clear()
         this.senders.addAll(senders)
         filteredSenders.addAll(this.senders)
-
     }
 
     override fun onGetSendersError(error: ViewError) {
