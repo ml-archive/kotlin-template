@@ -59,13 +59,22 @@ class ActivationCodeComponentPresenter @Inject constructor(
 
     override fun onLoginActivationCodeRequired() {
         Timber.e("Wrong acti-code!!")
+        runAction { v ->
+            v.showError(error = null)
+        }
     }
 
     override fun onLoginDenied(error: ViewError) {
         Timber.e("Login Denied!!")
+        runAction { v ->
+            v.showErrorDialog(error)
+        }
     }
 
     override fun onLoginError(error: ViewError) {
         Timber.e("Login Error!!")
+        runAction { v ->
+            v.showErrorDialog(error)
+        }
     }
 }

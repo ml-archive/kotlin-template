@@ -9,6 +9,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface ActivationCodeComponentContract {
     interface View : BaseView {
         fun proceedToApp()
+        fun showError(error: String?)
         fun setDebugUp(activationCode: String?)
     }
 

@@ -86,6 +86,10 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         activity.finish()
     }
 
+    override fun showError(error: String?) {
+        activationCodeTil.error = error?:Translation.activationcode.invalidActivationCode
+    }
+
     override fun setDebugUp(activationCode: String?) {
         if (BuildConfig.DEBUG) {
             activationCodeEt.setText(activationCode)
