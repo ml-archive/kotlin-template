@@ -17,11 +17,14 @@ import dk.eboks.app.domain.interactors.folder.OpenFolderInteractorImpl
 import dk.eboks.app.domain.interactors.message.*
 import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.*
+import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
+import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractorImpl
 import dk.eboks.app.domain.interactors.storebox.*
 import dk.eboks.app.domain.interactors.user.*
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.repositories.*
 import dk.eboks.app.network.Api
+import dk.eboks.app.network.repositories.SignupRestRepository
 import dk.eboks.app.network.repositories.UserRestRepository
 import dk.nodes.arch.domain.executor.Executor
 
@@ -34,6 +37,15 @@ class InteractorModule {
             appStateManager: AppStateManager
     ): LoginInteractor {
         return LoginInteractorImpl(executor, api, appStateManager)
+    }
+
+    @Provides
+    fun provideVerifyignupMailInteractor(
+            executor: Executor,
+            api: Api,
+            signupRestRepository: SignupRestRepository
+    ): CheckSignupMailInteractor {
+        return CheckSignupMailInteractorImpl(executor, api, signupRestRepository)
     }
 
     @Provides
@@ -218,9 +230,10 @@ class InteractorModule {
     @Provides
     fun provideCreateUserInteractor(
             executor: Executor,
-            userManager: UserManager
+            userManager: UserManager,
+            signupRestRepo : SignupRestRepository
     ): CreateUserInteractor {
-        return CreateUserInteractorImpl(executor, userManager)
+        return CreateUserInteractorImpl(executor, userManager,signupRestRepo)
     }
 
     @Provides

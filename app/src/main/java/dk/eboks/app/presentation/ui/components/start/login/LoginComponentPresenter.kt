@@ -123,7 +123,7 @@ class LoginComponentPresenter @Inject constructor(
                 hasFingerprint = false
         )
 
-        createUserInteractor.input = CreateUserInteractor.Input(user)
+        createUserInteractor.input = CreateUserInteractor.Input(user, "tempPassword")
         createUserInteractor.run()
     }
 

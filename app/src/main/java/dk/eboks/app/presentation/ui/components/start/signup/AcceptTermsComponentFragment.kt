@@ -19,10 +19,10 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class AcceptTermsComponentFragment : BaseFragment(), AcceptTermsComponentContract.View {
+class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.TermsView {
 
     @Inject
-    lateinit var presenter : AcceptTermsComponentContract.Presenter
+    lateinit var presenter: SignupComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_signup_accept_terms_component, container, false)
@@ -35,8 +35,7 @@ class AcceptTermsComponentFragment : BaseFragment(), AcceptTermsComponentContrac
         presenter.onViewCreated(this, lifecycle)
 
         arguments?.let { args ->
-            if(args.containsKey("justShow"))
-            {
+            if (args.containsKey("justShow")) {
                 termsHeaderLl.visibility = View.GONE
                 termsButtonsLl.visibility = View.GONE
                 toolbarInclude.visibility = View.VISIBLE
@@ -48,7 +47,11 @@ class AcceptTermsComponentFragment : BaseFragment(), AcceptTermsComponentContrac
             }
         }
 
-        acceptBtn.setOnClickListener { getBaseActivity()?.addFragmentOnTop(R.id.containerFl, CompletedComponentFragment(), true) }
+        acceptBtn.setOnClickListener {
+            presenter.createUser()
+
+        }
+
         cancelBtn.setOnClickListener { showDialog() }
 
         termsWV.loadUrl("http://test401-mobile-api-dk.e-boks.com/2/resources/${Config.currentMode.countryCode}/terms")
@@ -70,4 +73,17 @@ class AcceptTermsComponentFragment : BaseFragment(), AcceptTermsComponentContrac
         b.show()
     }
 
+    override fun showUserCreated() {
+        getBaseActivity()?.addFragmentOnTop(R.id.containerFl, CompletedComponentFragment(), true)
+    }
+
+    override fun showUserCreatedError() {
+
+    }
+
+    override fun showError() {
+    }
+
+    override fun showProgress(show: Boolean) {
+    }
 }

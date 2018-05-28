@@ -56,7 +56,7 @@ class DebugUserPresenter(
 
         user.setPrimaryEmail(email)
 
-        createUserInteractor.input = CreateUserInteractor.Input(user)
+        createUserInteractor.input = CreateUserInteractor.Input(user,"temp")
         createUserInteractor.run()
     }
 

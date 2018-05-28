@@ -53,13 +53,13 @@ class MyInfoComponentPresenter @Inject constructor(
 
                 v.onDone()
             }
-            //              ----------------------
+
+            //todo putting in mock data as the app.state does not save the profile atm
             // save user on the server
             var user = User(555,"updatetest")
             updateUserInteractor.input = UpdateUserInteractor.Input(user)
             updateUserInteractor.run()
 
-//              ----------------------
         }
     }
 
