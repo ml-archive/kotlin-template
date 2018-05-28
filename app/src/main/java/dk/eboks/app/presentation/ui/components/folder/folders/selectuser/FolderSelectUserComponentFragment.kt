@@ -23,6 +23,7 @@ import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_folders_selectuser.*
 import kotlinx.android.synthetic.main.viewholder_select_user.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -126,7 +127,7 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
             holder?.roleTv?.text = currentUser.permission
             holder?.root?.setOnClickListener {
                 //open normal maillist for sharedUsers[position] and close the drawer
-                println(sharedUsers[position].toString())
+                Timber.d(sharedUsers[position].toString())
                 activity.onBackPressed()
             }
         }

@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.screens.debug.user
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseActivity
@@ -31,6 +32,10 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
                 createUser()
             }
         }
+        createBtn.setOnLongClickListener {
+            createDefaultUser()
+            true
+        }
     }
 
     private fun setupTopBar() {
@@ -54,6 +59,10 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
         val verified = verifiedSw.isChecked
         val fingerprint = fingerPrintSw.isChecked
         presenter.createUser(provider, name, email, cpr, verified, fingerprint)
+    }
+
+    private fun createDefaultUser() {
+        presenter.createUser(Config.getLoginProvider("cpr")!!, "Stefan Storebox", "", "3110276111", verified = true, fingerprint = false)
     }
 
     private fun saveUser(user: User) {

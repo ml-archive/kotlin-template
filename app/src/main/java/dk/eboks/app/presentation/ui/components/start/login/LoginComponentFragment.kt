@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.managers.EboksFormatter
@@ -32,6 +33,7 @@ import dk.eboks.app.util.KeyboardUtils
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.isValidEmail
+import dk.nodes.arch.domain.executor.SignalDispatcher.signal
 import dk.nodes.locksmith.core.models.FingerprintDialogEvent.*
 import kotlinx.android.synthetic.main.fragment_login_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -104,12 +106,14 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     override fun onResume() {
         super.onResume()
+        Timber.d("onResume")
         setupCprEmailListeners()
         setupPasswordListener()
 
     }
 
     override fun onPause() {
+        Timber.d("onPause")
         handler.removeCallbacksAndMessages(null)
         super.onPause()
     }
@@ -120,31 +124,33 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
-
     private fun onContinue() {
         Timber.i("onContinue with ${currentUser?.name}")
         currentUser?.let { user ->
             currentProvider?.let { provider ->
-                presenter.login(
+                presenter.updateLoginState(
                         user,
                         provider.id,
                         passwordEt.text.toString().trim(),
                         activationCode = null
                 )
+                presenter.login()
             }
         }.guard {
             createUser(false)
+//            getBaseActivity()?.setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
         }
     }
 
     override fun proceedToApp() {
+        //Timber.v("Signal - login_condition")
+        signal("login_condition") // allow the eAuth2 authenticator to continue
+
         (activity as StartActivity).startMain()
     }
 
 
-    override fun setupView(
-            loginProvider: LoginProvider?, user: User?, altLoginProviders: List<LoginProvider>
-    ) {
+    override fun setupView(loginProvider: LoginProvider?, user: User?, altLoginProviders: List<LoginProvider>) {
         Timber.i("SetupView called loginProvider = $loginProvider user = $user altProviders = $altLoginProviders")
         loginProvider?.let { provider ->
             currentProvider = provider
@@ -163,36 +169,32 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             userLl.visibility = View.GONE
         }
         setupAltLoginProviders(altLoginProviders)
+
         user?.let {
-            addSkipLoginProvider()
+            if (BuildConfig.DEBUG && "3110276111" == it.cpr) {
+                cprEmailEt.setText("3110276111")
+                passwordEt.setText("147258369")
+                setContinueButton()
+            }
         }
     }
 
     private fun createUser(verified: Boolean) {
         val emailOrCpr = cprEmailEt.text?.toString()?.trim() ?: ""
         if (emailOrCpr.isNotBlank()) {
-            if (emailOrCpr.contains("@"))
+            if (emailOrCpr.contains("@")) {
                 presenter.createUserAndLogin(email = emailOrCpr, cpr = null, verified = verified)
-            else
+            } else {
                 presenter.createUserAndLogin(email = null, cpr = emailOrCpr, verified = verified)
+            }
 
             getBaseActivity()?.setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
         }
     }
 
-    fun addSkipLoginProvider() {
-        val li = LayoutInflater.from(context)
-        val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
-        v.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.icon_48_forward_red)
-        v.findViewById<TextView>(R.id.nameTv).text = "Force login (DEBUG)"
-        v.findViewById<TextView>(R.id.descTv).text = "Inkluderer post fra offentlige myndigheter"
-
-        v.setOnClickListener {
-            doUserLogin()
-        }
-        loginProvidersLl.addView(v)
-        loginProvidersLl.visibility = View.VISIBLE
-
+    override fun showActivationCodeDialog() {
+        getBaseActivity()?.openComponentDrawer(ActivationCodeComponentFragment::class.java)
+// TODO       DO GET THE CODE BACK!
     }
 
     override fun addFingerPrintProvider() {
@@ -224,17 +226,23 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             customFingerprintDialog.dismiss()
 
             when (it) {
-                CANCEL  -> {
+                CANCEL -> {
                     // Do nothing?
                 }
                 SUCCESS -> {
-                    doUserLogin()
+                    currentUser?.let { user ->
+                        currentProvider?.let { provider ->
+                            // TODO add credentials
+                            presenter.updateLoginState(user, provider.id, "todo", "todo")
+                            presenter.login()
+                        }
+                    }
                 }
                 ERROR_CIPHER,
                 ERROR_ENROLLMENT,
                 ERROR_HARDWARE,
                 ERROR_SECURE,
-                ERROR   -> {
+                ERROR -> {
                     showErrorDialog(
                             ViewError(
                                     Translation.error.genericTitle,
@@ -262,10 +270,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         KeyboardUtils.addKeyboardToggleListener(activity, KeyboardUtils.SoftKeyboardToggleListener {
             if (it) {
                 loginProvidersLl.visibility = View.GONE
-                continueBtn.visibility = View.VISIBLE
+                continueBtn.visibility = View.GONE
             } else {
                 loginProvidersLl.visibility = View.VISIBLE
-                continueBtn.visibility = View.GONE
+                continueBtn.visibility = View.VISIBLE
             }
         })
 
@@ -294,14 +302,14 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                     userLl.visibility = View.VISIBLE
 
                 }
-                "cpr"   -> {
+                "cpr" -> {
                     user?.let { setupUserView(it) }
                     cprEmailEt.inputType = InputType.TYPE_CLASS_NUMBER
                     userLl.visibility = View.VISIBLE
                     cprEmailTil.visibility = View.VISIBLE
                     cprEmailTil.hint = Translation.logoncredentials.ssnHeader
                 }
-                else    -> {
+                else -> {
                     getBaseActivity()?.addFragmentOnTop(
                             R.id.containerFl,
                             provider.fragmentClass?.newInstance()
@@ -352,8 +360,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             override fun afterTextChanged(password: Editable?) {
                 setContinueButton()
                 handler?.postDelayed({
-                                         setErrorMessages()
-                                     }, 1200)
+                    setErrorMessages()
+                }, 1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -370,8 +378,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 cprEmailTil.error = null
                 setContinueButton()
                 handler.postDelayed({
-                                        setErrorMessages()
-                                    }, 1200)
+                    setErrorMessages()
+                }, 1200)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -414,13 +422,14 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     }
 
-    private fun doUserLogin() {
-        currentUser?.let { user ->
-            currentProvider?.let { provider ->
-                presenter.login(user, provider.id, "todo", "todo") // TODO add credentials
-            }
-        }
-    }
+//    private fun doUserLogin() {
+//        currentUser?.let { user ->
+//            currentProvider?.let { provider ->
+//                presenter.updateLoginState(user, provider.id, "todo")
+//                presenter.login() // TODO add credentials
+//            }
+//        }
+//    }
 
     override fun onDestroy() {
         super.onDestroy()
