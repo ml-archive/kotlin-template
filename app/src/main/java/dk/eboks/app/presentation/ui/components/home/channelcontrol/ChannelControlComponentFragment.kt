@@ -92,7 +92,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     private fun setupBottomView(channels: List<Channel>) {
         if (channels.size == 0) {
             (activity as HomeActivity).showChannelControlsHeader(false)
-
+            emptyStateLl.visibility = View.VISIBLE
             bottomChannelBtn.isEnabled = (emailCount > 0)
             bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderNoChannels
             bottomChannelTextTv.text = Translation.home.bottomChannelTextNoChannels
@@ -100,16 +100,18 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
             bottomChannelHeaderTv.visibility = View.VISIBLE
             bottomChannelTextTv.visibility = View.VISIBLE
         } else {
+            /*
             if (channels.size < 2) {
+                emptyStateLl.visibility = View.VISIBLE
                 bottomChannelBtn.isEnabled = false
                 bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderChannels
                 bottomChannelTextTv.text = Translation.home.bottomChannelTextChannels
-            } else {
+            } else {*/
+                emptyStateLl.visibility = View.GONE
                 bottomChannelBtn.visibility = View.GONE
                 bottomChannelHeaderTv.visibility = View.GONE
                 bottomChannelTextTv.visibility = View.GONE
-            }
-
+            //}
         }
     }
 
