@@ -36,7 +36,7 @@ interface SignupComponentContract {
     }
 
     interface CompletedView : SignupView {
-
+        fun doLogin()
     }
 
     interface Presenter : BasePresenter<SignupView> {

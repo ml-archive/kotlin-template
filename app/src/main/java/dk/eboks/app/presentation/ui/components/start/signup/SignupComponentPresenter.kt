@@ -1,13 +1,17 @@
 package dk.eboks.app.presentation.ui.components.start.signup
 
+import android.util.Log
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import kotlinx.coroutines.experimental.withTimeoutOrNull
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -22,11 +26,13 @@ class SignupComponentPresenter @Inject constructor(
         SignupComponentContract.Presenter,
         BasePresenterImpl<SignupComponentContract.SignupView>(),
         CreateUserInteractor.Output,
+        LoginInteractor.Output,
         CheckSignupMailInteractor.Output {
 
     init {
         createUserInteractor.output = this
         verifySignupMailInteractor.output = this
+        loginUserInteractor.output = this
     }
 
     override fun confirmMail(email: String, name: String) {
@@ -65,11 +71,47 @@ class SignupComponentPresenter @Inject constructor(
         tempUser.lastLoginProvider = "email"
         appState.state?.currentUser = tempUser
         appState.save()
-        appState.state?.loginState?.userPassWord?.let { password ->
+        appState.state?.loginState?.let {
+        it.userPassWord?.let { password ->
             appState.state?.currentUser?.name?.let { username ->
-                loginUserInteractor.input = LoginInteractor.Input(username, password, null)
+
+                    it.userPassWord = password
+                    it.userName = username
+                    it.token = null
+                    loginUserInteractor.input = LoginInteractor.Input(it)
+                    loginUserInteractor.run()
+                }
             }
         }
+    }
+
+
+    fun login(){
+        runAction { v->
+            v as SignupComponentContract.CompletedView
+            v.doLogin()
+        }
+    }
+
+    //todo blocked untill the login/create user actually works. will try to login regardless to be able to follow the flow of the app - this needs to be changed
+    override fun onLoginSuccess(response: AccessToken) {
+        Timber.d("success")
+        login()
+    }
+
+    override fun onLoginActivationCodeRequired() {
+        Timber.d("onloginactivatedcoderequired")
+        login()
+    }
+
+    override fun onLoginDenied(error: ViewError) {
+        Timber.d("onlogindenied")
+        login()
+    }
+
+    override fun onLoginError(error: ViewError) {
+        Timber.d("onloginerror")
+        login()
     }
 
     override fun onCreateUser(user: User, numberOfUsers: Int) {
