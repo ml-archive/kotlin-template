@@ -266,8 +266,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideNotesComponentPresenter(stateManager: AppStateManager): NotesComponentContract.Presenter {
-        return NotesComponentPresenter(stateManager)
+    fun provideNotesComponentPresenter(stateManager: AppStateManager, updateMessageInteractor: UpdateMessageInteractor): NotesComponentContract.Presenter {
+        return NotesComponentPresenter(stateManager, updateMessageInteractor)
     }
 
     @ActivityScope

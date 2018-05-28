@@ -31,7 +31,7 @@ class NotesComponentFragment : BaseFragment(), NotesComponentContract.View, Text
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         focusThiefV.requestFocus()
-
+        presenter.setup()
     }
 
     override fun updateView(message: Message) {
@@ -49,7 +49,8 @@ class NotesComponentFragment : BaseFragment(), NotesComponentContract.View, Text
     }
 
     val delayedRunnable = Runnable {
-
+        val note = noteEt.text.toString().trim()
+        presenter.saveNote(note)
     }
 
     override fun afterTextChanged(p0: Editable?) {

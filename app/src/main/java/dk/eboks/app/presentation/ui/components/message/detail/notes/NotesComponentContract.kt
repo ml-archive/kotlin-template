@@ -13,5 +13,7 @@ interface NotesComponentContract {
     }
 
     interface Presenter : BasePresenter<NotesComponentContract.View> {
+        fun setup()
+        fun saveNote(note : String)
     }
 }

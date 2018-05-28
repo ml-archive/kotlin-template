@@ -34,6 +34,7 @@ class MailListComponentPresenter @Inject constructor(
     var mode = -1
 
     var currentFolder: Folder? = null
+    var currentSender: Sender? = null
 
     init {
         getMessagesInteractor.output = this
@@ -50,6 +51,7 @@ class MailListComponentPresenter @Inject constructor(
     }
 
     override fun setup(sender: Sender) {
+        currentSender = sender
         mode = SENDER_MODE
         getMessagesInteractor.input = GetMessagesInteractor.Input(true, null, sender)
         getMessagesInteractor.run()
@@ -61,6 +63,12 @@ class MailListComponentPresenter @Inject constructor(
             FOLDER_MODE -> {
                 currentFolder?.let {
                     getMessagesInteractor.input = GetMessagesInteractor.Input(false, it)
+                    getMessagesInteractor.run()
+                }
+            }
+            SENDER_MODE -> {
+                currentSender?.let {
+                    getMessagesInteractor.input = GetMessagesInteractor.Input(true, null, it)
                     getMessagesInteractor.run()
                 }
             }
@@ -86,7 +94,6 @@ class MailListComponentPresenter @Inject constructor(
 
         deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(messageIds)
         deleteMessagesInteractor.output = this
-
         deleteMessagesInteractor.run()
     }
 

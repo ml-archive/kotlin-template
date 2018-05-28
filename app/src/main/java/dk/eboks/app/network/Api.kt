@@ -47,7 +47,7 @@ interface Api {
     @GET("mail/senders") fun getSenders() : Call<List<Sender>>
 
     // edit message / document/message operations
-    @PATCH("mail/folders/{folderId}/messages/{messageId}") fun updateMessage(@Path("id") id : String, @Path("folderId") folderId : Int, @Body body : MessagePatch) : Call<Any>
+    @POST("mail/folders/{folderId}/messages/{messageId}") fun updateMessage(@Path("folderId") folderId : Int, @Path("messageId") messageId : String, @Body body : MessagePatch) : Call<Void>
 
     // get types of messages, used to be by folder type but now its just a couple of hardcoded endpoints
     @GET("mail/messages/highlights") fun getHighlights() : Call<List<Message>>
