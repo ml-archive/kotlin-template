@@ -9,8 +9,10 @@ import android.webkit.WebView
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseWebFragment
+import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginContract
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -19,10 +21,10 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
+class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     @Inject
-    lateinit var presenter : NemIdComponentContract.Presenter
+    lateinit var presenter : NemIdComponentPresenter
 
     var loginUser: User? = null
 
@@ -63,14 +65,17 @@ class NemIdComponentFragment : BaseWebFragment(), NemIdComponentContract.View {
         (activity as StartActivity).startMain()
     }
 
-    private fun showDebugDialog()
-    {
+    override fun showError(viewError: ViewError) {
+        showErrorDialog(viewError)
+    }
+
+    private fun showDebugDialog() {
         AlertDialog.Builder(activity)
                 .setTitle("Debug")
                 .setMessage("Press okay to simulate a successful login with login provider")
                 .setPositiveButton("Login") { dialog, which ->
-                    loginUser?.let { presenter.login(it) }
-                    (activity as StartActivity).startMain()
+                    presenter.login("kspToken xx")
+                    dialog.dismiss()
                 }
                 .setNegativeButton("Close") { dialog, which ->
                     webView.postDelayed({ presenter.cancelAndClose() }, 500)

@@ -15,14 +15,16 @@ import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginContract
 
 /**
  * Created by bison on 09-02-2018.
  */
-class BankIdNOComponentFragment : BaseWebFragment(), BankIdNOComponentContract.View {
+class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     @Inject
-    lateinit var presenter : BankIdNOComponentContract.Presenter
+    lateinit var presenter : BankIdNOComponentPresenter
 
     var loginUser: User? = null
 
@@ -79,14 +81,18 @@ class BankIdNOComponentFragment : BaseWebFragment(), BankIdNOComponentContract.V
         (activity as StartActivity).startMain()
     }
 
+    override fun showError(viewError: ViewError) {
+        showErrorDialog(viewError)
+    }
+
     private fun showDebugDialog()
     {
         AlertDialog.Builder(activity)
                 .setTitle("Debug")
                 .setMessage("Press okay to simulate a successful login with login provider")
                 .setPositiveButton("Login") { dialog, which ->
-                    loginUser?.let { presenter.login(it) }
-                    (activity as StartActivity).startMain()
+                    presenter.login("kspToken xx")
+                    dialog.dismiss()
                 }
                 .setNegativeButton("Close") { dialog, which ->
                     webView.postDelayed({ presenter.cancelAndClose() }, 500)

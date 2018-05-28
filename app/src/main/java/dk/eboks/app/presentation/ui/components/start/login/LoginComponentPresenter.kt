@@ -129,7 +129,9 @@ class LoginComponentPresenter @Inject constructor(
 
     override fun switchLoginProvider(provider: LoginProvider) {
         appState.state?.loginState?.let { state ->
-            state.selectedUser?.let { setupLogin(it, provider.id) }.guard {
+            state.selectedUser?.let {
+                setupLogin(it, provider.id)
+            }.guard {
                 setupLogin(
                         null,
                         provider.id

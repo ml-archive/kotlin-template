@@ -113,7 +113,7 @@ import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.Ba
 import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentFragment
-import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.*
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentFragment
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentPresenter
@@ -339,7 +339,7 @@ interface PresentationComponent {
     fun inject(target : ActivationCodeComponentFragment)
     fun inject(target : ActivationCodeComponentPresenter)
     fun inject(target : NemIdComponentFragment)
-    fun inject(target : NemIdComponentPresenter)
+    fun inject(target : WebLoginPresenter)
     fun inject(target : IdPortenComponentFragment)
     fun inject(target : IdPortenComponentPresenter)
     fun inject(target : BankIdSEComponentFragment)

@@ -3,10 +3,7 @@ package dk.eboks.app.injection.modules
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
-import dk.eboks.app.domain.interactors.authentication.LoginInteractor
-import dk.eboks.app.domain.interactors.authentication.LoginInteractorImpl
-import dk.eboks.app.domain.interactors.authentication.PostAuthenticateUserInteractor
-import dk.eboks.app.domain.interactors.authentication.PostAuthenticateUserInteractorImpl
+import dk.eboks.app.domain.interactors.authentication.*
 import dk.eboks.app.domain.interactors.channel.*
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractorImpl
@@ -374,5 +371,10 @@ class InteractorModule {
     @Provides
     fun provideConfirmStoreboxInteractor(executor: Executor, api: Api): ConfirmStoreboxInteractor {
         return ConfirmStoreboxInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun provideTransformTokenInteractor(executor: Executor, api: Api, appStateManager: AppStateManager): TransformTokenInteractor {
+        return TransformTokenInteractorImpl(executor, api, appStateManager)
     }
 }

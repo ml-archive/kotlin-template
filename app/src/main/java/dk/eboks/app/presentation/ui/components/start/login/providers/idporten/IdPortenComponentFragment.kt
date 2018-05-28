@@ -15,14 +15,16 @@ import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginContract
 
 /**
  * Created by bison on 09-02-2018.
  */
-class IdPortenComponentFragment : BaseWebFragment(), IdPortenComponentContract.View {
+class IdPortenComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     @Inject
-    lateinit var presenter : IdPortenComponentContract.Presenter
+    lateinit var presenter : IdPortenComponentPresenter
 
     var loginUser: User? = null
 
@@ -84,8 +86,8 @@ class IdPortenComponentFragment : BaseWebFragment(), IdPortenComponentContract.V
                 .setTitle("Debug")
                 .setMessage("Press okay to simulate a successful login with login provider")
                 .setPositiveButton("Login") { dialog, which ->
-                    loginUser?.let { presenter.login(it) }
-                    (activity as StartActivity).startMain()
+                    presenter.login("kspToken xx")
+                    dialog.dismiss()
                 }
                 .setNegativeButton("Close") { dialog, which ->
                     webView.postDelayed({ presenter.cancelAndClose() }, 500)
@@ -95,5 +97,9 @@ class IdPortenComponentFragment : BaseWebFragment(), IdPortenComponentContract.V
 
     override fun close() {
         fragmentManager.popBackStack()
+    }
+
+    override fun showError(viewError: ViewError) {
+        showErrorDialog(viewError)
     }
 }

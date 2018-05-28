@@ -135,6 +135,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                         activationCode = null
                 )
                 presenter.login()
+                continuePb.visibility = View.VISIBLE
+                continueBtn.isEnabled = false
             }
         }.guard {
             createUser(false)
@@ -152,6 +154,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     override fun setupView(loginProvider: LoginProvider?, user: User?, altLoginProviders: List<LoginProvider>) {
         Timber.i("SetupView called loginProvider = $loginProvider user = $user altProviders = $altLoginProviders")
+        continuePb.visibility = View.INVISIBLE
+
         loginProvider?.let { provider ->
             currentProvider = provider
             currentUser = user
@@ -193,8 +197,17 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
     override fun showActivationCodeDialog() {
+        continuePb.visibility = View.INVISIBLE
+        continueBtn.isEnabled = true
+
         getBaseActivity()?.openComponentDrawer(ActivationCodeComponentFragment::class.java)
-// TODO       DO GET THE CODE BACK!
+    }
+
+    override fun showError(viewError: ViewError) {
+        continuePb.visibility = View.INVISIBLE
+        continueBtn.isEnabled = true
+
+        showErrorDialog(viewError)
     }
 
     override fun addFingerPrintProvider() {

@@ -5,7 +5,7 @@ import java.io.Serializable
 data class User(
         var id: Long = -1,
         var name: String = "",
-        var emails: ArrayList<ContactPoint> = arrayListOf(ContactPoint(), ContactPoint()),
+        var emails: ArrayList<ContactPoint> = arrayListOf(ContactPoint()),
         var mobileNumber: ContactPoint? = null,
         var cpr: String? = null,
         var avatarUri: String? = null,
@@ -19,15 +19,23 @@ data class User(
         return emails.getOrNull(0)?.value
     }
 
-    fun getSecondaryEmail(): String? {
-        return emails.getOrNull(1)?.value
-    }
-
     fun setPrimaryEmail(string: String?) {
         emails[0] = ContactPoint(string, true)
     }
 
+    fun getSecondaryEmail(): String? {
+        return try {
+            emails.getOrNull(1)?.value
+        } catch ( e: Throwable) {
+            ""
+        }
+    }
+
     fun setSecondaryEmail(string: String?) {
-        emails[1] = ContactPoint(string, true)
+        if(emails.size > 1) {
+            emails[1] = ContactPoint(string, true)
+        } else {
+            emails.add(1, ContactPoint(string, true))
+        }
     }
 }

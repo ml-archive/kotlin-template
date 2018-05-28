@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
 import dk.eboks.app.domain.config.LoginProvider
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter
@@ -12,6 +13,7 @@ interface LoginComponentContract {
     interface View : BaseView {
         fun setupView(loginProvider: LoginProvider?, user: User?, altLoginProviders: List<LoginProvider>)
         fun showActivationCodeDialog()
+        fun showError(viewError: ViewError)
         fun addFingerPrintProvider()
         fun proceedToApp()
     }

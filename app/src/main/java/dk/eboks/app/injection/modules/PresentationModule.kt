@@ -5,6 +5,7 @@ import dagger.Provides
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
+import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
@@ -120,14 +121,11 @@ import dk.eboks.app.presentation.ui.components.senders.list.SenderAllListCompone
 import dk.eboks.app.presentation.ui.components.senders.register.RegisterPresenter
 import dk.eboks.app.presentation.ui.components.senders.register.RegistrationContract
 import dk.eboks.app.presentation.ui.components.start.login.*
-import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentContract
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentPresenter
-import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentContract
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentPresenter
-import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentContract
 import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentPresenter
-import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentContract
-import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginContract
+import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentContract
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContract
@@ -485,26 +483,32 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideNemIdComponentPresenter(stateManager: AppStateManager): NemIdComponentContract.Presenter {
-        return NemIdComponentPresenter(stateManager)
+    fun provideWebLoginPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor): WebLoginContract.Presenter {
+        return WebLoginPresenter(stateManager, transformTokenInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideIdPortenComponentPresenter(stateManager: AppStateManager): IdPortenComponentContract.Presenter {
-        return IdPortenComponentPresenter(stateManager)
+    fun provideNemIdLoginPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor): WebLoginContract.Presenter {
+        return provideNemIdLoginPresenter(stateManager, transformTokenInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideBankIdSEComponentPresenter(stateManager: AppStateManager): BankIdSEComponentContract.Presenter {
-        return BankIdSEComponentPresenter(stateManager)
+    fun provideIdPortenComponentPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor): WebLoginContract.Presenter {
+        return IdPortenComponentPresenter(stateManager, transformTokenInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideBankIdNOComponentPresenter(stateManager: AppStateManager): BankIdNOComponentContract.Presenter {
-        return BankIdNOComponentPresenter(stateManager)
+    fun provideBankIdSEComponentPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor): WebLoginContract.Presenter {
+        return BankIdSEComponentPresenter(stateManager, transformTokenInteractor)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideBankIdNOComponentPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor): WebLoginContract.Presenter {
+        return BankIdNOComponentPresenter(stateManager, transformTokenInteractor)
     }
 
     @ActivityScope
