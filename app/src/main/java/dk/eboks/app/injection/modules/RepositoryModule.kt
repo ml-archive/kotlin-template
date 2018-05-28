@@ -27,6 +27,13 @@ class RepositoryModule {
 
     @Provides
     @AppScope
+    fun provideUserRestRepository(context: Context, api: Api, gson: Gson) : UserRestRepository
+    {
+        return UserRestRepository(context, api, gson)
+    }
+
+    @Provides
+    @AppScope
     fun provideMessagesRepository(context: Context, api: Api, gson: Gson) : MessagesRepository
     {
         return MessagesRestRepository(context, api, gson)

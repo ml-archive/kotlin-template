@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.profile.myinfo
 
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
+import dk.eboks.app.domain.interactors.user.UpdateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
@@ -11,13 +12,16 @@ import javax.inject.Inject
 
 class MyInfoComponentPresenter @Inject constructor(
         val appState: AppStateManager,
-        val saveUserInteractor: SaveUserInteractor
+        val saveUserInteractor: SaveUserInteractor,
+        val updateUserInteractor: UpdateUserInteractor
 ) :
         MyInfoComponentContract.Presenter,
         BasePresenterImpl<MyInfoComponentContract.View>(),
+        UpdateUserInteractor.Output,
         SaveUserInteractor.Output {
     init {
         saveUserInteractor.output = this
+        updateUserInteractor.output = this
     }
 
     override fun setup() {
@@ -42,10 +46,20 @@ class MyInfoComponentPresenter @Inject constructor(
                 user.mobileNumber?.value = v.getMobileNumber()
                 user.newsletter = v.getNewsletter()
                 v.showProgress(true)
+                // save user locally
                 saveUserInteractor.input = SaveUserInteractor.Input(user)
                 saveUserInteractor.run()
+
+
                 v.onDone()
             }
+            //              ----------------------
+            // save user on the server
+            var user = User(555,"updatetest")
+            updateUserInteractor.input = UpdateUserInteractor.Input(user)
+            updateUserInteractor.run()
+
+//              ----------------------
         }
     }
 
@@ -63,5 +77,15 @@ class MyInfoComponentPresenter @Inject constructor(
             v.showProgress(false)
             v.showErrorDialog(error)
         }
+    }
+
+    override fun onUpdateProfile() {
+        //todo
+        Timber.e("onUpdateProfile succesfull")
+    }
+
+    override fun onUpdateProfileError(error: ViewError) {
+        //todo
+        Timber.e(error.message)
     }
 }
