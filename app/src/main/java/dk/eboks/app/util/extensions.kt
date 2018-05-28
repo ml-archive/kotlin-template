@@ -97,7 +97,7 @@ fun Editable.isValidEmail(): Boolean {
 
 fun Editable.isValidCpr(): Boolean {
     var cprLength = Config.currentMode.cprLength
-    val cprRegex = Regex("^[0-9]{" + cprLength + "}$")
+    val cprRegex = Regex("^[0-9]{$cprLength}$")
     val text = toString().trim()
     return !TextUtils.isEmpty(text) && text.matches(cprRegex)
 }

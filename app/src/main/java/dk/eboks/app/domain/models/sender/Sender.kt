@@ -9,6 +9,7 @@ import java.io.Serializable
 
 /**
  * Created by bison on 24-06-2017.
+ * This model covers both the API - specced models of SenderDetails and SenderItem
  */
 data class Sender(
         var id: Long,

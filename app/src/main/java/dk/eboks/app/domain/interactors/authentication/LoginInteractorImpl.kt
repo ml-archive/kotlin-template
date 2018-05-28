@@ -21,15 +21,18 @@ class LoginInteractorImpl(executor: Executor, val api: Api, val appStateManager:
             input?.let {
                 var map = mapOf(
                         Pair("grant_type", "password"),
-                        Pair("username", it.username),
-                        Pair("password", it.password),
                         Pair("scope", "mobileapi offline_access"),
                         Pair("client_id", BuildConfig.OAUTH_LONG_ID),
                         Pair("client_secret", BuildConfig.OAUTH_LONG_SECRET)
                 )
-
-                if (it.activationCode != null) {
-                    map = map.plus(Pair("acr_values", "activationcode:${it.activationCode} nationality:DK"))
+                it.loginState.userName?.let {
+                    map = map.plus(Pair("username", it))
+                }
+                it.loginState.userPassWord?.let {
+                    map = map.plus(Pair("password", it))
+                }
+                it.loginState.activationCode?.let {
+                    map = map.plus(Pair("acr_values", "activationcode:$it nationality:DK"))
                 }
 
                 val result = api.getToken(map).execute()
@@ -40,6 +43,8 @@ class LoginInteractorImpl(executor: Executor, val api: Api, val appStateManager:
                             appStateManager.save()
                             output?.onLoginSuccess(token)
                         }
+                    } else if (result.code() == 400) {
+                        output?.onLoginActivationCodeRequired()
                     } else {
                         output?.onLoginDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
                     }

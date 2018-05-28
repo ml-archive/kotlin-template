@@ -3,7 +3,6 @@ package dk.eboks.app.presentation.ui.components.start.login
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
-import dk.eboks.app.domain.interactors.authentication.PostAuthenticateUserInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
@@ -11,11 +10,9 @@ import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.ContactPoint
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.util.guard
-import dk.nodes.arch.domain.executor.SignalDispatcher.signal
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
-import kotlin.math.log
 
 /**
  * Created by bison on 20-05-2017.
@@ -41,12 +38,11 @@ class LoginComponentPresenter @Inject constructor(
     override fun setup() {
         appState.state?.loginState?.let { state ->
             state.selectedUser?.let {
-                setupLogin(
-                        it,
-                        it.lastLoginProvider
-                )
+                setupLogin(it, it.lastLoginProvider)
             }.guard {
-                runAction { v -> v.setupView(null, null, altProviders) }
+                runAction { v ->
+                    v.setupView(null, null, altProviders)
+                }
             }
         }
     }
@@ -56,7 +52,7 @@ class LoginComponentPresenter @Inject constructor(
         runAction { v ->
             user?.let {
                 // setup for existing user
-                if (!user.verified) {   // user is not verified
+                if (!it.verified) {   // user is not verified
                     v.setupView(loginProvider = lp, user = user, altLoginProviders = ArrayList())
                 } else {
                     // user is verified
@@ -79,6 +75,7 @@ class LoginComponentPresenter @Inject constructor(
     }
 
     // all admire chnt's jurassic joke (its from '94 ffs :p)
+    // Don't you worry - it's a UNIX system! It hasn't changed since the universe began anyway
     override fun onLoginDenied(error: ViewError) {
         Timber.w(" \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word!")
     }
@@ -87,34 +84,37 @@ class LoginComponentPresenter @Inject constructor(
         Timber.e("Login Error!!")
     }
 
-    override fun login(user: User, providerId: String, password: String, activationCode: String?) {
+    override fun updateLoginState(user: User, providerId: String, password: String, activationCode: String?) {
+
         user.lastLoginProvider = providerId
 
-        // save the required login info
-        /*
-        appState.state?.loginState?.userName = "nodes-user1" //user.name // todo shouldn't be hardcoded!
-        appState.state?.loginState?.userPassWord = "pwd" // password // todo shouldn't be hardcoded!
-        appState.state?.loginState?.activationCode = null // activationCode // todo shouldn't be hardcoded!
-        appState.save()
-        */
-
-
-
-        //Timber.v("Signal - login_condition")
-        //signal("login_condition") // allow the eAuth2 authenticator to continue
-        loginInteractor.input = LoginInteractor.Input(username = "3110276111", password = "147258369", activationCode = "Cr4x3N6Q")
-        loginInteractor.run()
+        appState.state?.loginState?.let { ls ->
+            ls.userName = user.cpr ?: user.getPrimaryEmail() ?: ""
+            ls.userPassWord = password
+            activationCode?.let {
+                ls.activationCode = it
+            }
+        }
     }
 
-    // TODO not much loggin going on
+    override fun login() {
+        appState.state?.loginState?.let {
+            loginInteractor.input = LoginInteractor.Input(it)
+            loginInteractor.run()
+        }
+    }
+
+    //    // TODO not much loggin going on
     override fun createUserAndLogin(email: String?, cpr: String?, verified: Boolean) {
-        val provider = if (email != null) Config.getLoginProvider("email") else Config.getLoginProvider(
+        val provider = if (email != null) {
+            Config.getLoginProvider("email")
+        } else Config.getLoginProvider(
                 "cpr"
         )
 
         val user = User(
                 id = -1,
-                name = "Name McLastName",
+                name = "Enel Leranden",
                 emails = arrayListOf(ContactPoint(email ?: "", true)),
                 cpr = cpr,
                 avatarUri = null,
@@ -139,10 +139,14 @@ class LoginComponentPresenter @Inject constructor(
     }
 
     override fun onCreateUser(user: User, numberOfUsers: Int) {
-        Timber.e("User created $user")
+        Timber.i("User created $user")
     }
 
     override fun onCreateUserError(error: ViewError) {
         runAction { it.showErrorDialog(error) }
+    }
+
+    override fun onLoginActivationCodeRequired() {
+        runAction { it.showActivationCodeDialog() }
     }
 }

@@ -556,8 +556,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideActivationCodeComponentPresenter(stateManager: AppStateManager): ActivationCodeComponentContract.Presenter {
-        return ActivationCodeComponentPresenter(stateManager)
+    fun provideActivationCodeComponentPresenter(stateManager: AppStateManager, loginInteractor: LoginInteractor): ActivationCodeComponentContract.Presenter {
+        return ActivationCodeComponentPresenter(stateManager, loginInteractor)
     }
 
 

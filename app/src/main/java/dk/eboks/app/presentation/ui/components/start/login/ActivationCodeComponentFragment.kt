@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -7,10 +8,12 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
+import dk.eboks.app.presentation.ui.screens.home.HomeActivity
 import dk.eboks.app.util.isValidActivationCode
 import kotlinx.android.synthetic.main.fragment_activation_code_component.*
 import javax.inject.Inject
@@ -19,7 +22,6 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentContract.View {
-
     @Inject
     lateinit var presenter: ActivationCodeComponentContract.Presenter
 
@@ -35,25 +37,32 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         headerTv.requestFocus()
+
+        cancelBtn.text = Translation.defaultSection.cancel
         cancelBtn.setOnClickListener {
             (activity as SheetComponentActivity).onBackPressed()
         }
-        cancelBtn.text = Translation.defaultSection.cancel
+
+        continueBtn.setOnClickListener {
+            val ac = activationCodeEt.text.toString().trim()
+            presenter.updateLoginState(ac)
+            presenter.login()
+        }
+
     }
 
-    fun setupValidation()
-    {
+    fun setupValidation() {
         activationCodeEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(activationCode: Editable?) {
                 activationCodeTil.error = null
                 mHandler.removeCallbacksAndMessages(null)
-                continueBtn.isEnabled = activationCode?.isValidActivationCode() ?: false
-                mHandler?.postDelayed({
-                    if(!continueBtn.isEnabled){
+                mHandler.postDelayed({
+                    if (!continueBtn.isEnabled) {
                         activationCodeTil.error = Translation.activationcode.invalidActivationCode
                     }
                 }, 1200)
 
+                continueBtn.isEnabled = activationCode?.isValidActivationCode() ?: false
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -70,6 +79,18 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
     override fun onPause() {
         mHandler.removeCallbacksAndMessages(null)
         super.onPause()
+    }
+
+    override fun proceedToApp() {
+        startActivity(Intent(context, HomeActivity::class.java))
+        activity.finish()
+    }
+
+    override fun setDebugUp(activationCode: String?) {
+        if (BuildConfig.DEBUG) {
+            activationCodeEt.setText(activationCode)
+            continueBtn.isEnabled = activationCodeEt.text?.isValidActivationCode() ?: false
+        }
     }
 
 }
