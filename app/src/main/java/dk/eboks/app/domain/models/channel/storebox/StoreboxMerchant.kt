@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class StoreboxMerchant(
         @SerializedName("logo")
-        var logo: StoreboxMerchantLogo? = null,
+        var logo: StoreboxMerchantLogo? = StoreboxMerchantLogo(),
         @SerializedName("name")
         var name: String? = null,
         @SerializedName("addressLine1")

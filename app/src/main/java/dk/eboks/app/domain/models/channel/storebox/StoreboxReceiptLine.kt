@@ -13,7 +13,7 @@ data class StoreboxReceiptLine(
         @SerializedName("amount")
         var amount: Double? = null,
         @SerializedName("name")
-        var name: String? = null,
+        var name: String? = "",
         @SerializedName("description")
-        var description: String? = null
+        var description: String? = ""
 ) : Parcelable

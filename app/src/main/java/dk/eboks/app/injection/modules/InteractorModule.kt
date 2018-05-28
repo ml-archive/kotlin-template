@@ -118,6 +118,22 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideGetStoreboxCreditCardsInteractor(
+            executor: Executor,
+            api: Api
+    ): GetStoreboxCreditCardsInteractor {
+        return GetStoreboxCreditCardsInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun provideDeleteStoreboxCreditCardInteractor(
+            executor: Executor,
+            api: Api
+    ): DeleteStoreboxCreditCardInteractor {
+        return DeleteStoreboxCreditCardInteractorImpl(executor, api)
+    }
+
+    @Provides
     fun provideOpenFolderInteractor(
             executor: Executor,
             appStateManager: AppStateManager,

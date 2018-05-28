@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.channels.content.storebox
+package dk.eboks.app.presentation.ui.components.channels.content.storebox.detail
 
 import android.graphics.Bitmap
 import android.graphics.Color.BLACK
@@ -32,7 +32,7 @@ import javax.inject.Inject
 
 
 class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
-        ChannelContentStoreboxDetailComponentContract.View {
+                                                      ChannelContentStoreboxDetailComponentContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
     @Inject
@@ -113,12 +113,11 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     override fun setReceipt(receipt: StoreboxReceipt) {
         Timber.d("Setting Receipt: %s", receipt)
 
-        //receipt.receiptLines
         setStoreInfo(receipt.merchant, receipt.optionals)
         setReceiptDate(receipt.purchaseDateTime ?: Date(), receipt.optionals)
         setLogo(receipt.merchant?.logo?.url ?: "")
         setReceiptAmount(receipt.grandTotal)
-        setReceiptLines(receipt.receiptLines)
+        setReceiptLines(receipt.receiptLines.items)
         setPayments(receipt.payments)
         setOptionals(receipt.optionals)
         setBarcode(receipt.barcode)

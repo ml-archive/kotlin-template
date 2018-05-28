@@ -26,9 +26,9 @@ import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.Eke
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentPresenter
-import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxComponentFragment
-import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxComponentPresenter
-import dk.eboks.app.presentation.ui.components.channels.content.storebox.ChannelContentStoreboxDetailComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.content.ChannelContentStoreboxComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.content.ChannelContentStoreboxComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.detail.ChannelContentStoreboxDetailComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentFragment
@@ -93,7 +93,6 @@ import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragmen
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.components.profile.HelpFragment
 import dk.eboks.app.presentation.ui.components.profile.PrivacyFragment
-import dk.eboks.app.presentation.ui.components.profile.PrivacyPresenter
 import dk.eboks.app.presentation.ui.components.profile.drawer.*
 import dk.eboks.app.presentation.ui.components.profile.main.ProfileInfoComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.main.ProfileInfoComponentPresenter

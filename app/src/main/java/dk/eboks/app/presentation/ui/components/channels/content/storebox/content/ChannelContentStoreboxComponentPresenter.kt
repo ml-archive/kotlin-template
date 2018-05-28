@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.channels.content.storebox
+package dk.eboks.app.presentation.ui.components.channels.content.storebox.content
 
 import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptsInteractor

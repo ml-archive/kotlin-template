@@ -8,9 +8,9 @@ import java.util.*
 @Parcelize
 data class StoreboxReceipt(
         @SerializedName("id")
-        var id: String,
+        var id: String = "",
         @SerializedName("merchantId")
-        var merchantId: String,
+        var merchantId: String = "",
         @SerializedName("purchaseDateTime")
         var purchaseDateTime: Date? = null,
         @SerializedName("grandTotal")
@@ -24,7 +24,7 @@ data class StoreboxReceipt(
         @SerializedName("payments")
         var payments: ArrayList<StoreboxPayment> = arrayListOf(),
         @SerializedName("receiptLines")
-        var receiptLines: ArrayList<StoreboxReceiptLine> = arrayListOf()
+        var receiptLines: StoreboxReceiptLines = StoreboxReceiptLines()
 ) : Parcelable {
     companion object {
         val KEY_ID = StoreboxReceipt::class.simpleName
