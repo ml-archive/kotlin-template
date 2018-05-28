@@ -18,10 +18,7 @@ import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteracto
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.interactors.storebox.*
-import dk.eboks.app.domain.interactors.user.CreateUserInteractor
-import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
-import dk.eboks.app.domain.interactors.user.GetUsersInteractor
-import dk.eboks.app.domain.interactors.user.SaveUserInteractor
+import dk.eboks.app.domain.interactors.user.*
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
