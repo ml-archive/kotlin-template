@@ -3,6 +3,7 @@ package dk.eboks.app.domain.interactors.message
 import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.managers.*
+import dk.eboks.app.domain.models.APIConstants
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.EboksContentType
@@ -33,7 +34,9 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                 // update the (perhaps) more detailed message object with the extra info from the backend
                 // because the JVM can only deal with reference types silly reflection tricks like this are necessary
                 FieldMapper.copyAllFields(msg, updated_msg)
-                openMessage(msg)
+                // no dumbfuckery, proceed with opening (post download dumbfuckery can still ensue)
+                if(!checkMessageForDumbFuckery(msg))
+                    openMessage(msg)
             }
         }
         catch (t: Throwable) {
@@ -115,6 +118,42 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
             }
         }
 
+    }
+
+    // returns false if not stupid shit happened
+    fun checkMessageForDumbFuckery(msg : Message) : Boolean
+    {
+        // check for stupid message protection / locking
+        msg.lockStatus?.let { status->
+            when(status.type)
+            {
+                APIConstants.MSG_LOCKED_REQUIRES_HIGHER_IDP_LVL ->
+                {
+
+                }
+                APIConstants.MSG_LOCKED_REQUIRES_HIGHER_SEC_LVL ->
+                {
+
+                }
+                APIConstants.MSG_LOCKED_REQUIRES_OTHER_IDP ->
+                {
+
+                }
+                APIConstants.MSG_LOCKED_UNTIL_ACCEPTED ->
+                {
+
+                }
+                APIConstants.MSG_LOCKED_WEB_ONLY ->
+                {
+
+                }
+                else ->
+                {
+                    return false
+                }
+            }
+        }
+        return false
     }
 
     fun openMessage(msg : Message)

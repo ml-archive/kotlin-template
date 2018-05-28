@@ -81,12 +81,12 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
         optionalSliderSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             //todo do something when the slider is checked
-            println("_optional slider checked$isChecked")
+            Timber.v("_optional slider checked$isChecked")
         }
 
         addCardFl.setOnClickListener {
             //todo something happends when you click add card
-            println("_add card clicked")
+            Timber.v("_add card clicked")
         }
 
         removeChannelBtn.setOnClickListener {
@@ -119,8 +119,8 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
     override fun setCreditCards(cards: MutableList<StoreboxCreditCard>) {
         showProgress(false)
-
-        adapter.creditCards = cards
+        adapter.creditCards.clear()
+        adapter.creditCards.addAll(cards)
         adapter.notifyDataSetChanged()
 
         showEmptyView(cards.isEmpty())

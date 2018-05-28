@@ -30,7 +30,7 @@ data class Message(
     var paymentStatus: Status? = null,
     var signStatus: Status? = null,
     var replyStatus: Status? = null,
-    var lockedStatus: Status? = null, // TODO this might be called something else or something
+    var lockStatus: Status? = null,
     var status: Status? = null,
     var note : String = ""
 ) : Serializable

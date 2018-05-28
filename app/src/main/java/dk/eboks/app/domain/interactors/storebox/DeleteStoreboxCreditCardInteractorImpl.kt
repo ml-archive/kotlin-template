@@ -15,7 +15,6 @@ class DeleteStoreboxCreditCardInteractorImpl(executor: Executor, private val api
         try {
             input?.let {
                 val result = api.deleteStoreboxCreditCard(it.id).execute()
-
                 runOnUIThread {
                     output?.onDeleteCardSuccess(result.isSuccessful)
                 }

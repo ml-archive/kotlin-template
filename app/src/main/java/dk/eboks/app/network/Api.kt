@@ -69,7 +69,7 @@ interface Api {
     @POST("channels/storebox/user/signup/link/activate") fun postActivateStorebox(@Body bodyMap: Map<String, String>) : Call<Any>
 
     @GET("channels/storebox/user/cards") fun getStoreboxCreditCards():Call<MutableList<StoreboxCreditCard>>
-    @DELETE("channels/storebox/user/cards/{cardId}") fun deleteStoreboxCreditCard(@Path("cardId") id:String): Call<Any>
+    @DELETE("channels/storebox/user/cards/{cardId}") fun deleteStoreboxCreditCard(@Path("cardId") id:String): Call<Void>
 
     // groups
     @GET("groups/registrations") fun getRegistrations() : Call<Registrations> // get all my registrations
