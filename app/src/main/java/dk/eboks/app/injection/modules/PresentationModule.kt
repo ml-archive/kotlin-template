@@ -123,6 +123,8 @@ import dk.eboks.app.presentation.ui.components.senders.list.SenderAllListCompone
 import dk.eboks.app.presentation.ui.components.senders.register.RegisterPresenter
 import dk.eboks.app.presentation.ui.components.senders.register.RegistrationContract
 import dk.eboks.app.presentation.ui.components.start.login.*
+import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginContract
+import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginPresenter
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentPresenter

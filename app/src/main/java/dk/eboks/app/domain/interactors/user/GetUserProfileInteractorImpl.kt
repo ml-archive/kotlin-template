@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors.user
 
+import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
@@ -13,7 +14,7 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
  * @author   Christian
  * @since    5/7/2018.
  */
-class GetUserProfileInteractorImpl(executor: Executor, val api: Api, val userManager: UserManager) : BaseInteractor(executor), GetUserProfileInteractor {
+class GetUserProfileInteractorImpl(executor: Executor, val api: Api, val appStateManager: AppStateManager, val userManager: UserManager) : BaseInteractor(executor), GetUserProfileInteractor {
 
     override var output: GetUserProfileInteractor.Output? = null
 
@@ -23,6 +24,8 @@ class GetUserProfileInteractorImpl(executor: Executor, val api: Api, val userMan
             result?.body()?.let {
                 runOnUIThread {
                     userManager.add(it)
+                    appStateManager.state?.currentUser = it
+                    appStateManager.save()
                     output?.onGetUser(it)
                 }
                 return

@@ -2,6 +2,7 @@ package dk.eboks.app.domain.interactors.authentication
 
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.UserManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.network.Api
@@ -12,7 +13,7 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 /**
  * Created by bison on 24-06-2017.
  */
-class LoginInteractorImpl(executor: Executor, val api: Api, val appStateManager: AppStateManager) : BaseInteractor(executor), LoginInteractor {
+class LoginInteractorImpl(executor: Executor, val api: Api, val appStateManager: AppStateManager, val userManager: UserManager) : BaseInteractor(executor), LoginInteractor {
     override var output: LoginInteractor.Output? = null
     override var input: LoginInteractor.Input? = null
 
@@ -35,19 +36,27 @@ class LoginInteractorImpl(executor: Executor, val api: Api, val appStateManager:
                     map = map.plus(Pair("acr_values", "activationcode:$it nationality:DK"))
                 }
 
-                val result = api.getToken(map).execute()
-                runOnUIThread {
-                    if (result.isSuccessful) {
-                        result?.body()?.let { token ->
-                            appStateManager.state?.loginState?.token = token
-                            appStateManager.save()
+                val tokenResult = api.getToken(map).execute()
+
+                if (tokenResult.isSuccessful) {
+                    val userResult = api.getUserProfile().execute()
+                    userResult?.body()?.let {
+                        userManager.add(it)
+                        appStateManager.state?.currentUser = it
+                        appStateManager.save()
+                    }
+
+                    tokenResult?.body()?.let { token ->
+                        appStateManager.state?.loginState?.token = token
+                        appStateManager.save()
+                        runOnUIThread {
                             output?.onLoginSuccess(token)
                         }
-                    } else if (result.code() == 400) {
-                        output?.onLoginActivationCodeRequired()
-                    } else {
-                        output?.onLoginDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
                     }
+                } else if (tokenResult.code() == 400) {
+                    output?.onLoginActivationCodeRequired()
+                } else {
+                    output?.onLoginDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
                 }
             }
         } catch (t: Throwable) {
