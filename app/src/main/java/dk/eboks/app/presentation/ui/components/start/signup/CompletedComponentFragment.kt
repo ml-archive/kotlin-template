@@ -17,7 +17,7 @@ import javax.inject.Inject
 class CompletedComponentFragment : BaseFragment(), SignupComponentContract.CompletedView {
 
     @Inject
-    lateinit var presenter : SignupComponentContract.Presenter
+    lateinit var presenter: SignupComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_signup_completed_component, container, false)
@@ -36,16 +36,19 @@ class CompletedComponentFragment : BaseFragment(), SignupComponentContract.Compl
     }
 
     override fun showProgress(show: Boolean) {
-        content.visibility = if(show) View.GONE else View.VISIBLE
-        progress.visibility = if(show) View.VISIBLE else View.GONE
+        content.visibility = if (show) View.GONE else View.VISIBLE
+        progress.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    fun onContinueClicked()
-    {
-        //(activity as StartActivity).showLogo(false)
+    fun onContinueClicked() {
         showProgress(true)
+        presenter.createUserAndLogin()
+
+    }
+
+    override fun doLogin() {
+        showProgress(false)
         content.postDelayed({
-            presenter.createUserAndLogin()
             (activity as StartActivity).startMain()
         }, 1000)
     }

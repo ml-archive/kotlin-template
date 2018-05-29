@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.start.signup
 
+import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenter
 import dk.eboks.app.presentation.base.BaseView
 
@@ -9,11 +10,12 @@ import dk.eboks.app.presentation.base.BaseView
 interface SignupComponentContract {
     interface SignupView : BaseView {
         fun showError()
-        fun showProgress(show : Boolean)
+        fun showProgress(show: Boolean)
     }
 
     interface NameMailView : SignupView {
-
+        fun showSignupMail(exists: Boolean)
+        fun showSignupMailError(error: ViewError)
     }
 
     interface PasswordView : SignupView {
@@ -29,17 +31,18 @@ interface SignupComponentContract {
     }
 
     interface TermsView : SignupView {
-
+        fun showUserCreated()
+        fun showUserCreatedError()
     }
 
     interface CompletedView : SignupView {
-
+        fun doLogin()
     }
 
     interface Presenter : BasePresenter<SignupView> {
-        fun setName(name : String)
-        fun setEmail(email : String)
-        fun setPassword(password : String)
+        fun setPassword(password: String)
         fun createUserAndLogin()
+        fun confirmMail(email: String, name: String)
+        fun createUser()
     }
 }

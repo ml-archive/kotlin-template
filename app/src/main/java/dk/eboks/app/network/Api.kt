@@ -1,5 +1,6 @@
 package dk.eboks.app.network
 
+import com.google.gson.JsonObject
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
@@ -33,9 +34,12 @@ interface Api {
     // user
     @GET("user/email/{email}") fun checkUserEmail(@Path("email") email : String) : Call<BooleanReply>
     @GET("user/identity/{identity}") fun checkUserIdentity(@Path("identity") cpr : String) : Call<BooleanReply>
+    @POST("user/profile") fun createUserProfile(@Body user: JsonObject) : Call<Any>
     @POST("user/{nationality}/{email}/resetpassword") fun resetPassword(@Path("nationality") nationality: String, @Path("email") email: String) : Call<Void>
 
     @GET("user/profile") fun getUserProfile() : Call<User>
+    @PATCH("user/profile") fun updateProfile(@Body user: User) : Call<Any>
+    @POST("user/current/email/{email}/verify") fun verifyEmail(@Path("email") email: String) : Call<Any>
 
     // @GET("regions") fun getRegions() : Call<List<Region>>
     @GET("mail/folders/selected") fun getMailCategories() : Call<List<Folder>>
@@ -94,9 +98,5 @@ interface Api {
     @DELETE("groups/senders/{id}") fun unregisterSender(@Path("id") senderId : Long) : Call<Any>
     @DELETE("groups/senders/{sId}/sendergroups/{gId}/alias/{aId}") fun unregisterSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long) : Call<Any> // bodyless version // TODO check URL!!!
     //    @DELETE("groups/senders/{sId}/sendergroups/{gId}") fun unregisterSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long, @Body aliasRegistrations : AliasBody) : Call<Any> // TODO: This needs to be a PATCH or POST or be bodyless as the one above
-
-    //myprofile
-    @PATCH("user/profile") fun updateProfile(@Body user: User) : Call<Any>
-    @POST("user/current/email/{email}/verify") fun verifyEmail(@Path("email") email: String) : Call<Any>
 
 }

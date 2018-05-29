@@ -19,6 +19,7 @@ import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
+import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
 import dk.eboks.app.domain.interactors.storebox.*
 import dk.eboks.app.domain.interactors.user.*
 import dk.eboks.app.domain.managers.AppStateManager
@@ -125,10 +126,7 @@ import dk.eboks.app.presentation.ui.components.start.login.*
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentPresenter
-import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginContract
-import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginPresenter
-import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentContract
-import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContract
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentPresenter
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentContract
@@ -477,9 +475,11 @@ class PresentationModule {
     @Provides
     fun provideSignupComponentPresenter(
             stateManager: AppStateManager,
-            createUserInteractor: CreateUserInteractor
+            createUserInteractor: CreateUserInteractor,
+            verifySignupMailInteractor: CheckSignupMailInteractor,
+            loginInteractor: LoginInteractor
     ): SignupComponentContract.Presenter {
-        return SignupComponentPresenter(stateManager, createUserInteractor)
+        return SignupComponentPresenter(stateManager, createUserInteractor, loginInteractor, verifySignupMailInteractor)
     }
 
     @ActivityScope
@@ -621,11 +621,6 @@ class PresentationModule {
     }
 
 
-    @ActivityScope
-    @Provides
-    fun provideAcceptTermsComponentPresenter(stateManager: AppStateManager): AcceptTermsComponentContract.Presenter {
-        return AcceptTermsComponentPresenter(stateManager)
-    }
 
     @ActivityScope
     @Provides
