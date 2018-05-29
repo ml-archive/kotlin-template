@@ -16,9 +16,11 @@ import android.util.Patterns
 import android.text.TextUtils
 import android.os.Handler
 import android.view.inputmethod.InputMethodManager
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.util.isValidEmail
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
 
 
 /**
@@ -146,14 +148,27 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     }
 
     fun onContinueClicked() {
-        //(activity as StartActivity).showLogo(false)
-        presenter.setName(nameEt.text.toString().trim())
-        presenter.setEmail(emailEt.text.toString().trim())
+        presenter.confirmMail(emailEt.text.toString().trim(), nameEt.text.toString().trim())
         showProgress(true)
-        content.postDelayed({
-            showProgress(false)
-            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, PasswordComponentFragment(), true)
-        }, 1000)
     }
 
+    override fun showSignupMail(exists: Boolean) {
+        showProgress(false)
+        if (!exists) {
+            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, PasswordComponentFragment(), true)
+        } else {
+            //todo mail already exists show popup
+        }
+    }
+
+    override fun showSignupMailError(error: ViewError) {
+        showProgress(false)
+        //todo something went wrong show error ?
+        Timber.e("server error " + error)
+
+        //todo
+        // continue with the flow - this should be removed once the api call starts working.
+        getBaseActivity()?.addFragmentOnTop(R.id.containerFl, PasswordComponentFragment(), true)
+
+    }
 }

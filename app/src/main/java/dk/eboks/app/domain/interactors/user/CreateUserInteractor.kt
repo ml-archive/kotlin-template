@@ -12,7 +12,7 @@ interface CreateUserInteractor : Interactor
     var input : Input?
     var output : Output?
 
-    data class Input(val user: User)
+    data class Input(val user: User, val password: String)
 
     interface Output {
         fun onCreateUser(user : User, numberOfUsers : Int)
