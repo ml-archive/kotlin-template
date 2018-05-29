@@ -5,6 +5,7 @@ import dagger.Provides
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
+import dk.eboks.app.domain.interactors.authentication.ResetPasswordInteractor
 import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
@@ -547,8 +548,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideForgotPasswordComponentPresenter(stateManager: AppStateManager): ForgotPasswordComponentContract.Presenter {
-        return ForgotPasswordComponentPresenter(stateManager)
+    fun provideForgotPasswordComponentPresenter(resetPasswordInteractor: ResetPasswordInteractor): ForgotPasswordComponentContract.Presenter {
+        return ForgotPasswordComponentPresenter(resetPasswordInteractor)
     }
 
     @ActivityScope

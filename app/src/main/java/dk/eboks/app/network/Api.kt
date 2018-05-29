@@ -33,6 +33,7 @@ interface Api {
     // user
     @GET("user/email/{email}") fun checkUserEmail(@Path("email") email : String) : Call<BooleanReply>
     @GET("user/identity/{identity}") fun checkUserIdentity(@Path("identity") cpr : String) : Call<BooleanReply>
+    @POST("user/{nationality}/{email}/resetpassword") fun resetPassword(@Path("nationality") nationality: String, @Path("email") email: String) : Call<Void>
 
     @GET("user/profile") fun getUserProfile() : Call<User>
 

@@ -377,4 +377,9 @@ class InteractorModule {
     fun provideTransformTokenInteractor(executor: Executor, api: Api, appStateManager: AppStateManager): TransformTokenInteractor {
         return TransformTokenInteractorImpl(executor, api, appStateManager)
     }
+
+    @Provides
+    fun provideResetPasswordInteractor(executor: Executor, api: Api): ResetPasswordInteractor {
+        return ResetPasswordInteractorImpl(executor, api)
+    }
 }

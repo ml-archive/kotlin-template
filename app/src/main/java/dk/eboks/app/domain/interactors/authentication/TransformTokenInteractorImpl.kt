@@ -26,8 +26,10 @@ class TransformTokenInteractorImpl(executor: Executor, val api: Api, val appStat
                         Pair("token", it),
                         Pair("grant_type", "kspwebtoken"),
                         Pair("scope", "mobileapi offline_access"),
-                        Pair("client_id", BuildConfig.OAUTH_LONG_ID),
-                        Pair("client_secret", BuildConfig.OAUTH_LONG_SECRET)
+                        Pair("client_id", "MobileApp-Long-Custom-id"),
+                        Pair("client_secret", "MobileApp-Long-Custom-secret")
+//                        Pair("client_id", BuildConfig.OAUTH_LONG_ID), // TODO: use the correct id and secret if(and only if) Ukraine fixes theirs...
+//                        Pair("client_secret", BuildConfig.OAUTH_LONG_SECRET)
                 )).execute()
 
                 input?.loginState?.kspToken = null // consume the token - it's only usable once anyway

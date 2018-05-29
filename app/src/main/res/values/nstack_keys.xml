@@ -174,6 +174,9 @@
   <string name='nstack_signup_signOnBankIDtitleNOR' formatted='false'>signup_signOnBankIDtitleNOR</string>
   <string name='nstack_signup_signOnBankIDButtonNOR' formatted='false'>signup_signOnBankIDButtonNOR</string>
   <string name='nstack_signup_signupTermsAcceptHeader' formatted='false'>signup_signupTermsAcceptHeader</string>
+  <string name='nstack_signup_dialogEmailExistsTitle' formatted='false'>signup_dialogEmailExistsTitle</string>
+  <string name='nstack_signup_dialogEmailExistsMsg' formatted='false'>signup_dialogEmailExistsMsg</string>
+  <string name='nstack_signup_dialogEmailExistsPositiveBtn' formatted='false'>signup_dialogEmailExistsPositiveBtn</string>
   <string name='nstack_activationcode_title' formatted='false'>activationcode_title</string>
   <string name='nstack_activationcode_subtitle' formatted='false'>activationcode_subtitle</string>
   <string name='nstack_activationcode_textFieldHeader' formatted='false'>activationcode_textFieldHeader</string>
