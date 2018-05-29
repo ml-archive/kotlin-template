@@ -13,20 +13,20 @@ translation {
 }
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
     flavorDimensions "default"
 
     defaultConfig {
         applicationId "dk.nodes.template"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "0.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [
-            appId: translation.appId,
+            appId : translation.appId,
             apiKey: translation.apiKey
         ]
     }
@@ -94,15 +94,31 @@ repositories {
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+    def kotlinx_coroutines_version = '0.19.1',
+        support_library_version = '27.1.1',
+        constraint_layout_version = '1.1.0',
+        dagger_version = "2.11",
+        lifecycle_version = "1.1.1",
+        hockey_sdk_version = "5.1.0",
+        timber_version = "4.6.0",
+        junit_version = '4.12',
+        espresso_core_version = '3.0.1',
+        mockito_version = '2.7.22',
+        nodes_nstack_kotlin_version = '2.1.0',
+        nodes_arch_version = '1.1.8',
+
+        rx_android_version = '2.0.2',
+
+        retrofit_version = "2.3.0",
+        okhttp_version = "3.9.0",
+        store_version = "3.0.0-beta"
+
+    fileTree(dir: "libs", include: ["*.jar"])
     androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso_core_version", {
         exclude group: "com.android.support", module: "support-annotations"
     })
 
-    // uncomment me if using multidex
-    // implementation "com.android.support:multidex:$multidex_version"
-
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
@@ -119,8 +135,8 @@ dependencies {
     implementation "net.hockeyapp.android:HockeySDK:$hockey_sdk_version"
     implementation "com.jakewharton.timber:timber:$timber_version"
 
-    implementation ("com.squareup.retrofit2:retrofit:$retrofit_version")
-    implementation ("com.squareup.retrofit2:converter-gson:$retrofit_version") {
+    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofit_version") {
         exclude module: "retrofit:$retrofit_version"
     }
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
@@ -130,7 +146,7 @@ dependencies {
 
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
 
-    implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
     implementation "com.nytimes.android:store-kotlin3:$store_version"
     implementation "com.nytimes.android:middleware3:$store_version"
     implementation "com.nytimes.android:filesystem3:$store_version"
@@ -146,4 +162,12 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_core_version"
     androidTestImplementation("com.android.support.test.espresso:espresso-intents:$espresso_core_version")
     androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espresso_core_version"
+
+
+    // The following section is only used to force the latest version to resolve conflicts
+    implementation "android.arch.core:common:$lifecycle_version"
+    implementation "android.arch.core:runtime:$lifecycle_version"
+    implementation "android.arch.lifecycle:livedata-core:$lifecycle_version"
+    implementation "android.arch.lifecycle:runtime:$lifecycle_version"
+    implementation "android.arch.lifecycle:common:$lifecycle_version"
 }

@@ -1,7 +1,6 @@
 package dk.nodes.template
 
 import android.app.Application
-import android.util.Log
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.template.domain.models.Translation
 import dk.nodes.template.injection.components.AppComponent
@@ -31,9 +30,12 @@ class App : Application()
 
         appComponent.inject(this)
 
-        NStack.setLogFunction { tag, msg -> Log.e(tag, msg) }
-        NStack.setTranslationClass(Translation::class.java)
+        setupNstack()
+    }
 
+    private fun setupNstack() {
+        NStack.translationClass = Translation::class.java
+        NStack.init(this)
     }
 
     // uncomment me if multidex
