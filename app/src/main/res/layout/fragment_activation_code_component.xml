@@ -37,23 +37,25 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:gravity="center"
-                    android:text="_Activation Code" />
+                    android:text="_Activation Code"
+                    nstack:key="@string/nstack_activationcode_title" />
 
                 <TextView
                     android:id="@+id/detailTv"
                     style="@style/text.body6.secondary"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="@dimen/margin_half"
                     android:gravity="center"
-                    android:text="_Lorem ipsum dolor sit amet consectetur adipiscing elit. Integer cursus dui." />
+                    android:text="_Lorem ipsum dolor sit amet consectetur adipiscing elit. Integer cursus dui."
+                    nstack:key="@string/nstack_activationcode_subtitle" />
 
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/activationCodeTil"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="@dimen/margin_normal"
                     android:textColorHint="@color/blueGrey"
                     android:theme="@style/TextInputLayoutTheme"
                     app:errorEnabled="true"
@@ -77,9 +79,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="36dp"
                     android:layout_marginStart="36dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="@dimen/margin_vertical"
+                    android:textColor="@color/darkGreyBlue"
                     android:text="_Find activation code"
-                    android:textColor="@color/darkGreyBlue" />
+                    nstack:key="@string/nstack_activationcode_infoButtonText"/>
 
                 <Button
                     android:id="@+id/continueBtn"
@@ -88,10 +91,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="36dp"
                     android:layout_marginStart="36dp"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="@dimen/margin_vertical"
                     android:enabled="false"
                     android:text="_Continue"
-                    android:textColor="@drawable/enabled_button" />
+                    android:textColor="@drawable/enabled_button"
+                    nstack:key="@string/nstack_activationcode_continueButton" />
 
                 <Button
                     android:id="@+id/cancelBtn"
