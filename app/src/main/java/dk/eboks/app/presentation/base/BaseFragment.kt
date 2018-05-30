@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.base
 
+import android.app.FragmentManager
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
@@ -129,5 +130,27 @@ abstract class BaseFragment : Fragment(), BaseView {
     override fun showToast(msg: String, showLongTime: Boolean) {
         val dur = if(showLongTime) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
         Toast.makeText(context, msg, dur).show()
+    }
+
+    fun setRootFragment(resId: Int, fragment: BaseFragment?) {
+        fragment?.let {
+            activity.supportFragmentManager.popBackStack(
+                    BaseActivity.backStackRootTag,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+            )
+            activity.supportFragmentManager.beginTransaction()
+                    .replace(resId, fragment)
+                    .addToBackStack(BaseActivity.backStackRootTag)
+                    .commit()
+        }
+    }
+
+    fun addFragmentOnTop(resId: Int, fragment: BaseFragment?, addToBack: Boolean = true) {
+        fragment?.let {
+            val trans = activity.supportFragmentManager.beginTransaction().replace(resId, it)
+            if (addToBack)
+                trans.addToBackStack(null)
+            trans.commit()
+        }
     }
 }

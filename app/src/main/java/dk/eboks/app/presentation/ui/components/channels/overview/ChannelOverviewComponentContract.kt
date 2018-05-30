@@ -15,7 +15,8 @@ interface ChannelOverviewComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
+        fun setup()
         fun openChannel(channel : Channel)
-        fun refresh()
+        fun refresh(cached : Boolean)
     }
 }

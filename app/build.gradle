@@ -42,13 +42,25 @@ android {
         buildConfigField "String", "MOCK_API_KEY", "\"2d00bf67a1cf4024a88e7e99c89557fe\""
         buildConfigField "Boolean", "MOCK_API_ENABLED", "true"
         buildConfigField "Boolean", "FORCE_REQUEST_PIPELINING", "false"
-        buildConfigField "Boolean", "ENABLE_PROFILE_PICTURE", "true"
         buildConfigField "Long", "INPUT_VALIDATION_DELAY", "1200L"
 
         buildConfigField "String", "OAUTH_SHORT_ID", "\"MobileApp-Short-id\""
         buildConfigField "String", "OAUTH_SHORT_SECRET", "\"MobileApp-Short-secret\""
         buildConfigField "String", "OAUTH_LONG_ID", "\"MobileApp-Long-id\""
         buildConfigField "String", "OAUTH_LONG_SECRET", "\"MobileApp-Long-secret\""
+
+        // flags for disabling various functionality for the different betas
+        buildConfigField "Boolean", "ENABLE_PROFILE_PICTURE", "true"
+        buildConfigField "Boolean", "ENABLE_SENDERS", "false"                    // TODO not implemented
+        buildConfigField "Boolean", "ENABLE_UPLOADS", "false"                    // TODO not implemented
+        buildConfigField "Boolean", "ENABLE_DOCUMENT_ACTIONS", "false"           // TODO not implemented
+        buildConfigField "Boolean", "ENABLE_FOLDERS_ACTIONS", "false"            // TODO not implemented
+        buildConfigField "Boolean", "ENABLE_PAYMENT", "false"                    // TODO not implemented
+        buildConfigField "Boolean", "ENABLE_EKEY", "false"                       // TODO not implemented
+        buildConfigField "Boolean", "ENABLE_CHANNEL_REORDERING", "false"         // TODO not implemented
+        buildConfigField "Boolean", "ENABLE_PROFILE_DATA_VERIFICATION", "false"  // TODO not implemented
+        buildConfigField "Boolean", "ENABLE_EKEY", "false"                       // TODO not implemented
+
     }
 
     signingConfigs {

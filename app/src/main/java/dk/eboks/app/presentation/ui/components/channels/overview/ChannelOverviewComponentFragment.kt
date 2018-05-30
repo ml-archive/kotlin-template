@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.components.channels.overview
 
 import android.animation.Animator
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
@@ -10,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.CycleInterpolator
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -22,10 +20,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.ChannelColor
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity
-import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity
-import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
-import dk.eboks.app.util.getType
+import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentFragment
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
 import javax.inject.Inject
@@ -55,8 +50,10 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
 
         setupRecyclerView()
         refreshSrl.setOnRefreshListener {
-            presenter.refresh()
+            presenter.refresh(false)    // manually initiated refresh should never emit cached data
         }
+
+        presenter.setup()
     }
 
     override fun showProgress(show: Boolean) {
@@ -75,29 +72,30 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
     override fun showChannelOpening(channel: Channel) {
         //storebox channels id 1 - 3
         //ekey channels id 101 - 103
+
+        addFragmentOnTop(R.id.containerFl, ChannelOpeningComponentFragment(), false)
+
+        /*
         when (channel.getType()) {
             "channel"  -> {
-                startActivity(Intent(activity, ChannelContentActivity::class.java))
+                //activity.Starter().activity(ChannelContentActivity::class.java).putExtra(Channel::class.java.simpleName, channel).start()
             }
             "storebox" -> {
                 // TODO SWITCH BACK TO NORMAL ONCE API IS WORKING
-                startActivity(Intent(context, StoreboxContentActivity::class.java))
-                //startActivity(Intent(activity, ChannelContentActivity::class.java))
+                //activity.Starter().activity(StoreboxContentActivity::class.java).putExtra(Channel::class.java.simpleName, channel).start()
             }
             "ekey"     -> {
                 if (channel.installed) {
                     //todo should check if we have mastervault then go straight to activity
-                    startActivity(Intent(activity, EkeyContentActivity::class.java))
+                    //activity.Starter().activity(EkeyContentActivity::class.java).putExtra(Channel::class.java.simpleName, channel).start()
                 } else {
                     //todo api call to get vault
                     //todo should maybe move EkeyPinComponentFragment to its own activity ?
-
-                    var intent = Intent(activity, EkeyContentActivity::class.java)
-                    intent.putExtra("showPin", true)
-                    startActivity(intent)
+                    //activity.Starter().activity(EkeyContentActivity::class.java).putExtra(Channel::class.java.simpleName, channel).putExtra("showPin",true).start()
                 }
             }
         }
+        */
     }
 
     inner class ChannelAdapter : RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder>() {
@@ -114,7 +112,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
             val headlineTv = root.findViewById<TextView>(R.id.headlineTv)
             val logoIv = root.findViewById<ImageView>(R.id.logoIv)
             val nameTv = root.findViewById<TextView>(R.id.nameTv)
-            val button = root.findViewById<Button>(R.id.button)
+            val openActionTv = root.findViewById<TextView>(R.id.openActionTv)
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChannelViewHolder {
@@ -131,9 +129,9 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
         }
 
         override fun onBindViewHolder(holder: ChannelViewHolder?, position: Int) {
-            var currentCard = cards[position]
+            var currentChannel = cards[position]
 
-            if (currentCard.id == -1) {
+            if (currentChannel.id == -1) {
                 holder?.headerTv?.visibility = View.VISIBLE
                 holder?.cardContainerCv?.visibility = View.GONE
                 holder?.headerTv?.text = Translation.channels.channelsHeader
@@ -146,38 +144,40 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                             .transform(RoundedCorners(15))
 
                     Glide.with(context)
-                            .load(currentCard.image?.url)
+                            .load(currentChannel.image?.url)
                             .apply(requestOptions)
                             .into(it)
                 }
 
-                if (currentCard.logo != null) {
+                if (currentChannel.logo != null) {
                     holder?.logoIv?.let {
-                        Glide.with(context).load(currentCard.logo?.url).into(it)
+                        Glide.with(context).load(currentChannel.logo?.url).into(it)
                     }
                 }
 
-                holder?.backgroundColorLl?.background?.setTint(currentCard.background.color)
-                holder?.headlineTv?.text = currentCard.payoff
+                holder?.backgroundColorLl?.background?.setTint(currentChannel.background.color)
+                holder?.headlineTv?.text = currentChannel.payoff
 
-                holder?.nameTv?.text = currentCard.name
+                holder?.nameTv?.text = currentChannel.name
 
-                if (currentCard.installed) {
-                    holder?.button?.text = Translation.channels.open
+                if (currentChannel.installed) {
+                    holder?.openActionTv?.text = Translation.channels.open
                 } else {
-                    holder?.button?.text = Translation.channels.install
+                    holder?.openActionTv?.text = Translation.channels.install
                 }
 
                 holder
                         ?.cardContainerCv
                         ?.setOnClickListener({ v ->
-                                                 onCardContainerClicked(v, currentCard)
+                                                 onCardContainerClicked(v, currentChannel)
                                              })
             }
 
             holder?.root?.invalidate()
         }
 
+        // TODO make this animation go down on down press and stay the fuck down till the user lets go
+        // instead of just playing dumb animation
         private fun onCardContainerClicked(v: View, currentCard: Channel) {
             v.animate()
                     .scaleX(1.05f)

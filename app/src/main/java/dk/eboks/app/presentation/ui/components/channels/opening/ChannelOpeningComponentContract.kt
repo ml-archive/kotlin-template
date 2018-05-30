@@ -24,6 +24,7 @@ interface ChannelOpeningComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
+        fun setup(channelId : Int)
         fun install(channel : Channel)
         fun open(channel: Channel)
         fun refreshChannel()

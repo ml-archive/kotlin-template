@@ -17,6 +17,6 @@ data class AppState (
         var currentViewerFileName : String? = null,
         var currentUser : User? = null,
         @Transient val openingState: MessageOpeningState = MessageOpeningState(),
-        @Transient val channelState: ChannelState = ChannelState(),
+        //@Transient val channelState: ChannelState = ChannelState(),
         val loginState: LoginState = LoginState()
 )

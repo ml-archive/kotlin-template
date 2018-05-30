@@ -178,4 +178,9 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         return hourDateFormat.format(date)
     }
 
+    override fun formatPrice(item : Item) : String
+    {
+        return "%.2f ${item.currency}".format(NStack.language, item.amount)
+    }
+
 }
