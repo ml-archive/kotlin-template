@@ -204,6 +204,9 @@ public class Translation {
 		public static String signOnBankIDtitleNOR = "Sign on with Bank ID";
 		public static String signOnBankIDButtonNOR = "Sign on with Bank ID";
 		public static String signupTermsAcceptHeader = "One last thing. To use e-Boks you need to accept the Terms & Conditions.";
+		public static String dialogEmailExistsTitle = "This email address is already connected to an e-Boks account";
+		public static String dialogEmailExistsMsg = "Do you want to sign in instead?";
+		public static String dialogEmailExistsPositiveBtn = "sign in";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";

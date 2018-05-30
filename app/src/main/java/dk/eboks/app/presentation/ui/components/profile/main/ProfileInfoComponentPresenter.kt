@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.profile.main
 
 import android.arch.lifecycle.Lifecycle
+import dk.eboks.app.domain.interactors.user.GetUserProfileInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
@@ -12,14 +13,17 @@ import javax.inject.Inject
 
 class ProfileInfoComponentPresenter @Inject constructor(
         val appState: AppStateManager,
-        private val saveUserInteractor: SaveUserInteractor
+        private val saveUserInteractor: SaveUserInteractor,
+        val getUserProfileInteractor : GetUserProfileInteractor
 ) :
         ProfileInfoComponentContract.Presenter,
         BasePresenterImpl<ProfileInfoComponentContract.View>(),
-        SaveUserInteractor.Output {
+        SaveUserInteractor.Output,
+        GetUserProfileInteractor.Output {
     override fun onViewCreated(view: ProfileInfoComponentContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
         saveUserInteractor.output = this
+        getUserProfileInteractor.output = this
     }
 
     override fun loadUserData() {
@@ -30,11 +34,17 @@ class ProfileInfoComponentPresenter @Inject constructor(
         if (currentUser == null) {
             // TODO add some error handling
             Timber.e("Null Current User")
-            return
+//            return
         }
 
+     getUserProfileInteractor.run()
+    }
+
+    override fun onGetUser(currentUser: User) {
+
         runAction { v ->
-            v.setName(currentUser.name)
+//            v.setName(currentUser.name)
+            v.setName(currentUser.id.toString() + "")
             v.setProfileImage(currentUser.avatarUri)
             v.setFingerprintEnabled(currentUser.hasFingerprint, currentUser.lastLoginProvider)
             v.setVerified(currentUser.verified)
@@ -42,7 +52,9 @@ class ProfileInfoComponentPresenter @Inject constructor(
         }
     }
 
-
+    override fun onGetUserError(error: ViewError) {
+        Timber.e("Null Current User")
+    }
 
     override fun saveUserImg(uri: String) {
         appState.state?.currentUser?.avatarUri = uri

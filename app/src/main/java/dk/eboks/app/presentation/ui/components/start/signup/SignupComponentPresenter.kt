@@ -78,6 +78,7 @@ class SignupComponentPresenter @Inject constructor(
                     it.userPassWord = password
                     it.userName = username
                     it.token = null
+                it.activationCode = appState.state?.loginState?.activationCode
                     loginUserInteractor.input = LoginInteractor.Input(it)
                     loginUserInteractor.run()
                 }
@@ -132,5 +133,9 @@ class SignupComponentPresenter @Inject constructor(
 
     companion object {
         val tempUser: User = User()
+    }
+
+    override fun setActivationCode(activationCode: String) {
+        appState.state?.loginState?.activationCode = activationCode
     }
 }

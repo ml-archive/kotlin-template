@@ -84,4 +84,8 @@ class DebugUserPresenter(
     companion object {
         var editUser: User? = null
     }
+
+    override fun setActivationCode(activationCode: String) {
+
+    }
 }

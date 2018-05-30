@@ -151,4 +151,8 @@ class LoginComponentPresenter @Inject constructor(
     override fun onLoginActivationCodeRequired() {
         runAction { it.showActivationCodeDialog() }
     }
+
+    override fun setActivationCode(activationCode: String) {
+
+    }
 }

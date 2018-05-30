@@ -22,8 +22,9 @@ class GetUserProfileInteractorImpl(executor: Executor, val api: Api, val userMan
             val result = api.getUserProfile().execute()
             result?.body()?.let {
                 runOnUIThread {
-                    userManager.add(it)
                     output?.onGetUser(it)
+                    userManager.add(it)
+
                 }
                 return
             }
