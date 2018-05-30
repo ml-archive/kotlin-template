@@ -145,11 +145,15 @@ class LoginComponentPresenter @Inject constructor(
     }
 
     override fun onCreateUserError(error: ViewError) {
-        runAction { it.showErrorDialog(error) }
+        runAction { v ->
+           v.showErrorDialog(error)
+        }
     }
 
     override fun onLoginActivationCodeRequired() {
-        runAction { it.showActivationCodeDialog() }
+        runAction { v ->
+            v.showActivationCodeDialog()
+        }
     }
 
     override fun setActivationCode(activationCode: String) {

@@ -15,15 +15,14 @@ import timber.log.Timber
 class UserManagerImpl(val context: Context, val gson: Gson) : UserManager {
     override var users : MutableList<User> = ArrayList()
     private val userStore = UserStore()
-    private var lastId : Int = 1
+
 
     init {
         val type = object : TypeToken<ArrayList<User>>(){}.type
         try {
             users = userStore.load(type)
             Timber.e("Loaded user store with ${users.size} entries")
-//            lastId = users.size.toLong()
-            lastId = users.size
+
             for(entry in users)
             {
                 Timber.e("Entry: ${entry}")
@@ -37,7 +36,7 @@ class UserManagerImpl(val context: Context, val gson: Gson) : UserManager {
 
     override fun add(user : User)
     {
-        user.id = lastId++
+
         users.add(user)
         userStore.save(users)
     }

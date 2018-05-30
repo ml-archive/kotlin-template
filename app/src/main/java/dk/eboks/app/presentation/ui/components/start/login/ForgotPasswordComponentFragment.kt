@@ -9,9 +9,11 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
 import dk.eboks.app.util.isValidEmail
@@ -42,17 +44,25 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
             (activity as SheetComponentActivity).onBackPressed()
         }
 
-        resetPasswordBtn.setOnClickListener {
-            if (emailEt.text.isValidEmail()) {
-                //hiding the keyboard
+        emailEt.setOnEditorActionListener { v, actionId, event ->
+            var handled = false
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
                 val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(activity.currentFocus.windowToken, 0)
-                //todo do resetMyPassword api call and spinner. Starting ForgotPasswordDoneComponent should be done once we get the callback
-                (activity as SheetComponentActivity).replaceFragment(ForgotPasswordDoneComponentFragment())
+                if(validate()) {
+                    presenter.resetPassword(emailEt.text.toString().trim())
+                    resetPasswordBtn.isEnabled = false
+                }
+                handled = true
+            }
+            handled
+        }
+        resetPasswordBtn.setOnClickListener {
+            if(validate()) {
+                presenter.resetPassword(emailEt.text.toString().trim())
+                resetPasswordBtn.isEnabled = false
             }
         }
-
-
     }
 
     override fun onResume() {
@@ -65,19 +75,24 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
         super.onPause()
     }
 
+    private fun validate() : Boolean {
+        val isGood = emailEt.text.isValidEmail()
+        if(isGood) {
+            emailTil.error = null
+        } else {
+            emailTil.error = Translation.forgotpassword.invalidEmail
+        }
+        return isGood
+    }
+
     private fun setupEmailListener() {
         emailEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 handler.removeCallbacksAndMessages(null)
                 emailTil.error = null
-                resetPasswordBtn.isEnabled = (s?.isValidEmail() ?: false)
 
-                handler?.postDelayed({
-                    if (s?.isValidEmail() ?: false) {
-                        emailTil.error = null
-                    } else {
-                        emailTil.error = Translation.forgotpassword.invalidEmail
-                    }
+                handler.postDelayed({
+                    resetPasswordBtn.isEnabled = validate()
                 }, 1200)
             }
 
@@ -85,5 +100,14 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
+    }
+
+    override fun showSuccess() {
+        resetPasswordBtn.isEnabled = validate()
+        (activity as SheetComponentActivity).replaceFragment(ForgotPasswordDoneComponentFragment())
+    }
+    override fun showError(viewError: ViewError) {
+        showErrorDialog(viewError)
+        resetPasswordBtn.isEnabled = validate()
     }
 }

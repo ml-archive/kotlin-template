@@ -31,9 +31,10 @@ class InteractorModule {
     fun provideLoginInteractor(
             executor: Executor,
             api: Api,
-            appStateManager: AppStateManager
+            appStateManager: AppStateManager,
+            userManager: UserManager
     ): LoginInteractor {
-        return LoginInteractorImpl(executor, api, appStateManager)
+        return LoginInteractorImpl(executor, api, appStateManager, userManager)
     }
 
     @Provides
@@ -234,6 +235,14 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideDebugCreateUserInteractor(
+            executor: Executor,
+            userManager: UserManager
+    ): CreateDebugUserInteractorImpl {
+        return CreateDebugUserInteractorImpl(executor, userManager)
+    }
+
+    @Provides
     fun provideSaveUserInteractor(
             executor: Executor,
             userManager: UserManager
@@ -261,9 +270,10 @@ class InteractorModule {
     fun provideGetUserProfileInteractor(
             executor: Executor,
             api: Api,
+            appStateManager: AppStateManager,
             userManager: UserManager
     ): GetUserProfileInteractor {
-        return GetUserProfileInteractorImpl(executor, api, userManager)
+        return GetUserProfileInteractorImpl(executor, api, appStateManager, userManager)
     }
 
     @Provides
@@ -387,7 +397,12 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideTransformTokenInteractor(executor: Executor, api: Api, appStateManager: AppStateManager): TransformTokenInteractor {
-        return TransformTokenInteractorImpl(executor, api, appStateManager)
+    fun provideTransformTokenInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager): TransformTokenInteractor {
+        return TransformTokenInteractorImpl(executor, api, appStateManager, userManager)
+    }
+
+    @Provides
+    fun provideResetPasswordInteractor(executor: Executor, api: Api): ResetPasswordInteractor {
+        return ResetPasswordInteractorImpl(executor, api)
     }
 }
