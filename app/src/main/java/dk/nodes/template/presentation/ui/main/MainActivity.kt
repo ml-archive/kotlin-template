@@ -5,21 +5,22 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import dk.nodes.nstack.kotlin.NStack
-import dk.nodes.nstack.kotlin.UpdateType
+import dk.nodes.nstack.kotlin.models.AppUpdateState
 import dk.nodes.template.App
 import dk.nodes.template.R
 import dk.nodes.template.domain.models.Post
 import dk.nodes.template.domain.models.Translation
 import dk.nodes.template.injection.components.DaggerPresentationComponent
-import dk.nodes.template.presentation.base.BaseActivity
 import dk.nodes.template.injection.components.PresentationComponent
 import dk.nodes.template.injection.modules.PresentationModule
+import dk.nodes.template.presentation.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View {
-    val component: PresentationComponent by lazy {
+
+    private val component: PresentationComponent by lazy {
         DaggerPresentationComponent.builder()
                 .appComponent((application as App).appComponent)
                 .presentationModule(PresentationModule())
@@ -40,21 +41,28 @@ class MainActivity : BaseActivity(), MainContract.View {
 
         //textview = findViewById(R.id.textview) as TextView
         textview.text = Translation.defaultSection.settings
-        NStack.translate(this@MainActivity)
 
-        NStack.appOpen({ success -> Log.e("debug", "appopen success = $success") })
+        setupNstack()
+    }
 
-        NStack.versionControl(this@MainActivity, { type, builder ->
-            when (type) {
-                UpdateType.UPDATE -> builder?.show()
-                UpdateType.FORCE_UPDATE -> {
-                    //builder?.setOnDismissListener { finish() }
-                    //builder?.show()
+    private fun setupNstack() {
+        NStack.onAppUpdateListener = { appUpdate ->
+            when (appUpdate.state) {
+                AppUpdateState.NONE      -> {
+                    // Do nothing because there is no update
                 }
-                else -> {
+                AppUpdateState.UPDATE    -> {
+                    // Show a user a dialog that is dismissible
+                }
+                AppUpdateState.FORCE     -> {
+                    // Show the user an undismissable dialog
+                }
+                AppUpdateState.CHANGELOG -> {
+                    // Show change log (Not yet implemented because its never used)
                 }
             }
-        })
+        }
+        NStack.appOpen({ success -> Log.e("debug", "appopen success = $success") })
     }
 
 
@@ -81,13 +89,6 @@ class MainActivity : BaseActivity(), MainContract.View {
             startActivity(Intent(this, SampleActivity::class.java))
         })
     }
-
-
-    override fun onResume() {
-        super.onResume()
-        NStack.translate(this@MainActivity)
-    }
-
 
     override fun showPosts(posts: List<Post>) {
         for (post in posts) {

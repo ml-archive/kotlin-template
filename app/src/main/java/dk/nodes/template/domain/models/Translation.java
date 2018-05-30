@@ -3,7 +3,6 @@ package dk.nodes.template.domain.models;
 /**
  * Created by nstack.io gradle translation plugin
  * Built from Accept Header: da-DK 
- * Generated: Thu May 25 01:49:14 CEST 2017 
  */
 
 public class Translation {
