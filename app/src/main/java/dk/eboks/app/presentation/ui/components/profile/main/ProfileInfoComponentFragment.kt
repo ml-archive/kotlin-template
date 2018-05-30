@@ -21,6 +21,7 @@ import dk.eboks.app.presentation.ui.components.profile.HelpFragment
 import dk.eboks.app.presentation.ui.components.profile.PrivacyFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.FingerPrintComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
@@ -242,5 +243,9 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
     private fun setupVersionNumber() {
         profileDetailTvVersion.text = "${BuildConfig.VERSION_NAME} (build ${BuildConfig.VERSION_CODE})"
+    }
+
+    override fun logout() {
+        //todo start the login screen after the acces token has been deleted
     }
 }

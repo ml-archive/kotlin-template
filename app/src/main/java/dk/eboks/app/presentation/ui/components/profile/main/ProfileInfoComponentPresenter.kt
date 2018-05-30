@@ -78,6 +78,7 @@ class ProfileInfoComponentPresenter @Inject constructor(
     }
 
     override fun doLogout() {
-
+        appState.state?.loginState?.token = null
+        view?.logout()
     }
 }
