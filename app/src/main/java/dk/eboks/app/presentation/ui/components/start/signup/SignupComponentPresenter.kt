@@ -71,24 +71,20 @@ class SignupComponentPresenter @Inject constructor(
         tempUser.lastLoginProvider = "email"
         appState.state?.currentUser = tempUser
         appState.save()
-        appState.state?.loginState?.let {
-        it.userPassWord?.let { password ->
-            appState.state?.currentUser?.name?.let { username ->
-
-                    it.userPassWord = password
-                    it.userName = username
-                    it.token = null
-                it.activationCode = appState.state?.loginState?.activationCode
-                    loginUserInteractor.input = LoginInteractor.Input(it)
-                    loginUserInteractor.run()
-                }
+        appState.state?.loginState?.let { loginState ->
+            loginState.userPassWord?.let { password ->
+                loginState.userPassWord = password
+                loginState.userName = appState.state?.currentUser?.cpr?: appState.state?.currentUser?.getPrimaryEmail()
+                loginState.token = null
+                loginUserInteractor.input = LoginInteractor.Input(loginState)
+                loginUserInteractor.run()
             }
         }
     }
 
 
-    fun login(){
-        runAction { v->
+    fun login() {
+        runAction { v ->
             v as SignupComponentContract.CompletedView
             v.doLogin()
         }
