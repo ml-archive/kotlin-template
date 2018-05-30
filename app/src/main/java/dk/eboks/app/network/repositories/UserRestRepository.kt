@@ -39,4 +39,18 @@ class UserRestRepository(private val context: Context, private val api: Api, pri
     override fun verifyPhone(number: String){
 
     }
+
+    override fun checkSsn(ssn: String): Boolean {
+        val result = api.checkUserIdentity(ssn).execute()
+        result?.let{ response ->
+            if (response.isSuccessful) {
+                return response.body()?.exists ?: true
+            }
+            response.errorBody()?.string()?.let { error_str ->
+                throw(ServerErrorException(gson.fromJson<ServerError>(error_str, ServerError::class.java)))
+            }
+        }
+        throw(RuntimeException())
+        return true
+    }
 }

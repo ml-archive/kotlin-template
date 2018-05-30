@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.components.start.signup
 import android.util.Log
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
+import dk.eboks.app.domain.interactors.user.CheckSsnExistsInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.AppState
@@ -21,18 +22,21 @@ class SignupComponentPresenter @Inject constructor(
         val appState: AppStateManager,
         val createUserInteractor: CreateUserInteractor,
         val loginUserInteractor: LoginInteractor,
-        val verifySignupMailInteractor: CheckSignupMailInteractor
+        val verifySignupMailInteractor: CheckSignupMailInteractor,
+        val checkSsnExistsInteractor: CheckSsnExistsInteractor
 ) :
         SignupComponentContract.Presenter,
         BasePresenterImpl<SignupComponentContract.SignupView>(),
         CreateUserInteractor.Output,
         LoginInteractor.Output,
+        CheckSsnExistsInteractor.Output,
         CheckSignupMailInteractor.Output {
 
     init {
         createUserInteractor.output = this
         verifySignupMailInteractor.output = this
         loginUserInteractor.output = this
+        checkSsnExistsInteractor.output = this
     }
 
     override fun confirmMail(email: String, name: String) {
@@ -133,5 +137,28 @@ class SignupComponentPresenter @Inject constructor(
 
     override fun setActivationCode(activationCode: String) {
         appState.state?.loginState?.activationCode = activationCode
+    }
+
+    // Mina meddelan
+
+    override fun verifySSN(ssn: String) {
+        checkSsnExistsInteractor.input = CheckSsnExistsInteractor.Input(ssn)
+        checkSsnExistsInteractor.run()
+    }
+
+    override fun onCheckSsnExists(exists: Boolean) {
+        runAction { v ->
+            v as SignupComponentContract.MMView
+            v.ssnExists(exists)
+        }
+    }
+
+    override fun onCheckSsnExists(error: ViewError) {
+        //todo error handling
+        // todo API does not work so we pretend the SSN did not exist to continue with the flow
+        runAction { v ->
+            v as SignupComponentContract.MMView
+            v.ssnExists(false)
+        }
     }
 }
