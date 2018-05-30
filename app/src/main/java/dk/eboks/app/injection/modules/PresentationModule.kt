@@ -746,9 +746,10 @@ class PresentationModule {
     @Provides
     fun provideProfileInfoComponentPresenter(
             stateManager: AppStateManager,
-            saveUserInteractor: SaveUserInteractor
+            saveUserInteractor: SaveUserInteractor,
+            getUserProfileInteractor: GetUserProfileInteractor
     ): ProfileInfoComponentContract.Presenter {
-        return ProfileInfoComponentPresenter(stateManager, saveUserInteractor)
+        return ProfileInfoComponentPresenter(stateManager, saveUserInteractor,getUserProfileInteractor)
     }
 
     @ActivityScope

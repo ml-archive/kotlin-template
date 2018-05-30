@@ -9,8 +9,11 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
+import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentFragment
+import dk.eboks.app.presentation.ui.components.start.signup.CompletedComponentFragment
 import dk.eboks.app.presentation.ui.components.start.welcome.SplashComponentFragment
+import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
 import dk.eboks.app.presentation.ui.screens.home.HomeActivity
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import dk.nodes.nstack.kotlin.NStack
@@ -155,6 +158,11 @@ class StartActivity : BaseActivity(), StartContract.View {
     }
 
     override fun onBackPressed() {
+        if (supportFragmentManager.findFragmentById(R.id.containerFl) is CompletedComponentFragment ){
+            setRootFragment(R.id.containerFl, LoginComponentFragment())
+            return
+        }
+
         Timber.e("on back bs count ${supportFragmentManager.backStackEntryCount}")
         if (supportFragmentManager.backStackEntryCount > 1) {
             supportFragmentManager.popBackStack()

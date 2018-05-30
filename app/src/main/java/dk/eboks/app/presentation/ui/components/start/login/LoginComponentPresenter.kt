@@ -155,4 +155,8 @@ class LoginComponentPresenter @Inject constructor(
             v.showActivationCodeDialog()
         }
     }
+
+    override fun setActivationCode(activationCode: String) {
+
+    }
 }
