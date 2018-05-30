@@ -2,59 +2,20 @@
 
 buildscript {
 
-//    ext.kotlin_version = '1.1.51'
-
-    ext {
-        // Plugins
-        gradle_version = '3.0.0'
-        kotlin_version = '1.2.0'
-        nodes_nstack_translation_version = '0.35'
-        bitrise_version = '0.93'
-        ribbonizer_version = '2.1.0'
-
-        // Dependencies
-        kotlinx_coroutines_version = '0.19.1'
-
-        support_library_version = '26.1.0'
-        constraint_layout_version = '1.0.2'
-        dagger_version = "2.11"
-        multidex_version = '1.0.2'
-        hockey_sdk_version = "5.0.2"
-        timber_version = "4.6.0"
-
-        junit_version = '4.12'
-        test_runner_version = '1.0.1'
-        espresso_core_version = '3.0.1'
-        mockito_version = '2.7.22'
-
-        nodes_nstack_kotlin_version = '1.0'
-
-        nodes_arch_version = '1.1.2'
-
-        rxkotlin_version = '2.1.0'
-        rxandroid_version = '2.0.1'
-
-        timberkt_version = '1.3.0'
-
-        retrofit_version = "2.3.0"
-        okhttp_version = "3.9.0"
-        gson_version = '2.8.2'
-        glide_version = '4.2.0'
-        rxandroid_version = '2.0.1'
-        store_version = "3.0.0-beta"
-    }
+    ext.kotlin_version = '1.2.41'
 
     repositories {
         mavenCentral()
         maven { url 'https://maven.google.com' }
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "dk.nodes.nstack:translation:$nodes_nstack_translation_version"
-        classpath "com.github.gfx.ribbonizer:ribbonizer-plugin:$ribbonizer_version"
-        classpath "dk.nodes.ci:bitrise:$bitrise_version"
+        classpath "dk.nodes.nstack:translation:1.0.4"
+        classpath "com.github.gfx.ribbonizer:ribbonizer-plugin:2.1.0"
+        classpath "dk.nodes.ci:bitrise:0.93"
     }
 }
 

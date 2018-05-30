@@ -17,6 +17,7 @@ import okio.BufferedSource
  * Created by bison on 24-06-2017.
  */
 class StorePostRepository(val api: Api, val gson: Gson, val context: Context) : PostRepository {
+
     val postStore: Store<List<Post>, Int> by lazy {
         StoreBuilder.parsedWithKey<Int, BufferedSource, List<Post>>()
                 .fetcher { key -> api.getPostsBuffered() }
