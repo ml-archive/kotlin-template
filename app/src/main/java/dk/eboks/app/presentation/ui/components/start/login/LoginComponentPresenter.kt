@@ -140,7 +140,7 @@ class LoginComponentPresenter @Inject constructor(
         }
     }
 
-    override fun onCreateUser(user: User, numberOfUsers: Int) {
+    override fun onCreateUser(user: User) {
         Timber.i("User created $user")
     }
 

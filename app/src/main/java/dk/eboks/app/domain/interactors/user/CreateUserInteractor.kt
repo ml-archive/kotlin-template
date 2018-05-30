@@ -15,7 +15,7 @@ interface CreateUserInteractor : Interactor
     data class Input(val user: User, val password: String)
 
     interface Output {
-        fun onCreateUser(user : User, numberOfUsers : Int)
+        fun onCreateUser(user : User)
         fun onCreateUserError(error : ViewError)
         fun setActivationCode(activationCode : String )
     }
