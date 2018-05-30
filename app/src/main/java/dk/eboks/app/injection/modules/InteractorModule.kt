@@ -235,6 +235,14 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideDebugCreateUserInteractor(
+            executor: Executor,
+            userManager: UserManager
+    ): CreateDebugUserInteractorImpl {
+        return CreateDebugUserInteractorImpl(executor, userManager)
+    }
+
+    @Provides
     fun provideSaveUserInteractor(
             executor: Executor,
             userManager: UserManager

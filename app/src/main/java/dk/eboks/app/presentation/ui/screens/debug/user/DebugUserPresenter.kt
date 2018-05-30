@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.screens.debug.user
 
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
+import dk.eboks.app.domain.interactors.user.CreateDebugUserInteractorImpl
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
@@ -14,7 +15,7 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
  */
 class DebugUserPresenter(
         val appStateManager: AppStateManager,
-        val createUserInteractor: CreateUserInteractor,
+        val createUserInteractor: CreateDebugUserInteractorImpl,
         val saveUserInteractor: SaveUserInteractor
 ) :
         DebugUserContract.Presenter,

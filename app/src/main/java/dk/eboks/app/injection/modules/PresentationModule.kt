@@ -765,7 +765,7 @@ class PresentationModule {
     @Provides
     fun provideDebugUserPresenter(
             stateManager: AppStateManager,
-            createUserInteractor: CreateUserInteractor,
+            createUserInteractor: CreateDebugUserInteractorImpl,
             saveUserInteractor: SaveUserInteractor
     ): DebugUserContract.Presenter {
         return DebugUserPresenter(stateManager, createUserInteractor, saveUserInteractor)

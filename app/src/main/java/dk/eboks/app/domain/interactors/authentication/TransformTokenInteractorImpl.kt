@@ -35,22 +35,25 @@ class TransformTokenInteractorImpl(executor: Executor, val api: Api, val appStat
                 input?.loginState?.kspToken = null // consume the token - it's only usable once anyway
 
                 if (tokenResult.isSuccessful) {
-                    val userResult = api.getUserProfile().execute()
-                    userResult?.body()?.let {
-                        userManager.add(it)
-                        appStateManager.state?.currentUser = it
-                        appStateManager.save()
-                    }
 
                     tokenResult?.body()?.let { token ->
                         appStateManager.state?.loginState?.token = token
+
+                        val userResult = api.getUserProfile().execute()
+                        userResult?.body()?.let {
+                            userManager.add(it)
+                            appStateManager.state?.currentUser = it
+                        }
                         appStateManager.save()
+
                         runOnUIThread {
                             output?.onLoginSuccess(token)
                         }
                     }
                 } else {
-                    output?.onLoginError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
+                    runOnUIThread {
+                        output?.onLoginError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
+                    }
                 }
             }
         } catch (t: Throwable) {
