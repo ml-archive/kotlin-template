@@ -4,6 +4,7 @@ import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.APIConstants
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.util.getType
@@ -19,25 +20,20 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
         BasePresenterImpl<ChannelOpeningComponentContract.View>(),
         GetChannelInteractor.Output {
 
-    init {
-        appState.state?.channelState?.selectedChannel?.let { channel ->
-            getChannelInteractor.output = this
-            getChannelInteractor.input = GetChannelInteractor.Input(channel.id.toLong())
-            getChannelInteractor.run()
-            runAction { v ->
-                v.showProgress(true)
-            }
-        }
+
+    var channelId : Int = 0
+
+    override fun setup(channelId: Int) {
+        this.channelId = channelId
+        refreshChannel()
     }
 
     override fun refreshChannel() {
-        appState.state?.channelState?.selectedChannel?.let { channel ->
-            getChannelInteractor.output = this
-            getChannelInteractor.input = GetChannelInteractor.Input(channel.id.toLong())
-            getChannelInteractor.run()
-            runAction { v ->
-                v.showProgress(true)
-            }
+        getChannelInteractor.output = this
+        getChannelInteractor.input = GetChannelInteractor.Input(channelId)
+        getChannelInteractor.run()
+        runAction { v ->
+            v.showProgress(true)
         }
     }
 
@@ -73,22 +69,35 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
     }
 
     override fun onGetChannel(channel: Channel) {
+        Timber.e("got the channel object: $channel")
         runAction { v -> v.showProgress(false) }
         if (channel.installed) {
             runAction { v -> v.goToWebView(channel) }
         } else {
             when (channel.status?.type) {
-                0 -> {
+                APIConstants.CHANNEL_STATUS_AVAILABLE -> {
                     runAction { v -> v.showInstallState(channel) }
                 }
-                1 -> {
+                APIConstants.CHANNEL_STATUS_REQUIRES_VERIFIED -> {
                     runAction { v ->
+                        // TODO this should trigger verification
+                        /*
                         Config.getLoginProvider("nemid")?.let {
                             v.showVerifyState(channel, it)
                         }
+                        */
                     }
                 }
-                2 -> {
+                APIConstants.CHANNEL_STATUS_REQUIRES_HIGHER_SEC_LEVEL -> {
+                    runAction { v -> v.showDisabledState(channel) }
+                }
+                APIConstants.CHANNEL_STATUS_REQUIRES_HIGHER_SEC_LEVEL2 -> {
+                    // TODO Deal with me
+                }
+                APIConstants.CHANNEL_STATUS_REQUIRES_NEW_VERSION -> {
+                    // TODO Deal with me
+                }
+                APIConstants.CHANNEL_STATUS_NOT_SUPPORTED -> {
                     runAction { v -> v.showDisabledState(channel) }
                 }
                 else -> {

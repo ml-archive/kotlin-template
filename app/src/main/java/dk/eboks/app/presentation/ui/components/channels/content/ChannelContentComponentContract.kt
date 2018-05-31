@@ -13,5 +13,6 @@ interface ChannelContentComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
+        fun setup()
     }
 }

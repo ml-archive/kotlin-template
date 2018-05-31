@@ -85,12 +85,16 @@
                         android:textSize="16dp" />
 
 
-                    <Button
-                        android:id="@+id/button"
+                    <TextView
+                        android:id="@+id/openActionTv"
                         style="@style/buttonRoundedCorners"
-                        android:layout_width="63.5dp"
+                        android:textAppearance="@style/text.buttonLarge"
+                        android:paddingStart="@dimen/padding_normal"
+                        android:paddingEnd="@dimen/padding_normal"
+                        android:layout_width="wrap_content"
                         android:layout_height="28dp"
-                        android:text="Install" />
+                        android:gravity="center"
+                        android:text="_Install" />
 
                 </LinearLayout>
 

@@ -11,7 +11,7 @@ interface GetChannelInteractor : Interactor {
     var output : Output?
     var input : Input?
 
-    data class Input(val id : Long)
+    data class Input(val id : Int)
 
     interface Output {
         fun onGetChannel(channel : Channel)

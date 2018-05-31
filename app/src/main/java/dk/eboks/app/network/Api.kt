@@ -66,7 +66,7 @@ interface Api {
     // channels
     @GET("channels") fun getChannels() : Call<MutableList<Channel>>
     @GET("channels?pinned=true") fun getChannelsPinned() : Call<MutableList<Channel>>
-    @GET("channels/{id}") fun getChannel(@Path("id") id : Long) : Call<Channel>
+    @GET("channels/{id}") fun getChannel(@Path("id") id : Int) : Call<Channel>
     @GET("channels/{id}/content/home") fun getChannelHomeContent(@Path("id") id : Long) : Call<HomeContent>
     @GET("channels/storebox/receipts") fun getStoreboxReceipts() : Call<List<StoreboxReceiptItem>>
     @GET("channels/storebox/receipts/{id}") fun getStoreboxReceipt(@Path("id") id : String) : Call<StoreboxReceipt>

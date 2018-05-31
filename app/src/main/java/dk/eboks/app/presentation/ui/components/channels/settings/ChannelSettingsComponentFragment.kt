@@ -102,14 +102,14 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
                     //todo send API call to remove channel
                     Toast.makeText(
                             context,
-                            "_Positive button clicked.",
+                            "_Positive openActionTv clicked.",
                             Toast.LENGTH_SHORT
                     ).show()
                 }
                 .setNegativeButton(Translation.channelsettingsstoreboxadditions.deleteCardCancelButton) { dialog, which ->
                     Toast.makeText(
                             context,
-                            "_Negative button clicked",
+                            "_Negative openActionTv clicked",
                             Toast.LENGTH_SHORT
                     ).show()
                 }

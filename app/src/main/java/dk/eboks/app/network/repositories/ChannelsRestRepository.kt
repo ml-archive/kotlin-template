@@ -64,7 +64,7 @@ class ChannelsRestRepository(val context: Context, val api: Api, val gson: Gson)
 
     }
 
-    override fun getChannel(id: Long) : Channel {
+    override fun getChannel(id: Int) : Channel {
         val call = api.getChannel(id)
         val result = call.execute()
         result?.let { response ->

@@ -301,7 +301,7 @@
         </LinearLayout>
 
 
-        <!--bottom button-->
+        <!--bottom openActionTv-->
 
         <Button
             android:id="@+id/removeChannelBtn"
