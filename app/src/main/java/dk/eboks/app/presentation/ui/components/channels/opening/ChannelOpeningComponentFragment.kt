@@ -54,6 +54,12 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+
+        arguments?.getSerializable(Channel::class.java.simpleName)?.let { channel ->
+            presenter.setup((channel as Channel).id)
+        }.guard {
+            activity.onBackPressed()
+        }
     }
 
     override fun onResume() {

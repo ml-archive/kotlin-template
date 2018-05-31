@@ -13,7 +13,10 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
+import dk.eboks.app.presentation.ui.components.profile.HelpFragment
 import dk.eboks.app.presentation.ui.screens.home.HomeActivity
+import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
+import dk.eboks.app.presentation.ui.screens.start.HelpActivity
 import dk.eboks.app.util.isValidActivationCode
 import kotlinx.android.synthetic.main.fragment_activation_code_component.*
 import javax.inject.Inject
@@ -38,17 +41,19 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         presenter.onViewCreated(this, lifecycle)
         headerTv.requestFocus()
 
-        cancelBtn.text = Translation.defaultSection.cancel
-        cancelBtn.setOnClickListener {
-            (activity as SheetComponentActivity).onBackPressed()
+        findActivationCodeBtn.setOnClickListener {
+            startActivity(Intent(context, HelpActivity::class.java))
         }
-
         continueBtn.setOnClickListener {
             val ac = activationCodeEt.text.toString().trim()
             presenter.updateLoginState(ac)
             presenter.login()
         }
 
+        cancelBtn.text = Translation.defaultSection.cancel
+        cancelBtn.setOnClickListener {
+            (activity as SheetComponentActivity).onBackPressed()
+        }
     }
 
     fun setupValidation() {
@@ -87,7 +92,7 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
     }
 
     override fun showError(error: String?) {
-        activationCodeTil.error = error?:Translation.activationcode.invalidActivationCode
+        activationCodeTil.error = error ?: Translation.activationcode.invalidActivationCode
     }
 
     override fun setDebugUp(activationCode: String?) {

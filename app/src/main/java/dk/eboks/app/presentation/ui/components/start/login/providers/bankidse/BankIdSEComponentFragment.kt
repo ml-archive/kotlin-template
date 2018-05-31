@@ -8,6 +8,7 @@ import android.view.View
 import android.webkit.WebView
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseWebFragment
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
@@ -17,6 +18,7 @@ import javax.inject.Inject
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginContract
+import timber.log.Timber
 
 /**
  * Created by bison on 09-02-2018.
@@ -32,15 +34,9 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        webView.loadData("Bank id sweden webview placeholder", "text/html", "utf8")
 
         setupTopBar()
 
-        if(BuildConfig.DEBUG) {
-            Handler(Looper.getMainLooper()).postDelayed({
-                showDebugDialog()
-            }, 500)
-        }
         presenter.setup()
         mainTb.title = Translation.loginproviders.bankSeTitle
     }
@@ -76,6 +72,9 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     override fun setupLogin(user: User) {
         loginUser = user
+        val loginUrl = "${Config.currentMode.environment?.logonUrl}bankid"
+        Timber.e("Opening $loginUrl")
+        webView.loadUrl(loginUrl)
     }
 
     override fun proceed() {
@@ -104,4 +103,9 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
     override fun close() {
         fragmentManager.popBackStack()
     }
+
+    override fun loginKspToken(kspwebtoken: String) {
+        presenter.login(kspwebtoken)
+    }
+
 }

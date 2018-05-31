@@ -25,7 +25,7 @@
     <dimen name="text_size_button_large">16dp</dimen>
     <dimen name="text_size_button_small">14dp</dimen>
 
-    <!--Floating action button-->
+    <!--Floating action openActionTv-->
     <dimen name="design_fab_image_size" tools:override="true">36dp</dimen>
 
 

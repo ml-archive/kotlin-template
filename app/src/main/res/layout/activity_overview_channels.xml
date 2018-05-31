@@ -16,9 +16,8 @@
         android:background="@color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <fragment
-            android:id="@+id/channelsListComponentFragment"
-            android:name="dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentFragment"
+        <FrameLayout
+            android:id="@+id/containerFl"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

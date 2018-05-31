@@ -67,17 +67,16 @@ class LoginComponentPresenter @Inject constructor(
 
     override fun onLoginSuccess(response: AccessToken) {
         Timber.i("Login Success: $response")
-        /*
-        appState.state?.currentUser = user
-        appState.save()
-        */
-        runAction { v -> v.proceedToApp() }
+        runAction { v ->
+            v.proceedToApp()
+        }
     }
 
-    // all admire chnt's jurassic joke (its from '94 ffs :p)
-    // Don't you worry - it's a UNIX system! It hasn't changed since the universe began anyway
     override fun onLoginDenied(error: ViewError) {
         Timber.w(" \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word!")
+        runAction { v ->
+            v.showError(error)
+        }
     }
 
     override fun onLoginError(error: ViewError) {
@@ -140,7 +139,7 @@ class LoginComponentPresenter @Inject constructor(
         }
     }
 
-    override fun onCreateUser(user: User, numberOfUsers: Int) {
+    override fun onCreateUser(user: User) {
         Timber.i("User created $user")
     }
 
@@ -154,5 +153,9 @@ class LoginComponentPresenter @Inject constructor(
         runAction { v ->
             v.showActivationCodeDialog()
         }
+    }
+
+    override fun setActivationCode(activationCode: String) {
+
     }
 }

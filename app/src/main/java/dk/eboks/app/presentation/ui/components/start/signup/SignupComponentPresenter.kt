@@ -3,11 +3,13 @@ package dk.eboks.app.presentation.ui.components.start.signup
 import android.util.Log
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
+import dk.eboks.app.domain.interactors.user.CheckSsnExistsInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
+import dk.eboks.app.domain.models.login.LoginState
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import kotlinx.coroutines.experimental.withTimeoutOrNull
@@ -21,18 +23,21 @@ class SignupComponentPresenter @Inject constructor(
         val appState: AppStateManager,
         val createUserInteractor: CreateUserInteractor,
         val loginUserInteractor: LoginInteractor,
-        val verifySignupMailInteractor: CheckSignupMailInteractor
+        val verifySignupMailInteractor: CheckSignupMailInteractor,
+        val checkSsnExistsInteractor: CheckSsnExistsInteractor
 ) :
         SignupComponentContract.Presenter,
         BasePresenterImpl<SignupComponentContract.SignupView>(),
         CreateUserInteractor.Output,
         LoginInteractor.Output,
+        CheckSsnExistsInteractor.Output,
         CheckSignupMailInteractor.Output {
 
     init {
         createUserInteractor.output = this
         verifySignupMailInteractor.output = this
         loginUserInteractor.output = this
+        checkSsnExistsInteractor.output = this
     }
 
     override fun confirmMail(email: String, name: String) {
@@ -71,23 +76,20 @@ class SignupComponentPresenter @Inject constructor(
         tempUser.lastLoginProvider = "email"
         appState.state?.currentUser = tempUser
         appState.save()
-        appState.state?.loginState?.let {
-        it.userPassWord?.let { password ->
-            appState.state?.currentUser?.name?.let { username ->
-
-                    it.userPassWord = password
-                    it.userName = username
-                    it.token = null
-                    loginUserInteractor.input = LoginInteractor.Input(it)
-                    loginUserInteractor.run()
-                }
+        appState.state?.loginState?.let { loginState ->
+            loginState.userPassWord?.let { password ->
+                loginState.userPassWord = password
+                loginState.userName = appState.state?.currentUser?.cpr?: appState.state?.currentUser?.getPrimaryEmail()
+                loginState.token = null
+                loginUserInteractor.input = LoginInteractor.Input(loginState)
+                loginUserInteractor.run()
             }
         }
     }
 
 
-    fun login(){
-        runAction { v->
+    fun login() {
+        runAction { v ->
             v as SignupComponentContract.CompletedView
             v.doLogin()
         }
@@ -114,7 +116,7 @@ class SignupComponentPresenter @Inject constructor(
         login()
     }
 
-    override fun onCreateUser(user: User, numberOfUsers: Int) {
+    override fun onCreateUser(user: User) {
         runAction { v ->
             v as SignupComponentContract.TermsView
             v.showUserCreated()
@@ -132,5 +134,32 @@ class SignupComponentPresenter @Inject constructor(
 
     companion object {
         val tempUser: User = User()
+    }
+
+    override fun setActivationCode(activationCode: String) {
+        appState.state?.loginState?.activationCode = activationCode
+    }
+
+    // Mina meddelan
+
+    override fun verifySSN(ssn: String) {
+        checkSsnExistsInteractor.input = CheckSsnExistsInteractor.Input(ssn)
+        checkSsnExistsInteractor.run()
+    }
+
+    override fun onCheckSsnExists(exists: Boolean) {
+        runAction { v ->
+            v as SignupComponentContract.MMView
+            v.ssnExists(exists)
+        }
+    }
+
+    override fun onCheckSsnExists(error: ViewError) {
+        //todo error handling
+        // todo API does not work so we pretend the SSN did not exist to continue with the flow
+        runAction { v ->
+            v as SignupComponentContract.MMView
+            v.ssnExists(false)
+        }
     }
 }

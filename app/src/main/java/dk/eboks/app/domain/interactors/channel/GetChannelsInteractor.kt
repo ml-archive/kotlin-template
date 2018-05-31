@@ -14,7 +14,7 @@ interface GetChannelsInteractor : Interactor {
     data class Input(val cached: Boolean)
 
     interface Output {
-        fun onGetChannels(folders : List<Channel>)
+        fun onGetChannels(channels : List<Channel>)
         fun onGetChannelsError(error : ViewError)
     }
 }

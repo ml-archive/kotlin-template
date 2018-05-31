@@ -38,6 +38,15 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideCheckSsnExistsInteractor(
+            executor: Executor,
+            api: Api,
+            userRestRepository: UserRestRepository
+    ): CheckSsnExistsInteractor {
+        return CheckSsnExistsInteractorImpl(executor, api, userRestRepository)
+    }
+
+    @Provides
     fun provideVerifyignupMailInteractor(
             executor: Executor,
             api: Api,

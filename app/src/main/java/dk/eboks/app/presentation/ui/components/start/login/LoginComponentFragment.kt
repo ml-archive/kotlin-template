@@ -104,17 +104,28 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
     }
 
+    val keyboardListener = KeyboardUtils.SoftKeyboardToggleListener {
+        if (it) {
+            loginProvidersLl.visibility = View.GONE
+            continueBtn.visibility = View.GONE
+        } else {
+            loginProvidersLl.visibility = View.VISIBLE
+            continueBtn.visibility = View.VISIBLE
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         Timber.d("onResume")
         setupCprEmailListeners()
         setupPasswordListener()
-
+        KeyboardUtils.addKeyboardToggleListener(activity, keyboardListener)
     }
 
     override fun onPause() {
         Timber.d("onPause")
         handler.removeCallbacksAndMessages(null)
+        KeyboardUtils.removeKeyboardToggleListener(keyboardListener)
         super.onPause()
     }
 
@@ -280,16 +291,6 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         continueBtn.visibility = View.GONE
         passwordTil.visibility = View.VISIBLE
 
-        KeyboardUtils.addKeyboardToggleListener(activity, KeyboardUtils.SoftKeyboardToggleListener {
-            if (it) {
-                loginProvidersLl.visibility = View.GONE
-                continueBtn.visibility = View.GONE
-            } else {
-                loginProvidersLl.visibility = View.VISIBLE
-                continueBtn.visibility = View.VISIBLE
-            }
-        })
-
         // setting profile view
         userNameTv.text = user?.name
         userEmailCprTv.text = user?.emails?.firstOrNull()?.value
@@ -448,5 +449,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         super.onDestroy()
         KeyboardUtils.removeAllKeyboardToggleListeners()
     }
+
+
 }
 

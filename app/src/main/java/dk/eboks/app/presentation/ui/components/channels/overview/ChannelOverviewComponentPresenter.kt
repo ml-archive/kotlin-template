@@ -19,23 +19,26 @@ class ChannelOverviewComponentPresenter @Inject constructor(val appState: AppSta
         GetChannelsInteractor.Output
 {
 
-    val channels = appState.state?.channelState
-
     init {
         getChannelsInteractor.output = this
-        refresh(true)
-
     }
 
-    fun refresh(cached : Boolean)
+    override fun setup() {
+        refresh(true)
+    }
+
+    override fun refresh(cached : Boolean)
     {
         getChannelsInteractor.input = GetChannelsInteractor.Input(cached)
         getChannelsInteractor.run()
     }
 
     override fun openChannel(channel: Channel) {
-        appState.state?.channelState?.selectedChannel = channel
-        appState.state?.channelState?.openOrInstallImmediately = false
+        /*
+        appState.state?.channelState?.let { state ->
+            state.selectedChannel = channel
+        }
+        */
         runAction { v-> v.showChannelOpening(channel) }
     }
 
@@ -48,12 +51,5 @@ class ChannelOverviewComponentPresenter @Inject constructor(val appState: AppSta
 
     override fun onGetChannelsError(error : ViewError) {
         runAction { it.showErrorDialog(error) }
-    }
-
-    override fun refresh() {
-        channels?.let{
-            getChannelsInteractor.input = GetChannelsInteractor.Input(false)
-            getChannelsInteractor.run()
-        }
     }
 }

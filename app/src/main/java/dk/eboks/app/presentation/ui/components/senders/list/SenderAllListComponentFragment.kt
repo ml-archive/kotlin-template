@@ -134,7 +134,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
     }
 
     override fun showEmpty(show: Boolean) {
-        // currently no emptystate - it should not happend as the showAll button is not shown if you dont have any mail from senders
+        // currently no emptystate - it should not happend as the showAll openActionTv is not shown if you dont have any mail from senders
     }
 
     override fun showSenders(senders: List<Sender>) {

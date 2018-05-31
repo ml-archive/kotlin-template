@@ -34,14 +34,12 @@ class ReceiptsChannelControl(channel: Channel, control : Control, view: View, in
                 amount = v.findViewById<TextView>(R.id.amountTv)
                 date = v.findViewById<TextView>(R.id.dateTv)
 
-                val value = row.amount?.value.toString()
                 if (row.date == null) {
-                    //Todo need to format the string to use comma seperator
-                    soloAmount.text = value
+                    soloAmount.text = formatter.formatPrice(row)
                     soloAmount.visibility = View.VISIBLE
                     amountDateContainer.visibility = View.GONE
                 } else {
-                    amount.text = value
+                    amount.text = formatter.formatPrice(row)
                     date.text = formatter.formatDateRelative(row)
                 }
 

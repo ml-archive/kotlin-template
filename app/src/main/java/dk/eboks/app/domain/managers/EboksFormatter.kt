@@ -21,4 +21,7 @@ interface EboksFormatter
 
     fun formatDateToDay(date : Date) : String
     fun formatDateToTime(date : Date) : String
+
+    // monaaaay
+    fun formatPrice(item : Item) : String
 }

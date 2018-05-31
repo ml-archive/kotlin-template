@@ -45,7 +45,9 @@ class LoginInteractorImpl(executor: Executor, val api: Api, val appStateManager:
 
                         val userResult = api.getUserProfile().execute()
                         userResult?.body()?.let {
-                            userManager.add(it)
+                            // update the states
+                            userManager.put(it)
+                            appStateManager.state?.loginState?.lastUser = it
                             appStateManager.state?.currentUser = it
                         }
                         appStateManager.save()

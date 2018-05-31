@@ -66,8 +66,8 @@ class DebugUserPresenter(
         saveUserInteractor.run()
     }
 
-    override fun onCreateUser(user: User, numberOfUsers: Int) {
-        runAction { v -> v.close(numberOfUsers == 1) }
+    override fun onCreateUser(user: User) {
+        runAction { v -> v.close(true) }
     }
 
     override fun onCreateUserError(error: ViewError) {
@@ -84,5 +84,9 @@ class DebugUserPresenter(
 
     companion object {
         var editUser: User? = null
+    }
+
+    override fun setActivationCode(activationCode: String) {
+
     }
 }
