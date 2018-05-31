@@ -21,9 +21,7 @@ class StoreboxContentActivity : BaseActivity(), StoreboxContentContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         updateTranslation()
-        setRootFragment(R.id.content,
-                        ChannelContentStoreboxComponentFragment()
-        )
+        setRootFragment(R.id.content, ChannelContentStoreboxComponentFragment())
 
         supportFragmentManager.addOnBackStackChangedListener {
             Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")

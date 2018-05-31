@@ -170,6 +170,20 @@ fun Channel.getType(): String {
     return "channel"
 }
 
+fun Channel.areAllRequirementsVerified() : Boolean
+{
+    this.requirements?.let { reqs ->
+        for(req in reqs)
+        {
+            if(req.verified == false)
+                return false
+        }
+        return true
+    }.guard { return true }
+    return true
+}
+
+
 /**
  * Add cases to this where you want to use the standard exception to view error method
  * Memba you can always create your own custom ViewError in the interactor instead of using this
