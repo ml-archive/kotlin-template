@@ -42,7 +42,7 @@ class TransformTokenInteractorImpl(executor: Executor, val api: Api, val appStat
                         val userResult = api.getUserProfile().execute()
                         userResult?.body()?.let {
                             // update the states
-                            userManager.add(it)
+                            userManager.put(it)
                             appStateManager.state?.loginState?.lastUser = it
                             appStateManager.state?.currentUser = it
                         }

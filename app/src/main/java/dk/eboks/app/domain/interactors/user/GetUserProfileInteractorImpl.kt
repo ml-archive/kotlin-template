@@ -23,7 +23,7 @@ class GetUserProfileInteractorImpl(executor: Executor, val api: Api, val appStat
             val result = api.getUserProfile().execute()
             result?.body()?.let {
                 runOnUIThread {
-                    userManager.add(it)
+                    userManager.put(it)
                     appStateManager.state?.currentUser = it
                     appStateManager.save()
                     output?.onGetUser(it)

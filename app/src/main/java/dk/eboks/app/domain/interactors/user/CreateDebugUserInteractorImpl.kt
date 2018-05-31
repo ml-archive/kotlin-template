@@ -21,7 +21,7 @@ class CreateDebugUserInteractorImpl(executor: Executor, val userManager: UserMan
         // we don't use input in this example but we could:
         try {
             input?.user?.let { user->
-                userManager.add(user)
+                userManager.put(user)
                 runOnUIThread {
                     output?.onCreateUser(user)
                 }

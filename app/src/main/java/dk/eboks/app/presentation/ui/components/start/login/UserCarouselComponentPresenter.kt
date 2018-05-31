@@ -56,8 +56,8 @@ class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateM
     }
 
     override fun onGetUsers(users: MutableList<User>) {
-        runAction {
-            v-> v.showUsers(users)
+        runAction { v->
+            v.showUsers(users)
             appState.state?.loginState?.lastUser?.let { user ->
                 Timber.e("Setting selected user $user")
                 v.setSelectedUser(user)

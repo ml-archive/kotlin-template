@@ -13,46 +13,43 @@ import timber.log.Timber
  * Created by bison on 17-02-2018.
  */
 class UserManagerImpl(val context: Context, val gson: Gson) : UserManager {
-    override var users : MutableList<User> = ArrayList()
+    override var users: MutableList<User> = ArrayList()
     private val userStore = UserStore()
 
-
     init {
-        val type = object : TypeToken<ArrayList<User>>(){}.type
+        val type = object : TypeToken<ArrayList<User>>() {}.type
         try {
             users = userStore.load(type)
             Timber.e("Loaded user store with ${users.size} entries")
 
-            for(entry in users)
-            {
+            for (entry in users) {
                 Timber.e("Entry: ${entry}")
             }
 
-        }
-        catch (t : Throwable)
-        {
+        } catch (t: Throwable) {
         }
     }
 
-    override fun add(user : User) {
-        users.add(user)
-        userStore.save(users)
-    }
-
-    override fun remove(user : User) {
-        users.remove(user)
-        userStore.save(users)
-    }
-
-    override fun save(user: User) {
-        for(u in users)
-        {
-            if(u.id == user.id)
-            {
+    /**
+     * try to update an existing user, or add it if it doesn't exist yet
+     */
+    override fun put(user: User) {
+        var updated = false
+        for (u in users) {
+            if (u.id == user.id) {
                 FieldMapper.copyAllFields(user, u)
+                updated = true
                 break
             }
         }
+        if (!updated) {
+            users.add(user)
+        }
+        userStore.save(users)
+    }
+
+    override fun remove(user: User) {
+        users.remove(user)
         userStore.save(users)
     }
 
