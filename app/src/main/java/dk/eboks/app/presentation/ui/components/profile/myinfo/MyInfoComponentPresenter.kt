@@ -24,6 +24,8 @@ class MyInfoComponentPresenter @Inject constructor(
         updateUserInteractor.output = this
     }
 
+    var user = User()
+
     override fun setup() {
         appState.state?.currentUser?.let { user ->
             runAction { v ->
@@ -38,27 +40,26 @@ class MyInfoComponentPresenter @Inject constructor(
 
     override fun save() {
         runAction { v ->
-            appState.state?.currentUser?.let { user ->
-                user.setPrimaryEmail(v.getPrimaryEmail())
-                user.setSecondaryEmail(v.getSecondaryEmail())
-
-                user.name = v.getName()
-                user.mobileNumber?.value = v.getMobileNumber()
-                user.newsletter = v.getNewsletter()
-                v.showProgress(true)
-                // save user locally
-                saveUserInteractor.input = SaveUserInteractor.Input(user)
-                saveUserInteractor.run()
+            v.showProgress(true)
 
 
-                v.onDone()
-            }
+            user.setPrimaryEmail(v.getPrimaryEmail())
+            user.setSecondaryEmail(v.getSecondaryEmail())
+            user.newsletter = v.getNewsletter()
+            user.name = v.getName()
+            user.mobileNumber?.value = v.getMobileNumber()
+            user.newsletter = v.getNewsletter()
+            appState.state?.currentUser = user
 
-            //todo putting in mock data as the app.state does not save the profile atm
             // save user on the server
-            var user = User(555,"updatetest")
             updateUserInteractor.input = UpdateUserInteractor.Input(user)
             updateUserInteractor.run()
+
+//            // save user locally
+//            saveUserInteractor.input = SaveUserInteractor.Input(user)
+//            saveUserInteractor.run()
+
+
 
         }
     }
@@ -69,6 +70,7 @@ class MyInfoComponentPresenter @Inject constructor(
             v.setSaveEnabled(false)
             v.showProgress(false)
             v.showToast(Translation.profile.yourInfoWasSaved)
+            v.onDone()
         }
     }
 

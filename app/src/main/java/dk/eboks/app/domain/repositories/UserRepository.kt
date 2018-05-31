@@ -1,9 +1,9 @@
 package dk.eboks.app.domain.repositories
 
-import dk.eboks.app.domain.models.login.User
+import com.google.gson.JsonObject
 
 interface UserRepository {
-    fun updateProfile(user: User)
+    fun updateProfile(user: JsonObject)
     fun verifyEmail(mail: String)
     fun verifyPhone(number: String)
     fun checkSsn(ssn: String): Boolean

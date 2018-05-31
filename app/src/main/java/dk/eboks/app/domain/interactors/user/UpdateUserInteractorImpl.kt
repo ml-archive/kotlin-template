@@ -1,10 +1,14 @@
 package dk.eboks.app.domain.interactors.user
 
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.repositories.UserRestRepository
 import dk.eboks.app.util.exceptionToViewError
+import timber.log.Timber
 
 class UpdateUserInteractorImpl(executor: Executor, val api: Api, val userRestRepo: UserRestRepository) : BaseInteractor(executor), UpdateUserInteractor {
     override var output: UpdateUserInteractor.Output? = null
@@ -12,10 +16,20 @@ class UpdateUserInteractorImpl(executor: Executor, val api: Api, val userRestRep
 
 
     override fun execute() {
-        try {
 
+        try {
             input?.user?.let {
-                userRestRepo.updateProfile(it)
+                val body = JsonObject()
+                body.addProperty("name", it.name)
+//                body.add("mobilenumber", it.mobileNumber)
+                body.addProperty("newsletter", it.newsletter)
+                val mails = JsonArray()
+                mails.add(it.getPrimaryEmail())
+                mails.add(it.getSecondaryEmail())
+                body.add("emails", mails)
+                userRestRepo.updateProfile(body)
+                //todo
+                få det til at virke
             }
             runOnUIThread {
                 output?.onUpdateProfile()
@@ -23,6 +37,7 @@ class UpdateUserInteractorImpl(executor: Executor, val api: Api, val userRestRep
         } catch (t: Throwable) {
             runOnUIThread {
                 output?.onUpdateProfileError(exceptionToViewError(t, shouldDisplay = false))
+                Timber.e(t)
             }
         }
 

@@ -38,7 +38,7 @@ interface Api {
     @POST("user/{nationality}/{email}/resetpassword") fun resetPassword(@Path("nationality") nationality: String, @Path("email") email: String) : Call<Void>
 
     @GET("user/profile") fun getUserProfile() : Call<User>
-    @PATCH("user/profile") fun updateProfile(@Body user: User) : Call<Any>
+    @PATCH("user/profile") fun updateProfile(@Body user: JsonObject) : Call<Any>
     @POST("user/current/email/{email}/verify") fun verifyEmail(@Path("email") email: String) : Call<Any>
 
     // @GET("regions") fun getRegions() : Call<List<Region>>
