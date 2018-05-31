@@ -23,7 +23,7 @@ class CreateDebugUserInteractorImpl(executor: Executor, val userManager: UserMan
             input?.user?.let { user->
                 userManager.add(user)
                 runOnUIThread {
-                    output?.onCreateUser(user, userManager.users.size)
+                    output?.onCreateUser(user)
                 }
             }.guard {
                 runOnUIThread {

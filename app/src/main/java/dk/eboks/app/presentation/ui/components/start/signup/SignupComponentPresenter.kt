@@ -9,6 +9,7 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
+import dk.eboks.app.domain.models.login.LoginState
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import kotlinx.coroutines.experimental.withTimeoutOrNull
@@ -115,7 +116,7 @@ class SignupComponentPresenter @Inject constructor(
         login()
     }
 
-    override fun onCreateUser(user: User, numberOfUsers: Int) {
+    override fun onCreateUser(user: User) {
         runAction { v ->
             v as SignupComponentContract.TermsView
             v.showUserCreated()

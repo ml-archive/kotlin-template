@@ -34,15 +34,12 @@ class UserManagerImpl(val context: Context, val gson: Gson) : UserManager {
         }
     }
 
-    override fun add(user : User)
-    {
-
+    override fun add(user : User) {
         users.add(user)
         userStore.save(users)
     }
 
-    override fun remove(user : User)
-    {
+    override fun remove(user : User) {
         users.remove(user)
         userStore.save(users)
     }

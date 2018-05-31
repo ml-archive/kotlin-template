@@ -20,13 +20,13 @@ class CreateUserInteractorImpl(executor: Executor, val userManager: UserManager,
             input?.user?.let { user ->
                 input?.password?.let { password ->
                     //todo find which of the missing fields should be included
-                    var body = JsonObject()
+                    val body = JsonObject()
                     body.addProperty("name", user.name)
                     body.addProperty("identity", user.getPrimaryEmail())
                     body.addProperty("password", password)
                     body.addProperty("identityType", "P")
                     body.addProperty("nationality", "DK")
-                    var mails = JsonArray()
+                    val mails = JsonArray()
                     mails.add(user.getPrimaryEmail())
                     body.add("emails", mails)
 
@@ -35,8 +35,7 @@ class CreateUserInteractorImpl(executor: Executor, val userManager: UserManager,
                     runOnUIThread {
                         createUser.let {
                             output?.setActivationCode(createUser)
-                            output?.onCreateUser(user, userManager.users.size)
-                            userManager.add(user)
+                            output?.onCreateUser(user)
                         }
                     }
 
