@@ -479,9 +479,10 @@ class PresentationModule {
             stateManager: AppStateManager,
             createUserInteractor: CreateUserInteractor,
             verifySignupMailInteractor: CheckSignupMailInteractor,
-            loginInteractor: LoginInteractor
+            loginInteractor: LoginInteractor,
+            checkSsnExistsInteractor: CheckSsnExistsInteractor
     ): SignupComponentContract.Presenter {
-        return SignupComponentPresenter(stateManager, createUserInteractor, loginInteractor, verifySignupMailInteractor)
+        return SignupComponentPresenter(stateManager, createUserInteractor, loginInteractor, verifySignupMailInteractor, checkSsnExistsInteractor)
     }
 
     @ActivityScope

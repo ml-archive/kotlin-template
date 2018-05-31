@@ -11,6 +11,7 @@ interface ProfileInfoComponentContract {
         fun setVerified(verified: Boolean)
         fun setFingerprintEnabled(enabled: Boolean, lastProviderId: String? = null)
         fun setKeepMeSignedIn(enabled: Boolean)
+        fun logout()
     }
 
     interface Presenter : BasePresenter<View> {

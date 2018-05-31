@@ -43,8 +43,7 @@ class ProfileInfoComponentPresenter @Inject constructor(
     override fun onGetUser(currentUser: User) {
 
         runAction { v ->
-//            v.setName(currentUser.name)
-            v.setName(currentUser.id.toString() + "")
+            v.setName(currentUser.name)
             v.setProfileImage(currentUser.avatarUri)
             v.setFingerprintEnabled(currentUser.hasFingerprint, currentUser.lastLoginProvider)
             v.setVerified(currentUser.verified)
@@ -79,6 +78,7 @@ class ProfileInfoComponentPresenter @Inject constructor(
     }
 
     override fun doLogout() {
-
+        appState.state?.loginState?.token = null
+        view?.logout()
     }
 }
