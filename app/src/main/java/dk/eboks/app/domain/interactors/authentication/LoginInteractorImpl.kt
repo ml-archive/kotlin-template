@@ -45,6 +45,15 @@ class LoginInteractorImpl(executor: Executor, val api: Api, val appStateManager:
 
                         val userResult = api.getUserProfile().execute()
                         userResult?.body()?.let {
+                            // double-check that the the returned user is the same as the selected user
+                            appStateManager.state?.loginState?.selectedUser?.let { u ->
+                                if(u != it) {
+                                    // delete it, if it is
+                                    // this could be caused by the server changing user-id - why?
+                                    // or by us saving a user with the wrong id during creation
+//                                    userManager.remove(u)
+                                }
+                            }
                             // update the states
                             userManager.put(it)
                             appStateManager.state?.loginState?.lastUser = it
@@ -62,7 +71,7 @@ class LoginInteractorImpl(executor: Executor, val api: Api, val appStateManager:
                     }
                 } else {
                     runOnUIThread {
-                        output?.onLoginDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
+                        output?.onLoginDenied(ViewError(title = Translation.error.genericTitle, message = Translation.logoncredentials.invalidPassword, shouldCloseView = true)) // TODO better error
                     }
                 }
             }

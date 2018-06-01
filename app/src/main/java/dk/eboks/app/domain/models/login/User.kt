@@ -38,4 +38,11 @@ data class User(
             emails.add(1, ContactPoint(string, true))
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if(other is User && id == other.id) {
+            return true
+        }
+        return false
+    }
 }

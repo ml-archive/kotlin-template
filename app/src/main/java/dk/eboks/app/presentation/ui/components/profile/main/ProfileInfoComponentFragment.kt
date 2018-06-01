@@ -93,11 +93,6 @@ class ProfileInfoComponentFragment : BaseFragment(),
     }
 
     private fun setupListeners() {
-        val profileActivity = if (activity is ProfileActivity) {
-            (activity as ProfileActivity)
-        } else {
-            null
-        }
 
         // Show our fingerprint stuff only if we are above API M
         profileDetailSwFingerprint.setVisible(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
@@ -128,8 +123,17 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
 
         profileDetailSwFingerprint.setOnClickListener {
-            Timber.d("Fingerprint: Toggled -> %s", profileDetailSwFingerprint.isChecked)
+            Timber.d("Fingerprint: clicked -> %s", profileDetailSwFingerprint.isChecked)
+            if (profileDetailSwFingerprint.isChecked) {
+                getBaseActivity()?.openComponentDrawer(FingerPrintComponentFragment::class.java)
+            } else {
+                presenter.enableUserFingerprint(false)
+            }
         }
+//        profileDetailSwFingerprint.setOnCheckedChangeListener { buttonView, isChecked ->
+//            Timber.d("Fingerprint: changed -> %s", isChecked)
+//        }
+
 
         profileDetailSwKeepSignedIn.setOnClickListener {
             Timber.d("Signed In: Toggled -> %s", profileDetailSwKeepSignedIn.isChecked)
@@ -158,6 +162,11 @@ class ProfileInfoComponentFragment : BaseFragment(),
             Timber.d("profileDetailBtnSignout Clicked")
             presenter.doLogout()
         }
+    }
+
+    override fun showFingerprintEnabled(enabled: Boolean, lastProviderId: String?) {
+        Timber.d("showFingerprintEnabled $enabled")
+        profileDetailSwFingerprint.isChecked = enabled
     }
 
     private fun acquireUserImage()
@@ -219,19 +228,6 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
     override fun setVerified(verified: Boolean) {
         profileDetailRegisterTB.isChecked = verified
-    }
-
-    override fun setFingerprintEnabled(enabled: Boolean, lastProviderId: String?) {
-        profileDetailSwFingerprint.isChecked = enabled
-        profileDetailSwFingerprint.setOnCheckedChangeListener { compoundButton, b ->
-            Log.d("DEBUG", "setFingerprintEnabled $enabled")
-
-            if (b) {
-                getBaseActivity()?.openComponentDrawer(FingerPrintComponentFragment::class.java)
-            } else {
-                presenter.enableUserFingerprint(false)
-            }
-        }
     }
 
     override fun setKeepMeSignedIn(enabled: Boolean) {

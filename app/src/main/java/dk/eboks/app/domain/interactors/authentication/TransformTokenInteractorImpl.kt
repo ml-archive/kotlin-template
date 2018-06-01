@@ -26,7 +26,7 @@ class TransformTokenInteractorImpl(executor: Executor, val api: Api, val appStat
                         Pair("token", it),
                         Pair("grant_type", "kspwebtoken"),
                         Pair("scope", "mobileapi offline_access"),
-                        Pair("client_id", "MobileApp-Long-Custom-id"),
+                        Pair("client_id", "MobileApp-Long-Custom-id"), // TODO: shoul it really be |Custom-id| ???
                         Pair("client_secret", "MobileApp-Long-Custom-secret")
 //                        Pair("client_id", BuildConfig.OAUTH_LONG_ID), // TODO: use the correct id and secret if(and only if) Ukraine fixes theirs...
 //                        Pair("client_secret", BuildConfig.OAUTH_LONG_SECRET)
@@ -41,6 +41,15 @@ class TransformTokenInteractorImpl(executor: Executor, val api: Api, val appStat
 
                         val userResult = api.getUserProfile().execute()
                         userResult?.body()?.let {
+                            // double-check that the the returned user is the same as the selected user
+                            appStateManager.state?.loginState?.selectedUser?.let { u ->
+                                if(u != it) {
+                                    // delete it, if it is
+                                    // this could be caused by the server changing user-id - why?
+                                    // or by us saving a user with the wrong id during creation
+//                                    userManager.remove(u)
+                                }
+                            }
                             // update the states
                             userManager.put(it)
                             appStateManager.state?.loginState?.lastUser = it
