@@ -18,6 +18,15 @@ class ChannelOverviewActivity : BaseActivity(), ChannelOverviewContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            //Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                if (!isDestroyed)
+                    finish()
+            }
+        }
+
         setRootFragment(R.id.containerFl, ChannelOverviewComponentFragment())
     }
 

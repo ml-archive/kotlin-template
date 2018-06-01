@@ -6,7 +6,7 @@ data class User(
         var id: Int = -1,
         var name: String = "",
         var emails: ArrayList<ContactPoint> = arrayListOf(ContactPoint()),
-        var mobileNumber: ContactPoint? = null,
+        var mobilenumber: ContactPoint? = null,
         var cpr: String? = null,
         var avatarUri: String? = null,
         var lastLoginProvider: String? = null,

@@ -401,6 +401,11 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideCreateStoreboxInteractor(executor: Executor, api: Api): CreateStoreboxInteractor {
+        return CreateStoreboxInteractorImpl(executor, api)
+    }
+
+    @Provides
     fun provideConfirmStoreboxInteractor(executor: Executor, api: Api): ConfirmStoreboxInteractor {
         return ConfirmStoreboxInteractorImpl(executor, api)
     }

@@ -23,6 +23,7 @@ import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivi
 import dk.eboks.app.util.Starter
 import kotlinx.android.synthetic.main.fragment_upload_myuploadoverview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -65,7 +66,7 @@ class MyUploadsComponentFragment : BaseFragment(), MyUploadsComponentContract.Vi
             1 -> if (resultCode == RESULT_OK) {
                 var res = data?.extras
                 var buttonTypeClicked = res?.get("res")
-                println(buttonTypeClicked.toString())
+                Timber.d(buttonTypeClicked.toString())
                 // todo something you know what buttontype was clicked!
             }
             else {

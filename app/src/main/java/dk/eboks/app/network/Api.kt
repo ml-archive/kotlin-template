@@ -38,7 +38,7 @@ interface Api {
     @POST("user/{nationality}/{email}/resetpassword") fun resetPassword(@Path("nationality") nationality: String, @Path("email") email: String) : Call<Void>
 
     @GET("user/profile") fun getUserProfile() : Call<User>
-    @PATCH("user/profile") fun updateProfile(@Body user: User) : Call<Any>
+    @PATCH("user/profile") fun updateProfile(@Body user: JsonObject) : Call<Any>
     @POST("user/current/email/{email}/verify") fun verifyEmail(@Path("email") email: String) : Call<Any>
 
     // @GET("regions") fun getRegions() : Call<List<Region>>
@@ -68,8 +68,11 @@ interface Api {
     @GET("channels?pinned=true") fun getChannelsPinned() : Call<MutableList<Channel>>
     @GET("channels/{id}") fun getChannel(@Path("id") id : Int) : Call<Channel>
     @GET("channels/{id}/content/home") fun getChannelHomeContent(@Path("id") id : Long) : Call<HomeContent>
+
+    // storebox specific
     @GET("channels/storebox/receipts") fun getStoreboxReceipts() : Call<List<StoreboxReceiptItem>>
     @GET("channels/storebox/receipts/{id}") fun getStoreboxReceipt(@Path("id") id : String) : Call<StoreboxReceipt>
+    @POST("channels/storebox/user/signup") fun createStoreboxAccount() : Call<Void>
     @POST("channels/storebox/user/signup/link") fun postLinkStorebox(@Body bodyMap: Map<String, String>) : Call<Any>
     @POST("channels/storebox/user/signup/link/activate") fun postActivateStorebox(@Body bodyMap: Map<String, String>) : Call<Any>
 

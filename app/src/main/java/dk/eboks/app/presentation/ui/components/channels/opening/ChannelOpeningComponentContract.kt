@@ -16,7 +16,7 @@ interface ChannelOpeningComponentContract {
         fun showInstallState(channel: Channel)
         fun showVerifyState(channel: Channel, provider : LoginProvider)
         fun showProgress(show : Boolean)
-        fun showVerifyDrawer(channel: Channel)
+        fun showRequirementsDrawer(channel: Channel)
         fun openChannelContent()
         fun openStoreBoxContent()
         fun openEkeyContent()
