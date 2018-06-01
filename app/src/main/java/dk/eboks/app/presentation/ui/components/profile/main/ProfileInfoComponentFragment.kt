@@ -124,7 +124,14 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
 
         profileDetailSwFingerprint.setOnClickListener {
-            Timber.d("Fingerprint: Toggled -> %s", profileDetailSwFingerprint.isChecked)
+            val isChecked = profileDetailSwFingerprint.isChecked
+            Timber.d("Fingerprint: Toggled -> $isChecked")
+            if(isChecked) {
+                // show da Finger!
+                 getBaseActivity()?.openComponentDrawer(FingerPrintComponentFragment::class.java)
+            } else {
+                presenter.enableUserFingerprint(false)
+            }
         }
 
         profileDetailSwKeepSignedIn.setOnClickListener {
