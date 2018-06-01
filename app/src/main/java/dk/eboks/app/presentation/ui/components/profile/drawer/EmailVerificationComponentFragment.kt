@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_profile_verify_email_component.*
 import javax.inject.Inject
@@ -29,7 +30,12 @@ class EmailVerificationComponentFragment : BaseFragment(), EmailVerificationComp
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        mail = arguments.get("mail") as String
+
+        mail = arguments.get("mail")  as String
+
+        mail?.let {
+            bodyTv.text = Translation.profile.verifyEmailText.replace("[email]", it,false)
+        }
 
         verifyBtn.setOnClickListener {
             mail?.let {
