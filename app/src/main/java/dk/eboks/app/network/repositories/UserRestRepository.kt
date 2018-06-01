@@ -3,6 +3,7 @@ package dk.eboks.app.network.repositories
 import dk.eboks.app.domain.repositories.UserRepository
 import android.content.Context
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.protocol.ServerError
@@ -10,14 +11,11 @@ import dk.eboks.app.network.Api
 
 class UserRestRepository(private val context: Context, private val api: Api, private val gson: Gson) : UserRepository {
 
-    override fun updateProfile(user: User) {
+    override fun updateProfile(user: JsonObject) {
         val result = api.updateProfile(user).execute()
         result?.let { response ->
             if (response.isSuccessful) {
                 return
-            }
-            response.errorBody()?.string()?.let { error_str ->
-                throw(ServerErrorException(gson.fromJson<ServerError>(error_str, ServerError::class.java)))
             }
         }
         throw(RuntimeException())
@@ -28,9 +26,6 @@ class UserRestRepository(private val context: Context, private val api: Api, pri
         result?.let { response ->
             if (response.isSuccessful) {
                 return
-            }
-            response.errorBody()?.string()?.let { error_str ->
-                throw(ServerErrorException(gson.fromJson<ServerError>(error_str, ServerError::class.java)))
             }
         }
         throw(RuntimeException())

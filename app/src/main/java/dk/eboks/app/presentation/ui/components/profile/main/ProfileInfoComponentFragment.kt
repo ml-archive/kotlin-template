@@ -25,6 +25,7 @@ import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragmen
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
+import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.util.dpToPx
 import dk.eboks.app.util.setVisible
 import dk.nodes.filepicker.FilePickerActivity
@@ -32,12 +33,13 @@ import dk.nodes.filepicker.FilePickerConstants
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_profile_main_component.*
 import kotlinx.android.synthetic.main.include_profile_bottom.*
+import net.hockeyapp.android.LoginActivity
 import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
 class ProfileInfoComponentFragment : BaseFragment(),
-                                     ProfileInfoComponentContract.View {
+        ProfileInfoComponentContract.View {
     @Inject
     lateinit var presenter: ProfileInfoComponentContract.Presenter
 
@@ -63,7 +65,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
         setupCollapsingToolbar()
         setupListeners()
 
-        if(BuildConfig.ENABLE_PROFILE_PICTURE) {
+        if (BuildConfig.ENABLE_PROFILE_PICTURE) {
             profileDetailIv.setOnClickListener {
                 acquireUserImage()
             }
@@ -164,6 +166,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
     }
 
+    private fun acquireUserImage() {
     override fun showFingerprintEnabled(enabled: Boolean, lastProviderId: String?) {
         Timber.d("showFingerprintEnabled $enabled")
         profileDetailSwFingerprint.isChecked = enabled
@@ -189,59 +192,72 @@ class ProfileInfoComponentFragment : BaseFragment(),
     override fun setName(name: String) {
         Timber.d("setName: %s", name)
         toolbarTitle = name
-        profileDetailNameTv.text = name
-        profileDetailTB.title = name
+        profileDetailNameTv?.let {
+            it.text = name
+        }
+        profileDetailTB?.let {
+            it.title = name
+        }
     }
 
     override fun setProfileImage(url: String?) {
         Timber.d("setProfileImage: $url")
-
-        if (!url.isNullOrEmpty()) {
-            profileDetailIv.setPadding(dpToPx(4), dpToPx(4), dpToPx(4), dpToPx(4))
+        profileDetailIv?.let {
+            if (!url.isNullOrEmpty()) {
+                profileDetailIv.setPadding(dpToPx(4), dpToPx(4), dpToPx(4), dpToPx(4))
+            }
+            var options = RequestOptions()
+            options.error(R.drawable.ic_profile)
+            options.placeholder(R.drawable.ic_profile)
+            options.circleCrop()
+            Glide.with(context)
+                    .load(url)
+                    .apply(options)
+                    .into(it)
         }
-        var options = RequestOptions()
-        options.error(R.drawable.ic_profile)
-        options.placeholder(R.drawable.ic_profile)
-        options.circleCrop()
-        Glide.with(context)
-                .load(url)
-                .apply(options)
-                .into(profileDetailIv)
     }
 
     private fun setProfileImageLocal(imgfile: File) {
         Timber.d("setProfileImageLocal: $imgfile")
+        profileDetailIv?.let {
+            it.setPadding(dpToPx(4), dpToPx(4), dpToPx(4), dpToPx(4))
+            //todo should save image on server ?
+            presenter.saveUserImg(Uri.fromFile(imgfile).toString())
 
-        profileDetailIv.setPadding(dpToPx(4),dpToPx(4),dpToPx(4),dpToPx(4))
-        //todo should save image on server ?
-        presenter.saveUserImg(Uri.fromFile(imgfile).toString())
-
-        var options = RequestOptions()
-        options.error(R.drawable.ic_profile)
-        options.placeholder(R.drawable.ic_profile)
-        options.circleCrop()
-        Glide.with(context)
-                .load(Uri.fromFile(imgfile))
-                .apply(options)
-                .into(profileDetailIv)
+            var options = RequestOptions()
+            options.error(R.drawable.ic_profile)
+            options.placeholder(R.drawable.ic_profile)
+            options.circleCrop()
+            Glide.with(context)
+                    .load(Uri.fromFile(imgfile))
+                    .apply(options)
+                    .into(it)
+        }
     }
 
     override fun setVerified(verified: Boolean) {
-        profileDetailRegisterTB.isChecked = verified
+        profileDetailRegisterTB?.let {
+            it.isChecked = verified
+        }
     }
 
     override fun setKeepMeSignedIn(enabled: Boolean) {
-        profileDetailSwKeepSignedIn.isChecked = enabled
-        profileDetailSwKeepSignedIn.setOnCheckedChangeListener { compoundButton, b ->
+        profileDetailSwKeepSignedIn?.let {
+            it.isChecked = enabled
+            it.setOnCheckedChangeListener { compoundButton, b ->
 
+            }
         }
     }
 
     private fun setupVersionNumber() {
-        profileDetailTvVersion.text = "${BuildConfig.VERSION_NAME} (build ${BuildConfig.VERSION_CODE})"
+        profileDetailTvVersion?.let {
+            it.text = "${BuildConfig.VERSION_NAME} (build ${BuildConfig.VERSION_CODE})"
+        }
     }
 
     override fun logout() {
-        //todo start the login screen after the acces token has been deleted
+        val intent = Intent(getBaseActivity(), StartActivity::class.java)
+        startActivity(intent)
     }
 }

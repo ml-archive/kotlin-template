@@ -3,19 +3,16 @@ package dk.eboks.app.network.repositories
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
-import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
 import dk.eboks.app.util.guard
-import timber.log.Timber
 
 typealias SenderIdMessageStore = CacheStore<Long, List<Message>>
 typealias FolderIdMessageStore = CacheStore<Int, List<Message>>
@@ -172,11 +169,6 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
             {
                 return response.body() ?: throw(RuntimeException("Unknown"))
             }
-            // attempt to parse error
-            response.errorBody()?.string()?.let { error_str ->
-                Timber.e("Received error body $error_str")
-                throw(ServerErrorException(gson.fromJson<ServerError>(error_str, ServerError::class.java)))
-            }
         }
         throw(RuntimeException())
     }
@@ -188,11 +180,6 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
             if(response.isSuccessful)
             {
                 return response.body() ?: throw(RuntimeException("Unknown"))
-            }
-            // attempt to parse error
-            response.errorBody()?.string()?.let { error_str ->
-                Timber.e("Received error body $error_str")
-                throw(ServerErrorException(gson.fromJson<ServerError>(error_str, ServerError::class.java)))
             }
         }
 
@@ -207,11 +194,6 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
                 if(response.isSuccessful)
                 {
                     return
-                }
-                // attempt to parse error
-                response.errorBody()?.string()?.let { error_str ->
-                    Timber.e("Received error body $error_str")
-                    throw(ServerErrorException(gson.fromJson<ServerError>(error_str, ServerError::class.java)))
                 }
             }
             throw(RuntimeException())
@@ -260,11 +242,6 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
             if(response.isSuccessful)
             {
                 return
-            }
-            // attempt to parse error
-            response.errorBody()?.string()?.let { error_str ->
-                Timber.e("Received error body $error_str")
-                throw(ServerErrorException(gson.fromJson<ServerError>(error_str, ServerError::class.java)))
             }
         }
 

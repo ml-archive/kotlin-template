@@ -70,7 +70,7 @@ class DownloadManagerImpl(val context: Context, val client: OkHttpClient, val ca
         }
         catch (t : Throwable)
         {
-            t.printStackTrace()
+            Timber.e(t)
         }
         return null
     }

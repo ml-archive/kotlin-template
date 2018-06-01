@@ -36,8 +36,6 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     @Inject
     lateinit var presenter: ChannelOpeningComponentContract.Presenter
 
-    var refreshChannel = false
-
     override fun onCreateView(
             inflater: LayoutInflater?,
             container: ViewGroup?,
@@ -58,15 +56,12 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         arguments?.getSerializable(Channel::class.java.simpleName)?.let { channel ->
             presenter.setup((channel as Channel).id)
         }.guard {
-            activity.onBackPressed()
+            //activity.onBackPressed()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        if (refreshChannel) {
-            presenter.refreshChannel()
-        }
     }
 
 
@@ -138,7 +133,6 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         installBtn.backgroundTintList = ColorStateList.valueOf(colorTint)
         installBtn?.setOnClickListener {
             presenter.install(channel)
-            refreshChannel = true
         }
         if (channel.getType() == "storebox") {
             linkStoreboxBtn.visibility = View.VISIBLE
@@ -183,7 +177,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
     }
 
-    override fun showVerifyDrawer(channel: Channel) {
+    override fun showRequirementsDrawer(channel: Channel) {
         channel.requirements?.let {
             val data = Bundle()
             data.putSerializable("channel", channel)

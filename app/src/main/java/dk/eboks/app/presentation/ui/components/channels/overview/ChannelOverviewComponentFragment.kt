@@ -21,6 +21,7 @@ import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.ChannelColor
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentFragment
+import dk.eboks.app.util.putArg
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
 import javax.inject.Inject
@@ -73,7 +74,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
         //storebox channels id 1 - 3
         //ekey channels id 101 - 103
 
-        addFragmentOnTop(R.id.containerFl, ChannelOpeningComponentFragment(), false)
+        addFragmentOnTop(R.id.containerFl, ChannelOpeningComponentFragment().putArg(Channel::class.java.simpleName, channel) as BaseFragment, false)
 
         /*
         when (channel.getType()) {

@@ -566,9 +566,10 @@ class PresentationModule {
     @Provides
     fun provideChannelOpeningComponentPresenter(
             stateManager: AppStateManager,
-            getChannelInteractor: GetChannelInteractor
+            getChannelInteractor: GetChannelInteractor,
+            createStoreboxInteractor: CreateStoreboxInteractor
     ): ChannelOpeningComponentContract.Presenter {
-        return ChannelOpeningComponentPresenter(stateManager, getChannelInteractor)
+        return ChannelOpeningComponentPresenter(stateManager, getChannelInteractor, createStoreboxInteractor)
     }
 
     @ActivityScope

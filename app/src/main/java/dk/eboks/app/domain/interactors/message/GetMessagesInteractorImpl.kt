@@ -35,8 +35,8 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
             }
 
         } catch (t: Throwable) {
+            Timber.e(t)
             runOnUIThread {
-                Timber.e(t)
                 output?.onGetMessagesError(exceptionToViewError(t, shouldClose = true))
             }
         }
@@ -113,7 +113,13 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
                 when(type)
                 {
                     FolderType.HIGHLIGHTS -> {
-                        return messagesRepository.getHighlights(cached)
+                        try {
+                            return messagesRepository.getHighlights(cached)
+                        }
+                        catch (t : Throwable)
+                        {
+                            t.printStackTrace()
+                        }
                     }
                     FolderType.LATEST -> {
                         return messagesRepository.getLatest(cached)
