@@ -4,15 +4,10 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dk.eboks.app.domain.models.channel.Channel
-import dk.eboks.app.domain.repositories.ChannelsRepository
-import dk.eboks.app.domain.exceptions.ServerErrorException
-import dk.eboks.app.domain.models.home.Control
 import dk.eboks.app.domain.models.home.HomeContent
-import dk.eboks.app.domain.models.message.Message
-import dk.eboks.app.domain.models.protocol.ServerError
+import dk.eboks.app.domain.repositories.ChannelsRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
-import timber.log.Timber
 
 typealias ChannelListStore = CacheStore<String, MutableList<Channel>>
 typealias ChannelControlStore = CacheStore<Long, HomeContent>
