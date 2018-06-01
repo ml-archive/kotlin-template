@@ -16,9 +16,6 @@ class UserRestRepository(private val context: Context, private val api: Api, pri
             if (response.isSuccessful) {
                 return
             }
-            response.errorBody()?.string()?.let { error_str ->
-                throw(ServerErrorException(gson.fromJson<ServerError>(error_str, ServerError::class.java)))
-            }
         }
         throw(RuntimeException())
     }
@@ -28,9 +25,6 @@ class UserRestRepository(private val context: Context, private val api: Api, pri
         result?.let { response ->
             if (response.isSuccessful) {
                 return
-            }
-            response.errorBody()?.string()?.let { error_str ->
-                throw(ServerErrorException(gson.fromJson<ServerError>(error_str, ServerError::class.java)))
             }
         }
         throw(RuntimeException())

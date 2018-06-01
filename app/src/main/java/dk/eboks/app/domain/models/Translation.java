@@ -388,6 +388,7 @@ public class Translation {
 		public static String typeHere = "Type here";
 		public static String myProfile = "My profile";
 		public static String yourInfoWasSaved = "Your information was saved";
+		public static String failedToSaveProfile = "Failed to save profile";
 	}
 	public final static class myInformation {
 		public static String title = "My Information";

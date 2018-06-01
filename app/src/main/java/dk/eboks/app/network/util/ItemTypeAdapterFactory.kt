@@ -38,7 +38,8 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                 var jsonElement = elementAdapter.read(reader)
 
                 //Timber.e("Path ${reader.path}")
-//                Timber.e("parsing element " + jsonElement.toString())
+                //Timber.e("parsing element at path ${reader.path} = " + jsonElement.toString())
+
 
                 if (reader.path != "$") {
                     //Timber.e("Not root path, not doing custom shit")

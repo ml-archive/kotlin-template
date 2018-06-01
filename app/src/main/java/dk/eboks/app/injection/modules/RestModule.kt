@@ -13,6 +13,7 @@ import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.DownloadManagerImpl
 import dk.eboks.app.network.managers.protocol.EboksHeaderInterceptor
+import dk.eboks.app.network.managers.protocol.ServerErrorInterceptor
 import dk.eboks.app.network.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.util.DateDeserializer
 import dk.eboks.app.network.util.ItemTypeAdapterFactory
@@ -101,6 +102,7 @@ class RestModule {
                 .readTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
                 .authenticator(eAuth2)
+                .addInterceptor(ServerErrorInterceptor()) // parses the server error structure and throws the ServerErrorException
                 .addInterceptor(eboksHeaderInterceptor)
                 .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
 
@@ -117,7 +119,8 @@ class RestModule {
     @AppScope
     fun provideRetrofit(
             client: OkHttpClient,
-            converter: Converter.Factory, @Named("NAME_BASE_URL") baseUrl: String
+            converter: Converter.Factory,
+            @Named("NAME_BASE_URL") baseUrl: String
     ): Retrofit {
         return Retrofit.Builder()
                 .client(client)

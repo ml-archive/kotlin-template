@@ -72,11 +72,6 @@ class ChannelsRestRepository(val context: Context, val api: Api, val gson: Gson)
             {
                 return response.body() ?: throw(RuntimeException("Unknown"))
             }
-            // attempt to parse error
-            response.errorBody()?.string()?.let { error_str ->
-                Timber.e("Received error body $error_str")
-                throw(ServerErrorException(gson.fromJson<ServerError>(error_str, ServerError::class.java)))
-            }
         }
         throw(RuntimeException())
     }
