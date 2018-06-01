@@ -155,7 +155,4 @@ class LoginComponentPresenter @Inject constructor(
         }
     }
 
-    override fun setActivationCode(activationCode: String) {
-
-    }
 }

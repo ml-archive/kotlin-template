@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.login.ContactPoint
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.EmailVerificationComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.PhoneVerificationComponentFragment
@@ -26,6 +27,8 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
     @Inject
     lateinit var presenter: MyInfoComponentContract.Presenter
     var menuSave: MenuItem? = null
+
+    val mobilenumber: ContactPoint = ContactPoint()
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -69,6 +72,16 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
+    private fun showVerifyMobile() {
+        mobilenumber.value?.let {
+            if (!mobilenumber.verified && it.equals(mobilEt.text)) {
+                verifyMobileNumberBtn.visibility = View.VISIBLE
+                return
+            }
+        }
+        verifyMobileNumberBtn.visibility = View.GONE
+    }
+
     private fun attachListeners() {
         nameEt.addTextChangedListener(this)
         primaryMailEt.addTextChangedListener(this)
@@ -103,6 +116,9 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
 
     private fun detachListeners() {
         nameEt.removeTextChangedListener(this)
+        primaryMailEt.removeTextChangedListener(this)
+        secondaryMailEt.removeTextChangedListener(this)
+        mobilEt.removeTextChangedListener(this)
     }
 
     override fun onDone() {
@@ -154,8 +170,11 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         secondaryMailEt.setText(email)
     }
 
-    override fun setMobileNumber(mobile: String) {
+    override fun setMobileNumber(mobile: String, verified: Boolean) {
         mobilEt.setText(mobile)
+        mobilenumber.value = mobile
+        mobilenumber.verified = verified
+        showVerifyMobile()
     }
 
     override fun setNewsletter(b: Boolean) {

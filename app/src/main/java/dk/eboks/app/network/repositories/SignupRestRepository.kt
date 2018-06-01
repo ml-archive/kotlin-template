@@ -22,11 +22,11 @@ class SignupRestRepository(private val context: Context, private val api: Api, p
     }
 
 
-    override fun createUser(body: JsonObject) : String  {
+    override fun createUser(body: JsonObject)  {
         val result = api.createUserProfile(body).execute()
         result?.let { response ->
             if (response.isSuccessful) {
-                return (response.body() as LinkedTreeMap<String, String>).get("activationCode") ?: "_error"
+                return
             }
         }.guard {
             throw(RuntimeException())

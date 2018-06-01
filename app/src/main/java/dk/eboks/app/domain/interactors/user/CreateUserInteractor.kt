@@ -17,6 +17,6 @@ interface CreateUserInteractor : Interactor
     interface Output {
         fun onCreateUser(user : User)
         fun onCreateUserError(error : ViewError)
-        fun setActivationCode(activationCode : String )
+
     }
 }

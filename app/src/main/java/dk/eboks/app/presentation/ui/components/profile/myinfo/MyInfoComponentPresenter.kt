@@ -34,7 +34,11 @@ class MyInfoComponentPresenter @Inject constructor(
                 v.setName(user.name)
                 user.getPrimaryEmail()?.let { v.setPrimaryEmail(it) }
                 user.getSecondaryEmail()?.let { v.setSecondaryEmail(it) }
-                user.mobilenumber?.value?.let { v.setMobileNumber(it) }
+                user.mobilenumber?.let {
+                    it.value?.let { value ->
+                        v.setMobileNumber(value, it.verified)
+                    }
+                }
                 v.setNewsletter(user.newsletter)
             }
         }
@@ -66,6 +70,12 @@ class MyInfoComponentPresenter @Inject constructor(
 
     override fun onSaveUser(user: User, numberOfUsers: Int) {
         Timber.e("User saved")
+        runAction { v ->
+            v.setSaveEnabled(true)
+            v.showProgress(false)
+            v.showToast(Translation.profile.yourInfoWasSaved)
+            v.onDone()
+        }
 
     }
 
@@ -80,14 +90,9 @@ class MyInfoComponentPresenter @Inject constructor(
         //todo  needs to save the user locally after the profile has been saved on the server.
         Timber.e("onUpdateProfile succesfull")
         // save user locally
-//            saveUserInteractor.input = SaveUserInteractor.Input(user)
-//            saveUserInteractor.run()
-        runAction { v ->
-            v.setSaveEnabled(true)
-            v.showProgress(false)
-            v.showToast(Translation.profile.yourInfoWasSaved)
-            v.onDone()
-        }
+            saveUserInteractor.input = SaveUserInteractor.Input(user)
+            saveUserInteractor.run()
+
     }
 
     override fun onUpdateProfileError(error: ViewError) {
