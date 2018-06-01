@@ -79,6 +79,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.list.SenderAllListActivity" />
         <activity android:name=".presentation.ui.screens.message.reply.ReplyFormActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.start.HelpActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.notimplemented.NotImplementedActivity" />
 
         <activity android:name="dk.eboks.app.system.managers.permission.PermissionRequestActivity" />
         <activity
