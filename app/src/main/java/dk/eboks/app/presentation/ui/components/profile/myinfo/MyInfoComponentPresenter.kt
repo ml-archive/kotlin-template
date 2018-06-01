@@ -5,7 +5,9 @@ import dk.eboks.app.domain.interactors.user.UpdateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.login.ContactPoint
 import dk.eboks.app.domain.models.login.User
+import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -24,13 +26,15 @@ class MyInfoComponentPresenter @Inject constructor(
         updateUserInteractor.output = this
     }
 
+    var user = User()
+
     override fun setup() {
         appState.state?.currentUser?.let { user ->
             runAction { v ->
                 v.setName(user.name)
                 user.getPrimaryEmail()?.let { v.setPrimaryEmail(it) }
                 user.getSecondaryEmail()?.let { v.setSecondaryEmail(it) }
-                user.mobileNumber?.value?.let { v.setMobileNumber(it) }
+                user.mobilenumber?.value?.let { v.setMobileNumber(it) }
                 v.setNewsletter(user.newsletter)
             }
         }
@@ -38,25 +42,22 @@ class MyInfoComponentPresenter @Inject constructor(
 
     override fun save() {
         runAction { v ->
-            appState.state?.currentUser?.let { user ->
-                user.setPrimaryEmail(v.getPrimaryEmail())
-                user.setSecondaryEmail(v.getSecondaryEmail())
+            v.showProgress(true)
+            v.setSaveEnabled(false)
 
-                user.name = v.getName()
-                user.mobileNumber?.value = v.getMobileNumber()
-                user.newsletter = v.getNewsletter()
-                v.showProgress(true)
-                // save user locally
-                saveUserInteractor.input = SaveUserInteractor.Input(user)
-                saveUserInteractor.run()
-
-
-                v.onDone()
+            user.setPrimaryEmail(v.getPrimaryEmail())
+            user.setSecondaryEmail(v.getSecondaryEmail())
+            user.newsletter = v.getNewsletter()
+            user.name = v.getName()
+            user.mobilenumber?.let {
+                it.value = v.getMobileNumber()
+            }.guard {
+                user.mobilenumber = ContactPoint(v.getMobileNumber(), false)
             }
+            user.newsletter = v.getNewsletter()
+            appState.state?.currentUser = user
 
-            //todo putting in mock data as the app.state does not save the profile atm
             // save user on the server
-            var user = User(555,"updatetest")
             updateUserInteractor.input = UpdateUserInteractor.Input(user)
             updateUserInteractor.run()
 
@@ -65,11 +66,7 @@ class MyInfoComponentPresenter @Inject constructor(
 
     override fun onSaveUser(user: User, numberOfUsers: Int) {
         Timber.e("User saved")
-        runAction { v ->
-            v.setSaveEnabled(false)
-            v.showProgress(false)
-            v.showToast(Translation.profile.yourInfoWasSaved)
-        }
+
     }
 
     override fun onSaveUserError(error: ViewError) {
@@ -80,12 +77,27 @@ class MyInfoComponentPresenter @Inject constructor(
     }
 
     override fun onUpdateProfile() {
-        //todo
+        //todo  needs to save the user locally after the profile has been saved on the server.
         Timber.e("onUpdateProfile succesfull")
+        // save user locally
+//            saveUserInteractor.input = SaveUserInteractor.Input(user)
+//            saveUserInteractor.run()
+        runAction { v ->
+            v.setSaveEnabled(true)
+            v.showProgress(false)
+            v.showToast(Translation.profile.yourInfoWasSaved)
+            v.onDone()
+        }
     }
 
     override fun onUpdateProfileError(error: ViewError) {
         //todo
         Timber.e(error.message)
+        runAction { v ->
+            v.setSaveEnabled(true)
+            v.showProgress(false)
+            v.showToast(Translation.profile.failedToSaveProfile)
+            v.onDone()
+        }
     }
 }

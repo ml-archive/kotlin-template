@@ -88,7 +88,11 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         }
 
         verifySecondaryEmailBtn.setOnClickListener {
-            getBaseActivity()?.openComponentDrawer(EmailVerificationComponentFragment::class.java)
+            if (primaryMailEt.text.isValidEmail()) {
+                var args = Bundle()
+                args.putSerializable("mail", secondaryMailEt.text.toString())
+                getBaseActivity()?.openComponentDrawer(EmailVerificationComponentFragment::class.java, args)
+            }
         }
 
         verifyMobileNumberBtn.setOnClickListener {

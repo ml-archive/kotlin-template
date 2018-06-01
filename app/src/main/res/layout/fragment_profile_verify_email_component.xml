@@ -26,13 +26,13 @@
         nstack:key="@string/nstack_profile_verifyEmailHeader"/>
 
     <TextView
+        android:id="@+id/bodyTv"
         style="@style/text.body6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="8dp"
         android:text="_Confirm your email by clicking th link sent to you by e-mail to: helenachristensen@gmail.com"
-        nstack:key="@string/nstack_profile_verifyEmailText"
         android:textColor="@color/blueGrey" />
 
     <Button
