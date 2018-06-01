@@ -32,7 +32,7 @@ interface Api {
     @POST("http://test401-oauth-api-dk.e-boks.com/connect/token") fun getToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
 
     // user
-    @GET("user/email/{email}") fun checkUserEmail(@Path("email") email : String) : Call<BooleanReply>
+    @GET("user/{identity}/exists") fun checkUserEmail(@Path("identity") identity : String) : Call<BooleanReply>
     @GET("user/identity/{identity}") fun checkUserIdentity(@Path("identity") cpr : String) : Call<BooleanReply>
     @POST("user/profile") fun createUserProfile(@Body user: JsonObject) : Call<Any>
     @POST("user/{nationality}/{email}/resetpassword") fun resetPassword(@Path("nationality") nationality: String, @Path("email") email: String) : Call<Void>

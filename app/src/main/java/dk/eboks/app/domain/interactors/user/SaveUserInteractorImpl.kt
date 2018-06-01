@@ -18,7 +18,7 @@ class SaveUserInteractorImpl(executor: Executor, val userManager: UserManager) :
         // we don't use input in this example but we could:
         try {
             input?.user?.let { user->
-                userManager.save(user)
+                userManager.put(user)
                 runOnUIThread {
                     output?.onSaveUser(user, userManager.users.size)
                 }

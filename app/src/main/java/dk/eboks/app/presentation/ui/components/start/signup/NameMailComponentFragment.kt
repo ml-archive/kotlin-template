@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.start.signup
 
 import android.app.Activity
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,8 +16,11 @@ import dk.eboks.app.domain.models.Translation
 import android.util.Patterns
 import android.text.TextUtils
 import android.os.Handler
+import android.support.v7.app.AlertDialog
 import android.view.inputmethod.InputMethodManager
+import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
 import dk.eboks.app.util.isValidEmail
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -157,7 +161,16 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         if (!exists) {
             getBaseActivity()?.addFragmentOnTop(R.id.containerFl, PasswordComponentFragment(), true)
         } else {
-            //todo mail already exists show popup
+            val builder = AlertDialog.Builder(context)
+            builder.setTitle(Translation.signup.dialogEmailExistsTitle)
+            builder.setMessage(Translation.signup.dialogEmailExistsMsg)
+            builder.setNegativeButton(Translation.defaultSection.cancel,{ dialogInterface, i ->
+                dialogInterface.dismiss()
+            })
+            builder.setPositiveButton(Translation.signup.dialogEmailExistsPositiveBtn.toUpperCase(),{ dialogInterface, i ->
+                getBaseActivity()?.onBackPressed()
+            })
+            builder.show()
         }
     }
 
@@ -165,10 +178,5 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         showProgress(false)
         //todo something went wrong show error ?
         Timber.e("server error " + error)
-
-        //todo
-        // continue with the flow - this should be removed once the api call starts working.
-        getBaseActivity()?.addFragmentOnTop(R.id.containerFl, PasswordComponentFragment(), true)
-
     }
 }

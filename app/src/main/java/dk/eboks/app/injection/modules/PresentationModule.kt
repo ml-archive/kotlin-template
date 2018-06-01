@@ -479,9 +479,10 @@ class PresentationModule {
             stateManager: AppStateManager,
             createUserInteractor: CreateUserInteractor,
             verifySignupMailInteractor: CheckSignupMailInteractor,
-            loginInteractor: LoginInteractor
+            loginInteractor: LoginInteractor,
+            checkSsnExistsInteractor: CheckSsnExistsInteractor
     ): SignupComponentContract.Presenter {
-        return SignupComponentPresenter(stateManager, createUserInteractor, loginInteractor, verifySignupMailInteractor)
+        return SignupComponentPresenter(stateManager, createUserInteractor, loginInteractor, verifySignupMailInteractor, checkSsnExistsInteractor)
     }
 
     @ActivityScope
@@ -747,9 +748,10 @@ class PresentationModule {
     @Provides
     fun provideProfileInfoComponentPresenter(
             stateManager: AppStateManager,
-            saveUserInteractor: SaveUserInteractor
+            saveUserInteractor: SaveUserInteractor,
+            getUserProfileInteractor: GetUserProfileInteractor
     ): ProfileInfoComponentContract.Presenter {
-        return ProfileInfoComponentPresenter(stateManager, saveUserInteractor)
+        return ProfileInfoComponentPresenter(stateManager, saveUserInteractor,getUserProfileInteractor)
     }
 
     @ActivityScope

@@ -23,7 +23,7 @@ interface SignupComponentContract {
     }
 
     interface MMView : SignupView {
-
+        fun ssnExists(ssnExisits: Boolean)
     }
 
     interface VerificationView : SignupView {
@@ -44,5 +44,6 @@ interface SignupComponentContract {
         fun createUserAndLogin()
         fun confirmMail(email: String, name: String)
         fun createUser()
+        fun verifySSN(ssn: String)
     }
 }

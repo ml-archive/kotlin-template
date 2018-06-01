@@ -20,28 +20,28 @@ class CreateUserInteractorImpl(executor: Executor, val userManager: UserManager,
             input?.user?.let { user ->
                 input?.password?.let { password ->
                     //todo find which of the missing fields should be included
-                    var body = JsonObject()
+                    val body = JsonObject()
                     body.addProperty("name", user.name)
-//                    body.addProperty("identity", user)
+                    body.addProperty("identity", user.getPrimaryEmail())
                     body.addProperty("password", password)
-//                    body.addProperty("identityType", "P")
+                    body.addProperty("identityType", "P")
                     body.addProperty("nationality", "DK")
-//                    body.addProperty("mobilenumber", "temp")
-                    var mails = JsonArray()
-//                    user.emails.forEach {
-//                        mails.add(it.value)
-//                    }
+                    val mails = JsonArray()
                     mails.add(user.getPrimaryEmail())
-                    body.add("email", mails)
-//                    body.addProperty("newsletter", true)
+                    body.add("emails", mails)
 
-                    signupRestRepo.createUser(body)
+                    val createUser = signupRestRepo.createUser(body)
+
+                    runOnUIThread {
+                        createUser.let {
+                            output?.setActivationCode(createUser)
+                            output?.onCreateUser(user)
+                        }
+                    }
+
                 }
 
-                runOnUIThread {
-                    userManager.add(user)
-                    output?.onCreateUser(user, userManager.users.size)
-                }
+
             }
 
         } catch (t: Throwable) {

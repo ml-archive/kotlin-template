@@ -3,8 +3,11 @@ package dk.eboks.app.network.repositories
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import com.google.gson.internal.LinkedTreeMap
 import dk.eboks.app.domain.repositories.SignupRepository
 import dk.eboks.app.network.Api
+import dk.eboks.app.util.guard
+
 
 class SignupRestRepository(private val context: Context, private val api: Api, private val gson: Gson) : SignupRepository {
 
@@ -19,10 +22,16 @@ class SignupRestRepository(private val context: Context, private val api: Api, p
     }
 
 
-    override fun createUser(body: JsonObject) {
+    override fun createUser(body: JsonObject) : String  {
         val result = api.createUserProfile(body).execute()
-        if(result.isSuccessful)
-            return
+        result?.let { response ->
+            if (response.isSuccessful) {
+                return (response.body() as LinkedTreeMap<String, String>).get("activationCode") ?: "_error"
+            }
+        }.guard {
+            throw(RuntimeException())
+
+        }
         throw(RuntimeException())
     }
 }

@@ -34,13 +34,13 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        //todo what should happend if you continue without ssn ?
         continueWithoutMMTv.setOnClickListener { onContinueClicked() }
-
+        signupWithMMBtn.setOnClickListener { onContinueClicked() }
         setupTopBar()
     }
 
-    private fun setupValidation()
-    {
+    private fun setupValidation() {
         cprEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(cprNumber: Editable?) {
                 mHandler.removeCallbacksAndMessages(null)
@@ -89,10 +89,18 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
     fun onContinueClicked() {
         //(activity as StartActivity).showLogo(false)
         showProgress(true)
-        content.postDelayed({
-            showProgress(false)
-            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
-        }, 1000)
+        presenter.verifySSN(cprEt.text.toString())
     }
 
+    override fun ssnExists(ssnExisits: Boolean) {
+        showProgress(false)
+        if (!ssnExisits) {
+            content.postDelayed({
+                showProgress(false)
+                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
+            }, 1000)
+        } else {
+            // todo ssn already exisits show dialog
+        }
+    }
 }
