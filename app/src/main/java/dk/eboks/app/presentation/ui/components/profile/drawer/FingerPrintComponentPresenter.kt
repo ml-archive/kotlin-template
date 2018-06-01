@@ -33,12 +33,7 @@ class FingerPrintComponentPresenter @Inject constructor(val appState: AppStateMa
     }
 
     private fun showErrorMessage() {
-        val errorMessage = ViewError(
-                Translation.error.genericTitle,
-                Translation.error.genericMessage,
-                true,
-                true
-        )
+        val errorMessage = ViewError(Translation.error.genericTitle, Translation.error.genericMessage, true, true)
         view?.showErrorDialog(errorMessage)
     }
 }

@@ -24,16 +24,8 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     var handler = Handler()
     private var mode: LoginInfoType? = null
 
-    override fun onCreateView(
-            inflater: LayoutInflater?,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-    ): View? {
-        return inflater?.inflate(
-                R.layout.fragment_profile_enable_fingerprint_component,
-                container,
-                false
-        )
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater?.inflate(R.layout.fragment_profile_enable_fingerprint_component, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
