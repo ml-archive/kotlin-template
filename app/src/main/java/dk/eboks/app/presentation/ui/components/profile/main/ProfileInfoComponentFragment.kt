@@ -19,6 +19,7 @@ import dk.eboks.app.presentation.ui.components.profile.drawer.FingerPrintCompone
 import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFragment
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
+import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.util.dpToPx
 import dk.eboks.app.util.setVisible

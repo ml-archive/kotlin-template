@@ -21,7 +21,27 @@ class ServerErrorInterceptor : okhttp3.Interceptor  {
         if(!response.isSuccessful)
         {
             response.peekBody(16384L)?.string()?.let { buffer ->
-                throw(ServerErrorException(gson.fromJson<ServerError>(buffer, ServerError::class.java)))
+                try {
+                    val se = gson.fromJson<ServerError>(buffer, ServerError::class.java) ?: return response
+                    if(se.id == null)
+                        return response
+                    throw(ServerErrorException(se))
+                }
+                catch (t : Throwable)
+                {
+                    if(t is ServerErrorException || t.cause is ServerErrorException)
+                    {
+                        Timber.e("Rethrowing ServerErrorException")
+                        throw(t)
+                    }
+                    else
+                    {
+                        Timber.e("Could not parse a ServerError passing through body")
+                        Timber.e(t)
+                        t.printStackTrace()
+                        return response
+                    }
+                }
             }
         }
         return response
