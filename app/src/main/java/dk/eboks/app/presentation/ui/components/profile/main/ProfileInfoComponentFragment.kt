@@ -4,27 +4,21 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.profile.HelpFragment
 import dk.eboks.app.presentation.ui.components.profile.PrivacyFragment
 import dk.eboks.app.presentation.ui.components.profile.drawer.FingerPrintComponentFragment
 import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFragment
-import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
 import dk.eboks.app.presentation.ui.components.start.signup.AcceptTermsComponentFragment
 import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
-import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.util.dpToPx
 import dk.eboks.app.util.setVisible
@@ -33,7 +27,6 @@ import dk.nodes.filepicker.FilePickerConstants
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_profile_main_component.*
 import kotlinx.android.synthetic.main.include_profile_bottom.*
-import net.hockeyapp.android.LoginActivity
 import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
@@ -162,7 +155,13 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
     }
 
-    private fun acquireUserImage() {
+    override fun showFingerprintEnabled(enabled: Boolean, lastProviderId: String?) {
+        Timber.d("showFingerprintEnabled $enabled")
+        profileDetailSwFingerprint.isChecked = enabled
+    }
+
+    private fun acquireUserImage()
+    {
         val intent = Intent(activity, FilePickerActivity::class.java)
         intent.putExtra(FilePickerConstants.CAMERA, true)
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE)
@@ -227,21 +226,6 @@ class ProfileInfoComponentFragment : BaseFragment(),
     override fun setVerified(verified: Boolean) {
         profileDetailRegisterTB?.let {
             it.isChecked = verified
-        }
-    }
-
-    override fun setFingerprintEnabled(enabled: Boolean, lastProviderId: String?) {
-        profileDetailSwFingerprint?.let {
-            profileDetailSwFingerprint.isChecked = enabled
-            profileDetailSwFingerprint.setOnCheckedChangeListener { compoundButton, b ->
-                Log.d("DEBUG", "setFingerprintEnabled $enabled")
-
-                if (b) {
-                    getBaseActivity()?.openComponentDrawer(FingerPrintComponentFragment::class.java)
-                } else {
-                    presenter.enableUserFingerprint(false)
-                }
-            }
         }
     }
 
