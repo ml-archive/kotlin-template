@@ -57,7 +57,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     private fun setup() {
         pinSliderSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             //todo do something when the slider is checked
-            println("_pin slider checked$isChecked")
+            Timber.d("_pin slider checked$isChecked")
         }
 
         if (isStorebox) {

@@ -21,15 +21,13 @@ class UpdateUserInteractorImpl(executor: Executor, val api: Api, val userRestRep
             input?.user?.let {
                 val body = JsonObject()
                 body.addProperty("name", it.name)
-//                body.add("mobilenumber", it.mobileNumber)
+                body.addProperty("mobilenumber", it.mobilenumber?.value)
                 body.addProperty("newsletter", it.newsletter)
                 val mails = JsonArray()
                 mails.add(it.getPrimaryEmail())
                 mails.add(it.getSecondaryEmail())
                 body.add("emails", mails)
                 userRestRepo.updateProfile(body)
-                //todo
-                få det til at virke
             }
             runOnUIThread {
                 output?.onUpdateProfile()

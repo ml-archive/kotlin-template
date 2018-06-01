@@ -338,6 +338,7 @@
   <string name='nstack_profile_typeHere' formatted='false'>profile_typeHere</string>
   <string name='nstack_profile_myProfile' formatted='false'>profile_myProfile</string>
   <string name='nstack_profile_yourInfoWasSaved' formatted='false'>profile_yourInfoWasSaved</string>
+  <string name='nstack_profile_failedToSaveProfile' formatted='false'>profile_failedToSaveProfile</string>
   <string name='nstack_myInformation_title' formatted='false'>myInformation_title</string>
   <string name='nstack_myInformation_name' formatted='false'>myInformation_name</string>
   <string name='nstack_myInformation_primaryEmail' formatted='false'>myInformation_primaryEmail</string>

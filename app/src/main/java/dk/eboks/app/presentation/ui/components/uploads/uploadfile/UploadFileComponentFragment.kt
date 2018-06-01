@@ -13,6 +13,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_signup_name_mail_component.*
 import kotlinx.android.synthetic.main.fragment_upload_uploadfile_component.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -47,17 +48,17 @@ class UploadFileComponentFragment : BaseFragment(), UploadFileComponentContract.
         saveBtn.setOnClickListener {
             //todo saveBtn clicked
             var temp = "_saveBtn Clicked!"
-            println(temp)
+            Timber.d(temp)
         }
         cancelBtn.setOnClickListener {
             //todo cancelBtn clicked
             var temp = "_cancelBtn Clicked!"
-            println(temp)
+            Timber.d(temp)
         }
         choseFolderLl.setOnClickListener {
             //todo chose folder clicked
             var temp = "_chose folder Clicked!"
-            println(temp)
+            Timber.d(temp)
         }
     }
 
