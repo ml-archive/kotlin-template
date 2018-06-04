@@ -30,13 +30,11 @@ class CreateUserInteractorImpl(executor: Executor, val userManager: UserManager,
                     mails.add(user.getPrimaryEmail())
                     body.add("emails", mails)
 
-                    val createUser = signupRestRepo.createUser(body)
+                    //todo  remove this so it does not takes the activation code
+                    signupRestRepo.createUser(body)
 
                     runOnUIThread {
-                        createUser.let {
-                            output?.setActivationCode(createUser)
-                            output?.onCreateUser(user)
-                        }
+                        output?.onCreateUser(user)
                     }
 
                 }

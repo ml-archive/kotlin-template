@@ -11,7 +11,7 @@ interface MyInfoComponentContract {
         fun setName(name : String)
         fun setPrimaryEmail(email : String)
         fun setSecondaryEmail(email : String)
-        fun setMobileNumber(mobile : String)
+        fun setMobileNumber(mobile : String, verified:Boolean)
         fun setNewsletter(b : Boolean)
         fun getName() : String
         fun getPrimaryEmail() : String

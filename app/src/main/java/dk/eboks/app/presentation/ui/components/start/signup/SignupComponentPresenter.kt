@@ -136,10 +136,6 @@ class SignupComponentPresenter @Inject constructor(
         val tempUser: User = User()
     }
 
-    override fun setActivationCode(activationCode: String) {
-        appState.state?.loginState?.activationCode = activationCode
-    }
-
     // Mina meddelan
 
     override fun verifySSN(ssn: String) {

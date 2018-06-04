@@ -86,7 +86,4 @@ class DebugUserPresenter(
         var editUser: User? = null
     }
 
-    override fun setActivationCode(activationCode: String) {
-
-    }
 }
