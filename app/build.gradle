@@ -27,7 +27,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 34
+        versionCode 35
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -59,7 +59,7 @@ android {
         buildConfigField "Boolean", "ENABLE_EKEY", "false"                       // TODO not implemented
         buildConfigField "Boolean", "ENABLE_CHANNEL_REORDERING", "false"         // TODO not implemented
         buildConfigField "Boolean", "ENABLE_PROFILE_DATA_VERIFICATION", "false"  // TODO not implemented
-        buildConfigField "Boolean", "ENABLE_EKEY", "false"                       // TODO not implemented
+        buildConfigField "Boolean", "ENABLE_SHARES", "false"                     // TODO not implemented
 
     }
 
@@ -260,7 +260,7 @@ dependencies {
 
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-    implementation "dk.nodes.nstack:nstack-kotlin:2.0.11"
+    implementation "dk.nodes.nstack:nstack-kotlin:2.1.0"
 
     implementation "dk.nodes.arch:base:$nodes_arch_version"
     //implementation "dk.nodes.arch:base:LOCAL"

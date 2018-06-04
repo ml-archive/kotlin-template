@@ -32,16 +32,16 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
 
     override fun setup(channelId: Int) {
         this.channelId = channelId
-        refreshChannel()
+        //refreshChannel()
     }
 
     override fun refreshChannel() {
-
-        getChannelInteractor.input = GetChannelInteractor.Input(channelId)
-        getChannelInteractor.run()
+        Timber.e("refreshChannel")
         runAction { v ->
             v.showProgress(true)
         }
+        getChannelInteractor.input = GetChannelInteractor.Input(channelId)
+        getChannelInteractor.run()
     }
 
     override fun install(channel: Channel) {
@@ -88,11 +88,6 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
 
             }
         }
-//        if (channel.isStorebox()) {
-//            runAction { v -> v.openStoreBoxContent() }
-//        } else {
-//            runAction { v -> v.openChannelContent() }
-//        }
     }
 
     override fun onGetChannel(channel: Channel) {
@@ -101,14 +96,19 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
         this.channel = channel
 
         // TODO remove me
+        /*
         channel.requirements?.forEach { req ->
             req.verified = true
         }
+        */
 
-        runAction { v -> v.showProgress(false) }
+        // if channel is already installed we just open it
         if (channel.installed) {
-            runAction { v -> v.goToWebView(channel) }
-        } else {
+            open(channel)
+        }
+        else    // else do the whole channel install shebang
+        {
+            runAction { v -> v.showProgress(false) }
             when (channel.status?.type) {
                 APIConstants.CHANNEL_STATUS_AVAILABLE -> {
                     runAction { v -> v.showInstallState(channel) }
