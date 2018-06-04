@@ -24,6 +24,7 @@ import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxCo
 import dk.eboks.app.presentation.widgets.GlideAlphaTransform
 import dk.eboks.app.util.getType
 import dk.eboks.app.util.guard
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_channel_opening_component.*
 import kotlinx.android.synthetic.main.include_channel_detail_bottom_install.*
 import kotlinx.android.synthetic.main.include_channel_detail_top.*
@@ -62,6 +63,8 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
 
     override fun onResume() {
         super.onResume()
+        clearFindViewByIdCache()
+        presenter.refreshChannel()
     }
 
 
@@ -96,6 +99,11 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         }
     }
 
+    private fun showInitialState()
+    {
+
+    }
+
     override fun showOpenState(channel: Channel) {
         val v = inflater.inflate(R.layout.include_channel_detail_bottom_open, contentBottom, false)
         setupTopView(channel)
@@ -120,6 +128,8 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     }
 
     override fun showInstallState(channel: Channel) {
+        contentBottom.removeAllViews()
+
         val v = inflater.inflate(
                 R.layout.include_channel_detail_bottom_install,
                 contentBottom,
@@ -158,10 +168,6 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         button?.setOnClickListener {
             presenter.install(channel)
         }
-    }
-
-    override fun goToWebView(channel: Channel) {
-        presenter.open(channel)
     }
 
     override fun showProgress(show: Boolean) {

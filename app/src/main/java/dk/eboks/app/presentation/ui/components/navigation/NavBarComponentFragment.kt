@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.pasta.activity.PastaActivity
@@ -14,6 +15,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity
 import dk.eboks.app.presentation.ui.screens.home.HomeActivity
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
+import dk.eboks.app.presentation.ui.screens.notimplemented.NotImplementedActivity
 import dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity
 import dk.eboks.app.presentation.ui.screens.uploads.UploadsActivity
 import dk.eboks.app.util.disableShiftingMode
@@ -76,14 +78,22 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
                     currentMenuItem = R.id.actionChannels
                 }
                 R.id.actionSenders -> {
-                    activityCls = SendersOverviewActivity::class.java
+                    if(BuildConfig.ENABLE_SENDERS) {
+                        activityCls = SendersOverviewActivity::class.java
+                    }
+                    else
+                    {
+                        activityCls = NotImplementedActivity::class.java
+                    }
                     currentMenuItem = R.id.actionSenders
                 }
                 R.id.actionUploads -> {
-                    activityCls = UploadsActivity::class.java
+                    if(BuildConfig.ENABLE_UPLOADS)
+                        activityCls = UploadsActivity::class.java
+                    else
+                        activityCls = NotImplementedActivity::class.java
                     currentMenuItem = R.id.actionUploads
                 }
-
                 else -> { }
             }
             activityCls?.let {
