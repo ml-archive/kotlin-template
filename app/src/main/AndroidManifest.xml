@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="dk.dof.birdapp">
+    package="dk.nodes.template">
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="replace" />
 
     <application
         android:allowBackup="true"
-        android:name="dk.dof.birdapp.App"
+        android:name="dk.nodes.template.App"
         android:icon="@mipmap/ic_launcher"
         android:label="${APP_NAME}"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -28,11 +28,12 @@
         <!-- hockey id included from build.gradle manifest placeholder -->
         <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name="dk.dof.birdapp.presentation.ui.main.MainActivity">
+        <activity android:name="dk.nodes.template.presentation.ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".presentation.ui.main.SampleActivity" />
     </application>
 </manifest>
