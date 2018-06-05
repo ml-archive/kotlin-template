@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/actionMap"
+        android:enabled="true"
+        android:icon="@drawable/nav_ic_map"
+        android:title="_Map" />
 
     <item
-        android:id="@+id/actionAppName"
-        android:icon="@null"
-        android:title="@string/app_name"
-        app:showAsAction="always"/>
+        android:id="@+id/actionWhatBird"
+        android:icon="@drawable/nav_ic_whichbird"
+        android:enabled="true"
+        android:title="_What bird" />
+
+    <item
+        android:id="@+id/actionDofBirdbook"
+        android:icon="@drawable/nav_ic_birdbook"
+        android:enabled="true"
+        android:title="_DOFs Birdbook" />
 
 </menu>
