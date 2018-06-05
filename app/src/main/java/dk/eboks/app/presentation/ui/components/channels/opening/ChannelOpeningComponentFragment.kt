@@ -99,11 +99,6 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         }
     }
 
-    private fun showInitialState()
-    {
-
-    }
-
     override fun showOpenState(channel: Channel) {
         val v = inflater.inflate(R.layout.include_channel_detail_bottom_open, contentBottom, false)
         setupTopView(channel)

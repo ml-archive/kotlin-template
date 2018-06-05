@@ -230,6 +230,7 @@
             android:id="@+id/creditCardContainerLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="vertical"
             android:visibility="visible">
 
@@ -258,9 +259,10 @@
                 android:orientation="vertical" />
 
             <LinearLayout
+                android:id="@+id/addCardLl"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="@color/white"
+                android:background="?selectableItemBackground"
                 android:orientation="horizontal"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">

@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.channels.settings
 
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -14,7 +15,11 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
+import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
+import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxAddCardActivity
+import dk.eboks.app.util.Starter
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_settings_component.*
 import timber.log.Timber
@@ -28,6 +33,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
     private val adapter = CreditCardAdapter()
     private var isStorebox = false
+    private var didShowCardView = false
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -51,6 +57,14 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         showProgress(true)
 
         setup()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(didShowCardView)
+        {
+            presenter.getCreditCards()
+        }
     }
 
 
@@ -79,19 +93,17 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         creditcardRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         creditcardRv.adapter = adapter
 
-        optionalSliderSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            //todo do something when the slider is checked
-            Timber.v("_optional slider checked$isChecked")
-        }
-
-        addCardFl.setOnClickListener {
+        addCardLl.setOnClickListener {
             //todo something happends when you click add card
             Timber.v("_add card clicked")
+            presenter.getStoreboxCardLink()
         }
 
         removeChannelBtn.setOnClickListener {
             showRemoveChannelDialog()
         }
+
+        presenter.getStoreboxProfile()
     }
 
     private fun showRemoveChannelDialog() {
@@ -138,6 +150,19 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
     override fun showEmptyView(boolean: Boolean) {
 
+    }
+
+    override fun showAddCardView(link: Link) {
+        didShowCardView = true
+        activity.Starter().activity(StoreboxAddCardActivity::class.java).putExtra(Link::class.java.simpleName, link).start()
+    }
+
+    override fun setOnlyDigitalReceipts(onlyDigital: Boolean) {
+        Timber.d("Setting digital receipts to $onlyDigital")
+        optionalSliderSwitch.isChecked = onlyDigital
+        optionalSliderSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            presenter.saveStoreboxProfile(StoreboxProfile(isChecked))
+        }
     }
 
     inner class CreditCardAdapter : RecyclerView.Adapter<CreditCardAdapter.CreditCardViewHolder>() {

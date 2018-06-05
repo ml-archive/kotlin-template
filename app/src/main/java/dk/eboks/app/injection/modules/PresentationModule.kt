@@ -613,9 +613,12 @@ class PresentationModule {
     fun provideChannelSettingsComponentPresenter(
             stateManager: AppStateManager,
             getStoreboxCreditCardsInteractor: GetStoreboxCreditCardsInteractor,
-            deleteStoreboxCreditCardInteractor: DeleteStoreboxCreditCardInteractor
+            deleteStoreboxCreditCardInteractor: DeleteStoreboxCreditCardInteractor,
+            getStoreboxProfileInteractor: GetStoreboxProfileInteractor,
+            putStoreboxProfileInteractor: PutStoreboxProfileInteractor,
+            getStoreboxCardLinkInteractor: GetStoreboxCardLinkInteractor
     ): ChannelSettingsComponentContract.Presenter {
-        return ChannelSettingsComponentPresenter(stateManager,getStoreboxCreditCardsInteractor,deleteStoreboxCreditCardInteractor)
+        return ChannelSettingsComponentPresenter(stateManager,getStoreboxCreditCardsInteractor,deleteStoreboxCreditCardInteractor, getStoreboxProfileInteractor, putStoreboxProfileInteractor, getStoreboxCardLinkInteractor)
     }
 
     @ActivityScope

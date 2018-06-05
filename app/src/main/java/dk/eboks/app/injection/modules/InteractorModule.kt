@@ -406,6 +406,21 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideGetStoreboxProfileInteractor(executor: Executor, api: Api): GetStoreboxProfileInteractor {
+        return GetStoreboxProfileInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun providePutStoreboxProfileInteractor(executor: Executor, api: Api): PutStoreboxProfileInteractor {
+        return PutStoreboxProfileInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun provideGetStoreboxCardLinkInteractor(executor: Executor, api: Api): GetStoreboxCardLinkInteractor {
+        return GetStoreboxCardLinkInteractorImpl(executor, api)
+    }
+
+    @Provides
     fun provideConfirmStoreboxInteractor(executor: Executor, api: Api): ConfirmStoreboxInteractor {
         return ConfirmStoreboxInteractorImpl(executor, api)
     }

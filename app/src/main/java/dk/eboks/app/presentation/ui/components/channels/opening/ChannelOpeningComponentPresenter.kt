@@ -32,7 +32,6 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
 
     override fun setup(channelId: Int) {
         this.channelId = channelId
-        //refreshChannel()
     }
 
     override fun refreshChannel() {
@@ -96,11 +95,11 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
         this.channel = channel
 
         // TODO remove me
-        /*
+
         channel.requirements?.forEach { req ->
             req.verified = true
         }
-        */
+        channel.installed = true
 
         // if channel is already installed we just open it
         if (channel.installed) {
