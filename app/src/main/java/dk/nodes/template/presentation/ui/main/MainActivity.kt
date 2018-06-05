@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View {
     @Inject
-    private lateinit var presenter: MainContract.Presenter
+    lateinit var presenter: MainContract.Presenter
 
     override fun injectDependencies() {
         component.inject(this)
