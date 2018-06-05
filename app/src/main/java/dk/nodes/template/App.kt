@@ -8,8 +8,7 @@ import dk.nodes.template.injection.components.DaggerAppComponent
 import dk.nodes.template.injection.modules.AppModule
 import timber.log.Timber
 
-class App : Application()
-{
+class App : Application() {
     val appComponent: AppComponent by lazy {
         DaggerAppComponent
                 .builder()
@@ -21,7 +20,7 @@ class App : Application()
         super.onCreate()
         _instance = this
 
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
 
@@ -44,9 +43,8 @@ class App : Application()
     */
 
     companion object {
-        private lateinit var _instance : App
-        fun instance() : App
-        {
+        private lateinit var _instance: App
+        fun instance(): App {
             return _instance
         }
     }

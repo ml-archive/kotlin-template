@@ -7,6 +7,7 @@ import dk.nodes.template.presentation.ui.main.MainActivity
 import dk.nodes.template.presentation.ui.main.MainPresenter
 
 @Subcomponent(modules = [PresentationModule::class])
+@ActivityScope
 interface PresentationComponent {
     fun inject(target: MainActivity)
     fun inject(target: MainPresenter)
