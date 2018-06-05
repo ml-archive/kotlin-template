@@ -13,26 +13,20 @@ import dk.nodes.template.domain.repositories.PostRepository
 import dk.nodes.template.domain.repositories.RepositoryException
 import okio.BufferedSource
 
-/**
- * Created by bison on 24-06-2017.
- */
 class StorePostRepository(val api: Api, val gson: Gson, val context: Context) : PostRepository {
 
     val postStore: Store<List<Post>, Int> by lazy {
         StoreBuilder.parsedWithKey<Int, BufferedSource, List<Post>>()
                 .fetcher { key -> api.getPostsBuffered() }
-                .persister(FileSystemPersister.create(FileSystemFactory.create(context.filesDir), { key -> "Post$key"}))
+                .persister(FileSystemPersister.create(FileSystemFactory.create(context.filesDir), { key -> "Post$key" }))
                 .parser(GsonParserFactory.createSourceParser<List<Post>>(gson, object : TypeToken<List<Post>>() {}.type))
                 .open()
     }
 
-    override fun getPosts(cached : Boolean): List<Post>
-    {
+    override fun getPosts(cached: Boolean): List<Post> {
         try {
-            return if(cached) postStore.get(0).blockingGet() else postStore.fetch(0).blockingGet()
-        }
-        catch (e : Exception)
-        {
+            return if (cached) postStore.get(0).blockingGet() else postStore.fetch(0).blockingGet()
+        } catch (e: Exception) {
             throw(RepositoryException(-1, e.message ?: "Unknown"))
         }
     }

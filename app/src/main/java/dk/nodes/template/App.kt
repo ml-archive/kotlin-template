@@ -8,9 +8,6 @@ import dk.nodes.template.injection.components.DaggerAppComponent
 import dk.nodes.template.injection.modules.AppModule
 import timber.log.Timber
 
-/**
- * Created by bison on 20-05-2017.
- */
 class App : Application()
 {
     val appComponent: AppComponent by lazy {
@@ -30,10 +27,10 @@ class App : Application()
 
         appComponent.inject(this)
 
-        setupNstack()
+        setupNStack()
     }
 
-    private fun setupNstack() {
+    private fun setupNStack() {
         NStack.translationClass = Translation::class.java
         NStack.init(this)
     }

@@ -20,10 +20,6 @@ import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 
-
-/**
- * Created by bison on 25/07/17.
- */
 @Module
 class RestModule {
     @Provides

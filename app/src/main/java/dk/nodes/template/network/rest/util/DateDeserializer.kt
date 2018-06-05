@@ -9,9 +9,6 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-/**
- * Created by bison on 26/07/17.
- */
 class DateDeserializer : JsonDeserializer<Date> {
     @Throws(JsonParseException::class)
     override fun deserialize(jsonElement: JsonElement, typeOF: Type,
