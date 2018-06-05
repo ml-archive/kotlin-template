@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="?attr/actionBarSize"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_marginTop="16dp"
+                android:id="@+id/rlHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/logo_pink" />
+
+                <Button
+                    android:id="@+id/btnReset"
+                    android:layout_width="100dp"
+                    android:layout_height="34dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="13dp"
+                    android:background="@android:color/transparent"
+                    android:text="{findBird_resetButton}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/color.dof.birdguide.red"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tvFindBirdHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rlHeader"
+                android:gravity="center"
+                android:textAllCaps="true"
+                android:textColor="@color/color.dof.birdguide.black"
+                android:textSize="18sp"
+                nstack:key="{findBird_header" />
+
+
+            <LinearLayout
+                android:id="@+id/llSelectors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Date selector -->
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    card_view:cardBackgroundColor="@color/color.dof.birdguide.white"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="3dp"
+                    card_view:contentPaddingRight="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvDateSelectorNumber"
+                            android:layout_width="40dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="1"
+                            android:textColor="@color/color.dof.birdguide.black"
+                            android:textSize="25sp" />
+
+                        <TextView
+                            android:id="@+id/tvDateSelectorTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="{findBird_whenQuestion}"
+                            android:textColor="@color/color.dof.birdguide.black"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tvDateSelectorSelected"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical|right"
+                            android:text="_26. april"
+                            android:textColor="@color/color.dof.birdguide.red"
+                            android:layout_marginRight="8dp"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <!-- Size selector -->
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    card_view:cardBackgroundColor="@color/color.dof.birdguide.white"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="3dp"
+                    card_view:contentPaddingRight="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvSizeSelectorNumber"
+                            android:layout_width="41dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:gravity="center"
+                            android:text="2"
+                            android:textColor="@color/color.dof.birdguide.black"
+                            android:textSize="25sp" />
+
+                        <TextView
+                            android:id="@+id/tvSizeSelectorTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@id/tvSizeSelectorNumber"
+                            android:gravity="center"
+                            android:text="{findBird_sizeQuestion}"
+                            android:textColor="@color/color.dof.birdguide.black"
+                            android:textSize="16sp" />
+
+                        <Button
+                            android:id="@+id/btnPickSize"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="90dp"
+                            android:layout_height="45dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@color/color.dof.birdguide.pink"
+                            android:text="{findBird_pick}"
+                            android:textAllCaps="false"
+                            android:textColor="@color/color.dof.birdguide.red"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:id="@+id/llSizeSelectorSelected"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/tvSizeSelectorSelected"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="{findBird_picked}"
+                                android:textColor="@color/color.dof.birdguide.red"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:id="@+id/imvSizeSelectorTic"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_checked" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <!-- Behaviour (Where) selector -->
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvWhere"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    card_view:cardBackgroundColor="@color/color.dof.birdguide.white"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="3dp"
+                    card_view:contentPaddingRight="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvWhereSelectorNumber"
+                            android:layout_width="41dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:gravity="center"
+                            android:text="3"
+                            android:textColor="@color/color.dof.birdguide.black"
+                            android:textSize="25sp" />
+
+                        <TextView
+                            android:id="@+id/tvWhereSelectorTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@id/tvWhereSelectorNumber"
+                            android:gravity="center"
+                            android:text="{findBird_whereQuestion}"
+                            android:textColor="@color/color.dof.birdguide.black"
+                            android:textSize="16sp" />
+
+                        <Button
+                            android:id="@+id/btnPickBehaviour"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="90dp"
+                            android:layout_height="45dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@color/color.dof.birdguide.pink"
+                            android:text="{findBird_pick}"
+                            android:textAllCaps="false"
+                            android:textColor="@color/color.dof.birdguide.red"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:id="@+id/llBehaviourSelectorSelected"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/tvWhereSelectorSelected"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="{findBird_picked}"
+                                android:textColor="@color/color.dof.birdguide.red"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:id="@+id/imvWhereSelectorTic"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_checked" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <!-- Silhouette (LooksLike, Shape) selector -->
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvSilhouette"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    card_view:cardBackgroundColor="@color/color.dof.birdguide.white"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="3dp"
+                    card_view:contentPaddingRight="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvLooksLikeSelectorNumber"
+                            android:layout_width="41dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:gravity="center"
+                            android:text="4"
+                            android:textColor="@color/color.dof.birdguide.black"
+                            android:textSize="25sp" />
+
+                        <TextView
+                            android:id="@+id/tvLooksLikeSelectorTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@id/tvLooksLikeSelectorNumber"
+                            android:gravity="center"
+                            android:text="{findBird_looksLikeQuestion}"
+                            android:textColor="@color/color.dof.birdguide.black"
+                            android:textSize="16sp" />
+
+                        <Button
+                            android:id="@+id/btnPickSilhouette"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="90dp"
+                            android:layout_height="45dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@color/color.dof.birdguide.pink"
+                            android:text="{findBird_pick}"
+                            android:textAllCaps="false"
+                            android:textColor="@color/color.dof.birdguide.red"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:id="@+id/llSilhouetteSelectorSelected"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/tvLooksLikeSelectorSelected"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="{findBird_picked}"
+                                android:textColor="@color/color.dof.birdguide.red"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:id="@+id/imvLooksLikeSelectorTic"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_checked" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <!-- Color selector -->
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    card_view:cardBackgroundColor="@color/color.dof.birdguide.white"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="3dp"
+                    card_view:contentPaddingRight="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvColorSelectorNumber"
+                            android:layout_width="41dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentLeft="true"
+                            android:gravity="center"
+                            android:text="5"
+                            android:textColor="@color/color.dof.birdguide.black"
+                            android:textSize="25sp" />
+
+                        <TextView
+                            android:id="@+id/tvColorSelectorTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toRightOf="@id/tvColorSelectorNumber"
+                            android:gravity="center"
+                            android:text="{findBird_colorQuestion}"
+                            android:textColor="@color/color.dof.birdguide.black"
+                            android:textSize="16sp" />
+
+                        <Button
+                            android:id="@+id/btnPickColor"
+                            style="?android:attr/borderlessButtonStyle"
+                            android:layout_width="90dp"
+                            android:layout_height="45dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@color/color.dof.birdguide.pink"
+                            android:text="{findBird_pick}"
+                            android:textAllCaps="false"
+                            android:textColor="@color/color.dof.birdguide.red"
+                            android:textSize="16sp" />
+
+                        <LinearLayout
+                            android:id="@+id/llColorSelectorSelected"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/tvColorSelectorSelected"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:text="{findBird_picked}"
+                                android:textColor="@color/color.dof.birdguide.red"
+                                android:textSize="16sp" />
+
+                            <ImageView
+                                android:id="@+id/imvColorSelectorTic"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/ic_checked" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llFindBirdParent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:id="@+id/llFindBird"
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:background="@color/color.dof.birdguide.pink"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvFindBird"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:gravity="center_horizontal|bottom"
+                        android:text="{findBird_findBirdButton}"
+                        android:textColor="@color/color.dof.birdguide.red"
+                        android:textSize="17sp" />
+
+                    <TextView
+                        android:id="@+id/tvFindBirdResult"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:gravity="center_horizontal|top"
+                        android:text=""
+                        android:textColor="@color/color.dof.birdguide.red"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
