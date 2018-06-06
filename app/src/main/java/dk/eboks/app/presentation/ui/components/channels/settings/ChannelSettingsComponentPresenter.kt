@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.components.channels.settings
 import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.storebox.*
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.channel.ChannelFlags
 import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
 import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
 import dk.eboks.app.domain.models.local.ViewError
@@ -20,14 +21,18 @@ class ChannelSettingsComponentPresenter @Inject constructor(
         private val deleteStoreboxCreditCardInteractor: DeleteStoreboxCreditCardInteractor,
         private val getStoreboxProfileInteractor: GetStoreboxProfileInteractor,
         private val putStoreboxProfileInteractor: PutStoreboxProfileInteractor,
-        private val getStoreboxCardLinkInteractor: GetStoreboxCardLinkInteractor
+        private val getStoreboxCardLinkInteractor: GetStoreboxCardLinkInteractor,
+        private val deleteStoreboxAccountLinkInteractor: DeleteStoreboxAccountLinkInteractor,
+        private val updateStoreboxFlagsInteractor: UpdateStoreboxFlagsInteractor
 ) : ChannelSettingsComponentContract.Presenter,
     BasePresenterImpl<ChannelSettingsComponentContract.View>(),
     DeleteStoreboxCreditCardInteractor.Output,
     GetStoreboxCreditCardsInteractor.Output,
     GetStoreboxProfileInteractor.Output,
     PutStoreboxProfileInteractor.Output,
-    GetStoreboxCardLinkInteractor.Output
+    GetStoreboxCardLinkInteractor.Output,
+    DeleteStoreboxAccountLinkInteractor.Output,
+    UpdateStoreboxFlagsInteractor.Output
 {
 
     init {
@@ -37,6 +42,8 @@ class ChannelSettingsComponentPresenter @Inject constructor(
         deleteStoreboxCreditCardInteractor.output = this
         getStoreboxProfileInteractor.output = this
         getStoreboxCardLinkInteractor.output = this
+        deleteStoreboxAccountLinkInteractor.output = this
+        updateStoreboxFlagsInteractor.output = this
     }
 
     override fun onViewCreated(view: ChannelSettingsComponentContract.View, lifecycle: Lifecycle) {
@@ -66,6 +73,20 @@ class ChannelSettingsComponentPresenter @Inject constructor(
         runAction { it.showProgress(true) }
         getStoreboxCardLinkInteractor.run()
     }
+
+    override fun deleteStoreboxAccountLink() {
+        runAction { it.showProgress(true) }
+        deleteStoreboxAccountLinkInteractor.run()
+    }
+
+    override fun updateChannelFlags(flags: ChannelFlags) {
+        updateStoreboxFlagsInteractor.input = UpdateStoreboxFlagsInteractor.Input(flags)
+        updateStoreboxFlagsInteractor.run()
+    }
+
+    /**
+     * Interactor callbacks ----------------------------------------------------------------------->
+     */
 
     override fun onGetCardsSuccessful(result: MutableList<StoreboxCreditCard>) {
         runAction {
@@ -116,6 +137,31 @@ class ChannelSettingsComponentPresenter @Inject constructor(
     override fun onGetStoreboxCardLinkError(error: ViewError) {
         runAction { v ->
             v.showProgress(false)
+            v.showErrorDialog(error)
+        }
+    }
+
+    override fun onStoreboxAccountLinkDelete() {
+        runAction { v ->
+            v.showProgress(false)
+            v.broadcastCloseChannel()
+            v.closeView()
+        }
+    }
+
+    override fun onStoreboxAccountLinkDeleteError(error: ViewError) {
+        runAction { v ->
+            v.showProgress(false)
+            v.showErrorDialog(error)
+        }
+    }
+
+    override fun onUpdateFlagsSuccess() {
+
+    }
+
+    override fun onUpdateFlagsError(error: ViewError) {
+        runAction { v ->
             v.showErrorDialog(error)
         }
     }

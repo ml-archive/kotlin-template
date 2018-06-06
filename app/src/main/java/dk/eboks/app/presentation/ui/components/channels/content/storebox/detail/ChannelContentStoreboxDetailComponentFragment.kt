@@ -1,10 +1,12 @@
 package dk.eboks.app.presentation.ui.components.channels.content.storebox.detail
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color.BLACK
 import android.graphics.Color.WHITE
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -21,6 +23,10 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.storebox.*
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
+import dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity
+import dk.eboks.app.presentation.ui.screens.overlay.ButtonType
+import dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity
+import dk.eboks.app.presentation.ui.screens.overlay.OverlayButton
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_storebox_detail_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -40,6 +46,11 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
 
     private var adapter = ReceiptLineAdapter()
     private var paymentAdapter = PaymentLineAdapter()
+
+    private var actionButtons = arrayListOf(
+        OverlayButton(ButtonType.MOVE),
+        OverlayButton(ButtonType.DELETE)
+    )
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -66,25 +77,22 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     }
 
     private fun setupTopbar() {
-        getBaseActivity()?.mainTb?.menu?.clear()
+        mainTb?.menu?.clear()
 
-        getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
-        getBaseActivity()?.mainTb?.setNavigationOnClickListener {
+        mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+        mainTb?.setNavigationOnClickListener {
             fragmentManager.popBackStack()
         }
+        
+        //mainTb?.overflowIcon = context.resources.getDrawable(R.drawable.icon_48_option_red_navigationbar)
 
-        val menuSearch = getBaseActivity()?.mainTb?.menu?.add("_settings")
-
-        menuSearch?.setIcon(R.drawable.ic_settings_red)
-        menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-
-        menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
-            val arguments = Bundle()
-            arguments.putCharSequence("arguments", "storebox")
-            getBaseActivity()?.openComponentDrawer(
-                    ChannelSettingsComponentFragment::class.java,
-                    arguments
-            )
+        val menuItem = mainTb?.menu?.add("_options")
+        menuItem?.setIcon(R.drawable.icon_48_option_red_navigationbar)
+        menuItem?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        menuItem?.setOnMenuItemClickListener { item: MenuItem ->
+            val i = Intent(context, OverlayActivity::class.java)
+            i.putExtra("buttons", actionButtons)
+            startActivityForResult(i, OverlayActivity.REQUEST_ID)
             true
         }
     }
@@ -113,6 +121,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     override fun setReceipt(receipt: StoreboxReceipt) {
         Timber.d("Setting Receipt: %s", receipt)
 
+        mainTb?.title = receipt.merchant?.name ?: ""
         setStoreInfo(receipt.merchant, receipt.optionals)
         setReceiptDate(receipt.purchaseDateTime ?: Date(), receipt.optionals)
         setLogo(receipt.merchant?.logo?.url ?: "")
@@ -245,6 +254,52 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         }
     }
 
+    private fun showRemoveChannelDialog() {
+        AlertDialog.Builder(context)
+                .setTitle(Translation.storeboxreceipt.confirmDeleteTitle)
+                .setMessage(Translation.storeboxreceipt.confirmDeleteMessage)
+                .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
+                    presenter.deleteReceipt()
+                }
+                .setNegativeButton(Translation.channelsettingsstoreboxadditions.deleteCardCancelButton) { dialog, which ->
+
+                }
+                .create()
+                .show()
+    }
+
+    override fun returnToMasterView() {
+        fragmentManager.popBackStack()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // Deal with return from document action sheet
+        if (requestCode == OverlayActivity.REQUEST_ID) {
+            when (data?.getSerializableExtra("res")) {
+                (ButtonType.MOVE)   -> {
+                    val i = Intent(context, FolderActivity::class.java)
+                    i.putExtra("pick", true)
+                    startActivityForResult(i, FolderActivity.REQUEST_ID)
+                }
+                (ButtonType.DELETE) -> {
+                    showRemoveChannelDialog()
+                }
+                else                -> {
+                    // Request do nothing
+
+                }
+            }
+        }
+        // deal with return from folder picker
+        if (requestCode == FolderActivity.REQUEST_ID) {
+            data?.extras?.let {
+                val moveToFolder = data.getSerializableExtra("res")
+                Timber.d("Move To Folder ${moveToFolder?.toString()}")
+            }
+        }
+    }
 
     inner class PaymentLineAdapter : RecyclerView.Adapter<PaymentLineAdapter.PaymentLineViewHolder>() {
         var payments: ArrayList<StoreboxPayment> = arrayListOf()

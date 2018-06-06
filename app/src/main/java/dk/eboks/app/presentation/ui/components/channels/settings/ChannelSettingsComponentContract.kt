@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.channels.settings
 
+import dk.eboks.app.domain.models.channel.ChannelFlags
 import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
 import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
 import dk.eboks.app.domain.models.shared.Link
@@ -16,6 +17,8 @@ interface ChannelSettingsComponentContract {
         fun showEmptyView(boolean: Boolean)
         fun setOnlyDigitalReceipts(onlyDigital: Boolean)
         fun showAddCardView(link : Link)
+        fun broadcastCloseChannel()
+        fun closeView()
     }
 
     interface Presenter : BasePresenter<View> {
@@ -24,5 +27,7 @@ interface ChannelSettingsComponentContract {
         fun getStoreboxProfile()
         fun saveStoreboxProfile(profile : StoreboxProfile)
         fun getStoreboxCardLink()
+        fun deleteStoreboxAccountLink()
+        fun updateChannelFlags(flags : ChannelFlags)
     }
 }

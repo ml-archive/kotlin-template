@@ -80,7 +80,7 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
             }
             "storebox" -> {
                 runAction { v ->
-                    v.openStoreBoxContent()
+                    v.openStoreBoxContent(channel)
                 }
             }
             "ekey" -> {

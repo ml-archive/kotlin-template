@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.channels.content.storebox.detail
 
+import dk.eboks.app.domain.interactors.storebox.DeleteStoreboxReceiptInteractor
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
@@ -10,15 +11,20 @@ import javax.inject.Inject
 
 class ChannelContentStoreboxDetailComponentPresenter @Inject constructor(
         val appState: AppStateManager,
-        private val getStoreboxReceiptInteractor: GetStoreboxReceiptInteractor
+        private val getStoreboxReceiptInteractor: GetStoreboxReceiptInteractor,
+        private val deleteStoreboxReceiptInteractor: DeleteStoreboxReceiptInteractor
 ) :
         ChannelContentStoreboxDetailComponentContract.Presenter,
         BasePresenterImpl<ChannelContentStoreboxDetailComponentContract.View>(),
-        GetStoreboxReceiptInteractor.Output {
+        GetStoreboxReceiptInteractor.Output,
+        DeleteStoreboxReceiptInteractor.Output
+{
 
+    var currentReceipt : StoreboxReceipt? = null
 
     init {
         getStoreboxReceiptInteractor.output = this
+        deleteStoreboxReceiptInteractor.output = this
     }
 
     override fun loadReceipt() {
@@ -28,7 +34,16 @@ class ChannelContentStoreboxDetailComponentPresenter @Inject constructor(
         getStoreboxReceiptInteractor.run()
     }
 
+    override fun deleteReceipt() {
+        currentReceipt?.let {
+            runAction { v->v.showProgress(true) }
+            deleteStoreboxReceiptInteractor.input = DeleteStoreboxReceiptInteractor.Input(it.id)
+            deleteStoreboxReceiptInteractor.run()
+        }
+    }
+
     override fun onGetReceipt(storeboxReceipt: StoreboxReceipt) {
+        currentReceipt = storeboxReceipt
         runAction { v->
             v.setReceipt(storeboxReceipt)
         }
@@ -37,8 +52,21 @@ class ChannelContentStoreboxDetailComponentPresenter @Inject constructor(
 
     override fun onGetReceiptsError(error: ViewError) {
         runAction { v ->
+            v.showProgress(false)
             v.showErrorDialog(error)
         }
     }
 
+    override fun onDeleteReceiptSuccess() {
+        runAction { v->
+            v.returnToMasterView()
+        }
+    }
+
+    override fun onDeleteReceiptError(error: ViewError) {
+        runAction { v ->
+            v.showProgress(false)
+            v.showErrorDialog(error)
+        }
+    }
 }

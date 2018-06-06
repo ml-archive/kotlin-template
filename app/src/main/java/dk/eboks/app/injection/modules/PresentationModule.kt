@@ -128,7 +128,6 @@ import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginPre
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentPresenter
-import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContract
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentPresenter
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentContract
@@ -145,8 +144,6 @@ import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentCon
 import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.ConnectStoreboxContract
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.ConnectStoreboxPresenter
-import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentContract
-import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewContract
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserContract
@@ -600,11 +597,13 @@ class PresentationModule {
     @Provides
     fun provideChannelContentStoreboxDetailComponentPresenter(
             stateManager: AppStateManager,
-            getStoreboxReceiptInteractor: GetStoreboxReceiptInteractor
+            getStoreboxReceiptInteractor: GetStoreboxReceiptInteractor,
+            deleteStoreboxReceiptInteractor: DeleteStoreboxReceiptInteractor
     ): ChannelContentStoreboxDetailComponentContract.Presenter {
         return ChannelContentStoreboxDetailComponentPresenter(
                 stateManager,
-                getStoreboxReceiptInteractor
+                getStoreboxReceiptInteractor,
+                deleteStoreboxReceiptInteractor
         )
     }
 
@@ -616,9 +615,19 @@ class PresentationModule {
             deleteStoreboxCreditCardInteractor: DeleteStoreboxCreditCardInteractor,
             getStoreboxProfileInteractor: GetStoreboxProfileInteractor,
             putStoreboxProfileInteractor: PutStoreboxProfileInteractor,
-            getStoreboxCardLinkInteractor: GetStoreboxCardLinkInteractor
+            getStoreboxCardLinkInteractor: GetStoreboxCardLinkInteractor,
+            deleteStoreboxAccountLinkInteractor: DeleteStoreboxAccountLinkInteractor,
+            updateStoreboxFlagsInteractor: UpdateStoreboxFlagsInteractor
     ): ChannelSettingsComponentContract.Presenter {
-        return ChannelSettingsComponentPresenter(stateManager,getStoreboxCreditCardsInteractor,deleteStoreboxCreditCardInteractor, getStoreboxProfileInteractor, putStoreboxProfileInteractor, getStoreboxCardLinkInteractor)
+        return ChannelSettingsComponentPresenter(
+                stateManager,
+                getStoreboxCreditCardsInteractor,
+                deleteStoreboxCreditCardInteractor,
+                getStoreboxProfileInteractor,
+                putStoreboxProfileInteractor,
+                getStoreboxCardLinkInteractor,
+                deleteStoreboxAccountLinkInteractor,
+                updateStoreboxFlagsInteractor)
     }
 
     @ActivityScope
@@ -626,8 +635,6 @@ class PresentationModule {
     fun provideChannelContentPresenter(stateManager: AppStateManager): ChannelContentContract.Presenter {
         return ChannelContentPresenter(stateManager)
     }
-
-
 
     @ActivityScope
     @Provides
@@ -853,12 +860,6 @@ class PresentationModule {
         return UploadFileComponentPresenter(stateManager)
     }
 
-
-    @ActivityScope
-    @Provides
-    fun provideStoreboxContentPresenter(stateManager: AppStateManager): StoreboxContentContract.Presenter {
-        return StoreboxContentPresenter(stateManager)
-    }
 
     @ActivityScope
     @Provides

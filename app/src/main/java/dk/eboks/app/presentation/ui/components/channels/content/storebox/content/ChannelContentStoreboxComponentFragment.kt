@@ -13,10 +13,14 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.detail.ChannelContentStoreboxDetailComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
-import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
+import dk.eboks.app.util.putArg
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_storebox_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -31,6 +35,8 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
     lateinit var presenter: ChannelContentStoreboxComponentContract.Presenter
 
     private var adapter = StoreboxAdapter()
+
+    private var channel : Channel? = null
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -51,29 +57,36 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         setup()
         setupTopbar()
 
+        arguments?.getSerializable(Channel::class.java.simpleName)?.let {
+            channel = it as Channel
+        }
+
         showProgress(true)
     }
 
     private fun setupTopbar() {
-        getBaseActivity()?.mainTb?.menu?.clear()
+        Timber.e("Running setupTopbar")
+        mainTb?.menu?.clear()
 
-        getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
-        getBaseActivity()?.mainTb?.setNavigationOnClickListener {
+        mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+        mainTb?.setNavigationOnClickListener {
             onBackPressed()
         }
 
-        val menuSearch = getBaseActivity()?.mainTb?.menu?.add("_settings")
+        val menuSearch = mainTb?.menu?.add("_settings")
         menuSearch?.setIcon(R.drawable.ic_settings_red)
         menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
             val arguments = Bundle()
             arguments.putCharSequence("arguments", "storebox")
+            arguments.putSerializable(Channel::class.java.simpleName, channel)
             getBaseActivity()?.openComponentDrawer(
                     ChannelSettingsComponentFragment::class.java,
                     arguments
             )
             true
         }
+        mainTb.title = Translation.storeboxlist.title
     }
 
     private fun setup() {
@@ -172,7 +185,8 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
 
                 row?.setOnClickListener {
                     Timber.d("Receipt Clicked: %s", currentReceipt.id)
-                    (activity as StoreboxContentActivity).showDetailFragment(currentReceipt.id)
+                    addFragmentOnTop(R.id.content, ChannelContentStoreboxDetailComponentFragment().putArg(StoreboxReceipt.KEY_ID!!, currentReceipt.id) as BaseFragment, true)
+                    //(activity as StoreboxContentActivity).showDetailFragment(currentReceipt.id)
                 }
             }
         }

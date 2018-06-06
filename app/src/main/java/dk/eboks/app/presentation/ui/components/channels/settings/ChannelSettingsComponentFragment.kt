@@ -14,14 +14,21 @@ import android.widget.Toast
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.channel.ChannelFlags
 import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
 import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
 import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.RefreshFolderShortcutsDoneEvent
+import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.RefreshFolderShortcutsEvent
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxAddCardActivity
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_settings_component.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -34,6 +41,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     private val adapter = CreditCardAdapter()
     private var isStorebox = false
     private var didShowCardView = false
+    private var channel : Channel? = null
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -54,6 +62,9 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
             isStorebox = (arguments.getCharSequence("arguments") == "storebox")
         }
 
+        arguments?.getSerializable(Channel::class.java.simpleName)?.let {
+            channel = it as Channel
+        }
         showProgress(true)
 
         setup()
@@ -67,11 +78,16 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+    }
+
 
     private fun setup() {
+        pinSliderSwitch.isChecked = channel?.pinned ?: false
         pinSliderSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
-            //todo do something when the slider is checked
             Timber.d("_pin slider checked$isChecked")
+            presenter.updateChannelFlags(ChannelFlags(pinned = isChecked))
         }
 
         if (isStorebox) {
@@ -94,8 +110,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         creditcardRv.adapter = adapter
 
         addCardLl.setOnClickListener {
-            //todo something happends when you click add card
-            Timber.v("_add card clicked")
+            //Timber.v("_add card clicked")
             presenter.getStoreboxCardLink()
         }
 
@@ -111,19 +126,10 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
                 .setTitle(Translation.channelsettingsstoreboxadditions.removeChannelTitle)
                 .setMessage(Translation.channelsettingsstoreboxadditions.removeChannelMessage)
                 .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
-                    //todo send API call to remove channel
-                    Toast.makeText(
-                            context,
-                            "_Positive openActionTv clicked.",
-                            Toast.LENGTH_SHORT
-                    ).show()
+                    presenter.deleteStoreboxAccountLink()
                 }
                 .setNegativeButton(Translation.channelsettingsstoreboxadditions.deleteCardCancelButton) { dialog, which ->
-                    Toast.makeText(
-                            context,
-                            "_Negative openActionTv clicked",
-                            Toast.LENGTH_SHORT
-                    ).show()
+
                 }
                 .create()
                 .show()
@@ -152,6 +158,10 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
     }
 
+    override fun broadcastCloseChannel() {
+        EventBus.getDefault().post(CloseChannelEvent())
+    }
+
     override fun showAddCardView(link: Link) {
         didShowCardView = true
         activity.Starter().activity(StoreboxAddCardActivity::class.java).putExtra(Link::class.java.simpleName, link).start()
@@ -163,6 +173,11 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         optionalSliderSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
             presenter.saveStoreboxProfile(StoreboxProfile(isChecked))
         }
+    }
+
+    override fun closeView()
+    {
+        activity.finish()
     }
 
     inner class CreditCardAdapter : RecyclerView.Adapter<CreditCardAdapter.CreditCardViewHolder>() {

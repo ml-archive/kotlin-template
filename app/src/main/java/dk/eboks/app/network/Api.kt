@@ -3,6 +3,7 @@ package dk.eboks.app.network
 import com.google.gson.JsonObject
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.channel.ChannelFlags
 import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
 import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
@@ -70,10 +71,12 @@ interface Api {
     @GET("channels?pinned=true") fun getChannelsPinned() : Call<MutableList<Channel>>
     @GET("channels/{id}") fun getChannel(@Path("id") id : Int) : Call<Channel>
     @GET("channels/{id}/content/home") fun getChannelHomeContent(@Path("id") id : Long) : Call<HomeContent>
+    @PATCH("channels/{id}") fun updateChannelFlags(@Body body : ChannelFlags) : Call<Void>
 
     // storebox specific
     @GET("channels/storebox/receipts") fun getStoreboxReceipts() : Call<List<StoreboxReceiptItem>>
     @GET("channels/storebox/receipts/{id}") fun getStoreboxReceipt(@Path("id") id : String) : Call<StoreboxReceipt>
+    @DELETE("channels/storebox/receipts/{id}") fun deleteStoreboxReceipt(@Path("id") id : String) : Call<Void>
     @POST("channels/storebox/user/signup") fun createStoreboxAccount() : Call<Void>
     @POST("channels/storebox/user/signup/link") fun postLinkStorebox(@Body bodyMap: Map<String, String>) : Call<Any>
     @POST("channels/storebox/user/signup/link/activate") fun postActivateStorebox(@Body bodyMap: Map<String, String>) : Call<Any>
@@ -82,6 +85,7 @@ interface Api {
     @GET("channels/storebox/user/cards/card/link") fun getStoreboxCardLink() : Call<Link>
     @GET("channels/storebox/user/cards") fun getStoreboxCreditCards():Call<MutableList<StoreboxCreditCard>>
     @DELETE("channels/storebox/user/cards/{cardId}") fun deleteStoreboxCreditCard(@Path("cardId") id:String): Call<Void>
+    @DELETE("channels/storebox/user") fun deleteStoreboxAccountLink() : Call<Void>
 
     // groups
     @GET("groups/registrations") fun getRegistrations() : Call<Registrations> // get all my registrations

@@ -421,6 +421,21 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideDeleteStoreboxAccountLinkInteractor(executor: Executor, api: Api): DeleteStoreboxAccountLinkInteractor {
+        return DeleteStoreboxAccountLinkInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun provideDeleteStoreboxReceiptInteractor(executor: Executor, api: Api): DeleteStoreboxReceiptInteractor {
+        return DeleteStoreboxReceiptInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun provideUpdateStoreboxFlagsInteractor(executor: Executor, api: Api): UpdateStoreboxFlagsInteractor {
+        return UpdateStoreboxFlagsInteractorImpl(executor, api)
+    }
+
+    @Provides
     fun provideConfirmStoreboxInteractor(executor: Executor, api: Api): ConfirmStoreboxInteractor {
         return ConfirmStoreboxInteractorImpl(executor, api)
     }

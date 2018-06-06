@@ -17,7 +17,7 @@ interface ChannelOpeningComponentContract {
         fun showProgress(show : Boolean)
         fun showRequirementsDrawer(channel: Channel)
         fun openChannelContent()
-        fun openStoreBoxContent()
+        fun openStoreBoxContent(channel : Channel)
         fun openEkeyContent()
 
     }

@@ -12,9 +12,11 @@ interface ChannelContentStoreboxDetailComponentContract {
         fun getReceiptId(): String?
         fun setReceipt(receipt: StoreboxReceipt)
         fun showProgress(isLoading: Boolean)
+        fun returnToMasterView()
     }
 
     interface Presenter : BasePresenter<View> {
         fun loadReceipt()
+        fun deleteReceipt()
     }
 }

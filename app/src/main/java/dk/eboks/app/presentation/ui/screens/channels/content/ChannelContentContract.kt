@@ -8,7 +8,7 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface ChannelContentContract {
     interface View : BaseView {
-
+        fun finish()
     }
 
     interface Presenter : BasePresenter<View> {

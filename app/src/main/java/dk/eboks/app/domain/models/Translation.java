@@ -117,6 +117,8 @@ public class Translation {
 		public static String cannotUnregisterDescription = "You are automatically registered mail from [sender] if this is part of your customer agreements or your conditions of employment";
 		public static String cannotUnregisterPublicDescription = "You are automatically registered mail from the public sector if this is part of your customer agreements or your conditions of employment";
 		public static String allSenders = "All Senders";
+		public static String comingSoonHeader = "Coming soon!";
+		public static String comingSoonMessage = "In senders you can blablabla blabla blablabla";
 	}
 	public final static class start {
 		public static String signupButton = "Sign up";
@@ -329,6 +331,8 @@ public class Translation {
 		public static String outOfStorageAlertTitle = "You are out of storage space";
 		public static String outOfStorageAlertMessage = "Verify your profile and get 1 GB free space for all your uploads";
 		public static String photos = "Photos";
+		public static String comingSoonHeader = "Coming soon!";
+		public static String comingSoonMessage = "In Uploads hoppekat hoppekat hoppekat hoppekat hoppekat hoppekat hoppekat hoppekat hoppekat hoppekat hoppekat ";
 	}
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";

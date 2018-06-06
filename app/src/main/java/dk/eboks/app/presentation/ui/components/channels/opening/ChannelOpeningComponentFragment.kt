@@ -17,13 +17,14 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.storebox.content.ChannelContentStoreboxComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.requirements.ChannelRequirementsComponentFragment
 import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.ConnectStoreboxActivity
-import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
 import dk.eboks.app.presentation.widgets.GlideAlphaTransform
 import dk.eboks.app.util.getType
 import dk.eboks.app.util.guard
+import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_channel_opening_component.*
 import kotlinx.android.synthetic.main.include_channel_detail_bottom_install.*
@@ -191,9 +192,9 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         }
     }
 
-    override fun openStoreBoxContent() {
-        startActivity(Intent(context, StoreboxContentActivity::class.java))
-        activity.finish()
+    override fun openStoreBoxContent(channel : Channel) {
+        val fragment = ChannelContentStoreboxComponentFragment().putArg(Channel::class.java.simpleName, channel) as BaseFragment
+        getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
     }
 
     override fun openEkeyContent() {

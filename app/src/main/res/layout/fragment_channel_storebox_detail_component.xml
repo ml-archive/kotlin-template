@@ -7,10 +7,13 @@
     android:background="#f3f3f3"
     tools:ignore="MissingPrefix">
 
+    <include layout="@layout/include_toolbar" />
+
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/storeboxDetailContentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="?actionBarSize"
         android:overScrollMode="never">
 
         <LinearLayout

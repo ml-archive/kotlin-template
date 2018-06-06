@@ -130,8 +130,6 @@ import dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentPrese
 import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity
 import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.ConnectStoreboxActivity
-import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity
-import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentPresenter
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserActivity
@@ -198,8 +196,6 @@ interface PresentationComponent {
     fun inject(target: OverlayActivity)
     fun inject(target: OverlayPresenter)
     fun inject(target: ConnectStoreboxActivity)
-    fun inject(target: StoreboxContentActivity)
-    fun inject(target: StoreboxContentPresenter)
     fun inject(target: MyInfoActivity)
     fun inject(target: MyInfoPresenter)
     fun inject(target: SenderAllListActivity)

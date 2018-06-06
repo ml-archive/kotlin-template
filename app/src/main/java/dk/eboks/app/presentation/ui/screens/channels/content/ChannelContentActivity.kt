@@ -6,7 +6,6 @@ import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentFragment
 import dk.eboks.app.util.putArg
-import timber.log.Timber
 import javax.inject.Inject
 
 class ChannelContentActivity : BaseActivity(), ChannelContentContract.View {
@@ -22,4 +21,5 @@ class ChannelContentActivity : BaseActivity(), ChannelContentContract.View {
         }
 
     }
+
 }
