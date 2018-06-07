@@ -72,6 +72,7 @@ interface Api {
     @GET("channels/{id}") fun getChannel(@Path("id") id : Int) : Call<Channel>
     @GET("channels/{id}/content/home") fun getChannelHomeContent(@Path("id") id : Long) : Call<HomeContent>
     @PATCH("channels/{id}") fun updateChannelFlags(@Body body : ChannelFlags) : Call<Void>
+    @GET("channels/{id}/content/open") fun getChannelContentLink(@Path("id") id : Int, @Query("access_token") accessToken : String) : Call<Link>
 
     // storebox specific
     @GET("channels/storebox/receipts") fun getStoreboxReceipts() : Call<List<StoreboxReceiptItem>>

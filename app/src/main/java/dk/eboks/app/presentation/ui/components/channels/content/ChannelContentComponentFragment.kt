@@ -1,12 +1,9 @@
 package dk.eboks.app.presentation.ui.components.channels.content
 
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.MenuItem
 import android.view.View
 import android.webkit.JavascriptInterface
@@ -15,15 +12,14 @@ import android.widget.Toast
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
+import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.presentation.base.BaseWebFragment
-import dk.eboks.app.presentation.ui.components.channels.requirements.ChannelRequirementsComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import org.json.JSONObject
 import javax.inject.Inject
 import timber.log.Timber
-import android.support.v4.content.ContextCompat.startActivity
 import java.net.URLEncoder
 
 
@@ -47,9 +43,14 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             //todo when we know what to refresh, add some logic to stop the refreshing
             var temp = "_refresh view"
             Timber.e(temp)
+            webView.reload()
         }
 
         setupTopBar()
+
+        arguments?.getSerializable(Channel::class.simpleName)?.let {
+            presenter.setup(it as Channel)
+        }
     }
 
     // shamelessly ripped from chnt
@@ -59,10 +60,10 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             activity.onBackPressed()
         }
 
-        val menuSearch = mainTb.menu.add("_settings")
-        menuSearch.setIcon(R.drawable.ic_settings_red)
-        menuSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        menuSearch.setOnMenuItemClickListener { item: MenuItem ->
+        val menuItem = mainTb.menu.add("_settings")
+        menuItem.setIcon(R.drawable.ic_settings_red)
+        menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        menuItem.setOnMenuItemClickListener { item: MenuItem ->
             getBaseActivity()?.openComponentDrawer(ChannelSettingsComponentFragment::class.java)
             true
         }
@@ -70,14 +71,15 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
 
     override fun showChannel(channel: Channel) {
         mainTb.title = channel.name
-
         webView.addJavascriptInterface(ChannelAppInterface(this, webView), "android")
+    }
 
-        val url = arguments.getString(Channel::class.simpleName)
-        if(url.isNullOrBlank()) {
-            webView.loadData("Channel content webview - not implemented", "text/html", "utf8")
+    override fun openChannelLink(link: Link) {
+        //val url = "file:///android_asset/index.html"
+        if(link.url.isNullOrBlank()) {
+            webView.loadData("Missing channel content link", "text/html", "utf8")
         }
-        webView.loadUrl(url)
+        webView.loadUrl(link.url)
     }
 
     override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {

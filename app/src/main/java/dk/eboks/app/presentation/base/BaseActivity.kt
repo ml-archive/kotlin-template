@@ -8,6 +8,7 @@ import android.hardware.SensorManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.KeyEvent
@@ -113,7 +114,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         return mainTb
     }
 
-    fun setRootFragment(resId: Int, fragment: BaseFragment?) {
+    fun setRootFragment(resId: Int, fragment: Fragment?) {
         fragment?.let {
             supportFragmentManager.popBackStack(
                     backStackRootTag,
@@ -126,7 +127,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         }
     }
 
-    fun addFragmentOnTop(resId: Int, fragment: BaseFragment?, addToBack: Boolean = true) {
+    fun addFragmentOnTop(resId: Int, fragment: Fragment?, addToBack: Boolean = true) {
         fragment?.let {
             val trans = supportFragmentManager.beginTransaction().replace(resId, it)
             if (addToBack)

@@ -123,10 +123,11 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
             val dateTv = v.findViewById<TextView>(R.id.dateTv)
             val dividerV = v.findViewById<View>(R.id.dividerV)
             val rootLl = v.findViewById<LinearLayout>(R.id.rootLl)
-            //todo set the logo
-            circleIv.let {
-                Glide.with(context).load("https://picsum.photos/200/?random").into(it)
+
+            currentMessage.sender?.logo?.let {
+                Glide.with(context).load(it.url).into(circleIv)
             }
+
             if (currentMessage.unread) {
                 circleIv.isSelected = true
                 dateTv.setTypeface(null, Typeface.BOLD)

@@ -310,6 +310,15 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideGetChannelContentLinkInteractor(
+            executor: Executor,
+            api: Api,
+            appStateManager: AppStateManager
+    ): GetChannelContentLinkInteractor {
+        return GetChannelContentLinkInteractorImpl(executor, api, appStateManager)
+    }
+
+    @Provides
     fun provideGetSenderCategoriesInteractor(
             executor: Executor,
             senderCategoriesRepository: SenderCategoriesRepository

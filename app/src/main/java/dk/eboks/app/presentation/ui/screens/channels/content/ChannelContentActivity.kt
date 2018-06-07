@@ -17,7 +17,10 @@ class ChannelContentActivity : BaseActivity(), ChannelContentContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         intent.getSerializableExtra(Channel::class.java.simpleName)?.let { channel ->
-            supportFragmentManager.beginTransaction().add(R.id.content, ChannelOpeningComponentFragment().putArg(Channel::class.java.simpleName, channel), ChannelOpeningComponentFragment::class.java.simpleName).commit()
+            supportFragmentManager.beginTransaction().add(
+                    R.id.content,
+                    ChannelOpeningComponentFragment().putArg(Channel::class.java.simpleName, channel),
+                    ChannelOpeningComponentFragment::class.java.simpleName).commit()
         }
 
     }

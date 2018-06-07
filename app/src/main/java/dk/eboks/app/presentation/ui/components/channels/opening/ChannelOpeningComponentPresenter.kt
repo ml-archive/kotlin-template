@@ -75,7 +75,7 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
         when (channel.getType()) {
             "channel" -> {
                 runAction { v ->
-                    v.openChannelContent()
+                    v.openChannelContent(channel)
                 }
             }
             "storebox" -> {
@@ -94,7 +94,7 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
 
         this.channel = channel
 
-        // TODO remove me
+        // TODO Forces all requirements to be met and the channel be installed. Remove me
 
         channel.requirements?.forEach { req ->
             req.verified = true

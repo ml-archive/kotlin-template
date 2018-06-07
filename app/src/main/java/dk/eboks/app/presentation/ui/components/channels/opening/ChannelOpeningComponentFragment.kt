@@ -170,15 +170,6 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         progress.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    override fun openChannelContent() {
-        val fragment = ChannelContentComponentFragment()
-        val args = Bundle()
-        // todo API call: '/channels/{channelId}/content/link'  returns a string with the url
-        args.putString(Channel::class.simpleName, "file:///android_asset/index.html")
-        fragment.arguments = args
-        getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
-    }
-
     override fun showRequirementsDrawer(channel: Channel) {
         channel.requirements?.let {
             val data = Bundle()
@@ -190,6 +181,11 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         }.guard {
             showOpenState(channel)
         }
+    }
+
+    override fun openChannelContent(channel : Channel) {
+        val fragment = ChannelContentComponentFragment().putArg(Channel::class.simpleName!!, channel)
+        getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
     }
 
     override fun openStoreBoxContent(channel : Channel) {

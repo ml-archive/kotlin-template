@@ -7,6 +7,7 @@ import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
 import dk.eboks.app.domain.interactors.authentication.ResetPasswordInteractor
 import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
+import dk.eboks.app.domain.interactors.channel.GetChannelContentLinkInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
@@ -577,8 +578,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideChannelContentComponentPresenter(stateManager: AppStateManager): ChannelContentComponentContract.Presenter {
-        return ChannelContentComponentPresenter(stateManager)
+    fun provideChannelContentComponentPresenter(stateManager: AppStateManager, getChannelContentLinkInteractor: GetChannelContentLinkInteractor): ChannelContentComponentContract.Presenter {
+        return ChannelContentComponentPresenter(stateManager, getChannelContentLinkInteractor)
     }
 
     @ActivityScope
