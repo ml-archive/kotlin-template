@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,7 @@ import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_channel_opening_component.*
 import kotlinx.android.synthetic.main.include_channel_detail_bottom_install.*
 import kotlinx.android.synthetic.main.include_channel_detail_top.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentContract.View {
@@ -164,6 +166,20 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         button?.setOnClickListener {
             presenter.install(channel)
         }
+    }
+
+    override fun showStoreboxUserAlreadyExists() {
+        Timber.i("show already exists")
+        AlertDialog.Builder(context)
+                .setMessage(Translation.storeboxlogin.errorAlreadyExistsMessage)
+                .setPositiveButton(Translation.storeboxlogin.signInButton) { dialog, which ->
+                    startActivity(Intent(context, ConnectStoreboxActivity::class.java))
+                }
+                .setNegativeButton(Translation.defaultSection.ok) { dialog, which ->
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
     }
 
     override fun showProgress(show: Boolean) {

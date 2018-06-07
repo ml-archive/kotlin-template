@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
 
     <include layout="@layout/include_toolbar" />
 
@@ -24,10 +26,11 @@
 
     <FrameLayout
         android:id="@+id/containerEmpty"
+        android:layout_marginTop="?actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#f4f6f8"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <TextView
             android:id="@+id/tvEmptyLabel"
@@ -40,7 +43,57 @@
             android:textColor="#7f9aa3"
             android:textSize="15sp"
             android:textStyle="normal"
+            nstack:text="@string/nstack_storeboxlist_emptyLabel"
             tools:text="No receipts to show yet" />
 
     </FrameLayout>
+
+    <!--Empty state - Mail-->
+    <LinearLayout
+        android:id="@+id/noCreditCardEmptyLl"
+        android:layout_marginTop="?actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/margin_vertical"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/emptyStateHeaderTv"
+            style="@style/text.header2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:textStyle="normal"
+            nstack:key="@string/nstack_storeboxlist_emptyCardsHeader" />
+
+
+        <TextView
+            android:id="@+id/emptyStateTextTv"
+            style="@style/text.header3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/blueGrey"
+            android:textStyle="normal"
+            android:text="hej per"
+            nstack:key="@string/nstack_storeboxlist_emptyCardsMessage"
+             />
+
+        <Button
+            android:id="@+id/addCreditCardsBtn"
+            style="@style/button.SolidGradient"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:textAppearance="@style/text.buttonSmall"
+            nstack:key="@string/nstack_storeboxlist_addCardButton" />
+    </LinearLayout>
 </FrameLayout>

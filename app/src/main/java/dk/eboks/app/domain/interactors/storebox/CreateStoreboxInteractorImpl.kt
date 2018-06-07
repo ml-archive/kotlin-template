@@ -1,5 +1,7 @@
 package dk.eboks.app.domain.interactors.storebox
 
+import dk.eboks.app.domain.exceptions.ServerErrorException
+import dk.eboks.app.domain.models.APIConstants
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
@@ -32,7 +34,22 @@ class CreateStoreboxInteractorImpl(executor: Executor, private val api: Api) : B
         } catch (t: Throwable) {
             runOnUIThread {
                 Timber.e(t)
-                output?.onStoreboxAccountCreatedError(exceptionToViewError(t))
+                if(t is ServerErrorException)
+                {
+                    val error = (t as ServerErrorException).error
+                    Timber.e("got servererroreception")
+                    when(error.code)
+                    {
+                        // TODO fix to use the correct error code when API returns it
+                        //APIConstants.STOREBOX_PROFILE_EXISTS -> {
+                        0 -> {
+                           output?.onStoreboxAccountExists()
+                        }
+                        else -> {output?.onStoreboxAccountCreatedError(exceptionToViewError(t))}
+                    }
+                }
+                else
+                    output?.onStoreboxAccountCreatedError(exceptionToViewError(t))
             }
         }
     }

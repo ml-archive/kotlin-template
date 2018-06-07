@@ -19,7 +19,7 @@ interface ChannelOpeningComponentContract {
         fun openChannelContent(channel : Channel)
         fun openStoreBoxContent(channel : Channel)
         fun openEkeyContent()
-
+        fun showStoreboxUserAlreadyExists()
     }
 
     interface Presenter : BasePresenter<View> {

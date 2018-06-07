@@ -61,14 +61,13 @@
             android:id="@+id/connectCodeTil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_half"
-            android:hint="@string/nstack_storeboxverify_confirmationCodeHeader"
-            nstack:key="@string/nstack_storeboxverify_confirmationCodeHeader">
+            android:layout_marginBottom="@dimen/margin_half">
 
             <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
+                android:inputType="number"
+                nstack:hint="@string/nstack_storeboxverify_confirmationCodeHeader"
                 android:imeOptions="actionGo"/>
         </android.support.design.widget.TextInputLayout>
     </LinearLayout>

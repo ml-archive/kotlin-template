@@ -6,10 +6,25 @@
     <include layout="@layout/include_toolbar" />
 
     <FrameLayout
-        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?android:attr/actionBarSize" />
+        android:layout_marginTop="?android:attr/actionBarSize">
+        <FrameLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <FrameLayout
+            android:id="@+id/progress"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+    </FrameLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

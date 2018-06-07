@@ -156,4 +156,8 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
     override fun onStoreboxAccountCreatedError(error: ViewError) {
         runAction { v->v.showErrorDialog(error) }
     }
+
+    override fun onStoreboxAccountExists() {
+        runAction { v->v.showStoreboxUserAlreadyExists() }
+    }
 }

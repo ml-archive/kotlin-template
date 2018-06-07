@@ -65,6 +65,17 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         arguments?.getSerializable(Channel::class.java.simpleName)?.let {
             channel = it as Channel
         }
+
+        // should we open an display add a credit card webview immediately?
+        arguments?.getBoolean("openAddCreditCards")?.let { open->
+            if(open)
+            {
+                mainHandler.postDelayed({
+                    presenter.getStoreboxCardLink()
+                }, 100)
+            }
+
+        }
         showProgress(true)
 
         setup()

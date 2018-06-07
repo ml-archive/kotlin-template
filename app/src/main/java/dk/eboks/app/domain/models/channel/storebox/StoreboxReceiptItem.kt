@@ -13,7 +13,7 @@ data class StoreboxReceiptItem(
         var storeName: String = "",
         @SerializedName("purchaseDate")
         var purchaseDate: Date? = null,
-        @SerializedName("grandTotal")
+        @SerializedName("grantTotal") // todo fix this whenever api doodz fix their spelling
         var grandTotal: Double? = null,
         @SerializedName("logo")
         var logo: StoreboxMerchantLogo? = null

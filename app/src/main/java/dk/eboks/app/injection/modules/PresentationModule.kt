@@ -586,11 +586,13 @@ class PresentationModule {
     @Provides
     fun provideChannelContentStoreboxComponentPresenter(
             stateManager: AppStateManager,
-            getStoreboxReceiptsInteractor: GetStoreboxReceiptsInteractor
+            getStoreboxReceiptsInteractor: GetStoreboxReceiptsInteractor,
+            getStoreboxCreditCardsInteractor: GetStoreboxCreditCardsInteractor
     ): ChannelContentStoreboxComponentContract.Presenter {
         return ChannelContentStoreboxComponentPresenter(
                 stateManager,
-                getStoreboxReceiptsInteractor
+                getStoreboxReceiptsInteractor,
+                getStoreboxCreditCardsInteractor
         )
     }
 
@@ -867,12 +869,14 @@ class PresentationModule {
     fun provideConnectStoreboxPresenter(
             stateManager: AppStateManager,
             linkStoreboxInteractor: LinkStoreboxInteractor,
-            confirmStoreboxInteractor: ConfirmStoreboxInteractor
+            confirmStoreboxInteractor: ConfirmStoreboxInteractor,
+            createStoreboxInteractor: CreateStoreboxInteractor
     ): ConnectStoreboxContract.Presenter {
         return ConnectStoreboxPresenter(
                 stateManager,
                 linkStoreboxInteractor,
-                confirmStoreboxInteractor
+                confirmStoreboxInteractor,
+                createStoreboxInteractor
         )
     }
 

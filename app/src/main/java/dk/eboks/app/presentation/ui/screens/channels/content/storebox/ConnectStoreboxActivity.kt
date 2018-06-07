@@ -12,6 +12,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.util.addAfterTextChangeListener
 import dk.eboks.app.util.isValidEmail
+import kotlinx.android.synthetic.main.activity_storebox_connect.*
 import kotlinx.android.synthetic.main.fragment_storeboxconnect_confirm.*
 import kotlinx.android.synthetic.main.fragment_storeboxconnect_userinfo.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -63,6 +64,7 @@ class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
         AlertDialog.Builder(this)
                 .setMessage(Translation.storeboxlogin.errorNoExistingProfileMessage)
                 .setPositiveButton(Translation.storeboxlogin.createUserButton) { dialog, which ->
+                    presenter.createStoreboxUser()
                     dialog.dismiss()
                 }
                 .setNegativeButton(Translation.storeboxlogin.tryAgainButton) { dialog, which ->
@@ -86,6 +88,11 @@ class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
     override fun showSuccess() {
         Timber.i("showSuccess")
         finish()
+    }
+
+    override fun showProgress(show: Boolean) {
+        progress.visibility = if(show) View.VISIBLE else View.GONE
+        content.visibility = if(!show) View.VISIBLE else View.GONE
     }
 }
 

@@ -61,6 +61,16 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
             channel = it as Channel
         }
 
+        addCreditCardsBtn.setOnClickListener {
+            val arguments = Bundle()
+            arguments.putCharSequence("arguments", "storebox")
+            arguments.putBoolean("openAddCreditCards", true)
+            arguments.putSerializable(Channel::class.java.simpleName, channel)
+            getBaseActivity()?.openComponentDrawer(
+                    ChannelSettingsComponentFragment::class.java,
+                    arguments
+            )
+        }
         showProgress(true)
     }
 
@@ -104,14 +114,22 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         progressBar.setVisible(show)
         receiptRv.setVisible(!show)
         containerEmpty.setVisible(false)
+        noCreditCardEmptyLl.setVisible(false)
     }
 
     override fun showEmptyView(show: Boolean) {
         Timber.d("Show Empty View: %s", show)
-
-        containerEmpty.setVisible(show)
         receiptRv.setVisible(!show)
         progressBar.setVisible(false)
+        containerEmpty.setVisible(show)
+        noCreditCardEmptyLl.setVisible(show)
+    }
+
+    override fun showNoCreditCardsEmptyView(show: Boolean) {
+        receiptRv.setVisible(!show)
+        progressBar.setVisible(false)
+        containerEmpty.setVisible(show)
+        noCreditCardEmptyLl.setVisible(show)
     }
 
     override fun setReceipts(data: List<StoreboxReceiptItem>) {
@@ -161,22 +179,15 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
                 if (currentReceipt.purchaseDate != null) {
                     amountDateContainer?.visibility = View.VISIBLE
                     soloAmountTv?.visibility = View.GONE
-
-                    amountTv?.text = String.format(
-                            "%.2f",
-                            currentReceipt.grandTotal
-                    ).replace("", ",")
-
                     dateTv?.text = formatter.formatDateRelative(currentReceipt)
                 } else {
                     amountDateContainer?.visibility = View.GONE
                     soloAmountTv?.visibility = View.VISIBLE
-
-                    amountTv?.text = String.format(
-                            "%.2f",
-                            currentReceipt.grandTotal
-                    ).replace("", ",")
                 }
+                amountTv?.text = String.format(
+                        "%.2f",
+                        currentReceipt.grandTotal
+                )
                 if (currentReceipt.logo?.url != null) {
                     logoIv?.let {
                         Glide.with(context).load(currentReceipt.logo?.url).into(it)
@@ -186,7 +197,6 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
                 row?.setOnClickListener {
                     Timber.d("Receipt Clicked: %s", currentReceipt.id)
                     addFragmentOnTop(R.id.content, ChannelContentStoreboxDetailComponentFragment().putArg(StoreboxReceipt.KEY_ID!!, currentReceipt.id) as BaseFragment, true)
-                    //(activity as StoreboxContentActivity).showDetailFragment(currentReceipt.id)
                 }
             }
         }

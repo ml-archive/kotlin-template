@@ -14,10 +14,13 @@ interface ConnectStoreboxContract {
         fun showNotFound()
         fun showWrongCode()
         fun showSuccess()
+        fun showProgress(show : Boolean)
+        fun finish()
     }
 
     interface Presenter : BasePresenter<View> {
         fun signIn(email: String, password: String)
         fun confirm(code: String)
+        fun createStoreboxUser()
     }
 }

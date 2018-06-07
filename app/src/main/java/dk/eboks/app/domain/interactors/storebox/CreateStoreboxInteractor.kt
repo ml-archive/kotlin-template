@@ -13,6 +13,7 @@ interface CreateStoreboxInteractor: Interactor {
 
     interface Output {
         fun onStoreboxAccountCreated()
+        fun onStoreboxAccountExists()
         fun onStoreboxAccountCreatedError(error : ViewError)
     }
 }

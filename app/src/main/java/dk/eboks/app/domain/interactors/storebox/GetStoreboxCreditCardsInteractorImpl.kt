@@ -12,13 +12,14 @@ class GetStoreboxCreditCardsInteractorImpl(executor: Executor, private val api: 
     override var output: GetStoreboxCreditCardsInteractor.Output? = null
 
     override fun execute() {
-        Timber.d("executeexecuteexecuteexecute")
+        Timber.d("executeexecuteexecuteexecute") // <-- brianart
         try {
             val result = api.getStoreboxCreditCards().execute()
 
             result.body()?.let {
                 runOnUIThread {
                     output?.onGetCardsSuccessful(it)
+                    //output?.onGetCardsSuccessful(ArrayList())
                 }
             }
         } catch (t: Throwable) {
