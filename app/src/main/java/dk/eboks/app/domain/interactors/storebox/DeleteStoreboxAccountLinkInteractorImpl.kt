@@ -12,13 +12,13 @@ class DeleteStoreboxAccountLinkInteractorImpl(executor: Executor, private val ap
 
     override fun execute() {
         try {
-            // TODO remove simulation
-
+            /*
             Thread.sleep(5000)
             runOnUIThread {
                 output?.onStoreboxAccountLinkDelete()
             }
-            /*
+            */
+
             val result = api.deleteStoreboxAccountLink().execute()
 
             if(result.isSuccessful) {
@@ -26,7 +26,6 @@ class DeleteStoreboxAccountLinkInteractorImpl(executor: Executor, private val ap
                     output?.onStoreboxAccountLinkDelete()
                 }
             }
-            */
         } catch (t: Throwable) {
             t.printStackTrace()
             runOnUIThread {

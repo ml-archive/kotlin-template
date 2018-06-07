@@ -27,7 +27,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 36
+        versionCode 38
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -60,7 +60,6 @@ android {
         buildConfigField "Boolean", "ENABLE_CHANNEL_REORDERING", "false"         // TODO not implemented
         buildConfigField "Boolean", "ENABLE_PROFILE_DATA_VERIFICATION", "false"  // TODO not implemented
         buildConfigField "Boolean", "ENABLE_SHARES", "false"                     // TODO not implemented
-
     }
 
     signingConfigs {

@@ -95,11 +95,10 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
         this.channel = channel
 
         // TODO Forces all requirements to be met and the channel be installed. Remove me
-
         channel.requirements?.forEach { req ->
             req.verified = true
         }
-        channel.installed = true
+        //channel.installed = true
 
         // if channel is already installed we just open it
         if (channel.installed) {

@@ -41,4 +41,11 @@ object APIConstants {
     val CHANNEL_STATUS_REQUIRES_NEW_VERSION = 4             // Channel not supported, requires a newer app version
     val CHANNEL_STATUS_UNAVAILABLE = 5                      // Channel not supported, no longer available
     val CHANNEL_STATUS_NOT_SUPPORTED = 6                    // Channel not supported (available on web only)
+
+    val STOREBOX_PROFILE_NOT_REGISTERED = 10160
+    val STOREBOX_PROFILE_INVALID = 10161
+    val STOREBOX_PROFILE_EXISTS = 10162
+    val STOREBOX_PROFILE_USER_NOT_FOUND = 10163
+    val STOREBOX_PROFILE_INVALID_INPUT = 10164
+    val STOREBOX_PROFILE_WRONG_CODE = 10165
 }
