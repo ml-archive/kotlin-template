@@ -136,6 +136,8 @@ import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserActivity
 import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserPresenter
 import dk.eboks.app.presentation.ui.screens.home.HomeActivity
 import dk.eboks.app.presentation.ui.screens.home.HomePresenter
+import dk.eboks.app.presentation.ui.screens.login.PopupLoginActivity
+import dk.eboks.app.presentation.ui.screens.login.PopupLoginPresenter
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.presentation.ui.screens.start.StartPresenter
 import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
@@ -342,6 +344,8 @@ interface PresentationComponent {
     fun inject(target : BankIdSEComponentPresenter)
     fun inject(target : BankIdNOComponentFragment)
     fun inject(target : BankIdNOComponentPresenter)
+    fun inject(target : PopupLoginActivity)
+    fun inject(target : PopupLoginPresenter)
   
     // profile
 

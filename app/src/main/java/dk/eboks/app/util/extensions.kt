@@ -211,11 +211,11 @@ fun BaseInteractor.errorBodyToViewError(
     }
 }
 
-fun BaseInteractor.exceptionToViewError(
-        t: Throwable,
-        shouldClose: Boolean = false,
-        shouldDisplay: Boolean = true
-): ViewError {
+
+internal fun throwableToViewError(t: Throwable,
+                                  shouldClose: Boolean = false,
+                                  shouldDisplay: Boolean = true) : ViewError
+{
     when (t) {
         is ConnectException -> return ViewError(
                 title = Translation.error.noInternetTitle,
@@ -253,6 +253,18 @@ fun BaseInteractor.exceptionToViewError(
                 shouldDisplay = shouldDisplay,
                 shouldCloseView = shouldClose
         )
+    }
+}
+
+fun BaseInteractor.exceptionToViewError(
+        t: Throwable,
+        shouldClose: Boolean = false,
+        shouldDisplay: Boolean = true
+): ViewError {
+    t.cause?.let {
+        return throwableToViewError(it, shouldClose, shouldDisplay)
+    }.guard {
+        return throwableToViewError(t, shouldClose, shouldDisplay)
     }
     return ViewError(shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
 }

@@ -53,7 +53,7 @@ class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.Ter
         }
 
         cancelBtn.setOnClickListener { showDialog() }
-
+        // TODO fix me
         termsWV.loadUrl("http://test401-mobile-api-dk.e-boks.com/2/resources/${Config.currentMode.countryCode}/terms")
     }
 

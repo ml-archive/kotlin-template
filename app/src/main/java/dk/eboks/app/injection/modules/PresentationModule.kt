@@ -151,6 +151,8 @@ import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserContract
 import dk.eboks.app.presentation.ui.screens.debug.user.DebugUserPresenter
 import dk.eboks.app.presentation.ui.screens.home.HomeContract
 import dk.eboks.app.presentation.ui.screens.home.HomePresenter
+import dk.eboks.app.presentation.ui.screens.login.PopupLoginContract
+import dk.eboks.app.presentation.ui.screens.login.PopupLoginPresenter
 import dk.eboks.app.presentation.ui.screens.mail.folder.FolderContract
 import dk.eboks.app.presentation.ui.screens.mail.folder.FolderPresenter
 import dk.eboks.app.presentation.ui.screens.mail.list.MailListContract
@@ -988,6 +990,12 @@ class PresentationModule {
     @Provides
     fun provideHelpPresenter(@Named("NAME_BASE_URL") baseUrlString: String): HelpContract.Presenter {
         return HelpPresenter(baseUrlString)
+    }
+
+    @ActivityScope
+    @Provides
+    fun providePopupLoginPresenter(stateManager: AppStateManager): PopupLoginContract.Presenter {
+        return PopupLoginPresenter(stateManager)
     }
 
     /* Pasta

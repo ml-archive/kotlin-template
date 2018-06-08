@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.verification
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
+import dk.eboks.app.presentation.ui.screens.login.PopupLoginActivity
 import kotlinx.android.synthetic.main.fragment_verification_component.*
 import javax.inject.Inject
 
@@ -56,5 +58,11 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
                 verifyBtn.text = Translation.signup.signOnNemIdButton
             }
         }
+
+        verifyBtn.setOnClickListener {
+            // start popuploginactivity for result
+            startActivityForResult(Intent(context, PopupLoginActivity::class.java), 100)
+        }
+
     }
 }

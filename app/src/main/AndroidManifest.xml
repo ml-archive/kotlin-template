@@ -79,7 +79,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.screens.senders.list.SenderAllListActivity" />
         <activity android:name=".presentation.ui.screens.message.reply.ReplyFormActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.screens.start.HelpActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.notimplemented.NotImplementedActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.screens.notimplemented.ComingSoonActivity" />
 
         <activity android:name="dk.eboks.app.system.managers.permission.PermissionRequestActivity" />
         <activity
@@ -87,6 +87,7 @@
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/TransTheme" />
         <activity android:name=".presentation.ui.screens.channels.content.storebox.StoreboxAddCardActivity"/>
+        <activity android:name=".presentation.ui.screens.login.PopupLoginActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

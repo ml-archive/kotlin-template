@@ -1,18 +1,14 @@
 package dk.eboks.app.presentation.ui.components.start.signup
 
-import android.util.Log
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
 import dk.eboks.app.domain.interactors.user.CheckSsnExistsInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
-import dk.eboks.app.domain.models.login.LoginState
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import kotlinx.coroutines.experimental.withTimeoutOrNull
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -38,6 +34,10 @@ class SignupComponentPresenter @Inject constructor(
         verifySignupMailInteractor.output = this
         loginUserInteractor.output = this
         checkSsnExistsInteractor.output = this
+    }
+
+    companion object {
+        val tempUser: User = User()
     }
 
     override fun confirmMail(email: String, name: String) {
@@ -130,10 +130,6 @@ class SignupComponentPresenter @Inject constructor(
             v as SignupComponentContract.TermsView
             v.showUserCreated()
         }
-    }
-
-    companion object {
-        val tempUser: User = User()
     }
 
     // Mina meddelan

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 xmlns:nstack="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:background="@color/white"
+                                                 tools:ignore="MissingPrefix">
+
+    <include layout="@layout/include_toolbar" />
+    <include layout="@layout/include_navigation_view" />
+
+    <LinearLayout
+        android:id="@+id/emptyStateLl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/backgroundColor"
+        android:orientation="vertical"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp">
+
+
+        <ImageView
+            android:id="@+id/notImplementedImageIv"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_visual_clock" />
+
+        <TextView
+            android:id="@+id/comingSoonHeaderTv"
+            style="@style/text.header2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:gravity="center"
+            android:textStyle="normal"
+            nstack:key="@string/nstack_senders_comingSoonHeader" />
+
+        <TextView
+            android:id="@+id/comingSoonMessageTv"
+            style="@style/text.header3"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/blueGrey"
+            android:textStyle="normal"
+            nstack:key="@string/nstack_senders_comingSoonMessage" />
+
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
