@@ -9,6 +9,7 @@ import dk.eboks.app.network.Api
 import dk.eboks.app.util.guard
 
 
+// TODO delete me, create user moved to interactor
 class SignupRestRepository(private val context: Context, private val api: Api, private val gson: Gson) : SignupRepository {
 
     override fun verifySignupMail(email : String): Boolean {

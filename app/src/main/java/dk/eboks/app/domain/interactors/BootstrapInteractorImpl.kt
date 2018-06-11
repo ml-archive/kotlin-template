@@ -37,6 +37,9 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, 
             }
             settingsRepository.put(settings)
 
+            loginState?.kspToken = ""
+            loginState?.token = null
+
             Timber.d("LoginState: $loginState?")
             //Thread.sleep(2000)
             runOnUIThread {
