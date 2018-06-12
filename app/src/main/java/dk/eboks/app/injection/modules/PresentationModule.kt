@@ -539,12 +539,10 @@ class PresentationModule {
     @Provides
     fun provideLoginComponentPresenter(
             stateManager: AppStateManager,
-            createUserInteractor: CreateUserInteractor,
             loginInteractor: LoginInteractor
     ): LoginComponentContract.Presenter {
         return LoginComponentPresenter(
                 stateManager,
-                createUserInteractor,
                 loginInteractor
         )
     }
@@ -557,8 +555,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideActivationCodeComponentPresenter(stateManager: AppStateManager, loginInteractor: LoginInteractor): ActivationCodeComponentContract.Presenter {
-        return ActivationCodeComponentPresenter(stateManager, loginInteractor)
+    fun provideActivationCodeComponentPresenter(stateManager: AppStateManager, loginInteractor: LoginInteractor, saveUsersInteractor: SaveUsersInteractor): ActivationCodeComponentContract.Presenter {
+        return ActivationCodeComponentPresenter(stateManager, loginInteractor, saveUsersInteractor)
     }
 
 

@@ -44,7 +44,7 @@ class ProfileInfoComponentPresenter @Inject constructor(
         runAction { v ->
             v.setName(currentUser.name)
             v.setProfileImage(currentUser.avatarUri)
-            v.showFingerprintEnabled(currentUser.hasFingerprint, currentUser.lastLoginProvider)
+            v.showFingerprintEnabled(currentUser.hasFingerprint, currentUser.lastLoginProviderId)
             v.setVerified(currentUser.verified)
             v.setKeepMeSignedIn(false)
         }

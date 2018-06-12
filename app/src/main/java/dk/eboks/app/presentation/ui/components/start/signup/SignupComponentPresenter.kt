@@ -73,13 +73,13 @@ class SignupComponentPresenter @Inject constructor(
     }
 
     override fun createUserAndLogin() {
-        tempUser.lastLoginProvider = "email"
+        tempUser.lastLoginProviderId = "email"
         appState.state?.currentUser = tempUser
         appState.save()
         appState.state?.loginState?.let { loginState ->
             loginState.userPassWord?.let { password ->
                 loginState.userPassWord = password
-                loginState.userName = appState.state?.currentUser?.cpr?: appState.state?.currentUser?.getPrimaryEmail()
+                loginState.userName = appState.state?.currentUser?.identity?: appState.state?.currentUser?.getPrimaryEmail()
                 loginState.token = null
                 loginUserInteractor.input = LoginInteractor.Input(loginState)
                 loginUserInteractor.run()

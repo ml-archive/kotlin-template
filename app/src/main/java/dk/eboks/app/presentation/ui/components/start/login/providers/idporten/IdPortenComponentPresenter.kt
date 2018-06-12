@@ -19,7 +19,7 @@ class IdPortenComponentPresenter @Inject constructor(appState: AppStateManager, 
     override fun onLoginSuccess(response: AccessToken) {
 
         appState.state?.loginState?.selectedUser?.let { user ->
-            user.lastLoginProvider = "idporten"
+            user.lastLoginProviderId = "idporten"
             appState.state?.currentUser = user
             appState.save()
 

@@ -7,12 +7,14 @@ data class User(
         var name: String = "",
         var emails: ArrayList<ContactPoint> = arrayListOf(ContactPoint()),
         var mobilenumber: ContactPoint? = null,
-        var cpr: String? = null,
+        var identity: String? = null,
+        var identityType: String? = null,
         var avatarUri: String? = null,
-        var lastLoginProvider: String? = null,
+        var lastLoginProviderId: String? = null,
         var verified: Boolean = false,
         var hasFingerprint: Boolean = false,
-        var newsletter: Boolean = false
+        var newsletter: Boolean = false,
+        var activationCode: String? = null
 ) : Serializable {
 
     fun getPrimaryEmail(): String? {

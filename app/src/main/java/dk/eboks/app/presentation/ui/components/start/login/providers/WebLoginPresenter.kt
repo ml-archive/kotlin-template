@@ -47,11 +47,11 @@ open class WebLoginPresenter @Inject constructor(
     override fun cancelAndClose() {
         // set fallback login provider and close
         appState.state?.loginState?.selectedUser?.let { user ->
-            user.lastLoginProvider?.let { provider_id ->
+            user.lastLoginProviderId?.let { provider_id ->
                 Timber.e("Cancel and close called provider id = ")
                 Config.getLoginProvider(provider_id)?.let { provider ->
                     Timber.e("Setting lastLoginProvider to fallback provider ${provider.fallbackProvider}")
-                    user.lastLoginProvider = provider.fallbackProvider
+                    user.lastLoginProviderId = provider.fallbackProvider
                 }
             }.guard {
                 Timber.e("error")

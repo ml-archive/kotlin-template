@@ -3,7 +3,9 @@ package dk.eboks.app.presentation.ui.components.start.login
 import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
+import dk.eboks.app.domain.interactors.user.SaveUsersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.UserManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -15,11 +17,14 @@ import javax.inject.Inject
  */
 class ActivationCodeComponentPresenter @Inject constructor(
         val appState: AppStateManager,
-        val loginInteractor: LoginInteractor
+        val loginInteractor: LoginInteractor,
+        val saveUsersInteractor: SaveUsersInteractor
 ) :
         ActivationCodeComponentContract.Presenter,
         BasePresenterImpl<ActivationCodeComponentContract.View>(),
-        LoginInteractor.Output {
+        LoginInteractor.Output,
+        SaveUsersInteractor.Output
+{
 
 
     init {
@@ -35,11 +40,18 @@ class ActivationCodeComponentPresenter @Inject constructor(
                     v.setDebugUp("Cr4x3N6Q")
                 }
             }
+            Timber.e("selectedUser ${it.selectedUser}")
         }
     }
 
     override fun updateLoginState(activationCode: String?) {
         appState.state?.loginState?.let { ls ->
+            /*
+            ls.selectedUser?.let { user->
+                user.activationCode = activationCode
+                saveUsersInteractor.run()
+            }
+            */
             activationCode?.let {
                 ls.activationCode = it
             }
@@ -73,6 +85,16 @@ class ActivationCodeComponentPresenter @Inject constructor(
 
     override fun onLoginError(error: ViewError) {
         Timber.e("Login Error!!")
+        runAction { v ->
+            v.showErrorDialog(error)
+        }
+    }
+
+    override fun onSaveUsers() {
+
+    }
+
+    override fun onSaveUsersError(error: ViewError) {
         runAction { v ->
             v.showErrorDialog(error)
         }

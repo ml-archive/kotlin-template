@@ -142,6 +142,7 @@ class StartActivity : BaseActivity(), StartContract.View {
         startActivity(Intent(this, HomeActivity::class.java))
 
         //overridePendingTransition(0, 0)
+        Timber.d("Finishing StartActivity")
         finishAfterTransition()
     }
 

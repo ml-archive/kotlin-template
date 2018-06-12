@@ -48,9 +48,9 @@ class DebugUserPresenter(
         val user: User = User(
                 id = -1,
                 name = name,
-                cpr = cpr,
+                identity = cpr,
                 avatarUri = null,
-                lastLoginProvider = provider.id,
+                lastLoginProviderId = provider.id,
                 verified = verified,
                 hasFingerprint = fingerprint
         )

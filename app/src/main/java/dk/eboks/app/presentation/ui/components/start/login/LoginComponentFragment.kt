@@ -139,19 +139,35 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         Timber.i("onContinue with ${currentUser?.name}")
         currentUser?.let { user ->
             currentProvider?.let { provider ->
+
+                val identity : String = if(provider.id == "email") user.emails[0].value ?: "" else user.identity ?: ""
                 presenter.updateLoginState(
-                        user,
+                        identity,
                         provider.id,
                         passwordEt.text.toString().trim(),
-                        activationCode = null
+                        activationCode = user.activationCode
                 )
                 presenter.login()
                 continuePb.visibility = View.VISIBLE
                 continueBtn.isEnabled = false
             }
         }.guard {
-            createUser(false)
-//            getBaseActivity()?.setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
+            loginExistingUser()
+        }
+    }
+
+    private fun loginExistingUser() {
+        Timber.e("Log in to existing user")
+        val emailOrCpr = cprEmailEt.text?.toString()?.trim() ?: ""
+        val password = passwordEt.text?.toString()?.trim() ?: ""
+        if (emailOrCpr.isNotBlank() && password.isNotBlank()) {
+            val providerId = if(emailOrCpr.contains("@")) "email" else "cpr"
+            presenter.updateLoginState(userName = emailOrCpr, providerId = providerId, password = password, activationCode = null)
+            presenter.login()
+        }
+        else
+        {
+            Timber.e("Need a username and password to login to existing user")
         }
     }
 
@@ -186,24 +202,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         setupAltLoginProviders(altLoginProviders)
 
         user?.let {
-            if (BuildConfig.DEBUG && "3110276111" == it.cpr) {
+            if (BuildConfig.DEBUG && "3110276111" == it.identity) {
                 cprEmailEt.setText("3110276111")
                 passwordEt.setText("147258369")
                 setContinueButton()
             }
-        }
-    }
-
-    private fun createUser(verified: Boolean) {
-        val emailOrCpr = cprEmailEt.text?.toString()?.trim() ?: ""
-        if (emailOrCpr.isNotBlank()) {
-            if (emailOrCpr.contains("@")) {
-                presenter.createUserAndLogin(email = emailOrCpr, cpr = null, verified = verified)
-            } else {
-                presenter.createUserAndLogin(email = null, cpr = emailOrCpr, verified = verified)
-            }
-
-            getBaseActivity()?.setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
         }
     }
 
@@ -257,7 +260,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                     currentUser?.let { user ->
                         currentProvider?.let { provider ->
                             // TODO add credentials
-                            presenter.updateLoginState(user, provider.id, "todo", "todo")
+                            presenter.updateLoginState(user.name, provider.id, "todo", "todo")
                             presenter.login()
                         }
                     }
@@ -444,6 +447,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 //            }
 //        }
 //    }
+
+    override fun showProgress(show: Boolean) {
+        continueBtn.isEnabled = !show
+        continuePb.visibility = if(show) View.VISIBLE else View.INVISIBLE
+    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -66,15 +66,15 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
     }
 
     private fun saveUser(user: User) {
-        user.lastLoginProvider = (loginProviderSpr.selectedItem as LoginProvider).id
+        user.lastLoginProviderId = (loginProviderSpr.selectedItem as LoginProvider).id
         user.name = nameEt.text.toString().trim()
         user.setPrimaryEmail(emailEt.text.toString().trim())
 
         if (user.getPrimaryEmail().isNullOrBlank())
             user.setPrimaryEmail(null)
-        user.cpr = cprEt.text.toString().trim()
-        if (user.cpr.isNullOrBlank())
-            user.cpr = null
+        user.identity = cprEt.text.toString().trim()
+        if (user.identity.isNullOrBlank())
+            user.identity = null
         user.verified = verifiedSw.isChecked
         user.hasFingerprint = fingerPrintSw.isChecked
         presenter.saveUser(user)
@@ -83,7 +83,7 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
     override fun showUser(user: User) {
         currentUser = user
         for (i in 0 until loginProviderSpr.adapter.count) {
-            user.lastLoginProvider?.let {
+            user.lastLoginProviderId?.let {
                 if ((loginProviderSpr.adapter.getItem(i) as LoginProvider).id == it) {
                     loginProviderSpr.setSelection(i)
                     return@let
@@ -92,7 +92,7 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
         }
         nameEt.setText(user.name)
         user.getPrimaryEmail()?.let { emailEt.setText(it) }
-        user.cpr?.let { cprEt.setText(it) }
+        user.identity?.let { cprEt.setText(it) }
         verifiedSw.isChecked = user.verified
         fingerPrintSw.isChecked = user.hasFingerprint
         currentUser?.let {

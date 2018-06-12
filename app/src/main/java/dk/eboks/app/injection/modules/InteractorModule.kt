@@ -260,6 +260,15 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideSaveUsersInteractor(
+            executor: Executor,
+            userManager: UserManager
+    ): SaveUsersInteractor {
+        return SaveUsersInteractorImpl(executor, userManager)
+    }
+
+
+    @Provides
     fun provideDeleteUserInteractor(
             executor: Executor,
             userManager: UserManager

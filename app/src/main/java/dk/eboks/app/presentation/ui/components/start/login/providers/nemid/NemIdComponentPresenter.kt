@@ -15,7 +15,7 @@ class NemIdComponentPresenter @Inject constructor(appState: AppStateManager, tra
     override fun onLoginSuccess(response: AccessToken) {
 
         appState.state?.loginState?.selectedUser?.let { user ->
-            user.lastLoginProvider = "nemid"
+            user.lastLoginProviderId = "nemid"
             appState.state?.currentUser = user
             appState.save()
 

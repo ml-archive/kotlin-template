@@ -7,6 +7,7 @@ import dk.eboks.app.domain.models.login.User
  */
 interface UserManager {
     var users : MutableList<User>
-    fun put(user: User)
+    fun put(user: User) : User
     fun remove(user : User)
+    fun save()
 }

@@ -19,26 +19,23 @@ import javax.inject.Inject
  */
 class LoginComponentPresenter @Inject constructor(
         val appState: AppStateManager,
-        val createUserInteractor: CreateUserInteractor,
         val loginInteractor: LoginInteractor
 ) :
         LoginComponentContract.Presenter,
         BasePresenterImpl<LoginComponentContract.View>(),
-        CreateUserInteractor.Output,
         LoginInteractor.Output {
 
     var altProviders: List<LoginProvider> = Config.getAlternativeLoginProviders()
 
     init {
         appState.state?.currentUser = null
-        createUserInteractor.output = this
         loginInteractor.output = this
     }
 
     override fun setup() {
         appState.state?.loginState?.let { state ->
             state.selectedUser?.let {
-                setupLogin(it, it.lastLoginProvider)
+                setupLogin(it, it.lastLoginProviderId)
             }.guard {
                 runAction { v ->
                     v.setupView(null, null, altProviders)
@@ -75,55 +72,35 @@ class LoginComponentPresenter @Inject constructor(
     override fun onLoginDenied(error: ViewError) {
         Timber.w(" \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word!")
         runAction { v ->
+            v.showProgress(false)
             v.showError(error)
         }
     }
 
     override fun onLoginError(error: ViewError) {
         Timber.e("Login Error!!")
+        runAction { v ->
+            v.showProgress(false)
+            v.showError(error)
+        }
     }
 
-    override fun updateLoginState(user: User, providerId: String, password: String, activationCode: String?) {
-
-        user.lastLoginProvider = providerId
-
+    override fun updateLoginState(userName: String, providerId: String, password: String, activationCode: String?) {
         appState.state?.loginState?.let { ls ->
-            ls.userName = user.cpr ?: user.getPrimaryEmail() ?: ""
+            ls.userName = userName
             ls.userPassWord = password
-            activationCode?.let {
-                ls.activationCode = it
-            }
+            ls.userLoginProviderId = providerId
+            ls.activationCode = activationCode
+
         }
     }
 
     override fun login() {
         appState.state?.loginState?.let {
+            runAction { v->v.showProgress(true) }
             loginInteractor.input = LoginInteractor.Input(it)
             loginInteractor.run()
         }
-    }
-
-    //    // TODO not much loggin going on
-    override fun createUserAndLogin(email: String?, cpr: String?, verified: Boolean) {
-        val provider = if (email != null) {
-            Config.getLoginProvider("email")
-        } else Config.getLoginProvider(
-                "cpr"
-        )
-
-        val user = User(
-                id = -1,
-                name = "Enel Leranden",
-                emails = arrayListOf(ContactPoint(email ?: "", true)),
-                cpr = cpr,
-                avatarUri = null,
-                lastLoginProvider = provider?.id,
-                verified = verified,
-                hasFingerprint = false
-        )
-
-        createUserInteractor.input = CreateUserInteractor.Input(user, "tempPassword")
-        createUserInteractor.run()
     }
 
     override fun switchLoginProvider(provider: LoginProvider) {
@@ -136,16 +113,6 @@ class LoginComponentPresenter @Inject constructor(
                         provider.id
                 )
             }
-        }
-    }
-
-    override fun onCreateUser(user: User) {
-        Timber.i("User created $user")
-    }
-
-    override fun onCreateUserError(error: ViewError) {
-        runAction { v ->
-           v.showErrorDialog(error)
         }
     }
 

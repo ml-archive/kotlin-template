@@ -18,7 +18,7 @@ class BankIdSEComponentPresenter @Inject constructor(appState: AppStateManager, 
     override fun onLoginSuccess(response: AccessToken) {
 
         appState.state?.loginState?.selectedUser?.let { user ->
-            user.lastLoginProvider = "bankid_se"
+            user.lastLoginProviderId = "bankid_se"
             appState.state?.currentUser = user
             appState.save()
 

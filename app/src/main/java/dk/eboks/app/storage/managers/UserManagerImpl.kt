@@ -32,24 +32,31 @@ class UserManagerImpl(val context: Context, val gson: Gson) : UserManager {
 
     /**
      * try to update an existing user, or add it if it doesn't exist yet
+     * if updated the reference saved in the user manager is returned
+     * replace this in your client code
      */
-    override fun put(user: User) {
-        var updated = false
+    override fun put(user: User) : User {
         for (u in users) {
             if (u.id == user.id) {
-                FieldMapper.copyAllFields(user, u)
-                updated = true
-                break
+                //FieldMapper.copyAllFields(user, u)
+                FieldMapper.copyAllFields(u, user)
+                userStore.save(users)
+                Timber.e("User ${user.id} : ${user.name} updated")
+                return u
             }
         }
-        if (!updated) {
-            users.add(user)
-        }
+        users.add(user)
+        Timber.e("User ${user.id} : ${user.name} added")
         userStore.save(users)
+        return user
     }
 
     override fun remove(user: User) {
         users.remove(user)
+        userStore.save(users)
+    }
+
+    override fun save() {
         userStore.save(users)
     }
 

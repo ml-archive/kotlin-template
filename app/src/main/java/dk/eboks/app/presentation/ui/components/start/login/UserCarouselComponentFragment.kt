@@ -135,8 +135,8 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
 
                 if(BuildConfig.DEBUG) {
                     var info = ""
-                    if(user.lastLoginProvider != null)
-                        info += "${user.lastLoginProvider}\n"
+                    if(user.lastLoginProviderId != null)
+                        info += "${user.lastLoginProviderId}\n"
                     if(user.verified)
                         info += "verified\n"
                     if(user.hasFingerprint)

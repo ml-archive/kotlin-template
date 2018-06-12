@@ -5,10 +5,12 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import timber.log.Timber
 
 /**
  * Created by bison on 24-06-2017.
@@ -43,21 +45,18 @@ class LoginInteractorImpl(executor: Executor, val api: Api, val appStateManager:
                     tokenResult?.body()?.let { token ->
                         appStateManager.state?.loginState?.token = token
 
+
                         val userResult = api.getUserProfile().execute()
-                        userResult?.body()?.let {
-                            // double-check that the the returned user is the same as the selected user
-                            appStateManager.state?.loginState?.selectedUser?.let { u ->
-                                if(u != it) {
-                                    // delete it, if it is
-                                    // this could be caused by the server changing user-id - why?
-                                    // or by us saving a user with the wrong id during creation
-//                                    userManager.remove(u)
-                                }
-                            }
+                        userResult?.body()?.let { user->
                             // update the states
-                            userManager.put(it)
-                            appStateManager.state?.loginState?.lastUser = it
-                            appStateManager.state?.currentUser = it
+                            appStateManager.state?.loginState?.userLoginProviderId?.let { user.lastLoginProviderId = it }
+                            it.loginState.activationCode?.let {
+                                user.activationCode = it
+                            }
+                            Timber.e("Saving user $user")
+                            val newUser = userManager.put(user)
+                            appStateManager.state?.loginState?.lastUser = newUser
+                            appStateManager.state?.currentUser = newUser
                         }
                         appStateManager.save()
 
