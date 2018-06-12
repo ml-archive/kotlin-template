@@ -238,9 +238,9 @@ class InteractorModule {
     fun provideCreateUserInteractor(
             executor: Executor,
             userManager: UserManager,
-            signupRestRepo : SignupRestRepository
+            api: Api
     ): CreateUserInteractor {
-        return CreateUserInteractorImpl(executor, userManager,signupRestRepo)
+        return CreateUserInteractorImpl(executor, userManager, api)
     }
 
     @Provides
