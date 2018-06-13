@@ -134,10 +134,6 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         return false
     }
 
-    override fun showError() {
-
-    }
-
     override fun showProgress(show: Boolean) {
         content.visibility = if (show) View.GONE else View.VISIBLE
         progress.visibility = if (show) View.VISIBLE else View.GONE

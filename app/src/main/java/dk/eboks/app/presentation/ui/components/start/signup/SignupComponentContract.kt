@@ -9,7 +9,6 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface SignupComponentContract {
     interface SignupView : BaseView {
-        fun showError()
         fun showProgress(show: Boolean)
     }
 
@@ -31,17 +30,15 @@ interface SignupComponentContract {
     }
 
     interface TermsView : SignupView {
-        fun showUserCreated()
-        fun showUserCreatedError()
+        fun showSignupCompleted()
     }
 
     interface CompletedView : SignupView {
-        fun doLogin()
     }
 
     interface Presenter : BasePresenter<SignupView> {
         fun setPassword(password: String)
-        fun createUserAndLogin()
+        fun loginUser()
         fun confirmMail(email: String, name: String)
         fun createUser()
         fun verifySSN(ssn: String)

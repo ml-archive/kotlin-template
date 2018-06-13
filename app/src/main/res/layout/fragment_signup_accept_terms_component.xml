@@ -88,38 +88,50 @@
         <!--</LinearLayout>-->
     </ScrollView>
 
-    <!--Button-->
-
-    <LinearLayout
-        android:id="@+id/termsButtonsLl"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_top_corners_greyborder"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/acceptBtn"
-            nstack:key="@string/nstack_signup_termsAcceptButton"
-            style="@style/button.SolidGradient"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="20dp"
-            android:text="_I accept" />
-
-        <Button
-            android:id="@+id/cancelBtn"
-            nstack:key="@string/nstack_signup_cancelTermsBtn"
-            style="@style/button.borderless"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/termsButtonsLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_vertical"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="10dp"
-            android:text="_cancel" />
+            android:background="@drawable/rounded_top_corners_greyborder"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <Button
+                android:id="@+id/acceptBtn"
+                nstack:key="@string/nstack_signup_termsAcceptButton"
+                style="@style/button.SolidGradient"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="20dp"
+                android:text="_I accept" />
+
+            <Button
+                android:id="@+id/cancelBtn"
+                nstack:key="@string/nstack_signup_cancelTermsBtn"
+                style="@style/button.borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_vertical"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginTop="10dp"
+                android:text="_cancel" />
+
+        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/progressFl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible">
+            <ProgressBar
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </FrameLayout>
+    </FrameLayout>
 
 </LinearLayout>

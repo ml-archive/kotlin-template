@@ -73,17 +73,13 @@ class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.Ter
         b.show()
     }
 
-    override fun showUserCreated() {
+    override fun showSignupCompleted() {
         getBaseActivity()?.addFragmentOnTop(R.id.containerFl, CompletedComponentFragment(), true)
     }
 
-    override fun showUserCreatedError() {
-
-    }
-
-    override fun showError() {
-    }
 
     override fun showProgress(show: Boolean) {
+        termsButtonsLl.visibility = if(show) View.INVISIBLE else View.VISIBLE
+        progressFl.visibility = if(!show) View.INVISIBLE else View.VISIBLE
     }
 }

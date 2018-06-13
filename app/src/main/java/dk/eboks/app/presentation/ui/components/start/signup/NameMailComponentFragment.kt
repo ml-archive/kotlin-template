@@ -142,10 +142,6 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         continueBtn.isEnabled = (emailValid && nameValid)
     }
 
-    override fun showError() {
-
-    }
-
     override fun showProgress(show: Boolean) {
         content.visibility = if (show) View.GONE else View.VISIBLE
         progress.visibility = if (show) View.VISIBLE else View.GONE

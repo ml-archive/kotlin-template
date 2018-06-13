@@ -19,7 +19,7 @@ class SignupComponentPresenter @Inject constructor(
         val appState: AppStateManager,
         val createUserInteractor: CreateUserInteractor,
         val loginUserInteractor: LoginInteractor,
-        val verifySignupMailInteractor: CheckSignupMailInteractor,
+        val checkSignupMailInteractor: CheckSignupMailInteractor,
         val checkSsnExistsInteractor: CheckSsnExistsInteractor
 ) :
         SignupComponentContract.Presenter,
@@ -31,7 +31,7 @@ class SignupComponentPresenter @Inject constructor(
 
     init {
         createUserInteractor.output = this
-        verifySignupMailInteractor.output = this
+        checkSignupMailInteractor.output = this
         loginUserInteractor.output = this
         checkSsnExistsInteractor.output = this
     }
@@ -43,26 +43,13 @@ class SignupComponentPresenter @Inject constructor(
     override fun confirmMail(email: String, name: String) {
         tempUser.name = name
         tempUser.setPrimaryEmail(email)
-        verifySignupMailInteractor.input = CheckSignupMailInteractor.Input(email)
-        verifySignupMailInteractor.run()
-    }
-
-    override fun onVerifySignupMail(exists: Boolean) {
-        runAction { v ->
-            v as SignupComponentContract.NameMailView
-            v.showSignupMail(exists)
-        }
-    }
-
-    override fun onVerifySignupMail(error: ViewError) {
-        runAction { v ->
-            v as SignupComponentContract.NameMailView
-            v.showSignupMailError(error)
-        }
+        checkSignupMailInteractor.input = CheckSignupMailInteractor.Input(email)
+        checkSignupMailInteractor.run()
     }
 
     override fun createUser() {
         appState.state?.loginState?.userPassWord?.let {
+            runAction { v->v.showProgress(true) }
             createUserInteractor.input = CreateUserInteractor.Input(tempUser, it)
             createUserInteractor.run()
         }
@@ -72,15 +59,13 @@ class SignupComponentPresenter @Inject constructor(
         appState.state?.loginState?.userPassWord = password
     }
 
-    override fun createUserAndLogin() {
-        tempUser.lastLoginProviderId = "email"
-        appState.state?.currentUser = tempUser
-        appState.save()
+    override fun loginUser() {
         appState.state?.loginState?.let { loginState ->
             loginState.userPassWord?.let { password ->
                 loginState.userPassWord = password
-                loginState.userName = appState.state?.currentUser?.identity?: appState.state?.currentUser?.getPrimaryEmail()
+                loginState.userName = tempUser.getPrimaryEmail()
                 loginState.token = null
+                loginState.userLoginProviderId = "email"
                 loginUserInteractor.input = LoginInteractor.Input(loginState)
                 loginUserInteractor.run()
             }
@@ -88,57 +73,62 @@ class SignupComponentPresenter @Inject constructor(
     }
 
 
-    fun login() {
-        runAction { v ->
-            v as SignupComponentContract.CompletedView
-            v.doLogin()
-        }
-    }
-
-    //todo blocked untill the login/create user actually works. will try to login regardless to be able to follow the flow of the app - this needs to be changed
-    override fun onLoginSuccess(response: AccessToken) {
-        Timber.d("success")
-        login()
-    }
-
-    override fun onLoginActivationCodeRequired() {
-        Timber.d("onloginactivatedcoderequired")
-        login()
-    }
-
-    override fun onLoginDenied(error: ViewError) {
-        Timber.d("onlogindenied")
-        login()
-    }
-
-    override fun onLoginError(error: ViewError) {
-        Timber.d("onloginerror")
-        login()
-    }
-
-    override fun onCreateUser(user: User) {
-        runAction { v ->
-            v as SignupComponentContract.TermsView
-            v.showUserCreated()
-        }
-    }
-
-    override fun onCreateUserError(error: ViewError) {
-        runAction { v ->
-            v.showErrorDialog(error)
-            //todo since the api does not work, we need this to continue the flow
-            v as SignupComponentContract.TermsView
-            v.showUserCreated()
-        }
-    }
-
     // Mina meddelan
-
     override fun verifySSN(ssn: String) {
         checkSsnExistsInteractor.input = CheckSsnExistsInteractor.Input(ssn)
         checkSsnExistsInteractor.run()
     }
 
+
+    /**
+     * Login callbacks
+     */
+    override fun onLoginSuccess(response: AccessToken) {
+        Timber.d("success")
+        runAction { v ->
+            v as SignupComponentContract.TermsView
+            v.showSignupCompleted()
+        }
+    }
+
+    override fun onLoginActivationCodeRequired() {
+        Timber.d("onloginactivatedcoderequired")
+        runAction { v->v.showProgress(false) }
+    }
+
+    override fun onLoginDenied(error: ViewError) {
+        Timber.d("onlogindenied")
+        runAction { v ->
+            v.showProgress(false)
+            v.showErrorDialog(error)
+        }
+    }
+
+    override fun onLoginError(error: ViewError) {
+        Timber.d("onloginerror")
+        runAction { v ->
+            v.showProgress(false)
+            v.showErrorDialog(error)
+        }
+    }
+
+    /**
+     * Create user callbacks
+     */
+    override fun onCreateUser(user: User) {
+        loginUser()
+    }
+
+    override fun onCreateUserError(error: ViewError) {
+        runAction { v ->
+            v.showProgress(false)
+            v.showErrorDialog(error)
+        }
+    }
+
+    /**
+     * CheckSsn Callbacks
+     */
     override fun onCheckSsnExists(exists: Boolean) {
         runAction { v ->
             v as SignupComponentContract.MMView
@@ -152,6 +142,23 @@ class SignupComponentPresenter @Inject constructor(
         runAction { v ->
             v as SignupComponentContract.MMView
             v.ssnExists(false)
+        }
+    }
+
+    /**
+     * CheckMail callbacks
+     */
+    override fun onVerifySignupMail(exists: Boolean) {
+        runAction { v ->
+            v as SignupComponentContract.NameMailView
+            v.showSignupMail(exists)
+        }
+    }
+
+    override fun onVerifySignupMail(error: ViewError) {
+        runAction { v ->
+            v as SignupComponentContract.NameMailView
+            v.showSignupMailError(error)
         }
     }
 }
