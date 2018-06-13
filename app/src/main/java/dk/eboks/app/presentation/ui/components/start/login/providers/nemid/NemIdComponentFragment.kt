@@ -68,7 +68,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
         super.onPause()
     }
 
-    override fun setupLogin(user: User) {
+    override fun setupLogin(user: User?) {
         loginUser = user
         val loginUrl = "${Config.currentMode.environment?.logonUrl}nemid"
         Timber.e("Opening $loginUrl")
@@ -132,7 +132,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     fun getJS(): String {
         return ("function onNemIDMessage(e) { "
-                + "console.log(\"pikker\"); "
+                + "console.log(\"onNemIdMessage\"); "
                 + "var event = e || event; "
                 + "var win = document.getElementById(\"nemid_iframe\").contentWindow, postMessage = {}, message; "
                 + "message = JSON.parse(event.data); "

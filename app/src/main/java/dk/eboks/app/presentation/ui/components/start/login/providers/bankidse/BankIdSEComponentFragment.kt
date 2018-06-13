@@ -70,7 +70,7 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
         super.onPause()
     }
 
-    override fun setupLogin(user: User) {
+    override fun setupLogin(user: User?) {
         loginUser = user
         val loginUrl = "${Config.currentMode.environment?.logonUrl}bankid"
         Timber.e("Opening $loginUrl")

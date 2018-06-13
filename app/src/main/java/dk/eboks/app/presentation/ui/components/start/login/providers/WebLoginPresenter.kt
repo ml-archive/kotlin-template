@@ -38,8 +38,11 @@ open class WebLoginPresenter @Inject constructor(
     }
 
     override fun setup() {
+        appState.state?.loginState?.userLoginProviderId = "nemid"
         appState.state?.loginState?.selectedUser?.let { user ->
             runAction { v -> v.setupLogin(user) }
+        }.guard { // narp this is a first time login using the provider
+            runAction { v->v.setupLogin(null) }
         }
 
     }

@@ -10,7 +10,7 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface WebLoginContract {
     interface View : BaseView {
-        fun setupLogin(user : User)
+        fun setupLogin(user : User?)
         fun showError(viewError: ViewError)
         fun close()
         fun proceed()
