@@ -324,6 +324,16 @@ object Config {
         }
     }
 
+    fun getApiUrl() : String
+    {
+        return BuildConfig.TEST_API_URL
+    }
+
+    fun getAuthUrl() : String
+    {
+        return BuildConfig.TEST_OAUTH_URL
+    }
+
     lateinit var currentMode : Mode
 
     init {

@@ -393,6 +393,10 @@ public class Translation {
 		public static String myProfile = "My profile";
 		public static String yourInfoWasSaved = "Your information was saved";
 		public static String failedToSaveProfile = "Failed to save profile";
+		public static String errorBiometryTakenTitle = "[idtype] already set up";
+		public static String errorbiometryTakenMessage = "by: [username]";
+		public static String errorBiometryVerificationRequiredTitle = "Verification required";
+		public static String errorbiometryVerificationRequiredMessage = "You need to verify your profile to enable [idtype]";
 	}
 	public final static class myInformation {
 		public static String title = "My Information";

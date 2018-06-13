@@ -38,9 +38,12 @@ android {
         ]
 
         //buildConfigField "String", "MOCK_API_URL", "\"https://60582528-965e-4f53-8ab4-e09a1aebd008.mock.pstmn.io\""
-        buildConfigField "String", "MOCK_API_URL", "\"http://test401-mobile-api-dk.internal.e-boks.com/2/\""
-        buildConfigField "String", "MOCK_API_KEY", "\"2d00bf67a1cf4024a88e7e99c89557fe\""
-        buildConfigField "Boolean", "MOCK_API_ENABLED", "true"
+        buildConfigField "String", "TEST_API_URL", "\"http://test401-mobile-api-dk.internal.e-boks.com/2/\""
+        buildConfigField "String", "TEST_OAUTH_URL", "\"http://test401-oauth-dk.internal.e-boks.com/1/connect/token\""
+
+        buildConfigField "String", "DEMO_API_URL", "\"https://demo-mobile-api-dk.internal.e-boks.com/2/\""
+        buildConfigField "String", "DEMO_OAUTH_URL", "\"https://demo-oauth-dk.internal.e-boks.com/1/connect/token\""
+
         buildConfigField "Boolean", "FORCE_REQUEST_PIPELINING", "false"
         buildConfigField "Long", "INPUT_VALIDATION_DELAY", "1200L"
 

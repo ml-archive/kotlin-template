@@ -1,5 +1,6 @@
 package dk.eboks.app.injection.modules
 
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.*
@@ -24,6 +25,7 @@ import dk.eboks.app.network.Api
 import dk.eboks.app.network.repositories.SignupRestRepository
 import dk.eboks.app.network.repositories.UserRestRepository
 import dk.nodes.arch.domain.executor.Executor
+import okhttp3.OkHttpClient
 
 @Module
 class InteractorModule {
@@ -32,9 +34,11 @@ class InteractorModule {
             executor: Executor,
             api: Api,
             appStateManager: AppStateManager,
-            userManager: UserManager
+            userManager: UserManager,
+            httpClient: OkHttpClient,
+            gson: Gson
     ): LoginInteractor {
-        return LoginInteractorImpl(executor, api, appStateManager, userManager)
+        return LoginInteractorImpl(executor, api, appStateManager, userManager, httpClient, gson)
     }
 
     @Provides
@@ -459,8 +463,9 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideTransformTokenInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager): TransformTokenInteractor {
-        return TransformTokenInteractorImpl(executor, api, appStateManager, userManager)
+    fun provideTransformTokenInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, httpClient: OkHttpClient,
+                                        gson: Gson): TransformTokenInteractor {
+        return TransformTokenInteractorImpl(executor, api, appStateManager, userManager, httpClient, gson)
     }
 
     @Provides

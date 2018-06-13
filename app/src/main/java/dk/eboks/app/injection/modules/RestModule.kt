@@ -65,10 +65,7 @@ class RestModule {
     @Named("NAME_BASE_URL")
     @AppScope
     fun provideBaseUrlString(): String {
-        if (BuildConfig.MOCK_API_ENABLED)
-            return BuildConfig.MOCK_API_URL
-        return Config.currentMode.environment?.baseUrl + "/" + Config.currentMode.urlPrefix + "/"
-                ?: throw(IllegalStateException("No base URL set") as Throwable)
+        return Config.getApiUrl()
     }
 
     @Provides

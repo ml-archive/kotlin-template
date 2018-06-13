@@ -2,6 +2,7 @@ package dk.eboks.app.network.managers
 
 import android.content.Context
 import dk.eboks.app.BuildConfig
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.DownloadManager
 import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.models.message.Content
@@ -25,7 +26,7 @@ class DownloadManagerImpl(val context: Context, val client: OkHttpClient, val ca
         try {
             Timber.e("Downloading content...")
             var folderId = if(message.folder != null) message.folder!!.id else message.folderId
-            var url = "${BuildConfig.MOCK_API_URL}mail/folders/$folderId/messages/${content.id}/content"
+            var url = "${Config.getApiUrl()}mail/folders/$folderId/messages/${content.id}/content"
             content.contentUrlMock?.let { url = it } // if we have a mock url on the content object, use it instead
 
             val request = Request.Builder().url(url)
@@ -52,7 +53,7 @@ class DownloadManagerImpl(val context: Context, val client: OkHttpClient, val ca
         try {
             Timber.e("Downloading attachment content...")
             var folderId = if(message.folder != null) message.folder!!.id else message.folderId
-            var url = "${BuildConfig.MOCK_API_URL}mail/folders/$folderId/messages/${message.id}/attachment/${content.id}/content"
+            var url = "${Config.getApiUrl()}mail/folders/$folderId/messages/${message.id}/attachment/${content.id}/content"
             content.contentUrlMock?.let { url = it } // if we have a mock url on the content object, use it instead
 
             val request = Request.Builder().url(url)
