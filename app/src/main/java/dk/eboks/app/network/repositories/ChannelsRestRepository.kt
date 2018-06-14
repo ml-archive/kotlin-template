@@ -3,6 +3,7 @@ package dk.eboks.app.network.repositories
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.repositories.ChannelsRepository
@@ -16,10 +17,10 @@ typealias ChannelControlStore = CacheStore<Long, HomeContent>
 /**
  * Created by bison on 01/02/18.
  */
-class ChannelsRestRepository(val context: Context, val api: Api, val gson: Gson) : ChannelsRepository {
+class ChannelsRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager) : ChannelsRepository {
 
     val channelStore: ChannelListStore by lazy {
-        ChannelListStore(context, gson, "channel_list_store.json", object : TypeToken<MutableMap<String, MutableList<Channel>>>() {}.type, { key ->
+        ChannelListStore(cacheManager, context, gson, "channel_list_store.json", object : TypeToken<MutableMap<String, MutableList<Channel>>>() {}.type, { key ->
             val response = if(key == "pinned") api.getChannelsPinned().execute() else api.getChannels().execute()
             var result : MutableList<Channel>? = null
             response?.let {
@@ -31,7 +32,7 @@ class ChannelsRestRepository(val context: Context, val api: Api, val gson: Gson)
     }
 
     val channelControlStore: ChannelControlStore by lazy {
-        ChannelControlStore(context, gson, "channel_control_store.json", object : TypeToken<MutableMap<Long, HomeContent>>() {}.type, { key ->
+        ChannelControlStore(cacheManager, context, gson, "channel_control_store.json", object : TypeToken<MutableMap<Long, HomeContent>>() {}.type, { key ->
             val response = api.getChannelHomeContent(key).execute()
             var result : HomeContent? = null
             response?.let {

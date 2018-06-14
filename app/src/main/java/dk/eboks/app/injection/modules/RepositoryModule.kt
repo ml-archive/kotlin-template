@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
+import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.repositories.*
 import dk.eboks.app.network.Api
@@ -27,9 +28,9 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideSignupRestRepository(context: Context, api: Api, gson: Gson) : SignupRestRepository
+    fun provideSignupRestRepository(context: Context, api: Api) : SignupRestRepository
     {
-        return SignupRestRepository(context, api, gson)
+        return SignupRestRepository(context, api)
     }
 
     @Provides
@@ -41,28 +42,28 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideMessagesRepository(context: Context, api: Api, gson: Gson) : MessagesRepository
+    fun provideMessagesRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager) : MessagesRepository
     {
-        return MessagesRestRepository(context, api, gson)
+        return MessagesRestRepository(context, api, gson, cacheManager)
     }
 
     @Provides
     @AppScope
-    fun provideSendersRepository(context: Context, api: Api, gson: Gson) : SendersRepository {
-        return SendersRestRepository(context, api, gson)
+    fun provideSendersRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager) : SendersRepository {
+        return SendersRestRepository(context, api, gson, cacheManager)
     }
 
     @Provides
     @AppScope
-    fun provideSenderCategoriesRepository(context: Context, api: Api, gson: Gson) : SenderCategoriesRepository {
-        return SenderCategoriesRestRepository(context, api, gson)
+    fun provideSenderCategoriesRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager) : SenderCategoriesRepository {
+        return SenderCategoriesRestRepository(context, api, gson, cacheManager)
     }
 
     @Provides
     @AppScope
-    fun provideMailCategoriesRepository(context: Context, api: Api, gson: Gson) : MailCategoriesRepository
+    fun provideMailCategoriesRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager) : MailCategoriesRepository
     {
-        return MailCategoriesRestRepository(context, api, gson)
+        return MailCategoriesRestRepository(context, api, gson, cacheManager)
     }
 
     @Provides
@@ -74,21 +75,21 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideFoldersRepository(context: Context, api: Api, gson: Gson) : FoldersRepository
+    fun provideFoldersRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager) : FoldersRepository
     {
-        return FoldersRestRepository(context, api, gson)
+        return FoldersRestRepository(context, api, gson, cacheManager)
     }
 
     @Provides
     @AppScope
-    fun provideChannelsRepository(context: Context, api: Api, gson: Gson) : ChannelsRepository
+    fun provideChannelsRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager) : ChannelsRepository
     {
-        return ChannelsRestRepository(context, api, gson)
+        return ChannelsRestRepository(context, api, gson, cacheManager)
     }
 
     @Provides
     @AppScope
-    fun provideCollectionsRepository(context: Context, api: Api, gson: Gson) : CollectionsRepository {
-        return CollectionsRestRepository(context, api, gson)
+    fun provideCollectionsRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager) : CollectionsRepository {
+        return CollectionsRestRepository(context, api, gson, cacheManager)
     }
 }

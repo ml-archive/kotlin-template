@@ -7,6 +7,7 @@ import dagger.Provides
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.repositories.AppStateRepository
 import dk.eboks.app.storage.managers.AppStateManagerImpl
+import dk.eboks.app.storage.managers.CacheManagerImpl
 import dk.eboks.app.storage.managers.FileCacheManagerImpl
 import dk.eboks.app.storage.managers.UserManagerImpl
 import dk.eboks.app.system.managers.PrefManagerImpl
@@ -51,5 +52,12 @@ class StorageModule {
     fun provideUserManager(context: Context, gson: Gson) : UserManager
     {
         return UserManagerImpl(context, gson)
+    }
+
+    @Provides
+    @AppScope
+    fun provideCacheManager(context: Context) : CacheManager
+    {
+        return CacheManagerImpl(context)
     }
 }

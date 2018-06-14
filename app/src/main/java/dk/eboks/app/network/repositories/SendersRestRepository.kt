@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dk.eboks.app.domain.exceptions.ServerErrorException
+import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.repositories.SendersRepository
@@ -16,10 +17,10 @@ typealias SenderStore = CacheStore<Int, List<Sender>>
 /**
  * Created by bison on 01/02/18.
  */
-class SendersRestRepository(val context: Context, val api: Api, val gson: Gson) : SendersRepository {
+class SendersRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager) : SendersRepository {
 
     val senderStore: SenderStore by lazy {
-        SenderStore(context, gson, "sender_store.json", object : TypeToken<MutableMap<Int, List<Sender>>>() {}.type, { key ->
+        SenderStore(cacheManager, context, gson, "sender_store.json", object : TypeToken<MutableMap<Int, List<Sender>>>() {}.type, { key ->
             val response = api.getSenders().execute()
             var result : List<Sender>? = null
             response?.let {

@@ -3,6 +3,7 @@ package dk.eboks.app.network.repositories
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.formreply.ReplyForm
@@ -21,10 +22,10 @@ typealias CategoryMessageStore = CacheStore<String, List<Message>>
 /**
  * Created by bison on 01/02/18.
  */
-class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson) : MessagesRepository {
+class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager) : MessagesRepository {
 
     val folderIdMessageStore: FolderIdMessageStore by lazy {
-        FolderIdMessageStore(context, gson, "folder_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
+        FolderIdMessageStore(cacheManager, context, gson, "folder_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
             val response = api.getMessages(key).execute()
             var result : List<Message>? = null
             response?.let {
@@ -36,7 +37,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
     }
 
     val highlightsMessageStore: CategoryMessageStore by lazy {
-        CategoryMessageStore(context, gson, "highlights_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
+        CategoryMessageStore(cacheManager, context, gson, "highlights_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
             val response = api.getHighlights().execute()
             var result : List<Message>? = null
             response?.let {
@@ -48,7 +49,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
     }
 
     val latestMessageStore: CategoryMessageStore by lazy {
-        CategoryMessageStore(context, gson, "latest_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
+        CategoryMessageStore(cacheManager, context, gson, "latest_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
             val response = api.getLatest().execute()
             var result : List<Message>? = null
             response?.let {
@@ -60,7 +61,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
     }
 
     val unreadMessageStore: CategoryMessageStore by lazy {
-        CategoryMessageStore(context, gson, "unread_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
+        CategoryMessageStore(cacheManager, context, gson, "unread_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
             val response = api.getUnread().execute()
             var result : List<Message>? = null
             response?.let {
@@ -72,7 +73,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
     }
 
     val uploadsMessageStore: CategoryMessageStore by lazy {
-        CategoryMessageStore(context, gson, "uploads_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
+        CategoryMessageStore(cacheManager, context, gson, "uploads_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
             val response = api.getUploads().execute()
             var result : List<Message>? = null
             response?.let {
@@ -85,7 +86,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson)
 
 
     val senderIdMessageStore: SenderIdMessageStore by lazy {
-        SenderIdMessageStore(context, gson, "sender_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
+        SenderIdMessageStore(cacheManager, context, gson, "sender_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
             val response = api.getMessagesBySender(key).execute()
             var result : List<Message>? = null
             response?.let {

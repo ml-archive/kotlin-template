@@ -8,6 +8,7 @@ import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.Ba
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentFragment
 import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentFragment
+import java.net.URL
 
 // TODO this stuff should be downloaded from a url (on request of the customer) so that the app only contains
 // one harded coded url ya'll
@@ -25,56 +26,17 @@ object Config {
             cprLength = 10,
             demoVideo = "https://youtu.be/8OmF6uHxfWU",
 
-            integration = Environments(
-                baseUrl = "https://integration-rest.e-boks.dk/mobile/1/xml.svc",
-                signupUrl = "http://integration-www.e-boks.dk/go?linkid=10101",
-                termsUrl = "https://integration-m.e-boks.dk/app/termsofuse.aspx",
-                privacyUrl = "https://integration-m.e-boks.dk/app/privacy.aspx",
-                helpUrl = "https://integration-m.e-boks.dk/app/help.aspx",
-                logonUrl = "https://integration-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
-            demo2 = Environments(
-                baseUrl = "https://demo2-rest.e-boks.dk/mobile/1/xml.svc",
-                signupUrl = "http://demo2-www.e-boks.dk/go?linkid=10101",
-                termsUrl = "https://demo2-m.e-boks.dk/app/termsofuse.aspx",
-                privacyUrl = "https://demo2-m.e-boks.dk/app/privacy.aspx",
-                helpUrl = "https://demo2-m.e-boks.dk/app/help.aspx",
-                logonUrl = "https://demo2-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
             demo = Environments(
-                baseUrl = "https://demo-rest.e-boks.dk/mobile/1/xml.svc",
-                signupUrl = "http://demo-www.e-boks.dk/go?linkid=10101",
-                termsUrl = "https://demo-m.e-boks.dk/app/termsofuse.aspx",
-                privacyUrl = "https://demo-m.e-boks.dk/app/privacy.aspx",
-                helpUrl = "https://demo-m.e-boks.dk/app/help.aspx",
-                logonUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
-            accept = Environments(
-                baseUrl = "https://accept-rest.e-boks.dk/mobile/1/xml.svc",
-                signupUrl = "http://accept-www.e-boks.dk/go?linkid=10101",
-                termsUrl = "https://accept-m.e-boks.dk/app/termsofuse.aspx",
-                privacyUrl = "https://accept-m.e-boks.dk/app/privacy.aspx",
-                helpUrl = "https://accept-m.e-boks.dk/app/help.aspx",
-                logonUrl = "https://accept-m.e-boks.dk/app/logon.aspx?logontype="
+                apiUrl = "https://demo-mobile-api-dk.internal.e-boks.com/2/",
+                authUrl = "https://demo-oauth-dk.internal.e-boks.com/1/connect/token",
+                kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
             ),
             test = Environments(
-                baseUrl = "http://test-rest.e-boks.dk/mobile/1/xml.svc",
-                signupUrl = "http://test-www.e-boks.dk/go?linkid=10101",
-                termsUrl = "http://test-ssl-m.e-boks.dk/app/termsofuse.aspx",
-                privacyUrl = "http://test-ssl-m.e-boks.dk/app/privacy.aspx",
-                helpUrl = "http://test-ssl-m.e-boks.dk/app/help.aspx",
-                logonUrl = "http://test-ssl-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
-            production = Environments(
-                baseUrl = "https://rest.e-boks.dk/mobile/1/xml.svc",
-                signupUrl = "http://www.e-boks.dk/go?linkid=10101",
-                termsUrl = "https://m.e-boks.dk/app/termsofuse.aspx",
-                privacyUrl = "https://m.e-boks.dk/app/privacy.aspx",
-                helpUrl = "https://m.e-boks.dk/app/help.aspx",
-                logonUrl = "https://m.e-boks.dk/app/logon.aspx?logontype="
+                apiUrl = "http://test401-mobile-api-dk.internal.e-boks.com/2/",
+                authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
+                kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
             ),
             customTranslationUrl = "https://m.e-boks.dk/app/resources/android/eboks.android.3.3.0.json",
-
             alternativeLoginProviders = listOf("nemid")
     )
 
@@ -85,53 +47,15 @@ object Config {
             demoVideo = "https://youtu.be/8OmF6uHxfWU",
 
 
-            integration = Environments(
-                    baseUrl = "https://integration-rest.e-boks.dk/mobile/1/xml.svc",
-                    signupUrl = "http://integration-www.e-boks.dk/go?linkid=10101",
-                    termsUrl = "https://integration-m.e-boks.dk/app/termsofuse.aspx",
-                    privacyUrl = "https://integration-m.e-boks.dk/app/privacy.aspx",
-                    helpUrl = "https://integration-m.e-boks.dk/app/help.aspx",
-                    logonUrl = "https://integration-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
-            demo2 = Environments(
-                    baseUrl = "https://demo2-rest.e-boks.dk/mobile/1/xml.svc",
-                    signupUrl = "http://demo2-www.e-boks.dk/go?linkid=10101",
-                    termsUrl = "https://demo2-m.e-boks.dk/app/termsofuse.aspx",
-                    privacyUrl = "https://demo2-m.e-boks.dk/app/privacy.aspx",
-                    helpUrl = "https://demo2-m.e-boks.dk/app/help.aspx",
-                    logonUrl = "https://demo2-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
             demo = Environments(
-                    baseUrl = "https://demo-rest.e-boks.dk/mobile/1/xml.svc",
-                    signupUrl = "http://demo-www.e-boks.dk/go?linkid=10101",
-                    termsUrl = "https://demo-m.e-boks.dk/app/termsofuse.aspx",
-                    privacyUrl = "https://demo-m.e-boks.dk/app/privacy.aspx",
-                    helpUrl = "https://demo-m.e-boks.dk/app/help.aspx",
-                    logonUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
-            accept = Environments(
-                    baseUrl = "https://accept-rest.e-boks.dk/mobile/1/xml.svc",
-                    signupUrl = "http://accept-www.e-boks.dk/go?linkid=10101",
-                    termsUrl = "https://accept-m.e-boks.dk/app/termsofuse.aspx",
-                    privacyUrl = "https://accept-m.e-boks.dk/app/privacy.aspx",
-                    helpUrl = "https://accept-m.e-boks.dk/app/help.aspx",
-                    logonUrl = "https://accept-m.e-boks.dk/app/logon.aspx?logontype="
+                    apiUrl = "https://demo-mobile-api-dk.internal.e-boks.com/2/",
+                    authUrl = "https://demo-oauth-dk.internal.e-boks.com/1/connect/token",
+                    kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
             ),
             test = Environments(
-                    baseUrl = "http://test-rest.e-boks.dk/mobile/1/xml.svc",
-                    signupUrl = "http://test-www.e-boks.dk/go?linkid=10101",
-                    termsUrl = "http://test-ssl-m.e-boks.dk/app/termsofuse.aspx",
-                    privacyUrl = "http://test-ssl-m.e-boks.dk/app/privacy.aspx",
-                    helpUrl = "http://test-ssl-m.e-boks.dk/app/help.aspx",
-                    logonUrl = "http://test-ssl-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
-            production = Environments(
-                    baseUrl = "https://rest.e-boks.dk/mobile/1/xml.svc",
-                    signupUrl = "http://www.e-boks.dk/go?linkid=10101",
-                    termsUrl = "https://m.e-boks.dk/app/termsofuse.aspx",
-                    privacyUrl = "https://m.e-boks.dk/app/privacy.aspx",
-                    helpUrl = "https://m.e-boks.dk/app/help.aspx",
-                    logonUrl = "https://m.e-boks.dk/app/logon.aspx?logontype="
+                    apiUrl = "http://test401-mobile-api-dk.internal.e-boks.com/2/",
+                    authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
+                    kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
             ),
             customTranslationUrl = "https://m.e-boks.no/app/resources/android/eboks.android.3.5.0.json",
             alternativeLoginProviders = listOf("idporten", "bankid_no")
@@ -143,53 +67,15 @@ object Config {
             cprLength = 12,
             demoVideo = "https://youtu.be/8OmF6uHxfWU",
 
-            integration = Environments(
-                    baseUrl = "https://integration-rest.e-boks.dk/mobile/1/xml.svc",
-                    signupUrl = "http://integration-www.e-boks.dk/go?linkid=10101",
-                    termsUrl = "https://integration-m.e-boks.dk/app/termsofuse.aspx",
-                    privacyUrl = "https://integration-m.e-boks.dk/app/privacy.aspx",
-                    helpUrl = "https://integration-m.e-boks.dk/app/help.aspx",
-                    logonUrl = "https://integration-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
-            demo2 = Environments(
-                    baseUrl = "https://demo2-rest.e-boks.dk/mobile/1/xml.svc",
-                    signupUrl = "http://demo2-www.e-boks.dk/go?linkid=10101",
-                    termsUrl = "https://demo2-m.e-boks.dk/app/termsofuse.aspx",
-                    privacyUrl = "https://demo2-m.e-boks.dk/app/privacy.aspx",
-                    helpUrl = "https://demo2-m.e-boks.dk/app/help.aspx",
-                    logonUrl = "https://demo2-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
             demo = Environments(
-                    baseUrl = "https://demo-rest.e-boks.dk/mobile/1/xml.svc",
-                    signupUrl = "http://demo-www.e-boks.dk/go?linkid=10101",
-                    termsUrl = "https://demo-m.e-boks.dk/app/termsofuse.aspx",
-                    privacyUrl = "https://demo-m.e-boks.dk/app/privacy.aspx",
-                    helpUrl = "https://demo-m.e-boks.dk/app/help.aspx",
-                    logonUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
-            accept = Environments(
-                    baseUrl = "https://accept-rest.e-boks.dk/mobile/1/xml.svc",
-                    signupUrl = "http://accept-www.e-boks.dk/go?linkid=10101",
-                    termsUrl = "https://accept-m.e-boks.dk/app/termsofuse.aspx",
-                    privacyUrl = "https://accept-m.e-boks.dk/app/privacy.aspx",
-                    helpUrl = "https://accept-m.e-boks.dk/app/help.aspx",
-                    logonUrl = "https://accept-m.e-boks.dk/app/logon.aspx?logontype="
+                    apiUrl = "https://demo-mobile-api-dk.internal.e-boks.com/2/",
+                    authUrl = "https://demo-oauth-dk.internal.e-boks.com/1/connect/token",
+                    kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
             ),
             test = Environments(
-                    baseUrl = "http://test-rest.e-boks.dk/mobile/1/xml.svc",
-                    signupUrl = "http://test-www.e-boks.dk/go?linkid=10101",
-                    termsUrl = "http://test-ssl-m.e-boks.dk/app/termsofuse.aspx",
-                    privacyUrl = "http://test-ssl-m.e-boks.dk/app/privacy.aspx",
-                    helpUrl = "http://test-ssl-m.e-boks.dk/app/help.aspx",
-                    logonUrl = "http://test-ssl-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
-            production = Environments(
-                    baseUrl = "https://rest.e-boks.dk/mobile/1/xml.svc",
-                    signupUrl = "http://www.e-boks.dk/go?linkid=10101",
-                    termsUrl = "https://m.e-boks.dk/app/termsofuse.aspx",
-                    privacyUrl = "https://m.e-boks.dk/app/privacy.aspx",
-                    helpUrl = "https://m.e-boks.dk/app/help.aspx",
-                    logonUrl = "https://m.e-boks.dk/app/logon.aspx?logontype="
+                    apiUrl = "http://test401-mobile-api-dk.internal.e-boks.com/2/",
+                    authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
+                    kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
             ),
             customTranslationUrl = "https://m.e-boks.se/app/resources/android/eboks.android.3.5.0.json",
             alternativeLoginProviders = listOf("bankid_se")
@@ -326,15 +212,26 @@ object Config {
 
     fun getApiUrl() : String
     {
-        return BuildConfig.TEST_API_URL
+        return currentMode.environment?.apiUrl ?: throw(IllegalStateException("No api url selected"))
     }
 
     fun getAuthUrl() : String
     {
-        return BuildConfig.TEST_OAUTH_URL
+        return currentMode.environment?.authUrl ?: throw(IllegalStateException("No auth url selected"))
+    }
+
+    fun getApiHost() : String
+    {
+        return URL(getApiUrl()).host
+    }
+
+    fun getAuthHost() : String
+    {
+        return URL(getApiUrl()).host
     }
 
     lateinit var currentMode : Mode
+
 
     init {
         when(BuildConfig.mode)
@@ -353,5 +250,6 @@ object Config {
         currentMode.environment = if(BuildConfig.DEBUG) currentMode.demo else currentMode.production
         if(currentMode.environment == null)
             throw(IllegalStateException("currentMode.environment is not set!!"))
+
     }
 }

@@ -70,7 +70,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     override fun setupLogin(user: User?) {
         loginUser = user
-        val loginUrl = "${Config.currentMode.environment?.logonUrl}nemid"
+        val loginUrl = "${Config.currentMode.environment?.kspUrl}nemid"
         Timber.e("Opening $loginUrl")
         webView.loadUrl(loginUrl)
         //webView.loadData("Nem id webview placeholder", "text/html", "utf8")

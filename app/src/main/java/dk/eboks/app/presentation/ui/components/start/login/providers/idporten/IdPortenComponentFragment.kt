@@ -70,7 +70,7 @@ class IdPortenComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     override fun setupLogin(user: User?) {
         loginUser = user
-        val loginUrl = "${Config.currentMode.environment?.logonUrl}idporten"
+        val loginUrl = "${Config.currentMode.environment?.kspUrl}idporten"
         Timber.e("Opening $loginUrl")
         webView.loadUrl(loginUrl)
     }

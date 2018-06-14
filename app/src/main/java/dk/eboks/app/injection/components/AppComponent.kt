@@ -5,7 +5,10 @@ import dk.eboks.app.App
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.injection.modules.*
 import dk.eboks.app.network.Api
+import dk.eboks.app.network.managers.protocol.EAuth2
 import dk.eboks.app.network.managers.protocol.ServerErrorInterceptor
+import dk.eboks.app.storage.base.CacheStore
+import dk.eboks.app.storage.base.ICacheStore
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.AppScope
@@ -26,8 +29,9 @@ import dk.nodes.arch.domain.injection.scopes.AppScope
 interface AppComponent {
     fun inject(app: App)
     fun inject(t: PermissionRequestActivity)
-    fun inject(eAuth2: RestModule.EAuth2)
+    fun inject(eAuth2: EAuth2)
     fun inject(t : ServerErrorInterceptor)
+    fun inject(t : ICacheStore)
 
     // For Interactor Injection
     fun plus(presentationModule: PresentationModule): PresentationComponent

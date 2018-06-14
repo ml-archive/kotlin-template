@@ -71,7 +71,7 @@ class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     override fun setupLogin(user: User?) {
         loginUser = user
-        val loginUrl = "${Config.currentMode.environment?.logonUrl}bankid"
+        val loginUrl = "${Config.currentMode.environment?.kspUrl}bankid"
         Timber.e("Opening $loginUrl")
         webView.loadUrl(loginUrl)
     }

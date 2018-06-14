@@ -3,6 +3,7 @@ package dk.eboks.app.network.repositories
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.repositories.CollectionsRepository
 import dk.eboks.app.network.Api
@@ -15,10 +16,10 @@ typealias CollectionsStore = CacheStore<Int, List<CollectionContainer>>
  * @author   chnt
  * @since    01/02/18.
  */
-class CollectionsRestRepository(val context: Context, val api: Api, val gson: Gson) : CollectionsRepository {
+class CollectionsRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager) : CollectionsRepository {
 
     val collectionsStore: CollectionsStore by lazy {
-        CollectionsStore(context, gson, "collectons_store.json", object : TypeToken<MutableMap<Int, List<CollectionContainer>>>() {}.type, { key ->
+        CollectionsStore(cacheManager, context, gson, "collectons_store.json", object : TypeToken<MutableMap<Int, List<CollectionContainer>>>() {}.type, { key ->
             val response = api.getCollections().execute()
             var result : List<CollectionContainer>? = null
             response?.let {

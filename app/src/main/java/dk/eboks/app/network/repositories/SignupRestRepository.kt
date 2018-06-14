@@ -4,13 +4,14 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.gson.internal.LinkedTreeMap
+import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.repositories.SignupRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.guard
 
 
 // TODO delete me, create user moved to interactor
-class SignupRestRepository(private val context: Context, private val api: Api, private val gson: Gson) : SignupRepository {
+class SignupRestRepository(private val context: Context, private val api: Api) : SignupRepository {
 
     override fun verifySignupMail(email : String): Boolean {
         val result = api.checkUserEmail(email).execute()

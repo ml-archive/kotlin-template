@@ -35,10 +35,10 @@ class InteractorModule {
             api: Api,
             appStateManager: AppStateManager,
             userManager: UserManager,
-            httpClient: OkHttpClient,
-            gson: Gson
+            authClient: AuthClient,
+            cacheManager: CacheManager
     ): LoginInteractor {
-        return LoginInteractorImpl(executor, api, appStateManager, userManager, httpClient, gson)
+        return LoginInteractorImpl(executor, api, appStateManager, userManager, authClient, cacheManager)
     }
 
     @Provides
@@ -76,14 +76,6 @@ class InteractorModule {
             userRestRepository: UserRestRepository
     ): UpdateUserInteractor {
         return UpdateUserInteractorImpl(executor, api, userRestRepository)
-    }
-
-    @Provides
-    fun providePostAuthenticateUserInteractor(
-            executor: Executor,
-            api: Api
-    ): PostAuthenticateUserInteractor {
-        return PostAuthenticateUserInteractorImpl(executor, api);
     }
 
     @Provides
@@ -463,9 +455,8 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideTransformTokenInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, httpClient: OkHttpClient,
-                                        gson: Gson): TransformTokenInteractor {
-        return TransformTokenInteractorImpl(executor, api, appStateManager, userManager, httpClient, gson)
+    fun provideTransformTokenInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, authClient: AuthClient, cacheManager: CacheManager): TransformTokenInteractor {
+        return TransformTokenInteractorImpl(executor, api, appStateManager, userManager, authClient, cacheManager)
     }
 
     @Provides
