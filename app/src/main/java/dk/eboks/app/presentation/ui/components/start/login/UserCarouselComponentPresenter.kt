@@ -29,9 +29,9 @@ class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateM
 
     override fun login(user: User) {
         appState.state?.loginState?.selectedUser = user
-        appState.state?.loginState?.lastUser = user
-        Timber.e("Saving last user $user")
-        appState.save()
+        //appState.state?.loginState?.lastUser = user
+        //Timber.e("Saving last user $user")
+        //appState.save()
         runAction { v-> v.openLogin() }
     }
 

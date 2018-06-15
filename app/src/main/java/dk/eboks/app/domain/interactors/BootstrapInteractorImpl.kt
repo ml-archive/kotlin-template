@@ -12,9 +12,12 @@ import timber.log.Timber
 /**
  * Created by bison on 24-06-2017.
  */
-class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, val settingsRepository: SettingsRepository,
+class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
+                              val settingsRepository: SettingsRepository,
                               val appStateManager: AppStateManager,
-                              val fileCacheManager: FileCacheManager, val userManager: UserManager) : BaseInteractor(executor), BootstrapInteractor {
+                              val fileCacheManager: FileCacheManager,
+                              val cacheManager: CacheManager,
+                              val userManager: UserManager) : BaseInteractor(executor), BootstrapInteractor {
     override var output: BootstrapInteractor.Output? = null
     override var input: BootstrapInteractor.Input? = null
 
@@ -44,6 +47,10 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager, 
             loginState?.userName = null
             loginState?.userPassWord = null
 
+            // clear memory caches, this is necessary when the app hasn't been force closed in case another user
+            // is logged in
+            Timber.d("Clearing CacheStore memory")
+            cacheManager.clearStoresMemoryOnly()
 
             Timber.d("LoginState: $loginState?")
             //Thread.sleep(2000)

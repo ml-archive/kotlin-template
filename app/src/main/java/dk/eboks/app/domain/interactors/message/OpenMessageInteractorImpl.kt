@@ -45,7 +45,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                 input?.msg?.let { handleServerException(t, it) }.guard { output?.onOpenMessageError(exceptionToViewError(t, shouldClose = true)) }
             }
             else runOnUIThread {
-                output?.onOpenMessageError(exceptionToViewError(t))
+                output?.onOpenMessageError(exceptionToViewError(t, shouldClose = true))
             }
         }
     }

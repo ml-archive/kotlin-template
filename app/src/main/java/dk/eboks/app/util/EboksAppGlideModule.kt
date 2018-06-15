@@ -12,7 +12,7 @@ class EboksAppGlideModule : AppGlideModule() {
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         super.applyOptions(context, builder)
         if (BuildConfig.DEBUG) {
-            builder.setLogLevel(Log.VERBOSE)
+            //builder.setLogLevel(Log.VERBOSE)
         }
     }
 }

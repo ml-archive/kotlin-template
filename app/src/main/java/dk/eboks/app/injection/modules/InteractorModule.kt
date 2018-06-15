@@ -80,9 +80,13 @@ class InteractorModule {
 
     @Provides
     fun provideBootstrapInteractor(
-            executor: Executor, guidManager: GuidManager, settingsRepository: SettingsRepository,
+            executor: Executor,
+            guidManager: GuidManager,
+            settingsRepository: SettingsRepository,
             appStateManager: AppStateManager,
-            fileCacheManager: FileCacheManager, userManager: UserManager
+            fileCacheManager: FileCacheManager,
+            cacheManager: CacheManager,
+            userManager: UserManager
     ): BootstrapInteractor {
         return BootstrapInteractorImpl(
                 executor,
@@ -90,6 +94,7 @@ class InteractorModule {
                 settingsRepository,
                 appStateManager,
                 fileCacheManager,
+                cacheManager,
                 userManager
         )
     }

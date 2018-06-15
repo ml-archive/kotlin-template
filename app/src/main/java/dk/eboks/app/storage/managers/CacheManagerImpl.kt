@@ -16,11 +16,15 @@ class CacheManagerImpl(val context: Context) : CacheManager {
 
     override fun clearStores()
     {
+        clearStoresMemoryOnly()
+        deleteCache()
+    }
+
+    override fun clearStoresMemoryOnly() {
         for(store in cacheStores)
         {
             store.clearMemory()
         }
-        deleteCache()
     }
 
     fun deleteCache() {

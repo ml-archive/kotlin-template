@@ -41,6 +41,11 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
             cache = HashMap()
         }
         cacheDir = File(context.cacheDir, "filecache")
+        createCacheDirIfNotExists()
+    }
+
+    private fun createCacheDirIfNotExists()
+    {
         if(!cacheDir.exists())
         {
             Timber.e("Cache dir filecache does not exist, creating one")
@@ -72,6 +77,7 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
 
     override fun generateFileName(content: Content) : String
     {
+        createCacheDirIfNotExists() // if for some reason our cache has been deleted be sure to recreate subdir
         return "filecache/${content.id}"
     }
 
