@@ -122,7 +122,7 @@
                             style="@style/EditText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:inputType="text"
+                            android:inputType="textEmailAddress"
                             nstack:hint="@string/nstack_logoncredentials_emailOrSSNHeader"/>
 
                     </android.support.design.widget.TextInputLayout>
@@ -173,6 +173,15 @@
                         android:layout_gravity="center"
                         android:visibility="invisible"/>
                 </FrameLayout>
+
+                <Button
+                    android:id="@+id/testUsersBtn"
+                    style="@style/button.OutlineGradient"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:layout_marginEnd="@dimen/margin_large"
+                    android:text="Test-users"/>
 
                 <View
                     android:layout_width="match_parent"

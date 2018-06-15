@@ -43,6 +43,8 @@ import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVeri
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentPresenter
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentFragment
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentPresenter
+import dk.eboks.app.presentation.ui.components.debug.DebugUsersComponentFragment
+import dk.eboks.app.presentation.ui.components.debug.DebugUsersComponentPresenter
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentFragment
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentPresenter
 import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentFragment
@@ -398,6 +400,8 @@ interface PresentationComponent {
 
     fun inject(target : DebugOptionsComponentFragment)
     fun inject(target : DebugOptionsComponentPresenter)
+    fun inject(target : DebugUsersComponentFragment)
+    fun inject(target : DebugUsersComponentPresenter)
     fun inject(target : DebugUserActivity)
     fun inject(target : DebugUserPresenter)
 }
