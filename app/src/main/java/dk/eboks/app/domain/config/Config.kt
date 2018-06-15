@@ -26,16 +26,19 @@ object Config {
             cprLength = 10,
             demoVideo = "https://youtu.be/8OmF6uHxfWU",
 
-            demo = Environments(
-                apiUrl = "https://demo-mobile-api-dk.internal.e-boks.com/2/",
-                authUrl = "https://demo-oauth-dk.internal.e-boks.com/1/connect/token",
-                kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
+            environments = mapOf<String, Environments>(
+                    "test" to Environments(
+                            apiUrl = "http://test401-mobile-api-dk.internal.e-boks.com/2/",
+                            authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
+                            kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
+                    ),
+                    "demo" to Environments(
+                            apiUrl = "https://demo-mobile-api-dk.internal.e-boks.com/2/",
+                            authUrl = "https://demo-oauth-dk.internal.e-boks.com/1/connect/token",
+                            kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
+                    )
             ),
-            test = Environments(
-                apiUrl = "http://test401-mobile-api-dk.internal.e-boks.com/2/",
-                authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
-                kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
+
             customTranslationUrl = "https://m.e-boks.dk/app/resources/android/eboks.android.3.3.0.json",
             alternativeLoginProviders = listOf("nemid")
     )
@@ -47,16 +50,19 @@ object Config {
             demoVideo = "https://youtu.be/8OmF6uHxfWU",
 
 
-            demo = Environments(
-                    apiUrl = "https://demo-mobile-api-dk.internal.e-boks.com/2/",
-                    authUrl = "https://demo-oauth-dk.internal.e-boks.com/1/connect/token",
-                    kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
+            environments = mapOf<String, Environments>(
+                    "test" to Environments(
+                            apiUrl = "http://test401-mobile-api-dk.internal.e-boks.com/2/",
+                            authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
+                            kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
+                    ),
+                    "demo" to Environments(
+                            apiUrl = "https://demo-mobile-api-dk.internal.e-boks.com/2/",
+                            authUrl = "https://demo-oauth-dk.internal.e-boks.com/1/connect/token",
+                            kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
+                    )
             ),
-            test = Environments(
-                    apiUrl = "http://test401-mobile-api-dk.internal.e-boks.com/2/",
-                    authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
-                    kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
+
             customTranslationUrl = "https://m.e-boks.no/app/resources/android/eboks.android.3.5.0.json",
             alternativeLoginProviders = listOf("idporten", "bankid_no")
     )
@@ -67,16 +73,20 @@ object Config {
             cprLength = 12,
             demoVideo = "https://youtu.be/8OmF6uHxfWU",
 
-            demo = Environments(
-                    apiUrl = "https://demo-mobile-api-dk.internal.e-boks.com/2/",
-                    authUrl = "https://demo-oauth-dk.internal.e-boks.com/1/connect/token",
-                    kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
-            ),
-            test = Environments(
+
+            environments = mapOf<String, Environments>(
+                "test" to Environments(
                     apiUrl = "http://test401-mobile-api-dk.internal.e-boks.com/2/",
                     authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
                     kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
+                ),
+                "demo" to Environments(
+                    apiUrl = "https://demo-mobile-api-dk.internal.e-boks.com/2/",
+                    authUrl = "https://demo-oauth-dk.internal.e-boks.com/1/connect/token",
+                    kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
+                )
             ),
+
             customTranslationUrl = "https://m.e-boks.se/app/resources/android/eboks.android.3.5.0.json",
             alternativeLoginProviders = listOf("bankid_se")
     )
@@ -176,6 +186,15 @@ object Config {
         }
     }
 
+    fun changeEnvironment(name : String)
+    {
+        if(!currentMode.environments.containsKey(name))
+        {
+            throw(IllegalStateException("Environment couldn't be changed to $name because it doesn't exist"))
+        }
+        currentMode.environment = currentMode.environments[name]
+    }
+
     fun getCurrentConfigName() : String
     {
         when(currentMode)
@@ -247,7 +266,7 @@ object Config {
             }
             else -> throw(IllegalStateException("Configuration mode ${BuildConfig.mode} is invalid. Use danish, swedish or norwegian"))
         }
-        currentMode.environment = if(BuildConfig.DEBUG) currentMode.demo else currentMode.production
+        currentMode.environment = if(BuildConfig.DEBUG) currentMode.environments["demo"] else currentMode.environments["production"]
         if(currentMode.environment == null)
             throw(IllegalStateException("currentMode.environment is not set!!"))
 

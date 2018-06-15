@@ -17,12 +17,19 @@ class DebugOptionsComponentPresenter @Inject constructor(val appState: AppStateM
 
     override fun setup() {
         setupConfigurationView()
+        runAction { v->v.showEnvironmentSpinner(Config.currentMode.environments, Config.currentMode.environment) }
     }
 
     override fun setConfig(name : String)
     {
         Config.changeConfig(name)
         Timber.e("Config changed: new current configuration is ${Config.getCurrentConfigName()}")
+        runAction { v->v.showEnvironmentSpinner(Config.currentMode.environments, Config.currentMode.environment) }
+    }
+
+    override fun setEnvironment(name: String) {
+        Config.changeEnvironment(name)
+        Timber.e("Environment changed to ${name}")
     }
 
     private fun setupConfigurationView()
