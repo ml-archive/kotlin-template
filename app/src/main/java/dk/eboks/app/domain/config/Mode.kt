@@ -22,15 +22,7 @@ data class Mode (
         var paymentDateFormat : String = "MM/dd/yyyy",
         var phoneCountryCode: String = "",
         val environments: Map<String, Environments> = HashMap(),
-    /*
-    var demo: Environments? = null,
-    var demo2: Environments? = null,
-    var accept: Environments? = null,
-    var production: Environments? = null,
-    var integration: Environments? = null,
-    var test: Environments? = null,
-    */
-    var maxFileUploadSize : Int = 1024 * 1024 * 10,
+        var maxFileUploadSize : Int = 1024 * 1024 * 10,
         var maxFileUploadNameLength : Int = 50,
         var customTranslationUrl : String = "",
         var alternativeLoginProviders: List<String>

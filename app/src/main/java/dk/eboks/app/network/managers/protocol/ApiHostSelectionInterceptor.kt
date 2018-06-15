@@ -12,6 +12,7 @@ class ApiHostSelectionInterceptor : okhttp3.Interceptor {
         var request = chain.request()
 
         val newUrl = request.url().newBuilder()
+                .scheme(Config.getApiScheme())
                 .host(Config.getApiHost())
                 .build()
         request = request.newBuilder()

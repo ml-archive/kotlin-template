@@ -244,6 +244,11 @@ object Config {
         return URL(getApiUrl()).host
     }
 
+    fun getApiScheme() : String
+    {
+        return URL(getApiUrl()).protocol
+    }
+
     fun getAuthHost() : String
     {
         return URL(getApiUrl()).host

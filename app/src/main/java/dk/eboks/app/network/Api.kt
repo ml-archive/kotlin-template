@@ -31,8 +31,10 @@ import retrofit2.http.*
 
 interface Api {
     // login Mox
+    /*
     @FormUrlEncoded
     @POST("http://test401-oauth-dk.internal.e-boks.com/1/connect/token") fun getToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
+    */
 
     // user
     @GET("user/{identity}/exists") fun checkUserEmail(@Path("identity") identity : String) : Call<BooleanReply>
