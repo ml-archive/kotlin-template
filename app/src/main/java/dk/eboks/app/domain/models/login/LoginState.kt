@@ -16,4 +16,8 @@ data class LoginState(
         var activationCode: String? = null,// "Cr4x3N6Q", // Todo remove default value
         var kspToken: String? = null,
         var token: AccessToken? = null
-)
+) {
+    override fun toString(): String {
+        return selectedUser?.name ?: super.toString()
+    }
+}

@@ -54,6 +54,8 @@ import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVeri
 import dk.eboks.app.presentation.ui.components.channels.verification.ChannelVerificationComponentPresenter
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentContract
 import dk.eboks.app.presentation.ui.components.debug.DebugOptionsComponentPresenter
+import dk.eboks.app.presentation.ui.components.debug.DebugUsersComponentContract
+import dk.eboks.app.presentation.ui.components.debug.DebugUsersComponentPresenter
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentContract
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentPresenter
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentContract
@@ -749,6 +751,12 @@ class PresentationModule {
     @Provides
     fun provideDebugOptionsComponentPresenter(stateManager: AppStateManager): DebugOptionsComponentContract.Presenter {
         return DebugOptionsComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideDebugUsersComponentPresenter(stateManager: AppStateManager): DebugUsersComponentContract.Presenter {
+        return DebugUsersComponentPresenter(stateManager)
     }
 
     @ActivityScope

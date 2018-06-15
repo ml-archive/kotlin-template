@@ -27,6 +27,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.debug.DebugUsersComponentFragment
 import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import dk.eboks.app.util.KeyboardUtils
@@ -75,7 +76,6 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         presenter.onViewCreated(this, lifecycle)
 
         setupTopBar()
-        presenter.setup()
 
         arguments?.let { args ->
             showGreeting = args.getBoolean("showGreeting", true)
@@ -117,6 +117,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     override fun onResume() {
         super.onResume()
         Timber.d("onResume")
+        presenter.setup()
         setupCprEmailListeners()
         setupPasswordListener()
         KeyboardUtils.addKeyboardToggleListener(activity, keyboardListener)
@@ -140,7 +141,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         currentUser?.let { user ->
             currentProvider?.let { provider ->
 
-                val identity : String = if(provider.id == "email") user.emails[0].value ?: "" else user.identity ?: ""
+                val identity: String = if (provider.id == "email") user.emails[0].value
+                        ?: "" else user.identity ?: ""
                 presenter.updateLoginState(
                         identity,
                         provider.id,
@@ -161,12 +163,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         val emailOrCpr = cprEmailEt.text?.toString()?.trim() ?: ""
         val password = passwordEt.text?.toString()?.trim() ?: ""
         if (emailOrCpr.isNotBlank() && password.isNotBlank()) {
-            val providerId = if(emailOrCpr.contains("@")) "email" else "cpr"
+            val providerId = if (emailOrCpr.contains("@")) "email" else "cpr"
             presenter.updateLoginState(userName = emailOrCpr, providerId = providerId, password = password, activationCode = null)
             presenter.login()
-        }
-        else
-        {
+        } else {
             Timber.e("Need a username and password to login to existing user")
         }
     }
@@ -183,13 +183,13 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         Timber.i("SetupView called loginProvider = $loginProvider user = $user altProviders = $altLoginProviders")
         continuePb.visibility = View.INVISIBLE
 
+
         loginProvider?.let { provider ->
             currentProvider = provider
             currentUser = user
             headerTv.visibility = View.GONE
             detailTv.visibility = View.GONE
             setupViewForProvider(user)
-
         }.guard {
             // no provider given setup for cpr/email (mobile access)
             headerTv.visibility = View.VISIBLE
@@ -201,13 +201,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
         setupAltLoginProviders(altLoginProviders)
 
-        user?.let {
-            if (BuildConfig.DEBUG && "3110276111" == it.identity) {
-                cprEmailEt.setText("3110276111")
-                passwordEt.setText("147258369")
-                setContinueButton()
-            }
+        testUsersBtn.setOnClickListener {
+            getBaseActivity()?.openComponentDrawer(DebugUsersComponentFragment::class.java)
         }
+
     }
 
     override fun showActivationCodeDialog() {
@@ -320,11 +317,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
                 }
                 "cpr" -> {
-                    user?.let { setupUserView(it) }
+                    user?.let {setupUserView(it) }
                     cprEmailEt.inputType = InputType.TYPE_CLASS_NUMBER
                     userLl.visibility = View.VISIBLE
                     cprEmailTil.visibility = View.VISIBLE
                     cprEmailTil.hint = Translation.logoncredentials.ssnHeader
+
                 }
                 else -> {
                     getBaseActivity()?.addFragmentOnTop(
@@ -450,7 +448,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     override fun showProgress(show: Boolean) {
         continueBtn.isEnabled = !show
-        continuePb.visibility = if(show) View.VISIBLE else View.INVISIBLE
+        continuePb.visibility = if (show) View.VISIBLE else View.INVISIBLE
     }
 
     override fun onDestroy() {

@@ -1,13 +1,12 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
-import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
-import dk.eboks.app.domain.models.login.ContactPoint
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -35,6 +34,12 @@ class LoginComponentPresenter @Inject constructor(
     override fun setup() {
         appState.state?.loginState?.let { state ->
             state.selectedUser?.let {
+                // Test-uses has "test" prefix, as in 'DebugUsersComponentPresenter'
+                if (BuildConfig.DEBUG && true == it.lastLoginProviderId?.contains("test")) {
+                    it.lastLoginProviderId = it.lastLoginProviderId?.removePrefix("test")// remove the prefix
+
+                    login()
+                }
                 setupLogin(it, it.lastLoginProviderId)
             }.guard {
                 runAction { v ->
@@ -97,7 +102,7 @@ class LoginComponentPresenter @Inject constructor(
 
     override fun login() {
         appState.state?.loginState?.let {
-            runAction { v->v.showProgress(true) }
+            runAction { v -> v.showProgress(true) }
             loginInteractor.input = LoginInteractor.Input(it)
             loginInteractor.run()
         }
