@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.login.LoginState
 import dk.eboks.app.presentation.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_debug_options_component.*
+import kotlinx.android.synthetic.main.fragment_debug_users_component.*
 import javax.inject.Inject
 
 /**
@@ -22,7 +22,7 @@ class DebugUsersComponentFragment: BaseFragment(), DebugUsersComponentContract.V
     lateinit var presenter : DebugUsersComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_debug_options_component, container, false)
+        val rootView = inflater?.inflate(R.layout.fragment_debug_users_component, container, false)
         return rootView
     }
 
