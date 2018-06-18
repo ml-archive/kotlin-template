@@ -181,6 +181,7 @@
                     android:layout_height="36dp"
                     android:layout_marginStart="@dimen/margin_large"
                     android:layout_marginEnd="@dimen/margin_large"
+                    android:visibility="gone"
                     android:text="Test-users"/>
 
                 <View

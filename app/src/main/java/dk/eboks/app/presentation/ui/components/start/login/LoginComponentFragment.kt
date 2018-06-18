@@ -201,10 +201,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
         setupAltLoginProviders(altLoginProviders)
 
-        testUsersBtn.setOnClickListener {
-            getBaseActivity()?.openComponentDrawer(DebugUsersComponentFragment::class.java)
+        if(BuildConfig.DEBUG) {
+            testUsersBtn.visibility = View.VISIBLE
+            testUsersBtn.setOnClickListener {
+                getBaseActivity()?.openComponentDrawer(DebugUsersComponentFragment::class.java)
+            }
         }
-
     }
 
     override fun showActivationCodeDialog() {
