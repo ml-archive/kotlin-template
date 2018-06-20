@@ -306,7 +306,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         userNameTv.text = user?.name
         userEmailCprTv.text = user?.emails?.firstOrNull()?.value
 
-        var options = RequestOptions()
+        val options = RequestOptions()
         options.error(R.drawable.ic_profile_placeholder)
         options.placeholder(R.drawable.ic_profile_placeholder)
         options.transforms(CenterCrop(), RoundedCorners(30))
