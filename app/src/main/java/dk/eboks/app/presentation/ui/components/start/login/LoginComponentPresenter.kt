@@ -5,9 +5,11 @@ import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.User
+import dk.eboks.app.domain.models.login.UserSettings
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
@@ -18,6 +20,7 @@ import javax.inject.Inject
  */
 class LoginComponentPresenter @Inject constructor(
         val appState: AppStateManager,
+        val userSettingsManager: UserSettingsManager,
         val loginInteractor: LoginInteractor
 ) :
         LoginComponentContract.Presenter,
@@ -28,41 +31,53 @@ class LoginComponentPresenter @Inject constructor(
 
     init {
         appState.state?.currentUser = null
+        appState.state?.currentSettings = null
         loginInteractor.output = this
     }
 
     override fun setup() {
         appState.state?.loginState?.let { state ->
             state.selectedUser?.let {
+                val settings = userSettingsManager.get(it.id)
+                Timber.d("Loaded $settings")
+                var provider = settings.lastLoginProviderId
                 // Test-uses has "test" prefix, as in 'DebugUsersComponentPresenter'
-                if (BuildConfig.DEBUG && true == it.lastLoginProviderId?.contains("test")) {
-                    it.lastLoginProviderId = it.lastLoginProviderId?.removePrefix("test")// remove the prefix
-
+                if (BuildConfig.DEBUG && true == provider?.contains("test")) {
+                    provider = provider.removePrefix("test")// remove the prefix
+//                    setupLogin(it, provider)
+                    appState.state?.loginState?.userLoginProviderId = provider
+                    appState.save()
                     login()
+                } else {
+                    setupLogin(it, provider)
                 }
-                setupLogin(it, it.lastLoginProviderId)
             }.guard {
                 runAction { v ->
-                    v.setupView(null, null, altProviders)
+                    v.setupView(null, null, UserSettings(0), altProviders)
                 }
             }
         }
     }
 
     private fun setupLogin(user: User?, provider: String?) {
-        val lp = if (provider != null) Config.getLoginProvider(provider) else null
+        val lp = if (provider != null) {
+            Config.getLoginProvider(provider)
+        } else {
+            null
+        }
         runAction { v ->
             user?.let {
                 // setup for existing user
+                val settings = userSettingsManager.get(it.id)
                 if (!it.verified) {   // user is not verified
-                    v.setupView(loginProvider = lp, user = user, altLoginProviders = ArrayList())
+                    v.setupView(loginProvider = lp, user = user, settings = settings, altLoginProviders = ArrayList())
                 } else {
                     // user is verified
-                    v.setupView(loginProvider = lp, user = user, altLoginProviders = altProviders)
+                    v.setupView(loginProvider = lp, user = user, settings = settings, altLoginProviders = altProviders)
                 }
             }.guard {
                 // setup for first time login
-                v.setupView(loginProvider = lp, user = null, altLoginProviders = ArrayList())
+                v.setupView(loginProvider = lp, user = null, settings = UserSettings(0), altLoginProviders = ArrayList())
             }
         }
     }
@@ -113,10 +128,7 @@ class LoginComponentPresenter @Inject constructor(
             state.selectedUser?.let {
                 setupLogin(it, provider.id)
             }.guard {
-                setupLogin(
-                        null,
-                        provider.id
-                )
+                setupLogin(null, provider.id)
             }
         }
     }

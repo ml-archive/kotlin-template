@@ -17,6 +17,13 @@ public class Translation {
 		public static String close = "Close";
 		public static String no = "No";
 		public static String delete = "Delete";
+		public static String retry = "__retry";
+		public static String edit = "__edit";
+		public static String settings = "__settings";
+		public static String later = "__later";
+		public static String next = "__next";
+		public static String previous = "__previous";
+		public static String skip = "__skip";
 	}
 	public final static class error {
 		public static String genericMessage = "An error occured";
@@ -42,6 +49,10 @@ public class Translation {
 		public static String forwardReceiptErrorMessage = "Cannot forward receipt";
 		public static String timeoutTitle = "Timeout";
 		public static String timeoutMessage = "The request timed out";
+		public static String authenticationError = "__authenticationError";
+		public static String connectionError = "__connectionError";
+		public static String errorTitle = "__errorTitle";
+		public static String unknownError = "__unknownError";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -53,6 +64,9 @@ public class Translation {
 		public static String addMoreSendersButton = "Add more senders";
 		public static String noMessagesToDisplay = "There\'s no mail to display in this folder.";
 		public static String allMail = "All mail";
+		public static String unverifiedEmptyTitle = "Think into the box";
+		public static String unverifiedEmptyMessage = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.";
+		public static String unverifiedEmptyButton = "Get started";
 	}
 	public final static class mainnav {
 		public static String homeButton = "Home";
@@ -397,6 +411,7 @@ public class Translation {
 		public static String errorbiometryTakenMessage = "by: [username]";
 		public static String errorBiometryVerificationRequiredTitle = "Verification required";
 		public static String errorbiometryVerificationRequiredMessage = "You need to verify your profile to enable [idtype]";
+		public static String feedbackCellTitle = "Give feedback";
 	}
 	public final static class myInformation {
 		public static String title = "My Information";

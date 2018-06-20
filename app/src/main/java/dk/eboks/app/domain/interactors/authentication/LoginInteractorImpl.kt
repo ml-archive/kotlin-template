@@ -13,7 +13,13 @@ import timber.log.Timber
 /**
  * Created by bison on 24-06-2017.
  */
-class LoginInteractorImpl(executor: Executor, val api: Api, val appStateManager: AppStateManager, val userManager: UserManager, val authClient: AuthClient, val cacheManager: CacheManager) : BaseInteractor(executor), LoginInteractor {
+class LoginInteractorImpl(
+        executor: Executor, val api: Api,
+        val appStateManager: AppStateManager,
+        val userManager: UserManager,
+        val userSettingsManager: UserSettingsManager,
+        val authClient: AuthClient,
+        val cacheManager: CacheManager) : BaseInteractor(executor), LoginInteractor {
     override var output: LoginInteractor.Output? = null
     override var input: LoginInteractor.Input? = null
 
@@ -21,22 +27,31 @@ class LoginInteractorImpl(executor: Executor, val api: Api, val appStateManager:
         try {
             input?.let { args ->
                 try {
-                    val token = authClient.login(username = args.loginState.userName
-                            ?: "", password = args.loginState.userPassWord
-                            ?: "", activationCode = args.loginState.activationCode)
+                    val useLongToken = userSettingsManager.get(args.loginState.selectedUser?.id ?: -1).stayLoggedIn
 
-                    token?.let { token ->
-                        appStateManager.state?.loginState?.token = token
+                    val token = authClient.login(
+                            username = args.loginState.userName ?: "",
+                            password = args.loginState.userPassWord ?: "",
+                            activationCode = args.loginState.activationCode,
+                            longClient = useLongToken
+                    )
+
+                    token?.let { t ->
+                        appStateManager.state?.loginState?.token = t
 
                         val userResult = api.getUserProfile().execute()
                         userResult?.body()?.let { user ->
                             // update the states
-                            appStateManager.state?.loginState?.userLoginProviderId?.let { user.lastLoginProviderId = it }
-                            args.loginState.activationCode?.let {
-                                user.activationCode = it
-                            }
-                            Timber.e("Saving user $user")
+                            Timber.i("Saving user $user")
                             val newUser = userManager.put(user)
+                            val newSettings = userSettingsManager.get(newUser.id)
+
+                            appStateManager.state?.loginState?.userLoginProviderId?.let {
+                                newSettings.lastLoginProviderId = it
+                            }
+                            args.loginState.activationCode?.let {
+                                newSettings.activationCode = it
+                            }
 
                             appStateManager.state?.loginState?.lastUser?.let { lastUser ->
                                 if (lastUser.id != newUser.id) {
@@ -45,13 +60,15 @@ class LoginInteractorImpl(executor: Executor, val api: Api, val appStateManager:
                                 }
                             }
 
+                            userSettingsManager.put(newSettings)
                             appStateManager.state?.loginState?.lastUser = newUser
                             appStateManager.state?.currentUser = newUser
+                            appStateManager.state?.currentSettings = newSettings
                         }
                         appStateManager.save()
 
                         runOnUIThread {
-                            output?.onLoginSuccess(token)
+                            output?.onLoginSuccess(t)
                         }
                     }.guard {
                         runOnUIThread {

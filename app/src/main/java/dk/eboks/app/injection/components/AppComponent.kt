@@ -50,4 +50,5 @@ interface AppComponent {
     fun eboksFormatter(): EboksFormatter
     fun permissionManager(): PermissionManager
     fun userManager(): UserManager
+    fun userSettingsManager(): UserSettingsManager
 }

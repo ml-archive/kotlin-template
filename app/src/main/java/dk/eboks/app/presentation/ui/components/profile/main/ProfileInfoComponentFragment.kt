@@ -135,7 +135,8 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
 
         profileDetailSwKeepSignedIn.setOnClickListener {
-            Timber.d("Signed In: Toggled -> %s", profileDetailSwKeepSignedIn.isChecked)
+            Timber.d("Keep signed In: Toggled -> %s", profileDetailSwKeepSignedIn.isChecked)
+            presenter.enableKeepMeSignedIn(profileDetailSwKeepSignedIn.isChecked)
         }
 
         profileDetailContainerTerms.setOnClickListener {
@@ -231,18 +232,19 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
     }
 
-    override fun setVerified(verified: Boolean) {
+    override fun setVerified(isVerified: Boolean) {
         profileDetailRegisterTB?.let {
-            it.isChecked = verified
+            it.isChecked = isVerified
         }
     }
 
-    override fun setKeepMeSignedIn(enabled: Boolean) {
+    override fun showKeepMeSignedIn(isEnabled: Boolean) {
+        Timber.d("showKeepMeSignedIn: $isEnabled")
         profileDetailSwKeepSignedIn?.let {
-            it.isChecked = enabled
-            it.setOnCheckedChangeListener { compoundButton, b ->
-
-            }
+            it.isChecked = isEnabled
+//            it.setOnCheckedChangeListener { compoundButton, b ->
+//
+//            }
         }
     }
 

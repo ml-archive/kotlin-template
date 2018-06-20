@@ -2,6 +2,7 @@ package dk.eboks.app.domain.interactors.user
 
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserManager
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.network.Api
@@ -14,7 +15,13 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
  * @author   Christian
  * @since    5/7/2018.
  */
-class GetUserProfileInteractorImpl(executor: Executor, val api: Api, val appStateManager: AppStateManager, val userManager: UserManager) : BaseInteractor(executor), GetUserProfileInteractor {
+class GetUserProfileInteractorImpl(
+        executor: Executor,
+        val api: Api,
+        val appStateManager: AppStateManager,
+        val userManager: UserManager,
+        val userSettingsManager: UserSettingsManager
+) : BaseInteractor(executor), GetUserProfileInteractor {
 
     override var output: GetUserProfileInteractor.Output? = null
 
@@ -25,6 +32,7 @@ class GetUserProfileInteractorImpl(executor: Executor, val api: Api, val appStat
                 runOnUIThread {
                     userManager.put(it)
                     appStateManager.state?.currentUser = it
+                    appStateManager.state?.currentSettings = userSettingsManager.get(it.id) // also load settings
                     appStateManager.save()
                     output?.onGetUser(it)
                 }

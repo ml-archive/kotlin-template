@@ -9,11 +9,11 @@ data class LoginState(
         var selectedUser: User? = null,
 
         // These values are temporary
-        var userName: String? = null,// = "3110276111", // Todo remove default value
-        var userPassWord: String? = null,// = "147258369", // Todo remove default value
+        var userName: String? = null,
+        var userPassWord: String? = null,
         var userLoginProviderId: String? = null,
 
-        var activationCode: String? = null,// "Cr4x3N6Q", // Todo remove default value
+        var activationCode: String? = null,
         var kspToken: String? = null,
         var token: AccessToken? = null
 ) {

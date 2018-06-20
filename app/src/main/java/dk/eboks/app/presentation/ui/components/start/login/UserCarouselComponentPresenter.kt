@@ -3,8 +3,10 @@ package dk.eboks.app.presentation.ui.components.start.login
 import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
 import dk.eboks.app.domain.interactors.user.GetUsersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
+import dk.eboks.app.domain.models.login.UserSettings
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -12,7 +14,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateManager, val getUsersInteractor: GetUsersInteractor, val deleteUserInteractor: DeleteUserInteractor) :
+class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateManager, val userSettingsManager: UserSettingsManager, val getUsersInteractor: GetUsersInteractor, val deleteUserInteractor: DeleteUserInteractor) :
         UserCarouselComponentContract.Presenter,
         BasePresenterImpl<UserCarouselComponentContract.View>(),
         GetUsersInteractor.Output,
@@ -56,8 +58,10 @@ class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateM
     }
 
     override fun onGetUsers(users: MutableList<User>) {
+        val list = MutableList(users.size, init =  { Pair(users[it], userSettingsManager.get(users[it].id))})
+
         runAction { v->
-            v.showUsers(users)
+            v.showUsers(list)
             appState.state?.loginState?.lastUser?.let { user ->
                 Timber.e("Setting selected user $user")
                 v.setSelectedUser(user)

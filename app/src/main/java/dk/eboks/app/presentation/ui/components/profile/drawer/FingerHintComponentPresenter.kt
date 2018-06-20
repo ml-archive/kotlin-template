@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.components.profile.drawer
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
@@ -12,6 +13,7 @@ import javax.inject.Inject
 
 class FingerHintComponentPresenter @Inject constructor(
         private val appState: AppStateManager,
+        private val userSettingsManager: UserSettingsManager,
         private val encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,
         private val saveUserInteractor: SaveUserInteractor
 ) : FingerHintComponentContract.Presenter,
@@ -47,7 +49,8 @@ class FingerHintComponentPresenter @Inject constructor(
             return
         }
 
-        currentUser.hasFingerprint = true
+        userSettingsManager.get(currentUser.id).hasFingerprint = true
+        userSettingsManager.save()
 
         saveUserInteractor.output = this
         saveUserInteractor.input = SaveUserInteractor.Input(currentUser)

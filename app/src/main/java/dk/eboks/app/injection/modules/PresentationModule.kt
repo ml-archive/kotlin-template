@@ -24,6 +24,7 @@ import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
 import dk.eboks.app.domain.interactors.storebox.*
 import dk.eboks.app.domain.interactors.user.*
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentContract
@@ -527,11 +528,13 @@ class PresentationModule {
     @Provides
     fun provideUserCarouselComponentPresenter(
             stateManager: AppStateManager,
+            userSettingsManager: UserSettingsManager,
             getUsersInteractor: GetUsersInteractor,
             deleteUserInteractor: DeleteUserInteractor
     ): UserCarouselComponentContract.Presenter {
         return UserCarouselComponentPresenter(
                 stateManager,
+                userSettingsManager,
                 getUsersInteractor,
                 deleteUserInteractor
         )
@@ -541,10 +544,12 @@ class PresentationModule {
     @Provides
     fun provideLoginComponentPresenter(
             stateManager: AppStateManager,
+            userSettingsManager: UserSettingsManager,
             loginInteractor: LoginInteractor
     ): LoginComponentContract.Presenter {
         return LoginComponentPresenter(
                 stateManager,
+                userSettingsManager,
                 loginInteractor
         )
     }
@@ -755,8 +760,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideDebugUsersComponentPresenter(stateManager: AppStateManager): DebugUsersComponentContract.Presenter {
-        return DebugUsersComponentPresenter(stateManager)
+    fun provideDebugUsersComponentPresenter(stateManager: AppStateManager, userSettingsManager: UserSettingsManager): DebugUsersComponentContract.Presenter {
+        return DebugUsersComponentPresenter(stateManager, userSettingsManager)
     }
 
     @ActivityScope
@@ -770,9 +775,10 @@ class PresentationModule {
     fun provideProfileInfoComponentPresenter(
             stateManager: AppStateManager,
             saveUserInteractor: SaveUserInteractor,
+            saveUserSettingsInteractor: SaveUserSettingsInteractor,
             getUserProfileInteractor: GetUserProfileInteractor
     ): ProfileInfoComponentContract.Presenter {
-        return ProfileInfoComponentPresenter(stateManager, saveUserInteractor,getUserProfileInteractor)
+        return ProfileInfoComponentPresenter(stateManager, saveUserInteractor, saveUserSettingsInteractor, getUserProfileInteractor)
     }
 
     @ActivityScope
@@ -789,10 +795,11 @@ class PresentationModule {
     @Provides
     fun provideDebugUserPresenter(
             stateManager: AppStateManager,
+            userSettingsManager: UserSettingsManager,
             createUserInteractor: CreateDebugUserInteractorImpl,
             saveUserInteractor: SaveUserInteractor
     ): DebugUserContract.Presenter {
-        return DebugUserPresenter(stateManager, createUserInteractor, saveUserInteractor)
+        return DebugUserPresenter(stateManager, userSettingsManager, createUserInteractor, saveUserInteractor)
     }
 
     @ActivityScope
@@ -811,11 +818,13 @@ class PresentationModule {
     @Provides
     fun provideFingerHintComponentPresenter(
             stateManager: AppStateManager,
+            userSettingsManager: UserSettingsManager,
             encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,
             saveUserInteractor: SaveUserInteractor
     ): FingerHintComponentContract.Presenter {
         return FingerHintComponentPresenter(
                 stateManager,
+                userSettingsManager,
                 encryptUserLoginInfoInteractor,
                 saveUserInteractor
         )

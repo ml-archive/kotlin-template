@@ -1,9 +1,6 @@
 package dk.eboks.app.domain.interactors.authentication
 
-import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.managers.AuthClient
-import dk.eboks.app.domain.managers.CacheManager
-import dk.eboks.app.domain.managers.UserManager
+import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.network.Api
@@ -19,7 +16,14 @@ import timber.log.Timber
  * @author   Christian
  * @since    5/28/2018.
  */
-class TransformTokenInteractorImpl(executor: Executor, val api: Api, val appStateManager: AppStateManager, val userManager: UserManager, val authClient: AuthClient, val cacheManager: CacheManager) : BaseInteractor(executor), TransformTokenInteractor {
+class TransformTokenInteractorImpl(
+        executor: Executor, val api: Api,
+        val appStateManager: AppStateManager,
+        val userManager: UserManager,
+        val userSettingsManager: UserSettingsManager,
+        val authClient: AuthClient,
+        val cacheManager: CacheManager
+) : BaseInteractor(executor), TransformTokenInteractor {
     override var output: TransformTokenInteractor.Output? = null
     override var input: TransformTokenInteractor.Input? = null
 
@@ -33,19 +37,28 @@ class TransformTokenInteractorImpl(executor: Executor, val api: Api, val appStat
                     val userResult = api.getUserProfile().execute()
                     userResult?.body()?.let { user->
                         // update the states
-                        appStateManager.state?.loginState?.userLoginProviderId?.let { user.lastLoginProviderId = it }
                         Timber.e("Saving user $user")
                         val newUser = userManager.put(user)
+                        val newSettings = userSettingsManager.get(newUser.id)
+
+                        appStateManager.state?.loginState?.userLoginProviderId?.let {
+                            newSettings.lastLoginProviderId = it
+                        }
+                        appStateManager.state?.loginState?.activationCode?.let {
+                            newSettings.activationCode = it
+                        }
 
                         appStateManager.state?.loginState?.lastUser?.let { lastUser ->
-                            if(lastUser.id != newUser.id)
-                            {
+                            if (lastUser.id != newUser.id) {
                                 Timber.e("Different user id detected on login, clearing caches")
                                 cacheManager.clearStores()
                             }
                         }
+
+                        userSettingsManager.put(newSettings)
                         appStateManager.state?.loginState?.lastUser = newUser
                         appStateManager.state?.currentUser = newUser
+                        appStateManager.state?.currentSettings = newSettings
                     }
                     appStateManager.save()
 

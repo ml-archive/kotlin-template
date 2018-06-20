@@ -34,7 +34,7 @@ class DebugUsersComponentFragment: BaseFragment(), DebugUsersComponentContract.V
         debugSpTitleTv.text = "DebugUsers"
         applyBtn.text = "Choose"
         applyBtn.setOnClickListener {
-            presenter.updateLoginState(countrySpr.selectedItem as LoginState)
+            presenter.updateLoginState(debugSp.selectedItem as LoginState)
             activity.onBackPressed()
         }
     }
@@ -50,7 +50,7 @@ class DebugUsersComponentFragment: BaseFragment(), DebugUsersComponentContract.V
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         // Apply the adapter to the spinner
-        countrySpr.adapter = adapter
-        countrySpr.invalidate()
+        debugSp.adapter = adapter
+        debugSp.invalidate()
     }
 }

@@ -60,14 +60,20 @@ class AuthClientImpl : AuthClient {
         return null
     }
 
-    override fun transformRefreshToken(refreshToken : String) : AccessToken?
-    {
+    override fun transformRefreshToken(refreshToken : String, longClient: Boolean) : AccessToken? {
+        var oId = BuildConfig.OAUTH_SHORT_ID
+        var oSec = BuildConfig.OAUTH_SHORT_SECRET
+        if(longClient) {
+            oId = BuildConfig.OAUTH_LONG_ID
+            oSec = BuildConfig.OAUTH_LONG_SECRET
+        }
+
         val formBody = FormBody.Builder()
                 .add("refresh_token", refreshToken)
                 .add("grant_type", "refresh_token")
                 .add("scope", "mobileapi offline_access")
-                .add("client_id", BuildConfig.OAUTH_LONG_ID) // TODO custom stuff is prolly temporarily but who knows
-                .add("client_secret", BuildConfig.OAUTH_LONG_SECRET)
+                .add("client_id", oId)
+                .add("client_secret", oSec)
                 .build()
 
         val request = Request.Builder()
@@ -88,13 +94,19 @@ class AuthClientImpl : AuthClient {
     }
 
     // Throws AuthException with http error code on other values than 200 okay
-    override fun login(username : String, password : String, activationCode : String?) : AccessToken?
-    {
+    override fun login(username : String, password : String, activationCode : String?, longClient: Boolean) : AccessToken? {
+        var oId = BuildConfig.OAUTH_SHORT_ID
+        var oSec = BuildConfig.OAUTH_SHORT_SECRET
+        if(longClient) {
+            oId = BuildConfig.OAUTH_LONG_ID
+            oSec = BuildConfig.OAUTH_LONG_SECRET
+        }
+
         val formBody = FormBody.Builder()
                 .add("grant_type", "password")
                 .add("scope", "mobileapi offline_access")
-                .add("client_id", BuildConfig.OAUTH_LONG_ID)
-                .add("client_secret", BuildConfig.OAUTH_LONG_SECRET)
+                .add("client_id", oId)
+                .add("client_secret", oSec)
                 .add("username", username)
                 .add("password", password)
 
