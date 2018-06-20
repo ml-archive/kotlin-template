@@ -18,7 +18,7 @@ class FingerPrintComponentPresenter @Inject constructor(val appState: AppStateMa
     }
 
     private fun loadUserState() {
-        val lastLoginProvider: String? = appState.state?.currentUser?.lastLoginProviderId
+        val lastLoginProvider: String? = appState.state?.currentSettings?.lastLoginProviderId
 
         if (lastLoginProvider == null) {
             showErrorMessage()

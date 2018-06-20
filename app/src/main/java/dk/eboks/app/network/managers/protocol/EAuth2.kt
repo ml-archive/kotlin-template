@@ -1,10 +1,7 @@
 package dk.eboks.app.network.managers.protocol
 
 import dk.eboks.app.App
-import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.managers.AuthClient
-import dk.eboks.app.domain.managers.PrefManager
-import dk.eboks.app.domain.managers.UIManager
+import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
@@ -18,7 +15,7 @@ import javax.inject.Inject
 /**
  * E-boks Authenticator, based on OAuth2
  */
-class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager) : Authenticator {
+class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val userSettingsManager: UserSettingsManager) : Authenticator {
     @Inject
     lateinit var executer: Executor
     @Inject
@@ -112,10 +109,11 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager) : A
             val userName = appStateManager.state?.loginState?.userName
             val password = appStateManager.state?.loginState?.userPassWord
             val actiCode = appStateManager.state?.loginState?.activationCode
+            val longToken = userSettingsManager.get(appStateManager.state?.loginState?.selectedUser?.id ?: 0).stayLoggedIn
             if (userName.isNullOrBlank() || password.isNullOrBlank()) {
                 return null // todo much, much, much more drastic error here - this is when the authenticator was started without a user being selected
             }
-            return authClient.login(userName!!, password!!, actiCode)
+            return authClient.login(userName!!, password!!, actiCode, longToken)
         } catch (e: Throwable) {
             Timber.e("New token fail: $e")
         }

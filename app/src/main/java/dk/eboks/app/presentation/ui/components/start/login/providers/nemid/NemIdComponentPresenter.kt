@@ -14,20 +14,11 @@ import javax.inject.Inject
  * @since    5/28/2018.
  */
 class NemIdComponentPresenter @Inject constructor(appState: AppStateManager, transformTokenInteractor: TransformTokenInteractor) : WebLoginPresenter(appState, transformTokenInteractor) {
-    /*
-    override fun onLoginSuccess(response: AccessToken) {
 
-        Timber.e("onLoginSuccess")
-        // do we have a selected user
-        appState.state?.loginState?.selectedUser?.let { user ->
-            user.lastLoginProviderId = "nemid"
-            appState.state?.currentUser = user
-            appState.save()
-        }.guard { // narp this is logging into an existing user
-
+    override fun login(webToken: String) {
+        appState.state?.loginState?.let {
+            it.userLoginProviderId = "nemid"
         }
-
-        super.onLoginSuccess(response)
+        super.login(webToken)
     }
-    */
 }

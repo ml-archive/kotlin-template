@@ -8,15 +8,16 @@ interface ProfileInfoComponentContract {
     interface View : BaseView {
         fun setName(name: String)
         fun setProfileImage(url: String?)
-        fun setVerified(verified: Boolean)
-        fun showFingerprintEnabled(enabled: Boolean, lastProviderId: String? = null)
-        fun setKeepMeSignedIn(enabled: Boolean)
+        fun setVerified(isVerified: Boolean)
+        fun showFingerprintEnabled(isEnabled: Boolean, lastProviderId: String? = null)
+        fun showKeepMeSignedIn(isEnabled: Boolean)
         fun logout()
     }
 
     interface Presenter : BasePresenter<View> {
         fun loadUserData()
-        fun enableUserFingerprint(isEnabled: Boolean)
+        fun enableUserFingerprint(enable: Boolean)
+        fun enableKeepMeSignedIn(enable: Boolean)
         fun doLogout()
         fun saveUserImg(uri: String)
     }

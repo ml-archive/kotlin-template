@@ -35,11 +35,11 @@ class UserManagerImpl(val context: Context, val gson: Gson) : UserManager {
      * if updated the reference saved in the user manager is returned
      * replace this in your client code
      */
-    override fun put(user: User) : User {
+    override fun put(user: User): User {
         for (u in users) {
             if (u.id == user.id) {
-                //FieldMapper.copyAllFields(user, u)
-                FieldMapper.copyAllFields(u, user)
+                 FieldMapper.copyAllFields(u, user)
+
                 userStore.save(users)
                 Timber.e("User ${user.id} : ${user.name} updated")
                 return u

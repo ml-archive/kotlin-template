@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.components.profile.main
 import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.user.GetUserProfileInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
+import dk.eboks.app.domain.interactors.user.SaveUserSettingsInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
@@ -13,12 +14,14 @@ import javax.inject.Inject
 class ProfileInfoComponentPresenter @Inject constructor(
         val appState: AppStateManager,
         private val saveUserInteractor: SaveUserInteractor,
-        val getUserProfileInteractor : GetUserProfileInteractor
+        private val saveUserSettingsInteractor: SaveUserSettingsInteractor,
+        val getUserProfileInteractor: GetUserProfileInteractor
 ) :
         ProfileInfoComponentContract.Presenter,
         BasePresenterImpl<ProfileInfoComponentContract.View>(),
         SaveUserInteractor.Output,
         GetUserProfileInteractor.Output {
+
     override fun onViewCreated(view: ProfileInfoComponentContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
         saveUserInteractor.output = this
@@ -36,17 +39,20 @@ class ProfileInfoComponentPresenter @Inject constructor(
 //            return
         }
 
-     getUserProfileInteractor.run()
+        getUserProfileInteractor.run()
     }
 
-    override fun onGetUser(currentUser: User) {
+    override fun onGetUser(user: User) {
 
         runAction { v ->
-            v.setName(currentUser.name)
-            v.setProfileImage(currentUser.avatarUri)
-            v.showFingerprintEnabled(currentUser.hasFingerprint, currentUser.lastLoginProviderId)
-            v.setVerified(currentUser.verified)
-            v.setKeepMeSignedIn(false)
+            v.setName(user.name)
+            v.setVerified(user.verified)
+            v.setProfileImage(user.avatarUri)
+
+            appState.state?.currentSettings?.let {
+                v.showFingerprintEnabled(it.hasFingerprint, it.lastLoginProviderId)
+                v.showKeepMeSignedIn(it.stayLoggedIn)
+            }
         }
     }
 
@@ -56,15 +62,31 @@ class ProfileInfoComponentPresenter @Inject constructor(
 
     override fun saveUserImg(uri: String) {
         appState.state?.currentUser?.avatarUri = uri
-    }
-
-    override fun enableUserFingerprint(isEnabled: Boolean) {
-        appState.state?.currentUser?.hasFingerprint = isEnabled
         appState.save()
 
-        appState.state?.currentUser?.let {
-            saveUserInteractor.input = SaveUserInteractor.Input(it)
-            saveUserInteractor.run()
+        appState.state?.currentSettings?.let {
+            saveUserSettingsInteractor.input = SaveUserSettingsInteractor.Input(it)
+            saveUserSettingsInteractor.run()
+        }
+    }
+
+    override fun enableUserFingerprint(enable: Boolean) {
+        appState.state?.currentSettings?.hasFingerprint = enable
+        appState.save()
+
+        appState.state?.currentSettings?.let {
+            saveUserSettingsInteractor.input = SaveUserSettingsInteractor.Input(it)
+            saveUserSettingsInteractor.run()
+        }
+    }
+
+    override fun enableKeepMeSignedIn(enable: Boolean) {
+        appState.state?.currentSettings?.stayLoggedIn = enable
+        appState.save()
+
+        appState.state?.currentSettings?.let {
+            saveUserSettingsInteractor.input = SaveUserSettingsInteractor.Input(it)
+            saveUserSettingsInteractor.run()
         }
     }
 
@@ -77,7 +99,9 @@ class ProfileInfoComponentPresenter @Inject constructor(
     }
 
     override fun doLogout() {
+        appState.state?.currentSettings = null
         appState.state?.loginState?.token = null
+        appState.save()
         view?.logout()
     }
 }

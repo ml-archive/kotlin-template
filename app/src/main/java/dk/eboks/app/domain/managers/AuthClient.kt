@@ -6,6 +6,6 @@ class AuthException(var httpCode : Int = -1) : RuntimeException("AuthException")
 
 interface AuthClient {
     fun transformKspToken(kspToken : String) : AccessToken?
-    fun transformRefreshToken(refreshToken : String) : AccessToken?
-    fun login(username : String, password : String, activationCode : String?) : AccessToken?
+    fun transformRefreshToken(refreshToken : String, longClient: Boolean = false) : AccessToken?
+    fun login(username : String, password : String, activationCode : String?, longClient: Boolean = false) : AccessToken?
 }

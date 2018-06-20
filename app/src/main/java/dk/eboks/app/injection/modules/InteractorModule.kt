@@ -35,10 +35,11 @@ class InteractorModule {
             api: Api,
             appStateManager: AppStateManager,
             userManager: UserManager,
+            userSettingsManager: UserSettingsManager,
             authClient: AuthClient,
             cacheManager: CacheManager
     ): LoginInteractor {
-        return LoginInteractorImpl(executor, api, appStateManager, userManager, authClient, cacheManager)
+        return LoginInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager, authClient, cacheManager)
     }
 
     @Provides
@@ -251,6 +252,14 @@ class InteractorModule {
     ): CreateDebugUserInteractorImpl {
         return CreateDebugUserInteractorImpl(executor, userManager)
     }
+    @Provides
+    fun provideSaveUserSettingsInteractor(
+            executor: Executor,
+            appStateManager: AppStateManager,
+            userManager: UserSettingsManager
+    ): SaveUserSettingsInteractor {
+        return SaveUserSettingsInteractorImpl(executor, appStateManager, userManager)
+    }
 
     @Provides
     fun provideSaveUserInteractor(
@@ -272,9 +281,10 @@ class InteractorModule {
     @Provides
     fun provideDeleteUserInteractor(
             executor: Executor,
-            userManager: UserManager
+            userManager: UserManager,
+            userSettingsManager: UserSettingsManager
     ): DeleteUserInteractor {
-        return DeleteUserInteractorImpl(executor, userManager)
+        return DeleteUserInteractorImpl(executor, userManager, userSettingsManager)
     }
 
     @Provides
@@ -290,9 +300,10 @@ class InteractorModule {
             executor: Executor,
             api: Api,
             appStateManager: AppStateManager,
-            userManager: UserManager
+            userManager: UserManager,
+            userSettingsManager: UserSettingsManager
     ): GetUserProfileInteractor {
-        return GetUserProfileInteractorImpl(executor, api, appStateManager, userManager)
+        return GetUserProfileInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager)
     }
 
     @Provides
@@ -460,8 +471,8 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideTransformTokenInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, authClient: AuthClient, cacheManager: CacheManager): TransformTokenInteractor {
-        return TransformTokenInteractorImpl(executor, api, appStateManager, userManager, authClient, cacheManager)
+    fun provideTransformTokenInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, userSettingsManager: UserSettingsManager, authClient: AuthClient, cacheManager: CacheManager): TransformTokenInteractor {
+        return TransformTokenInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager, authClient, cacheManager)
     }
 
     @Provides

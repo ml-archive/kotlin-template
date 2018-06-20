@@ -137,8 +137,8 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideAuthenticator(prefManager: PrefManager, appStateManager: AppStateManager): EAuth2 {
-        return EAuth2(prefManager, appStateManager)
+    fun provideAuthenticator(prefManager: PrefManager, appStateManager: AppStateManager, userSettingsManager: UserSettingsManager): EAuth2 {
+        return EAuth2(prefManager, appStateManager, userSettingsManager)
     }
 
     @Provides

@@ -19,7 +19,7 @@
             android:text="Configuration"/>
 
         <Spinner
-            android:id="@+id/countrySpr"
+            android:id="@+id/debugSp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.login.User
+import dk.eboks.app.domain.models.login.UserSettings
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
 import dk.eboks.app.util.guard
@@ -51,11 +52,13 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
         val provider = loginProviderSpr.selectedItem as LoginProvider
         val name = nameEt.text.toString().trim()
         var email: String? = emailEt.text.toString().trim()
-        if (email.isNullOrBlank())
+        if (email.isNullOrBlank()) {
             email = null
+        }
         var cpr: String? = cprEt.text.toString().trim()
-        if (cpr.isNullOrBlank())
+        if (cpr.isNullOrBlank()) {
             cpr = null
+        }
         val verified = verifiedSw.isChecked
         val fingerprint = fingerPrintSw.isChecked
         presenter.createUser(provider, name, email, cpr, verified, fingerprint)
@@ -66,24 +69,27 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
     }
 
     private fun saveUser(user: User) {
-        user.lastLoginProviderId = (loginProviderSpr.selectedItem as LoginProvider).id
         user.name = nameEt.text.toString().trim()
         user.setPrimaryEmail(emailEt.text.toString().trim())
 
-        if (user.getPrimaryEmail().isNullOrBlank())
+        if (user.getPrimaryEmail().isNullOrBlank()) {
             user.setPrimaryEmail(null)
+        }
         user.identity = cprEt.text.toString().trim()
-        if (user.identity.isNullOrBlank())
+        if (user.identity.isNullOrBlank()) {
             user.identity = null
+        }
         user.verified = verifiedSw.isChecked
-        user.hasFingerprint = fingerPrintSw.isChecked
-        presenter.saveUser(user)
+
+        val lastLoginProviderId = (loginProviderSpr.selectedItem as LoginProvider).id
+        val hasFingerprint = fingerPrintSw.isChecked
+        presenter.saveUser(user, lastLoginProviderId, hasFingerprint )
     }
 
-    override fun showUser(user: User) {
+    override fun showUser(user: User, userSettings: UserSettings) {
         currentUser = user
         for (i in 0 until loginProviderSpr.adapter.count) {
-            user.lastLoginProviderId?.let {
+            userSettings.lastLoginProviderId?.let {
                 if ((loginProviderSpr.adapter.getItem(i) as LoginProvider).id == it) {
                     loginProviderSpr.setSelection(i)
                     return@let
@@ -94,7 +100,7 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
         user.getPrimaryEmail()?.let { emailEt.setText(it) }
         user.identity?.let { cprEt.setText(it) }
         verifiedSw.isChecked = user.verified
-        fingerPrintSw.isChecked = user.hasFingerprint
+        fingerPrintSw.isChecked = userSettings.hasFingerprint
         currentUser?.let {
             createBtn.text = "Save"
         }

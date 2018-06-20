@@ -6,6 +6,7 @@ import dk.eboks.app.domain.interactors.user.CreateDebugUserInteractorImpl
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -15,6 +16,7 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
  */
 class DebugUserPresenter(
         val appStateManager: AppStateManager,
+        val userSettingsManager: UserSettingsManager,
         val createUserInteractor: CreateDebugUserInteractorImpl,
         val saveUserInteractor: SaveUserInteractor
 ) :
@@ -31,7 +33,7 @@ class DebugUserPresenter(
         runAction { v ->
             v.showLoginProviderSpinner(Config.loginProviders.values.toList())
             editUser?.let {
-                v.showUser(it)
+                v.showUser(it, userSettingsManager.get(it.id))
                 editUser = null
             }
         }
@@ -50,18 +52,26 @@ class DebugUserPresenter(
                 name = name,
                 identity = cpr,
                 avatarUri = null,
-                lastLoginProviderId = provider.id,
-                verified = verified,
-                hasFingerprint = fingerprint
+                verified = verified
         )
 
         user.setPrimaryEmail(email)
+        val settings = userSettingsManager.get(user.id)
+        settings.lastLoginProviderId = provider.id
+        settings.hasFingerprint = fingerprint
+        userSettingsManager.put(settings)
+
 
         createUserInteractor.input = CreateUserInteractor.Input(user,"temp")
         createUserInteractor.run()
     }
 
-    override fun saveUser(user: User) {
+    override fun saveUser(user: User, loginProviderId: String, hasFingerprint: Boolean) {
+        val settings = userSettingsManager.get(user.id)
+        settings.lastLoginProviderId = loginProviderId
+        settings.hasFingerprint = hasFingerprint
+        userSettingsManager.put(settings)
+
         saveUserInteractor.input = SaveUserInteractor.Input(user)
         saveUserInteractor.run()
     }

@@ -26,6 +26,7 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
+import dk.eboks.app.domain.models.login.UserSettings
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.debug.DebugUsersComponentFragment
 import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
@@ -60,6 +61,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     var showGreeting: Boolean = true
     var currentProvider: LoginProvider? = null
     var currentUser: User? = null
+    var currentSettings: UserSettings? = null
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -140,14 +142,16 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         Timber.i("onContinue with ${currentUser?.name}")
         currentUser?.let { user ->
             currentProvider?.let { provider ->
-
-                val identity: String = if (provider.id == "email") user.emails[0].value
-                        ?: "" else user.identity ?: ""
+                val identity: String = if (provider.id == "email") {
+                    user.emails[0].value ?: ""
+                } else {
+                    user.identity ?: ""
+                }
                 presenter.updateLoginState(
                         identity,
                         provider.id,
                         passwordEt.text.toString().trim(),
-                        activationCode = user.activationCode
+                        currentSettings?.activationCode
                 )
                 presenter.login()
                 continuePb.visibility = View.VISIBLE
@@ -179,10 +183,9 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
 
-    override fun setupView(loginProvider: LoginProvider?, user: User?, altLoginProviders: List<LoginProvider>) {
-        Timber.i("SetupView called loginProvider = $loginProvider user = $user altProviders = $altLoginProviders")
+    override fun setupView(loginProvider: LoginProvider?, user: User?, settings: UserSettings, altLoginProviders: List<LoginProvider>) {
+        Timber.i("SetupView called loginProvider: $loginProvider, user: $user, altProviders:  $altLoginProviders")
         continuePb.visibility = View.INVISIBLE
-
 
         loginProvider?.let { provider ->
             currentProvider = provider
@@ -199,9 +202,15 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             continueBtn.visibility = View.VISIBLE
             userLl.visibility = View.GONE
         }
+
         setupAltLoginProviders(altLoginProviders)
 
-        if(BuildConfig.DEBUG) {
+        currentSettings = settings
+        if (settings.hasFingerprint) {
+            addFingerPrintProvider()
+        }
+
+        if (BuildConfig.DEBUG) {
             testUsersBtn.visibility = View.VISIBLE
             testUsersBtn.setOnClickListener {
                 getBaseActivity()?.openComponentDrawer(DebugUsersComponentFragment::class.java)
@@ -316,15 +325,13 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                     cprEmailEt.inputType = InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
                     cprEmailTil.visibility = View.GONE
                     userLl.visibility = View.VISIBLE
-
                 }
                 "cpr" -> {
-                    user?.let {setupUserView(it) }
+                    user?.let { setupUserView(it) }
                     cprEmailEt.inputType = InputType.TYPE_CLASS_NUMBER
                     userLl.visibility = View.VISIBLE
                     cprEmailTil.visibility = View.VISIBLE
                     cprEmailTil.hint = Translation.logoncredentials.ssnHeader
-
                 }
                 else -> {
                     getBaseActivity()?.addFragmentOnTop(
@@ -340,9 +347,6 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
         loginProvidersLl.removeAllViews()
         loginProvidersLl.visibility = View.VISIBLE
-        if (currentUser?.hasFingerprint ?: false) {
-            addFingerPrintProvider()
-        }
         val li = LayoutInflater.from(context)
 
         for (provider in providers) {

@@ -9,6 +9,13 @@
   <string name='nstack_default_close' formatted='false'>default_close</string>
   <string name='nstack_default_no' formatted='false'>default_no</string>
   <string name='nstack_default_delete' formatted='false'>default_delete</string>
+  <string name='nstack_default_retry' formatted='false'>default_retry</string>
+  <string name='nstack_default_edit' formatted='false'>default_edit</string>
+  <string name='nstack_default_settings' formatted='false'>default_settings</string>
+  <string name='nstack_default_later' formatted='false'>default_later</string>
+  <string name='nstack_default_next' formatted='false'>default_next</string>
+  <string name='nstack_default_previous' formatted='false'>default_previous</string>
+  <string name='nstack_default_skip' formatted='false'>default_skip</string>
   <string name='nstack_error_genericMessage' formatted='false'>error_genericMessage</string>
   <string name='nstack_error_genericTitle' formatted='false'>error_genericTitle</string>
   <string name='nstack_error_noInternetTitle' formatted='false'>error_noInternetTitle</string>
@@ -32,6 +39,10 @@
   <string name='nstack_error_forwardReceiptErrorMessage' formatted='false'>error_forwardReceiptErrorMessage</string>
   <string name='nstack_error_timeoutTitle' formatted='false'>error_timeoutTitle</string>
   <string name='nstack_error_timeoutMessage' formatted='false'>error_timeoutMessage</string>
+  <string name='nstack_error_authenticationError' formatted='false'>error_authenticationError</string>
+  <string name='nstack_error_connectionError' formatted='false'>error_connectionError</string>
+  <string name='nstack_error_errorTitle' formatted='false'>error_errorTitle</string>
+  <string name='nstack_error_unknownError' formatted='false'>error_unknownError</string>
   <string name='nstack_mail_senderHeader' formatted='false'>mail_senderHeader</string>
   <string name='nstack_mail_showAllSendersButton' formatted='false'>mail_showAllSendersButton</string>
   <string name='nstack_mail_smartFolderHeader' formatted='false'>mail_smartFolderHeader</string>
@@ -41,6 +52,9 @@
   <string name='nstack_mail_addMoreSendersButton' formatted='false'>mail_addMoreSendersButton</string>
   <string name='nstack_mail_noMessagesToDisplay' formatted='false'>mail_noMessagesToDisplay</string>
   <string name='nstack_mail_allMail' formatted='false'>mail_allMail</string>
+  <string name='nstack_mail_unverifiedEmptyTitle' formatted='false'>mail_unverifiedEmptyTitle</string>
+  <string name='nstack_mail_unverifiedEmptyMessage' formatted='false'>mail_unverifiedEmptyMessage</string>
+  <string name='nstack_mail_unverifiedEmptyButton' formatted='false'>mail_unverifiedEmptyButton</string>
   <string name='nstack_mainnav_homeButton' formatted='false'>mainnav_homeButton</string>
   <string name='nstack_mainnav_mailButton' formatted='false'>mainnav_mailButton</string>
   <string name='nstack_mainnav_sendersButton' formatted='false'>mainnav_sendersButton</string>
@@ -347,6 +361,7 @@
   <string name='nstack_profile_errorbiometryTakenMessage' formatted='false'>profile_errorbiometryTakenMessage</string>
   <string name='nstack_profile_errorBiometryVerificationRequiredTitle' formatted='false'>profile_errorBiometryVerificationRequiredTitle</string>
   <string name='nstack_profile_errorbiometryVerificationRequiredMessage' formatted='false'>profile_errorbiometryVerificationRequiredMessage</string>
+  <string name='nstack_profile_feedbackCellTitle' formatted='false'>profile_feedbackCellTitle</string>
   <string name='nstack_myInformation_title' formatted='false'>myInformation_title</string>
   <string name='nstack_myInformation_name' formatted='false'>myInformation_name</string>
   <string name='nstack_myInformation_primaryEmail' formatted='false'>myInformation_primaryEmail</string>

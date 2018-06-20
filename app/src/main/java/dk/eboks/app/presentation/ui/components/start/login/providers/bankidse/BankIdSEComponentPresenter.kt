@@ -15,47 +15,11 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class BankIdSEComponentPresenter @Inject constructor(appState: AppStateManager, transformTokenInteractor: TransformTokenInteractor) : WebLoginPresenter(appState, transformTokenInteractor) {
-    override fun onLoginSuccess(response: AccessToken) {
 
-        appState.state?.loginState?.selectedUser?.let { user ->
-            user.lastLoginProviderId = "bankid_se"
-            appState.state?.currentUser = user
-            appState.save()
-
+    override fun login(webToken: String) {
+        appState.state?.loginState?.let {
+            it.userLoginProviderId = "bankid_se"
         }
-        super.onLoginSuccess(response)
+        super.login(webToken)
     }
-
-//    init {
-//
-//    }
-//
-//    override fun setup() {
-//        appState.state?.loginState?.selectedUser?.let { user ->
-//            runAction { v->v.setupLogin(user) }
-//        }
-//
-//    }
-//
-//    override fun cancelAndClose() {
-//        // set fallback login provider and close
-//        appState.state?.loginState?.selectedUser?.let { user ->
-//            user.lastLoginProvider?.let { provider_id ->
-//                Timber.e("Cancel and close called provider id = ")
-//                Config.getLoginProvider(provider_id)?.let { provider->
-//                    Timber.e("Setting lastLoginProvider to fallback provider ${provider.fallbackProvider}")
-//                    user.lastLoginProvider = provider.fallbackProvider
-//                }
-//            }.guard {
-//                Timber.e("error")
-//            }
-//        }
-//        runAction { v->v.close() }
-//    }
-//
-//    override fun login(user: User) {
-//        user.lastLoginProvider = "bankid_se"
-//        appState.state?.currentUser = user
-//        appState.save()
-//    }
 }
