@@ -130,6 +130,8 @@
   <string name='nstack_logoncredentials_invalidSSN' formatted='false'>logoncredentials_invalidSSN</string>
   <string name='nstack_logoncredentials_logonWithProvider' formatted='false'>logoncredentials_logonWithProvider</string>
   <string name='nstack_logoncredentials_invalidVerification' formatted='false'>logoncredentials_invalidVerification</string>
+  <string name='nstack_logoncredentials_invalidCredentialsTitle' formatted='false'>logoncredentials_invalidCredentialsTitle</string>
+  <string name='nstack_logoncredentials_invalidCredentialsMessage' formatted='false'>logoncredentials_invalidCredentialsMessage</string>
   <string name='nstack_forgotpassword_title' formatted='false'>forgotpassword_title</string>
   <string name='nstack_forgotpassword_subtitle' formatted='false'>forgotpassword_subtitle</string>
   <string name='nstack_forgotpassword_emailHeader' formatted='false'>forgotpassword_emailHeader</string>

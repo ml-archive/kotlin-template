@@ -11,6 +11,7 @@ import dk.eboks.app.domain.interactors.channel.GetChannelContentLinkInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
+import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
@@ -545,11 +546,13 @@ class PresentationModule {
     fun provideLoginComponentPresenter(
             stateManager: AppStateManager,
             userSettingsManager: UserSettingsManager,
+            decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,
             loginInteractor: LoginInteractor
     ): LoginComponentContract.Presenter {
         return LoginComponentPresenter(
                 stateManager,
                 userSettingsManager,
+                decryptUserLoginInfoInteractor,
                 loginInteractor
         )
     }

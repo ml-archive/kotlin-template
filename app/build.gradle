@@ -27,7 +27,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 43
+        versionCode 44
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -42,12 +42,7 @@ android {
         //buildConfigField "String", "DEMO_API_URL", "\"https://demo-mobile-api-dk.internal.e-boks.com/2/\""
         //buildConfigField "String", "DEMO_OAUTH_URL", "\"https://demo-oauth-dk.internal.e-boks.com/1/connect/token\""
 
-        buildConfigField "Long", "INPUT_VALIDATION_DELAY", "1200L"
-
-        buildConfigField "String", "OAUTH_SHORT_ID", "\"MobileApp-Short-id\""
-        buildConfigField "String", "OAUTH_SHORT_SECRET", "\"MobileApp-Short-secret\""
-        buildConfigField "String", "OAUTH_LONG_ID", "\"MobileApp-Long-id\""
-        buildConfigField "String", "OAUTH_LONG_SECRET", "\"MobileApp-Long-secret\""
+        buildConfigField "Long", "INPUT_VALIDATION_DELAY", "1800L"
 
         // flags for disabling various functionality for the different betas
         buildConfigField "Boolean", "ENABLE_PROFILE_PICTURE", "true"
@@ -125,6 +120,16 @@ android {
                         break
                 }
             }
+
+            buildConfigField "String", "OAUTH_SHORT_ID", "\"MobileApp-Short-id\""
+            buildConfigField "String", "OAUTH_SHORT_SECRET", "\"MobileApp-Short-secret\""
+            buildConfigField "String", "OAUTH_LONG_ID", "\"MobileApp-Long-id\""
+            buildConfigField "String", "OAUTH_LONG_SECRET", "\"MobileApp-Long-secret\""
+
+            buildConfigField "String", "OAUTH_SHORT_CUSTOM_ID", "\"MobileApp-Short-Custom-id\""
+            buildConfigField "String", "OAUTH_SHORT_CUSTOM_SECRET", "\"MobileApp-Short-secret\""
+            buildConfigField "String", "OAUTH_LONG_CUSTOM_ID", "\"MobileApp-Long-Custom-id\""
+            buildConfigField "String", "OAUTH_LONG_CUSTOM_SECRET", "\"MobileApp-Long-secret\""
         }
 
         release {
@@ -144,6 +149,16 @@ android {
                         break
                 }
             }
+
+            buildConfigField "String", "OAUTH_SHORT_ID", "\"MobileApp-Short-id\""
+            buildConfigField "String", "OAUTH_SHORT_SECRET", "\"Buz3YmYmjhDRM9R3\""
+            buildConfigField "String", "OAUTH_LONG_ID", "\"MobileApp-Long-id\""
+            buildConfigField "String", "OAUTH_LONG_SECRET", "\"TgtjcNpY9R9ffw8D\""
+
+            buildConfigField "String", "OAUTH_SHORT_CUSTOM_ID", "\"MobileApp-Short-Custom-id\""
+            buildConfigField "String", "OAUTH_SHORT_CUSTOM_SECRET", "\"QmaENW6MeYwwjzF5\""
+            buildConfigField "String", "OAUTH_LONG_CUSTOM_ID", "\"MobileApp-Long-Custom-id\""
+            buildConfigField "String", "OAUTH_LONG_CUSTOM_SECRET", "\"4ZLmEL2SY69MqGKs\""
         }
 
         applicationVariants.all { variant ->

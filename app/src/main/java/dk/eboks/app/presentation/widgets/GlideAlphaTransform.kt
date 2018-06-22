@@ -1,8 +1,10 @@
 package dk.eboks.app.presentation.widgets
 
 import android.graphics.*
+import android.os.Build
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
+import timber.log.Timber
 import java.security.MessageDigest
 
 /**
@@ -31,7 +33,11 @@ class GlideAlphaTransform(val color: Int, val alpha: Float = 0.2f) : BitmapTrans
 
         // Background
         val canvas = Canvas(bitmap)
-        canvas.drawColor(color)
+        Timber.v("Color = $color")
+        val solid = color.or(0xff000000.toInt())
+        Timber.v("Solid Color = $solid")
+        canvas.drawColor( solid )
+
 
         // Image
         val alphaPaint = Paint()

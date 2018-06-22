@@ -20,6 +20,7 @@ import dk.eboks.app.network.util.DateDeserializer
 import dk.eboks.app.network.util.ItemTypeAdapterFactory
 import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.nstack.kotlin.providers.NMetaInterceptor
+import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
@@ -99,8 +100,7 @@ class RestModule {
                 .addInterceptor(eboksHeaderInterceptor)
                 .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
 
-        if(BuildConfig.DEBUG)
-        {
+        if (BuildConfig.DEBUG) {
             clientBuilder.addInterceptor(ApiHostSelectionInterceptor())
         }
 
@@ -108,6 +108,15 @@ class RestModule {
             val logging = okhttp3.logging.HttpLoggingInterceptor()
             logging.level = okhttp3.logging.HttpLoggingInterceptor.Level.BODY
             clientBuilder.addInterceptor(logging)
+        }
+
+        if (!BuildConfig.DEBUG) {
+            // TODO: customer requested certificate-pinning on live-builds.
+            // TODO: check that the host and hash are correct !!!
+            clientBuilder.certificatePinner(
+                    CertificatePinner.Builder()
+                            .add("*.eboks.dk", "sha256/bdf29436f609e83fcca59f1119a7e9e6eb69506a")
+                            .build())
         }
 
         return clientBuilder.build()
@@ -143,8 +152,7 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideAuthClient() : AuthClient
-    {
+    fun provideAuthClient(): AuthClient {
         return AuthClientImpl()
     }
 

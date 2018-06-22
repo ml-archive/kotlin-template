@@ -6,6 +6,8 @@ import dagger.Provides
 import dk.eboks.app.domain.interactors.*
 import dk.eboks.app.domain.interactors.authentication.*
 import dk.eboks.app.domain.interactors.channel.*
+import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
+import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractorImpl
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractorImpl
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
@@ -40,6 +42,14 @@ class InteractorModule {
             cacheManager: CacheManager
     ): LoginInteractor {
         return LoginInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager, authClient, cacheManager)
+    }
+
+    @Provides
+    fun provideDecryptInteractor(
+            executor: Executor,
+            encryptionPreferenceManager: EncryptionPreferenceManager
+    ): DecryptUserLoginInfoInteractor {
+        return DecryptUserLoginInfoInteractorImpl(executor, encryptionPreferenceManager)
     }
 
     @Provides

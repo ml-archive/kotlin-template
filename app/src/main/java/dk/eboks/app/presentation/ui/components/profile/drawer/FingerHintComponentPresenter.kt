@@ -24,9 +24,10 @@ class FingerHintComponentPresenter @Inject constructor(
     override fun encryptUserLoginInfo() {
         val loginInfo = view?.getUserLoginInfo()
 
-        Timber.d("encryptUserLoginInfo: %s", loginInfo)
+        Timber.d("encryptUserLoginInfo: $loginInfo")
 
         loginInfo?.let {
+            it.actvationCode = userSettingsManager.get(appState.state?.currentUser?.id?:0).activationCode?:""
             encryptUserLoginInfoInteractor.output = this
             encryptUserLoginInfoInteractor.input = EncryptUserLoginInfoInteractor.Input(loginInfo)
             encryptUserLoginInfoInteractor.run()

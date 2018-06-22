@@ -33,14 +33,15 @@ class AuthClientImpl : AuthClient {
         httpClient = clientBuilder.build()
     }
 
-    override fun transformKspToken(kspToken : String) : AccessToken?
-    {
+    override fun transformKspToken(kspToken : String) : AccessToken? {
+        val keys = getKeys(true, false)
+
         val formBody = FormBody.Builder()
                 .add("token", kspToken)
                 .add("grant_type", "kspwebtoken")
                 .add("scope", "mobileapi offline_access")
-                .add("client_id", "MobileApp-Long-Custom-id") // TODO custom stuff is prolly temporarily but who knows
-                .add("client_secret", "MobileApp-Long-Custom-secret")
+                .add("client_id", keys.first)
+                .add("client_secret", keys.second)
                 .build()
 
         val request = Request.Builder()
@@ -61,19 +62,14 @@ class AuthClientImpl : AuthClient {
     }
 
     override fun transformRefreshToken(refreshToken : String, longClient: Boolean) : AccessToken? {
-        var oId = BuildConfig.OAUTH_SHORT_ID
-        var oSec = BuildConfig.OAUTH_SHORT_SECRET
-        if(longClient) {
-            oId = BuildConfig.OAUTH_LONG_ID
-            oSec = BuildConfig.OAUTH_LONG_SECRET
-        }
+        val keys = getKeys(false, longClient)
 
         val formBody = FormBody.Builder()
                 .add("refresh_token", refreshToken)
                 .add("grant_type", "refresh_token")
                 .add("scope", "mobileapi offline_access")
-                .add("client_id", oId)
-                .add("client_secret", oSec)
+                .add("client_id", keys.first)
+                .add("client_secret", keys.second)
                 .build()
 
         val request = Request.Builder()
@@ -95,18 +91,13 @@ class AuthClientImpl : AuthClient {
 
     // Throws AuthException with http error code on other values than 200 okay
     override fun login(username : String, password : String, activationCode : String?, longClient: Boolean) : AccessToken? {
-        var oId = BuildConfig.OAUTH_SHORT_ID
-        var oSec = BuildConfig.OAUTH_SHORT_SECRET
-        if(longClient) {
-            oId = BuildConfig.OAUTH_LONG_ID
-            oSec = BuildConfig.OAUTH_LONG_SECRET
-        }
+        val keys = getKeys(false, longClient)
 
         val formBody = FormBody.Builder()
                 .add("grant_type", "password")
                 .add("scope", "mobileapi offline_access")
-                .add("client_id", oId)
-                .add("client_secret", oSec)
+                .add("client_id", keys.first)
+                .add("client_secret", keys.second)
                 .add("username", username)
                 .add("password", password)
 
@@ -136,5 +127,18 @@ class AuthClientImpl : AuthClient {
         return null
     }
 
+    private fun getKeys(isCustom: Boolean, isLong: Boolean) : Pair<String, String> {
+        lateinit var idSecret: Pair<String, String>
+        if(isCustom && isLong) {
+            idSecret = Pair(BuildConfig.OAUTH_LONG_CUSTOM_ID, BuildConfig.OAUTH_LONG_CUSTOM_SECRET)
+        } else if (isCustom && !isLong) {
+            idSecret = Pair(BuildConfig.OAUTH_SHORT_CUSTOM_ID, BuildConfig.OAUTH_SHORT_CUSTOM_SECRET)
+        } else if(!isCustom && isLong) {
+            idSecret = Pair(BuildConfig.OAUTH_LONG_ID, BuildConfig.OAUTH_LONG_SECRET)
+        } else if (!isCustom && !isLong) {
+            idSecret = Pair(BuildConfig.OAUTH_SHORT_ID, BuildConfig.OAUTH_SHORT_SECRET)
+        }
+        return idSecret
+    }
 
 }

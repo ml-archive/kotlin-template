@@ -267,9 +267,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 SUCCESS -> {
                     currentUser?.let { user ->
                         currentProvider?.let { provider ->
-                            // TODO add credentials
-                            presenter.updateLoginState(user.name, provider.id, "todo", "todo")
-                            presenter.login()
+                            presenter.fingerPrintConfirmed(user)
+//                            bgarof
+//                            presenter.updateLoginState(user.name, provider.id, "todo", "todo")
+//                            presenter.login()
                         }
                     }
                 }

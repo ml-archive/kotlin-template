@@ -4,12 +4,11 @@ import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
+import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.login.AccessToken
-import dk.eboks.app.domain.models.login.User
-import dk.eboks.app.domain.models.login.UserSettings
+import dk.eboks.app.domain.models.login.*
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
@@ -21,10 +20,12 @@ import javax.inject.Inject
 class LoginComponentPresenter @Inject constructor(
         val appState: AppStateManager,
         val userSettingsManager: UserSettingsManager,
+        val decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,
         val loginInteractor: LoginInteractor
 ) :
         LoginComponentContract.Presenter,
         BasePresenterImpl<LoginComponentContract.View>(),
+        DecryptUserLoginInfoInteractor.Output,
         LoginInteractor.Output {
 
     var altProviders: List<LoginProvider> = Config.getAlternativeLoginProviders()
@@ -33,6 +34,7 @@ class LoginComponentPresenter @Inject constructor(
         appState.state?.currentUser = null
         appState.state?.currentSettings = null
         loginInteractor.output = this
+        decryptUserLoginInfoInteractor.output = this
     }
 
     override fun setup() {
@@ -99,6 +101,29 @@ class LoginComponentPresenter @Inject constructor(
 
     override fun onLoginError(error: ViewError) {
         Timber.e("Login Error!!")
+        runAction { v ->
+            v.showProgress(false)
+            v.showError(error)
+        }
+    }
+
+    override fun fingerPrintConfirmed(user: User) {
+        runAction { v -> v.showProgress(true) }
+
+        decryptUserLoginInfoInteractor.run()
+    }
+
+    override fun onDecryptSuccess(loginInfo: LoginInfo) {
+        val providerId = if(loginInfo.type==LoginInfoType.EMAIL) {
+            "email"
+        } else {
+            "cpr"
+        }
+        updateLoginState(loginInfo.socialSecurity, providerId, loginInfo.password, loginInfo.actvationCode)
+        login()
+    }
+
+    override fun onDecryptError(error: ViewError) {
         runAction { v ->
             v.showProgress(false)
             v.showError(error)

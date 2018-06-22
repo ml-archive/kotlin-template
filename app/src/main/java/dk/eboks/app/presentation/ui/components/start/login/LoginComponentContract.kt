@@ -23,6 +23,7 @@ interface LoginComponentContract {
     interface Presenter : BasePresenter<View> {
         fun setup()
         //fun createUserAndLogin(email: String?, cpr: String?, verified: Boolean = false)
+        fun fingerPrintConfirmed(user: User)
         fun updateLoginState(userName: String, providerId: String, password: String, activationCode: String?)
         fun login()
         fun switchLoginProvider(provider: LoginProvider)

@@ -113,8 +113,9 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
 
             //cards
             val cardContainerCv = root.findViewById<CardView>(R.id.cardContainerCv)
+            val backgroundColorV = root.findViewById<View>(R.id.backgroundColorV)
             val backgroundIv = root.findViewById<ImageView>(R.id.backgroundIv)
-            val backgroundColorLl = root.findViewById<LinearLayout>(R.id.backgroundColorLl)
+//            val backgroundOverlayV = root.findViewById<View>(R.id.backgroundOverlayV)
             val headlineTv = root.findViewById<TextView>(R.id.headlineTv)
             val logoIv = root.findViewById<ImageView>(R.id.logoIv)
             val nameTv = root.findViewById<TextView>(R.id.nameTv)
@@ -134,18 +135,20 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
             return cards.size
         }
 
-        override fun onBindViewHolder(holder: ChannelViewHolder?, position: Int) {
+        override fun onBindViewHolder(holder: ChannelViewHolder, position: Int) {
             var currentChannel = cards[position]
 
             if (currentChannel.id == -1) {
-                holder?.headerTv?.visibility = View.VISIBLE
-                holder?.cardContainerCv?.visibility = View.GONE
-                holder?.headerTv?.text = Translation.channels.channelsHeader
+                holder.headerTv?.visibility = View.VISIBLE
+                holder.cardContainerCv?.visibility = View.GONE
+                holder.headerTv?.text = Translation.channels.channelsHeader
             } else {
-                holder?.headerTv?.visibility = View.GONE
-                holder?.cardContainerCv?.visibility = View.VISIBLE
+                holder.headerTv?.visibility = View.GONE
+                holder.cardContainerCv?.visibility = View.VISIBLE
 
-                holder?.backgroundIv?.let {
+
+                holder.backgroundColorV?.background?.setTint(currentChannel.background.color)
+                holder.backgroundIv?.let {
                     val requestOptions = RequestOptions()
                             .transform(RoundedCorners(15))
 
@@ -156,30 +159,29 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 }
 
                 if (currentChannel.logo != null) {
-                    holder?.logoIv?.let {
+                    holder.logoIv?.let {
                         Glide.with(context).load(currentChannel.logo?.url).into(it)
                     }
                 }
 
-                holder?.backgroundColorLl?.background?.setTint(currentChannel.background.color)
-                holder?.headlineTv?.text = currentChannel.payoff
+                holder.headlineTv?.text = currentChannel.payoff
 
-                holder?.nameTv?.text = currentChannel.name
+                holder.nameTv?.text = currentChannel.name
 
                 if (currentChannel.installed) {
-                    holder?.openActionTv?.text = Translation.channels.open
+                    holder.openActionTv?.text = Translation.channels.open
                 } else {
-                    holder?.openActionTv?.text = Translation.channels.install
+                    holder.openActionTv?.text = Translation.channels.install
                 }
 
                 holder
-                        ?.cardContainerCv
+                        .cardContainerCv
                         ?.setOnClickListener({ v ->
                                                  onCardContainerClicked(v, currentChannel)
                                              })
             }
 
-            holder?.root?.invalidate()
+            holder.root.invalidate()
         }
 
         // TODO make this animation go down on down press and stay the fuck down till the user lets go

@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.components.debug
 
-import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.login.LoginState

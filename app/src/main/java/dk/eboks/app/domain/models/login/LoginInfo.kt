@@ -11,7 +11,8 @@ import kotlinx.android.parcel.Parcelize
 data class LoginInfo(
         var type: LoginInfoType = LoginInfoType.EMAIL,
         var socialSecurity: String = "",
-        var password: String = ""
+        var password: String = "",
+        var actvationCode: String = ""
 ) : Parcelable {
     companion object {
         val KEY = "LoginInfo"
