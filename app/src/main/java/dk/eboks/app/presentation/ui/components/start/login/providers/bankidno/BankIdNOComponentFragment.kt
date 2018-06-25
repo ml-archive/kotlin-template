@@ -84,20 +84,6 @@ class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
         showErrorDialog(viewError)
     }
 
-    private fun showDebugDialog()
-    {
-        AlertDialog.Builder(activity)
-                .setTitle("Debug")
-                .setMessage("Press okay to simulate a successful login with login provider")
-                .setPositiveButton("Login") { dialog, which ->
-                    presenter.login("kspToken xx")
-                    dialog.dismiss()
-                }
-                .setNegativeButton("Close") { dialog, which ->
-                    webView.postDelayed({ presenter.cancelAndClose() }, 500)
-                }
-                .show()
-    }
 
     override fun close() {
         fragmentManager.popBackStack()

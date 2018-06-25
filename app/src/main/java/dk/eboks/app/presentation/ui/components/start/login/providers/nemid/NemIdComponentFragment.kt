@@ -59,15 +59,15 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
         super.onResume()
 
         getBaseActivity()?.backPressedCallback = {
+            Timber.e("closeLoginOnBack in nemidfragment is $closeLoginOnBack")
             if(!closeLoginOnBack) {
                 presenter.cancelAndClose()
-                true
             }
             else
             {
                 activity.finish()
-                true
             }
+            true
         }
 
     }
@@ -111,7 +111,13 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.setNavigationOnClickListener {
-            presenter.cancelAndClose()
+            if(!closeLoginOnBack) {
+                presenter.cancelAndClose()
+            }
+            else
+            {
+                activity.finish()
+            }
         }
     }
 

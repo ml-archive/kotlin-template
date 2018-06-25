@@ -19,7 +19,6 @@ class PopupLoginActivity : BaseActivity(), PopupLoginContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         supportFragmentManager.addOnBackStackChangedListener {
-            Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")
             if (supportFragmentManager.backStackEntryCount == 0) {
                 if (!isDestroyed)
                     finish()
