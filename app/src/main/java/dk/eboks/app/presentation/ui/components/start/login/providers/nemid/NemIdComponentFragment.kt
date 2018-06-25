@@ -92,21 +92,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     override fun showError(viewError: ViewError) {
         showErrorDialog(viewError)
     }
-
-    private fun showDebugDialog() {
-        AlertDialog.Builder(activity)
-                .setTitle("Debug")
-                .setMessage("Press okay to simulate a successful login with login provider")
-                .setPositiveButton("Login") { dialog, which ->
-                    presenter.login("kspToken xx")
-                    dialog.dismiss()
-                }
-                .setNegativeButton("Close") { dialog, which ->
-                    webView.postDelayed({ presenter.cancelAndClose() }, 500)
-                }
-                .show()
-    }
-
+    
     // shamelessly ripped from chnt
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
