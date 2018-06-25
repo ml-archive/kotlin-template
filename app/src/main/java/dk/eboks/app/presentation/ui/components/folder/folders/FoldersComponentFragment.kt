@@ -14,6 +14,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.Translation
@@ -146,14 +147,15 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             activity.onBackPressed()
         }
 
-        val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.folders.topbarEdit)
-        menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
-            mode = FolderMode.EDIT
-            setupMode()
-            true
+        if(BuildConfig.ENABLE_FOLDERS_ACTIONS) {
+            val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.folders.topbarEdit)
+            menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
+                mode = FolderMode.EDIT
+                setupMode()
+                true
+            }
         }
-
     }
 
     private fun setEditTopBar() {

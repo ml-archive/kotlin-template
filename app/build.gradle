@@ -45,7 +45,7 @@ android {
         buildConfigField "Long", "INPUT_VALIDATION_DELAY", "1800L"
 
         // flags for disabling various functionality for the different betas
-        buildConfigField "Boolean", "ENABLE_PROFILE_PICTURE", "true"
+        buildConfigField "Boolean", "ENABLE_PROFILE_PICTURE", "false"
         buildConfigField "Boolean", "ENABLE_SENDERS", "false"                    // TODO not implemented
         buildConfigField "Boolean", "ENABLE_UPLOADS", "false"                    // TODO not implemented
         buildConfigField "Boolean", "ENABLE_DOCUMENT_ACTIONS", "false"           // TODO not implemented
@@ -53,7 +53,7 @@ android {
         buildConfigField "Boolean", "ENABLE_PAYMENT", "false"                    // TODO not implemented
         buildConfigField "Boolean", "ENABLE_EKEY", "false"                       // TODO not implemented
         buildConfigField "Boolean", "ENABLE_CHANNEL_REORDERING", "false"         // TODO not implemented
-        buildConfigField "Boolean", "ENABLE_PROFILE_DATA_VERIFICATION", "false"  // TODO not implemented
+        buildConfigField "Boolean", "ENABLE_PROFILE_DATA_VERIFICATION", "true"   // TODO not implemented
         buildConfigField "Boolean", "ENABLE_SHARES", "false"                     // TODO not implemented
     }
 
@@ -121,15 +121,6 @@ android {
                 }
             }
 
-            buildConfigField "String", "OAUTH_SHORT_ID", "\"MobileApp-Short-id\""
-            buildConfigField "String", "OAUTH_SHORT_SECRET", "\"MobileApp-Short-secret\""
-            buildConfigField "String", "OAUTH_LONG_ID", "\"MobileApp-Long-id\""
-            buildConfigField "String", "OAUTH_LONG_SECRET", "\"MobileApp-Long-secret\""
-
-            buildConfigField "String", "OAUTH_SHORT_CUSTOM_ID", "\"MobileApp-Short-Custom-id\""
-            buildConfigField "String", "OAUTH_SHORT_CUSTOM_SECRET", "\"MobileApp-Short-secret\""
-            buildConfigField "String", "OAUTH_LONG_CUSTOM_ID", "\"MobileApp-Long-Custom-id\""
-            buildConfigField "String", "OAUTH_LONG_CUSTOM_SECRET", "\"MobileApp-Long-secret\""
         }
 
         release {
@@ -149,16 +140,6 @@ android {
                         break
                 }
             }
-
-            buildConfigField "String", "OAUTH_SHORT_ID", "\"MobileApp-Short-id\""
-            buildConfigField "String", "OAUTH_SHORT_SECRET", "\"Buz3YmYmjhDRM9R3\""
-            buildConfigField "String", "OAUTH_LONG_ID", "\"MobileApp-Long-id\""
-            buildConfigField "String", "OAUTH_LONG_SECRET", "\"TgtjcNpY9R9ffw8D\""
-
-            buildConfigField "String", "OAUTH_SHORT_CUSTOM_ID", "\"MobileApp-Short-Custom-id\""
-            buildConfigField "String", "OAUTH_SHORT_CUSTOM_SECRET", "\"QmaENW6MeYwwjzF5\""
-            buildConfigField "String", "OAUTH_LONG_CUSTOM_ID", "\"MobileApp-Long-Custom-id\""
-            buildConfigField "String", "OAUTH_LONG_CUSTOM_SECRET", "\"4ZLmEL2SY69MqGKs\""
         }
 
         applicationVariants.all { variant ->

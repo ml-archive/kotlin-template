@@ -29,6 +29,7 @@ class LoginComponentPresenter @Inject constructor(
         LoginInteractor.Output {
 
     var altProviders: List<LoginProvider> = Config.getAlternativeLoginProviders()
+    var verifyLoginProviderId : String? = null
 
     init {
         appState.state?.currentUser = null
@@ -37,26 +38,36 @@ class LoginComponentPresenter @Inject constructor(
         decryptUserLoginInfoInteractor.output = this
     }
 
-    override fun setup() {
-        appState.state?.loginState?.let { state ->
-            state.selectedUser?.let {
-                val settings = userSettingsManager.get(it.id)
-                Timber.d("Loaded $settings")
-                var provider = settings.lastLoginProviderId
-                // Test-uses has "test" prefix, as in 'DebugUsersComponentPresenter'
-                if (BuildConfig.DEBUG && true == provider?.contains("test")) {
-                    provider = provider.removePrefix("test")// remove the prefix
+    override fun setup(verifyLoginProviderId : String?) {
+        this.verifyLoginProviderId = verifyLoginProviderId
+        if(verifyLoginProviderId == null) {
+            appState.state?.loginState?.let { state ->
+                state.selectedUser?.let {
+                    val settings = userSettingsManager.get(it.id)
+                    Timber.d("Loaded $settings")
+                    var provider = settings.lastLoginProviderId
+                    // Test-uses has "test" prefix, as in 'DebugUsersComponentPresenter'
+                    if (BuildConfig.DEBUG && true == provider?.contains("test")) {
+                        provider = provider.removePrefix("test")// remove the prefix
 //                    setupLogin(it, provider)
-                    appState.state?.loginState?.userLoginProviderId = provider
-                    appState.save()
-                    login()
-                } else {
-                    setupLogin(it, provider)
+                        appState.state?.loginState?.userLoginProviderId = provider
+                        appState.save()
+                        login()
+                    } else {
+                        setupLogin(it, provider)
+                    }
+                }.guard {
+                    runAction { v ->
+                        v.setupView(null, null, UserSettings(0), altProviders)
+                    }
                 }
-            }.guard {
-                runAction { v ->
-                    v.setupView(null, null, UserSettings(0), altProviders)
-                }
+            }
+        }
+        else    // we open in verification mode with a given login provider and no alt providers
+        {
+            Config.getLoginProvider(verifyLoginProviderId)?.let { provider ->
+                Timber.e("Verification login setup")
+                runAction { v->v.setupView(provider, null, UserSettings(0), altLoginProviders = ArrayList()) }
             }
         }
     }

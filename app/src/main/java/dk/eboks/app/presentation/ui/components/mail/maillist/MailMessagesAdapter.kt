@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.daimajia.swipe.SwipeLayout
 import dk.eboks.app.App
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.folder.Folder
@@ -67,10 +68,11 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
 
 
         init {
-            swipeLayout.showMode = SwipeLayout.ShowMode.PullOut
-
-            swipeLayout.addDrag(SwipeLayout.DragEdge.Left, markAsReadContainer)
-            swipeLayout.addDrag(SwipeLayout.DragEdge.Right, moveContainer)
+            if(BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
+                swipeLayout.showMode = SwipeLayout.ShowMode.PullOut
+                swipeLayout.addDrag(SwipeLayout.DragEdge.Left, markAsReadContainer)
+                swipeLayout.addDrag(SwipeLayout.DragEdge.Right, moveContainer)
+            }
         }
 
         fun bind(currentItem: Message, last: Boolean) {

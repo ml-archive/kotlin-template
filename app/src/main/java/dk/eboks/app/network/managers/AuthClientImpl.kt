@@ -130,13 +130,13 @@ class AuthClientImpl : AuthClient {
     private fun getKeys(isCustom: Boolean, isLong: Boolean) : Pair<String, String> {
         lateinit var idSecret: Pair<String, String>
         if(isCustom && isLong) {
-            idSecret = Pair(BuildConfig.OAUTH_LONG_CUSTOM_ID, BuildConfig.OAUTH_LONG_CUSTOM_SECRET)
+            idSecret = Pair(Config.currentMode.environment?.longAuthCustomId ?: "", Config.currentMode.environment?.longAuthCustomSecret ?: "")
         } else if (isCustom && !isLong) {
-            idSecret = Pair(BuildConfig.OAUTH_SHORT_CUSTOM_ID, BuildConfig.OAUTH_SHORT_CUSTOM_SECRET)
+            idSecret = Pair(Config.currentMode.environment?.shortAuthCustomId ?: "", Config.currentMode.environment?.shortAuthCustomSecret ?: "")
         } else if(!isCustom && isLong) {
-            idSecret = Pair(BuildConfig.OAUTH_LONG_ID, BuildConfig.OAUTH_LONG_SECRET)
+            idSecret = Pair(Config.currentMode.environment?.longAuthId ?: "", Config.currentMode.environment?.longAuthSecret ?: "")
         } else if (!isCustom && !isLong) {
-            idSecret = Pair(BuildConfig.OAUTH_SHORT_ID, BuildConfig.OAUTH_SHORT_SECRET)
+            idSecret = Pair(Config.currentMode.environment?.shortAuthId ?: "", Config.currentMode.environment?.shortAuthSecret ?: "")
         }
         return idSecret
     }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseActivity
@@ -36,14 +37,16 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
 
     private fun setupTopbar(user: User?) {
         mainTb.title = user?.name
-        var imageView = ImageView(this)
-        imageView.setImageResource(R.drawable.icon_48_small_arrow_down)
-        var layoutparams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT)
-        imageView.layoutParams = layoutparams
-        mainTb.addView(imageView)
-        mainTb.isClickable = true
-        mainTb.setOnClickListener {
-            openComponentDrawer(FolderSelectUserComponentFragment::class.java)
+        if(BuildConfig.ENABLE_SHARES) {
+            var imageView = ImageView(this)
+            imageView.setImageResource(R.drawable.icon_48_small_arrow_down)
+            var layoutparams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            imageView.layoutParams = layoutparams
+            mainTb.addView(imageView)
+            mainTb.isClickable = true
+            mainTb.setOnClickListener {
+                openComponentDrawer(FolderSelectUserComponentFragment::class.java)
+            }
         }
     }
 

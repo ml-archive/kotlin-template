@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
@@ -185,7 +186,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             onBackPressed()
         }
 
-        if (editEnabled) {
+        if (editEnabled && BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
             val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.uploads.topbarEdit)
             menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             menuProfile?.setOnMenuItemClickListener { item: MenuItem ->

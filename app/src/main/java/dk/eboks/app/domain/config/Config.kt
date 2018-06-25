@@ -30,12 +30,41 @@ object Config {
                     "test" to Environments(
                             apiUrl = "http://test401-mobile-api-dk.internal.e-boks.com/2/",
                             authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
-                            kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
+                            kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype=",
+                            shortAuthId = "MobileApp-Short-id",
+                            shortAuthSecret = "MobileApp-Short-secret",
+                            longAuthId = "MobileApp-Long-id",
+                            longAuthSecret = "MobileApp-Long-secret",
+                            shortAuthCustomId = "MobileApp-Short-Custom-id",
+                            shortAuthCustomSecret = "MobileApp-Short-Custom-secret",
+                            longAuthCustomId = "MobileApp-Long-Custom-id",
+                            longAuthCustomSecret = "MobileApp-Long-Custom-secret"
                     ),
                     "demo" to Environments(
                             apiUrl = "https://demo-mobile-api-dk.internal.e-boks.com/2/",
                             authUrl = "https://demo-oauth-dk.internal.e-boks.com/1/connect/token",
-                            kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
+                            kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype=",
+                            shortAuthId = "MobileApp-Short-id",
+                            shortAuthSecret = "MobileApp-Short-secret",
+                            longAuthId = "MobileApp-Long-id",
+                            longAuthSecret = "MobileApp-Long-secret",
+                            shortAuthCustomId = "MobileApp-Short-Custom-id",
+                            shortAuthCustomSecret = "MobileApp-Short-Custom-secret",
+                            longAuthCustomId = "MobileApp-Long-Custom-id",
+                            longAuthCustomSecret = "MobileApp-Long-Custom-secret"
+                    ),
+                    "production" to Environments(
+                            apiUrl = "https://mobile-api-dk.e-boks.com/2/",
+                            authUrl = "https://oauth-dk.e-boks.com/1/connect/token",
+                            kspUrl = "https://m.e-boks.dk/app/logon.aspx?logontype=",
+                            shortAuthId = "MobileApp-Short-id",
+                            shortAuthSecret = "Buz3YmYmjhDRM9R3",
+                            longAuthId = "MobileApp-Long-id",
+                            longAuthSecret = "TgtjcNpY9R9ffw8D",
+                            shortAuthCustomId = "MobileApp-Short-Custom-id",
+                            shortAuthCustomSecret = "QmaENW6MeYwwjzF5",
+                            longAuthCustomId = "MobileApp-Long-Custom-id",
+                            longAuthCustomSecret = "4ZLmEL2SY69MqGKs"
                     )
             ),
 
@@ -54,12 +83,28 @@ object Config {
                     "test" to Environments(
                             apiUrl = "http://test401-mobile-api-dk.internal.e-boks.com/2/",
                             authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
-                            kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
+                            kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype=",
+                            shortAuthId = "MobileApp-Short-id",
+                            shortAuthSecret = "MobileApp-Short-secret",
+                            longAuthId = "MobileApp-Long-id",
+                            longAuthSecret = "MobileApp-Long-secret",
+                            shortAuthCustomId = "MobileApp-Short-Custom-id",
+                            shortAuthCustomSecret = "MobileApp-Short-Custom-secret",
+                            longAuthCustomId = "MobileApp-Long-Custom-id",
+                            longAuthCustomSecret = "MobileApp-Long-Custom-secret"
                     ),
                     "demo" to Environments(
                             apiUrl = "https://demo-mobile-api-dk.internal.e-boks.com/2/",
                             authUrl = "https://demo-oauth-dk.internal.e-boks.com/1/connect/token",
-                            kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
+                            kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype=",
+                            shortAuthId = "MobileApp-Short-id",
+                            shortAuthSecret = "MobileApp-Short-secret",
+                            longAuthId = "MobileApp-Long-id",
+                            longAuthSecret = "MobileApp-Long-secret",
+                            shortAuthCustomId = "MobileApp-Short-Custom-id",
+                            shortAuthCustomSecret = "MobileApp-Short-Custom-secret",
+                            longAuthCustomId = "MobileApp-Long-Custom-id",
+                            longAuthCustomSecret = "MobileApp-Long-Custom-secret"
                     )
             ),
 
@@ -78,12 +123,28 @@ object Config {
                 "test" to Environments(
                     apiUrl = "http://test401-mobile-api-dk.internal.e-boks.com/2/",
                     authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
-                    kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
+                    kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype=",
+                    shortAuthId = "MobileApp-Short-id",
+                    shortAuthSecret = "MobileApp-Short-secret",
+                    longAuthId = "MobileApp-Long-id",
+                    longAuthSecret = "MobileApp-Long-secret",
+                    shortAuthCustomId = "MobileApp-Short-Custom-id",
+                    shortAuthCustomSecret = "MobileApp-Short-Custom-secret",
+                    longAuthCustomId = "MobileApp-Long-Custom-id",
+                    longAuthCustomSecret = "MobileApp-Long-Custom-secret"
                 ),
                 "demo" to Environments(
                     apiUrl = "https://demo-mobile-api-dk.internal.e-boks.com/2/",
                     authUrl = "https://demo-oauth-dk.internal.e-boks.com/1/connect/token",
-                    kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype="
+                    kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype=",
+                    shortAuthId = "MobileApp-Short-id",
+                    shortAuthSecret = "MobileApp-Short-secret",
+                    longAuthId = "MobileApp-Long-id",
+                    longAuthSecret = "MobileApp-Long-secret",
+                    shortAuthCustomId = "MobileApp-Short-Custom-id",
+                    shortAuthCustomSecret = "MobileApp-Short-Custom-secret",
+                    longAuthCustomId = "MobileApp-Long-Custom-id",
+                    longAuthCustomSecret = "MobileApp-Long-Custom-secret"
                 )
             ),
 
@@ -163,6 +224,18 @@ object Config {
             }
         }
         return providers
+    }
+
+    // returns the correct provider id for profile verification depending on country edition
+    fun getVerificationProviderId() : String?
+    {
+        return when(currentMode)
+        {
+            danish -> "nemid"
+            swedish -> "bankid_se"
+            norwegian -> "idporten"
+            else -> null
+        }
     }
 
     fun isDK() : Boolean { return currentMode == danish }

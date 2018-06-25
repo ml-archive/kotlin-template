@@ -26,14 +26,14 @@ public class Translation {
 		public static String skip = "Skip";
 	}
 	public final static class error {
-		public static String genericMessage = "An error occured";
+		public static String genericMessage = "An error occurred";
 		public static String genericTitle = "Error";
 		public static String noInternetTitle = "No connectivity";
 		public static String noInternetMessage = "This application requires a connection to the internet to perform the requested operation.";
 		public static String startupTitle = "Error";
 		public static String startupMessage = "An initialization error happened during application startup. We apologize for the inconvenience.";
 		public static String genericServerTitle = "Server error";
-		public static String genericServerMessage = "An error occured while communicating with the server. We apologize for the inconvenience.";
+		public static String genericServerMessage = "An error occurred while communicating with the server. We apologize for the inconvenience.";
 		public static String genericStorageTitle = "Storage error";
 		public static String genericStorageMessage = "An error occured accessing the persistent storage on this device.";
 		public static String genericOOMTitle = "Out of memory";
@@ -49,7 +49,7 @@ public class Translation {
 		public static String forwardReceiptErrorMessage = "Cannot forward receipt";
 		public static String timeoutTitle = "Timeout";
 		public static String timeoutMessage = "The request timed out";
-		public static String authenticationError = "__authenticationError";
+		public static String authenticationError = "Your session has expired. Please log on again.";
 		public static String connectionError = "No or bad connection. Please try again.";
 		public static String errorTitle = "Error";
 		public static String unknownError = "Unkown error, please try again";
@@ -93,23 +93,23 @@ public class Translation {
 	}
 	public final static class channels {
 		public static String channelsHeader = "Get your relevant information and actions directly on your e-Boks home screen";
-		public static String title = "Channels";
-		public static String install = "Install";
+		public static String title = "Plus";
+		public static String install = "Add";
 		public static String open = "Open";
 		public static String openChannel = "Open channel";
 		public static String logOnWithPKI = "Log on with [pkiName]";
 		public static String verifyYourProfile = "Verify your profile to access this channel";
 		public static String channelNotAvailable = "[channelName] is not available for this device or no longer available as a channel";
-		public static String installChannel = "Install channel";
+		public static String installChannel = "Add";
 		public static String updateProfile = "Update profile";
 		public static String userSocialSecurityNumber = "Your Social Security Number";
 		public static String userName = "Your name";
 		public static String userEmailAdress = "Your email address";
 		public static String userPhoneNumber = "Your phone number";
 		public static String missing = "Missing";
-		public static String drawerHeader = "e-Boks Sign Up";
+		public static String drawerHeader = "Add service";
 		public static String drawerSubHeader = "Let\u2019s help you to get started";
-		public static String drawerHeaderText = "The [channelname] channel needs the following information to create a user for you.";
+		public static String drawerHeaderText = "[channelname] requests access to the following information";
 		public static String allowButton = "Allow";
 		public static String drawerNeedsVerification = "Needs verification";
 		public static String storeboxAlreadyHaveProfileButton = "I already have a Storebox profile";
@@ -132,11 +132,11 @@ public class Translation {
 		public static String cannotUnregisterPublicDescription = "You are automatically registered mail from the public sector if this is part of your customer agreements or your conditions of employment";
 		public static String allSenders = "All Senders";
 		public static String comingSoonHeader = "Coming soon!";
-		public static String comingSoonMessage = "In senders you can blablabla blabla blablabla";
+		public static String comingSoonMessage = "Soon you will be able to register senders you normally receive your mail from";
 	}
 	public final static class start {
 		public static String signupButton = "Sign up";
-		public static String addNewUser = "Add another user";
+		public static String addNewUser = "Log on another user";
 		public static String logonButton = "Log on";
 		public static String confimRemoveUserTitle = "Remove user";
 		public static String confirmRemoveUserMessage = "Are you sure?";
@@ -150,7 +150,7 @@ public class Translation {
 		public static String forgotPasswordButton = "Forgot password";
 		public static String title = "Log on";
 		public static String invalidPassword = "Invalid password";
-		public static String invalidCprorEmail = "invalid Email or CPR-number";
+		public static String invalidCprorEmail = "Invalid email or Social Security number";
 		public static String emailOrSSNHeader = "Email or Social Security Number";
 		public static String ssnHeader = "Social security number";
 		public static String invalidSSN = "Invalid social security number";
@@ -348,7 +348,7 @@ public class Translation {
 		public static String outOfStorageAlertMessage = "Verify your profile and get 1 GB free space for all your uploads";
 		public static String photos = "Photos";
 		public static String comingSoonHeader = "Coming soon!";
-		public static String comingSoonMessage = "In Uploads hoppekat hoppekat hoppekat hoppekat hoppekat hoppekat hoppekat hoppekat hoppekat hoppekat hoppekat ";
+		public static String comingSoonMessage = "Soon you will be able to upload and store your important files securely in e-Boks";
 	}
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";
@@ -365,9 +365,9 @@ public class Translation {
 		public static String help = "Help";
 		public static String privacyStatement = "Privacy Statement";
 		public static String termsAndConditions = "Terms And Conditions";
-		public static String keepMeSignedIn = "Keep me signed in";
+		public static String keepMeSignedIn = "Keep me logged on";
 		public static String fingerprint = "Fingerprint";
-		public static String myInformation = "My Information";
+		public static String myInformation = "Name, email, mobile number";
 		public static String keepMeSignedInDescription = "Keep me signed in description";
 		public static String verifyButton = "Verify profile";
 		public static String touchID = "Touch ID";
@@ -399,8 +399,8 @@ public class Translation {
 		public static String verifyMobileContinueBtn = "Continue";
 		public static String verifyMobilCancel = "Cancel";
 		public static String verifyMobilHintText = "Verification code";
-		public static String enableMobileAccessTitle = "Enable Mobile access to use [idtype]";
-		public static String enableMobileAccessMessage = "You need to enable mobile access on the  e-boks website to use [idtype] on your device.";
+		public static String enableMobileAccessTitle = "[idtype] requires mobile access is enabled";
+		public static String enableMobileAccessMessage = "The use of [idtype] requires that you log on to e-Boks in a browser and activate mobile access";
 		public static String enableBiometricsTitle = "Enable [idtype]";
 		public static String enableBiometricsMessage = "Type your password to enable [idtype]";
 		public static String ssn = "Social Security Number";
@@ -430,17 +430,17 @@ public class Translation {
 	}
 	public final static class home {
 		public static String messagesEmptyButton = "See all mail";
-		public static String bottomChannelHeaderNoChannels = "Channels";
+		public static String bottomChannelHeaderNoChannels = "e-Boks Plus";
 		public static String messagesEmptyTitle = "There\u2019s no new messages for you";
 		public static String messagesEmptyMessage = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
 		public static String bottomChannelTextNoChannels = "You haven\u2019t added any channels yet. Channels give you relevant information and actions right at your fingertips.";
-		public static String bottomChannelHeaderChannels = "Theres more to see!";
+		public static String bottomChannelHeaderChannels = "There\'s more to see!";
 		public static String bottomChannelTextChannels = "You can add as many channels as you would like, to give you the best overview of your services etc..";
 		public static String messagesSectionHeaderButtonNewMessagesSuffix = "[value] new messages";
-		public static String bottomChannelBtn = "Add channels";
+		public static String bottomChannelBtn = "Add services";
 		public static String messagesHeader = "Mail";
 		public static String messagesSectionHeaderShowAllButton = "Show all";
-		public static String channelsHeader = "Channels";
+		public static String channelsHeader = "Services";
 		public static String channelsHeaderButton = "Edit";
 		public static String messagesUnverifiedTitle = "Think into the box";
 		public static String messagesUnverifiedMessage = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.";
@@ -457,21 +457,21 @@ public class Translation {
 		public static String pushTitle = "Push notifications";
 		public static String pushSubtitle = "Get notified whenever something new happens";
 		public static String title = "Settings";
-		public static String removeButton = "Remove channel";
+		public static String removeButton = "Remove service";
 		public static String confirmDeleteTitle = "Are you sure you want to remove this channel?";
 		public static String confirmDeleteMessageReplaceChannelName = "Removing this channel will delete it from your e-Boks app, but will not delete your user at [channelname].";
 		public static String confirmRemoveButton = "Remove";
 		public static String removeChannelButtonRemovedState = "Removed!";
 		public static String receiptsTitle = "Receive only receipts digitally";
 		public static String receiptsSubtitle = "Accepting this then you will receive paper receipts";
-		public static String addAnotherCard = "Add another credit card";
+		public static String addAnotherCard = "Add another payment card";
 	}
 	public final static class storeboxlist {
 		public static String title = "Storebox";
 		public static String emptyCardsHeader = "Get started";
 		public static String emptyCardsMessage = "To receive your receipts in Storebox, \u2028you need to add a credit card.";
 		public static String addCardButton = "Add credit card";
-		public static String emptyLabel = "No receipts to show yet";
+		public static String emptyLabel = "No receipts";
 	}
 	public final static class storeboxreceipt {
 		public static String orderNo = "Order nr.";
@@ -480,14 +480,14 @@ public class Translation {
 		public static String total = "Total";
 		public static String vatAmount = "VAT amount";
 		public static String confirmDeleteTitle = "Are you sure you want to delete this receipt?";
-		public static String confirmDeleteMessage = "Removing this receipt will delete it from your e-Boks app.";
+		public static String confirmDeleteMessage = "Are you sure you want to delete this receipt?";
 	}
 	public final static class channelsettingsstoreboxadditions {
 		public static String digitalReceiptsTitle = "Receive only receipts digitally";
-		public static String digitalReceiptsMessage = "Accepting this means you will not receive paper receipts in shops that have signed up.";
-		public static String creditCardsSectionHeader = "Credit cards";
-		public static String addCardTitle = "Add another credit card";
-		public static String deleteCardAlertTitle = "Are you sure you want to remove this credit card?";
+		public static String digitalReceiptsMessage = "You will only receive your receipts digitally when you shop in stores that are registeret with Storebox";
+		public static String creditCardsSectionHeader = "Payment cards";
+		public static String addCardTitle = "Add another payment card";
+		public static String deleteCardAlertTitle = "Are you sure you want to remove this payment card?";
 		public static String deleteCardAlertButton = "Remove";
 		public static String deleteCardCancelButton = "Cancel";
 		public static String removeChannelTitle = "Are you sure you want to remove this channel?";
@@ -521,7 +521,7 @@ public class Translation {
 		public static String maxLengthError = "Enter at most [CHARS] characters";
 		public static String minValueError = "Value must be [VALUE] or above";
 		public static String maxValueError = "Value must be [VALUE] or below";
-		public static String nanError = "Must be a number";
+		public static String nanError = "Value must be number";
 		public static String submitButton = "Submit";
 		public static String datePickerCaption = "Choose date";
 		public static String dateTimePickerCaption = "Choose date & time";
@@ -531,13 +531,13 @@ public class Translation {
 		public static String successMessage = "Successfully Authenticated";
 		public static String errorMessage = "Unable to Authenticate";
 		public static String errorInvalidData = "Data is not valid encrypted data";
-		public static String dialogTitle = "Fingerprint login";
+		public static String dialogTitle = "Log on with fingerprint";
 		public static String dialogSubtitle = "Use your fingerprint for faster, easier access to your account";
 		public static String dialogDescription = "Confirm fingerprint to continue";
 		public static String errorGeneric = "Unable to complete action";
 		public static String dialogDefaultMessage = "Touch sensor";
 		public static String dialogCancelButton = "Cancel";
-		public static String dialogUsePasswordButton = "Use Password";
+		public static String dialogUsePasswordButton = "Use password";
 	}
 	public final static class inbox {
 		public static String actionMove = "Move";
@@ -558,8 +558,8 @@ public class Translation {
 	public final static class ekey {
 		public static String topBarTitle = "e-Key";
 		public static String addItemTopBarTitle = "Add item";
-		public static String addItemLogin = "Login";
-		public static String addItemCards = "Pin Code";
+		public static String addItemLogin = "Credentials";
+		public static String addItemCards = "Pin code";
 		public static String addItemNote = "Note";
 		public static String addItemSelectCategory = "Select category";
 		public static String saveTopbar = "Add [item]";
@@ -573,10 +573,10 @@ public class Translation {
 		public static String overviewAddItemText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
 		public static String overviewAddItemBtn = "Add Item";
 		public static String overviewNote = "Note";
-		public static String overviewLogins = "Logins";
+		public static String overviewLogins = "Credentials";
 		public static String overviewPins = "Pin Codes";
 		public static String overviewNotes = "Notes";
-		public static String deleteDialogMsg = "Are you sure you want to remove this [item]?";
+		public static String deleteDialogMsg = "Are you sure you want to remove [item]?";
 		public static String deleteDialogRemoveBtn = "Remove";
 		public static String noContent = "You haven\'t added anything yet";
 		public static String copiedToClipboard = "Copied to clipboard!";
@@ -587,17 +587,17 @@ public class Translation {
 		public static String pincode = "Pin Code";
 		public static String username = "Username";
 		public static String password = "Password";
-		public static String addItemCardsSubtitle = "Pin Codes to your creditcards";
+		public static String addItemCardsSubtitle = "Pin Code to your credit cards";
 		public static String addItemLoginSubtitle = "E.g. Mail, Facebook";
 		public static String addItemNoteSubtitle = "E.g. Lorem ipsum dolor";
-		public static String addPinCode = "Add Pin Code";
+		public static String addPinCode = "Add pin code";
 		public static String inputHintCardtype = "Card type *";
 		public static String cardType = "Card Type";
 		public static String overviewEkey = "e-Key";
-		public static String addLogin = "Add Login";
-		public static String addNote = "Add Note";
-		public static String editPin = "Edit Pin Code";
-		public static String editLogin = "Edit Login";
+		public static String addLogin = "Add credentials";
+		public static String addNote = "Add note";
+		public static String editPin = "Edit pin code";
+		public static String editLogin = "Edit credentials";
 		public static String editNote = "Edit Note";
 		public static String typeHere = "Type here";
 	}
@@ -610,7 +610,7 @@ public class Translation {
 		public static String required = "Required";
 		public static String placeholder = "Type here";
 		public static String errorNoExistingProfileMessage = "We couldn\'t find an exisiting Storebox profile with this email";
-		public static String createUserButton = "Create user";
+		public static String createUserButton = "Create Storebox profile";
 		public static String errorAlreadyExistsMessage = "You already have a Storebox account with this information";
 		public static String signInButton = "Sign in";
 		public static String continueButton = "Continue";

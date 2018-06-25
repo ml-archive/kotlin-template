@@ -31,10 +31,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.debug.DebugUsersComponentFragment
 import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
-import dk.eboks.app.util.KeyboardUtils
-import dk.eboks.app.util.guard
-import dk.eboks.app.util.isValidCpr
-import dk.eboks.app.util.isValidEmail
+import dk.eboks.app.util.*
 import dk.nodes.arch.domain.executor.SignalDispatcher.signal
 import dk.nodes.locksmith.core.models.FingerprintDialogEvent.*
 import kotlinx.android.synthetic.main.fragment_login_component.*
@@ -62,6 +59,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     var currentProvider: LoginProvider? = null
     var currentUser: User? = null
     var currentSettings: UserSettings? = null
+    var verifyLoginProviderId : String? = null
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -82,6 +80,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         arguments?.let { args ->
             showGreeting = args.getBoolean("showGreeting", true)
         }
+
+        arguments?.getString("verifyLoginProviderId")?.let {
+            verifyLoginProviderId = it
+        }.guard { verifyLoginProviderId = null }
 
         continueBtn.setOnClickListener {
             onContinue()
@@ -119,7 +121,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     override fun onResume() {
         super.onResume()
         Timber.d("onResume")
-        presenter.setup()
+
+        presenter.setup(verifyLoginProviderId)
         setupCprEmailListeners()
         setupPasswordListener()
         KeyboardUtils.addKeyboardToggleListener(activity, keyboardListener)
@@ -335,9 +338,14 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                     cprEmailTil.hint = Translation.logoncredentials.ssnHeader
                 }
                 else -> {
+                    val providerFragment = provider.fragmentClass?.newInstance()
+                    // if this is verification make sure the going back cancels the login instead presenting alternate providers
+                    if(verifyLoginProviderId != null)
+                    {
+                        providerFragment?.putArg("closeLoginOnBack", true)
+                    }
                     getBaseActivity()?.addFragmentOnTop(
-                            R.id.containerFl,
-                            provider.fragmentClass?.newInstance()
+                            R.id.containerFl, providerFragment
                     )
                 }
             }

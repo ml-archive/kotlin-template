@@ -15,6 +15,8 @@ import timber.log.Timber
  */
 abstract class BaseWebFragment : BaseFragment() {
 
+    protected var closeLoginOnBack : Boolean = true
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_base_web, container, false)
         return rootView
@@ -24,6 +26,7 @@ abstract class BaseWebFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         refreshSrl.isEnabled = false
         setupWebView()
+        arguments?.getBoolean("closeLoginOnBack", false)?.let { closeLoginOnBack = it }
     }
 
     fun setupWebView()

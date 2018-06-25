@@ -11,6 +11,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
 import dk.eboks.app.presentation.ui.screens.login.PopupLoginActivity
+import dk.eboks.app.util.Starter
 import kotlinx.android.synthetic.main.fragment_verification_component.*
 import javax.inject.Inject
 
@@ -61,7 +62,8 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
 
         verifyBtn.setOnClickListener {
             // start popuploginactivity for result
-            startActivityForResult(Intent(context, PopupLoginActivity::class.java), 100)
+            val intent = Intent(context, PopupLoginActivity::class.java).putExtra("verifyLoginProviderId", Config.getVerificationProviderId())
+            startActivityForResult(intent, 100)
         }
 
     }

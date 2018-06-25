@@ -57,10 +57,19 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     override fun onResume() {
         super.onResume()
+
         getBaseActivity()?.backPressedCallback = {
-            presenter.cancelAndClose()
-            true
+            if(!closeLoginOnBack) {
+                presenter.cancelAndClose()
+                true
+            }
+            else
+            {
+                activity.finish()
+                true
+            }
         }
+
     }
 
     override fun onPause() {
