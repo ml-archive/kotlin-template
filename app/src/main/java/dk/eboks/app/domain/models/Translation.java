@@ -190,7 +190,7 @@ public class Translation {
 		public static String mmHeader = "Okay. Would you like to receive digital mail from Mina Meddelan in e-Boks?";
 		public static String mmDetail = "You will be able to receive mail from public authorities directly in your e-Boks.";
 		public static String cprHint = "Your Social Security Number";
-		public static String continueWithoutMMButton = "Continue without Mina meddelan";
+		public static String continueWithoutMMButton = "Continue without Mina meddelanden";
 		public static String signupWithMMButton = "Sign up with Mina Meddelanden";
 		public static String invalidName = "Invalid name";
 		public static String invalidPassword = "Invalid password";
@@ -299,7 +299,7 @@ public class Translation {
 		public static String errorBiometryNotSetUp = "[idtype] is not set up";
 		public static String errorBiometryLocked = "[idtype] is locked";
 		public static String errorUnknownBiometryEvent = "Unknown problem with [idtype]";
-		public static String logonWithBiometryReason = "Use [idtype] to log in";
+		public static String logonWithBiometryReason = "Use [idtype] to log on";
 		public static String nextTimeTitle = "Don\'t you want to use [idtype] to log on next time?";
 		public static String nextTimeTouchIdMessage = "Just use your finger blablablala blabablablabla";
 		public static String nextTimeFaceIdMessage = "Sign in just by looking by enabling FaceID in the e-Boks app";
@@ -339,14 +339,14 @@ public class Translation {
 		public static String chosen = "Chosen";
 		public static String uploadFile = "Upload file";
 		public static String fileName = "File name";
-		public static String incorrectFileName = "Incorrect filename";
+		public static String incorrectFileName = "Incorrect file name";
 		public static String verifiedInitialAvailableSpace = "1 GB free storage available";
 		public static String notVerifiedInitialAvailableSpace = "100 MB free storage available";
 		public static String remainingText = "Left";
 		public static String filesHeaderShowAll = "Show all";
 		public static String outOfStorageAlertVerify = "Verify";
 		public static String outOfStorageAlertTitle = "You are out of storage space";
-		public static String outOfStorageAlertMessage = "You have used all of the free space that you have for your own documents and pictures. Verify your profile and get 1 GB of free space.";
+		public static String outOfStorageAlertMessage = "You have used all the free space that you have for your own documents and pictures. Verify your profile and get 1 GB of free space.";
 		public static String photos = "Photos";
 		public static String comingSoonHeader = "Coming soon!";
 		public static String comingSoonMessage = "Soon you will be able to upload and store your important files securely in e-Boks";
@@ -395,12 +395,12 @@ public class Translation {
 		public static String mergeAccountBtn = "Merge my profiles";
 		public static String mergeAccountCancel = "Keep profiles seperated";
 		public static String verifyMobilHeader = "Verify your mobile number";
-		public static String verifyMobilText = "Confirm your mobile number by entering the code sent to you by SMS on [mobileNumber]";
+		public static String verifyMobilText = "Confirm your mobile number by entering the code texted to you on [mobileNumber]";
 		public static String verifyMobilResend = "Resend code";
 		public static String verifyMobileContinueBtn = "Continue";
 		public static String verifyMobilCancel = "Cancel";
 		public static String verifyMobilHintText = "Verification code";
-		public static String enableMobileAccessTitle = "[idtype] requires mobile access is enabled";
+		public static String enableMobileAccessTitle = "[idtype] requires mobile access enabled";
 		public static String enableMobileAccessMessage = "The use of [idtype] requires that you log on to e-Boks in a browser and activate mobile access";
 		public static String enableBiometricsTitle = "Enable [idtype]";
 		public static String enableBiometricsMessage = "Type your password to enable [idtype]";
@@ -414,7 +414,7 @@ public class Translation {
 		public static String errorbiometryTakenMessage = "by: [username]";
 		public static String errorBiometryVerificationRequiredTitle = "Verification required";
 		public static String errorbiometryVerificationRequiredMessage = "You need to verify your profile to enable [idtype]";
-		public static String feedbackCellTitle = "Give feedback";
+		public static String feedbackCellTitle = "Provide feedback";
 	}
 	public final static class myInformation {
 		public static String title = "My Information";
@@ -568,7 +568,7 @@ public class Translation {
 		public static String inputHintNote = "Note";
 		public static String requiredFields = "*Required fields";
 		public static String inputHintPin = "Pin Code *";
-		public static String inputHintUsername = "Username *";
+		public static String inputHintUsername = "User name *";
 		public static String inputHintPassword = "Password *";
 		public static String overviewAddItemHeadline = "Headline";
 		public static String overviewAddItemText = "__overviewAddItemText";
@@ -586,7 +586,7 @@ public class Translation {
 		public static String name = "Name";
 		public static String cardholderName = "Cardholder Name";
 		public static String pincode = "Pin Code";
-		public static String username = "Username";
+		public static String username = "User name";
 		public static String password = "Password";
 		public static String addItemCardsSubtitle = "Pin Code to your credit cards";
 		public static String addItemLoginSubtitle = "E.g. Mail, Facebook";

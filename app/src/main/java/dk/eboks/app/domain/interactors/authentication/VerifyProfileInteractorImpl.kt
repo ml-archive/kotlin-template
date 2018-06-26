@@ -8,6 +8,7 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import org.json.JSONObject
 import timber.log.Timber
 
 
@@ -30,52 +31,63 @@ class VerifyProfileInteractorImpl(
     override fun execute() {
         try {
             input?.verificationState?.let { verificationState ->
-                authClient.transformKspToken(verificationState.kspToken)?.let { token ->
+                authClient.transformKspToken(verificationState.kspToken, verificationState.oldAccessToken)?.let { token ->
                     appStateManager.state?.loginState?.token = token
 
-                    authClient.decodeJWT(verificationState.kspToken)
-                    /*
-                    val userResult = api.getUserProfile().execute()
-                    userResult?.body()?.let { user->
-                        // update the states
-                        Timber.e("Saving user $user")
-                        val newUser = userManager.put(user)
-                        val newSettings = userSettingsManager.get(newUser.id)
+                    val jwtJson = authClient.decodeJWTBody(token.access_token)
 
-                        appStateManager.state?.loginState?.userLoginProviderId?.let {
-                            newSettings.lastLoginProviderId = it
+                    // do we need to do the whole migration dance?
+                    if(jwtJson.has("allow-migrate-user"))
+                    {
+                        verificationState.allowMigrateUserId = jwtJson.getString("allow-migrate-user")
+                        Timber.e("Token has allow-migrate-user id = ${verificationState.allowMigrateUserId}")
+                        runOnUIThread {
+                            output?.onAlreadyVerifiedProfile()
                         }
-                        appStateManager.state?.loginState?.activationCode?.let {
-                            newSettings.activationCode = it
-                        }
-
-                        appStateManager.state?.loginState?.lastUser?.let { lastUser ->
-                            if (lastUser.id != newUser.id) {
-                                Timber.e("Different user id detected on login, clearing caches")
-                                cacheManager.clearStores()
-                            }
-                        }
-
-                        userSettingsManager.put(newSettings)
-                        appStateManager.state?.loginState?.lastUser = newUser
-                        appStateManager.state?.currentUser = newUser
-                        appStateManager.state?.currentSettings = newSettings
                     }
-                    appStateManager.save()
-                    */
+                    else // narp
+                    {
+                        authClient.impersonate(token.access_token)
+                        val userResult = api.getUserProfile().execute()
+                        userResult?.body()?.let { user->
+                            // update the states
+                            Timber.e("Saving user $user")
+                            val newUser = userManager.put(user)
+                            val newSettings = userSettingsManager.get(newUser.id)
 
-                    runOnUIThread {
-                        //output?.onLoginSuccess(token)
+                            appStateManager.state?.loginState?.userLoginProviderId?.let {
+                                newSettings.lastLoginProviderId = it
+                            }
+                            appStateManager.state?.loginState?.activationCode?.let {
+                                newSettings.activationCode = it
+                            }
+
+                            appStateManager.state?.loginState?.lastUser?.let { lastUser ->
+                                if (lastUser.id != newUser.id) {
+                                    Timber.e("Different user id detected on login, clearing caches")
+                                    cacheManager.clearStores()
+                                }
+                            }
+
+                            userSettingsManager.put(newSettings)
+                            appStateManager.state?.loginState?.lastUser = newUser
+                            appStateManager.state?.currentUser = newUser
+                            appStateManager.state?.currentSettings = newSettings
+                        }
+                        appStateManager.save()
+                        runOnUIThread {
+                            output?.onVerificationSuccess()
+                        }
                     }
                 }.guard {
                     runOnUIThread {
-                        //output?.onLoginError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
+                        output?.onVerificationError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
                     }
                 }
             }
         } catch (t: Throwable) {
             runOnUIThread {
-                output?.onError(exceptionToViewError(t))
+                output?.onVerificationError(exceptionToViewError(t))
             }
         }
     }

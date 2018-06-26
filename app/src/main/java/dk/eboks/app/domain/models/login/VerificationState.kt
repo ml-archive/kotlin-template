@@ -6,7 +6,9 @@ package dk.eboks.app.domain.models.login
 data class VerificationState(
         var loginProviderId : String,
         var userBeingVerified: User? = null,
-        var kspToken : String = ""
+        var kspToken : String = "",
+        var oldAccessToken : String? = null,
+        var allowMigrateUserId : String? = null
 
 ) {
 

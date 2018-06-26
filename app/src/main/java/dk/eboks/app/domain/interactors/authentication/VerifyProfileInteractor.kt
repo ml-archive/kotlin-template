@@ -19,7 +19,8 @@ interface VerifyProfileInteractor : Interactor {
     data class Input(val verificationState: VerificationState)
 
     interface Output {
-        fun onSuccess(response: AccessToken)
-        fun onError(error: ViewError)
+        fun onVerificationSuccess()
+        fun onAlreadyVerifiedProfile()
+        fun onVerificationError(error: ViewError)
     }
 }

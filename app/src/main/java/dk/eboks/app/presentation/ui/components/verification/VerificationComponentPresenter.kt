@@ -21,7 +21,7 @@ class VerificationComponentPresenter @Inject constructor(val appState: AppStateM
 
     override fun setupVerificationState() {
         Config.getVerificationProviderId()?.let { provider_id ->
-            appState.state?.verificationState = VerificationState(provider_id, appState.state?.currentUser)
+            appState.state?.verificationState = VerificationState(provider_id, appState.state?.currentUser, "", appState.state?.loginState?.token?.access_token)
         }
     }
 }

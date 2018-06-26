@@ -95,13 +95,17 @@ open class WebLoginPresenter @Inject constructor(
      * VerifyProfileInteractor callbacks
      */
 
-    override fun onSuccess(response: AccessToken) {
+    override fun onVerificationSuccess() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun onError(error: ViewError) {
+    override fun onVerificationError(error: ViewError) {
         runAction { v ->
             v.showError(error)
         }
+    }
+
+    override fun onAlreadyVerifiedProfile() {
+        Timber.e("Already verified profile, call migrate first then impersonate")
     }
 }

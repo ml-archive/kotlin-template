@@ -4,6 +4,7 @@ import android.util.Base64
 import com.google.gson.Gson
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.managers.AuthClient
 import dk.eboks.app.domain.managers.AuthException
 import dk.eboks.app.domain.models.login.AccessToken
@@ -12,6 +13,7 @@ import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
+import org.json.JSONObject
 import timber.log.Timber
 import java.io.UnsupportedEncodingException
 import java.util.concurrent.TimeUnit
@@ -36,8 +38,8 @@ class AuthClientImpl : AuthClient {
         httpClient = clientBuilder.build()
     }
 
-    override fun transformKspToken(kspToken : String) : AccessToken? {
-        val keys = getKeys(true, true)
+    override fun transformKspToken(kspToken : String, oauthToken : String?) : AccessToken? {
+        val keys = getKeys(true, false)
 
         val formBody = FormBody.Builder()
                 .add("kspwebtoken", kspToken)
@@ -45,11 +47,14 @@ class AuthClientImpl : AuthClient {
                 .add("scope", "mobileapi offline_access")
                 .add("client_id", keys.first)
                 .add("client_secret", keys.second)
-                .build()
+
+
+        if(oauthToken != null)
+            formBody.add("oauthtoken", oauthToken)
 
         val request = Request.Builder()
                 .url(Config.getAuthUrl())
-                .post(formBody)
+                .post(formBody.build())
                 .build()
 
         val result = httpClient.newCall(request).execute()
@@ -64,12 +69,12 @@ class AuthClientImpl : AuthClient {
         return null
     }
 
-    override fun impersonate(token : String) : AccessToken? {
+    override fun impersonate(token : String) {
         val keys = getKeys(true, false)
 
         val formBody = FormBody.Builder()
                 .add("token", token)
-                .add("grant_type", "kspwebtoken")
+                .add("grant_type", "impersonate")
                 .add("scope", "mobileapi offline_access")
                 .add("client_id", keys.first)
                 .add("client_secret", keys.second)
@@ -83,13 +88,9 @@ class AuthClientImpl : AuthClient {
         val result = httpClient.newCall(request).execute()
         if(result.isSuccessful)
         {
-            result.body()?.string()?.let { json ->
-                gson.fromJson(json, AccessToken::class.java)?.let { token ->
-                    return token
-                }
-            }
+            return
         }
-        return null
+        throw(InteractorException("impersonate failed"))
     }
 
     override fun transformRefreshToken(refreshToken : String, longClient: Boolean) : AccessToken? {
@@ -173,15 +174,13 @@ class AuthClientImpl : AuthClient {
     }
 
     @Throws(Exception::class)
-    override fun decodeJWT(JWTEncoded: String) {
-        try {
-            val split = JWTEncoded.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-            Timber.e("Header: " + getJson(split[0]))
-            Timber.e("Body: " + getJson(split[1]))
-        } catch (e: UnsupportedEncodingException) {
-            //Error
-        }
-
+    override fun decodeJWTBody(JWTEncoded: String) : JSONObject {
+        val split = JWTEncoded.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+        //val jwtHeaderJson = JSONObject(getJson(split[0]))
+        val jwtBodyJson = JSONObject(getJson(split[1]))
+        //Timber.e("Header: $jwtHeaderJson")
+        Timber.e("Body: $jwtBodyJson")
+        return jwtBodyJson
     }
 
     @Throws(UnsupportedEncodingException::class)
