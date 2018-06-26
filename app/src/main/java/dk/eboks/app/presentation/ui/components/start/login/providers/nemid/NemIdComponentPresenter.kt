@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.start.login.providers.nemid
 
 import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
+import dk.eboks.app.domain.interactors.authentication.VerifyProfileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginPresenter
@@ -13,7 +14,7 @@ import javax.inject.Inject
  * @author   Christian
  * @since    5/28/2018.
  */
-class NemIdComponentPresenter @Inject constructor(appState: AppStateManager, transformTokenInteractor: TransformTokenInteractor) : WebLoginPresenter(appState, transformTokenInteractor) {
+class NemIdComponentPresenter @Inject constructor(appState: AppStateManager, transformTokenInteractor: TransformTokenInteractor, verifyProfileInteractor: VerifyProfileInteractor) : WebLoginPresenter(appState, transformTokenInteractor, verifyProfileInteractor) {
 
     override fun login(webToken: String) {
         appState.state?.loginState?.let {

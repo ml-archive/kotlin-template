@@ -7,6 +7,7 @@ import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
 import dk.eboks.app.domain.interactors.authentication.ResetPasswordInteractor
 import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
+import dk.eboks.app.domain.interactors.authentication.VerifyProfileInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelContentLinkInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
@@ -133,6 +134,7 @@ import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginPre
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentPresenter
+import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentPresenter
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentContract
 import dk.eboks.app.presentation.ui.components.start.signup.SignupComponentPresenter
 import dk.eboks.app.presentation.ui.components.uploads.UploadOverviewComponentContract
@@ -491,32 +493,32 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideWebLoginPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor): WebLoginContract.Presenter {
-        return WebLoginPresenter(stateManager, transformTokenInteractor)
+    fun provideWebLoginPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor, verifyProfileInteractor: VerifyProfileInteractor): WebLoginContract.Presenter {
+        return WebLoginPresenter(stateManager, transformTokenInteractor, verifyProfileInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideNemIdLoginPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor): WebLoginContract.Presenter {
-        return provideNemIdLoginPresenter(stateManager, transformTokenInteractor)
+    fun provideNemIdLoginPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor, verifyProfileInteractor: VerifyProfileInteractor): WebLoginContract.Presenter {
+        return NemIdComponentPresenter(stateManager, transformTokenInteractor, verifyProfileInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideIdPortenComponentPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor): WebLoginContract.Presenter {
-        return IdPortenComponentPresenter(stateManager, transformTokenInteractor)
+    fun provideIdPortenComponentPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor, verifyProfileInteractor: VerifyProfileInteractor): WebLoginContract.Presenter {
+        return IdPortenComponentPresenter(stateManager, transformTokenInteractor, verifyProfileInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideBankIdSEComponentPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor): WebLoginContract.Presenter {
-        return BankIdSEComponentPresenter(stateManager, transformTokenInteractor)
+    fun provideBankIdSEComponentPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor, verifyProfileInteractor: VerifyProfileInteractor): WebLoginContract.Presenter {
+        return BankIdSEComponentPresenter(stateManager, transformTokenInteractor, verifyProfileInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideBankIdNOComponentPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor): WebLoginContract.Presenter {
-        return BankIdNOComponentPresenter(stateManager, transformTokenInteractor)
+    fun provideBankIdNOComponentPresenter(stateManager: AppStateManager, transformTokenInteractor: TransformTokenInteractor, verifyProfileInteractor: VerifyProfileInteractor): WebLoginContract.Presenter {
+        return BankIdNOComponentPresenter(stateManager, transformTokenInteractor, verifyProfileInteractor)
     }
 
     @ActivityScope

@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.components.start.login.providers.bankidse
 
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
+import dk.eboks.app.domain.interactors.authentication.VerifyProfileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.User
@@ -14,7 +15,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class BankIdSEComponentPresenter @Inject constructor(appState: AppStateManager, transformTokenInteractor: TransformTokenInteractor) : WebLoginPresenter(appState, transformTokenInteractor) {
+class BankIdSEComponentPresenter @Inject constructor(appState: AppStateManager, transformTokenInteractor: TransformTokenInteractor, verifyProfileInteractor: VerifyProfileInteractor) : WebLoginPresenter(appState, transformTokenInteractor, verifyProfileInteractor) {
 
     override fun login(webToken: String) {
         appState.state?.loginState?.let {

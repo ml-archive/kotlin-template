@@ -191,7 +191,7 @@ public class Translation {
 		public static String mmDetail = "You will be able to receive mail from public authorities directly in your e-Boks.";
 		public static String cprHint = "Your Social Security Number";
 		public static String continueWithoutMMButton = "Continue without Mina meddelan";
-		public static String signupWithMMButton = "Sign up with Mina meddelan";
+		public static String signupWithMMButton = "Sign up with Mina Meddelanden";
 		public static String invalidName = "Invalid name";
 		public static String invalidPassword = "Invalid password";
 		public static String invalidPasswordMatch = "Passwords don\'t match";
@@ -205,9 +205,9 @@ public class Translation {
 		public static String termsAcceptHeader = "Welcome! To use e-Boks you need to accept the Terms & Conditions.";
 		public static String termsAcceptSubHeader = "Please read & accept to continue";
 		public static String cancelTermsBtn = "Discard my information";
-		public static String signOnBankIDtitle = "Sign up with BankID";
+		public static String signOnBankIDtitle = "Sign up with Mobile BankID";
 		public static String signOnBankIDMessage = "You will need to sign in with BankID: Don\'t worry, it\'s a one time thing. You will be sent to the BankID app to log in.";
-		public static String signOnBankIDButton = "Sign up with BankID";
+		public static String signOnBankIDButton = "Sign up with Mobile BankID";
 		public static String cancelDialogHeader = "Are you sure you want to discard your information?";
 		public static String cancelDialogText = "This will delete everything you have done up until this step.";
 		public static String cancelDialogDiscardBtn = "Discard";
@@ -305,6 +305,7 @@ public class Translation {
 		public static String nextTimeFaceIdMessage = "Sign in just by looking by enabling FaceID in the e-Boks app";
 		public static String nextTimeEnableButton = "Enable [idtype]";
 		public static String nextTimeDontUseButton = "I don\'t want to use [idtype]";
+		public static String logonWithReplaceableType = "Log on with [idtype]";
 	}
 	public final static class logonmethods {
 		public static String mobileAccess = "Mobile access";
@@ -429,12 +430,12 @@ public class Translation {
 		public static String newsletter = "Newsletter";
 	}
 	public final static class home {
-		public static String messagesEmptyButton = "See all mail";
+		public static String messagesEmptyButton = "See my inbox";
 		public static String bottomChannelHeaderNoChannels = "Self service with with e-Boks Plus";
-		public static String messagesEmptyTitle = "There\u2019s no new messages for you";
-		public static String messagesEmptyMessage = "__messagesEmptyMessage";
+		public static String messagesEmptyTitle = "No new mail";
+		public static String messagesEmptyMessage = "You have no new mail or messages that require your action";
 		public static String bottomChannelTextNoChannels = "With e-Boks Plus you get access to a range of new services that make your everyday life easier.";
-		public static String bottomChannelHeaderChannels = "Add more";
+		public static String bottomChannelHeaderChannels = "There is more to see!";
 		public static String bottomChannelTextChannels = "We continuously add new services.";
 		public static String messagesSectionHeaderButtonNewMessagesSuffix = "[value] new messages";
 		public static String bottomChannelBtn = "View services";

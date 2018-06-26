@@ -62,8 +62,9 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
 
         verifyBtn.setOnClickListener {
             // start popuploginactivity for result
+            presenter.setupVerificationState()
             val intent = Intent(context, PopupLoginActivity::class.java).putExtra("verifyLoginProviderId", Config.getVerificationProviderId())
-            startActivityForResult(intent, 100)
+            startActivityForResult(intent, PopupLoginActivity.REQUEST_VERIFICATION)
         }
 
     }

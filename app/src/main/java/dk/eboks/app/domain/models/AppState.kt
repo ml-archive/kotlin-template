@@ -6,6 +6,7 @@ import dk.eboks.app.domain.models.login.LoginState
 import dk.eboks.app.domain.models.message.MessageOpeningState
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.login.UserSettings
+import dk.eboks.app.domain.models.login.VerificationState
 
 
 /**
@@ -18,6 +19,7 @@ data class AppState (
         var currentUser : User? = null,
         var currentSettings: UserSettings? = null,
         @Transient val openingState: MessageOpeningState = MessageOpeningState(),
-        //@Transient val channelState: ChannelState = ChannelState(),
+        @Transient var verificationState: VerificationState? = null,
         val loginState: LoginState = LoginState()
+
 )

@@ -1,5 +1,6 @@
 package dk.eboks.app.network.managers
 
+import android.util.Base64
 import com.google.gson.Gson
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
@@ -11,6 +12,8 @@ import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
+import timber.log.Timber
+import java.io.UnsupportedEncodingException
 import java.util.concurrent.TimeUnit
 
 class AuthClientImpl : AuthClient {
@@ -34,10 +37,38 @@ class AuthClientImpl : AuthClient {
     }
 
     override fun transformKspToken(kspToken : String) : AccessToken? {
+        val keys = getKeys(true, true)
+
+        val formBody = FormBody.Builder()
+                .add("kspwebtoken", kspToken)
+                .add("grant_type", "kspwebtoken")
+                .add("scope", "mobileapi offline_access")
+                .add("client_id", keys.first)
+                .add("client_secret", keys.second)
+                .build()
+
+        val request = Request.Builder()
+                .url(Config.getAuthUrl())
+                .post(formBody)
+                .build()
+
+        val result = httpClient.newCall(request).execute()
+        if(result.isSuccessful)
+        {
+            result.body()?.string()?.let { json ->
+                gson.fromJson(json, AccessToken::class.java)?.let { token ->
+                    return token
+                }
+            }
+        }
+        return null
+    }
+
+    override fun impersonate(token : String) : AccessToken? {
         val keys = getKeys(true, false)
 
         val formBody = FormBody.Builder()
-                .add("token", kspToken)
+                .add("token", token)
                 .add("grant_type", "kspwebtoken")
                 .add("scope", "mobileapi offline_access")
                 .add("client_id", keys.first)
@@ -139,6 +170,24 @@ class AuthClientImpl : AuthClient {
             idSecret = Pair(Config.currentMode.environment?.shortAuthId ?: "", Config.currentMode.environment?.shortAuthSecret ?: "")
         }
         return idSecret
+    }
+
+    @Throws(Exception::class)
+    override fun decodeJWT(JWTEncoded: String) {
+        try {
+            val split = JWTEncoded.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+            Timber.e("Header: " + getJson(split[0]))
+            Timber.e("Body: " + getJson(split[1]))
+        } catch (e: UnsupportedEncodingException) {
+            //Error
+        }
+
+    }
+
+    @Throws(UnsupportedEncodingException::class)
+    private fun getJson(strEncoded: String): String {
+        val decodedBytes = Base64.decode(strEncoded, Base64.URL_SAFE)
+        return String(decodedBytes)
     }
 
 }

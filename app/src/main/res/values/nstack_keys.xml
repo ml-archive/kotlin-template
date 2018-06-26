@@ -265,6 +265,7 @@
   <string name='nstack_iosbiometrics_nextTimeFaceIdMessage' formatted='false'>iosbiometrics_nextTimeFaceIdMessage</string>
   <string name='nstack_iosbiometrics_nextTimeEnableButton' formatted='false'>iosbiometrics_nextTimeEnableButton</string>
   <string name='nstack_iosbiometrics_nextTimeDontUseButton' formatted='false'>iosbiometrics_nextTimeDontUseButton</string>
+  <string name='nstack_iosbiometrics_logonWithReplaceableType' formatted='false'>iosbiometrics_logonWithReplaceableType</string>
   <string name='nstack_logonmethods_mobileAccess' formatted='false'>logonmethods_mobileAccess</string>
   <string name='nstack_logonmethods_ssn' formatted='false'>logonmethods_ssn</string>
   <string name='nstack_logonmethods_nemId' formatted='false'>logonmethods_nemId</string>

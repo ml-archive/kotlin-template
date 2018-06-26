@@ -486,6 +486,11 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideVerifyProfileInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, userSettingsManager: UserSettingsManager, authClient: AuthClient, cacheManager: CacheManager): VerifyProfileInteractor {
+        return VerifyProfileInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager, authClient, cacheManager)
+    }
+
+    @Provides
     fun provideResetPasswordInteractor(executor: Executor, api: Api): ResetPasswordInteractor {
         return ResetPasswordInteractorImpl(executor, api)
     }

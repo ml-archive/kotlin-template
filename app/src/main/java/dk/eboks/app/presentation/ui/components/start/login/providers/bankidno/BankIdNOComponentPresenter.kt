@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.start.login.providers.bankidno
 
 import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
+import dk.eboks.app.domain.interactors.authentication.VerifyProfileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginPresenter
 import javax.inject.Inject
@@ -8,7 +9,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class BankIdNOComponentPresenter @Inject constructor(appState: AppStateManager, transformTokenInteractor: TransformTokenInteractor) : WebLoginPresenter(appState, transformTokenInteractor) {
+class BankIdNOComponentPresenter @Inject constructor(appState: AppStateManager, transformTokenInteractor: TransformTokenInteractor, verifyProfileInteractor: VerifyProfileInteractor) : WebLoginPresenter(appState, transformTokenInteractor, verifyProfileInteractor) {
 
     override fun login(webToken: String) {
         appState.state?.loginState?.let {
