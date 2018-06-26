@@ -60,13 +60,13 @@ public class Translation {
 		public static String smartFolderHeader = "Your mail";
 		public static String foldersButton = "Folders";
 		public static String sendersEmptyHeader = "No mails from your senders";
-		public static String sendersEmptyMessage = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
+		public static String sendersEmptyMessage = "__sendersEmptyMessage";
 		public static String addMoreSendersButton = "Add more senders";
 		public static String noMessagesToDisplay = "There\'s no mail to display in this folder.";
 		public static String allMail = "All mail";
-		public static String unverifiedEmptyTitle = "Think into the box";
-		public static String unverifiedEmptyMessage = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.";
-		public static String unverifiedEmptyButton = "Get started";
+		public static String unverifiedEmptyTitle = "Receive your mail digitally";
+		public static String unverifiedEmptyMessage = "Receive your mail digitally from private companies and public authorities.\r\nGet started by verifying your profile.";
+		public static String unverifiedEmptyButton = "Verify my profile";
 	}
 	public final static class mainnav {
 		public static String homeButton = "Home";
@@ -89,7 +89,7 @@ public class Translation {
 	}
 	public final static class attachments {
 		public static String lockedTitle = "Locked attachment";
-		public static String lockedMessage = "Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
+		public static String lockedMessage = "__lockedMessage";
 	}
 	public final static class channels {
 		public static String channelsHeader = "Get your relevant information and actions directly on your e-Boks home screen";
@@ -125,8 +125,8 @@ public class Translation {
 		public static String registerAlertTitle = "You are about to register";
 		public static String unregister = "Unregister";
 		public static String unregisterAlertTitle = "Are you sure you want to unregister?";
-		public static String registerAlertDescription = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
-		public static String unregisterAlertDescription = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
+		public static String registerAlertDescription = "__registerAlertDescription";
+		public static String unregisterAlertDescription = "__unregisterAlertDescription";
 		public static String cannotUnregister = "Cannot unregister";
 		public static String cannotUnregisterDescription = "You are automatically registered mail from [sender] if this is part of your customer agreements or your conditions of employment";
 		public static String cannotUnregisterPublicDescription = "You are automatically registered mail from the public sector if this is part of your customer agreements or your conditions of employment";
@@ -177,7 +177,7 @@ public class Translation {
 		public static String verificationHeader = "Perfect! Now we just need to know that you are who you say you are. Of course!";
 		public static String verificationDetail = "This will enable the full feature set of e-Boks. Features like reading mail from public institutions, signing documents and paying, directly in e-Boks!";
 		public static String continueButton = "Continue";
-		public static String verifyButton = "Verify my account";
+		public static String verifyButton = "Verify my profile";
 		public static String continueWithoutVerificationButton = "Continue without verification";
 		public static String continueToAppButton = "Continue to app";
 		public static String nameHint = "Name";
@@ -216,7 +216,7 @@ public class Translation {
 		public static String termsInfoTitle = "A safe, fair and legal handling of your information is important";
 		public static String termsInfoMessage = "The Terms & Conditions are here to ensure that your information is handled in a safe and fair way, and to have a clear agreement about what is allowed and what isn\'t.";
 		public static String signOnNemIdTitle = "Sign up with NemID";
-		public static String signOnNemIdMessage = "NEMID MSG ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit ametLorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum.";
+		public static String signOnNemIdMessage = "__signOnNemIdMessage";
 		public static String signOnNemIdButton = "Sign up with NemID";
 		public static String signOnBankIDMessageNOR = "NOR MSG You will need to sign in with BankID: Don\'t worry, it\'s a one time thing. You will be sent to the BankID app to log in.";
 		public static String signOnBankIDtitleNOR = "Sign up with BankID";
@@ -228,7 +228,7 @@ public class Translation {
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";
-		public static String subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam malesuada non dolor hendrerit venenatis. In venenatis";
+		public static String subtitle = "__subtitle";
 		public static String textFieldHeader = "Activation code";
 		public static String infoButtonText = "Where do i find the code?";
 		public static String placeholder = "Type here";
@@ -250,7 +250,7 @@ public class Translation {
 	}
 	public final static class findactivationcode {
 		public static String title = "Finding your activation code";
-		public static String message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in leo vel diam cursus posuere ut in nunc. Duis sit amet risus justo. In accumsan neque vitae erat eleifend aliquam. Praesent tincidunt sem sit amet convallis sagittis. Vestibulum porta tempor tincidunt. Nullam accumsan quam eget lorem suscipit, nec fringilla nibh feugiat. In vitae cursus mauris.  Maecenas blandit eu libero eget finibus. Vestibulum lectus odio, efficitur id tempor vestibulum, faucibus nec neque. Maecenas eget purus quis tellus consectetur mattis et eu risus. Duis vestibulum ante non quam ullamcorper, non varius tortor vehicula. In eu vulputate justo, quis tristique risus. Cras ornare auctor tortor id sollicitudin. Quisque in arcu urna. Nam nec eleifend felis. Etiam pellentesque, risus vel pharetra volutpat, orci odio elementum urna, a viverra massa nunc a tellus. Nunc laoreet interdum porta.";
+		public static String message = "__message";
 	}
 	public final static class message {
 		public static String information = "Information";
@@ -283,7 +283,7 @@ public class Translation {
 		public static String numberOfAttachmentsSingularSuffix = "attachment \u2022";
 		public static String promulgationMessage = "You have received a court message that you have opened or otherwise processed. The message and exhibits, if any, have been properly serviced to you.    It is important that you thoroughly read the court message and exhibits, if any.    The message may for example include a summons, a call for a court hearing, or a judicial decision that all may have certain ramifications for you.   Any time limits apply as of today.    The court has received a return receipt in evidence of the message being serviced to you. You will find the return receipt under the folder Sent Items.";
 		public static String voluntaryReceiptTitle = "Opening receipt";
-		public static String voluntaryReceiptMessage = "Voluntary Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
+		public static String voluntaryReceiptMessage = "__voluntaryReceiptMessage";
 		public static String openMessageWithReceiptButton = "Open message with receipt";
 		public static String openMessageWithoutReceiptButton = "Open message without receipt";
 		public static String note = "Note";
@@ -330,12 +330,12 @@ public class Translation {
 		public static String storageRowSubHeader = "and much more";
 		public static String storageRowButton = "Verify profile";
 		public static String topbarEdit = "Edit";
-		public static String nonVerifiedMsg = "All you have to do is verify your profile lorem ipsum dolor sit amet integer lorem lorem ipsum dolor sit";
+		public static String nonVerifiedMsg = "Verify your profile and get 1 GB free space for your pictures and documents.";
 		public static String nonVerifiedHeader = "Get 1 GB free storage";
-		public static String nonVerifiedButton = "Verify profile";
+		public static String nonVerifiedButton = "Verify my profile";
 		public static String verifiedEmptyMsg = "You haven\u2019t uploaded anything yet";
 		public static String uploadingFile = "Uploading file";
-		public static String chosen = "chosen";
+		public static String chosen = "Chosen";
 		public static String uploadFile = "Upload file";
 		public static String fileName = "File name";
 		public static String incorrectFileName = "Incorrect filename";
@@ -345,7 +345,7 @@ public class Translation {
 		public static String filesHeaderShowAll = "Show all";
 		public static String outOfStorageAlertVerify = "Verify";
 		public static String outOfStorageAlertTitle = "You are out of storage space";
-		public static String outOfStorageAlertMessage = "Verify your profile and get 1 GB free space for all your uploads";
+		public static String outOfStorageAlertMessage = "You have used all of the free space that you have for your own documents and pictures. Verify your profile and get 1 GB of free space.";
 		public static String photos = "Photos";
 		public static String comingSoonHeader = "Coming soon!";
 		public static String comingSoonMessage = "Soon you will be able to upload and store your important files securely in e-Boks";
@@ -353,11 +353,11 @@ public class Translation {
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";
 		public static String idPortenTitle = "ID-porten";
-		public static String bankSeTitle = "BankID";
+		public static String bankSeTitle = "Mobile BankID";
 		public static String bankNoTitle = "BankID";
 		public static String nemidDescription = "Log on with NemID";
 		public static String idPortenDescription = "Log on with ID-porten";
-		public static String bankSeDescription = "Log on with BankID";
+		public static String bankSeDescription = "Log on with Mobile BankID";
 		public static String bankNoDescription = "Log on with BankID";
 	}
 	public final static class profile {
@@ -368,8 +368,8 @@ public class Translation {
 		public static String keepMeSignedIn = "Keep me logged on";
 		public static String fingerprint = "Fingerprint";
 		public static String myInformation = "Name, email, mobile number";
-		public static String keepMeSignedInDescription = "Keep me signed in description";
-		public static String verifyButton = "Verify profile";
+		public static String keepMeSignedInDescription = "Mail from senders and services may require that you log on again before they can be accessed.";
+		public static String verifyButton = "Verify my profile";
 		public static String touchID = "Touch ID";
 		public static String faceID = "Face ID";
 		public static String version = "Version";
@@ -377,19 +377,19 @@ public class Translation {
 		public static String takePhoto = "Take photo";
 		public static String chooseFromLibrary = "Choose from library";
 		public static String verified = "Verified";
-		public static String verifyingAccountTitle = "Verifying your account";
-		public static String verifyingAccountBody = "You will need to sign in with NemID. Don\'t worry, it\'s a one time thing. You will be sent to the NemID app to log in.";
+		public static String verifyingAccountTitle = "Verify my profile";
+		public static String verifyingAccountBody = "Verify your profile by logging on with NemID.";
 		public static String logOnWithNemID = "Log on with NemID";
-		public static String verifyEmailHeader = "Verify your Email";
-		public static String verifyEmailText = "Confirm your email by clicking the link sent to you by e-mail to: [email]";
+		public static String verifyEmailHeader = "Verify your email address";
+		public static String verifyEmailText = "Confirm your email address by following the link included in the message sent to [email]";
 		public static String verifyEmailBtn = "Resend confirmation email";
 		public static String verifyEmailCancel = "Cancel";
-		public static String fingerHintTitle = "Enable Mobile access to use fingerprint";
-		public static String fingerHintText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer cursus, dui vel pretium laoreet, sapien nunc laoreet neque, ac vestibulum velit tellus at diam.";
+		public static String fingerHintTitle = "Enable mobile access to use fingerprint";
+		public static String fingerHintText = "__fingerHintText";
 		public static String fingerDrawerHeader = "Enable fingerprint";
-		public static String fingerDrawerText = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Integer cursus dui.";
+		public static String fingerDrawerText = "__fingerDrawerText";
 		public static String enable = "Enable";
-		public static String mergeAccountHeader = "You already have a verified e-Boks profile";
+		public static String mergeAccountHeader = "You already have a verified profile";
 		public static String mergeAccountText = "Do you want to merge your profiles so you only have one single account ?";
 		public static String mergeAccountBtn = "Merge my profiles";
 		public static String mergeAccountCancel = "Keep profiles seperated";
@@ -406,7 +406,7 @@ public class Translation {
 		public static String ssn = "Social Security Number";
 		public static String password = "Password";
 		public static String typeHere = "Type here";
-		public static String myProfile = "My profile";
+		public static String myProfile = "Profile";
 		public static String yourInfoWasSaved = "Your information was saved";
 		public static String failedToSaveProfile = "Failed to save profile";
 		public static String errorBiometryTakenTitle = "[idtype] already set up";
@@ -430,21 +430,21 @@ public class Translation {
 	}
 	public final static class home {
 		public static String messagesEmptyButton = "See all mail";
-		public static String bottomChannelHeaderNoChannels = "e-Boks Plus";
+		public static String bottomChannelHeaderNoChannels = "Self service with with e-Boks Plus";
 		public static String messagesEmptyTitle = "There\u2019s no new messages for you";
-		public static String messagesEmptyMessage = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
-		public static String bottomChannelTextNoChannels = "You haven\u2019t added any channels yet. Channels give you relevant information and actions right at your fingertips.";
-		public static String bottomChannelHeaderChannels = "There\'s more to see!";
-		public static String bottomChannelTextChannels = "You can add as many channels as you would like, to give you the best overview of your services etc..";
+		public static String messagesEmptyMessage = "__messagesEmptyMessage";
+		public static String bottomChannelTextNoChannels = "With e-Boks Plus you get access to a range of new services that make your everyday life easier.";
+		public static String bottomChannelHeaderChannels = "Add more";
+		public static String bottomChannelTextChannels = "We continuously add new services.";
 		public static String messagesSectionHeaderButtonNewMessagesSuffix = "[value] new messages";
-		public static String bottomChannelBtn = "Add services";
+		public static String bottomChannelBtn = "View services";
 		public static String messagesHeader = "Mail";
 		public static String messagesSectionHeaderShowAllButton = "Show all";
 		public static String channelsHeader = "Services";
 		public static String channelsHeaderButton = "Edit";
-		public static String messagesUnverifiedTitle = "Think into the box";
-		public static String messagesUnverifiedMessage = "Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.";
-		public static String messagesUnverifiedButton = "Get started";
+		public static String messagesUnverifiedTitle = "Receive your mail digitally";
+		public static String messagesUnverifiedMessage = "Receive your mail digitally from private companies and public authorities.\r\nGet started by verifying your profile.";
+		public static String messagesUnverifiedButton = "Verify my profile";
 		public static String windowHeader = "Home";
 	}
 	public final static class systemfolders {
@@ -508,7 +508,7 @@ public class Translation {
 	}
 	public final static class senderregistration {
 		public static String title = "Registration Needed";
-		public static String body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
+		public static String body = "__body";
 		public static String register = "Register";
 		public static String placeholder = "Type here";
 	}
@@ -570,7 +570,7 @@ public class Translation {
 		public static String inputHintUsername = "Username *";
 		public static String inputHintPassword = "Password *";
 		public static String overviewAddItemHeadline = "Headline";
-		public static String overviewAddItemText = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor";
+		public static String overviewAddItemText = "__overviewAddItemText";
 		public static String overviewAddItemBtn = "Add Item";
 		public static String overviewNote = "Note";
 		public static String overviewLogins = "Credentials";
@@ -589,7 +589,7 @@ public class Translation {
 		public static String password = "Password";
 		public static String addItemCardsSubtitle = "Pin Code to your credit cards";
 		public static String addItemLoginSubtitle = "E.g. Mail, Facebook";
-		public static String addItemNoteSubtitle = "E.g. Lorem ipsum dolor";
+		public static String addItemNoteSubtitle = "__addItemNoteSubtitle";
 		public static String addPinCode = "Add pin code";
 		public static String inputHintCardtype = "Card type *";
 		public static String cardType = "Card Type";
