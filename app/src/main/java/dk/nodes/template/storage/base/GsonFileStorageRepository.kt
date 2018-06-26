@@ -9,10 +9,6 @@ import java.io.FileOutputStream
 import java.io.InputStreamReader
 import java.lang.reflect.Type
 
-/**
- * Created by bison on 01-07-2017.
- * Derive from this to save json files the easy way, see warningapp-kotlin for usage
- */
 abstract class GsonFileStorageRepository<T>(val context: Context, val gson: Gson, val filename: String) {
 
     fun save(objects: T) {

@@ -6,12 +6,8 @@ import dagger.Provides
 import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.template.App
 
-
-/**
- * Created by bison on 25/07/17.
- */
 @Module
-class AppModule(val application: App) {
+class AppModule(private val application: App) {
     @Provides
     @AppScope
     fun provideContext(): Context {

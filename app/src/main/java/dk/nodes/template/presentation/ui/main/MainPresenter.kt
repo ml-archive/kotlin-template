@@ -4,10 +4,7 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 import dk.nodes.template.domain.interactors.GetPostsInteractor
 import dk.nodes.template.domain.models.Post
 
-/**
- * Created by bison on 20-05-2017.
- */
-class MainPresenter(val getPostsInteractor: GetPostsInteractor) : MainContract.Presenter, BasePresenterImpl<MainContract.View>(), GetPostsInteractor.Output {
+class MainPresenter(private val getPostsInteractor: GetPostsInteractor) : MainContract.Presenter, BasePresenterImpl<MainContract.View>(), GetPostsInteractor.Output {
     init {
         getPostsInteractor.output = this
         runAction {
@@ -16,6 +13,7 @@ class MainPresenter(val getPostsInteractor: GetPostsInteractor) : MainContract.P
     }
 
     // implementation of the interactors callback interface
+
     override fun onPostsLoaded(posts: List<Post>) {
         runAction { view?.showPosts(posts) }
     }

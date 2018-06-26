@@ -1,4 +1,5 @@
 package dk.nodes.template.network.rest.util
+
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.TypeAdapter
@@ -8,9 +9,6 @@ import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonWriter
 import java.io.IOException
 
-/**
- * Created by bison on 26/07/17.
- */
 class ItemTypeAdapterFactory : TypeAdapterFactory {
     var rootContainerNames = listOf("data")
 

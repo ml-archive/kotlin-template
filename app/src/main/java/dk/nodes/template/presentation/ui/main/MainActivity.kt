@@ -6,27 +6,17 @@ import android.support.v7.app.AlertDialog
 import android.util.Log
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppUpdateState
-import dk.nodes.template.App
 import dk.nodes.template.R
 import dk.nodes.template.domain.models.Post
 import dk.nodes.template.domain.models.Translation
-import dk.nodes.template.injection.components.DaggerPresentationComponent
-import dk.nodes.template.injection.components.PresentationComponent
-import dk.nodes.template.injection.modules.PresentationModule
 import dk.nodes.template.presentation.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 import javax.inject.Inject
 
 class MainActivity : BaseActivity(), MainContract.View {
-
-    private val component: PresentationComponent by lazy {
-        DaggerPresentationComponent.builder()
-                .appComponent((application as App).appComponent)
-                .presentationModule(PresentationModule())
-                .build()
-    }
-    @Inject lateinit var presenter: MainContract.Presenter
+    @Inject
+    lateinit var presenter: MainContract.Presenter
 
     override fun injectDependencies() {
         component.inject(this)
@@ -48,13 +38,13 @@ class MainActivity : BaseActivity(), MainContract.View {
     private fun setupNstack() {
         NStack.onAppUpdateListener = { appUpdate ->
             when (appUpdate.state) {
-                AppUpdateState.NONE      -> {
+                AppUpdateState.NONE -> {
                     // Do nothing because there is no update
                 }
-                AppUpdateState.UPDATE    -> {
+                AppUpdateState.UPDATE -> {
                     // Show a user a dialog that is dismissible
                 }
-                AppUpdateState.FORCE     -> {
+                AppUpdateState.FORCE -> {
                     // Show the user an undismissable dialog
                 }
                 AppUpdateState.CHANGELOG -> {
@@ -63,11 +53,6 @@ class MainActivity : BaseActivity(), MainContract.View {
             }
         }
         NStack.appOpen({ success -> Log.e("debug", "appopen success = $success") })
-    }
-
-
-    override fun setupTranslations() {
-        textview.text = Translation.defaultSection.settings
     }
 
     //This is for the SampleActivityTest.class for Ui tests examples.
