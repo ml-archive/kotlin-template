@@ -1,12 +1,10 @@
 package dk.nodes.template.network.rest.util
 
-import java.io.IOException
-import java.lang.reflect.Type
-
 import okhttp3.ResponseBody
 import okio.BufferedSource
 import retrofit2.Converter
 import retrofit2.Retrofit
+import java.lang.reflect.Type
 
 /*
     This is necessary to get general purpose disk caching from Store library to work

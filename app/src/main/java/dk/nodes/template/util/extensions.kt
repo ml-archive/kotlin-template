@@ -3,10 +3,8 @@ package dk.nodes.template.util
 import android.view.View
 import android.view.ViewGroup
 
-/**
- * Created by bison on 01-07-2017.
- */
 // makes viewgroups iterable (you can for the each out of them!:)
+
 fun ViewGroup.asSequence(): Sequence<View> = object : Sequence<View> {
     override fun iterator(): Iterator<View> = object : Iterator<View> {
         private var nextValue: View? = null
@@ -38,4 +36,12 @@ val ViewGroup.views: List<View>
 
 inline fun <T> T.guard(block: T.() -> Unit): T {
     if (this == null) block(); return this
+}
+
+fun View.setVisible(isVisible: Boolean, invisibleType: Int = View.GONE) {
+    this.visibility = if (isVisible) {
+        View.VISIBLE
+    } else {
+        invisibleType
+    }
 }
