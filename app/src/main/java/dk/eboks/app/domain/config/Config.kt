@@ -327,6 +327,11 @@ object Config {
         return URL(getApiUrl()).host
     }
 
+    fun getTermsAndConditionsUrl() : String
+    {
+        return getApiUrl() + "resources/terms"
+    }
+
     lateinit var currentMode : Mode
 
 

@@ -62,7 +62,7 @@ public class Translation {
 		public static String sendersEmptyHeader = "No mails from your senders";
 		public static String sendersEmptyMessage = "__sendersEmptyMessage";
 		public static String addMoreSendersButton = "Add more senders";
-		public static String noMessagesToDisplay = "There\'s no mail to display in this folder.";
+		public static String noMessagesToDisplay = "No mail";
 		public static String allMail = "All mail";
 		public static String unverifiedEmptyTitle = "Receive your mail digitally";
 		public static String unverifiedEmptyMessage = "Receive your mail digitally from private companies and public authorities.\r\nGet started by verifying your profile.";
@@ -199,17 +199,17 @@ public class Translation {
 		public static String invalidEmail = "Invalid email";
 		public static String mmInvalidCprNumber = "Invalid Social Security number";
 		public static String login = "Log on";
-		public static String completedHeader = "Yay! We\'re all set!\r\nWe hope you\'ll enjoy your new all digital inbox!";
+		public static String completedHeader = "That is it! You are now an e-Boks user.";
 		public static String typeHere = "Type here";
 		public static String termsAcceptButton = "Accept";
-		public static String termsAcceptHeader = "Welcome! To use e-Boks you need to accept the Terms & Conditions.";
+		public static String termsAcceptHeader = "Terms and conditions";
 		public static String termsAcceptSubHeader = "Please read and accept the terms and conditions to continue";
 		public static String cancelTermsBtn = "Cancel";
 		public static String signOnBankIDtitle = "Verify with BankID";
 		public static String signOnBankIDMessage = "Verify your profile by logging on with BankID";
 		public static String signOnBankIDButton = "Log on with BankID";
-		public static String cancelDialogHeader = "Are you sure you want to discard your information?";
-		public static String cancelDialogText = "This will delete everything you have done up until this step.";
+		public static String cancelDialogHeader = "Cancel the sign up?";
+		public static String cancelDialogText = "The filled in information will be deleted again and you will not be sign up as a user.";
 		public static String cancelDialogDiscardBtn = "Discard";
 		public static String cancelDialogCancelBtn = "Cancel";
 		public static String termsWhyAcceptButton = "Why do I need to accept this?";
@@ -319,7 +319,7 @@ public class Translation {
 		public static String creditCardHeader = "Credit Cards";
 		public static String removeChannelBtn = "Remove service";
 		public static String pinHeader = "Pin to home screen";
-		public static String pinSubHeader = "Show this channel on the e-boks home screen";
+		public static String pinSubHeader = "Show content from this service on the home screen";
 	}
 	public final static class uploads {
 		public static String uploadsHeader = "Upload and store your important files and pictures in one secure place";
@@ -460,8 +460,8 @@ public class Translation {
 		public static String pushSubtitle = "Get notified whenever something new happens";
 		public static String title = "Settings";
 		public static String removeButton = "Remove service";
-		public static String confirmDeleteTitle = "Are you sure you want to remove this channel?";
-		public static String confirmDeleteMessageReplaceChannelName = "Removing this channel will delete it from your e-Boks app, but will not delete your user at [channelname].";
+		public static String confirmDeleteTitle = "Remove this service?";
+		public static String confirmDeleteMessageReplaceChannelName = "You only remove the use of this service in e-Boks. If you want your information deleted at [channelname], please contact their support.";
 		public static String confirmRemoveButton = "Remove";
 		public static String removeChannelButtonRemovedState = "Removed!";
 		public static String receiptsTitle = "Receive only receipts digitally";
@@ -471,12 +471,12 @@ public class Translation {
 	public final static class storeboxlist {
 		public static String title = "Storebox";
 		public static String emptyCardsHeader = "Get started";
-		public static String emptyCardsMessage = "To receive your receipts in Storebox, \u2028you need to add a credit card.";
+		public static String emptyCardsMessage = "To receive your receipts in Storebox, you need to add a credit card.";
 		public static String addCardButton = "Add credit card";
-		public static String emptyLabel = "No receipts";
+		public static String emptyLabel = "No receipts received";
 	}
 	public final static class storeboxreceipt {
-		public static String orderNo = "Order nr.";
+		public static String orderNo = "Order number";
 		public static String receipt = "Receipt";
 		public static String deliveredByStorebox = "Delivered by Storebox";
 		public static String total = "Total";
@@ -492,8 +492,8 @@ public class Translation {
 		public static String deleteCardAlertTitle = "Are you sure you want to remove this payment card?";
 		public static String deleteCardAlertButton = "Remove";
 		public static String deleteCardCancelButton = "Cancel";
-		public static String removeChannelTitle = "Are you sure you want to remove this channel?";
-		public static String removeChannelMessage = "Removing this channel will delete it from your e-boks app, but will not delete your user at storebox.";
+		public static String removeChannelTitle = "Remove this service?";
+		public static String removeChannelMessage = "Removing this service will not delete your receipts. If you want to delete your profile write to support@storebox.com.";
 	}
 	public final static class overlaymenu {
 		public static String move = "Move";
@@ -519,12 +519,12 @@ public class Translation {
 		public static String required = "Required";
 		public static String typeHere = "Type here";
 		public static String select = "Select";
-		public static String minLengthError = "Enter at least [CHARS] characters";
-		public static String maxLengthError = "Enter at most [CHARS] characters";
+		public static String minLengthError = "Type at least [CHARS] characters";
+		public static String maxLengthError = "Requires at least [CHARS] characters";
 		public static String minValueError = "Value must be [VALUE] or above";
 		public static String maxValueError = "Value must be [VALUE] or below";
 		public static String nanError = "Value must be number";
-		public static String submitButton = "Submit";
+		public static String submitButton = "Send";
 		public static String datePickerCaption = "Choose date";
 		public static String dateTimePickerCaption = "Choose date & time";
 		public static String uploadingFile = "Uploading file";
@@ -613,14 +613,14 @@ public class Translation {
 		public static String placeholder = "Type here";
 		public static String errorNoExistingProfileMessage = "We couldn\'t find an exisiting Storebox profile with this email";
 		public static String createUserButton = "Create Storebox profile";
-		public static String errorAlreadyExistsMessage = "You already have a Storebox account with this information";
-		public static String signInButton = "Sign in";
+		public static String errorAlreadyExistsMessage = "You already have a Storebox profile with this information";
+		public static String signInButton = "Create a Storebox profile";
 		public static String continueButton = "Continue";
 		public static String tryAgainButton = "Try again";
 	}
 	public final static class storeboxverify {
 		public static String header = "We sent you a confirmation code";
-		public static String subheader = "Find the confirmation we just sent you, and type it in below to verify your identity.";
+		public static String subheader = "Find the confirmation code we just sent you and type it here";
 		public static String confirmationCodeHeader = "Confirmation code";
 	}
 	public final static class uploadspreview {
