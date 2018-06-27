@@ -41,6 +41,7 @@ interface Api {
     @GET("user/identity/{identity}") fun checkUserIdentity(@Path("identity") cpr : String) : Call<BooleanReply>
     @POST("user/profile") fun createUserProfile(@Body user: JsonObject) : Call<Any>
     @POST("user/{nationality}/{email}/resetpassword") fun resetPassword(@Path("nationality") nationality: String, @Path("email") email: String) : Call<Void>
+    @POST("user/current/migrate/{targetUserId}") fun migrateUser(@Path("targetUserId") targetUserId : String) : Call<Void>
 
     @GET("user/profile") fun getUserProfile() : Call<User>
     @PATCH("user/profile") fun updateProfile(@Body user: JsonObject) : Call<Any>

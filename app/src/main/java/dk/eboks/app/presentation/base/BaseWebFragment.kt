@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
 import dk.eboks.app.R
+import dk.eboks.app.presentation.ui.components.profile.drawer.MergeAccountComponentFragment
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import timber.log.Timber
 
@@ -16,6 +17,7 @@ import timber.log.Timber
 abstract class BaseWebFragment : BaseFragment() {
 
     var closeLoginOnBack : Boolean = false
+    var shouldCheckMergeAccountOnResume = false
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_base_web, container, false)
@@ -30,6 +32,15 @@ abstract class BaseWebFragment : BaseFragment() {
         arguments?.getBoolean("closeLoginOnBack", false)?.let {
             Timber.e("closeLoginOnBack read as $it")
             closeLoginOnBack = it
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(shouldCheckMergeAccountOnResume)
+        {
+            onCheckMergeAccountStatus()
+            shouldCheckMergeAccountOnResume = false
         }
     }
 
@@ -89,6 +100,7 @@ abstract class BaseWebFragment : BaseFragment() {
     abstract fun onOverrideUrlLoading(view: WebView?, url: String?) : Boolean
     abstract fun onLoadFinished(view: WebView?, url: String?)
     open fun loginKspToken(kspwebtoken : String) {}
+    open fun onCheckMergeAccountStatus() {}
 
 
 
@@ -106,5 +118,10 @@ abstract class BaseWebFragment : BaseFragment() {
             Timber.e("Perform ipswitch")
         }
 
+    }
+
+    fun showMergeAcountDrawer() {
+        shouldCheckMergeAccountOnResume = true
+        getBaseActivity()?.openComponentDrawer(MergeAccountComponentFragment::class.java)
     }
 }

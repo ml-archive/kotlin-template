@@ -69,11 +69,12 @@ class AuthClientImpl : AuthClient {
         return null
     }
 
-    override fun impersonate(token : String) {
+    override fun impersonate(token : String, userId : String) {
         val keys = getKeys(true, false)
 
         val formBody = FormBody.Builder()
                 .add("token", token)
+                .add("userid", userId)
                 .add("grant_type", "impersonate")
                 .add("scope", "mobileapi offline_access")
                 .add("client_id", keys.first)

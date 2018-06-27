@@ -39,11 +39,12 @@ class ProfileInfoComponentPresenter @Inject constructor(
 //            return
         }
 
+        runAction { v->v.showProgress(true) }
+
         getUserProfileInteractor.run()
     }
 
     override fun onGetUser(user: User) {
-
         runAction { v ->
             v.setName(user.name)
             v.setVerified(user.verified)
@@ -53,11 +54,16 @@ class ProfileInfoComponentPresenter @Inject constructor(
                 v.showFingerprintEnabled(it.hasFingerprint, it.lastLoginProviderId)
                 v.showKeepMeSignedIn(it.stayLoggedIn)
             }
+            v.setupListeners()
+            v.showProgress(false)
         }
     }
 
     override fun onGetUserError(error: ViewError) {
-        Timber.e("Null Current User")
+        runAction { v->
+            v.showProgress(false)
+            v.showErrorDialog(error)
+        }
     }
 
     override fun saveUserImg(uri: String) {
@@ -95,7 +101,10 @@ class ProfileInfoComponentPresenter @Inject constructor(
     }
 
     override fun onSaveUserError(error: ViewError) {
-        view?.showErrorDialog(error)
+        runAction { v->
+            v.showProgress(false)
+            v.showErrorDialog(error)
+        }
     }
 
     override fun doLogout() {

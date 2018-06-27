@@ -153,4 +153,9 @@ abstract class BaseFragment : Fragment(), BaseView {
             trans.commit()
         }
     }
+
+    fun finishActivity()
+    {
+        activity.finish()
+    }
 }

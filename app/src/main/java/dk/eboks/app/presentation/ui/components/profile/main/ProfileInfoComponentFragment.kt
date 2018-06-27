@@ -57,7 +57,9 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
         setupVersionNumber()
         setupCollapsingToolbar()
-        setupListeners()
+
+        // Show our fingerprint stuff only if we are above API M
+        profileDetailSwFingerprint.setVisible(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
 
         if (BuildConfig.ENABLE_PROFILE_PICTURE) {
             profileDetailIv.setOnClickListener {
@@ -82,24 +84,21 @@ class ProfileInfoComponentFragment : BaseFragment(),
             }
         }
 
-
         profileDetailTB.setNavigationOnClickListener {
             activity.finish()
         }
+
+        profileDetailRegisterTB.textOn = Translation.senders.registered
+        profileDetailRegisterTB.textOff = Translation.profile.verifyButton
     }
 
-    private fun setupListeners() {
+    override fun setupListeners() {
         val profileActivity = if (activity is ProfileActivity) {
             (activity as ProfileActivity)
         } else {
             null
         }
 
-        // Show our fingerprint stuff only if we are above API M
-        profileDetailSwFingerprint.setVisible(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
-
-        profileDetailRegisterTB.textOn = Translation.senders.registered
-        profileDetailRegisterTB.textOff = Translation.profile.verifyButton
         profileDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 buttonView.setCompoundDrawablesWithIntrinsicBounds(
@@ -235,6 +234,8 @@ class ProfileInfoComponentFragment : BaseFragment(),
     override fun setVerified(isVerified: Boolean) {
         profileDetailRegisterTB?.let {
             it.isChecked = isVerified
+            if(isVerified)
+                it.isEnabled = false
         }
     }
 
@@ -257,5 +258,10 @@ class ProfileInfoComponentFragment : BaseFragment(),
     override fun logout() {
         val intent = Intent(getBaseActivity(), StartActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun showProgress(show: Boolean) {
+        progressFl.visibility = if(show) View.VISIBLE else View.GONE
+        profileFragmentRootContainer.visibility = if(!show) View.VISIBLE else View.GONE
     }
 }

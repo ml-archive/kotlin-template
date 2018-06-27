@@ -376,6 +376,7 @@
   <string name='nstack_myInformation_verifyNumber' formatted='false'>myInformation_verifyNumber</string>
   <string name='nstack_myInformation_notifyBySMSText' formatted='false'>myInformation_notifyBySMSText</string>
   <string name='nstack_myInformation_newsletter' formatted='false'>myInformation_newsletter</string>
+  <string name='nstack_myInformation_email2UnverifiedBlockedPlaceholder' formatted='false'>myInformation_email2UnverifiedBlockedPlaceholder</string>
   <string name='nstack_home_messagesEmptyButton' formatted='false'>home_messagesEmptyButton</string>
   <string name='nstack_home_bottomChannelHeaderNoChannels' formatted='false'>home_bottomChannelHeaderNoChannels</string>
   <string name='nstack_home_messagesEmptyTitle' formatted='false'>home_messagesEmptyTitle</string>

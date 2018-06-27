@@ -486,6 +486,11 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideMergeAndImpersonateInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, userSettingsManager: UserSettingsManager, authClient: AuthClient, cacheManager: CacheManager): MergeAndImpersonateInteractor {
+        return MergeAndImpersonateInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager, authClient, cacheManager)
+    }
+
+    @Provides
     fun provideVerifyProfileInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, userSettingsManager: UserSettingsManager, authClient: AuthClient, cacheManager: CacheManager): VerifyProfileInteractor {
         return VerifyProfileInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager, authClient, cacheManager)
     }

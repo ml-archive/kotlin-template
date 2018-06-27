@@ -12,6 +12,8 @@ interface ProfileInfoComponentContract {
         fun showFingerprintEnabled(isEnabled: Boolean, lastProviderId: String? = null)
         fun showKeepMeSignedIn(isEnabled: Boolean)
         fun logout()
+        fun setupListeners()
+        fun showProgress(show : Boolean)
     }
 
     interface Presenter : BasePresenter<View> {

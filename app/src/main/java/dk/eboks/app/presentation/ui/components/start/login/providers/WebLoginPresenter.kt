@@ -1,12 +1,14 @@
 package dk.eboks.app.presentation.ui.components.start.login.providers
 
 import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.interactors.authentication.MergeAndImpersonateInteractor
 import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.util.guard
 import dk.eboks.app.domain.interactors.authentication.VerifyProfileInteractor
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -17,19 +19,23 @@ import javax.inject.Inject
 open class WebLoginPresenter @Inject constructor(
         val appState: AppStateManager,
         val transformTokenInteractor: TransformTokenInteractor,
-        val verifyProfileInteractor: VerifyProfileInteractor
+        val verifyProfileInteractor: VerifyProfileInteractor,
+        val mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+        val userSettingsManager: UserSettingsManager
 
-) :
+        ) :
         WebLoginContract.Presenter,
         BasePresenterImpl<WebLoginContract.View>(),
         TransformTokenInteractor.Output,
-        VerifyProfileInteractor.Output
+        VerifyProfileInteractor.Output,
+        MergeAndImpersonateInteractor.Output
 {
 
 
     init {
         transformTokenInteractor.output = this
         verifyProfileInteractor.output = this
+        mergeAndImpersonateInteractor.output = this
     }
 
     override fun setup() {
@@ -50,7 +56,13 @@ open class WebLoginPresenter @Inject constructor(
             Timber.e("Cancel and close called provider id = ${it}")
             Config.getLoginProvider(failProviderId)?.let { provider ->
                 Timber.e("Setting lastLoginProvider to fallback provider ${provider.fallbackProvider}")
-                appState.state?.loginState?.userLoginProviderId = provider.fallbackProvider
+                userSettingsManager.get(appState.state?.loginState?.selectedUser?.id ?: -1)?.let { userSettings ->
+                    userSettings.lastLoginProviderId = provider.fallbackProvider
+                    userSettingsManager.put(userSettings)
+                    userSettingsManager.save()
+                }
+                //appState.state?.loginState?.userLoginProviderId = provider.fallbackProvider
+
             }.guard {
                 Timber.e("error")
             }
@@ -79,6 +91,18 @@ open class WebLoginPresenter @Inject constructor(
         }
     }
 
+    // the is called after the users is presented with the merge account drawer, check the result and merge or not
+    override fun mergeAccountOrKeepSeparated() {
+        Timber.e("Merge account or keep separated")
+        appState.state?.verificationState?.let { state->
+            mergeAndImpersonateInteractor.input = MergeAndImpersonateInteractor.Input(state)
+            mergeAndImpersonateInteractor.run()
+        }
+    }
+
+    /**
+     * TransformTokenInteractor callbacks
+     */
     override fun onLoginSuccess(response: AccessToken) {
         runAction { v ->
             v.proceed()
@@ -94,9 +118,9 @@ open class WebLoginPresenter @Inject constructor(
     /**
      * VerifyProfileInteractor callbacks
      */
-
     override fun onVerificationSuccess() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Timber.e("VerificationSuccess")
+        runAction { v -> v.finishActivity() }
     }
 
     override fun onVerificationError(error: ViewError) {
@@ -106,6 +130,20 @@ open class WebLoginPresenter @Inject constructor(
     }
 
     override fun onAlreadyVerifiedProfile() {
-        Timber.e("Already verified profile, call migrate first then impersonate")
+        runAction { v->v.showMergeAcountDrawer() }
+    }
+
+    /**
+     * MergeAndImpersonateInteractor callbacks
+     */
+
+    override fun onMergeCompleted() {
+        runAction { v -> v.finishActivity() }
+    }
+
+    override fun onMergeError(error: ViewError) {
+        runAction { v->
+            v.showError(error)
+        }
     }
 }

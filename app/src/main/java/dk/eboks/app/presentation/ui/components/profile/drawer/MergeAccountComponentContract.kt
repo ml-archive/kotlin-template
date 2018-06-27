@@ -8,9 +8,10 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface MergeAccountComponentContract {
     interface View : BaseView {
-
+        fun close()
     }
 
     interface Presenter : BasePresenter<View> {
+        fun setMergeStatus(shouldMerge : Boolean)
     }
 }

@@ -14,11 +14,14 @@ interface WebLoginContract {
         fun showError(viewError: ViewError)
         fun close()
         fun proceed()
+        fun showMergeAcountDrawer()
+        fun finishActivity()
     }
 
     interface Presenter : BasePresenter<View> {
         fun setup()
         fun login(webToken : String)
+        fun mergeAccountOrKeepSeparated()
         fun cancelAndClose()
     }
 }

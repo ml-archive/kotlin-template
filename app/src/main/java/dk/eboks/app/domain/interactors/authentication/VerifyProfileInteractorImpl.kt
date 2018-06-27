@@ -47,7 +47,7 @@ class VerifyProfileInteractorImpl(
                     }
                     else // narp
                     {
-                        authClient.impersonate(token.access_token)
+                        //authClient.impersonate(token.access_token)
                         val userResult = api.getUserProfile().execute()
                         userResult?.body()?.let { user->
                             // update the states
@@ -56,23 +56,22 @@ class VerifyProfileInteractorImpl(
                             val newSettings = userSettingsManager.get(newUser.id)
 
                             appStateManager.state?.loginState?.userLoginProviderId?.let {
-                                newSettings.lastLoginProviderId = it
+                                newSettings.lastLoginProviderId = "cpr"
                             }
+
+                            cacheManager.clearStores()
+
+                            /*
                             appStateManager.state?.loginState?.activationCode?.let {
                                 newSettings.activationCode = it
                             }
-
-                            appStateManager.state?.loginState?.lastUser?.let { lastUser ->
-                                if (lastUser.id != newUser.id) {
-                                    Timber.e("Different user id detected on login, clearing caches")
-                                    cacheManager.clearStores()
-                                }
-                            }
+                            */
 
                             userSettingsManager.put(newSettings)
                             appStateManager.state?.loginState?.lastUser = newUser
                             appStateManager.state?.currentUser = newUser
                             appStateManager.state?.currentSettings = newSettings
+                            appStateManager.state?.verificationState = null // verification done
                         }
                         appStateManager.save()
                         runOnUIThread {

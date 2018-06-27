@@ -1,13 +1,10 @@
 package dk.eboks.app.presentation.ui.components.start.login.providers.nemid
 
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.support.v7.app.AlertDialog
 import android.view.View
-import android.webkit.*
-import dk.eboks.app.BuildConfig
+import android.webkit.JavascriptInterface
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
@@ -69,7 +66,6 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
             }
             true
         }
-
     }
 
     override fun onPause() {
@@ -140,5 +136,9 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
                 + " if (message.command === \"AwaitingAppApproval\") { "
                 + "app.performAppSwitch();"
                 + "} }")
+    }
+
+    override fun onCheckMergeAccountStatus() {
+        presenter.mergeAccountOrKeepSeparated()
     }
 }

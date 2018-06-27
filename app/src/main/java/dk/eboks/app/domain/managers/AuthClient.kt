@@ -7,7 +7,7 @@ class AuthException(var httpCode : Int = -1) : RuntimeException("AuthException")
 
 interface AuthClient {
     fun transformKspToken(kspToken : String, oauthToken : String? = null) : AccessToken?
-    fun impersonate(token : String)
+    fun impersonate(token : String, userId : String)
     fun transformRefreshToken(refreshToken : String, longClient: Boolean = false) : AccessToken?
     fun login(username : String, password : String, activationCode : String?, longClient: Boolean = false) : AccessToken?
     fun decodeJWTBody(JWTEncoded: String) : JSONObject

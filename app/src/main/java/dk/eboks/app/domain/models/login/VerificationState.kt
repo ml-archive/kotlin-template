@@ -8,7 +8,8 @@ data class VerificationState(
         var userBeingVerified: User? = null,
         var kspToken : String = "",
         var oldAccessToken : String? = null,
-        var allowMigrateUserId : String? = null
+        var allowMigrateUserId : String? = null,
+        var shouldMergeProfiles : Boolean = false
 
 ) {
 

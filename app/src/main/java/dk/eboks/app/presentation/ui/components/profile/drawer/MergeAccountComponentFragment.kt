@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
+import kotlinx.android.synthetic.main.fragment_profile_merge_account_component.*
 import javax.inject.Inject
 
 /**
@@ -25,6 +26,12 @@ class MergeAccountComponentFragment : BaseFragment(), MergeAccountComponentContr
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        mergeAccountsBtn.setOnClickListener { presenter.setMergeStatus(true)  }
+        keepSeperatedBtn.setOnClickListener { presenter.setMergeStatus(false) }
+    }
+
+    override fun close() {
+        activity.finish()
     }
 
 }

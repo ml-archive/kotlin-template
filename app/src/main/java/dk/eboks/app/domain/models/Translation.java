@@ -57,8 +57,8 @@ public class Translation {
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
 		public static String showAllSendersButton = "Show all";
-		public static String smartFolderHeader = "Your mail";
-		public static String foldersButton = "Folders";
+		public static String smartFolderHeader = "Folders";
+		public static String foldersButton = "All folders";
 		public static String sendersEmptyHeader = "No mails from your senders";
 		public static String sendersEmptyMessage = "__sendersEmptyMessage";
 		public static String addMoreSendersButton = "Add more senders";
@@ -139,11 +139,11 @@ public class Translation {
 		public static String addNewUser = "Log on another user";
 		public static String logonButton = "Log on";
 		public static String confimRemoveUserTitle = "Remove user";
-		public static String confirmRemoveUserMessage = "Are you sure?";
+		public static String confirmRemoveUserMessage = "The user will be removed from this device";
 	}
 	public final static class logoncredentials {
 		public static String topLabel = "Good to see you again. We missed you!";
-		public static String topSublabel = "Please fill in your credentials below";
+		public static String topSublabel = "Please fill in your user credentials";
 		public static String passwordfieldHeader = "Password";
 		public static String placeholder = "Type here";
 		public static String continueButton = "Continue";
@@ -170,12 +170,12 @@ public class Translation {
 		public static String invalidEmail = "Invalid email";
 	}
 	public final static class signup {
-		public static String nameEmailHeader = "Let\'s get started with your brand new e-Boks account";
+		public static String nameEmailHeader = "Let\'s get you started as a new e-Boks user";
 		public static String nameEmailDetail = "Please fill in the information below";
 		public static String passwordHeader = "Great! Now, let\u2019s get you a password. A secure one, and something you can remember";
-		public static String passwordDetail = "Your password should be at least 8 characters long, and include a letter and a number. Just to be safe!";
-		public static String verificationHeader = "Perfect! Now we just need to know that you are who you say you are. Of course!";
-		public static String verificationDetail = "This will enable the full feature set of e-Boks. Features like reading mail from public institutions, signing documents and paying, directly in e-Boks!";
+		public static String passwordDetail = "Your password should be at least 6 characters long, and include a letter and a number. Just to be safe!";
+		public static String verificationHeader = "Perfect! Now we just need to know who you are";
+		public static String verificationDetail = "Verifying your profile will enable the full feature set of e-Boks. Features like receiving mail, signing documents and paying, directly in e-Boks!";
 		public static String continueButton = "Continue";
 		public static String verifyButton = "Verify my profile";
 		public static String continueWithoutVerificationButton = "Continue without verification";
@@ -197,17 +197,17 @@ public class Translation {
 		public static String invalidPasswordMatch = "Passwords don\'t match";
 		public static String termsClickAbleText = "By doing this you accept the [Terms & Conditions]";
 		public static String invalidEmail = "Invalid email";
-		public static String mmInvalidCprNumber = "mm Invalid cpr number";
+		public static String mmInvalidCprNumber = "Invalid Social Security number";
 		public static String login = "Log on";
 		public static String completedHeader = "Yay! We\'re all set!\r\nWe hope you\'ll enjoy your new all digital inbox!";
 		public static String typeHere = "Type here";
-		public static String termsAcceptButton = "I accept";
+		public static String termsAcceptButton = "Accept";
 		public static String termsAcceptHeader = "Welcome! To use e-Boks you need to accept the Terms & Conditions.";
-		public static String termsAcceptSubHeader = "Please read & accept to continue";
-		public static String cancelTermsBtn = "Discard my information";
-		public static String signOnBankIDtitle = "Sign up with Mobile BankID";
-		public static String signOnBankIDMessage = "You will need to sign in with BankID: Don\'t worry, it\'s a one time thing. You will be sent to the BankID app to log in.";
-		public static String signOnBankIDButton = "Sign up with Mobile BankID";
+		public static String termsAcceptSubHeader = "Please read and accept the terms and conditions to continue";
+		public static String cancelTermsBtn = "Cancel";
+		public static String signOnBankIDtitle = "Verify with BankID";
+		public static String signOnBankIDMessage = "Verify your profile by logging on with BankID";
+		public static String signOnBankIDButton = "Log on with BankID";
 		public static String cancelDialogHeader = "Are you sure you want to discard your information?";
 		public static String cancelDialogText = "This will delete everything you have done up until this step.";
 		public static String cancelDialogDiscardBtn = "Discard";
@@ -215,20 +215,20 @@ public class Translation {
 		public static String termsWhyAcceptButton = "Why do I need to accept this?";
 		public static String termsInfoTitle = "A safe, fair and legal handling of your information is important";
 		public static String termsInfoMessage = "The Terms & Conditions are here to ensure that your information is handled in a safe and fair way, and to have a clear agreement about what is allowed and what isn\'t.";
-		public static String signOnNemIdTitle = "Sign up with NemID";
-		public static String signOnNemIdMessage = "__signOnNemIdMessage";
-		public static String signOnNemIdButton = "Sign up with NemID";
-		public static String signOnBankIDMessageNOR = "NOR MSG You will need to sign in with BankID: Don\'t worry, it\'s a one time thing. You will be sent to the BankID app to log in.";
-		public static String signOnBankIDtitleNOR = "Sign up with BankID";
-		public static String signOnBankIDButtonNOR = "Sign up with BankID";
-		public static String signupTermsAcceptHeader = "One last thing. To use e-Boks you need to accept the Terms & Conditions.";
+		public static String signOnNemIdTitle = "Verify with NemID";
+		public static String signOnNemIdMessage = "Verify your profile by logging on with NemID";
+		public static String signOnNemIdButton = "Log on with NemID";
+		public static String signOnBankIDMessageNOR = "Verify your profile by logging on with BankID";
+		public static String signOnBankIDtitleNOR = "Verify with BankID";
+		public static String signOnBankIDButtonNOR = "Log on with BankID";
+		public static String signupTermsAcceptHeader = "One last thing! Terms and conditions.";
 		public static String dialogEmailExistsTitle = "This email address is already connected to an e-Boks account";
 		public static String dialogEmailExistsMsg = "Do you want to sign in instead?";
 		public static String dialogEmailExistsPositiveBtn = "Sign up";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";
-		public static String subtitle = "__subtitle";
+		public static String subtitle = "Type the activation code assigned to your mobile access";
 		public static String textFieldHeader = "Activation code";
 		public static String infoButtonText = "Where do i find the code?";
 		public static String placeholder = "Type here";
@@ -250,12 +250,12 @@ public class Translation {
 	}
 	public final static class findactivationcode {
 		public static String title = "Finding your activation code";
-		public static String message = "__message";
+		public static String message = "You will find your activation code as follows:\r\n\r\n1. Open a browser and log on to e-Boks\r\n2. Select \"Mobile access\" under the menu item \"Settings\"\r\n\r\nHere you can see your activation code, which you need to log on with mobile access.";
 	}
 	public final static class message {
 		public static String information = "Information";
 		public static String title = "Message";
-		public static String notes = "Notes";
+		public static String notes = "Note";
 		public static String folder = "Folder";
 		public static String attachments = "Attachments";
 		public static String protectedTitle = "This message is protected";
@@ -270,11 +270,11 @@ public class Translation {
 		public static String receiptMessage = "Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
 		public static String recipientPrefixTo = "To:";
 		public static String uploadedByYou = "Uploaded by you";
-		public static String notePlaceholder = "Write note";
+		public static String notePlaceholder = "Type here";
 		public static String draft = "Draft";
 		public static String shareMessageText = "Share";
 		public static String lockedTitle = "Locked Content";
-		public static String lockedMessage = "This message content could not be opened due to a virus found";
+		public static String lockedMessage = "The content of this message could not be opened because it contains a virus or other harmful content. Please contact the sender of this message.";
 		public static String quarantinedTitle = "Quarantined";
 		public static String quarantinedMessage = "This message is quarantined due to a problem found";
 		public static String promulgationTopBarTitle = "Promulgation";
@@ -300,10 +300,10 @@ public class Translation {
 		public static String errorBiometryLocked = "[idtype] is locked";
 		public static String errorUnknownBiometryEvent = "Unknown problem with [idtype]";
 		public static String logonWithBiometryReason = "Use [idtype] to log on";
-		public static String nextTimeTitle = "Don\'t you want to use [idtype] to log on next time?";
-		public static String nextTimeTouchIdMessage = "Just use your finger blablablala blabablablabla";
-		public static String nextTimeFaceIdMessage = "Sign in just by looking by enabling FaceID in the e-Boks app";
-		public static String nextTimeEnableButton = "Enable [idtype]";
+		public static String nextTimeTitle = "Use [idtype] to log on";
+		public static String nextTimeTouchIdMessage = "Attach Touch ID to your mobile access for a easy access\r\nto messages and features";
+		public static String nextTimeFaceIdMessage = "Attach Face ID to your mobile access for a easy access\r\nto messages and features";
+		public static String nextTimeEnableButton = "Use [idtype]";
 		public static String nextTimeDontUseButton = "I don\'t want to use [idtype]";
 		public static String logonWithReplaceableType = "Log on with [idtype]";
 	}
@@ -317,7 +317,7 @@ public class Translation {
 	public final static class settings {
 		public static String header = "Settings";
 		public static String creditCardHeader = "Credit Cards";
-		public static String removeChannelBtn = "Remove Channel";
+		public static String removeChannelBtn = "Remove service";
 		public static String pinHeader = "Pin to home screen";
 		public static String pinSubHeader = "Show this channel on the e-boks home screen";
 	}
@@ -342,7 +342,7 @@ public class Translation {
 		public static String incorrectFileName = "Incorrect file name";
 		public static String verifiedInitialAvailableSpace = "1 GB free storage available";
 		public static String notVerifiedInitialAvailableSpace = "100 MB free storage available";
-		public static String remainingText = "Left";
+		public static String remainingText = "left";
 		public static String filesHeaderShowAll = "Show all";
 		public static String outOfStorageAlertVerify = "Verify";
 		public static String outOfStorageAlertTitle = "You are out of storage space";
@@ -358,7 +358,7 @@ public class Translation {
 		public static String bankNoTitle = "BankID";
 		public static String nemidDescription = "Log on with NemID";
 		public static String idPortenDescription = "Log on with ID-porten";
-		public static String bankSeDescription = "Log on with Mobile BankID";
+		public static String bankSeDescription = "Log on with BankID";
 		public static String bankNoDescription = "Log on with BankID";
 	}
 	public final static class profile {
@@ -428,6 +428,7 @@ public class Translation {
 		public static String verifyNumber = "Verify number";
 		public static String notifyBySMSText = "You will be notified by text message when you receive new mail";
 		public static String newsletter = "Newsletter";
+		public static String email2UnverifiedBlockedPlaceholder = "N/A";
 	}
 	public final static class home {
 		public static String messagesEmptyButton = "See my inbox";
@@ -533,7 +534,7 @@ public class Translation {
 		public static String errorMessage = "Unable to Authenticate";
 		public static String errorInvalidData = "Data is not valid encrypted data";
 		public static String dialogTitle = "Log on with fingerprint";
-		public static String dialogSubtitle = "Use your fingerprint for faster, easier access to your account";
+		public static String dialogSubtitle = "Use your fingerprint to log on faster and easier";
 		public static String dialogDescription = "Confirm fingerprint to continue";
 		public static String errorGeneric = "Unable to complete action";
 		public static String dialogDefaultMessage = "Touch sensor";
@@ -549,7 +550,7 @@ public class Translation {
 	}
 	public final static class sharedusers {
 		public static String title = "Select share";
-		public static String sharedAccountsHeader = "My shared accounts";
+		public static String sharedAccountsHeader = "Shared folders";
 		public static String permissionA = "Administrator";
 		public static String permissionL = "Read only";
 		public static String permissionF = "Editor";
@@ -566,7 +567,7 @@ public class Translation {
 		public static String saveTopbar = "Add [item]";
 		public static String inputHintName = "Name *";
 		public static String inputHintNote = "Note";
-		public static String requiredFields = "*Required fields";
+		public static String requiredFields = "* required";
 		public static String inputHintPin = "Pin Code *";
 		public static String inputHintUsername = "User name *";
 		public static String inputHintPassword = "Password *";
@@ -584,7 +585,7 @@ public class Translation {
 		public static String inputHintCardholder = "Cardholder Name *";
 		public static String edit = "Edit";
 		public static String name = "Name";
-		public static String cardholderName = "Cardholder Name";
+		public static String cardholderName = "Cardholder name";
 		public static String pincode = "Pin Code";
 		public static String username = "User name";
 		public static String password = "Password";
@@ -593,7 +594,7 @@ public class Translation {
 		public static String addItemNoteSubtitle = "__addItemNoteSubtitle";
 		public static String addPinCode = "Add pin code";
 		public static String inputHintCardtype = "Card type *";
-		public static String cardType = "Card Type";
+		public static String cardType = "Card type";
 		public static String overviewEkey = "e-Key";
 		public static String addLogin = "Add credentials";
 		public static String addNote = "Add note";
@@ -607,7 +608,7 @@ public class Translation {
 		public static String subheader = "Connect your Storebox profile to e-Boks by entering the email address and optional mobile number from your Storebox Profile.";
 		public static String title = "Sign in";
 		public static String emailHeader = "Email";
-		public static String phoneHeader = "Phone number";
+		public static String phoneHeader = "Mobile number";
 		public static String required = "Required";
 		public static String placeholder = "Type here";
 		public static String errorNoExistingProfileMessage = "We couldn\'t find an exisiting Storebox profile with this email";

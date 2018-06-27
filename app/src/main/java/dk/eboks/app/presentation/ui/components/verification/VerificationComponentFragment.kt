@@ -38,9 +38,9 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
 
         when (Config.getCurrentConfigName()){
             "danish" ->{
-                headerTv.text = Translation.signup.signOnNemIdTitle
-                detailTv.text = Translation.signup.signOnNemIdMessage
-                verifyBtn.text = Translation.signup.signOnNemIdButton
+                headerTv.text = Translation.profile.verifyingAccountTitle
+                detailTv.text = Translation.profile.verifyingAccountBody
+                verifyBtn.text = Translation.profile.logOnWithNemID
             }
             "swedish" ->{
                 headerTv.text = Translation.signup.signOnBankIDtitle
