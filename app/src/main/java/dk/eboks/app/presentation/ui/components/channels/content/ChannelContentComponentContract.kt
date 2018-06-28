@@ -11,10 +11,11 @@ import dk.eboks.app.presentation.base.BaseView
 interface ChannelContentComponentContract {
     interface View : BaseView {
         fun showChannel(channel : Channel)
-        fun openChannelLink(link : Link)
+        fun openChannelContent(content : String)
     }
 
     interface Presenter : BasePresenter<View> {
         fun setup(channel : Channel)
+        var currentChannel: Channel?
     }
 }

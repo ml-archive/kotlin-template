@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minHeight="232dp"
     android:background="@color/backgroundColor"
     android:orientation="vertical"
     tools:ignore="MissingPrefix">
@@ -45,6 +46,7 @@
 
             <LinearLayout
                 android:id="@+id/pinContainerLl"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
@@ -63,18 +65,16 @@
                     <TextView
                         android:id="@+id/pinHeaderTv"
                         style="@style/text.header4"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         nstack:text="@string/nstack_settings_pinHeader" />
 
                     <TextView
                         android:id="@+id/pinSubHeaderTv"
                         style="@style/text.subHeader5.quaternary"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         nstack:text="@string/nstack_settings_pinSubHeader" />
 
                 </LinearLayout>
@@ -89,7 +89,7 @@
 
             </LinearLayout>
 
-
+            <!--
             <View
                 android:id="@+id/rowDivider"
                 android:layout_width="match_parent"
@@ -147,13 +147,15 @@
                     android:trackTint="@drawable/switch_track" />
 
             </LinearLayout>
+            -->
 
+            <!--
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_gravity="top"
                 android:background="@color/dividerColor" />
-
+            -->
 
         </LinearLayout>
 
@@ -165,12 +167,12 @@
             android:background="@color/dividerColor" />
 
         <LinearLayout
-            android:id="@+id/optionalSwitchContainerLl"
+            android:id="@+id/storeboxProfileLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -232,7 +234,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/creditCardHeaderTv"

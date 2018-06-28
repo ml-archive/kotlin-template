@@ -554,4 +554,7 @@
   <string name='nstack_editFolder_deleteAlertTitle' formatted='false'>editFolder_deleteAlertTitle</string>
   <string name='nstack_editFolder_deleteAlertMessage' formatted='false'>editFolder_deleteAlertMessage</string>
   <string name='nstack_editFolder_createTitle' formatted='false'>editFolder_createTitle</string>
+  <string name='nstack_mobilepaysupport_mobilePayNotInstalledTitle' formatted='false'>mobilepaysupport_mobilePayNotInstalledTitle</string>
+  <string name='nstack_mobilepaysupport_mobilePayNotInstalledMessage' formatted='false'>mobilepaysupport_mobilePayNotInstalledMessage</string>
+  <string name='nstack_mobilepaysupport_installMobilePayBtn' formatted='false'>mobilepaysupport_installMobilePayBtn</string>
 </resources>

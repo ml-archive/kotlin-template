@@ -1,8 +1,11 @@
 package dk.eboks.app.presentation.ui.components.channels.settings
 
 import android.arch.lifecycle.Lifecycle
+import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
+import dk.eboks.app.domain.interactors.channel.UninstallChannelInteractor
 import dk.eboks.app.domain.interactors.storebox.*
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.ChannelFlags
 import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
 import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
@@ -23,8 +26,10 @@ class ChannelSettingsComponentPresenter @Inject constructor(
         private val putStoreboxProfileInteractor: PutStoreboxProfileInteractor,
         private val getStoreboxCardLinkInteractor: GetStoreboxCardLinkInteractor,
         private val deleteStoreboxAccountLinkInteractor: DeleteStoreboxAccountLinkInteractor,
-        private val updateStoreboxFlagsInteractor: UpdateStoreboxFlagsInteractor
-) : ChannelSettingsComponentContract.Presenter,
+        private val updateStoreboxFlagsInteractor: UpdateStoreboxFlagsInteractor,
+        private val getChannelInteractor: GetChannelInteractor,
+        private val uninstallChannelInteractor: UninstallChannelInteractor
+        ) : ChannelSettingsComponentContract.Presenter,
     BasePresenterImpl<ChannelSettingsComponentContract.View>(),
     DeleteStoreboxCreditCardInteractor.Output,
     GetStoreboxCreditCardsInteractor.Output,
@@ -32,8 +37,12 @@ class ChannelSettingsComponentPresenter @Inject constructor(
     PutStoreboxProfileInteractor.Output,
     GetStoreboxCardLinkInteractor.Output,
     DeleteStoreboxAccountLinkInteractor.Output,
-    UpdateStoreboxFlagsInteractor.Output
+    UpdateStoreboxFlagsInteractor.Output,
+    GetChannelInteractor.Output,
+    UninstallChannelInteractor.Output
 {
+
+    override var currentChannel: Channel? = null
 
     init {
         getStoreboxProfileInteractor.output = this
@@ -44,11 +53,12 @@ class ChannelSettingsComponentPresenter @Inject constructor(
         getStoreboxCardLinkInteractor.output = this
         deleteStoreboxAccountLinkInteractor.output = this
         updateStoreboxFlagsInteractor.output = this
+        getChannelInteractor.output = this
+        uninstallChannelInteractor.output = this
     }
 
-    override fun onViewCreated(view: ChannelSettingsComponentContract.View, lifecycle: Lifecycle) {
-        super.onViewCreated(view, lifecycle)
-        getCreditCards()
+    override fun setup(channelId: Int) {
+        refreshChannel(channelId)
     }
 
     override fun getCreditCards() {
@@ -79,17 +89,31 @@ class ChannelSettingsComponentPresenter @Inject constructor(
         deleteStoreboxAccountLinkInteractor.run()
     }
 
-    override fun updateChannelFlags(flags: ChannelFlags) {
-        updateStoreboxFlagsInteractor.input = UpdateStoreboxFlagsInteractor.Input(flags)
+    override fun updateChannelFlags(channel : Channel, flags: ChannelFlags) {
+        updateStoreboxFlagsInteractor.input = UpdateStoreboxFlagsInteractor.Input(channel.id, flags)
         updateStoreboxFlagsInteractor.run()
     }
 
+    override fun removeChannel() {
+        runAction { it.showProgress(true) }
+        currentChannel?.let {
+            uninstallChannelInteractor.input = UninstallChannelInteractor.Input(it.id)
+            uninstallChannelInteractor.run()
+        }
+    }
+
+    private fun refreshChannel(channelId: Int)
+    {
+        getChannelInteractor.input = GetChannelInteractor.Input(channelId)
+        getChannelInteractor.run()
+    }
     /**
      * Interactor callbacks ----------------------------------------------------------------------->
      */
 
     override fun onGetCardsSuccessful(result: MutableList<StoreboxCreditCard>) {
         runAction {
+            it.showProgress(false)
             it.setCreditCards(result)
         }
     }
@@ -113,19 +137,31 @@ class ChannelSettingsComponentPresenter @Inject constructor(
     }
 
     override fun onGetProfile(result: StoreboxProfile) {
-        runAction { v -> v.setOnlyDigitalReceipts(result.greenProfile) }
+        runAction { v ->
+            v.setOnlyDigitalReceipts(result.greenProfile)
+        }
+        getCreditCards()
     }
 
     override fun onGetProfileError(error: ViewError) {
-        runAction { v -> v.showErrorDialog(error) }
+        runAction { v ->
+            v.showProgress(false)
+            v.showErrorDialog(error)
+        }
     }
 
     override fun onPutProfile() {
         Timber.d("Storebox profile saved")
+        runAction { v ->
+            v.showProgress(false)
+        }
     }
 
     override fun onPutProfileError(error: ViewError) {
-        runAction { v -> v.showErrorDialog(error) }
+        runAction { v ->
+            v.showProgress(false)
+            v.showErrorDialog(error)
+        }
     }
 
     override fun onGetStoreboxCardLink(result: Link) {
@@ -162,6 +198,42 @@ class ChannelSettingsComponentPresenter @Inject constructor(
 
     override fun onUpdateFlagsError(error: ViewError) {
         runAction { v ->
+            v.showErrorDialog(error)
+        }
+    }
+
+    /**
+     * GetChannelInteractor callbacks
+     */
+
+    override fun onGetChannel(channel: Channel) {
+        currentChannel = channel
+        runAction { v->
+            v.setupChannel(channel)
+        }
+    }
+
+    override fun onGetChannelError(error: ViewError) {
+        runAction { v ->
+            v.showErrorDialog(error)
+        }
+    }
+
+    /**
+     * UninstallChannelInteractor callbacks
+     */
+
+    override fun onUninstallChannel() {
+        runAction { v ->
+            v.showProgress(false)
+            v.broadcastCloseChannel()
+            v.closeView()
+        }
+    }
+
+    override fun onUninstallChannelError(error: ViewError) {
+        runAction { v ->
+            v.showProgress(false)
             v.showErrorDialog(error)
         }
     }

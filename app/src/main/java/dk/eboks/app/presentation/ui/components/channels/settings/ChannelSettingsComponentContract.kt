@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.channels.settings
 
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.ChannelFlags
 import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
 import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
@@ -12,6 +13,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface ChannelSettingsComponentContract {
     interface View : BaseView {
+        fun setupChannel(channel: Channel)
         fun setCreditCards(cards: MutableList<StoreboxCreditCard>)
         fun showProgress(boolean: Boolean)
         fun showEmptyView(boolean: Boolean)
@@ -22,12 +24,15 @@ interface ChannelSettingsComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
+        var currentChannel: Channel?
+        fun setup(channelId : Int)
         fun getCreditCards()
         fun deleteCreditCard(id: String)
         fun getStoreboxProfile()
         fun saveStoreboxProfile(profile : StoreboxProfile)
         fun getStoreboxCardLink()
         fun deleteStoreboxAccountLink()
-        fun updateChannelFlags(flags : ChannelFlags)
+        fun updateChannelFlags(channel : Channel, flags : ChannelFlags)
+        fun removeChannel()
     }
 }

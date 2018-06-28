@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.components.channels.opening
 
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
+import dk.eboks.app.domain.interactors.channel.InstallChannelInteractor
 import dk.eboks.app.domain.interactors.storebox.CreateStoreboxInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.APIConstants
@@ -16,11 +17,16 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStateManager, val getChannelInteractor: GetChannelInteractor, val createStoreboxInteractor: CreateStoreboxInteractor) :
+class ChannelOpeningComponentPresenter @Inject constructor(
+        val appState: AppStateManager,
+        val getChannelInteractor: GetChannelInteractor,
+        val createStoreboxInteractor: CreateStoreboxInteractor,
+        val installChannelInteractor: InstallChannelInteractor) :
         ChannelOpeningComponentContract.Presenter,
         BasePresenterImpl<ChannelOpeningComponentContract.View>(),
         GetChannelInteractor.Output,
-        CreateStoreboxInteractor.Output
+        CreateStoreboxInteractor.Output,
+        InstallChannelInteractor.Output
 {
     var channelId : Int = 0
     var channel: Channel? = null
@@ -28,6 +34,7 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
     init {
         getChannelInteractor.output = this
         createStoreboxInteractor.output = this
+        installChannelInteractor.output = this
     }
 
     override fun setup(channelId: Int) {
@@ -55,7 +62,9 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
             {
                 when (channel.getType()) {
                     "channel" -> {
-                        // TODO not implemented
+                        installChannelInteractor.input = InstallChannelInteractor.Input(channel.id)
+                        runAction { v -> v.showProgress(true) }
+                        installChannelInteractor.run()
                     }
                     "storebox" -> {
                         createStoreboxInteractor.run()
@@ -93,12 +102,6 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
         Timber.e("got the channel object: $channel")
 
         this.channel = channel
-
-        // TODO Forces all requirements to be met and the channel be installed. Remove me
-        channel.requirements?.forEach { req ->
-            req.verified = true
-        }
-        //channel.installed = true
 
         // if channel is already installed we just open it
         if (channel.installed) {
@@ -159,5 +162,20 @@ class ChannelOpeningComponentPresenter @Inject constructor(val appState: AppStat
 
     override fun onStoreboxAccountExists() {
         runAction { v->v.showStoreboxUserAlreadyExists() }
+    }
+
+    /**
+     * InstallChannelInteractor callbacks
+     */
+    override fun onInstallChannel() {
+        runAction { v -> v.showProgress(false) }
+        channel?.let { open(it) }
+    }
+
+    override fun onInstallChannelError(error: ViewError) {
+        runAction { v ->
+            v.showProgress(false)
+            v.showErrorDialog(error)
+        }
     }
 }

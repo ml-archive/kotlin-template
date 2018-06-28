@@ -43,12 +43,24 @@ class ChannelsRestRepository(val context: Context, val api: Api, val gson: Gson,
         })
     }
 
-    override fun getChannels(cached: Boolean): List<Channel> {
+    // TODO reenable caching here, this is a bit tricky because the cache should optimally be invalidated
+    // per record for each channel when a change happen in a sub view. This brute forces a reload pending
+    // a better solution, since the app will only ship with two channels anyway
+    override fun getChannels(cached: Boolean): MutableList<Channel> {
+        /*
         val res = if(cached) channelStore.get("main") else channelStore.fetch("main")
         if(res != null)
             return res
         else
             return ArrayList()
+            */
+        val response = api.getChannels().execute()
+        var result : MutableList<Channel>? = null
+        response?.let {
+            if(it.isSuccessful)
+                it.body()?.let { return it }
+        }
+        return ArrayList()
     }
 
     override fun getPinnedChannels(cached: Boolean): MutableList<Channel> {

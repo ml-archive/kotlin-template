@@ -333,6 +333,22 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideInstallChannelInteractor(
+            executor: Executor,
+            api: Api
+    ): InstallChannelInteractor {
+        return InstallChannelInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun provideUninstallChannelInteractor(
+            executor: Executor,
+            api: Api
+    ): UninstallChannelInteractor {
+        return UninstallChannelInteractorImpl(executor, api)
+    }
+
+    @Provides
     fun provideGetChannelHomeContentInteractor(
             executor: Executor,
             channelsRepository: ChannelsRepository
@@ -343,10 +359,10 @@ class InteractorModule {
     @Provides
     fun provideGetChannelContentLinkInteractor(
             executor: Executor,
-            api: Api,
+            httpClient: OkHttpClient,
             appStateManager: AppStateManager
     ): GetChannelContentLinkInteractor {
-        return GetChannelContentLinkInteractorImpl(executor, api, appStateManager)
+        return GetChannelContentLinkInteractorImpl(executor, httpClient, appStateManager)
     }
 
     @Provides

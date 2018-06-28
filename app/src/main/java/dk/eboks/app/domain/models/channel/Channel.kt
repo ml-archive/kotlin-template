@@ -19,5 +19,6 @@ data class Channel(
         var background : ChannelColor,   // this is changed in swagger 17. april  now a string
         var requirements : Array<Requirement>? = null,  // this is removed in swagger 17. april Requirement  changed
         var installed : Boolean,
-        var pinned : Boolean?
+        var pinned : Boolean?,
+        var supportPinned : Boolean? = null
 ) : Serializable

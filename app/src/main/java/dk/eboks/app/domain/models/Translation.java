@@ -641,4 +641,9 @@ public class Translation {
 		public static String deleteAlertMessage = "Are you sure?";
 		public static String createTitle = "Add Folder";
 	}
+	public final static class mobilepaysupport {
+		public static String mobilePayNotInstalledTitle = "Mobilepay not installed";
+		public static String mobilePayNotInstalledMessage = "This service requires you to install the mobilepay app on the device";
+		public static String installMobilePayBtn = "Install Mobilepay";
+	}
 }

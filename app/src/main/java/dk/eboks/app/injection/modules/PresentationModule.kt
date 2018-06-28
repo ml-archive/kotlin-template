@@ -5,10 +5,7 @@ import dagger.Provides
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.authentication.*
-import dk.eboks.app.domain.interactors.channel.GetChannelContentLinkInteractor
-import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
-import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
-import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
+import dk.eboks.app.domain.interactors.channel.*
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
@@ -575,9 +572,10 @@ class PresentationModule {
     fun provideChannelOpeningComponentPresenter(
             stateManager: AppStateManager,
             getChannelInteractor: GetChannelInteractor,
-            createStoreboxInteractor: CreateStoreboxInteractor
+            createStoreboxInteractor: CreateStoreboxInteractor,
+            installChannelInteractor: InstallChannelInteractor
     ): ChannelOpeningComponentContract.Presenter {
-        return ChannelOpeningComponentPresenter(stateManager, getChannelInteractor, createStoreboxInteractor)
+        return ChannelOpeningComponentPresenter(stateManager, getChannelInteractor, createStoreboxInteractor, installChannelInteractor)
     }
 
     @ActivityScope
@@ -630,7 +628,9 @@ class PresentationModule {
             putStoreboxProfileInteractor: PutStoreboxProfileInteractor,
             getStoreboxCardLinkInteractor: GetStoreboxCardLinkInteractor,
             deleteStoreboxAccountLinkInteractor: DeleteStoreboxAccountLinkInteractor,
-            updateStoreboxFlagsInteractor: UpdateStoreboxFlagsInteractor
+            updateStoreboxFlagsInteractor: UpdateStoreboxFlagsInteractor,
+            getChannelInteractor: GetChannelInteractor,
+            uninstallChannelInteractor: UninstallChannelInteractor
     ): ChannelSettingsComponentContract.Presenter {
         return ChannelSettingsComponentPresenter(
                 stateManager,
@@ -640,7 +640,10 @@ class PresentationModule {
                 putStoreboxProfileInteractor,
                 getStoreboxCardLinkInteractor,
                 deleteStoreboxAccountLinkInteractor,
-                updateStoreboxFlagsInteractor)
+                updateStoreboxFlagsInteractor,
+                getChannelInteractor,
+                uninstallChannelInteractor
+        )
     }
 
     @ActivityScope

@@ -164,9 +164,12 @@ fun Channel.getType(): String {
     if (this.id > 0 && this.id < 4) {
         return "storebox"
     }
+    // TODO figure out ids and reenable ekey support later
+    /*
     if (this.id > 100 && this.id < 104) {
         return "ekey"
     }
+    */
     return "channel"
 }
 

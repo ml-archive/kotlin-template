@@ -17,6 +17,7 @@ class ChannelContentComponentPresenter @Inject constructor(val appState: AppStat
         BasePresenterImpl<ChannelContentComponentContract.View>(),
         GetChannelContentLinkInteractor.Output
 {
+    override var currentChannel: Channel? = null
 
     init {
         getChannelContentLinkInteractor.output = this
@@ -24,13 +25,14 @@ class ChannelContentComponentPresenter @Inject constructor(val appState: AppStat
 
 
     override fun setup(channel : Channel) {
+        currentChannel = channel
         runAction { v->v.showChannel(channel) }
         getChannelContentLinkInteractor.input = GetChannelContentLinkInteractor.Input(channelId = channel.id)
         getChannelContentLinkInteractor.run()
     }
 
-    override fun onGetChannelContentLink(link: Link) {
-        runAction { v->v.openChannelLink(link) }
+    override fun onGetChannelContentLink(content: String) {
+        runAction { v->v.openChannelContent(content) }
     }
 
     override fun onGetChannelContentLinkError(error: ViewError) {
