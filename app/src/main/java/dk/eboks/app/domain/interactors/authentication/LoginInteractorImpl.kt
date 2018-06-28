@@ -79,17 +79,24 @@ class LoginInteractorImpl(
                 }
                 catch (e : AuthException)
                 {
-                    e.printStackTrace()
+                    Timber.e("AuthException = ${e.httpCode} ${e.errorDescription}")
                     if(e.httpCode == 400)
                     {
                         runOnUIThread {
-                            output?.onLoginActivationCodeRequired()
+                            when {
+                                e.errorDescription.contentEquals("User verification error") -> output?.onLoginDenied(ViewError(
+                                        title = Translation.logoncredentials.invalidCredentialsTitle,
+                                        message = Translation.logoncredentials.invalidCredentialsMessage,
+                                        shouldCloseView = false))
+                                e.errorDescription.contentEquals("Activation code is required") -> output?.onLoginActivationCodeRequired()
+                                else -> output?.onLoginDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = false))
+                            }
                         }
                     }
                     else
                     {
                         runOnUIThread {
-                            output?.onLoginDenied(ViewError(title = Translation.error.genericTitle, message = Translation.logoncredentials.invalidPassword, shouldCloseView = true)) // TODO better error
+                            output?.onLoginDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true))
                         }
                     }
                 }

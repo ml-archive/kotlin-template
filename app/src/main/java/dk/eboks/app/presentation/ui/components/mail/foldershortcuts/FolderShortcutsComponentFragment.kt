@@ -33,6 +33,7 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+
     }
 
     override fun showFolders(folders: List<Folder>) {

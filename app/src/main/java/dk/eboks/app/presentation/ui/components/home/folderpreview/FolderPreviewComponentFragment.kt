@@ -16,6 +16,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity
 import dk.eboks.app.presentation.ui.screens.home.HomeActivity
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
@@ -93,7 +94,8 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
                 emptyStateHeaderTv.text = Translation.home.messagesUnverifiedTitle
                 emptyStateTextTv.text = Translation.home.messagesUnverifiedMessage
                 emptyStateBtn.setOnClickListener {
-                    startActivity(Intent(context, ChannelOverviewActivity::class.java))
+                    HomeActivity.refreshOnResume = true
+                    getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
                 }
             }
         }
@@ -161,11 +163,6 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
 
     override fun showProgress(show: Boolean) {
         progressFl.visibility = if(show) View.VISIBLE else View.GONE
-    }
-
-    override fun onShake() {
-        val show = emptyStateLl.visibility != View.VISIBLE
-        showEmptyState(show, presenter.isVerified)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

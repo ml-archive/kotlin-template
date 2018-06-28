@@ -160,7 +160,22 @@ class AuthClientImpl : AuthClient {
         }
         else
         {
-            throw(AuthException(result.code()))
+            result.body()?.string()?.let { json ->
+                var jsonObj : JSONObject? = null
+                try {
+                    jsonObj = JSONObject(json)
+                }
+                catch (t : Throwable)
+                {
+                    Timber.e(t)
+                    throw(AuthException(result.code(), ""))
+                }
+
+                //Timber.e("Parsed json obj ${jsonObj?.toString(4)} errorDescription = ${jsonObj?.getString("error_description")}")
+
+                throw(AuthException(result.code(), jsonObj?.getString("error_description") ?: ""))
+            }
+
         }
         return null
     }

@@ -3,7 +3,7 @@ package dk.eboks.app.domain.managers
 import dk.eboks.app.domain.models.login.AccessToken
 import org.json.JSONObject
 
-class AuthException(var httpCode : Int = -1) : RuntimeException("AuthException")
+class AuthException(var httpCode : Int = -1, var errorDescription : String) : RuntimeException("AuthException")
 
 interface AuthClient {
     fun transformKspToken(kspToken : String, oauthToken : String? = null) : AccessToken?

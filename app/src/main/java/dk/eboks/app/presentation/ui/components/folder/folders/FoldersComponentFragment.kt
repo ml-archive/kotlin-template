@@ -60,6 +60,11 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
 
+        if(!BuildConfig.ENABLE_FOLDERS_ACTIONS)
+        {
+            addFolderBtn.visibility = View.GONE
+        }
+
         if (activity.intent.getBooleanExtra("pick", false)) {
             mode = FolderMode.SELECT
         }

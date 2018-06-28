@@ -41,6 +41,9 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         updateTranslation()
     }
 
+    companion object {
+        var refreshOnResume = false
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +74,17 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     override fun onResume() {
         super.onResume()
         EventBus.getDefault().register(this)
+        if(refreshOnResume)
+        {
+            refreshOnResume = false
+            mainHandler.postDelayed({
+                // fire event to signal ChannelControlComponent and FolderPreviewComponent to refresh
+                doneRefreshingChannelControls = false
+                doneRefreshingFolderPreview = false
+                EventBus.getDefault().post(RefreshFolderPreviewEvent())
+                EventBus.getDefault().post(RefreshChannelControlEvent())
+            }, 200)
+        }
     }
 
     override fun onPause() {

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
@@ -41,8 +42,11 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         setupRecyclerView()
 
         sendersShowAllTv.setOnClickListener {
-
             startActivity(Intent(context, SenderAllListActivity::class.java))
+        }
+        if(!BuildConfig.ENABLE_SENDERS)
+        {
+            addMoreSendersBtn.visibility = View.GONE
         }
     }
 

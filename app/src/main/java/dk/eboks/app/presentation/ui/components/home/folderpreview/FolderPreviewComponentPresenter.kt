@@ -19,7 +19,7 @@ class FolderPreviewComponentPresenter @Inject constructor(val appState: AppState
         GetMessagesInteractor.Output
 {
 
-    override val isVerified = appState.state?.currentUser?.verified ?: false
+    //override val isVerified = appState.state?.currentUser?.verified ?: false
     var currentFolder: Folder? = null
 
     init {
@@ -43,7 +43,7 @@ class FolderPreviewComponentPresenter @Inject constructor(val appState: AppState
         runAction { v->
             EventBus.getDefault().post(RefreshFolderPreviewDoneEvent())
             v.showProgress(false)
-            v.showFolder(messages, isVerified)
+            v.showFolder(messages, appState.state?.currentUser?.verified ?: false)
         }
     }
 
