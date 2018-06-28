@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.login
 
+import android.app.Activity
 import android.os.Bundle
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
@@ -20,6 +21,9 @@ class PopupLoginActivity : BaseActivity(), PopupLoginContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_popup_login)
+
+        // set result cancelled by default so we only have to change it on positive outcomes in the views
+        setResult(Activity.RESULT_CANCELED)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         supportFragmentManager.addOnBackStackChangedListener {

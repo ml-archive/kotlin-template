@@ -15,7 +15,7 @@ interface WebLoginContract {
         fun close()
         fun proceed()
         fun showMergeAcountDrawer()
-        fun finishActivity()
+        fun finishActivity(resultCode : Int? = null)
     }
 
     interface Presenter : BasePresenter<View> {

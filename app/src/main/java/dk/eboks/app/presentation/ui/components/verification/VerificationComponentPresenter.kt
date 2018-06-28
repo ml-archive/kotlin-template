@@ -19,9 +19,14 @@ class VerificationComponentPresenter @Inject constructor(val appState: AppStateM
     init {
     }
 
-    override fun setupVerificationState() {
+    override fun setupVerificationState(signupVerification : Boolean) {
         Config.getVerificationProviderId()?.let { provider_id ->
-            appState.state?.verificationState = VerificationState(provider_id, appState.state?.currentUser, "", appState.state?.loginState?.token?.access_token)
+            appState.state?.verificationState = VerificationState(
+                    loginProviderId = provider_id,
+                    userBeingVerified = appState.state?.currentUser,
+                    kspToken = "",
+                    oldAccessToken = appState.state?.loginState?.token?.access_token,
+                    signupVerification = signupVerification)
         }
     }
 }

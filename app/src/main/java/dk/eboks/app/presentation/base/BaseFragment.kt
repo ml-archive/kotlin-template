@@ -17,6 +17,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.util.ShakeDetector
+import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.*
 import timber.log.Timber
 
@@ -154,8 +155,11 @@ abstract class BaseFragment : Fragment(), BaseView {
         }
     }
 
-    fun finishActivity()
+    fun finishActivity(resultCode : Int? = null)
     {
+        resultCode?.let { code->
+            activity.setResult(code)
+        }
         activity.finish()
     }
 }

@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.verification
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +12,8 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
 import dk.eboks.app.presentation.ui.screens.login.PopupLoginActivity
-import dk.eboks.app.util.Starter
 import kotlinx.android.synthetic.main.fragment_verification_component.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -22,6 +23,13 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
 
     @Inject
     lateinit var presenter : VerificationComponentContract.Presenter
+
+    var signupVerification = false
+
+    companion object {
+        var verificationSucceeded = false
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_verification_component, container, false)
@@ -35,6 +43,8 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
         cancelTv.setOnClickListener {
             (activity as SheetComponentActivity).onBackPressed()
         }
+
+        signupVerification = arguments?.getBoolean("signupVerification", false) ?: false
 
         when (Config.getCurrentConfigName()){
             "danish" ->{
@@ -62,10 +72,28 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
 
         verifyBtn.setOnClickListener {
             // start popuploginactivity for result
-            presenter.setupVerificationState()
+            presenter.setupVerificationState(signupVerification)
             val intent = Intent(context, PopupLoginActivity::class.java).putExtra("verifyLoginProviderId", Config.getVerificationProviderId())
             startActivityForResult(intent, PopupLoginActivity.REQUEST_VERIFICATION)
         }
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == PopupLoginActivity.REQUEST_VERIFICATION)
+        {
+            if(resultCode == Activity.RESULT_OK)
+            {
+                Timber.e("Got result ok from login provider, closing drawer")
+                verificationSucceeded = true
+                finishActivity()
+            }
+            else
+            {
+                verificationSucceeded = false
+                Timber.e("Got result cancel from login provider, doing nothing")
+            }
+        }
     }
 }

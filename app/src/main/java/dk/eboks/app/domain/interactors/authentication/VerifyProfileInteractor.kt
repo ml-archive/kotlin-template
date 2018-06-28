@@ -19,7 +19,7 @@ interface VerifyProfileInteractor : Interactor {
     data class Input(val verificationState: VerificationState)
 
     interface Output {
-        fun onVerificationSuccess()
+        fun onVerificationSuccess(newIdentity : String?)
         fun onAlreadyVerifiedProfile()
         fun onVerificationError(error: ViewError)
     }

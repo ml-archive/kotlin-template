@@ -496,6 +496,11 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideSetCurrentUserInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, userSettingsManager: UserSettingsManager): SetCurrentUserInteractor {
+        return SetCurrentUserInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager)
+    }
+
+    @Provides
     fun provideResetPasswordInteractor(executor: Executor, api: Api): ResetPasswordInteractor {
         return ResetPasswordInteractorImpl(executor, api)
     }

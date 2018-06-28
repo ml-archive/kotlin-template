@@ -33,7 +33,8 @@ class LoginInteractorImpl(
                             username = args.loginState.userName ?: "",
                             password = args.loginState.userPassWord ?: "",
                             activationCode = args.loginState.activationCode,
-                            longClient = useLongToken
+                            longClient = useLongToken,
+                            bearerToken = args.bearerToken
                     )
 
                     token?.let { t ->

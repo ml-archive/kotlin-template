@@ -27,7 +27,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 48
+        versionCode 49
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -36,11 +36,6 @@ android {
                 appId : translation.appId,
                 apiKey: translation.apiKey
         ]
-
-        //buildConfigField "String", "TEST_API_URL", "\"http://test401-mobile-api-dk.internal.e-boks.com/2/\""
-        //buildConfigField "String", "TEST_OAUTH_URL", "\"http://test401-oauth-dk.internal.e-boks.com/1/connect/token\""
-        //buildConfigField "String", "DEMO_API_URL", "\"https://demo-mobile-api-dk.internal.e-boks.com/2/\""
-        //buildConfigField "String", "DEMO_OAUTH_URL", "\"https://demo-oauth-dk.internal.e-boks.com/1/connect/token\""
 
         buildConfigField "Long", "INPUT_VALIDATION_DELAY", "1800L"
 

@@ -12,7 +12,7 @@ interface LoginInteractor : Interactor {
     var input: Input?
     var output: Output?
 
-    data class Input(val loginState: LoginState)
+    data class Input(val loginState: LoginState, val bearerToken : String? = null)
 
     interface Output {
         /** All good! */

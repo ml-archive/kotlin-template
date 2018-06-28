@@ -123,7 +123,7 @@ class AuthClientImpl : AuthClient {
     }
 
     // Throws AuthException with http error code on other values than 200 okay
-    override fun login(username : String, password : String, activationCode : String?, longClient: Boolean) : AccessToken? {
+    override fun login(username : String, password : String, activationCode : String?, longClient: Boolean, bearerToken : String?) : AccessToken? {
         val keys = getKeys(false, longClient)
 
         val formBody = FormBody.Builder()
@@ -138,10 +138,15 @@ class AuthClientImpl : AuthClient {
             formBody.add("acr_values", "activationcode:$it nationality:DK")
         }
 
-        val request = Request.Builder()
+        val requestBuilder = Request.Builder()
                 .url(Config.getAuthUrl())
                 .post(formBody.build())
-                .build()
+
+        bearerToken?.let { token->
+            requestBuilder.addHeader("Authorization", "Bearer $token")
+        }
+
+        val request = requestBuilder.build()
 
         val result = httpClient.newCall(request).execute()
 

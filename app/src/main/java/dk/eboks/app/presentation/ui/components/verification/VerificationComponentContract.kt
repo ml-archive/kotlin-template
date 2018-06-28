@@ -12,6 +12,6 @@ interface VerificationComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setupVerificationState()
+        fun setupVerificationState(signupVerification : Boolean = false)
     }
 }

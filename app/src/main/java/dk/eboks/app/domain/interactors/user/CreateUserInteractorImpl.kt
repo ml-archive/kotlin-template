@@ -24,7 +24,7 @@ class CreateUserInteractorImpl(executor: Executor, val userManager: UserManager,
                     //todo find which of the missing fields should be included
                     val body = JsonObject()
                     body.addProperty("name", user.name)
-                    body.addProperty("identity", user.getPrimaryEmail())
+                    body.addProperty("identity", user.identity)
                     body.addProperty("password", password)
                     body.addProperty("identityType", "P")
                     body.addProperty("nationality", "DK")

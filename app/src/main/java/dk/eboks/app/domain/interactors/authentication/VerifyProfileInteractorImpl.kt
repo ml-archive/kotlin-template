@@ -36,8 +36,23 @@ class VerifyProfileInteractorImpl(
 
                     val jwtJson = authClient.decodeJWTBody(token.access_token)
 
+                    // if this verification during signup, we don't need to check for migration since the account isn't
+                    // yet created. Hence there is no source account to migrate from yo
+                    var newIdentity : String? = null
+                    if(verificationState.signupVerification)
+                    {
+                        Timber.e("Doing signup verification for the lord")
+                        if(jwtJson.has("sub"))
+                        {
+                            val arr = jwtJson.getString("sub").split("-").toTypedArray()
+                            newIdentity = arr[1]
+                            Timber.e("Got identity in JWT = $newIdentity")
+
+                        }
+                    }
+
                     // do we need to do the whole migration dance?
-                    if(jwtJson.has("allow-migrate-user"))
+                    if(jwtJson.has("allow-migrate-user") && !verificationState.signupVerification)
                     {
                         verificationState.allowMigrateUserId = jwtJson.getString("allow-migrate-user")
                         Timber.e("Token has allow-migrate-user id = ${verificationState.allowMigrateUserId}")
@@ -47,35 +62,31 @@ class VerifyProfileInteractorImpl(
                     }
                     else // narp
                     {
-                        //authClient.impersonate(token.access_token)
-                        val userResult = api.getUserProfile().execute()
-                        userResult?.body()?.let { user->
-                            // update the states
-                            Timber.e("Saving user $user")
-                            val newUser = userManager.put(user)
-                            val newSettings = userSettingsManager.get(newUser.id)
+                        // if this is during signup there is no user before create user is called, only a ksp ticket, hence get profile will fail
+                        if(!verificationState.signupVerification) {
+                            val userResult = api.getUserProfile().execute()
+                            userResult?.body()?.let { user ->
+                                // update the states
+                                Timber.e("Saving user $user")
+                                val newUser = userManager.put(user)
+                                val newSettings = userSettingsManager.get(newUser.id)
 
-                            appStateManager.state?.loginState?.userLoginProviderId?.let {
-                                newSettings.lastLoginProviderId = "cpr"
+                                appStateManager.state?.loginState?.userLoginProviderId?.let {
+                                    newSettings.lastLoginProviderId = "cpr"
+                                }
+
+                                cacheManager.clearStores()
+
+                                userSettingsManager.put(newSettings)
+                                appStateManager.state?.loginState?.lastUser = newUser
+                                appStateManager.state?.currentUser = newUser
+                                appStateManager.state?.currentSettings = newSettings
+                                appStateManager.state?.verificationState = null // verification done
                             }
-
-                            cacheManager.clearStores()
-
-                            /*
-                            appStateManager.state?.loginState?.activationCode?.let {
-                                newSettings.activationCode = it
-                            }
-                            */
-
-                            userSettingsManager.put(newSettings)
-                            appStateManager.state?.loginState?.lastUser = newUser
-                            appStateManager.state?.currentUser = newUser
-                            appStateManager.state?.currentSettings = newSettings
-                            appStateManager.state?.verificationState = null // verification done
+                            appStateManager.save()
                         }
-                        appStateManager.save()
                         runOnUIThread {
-                            output?.onVerificationSuccess()
+                            output?.onVerificationSuccess(newIdentity)
                         }
                     }
                 }.guard {

@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.components.start.signup
 
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
+import dk.eboks.app.domain.interactors.authentication.SetCurrentUserInteractor
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
 import dk.eboks.app.domain.interactors.user.CheckSsnExistsInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
@@ -8,6 +9,9 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.User
+import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginPresenter
+import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
+import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -20,24 +24,29 @@ class SignupComponentPresenter @Inject constructor(
         val createUserInteractor: CreateUserInteractor,
         val loginUserInteractor: LoginInteractor,
         val checkSignupMailInteractor: CheckSignupMailInteractor,
-        val checkSsnExistsInteractor: CheckSsnExistsInteractor
+        val checkSsnExistsInteractor: CheckSsnExistsInteractor,
+        val setCurrentUserInteractor: SetCurrentUserInteractor
 ) :
         SignupComponentContract.Presenter,
         BasePresenterImpl<SignupComponentContract.SignupView>(),
         CreateUserInteractor.Output,
         LoginInteractor.Output,
         CheckSsnExistsInteractor.Output,
-        CheckSignupMailInteractor.Output {
+        CheckSignupMailInteractor.Output,
+        SetCurrentUserInteractor.Output
+{
 
     init {
         createUserInteractor.output = this
         checkSignupMailInteractor.output = this
         loginUserInteractor.output = this
         checkSsnExistsInteractor.output = this
+        setCurrentUserInteractor.output = this
     }
 
     companion object {
         val tempUser: User = User()
+        val identity : String = ""
     }
 
     override fun confirmMail(email: String, name: String) {
@@ -50,6 +59,10 @@ class SignupComponentPresenter @Inject constructor(
     override fun createUser() {
         appState.state?.loginState?.userPassWord?.let {
             runAction { v->v.showProgress(true) }
+
+            WebLoginPresenter.newIdentity?.let { identity->
+                tempUser.identity = identity
+            }.guard { tempUser.identity = tempUser.getPrimaryEmail() }
             createUserInteractor.input = CreateUserInteractor.Input(tempUser, it)
             createUserInteractor.run()
         }
@@ -61,17 +74,23 @@ class SignupComponentPresenter @Inject constructor(
 
     override fun loginUser() {
         appState.state?.loginState?.let { loginState ->
+            // we have a token, this is a verified user, set cpr instead of email as last login provider
+            if(VerificationComponentFragment.verificationSucceeded)
+                loginState.userLoginProviderId = "cpr"
+            else
+                loginState.userLoginProviderId = "email"
+
             loginState.userPassWord?.let { password ->
                 loginState.userPassWord = password
-                loginState.userName = tempUser.getPrimaryEmail()
-                loginState.token = null
-                loginState.userLoginProviderId = "email"
-                loginUserInteractor.input = LoginInteractor.Input(loginState)
+
+                loginState.userName = tempUser.identity
+                loginUserInteractor.input = LoginInteractor.Input(loginState, null)
                 loginUserInteractor.run()
             }
+            VerificationComponentFragment.verificationSucceeded = false
+            WebLoginPresenter.newIdentity = null
         }
     }
-
 
     // Mina meddelan
     override fun verifySSN(ssn: String) {
@@ -116,6 +135,8 @@ class SignupComponentPresenter @Inject constructor(
      * Create user callbacks
      */
     override fun onCreateUser(user: User) {
+        //if(!VerificationComponentFragment.verificationSucceeded)
+        appState.state?.loginState?.token = null
         loginUser()
     }
 
@@ -159,6 +180,24 @@ class SignupComponentPresenter @Inject constructor(
         runAction { v ->
             v as SignupComponentContract.NameMailView
             v.showSignupMailError(error)
+        }
+    }
+
+    /**
+     * SetCurrentUserInteractor callbacks
+     */
+    override fun onSetCurrentUserSuccess() {
+        VerificationComponentFragment.verificationSucceeded = false
+        runAction { v ->
+            v as SignupComponentContract.TermsView
+            v.showSignupCompleted()
+        }
+    }
+
+    override fun onSetCurrentUserError(error: ViewError) {
+        runAction { v ->
+            v.showProgress(false)
+            v.showErrorDialog(error)
         }
     }
 }

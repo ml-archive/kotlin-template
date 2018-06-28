@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.components.start.login.providers
 
+import android.app.Activity
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.interactors.authentication.MergeAndImpersonateInteractor
 import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
@@ -36,6 +37,10 @@ open class WebLoginPresenter @Inject constructor(
         transformTokenInteractor.output = this
         verifyProfileInteractor.output = this
         mergeAndImpersonateInteractor.output = this
+    }
+
+    companion object {
+        var newIdentity: String? = null
     }
 
     override fun setup() {
@@ -118,9 +123,11 @@ open class WebLoginPresenter @Inject constructor(
     /**
      * VerifyProfileInteractor callbacks
      */
-    override fun onVerificationSuccess() {
+    override fun onVerificationSuccess(new_identity : String?) {
         Timber.e("VerificationSuccess")
-        runAction { v -> v.finishActivity() }
+        Timber.e("Got new identity back after verification: $new_identity")
+        newIdentity = new_identity
+        runAction { v -> v.finishActivity(Activity.RESULT_OK) }
     }
 
     override fun onVerificationError(error: ViewError) {
@@ -138,7 +145,7 @@ open class WebLoginPresenter @Inject constructor(
      */
 
     override fun onMergeCompleted() {
-        runAction { v -> v.finishActivity() }
+        runAction { v -> v.finishActivity(Activity.RESULT_OK) }
     }
 
     override fun onMergeError(error: ViewError) {

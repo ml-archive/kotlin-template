@@ -32,12 +32,22 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         verifyBtn.setOnClickListener {
-            getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
+            val args = Bundle()
+            args.putBoolean("signupVerification", true)
+            getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java, args)
         }
         continueWithoutVerificationBtn.setOnClickListener { onContinueClicked() }
         setupTopBar()
         // TODO I should be handled by brian translate
         continueWithoutVerificationBtn.text = Translation.signup.continueWithoutVerificationButton
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(VerificationComponentFragment.verificationSucceeded)
+        {
+            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
+        }
     }
 
     private fun setupTopBar() {

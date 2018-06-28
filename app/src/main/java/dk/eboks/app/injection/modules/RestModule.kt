@@ -11,10 +11,7 @@ import dk.eboks.app.domain.managers.*
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.AuthClientImpl
 import dk.eboks.app.network.managers.DownloadManagerImpl
-import dk.eboks.app.network.managers.protocol.ApiHostSelectionInterceptor
-import dk.eboks.app.network.managers.protocol.EAuth2
-import dk.eboks.app.network.managers.protocol.EboksHeaderInterceptor
-import dk.eboks.app.network.managers.protocol.ServerErrorInterceptor
+import dk.eboks.app.network.managers.protocol.*
 import dk.eboks.app.network.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.util.DateDeserializer
 import dk.eboks.app.network.util.ItemTypeAdapterFactory
@@ -96,6 +93,7 @@ class RestModule {
                 .readTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
                 .authenticator(eAuth2)
+                .addInterceptor(AcceptLanguageHeaderInterceptor())
                 .addInterceptor(ServerErrorInterceptor()) // parses the server error structure and throws the ServerErrorException
                 .addInterceptor(eboksHeaderInterceptor)
                 .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
