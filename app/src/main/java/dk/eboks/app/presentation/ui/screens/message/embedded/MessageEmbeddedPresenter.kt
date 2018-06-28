@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.message.embedded
 
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -19,8 +20,10 @@ class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateMan
         startViewer()
         runAction { v->
             v.addHeaderComponentFragment()
-            message?.reply?.let {
-                v.addReplyButtonComponentFragment(message!!)
+            if (BuildConfig.ENABLE_REPLY) {
+                message?.reply?.let {
+                    v.addReplyButtonComponentFragment(message!!)
+                }
             }
             v.addNotesComponentFragment()
             if(message?.attachments != null)

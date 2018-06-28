@@ -50,6 +50,7 @@ android {
         buildConfigField "Boolean", "ENABLE_CHANNEL_REORDERING", "false"
         buildConfigField "Boolean", "ENABLE_PROFILE_DATA_VERIFICATION", "true"
         buildConfigField "Boolean", "ENABLE_SHARES", "false"
+        buildConfigField "Boolean", "ENABLE_REPLY", "false"
     }
 
     signingConfigs {

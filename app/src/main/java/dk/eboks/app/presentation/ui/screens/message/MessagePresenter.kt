@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.message
 
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -15,11 +16,13 @@ class MessagePresenter @Inject constructor(val appState: AppStateManager) : Mess
     override fun setup() {
         Timber.e("Current message ${appState.state?.currentMessage}")
         message = appState.state?.currentMessage
-        runAction { v->
+        runAction { v ->
             v.addHeaderComponentFragment()
             v.addDocumentComponentFragment()
-            message?.reply?.let {
-                v.addReplyButtonComponentFragment(message!!)
+            if (BuildConfig.ENABLE_REPLY) {
+                message?.reply?.let {
+                    v.addReplyButtonComponentFragment(message!!)
+                }
             }
             v.addNotesComponentFragment()
             if(message?.attachments != null)
