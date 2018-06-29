@@ -209,6 +209,10 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         menuSave?.isEnabled = enabled
     }
 
+    override fun setNeutralFocus() {
+        focusThief.requestFocus()
+    }
+
     override fun afterTextChanged(p0: Editable?) {
         menuSave?.isEnabled = true
     }

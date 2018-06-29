@@ -19,7 +19,6 @@ import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewPresenter
 import dk.eboks.app.pasta.activity.PastaActivity
 import dk.eboks.app.pasta.activity.PastaPresenter
-import dk.eboks.app.presentation.ui.components.channels.content.*
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentFragment
@@ -33,6 +32,8 @@ import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOp
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.open.EkeyOpenItemComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.pin.EkeyPinComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.web.ChannelContentComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.web.ChannelContentComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.requirements.*
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter

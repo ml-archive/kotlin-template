@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.components.channels.requirements
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -11,17 +10,10 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.Requirement
-import dk.eboks.app.domain.models.channel.RequirementType
-import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentFragment
-import dk.eboks.app.presentation.ui.components.profile.myinfo.MyInfoComponentFragment
 import dk.eboks.app.presentation.ui.screens.profile.myinfo.MyInfoActivity
 import dk.eboks.app.util.Starter
-import dk.eboks.app.util.guard
-import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.fragment_channel_requirements_component.*
-import kotlinx.android.synthetic.main.viewholder_channel_setting_boxrow.*
 import kotlinx.android.synthetic.main.viewholder_channel_setting_boxrow.view.*
 import javax.inject.Inject
 
@@ -33,7 +25,7 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
     @Inject
     lateinit var presenter: ChannelRequirementsComponentContract.Presenter
 
-    lateinit var currentItem: Channel
+    //lateinit var currentItem: Channel
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_channel_requirements_component, container, false)
@@ -44,32 +36,36 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        updateProfileBtn.setOnClickListener {
-            activity.Starter().activity(MyInfoActivity::class.java).putExtra("channel", currentItem).start()
-            activity.finish()
-        }
+
         cancelBtn.setOnClickListener {
             getBaseActivity()?.onBackPressed()
         }
-        requirementRowsRv.layoutManager = LinearLayoutManager(context)
-        var item = arguments?.getSerializable(("channel"))
-        item?.let {
-            currentItem = item as Channel
-            currentItem?.requirements?.let {
-                requirementRowsRv.adapter = RowAdapter(it)
-            }
+
+        arguments?.getSerializable(("channel"))?.let { channel ->
+            presenter.setup(channel as Channel)
         }
-        updateTranslation()
-    }
-
-    private fun updateTranslation() {
-        headerTextTv.text = Translation.channels.drawerHeaderText.replace("[channelname]",currentItem.name)
     }
 
 
+    override fun setupView(channel: Channel) {
+        updateTranslation(channel.name)
+        updateProfileBtn.setOnClickListener {
+            activity.Starter().activity(MyInfoActivity::class.java).putExtra("channel", channel).start()
+            activity.finish()
+        }
+    }
 
-    inner class RowAdapter(requirements: Array<Requirement>) : RecyclerView.Adapter<RowAdapter.ChannelRequirementViewHolder>() {
-        val requirements: Array<Requirement> = requirements
+    override fun showUnverifiedRequirements(requirements: List<Requirement>) {
+        requirementRowsRv.layoutManager = LinearLayoutManager(context)
+        requirementRowsRv.adapter = RowAdapter(requirements)
+    }
+
+    private fun updateTranslation(channelName : String) {
+        headerTextTv.text = Translation.channels.drawerHeaderText.replace("[channelname]", channelName)
+    }
+
+    inner class RowAdapter(requirements: List<Requirement>) : RecyclerView.Adapter<RowAdapter.ChannelRequirementViewHolder>() {
+        val requirements: List<Requirement> = requirements
 
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ChannelRequirementViewHolder {
             val view = LayoutInflater.from(parent?.context).inflate(R.layout.viewholder_channel_setting_boxrow, parent, false)

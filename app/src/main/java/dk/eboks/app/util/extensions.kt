@@ -178,8 +178,10 @@ fun Channel.areAllRequirementsVerified() : Boolean
     this.requirements?.let { reqs ->
         for(req in reqs)
         {
-            if(req.verified == false)
-                return false
+            req.verified?.let {
+                if(!it)
+                    return false
+            }
         }
         return true
     }.guard { return true }

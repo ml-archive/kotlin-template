@@ -17,7 +17,7 @@ import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentFragment
+import dk.eboks.app.presentation.ui.components.channels.content.web.ChannelContentComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.content.storebox.content.ChannelContentStoreboxComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.requirements.ChannelRequirementsComponentFragment
 import dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity

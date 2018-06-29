@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.components.channels.content
+package dk.eboks.app.presentation.ui.components.channels.content.web
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -12,8 +12,6 @@ import android.widget.Toast
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
-import dk.eboks.app.domain.models.message.Content
-import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.presentation.base.BaseWebFragment
 import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import kotlinx.android.synthetic.main.fragment_base_web.*
@@ -22,7 +20,6 @@ import org.json.JSONObject
 import javax.inject.Inject
 import timber.log.Timber
 import java.net.URLEncoder
-import android.content.pm.PackageManager
 import android.support.v7.app.AlertDialog
 
 

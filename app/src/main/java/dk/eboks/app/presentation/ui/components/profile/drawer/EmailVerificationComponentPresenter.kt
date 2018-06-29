@@ -31,13 +31,11 @@ class EmailVerificationComponentPresenter @Inject constructor(
     }
 
     override fun onVerifyMail() {
-        //todo success
-        Timber.e("onUpdateProfile succesfull")
+        runAction { v->v.finishActivity(null) }
     }
 
     override fun onVerifyMailError(error: ViewError) {
-        //todo error
-        Timber.e(error.message)
+        runAction { v->v.showErrorDialog(error) }
     }
 }
 

@@ -8,7 +8,7 @@ import dk.eboks.app.presentation.base.BaseView
  */
 interface EmailVerificationComponentContract {
     interface View : BaseView {
-
+        fun finishActivity(resultCode : Int?)
     }
 
     interface Presenter : BasePresenter<View> {

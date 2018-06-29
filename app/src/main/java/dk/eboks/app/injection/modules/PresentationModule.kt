@@ -23,8 +23,8 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
-import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentContract
-import dk.eboks.app.presentation.ui.components.channels.content.ChannelContentComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.web.ChannelContentComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.web.ChannelContentComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentContract
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentContract

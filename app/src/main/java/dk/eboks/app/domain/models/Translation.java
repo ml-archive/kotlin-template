@@ -614,7 +614,7 @@ public class Translation {
 		public static String errorNoExistingProfileMessage = "We couldn\'t find an exisiting Storebox profile with this email";
 		public static String createUserButton = "Create Storebox profile";
 		public static String errorAlreadyExistsMessage = "You already have a Storebox profile with this information";
-		public static String signInButton = "Create a Storebox profile";
+		public static String signInButton = "Sign in";
 		public static String continueButton = "Continue";
 		public static String tryAgainButton = "Try again";
 	}
