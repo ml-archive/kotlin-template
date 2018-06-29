@@ -85,7 +85,7 @@
                         android:layout_gravity="right|center_vertical"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="14sp"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         nstack:key="@string/nstack_home_channelsHeaderButton" />
 
                 </FrameLayout>

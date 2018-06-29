@@ -24,7 +24,7 @@ class ChannelOverviewComponentPresenter @Inject constructor(val appState: AppSta
     }
 
     override fun setup() {
-        refresh(true)
+        //refresh(true)
     }
 
     override fun refresh(cached : Boolean)

@@ -15,7 +15,7 @@ interface LinkStoreboxInteractor: Interactor {
     data class Input(val email : String, val mobile: String)
 
     interface Output {
-        fun storeboxAccountFound(found: Boolean)
+        fun storeboxAccountFound(found : Boolean, returnCode : String?)
         fun onError(error : ViewError)
     }
 }

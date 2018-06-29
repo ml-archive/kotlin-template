@@ -59,6 +59,11 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
         presenter.setup()
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.refresh(false)
+    }
+
     override fun showProgress(show: Boolean) {
         progressFl.setVisible(show)
         refreshSrl.setVisible(!show)

@@ -448,6 +448,8 @@ public class Translation {
 		public static String messagesUnverifiedMessage = "Receive your mail digitally from private companies and public authorities.\r\nGet started by verifying your profile.";
 		public static String messagesUnverifiedButton = "Verify my profile";
 		public static String windowHeader = "Home";
+		public static String noContentText = "Intet indhold";
+		public static String errorContentFetch = "Error retrieving content";
 	}
 	public final static class systemfolders {
 		public static String inbox = "Inbox";

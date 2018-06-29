@@ -12,6 +12,7 @@ class AcceptLanguageHeaderInterceptor @Inject constructor() : okhttp3.Intercepto
     {
         val newRequest = chain.request().newBuilder()
                 .header("Accept-Language", NStack.language.toLanguageTag())
+                //.header("Accept", "*/*")
                 .build()
         return chain.proceed(newRequest)
     }

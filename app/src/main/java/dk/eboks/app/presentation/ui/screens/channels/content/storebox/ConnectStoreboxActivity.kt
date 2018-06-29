@@ -49,18 +49,22 @@ class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
         infoFrag.presenter = presenter
         conFrag.presenter = presenter
 
-        supportFragmentManager.beginTransaction()
-                .add(R.id.content, infoFrag)
+        setRootFragment(R.id.contentFragmentFl, infoFrag)
+        /*
+        fragmentManager.beginTransaction()
+                .add(R.id.contentFragmentFl, infoFrag)
                 .commit()
+                */
     }
 
     override fun showFound() {
-        Timber.i("showFound")
-        supportFragmentManager.beginTransaction().replace(R.id.content, conFrag).commit()
+        Timber.e("showFound")
+        //fragmentManager.beginTransaction().add(R.id.contentFragmentFl, conFrag).commit()
+        addFragmentOnTop(R.id.contentFragmentFl, conFrag)
     }
 
     override fun showNotFound() {
-        Timber.i("showNotFound")
+        Timber.e("showNotFound")
         AlertDialog.Builder(this)
                 .setMessage(Translation.storeboxlogin.errorNoExistingProfileMessage)
                 .setPositiveButton(Translation.storeboxlogin.createUserButton) { dialog, which ->
@@ -75,7 +79,7 @@ class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
     }
 
     override fun showWrongCode() {
-        Timber.i("showWrongCode")
+        Timber.e("showWrongCode")
         AlertDialog.Builder(this)
                 .setMessage(Translation.activationcode.invalidActivationCode)
                 .setNegativeButton(Translation.defaultSection.ok) { dialog, which ->
@@ -86,13 +90,13 @@ class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
     }
 
     override fun showSuccess() {
-        Timber.i("showSuccess")
+        Timber.e("showSuccess")
         finish()
     }
 
     override fun showProgress(show: Boolean) {
         progress.visibility = if(show) View.VISIBLE else View.GONE
-        content.visibility = if(!show) View.VISIBLE else View.GONE
+        //content.visibility = if(!show) View.VISIBLE else View.GONE
     }
 }
 

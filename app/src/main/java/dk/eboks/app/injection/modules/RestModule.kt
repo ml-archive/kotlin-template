@@ -96,7 +96,7 @@ class RestModule {
                 .addInterceptor(AcceptLanguageHeaderInterceptor())
                 .addInterceptor(ServerErrorInterceptor()) // parses the server error structure and throws the ServerErrorException
                 .addInterceptor(eboksHeaderInterceptor)
-                .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
+                //.addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
 
         if (BuildConfig.DEBUG) {
             clientBuilder.addInterceptor(ApiHostSelectionInterceptor())

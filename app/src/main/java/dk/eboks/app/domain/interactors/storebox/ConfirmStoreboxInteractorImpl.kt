@@ -19,7 +19,7 @@ class ConfirmStoreboxInteractorImpl(executor: Executor, private val api: Api ) :
             input?.let {
                 val map = mapOf(
                         Pair("id", it.id),
-                        Pair("mobile", it.code)
+                        Pair("code", it.code)
                 )
 
                 val result = api.postActivateStorebox(map).execute()
@@ -28,6 +28,7 @@ class ConfirmStoreboxInteractorImpl(executor: Executor, private val api: Api ) :
                 }
             }
         } catch (t: Throwable) {
+            t.printStackTrace()
             runOnUIThread {
                 output?.onError(exceptionToViewError(t))
             }

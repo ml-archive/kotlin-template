@@ -394,6 +394,8 @@
   <string name='nstack_home_messagesUnverifiedMessage' formatted='false'>home_messagesUnverifiedMessage</string>
   <string name='nstack_home_messagesUnverifiedButton' formatted='false'>home_messagesUnverifiedButton</string>
   <string name='nstack_home_windowHeader' formatted='false'>home_windowHeader</string>
+  <string name='nstack_home_noContentText' formatted='false'>home_noContentText</string>
+  <string name='nstack_home_errorContentFetch' formatted='false'>home_errorContentFetch</string>
   <string name='nstack_systemfolders_inbox' formatted='false'>systemfolders_inbox</string>
   <string name='nstack_systemfolders_highlights' formatted='false'>systemfolders_highlights</string>
   <string name='nstack_channelsettings_pinTitle' formatted='false'>channelsettings_pinTitle</string>

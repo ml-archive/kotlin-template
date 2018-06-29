@@ -22,6 +22,8 @@ class ConnectStoreboxPresenter(val appStateManager: AppStateManager,
         ConfirmStoreboxInteractor.Output,
         CreateStoreboxInteractor.Output
 {
+    var returnCode: String? = null
+
 
     init {
         linkStoreboxInteractor.output = this
@@ -40,9 +42,12 @@ class ConnectStoreboxPresenter(val appStateManager: AppStateManager,
 
     override fun confirm(code: String) {
         runAction { v->v.showProgress(true) }
-        Timber.d("confirm: $code")
-        confirmStoreboxInteractor.input = ConfirmStoreboxInteractor.Input("id", code) // TODO: what's id???
-        confirmStoreboxInteractor.run()
+        Timber.d("id: $returnCode code: $code")
+        returnCode?.let {
+            confirmStoreboxInteractor.input = ConfirmStoreboxInteractor.Input(it, code)
+            confirmStoreboxInteractor.run()
+        }
+
     }
 
     override fun createStoreboxUser() {
@@ -53,8 +58,9 @@ class ConnectStoreboxPresenter(val appStateManager: AppStateManager,
      * Interactor callbacks ------------------------------------------------------------------------
      */
 
-    override fun storeboxAccountFound(found: Boolean) {
+    override fun storeboxAccountFound(found: Boolean, returnCode : String?) {
         Timber.d("storeboxAccountFound: $found")
+        this.returnCode = returnCode
         runAction { v ->
             v.showProgress(false)
             if(found) {
@@ -87,6 +93,7 @@ class ConnectStoreboxPresenter(val appStateManager: AppStateManager,
     }
 
     override fun onStoreboxAccountCreated() {
+        Timber.e("WTF!!!!!")
         runAction { v->v.finish() }
     }
 
