@@ -1,7 +1,6 @@
 package dk.eboks.app.domain.interactors.sender.register
 
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.protocol.AliasBody
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor

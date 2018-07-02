@@ -7,7 +7,6 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
-import timber.log.Timber
 
 /**
  * Created by bison on 01/02/18.

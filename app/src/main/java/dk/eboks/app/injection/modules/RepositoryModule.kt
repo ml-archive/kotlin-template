@@ -12,7 +12,6 @@ import dk.eboks.app.network.repositories.*
 import dk.eboks.app.storage.repositories.AppStateRepositoryImpl
 import dk.eboks.app.storage.repositories.SharedPrefsSettingsRepository
 import dk.nodes.arch.domain.injection.scopes.AppScope
-import javax.inject.Named
 
 /**
  * Created by bison on 25-07-2017.

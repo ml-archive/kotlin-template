@@ -2,8 +2,6 @@ package dk.eboks.app.presentation.ui.components.verification
 
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.VerificationState
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject

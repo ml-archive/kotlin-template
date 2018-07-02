@@ -11,7 +11,6 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.home.HomeContent
-import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
@@ -50,8 +49,8 @@ interface Api {
     // @GET("regions") fun getRegions() : Call<List<Region>>
     @GET("mail/folders/selected") fun getMailCategories() : Call<List<Folder>>
     @GET("mail/folders") fun getFolders() : Call<List<Folder>>
-    @GET("mail/folders/{id}/messages") fun getMessages(@Path("id") id : Int) : Call<List<Message>>
-    @GET("mail/messages/senders/{id}") fun getMessagesBySender(@Path("id") id : Long) : Call<List<Message>>
+    @GET("mail/folders/{id}/messages") fun getMessages(@Path("id") id : Int, @Query("offset") offset : Int? = null, @Query("limit") limit : Int? = null) : Call<List<Message>>
+    @GET("mail/messages/senders/{id}") fun getMessagesBySender(@Path("id") id : Long, @Query("offset") offset : Int? = null, @Query("limit") limit : Int? = null) : Call<List<Message>>
     @GET("mail/folders/{folderId}/messages/{id}") fun getMessage(@Path("id") id : String, @Path("folderId") folderId : Int, @Query("receipt") receipt : Boolean? = null, @Query("terms") terms : Boolean? = null) : Call<Message>
     @GET("mail/senders") fun getSenders() : Call<List<Sender>>
 

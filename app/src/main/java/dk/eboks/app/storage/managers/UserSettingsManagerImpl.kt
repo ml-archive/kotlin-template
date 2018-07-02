@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.login.UserSettings
 import dk.eboks.app.storage.base.GsonFileStorageRepository
-import dk.eboks.app.util.FieldMapper
 import timber.log.Timber
 
 /**

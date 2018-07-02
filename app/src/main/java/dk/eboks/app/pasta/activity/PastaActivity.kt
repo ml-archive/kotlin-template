@@ -2,7 +2,6 @@ package dk.eboks.app.pasta.activity
 
 import android.os.Bundle
 import dk.eboks.app.presentation.base.BaseActivity
-import timber.log.Timber
 import javax.inject.Inject
 
 class PastaActivity : BaseActivity(), PastaContract.View {

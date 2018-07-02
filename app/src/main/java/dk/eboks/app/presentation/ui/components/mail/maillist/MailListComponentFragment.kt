@@ -104,6 +104,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         }
     }
 
+
     private fun getEditFromBundle() {
         editEnabled = if (arguments.containsKey("edit")) {
             arguments.getSerializable("edit") as Boolean
@@ -272,6 +273,20 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
             checkFabState()
         }
+
+        messagesRv.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
+                layoutManager?.let {
+                    if(layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount-1){
+                        Timber.e("Reached the last visible item pos")
+                    }
+                }
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
+
     }
 
     private fun startMessageOpenActivity(message: Message) {

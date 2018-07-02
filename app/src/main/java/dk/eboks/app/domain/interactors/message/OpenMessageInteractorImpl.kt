@@ -2,11 +2,14 @@ package dk.eboks.app.domain.interactors.message
 
 import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.exceptions.ServerErrorException
-import dk.eboks.app.domain.managers.*
+import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.DownloadManager
+import dk.eboks.app.domain.managers.FileCacheManager
+import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.domain.models.APIConstants
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.EboksContentType
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.util.FieldMapper

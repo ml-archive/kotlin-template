@@ -4,7 +4,6 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import dk.eboks.app.domain.managers.UserManager
 import dk.eboks.app.network.Api
-import dk.eboks.app.network.repositories.SignupRestRepository
 import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor

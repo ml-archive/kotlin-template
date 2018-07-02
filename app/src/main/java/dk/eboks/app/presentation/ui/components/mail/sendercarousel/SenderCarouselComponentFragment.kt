@@ -16,7 +16,6 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.senders.list.SenderAllListActivity
-import dk.eboks.app.util.Starter
 import kotlinx.android.synthetic.main.fragment_sender_carousel_component.*
 import javax.inject.Inject
 
@@ -56,11 +55,6 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         sendersRv.adapter = HorizontalSendersAdapter()
     }
 
-
-    override fun onShake() {
-        showEmpty(showEmptyState)
-    }
-    
     override fun showSenders(senders: List<Sender>) {
         this.senders.clear()
         this.senders.addAll(senders)

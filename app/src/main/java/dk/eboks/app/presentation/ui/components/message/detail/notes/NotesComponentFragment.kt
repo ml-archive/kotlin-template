@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.message.Message
-import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_notes_component.*
 import javax.inject.Inject

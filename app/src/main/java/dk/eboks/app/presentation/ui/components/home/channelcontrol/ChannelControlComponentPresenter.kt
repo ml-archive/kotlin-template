@@ -7,7 +7,6 @@ import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import org.greenrobot.eventbus.EventBus
-import timber.log.Timber
 import javax.inject.Inject
 
 /**

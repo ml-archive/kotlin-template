@@ -6,6 +6,7 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import timber.log.BuildConfig
 import timber.log.Timber
 
 /**
@@ -23,7 +24,14 @@ class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteract
 
     override fun startup() {
         Timber.e("Startup, running version control")
-        runAction { v -> v.performVersionControl() }
+        if(BuildConfig.DEBUG) {
+            runAction { v -> v.performVersionControl() }
+        }
+        else
+        {
+            Timber.e("Release not running appOpen call")
+            proceed()
+        }
     }
 
     override fun proceed() {

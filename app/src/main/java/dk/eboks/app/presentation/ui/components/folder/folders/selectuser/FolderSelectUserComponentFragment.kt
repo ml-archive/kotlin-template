@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -22,7 +21,6 @@ import dk.eboks.app.domain.models.login.SharedUser
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_folders_selectuser.*
-import kotlinx.android.synthetic.main.viewholder_select_user.*
 import timber.log.Timber
 import javax.inject.Inject
 

@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.components.channels.settings
 
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -10,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import android.widget.Toast
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
@@ -20,15 +18,11 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
 import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
 import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.RefreshFolderShortcutsDoneEvent
-import dk.eboks.app.presentation.ui.components.mail.foldershortcuts.RefreshFolderShortcutsEvent
 import dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxAddCardActivity
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_settings_component.*
 import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import timber.log.Timber
 import javax.inject.Inject
 

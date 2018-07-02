@@ -3,12 +3,9 @@ package dk.eboks.app.presentation.ui.components.folder.folders
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.folder.Folder
-import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import timber.log.Timber
 import javax.inject.Inject
 
 /**

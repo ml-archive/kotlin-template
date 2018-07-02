@@ -7,8 +7,6 @@ import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
-import kotlinx.android.synthetic.main.activity_popup_login.view.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class PopupLoginActivity : BaseActivity(), PopupLoginContract.View {

@@ -1,9 +1,8 @@
 package dk.eboks.app.presentation.ui.components.senders
 
 import dk.eboks.app.domain.models.sender.Sender
-import dk.eboks.app.domain.models.sender.SenderGroup
-import dk.nodes.arch.presentation.base.BasePresenter
 import dk.eboks.app.presentation.base.BaseView
+import dk.nodes.arch.presentation.base.BasePresenter
 
 /**
  * Created by Christian on 3/15/2018.

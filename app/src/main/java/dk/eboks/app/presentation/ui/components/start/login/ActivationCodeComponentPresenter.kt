@@ -3,9 +3,7 @@ package dk.eboks.app.presentation.ui.components.start.login
 import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
-import dk.eboks.app.domain.interactors.user.SaveUsersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.managers.UserManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -17,13 +15,11 @@ import javax.inject.Inject
  */
 class ActivationCodeComponentPresenter @Inject constructor(
         val appState: AppStateManager,
-        val loginInteractor: LoginInteractor,
-        val saveUsersInteractor: SaveUsersInteractor
+        val loginInteractor: LoginInteractor
 ) :
         ActivationCodeComponentContract.Presenter,
         BasePresenterImpl<ActivationCodeComponentContract.View>(),
-        LoginInteractor.Output,
-        SaveUsersInteractor.Output
+        LoginInteractor.Output
 {
 
 
@@ -59,6 +55,7 @@ class ActivationCodeComponentPresenter @Inject constructor(
     }
 
     override fun login() {
+        runAction { v->v.showProgress(true) }
         appState.state?.loginState?.let {
             loginInteractor.input = LoginInteractor.Input(it)
             loginInteractor.run()
@@ -66,7 +63,9 @@ class ActivationCodeComponentPresenter @Inject constructor(
     }
 
     override fun onLoginSuccess(response: AccessToken) {
-        runAction { v -> v.proceedToApp() }
+        runAction { v ->
+            v.proceedToApp()
+        }
     }
 
     override fun onLoginActivationCodeRequired() {
@@ -79,6 +78,7 @@ class ActivationCodeComponentPresenter @Inject constructor(
     override fun onLoginDenied(error: ViewError) {
         Timber.e("Login Denied!!")
         runAction { v ->
+            v.showProgress(false)
             v.showErrorDialog(error)
         }
     }
@@ -86,16 +86,7 @@ class ActivationCodeComponentPresenter @Inject constructor(
     override fun onLoginError(error: ViewError) {
         Timber.e("Login Error!!")
         runAction { v ->
-            v.showErrorDialog(error)
-        }
-    }
-
-    override fun onSaveUsers() {
-
-    }
-
-    override fun onSaveUsersError(error: ViewError) {
-        runAction { v ->
+            v.showProgress(false)
             v.showErrorDialog(error)
         }
     }

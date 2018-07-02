@@ -9,7 +9,6 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
-import org.json.JSONObject
 import timber.log.Timber
 
 
@@ -67,12 +66,15 @@ class MergeAndImpersonateInteractorImpl(
                             newSettings.activationCode = it
                         }
 
+                        /*
                         appStateManager.state?.loginState?.lastUser?.let { lastUser ->
                             if (lastUser.id != newUser.id) {
                                 Timber.e("Different user id detected on login, clearing caches")
                                 cacheManager.clearStores()
                             }
                         }
+                        */
+                        cacheManager.clearStores()
 
                         userSettingsManager.put(newSettings)
                         appStateManager.state?.loginState?.lastUser = newUser

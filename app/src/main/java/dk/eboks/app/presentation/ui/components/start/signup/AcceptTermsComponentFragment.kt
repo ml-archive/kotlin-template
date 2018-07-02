@@ -11,7 +11,6 @@ import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
-import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_signup_accept_terms_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject

@@ -26,6 +26,10 @@ class CustomFingerprintDialog(context: Context) : FingerprintAlertDialogBase(con
         dialogCustomFingerprintBtnUsePassword.setOnClickListener {
             onUsePasswordBtnListener?.invoke()
         }
+
+        dialogCustomFingerprintBtnCancel?.setOnClickListener {
+            closeDialog()
+        }
     }
 
     override fun getDialogLayout(): Int {

@@ -8,11 +8,9 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import org.greenrobot.eventbus.EventBus
-import timber.log.Timber
-import javax.inject.Inject
-import org.greenrobot.eventbus.ThreadMode
 import org.greenrobot.eventbus.Subscribe
-
+import org.greenrobot.eventbus.ThreadMode
+import javax.inject.Inject
 
 
 /**

@@ -2,7 +2,6 @@ package dk.eboks.app.presentation.ui.components.folder.folders.newfolder
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.text.SpannableStringBuilder
@@ -10,12 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentFragment
 import dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folder_newfolder.*
 import javax.inject.Inject

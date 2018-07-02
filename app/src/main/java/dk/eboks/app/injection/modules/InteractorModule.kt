@@ -1,9 +1,11 @@
 package dk.eboks.app.injection.modules
 
-import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
-import dk.eboks.app.domain.interactors.*
+import dk.eboks.app.domain.interactors.BootstrapInteractor
+import dk.eboks.app.domain.interactors.BootstrapInteractorImpl
+import dk.eboks.app.domain.interactors.GetCategoriesInteractor
+import dk.eboks.app.domain.interactors.GetMailCategoriesInteractorImpl
 import dk.eboks.app.domain.interactors.authentication.*
 import dk.eboks.app.domain.interactors.channel.*
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor

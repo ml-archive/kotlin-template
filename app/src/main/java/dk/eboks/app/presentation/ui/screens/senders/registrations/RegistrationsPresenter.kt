@@ -5,7 +5,6 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Registrations
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import timber.log.Timber
 
 /**
  * Created by Christian on 3/28/2018.

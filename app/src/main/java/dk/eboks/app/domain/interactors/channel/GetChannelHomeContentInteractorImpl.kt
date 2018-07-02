@@ -1,12 +1,13 @@
 package dk.eboks.app.domain.interactors.channel
 
-import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.repositories.ChannelsRepository
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
-import kotlinx.coroutines.experimental.*
+import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.experimental.async
+import kotlinx.coroutines.experimental.runBlocking
 import timber.log.Timber
 
 /**

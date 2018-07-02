@@ -12,10 +12,8 @@ import dk.eboks.app.presentation.ui.components.message.opening.protectedmessage.
 import dk.eboks.app.presentation.ui.components.message.opening.quarantine.QuarantineComponentFragment
 import dk.eboks.app.presentation.ui.components.message.opening.recalled.RecalledComponentFragment
 import dk.eboks.app.presentation.ui.components.message.opening.receipt.OpeningReceiptComponentFragment
-import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import timber.log.Timber
 
 /**
  * Created by bison on 20-05-2017.

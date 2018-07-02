@@ -36,6 +36,8 @@ class MailListComponentPresenter @Inject constructor(
     var currentFolder: Folder? = null
     var currentSender: Sender? = null
 
+    var currentOffset : Int = 0
+
     init {
         getMessagesInteractor.output = this
     }
@@ -59,6 +61,7 @@ class MailListComponentPresenter @Inject constructor(
     }
 
     override fun refresh() {
+        currentOffset = 0
         when (mode) {
             FOLDER_MODE -> {
                 currentFolder?.let {

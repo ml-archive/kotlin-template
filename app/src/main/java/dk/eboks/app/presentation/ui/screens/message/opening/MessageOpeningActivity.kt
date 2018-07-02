@@ -6,10 +6,8 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.components.message.opening.privatesender.PrivateSenderWarningComponentFragment
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.activity_message_opening.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class MessageOpeningActivity : BaseActivity(), MessageOpeningContract.View {

@@ -1,8 +1,6 @@
 package dk.eboks.app.domain.interactors.authentication
 
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.network.Api
-import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**

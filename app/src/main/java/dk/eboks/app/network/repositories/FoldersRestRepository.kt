@@ -8,7 +8,6 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.repositories.FoldersRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
-import timber.log.Timber
 
 typealias FolderListStore = CacheStore<Int, List<Folder>>
 

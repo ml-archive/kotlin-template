@@ -1,9 +1,6 @@
 package dk.eboks.app.presentation.ui.components.channels.content.ekey.detail
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.InputType
-import android.text.SpannableStringBuilder
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -16,11 +13,9 @@ import dk.eboks.app.domain.models.channel.ekey.Login
 import dk.eboks.app.domain.models.channel.ekey.Note
 import dk.eboks.app.domain.models.channel.ekey.Pin
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyItem
-import kotlinx.android.synthetic.main.include_toolbar.*
-import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_channel_ekey_detail.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
 

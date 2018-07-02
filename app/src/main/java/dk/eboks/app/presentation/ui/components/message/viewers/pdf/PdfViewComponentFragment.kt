@@ -14,7 +14,7 @@ import dk.eboks.app.presentation.ui.components.message.viewers.base.EmbeddedView
 import dk.eboks.app.presentation.widgets.pdf.AsyncPdfRenderer
 import dk.eboks.app.presentation.widgets.pdf.RenderedPage
 import kotlinx.android.synthetic.main.fragment_pdfview_component.*
-import java.util.ArrayList
+import java.util.*
 import javax.inject.Inject
 import kotlin.math.roundToInt
 

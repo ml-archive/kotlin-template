@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.components.start.login
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler

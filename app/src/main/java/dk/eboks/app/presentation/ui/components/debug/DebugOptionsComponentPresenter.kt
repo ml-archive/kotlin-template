@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.components.debug
 
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.nodes.arch.presentation.base.BasePresenterImpl

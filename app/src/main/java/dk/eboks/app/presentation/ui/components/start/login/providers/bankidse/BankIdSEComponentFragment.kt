@@ -1,24 +1,21 @@
 package dk.eboks.app.presentation.ui.components.start.login.providers.bankidse
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.webkit.WebView
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseWebFragment
+import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginContract
 import dk.eboks.app.presentation.ui.screens.start.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import javax.inject.Inject
-import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginContract
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 09-02-2018.

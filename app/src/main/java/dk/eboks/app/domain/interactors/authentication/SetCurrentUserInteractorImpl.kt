@@ -1,6 +1,8 @@
 package dk.eboks.app.domain.interactors.authentication
 
-import dk.eboks.app.domain.managers.*
+import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.UserManager
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor

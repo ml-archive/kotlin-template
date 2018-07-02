@@ -23,8 +23,6 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
-import dk.eboks.app.presentation.ui.components.channels.content.web.ChannelContentComponentContract
-import dk.eboks.app.presentation.ui.components.channels.content.web.ChannelContentComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentContract
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentContract
@@ -39,6 +37,8 @@ import dk.eboks.app.presentation.ui.components.channels.content.storebox.content
 import dk.eboks.app.presentation.ui.components.channels.content.storebox.content.ChannelContentStoreboxComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.content.storebox.detail.ChannelContentStoreboxDetailComponentContract
 import dk.eboks.app.presentation.ui.components.channels.content.storebox.detail.ChannelContentStoreboxDetailComponentPresenter
+import dk.eboks.app.presentation.ui.components.channels.content.web.ChannelContentComponentContract
+import dk.eboks.app.presentation.ui.components.channels.content.web.ChannelContentComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentContract
 import dk.eboks.app.presentation.ui.components.channels.opening.ChannelOpeningComponentPresenter
 import dk.eboks.app.presentation.ui.components.channels.overview.ChannelOverviewComponentContract
@@ -562,8 +562,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideActivationCodeComponentPresenter(stateManager: AppStateManager, loginInteractor: LoginInteractor, saveUsersInteractor: SaveUsersInteractor): ActivationCodeComponentContract.Presenter {
-        return ActivationCodeComponentPresenter(stateManager, loginInteractor, saveUsersInteractor)
+    fun provideActivationCodeComponentPresenter(stateManager: AppStateManager, loginInteractor: LoginInteractor): ActivationCodeComponentContract.Presenter {
+        return ActivationCodeComponentPresenter(stateManager, loginInteractor)
     }
 
 

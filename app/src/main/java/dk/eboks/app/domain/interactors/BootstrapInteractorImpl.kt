@@ -3,7 +3,6 @@ package dk.eboks.app.domain.interactors
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.login.LoginState
 import dk.eboks.app.domain.repositories.SettingsRepository
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor

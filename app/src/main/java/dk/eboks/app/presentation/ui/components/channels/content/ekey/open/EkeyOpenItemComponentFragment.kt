@@ -2,10 +2,8 @@ package dk.eboks.app.presentation.ui.components.channels.content.ekey.open
 
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -18,11 +16,8 @@ import dk.eboks.app.domain.models.channel.ekey.Login
 import dk.eboks.app.domain.models.channel.ekey.Note
 import dk.eboks.app.domain.models.channel.ekey.Pin
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.components.channels.content.ekey.EkeyItem
-import dk.eboks.app.presentation.ui.components.channels.content.ekey.additem.EkeyAddItemComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailComponentFragment
 import dk.eboks.app.presentation.ui.components.channels.content.ekey.detail.EkeyDetailMode
-import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.fragment_channel_ekey_openitem.*
 import kotlinx.android.synthetic.main.include_toolbar.*

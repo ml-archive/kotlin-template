@@ -17,11 +17,6 @@ import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
 import android.widget.FrameLayout
 import dk.eboks.app.R
-import dk.eboks.app.presentation.ui.components.channels.requirements.ChannelRequirementsComponentFragment
-import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
-import dk.eboks.app.presentation.ui.components.start.login.ActivationCodeComponentFragment
-import dk.eboks.app.presentation.ui.components.start.login.ForgotPasswordComponentFragment
-import dk.eboks.app.presentation.ui.components.verification.VerificationComponentFragment
 import dk.eboks.app.util.MathUtil
 import kotlinx.android.synthetic.main.activity_sheet_component.*
 import timber.log.Timber

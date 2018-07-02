@@ -13,14 +13,11 @@ import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragmen
 import dk.eboks.app.presentation.ui.components.start.login.UserCarouselComponentFragment
 import dk.eboks.app.presentation.ui.components.start.signup.CompletedComponentFragment
 import dk.eboks.app.presentation.ui.components.start.welcome.SplashComponentFragment
-import dk.eboks.app.presentation.ui.components.start.welcome.WelcomeComponentFragment
 import dk.eboks.app.presentation.ui.screens.home.HomeActivity
-import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.managers.ConnectionManager
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
-import dk.nodes.nstack.kotlin.providers.NMetaInterceptor
 import kotlinx.android.synthetic.main.activity_start.*
 import net.hockeyapp.android.CrashManager
 import net.hockeyapp.android.CrashManagerListener
@@ -63,7 +60,7 @@ class StartActivity : BaseActivity(), StartContract.View {
         }
 
         supportFragmentManager.addOnBackStackChangedListener {
-            Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")
+            //Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")
             if (supportFragmentManager.backStackEntryCount == 0) {
                 if (!isDestroyed)
                     finish()

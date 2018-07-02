@@ -3,14 +3,11 @@ package dk.eboks.app.network.repositories
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.managers.CacheManager
-import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.repositories.SendersRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
-import timber.log.Timber
 
 typealias SenderStore = CacheStore<Int, List<Sender>>
 

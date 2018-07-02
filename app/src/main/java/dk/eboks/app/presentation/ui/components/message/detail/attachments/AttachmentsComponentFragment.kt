@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
-import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.FileUtils
 import kotlinx.android.synthetic.main.fragment_attachments_component.*

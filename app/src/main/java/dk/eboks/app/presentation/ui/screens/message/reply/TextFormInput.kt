@@ -12,9 +12,6 @@ import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
-import dk.eboks.app.util.guard
-import timber.log.Timber
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 class TextFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler, val multiline : Boolean = false) : ReplyFormInput(formInput, inflater, handler), TextWatcher

@@ -12,9 +12,9 @@ import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.launch
 import timber.log.Timber
+import java.io.*
 import java.nio.charset.Charset
 import javax.inject.Inject
-import java.io.*
 
 
 /**

@@ -1,6 +1,5 @@
 package dk.eboks.app.domain.interactors.sender
 
-import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.repositories.SenderCategoriesRepository
 import dk.eboks.app.domain.repositories.SendersRepository
 import dk.eboks.app.util.exceptionToViewError

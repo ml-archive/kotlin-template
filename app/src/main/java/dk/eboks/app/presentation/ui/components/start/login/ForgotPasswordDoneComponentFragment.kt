@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.base.SheetComponentActivity
 import kotlinx.android.synthetic.main.fragment_forgot_password_mail_sent_component.*
 import javax.inject.Inject
 

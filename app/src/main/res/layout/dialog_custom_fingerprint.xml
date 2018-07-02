@@ -90,6 +90,7 @@
         <Button
             android:id="@+id/dialogCustomFingerprintBtnUsePassword"
             style="?android:attr/buttonBarNegativeButtonStyle"
+            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"

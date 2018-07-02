@@ -1,8 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.mail.folder
 
-import android.content.res.Resources
 import android.os.Bundle
-import android.support.annotation.AttrRes
 import android.support.design.widget.CoordinatorLayout
 import android.util.TypedValue
 import android.view.View
@@ -12,7 +10,6 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.folder.folders.FoldersComponentFragment
 import dk.eboks.app.presentation.ui.components.navigation.NavBarComponentFragment
-import dk.eboks.app.util.dpToPx
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.activity_folder.*

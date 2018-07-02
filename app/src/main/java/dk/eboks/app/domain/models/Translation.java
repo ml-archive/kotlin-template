@@ -557,7 +557,7 @@ public class Translation {
 		public static String permissionL = "Read only";
 		public static String permissionF = "Editor";
 		public static String permissionO = "Administration access (mail from authorities)";
-		public static String myProfile = "My profile";
+		public static String myProfile = "You";
 	}
 	public final static class ekey {
 		public static String topBarTitle = "e-Key";

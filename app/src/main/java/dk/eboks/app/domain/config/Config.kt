@@ -332,6 +332,11 @@ object Config {
         return getApiUrl() + "resources/terms"
     }
 
+    fun getMessagePageSize() : Int
+    {
+        return 10
+    }
+
     lateinit var currentMode : Mode
 
 

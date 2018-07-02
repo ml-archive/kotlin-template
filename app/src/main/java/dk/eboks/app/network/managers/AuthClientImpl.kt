@@ -8,7 +8,6 @@ import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.managers.AuthClient
 import dk.eboks.app.domain.managers.AuthException
 import dk.eboks.app.domain.models.login.AccessToken
-import dk.eboks.app.util.guard
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request

@@ -72,56 +72,67 @@
 
                 </android.support.design.widget.TextInputLayout>
 
-                <Button
-                    android:id="@+id/findActivationCodeBtn"
-                    style="@style/buttonRoundedCorners.darkBlueGrey"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="36dp"
-                    android:layout_marginStart="36dp"
-                    android:layout_marginTop="@dimen/margin_vertical"
-                    android:textColor="@color/darkGreyBlue"
-                    android:text="_Find activation code"
-                    nstack:key="@string/nstack_activationcode_infoButtonText"/>
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/buttonGroupLl"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:id="@+id/findActivationCodeBtn"
+                            style="@style/buttonRoundedCorners.darkBlueGrey"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="36dp"
+                            android:layout_marginStart="36dp"
+                            android:layout_marginTop="@dimen/margin_vertical"
+                            android:textColor="@color/darkGreyBlue"
+                            android:text="_Find activation code"
+                            nstack:key="@string/nstack_activationcode_infoButtonText"/>
 
-                <Button
-                    android:id="@+id/continueBtn"
-                    style="@style/enabledButtton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="36dp"
-                    android:layout_marginStart="36dp"
-                    android:layout_marginTop="@dimen/margin_vertical"
-                    android:enabled="false"
-                    android:text="_Continue"
-                    android:textColor="@drawable/enabled_button"
-                    nstack:key="@string/nstack_activationcode_continueButton" />
+                        <Button
+                            android:id="@+id/continueBtn"
+                            style="@style/enabledButtton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="36dp"
+                            android:layout_marginStart="36dp"
+                            android:layout_marginTop="@dimen/margin_vertical"
+                            android:enabled="false"
+                            android:text="_Continue"
+                            android:textColor="@drawable/enabled_button"
+                            nstack:key="@string/nstack_activationcode_continueButton" />
 
-                <Button
-                    android:id="@+id/cancelBtn"
-                    style="@style/button.borderless"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/margin_half"
-                    android:text="_Cancel"
-                    android:textStyle="bold"
-                    nstack:key="@string/nstack_default_cancel" />
+                        <Button
+                            android:id="@+id/cancelBtn"
+                            style="@style/button.borderless"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/margin_half"
+                            android:text="_Cancel"
+                            android:textStyle="bold"
+                            nstack:key="@string/nstack_default_cancel" />
+                    </LinearLayout>
+                    <FrameLayout
+                        android:id="@+id/progressFl"
+                        android:background="@color/backgroundColor"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ProgressBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"/>
+
+
+                    </FrameLayout>
+                </FrameLayout>
 
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/progress"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/backgroundColor"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-    </FrameLayout>
 </FrameLayout>

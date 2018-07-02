@@ -10,7 +10,6 @@ import android.os.Parcelable
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.CoordinatorLayout
 import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextUtils

@@ -1,8 +1,8 @@
 package dk.eboks.app.presentation.ui.components.debug
 
 import dk.eboks.app.domain.models.login.LoginState
-import dk.nodes.arch.presentation.base.BasePresenter
 import dk.eboks.app.presentation.base.BaseView
+import dk.nodes.arch.presentation.base.BasePresenter
 
 /**
  * Created by Christian on 6/15/2018.

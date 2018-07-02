@@ -5,14 +5,12 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.view.MotionEvent
+import android.view.MotionEvent.INVALID_POINTER_ID
 import android.view.ScaleGestureDetector
 import android.view.View
-import timber.log.Timber
-import android.view.MotionEvent.INVALID_POINTER_ID
-import android.view.MotionEvent
 import android.widget.Scroller
-
-
+import timber.log.Timber
 
 
 /**

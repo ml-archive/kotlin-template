@@ -16,7 +16,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
@@ -24,14 +23,10 @@ import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.folder.folders.newfolder.NewFolderComponentFragment
 import dk.eboks.app.util.guard
-import dk.eboks.app.util.putArg
 import dk.eboks.app.util.views
 import kotlinx.android.synthetic.main.fragment_folders_component.*
-import kotlinx.android.synthetic.main.fragment_list_component.view.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import kotlinx.android.synthetic.main.viewholder_folder.*
 import kotlinx.android.synthetic.main.viewholder_folder.view.*
-import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 

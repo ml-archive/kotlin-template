@@ -2,7 +2,6 @@ package dk.eboks.app.domain.interactors.sender.register
 
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.CollectionContainer
-import dk.eboks.app.domain.models.sender.Registrations
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**

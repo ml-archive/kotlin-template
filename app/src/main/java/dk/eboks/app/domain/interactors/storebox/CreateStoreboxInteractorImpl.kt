@@ -1,7 +1,6 @@
 package dk.eboks.app.domain.interactors.storebox
 
 import dk.eboks.app.domain.exceptions.ServerErrorException
-import dk.eboks.app.domain.models.APIConstants
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError

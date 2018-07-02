@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.formreply.FormInput
-import dk.eboks.app.util.guard
 
 class DescriptionFormInput(formInput: FormInput, inflater: LayoutInflater, handler : Handler) : ReplyFormInput(formInput, inflater, handler)
 {

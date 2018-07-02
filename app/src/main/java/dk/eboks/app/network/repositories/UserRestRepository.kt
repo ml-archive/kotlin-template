@@ -1,13 +1,11 @@
 package dk.eboks.app.network.repositories
 
-import dk.eboks.app.domain.repositories.UserRepository
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import dk.eboks.app.domain.exceptions.ServerErrorException
-import dk.eboks.app.domain.managers.CacheManager
-import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.protocol.ServerError
+import dk.eboks.app.domain.repositories.UserRepository
 import dk.eboks.app.network.Api
 
 class UserRestRepository(private val context: Context, private val api: Api, private val gson: Gson) : UserRepository {

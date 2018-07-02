@@ -2,8 +2,8 @@ package dk.eboks.app.presentation.ui.components.channels.requirements
 
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.Requirement
-import dk.nodes.arch.presentation.base.BasePresenter
 import dk.eboks.app.presentation.base.BaseView
+import dk.nodes.arch.presentation.base.BasePresenter
 
 /**
  * Created by bison on 07-11-2017.

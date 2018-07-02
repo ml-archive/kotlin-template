@@ -1,6 +1,5 @@
 package dk.eboks.app.domain.models.shared
 
-import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 /**

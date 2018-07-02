@@ -4,12 +4,12 @@ import android.app.Activity
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.interactors.authentication.MergeAndImpersonateInteractor
 import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
+import dk.eboks.app.domain.interactors.authentication.VerifyProfileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.util.guard
-import dk.eboks.app.domain.interactors.authentication.VerifyProfileInteractor
-import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject

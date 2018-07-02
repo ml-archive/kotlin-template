@@ -48,12 +48,15 @@ class TransformTokenInteractorImpl(
                             newSettings.activationCode = it
                         }
 
+                        /*
                         appStateManager.state?.loginState?.lastUser?.let { lastUser ->
                             if (lastUser.id != newUser.id) {
                                 Timber.e("Different user id detected on login, clearing caches")
                                 cacheManager.clearStores()
                             }
                         }
+                        */
+                        cacheManager.clearStores()
 
                         userSettingsManager.put(newSettings)
                         appStateManager.state?.loginState?.lastUser = newUser

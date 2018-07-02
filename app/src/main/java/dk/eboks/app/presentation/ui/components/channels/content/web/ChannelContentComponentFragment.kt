@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.MenuItem
 import android.view.View
 import android.webkit.JavascriptInterface
@@ -17,10 +18,9 @@ import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettings
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import org.json.JSONObject
-import javax.inject.Inject
 import timber.log.Timber
 import java.net.URLEncoder
-import android.support.v7.app.AlertDialog
+import javax.inject.Inject
 
 
 /**

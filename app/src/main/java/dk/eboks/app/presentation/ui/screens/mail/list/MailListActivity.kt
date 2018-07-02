@@ -8,7 +8,6 @@ import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.mail.maillist.MailListComponentFragment
 import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.include_toolbar.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class MailListActivity : BaseActivity(), MailListContract.View {
@@ -41,15 +40,6 @@ class MailListActivity : BaseActivity(), MailListContract.View {
                 if (!isDestroyed)
                     finish()
             }
-        }
-    }
-
-    override fun onShake() {
-        if(showEmptyState)
-        {
-        }
-        else
-        {
         }
     }
 

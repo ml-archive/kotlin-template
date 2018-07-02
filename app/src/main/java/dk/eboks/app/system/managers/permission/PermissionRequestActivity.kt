@@ -1,16 +1,12 @@
 package dk.eboks.app.system.managers.permission
 
-import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import dk.eboks.app.App
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.PermissionManager
 import dk.eboks.app.presentation.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_permission_request.*
 import timber.log.Timber
 import javax.inject.Inject
 

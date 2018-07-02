@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.components.channels.settings
 
-import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.UninstallChannelInteractor
 import dk.eboks.app.domain.interactors.storebox.*

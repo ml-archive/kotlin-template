@@ -9,7 +9,6 @@ import com.google.gson.Gson
 import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.repositories.AppStateRepository
 import dk.eboks.app.storage.base.GsonFileStorageRepository
-import timber.log.Timber
 
 /**
  * Created by bison on 01-07-2017.

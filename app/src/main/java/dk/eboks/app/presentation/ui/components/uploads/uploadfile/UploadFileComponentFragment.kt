@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_signup_name_mail_component.*
 import kotlinx.android.synthetic.main.fragment_upload_uploadfile_component.*
 import timber.log.Timber
 import javax.inject.Inject

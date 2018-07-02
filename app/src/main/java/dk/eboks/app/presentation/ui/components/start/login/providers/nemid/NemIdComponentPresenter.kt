@@ -5,10 +5,7 @@ import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
 import dk.eboks.app.domain.interactors.authentication.VerifyProfileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
-import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.presentation.ui.components.start.login.providers.WebLoginPresenter
-import dk.eboks.app.util.guard
-import timber.log.Timber
 import javax.inject.Inject
 
 /**

@@ -1,7 +1,6 @@
 package dk.eboks.app.domain.repositories
 
 import dk.eboks.app.domain.models.folder.Folder
-import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch

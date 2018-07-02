@@ -2,7 +2,6 @@ package dk.eboks.app.storage.base
 
 import android.content.Context
 import com.google.gson.Gson
-import dk.eboks.app.BuildConfig
 import timber.log.Timber
 import java.io.FileInputStream
 import java.io.FileOutputStream

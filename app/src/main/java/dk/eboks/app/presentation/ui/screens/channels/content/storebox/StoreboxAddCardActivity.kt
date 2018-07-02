@@ -13,7 +13,6 @@ import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
-import javax.inject.Inject
 
 class StoreboxAddCardActivity : BaseActivity() {
 

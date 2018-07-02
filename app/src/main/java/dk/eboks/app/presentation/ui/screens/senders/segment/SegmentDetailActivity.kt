@@ -9,7 +9,6 @@ import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Segment
-import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment
 import dk.nodes.nstack.kotlin.NStack

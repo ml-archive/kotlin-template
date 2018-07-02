@@ -4,7 +4,6 @@ import dk.eboks.app.domain.managers.ResourceManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.repositories.FoldersRepository
-import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.ui.components.folder.folders.FolderMode
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor

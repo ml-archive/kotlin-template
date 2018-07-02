@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import dk.eboks.app.R
-import dk.eboks.app.presentation.base.BaseFragment
-import javax.inject.Inject
 import android.widget.ArrayAdapter
+import dk.eboks.app.R
 import dk.eboks.app.domain.config.Environments
+import dk.eboks.app.presentation.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_debug_options_component.*
 import timber.log.Timber
+import javax.inject.Inject
 
 
 /**

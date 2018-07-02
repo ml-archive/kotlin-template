@@ -11,7 +11,6 @@ import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.TimePicker
 import dk.eboks.app.R
-import dk.eboks.app.R.id.rootLl
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
 import dk.nodes.nstack.kotlin.NStack

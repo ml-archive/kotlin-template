@@ -22,7 +22,6 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.storebox.*
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.components.channels.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity
 import dk.eboks.app.presentation.ui.screens.overlay.ButtonType
 import dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity

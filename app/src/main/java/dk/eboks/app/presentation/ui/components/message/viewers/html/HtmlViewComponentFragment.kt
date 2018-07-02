@@ -9,8 +9,6 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.components.message.viewers.base.EmbeddedViewer
 import kotlinx.android.synthetic.main.fragment_htmlview_component.*
 import timber.log.Timber
-import java.io.UnsupportedEncodingException
-import java.nio.charset.Charset
 import javax.inject.Inject
 
 /**

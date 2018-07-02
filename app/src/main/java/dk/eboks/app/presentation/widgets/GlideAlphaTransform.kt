@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.widgets
 
 import android.graphics.*
-import android.os.Build
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import timber.log.Timber

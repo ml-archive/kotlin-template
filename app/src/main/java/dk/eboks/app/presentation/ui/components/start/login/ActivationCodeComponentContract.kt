@@ -11,6 +11,7 @@ interface ActivationCodeComponentContract {
         fun proceedToApp()
         fun showError(error: String?)
         fun setDebugUp(activationCode: String?)
+        fun showProgress(show : Boolean)
     }
 
     interface Presenter : BasePresenter<View> {

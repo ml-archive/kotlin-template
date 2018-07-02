@@ -4,7 +4,6 @@
                                                  android:layout_height="match_parent"
                                                  xmlns:tools="http://schemas.android.com/tools"
                                                  xmlns:nstack="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
                                                  android:background="@color/white"
                                                  tools:ignore="MissingPrefix">
 

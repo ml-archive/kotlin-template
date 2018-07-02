@@ -16,7 +16,6 @@ import dk.eboks.app.network.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.util.DateDeserializer
 import dk.eboks.app.network.util.ItemTypeAdapterFactory
 import dk.nodes.arch.domain.injection.scopes.AppScope
-import dk.nodes.nstack.kotlin.providers.NMetaInterceptor
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import retrofit2.Converter

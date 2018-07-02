@@ -3,8 +3,6 @@ package dk.eboks.app.presentation.base
 import android.app.FragmentManager
 import android.content.Context
 import android.content.Intent
-import android.hardware.Sensor
-import android.hardware.SensorManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -20,7 +18,6 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.ui.screens.debug.DebugActivity
-import dk.eboks.app.util.ShakeDetector
 import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -30,11 +27,12 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     protected val component: PresentationComponent by lazy {
         App.instance().appComponent.plus(PresentationModule())
     }
-
+    /*
     private val shakeDetector: ShakeDetector? = if (BuildConfig.DEBUG) ShakeDetector() else null
     private var sensorManager: SensorManager? = null
     private var acceleroMeter: Sensor? = null
-    protected var showEmptyState: Boolean = false
+    */
+    //protected var showEmptyState: Boolean = false
     protected var countToDebug = 0
     var backPressedCallback: (() -> Boolean)? = null
 
@@ -68,6 +66,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     }
 
     fun setupShakeDetection() {
+        /*
         sensorManager = if (BuildConfig.DEBUG) getSystemService(Context.SENSOR_SERVICE) as SensorManager else null
         acceleroMeter = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         shakeDetector?.setOnShakeListener(object : ShakeDetector.OnShakeListener {
@@ -78,16 +77,17 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
                 this@BaseActivity.onShake()
             }
         })
+        */
     }
 
     override fun onPause() {
-        sensorManager?.unregisterListener(shakeDetector)
+        //sensorManager?.unregisterListener(shakeDetector)
         super.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        sensorManager?.registerListener(shakeDetector, acceleroMeter, SensorManager.SENSOR_DELAY_UI)
+        //sensorManager?.registerListener(shakeDetector, acceleroMeter, SensorManager.SENSOR_DELAY_UI)
 
     }
 

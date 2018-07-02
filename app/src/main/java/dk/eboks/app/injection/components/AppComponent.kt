@@ -7,7 +7,6 @@ import dk.eboks.app.injection.modules.*
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.protocol.EAuth2
 import dk.eboks.app.network.managers.protocol.ServerErrorInterceptor
-import dk.eboks.app.storage.base.CacheStore
 import dk.eboks.app.storage.base.ICacheStore
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.executor.Executor

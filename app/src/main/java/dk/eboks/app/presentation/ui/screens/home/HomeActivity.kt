@@ -9,12 +9,12 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.presentation.ui.components.home.folderpreview.RefreshFolderPreviewDoneEvent
-import dk.eboks.app.presentation.ui.components.home.folderpreview.RefreshFolderPreviewEvent
 import dk.eboks.app.presentation.ui.components.home.channelcontrol.ChannelControlComponentFragment
 import dk.eboks.app.presentation.ui.components.home.channelcontrol.RefreshChannelControlDoneEvent
 import dk.eboks.app.presentation.ui.components.home.channelcontrol.RefreshChannelControlEvent
 import dk.eboks.app.presentation.ui.components.home.folderpreview.FolderPreviewComponentFragment
+import dk.eboks.app.presentation.ui.components.home.folderpreview.RefreshFolderPreviewDoneEvent
+import dk.eboks.app.presentation.ui.components.home.folderpreview.RefreshFolderPreviewEvent
 import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
 import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import dk.eboks.app.util.Starter
@@ -22,8 +22,8 @@ import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.ThreadMode
 import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject

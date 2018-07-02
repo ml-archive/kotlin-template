@@ -1,9 +1,7 @@
 package dk.eboks.app.domain.interactors.authentication
 
 import dk.eboks.app.domain.config.Config
-import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.errorBodyToViewError
 import dk.eboks.app.util.exceptionToViewError

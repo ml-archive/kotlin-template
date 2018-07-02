@@ -72,9 +72,9 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                             try {
                                 val meta = gson.fromJson(metadata, Metadata::class.java)
                                 _metaDataMap[listobj as Any] = meta
-                                //Timber.e("Parsed metadata object = $meta")
+                                Timber.e("Parsed metadata object = $meta")
                             } catch (t: Throwable) {
-                               // Timber.e("Could not deserialize metadata object, ignoring...")
+                                Timber.e("Could not deserialize metadata object, ignoring...")
                             }
                             return listobj
                         } else

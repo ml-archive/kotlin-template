@@ -1,8 +1,8 @@
 package dk.eboks.app.domain.models.sender
 
-import java.io.Serializable
 import dk.eboks.app.domain.models.shared.Description
 import dk.eboks.app.domain.models.shared.Status
+import java.io.Serializable
 
 /**
  * Created by Christian on 3/15/2018.

@@ -1,6 +1,5 @@
 package dk.eboks.app.domain.managers
 
-import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.message.Content

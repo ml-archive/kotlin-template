@@ -1,30 +1,25 @@
 package dk.eboks.app.presentation.ui.components.start.signup
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.os.Bundle
+import android.os.Handler
+import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import dk.eboks.app.R
-import dk.eboks.app.presentation.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_signup_name_mail_component.*
-import javax.inject.Inject
-import dk.eboks.app.domain.models.Translation
-import android.util.Patterns
-import android.text.TextUtils
-import android.os.Handler
-import android.support.v7.app.AlertDialog
 import android.view.inputmethod.InputMethodManager
-import dk.eboks.app.domain.models.AppState
+import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
+import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.isValidEmail
 import dk.nodes.nstack.kotlin.NStack
+import kotlinx.android.synthetic.main.fragment_signup_name_mail_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
+import javax.inject.Inject
 
 
 /**

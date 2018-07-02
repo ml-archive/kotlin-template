@@ -1,16 +1,18 @@
 package dk.eboks.app.presentation.ui.screens.message.reply
 
 import android.os.Handler
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.LinearLayout
+import android.widget.RadioGroup
+import android.widget.TextView
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.formreply.FormInput
-import android.util.TypedValue
-import android.widget.*
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.formreply.FormInput
 import dk.eboks.app.domain.models.formreply.FormInputOption
-import dk.eboks.app.util.views
 
 
 class CheckBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) : ReplyFormInput(formInput, inflater, handler)

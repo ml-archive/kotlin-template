@@ -1,7 +1,6 @@
 package dk.eboks.app.network.managers
 
 import android.content.Context
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.DownloadManager
 import dk.eboks.app.domain.managers.FileCacheManager

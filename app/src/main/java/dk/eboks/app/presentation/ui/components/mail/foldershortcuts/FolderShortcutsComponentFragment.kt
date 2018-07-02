@@ -2,15 +2,14 @@ package dk.eboks.app.presentation.ui.components.mail.foldershortcuts
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folder_shortcuts_component.*

@@ -11,7 +11,6 @@ import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
-import timber.log.Timber
 import java.util.regex.Pattern
 
 class DropdownFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) : ReplyFormInput(formInput, inflater, handler), AdapterView.OnItemSelectedListener

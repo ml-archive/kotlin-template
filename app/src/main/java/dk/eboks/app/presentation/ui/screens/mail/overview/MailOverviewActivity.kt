@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.screens.mail.overview
 
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import dk.eboks.app.BuildConfig
@@ -10,7 +9,6 @@ import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.components.folder.folders.selectuser.FolderSelectUserComponentFragment
 import dk.eboks.app.presentation.ui.dialogs.ConfirmDialogFragment
-import kotlinx.android.synthetic.main.abc_activity_chooser_view.*
 import kotlinx.android.synthetic.main.activity_mail_overview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber

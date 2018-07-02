@@ -13,9 +13,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
-import dk.eboks.app.presentation.ui.components.profile.HelpFragment
 import dk.eboks.app.presentation.ui.screens.home.HomeActivity
-import dk.eboks.app.presentation.ui.screens.profile.ProfileActivity
 import dk.eboks.app.presentation.ui.screens.start.HelpActivity
 import dk.eboks.app.util.isValidActivationCode
 import kotlinx.android.synthetic.main.fragment_activation_code_component.*
@@ -102,4 +100,8 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         }
     }
 
+    override fun showProgress(show: Boolean) {
+        buttonGroupLl.visibility = if(show) View.INVISIBLE else View.VISIBLE
+        progressFl.visibility = if(!show) View.GONE else View.VISIBLE
+    }
 }

@@ -1,9 +1,6 @@
 package dk.eboks.app.domain.interactors.authentication
 
-import android.os.Parcel
-import android.os.Parcelable
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.VerificationState
 import dk.nodes.arch.domain.interactor.Interactor
 

@@ -2,7 +2,6 @@ package dk.eboks.app.presentation.ui.components.profile.main
 
 import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter
-import java.io.File
 
 interface ProfileInfoComponentContract {
     interface View : BaseView {

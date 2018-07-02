@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.components.start.welcome
 
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View

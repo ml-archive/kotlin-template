@@ -1,7 +1,6 @@
 package dk.eboks.app.domain.interactors.sender
 
 import dk.eboks.app.domain.repositories.CollectionsRepository
-import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
