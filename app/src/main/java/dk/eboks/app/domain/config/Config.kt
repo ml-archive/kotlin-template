@@ -68,7 +68,7 @@ object Config {
                     )
             ),
 
-            customTranslationUrl = "https://m.e-boks.dk/app/resources/android/eboks.android.3.3.0.json",
+            customTranslationUrl = "https://m.e-boks.dk/app/resources/android/eboks.android.4.0.json",
             alternativeLoginProviders = listOf("nemid")
     )
 
@@ -108,7 +108,7 @@ object Config {
                     )
             ),
 
-            customTranslationUrl = "https://m.e-boks.no/app/resources/android/eboks.android.3.5.0.json",
+            customTranslationUrl = "https://m.e-boks.no/app/resources/android/eboks.android.4.0.json",
             alternativeLoginProviders = listOf("idporten", "bankid_no")
     )
 
@@ -148,7 +148,7 @@ object Config {
                 )
             ),
 
-            customTranslationUrl = "https://m.e-boks.se/app/resources/android/eboks.android.3.5.0.json",
+            customTranslationUrl = "https://m.e-boks.se/app/resources/android/eboks.android.4.0.json",
             alternativeLoginProviders = listOf("bankid_se")
     )
 

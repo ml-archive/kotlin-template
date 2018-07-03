@@ -23,6 +23,7 @@ import dk.eboks.app.presentation.ui.screens.overlay.ButtonType
 import dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity
 import dk.eboks.app.presentation.ui.screens.overlay.OverlayButton
 import dk.eboks.app.util.Starter
+import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -46,6 +47,8 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             OverlayButton(ButtonType.UNREAD),
             OverlayButton(ButtonType.DELETE)
     )
+
+    var sender: Sender? = null
 
     var folder: Folder? = null
         set(value) {
@@ -97,10 +100,10 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     private fun getSenderFromBundle() {
         if (arguments.containsKey("sender")) {
-            val sender = arguments.getSerializable("sender") as Sender
-            // todo correct folder type ?
-            this.folder = Folder(type = FolderType.LATEST, name = Translation.mail.allMail)
-            presenter.setup(sender)
+            sender = arguments.getSerializable("sender") as Sender
+
+            //this.folder = Folder(type = FolderType.LATEST, name = Translation.mail.allMail)
+            sender?.let { presenter.setup(it) }
         }
     }
 
@@ -233,6 +236,10 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                         activity.mainTb.title = it.name
                     }
                 }
+            }.guard {
+                sender?.let {
+                    activity.mainTb.title = it.name
+                }
             }
 
         }
@@ -280,13 +287,18 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
                 layoutManager?.let {
                     if(layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount-1){
-                        Timber.e("Reached the last visible item pos")
+                        onScrolledToLastItem()
                     }
                 }
                 super.onScrolled(recyclerView, dx, dy)
             }
         })
 
+    }
+
+    private fun onScrolledToLastItem()
+    {
+        presenter.loadNextPage()
     }
 
     private fun startMessageOpenActivity(message: Message) {
@@ -324,6 +336,11 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     override fun showMessages(messages: List<Message>) {
         checkedList.clear()
         adapter.messages.clear()
+        adapter.messages.addAll(messages)
+        messagesRv.adapter.notifyDataSetChanged()
+    }
+
+    override fun appendMessages(messages: List<Message>) {
         adapter.messages.addAll(messages)
         messagesRv.adapter.notifyDataSetChanged()
     }

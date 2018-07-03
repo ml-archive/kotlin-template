@@ -9,6 +9,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.sender.Sender
+import dk.eboks.app.network.util.metaData
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -37,6 +38,10 @@ class MailListComponentPresenter @Inject constructor(
     var currentSender: Sender? = null
 
     var currentOffset : Int = 0
+    var currentLimit : Int = 20
+    var totalMessages : Int = -1
+
+    override var isLoading : Boolean = false
 
     init {
         getMessagesInteractor.output = this
@@ -45,7 +50,8 @@ class MailListComponentPresenter @Inject constructor(
     override fun setup(folder: Folder) {
         currentFolder = folder
         mode = FOLDER_MODE
-        getMessagesInteractor.input = GetMessagesInteractor.Input(true, folder)
+        isLoading = true
+        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, folder = folder, offset = currentOffset, limit = currentLimit)
         getMessagesInteractor.run()
         runAction { v ->
             v.showProgress(true)
@@ -55,13 +61,42 @@ class MailListComponentPresenter @Inject constructor(
     override fun setup(sender: Sender) {
         currentSender = sender
         mode = SENDER_MODE
-        getMessagesInteractor.input = GetMessagesInteractor.Input(true, null, sender)
+        isLoading = true
+        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, sender = sender, offset = currentOffset, limit = currentLimit)
         getMessagesInteractor.run()
         runAction { v -> v.showProgress(true) }
     }
 
+    override fun loadNextPage() {
+        // bail out if were still loading the previous page
+        if(isLoading)
+            return
+        if(currentOffset + currentLimit < totalMessages-1) {
+            currentOffset += currentLimit
+            Timber.e("loading next page.. offset = $currentOffset")
+            isLoading = true
+            getMessagesInteractor.input = GetMessagesInteractor.Input(
+                    cached = false,
+                    folder = currentFolder,
+                    sender = currentSender,
+                    offset = currentOffset,
+                    limit = currentLimit)
+            getMessagesInteractor.run()
+            runAction { v->v.showRefreshProgress(true) }
+        }
+        else
+        {
+            Timber.e("No more pages to load offset = $currentOffset")
+        }
+    }
+
     override fun refresh() {
         currentOffset = 0
+        isLoading = true
+        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, folder = currentFolder, sender = currentSender, offset = currentOffset, limit = currentLimit)
+        getMessagesInteractor.run()
+
+        /*
         when (mode) {
             FOLDER_MODE -> {
                 currentFolder?.let {
@@ -76,6 +111,7 @@ class MailListComponentPresenter @Inject constructor(
                 }
             }
         }
+        */
     }
 
     override fun updateMessage(message: Message) {
@@ -85,7 +121,6 @@ class MailListComponentPresenter @Inject constructor(
         /*
         updateMessageInteractor.input = UpdateMessageInteractor.Input(message)
         updateMessageInteractor.output = this
-
         updateMessageInteractor.run()
         */
     }
@@ -126,18 +161,33 @@ class MailListComponentPresenter @Inject constructor(
     }
 
     override fun onGetMessages(messages: List<Message>) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showRefreshProgress(false)
-            if (messages.isNotEmpty()) {
-                v.showEmpty(false)
-                v.showMessages(messages)
-            } else
-                v.showEmpty(true)
+        isLoading = false
+        totalMessages = messages.metaData?.total ?: -1
+        Timber.e("Got messages offset = $currentOffset totalMsgs = $totalMessages")
+        if(currentOffset == 0) {
+            runAction { v ->
+                v.showProgress(false)
+                v.showRefreshProgress(false)
+                if (messages.isNotEmpty()) {
+                    v.showEmpty(false)
+                    v.showMessages(messages)
+                } else
+                    v.showEmpty(true)
+            }
+        }
+        else
+        {
+            runAction { v ->
+                v.showRefreshProgress(false)
+                if (messages.isNotEmpty()) {
+                    v.appendMessages(messages)
+                }
+            }
         }
     }
 
     override fun onGetMessagesError(error: ViewError) {
+        isLoading = false
         runAction { v ->
             v.showErrorDialog(error)
             v.showProgress(false)

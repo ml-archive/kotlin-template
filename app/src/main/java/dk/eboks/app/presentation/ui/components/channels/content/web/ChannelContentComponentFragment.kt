@@ -31,6 +31,8 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
     @Inject
     lateinit var presenter : ChannelContentComponentContract.Presenter
 
+    var channelAppInterface: ChannelContentComponentFragment.ChannelAppInterface? = null
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
@@ -110,7 +112,8 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
 
     override fun showChannel(channel: Channel) {
         mainTb.title = channel.name
-        webView.addJavascriptInterface(ChannelAppInterface(this, webView), "android")
+        channelAppInterface = ChannelAppInterface(this, webView)
+        webView.addJavascriptInterface(channelAppInterface, "android")
     }
 
     override fun openChannelContent(content: String) {
@@ -147,6 +150,20 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
                             }
                             .create()
                             .show()
+                }
+                return true
+            }
+            if(it.startsWith("mailto:"))
+            {
+                channelAppInterface?.let {
+                    it.email(url.substringAfter("mailto:"), "", "")
+                }
+                return true
+            }
+            if(it.startsWith("tel:"))
+            {
+                channelAppInterface?.let {
+                    it.call(url)
                 }
                 return true
             }

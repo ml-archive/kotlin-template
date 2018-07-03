@@ -22,6 +22,7 @@ import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.exceptions.ServerErrorException
+import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.local.ViewError
@@ -172,6 +173,11 @@ fun Channel.getType(): String {
     return "channel"
 }
 
+fun Image.getWorkaroundUrl() : String
+{
+    return "$url&type=1"
+}
+
 fun Channel.areAllRequirementsVerified() : Boolean
 {
     this.requirements?.let { reqs ->
@@ -317,3 +323,4 @@ fun Fragment.putArg(name: String, value: Double) = apply { arguments.guard { arg
 fun Fragment.putArg(name: String, value: String) = apply { arguments.guard { arguments = Bundle() }; arguments?.putString(name, value) }
 fun Fragment.putArg(name: String, value: CharSequence) = apply { arguments.guard { arguments = Bundle() }; arguments?.putCharSequence(name, value) }
 fun Fragment.putArg(name: String, value: Parcelable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putParcelable(name, value) }
+

@@ -21,18 +21,19 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
 
     override fun execute() {
         try {
-            input?.folder?.let { folder->
-                getMessageFolder(folder)
-            }.guard {
-                input?.sender?.let { sender->
-                    getMessageSender(sender)
+            input?.let { args->
+                args.folder?.let { folder->
+                    getMessageFolder(folder, args.offset, args.limit)
                 }.guard {
-                    runOnUIThread {
-                        output?.onGetMessagesError(ViewError())
+                    args.sender?.let { sender->
+                        getMessageSender(sender, args.offset, args.limit)
+                    }.guard {
+                        runOnUIThread {
+                            output?.onGetMessagesError(ViewError())
+                        }
                     }
                 }
             }
-
         } catch (t: Throwable) {
             Timber.e(t)
             runOnUIThread {
@@ -41,7 +42,26 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
         }
     }
 
-    private fun getMessageFolder(folder: Folder)
+    private fun getMessageFolder(folder: Folder, offset : Int = 0, limit : Int = 20)
+    {
+        Timber.e("Fetching folder (${folder.id} : ${folder.name}) messages $offset $limit")
+        val messages = messagesRepository.getMessagesByFolder(folder.id, offset, limit)
+        runOnUIThread {
+            output?.onGetMessages(messages)
+        }
+    }
+
+    private fun getMessageSender(sender: Sender, offset : Int = 0, limit : Int = 20)
+    {
+        Timber.e("Fetching sender (${sender.id} : ${sender.name}) messages $offset $limit")
+        val messages = messagesRepository.getMessagesBySender(sender.id, offset, limit)
+        runOnUIThread {
+            output?.onGetMessages(messages)
+        }
+    }
+
+    /*
+    private fun getMessageFolder(folder: Folder, offset : Int = 0, limit : Int = 20)
     {
         val hasCached = if(input?.cached == true)
             messagesRepository.hasCachedMessageFolder(folder)
@@ -70,7 +90,7 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
         }
     }
 
-    private fun getMessageSender(sender: Sender)
+    private fun getMessageSender(sender: Sender, offset : Int = 0, limit : Int = 20)
     {
         val hasCached = if(input?.cached == true)
             messagesRepository.hasCachedMessageSender(sender)
@@ -98,13 +118,14 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
             }
         }
     }
+    */
 
 
     private fun getMessages(cached : Boolean, folder: Folder) : List<Message>
     {
         if(folder.id != 0)
         {
-            return messagesRepository.getMessages(cached, folder.id)
+            return messagesRepository.getMessagesByFolder(folder.id)
         }
         else
         {

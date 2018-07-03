@@ -13,12 +13,14 @@ interface MailListComponentContract {
     interface View : ComponentBaseView {
         fun showRefreshProgress(show: Boolean)
         fun showMessages(messages: List<Message>)
+        fun appendMessages(messages: List<Message>)
     }
 
     interface Presenter : BasePresenter<MailListComponentContract.View> {
         fun setup(folder: Folder)
         fun setup(sender: Sender)
         fun refresh()
+        fun loadNextPage()
 
         fun updateMessage(message: Message)
         fun archiveMessages(selectedMessages: MutableList<Message>)
@@ -26,5 +28,7 @@ interface MailListComponentContract {
         fun markUnreadMessages(selectedMessages: MutableList<Message>)
         fun deleteMessages(selectedMessages: MutableList<Message>)
         fun moveMessages(folderName: String?, selectedMessages: MutableList<Message>)
+
+        var isLoading : Boolean
     }
 }

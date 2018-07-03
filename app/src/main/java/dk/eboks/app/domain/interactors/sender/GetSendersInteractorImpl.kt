@@ -1,8 +1,10 @@
 package dk.eboks.app.domain.interactors.sender
 
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.repositories.SenderCategoriesRepository
 import dk.eboks.app.domain.repositories.SendersRepository
 import dk.eboks.app.util.exceptionToViewError
+import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
@@ -29,10 +31,22 @@ class GetSendersInteractorImpl(executor: Executor, val sendersRepository: Sender
     private fun doGet() {
         Timber.d("doGet")
         try {
-            val senders = sendersRepository.getSenders(input?.cached ?: true)
-            runOnUIThread {
-                output?.onGetSenders(senders)
-            }
+            input?.let { args->
+                var senders = sendersRepository.getSenders(input?.cached ?: true)
+                runOnUIThread {
+                    if(args.cached) Timber.e("Returning cache senders") else Timber.e("Returning fresh senders on first run")
+                    output?.onGetSenders(senders)
+                }
+                // if we returned cached, refresh from network
+                if(args.cached)
+                {
+                    senders = sendersRepository.getSenders(false)
+                    runOnUIThread {
+                        Timber.e("Returning fresh senders")
+                        output?.onGetSenders(senders)
+                    }
+                }
+            }.guard { output?.onGetSendersError(ViewError()) }
         } catch (t: Throwable) {
             runOnUIThread {
                 Timber.e(t)

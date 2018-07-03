@@ -20,6 +20,9 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.MessageType
+import dk.eboks.app.util.getWorkaroundUrl
+import timber.log.Timber
 
 class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageViewHolder>() {
     enum class MailMessageEvent { OPEN, READ, MOVE }
@@ -133,16 +136,18 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
             uploadFl.visibility = View.VISIBLE
             checkBox.visibility = View.GONE
 
-
-            folder?.let {
-                if (it.type == FolderType.UPLOADS) {
-                    imageIv.setImageResource(R.drawable.ic_menu_uploads)
-                    uploadFl.isSelected = false
-
-                } else {
+            if(currentItem.type == MessageType.UPLOAD)
+            {
+                imageIv.setImageResource(R.drawable.ic_menu_uploads)
+                uploadFl.isSelected = false
+            }
+            else
+            {
+                currentItem.sender?.logo?.let { logo->
+                    Timber.e("Loading the fucking logo at URL ${logo.getWorkaroundUrl()}")
                     Glide.with(itemView.context)
                             .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
-                            .load(currentItem.sender?.logo?.url)
+                            .load(logo.getWorkaroundUrl() )
                             .into(imageIv)
 
                     uploadFl.isSelected = currentItem.unread

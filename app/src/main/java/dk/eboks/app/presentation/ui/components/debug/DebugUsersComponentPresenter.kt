@@ -24,7 +24,7 @@ class DebugUsersComponentPresenter @Inject constructor(val appState: AppStateMan
                 userName="0703151319", userPassWord="a12345", activationCode="Rg9d2X3D"))
                 */
         u.add(LoginState(selectedUser= User(id = -2, name="Charlie Testb0urger (0703151319)", identity = "0703151319"),
-                userName="0703151319", userPassWord="a12345"))
+                userName="0703151319", userPassWord="a12345", activationCode = "Lz70Kqt6"))
         u.add(LoginState(selectedUser= User(id = -3, name="Boxie Fairshare (0805730045)", identity = "0805730045"),
                 userName="0805730045", userPassWord="a12345", activationCode="Ha9y4P8J"))
         u.add(LoginState(selectedUser= User(id = -4, name="Signe Signfeature (090906-1349)", identity = "0909061349"),

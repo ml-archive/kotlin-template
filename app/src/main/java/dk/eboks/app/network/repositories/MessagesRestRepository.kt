@@ -101,13 +101,26 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
     }
 
-    override fun getMessages(cached: Boolean, folderId : Int): List<Message>
+    override fun getMessagesByFolder(folderId : Int, offset : Int, limit : Int): List<Message>
     {
-        val res = if(cached) folderIdMessageStore.get(folderId) else folderIdMessageStore.fetch(folderId)
-        if(res != null)
-            return res
-        else
-            return ArrayList()
+        val response = api.getMessages(folderId, offset, limit).execute()
+        if(response.isSuccessful) {
+            response.body()?.let {
+                return it
+            }.guard { return ArrayList() }
+        }
+        return ArrayList()
+    }
+
+    override fun getMessagesBySender(senderId : Long, offset : Int, limit : Int): List<Message> {
+
+        val response = api.getMessagesBySender(senderId, offset, limit).execute()
+        if(response.isSuccessful) {
+            response.body()?.let {
+                return it
+            }.guard { return ArrayList() }
+        }
+        return ArrayList()
     }
 
     /*
@@ -151,16 +164,6 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
         else
             return ArrayList()
     }
-
-
-    override fun getMessagesBySender(cached: Boolean, senderId : Long): List<Message> {
-        val res = if(cached) senderIdMessageStore.get(senderId) else senderIdMessageStore.fetch(senderId)
-        if(res != null)
-            return res
-        else
-            return ArrayList()
-    }
-
 
     override fun getMessage(folderId: Int, id: String, receipt : Boolean?, terms : Boolean?) : Message {
         val call = api.getMessage(id, folderId, receipt, terms)

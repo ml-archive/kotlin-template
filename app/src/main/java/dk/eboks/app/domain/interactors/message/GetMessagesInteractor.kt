@@ -14,7 +14,7 @@ interface GetMessagesInteractor : Interactor {
     var input : Input?
 
 
-    data class Input(val cached: Boolean, var folder: Folder? = null, var sender: Sender? = null)
+    data class Input(val cached: Boolean, var folder: Folder? = null, var sender: Sender? = null, var offset : Int = 0, var limit : Int = 20)
 
     interface Output {
         fun onGetMessages(messages : List<Message>)

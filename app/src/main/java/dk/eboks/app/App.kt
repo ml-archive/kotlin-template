@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Build
 import android.os.Bundle
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.injection.components.AppComponent
 import dk.eboks.app.injection.components.DaggerAppComponent
@@ -27,10 +28,14 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
 
         App.Companion._instance = this
         // NStack.customRequestUrl = Config.currentMode.customTranslationUrl
-        NStack.debugLogLevel
+
         NStack.translationClass = Translation::class.java
         NStack.debugMode = BuildConfig.DEBUG
         NStack.debugLogLevel = NLog.Level.OFF
+        // Set custom translation url if not in debug
+        if(!BuildConfig.DEBUG)
+            NStack.customRequestUrl = Config.currentMode.customTranslationUrl
+
         NStack.init(this)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
