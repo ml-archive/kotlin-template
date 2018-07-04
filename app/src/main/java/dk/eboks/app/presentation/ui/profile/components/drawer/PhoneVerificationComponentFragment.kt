@@ -12,6 +12,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.isValidActivationCode
+import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_profile_verify_mobile_number_component.*
 import javax.inject.Inject
 
@@ -36,17 +37,24 @@ class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComp
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setup()
+        arguments?.getString("mobile")?.let { presenter.setup(it) }
     }
 
     private fun setup() {
         setupValidationListener()
         setEnableStateContinueButton()
         verifyBtn.setOnClickListener {
-            Toast.makeText(context, "_verify btn clicked!", Toast.LENGTH_SHORT).show()
+            val code = verificationCodeEt.text.toString()
+            if(!code.isNullOrEmpty())
+                presenter.confirmMobile(code)
         }
 
         resendBtn.setOnClickListener {
-            Toast.makeText(context, "_resend btn clicked!", Toast.LENGTH_SHORT).show()
+            presenter.resendVerificationCode()
+        }
+
+        cancelBtn.setOnClickListener {
+            finishActivity()
         }
     }
 
@@ -88,4 +96,7 @@ class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComp
         }
     }
 
+    override fun showProgress(show: Boolean) {
+        progressFl.setVisible(show)
+    }
 }

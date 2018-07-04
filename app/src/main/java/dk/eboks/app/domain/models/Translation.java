@@ -60,8 +60,8 @@ public class Translation {
 		public static String smartFolderHeader = "Folders";
 		public static String foldersButton = "All folders";
 		public static String sendersEmptyHeader = "No mails from your senders";
-		public static String sendersEmptyMessage = "__sendersEmptyMessage";
-		public static String addMoreSendersButton = "Add more senders";
+		public static String sendersEmptyMessage = "Register the senders you normally receive your mail from";
+		public static String addMoreSendersButton = "Register senders";
 		public static String noMessagesToDisplay = "No mail";
 		public static String allMail = "All mail";
 		public static String unverifiedEmptyTitle = "Receive your mail digitally";
@@ -488,7 +488,7 @@ public class Translation {
 	}
 	public final static class channelsettingsstoreboxadditions {
 		public static String digitalReceiptsTitle = "Receive only receipts digitally";
-		public static String digitalReceiptsMessage = "You will only receive your receipts digitally when you shop in stores that are registeret with Storebox";
+		public static String digitalReceiptsMessage = "Do not also get your receipts on paper";
 		public static String creditCardsSectionHeader = "Payment cards";
 		public static String addCardTitle = "Add another payment card";
 		public static String deleteCardAlertTitle = "Are you sure you want to remove this payment card?";

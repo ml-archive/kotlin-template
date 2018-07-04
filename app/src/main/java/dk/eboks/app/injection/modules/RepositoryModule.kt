@@ -34,7 +34,7 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideUserRestRepository(context: Context, api: Api, gson: Gson) : UserRestRepository
+    fun provideUserRestRepository(context: Context, api: Api, gson: Gson) : UserRepository
     {
         return UserRestRepository(context, api, gson)
     }

@@ -31,8 +31,25 @@ class UserRestRepository(private val context: Context, private val api: Api, pri
     }
 
     override fun verifyPhone(number: String){
-
+        val result = api.verifyMobile(number).execute()
+        result?.let { response ->
+            if (response.isSuccessful) {
+                return
+            }
+        }
+        throw(RuntimeException())
     }
+
+    override fun confirmPhone(number: String, code : String){
+        val result = api.confirmMobile(number, code).execute()
+        result?.let { response ->
+            if (response.isSuccessful) {
+                return
+            }
+        }
+        throw(RuntimeException())
+    }
+
 
     override fun checkSsn(ssn: String): Boolean {
         val result = api.checkUserIdentity(ssn).execute()

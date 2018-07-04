@@ -816,8 +816,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun providePhoneVerificationComponentPresenter(stateManager: AppStateManager): PhoneVerificationComponentContract.Presenter {
-        return PhoneVerificationComponentPresenter(stateManager)
+    fun providePhoneVerificationComponentPresenter(stateManager: AppStateManager, verifyPhoneInteractor: VerifyPhoneInteractor, confirmPhoneInteractor: ConfirmPhoneInteractor): PhoneVerificationComponentContract.Presenter {
+        return PhoneVerificationComponentPresenter(stateManager, verifyPhoneInteractor, confirmPhoneInteractor)
     }
 
     @ActivityScope

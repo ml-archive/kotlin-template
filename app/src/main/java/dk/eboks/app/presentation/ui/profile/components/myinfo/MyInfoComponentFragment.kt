@@ -94,7 +94,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         verifyEmailBtn.setOnClickListener {
 
             if (primaryMailEt.text.isValidEmail()) {
-                var args = Bundle()
+                val args = Bundle()
                 args.putSerializable("mail", primaryMailEt.text.toString())
                 getBaseActivity()?.openComponentDrawer(EmailVerificationComponentFragment::class.java, args)
             }
@@ -102,14 +102,18 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
 
         verifySecondaryEmailBtn.setOnClickListener {
             if (primaryMailEt.text.isValidEmail()) {
-                var args = Bundle()
+                val args = Bundle()
                 args.putSerializable("mail", secondaryMailEt.text.toString())
                 getBaseActivity()?.openComponentDrawer(EmailVerificationComponentFragment::class.java, args)
             }
         }
 
         verifyMobileNumberBtn.setOnClickListener {
-            getBaseActivity()?.openComponentDrawer(PhoneVerificationComponentFragment::class.java)
+            if(!mobilEt.text.isNullOrEmpty()) {
+                val args = Bundle()
+                args.putString("mobile", mobilEt.text.toString())
+                getBaseActivity()?.openComponentDrawer(PhoneVerificationComponentFragment::class.java, args)
+            }
         }
 
     }
@@ -122,13 +126,6 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
     }
 
     override fun onDone() {
-        //todo ChannelContentAcitivity currently uses the appstate for current item, Stinus said he wanted to change that,
-        // if he does that then we need to send channel with the activity
-        // also needs to do save the options and redo API call for the channel, to see if the requirements has been met.
-
-        //todo also need redirect it to the propper acitivity - if it comes from home it should not go channelContentActivity
-//        startActivity(Intent(activity, ChannelContentActivity::class.java))
-//        fragmentManager.popBackStack()
         activity.finish()
     }
 

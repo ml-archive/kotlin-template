@@ -8,9 +8,13 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface PhoneVerificationComponentContract {
     interface View : BaseView {
-
+        fun finishActivity(resultCode : Int?)
+        fun showProgress(show : Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
+        fun setup(mobile: String)
+        fun resendVerificationCode()
+        fun confirmMobile(activationCode : String)
     }
 }

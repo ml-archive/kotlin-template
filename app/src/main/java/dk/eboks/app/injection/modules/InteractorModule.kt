@@ -27,7 +27,6 @@ import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.repositories.*
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.repositories.SignupRestRepository
-import dk.eboks.app.network.repositories.UserRestRepository
 import dk.nodes.arch.domain.executor.Executor
 import okhttp3.OkHttpClient
 
@@ -58,7 +57,7 @@ class InteractorModule {
     fun provideCheckSsnExistsInteractor(
             executor: Executor,
             api: Api,
-            userRestRepository: UserRestRepository
+            userRestRepository: UserRepository
     ): CheckSsnExistsInteractor {
         return CheckSsnExistsInteractorImpl(executor, api, userRestRepository)
     }
@@ -76,7 +75,7 @@ class InteractorModule {
     fun provideVerifyEmailInteractor(
             executor: Executor,
             api: Api,
-            userRestRepository: UserRestRepository
+            userRestRepository: UserRepository
     ): VerifyEmailInteractor {
         return VerifyEmailInteractorImpl(executor, api, userRestRepository)
     }
@@ -86,7 +85,7 @@ class InteractorModule {
     fun provideUpdateUserInteractor(
             executor: Executor,
             api: Api,
-            userRestRepository: UserRestRepository
+            userRestRepository: UserRepository
     ): UpdateUserInteractor {
         return UpdateUserInteractorImpl(executor, api, userRestRepository)
     }
@@ -521,5 +520,23 @@ class InteractorModule {
     @Provides
     fun provideResetPasswordInteractor(executor: Executor, api: Api): ResetPasswordInteractor {
         return ResetPasswordInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun provideVerifyPhoneInteractor(
+            executor: Executor,
+            api: Api,
+            userRestRepo: UserRepository
+    ): VerifyPhoneInteractor {
+        return VerifyPhoneInteractorImpl(executor, api, userRestRepo)
+    }
+
+    @Provides
+    fun provideConfirmPhoneInteractor(
+            executor: Executor,
+            api: Api,
+            userRestRepo: UserRepository
+    ): ConfirmPhoneInteractor {
+        return ConfirmPhoneInteractorImpl(executor, api, userRestRepo)
     }
 }
