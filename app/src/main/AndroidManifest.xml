@@ -41,53 +41,53 @@
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name="dk.eboks.app.presentation.ui.screens.start.StartActivity">
+        <activity android:name="dk.eboks.app.presentation.ui.start.screens.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="dk.eboks.app.presentation.ui.screens.debug.hinter.HintActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.debug.ComponentTestActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.debug.DebugActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.debug.user.DebugUserActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.debug.screens.hinter.HintActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.debug.screens.ComponentTestActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.debug.screens.DebugActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.debug.screens.user.DebugUserActivity" />
         <activity android:name="dk.eboks.app.pasta.activity.PastaActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.overlay.OverlayActivity"
+        <activity android:name="dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity"
             android:theme="@style/TransTheme" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.mail.overview.MailOverviewActivity" android:launchMode="singleTask" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity" android:launchMode="singleTop" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.mail.folder.FolderActivity" android:launchMode="singleTop" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.message.MessageActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.channels.overview.ChannelOverviewActivity" android:launchMode="singleTask" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.channels.content.ChannelContentActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.channels.content.storebox.ConnectStoreboxActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.channels.content.storebox.StoreboxContentActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.channels.content.ekey.EkeyContentActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.senders.overview.SendersOverviewActivity" android:launchMode="singleTask" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.senders.browse.BrowseCategoryActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.senders.browse.SearchSendersActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.profile.ProfileActivity" android:launchMode="singleTask" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.profile.myinfo.MyInfoActivity"  />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.home.HomeActivity" android:launchMode="singleTask" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.uploads.UploadsActivity" android:launchMode="singleTask" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.senders.segment.SegmentDetailActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.senders.registrations.RegistrationsActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.senders.registrations.PendingActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.senders.list.SenderAllListActivity" />
-        <activity android:name=".presentation.ui.screens.message.reply.ReplyFormActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.start.HelpActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.screens.notimplemented.ComingSoonActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity" android:launchMode="singleTask" />
+        <activity android:name="dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity" android:launchMode="singleTop" />
+        <activity android:name="dk.eboks.app.presentation.ui.folder.screens.FolderActivity" android:launchMode="singleTop" />
+        <activity android:name="dk.eboks.app.presentation.ui.message.screens.MessageActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.message.screens.embedded.MessageEmbeddedActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.channels.screens.overview.ChannelOverviewActivity" android:launchMode="singleTask" />
+        <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectStoreboxActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.storebox.StoreboxContentActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.overview.SendersOverviewActivity" android:launchMode="singleTask" />
+        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.browse.BrowseCategoryActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.browse.SearchSendersActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.profile.screens.ProfileActivity" android:launchMode="singleTask" />
+        <activity android:name="dk.eboks.app.presentation.ui.profile.screens.myinfo.MyInfoActivity"  />
+        <activity android:name="dk.eboks.app.presentation.ui.home.screens.HomeActivity" android:launchMode="singleTask" />
+        <activity android:name="dk.eboks.app.presentation.ui.uploads.screens.UploadsActivity" android:launchMode="singleTask" />
+        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.segment.SegmentDetailActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.registrations.RegistrationsActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.registrations.PendingActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.list.SenderAllListActivity" />
+        <activity android:name=".presentation.ui.message.screens.reply.ReplyFormActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.start.screens.HelpActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.notimplemented.screens.ComingSoonActivity" />
 
         <activity android:name="dk.eboks.app.system.managers.permission.PermissionRequestActivity" />
         <activity
             android:name="dk.eboks.app.presentation.base.SheetComponentActivity"
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/TransTheme" />
-        <activity android:name=".presentation.ui.screens.channels.content.storebox.StoreboxAddCardActivity"/>
-        <activity android:name=".presentation.ui.screens.login.PopupLoginActivity"/>
+        <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.storebox.StoreboxAddCardActivity"/>
+        <activity android:name=".presentation.ui.login.screens.PopupLoginActivity"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

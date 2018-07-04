@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
 import dk.eboks.app.R
-import dk.eboks.app.presentation.ui.components.profile.drawer.MergeAccountComponentFragment
+import dk.eboks.app.presentation.ui.profile.components.drawer.MergeAccountComponentFragment
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import timber.log.Timber
 

@@ -48,7 +48,7 @@
 
             <fragment
                 android:id="@+id/sendersCategoriesFrag"
-                android:name="dk.eboks.app.presentation.ui.components.senders.categories.CategoriesComponentFragment"
+                android:name="dk.eboks.app.presentation.ui.senders.components.categories.CategoriesComponentFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 

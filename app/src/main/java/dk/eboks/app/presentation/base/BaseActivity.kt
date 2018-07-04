@@ -17,7 +17,7 @@ import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
-import dk.eboks.app.presentation.ui.screens.debug.DebugActivity
+import dk.eboks.app.presentation.ui.debug.screens.DebugActivity
 import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
