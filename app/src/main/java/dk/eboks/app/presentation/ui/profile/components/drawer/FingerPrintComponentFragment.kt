@@ -1,18 +1,23 @@
 package dk.eboks.app.presentation.ui.profile.components.drawer
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.support.annotation.RequiresApi
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.LoginInfo
 import dk.eboks.app.domain.models.login.LoginInfoType
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
 import dk.eboks.app.util.addAfterTextChangeListener
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.setVisible
+import dk.nodes.locksmith.core.models.FingerprintDialogEvent
 import kotlinx.android.synthetic.main.fragment_profile_enable_fingerprint_component.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -34,7 +39,13 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
         presenter.onViewCreated(this, lifecycle)
 
         enableBtn.setOnClickListener {
-            startHintFragment()
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                showFingerprintDialog()
+            }
+        }
+
+        redOptionTv.setOnClickListener {
+            activity.onBackPressed()
         }
     }
 
@@ -125,15 +136,61 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     }
 
     // Routing Functions
-
+    /*
     private fun startHintFragment() {
      mode?.let {
-         val bundle = Bundle()
-         val loginInfo = LoginInfo(it,socialSecurityEt.text.toString(),passwordEt.text.toString())
-         bundle.putParcelable(LoginInfo.KEY,loginInfo)
-         getBaseActivity()?.onBackPressed()
-         getBaseActivity()?.openComponentDrawer(FingerHintComponentFragment::class.java, bundle)
-     }
+             val bundle = Bundle()
+             val loginInfo = LoginInfo(it,socialSecurityEt.text.toString(),passwordEt.text.toString())
+             bundle.putParcelable(LoginInfo.KEY,loginInfo)
+             getBaseActivity()?.onBackPressed()
+             getBaseActivity()?.openComponentDrawer(FingerHintComponentFragment::class.java, bundle)
+        }
+    }
+    */
+
+    override fun getUserLoginInfo(): LoginInfo {
+        mode?.let {
+            return LoginInfo(it, socialSecurityEt.text.toString(),passwordEt.text.toString())
+        }
+        throw(IllegalStateException("mode must not be null"))
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun showFingerprintDialog() {
+        val customFingerprintDialog = CustomFingerprintDialog(context)
+
+        customFingerprintDialog.setOnFingerprintDialogEventListener {
+            customFingerprintDialog.dismiss()
+
+            when (it) {
+                FingerprintDialogEvent.CANCEL  -> {
+                    // Do nothing?
+                }
+                FingerprintDialogEvent.SUCCESS -> {
+                    presenter.encryptUserLoginInfo()
+                }
+                FingerprintDialogEvent.ERROR_CIPHER,
+                FingerprintDialogEvent.ERROR_ENROLLMENT,
+                FingerprintDialogEvent.ERROR_HARDWARE,
+                FingerprintDialogEvent.ERROR_SECURE,
+                FingerprintDialogEvent.ERROR   -> {
+                    showErrorDialog(
+                            ViewError(
+                                    Translation.error.genericTitle,
+                                    Translation.androidfingerprint.errorGeneric,
+                                    true,
+                                    false
+                            )
+                    )
+                }
+            }
+        }
+
+        customFingerprintDialog.onUsePasswordBtnListener = {
+            // Todo add use password section
+        }
+
+        customFingerprintDialog.show()
     }
 
     // Error Handlers
@@ -156,5 +213,9 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
         } else {
             passwordTil.error = null
         }
+    }
+
+    override fun finishView() {
+        getBaseActivity()?.onBackPressed()
     }
 }

@@ -96,6 +96,6 @@
         style="@style/button.borderless"
         android:textStyle="bold"
         android:text="_Cancel"
-        nstack:key="@string/nstack_default_ok"/>
+        nstack:key="@string/nstack_default_cancel"/>
 
 </LinearLayout>

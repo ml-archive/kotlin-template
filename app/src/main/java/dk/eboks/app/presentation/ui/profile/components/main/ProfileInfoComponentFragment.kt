@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,13 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.profile.components.HelpFragment
 import dk.eboks.app.presentation.ui.profile.components.PrivacyFragment
+import dk.eboks.app.presentation.ui.profile.components.drawer.FingerHintComponentFragment
 import dk.eboks.app.presentation.ui.profile.components.drawer.FingerPrintComponentFragment
 import dk.eboks.app.presentation.ui.profile.components.myinfo.MyInfoComponentFragment
 import dk.eboks.app.presentation.ui.profile.screens.ProfileActivity
@@ -58,9 +61,6 @@ class ProfileInfoComponentFragment : BaseFragment(),
         setupVersionNumber()
         setupCollapsingToolbar()
 
-        // Show our fingerprint stuff only if we are above API M
-        profileDetailSwFingerprint.setVisible(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
-
         if (BuildConfig.ENABLE_PROFILE_PICTURE) {
             profileDetailIv.setOnClickListener {
                 acquireUserImage()
@@ -92,7 +92,14 @@ class ProfileInfoComponentFragment : BaseFragment(),
         profileDetailRegisterTB.textOff = Translation.profile.verifyButton
     }
 
-    override fun setupListeners() {
+    override fun showFingerprintOption(show: Boolean) {
+        if(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            // Show our fingerprint stuff only if we are above API M
+            profileDetailSwFingerprint.setVisible(show)
+        }
+    }
+
+    override fun setupListeners(verified : Boolean) {
         val profileActivity = if (activity is ProfileActivity) {
             (activity as ProfileActivity)
         } else {
@@ -125,11 +132,27 @@ class ProfileInfoComponentFragment : BaseFragment(),
         profileDetailSwFingerprint.setOnClickListener {
             val isChecked = profileDetailSwFingerprint.isChecked
             Timber.d("Fingerprint: Toggled -> $isChecked")
-            if(isChecked) {
-                // show da Finger!
-                 getBaseActivity()?.openComponentDrawer(FingerPrintComponentFragment::class.java)
-            } else {
-                presenter.enableUserFingerprint(false)
+
+            if (BuildConfig.ENABLE_FINGERPRINT_NONVERIFIED) {
+                if (isChecked) {
+                    // show da Finger!
+                    getBaseActivity()?.openComponentDrawer(FingerPrintComponentFragment::class.java)
+                } else {
+                    presenter.enableUserFingerprint(false)
+                }
+            }
+            else
+            {
+                if (isChecked) {
+                    // show da Finger!
+                    if(verified)
+                        getBaseActivity()?.openComponentDrawer(FingerPrintComponentFragment::class.java)
+                    else
+                        getBaseActivity()?.openComponentDrawer(FingerHintComponentFragment::class.java)
+                } else {
+                    if(verified)
+                        presenter.enableUserFingerprint(false)
+                }
             }
         }
 
@@ -160,6 +183,21 @@ class ProfileInfoComponentFragment : BaseFragment(),
         profileDetailBtnSignout.setOnClickListener {
             Timber.d("profileDetailBtnSignout Clicked")
             presenter.doLogout()
+        }
+
+        profileDetailContainerFeedback.setOnClickListener {
+            Config.getResourceLinkByType("feedback")?.let { link->
+                openUrlExternal(link.link.url)
+            }
+        }
+    }
+
+    private fun openUrlExternal(url : String)
+    {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        if (intent.resolveActivity(context.packageManager) != null) {
+            ContextCompat.startActivity(context, intent, null)
         }
     }
 

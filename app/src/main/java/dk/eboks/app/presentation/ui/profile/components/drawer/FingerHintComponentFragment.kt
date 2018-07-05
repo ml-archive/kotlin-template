@@ -38,8 +38,8 @@ class FingerHintComponentFragment : BaseFragment(), FingerHintComponentContract.
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        signupBtn.setOnClickListener {
-            onSignUpBtnClicked()
+        okBtn.setOnClickListener {
+            activity.onBackPressed()
         }
     }
 

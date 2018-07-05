@@ -43,6 +43,10 @@
   <string name='nstack_error_connectionError' formatted='false'>error_connectionError</string>
   <string name='nstack_error_errorTitle' formatted='false'>error_errorTitle</string>
   <string name='nstack_error_unknownError' formatted='false'>error_unknownError</string>
+  <string name='nstack_error_compromisedConnectionTitle' formatted='false'>error_compromisedConnectionTitle</string>
+  <string name='nstack_error_compromisedConnectionMessage' formatted='false'>error_compromisedConnectionMessage</string>
+  <string name='nstack_error_resourceNotfoundMessage' formatted='false'>error_resourceNotfoundMessage</string>
+  <string name='nstack_error_resourceNotfoundTitle' formatted='false'>error_resourceNotfoundTitle</string>
   <string name='nstack_mail_senderHeader' formatted='false'>mail_senderHeader</string>
   <string name='nstack_mail_showAllSendersButton' formatted='false'>mail_showAllSendersButton</string>
   <string name='nstack_mail_smartFolderHeader' formatted='false'>mail_smartFolderHeader</string>
@@ -93,6 +97,7 @@
   <string name='nstack_channels_allowButton' formatted='false'>channels_allowButton</string>
   <string name='nstack_channels_drawerNeedsVerification' formatted='false'>channels_drawerNeedsVerification</string>
   <string name='nstack_channels_storeboxAlreadyHaveProfileButton' formatted='false'>channels_storeboxAlreadyHaveProfileButton</string>
+  <string name='nstack_channels_pkiRequiredInfoText' formatted='false'>channels_pkiRequiredInfoText</string>
   <string name='nstack_senders_title' formatted='false'>senders_title</string>
   <string name='nstack_senders_registrations' formatted='false'>senders_registrations</string>
   <string name='nstack_senders_register' formatted='false'>senders_register</string>

@@ -53,6 +53,10 @@ public class Translation {
 		public static String connectionError = "No or bad connection. Please try again.";
 		public static String errorTitle = "Error";
 		public static String unknownError = "Unkown error, please try again";
+		public static String compromisedConnectionTitle = "__compromisedConnectionTitle";
+		public static String compromisedConnectionMessage = "__compromisedConnectionMessage";
+		public static String resourceNotfoundMessage = "The requested resource could not be found";
+		public static String resourceNotfoundTitle = "Not found";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -113,6 +117,7 @@ public class Translation {
 		public static String allowButton = "Allow";
 		public static String drawerNeedsVerification = "Needs verification";
 		public static String storeboxAlreadyHaveProfileButton = "I already have a Storebox profile";
+		public static String pkiRequiredInfoText = "To use this service, please log on with [pkiName]";
 	}
 	public final static class senders {
 		public static String title = "Senders";

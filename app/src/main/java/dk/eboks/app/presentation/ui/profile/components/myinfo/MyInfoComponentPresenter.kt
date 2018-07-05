@@ -33,7 +33,16 @@ class MyInfoComponentPresenter @Inject constructor(
             runAction { v ->
                 v.setName(user.name)
                 user.getPrimaryEmail()?.let { v.setPrimaryEmail(it) }
-                user.getSecondaryEmail()?.let { v.setSecondaryEmail(it) }
+                if(user.verified)
+                {
+                    user.getSecondaryEmail()?.let { v.setSecondaryEmail(it) }
+                    v.showSecondaryEmail(true)
+                }
+                else
+                {
+                    v.showSecondaryEmail(false)
+                }
+
                 user.mobilenumber?.let {
                     it.value?.let { value ->
                         v.setMobileNumber(value, it.verified)

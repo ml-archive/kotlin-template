@@ -35,7 +35,7 @@
         nstack:key="@string/nstack_profile_fingerHintText" />
 
     <Button
-        android:id="@+id/signupBtn"
+        android:id="@+id/okBtn"
         style="@style/buttonRoundedCorners.darkBlueGrey"
         android:layout_width="match_parent"
         android:layout_height="52dp"

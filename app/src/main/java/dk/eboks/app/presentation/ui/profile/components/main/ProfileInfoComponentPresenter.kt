@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.profile.components.main
 
 import android.arch.lifecycle.Lifecycle
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.user.GetUserProfileInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserSettingsInteractor
@@ -48,13 +49,15 @@ class ProfileInfoComponentPresenter @Inject constructor(
         runAction { v ->
             v.setName(user.name)
             v.setVerified(user.verified)
+            v.showFingerprintOption(true)
+
             v.setProfileImage(user.avatarUri)
 
             appState.state?.currentSettings?.let {
                 v.showFingerprintEnabled(it.hasFingerprint, it.lastLoginProviderId)
                 v.showKeepMeSignedIn(it.stayLoggedIn)
             }
-            v.setupListeners()
+            v.setupListeners(user.verified)
             v.showProgress(false)
         }
     }

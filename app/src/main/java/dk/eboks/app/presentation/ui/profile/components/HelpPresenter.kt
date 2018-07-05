@@ -19,8 +19,9 @@ class HelpPresenter @Inject constructor(@Named("NAME_BASE_URL") val baseUrl: Str
         super.onViewCreated(view, lifecycle)
 
         runAction { v ->
-            val urlString = baseUrl.plus("resources/${Config.currentMode.countryCode}/links")
-            v.loadUrl(urlString)
+            Config.getResourceLinkByType("support")?.let { link->
+                v.loadUrl(link.link.url)
+            }
         }
     }
 }

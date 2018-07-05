@@ -98,7 +98,8 @@ class InteractorModule {
             appStateManager: AppStateManager,
             fileCacheManager: FileCacheManager,
             cacheManager: CacheManager,
-            userManager: UserManager
+            userManager: UserManager,
+            api: Api
     ): BootstrapInteractor {
         return BootstrapInteractorImpl(
                 executor,
@@ -107,7 +108,8 @@ class InteractorModule {
                 appStateManager,
                 fileCacheManager,
                 cacheManager,
-                userManager
+                userManager,
+                api
         )
     }
 

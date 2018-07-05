@@ -16,6 +16,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.profile.components.drawer.EmailVerificationComponentFragment
 import dk.eboks.app.presentation.ui.profile.components.drawer.PhoneVerificationComponentFragment
 import dk.eboks.app.util.isValidEmail
+import dk.eboks.app.util.setVisible
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.fragment_profile_myinformation_component.*
@@ -200,6 +201,10 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
 
     override fun showProgress(show: Boolean) {
         progressFl.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    override fun showSecondaryEmail(show: Boolean) {
+        secondaryMailFl.setVisible(show)
     }
 
     override fun setSaveEnabled(enabled: Boolean) {

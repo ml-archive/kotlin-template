@@ -838,8 +838,18 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideFingerPrintComponentPresenter(stateManager: AppStateManager): FingerPrintComponentContract.Presenter {
-        return FingerPrintComponentPresenter(stateManager)
+    fun provideFingerPrintComponentPresenter(
+            stateManager: AppStateManager,
+            userSettingsManager: UserSettingsManager,
+            encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,
+            saveUserInteractor: SaveUserInteractor
+    ): FingerPrintComponentContract.Presenter {
+        return FingerPrintComponentPresenter(
+                stateManager,
+                userSettingsManager,
+                encryptUserLoginInfoInteractor,
+                saveUserInteractor
+        )
     }
 
     @ActivityScope
