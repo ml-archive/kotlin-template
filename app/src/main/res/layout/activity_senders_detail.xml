@@ -108,14 +108,14 @@
 
             <fragment
                 android:id="@+id/senderGroupsListComponentF"
-                android:name="dk.eboks.app.presentation.ui.components.senders.SenderGroupsComponentFragment"
+                android:name="dk.eboks.app.presentation.ui.senders.components.SenderGroupsComponentFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"/>
 
             <fragment
                 android:id="@+id/senderDetailInfoF"
-                android:name="dk.eboks.app.presentation.ui.screens.senders.detail.SenderDetailInfoFragment"
+                android:name="dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailInfoFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:animateLayoutChanges="true"/>

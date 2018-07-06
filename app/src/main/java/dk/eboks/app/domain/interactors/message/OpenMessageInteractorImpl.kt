@@ -37,8 +37,8 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                 // update the (perhaps) more detailed message object with the extra info from the backend
                 // because the JVM can only deal with reference types silly reflection tricks like this are necessary
                 FieldMapper.copyAllFields(msg, updated_msg)
-                // no dumbfuckery, proceed with opening (post download dumbfuckery can still ensue)
-                if(!checkMessageForDumbFuckery(msg))
+
+                if(!checkMessageLockState(msg))
                     openMessage(msg)
             }
         }
@@ -123,8 +123,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
 
     }
 
-    // returns false if not stupid shit happened
-    fun checkMessageForDumbFuckery(msg : Message) : Boolean
+    fun checkMessageLockState(msg : Message) : Boolean
     {
         // check for stupid message protection / locking
         msg.lockStatus?.let { status->
@@ -193,7 +192,8 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                     Timber.e("View is still attached, proceeding")
                 }
             }
-
+            // set message to unread
+            msg.unread = false
             if(isEmbeddedType(msg))
             {
                 uiManager.showEmbeddedMessageScreen()

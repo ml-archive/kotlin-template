@@ -1,9 +1,11 @@
 package dk.eboks.app.domain.interactors
 
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.repositories.SettingsRepository
+import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
@@ -16,7 +18,8 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
                               val appStateManager: AppStateManager,
                               val fileCacheManager: FileCacheManager,
                               val cacheManager: CacheManager,
-                              val userManager: UserManager) : BaseInteractor(executor), BootstrapInteractor {
+                              val userManager: UserManager,
+                              val api: Api) : BaseInteractor(executor), BootstrapInteractor {
     override var output: BootstrapInteractor.Output? = null
     override var input: BootstrapInteractor.Input? = null
 
@@ -28,6 +31,16 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
                 // do something with unwrapped input
 
             }
+
+            val result = api.getResourceLinks().execute()
+            if(result.isSuccessful)
+            {
+                result?.body()?.let { links->
+                    Config.resourceLinks = links
+                }
+            }
+
+
             val hasUsers = userManager.users.isNotEmpty()
 
             val loginState = appStateManager.state?.loginState

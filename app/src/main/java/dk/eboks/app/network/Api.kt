@@ -21,6 +21,7 @@ import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.shared.BooleanReply
 import dk.eboks.app.domain.models.shared.Link
+import dk.eboks.app.domain.models.shared.ResourceLink
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -35,6 +36,9 @@ interface Api {
     @POST("http://test401-oauth-dk.internal.e-boks.com/1/connect/token") fun getToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
     */
 
+    // resources
+    @GET("resources/links") fun getResourceLinks() : Call<List<ResourceLink>>
+
     // user
     @GET("user/{identity}/exists") fun checkUserEmail(@Path("identity") identity : String) : Call<BooleanReply>
     @GET("user/identity/{identity}") fun checkUserIdentity(@Path("identity") cpr : String) : Call<BooleanReply>
@@ -45,6 +49,8 @@ interface Api {
     @GET("user/profile") fun getUserProfile() : Call<User>
     @PATCH("user/profile") fun updateProfile(@Body user: JsonObject) : Call<Any>
     @POST("user/current/email/{email}/verify") fun verifyEmail(@Path("email") email: String) : Call<Any>
+    @POST("user/current/mobile/{mobile}/verify") fun verifyMobile(@Path("mobile") mobile: String) : Call<Void>
+    @POST("user/current/mobile/{mobile}/verify/{activationCode}") fun confirmMobile(@Path("mobile") mobile: String, @Path("activationCode") activationCode : String) : Call<Void>
 
     // @GET("regions") fun getRegions() : Call<List<Region>>
     @GET("mail/folders/selected") fun getMailCategories() : Call<List<Folder>>

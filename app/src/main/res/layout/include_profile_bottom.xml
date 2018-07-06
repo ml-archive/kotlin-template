@@ -164,6 +164,28 @@
             nstack:text="@string/nstack_profile_help"/>
     </FrameLayout>
 
+    <include layout="@layout/include_divider_leftmargin_whitebackground"/>
+
+    <!--Feedback-->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/profileDetailContainerFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
+            android:elevation="0dp"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="@dimen/margin_normal"
+            android:paddingRight="@dimen/margin_normal"
+            android:text="_feedback"
+            android:textAppearance="@style/text.header4"
+            nstack:text="@string/nstack_profile_feedbackCellTitle"/>
+    </FrameLayout>
+
     <include
         layout="@layout/include_divider"
         android:visibility="visible"/>

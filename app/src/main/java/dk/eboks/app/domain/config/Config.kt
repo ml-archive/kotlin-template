@@ -3,11 +3,13 @@ package dk.eboks.app.domain.config
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.presentation.ui.components.start.login.LoginComponentFragment
-import dk.eboks.app.presentation.ui.components.start.login.providers.bankidno.BankIdNOComponentFragment
-import dk.eboks.app.presentation.ui.components.start.login.providers.bankidse.BankIdSEComponentFragment
-import dk.eboks.app.presentation.ui.components.start.login.providers.idporten.IdPortenComponentFragment
-import dk.eboks.app.presentation.ui.components.start.login.providers.nemid.NemIdComponentFragment
+import dk.eboks.app.domain.models.shared.ResourceLink
+import dk.eboks.app.presentation.ui.login.components.LoginComponentFragment
+import dk.eboks.app.presentation.ui.login.components.providers.bankidno.BankIdNOComponentFragment
+import dk.eboks.app.presentation.ui.login.components.providers.bankidse.BankIdSEComponentFragment
+import dk.eboks.app.presentation.ui.login.components.providers.idporten.IdPortenComponentFragment
+import dk.eboks.app.presentation.ui.login.components.providers.nemid.NemIdComponentFragment
+import dk.eboks.app.util.guard
 import java.net.URL
 
 // TODO this stuff should be downloaded from a url (on request of the customer) so that the app only contains
@@ -20,6 +22,9 @@ import java.net.URL
  *
  */
 object Config {
+
+    var resourceLinks : List<ResourceLink>? = null
+
     private val danish : Mode = Mode(
             urlPrefix = "DA-DK",
             countryCode = "DK",
@@ -335,6 +340,18 @@ object Config {
     fun getMessagePageSize() : Int
     {
         return 10
+    }
+
+    fun getResourceLinkByType(type : String) : ResourceLink?
+    {
+        resourceLinks?.let { links->
+            for(link in links)
+            {
+                if(link.type == type)
+                    return link
+            }
+        }
+        return null
     }
 
     lateinit var currentMode : Mode

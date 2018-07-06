@@ -6,11 +6,11 @@ import android.os.Handler
 import dk.eboks.app.App
 import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.domain.models.folder.Folder
-import dk.eboks.app.presentation.ui.screens.mail.list.MailListActivity
-import dk.eboks.app.presentation.ui.screens.message.MessageActivity
-import dk.eboks.app.presentation.ui.screens.message.embedded.MessageEmbeddedActivity
-import dk.eboks.app.presentation.ui.screens.message.opening.MessageOpeningActivity
-import dk.eboks.app.presentation.ui.screens.start.StartActivity
+import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
+import dk.eboks.app.presentation.ui.message.screens.MessageActivity
+import dk.eboks.app.presentation.ui.message.screens.embedded.MessageEmbeddedActivity
+import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
+import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.eboks.app.util.ActivityStarter
 import dk.eboks.app.util.guard

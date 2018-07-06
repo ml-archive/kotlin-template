@@ -49,10 +49,15 @@ public class Translation {
 		public static String forwardReceiptErrorMessage = "Cannot forward receipt";
 		public static String timeoutTitle = "Timeout";
 		public static String timeoutMessage = "The request timed out";
-		public static String authenticationError = "Your session has expired. Please log on again.";
+		public static String authenticationErrorMessage = "Your session has expired. Please log on again.";
 		public static String connectionError = "No or bad connection. Please try again.";
 		public static String errorTitle = "Error";
 		public static String unknownError = "Unkown error, please try again";
+		public static String compromisedConnectionTitle = "__compromisedConnectionTitle";
+		public static String compromisedConnectionMessage = "__compromisedConnectionMessage";
+		public static String resourceNotfoundMessage = "The requested resource could not be found";
+		public static String resourceNotfoundTitle = "Not found";
+		public static String authenticationErrorTitle = "Session expired";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -60,8 +65,8 @@ public class Translation {
 		public static String smartFolderHeader = "Folders";
 		public static String foldersButton = "All folders";
 		public static String sendersEmptyHeader = "No mails from your senders";
-		public static String sendersEmptyMessage = "__sendersEmptyMessage";
-		public static String addMoreSendersButton = "Add more senders";
+		public static String sendersEmptyMessage = "Register the senders you normally receive your mail from";
+		public static String addMoreSendersButton = "Register senders";
 		public static String noMessagesToDisplay = "No mail";
 		public static String allMail = "All mail";
 		public static String unverifiedEmptyTitle = "Receive your mail digitally";
@@ -113,6 +118,7 @@ public class Translation {
 		public static String allowButton = "Allow";
 		public static String drawerNeedsVerification = "Needs verification";
 		public static String storeboxAlreadyHaveProfileButton = "I already have a Storebox profile";
+		public static String pkiRequiredInfoText = "To use this service, please log on with [pkiName]";
 	}
 	public final static class senders {
 		public static String title = "Senders";
@@ -488,7 +494,7 @@ public class Translation {
 	}
 	public final static class channelsettingsstoreboxadditions {
 		public static String digitalReceiptsTitle = "Receive only receipts digitally";
-		public static String digitalReceiptsMessage = "You will only receive your receipts digitally when you shop in stores that are registeret with Storebox";
+		public static String digitalReceiptsMessage = "Do not also get your receipts on paper";
 		public static String creditCardsSectionHeader = "Payment cards";
 		public static String addCardTitle = "Add another payment card";
 		public static String deleteCardAlertTitle = "Are you sure you want to remove this payment card?";
@@ -644,8 +650,8 @@ public class Translation {
 		public static String createTitle = "Add Folder";
 	}
 	public final static class mobilepaysupport {
-		public static String mobilePayNotInstalledTitle = "Mobilepay not installed";
-		public static String mobilePayNotInstalledMessage = "This service requires you to install the mobilepay app on the device";
-		public static String installMobilePayBtn = "Install Mobilepay";
+		public static String mobilePayNotInstalledTitle = "MobilePay not installed";
+		public static String mobilePayNotInstalledMessage = "This service requires you to install the MobilePay app on the device";
+		public static String installMobilePayBtn = "Install MobilePay";
 	}
 }
