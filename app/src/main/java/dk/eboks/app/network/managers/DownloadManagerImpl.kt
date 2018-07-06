@@ -2,10 +2,13 @@ package dk.eboks.app.network.managers
 
 import android.content.Context
 import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.managers.DownloadManager
 import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.protocol.ErrorType
+import dk.eboks.app.domain.models.protocol.ServerError
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okio.Okio
@@ -22,57 +25,45 @@ class DownloadManagerImpl(val context: Context, val client: OkHttpClient, val ca
     }
 
     override fun downloadContent(message: Message, content: Content) : String? {
-        try {
-            Timber.e("Downloading content...")
-            var folderId = if(message.folder != null) message.folder!!.id else message.folderId
-            var url = "${Config.getApiUrl()}mail/folders/$folderId/messages/${content.id}/content"
-            content.contentUrlMock?.let { url = it } // if we have a mock url on the content object, use it instead
+        Timber.e("Downloading content...")
+        // TODO remove me
+        //throw(ServerErrorException(ServerError(id = "ffsfws", type = ErrorType.ERROR, code = 12260)))
+        var folderId = if(message.folder != null) message.folder!!.id else message.folderId
+        var url = "${Config.getApiUrl()}mail/folders/$folderId/messages/${content.id}/content"
+        content.contentUrlMock?.let { url = it } // if we have a mock url on the content object, use it instead
 
-            val request = Request.Builder().url(url)
-                    .get()
-                    .build()
-            val response = client.newCall(request).execute()
-            val filename = cacheManager.generateFileName(content)
-            val downloadedFile = File(context.getCacheDir(), filename)
-            // let okio do the actual buffering and writing of the file, after all thats why Jake made it, in his infinite wisdom
-            val sink = Okio.buffer(Okio.sink(downloadedFile))
-            sink.writeAll(response.body()!!.source())
-            sink.close()
-            Timber.e("Downloaded $url to $filename")
-            return filename
-        }
-        catch (t : Throwable)
-        {
-            t.printStackTrace()
-        }
-        return null
+        val request = Request.Builder().url(url)
+                .get()
+                .build()
+        val response = client.newCall(request).execute()
+        val filename = cacheManager.generateFileName(content)
+        val downloadedFile = File(context.getCacheDir(), filename)
+        // let okio do the actual buffering and writing of the file, after all thats why Jake made it, in his infinite wisdom
+        val sink = Okio.buffer(Okio.sink(downloadedFile))
+        sink.writeAll(response.body()!!.source())
+        sink.close()
+        Timber.e("Downloaded $url to $filename")
+        return filename
     }
 
     override fun downloadAttachmentContent(message : Message, content: Content) : String? {
-        try {
-            Timber.e("Downloading attachment content...")
-            var folderId = if(message.folder != null) message.folder!!.id else message.folderId
-            var url = "${Config.getApiUrl()}mail/folders/$folderId/messages/${message.id}/attachment/${content.id}/content"
-            content.contentUrlMock?.let { url = it } // if we have a mock url on the content object, use it instead
+        Timber.e("Downloading attachment content...")
+        var folderId = if(message.folder != null) message.folder!!.id else message.folderId
+        var url = "${Config.getApiUrl()}mail/folders/$folderId/messages/${message.id}/attachment/${content.id}/content"
+        content.contentUrlMock?.let { url = it } // if we have a mock url on the content object, use it instead
 
-            val request = Request.Builder().url(url)
-                    .get()
-                    .build()
-            val response = client.newCall(request).execute()
-            val filename = cacheManager.generateFileName(content)
-            val downloadedFile = File(context.getCacheDir(), filename)
-            // let okio do the actual buffering and writing of the file, after all thats why Jake made it, in his infinite wisdom
-            val sink = Okio.buffer(Okio.sink(downloadedFile))
-            sink.writeAll(response.body()!!.source())
-            sink.close()
-            Timber.e("Downloaded attachment $url to $filename")
-            return filename
-        }
-        catch (t : Throwable)
-        {
-            Timber.e(t)
-        }
-        return null
+        val request = Request.Builder().url(url)
+                .get()
+                .build()
+        val response = client.newCall(request).execute()
+        val filename = cacheManager.generateFileName(content)
+        val downloadedFile = File(context.getCacheDir(), filename)
+        // let okio do the actual buffering and writing of the file, after all thats why Jake made it, in his infinite wisdom
+        val sink = Okio.buffer(Okio.sink(downloadedFile))
+        sink.writeAll(response.body()!!.source())
+        sink.close()
+        Timber.e("Downloaded attachment $url to $filename")
+        return filename
     }
 
 }

@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.message.screens.opening
 
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
+import dk.eboks.app.domain.interactors.message.OpenMessageInteractorImpl
 import dk.eboks.app.domain.interactors.message.ServerErrorHandler
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
@@ -54,13 +55,13 @@ class MessageOpeningPresenter(val appStateManager: AppStateManager, val executor
     override fun onOpenMessageServerError(error: ServerError) {
         when(error.code)
         {
-            ServerErrorHandler.NO_PRIVATE_SENDER_WARNING -> runAction { v-> v.setOpeningFragment(PrivateSenderWarningComponentFragment::class.java) }
-            ServerErrorHandler.MESSAGE_LOCKED -> runAction { v-> v.setOpeningFragment(ProtectedMessageComponentFragment::class.java) }
-            ServerErrorHandler.MANDATORY_OPEN_RECEIPT -> runAction { v-> v.setOpeningFragment(OpeningReceiptComponentFragment::class.java) }
-            ServerErrorHandler.VOLUNTARY_OPEN_RECEIPT -> runAction { v-> v.setOpeningFragment(OpeningReceiptComponentFragment::class.java) }
-            ServerErrorHandler.MESSAGE_QUARANTINED -> runAction { v-> v.setOpeningFragment(QuarantineComponentFragment::class.java) }
-            ServerErrorHandler.MESSAGE_RECALLED -> runAction { v-> v.setOpeningFragment(RecalledComponentFragment::class.java) }
-            ServerErrorHandler.PROMULGATION -> runAction { v-> v.setOpeningFragment(PromulgationComponentFragment::class.java) }
+            OpenMessageInteractorImpl.NO_PRIVATE_SENDER_WARNING -> runAction { v-> v.setOpeningFragment(PrivateSenderWarningComponentFragment::class.java) }
+            OpenMessageInteractorImpl.MESSAGE_LOCKED -> runAction { v-> v.setOpeningFragment(ProtectedMessageComponentFragment::class.java) }
+            OpenMessageInteractorImpl.MANDATORY_OPEN_RECEIPT -> runAction { v-> v.setOpeningFragment(OpeningReceiptComponentFragment::class.java) }
+            OpenMessageInteractorImpl.VOLUNTARY_OPEN_RECEIPT -> runAction { v-> v.setOpeningFragment(OpeningReceiptComponentFragment::class.java) }
+            OpenMessageInteractorImpl.MESSAGE_QUARANTINED -> runAction { v-> v.setOpeningFragment(QuarantineComponentFragment::class.java) }
+            OpenMessageInteractorImpl.MESSAGE_RECALLED -> runAction { v-> v.setOpeningFragment(RecalledComponentFragment::class.java) }
+            OpenMessageInteractorImpl.PROMULGATION -> runAction { v-> v.setOpeningFragment(PromulgationComponentFragment::class.java) }
         }
     }
 

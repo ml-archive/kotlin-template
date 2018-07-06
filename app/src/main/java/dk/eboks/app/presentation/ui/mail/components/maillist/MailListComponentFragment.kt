@@ -260,6 +260,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             when (mailMessageEvent) {
                 OPEN -> {
                     editAction = ButtonType.OPEN
+                    message.unread = false
                     startMessageOpenActivity(message)
                 }
                 READ -> {
@@ -307,7 +308,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     private fun startMessageOpenActivity(message: Message) {
-        activity.Starter()
+         activity.Starter()
                 .activity(MessageOpeningActivity::class.java)
                 .putExtra(Message::class.java.simpleName, message)
                 .start()
@@ -339,6 +340,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     override fun showMessages(messages: List<Message>) {
+        Timber.e("Showing messages")
         checkedList.clear()
         adapter.messages.clear()
         adapter.messages.addAll(messages)
@@ -346,6 +348,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     override fun appendMessages(messages: List<Message>) {
+        Timber.e("Appending messages")
         adapter.messages.addAll(messages)
         messagesRv.adapter.notifyDataSetChanged()
     }

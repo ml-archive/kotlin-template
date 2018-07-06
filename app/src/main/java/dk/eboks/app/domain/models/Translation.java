@@ -58,6 +58,7 @@ public class Translation {
 		public static String resourceNotfoundMessage = "The requested resource could not be found";
 		public static String resourceNotfoundTitle = "Not found";
 		public static String authenticationErrorTitle = "Session expired";
+		public static String emptyTitleError = "Filename is needed in order to proceed with the upload";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -230,7 +231,7 @@ public class Translation {
 		public static String signupTermsAcceptHeader = "One last thing! Terms and conditions.";
 		public static String dialogEmailExistsTitle = "This email address is already connected to an e-Boks account";
 		public static String dialogEmailExistsMsg = "Do you want to sign in instead?";
-		public static String dialogEmailExistsPositiveBtn = "Sign up";
+		public static String dialogEmailExistsPositiveBtn = "Sign in";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";

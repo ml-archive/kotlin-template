@@ -78,7 +78,7 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
         }
 
         fun bind(currentItem: Message, last: Boolean) {
-            Timber.e("binding msg viewholder")
+            Timber.e("binding msg viewholder: Sub ${currentItem.subject} Sender ${currentItem.sender?.name} unread=${currentItem.unread}")
             setGeneric(currentItem)
 
             swipeLayout.isLeftSwipeEnabled = !editMode

@@ -33,6 +33,8 @@ class DebugUsersComponentPresenter @Inject constructor(val appState: AppStateMan
                 userName="0909061348", userPassWord="a12345", activationCode="Do36SqNi"))
         u.add(LoginState(selectedUser= User(id = -6, name="Payment 2 (160773-1291)", identity = "1607731291"),
                 userName="1607731291", userPassWord="a12345", activationCode="o9HMr6w5"))
+        u.add(LoginState(selectedUser= User(id = -5, name="You got served (090906-1346)", identity = "0909061346"),
+                userName="0909061346", userPassWord="a12345", activationCode="g8GYs92H"))
         u.add(LoginState(selectedUser= User(id = -7, name="Read receipts (2009160001)", identity = "2009160001"),
                 userName="2009160001", userPassWord="a12345", activationCode="Qd63Jct0"))
         u.add(LoginState(selectedUser= User(id = -8, name="Laila Dollarmeyer (3010732572)", identity = "3010732572"),

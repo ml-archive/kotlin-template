@@ -20,7 +20,6 @@ import javax.inject.Inject
 class PromulgationComponentFragment : BaseFragment(), PromulgationComponentContract.View {
 
     val onLanguageChange : (Locale)->Unit = { locale ->
-        Timber.e("Locale changed to locale")
         updateTranslation()
     }
 
@@ -37,13 +36,13 @@ class PromulgationComponentFragment : BaseFragment(), PromulgationComponentContr
         super.onResume()
         NStack.addLanguageChangeListener(onLanguageChange)
         // TODO uncomment to make modal
-        //getBaseActivity()?.backPressedCallback = { true }
+        getBaseActivity()?.backPressedCallback = { true }
     }
 
     override fun onPause() {
         NStack.removeLanguageChangeListener(onLanguageChange)
         // TODO uncomment to make modal
-        //getBaseActivity()?.backPressedCallback = null
+        getBaseActivity()?.backPressedCallback = null
         super.onPause()
     }
 

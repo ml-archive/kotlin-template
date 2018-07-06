@@ -10,6 +10,7 @@ import dk.eboks.app.domain.models.APIConstants
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.EboksContentType
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.protocol.ErrorType
 import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.util.FieldMapper
@@ -43,7 +44,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
             }
         }
         catch (t: Throwable) {
-
+            t.printStackTrace()
             if(t is ServerErrorException) {
                 input?.msg?.let { handleServerException(t, it) }.guard { output?.onOpenMessageError(exceptionToViewError(t, shouldClose = true)) }
             }
@@ -100,10 +101,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
         {
             ServerErrorHandler.PROCEED -> {
                 try {
-                    // TODO fix hack below
-                    //val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id ?: 0, input?.msg?.id ?: "", null, true)
-                    val updated_msg = messagesRepository.getMessage(1, "13", null, true)
-
+                    val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id ?: 0, input?.msg?.id ?: "", null, true)
                     FieldMapper.copyAllFields(msg, updated_msg)
                     openMessage(msg)
                 }
@@ -245,14 +243,14 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                 EboksContentType("htm", "text/html"),
                 EboksContentType("txt", "text/plain")
         )
-
+        
         val NO_PRIVATE_SENDER_WARNING = 9100
         val MANDATORY_OPEN_RECEIPT = 9200
         val VOLUNTARY_OPEN_RECEIPT = 9201
         val MESSAGE_QUARANTINED = 9300
         val MESSAGE_RECALLED = 9301
         val MESSAGE_LOCKED = 9302
-        val PROMULGATION = 9400
+        val PROMULGATION = 12260
 
         val PROCEED = 1
         val ABORT = 2
