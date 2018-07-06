@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.profile.components
 
 import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.models.Translation
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 import javax.inject.Named
@@ -19,8 +20,8 @@ class PrivacyPresenter @Inject constructor(@Named("NAME_BASE_URL") val baseUrl: 
         super.onViewCreated(view, lifecycle)
 
         runAction { v ->
-            val urlString = baseUrl.plus("resources/${Config.currentMode.countryCode}/privacypolicy")
-            v.loadUrl(urlString)
+            v.loadUrl("${baseUrl}resources/privacypolicy")
+            //v.loadData(Translation.profile.privacyStatement)
         }
     }
 }

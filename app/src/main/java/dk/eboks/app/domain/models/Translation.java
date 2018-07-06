@@ -49,7 +49,7 @@ public class Translation {
 		public static String forwardReceiptErrorMessage = "Cannot forward receipt";
 		public static String timeoutTitle = "Timeout";
 		public static String timeoutMessage = "The request timed out";
-		public static String authenticationError = "Your session has expired. Please log on again.";
+		public static String authenticationErrorMessage = "Your session has expired. Please log on again.";
 		public static String connectionError = "No or bad connection. Please try again.";
 		public static String errorTitle = "Error";
 		public static String unknownError = "Unkown error, please try again";
@@ -57,6 +57,7 @@ public class Translation {
 		public static String compromisedConnectionMessage = "__compromisedConnectionMessage";
 		public static String resourceNotfoundMessage = "The requested resource could not be found";
 		public static String resourceNotfoundTitle = "Not found";
+		public static String authenticationErrorTitle = "Session expired";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -649,8 +650,8 @@ public class Translation {
 		public static String createTitle = "Add Folder";
 	}
 	public final static class mobilepaysupport {
-		public static String mobilePayNotInstalledTitle = "Mobilepay not installed";
-		public static String mobilePayNotInstalledMessage = "This service requires you to install the mobilepay app on the device";
-		public static String installMobilePayBtn = "Install Mobilepay";
+		public static String mobilePayNotInstalledTitle = "MobilePay not installed";
+		public static String mobilePayNotInstalledMessage = "This service requires you to install the MobilePay app on the device";
+		public static String installMobilePayBtn = "Install MobilePay";
 	}
 }

@@ -186,8 +186,8 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
             holder.root.invalidate()
         }
 
-        // TODO make this animation go down on down press and stay the fuck down till the user lets go
-        // instead of just playing dumb animation
+        // TODO make this animation go down on down press and stay down till the user lets go
+        // instead of just playing animation
         private fun onCardContainerClicked(v: View, currentCard: Channel) {
             v.animate()
                     .scaleX(1.05f)

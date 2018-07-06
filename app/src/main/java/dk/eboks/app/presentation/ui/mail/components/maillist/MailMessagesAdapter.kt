@@ -78,6 +78,7 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
         }
 
         fun bind(currentItem: Message, last: Boolean) {
+            Timber.e("binding msg viewholder")
             setGeneric(currentItem)
 
             swipeLayout.isLeftSwipeEnabled = !editMode
@@ -143,7 +144,7 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
             else
             {
                 currentItem.sender?.logo?.let { logo->
-                    Timber.e("Loading the fucking logo at URL ${logo.getWorkaroundUrl()}")
+                    //Timber.e("Loading the logo at URL ${logo.getWorkaroundUrl()}")
                     Glide.with(itemView.context)
                             .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
                             .load(logo.getWorkaroundUrl() )

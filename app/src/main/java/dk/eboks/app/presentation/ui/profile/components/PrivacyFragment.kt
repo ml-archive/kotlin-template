@@ -44,4 +44,9 @@ class PrivacyFragment: BaseWebFragment(), PrivacyContract.View {
         webView.loadUrl(urlString)
     }
 
+    override fun loadData(data : String)
+    {
+        webView.loadData(data, "text/html", "utf8")
+    }
+
 }

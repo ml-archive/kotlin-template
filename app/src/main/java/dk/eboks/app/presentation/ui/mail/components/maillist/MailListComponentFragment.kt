@@ -89,6 +89,11 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         setupTopBar()
     }
 
+    override fun onResume() {
+        super.onResume()
+        adapter?.let { it.notifyDataSetChanged() }
+    }
+
     private fun getFolderFromBundle() {
         if (arguments.containsKey("folder")) {
             val folder = arguments.getSerializable("folder") as Folder

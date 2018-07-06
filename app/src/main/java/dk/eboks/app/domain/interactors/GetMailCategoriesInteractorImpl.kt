@@ -1,7 +1,9 @@
 package dk.eboks.app.domain.interactors
 
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.repositories.MailCategoriesRepository
 import dk.eboks.app.util.exceptionToViewError
+import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
@@ -14,14 +16,25 @@ class GetMailCategoriesInteractorImpl(executor: Executor, val foldersRepositoryM
 
     override fun execute() {
         try {
-            val senders = foldersRepositoryMail.getMailCategories(input?.cached ?: true)
-            runOnUIThread {
-                output?.onGetCategories(senders)
-            }
+            input?.let { args->
+                loadAndEmit(args.cached)
+                if(args.cached)
+                {
+                    loadAndEmit(false)
+                }
+            }.guard { runOnUIThread { output?.onGetCategoriesError(ViewError()) } }
         } catch (t: Throwable) {
             runOnUIThread {
                 output?.onGetCategoriesError(exceptionToViewError(t))
             }
+        }
+    }
+
+    private fun loadAndEmit(cached : Boolean)
+    {
+        val senders = foldersRepositoryMail.getMailCategories(cached)
+        runOnUIThread {
+            output?.onGetCategories(senders)
         }
     }
 }

@@ -11,6 +11,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface PrivacyContract {
     interface View : BaseView {
         fun loadUrl(urlString: String)
+        fun loadData(data : String)
     }
 
     interface Presenter : BasePresenter<View>
