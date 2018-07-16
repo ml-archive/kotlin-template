@@ -22,6 +22,7 @@ import dk.eboks.app.presentation.ui.channels.components.content.web.ChannelConte
 import dk.eboks.app.presentation.ui.channels.components.requirements.ChannelRequirementsComponentFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectStoreboxActivity
+import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.widgets.GlideAlphaTransform
 import dk.eboks.app.util.getType
 import dk.eboks.app.util.guard
@@ -160,11 +161,22 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         setupTopView(channel)
         contentBottom.addView(v)
         val button = v.findViewById<Button>(R.id.verifyBtn)
+        button.text = Translation.channels.logOnWithPKI.replace("[pkiName]", provider.name)
         v.findViewById<TextView>(R.id.descriptionTv)?.text = Translation.channels.verifyYourProfile
-        val colorTint = Color.parseColor(channel.background?.rgb)
+        var colorTint = Color.BLUE // default color
+        var txtcolor = channel.background.rgb ?: ""
+        if(!txtcolor.contains('#'))
+        {
+            txtcolor = "#$txtcolor"
+        }
+        try {
+            colorTint = Color.parseColor(txtcolor)
+        }
+        catch (t : Throwable) { }
         button.backgroundTintList = ColorStateList.valueOf(colorTint)
         button?.setOnClickListener {
-            presenter.install(channel)
+            //presenter.install(channel)
+            getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
         }
     }
 

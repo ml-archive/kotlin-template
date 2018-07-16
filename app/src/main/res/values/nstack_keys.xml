@@ -139,6 +139,7 @@
   <string name='nstack_logoncredentials_invalidVerification' formatted='false'>logoncredentials_invalidVerification</string>
   <string name='nstack_logoncredentials_invalidCredentialsTitle' formatted='false'>logoncredentials_invalidCredentialsTitle</string>
   <string name='nstack_logoncredentials_invalidCredentialsMessage' formatted='false'>logoncredentials_invalidCredentialsMessage</string>
+  <string name='nstack_logoncredentials_missingActivationCodeMessage' formatted='false'>logoncredentials_missingActivationCodeMessage</string>
   <string name='nstack_forgotpassword_title' formatted='false'>forgotpassword_title</string>
   <string name='nstack_forgotpassword_subtitle' formatted='false'>forgotpassword_subtitle</string>
   <string name='nstack_forgotpassword_emailHeader' formatted='false'>forgotpassword_emailHeader</string>
@@ -384,6 +385,11 @@
   <string name='nstack_myInformation_notifyBySMSText' formatted='false'>myInformation_notifyBySMSText</string>
   <string name='nstack_myInformation_newsletter' formatted='false'>myInformation_newsletter</string>
   <string name='nstack_myInformation_email2UnverifiedBlockedPlaceholder' formatted='false'>myInformation_email2UnverifiedBlockedPlaceholder</string>
+  <string name='nstack_myInformation_unsavedChangesTitle' formatted='false'>myInformation_unsavedChangesTitle</string>
+  <string name='nstack_myInformation_unsavedChangesMessage' formatted='false'>myInformation_unsavedChangesMessage</string>
+  <string name='nstack_myInformation_unsavedChangesSaveButton' formatted='false'>myInformation_unsavedChangesSaveButton</string>
+  <string name='nstack_myInformation_saveBeforeVerifyTitle' formatted='false'>myInformation_saveBeforeVerifyTitle</string>
+  <string name='nstack_myInformation_saveBeforeVerifyMessage' formatted='false'>myInformation_saveBeforeVerifyMessage</string>
   <string name='nstack_home_messagesEmptyButton' formatted='false'>home_messagesEmptyButton</string>
   <string name='nstack_home_bottomChannelHeaderNoChannels' formatted='false'>home_bottomChannelHeaderNoChannels</string>
   <string name='nstack_home_messagesEmptyTitle' formatted='false'>home_messagesEmptyTitle</string>
@@ -566,4 +572,14 @@
   <string name='nstack_mobilepaysupport_mobilePayNotInstalledTitle' formatted='false'>mobilepaysupport_mobilePayNotInstalledTitle</string>
   <string name='nstack_mobilepaysupport_mobilePayNotInstalledMessage' formatted='false'>mobilepaysupport_mobilePayNotInstalledMessage</string>
   <string name='nstack_mobilepaysupport_installMobilePayBtn' formatted='false'>mobilepaysupport_installMobilePayBtn</string>
+  <string name='nstack_paymentdrawer_payWithPrefix' formatted='false'>paymentdrawer_payWithPrefix</string>
+  <string name='nstack_paymentdrawer_registerAndPayWithPrefix' formatted='false'>paymentdrawer_registerAndPayWithPrefix</string>
+  <string name='nstack_paymentdrawer_notificationsHeader' formatted='false'>paymentdrawer_notificationsHeader</string>
+  <string name='nstack_paymentdrawer_statusHeader' formatted='false'>paymentdrawer_statusHeader</string>
+  <string name='nstack_paymentdrawer_contactSenderFooter' formatted='false'>paymentdrawer_contactSenderFooter</string>
+  <string name='nstack_paymentdrawer_cancelPaymentMessage' formatted='false'>paymentdrawer_cancelPaymentMessage</string>
+  <string name='nstack_paymentdrawer_cancelPaymentButton' formatted='false'>paymentdrawer_cancelPaymentButton</string>
+  <string name='nstack_paymentdrawer_transactionNumberHeader' formatted='false'>paymentdrawer_transactionNumberHeader</string>
+  <string name='nstack_paymentdrawer_cancelPaymentAlertTitle' formatted='false'>paymentdrawer_cancelPaymentAlertTitle</string>
+  <string name='nstack_paymentdrawer_cancelPaymentAlertMessage' formatted='false'>paymentdrawer_cancelPaymentAlertMessage</string>
 </resources>

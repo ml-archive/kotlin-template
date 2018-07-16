@@ -2,7 +2,9 @@ package dk.eboks.app.presentation.ui.channels.screens.content
 
 import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.presentation.ui.channels.components.settings.CloseChannelEvent
+import dk.eboks.app.util.getType
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -30,5 +32,26 @@ class ChannelContentPresenter(val appStateManager: AppStateManager) : ChannelCon
     fun onEvent(event: CloseChannelEvent) {
         Timber.e("ChannelContentPresenter getting CloseChannelEvent")
         runAction { v->v.finish() }
+    }
+
+    override fun open(channel: Channel) {
+        //storebox channels id 1 - 3
+        //ekey channels id 101 - 103
+
+        when (channel.getType()) {
+            "channel" -> {
+                runAction { v ->
+                    v.openChannelContent(channel)
+                }
+            }
+            "storebox" -> {
+                runAction { v ->
+                    v.openStoreBoxContent(channel)
+                }
+            }
+            "ekey" -> {
+
+            }
+        }
     }
 }

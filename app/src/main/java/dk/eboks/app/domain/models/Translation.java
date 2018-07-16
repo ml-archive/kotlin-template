@@ -165,6 +165,7 @@ public class Translation {
 		public static String invalidVerification = "Invalid verification code";
 		public static String invalidCredentialsTitle = "We could not log you on";
 		public static String invalidCredentialsMessage = "Please check your entered values and try again";
+		public static String missingActivationCodeMessage = "Activation code is required";
 	}
 	public final static class forgotpassword {
 		public static String title = "Forgot your password?";
@@ -436,6 +437,11 @@ public class Translation {
 		public static String notifyBySMSText = "You will be notified by text message when you receive new mail";
 		public static String newsletter = "Newsletter";
 		public static String email2UnverifiedBlockedPlaceholder = "N/A";
+		public static String unsavedChangesTitle = "Unsaved changes";
+		public static String unsavedChangesMessage = "Do you wish to save your changes before exiting?";
+		public static String unsavedChangesSaveButton = "Save";
+		public static String saveBeforeVerifyTitle = "Unsaved changes";
+		public static String saveBeforeVerifyMessage = "Save your changes before verifying your data";
 	}
 	public final static class home {
 		public static String messagesEmptyButton = "See my inbox";
@@ -559,7 +565,7 @@ public class Translation {
 	}
 	public final static class sharedusers {
 		public static String title = "Select share";
-		public static String sharedAccountsHeader = "Shared folders";
+		public static String sharedAccountsHeader = "My shared accounts";
 		public static String permissionA = "Administrator";
 		public static String permissionL = "Read only";
 		public static String permissionF = "Editor";
@@ -654,5 +660,17 @@ public class Translation {
 		public static String mobilePayNotInstalledTitle = "MobilePay not installed";
 		public static String mobilePayNotInstalledMessage = "This service requires you to install the MobilePay app on the device";
 		public static String installMobilePayBtn = "Install MobilePay";
+	}
+	public final static class paymentdrawer {
+		public static String payWithPrefix = "Pay with [service]";
+		public static String registerAndPayWithPrefix = "Register and pay with [service]";
+		public static String notificationsHeader = "Notifications";
+		public static String statusHeader = "Status";
+		public static String contactSenderFooter = "Contact [senderName] if you have questions about this invoice.";
+		public static String cancelPaymentMessage = "If you wish to cancel the payment, you must do so no later than the day before the payment date.";
+		public static String cancelPaymentButton = "Cancel payment";
+		public static String transactionNumberHeader = "Transaction number";
+		public static String cancelPaymentAlertTitle = "Are you sure you want to cancel the payment?";
+		public static String cancelPaymentAlertMessage = "You are responsible for paying the invoice in other ways or contacting the sender if you do not want to pay.";
 	}
 }

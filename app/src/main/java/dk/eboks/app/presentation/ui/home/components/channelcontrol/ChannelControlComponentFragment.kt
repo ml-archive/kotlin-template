@@ -1,6 +1,8 @@
 package dk.eboks.app.presentation.ui.home.components.channelcontrol
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.CardView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +16,14 @@ import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
 import dk.eboks.app.domain.models.home.ItemType
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.channels.components.content.storebox.content.ChannelContentStoreboxComponentFragment
+import dk.eboks.app.presentation.ui.channels.components.content.web.ChannelContentComponentFragment
+import dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentActivity
+import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.presentation.ui.home.components.channelcontrol.controls.*
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
+import dk.eboks.app.util.Starter
+import dk.eboks.app.util.putArg
 import dk.eboks.app.util.views
 import kotlinx.android.synthetic.main.fragment_channel_control_component.*
 import org.greenrobot.eventbus.EventBus
@@ -74,6 +82,13 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
             val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContentLL, false)
             val logoIv = v.findViewById<ImageView>(R.id.logoIv)
             val headerTv = v.findViewById<TextView>(R.id.headerTv)
+            val cardView = v.findViewById<CardView>(R.id.channelItemCv)
+            cardView?.setOnClickListener {
+                activity.Starter().activity(ChannelContentActivity::class.java)
+                        .putExtra("openDirectly", true)
+                        .putExtra(Channel::class.java.simpleName, currentChannel)
+                        .start()
+            }
             //val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
 
             logoIv?.let {
@@ -144,6 +159,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
                     it.buildView()
                     channelControlMap[channel.id] = it
                     it.showProgress(false)
+
                 }
             }
         }

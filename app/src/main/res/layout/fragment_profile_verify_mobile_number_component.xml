@@ -29,12 +29,12 @@
         nstack:key="@string/nstack_profile_verifyMobilHeader"/>
 
     <TextView
+        android:id="@+id/verifyNumberSubTv"
         style="@style/text.body6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="8dp"
-        android:text="_Lorem ipsum dolor sit amet consectetur adipiscing elit. Integer cursus dui."
         nstack:key="@string/nstack_profile_verifyMobilText"
         android:textColor="@color/blueGrey" />
 

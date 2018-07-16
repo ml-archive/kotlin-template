@@ -70,7 +70,7 @@
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="text"
+            android:inputType="textPassword"
             nstack:hint="@string/nstack_logoncredentials_passwordfieldHeader"/>
 
     </android.support.design.widget.TextInputLayout>

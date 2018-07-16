@@ -19,6 +19,14 @@ data class User(
         return emails.getOrNull(0)?.value
     }
 
+    fun getPrimaryEmailIsVerified(): Boolean {
+        return emails.getOrNull(0)?.verified ?: false
+    }
+
+    fun getSecondaryEmailIsVerified(): Boolean {
+        return emails.getOrNull(1)?.verified ?: false
+    }
+
     fun setPrimaryEmail(string: String?) {
         emails[0] = ContactPoint(string, true)
     }

@@ -27,15 +27,16 @@ class MyInfoComponentPresenter @Inject constructor(
     }
 
     var user = User()
+    var closeView = true
 
     override fun setup() {
         appState.state?.currentUser?.let { user ->
             runAction { v ->
                 v.setName(user.name)
-                user.getPrimaryEmail()?.let { v.setPrimaryEmail(it) }
+                user.getPrimaryEmail()?.let { v.setPrimaryEmail(it, user.getPrimaryEmailIsVerified()) }
                 if(user.verified)
                 {
-                    user.getSecondaryEmail()?.let { v.setSecondaryEmail(it) }
+                    user.getSecondaryEmail()?.let { v.setSecondaryEmail(it, user.getSecondaryEmailIsVerified()) }
                     v.showSecondaryEmail(true)
                 }
                 else
@@ -53,7 +54,8 @@ class MyInfoComponentPresenter @Inject constructor(
         }
     }
 
-    override fun save() {
+    override fun save(closeView : Boolean) {
+        this.closeView = closeView
         runAction { v ->
             v.showProgress(true)
             v.setSaveEnabled(false)
@@ -83,7 +85,8 @@ class MyInfoComponentPresenter @Inject constructor(
             v.setSaveEnabled(true)
             v.showProgress(false)
             v.showToast(Translation.profile.yourInfoWasSaved)
-            v.onDone()
+            if(closeView)
+                v.onDone()
         }
 
     }

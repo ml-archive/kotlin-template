@@ -116,18 +116,19 @@ class ChannelOpeningComponentPresenter @Inject constructor(
                 }
                 APIConstants.CHANNEL_STATUS_REQUIRES_VERIFIED -> {
                     runAction { v ->
-                        // TODO this should trigger verification and use alternate providers for NOSE editions
-                        Config.getLoginProvider("nemid")?.let {
-                            v.showVerifyState(channel, it)
+                        Config.getVerificationProviderId()?.let { id->
+                            Config.getLoginProvider(id)?.let {
+                                v.showVerifyState(channel, it)
+                            }
                         }
                     }
                 }
                 APIConstants.CHANNEL_STATUS_REQUIRES_HIGHER_SEC_LEVEL -> {
-                    runAction { v -> v.showInstallState(channel) }
+                    runAction { v -> v.showDisabledState(channel) }
                 }
                 APIConstants.CHANNEL_STATUS_REQUIRES_HIGHER_SEC_LEVEL2 -> {
                     // TODO Deal with me
-                    runAction { v -> v.showInstallState(channel) }
+                    runAction { v -> v.showDisabledState(channel) }
                 }
                 APIConstants.CHANNEL_STATUS_REQUIRES_NEW_VERSION -> {
                     // TODO Deal with me

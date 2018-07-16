@@ -23,7 +23,10 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
         try {
             input?.let { args->
                 args.folder?.let { folder->
-                    getMessageFolder(folder, args.offset, args.limit)
+                    if(folder.id != 0)
+                        getMessageFolder(folder, args.offset, args.limit)
+                    else
+                        getMessages(false, folder)
                 }.guard {
                     args.sender?.let { sender->
                         getMessageSender(sender, args.offset, args.limit)
@@ -44,7 +47,7 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
 
     private fun getMessageFolder(folder: Folder, offset : Int = 0, limit : Int = 20)
     {
-        Timber.e("Fetching folder (${folder.id} : ${folder.name}) messages $offset $limit")
+        Timber.d("Fetching folder (${folder.id} : ${folder.name}) messages $offset $limit")
         val messages = messagesRepository.getMessagesByFolder(folder.id, offset, limit)
         runOnUIThread {
             output?.onGetMessages(messages)
@@ -53,7 +56,7 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
 
     private fun getMessageSender(sender: Sender, offset : Int = 0, limit : Int = 20)
     {
-        Timber.e("Fetching sender (${sender.id} : ${sender.name}) messages $offset $limit")
+        Timber.d("Fetching sender (${sender.id} : ${sender.name}) messages $offset $limit")
         val messages = messagesRepository.getMessagesBySender(sender.id, offset, limit)
         runOnUIThread {
             output?.onGetMessages(messages)
@@ -121,43 +124,39 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
     */
 
 
-    private fun getMessages(cached : Boolean, folder: Folder) : List<Message>
+    private fun getMessages(cached : Boolean, folder: Folder)
     {
-        if(folder.id != 0)
-        {
-            return messagesRepository.getMessagesByFolder(folder.id)
-        }
-        else
-        {
-            folder.type?.let { type ->
-                when(type)
-                {
-                    FolderType.HIGHLIGHTS -> {
-                        try {
-                            return messagesRepository.getHighlights(cached)
-                        }
-                        catch (t : Throwable)
-                        {
-                            t.printStackTrace()
-                        }
+        var result : List<Message> = ArrayList()
+        folder.type?.let { type ->
+            when(type)
+            {
+                FolderType.HIGHLIGHTS -> {
+                    try {
+                        result =  messagesRepository.getHighlights(cached)
                     }
-                    FolderType.LATEST -> {
-                        return messagesRepository.getLatest(cached)
-                    }
-                    FolderType.UNREAD -> {
-                        return messagesRepository.getUnread(cached)
-                    }
-                    FolderType.UPLOADS -> {
-                        return messagesRepository.getUploads(cached)
-                    }
-                    else -> {
-                        Timber.e("No API call exists to fetch messages of type $type")
-                        return ArrayList()
+                    catch (t : Throwable)
+                    {
+                        t.printStackTrace()
                     }
                 }
-
+                FolderType.LATEST -> {
+                    result =  messagesRepository.getLatest(cached)
+                }
+                FolderType.UNREAD -> {
+                    result =  messagesRepository.getUnread(cached)
+                }
+                FolderType.UPLOADS -> {
+                    result =  messagesRepository.getUploads(cached)
+                }
+                else -> {
+                    Timber.e("No API call exists to fetch messages of type $type")
+                }
             }
+
         }
-        return ArrayList()
+
+        runOnUIThread {
+            output?.onGetMessages(result)
+        }
     }
 }

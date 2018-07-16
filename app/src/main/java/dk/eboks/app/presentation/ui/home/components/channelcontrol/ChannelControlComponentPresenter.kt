@@ -5,6 +5,7 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.util.getType
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject

@@ -28,6 +28,7 @@ class PhoneVerificationComponentPresenter @Inject constructor(val appState: AppS
 
     override fun setup(mobile: String) {
         currentMobile = mobile
+        runAction { v->v.showNumber(mobile) }
         verifyPhoneInteractor.input = VerifyPhoneInteractor.Input(mobile)
         verifyPhoneInteractor.run()
     }

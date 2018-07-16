@@ -9,8 +9,8 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface MyInfoComponentContract {
     interface View : BaseView {
         fun setName(name : String)
-        fun setPrimaryEmail(email : String)
-        fun setSecondaryEmail(email : String)
+        fun setPrimaryEmail(email : String, verified:Boolean)
+        fun setSecondaryEmail(email : String, verified:Boolean)
         fun setMobileNumber(mobile : String, verified:Boolean)
         fun setNewsletter(b : Boolean)
         fun getName() : String
@@ -27,6 +27,6 @@ interface MyInfoComponentContract {
 
     interface Presenter : BasePresenter<View> {
         fun setup()
-        fun save()
+        fun save(closeView : Boolean = true)
     }
 }

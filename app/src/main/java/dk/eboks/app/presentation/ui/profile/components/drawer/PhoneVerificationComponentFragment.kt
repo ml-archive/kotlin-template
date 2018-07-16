@@ -84,7 +84,7 @@ class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComp
     }
 
     private fun setEnableStateContinueButton() {
-        codeIsValid = (verificationCodeEt.text.isValidActivationCode())
+        codeIsValid = (verificationCodeEt.text.isNotEmpty())
         verifyBtn.isEnabled = codeIsValid
     }
 
@@ -98,5 +98,9 @@ class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComp
 
     override fun showProgress(show: Boolean) {
         progressFl.setVisible(show)
+    }
+
+    override fun showNumber(mobile: String) {
+        verifyNumberSubTv.text = Translation.profile.verifyMobilText.replace("[mobileNumber]", mobile)
     }
 }

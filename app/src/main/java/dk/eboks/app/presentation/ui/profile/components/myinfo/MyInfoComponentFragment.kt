@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.profile.components.myinfo
 
 import android.app.Activity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import kotlinx.android.synthetic.main.fragment_profile_myinformation_component.*
 import java.util.*
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
 
 class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, OnLanguageChangedListener, TextWatcher {
     @Inject
@@ -55,11 +57,18 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.setNavigationOnClickListener {
             hideKeyboard()
+            menuSave?.let { save->
+                if(save.isEnabled)
+                {
+                    showMustSaveDialog()
+                    return@setNavigationOnClickListener
+                }
+            }
             activity.onBackPressed()
         }
 
         menuSave = mainTb.menu.add(Translation.defaultSection.save)
-        menuSave?.isEnabled = true
+        menuSave?.isEnabled = false
         menuSave?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         menuSave?.setOnMenuItemClickListener { item: MenuItem ->
             presenter.save()
@@ -73,16 +82,6 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
-    private fun showVerifyMobile() {
-        mobilenumber.value?.let {
-            if (!mobilenumber.verified && it.equals(mobilEt.text)) {
-                verifyMobileNumberBtn.visibility = View.VISIBLE
-                return
-            }
-        }
-        verifyMobileNumberBtn.visibility = View.GONE
-    }
-
     private fun attachListeners() {
         nameEt.addTextChangedListener(this)
         primaryMailEt.addTextChangedListener(this)
@@ -93,7 +92,13 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         }
 
         verifyEmailBtn.setOnClickListener {
-
+            menuSave?.let { save->
+                if(save.isEnabled)
+                {
+                    showMustSaveDialog()
+                    return@setOnClickListener
+                }
+            }
             if (primaryMailEt.text.isValidEmail()) {
                 val args = Bundle()
                 args.putSerializable("mail", primaryMailEt.text.toString())
@@ -102,7 +107,14 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         }
 
         verifySecondaryEmailBtn.setOnClickListener {
-            if (primaryMailEt.text.isValidEmail()) {
+            menuSave?.let { save->
+                if(save.isEnabled)
+                {
+                    showMustSaveDialog()
+                    return@setOnClickListener
+                }
+            }
+            if (secondaryMailEt.text.isValidEmail()) {
                 val args = Bundle()
                 args.putSerializable("mail", secondaryMailEt.text.toString())
                 getBaseActivity()?.openComponentDrawer(EmailVerificationComponentFragment::class.java, args)
@@ -110,6 +122,13 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         }
 
         verifyMobileNumberBtn.setOnClickListener {
+            menuSave?.let { save->
+                if(save.isEnabled)
+                {
+                    showMustSaveDialog()
+                    return@setOnClickListener
+                }
+            }
             if(!mobilEt.text.isNullOrEmpty()) {
                 val args = Bundle()
                 args.putString("mobile", mobilEt.text.toString())
@@ -117,9 +136,48 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
             }
         }
 
+        getBaseActivity()?.backPressedCallback = {
+            if(menuSave?.isEnabled == true) {
+                showUnsavedChangesDialog()
+            }
+            else
+            {
+                activity.onBackPressed()
+            }
+            true
+        }
+    }
+
+    private fun showMustSaveDialog()
+    {
+        AlertDialog.Builder(activity)
+                .setTitle(Translation.myInformation.saveBeforeVerifyTitle)
+                .setMessage(Translation.myInformation.saveBeforeVerifyMessage)
+                .setPositiveButton(Translation.myInformation.unsavedChangesSaveButton) { dialog, which ->
+                    presenter.save(false)
+                }
+                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+
+                }
+                .show()
+    }
+
+    private fun showUnsavedChangesDialog()
+    {
+        AlertDialog.Builder(activity)
+                .setTitle(Translation.myInformation.unsavedChangesTitle)
+                .setMessage(Translation.myInformation.unsavedChangesMessage)
+                .setPositiveButton(Translation.myInformation.unsavedChangesSaveButton) { dialog, which ->
+                    presenter.save(false)
+                }
+                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+
+                }
+                .show()
     }
 
     private fun detachListeners() {
+        getBaseActivity()?.backPressedCallback = null
         nameEt.removeTextChangedListener(this)
         primaryMailEt.removeTextChangedListener(this)
         secondaryMailEt.removeTextChangedListener(this)
@@ -160,19 +218,21 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         nameEt.setText(name)
     }
 
-    override fun setPrimaryEmail(email: String) {
+    override fun setPrimaryEmail(email: String, verified: Boolean) {
         primaryMailEt.setText(email)
+        verifyEmailBtn.setVisible(!verified)
     }
 
-    override fun setSecondaryEmail(email: String) {
+    override fun setSecondaryEmail(email: String, verified: Boolean) {
         secondaryMailEt.setText(email)
+        verifySecondaryEmailBtn.setVisible(!verified)
     }
 
     override fun setMobileNumber(mobile: String, verified: Boolean) {
         mobilEt.setText(mobile)
         mobilenumber.value = mobile
         mobilenumber.verified = verified
-        showVerifyMobile()
+        verifyMobileNumberBtn.setVisible(!verified)
     }
 
     override fun setNewsletter(b: Boolean) {
@@ -209,6 +269,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
 
     override fun setSaveEnabled(enabled: Boolean) {
         menuSave?.isEnabled = enabled
+
     }
 
     override fun setNeutralFocus() {

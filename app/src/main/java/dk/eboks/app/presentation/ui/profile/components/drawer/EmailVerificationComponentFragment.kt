@@ -46,6 +46,16 @@ class EmailVerificationComponentFragment : BaseFragment(), EmailVerificationComp
         cancelTv.setOnClickListener {
             getBaseActivity()?.onBackPressed()
         }
+
+        mail?.let {
+            verifyBtn.isEnabled = false
+            presenter.verifyMail(it)
+        }
+
+    }
+
+    override fun setVerifyBtnEnabled(enabled: Boolean) {
+        verifyBtn.isEnabled = enabled
     }
 
 }
