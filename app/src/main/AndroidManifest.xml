@@ -59,7 +59,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.folder.screens.FolderActivity" android:launchMode="singleTop" />
         <activity android:name="dk.eboks.app.presentation.ui.message.screens.MessageActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.message.screens.embedded.MessageEmbeddedActivity" />
+        <activity android:name="dk.eboks.app.presentation.ui.message.screens.embedded.MessageEmbeddedActivity" android:windowSoftInputMode="adjustPan" />
         <activity android:name="dk.eboks.app.presentation.ui.channels.screens.overview.ChannelOverviewActivity" android:launchMode="singleTask" />
         <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectStoreboxActivity" />

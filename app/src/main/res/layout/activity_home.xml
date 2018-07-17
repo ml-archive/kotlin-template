@@ -92,10 +92,10 @@
 
                 <FrameLayout
                     android:id="@+id/channelControlFl"
+                    android:background="@color/white"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_normal" />
-
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

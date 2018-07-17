@@ -121,7 +121,7 @@
                             android:id="@+id/cprEmailEt"
                             style="@style/EditText"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:inputType="textEmailAddress"
                             nstack:hint="@string/nstack_logoncredentials_emailOrSSNHeader"/>
 
@@ -141,7 +141,7 @@
                             android:id="@+id/passwordEt"
                             style="@style/EditText"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:inputType="textPassword"
                             nstack:hint="@string/nstack_logoncredentials_passwordfieldHeader"/>
 

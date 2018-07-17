@@ -22,7 +22,7 @@ import java.nio.channels.FileChannel
 class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheManager {
     var cache : MutableMap<String, CacheEntry>
     val cacheStore = GsonCacheStore()
-    val cacheDir : File
+    var cacheDir : File
 
     init {
         val type = object : TypeToken<HashMap<String, CacheEntry>>(){}.type
@@ -40,6 +40,12 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
             Timber.e("Filecache empty")
             cache = HashMap()
         }
+        cacheDir = File(context.cacheDir, "filecache")
+        createCacheDirIfNotExists()
+    }
+
+    override fun clearMemoryOnly() {
+        cache = HashMap()
         cacheDir = File(context.cacheDir, "filecache")
         createCacheDirIfNotExists()
     }

@@ -23,6 +23,20 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
 
     override fun execute() {
         had_channels = false
+
+
+        try {
+            refreshContent()
+            runOnUIThread { output?.onGetChannelHomeContentDone() }
+        } catch (t: Throwable) {
+            runOnUIThread {
+                t.printStackTrace()
+                val ve = exceptionToViewError(t)
+                output?.onGetInstalledChannelListError(ve)
+            }
+        }
+
+        /*
         controlCachedMap.clear()
         try {
             if(input?.cached == true)
@@ -36,6 +50,7 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
                 output?.onGetChannelHomeContentError(ve)
             }
         }
+        */
     }
 
     private fun emitCachedData()
@@ -43,7 +58,7 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
         had_channels = channelsRepository.hasCachedChannelList("pinned")
         val pinnedChannels = channelsRepository.getPinnedChannels(true)
         runOnUIThread {
-            output?.onGetPinnedChannelList(pinnedChannels)
+            output?.onGetInstalledChannelList(pinnedChannels)
         }
 
         if(pinnedChannels.isNotEmpty())
@@ -74,12 +89,12 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
     private fun refreshCachedData()
     {
         // do not load the channels from the network if we just did, then we'll just reuse the cached stuff
-        val pinnedChannels = channelsRepository.getPinnedChannels(!had_channels)
+        val installedChannels = channelsRepository.getInstalledChannels()
 
-        if(pinnedChannels.isNotEmpty())
+        if(installedChannels.isNotEmpty())
         {
             val channelMap : MutableMap<Int, Deferred<HomeContent>> = HashMap()
-            pinnedChannels.forEachIndexed { index, channel ->
+            installedChannels.forEachIndexed { index, channel ->
                 // if we had to fetch the data in emitCachedData() dont load it from the network again
                 if(controlCachedMap[index] == true || input?.cached == false) {
                     val d = async { channelsRepository.getChannelHomeContent(channel.id.toLong(), false) }
@@ -104,17 +119,52 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
 
             // refresh controls in one big swoop the second time around
             runOnUIThread {
-                output?.onGetPinnedChannelList(pinnedChannels)
+                output?.onGetInstalledChannelList(installedChannels)
                 for(entry in channelMap)
                 {
-                    var channel = pinnedChannels[entry.key]
+                    var channel = installedChannels[entry.key]
                     val content = entry.value.getCompleted()
                     output?.onGetChannelHomeContent(channel, content)
                     //Timber.e("refreshCachedData channel ${channel.name}")
                 }
             }
             Timber.e("refreshCachedData completed, loaded ${channelMap.size} controls")
+        }
+    }
 
+    private fun refreshContent()
+    {
+        // do not load the channels from the network if we just did, then we'll just reuse the cached stuff
+        val pinnedChannels = channelsRepository.getPinnedChannels(false)
+        Timber.e("Got ${pinnedChannels.size} channels")
+        runOnUIThread {
+            output?.onGetInstalledChannelList(pinnedChannels)
+        }
+
+        if(pinnedChannels.isNotEmpty())
+        {
+            //val channelMap : MutableMap<Int, Deferred<HomeContent>> = HashMap()
+            runBlocking {
+                pinnedChannels.forEachIndexed { index, channel ->
+                    // if we had to fetch the data in emitCachedData() dont load it from the network again
+                    try {
+                        val d = async { channelsRepository.getChannelHomeContent(channel.id.toLong(), false) }
+                        d.await()
+                        val content = d.getCompleted()
+                        runOnUIThread {
+                            output?.onGetChannelHomeContent(channel, content)
+                            Timber.e("refreshContent tile channel ${channel.name}")
+                        }
+                    }
+                    catch(t : Throwable)
+                    {
+                        Timber.e("Got 'ception but continuing")
+                        runOnUIThread {
+                            output?.onGetChannelHomeContentError(channel)
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -14,4 +14,5 @@ interface FileCacheManager {
     fun copyContentToExternalStorage(content: Content) : String?
     fun isExternalStorageWritable(): Boolean
     fun isExternalStorageReadable(): Boolean
+    fun clearMemoryOnly()
 }

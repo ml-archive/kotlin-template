@@ -15,9 +15,10 @@ interface GetChannelHomeContentInteractor : Interactor {
     data class Input(val cached: Boolean = true)
 
     interface Output {
-        fun onGetPinnedChannelList(channels : MutableList<Channel>)
+        fun onGetInstalledChannelList(channels : MutableList<Channel>)
+        fun onGetInstalledChannelListError(error : ViewError)
         fun onGetChannelHomeContent(channel : Channel, content : HomeContent)
+        fun onGetChannelHomeContentError(channel : Channel)
         fun onGetChannelHomeContentDone()
-        fun onGetChannelHomeContentError(error : ViewError)
     }
 }

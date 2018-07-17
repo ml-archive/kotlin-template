@@ -19,11 +19,13 @@
     <LinearLayout
         android:id="@+id/emptyStateLl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
+        android:paddingTop="@dimen/margin_normal"
+        tools:visibility="visible"
         android:visibility="gone">
 
         <TextView
@@ -66,6 +68,7 @@
     <!-- progress -->
     <FrameLayout
         android:id="@+id/progressFl"
+        tools:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="140dp">
         <ProgressBar

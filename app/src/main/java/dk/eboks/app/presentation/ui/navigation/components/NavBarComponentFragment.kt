@@ -16,6 +16,7 @@ import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.notimplemented.screens.ComingSoonActivity
 import dk.eboks.app.presentation.ui.senders.screens.overview.SendersOverviewActivity
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsActivity
+import dk.eboks.app.util.Starter
 import dk.eboks.app.util.disableShiftingMode
 import kotlinx.android.synthetic.main.fragment_navbar_component.*
 import javax.inject.Inject
@@ -104,6 +105,24 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
 
     companion object {
         var currentMenuItem = 0
+
+        fun gotoChannels(activity: Activity)
+        {
+            currentMenuItem = R.id.actionChannels
+            activity.Starter().activity(ChannelOverviewActivity::class.java).start()
+        }
+
+        fun gotoMail(activity: Activity)
+        {
+            currentMenuItem = R.id.actionMail
+            activity.Starter().activity(MailOverviewActivity::class.java).start()
+        }
+
+        fun gotoInbox(activity: Activity)
+        {
+            currentMenuItem = R.id.actionMail
+            activity.Starter().activity(MailOverviewActivity::class.java).putExtra("openInbox", true).start()
+        }
     }
 
 }

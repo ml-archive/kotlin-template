@@ -3,8 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    xmlns:nstack="http://schemas.android.com/tools">
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingPrefix">
 
     <include layout="@layout/include_toolbar"/>
 
@@ -17,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_normal"
-            android:text="_Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in leo vel diam cursus posuere ut in nunc. Duis sit amet risus justo. In accumsan neque vitae erat eleifend aliquam. Praesent tincidunt sem sit amet convallis sagittis. Vestibulum porta tempor tincidunt. Nullam accumsan quam eget lorem suscipit, nec fringilla nibh feugiat. In vitae cursus mauris."
+            android:text=""
             nstack:key="@string/nstack_findactivationcode_message"/>
     </ScrollView>
 </LinearLayout>

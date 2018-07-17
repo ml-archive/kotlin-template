@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.home.components.channelcontrol
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.CardView
 import android.view.LayoutInflater
@@ -16,14 +15,12 @@ import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
 import dk.eboks.app.domain.models.home.ItemType
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.channels.components.content.storebox.content.ChannelContentStoreboxComponentFragment
-import dk.eboks.app.presentation.ui.channels.components.content.web.ChannelContentComponentFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentActivity
-import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
+import dk.eboks.app.presentation.ui.channels.screens.overview.ChannelOverviewActivity
 import dk.eboks.app.presentation.ui.home.components.channelcontrol.controls.*
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
+import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
 import dk.eboks.app.util.Starter
-import dk.eboks.app.util.putArg
 import dk.eboks.app.util.views
 import kotlinx.android.synthetic.main.fragment_channel_control_component.*
 import org.greenrobot.eventbus.EventBus
@@ -108,12 +105,16 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
         if (channels.size == 0) {
             (activity as HomeActivity).showChannelControlsHeader(false)
             emptyStateLl.visibility = View.VISIBLE
-            bottomChannelBtn.isEnabled = (emailCount > 0)
+            //bottomChannelBtn.isEnabled = (emailCount > 0)
+            bottomChannelBtn.isEnabled = true
             bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderNoChannels
             bottomChannelTextTv.text = Translation.home.bottomChannelTextNoChannels
             bottomChannelBtn.visibility = View.VISIBLE
             bottomChannelHeaderTv.visibility = View.VISIBLE
             bottomChannelTextTv.visibility = View.VISIBLE
+            bottomChannelBtn.setOnClickListener {
+                NavBarComponentFragment.gotoChannels(activity)
+            }
         } else {
             /*
             if (channels.size < 2) {
@@ -162,6 +163,14 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
 
                 }
             }
+        }
+    }
+
+    override fun removeControl(channel: Channel) {
+        // find the view associated with the channel
+        findControlView(channel.id)?.let { view ->
+            Timber.e("Removing error view for channel id ${channel.id}")
+            channelsContentLL.removeView(view)
         }
     }
 

@@ -19,6 +19,7 @@ import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import java.io.File
 
 /**
  * Created by bison on 01/02/18.
@@ -173,6 +174,15 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
             else
             {
                 Timber.e("Found content in cache ($filename)")
+                val f = File(cacheManager.getAbsolutePath(filename))
+                if(!f.exists())
+                {
+                    filename = downloadManager.downloadContent(msg, content)
+                    if(filename == null)
+                        throw(InteractorException("Could not download content ${content.id}"))
+                    Timber.e("Downloaded content to $filename")
+                    cacheManager.cacheContent(filename, content)
+                }
             }
 
             appStateManager.state?.currentMessage = msg

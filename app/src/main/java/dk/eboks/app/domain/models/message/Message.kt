@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.models.message
 
+import com.google.gson.annotations.SerializedName
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.shared.Link
@@ -32,5 +33,6 @@ data class Message(
     var replyStatus: Status? = null,
     var lockStatus: Status? = null,
     var status: Status? = null,
+    @SerializedName("Note")
     var note : String = ""
 ) : Serializable

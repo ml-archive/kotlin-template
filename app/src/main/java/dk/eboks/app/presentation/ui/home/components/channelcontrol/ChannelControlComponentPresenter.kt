@@ -8,6 +8,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.util.getType
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import org.greenrobot.eventbus.EventBus
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -33,13 +34,6 @@ class ChannelControlComponentPresenter @Inject constructor(val appState: AppStat
         getChannelHomeContentInteractor.run()
     }
 
-    override fun onGetPinnedChannelList(channels: MutableList<Channel>) {
-        runAction { v ->
-            v.showProgress(false)
-            v.setupChannels(channels)
-        }
-    }
-
     override fun onGetChannelHomeContent(channel: Channel, content: HomeContent) {
         runAction { v -> v.updateControl(channel, content.control) }
     }
@@ -48,8 +42,21 @@ class ChannelControlComponentPresenter @Inject constructor(val appState: AppStat
         EventBus.getDefault().post(RefreshChannelControlDoneEvent())
     }
 
-    override fun onGetChannelHomeContentError(error: ViewError) {
+    override fun onGetInstalledChannelList(channels: MutableList<Channel>) {
+        runAction { v ->
+            v.showProgress(false)
+            v.setupChannels(channels)
+        }
+    }
+
+    override fun onGetInstalledChannelListError(error: ViewError) {
+        Timber.e("onGetInstalledChannelListError")
         EventBus.getDefault().post(RefreshChannelControlDoneEvent())
         runAction { v->v.showErrorDialog(error) }
+    }
+
+    override fun onGetChannelHomeContentError(channel: Channel) {
+        Timber.e("onGetChannelHomeContentError")
+        runAction { v -> v.removeControl(channel) }
     }
 }

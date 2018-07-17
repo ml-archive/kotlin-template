@@ -20,6 +20,7 @@ import dk.eboks.app.presentation.ui.home.screens.HomeActivity
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
+import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_folder_preview_component.*
@@ -83,7 +84,7 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
                 emptyStateHeaderTv.text = Translation.home.messagesEmptyTitle
                 emptyStateTextTv.text = Translation.home.messagesEmptyMessage
                 emptyStateBtn.setOnClickListener {
-                    startActivity(Intent(context, MailOverviewActivity::class.java))
+                    NavBarComponentFragment.gotoInbox(activity)
                 }
             }
             else

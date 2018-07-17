@@ -63,6 +63,7 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
             // is logged in
             Timber.d("Clearing CacheStore memory")
             cacheManager.clearStoresMemoryOnly()
+            fileCacheManager.clearMemoryOnly()
 
             Timber.d("LoginState: $loginState?")
             //Thread.sleep(2000)

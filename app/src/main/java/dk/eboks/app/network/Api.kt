@@ -77,6 +77,7 @@ interface Api {
     // channels
     @GET("channels") fun getChannels() : Call<MutableList<Channel>>
     @GET("channels?pinned=true") fun getChannelsPinned() : Call<MutableList<Channel>>
+    @GET("channels?installed=true") fun getChannelsInstalled() : Call<MutableList<Channel>>
     @GET("channels/{id}") fun getChannel(@Path("id") id : Int) : Call<Channel>
     @PUT("channels/{id}/install") fun installChannel(@Path("id") id : Int) : Call<Void>
     @DELETE("channels/{id}") fun uninstallChannel(@Path("id") id : Int) : Call<Void>

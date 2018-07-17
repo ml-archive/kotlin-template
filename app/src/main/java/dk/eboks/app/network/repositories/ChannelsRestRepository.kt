@@ -63,6 +63,15 @@ class ChannelsRestRepository(val context: Context, val api: Api, val gson: Gson,
         return ArrayList()
     }
 
+    override fun getInstalledChannels(): MutableList<Channel> {
+        val response = api.getChannelsInstalled().execute()
+        response?.let {
+            if(it.isSuccessful)
+                it.body()?.let { return it }
+        }
+        return ArrayList()
+    }
+
     override fun getPinnedChannels(cached: Boolean): MutableList<Channel> {
         val res = if(cached) channelStore.get("pinned") else channelStore.fetch("pinned")
         if(res != null)
