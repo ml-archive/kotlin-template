@@ -118,6 +118,7 @@
   <string name='nstack_senders_allSenders' formatted='false'>senders_allSenders</string>
   <string name='nstack_senders_comingSoonHeader' formatted='false'>senders_comingSoonHeader</string>
   <string name='nstack_senders_comingSoonMessage' formatted='false'>senders_comingSoonMessage</string>
+  <string name='nstack_senders_searchBarPlaceholder' formatted='false'>senders_searchBarPlaceholder</string>
   <string name='nstack_start_signupButton' formatted='false'>start_signupButton</string>
   <string name='nstack_start_addNewUser' formatted='false'>start_addNewUser</string>
   <string name='nstack_start_logonButton' formatted='false'>start_logonButton</string>
@@ -555,6 +556,8 @@
   <string name='nstack_storeboxverify_header' formatted='false'>storeboxverify_header</string>
   <string name='nstack_storeboxverify_subheader' formatted='false'>storeboxverify_subheader</string>
   <string name='nstack_storeboxverify_confirmationCodeHeader' formatted='false'>storeboxverify_confirmationCodeHeader</string>
+  <string name='nstack_storeboxverify_wrongConfirmationCodeHeader' formatted='false'>storeboxverify_wrongConfirmationCodeHeader</string>
+  <string name='nstack_storeboxverify_wrongConfirmationCodeMessage' formatted='false'>storeboxverify_wrongConfirmationCodeMessage</string>
   <string name='nstack_uploadspreview_uploadsHeader' formatted='false'>uploadspreview_uploadsHeader</string>
   <string name='nstack_uploadspreview_folderTitle' formatted='false'>uploadspreview_folderTitle</string>
   <string name='nstack_uploadspreview_fileTitle' formatted='false'>uploadspreview_fileTitle</string>

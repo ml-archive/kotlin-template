@@ -49,7 +49,7 @@ class ProfileInfoComponentPresenter @Inject constructor(
         runAction { v ->
             v.setName(user.name)
             v.setVerified(user.verified)
-            v.showFingerprintOption(true)
+            v.showFingerprintOptionIfSupported()
 
             v.setProfileImage(user.avatarUri)
 

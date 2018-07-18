@@ -48,7 +48,7 @@ class ReceiptsChannelControl(channel: Channel, control : Control, view: View, in
                     soloName.visibility = View.VISIBLE
                     nameContainer.visibility = View.GONE
                 } else {
-                    name.text = row.title
+                    name.text = row.tag
                     address.text = row.description
                 }
                 rowsContainerLl.addView(v)

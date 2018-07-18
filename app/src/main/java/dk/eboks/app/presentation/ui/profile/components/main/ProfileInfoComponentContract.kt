@@ -9,7 +9,7 @@ interface ProfileInfoComponentContract {
         fun setProfileImage(url: String?)
         fun setVerified(isVerified: Boolean)
         fun showFingerprintEnabled(isEnabled: Boolean, lastProviderId: String? = null)
-        fun showFingerprintOption(show : Boolean)
+        fun showFingerprintOptionIfSupported()
         fun showKeepMeSignedIn(isEnabled: Boolean)
         fun logout()
         fun setupListeners(verified : Boolean)

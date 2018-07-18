@@ -39,12 +39,19 @@
                         android:layout_height="0.5dp"
                         android:background="@color/dividerColor" />
 
-                    <fragment
-                        android:id="@+id/folderShortcutsFragment"
-                        android:name="dk.eboks.app.presentation.ui.mail.components.foldershortcuts.FolderShortcutsComponentFragment"
+                    <FrameLayout
+                        android:id="@+id/folderShortcutsFragmentContainerFl"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1">
+                        <fragment
+                            android:id="@+id/folderShortcutsFragment"
+                            android:name="dk.eboks.app.presentation.ui.mail.components.foldershortcuts.FolderShortcutsComponentFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            />
+
+                    </FrameLayout>
 
                     <View
                         android:layout_width="match_parent"

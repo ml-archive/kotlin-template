@@ -81,7 +81,8 @@ class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
     override fun showWrongCode() {
         Timber.e("showWrongCode")
         AlertDialog.Builder(this)
-                .setMessage(Translation.activationcode.invalidActivationCode)
+                .setTitle(Translation.storeboxverify.wrongConfirmationCodeHeader)
+                .setMessage(Translation.storeboxverify.wrongConfirmationCodeMessage)
                 .setNegativeButton(Translation.defaultSection.ok) { dialog, which ->
                     dialog.dismiss()
                 }
@@ -119,11 +120,12 @@ class UserInfoFragment : Fragment() {
 
             userinfoContinueBtn.isEnabled = ( isEmail && userinfoPhoneTil.editText?.text.toString().trim().isNotBlank() )
         }
+        /*
         userinfoPhoneTil.editText?.addAfterTextChangeListener {
             val isEmail = userinfoEmailTil.editText?.text?.isValidEmail()?:false
-
             userinfoContinueBtn.isEnabled = ( isEmail && it.toString().trim().isNotBlank())
         }
+        */
 
         userinfoContinueBtn.setOnClickListener {
             presenter?.signIn(userinfoEmailTil.editText?.text.toString().trim(), userinfoPhoneTil.editText?.text.toString().trim())

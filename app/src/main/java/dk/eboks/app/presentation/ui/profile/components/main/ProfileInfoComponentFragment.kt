@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.profile.components.main
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -34,6 +35,10 @@ import kotlinx.android.synthetic.main.include_profile_bottom.*
 import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
+import android.content.Context.FINGERPRINT_SERVICE
+import android.hardware.fingerprint.FingerprintManager
+
+
 
 class ProfileInfoComponentFragment : BaseFragment(),
         ProfileInfoComponentContract.View {
@@ -92,11 +97,20 @@ class ProfileInfoComponentFragment : BaseFragment(),
         profileDetailRegisterTB.textOff = Translation.profile.verifyButton
     }
 
-    override fun showFingerprintOption(show: Boolean) {
+    override fun showFingerprintOptionIfSupported() {
         if(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             // Show our fingerprint stuff only if we are above API M
-            profileDetailSwFingerprint.setVisible(show)
+//Fingerprint API only available on from Android 6.0 (M)
+            val fingerprintManager = context.getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager
+            if (fingerprintManager.isHardwareDetected) {
+                profileDetailSwFingerprint.setVisible(true)
+                // Device doesn't support fingerprint authentication
+            }
+            else
+                fingerprintManager.isHardwareDetected
         }
+        else
+            profileDetailSwFingerprint.setVisible(false)
     }
 
     override fun setupListeners(verified : Boolean) {

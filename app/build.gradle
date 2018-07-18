@@ -27,7 +27,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 59
+        versionCode 60
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -42,7 +42,7 @@ android {
         // flags for disabling various functionality for the different betas
         buildConfigField "Boolean", "ENABLE_PROFILE_PICTURE", "false"
         buildConfigField "Boolean", "ENABLE_SENDERS", "false"
-        buildConfigField "Boolean", "ENABLE_UPLOADS", "false"
+        buildConfigField "Boolean", "ENABLE_UPLOADS", "true"
         buildConfigField "Boolean", "ENABLE_DOCUMENT_ACTIONS", "false"
         buildConfigField "Boolean", "ENABLE_FOLDERS_ACTIONS", "false"
         buildConfigField "Boolean", "ENABLE_PAYMENT", "false"

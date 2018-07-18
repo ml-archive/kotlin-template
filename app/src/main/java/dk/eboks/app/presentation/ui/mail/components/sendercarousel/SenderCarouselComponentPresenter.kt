@@ -43,17 +43,18 @@ class SenderCarouselComponentPresenter @Inject constructor(val appState: AppStat
     }
 
     override fun onGetSenders(senders: List<Sender>) {
-        Timber.e("Received them senders")
+        //Timber.e("Received them senders")
+        val verified = appState.state?.currentUser?.verified ?: false
         runAction { v ->
             v.showProgress(false)
             EventBus.getDefault().post(RefreshSenderCarouselDoneEvent())
             if(senders.isNotEmpty()) {
-                v.showEmpty(false)
+                v.showEmpty(false, verified)
                 v.showSenders(senders)
             }
             else
             {
-                v.showEmpty(true)
+                v.showEmpty(true, verified)
             }
         }
     }

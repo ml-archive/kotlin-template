@@ -94,7 +94,7 @@ interface Api {
     @POST("channels/storebox/user/signup/link/activate") fun postActivateStorebox(@Body bodyMap: Map<String, String>) : Call<Any>
     @GET("channels/storebox/user/profile") fun getStoreboxProfile() : Call<StoreboxProfile>
     @PUT("channels/storebox/user/profile") fun putStoreboxProfile(@Body profile : StoreboxProfile) : Call<Void>
-    @GET("channels/storebox/user/cards/card/link") fun getStoreboxCardLink() : Call<Link>
+    @GET("channels/storebox/user/cards/card/link") fun getStoreboxCardLink(@Query("callback_success") callbackSuccess : String, @Query("callback_error") callbackError : String) : Call<Link>
     @GET("channels/storebox/user/cards") fun getStoreboxCreditCards():Call<MutableList<StoreboxCreditCard>>
     @DELETE("channels/storebox/user/cards/{cardId}") fun deleteStoreboxCreditCard(@Path("cardId") id:String): Call<Void>
     @DELETE("channels/storebox/user") fun deleteStoreboxAccountLink() : Call<Void>

@@ -140,6 +140,7 @@ public class Translation {
 		public static String allSenders = "All Senders";
 		public static String comingSoonHeader = "Coming soon!";
 		public static String comingSoonMessage = "Soon you will be able to register senders you normally receive your mail from";
+		public static String searchBarPlaceholder = "Search";
 	}
 	public final static class start {
 		public static String signupButton = "Sign up";
@@ -637,6 +638,8 @@ public class Translation {
 		public static String header = "We sent you a confirmation code";
 		public static String subheader = "Find the confirmation code we just sent you and type it here";
 		public static String confirmationCodeHeader = "Confirmation code";
+		public static String wrongConfirmationCodeHeader = "Wrong code";
+		public static String wrongConfirmationCodeMessage = "Please type in the code we sent to your email";
 	}
 	public final static class uploadspreview {
 		public static String uploadsHeader = "Upload file";

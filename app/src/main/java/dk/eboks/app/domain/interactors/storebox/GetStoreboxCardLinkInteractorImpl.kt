@@ -4,6 +4,7 @@ import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import timber.log.Timber
 
 class GetStoreboxCardLinkInteractorImpl(executor: Executor, private val api: Api) :
         BaseInteractor(executor),
@@ -12,7 +13,7 @@ class GetStoreboxCardLinkInteractorImpl(executor: Executor, private val api: Api
 
     override fun execute() {
         try {
-            val result = api.getStoreboxCardLink().execute()
+            val result = api.getStoreboxCardLink(SUCCESS_CALLBACK, ERROR_CALLBACK).execute()
 
             result.body()?.let {
                 runOnUIThread {
@@ -20,11 +21,15 @@ class GetStoreboxCardLinkInteractorImpl(executor: Executor, private val api: Api
                 }
             }
         } catch (t: Throwable) {
-            t.printStackTrace()
-
+            Timber.e(t)
             runOnUIThread {
                 output?.onGetStoreboxCardLinkError(exceptionToViewError(t))
             }
         }
+    }
+
+    companion object {
+        val SUCCESS_CALLBACK = "eboksdk://success"
+        val ERROR_CALLBACK = "eboksdk://error"
     }
 }

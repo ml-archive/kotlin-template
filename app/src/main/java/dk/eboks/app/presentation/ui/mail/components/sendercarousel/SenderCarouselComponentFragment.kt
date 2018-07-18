@@ -14,9 +14,12 @@ import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
+import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.senders.screens.list.SenderAllListActivity
 import dk.eboks.app.util.getWorkaroundUrl
+import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_sender_carousel_component.*
 import javax.inject.Inject
 
@@ -48,6 +51,11 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         {
             addMoreSendersBtn.visibility = View.GONE
         }
+
+        emptyStateBtn.setOnClickListener {
+            MailOverviewActivity.refreshOnResume = true
+            getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
+        }
     }
 
     fun setupRecyclerView()
@@ -64,6 +72,20 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
 
     override fun showProgress(show: Boolean) {
         progressFl.visibility = if(show) View.VISIBLE else View.GONE
+    }
+
+    override fun showEmpty(show: Boolean, verified : Boolean) {
+        if(verified) {
+            sendersListEmptyUnverifiedLl.setVisible(!show)
+            sendersListEmptyLl.visibility = if (show) View.VISIBLE else View.GONE
+        }
+        else
+        {
+            sendersListEmptyLl.setVisible(!show)
+            sendersListEmptyUnverifiedLl.visibility = if(show) View.VISIBLE else View.GONE
+        }
+        sendersListLl.visibility = if(!show) View.VISIBLE else View.GONE
+
     }
 
     override fun showEmpty(show: Boolean) {

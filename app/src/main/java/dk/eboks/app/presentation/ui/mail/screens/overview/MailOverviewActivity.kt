@@ -9,6 +9,7 @@ import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.dialogs.ConfirmDialogFragment
 import dk.eboks.app.presentation.ui.folder.components.selectuser.FolderSelectUserComponentFragment
+import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.activity_mail_overview.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -31,6 +32,15 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
             presenter.refresh()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(refreshOnResume)
+        {
+            refreshOnResume = false
+            presenter.refresh()
+        }
     }
 
     private fun setupTopbar(user: User?) {
@@ -62,5 +72,12 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
 
     override fun setUser(user: User?) {
         setupTopbar(user)
+        user?.let {
+            folderShortcutsFragmentContainerFl.setVisible(it.verified)
+        }
+    }
+
+    companion object {
+        var refreshOnResume = false
     }
 }

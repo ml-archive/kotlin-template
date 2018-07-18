@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:animateLayoutChanges="false"
+    android:background="@color/backgroundColor"
     tools:ignore="MissingPrefix">
 
     <LinearLayout
@@ -20,7 +21,6 @@
         android:id="@+id/emptyStateLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:orientation="vertical"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
