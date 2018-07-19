@@ -1,5 +1,6 @@
 <translate xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="1000"
+           android:fillAfter="true"
     android:fromYDelta="40"
     android:interpolator="@android:anim/accelerate_interpolator"
     android:toYDelta="-100%p" />

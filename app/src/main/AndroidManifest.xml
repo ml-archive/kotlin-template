@@ -41,7 +41,7 @@
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name="dk.eboks.app.presentation.ui.start.screens.StartActivity">
+        <activity android:name="dk.eboks.app.presentation.ui.start.screens.StartActivity" android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -63,7 +63,6 @@
         <activity android:name="dk.eboks.app.presentation.ui.channels.screens.overview.ChannelOverviewActivity" android:launchMode="singleTask" />
         <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectStoreboxActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.storebox.StoreboxContentActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.senders.screens.overview.SendersOverviewActivity" android:launchMode="singleTask" />
         <activity android:name="dk.eboks.app.presentation.ui.senders.screens.browse.BrowseCategoryActivity" />

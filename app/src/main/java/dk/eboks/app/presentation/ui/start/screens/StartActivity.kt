@@ -31,6 +31,7 @@ class StartActivity : BaseActivity(), StartContract.View {
     lateinit var presenter: StartContract.Presenter
 
     var splashFragment: SplashComponentFragment? = SplashComponentFragment()
+    //var splashFragment: SplashComponentFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +67,7 @@ class StartActivity : BaseActivity(), StartContract.View {
             return
         }
 
+        /*
         supportFragmentManager.addOnBackStackChangedListener {
             //Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")
             if (supportFragmentManager.backStackEntryCount == 0) {
@@ -73,6 +75,7 @@ class StartActivity : BaseActivity(), StartContract.View {
                     finish()
             }
         }
+        */
 
         CrashManager.register(this, object : CrashManagerListener() {
             override fun onNoCrashesFound() {
@@ -182,7 +185,7 @@ class StartActivity : BaseActivity(), StartContract.View {
         if (supportFragmentManager.backStackEntryCount > 1) {
             supportFragmentManager.popBackStack()
         } else {
-            finish()
+            finishAfterTransition()
         }
     }
 
