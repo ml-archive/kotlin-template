@@ -4,6 +4,7 @@ import android.os.Bundle
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
+import timber.log.Timber
 import javax.inject.Inject
 
 class ProfileActivity : BaseActivity(), ProfileContract.View {
@@ -19,14 +20,26 @@ class ProfileActivity : BaseActivity(), ProfileContract.View {
         supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount == 0) {
                 if (!isDestroyed)
-                    finish()
+                    this.finishAfterTransition()
             }
         }
         setRootFragment(R.id.profileActivityContainerFragment, ProfileInfoComponentFragment())
-
     }
 
-    fun showMyInformationFragment() {
-        //TODO setup fragment¬
+    override fun finish() {
+        Timber.e("Running finish")
+        super.finish()
+        overridePendingTransition(0, R.anim.slide_down)
     }
+
+    override fun finishAfterTransition() {
+        super.finishAfterTransition()
+        overridePendingTransition(0, R.anim.slide_down)
+    }
+
+    override fun supportFinishAfterTransition() {
+        super.supportFinishAfterTransition()
+        overridePendingTransition(0, R.anim.slide_down)
+    }
+
 }

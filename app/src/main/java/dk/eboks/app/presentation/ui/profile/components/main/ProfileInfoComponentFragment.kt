@@ -90,7 +90,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
 
         profileDetailTB.setNavigationOnClickListener {
-            activity.finish()
+            activity.finishAfterTransition()
         }
 
         profileDetailRegisterTB.textOn = Translation.senders.registered
@@ -316,4 +316,5 @@ class ProfileInfoComponentFragment : BaseFragment(),
         progressFl.visibility = if(show) View.VISIBLE else View.GONE
         profileFragmentRootContainer.visibility = if(!show) View.VISIBLE else View.GONE
     }
+
 }

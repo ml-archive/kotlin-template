@@ -21,6 +21,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
@@ -304,6 +305,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
         continueBtn.visibility = View.GONE
         passwordTil.visibility = View.VISIBLE
+        if(BuildConfig.DEBUG)
+        {
+            showToast("Password preset to 'a12345' (DEBUG)")
+            passwordEt.setText("a12345")
+            continueBtn.isEnabled = true
+        }
 
         // setting profile view
         userNameTv.text = user?.name

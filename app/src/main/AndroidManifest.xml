@@ -68,7 +68,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.senders.screens.browse.BrowseCategoryActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.senders.screens.browse.SearchSendersActivity" />
         <activity android:name="dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity" />
-        <activity android:name="dk.eboks.app.presentation.ui.profile.screens.ProfileActivity" android:launchMode="singleTask" />
+        <activity android:name="dk.eboks.app.presentation.ui.profile.screens.ProfileActivity" android:theme="@style/TransTheme" />
         <activity android:name="dk.eboks.app.presentation.ui.profile.screens.myinfo.MyInfoActivity"  />
         <activity android:name="dk.eboks.app.presentation.ui.home.screens.HomeActivity" android:launchMode="singleTask" />
         <activity android:name="dk.eboks.app.presentation.ui.uploads.screens.UploadsActivity" android:launchMode="singleTask" />
