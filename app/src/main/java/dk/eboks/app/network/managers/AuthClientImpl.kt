@@ -37,8 +37,8 @@ class AuthClientImpl : AuthClient {
         httpClient = clientBuilder.build()
     }
 
-    override fun transformKspToken(kspToken : String, oauthToken : String?) : AccessToken? {
-        val keys = getKeys(true, false)
+    override fun transformKspToken(kspToken : String, oauthToken : String?, longClient: Boolean) : AccessToken? {
+        val keys = getKeys(true, longClient)
 
         val formBody = FormBody.Builder()
                 .add("kspwebtoken", kspToken)

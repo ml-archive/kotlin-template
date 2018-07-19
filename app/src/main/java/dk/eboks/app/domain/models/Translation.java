@@ -141,6 +141,7 @@ public class Translation {
 		public static String comingSoonHeader = "Coming soon!";
 		public static String comingSoonMessage = "Soon you will be able to register senders you normally receive your mail from";
 		public static String searchBarPlaceholder = "Search";
+		public static String noSearchResult = "No Senders Found";
 	}
 	public final static class start {
 		public static String signupButton = "Sign up";
@@ -359,6 +360,8 @@ public class Translation {
 		public static String photos = "Photos";
 		public static String comingSoonHeader = "Coming soon!";
 		public static String comingSoonMessage = "Soon you will be able to upload and store your important files securely in e-Boks";
+		public static String allowCameraTitle = "Camera access required";
+		public static String allowCameraMessage = "In order to continue you will need to allow camera access. To do so open settings and allow camera permission.";
 	}
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";
@@ -633,6 +636,7 @@ public class Translation {
 		public static String signInButton = "Sign in";
 		public static String continueButton = "Continue";
 		public static String tryAgainButton = "Try again";
+		public static String signInButtonAlert = "Sign in";
 	}
 	public final static class storeboxverify {
 		public static String header = "We sent you a confirmation code";
@@ -646,7 +650,7 @@ public class Translation {
 		public static String folderTitle = "Folder";
 		public static String fileTitle = "File name";
 		public static String uploadPreview = "Save";
-		public static String defaultFolder = "Default";
+		public static String defaultFolder = "Inbox";
 		public static String noPreviewAvailable = "No preview available";
 	}
 	public final static class editFolder {

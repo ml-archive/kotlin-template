@@ -32,10 +32,12 @@ class UIManagerImpl(val context: Context) : UIManager {
                 ActivityStarter(it)
                         .activity(StartActivity::class.java)
                         .putExtra("noboot", true)
+                        .putExtra("sessionExpired", true)
                         .start()
             }.guard {
                 val i = Intent(context, StartActivity::class.java)
                 i.putExtra("noboot", true)
+                i.putExtra("sessionExpired", true)
                 context.startActivity(i)
             }
         }

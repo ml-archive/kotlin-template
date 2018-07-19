@@ -45,6 +45,8 @@ class UserManagerImpl(val context: Context, val gson: Gson) : UserManager {
                 return u
             }
         }
+        // clear CPR
+        user.identity = ""
         users.add(user)
         Timber.e("User ${user.id} : ${user.name} added")
         userStore.save(users)

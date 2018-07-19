@@ -4,6 +4,7 @@ import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.network.Api
+import dk.eboks.app.network.managers.protocol.EAuth2
 import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
@@ -30,8 +31,7 @@ class TransformTokenInteractorImpl(
     override fun execute() {
         try {
             input?.loginState?.kspToken?.let { kspToken ->
-
-                authClient.transformKspToken(kspToken)?.let { token ->
+                authClient.transformKspToken(kspToken, longClient = appStateManager.state?.currentSettings?.stayLoggedIn ?: false)?.let { token ->
                     appStateManager.state?.loginState?.token = token
 
                     val userResult = api.getUserProfile().execute()
@@ -63,6 +63,7 @@ class TransformTokenInteractorImpl(
                         appStateManager.state?.currentUser = newUser
                         appStateManager.state?.currentSettings = newSettings
                     }
+                    EAuth2.ignoreFurtherLoginRequests = false
                     appStateManager.save()
 
                     runOnUIThread {

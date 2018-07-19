@@ -9,12 +9,12 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
-import dk.eboks.app.presentation.ui.login.components.ActivationCodeComponentFragment
 import dk.eboks.app.presentation.ui.login.components.LoginComponentFragment
 import dk.eboks.app.presentation.ui.login.components.UserCarouselComponentFragment
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.start.components.signup.CompletedComponentFragment
 import dk.eboks.app.presentation.ui.start.components.welcome.SplashComponentFragment
+import dk.eboks.app.util.BroadcastReceiver
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.managers.ConnectionManager
 import dk.nodes.nstack.kotlin.models.AppUpdate
@@ -38,6 +38,12 @@ class StartActivity : BaseActivity(), StartContract.View {
 
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+
+        if(intent.getBooleanExtra("sessionExpired", false)) {
+            Timber.e("Previous session expired, finish all lingering activities")
+            BroadcastReceiver.broadcast(this, Intent("session_expired"))
+            showSessionExpiredDialog()
+        }
 
         // this will happen when we need to authorize - the user will be sent here, but the
         // boot has already happened, so skip it. Otherwise, we'll end in a, infinite loop
@@ -124,6 +130,16 @@ class StartActivity : BaseActivity(), StartContract.View {
                 .show()
     }
 
+    private fun showSessionExpiredDialog() {
+        AlertDialog.Builder(this)
+                .setTitle(Translation.error.authenticationErrorTitle)
+                .setMessage(Translation.error.authenticationErrorMessage)
+                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+
+                }
+                .show()
+    }
+
     override fun showUserCarouselComponent() {
         splashFragment?.transitionToUserCarouselFragment()
         //setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
@@ -181,5 +197,9 @@ class StartActivity : BaseActivity(), StartContract.View {
         if(BuildConfig.DEBUG) {
             UpdateManager.register(this)
         }
+    }
+
+    override fun handleSessionExpired() {
+        Timber.e("StartActivity ignoring session expired event")
     }
 }

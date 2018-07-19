@@ -112,6 +112,8 @@ class ProfileInfoComponentPresenter @Inject constructor(
 
     override fun doLogout() {
         appState.state?.currentSettings = null
+        appState.state?.loginState?.userPassWord = ""
+        appState.state?.loginState?.userName = ""
         appState.state?.loginState?.token = null
         appState.save()
         view?.logout()

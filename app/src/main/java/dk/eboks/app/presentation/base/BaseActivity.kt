@@ -18,6 +18,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.ui.debug.screens.DebugActivity
+import dk.eboks.app.util.BroadcastReceiver
 import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -45,6 +46,8 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         val backStackRootTag = "root_fragment"
     }
 
+    private val broadcastReceiver : BroadcastReceiver = BroadcastReceiver()
+
     /**
      * easy shortcut to get an inflater, this only gets instantiated if you use it and only the first time
      */
@@ -62,7 +65,19 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
             countToDebug = 0
             setupShakeDetection()
         }
+        broadcastReceiver.addFilter("session_expired")
+        broadcastReceiver.setListener(object : BroadcastReceiver.OnIntentListener {
+            override fun onIntent(intent: Intent) {
+                handleSessionExpired()
+            }
+        })
 
+        broadcastReceiver.register(this)
+    }
+
+    override fun onDestroy() {
+        broadcastReceiver.deregister(this)
+        super.onDestroy()
     }
 
     fun setupShakeDetection() {
@@ -78,17 +93,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
             }
         })
         */
-    }
-
-    override fun onPause() {
-        //sensorManager?.unregisterListener(shakeDetector)
-        super.onPause()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        //sensorManager?.registerListener(shakeDetector, acceleroMeter, SensorManager.SENSOR_DELAY_UI)
-
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -157,6 +161,14 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
      */
     open fun getNavigationMenuAction(): Int {
         return -1
+    }
+
+    /**
+     * Override this if your activity shouldn't finish itself when receiving the session expired event
+     */
+    open fun handleSessionExpired()
+    {
+        finish()
     }
 
     /**

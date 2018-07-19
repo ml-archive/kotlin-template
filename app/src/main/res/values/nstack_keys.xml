@@ -119,6 +119,7 @@
   <string name='nstack_senders_comingSoonHeader' formatted='false'>senders_comingSoonHeader</string>
   <string name='nstack_senders_comingSoonMessage' formatted='false'>senders_comingSoonMessage</string>
   <string name='nstack_senders_searchBarPlaceholder' formatted='false'>senders_searchBarPlaceholder</string>
+  <string name='nstack_senders_noSearchResult' formatted='false'>senders_noSearchResult</string>
   <string name='nstack_start_signupButton' formatted='false'>start_signupButton</string>
   <string name='nstack_start_addNewUser' formatted='false'>start_addNewUser</string>
   <string name='nstack_start_logonButton' formatted='false'>start_logonButton</string>
@@ -313,6 +314,8 @@
   <string name='nstack_uploads_photos' formatted='false'>uploads_photos</string>
   <string name='nstack_uploads_comingSoonHeader' formatted='false'>uploads_comingSoonHeader</string>
   <string name='nstack_uploads_comingSoonMessage' formatted='false'>uploads_comingSoonMessage</string>
+  <string name='nstack_uploads_allowCameraTitle' formatted='false'>uploads_allowCameraTitle</string>
+  <string name='nstack_uploads_allowCameraMessage' formatted='false'>uploads_allowCameraMessage</string>
   <string name='nstack_loginproviders_nemidTitle' formatted='false'>loginproviders_nemidTitle</string>
   <string name='nstack_loginproviders_idPortenTitle' formatted='false'>loginproviders_idPortenTitle</string>
   <string name='nstack_loginproviders_bankSeTitle' formatted='false'>loginproviders_bankSeTitle</string>
@@ -553,6 +556,7 @@
   <string name='nstack_storeboxlogin_signInButton' formatted='false'>storeboxlogin_signInButton</string>
   <string name='nstack_storeboxlogin_continueButton' formatted='false'>storeboxlogin_continueButton</string>
   <string name='nstack_storeboxlogin_tryAgainButton' formatted='false'>storeboxlogin_tryAgainButton</string>
+  <string name='nstack_storeboxlogin_signInButtonAlert' formatted='false'>storeboxlogin_signInButtonAlert</string>
   <string name='nstack_storeboxverify_header' formatted='false'>storeboxverify_header</string>
   <string name='nstack_storeboxverify_subheader' formatted='false'>storeboxverify_subheader</string>
   <string name='nstack_storeboxverify_confirmationCodeHeader' formatted='false'>storeboxverify_confirmationCodeHeader</string>

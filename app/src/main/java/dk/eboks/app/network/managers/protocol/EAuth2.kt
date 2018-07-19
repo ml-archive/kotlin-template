@@ -10,6 +10,7 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
 import timber.log.Timber
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 /**
@@ -23,6 +24,7 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
 
     @Inject
     lateinit var authClient: AuthClient
+
 
     init {
         App.instance().appComponent.inject(this)
@@ -77,14 +79,22 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
                     .header("Authorization", it.token_type + " " + it.access_token)
                     .build()
         }.guard {
-            // Todo doing login
-            uiManager.showLoginScreen()
-            Timber.v("Sleep - login_condition")
+            if(!ignoreFurtherLoginRequests) {
+                ignoreFurtherLoginRequests = true
+                Timber.e("Authenticator giving up and returning to login, session expired")
+                uiManager.showLoginScreen()
+                /*
+            Timber.e("Sleep - login_condition")
             executer.sleepUntilSignalled("login_condition", 0)
-            Timber.v("Wake - login_condition")
+            Timber.e("Wake - login_condition")
             return authenticate(route, response)
+            */
+            }
+            else
+            {
+                Timber.e("Ignoring further login attempts, since we already requested one")
+            }
         }
-
 
         return null
     }
@@ -148,5 +158,9 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
         }
 
         return result
+    }
+
+    companion object {
+        var ignoreFurtherLoginRequests = false
     }
 }

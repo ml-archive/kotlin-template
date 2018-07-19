@@ -88,7 +88,9 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
                 getBaseActivity()?.addFragmentOnTop(R.id.contentFl, frag, true)
             }
             fileBtn.setOnClickListener {
-                findFile()
+                //findFile()
+                // TODO remove me, for the love of god
+                presenter.poisonAccessToken()
 
             }
             photoBtn.setOnClickListener{

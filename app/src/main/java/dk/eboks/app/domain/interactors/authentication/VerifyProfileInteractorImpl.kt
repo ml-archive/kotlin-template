@@ -30,7 +30,7 @@ class VerifyProfileInteractorImpl(
     override fun execute() {
         try {
             input?.verificationState?.let { verificationState ->
-                authClient.transformKspToken(verificationState.kspToken, verificationState.oldAccessToken)?.let { token ->
+                authClient.transformKspToken(verificationState.kspToken, verificationState.oldAccessToken, longClient = appStateManager.state?.currentSettings?.stayLoggedIn ?: false)?.let { token ->
                     appStateManager.state?.loginState?.token = token
 
                     val jwtJson = authClient.decodeJWTBody(token.access_token)
@@ -46,7 +46,6 @@ class VerifyProfileInteractorImpl(
                             val arr = jwtJson.getString("sub").split("-").toTypedArray()
                             newIdentity = arr[1]
                             Timber.e("Got identity in JWT = $newIdentity")
-
                         }
                     }
 

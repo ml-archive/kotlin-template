@@ -4,6 +4,7 @@ import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.network.Api
+import dk.eboks.app.network.managers.protocol.EAuth2
 import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
@@ -69,7 +70,11 @@ class LoginInteractorImpl(
                             appStateManager.state?.currentUser = newUser
                             appStateManager.state?.currentSettings = newSettings
                         }
+                        appStateManager.state?.loginState?.userName = ""
+                        appStateManager.state?.loginState?.userPassWord = ""
                         appStateManager.save()
+
+                        EAuth2.ignoreFurtherLoginRequests = false
 
                         runOnUIThread {
                             output?.onLoginSuccess(t)
