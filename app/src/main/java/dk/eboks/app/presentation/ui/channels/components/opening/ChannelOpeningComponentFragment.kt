@@ -22,6 +22,7 @@ import dk.eboks.app.presentation.ui.channels.components.content.web.ChannelConte
 import dk.eboks.app.presentation.ui.channels.components.requirements.ChannelRequirementsComponentFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectStoreboxActivity
+import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelControlComponentFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.widgets.GlideAlphaTransform
 import dk.eboks.app.util.getType
@@ -141,11 +142,13 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         val colorTint = channel.background.color
         installBtn.backgroundTintList = ColorStateList.valueOf(colorTint)
         installBtn?.setOnClickListener {
+            ChannelControlComponentFragment.refreshOnResume = true
             presenter.install(channel)
         }
         if (channel.getType() == "storebox") {
             linkStoreboxBtn.visibility = View.VISIBLE
             linkStoreboxBtn.setOnClickListener {
+                ChannelControlComponentFragment.refreshOnResume = true
                 startActivity(Intent(context, ConnectStoreboxActivity::class.java))
             }
         }

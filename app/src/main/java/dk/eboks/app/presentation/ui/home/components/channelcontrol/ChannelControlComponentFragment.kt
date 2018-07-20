@@ -111,6 +111,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     private fun setupBottomView(channels: List<Channel>) {
         if (channels.size == 0) {
             (activity as HomeActivity).showChannelControlsHeader(false)
+            teaserLl.setVisible(false)
             emptyStateLl.visibility = View.VISIBLE
             //bottomChannelBtn.isEnabled = (emailCount > 0)
             bottomChannelBtn.isEnabled = true

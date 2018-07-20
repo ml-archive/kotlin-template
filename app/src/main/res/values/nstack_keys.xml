@@ -260,6 +260,8 @@
   <string name='nstack_message_openMessageWithoutReceiptButton' formatted='false'>message_openMessageWithoutReceiptButton</string>
   <string name='nstack_message_note' formatted='false'>message_note</string>
   <string name='nstack_message_reply' formatted='false'>message_reply</string>
+  <string name='nstack_message_sign' formatted='false'>message_sign</string>
+  <string name='nstack_message_signed' formatted='false'>message_signed</string>
   <string name='nstack_iosbiometrics_errorAuthentication' formatted='false'>iosbiometrics_errorAuthentication</string>
   <string name='nstack_iosbiometrics_errorUserCancel' formatted='false'>iosbiometrics_errorUserCancel</string>
   <string name='nstack_iosbiometrics_errorUserFallback' formatted='false'>iosbiometrics_errorUserFallback</string>

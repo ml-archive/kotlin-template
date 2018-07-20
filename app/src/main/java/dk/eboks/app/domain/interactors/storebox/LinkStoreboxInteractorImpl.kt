@@ -18,10 +18,15 @@ class LinkStoreboxInteractorImpl(executor: Executor, private val api: Api) : Bas
     override fun execute() {
         try {
             input?.let {
-                val map = mapOf(
-                        Pair("email", it.email),
-                        Pair("mobile", it.mobile)
+                var map = mapOf(
+                    Pair("email", it.email)
                 )
+                if(it.mobile.isNotBlank()) {
+                    map = mapOf(
+                            Pair("email", it.email),
+                            Pair("mobile", it.mobile)
+                    )
+                }
 
                 val result = api.postLinkStorebox(map).execute()
                 if(result.isSuccessful) {

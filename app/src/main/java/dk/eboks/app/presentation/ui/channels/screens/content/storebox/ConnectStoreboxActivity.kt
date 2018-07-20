@@ -50,11 +50,13 @@ class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
         conFrag.presenter = presenter
 
         setRootFragment(R.id.contentFragmentFl, infoFrag)
-        /*
-        fragmentManager.beginTransaction()
-                .add(R.id.contentFragmentFl, infoFrag)
-                .commit()
-                */
+
+        supportFragmentManager.addOnBackStackChangedListener {
+            if (supportFragmentManager.backStackEntryCount == 0) {
+                if (!isDestroyed)
+                    finishAfterTransition()
+            }
+        }
     }
 
     override fun showFound() {
@@ -118,7 +120,7 @@ class UserInfoFragment : Fragment() {
             }
             userinfoEmailTil.isErrorEnabled = !isEmail
 
-            userinfoContinueBtn.isEnabled = ( isEmail && userinfoPhoneTil.editText?.text.toString().trim().isNotBlank() )
+            userinfoContinueBtn.isEnabled = isEmail
         }
         /*
         userinfoPhoneTil.editText?.addAfterTextChangeListener {

@@ -63,6 +63,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="12dp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:gravity="center"
                         android:text="_Helena L. Christensen"
                         android:textColor="@color/darkGreyBlue"/>
@@ -73,6 +75,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
+                        android:maxLines="1"
+                        android:ellipsize="end"
                         android:text="_name@mail.dk"
                         android:textSize="13sp"/>
 

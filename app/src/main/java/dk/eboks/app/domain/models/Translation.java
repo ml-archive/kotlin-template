@@ -298,6 +298,8 @@ public class Translation {
 		public static String openMessageWithoutReceiptButton = "Open message without receipt";
 		public static String note = "Note";
 		public static String reply = "Reply";
+		public static String sign = "Sign";
+		public static String signed = "Signed";
 	}
 	public final static class iosbiometrics {
 		public static String errorAuthentication = "There was a problem verifying your identity";

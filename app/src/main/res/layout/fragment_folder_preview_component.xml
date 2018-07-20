@@ -37,13 +37,6 @@
             android:textStyle="normal"
             nstack:key="@string/nstack_home_messagesUnverifiedTitle" />
 
-        <ImageView
-            android:id="@+id/emptyStateImageIv"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:src="@drawable/visual_mail" />
-
         <TextView
             android:id="@+id/emptyStateTextTv"
             style="@style/text.header3"
