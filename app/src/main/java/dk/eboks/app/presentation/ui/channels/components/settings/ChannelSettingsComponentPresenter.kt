@@ -10,6 +10,7 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
 import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.shared.Link
+import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelControlComponentFragment
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -177,6 +178,7 @@ class ChannelSettingsComponentPresenter @Inject constructor(
     }
 
     override fun onStoreboxAccountLinkDelete() {
+        ChannelControlComponentFragment.refreshOnResume = true
         runAction { v ->
             v.showProgress(false)
             v.broadcastCloseChannel()
@@ -192,7 +194,7 @@ class ChannelSettingsComponentPresenter @Inject constructor(
     }
 
     override fun onUpdateFlagsSuccess() {
-
+        ChannelControlComponentFragment.refreshOnResume = true
     }
 
     override fun onUpdateFlagsError(error: ViewError) {
@@ -223,6 +225,7 @@ class ChannelSettingsComponentPresenter @Inject constructor(
      */
 
     override fun onUninstallChannel() {
+        ChannelControlComponentFragment.refreshOnResume = true
         runAction { v ->
             v.showProgress(false)
             v.broadcastCloseChannel()

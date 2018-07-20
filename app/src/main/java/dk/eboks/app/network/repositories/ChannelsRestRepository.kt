@@ -94,11 +94,19 @@ class ChannelsRestRepository(val context: Context, val api: Api, val gson: Gson,
     }
 
     override fun getChannelHomeContent(id: Long, cached: Boolean): HomeContent {
-        val res = if(cached) channelControlStore.get(id) else channelControlStore.fetch(id)
-        if(res != null)
-            return res
-        else
-            throw(RuntimeException())
+        val result = api.getChannelHomeContent(id).execute()
+        result?.let { response ->
+            if(response.isSuccessful)
+            {
+                return response.body() ?: throw(RuntimeException("Unknown"))
+            }
+            else
+            {
+                if(response.code() == 404)
+                    throw(NoSuchElementException())
+            }
+        }
+        throw(RuntimeException())
     }
 
     override fun hasCachedChannelList(key : String) : Boolean

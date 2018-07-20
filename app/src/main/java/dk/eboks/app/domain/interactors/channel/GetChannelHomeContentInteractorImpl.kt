@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors.channel
 
+import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.repositories.ChannelsRepository
 import dk.eboks.app.util.exceptionToViewError
@@ -158,9 +159,18 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
                     }
                     catch(t : Throwable)
                     {
+                        t.printStackTrace()
                         Timber.e("Got 'ception but continuing")
-                        runOnUIThread {
-                            output?.onGetChannelHomeContentError(channel)
+                        if(t is NoSuchElementException)
+                        {
+                            runOnUIThread {
+                                output?.onGetChannelHomeContentEmpty(channel)
+                            }
+                        }
+                        else {
+                            runOnUIThread {
+                                output?.onGetChannelHomeContentError(channel)
+                            }
                         }
                     }
                 }

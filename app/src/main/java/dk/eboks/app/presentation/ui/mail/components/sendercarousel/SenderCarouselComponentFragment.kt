@@ -76,15 +76,15 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
 
     override fun showEmpty(show: Boolean, verified : Boolean) {
         if(verified) {
-            sendersListEmptyUnverifiedLl.setVisible(!show)
-            sendersListEmptyLl.visibility = if (show) View.VISIBLE else View.GONE
+            sendersListEmptyUnverifiedLl.setVisible(false)
+            sendersListEmptyLl.setVisible(show)
         }
         else
         {
-            sendersListEmptyLl.setVisible(!show)
-            sendersListEmptyUnverifiedLl.visibility = if(show) View.VISIBLE else View.GONE
+            sendersListEmptyLl.setVisible(false)
+            sendersListEmptyUnverifiedLl.setVisible(show)
         }
-        sendersListLl.visibility = if(!show) View.VISIBLE else View.GONE
+        sendersListLl.setVisible(!show)
 
     }
 

@@ -21,5 +21,4 @@ data class AppState (
         @Transient val openingState: MessageOpeningState = MessageOpeningState(),
         @Transient var verificationState: VerificationState? = null,
         val loginState: LoginState = LoginState()
-
 )

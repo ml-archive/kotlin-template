@@ -38,7 +38,6 @@ class ServerErrorInterceptor : okhttp3.Interceptor  {
                     {
                         Timber.e("Could not parse a ServerError passing through body")
                         Timber.e(t)
-                        t.printStackTrace()
                         return response
                     }
                 }

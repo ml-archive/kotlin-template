@@ -2,10 +2,10 @@ package dk.eboks.app.presentation.ui.home.components.channelcontrol
 
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.util.getType
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
@@ -57,6 +57,11 @@ class ChannelControlComponentPresenter @Inject constructor(val appState: AppStat
 
     override fun onGetChannelHomeContentError(channel: Channel) {
         Timber.e("onGetChannelHomeContentError")
-        runAction { v -> v.removeControl(channel) }
+        runAction { v -> v.setControl(channel, Translation.home.errorContentFetch) }
+    }
+
+    override fun onGetChannelHomeContentEmpty(channel: Channel) {
+        Timber.e("onGetChannelHomeContentEmpty")
+        runAction { v -> v.setControl(channel, Translation.home.noContentText) }
     }
 }

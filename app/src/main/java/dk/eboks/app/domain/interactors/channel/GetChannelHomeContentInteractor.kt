@@ -19,6 +19,7 @@ interface GetChannelHomeContentInteractor : Interactor {
         fun onGetInstalledChannelListError(error : ViewError)
         fun onGetChannelHomeContent(channel : Channel, content : HomeContent)
         fun onGetChannelHomeContentError(channel : Channel)
+        fun onGetChannelHomeContentEmpty(channel : Channel)
         fun onGetChannelHomeContentDone()
     }
 }

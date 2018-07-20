@@ -12,7 +12,7 @@ interface ChannelControlComponentContract {
     interface View : BaseView {
         fun setupChannels(channels : MutableList<Channel>)
         fun updateControl(channel : Channel, control : Control)
-        fun removeControl(channel : Channel)
+        fun setControl(channel : Channel, text : String)
         fun showProgress(show : Boolean)
     }
 

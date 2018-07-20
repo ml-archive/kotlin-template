@@ -26,6 +26,7 @@ class ProfileActivity : BaseActivity(), ProfileContract.View {
         setRootFragment(R.id.profileActivityContainerFragment, ProfileInfoComponentFragment())
     }
 
+    /*
     override fun finish() {
         Timber.e("Running finish")
         super.finish()
@@ -41,5 +42,6 @@ class ProfileActivity : BaseActivity(), ProfileContract.View {
         super.supportFinishAfterTransition()
         overridePendingTransition(0, R.anim.slide_down)
     }
+    */
 
 }

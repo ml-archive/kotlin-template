@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
@@ -21,6 +22,7 @@ import dk.eboks.app.presentation.ui.home.components.channelcontrol.controls.*
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
 import dk.eboks.app.util.Starter
+import dk.eboks.app.util.setVisible
 import dk.eboks.app.util.views
 import kotlinx.android.synthetic.main.fragment_channel_control_component.*
 import org.greenrobot.eventbus.EventBus
@@ -61,6 +63,10 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     override fun onResume() {
         super.onResume()
         EventBus.getDefault().register(this)
+        if(refreshOnResume) {
+            refreshOnResume = false
+            presenter.refresh()
+        }
     }
 
     override fun onPause() {
@@ -86,6 +92,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
                         .putExtra(Channel::class.java.simpleName, currentChannel)
                         .start()
             }
+            headerTv.setText(currentChannel.name)
             //val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
 
             logoIv?.let {
@@ -116,18 +123,15 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
                 NavBarComponentFragment.gotoChannels(activity)
             }
         } else {
-            /*
-            if (channels.size < 2) {
-                emptyStateLl.visibility = View.VISIBLE
-                bottomChannelBtn.isEnabled = false
-                bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderChannels
-                bottomChannelTextTv.text = Translation.home.bottomChannelTextChannels
-            } else {*/
-                emptyStateLl.visibility = View.GONE
-                bottomChannelBtn.visibility = View.GONE
-                bottomChannelHeaderTv.visibility = View.GONE
-                bottomChannelTextTv.visibility = View.GONE
-            //}
+            emptyStateLl.visibility = View.GONE
+            bottomChannelBtn.visibility = View.GONE
+            bottomChannelHeaderTv.visibility = View.GONE
+            bottomChannelTextTv.visibility = View.GONE
+            teaserChannelBtn.setOnClickListener {
+                NavBarComponentFragment.gotoChannels(activity)
+            }
+            teaserLl.setVisible(true)
+
         }
     }
 
@@ -166,11 +170,18 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
         }
     }
 
-    override fun removeControl(channel: Channel) {
+    override fun setControl(channel: Channel, text : String) {
         // find the view associated with the channel
         findControlView(channel.id)?.let { view ->
-            Timber.e("Removing error view for channel id ${channel.id}")
-            channelsContentLL.removeView(view)
+            Timber.e("Setting empty view for channel id ${channel.id}")
+            val logoIv = view.findViewById<ImageView>(R.id.logoIv)
+            val errorTv = view.findViewById<TextView>(R.id.errorTextTv)
+            val progressPb = view.findViewById<ProgressBar>(R.id.progressPb)
+            progressPb.setVisible(false)
+            logoIv.setVisible(true)
+            errorTv.text = text
+            errorTv.setVisible(true)
+            //channelsContentLL.removeView(view)
         }
     }
 
@@ -202,5 +213,9 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: RefreshChannelControlEvent) {
         presenter.refresh()
+    }
+
+    companion object {
+        var refreshOnResume = false
     }
 }

@@ -103,7 +103,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         menuProfile.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuProfile.setOnMenuItemClickListener { item: MenuItem ->
             startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
-            overridePendingTransition(R.anim.slide_up, 0)
+            //overridePendingTransition(R.anim.slide_up, 0)
             true
         }
 

@@ -6,15 +6,72 @@
     android:layout_height="wrap_content"
     android:animateLayoutChanges="false"
     android:background="@color/backgroundColor"
+             android:paddingBottom="@dimen/padding_normal"
     tools:ignore="MissingPrefix">
 
     <LinearLayout
-        android:id="@+id/channelsContentLL"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
-        android:orientation="vertical" />
+        android:layout_height="wrap_content">
 
+
+        <LinearLayout
+            android:id="@+id/channelsContentLL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical" />
+
+
+        <!-- channel teaser -->
+        <LinearLayout
+            android:id="@+id/teaserLl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:paddingTop="@dimen/margin_normal"
+            tools:visibility="visible"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/text.header2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                nstack:key="@string/nstack_home_bottomChannelHeaderChannels"
+                android:gravity="center"
+                android:textStyle="normal" />
+
+            <TextView
+                style="@style/text.body6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                nstack:key="@string/nstack_home_bottomChannelTextChannels"
+                android:layout_marginTop="@dimen/default_padding_top"
+                android:gravity="center"
+                android:textColor="@color/blueGrey" />
+
+            <Button
+                android:id="@+id/teaserChannelBtn"
+                style="@style/buttonRoundedCorners.darkBlueGrey"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="sans-serif-medium"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:textSize="14dp"
+                android:textStyle="normal"
+                nstack:key="@string/nstack_home_bottomChannelBtn" />
+        </LinearLayout>
+    </LinearLayout>
 
     <!-- empty state -->
     <LinearLayout
