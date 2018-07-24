@@ -164,6 +164,18 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         return "0 B"
     }
 
+    override fun formatSize(target: Int): String {
+        if (target < 1024)
+            return "${target} B"
+        if (target < 1024f * 1024f)
+            return String.format("%.2f KB", target.toFloat() / 1024f)
+        if (target < 1024f * 1024f * 1024f)
+            return String.format("%.2f MB", target.toFloat() / (1024f * 1024f))
+        if (target < 1024f * 1024f * 1024f * 1024f)
+            return String.format("%.2f GB", target.toFloat() / (1024f * 1024f * 1024f))
+        return "0 B"
+    }
+
 
     fun getCurrentLocale(context: Context): Locale {
         return context.resources.configuration.locale

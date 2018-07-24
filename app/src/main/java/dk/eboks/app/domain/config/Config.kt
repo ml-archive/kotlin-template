@@ -9,7 +9,6 @@ import dk.eboks.app.presentation.ui.login.components.providers.bankidno.BankIdNO
 import dk.eboks.app.presentation.ui.login.components.providers.bankidse.BankIdSEComponentFragment
 import dk.eboks.app.presentation.ui.login.components.providers.idporten.IdPortenComponentFragment
 import dk.eboks.app.presentation.ui.login.components.providers.nemid.NemIdComponentFragment
-import dk.eboks.app.util.guard
 import java.net.URL
 
 // TODO this stuff should be downloaded from a url (on request of the customer) so that the app only contains
@@ -24,6 +23,7 @@ import java.net.URL
 object Config {
 
     var resourceLinks : List<ResourceLink>? = null
+
 
     private val danish : Mode = Mode(
             urlPrefix = "DA-DK",
@@ -271,6 +271,7 @@ object Config {
             throw(IllegalStateException("Environment couldn't be changed to $name because it doesn't exist"))
         }
         currentMode.environment = currentMode.environments[name]
+
     }
 
     fun getCurrentConfigName() : String
@@ -288,6 +289,19 @@ object Config {
             }
             else -> return "unknown"
         }
+    }
+
+    fun getCurrentEnvironmentName() : String?
+    {
+        var result : String? = null
+        Config.currentMode.environments.forEach { s, environments ->
+            if(environments == Config.currentMode.environment)
+            {
+                result = s
+                return@forEach
+            }
+        }
+        return result
     }
 
     fun getLogoResourceId() : Int

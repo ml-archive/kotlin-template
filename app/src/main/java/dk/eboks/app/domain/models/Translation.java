@@ -429,6 +429,8 @@ public class Translation {
 		public static String errorBiometryVerificationRequiredTitle = "Verification required";
 		public static String errorbiometryVerificationRequiredMessage = "You need to verify your profile to enable [idtype]";
 		public static String feedbackCellTitle = "Provide feedback";
+		public static String enableBiometricsCredidentialsNeededMessage = "Enter credentials to enable [idtype]";
+		public static String enableBiometricsCredidentialsNeededTitle = "Credentials missing";
 	}
 	public final static class myInformation {
 		public static String title = "My Information";
@@ -681,5 +683,16 @@ public class Translation {
 		public static String transactionNumberHeader = "Transaction number";
 		public static String cancelPaymentAlertTitle = "Are you sure you want to cancel the payment?";
 		public static String cancelPaymentAlertMessage = "You are responsible for paying the invoice in other ways or contacting the sender if you do not want to pay.";
+	}
+	public final static class paymentService {
+		public static String title = "Pay with Betalingsservice";
+		public static String installApp = "Install the Betalingsservice app on your phone, to pay and register your invoice.";
+		public static String installAppButton = "Go to App Store";
+		public static String invoiceConfirmation = "Your invoice has been sent to the Betalingsservice app and awaits your confirmation.";
+		public static String goToAppButton = "Go to Betalingsservice";
+		public static String invoiveInfo = "By sending your invoice to the Betalingsservice app, you also accept that e-Boks provides Betalingsservice by NETS with your civil registration number and payment information. This information is used to identify you to Betalingsservice.";
+		public static String maxPaymentNotice = "Notice that the daily maximum limit for payments using the Betalingsservice app is 25,000 DKK.";
+		public static String sendToAppButton = "Send to Betalingsservice";
+		public static String dueDateLabel = "Payment due on [date]";
 	}
 }

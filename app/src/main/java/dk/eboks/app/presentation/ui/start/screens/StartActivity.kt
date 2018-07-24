@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
@@ -15,6 +16,7 @@ import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragmen
 import dk.eboks.app.presentation.ui.start.components.signup.CompletedComponentFragment
 import dk.eboks.app.presentation.ui.start.components.welcome.SplashComponentFragment
 import dk.eboks.app.util.BroadcastReceiver
+import dk.eboks.app.util.setVisible
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.managers.ConnectionManager
 import dk.nodes.nstack.kotlin.models.AppUpdate
@@ -199,10 +201,23 @@ class StartActivity : BaseActivity(), StartContract.View {
         super.onResume()
         if(BuildConfig.DEBUG) {
             UpdateManager.register(this)
+            debugConfEnvTv.text = "Conf/Env: ${Config.getCurrentConfigName()}/${Config.getCurrentEnvironmentName()}"
         }
     }
 
     override fun handleSessionExpired() {
         Timber.e("StartActivity ignoring session expired event")
+    }
+
+    override fun bootstrapDone() {
+        updateConfEnvDisplay()
+    }
+
+    private fun updateConfEnvDisplay()
+    {
+        if(BuildConfig.DEBUG) {
+            debugConfEnvTv.text = "Conf/Env: ${Config.getCurrentConfigName()}/${Config.getCurrentEnvironmentName()}"
+            debugConfEnvTv.setVisible(true)
+        }
     }
 }

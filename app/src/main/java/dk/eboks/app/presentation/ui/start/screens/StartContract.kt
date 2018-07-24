@@ -12,6 +12,7 @@ interface StartContract {
         fun startMain()
         fun showWelcomeComponent()
         fun showUserCarouselComponent()
+        fun bootstrapDone()
     }
 
     interface Presenter : BasePresenter<View> {

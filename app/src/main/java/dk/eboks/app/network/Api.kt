@@ -14,6 +14,7 @@ import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
+import dk.eboks.app.domain.models.message.StorageInfo
 import dk.eboks.app.domain.models.protocol.AliasBody
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Registrations
@@ -67,8 +68,8 @@ interface Api {
     @GET("mail/messages/highlights") fun getHighlights() : Call<List<Message>>
     @GET("mail/messages/latest") fun getLatest() : Call<List<Message>>
     @GET("mail/messages/unread") fun getUnread() : Call<List<Message>>
-    @GET("mail/messages/uploads") fun getUploads() : Call<List<Message>>
-
+    @GET("mail/messages/uploads") fun getUploads(@Query("offset") offset : Int? = null, @Query("limit") limit : Int? = null) : Call<List<Message>>
+    @GET("mail/storage") fun getStorageInfo() : Call<StorageInfo>
 
     // reply forms
     @GET("mail/folders/{folderId}/messages/{id}/reply") fun getMessageReplyForm(@Path("id") id : String, @Path("folderId") folderId : Int) : Call<ReplyForm>

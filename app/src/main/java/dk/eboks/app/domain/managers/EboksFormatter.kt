@@ -16,6 +16,7 @@ interface EboksFormatter
     fun formatDateRelative(target : StoreboxReceiptItem) : String
     fun formatDateRelative(target : Item) : String
     fun formatSize(target : Content) : String
+    fun formatSize(target: Int): String
     fun formatCpr(cpr: String) : String
 
     fun formatDateToDay(date : Date) : String

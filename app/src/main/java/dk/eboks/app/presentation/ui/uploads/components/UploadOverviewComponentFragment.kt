@@ -15,10 +15,13 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.StorageInfo
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
 import dk.eboks.app.util.putArg
+import dk.eboks.app.util.setVisible
 import dk.nodes.filepicker.FilePickerActivity
 import dk.nodes.filepicker.FilePickerConstants
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
@@ -27,6 +30,7 @@ import java.io.File
 import java.util.*
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
 
 /**
  * Created by bison on 09-02-2018.
@@ -42,11 +46,9 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
     private val PICK_FILE_ACTIVITY_REQUEST_CODE = 4685
 
     //mock data
-    var redidValues = false
-    var verifiedUser = true
     var showEkstraTopRow = true
     var numberOfRows = 2
-    var uploads: MutableList<dk.eboks.app.domain.models.message.Message> = ArrayList()
+    var uploads: MutableList<Message> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_upload_overview_component, container, false)
@@ -57,10 +59,10 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        setupView()
+        presenter.setup()
     }
 
-    private fun setupView() {
+    override fun setupView(verifiedUser : Boolean) {
         activity?.mainTb?.title = Translation.uploads.title
 
         //create mocks
@@ -78,8 +80,10 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             nonVerifiedUserContainerLl.visibility = View.VISIBLE
             emptyVerifiedUserTv.visibility = View.GONE
             contentRowHeaderTv.visibility = View.GONE
+            storageRowContainer.setVisible(true)
         } else {
             // user is verified
+            storageRowContainer.setVisible(false)
             nonVerifiedUserContainerLl.visibility = View.GONE
             contentVerifiedUSerLl.visibility = View.VISIBLE
             showAllBtn.setOnClickListener {
@@ -88,61 +92,68 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
                 getBaseActivity()?.addFragmentOnTop(R.id.contentFl, frag, true)
             }
             fileBtn.setOnClickListener {
-                //findFile()
-                // TODO remove me, for the love of god
-                presenter.poisonAccessToken()
-
+                findFile()
             }
             photoBtn.setOnClickListener{
                 getPhoto()
             }
             contentRowHeaderTv.visibility = View.VISIBLE
 
-            if (uploads.size > 0) {
-                emptyVerifiedUserTv.visibility = View.GONE
-                contentVerifiedUSerLl.visibility = View.VISIBLE
-                lastestUploadsFl.visibility = View.VISIBLE
-                for (i in 1..uploads.size) {
-                    var currentItem = uploads[i - 1]
-
-                    //setting the header
-                    val v = inflator.inflate(R.layout.viewholder_upload_row,contentVerifiedUSerLl , false)
-                    val headerTv = v.findViewById<TextView>(R.id.headerTv)
-                    val subHeaderTv = v.findViewById<TextView>(R.id.subHeaderTv)
-                    val dateTv = v.findViewById<TextView>(R.id.dateTv)
-                    val dividerV = v.findViewById<View>(R.id.dividerV)
-                    val showContainerLl = v.findViewById<LinearLayout>(R.id.showContainerLl)
-                    val uploadingContainerLl = v.findViewById<FrameLayout>(R.id.uploadingContainerLl)
-
-                    headerTv.text = currentItem.id
-                    subHeaderTv.text = currentItem.subject
-                    dateTv.text = formatter.formatDateRelative(currentItem)
-
-                    v.setOnClickListener {
-                        //todo for now it switches to uploading state for testing
-                        if(showContainerLl.visibility == View.VISIBLE){
-                            uploadingContainerLl.visibility = View.VISIBLE
-                            showContainerLl.visibility = View.GONE
-                        } else {
-                            uploadingContainerLl.visibility = View.GONE
-                            showContainerLl.visibility = View.VISIBLE
-                        }
-                    }
-
-                    if(i == uploads.size ){
-                        dividerV.visibility = View.GONE
-                    }
-
-                    contentVerifiedUSerLl.addView(v)
-                    contentVerifiedUSerLl.requestLayout()
-                }
-            } else {
-                lastestUploadsFl.visibility = View.GONE
-                emptyVerifiedUserTv.visibility = View.VISIBLE
-                contentVerifiedUSerLl.visibility = View.GONE
-            }
         }
 
+    }
+
+    override fun showStorageInfo(storageInfo: StorageInfo) {0
+        leftProgressTv.text = "${formatter.formatSize(storageInfo.used)}"
+        rightProgressTv.text = "${formatter.formatSize(storageInfo.total - storageInfo.used)}"
+    }
+
+    override fun showLatestUploads(messages: List<Message>) {
+        uploads.clear()
+        uploads.addAll(messages)
+        if (uploads.size > 0) {
+            emptyVerifiedUserTv.visibility = View.GONE
+            contentVerifiedUSerLl.visibility = View.VISIBLE
+            lastestUploadsFl.visibility = View.VISIBLE
+            for (i in 1..uploads.size) {
+                var currentItem = uploads[i - 1]
+
+                //setting the header
+                val v = inflator.inflate(R.layout.viewholder_upload_row,contentVerifiedUSerLl , false)
+                val headerTv = v.findViewById<TextView>(R.id.headerTv)
+                val subHeaderTv = v.findViewById<TextView>(R.id.subHeaderTv)
+                val dateTv = v.findViewById<TextView>(R.id.dateTv)
+                val dividerV = v.findViewById<View>(R.id.dividerV)
+                val showContainerLl = v.findViewById<LinearLayout>(R.id.showContainerLl)
+                val uploadingContainerLl = v.findViewById<FrameLayout>(R.id.uploadingContainerLl)
+
+                headerTv.text = currentItem.id
+                subHeaderTv.text = currentItem.subject
+                dateTv.text = formatter.formatDateRelative(currentItem)
+
+                v.setOnClickListener {
+                    //todo for now it switches to uploading state for testing
+                    if(showContainerLl.visibility == View.VISIBLE){
+                        uploadingContainerLl.visibility = View.VISIBLE
+                        showContainerLl.visibility = View.GONE
+                    } else {
+                        uploadingContainerLl.visibility = View.GONE
+                        showContainerLl.visibility = View.VISIBLE
+                    }
+                }
+
+                if(i == uploads.size ){
+                    dividerV.visibility = View.GONE
+                }
+
+                contentVerifiedUSerLl.addView(v)
+                contentVerifiedUSerLl.requestLayout()
+            }
+        } else {
+            lastestUploadsFl.visibility = View.GONE
+            emptyVerifiedUserTv.visibility = View.VISIBLE
+            contentVerifiedUSerLl.visibility = View.GONE
+        }
     }
 
     private fun findFile() {
@@ -177,9 +188,8 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
 
     private fun uploadFile(imgfile: File) {
         //todo upload file
+        Timber.e("About to upload file $imgfile")
     }
-
-
 
 
     private fun createMockRows(numberOfRows: Int) {
@@ -196,6 +206,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
 
     }
 
+    /*
     override fun onShake() {
         if (!redidValues) {
             redidValues = true
@@ -240,5 +251,5 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             dialog.show()
         }
     }
-
+    */
 }

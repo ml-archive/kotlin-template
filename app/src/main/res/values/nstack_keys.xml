@@ -379,6 +379,8 @@
   <string name='nstack_profile_errorBiometryVerificationRequiredTitle' formatted='false'>profile_errorBiometryVerificationRequiredTitle</string>
   <string name='nstack_profile_errorbiometryVerificationRequiredMessage' formatted='false'>profile_errorbiometryVerificationRequiredMessage</string>
   <string name='nstack_profile_feedbackCellTitle' formatted='false'>profile_feedbackCellTitle</string>
+  <string name='nstack_profile_enableBiometricsCredidentialsNeededMessage' formatted='false'>profile_enableBiometricsCredidentialsNeededMessage</string>
+  <string name='nstack_profile_enableBiometricsCredidentialsNeededTitle' formatted='false'>profile_enableBiometricsCredidentialsNeededTitle</string>
   <string name='nstack_myInformation_title' formatted='false'>myInformation_title</string>
   <string name='nstack_myInformation_name' formatted='false'>myInformation_name</string>
   <string name='nstack_myInformation_primaryEmail' formatted='false'>myInformation_primaryEmail</string>
@@ -591,4 +593,13 @@
   <string name='nstack_paymentdrawer_transactionNumberHeader' formatted='false'>paymentdrawer_transactionNumberHeader</string>
   <string name='nstack_paymentdrawer_cancelPaymentAlertTitle' formatted='false'>paymentdrawer_cancelPaymentAlertTitle</string>
   <string name='nstack_paymentdrawer_cancelPaymentAlertMessage' formatted='false'>paymentdrawer_cancelPaymentAlertMessage</string>
+  <string name='nstack_paymentService_title' formatted='false'>paymentService_title</string>
+  <string name='nstack_paymentService_installApp' formatted='false'>paymentService_installApp</string>
+  <string name='nstack_paymentService_installAppButton' formatted='false'>paymentService_installAppButton</string>
+  <string name='nstack_paymentService_invoiceConfirmation' formatted='false'>paymentService_invoiceConfirmation</string>
+  <string name='nstack_paymentService_goToAppButton' formatted='false'>paymentService_goToAppButton</string>
+  <string name='nstack_paymentService_invoiveInfo' formatted='false'>paymentService_invoiveInfo</string>
+  <string name='nstack_paymentService_maxPaymentNotice' formatted='false'>paymentService_maxPaymentNotice</string>
+  <string name='nstack_paymentService_sendToAppButton' formatted='false'>paymentService_sendToAppButton</string>
+  <string name='nstack_paymentService_dueDateLabel' formatted='false'>paymentService_dueDateLabel</string>
 </resources>

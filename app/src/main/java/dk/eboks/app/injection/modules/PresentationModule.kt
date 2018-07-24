@@ -20,6 +20,7 @@ import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
 import dk.eboks.app.domain.interactors.storebox.*
 import dk.eboks.app.domain.interactors.user.*
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
@@ -689,8 +690,16 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideUploadOverviewPresenter(stateManager: AppStateManager): UploadOverviewComponentContract.Presenter {
-        return UploadOverviewComponentPresenter(stateManager)
+    fun provideUploadOverviewPresenter(
+            stateManager: AppStateManager,
+            getStorageInteractor: GetStorageInteractor,
+            getLatestUploadsInteractor: GetLatestUploadsInteractor
+    ): UploadOverviewComponentContract.Presenter {
+        return UploadOverviewComponentPresenter(
+                stateManager,
+                getStorageInteractor,
+                getLatestUploadsInteractor
+        )
     }
 
     @ActivityScope
@@ -760,8 +769,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideDebugOptionsComponentPresenter(stateManager: AppStateManager): DebugOptionsComponentContract.Presenter {
-        return DebugOptionsComponentPresenter(stateManager)
+    fun provideDebugOptionsComponentPresenter(stateManager: AppStateManager, prefManager: PrefManager): DebugOptionsComponentContract.Presenter {
+        return DebugOptionsComponentPresenter(stateManager, prefManager)
     }
 
     @ActivityScope

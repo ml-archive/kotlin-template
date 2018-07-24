@@ -12,4 +12,16 @@
         android:layout_height="match_parent"
         />
 
+    <TextView
+        android:id="@+id/debugConfEnvTv"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/text.header3.secondary"
+        android:textColor="@color/rouge"
+        android:padding="4dp"
+        android:layout_gravity="right|bottom"
+        android:textSize="10dp"
+        android:text="Conf/Env: "/>
+
 </android.support.design.widget.CoordinatorLayout>

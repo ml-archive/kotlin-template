@@ -42,6 +42,7 @@ class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteract
     override fun onBootstrapDone(hasUsers: Boolean) {
         Timber.e("Boostrap done")
         runAction { v ->
+            v.bootstrapDone()
             if (hasUsers) {
                 v.showUserCarouselComponent()
             } else {

@@ -1,5 +1,7 @@
 package dk.eboks.app.presentation.ui.uploads.components
 
+import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.StorageInfo
 import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter
 
@@ -8,10 +10,13 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface UploadOverviewComponentContract {
     interface View : BaseView {
-
+        fun setupView(verifiedUser : Boolean)
+        fun showStorageInfo(storageInfo: StorageInfo)
+        fun showLatestUploads(messages : List<Message>)
     }
 
     interface Presenter : BasePresenter<View> {
+        fun setup()
         fun poisonAccessToken()
     }
 }

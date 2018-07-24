@@ -9,6 +9,7 @@ import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
+import dk.eboks.app.domain.models.message.StorageInfo
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.network.Api
@@ -158,7 +159,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
     }
 
     override fun getUploads(cached: Boolean): List<Message> {
-        val res = if(cached) uploadsMessageStore.get("uploads") else unreadMessageStore.fetch("uploads")
+        val res = if(cached) uploadsMessageStore.get("uploads") else uploadsMessageStore.fetch("uploads")
         if(res != null)
             return res
         else
@@ -249,6 +250,20 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
             }
         }
 
+        throw(RuntimeException())
+    }
+
+    override fun getStorageInfo(): StorageInfo {
+        api.getStorageInfo().execute()?.body()?.let {
+            return it
+        }
+        throw(RuntimeException())
+    }
+
+    override fun getLatestUploads(offset : Int?, limit : Int?): List<Message> {
+        api.getUploads(offset, limit).execute()?.body()?.let {
+            return it
+        }
         throw(RuntimeException())
     }
 }

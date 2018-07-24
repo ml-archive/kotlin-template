@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors
 
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Translation
@@ -19,7 +20,8 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
                               val fileCacheManager: FileCacheManager,
                               val cacheManager: CacheManager,
                               val userManager: UserManager,
-                              val api: Api) : BaseInteractor(executor), BootstrapInteractor {
+                              val api: Api,
+                              val prefManager: PrefManager) : BaseInteractor(executor), BootstrapInteractor {
     override var output: BootstrapInteractor.Output? = null
     override var input: BootstrapInteractor.Input? = null
 
@@ -30,6 +32,19 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
             input?.let {
                 // do something with unwrapped input
 
+            }
+
+            if(BuildConfig.DEBUG) {
+                // do we have a saved config?
+                prefManager.getString("config", null)?.let {
+                    Timber.e("Setting config to $it")
+                    Config.changeConfig(it)
+                }
+                // do we have a saved environment? then set it
+                prefManager.getString("environment", null)?.let {
+                    Timber.e("Setting environment to $it")
+                    Config.changeEnvironment(it)
+                }
             }
 
             val result = api.getResourceLinks().execute()

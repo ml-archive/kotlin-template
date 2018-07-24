@@ -99,7 +99,8 @@ class InteractorModule {
             fileCacheManager: FileCacheManager,
             cacheManager: CacheManager,
             userManager: UserManager,
-            api: Api
+            api: Api,
+            prefManager: PrefManager
     ): BootstrapInteractor {
         return BootstrapInteractorImpl(
                 executor,
@@ -109,7 +110,8 @@ class InteractorModule {
                 fileCacheManager,
                 cacheManager,
                 userManager,
-                api
+                api,
+                prefManager
         )
     }
 
@@ -150,6 +152,23 @@ class InteractorModule {
     ): GetMessagesInteractor {
         return GetMessagesInteractorImpl(executor, messagesRepository)
     }
+
+    @Provides
+    fun provideGetStorageInteractor(
+            executor: Executor,
+            messagesRepository: MessagesRepository
+    ): GetStorageInteractor {
+        return GetStorageInteractorImpl(executor, messagesRepository)
+    }
+
+    @Provides
+    fun provideGetLatestUploadsInteractor(
+            executor: Executor,
+            messagesRepository: MessagesRepository
+    ): GetLatestUploadsInteractor {
+        return GetLatestUploadsInteractorImpl(executor, messagesRepository)
+    }
+
 
     @Provides
     fun provideGetStoreboxCreditCardsInteractor(
