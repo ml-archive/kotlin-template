@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.message.components.viewers.html
 
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
@@ -10,11 +11,19 @@ import javax.inject.Inject
 class HtmlViewComponentPresenter @Inject constructor(val appState: AppStateManager) : HtmlViewComponentContract.Presenter, BasePresenterImpl<HtmlViewComponentContract.View>() {
 
     init {
-        appState.state?.currentViewerFileName?.let { filename->
+    }
+
+    override fun setup(uriString: String?) {
+        uriString?.let {
             runAction { v->
-                v.showHtml(filename)
+                v.showHtmlURI(uriString)
+            }
+        }.guard {
+            appState.state?.currentViewerFileName?.let { filename->
+                runAction { v->
+                    v.showHtml(filename)
+                }
             }
         }
     }
-
 }

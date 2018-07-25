@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.base.EmbeddedViewer
+import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_imageview_component.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -35,12 +36,19 @@ class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.Vi
         settings.setLoadWithOverviewMode(true)
         settings.setBuiltInZoomControls(true)
         settings.setDisplayZoomControls(false)
+        presenter.setup(arguments?.getString("URI"))
     }
 
     override fun showImage(filename : String) {
         Timber.e("Attempting to open $filename")
         val html = "<html><head></head><body style=\"background-color: #aaa; margin: 0px; padding: 0px\"><img src=\"file://$filename\" width=\"100%\"></body></html>"
         webView.loadDataWithBaseURL("", html, "text/html", "utf-8", "")
+    }
+
+    override fun showImageURI(uri: String) {
+        Timber.e("Attempting to open URI $uri")
+        val file = FilePickerUriHelper.getFile(activity, uri)
+        showImage(file.path)
     }
 
 }

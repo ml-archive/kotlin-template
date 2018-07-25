@@ -163,6 +163,8 @@ import dk.eboks.app.presentation.ui.uploads.components.uploadfile.UploadFileComp
 import dk.eboks.app.presentation.ui.uploads.components.uploadfile.UploadFileComponentPresenter
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsActivity
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsPresenter
+import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadActivity
+import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadPresenter
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
@@ -394,6 +396,9 @@ interface PresentationComponent {
     fun inject(target : UploadOverviewComponentPresenter)
     fun inject(target : UploadFileComponentFragment)
     fun inject(target : UploadFileComponentPresenter)
+    fun inject(target : FileUploadActivity)
+    fun inject(target : FileUploadPresenter)
+
 
     // debug
 

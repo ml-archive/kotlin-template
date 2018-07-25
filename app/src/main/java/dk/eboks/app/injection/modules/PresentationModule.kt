@@ -190,6 +190,8 @@ import dk.eboks.app.presentation.ui.uploads.components.uploadfile.UploadFileComp
 import dk.eboks.app.presentation.ui.uploads.components.uploadfile.UploadFileComponentPresenter
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsContract
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsPresenter
+import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadContract
+import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadPresenter
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 import javax.inject.Named
@@ -231,6 +233,12 @@ class PresentationModule {
     @Provides
     fun provideChannelsPresenter(stateManager: AppStateManager): ChannelOverviewContract.Presenter {
         return ChannelOverviewPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideFileUploadPresenter(stateManager: AppStateManager): FileUploadContract.Presenter {
+        return FileUploadPresenter(stateManager)
     }
 
     @ActivityScope

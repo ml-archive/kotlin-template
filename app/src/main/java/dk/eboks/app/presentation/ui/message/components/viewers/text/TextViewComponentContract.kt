@@ -9,8 +9,10 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface TextViewComponentContract {
     interface View : BaseView {
         fun showText(filename: String)
+        fun showTextURI(uri: String)
     }
 
     interface Presenter : BasePresenter<View> {
+        fun setup(uriString : String?)
     }
 }

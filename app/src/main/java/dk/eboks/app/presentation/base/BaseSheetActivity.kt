@@ -148,7 +148,10 @@ abstract class BaseSheetActivity : BaseActivity() {
         sheetBehavior = BottomSheetBehavior.from(contextSheet)
         sheetBehavior?.isHideable = false
         sheetBehavior?.peekHeight = (resources.displayMetrics.density * 104.0).toInt()
-        sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+        if(shouldStartExpanded())
+            sheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+        else
+            sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
         /*
         contextSheet.post {
             sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -178,6 +181,16 @@ abstract class BaseSheetActivity : BaseActivity() {
         }
     }
 
+    fun expand()
+    {
+        sheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+    }
+
+    fun collapse()
+    {
+        sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
+    }
+
     protected fun setContentSheet(resId : Int)
     {
         val li: LayoutInflater = LayoutInflater.from(this)
@@ -188,5 +201,10 @@ abstract class BaseSheetActivity : BaseActivity() {
     override fun onBackPressed() {
         Timber.e("onBackPressed")
         super.onBackPressed()
+    }
+
+    open fun shouldStartExpanded() : Boolean
+    {
+        return false
     }
 }

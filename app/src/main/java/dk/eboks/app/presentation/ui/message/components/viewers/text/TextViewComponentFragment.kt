@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.base.EmbeddedViewer
+import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_textview_component.*
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
@@ -57,6 +58,12 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
                 }
             }
         }
+    }
+
+    override fun showTextURI(uri: String) {
+        Timber.e("Attempting to open URI $uri")
+        val file = FilePickerUriHelper.getFile(activity, uri)
+        showText(file.path)
     }
 
     fun convertFileToByteArray(f: File): ByteArray? {

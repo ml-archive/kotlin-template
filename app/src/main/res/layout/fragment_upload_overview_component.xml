@@ -45,8 +45,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="start"
-                    android:text="..." />
+                    android:gravity="start" />
 
                 <TextView
                     android:id="@+id/rightProgressTv"
@@ -55,7 +54,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:text="..."
                     android:textColor="@color/blueGrey"
                     android:visibility="visible" />
             </LinearLayout>
@@ -90,11 +88,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="32dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="32dp"
                 android:paddingBottom="8dp"
+                android:clipToPadding="false"
+                android:clipChildren="false"
                 android:orientation="horizontal">
 
                 <Button

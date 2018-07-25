@@ -79,7 +79,7 @@
         <activity android:name=".presentation.ui.message.screens.reply.ReplyFormActivity" android:screenOrientation="portrait"/>
         <activity android:name="dk.eboks.app.presentation.ui.start.screens.HelpActivity" android:screenOrientation="portrait"/>
         <activity android:name="dk.eboks.app.presentation.ui.notimplemented.screens.ComingSoonActivity" android:screenOrientation="portrait"/>
-
+        <activity android:name="dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadActivity" android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"/>
         <activity android:name="dk.eboks.app.system.managers.permission.PermissionRequestActivity" android:screenOrientation="portrait"/>
         <activity
             android:name="dk.eboks.app.presentation.base.SheetComponentActivity"

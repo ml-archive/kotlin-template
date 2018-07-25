@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_upload_uploadfile_component.*
+import kotlinx.android.synthetic.main.sheet_file_upload.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -30,7 +30,7 @@ class UploadFileComponentFragment : BaseFragment(), UploadFileComponentContract.
     var userVerified = true
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_upload_uploadfile_component, container, false)
+        val rootView = inflater?.inflate(R.layout.sheet_file_upload, container, false)
         return rootView
     }
 

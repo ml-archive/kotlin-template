@@ -19,6 +19,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
+import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadActivity
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.putArg
 import dk.eboks.app.util.setVisible
@@ -74,7 +75,6 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
         if(refreshOnResume)
         {
             refreshOnResume = false
-
             presenter.refresh()
         }
     }
@@ -93,19 +93,19 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             // user is verified
             emptyNonVerifiedUserLl.visibility = View.GONE
             latestUploadsLl.visibility = View.VISIBLE
-            showAllBtn.setOnClickListener {
-                var frag = MailListComponentFragment()
-                frag?.putArg("folder", Folder(type = FolderType.UPLOADS, name = Translation.uploads.title))
-                getBaseActivity()?.addFragmentOnTop(R.id.contentFl, frag, true)
-            }
-            fileBtn.setOnClickListener {
-                findFile()
-            }
-            photoBtn.setOnClickListener{
-                getPhoto()
-            }
             contentRowHeaderTv.visibility = View.VISIBLE
+        }
 
+        showAllBtn.setOnClickListener {
+            var frag = MailListComponentFragment()
+            frag?.putArg("folder", Folder(type = FolderType.UPLOADS, name = Translation.uploads.title))
+            getBaseActivity()?.addFragmentOnTop(R.id.contentFl, frag, true)
+        }
+        fileBtn.setOnClickListener {
+            findFile()
+        }
+        photoBtn.setOnClickListener{
+            getPhoto()
         }
     }
 
@@ -186,6 +186,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
     private fun findFile() {
         val intent = Intent(activity, FilePickerActivity::class.java)
         intent.putExtra(FilePickerConstants.FILE, true)
+        intent.putExtra(FilePickerConstants.TYPE, "*/*")
         startActivityForResult(intent, PICK_FILE_ACTIVITY_REQUEST_CODE)
     }
 
@@ -198,73 +199,33 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             data?.let {
-                val file = FilePickerUriHelper.getFile(activity, data)
-                val uri = FilePickerUriHelper.getUri(data)
-                uploadFile(file)
+                uploadFile(it)
             }
         }
         if (requestCode == PICK_FILE_ACTIVITY_REQUEST_CODE) {
             data?.let {
-                val file = FilePickerUriHelper.getFile(activity, data)
-                val uri = FilePickerUriHelper.getUri(data)
-                uploadFile(file)
+                uploadFile(it)
             }
         }
 
     }
 
-    private fun uploadFile(imgfile: File) {
-        //todo upload file
-        Timber.e("About to upload file $imgfile")
+    private fun uploadFile(data : Intent) {
+        //val file = FilePickerUriHelper.getFile(activity, data)
+        val uri = FilePickerUriHelper.getUri(data)
+        Timber.e("About to upload file ${data.extras}")
+
+        val mimetype = data.getStringExtra("mimeType")
+
+        val act = activity.Starter()
+                .activity(FileUploadActivity::class.java)
+                .putExtra("uriString", FilePickerUriHelper.getUriString(data))
+
+        if(mimetype != null)
+            act.putExtra("mimeType", mimetype)
+        act.start()
+
     }
-
-
-    /*
-    override fun onShake() {
-        if (!redidValues) {
-            redidValues = true
-            val alert = AlertDialog.Builder(context)
-            var layout = inflator.inflate(R.layout.debug_dialog, null, false)
-            var numberOfRowsEt = layout.findViewById<EditText>(R.id.firstEt)
-            var showEkstraTopRowEt = layout.findViewById<EditText>(R.id.middleEt)
-            var verifiedEt = layout.findViewById<EditText>(R.id.lastEt)
-
-            // Builder
-            with(alert) {
-                setTitle("Setup Data")
-                setMessage("debug helper")
-
-                // Add any  input field here
-                numberOfRowsEt!!.hint = "numberOfRows"
-                showEkstraTopRowEt!!.hint = "showEkstraRow: 1 = yes"
-                verifiedEt!!.hint = "Verified:1 = true"
-
-                setPositiveButton("OK") { dialog, whichButton ->
-                    numberOfRows = Integer.parseInt(numberOfRowsEt.text.toString())
-                    showEkstraTopRow = (Integer.parseInt(showEkstraTopRowEt.text.toString()) == 1)
-                    verifiedUser = (Integer.parseInt(verifiedEt.text.toString()) == 1)
-                    uploads.clear()
-                    val verifiedRowsLl = view?.findViewById<LinearLayout>(R.id.contentVerifiedUSerLl)
-                    verifiedRowsLl?.removeAllViews()
-                    redidValues = false
-                    setupView()
-                    dialog.dismiss()
-
-                }
-
-                setNegativeButton("NO") { dialog, whichButton ->
-                    redidValues = false
-                    dialog.dismiss()
-                }
-            }
-
-            // Dialog
-            val dialog = alert.create()
-            dialog.setView(layout)
-            dialog.show()
-        }
-    }
-    */
 
     companion object {
         var refreshOnResume = false

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.base.EmbeddedViewer
+import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_htmlview_component.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -38,5 +39,11 @@ class HtmlViewComponentFragment : BaseFragment(), HtmlViewComponentContract.View
 
     override fun showHtml(filename: String) {
         webView.loadUrl("file://$filename")
+    }
+
+    override fun showHtmlURI(uri: String) {
+        Timber.e("Attempting to open URI $uri")
+        val file = FilePickerUriHelper.getFile(activity, uri)
+        showHtml(file.path)
     }
 }
