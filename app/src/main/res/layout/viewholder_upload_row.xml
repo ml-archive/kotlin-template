@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="68dp"
-    android:background="@color/white"
+    android:background="?selectableItemBackground"
     android:orientation="vertical"
     xmlns:nstack="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -25,51 +25,52 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_menu_uploads"></ImageView>
+                android:src="@drawable/ic_menu_uploads"/>
         </FrameLayout>
 
 
         <LinearLayout
             android:id="@+id/showContainerLl"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:orientation="vertical"
+            android:gravity="center_vertical"
             android:paddingLeft="12dp"
             android:paddingRight="5dp"
             android:visibility="visible">
 
-            <RelativeLayout
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/headerTv"
                     style="@style/text.header4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:gravity="bottom"
-                    android:text="_Add another credit card" />
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/dateTv"
                     style="@style/text.subHeader5.quaternary"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignBaseline="@id/headerTv"
-                    android:text="_today" />
-            </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:text="" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/subHeaderTv"
                 style="@style/text.subHeader5.quaternary"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_gravity="top"
-                android:layout_weight="1"
-                android:text="_uploads" />
+                android:layout_height="wrap_content"
+                android:text="" />
         </LinearLayout>
 
         <FrameLayout
@@ -106,7 +107,7 @@
         android:id="@+id/dividerV"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:layout_gravity="top"
+        android:layout_gravity="bottom"
         android:layout_marginLeft="72dp"
         android:background="@color/dividerColor" />
 

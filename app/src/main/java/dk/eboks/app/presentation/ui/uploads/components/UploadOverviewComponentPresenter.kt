@@ -30,6 +30,10 @@ class UploadOverviewComponentPresenter @Inject constructor(
     }
 
     override fun setup() {
+        refresh()
+    }
+
+    override fun refresh() {
         appState.state?.currentUser?.let { user->
             runAction { v->v.setupView(user.verified) }
         }

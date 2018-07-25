@@ -53,8 +53,7 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
                 senderLogoIv.visibility = View.GONE
             }
             MessageType.SENT -> {
-                senderTv.text = "${Translation.message.recipientPrefixTo} ${message.sender?.name
-                        ?: ""}"
+                senderTv.text = "${Translation.message.recipientPrefixTo} ${message.sender?.name ?: ""}"
                 titleTv.text = message.subject
                 senderLogoIv.visibility = View.GONE
             }
@@ -62,7 +61,7 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
                 senderTv.text = Translation.message.uploadedByYou
                 titleTv.text = message.subject
                 message.sender?.logo.let {
-                    Glide.with(context).load(it?.url).into(senderLogoIv)
+                    senderLogoIv.setImageResource(R.drawable.ic_menu_uploads)
                 }
             }
             else -> {

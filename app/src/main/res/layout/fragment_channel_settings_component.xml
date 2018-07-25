@@ -323,7 +323,7 @@
 
     <ProgressBar
         android:layout_gravity="center"
-        android:id="@+id/progressBar"
+        android:id="@+id/storagePb"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

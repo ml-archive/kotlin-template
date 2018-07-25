@@ -17,6 +17,7 @@ interface UploadOverviewComponentContract {
 
     interface Presenter : BasePresenter<View> {
         fun setup()
+        fun refresh()
         fun poisonAccessToken()
     }
 }

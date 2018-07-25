@@ -53,8 +53,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         setupTopBar()
         updateTranslation()
 
-        refreshSrl.isRefreshing = true
-
         refreshSrl.setOnRefreshListener {
             // fire event to signal ChannelControlComponent and FolderPreviewComponent to refresh
             doneRefreshingChannelControls = false

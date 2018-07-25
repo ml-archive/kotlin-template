@@ -111,7 +111,7 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
     override fun showProgress(show: Boolean) {
         Timber.d("Show Progress View: %s", show)
 
-        progressBar.setVisible(show)
+        storagePb.setVisible(show)
         receiptRv.setVisible(!show)
         containerEmpty.setVisible(false)
         noCreditCardEmptyLl.setVisible(false)
@@ -120,14 +120,14 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
     override fun showEmptyView(show: Boolean) {
         Timber.d("Show Empty View: %s", show)
         receiptRv.setVisible(!show)
-        progressBar.setVisible(false)
+        storagePb.setVisible(false)
         containerEmpty.setVisible(show)
         noCreditCardEmptyLl.setVisible(show)
     }
 
     override fun showNoCreditCardsEmptyView(show: Boolean) {
         receiptRv.setVisible(!show)
-        progressBar.setVisible(false)
+        storagePb.setVisible(false)
         containerEmpty.setVisible(show)
         noCreditCardEmptyLl.setVisible(show)
     }

@@ -186,8 +186,6 @@ import dk.eboks.app.presentation.ui.start.screens.StartContract
 import dk.eboks.app.presentation.ui.start.screens.StartPresenter
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentContract
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentPresenter
-import dk.eboks.app.presentation.ui.uploads.components.myuploads.MyUploadsComponentContract
-import dk.eboks.app.presentation.ui.uploads.components.myuploads.MyUploadsComponentPresenter
 import dk.eboks.app.presentation.ui.uploads.components.uploadfile.UploadFileComponentContract
 import dk.eboks.app.presentation.ui.uploads.components.uploadfile.UploadFileComponentPresenter
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsContract
@@ -871,20 +869,6 @@ class PresentationModule {
     @Provides
     fun provideUploadsPresenter(stateManager: AppStateManager): UploadsContract.Presenter {
         return UploadsPresenter(stateManager)
-    }
-
-    @ActivityScope
-    @Provides
-    fun provideMyUploadsComponentPresenter(
-            stateManager: AppStateManager,
-            getMessagesInteractor: GetMessagesInteractor,
-            openMessageInteractor: OpenMessageInteractor
-    ): MyUploadsComponentContract.Presenter {
-        return MyUploadsComponentPresenter(
-                stateManager,
-                getMessagesInteractor,
-                openMessageInteractor
-        )
     }
 
     @ActivityScope

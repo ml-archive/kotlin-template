@@ -38,7 +38,7 @@ class UploadFileComponentFragment : BaseFragment(), UploadFileComponentContract.
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        setupVerification()
+        setupValidation()
         setupChoseFolder()
         setupButtons()
     }
@@ -79,7 +79,7 @@ class UploadFileComponentFragment : BaseFragment(), UploadFileComponentContract.
         destinationTv.setTextColor(resources.getColor(color))
     }
 
-    private fun setupVerification() {
+    private fun setupValidation() {
 
         fileNameEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {

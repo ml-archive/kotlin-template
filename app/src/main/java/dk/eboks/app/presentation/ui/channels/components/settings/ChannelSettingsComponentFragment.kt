@@ -171,7 +171,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     }
 
     override fun showProgress(boolean: Boolean) {
-        progressBar.setVisible(boolean)
+        storagePb.setVisible(boolean)
 
         containerContent.visibility = if (boolean) {
             View.INVISIBLE
