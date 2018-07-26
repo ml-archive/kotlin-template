@@ -1,20 +1,32 @@
 package dk.eboks.app.presentation.ui.uploads.screens.fileupload
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.presentation.base.BaseSheetActivity
+import dk.eboks.app.presentation.ui.folder.components.newfolder.FolderDrawerMode
+import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import dk.eboks.app.presentation.ui.message.components.viewers.html.HtmlViewComponentFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.image.ImageViewComponentFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.pdf.PdfViewComponentFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.text.TextViewComponentFragment
+import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
 import dk.eboks.app.util.setVisible
+import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.activity_base_sheet.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import kotlinx.android.synthetic.main.sheet_file_upload.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -29,6 +41,10 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
 
     var embeddedViewerComponentFragment: Fragment? = null
 
+    var destinationFolder : Folder? = null
+    var uriString : String? = null
+    var mimeType : String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentSheet(R.layout.sheet_file_upload)
@@ -38,11 +54,51 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
 
         mainHandler.post {
             intent.getStringExtra("uriString")?.let { uriString->
-                var mimeType : String? = intent.getStringExtra("mimeType")
+                mimeType = intent.getStringExtra("mimeType")
                 presenter.setup(uriString, mimeType)
             }
         }
 
+        chooseFolderLl.setOnClickListener {
+            val i = Intent(this, FolderActivity::class.java)
+            i.putExtra("pick", true)
+            i.putExtra("selectFolder", true)
+            startActivityForResult(i, FolderActivity.REQUEST_ID)
+        }
+
+        cancelBtn.setOnClickListener {
+            onBackPressed()
+        }
+
+        fileNameEt.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                validate()
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
+
+        saveBtn.setOnClickListener {
+            destinationFolder?.let {
+                var intent = Intent()
+                intent.putExtra("filename", fileNameEt.text.toString().trim())
+                intent.putExtra("destinationFolderId", it.id)
+                uriString.let { intent.putExtra("uriString", it) }
+                mimeType.let { intent.putExtra("mimeType", it) }.guard { intent.putExtra("mimeType", "application/octet-stream") }
+                setResult(Activity.RESULT_OK, intent)
+                finishAfterTransition()
+            }
+        }
+        // set default result
+        setResult(Activity.RESULT_CANCELED)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            destinationFolder = data?.getSerializableExtra("res") as Folder
+            destinationTv.text = destinationFolder?.name ?: ""
+        }
     }
 
     override fun setHighPeakHeight() {
@@ -50,12 +106,30 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
     }
 
 
-    override fun showFilename(filename: String) {
+    private fun validate()
+    {
+        saveBtn.isEnabled = destinationFolder != null && fileNameEt.text.toString().isNotEmpty()
+    }
 
+    override fun showFilename(uriString: String) {
+        this.uriString = uriString
+        val file = FilePickerUriHelper.getFile(this, uriString)
+        try {
+            val uri = Uri.parse(uriString)
+            fileNameEt.setText(uri.lastPathSegment)
+        }
+        catch (t : Throwable)
+        {
+            fileNameEt.setText("")
+        }
+        validate()
     }
 
     override fun showDestinationFolder(folder: Folder) {
-
+        destinationFolder = folder
+        Timber.e("showDestinationFolder $folder")
+        destinationTv.text = destinationFolder?.name ?: ""
+        validate()
     }
 
     override fun showNoPreviewAvailable() {
@@ -108,4 +182,8 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
     }
 
     override fun getNavigationMenuAction(): Int { return R.id.actionMail }
+
+    companion object {
+        val REQUEST_ID: Int = 2169
+    }
 }

@@ -699,12 +699,14 @@ class PresentationModule {
     fun provideUploadOverviewPresenter(
             stateManager: AppStateManager,
             getStorageInteractor: GetStorageInteractor,
-            getLatestUploadsInteractor: GetLatestUploadsInteractor
+            getLatestUploadsInteractor: GetLatestUploadsInteractor,
+            uploadFileInteractor: UploadFileInteractor
     ): UploadOverviewComponentContract.Presenter {
         return UploadOverviewComponentPresenter(
                 stateManager,
                 getStorageInteractor,
-                getLatestUploadsInteractor
+                getLatestUploadsInteractor,
+                uploadFileInteractor
         )
     }
 

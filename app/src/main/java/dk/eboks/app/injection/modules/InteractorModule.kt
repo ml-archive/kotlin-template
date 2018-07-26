@@ -40,9 +40,10 @@ class InteractorModule {
             userManager: UserManager,
             userSettingsManager: UserSettingsManager,
             authClient: AuthClient,
-            cacheManager: CacheManager
+            cacheManager: CacheManager,
+            mailCategoriesRepository: MailCategoriesRepository
     ): LoginInteractor {
-        return LoginInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager, authClient, cacheManager)
+        return LoginInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager, authClient, cacheManager, mailCategoriesRepository)
     }
 
     @Provides
@@ -169,6 +170,13 @@ class InteractorModule {
         return GetLatestUploadsInteractorImpl(executor, messagesRepository)
     }
 
+    @Provides
+    fun provideUploadFileInteractor(
+            executor: Executor,
+            messagesRepository: MessagesRepository
+    ): UploadFileInteractor {
+        return UploadFileInteractorImpl(executor, messagesRepository)
+    }
 
     @Provides
     fun provideGetStoreboxCreditCardsInteractor(
@@ -519,18 +527,18 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideTransformTokenInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, userSettingsManager: UserSettingsManager, authClient: AuthClient, cacheManager: CacheManager): TransformTokenInteractor {
-        return TransformTokenInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager, authClient, cacheManager)
+    fun provideTransformTokenInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, userSettingsManager: UserSettingsManager, authClient: AuthClient, cacheManager: CacheManager, mailCategoriesRepository: MailCategoriesRepository): TransformTokenInteractor {
+        return TransformTokenInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager, authClient, cacheManager, mailCategoriesRepository)
     }
 
     @Provides
-    fun provideMergeAndImpersonateInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, userSettingsManager: UserSettingsManager, authClient: AuthClient, cacheManager: CacheManager): MergeAndImpersonateInteractor {
-        return MergeAndImpersonateInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager, authClient, cacheManager)
+    fun provideMergeAndImpersonateInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, userSettingsManager: UserSettingsManager, authClient: AuthClient, cacheManager: CacheManager, mailCategoriesRepository: MailCategoriesRepository): MergeAndImpersonateInteractor {
+        return MergeAndImpersonateInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager, authClient, cacheManager, mailCategoriesRepository)
     }
 
     @Provides
-    fun provideVerifyProfileInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, userSettingsManager: UserSettingsManager, authClient: AuthClient, cacheManager: CacheManager): VerifyProfileInteractor {
-        return VerifyProfileInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager, authClient, cacheManager)
+    fun provideVerifyProfileInteractor(executor: Executor, api: Api, appStateManager: AppStateManager, userManager: UserManager, userSettingsManager: UserSettingsManager, authClient: AuthClient, cacheManager: CacheManager, mailCategoriesRepository: MailCategoriesRepository): VerifyProfileInteractor {
+        return VerifyProfileInteractorImpl(executor, api, appStateManager, userManager, userSettingsManager, authClient, cacheManager, mailCategoriesRepository)
     }
 
     @Provides

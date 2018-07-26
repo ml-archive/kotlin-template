@@ -12,6 +12,7 @@ import dk.eboks.app.network.repositories.*
 import dk.eboks.app.storage.repositories.AppStateRepositoryImpl
 import dk.eboks.app.storage.repositories.SharedPrefsSettingsRepository
 import dk.nodes.arch.domain.injection.scopes.AppScope
+import okhttp3.OkHttpClient
 
 /**
  * Created by bison on 25-07-2017.
@@ -41,9 +42,9 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideMessagesRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager) : MessagesRepository
+    fun provideMessagesRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager, httpClient: OkHttpClient) : MessagesRepository
     {
-        return MessagesRestRepository(context, api, gson, cacheManager)
+        return MessagesRestRepository(context, api, gson, cacheManager, httpClient)
     }
 
     @Provides

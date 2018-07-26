@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.uploads.components
 
+import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.StorageInfo
 import dk.eboks.app.presentation.base.BaseView
@@ -19,5 +20,6 @@ interface UploadOverviewComponentContract {
         fun setup()
         fun refresh()
         fun poisonAccessToken()
+        fun upload(folderId : Int, filename : String, uriString : String, mimetype : String)
     }
 }

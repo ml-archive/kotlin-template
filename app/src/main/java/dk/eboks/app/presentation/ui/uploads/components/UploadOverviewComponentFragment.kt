@@ -208,23 +208,34 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             }
         }
 
+        if(requestCode == FileUploadActivity.REQUEST_ID)
+        {
+            val filename = data?.getStringExtra("filename") ?: ""
+            val destinationFolderId : Int = data?.getIntExtra("destinationFolderId", -1) ?: -1
+            val uriString = data?.getStringExtra("uriString") ?: ""
+            var mimetype = data?.getStringExtra("mimeType") ?: "application/octet-stream"
+            if(filename.isNotEmpty() && uriString.isNotEmpty() && destinationFolderId != -1) {
+                presenter.upload(destinationFolderId, filename, uriString, mimetype)
+                Timber.e("Got filename = $filename and destiantionfolderID = $destinationFolderId back from upload window")
+            }
+            else
+            {
+                Timber.e("Invalid upload params")
+            }
+        }
+
     }
 
     private fun uploadFile(data : Intent) {
-        //val file = FilePickerUriHelper.getFile(activity, data)
-        val uri = FilePickerUriHelper.getUri(data)
+        //val uri = FilePickerUriHelper.getUri(data)
         Timber.e("About to upload file ${data.extras}")
 
         val mimetype = data.getStringExtra("mimeType")
-
-        val act = activity.Starter()
-                .activity(FileUploadActivity::class.java)
-                .putExtra("uriString", FilePickerUriHelper.getUriString(data))
-
+        val i = Intent(context, FileUploadActivity::class.java)
+        i.putExtra("uriString", FilePickerUriHelper.getUriString(data) )
         if(mimetype != null)
-            act.putExtra("mimeType", mimetype)
-        act.start()
-
+            i.putExtra("mimeType", mimetype)
+        startActivityForResult(i, FileUploadActivity.REQUEST_ID)
     }
 
     companion object {

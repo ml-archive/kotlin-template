@@ -1,7 +1,8 @@
 package dk.eboks.app.presentation.ui.uploads.screens.fileupload
 
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderType
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -11,13 +12,36 @@ import javax.inject.Inject
  */
 class FileUploadPresenter @Inject constructor(val appState: AppStateManager) : FileUploadContract.Presenter, BasePresenterImpl<FileUploadContract.View>() {
 
+    var uriString: String? = null
+    var mimeType: String? = null
+
     override fun setup(uriString : String, mimeType : String?) {
         Timber.e("Got uriString $uriString mimeType = $mimeType")
 
+        this.uriString = uriString
+        this.mimeType = mimeType
+
         startViewer(uriString, mimeType)
         runAction { v ->
-
+            v.showFilename(uriString)
+            getDefaultFolder()?.let { deffolder->
+                v.showDestinationFolder(deffolder)
+            }
         }
+    }
+
+    private fun getDefaultFolder() : Folder?
+    {
+        appState.state?.selectedFolders?.let { folders->
+            for(f in folders)
+            {
+                if(f.type == FolderType.INBOX)
+                {
+                    return f
+                }
+            }
+        }
+        return null
     }
 
     fun startViewer(uriString : String, mimetype : String?)

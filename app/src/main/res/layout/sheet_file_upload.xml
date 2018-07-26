@@ -40,22 +40,22 @@
     </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
-        android:id="@+id/choseFolderLl"
+        android:id="@+id/chooseFolderLl"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/rounded_white_background"
         android:clickable="true"
+        android:focusable="true"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/folderTv"
             style="@style/text.header3"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
-            android:layout_weight="1"
             android:gravity="center_vertical"
             nstack:key="@string/nstack_folders_folder" />
 
@@ -67,7 +67,7 @@
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
             android:gravity="end|center_vertical"
-            android:text="_Inbox" />
+            />
     </LinearLayout>
 
     <Button

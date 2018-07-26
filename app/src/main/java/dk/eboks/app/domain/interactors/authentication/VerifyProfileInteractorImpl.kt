@@ -3,6 +3,7 @@ package dk.eboks.app.domain.interactors.authentication
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.repositories.MailCategoriesRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
@@ -22,7 +23,8 @@ class VerifyProfileInteractorImpl(
         val userManager: UserManager,
         val userSettingsManager: UserSettingsManager,
         val authClient: AuthClient,
-        val cacheManager: CacheManager
+        val cacheManager: CacheManager,
+        val foldersRepositoryMail: MailCategoriesRepository
 ) : BaseInteractor(executor), VerifyProfileInteractor {
     override var output: VerifyProfileInteractor.Output? = null
     override var input: VerifyProfileInteractor.Input? = null
@@ -86,6 +88,7 @@ class VerifyProfileInteractorImpl(
                         runOnUIThread {
                             output?.onVerificationSuccess(newIdentity)
                         }
+                        appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(false)
                     }
                 }.guard {
                     runOnUIThread {

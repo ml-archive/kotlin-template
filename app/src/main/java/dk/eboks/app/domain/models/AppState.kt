@@ -20,5 +20,6 @@ data class AppState (
         var currentSettings: UserSettings? = null,
         @Transient val openingState: MessageOpeningState = MessageOpeningState(),
         @Transient var verificationState: VerificationState? = null,
-        val loginState: LoginState = LoginState()
+        val loginState: LoginState = LoginState(),
+        @Transient var selectedFolders : List<Folder>? = null
 )

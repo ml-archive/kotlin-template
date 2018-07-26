@@ -3,6 +3,7 @@ package dk.eboks.app.network.repositories
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
@@ -14,7 +15,18 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
+import dk.eboks.app.util.CountingFileRequestBody
 import dk.eboks.app.util.guard
+import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
+import okhttp3.MediaType
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.MultipartBody
+
+
+
+
 
 typealias SenderIdMessageStore = CacheStore<Long, List<Message>>
 typealias FolderIdMessageStore = CacheStore<Int, List<Message>>
@@ -23,7 +35,7 @@ typealias CategoryMessageStore = CacheStore<String, List<Message>>
 /**
  * Created by bison on 01/02/18.
  */
-class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager) : MessagesRepository {
+class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager, val okHttpClient: OkHttpClient) : MessagesRepository {
 
     val folderIdMessageStore: FolderIdMessageStore by lazy {
         FolderIdMessageStore(cacheManager, context, gson, "folder_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
@@ -265,5 +277,26 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
             return it
         }
         throw(RuntimeException())
+    }
+
+    override fun uploadFileAsMessage(folderId : Int, filename : String, uriString : String, mimetype : String, callback: (Long) -> Unit)
+    {
+        var url = "${Config.getApiUrl()}mail/folders/$folderId/messages"
+
+        val body = CountingFileRequestBody(FilePickerUriHelper.getFile(context, uriString), mimetype, callback)
+
+        val formBody = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart(filename, filename, body)
+                //.addFormDataPart("filename", filename)
+                .build()
+
+        val request = Request.Builder()
+                .url(url)
+                .put(formBody)
+                .build()
+        val response = okHttpClient.newCall(request).execute()
+        if(!response.isSuccessful)
+            throw(RuntimeException())
     }
 }

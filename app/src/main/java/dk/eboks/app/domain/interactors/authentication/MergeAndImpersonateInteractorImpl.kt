@@ -4,6 +4,7 @@ import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.repositories.MailCategoriesRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
@@ -23,7 +24,8 @@ class MergeAndImpersonateInteractorImpl(
         val userManager: UserManager,
         val userSettingsManager: UserSettingsManager,
         val authClient: AuthClient,
-        val cacheManager: CacheManager
+        val cacheManager: CacheManager,
+        val foldersRepositoryMail: MailCategoriesRepository
 ) : BaseInteractor(executor), MergeAndImpersonateInteractor {
     override var output: MergeAndImpersonateInteractor.Output? = null
     override var input: MergeAndImpersonateInteractor.Input? = null
@@ -88,6 +90,7 @@ class MergeAndImpersonateInteractorImpl(
                 runOnUIThread {
                     output?.onMergeCompleted()
                 }
+                appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(false)
             }.guard {
                 runOnUIThread {
                     output?.onMergeError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error

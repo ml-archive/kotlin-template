@@ -3,6 +3,7 @@ package dk.eboks.app.domain.interactors.authentication
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.repositories.MailCategoriesRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.protocol.EAuth2
 import dk.eboks.app.util.exceptionToViewError
@@ -20,7 +21,8 @@ class LoginInteractorImpl(
         val userManager: UserManager,
         val userSettingsManager: UserSettingsManager,
         val authClient: AuthClient,
-        val cacheManager: CacheManager) : BaseInteractor(executor), LoginInteractor {
+        val cacheManager: CacheManager,
+        val foldersRepositoryMail: MailCategoriesRepository) : BaseInteractor(executor), LoginInteractor {
     override var output: LoginInteractor.Output? = null
     override var input: LoginInteractor.Input? = null
 
@@ -79,6 +81,9 @@ class LoginInteractorImpl(
                         runOnUIThread {
                             output?.onLoginSuccess(t)
                         }
+
+                        appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(false)
+
                     }.guard {
                         runOnUIThread {
                             output?.onLoginError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error

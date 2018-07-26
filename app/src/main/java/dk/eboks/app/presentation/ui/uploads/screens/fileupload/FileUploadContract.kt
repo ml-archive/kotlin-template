@@ -9,7 +9,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface FileUploadContract {
     interface View : BaseView {
-        fun showFilename(filename : String)
+        fun showFilename(uriString : String)
         fun showDestinationFolder(folder: Folder)
         fun addPdfViewer(uri : String)
         fun addImageViewer(uri : String)

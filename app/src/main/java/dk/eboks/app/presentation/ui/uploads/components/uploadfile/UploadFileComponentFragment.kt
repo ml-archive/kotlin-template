@@ -54,7 +54,7 @@ class UploadFileComponentFragment : BaseFragment(), UploadFileComponentContract.
             var temp = "_cancelBtn Clicked!"
             Timber.d(temp)
         }
-        choseFolderLl.setOnClickListener {
+        chooseFolderLl.setOnClickListener {
             //todo chose folder clicked
             var temp = "_chose folder Clicked!"
             Timber.d(temp)
@@ -62,14 +62,14 @@ class UploadFileComponentFragment : BaseFragment(), UploadFileComponentContract.
     }
 
     private fun setupChoseFolder() {
-        choseFolderLl.isClickable = userVerified
+        chooseFolderLl.isClickable = userVerified
         if (userVerified) {
-            choseFolderLl.setBackgroundDrawable(ContextCompat.getDrawable(context,R.drawable.rounded_white_background))
-            choseFolderLl.isClickable = true
+            chooseFolderLl.setBackgroundDrawable(ContextCompat.getDrawable(context,R.drawable.rounded_white_background))
+            chooseFolderLl.isClickable = true
             setTvTextColors(R.color.darkGreyBlue)
         } else {
-            choseFolderLl.setBackgroundDrawable(ContextCompat.getDrawable(context,R.drawable.rounded_darkgrey_background))
-            choseFolderLl.isClickable = false
+            chooseFolderLl.setBackgroundDrawable(ContextCompat.getDrawable(context,R.drawable.rounded_darkgrey_background))
+            chooseFolderLl.isClickable = false
             setTvTextColors(R.color.silver)
         }
     }

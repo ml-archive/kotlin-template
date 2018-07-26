@@ -3,6 +3,7 @@ package dk.eboks.app.domain.interactors.authentication
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.repositories.MailCategoriesRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.protocol.EAuth2
 import dk.eboks.app.util.exceptionToViewError
@@ -23,7 +24,8 @@ class TransformTokenInteractorImpl(
         val userManager: UserManager,
         val userSettingsManager: UserSettingsManager,
         val authClient: AuthClient,
-        val cacheManager: CacheManager
+        val cacheManager: CacheManager,
+        val foldersRepositoryMail: MailCategoriesRepository
 ) : BaseInteractor(executor), TransformTokenInteractor {
     override var output: TransformTokenInteractor.Output? = null
     override var input: TransformTokenInteractor.Input? = null
@@ -69,6 +71,8 @@ class TransformTokenInteractorImpl(
                     runOnUIThread {
                         output?.onLoginSuccess(token)
                     }
+                    appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(false)
+
                 }.guard {
                     runOnUIThread {
                         output?.onLoginError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error

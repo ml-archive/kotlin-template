@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.uploads.components
 
 import dk.eboks.app.domain.interactors.message.GetLatestUploadsInteractor
 import dk.eboks.app.domain.interactors.message.GetStorageInteractor
+import dk.eboks.app.domain.interactors.message.UploadFileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
@@ -16,17 +17,20 @@ import javax.inject.Inject
 class UploadOverviewComponentPresenter @Inject constructor(
         val appState: AppStateManager,
         val getStorageInteractor: GetStorageInteractor,
-        val getLatestUploadsInteractor: GetLatestUploadsInteractor
+        val getLatestUploadsInteractor: GetLatestUploadsInteractor,
+        val uploadFileInteractor: UploadFileInteractor
 ) :
         UploadOverviewComponentContract.Presenter,
         BasePresenterImpl<UploadOverviewComponentContract.View>(),
         GetStorageInteractor.Output,
-        GetLatestUploadsInteractor.Output
+        GetLatestUploadsInteractor.Output,
+        UploadFileInteractor.Output
 {
 
     init {
         getStorageInteractor.output = this
         getLatestUploadsInteractor.output = this
+        uploadFileInteractor.output = this
     }
 
     override fun setup() {
@@ -48,6 +52,11 @@ class UploadOverviewComponentPresenter @Inject constructor(
         appState.state?.loginState?.token?.refresh_token = "REFRESHTOKENEVENMORERUINED"
     }
 
+    override fun upload(folderId: Int, filename: String, uriString: String, mimetype : String) {
+        uploadFileInteractor.input = UploadFileInteractor.Input(folderId, filename, uriString, mimetype)
+        uploadFileInteractor.run()
+    }
+
     /**
      * GetStorageInteractor callbacks
      */
@@ -65,6 +74,22 @@ class UploadOverviewComponentPresenter @Inject constructor(
     }
 
     override fun onGetLatestUploadsError(error: ViewError) {
+        runAction { v->v.showErrorDialog(error) }
+    }
+
+    /**
+     * UploadFileInteractor callbacks
+     */
+    override fun onUploadFileComplete() {
+        Timber.e("onUploadFileComplete")
+        refresh()
+    }
+
+    override fun onUploadFileProgress(pct: Float) {
+        Timber.e("onUploadFileProgress $pct")
+    }
+
+    override fun onUploadFileError(error: ViewError) {
         runAction { v->v.showErrorDialog(error) }
     }
 }
