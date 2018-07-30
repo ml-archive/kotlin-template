@@ -9,6 +9,7 @@ import okhttp3.internal.Util;
 import okio.BufferedSink;
 import okio.Okio;
 import okio.Source;
+import timber.log.Timber;
 
 public class CountingFileRequestBody extends RequestBody {
 
@@ -17,11 +18,14 @@ public class CountingFileRequestBody extends RequestBody {
     private final File file;
     private final ProgressListener listener;
     private final String contentType;
+    private long fileSize;
 
     public CountingFileRequestBody(File file, String contentType, ProgressListener listener) {
         this.file = file;
         this.contentType = contentType;
         this.listener = listener;
+        this.fileSize = contentLength();
+        Timber.e("Filesize is " + fileSize);
     }
 
     @Override
@@ -45,16 +49,25 @@ public class CountingFileRequestBody extends RequestBody {
             while ((read = source.read(sink.buffer(), SEGMENT_SIZE)) != -1) {
                 total += read;
                 sink.flush();
-                this.listener.transferred(total);
+
+                if(total != 0 && listener != null) {
+                    this.listener.transferred((double) total / (double) fileSize);
+                }
+
 
             }
-        } finally {
+        }
+        catch (Throwable t)
+        {
+            t.printStackTrace();
+        }
+        finally {
             Util.closeQuietly(source);
         }
     }
 
     public interface ProgressListener {
-        void transferred(long num);
+        void transferred(double num);
     }
 
 }

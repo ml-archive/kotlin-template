@@ -39,6 +39,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     private var checkedList: MutableList<Message> = ArrayList()
     private var editEnabled: Boolean = false
     private var editAction: ButtonType? = null
+    private var showUploads: Boolean = false
 
     private var actionButtons = arrayListOf(
             OverlayButton(ButtonType.MOVE),
@@ -69,6 +70,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        showUploads = arguments?.getBoolean("showUploads", false) ?: false
         setupRecyclerView()
         setupFab()
         checkFabState()
@@ -251,6 +253,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     private fun setupRecyclerView() {
+        adapter.showUploads = showUploads
         messagesRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         messagesRv.adapter = adapter
 

@@ -27,5 +27,5 @@ interface MessagesRepository {
     fun getStorageInfo() : StorageInfo
     fun getLatestUploads(offset : Int? = null, limit : Int? = null) : List<Message>
 
-    fun uploadFileAsMessage(folderId : Int, filename : String, uriString : String, mimetype : String, callback: (Long) -> Unit)
+    fun uploadFileAsMessage(folderId : Int, filename : String, uriString : String, mimetype : String, callback: (Double) -> Unit)
 }

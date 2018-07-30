@@ -16,7 +16,10 @@ class UploadFileInteractorImpl(executor: Executor, val messagesRepository: Messa
         input?.let { args->
             try {
                 messagesRepository.uploadFileAsMessage(args.folderId, args.filename, args.uriString, args.mimetype) { count ->
-                    Timber.e("Upload progress $count")
+                    //Timber.e("Upload progress $count")
+                    runOnUIThread {
+                        output?.onUploadFileProgress(count)
+                    }
                 }
                 runOnUIThread {
                     output?.onUploadFileComplete()

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
@@ -27,7 +28,6 @@ import dk.nodes.filepicker.FilePickerActivity
 import dk.nodes.filepicker.FilePickerConstants
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_upload_overview_component.*
-import java.io.File
 import java.util.*
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -87,18 +87,16 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
         emptyVerifiedUserTv.setVisible(false)
         // verified user
         verified = verifiedUser
-        if (!verifiedUser) {
-            contentRowHeaderTv.visibility = View.GONE
-        } else {
+        if (verifiedUser) {
             // user is verified
             emptyNonVerifiedUserLl.visibility = View.GONE
             latestUploadsLl.visibility = View.VISIBLE
-            contentRowHeaderTv.visibility = View.VISIBLE
+            latestUploadsFl.visibility = View.VISIBLE
         }
 
         showAllBtn.setOnClickListener {
             var frag = MailListComponentFragment()
-            frag?.putArg("folder", Folder(type = FolderType.UPLOADS, name = Translation.uploads.title))
+            frag?.putArg("folder", Folder(type = FolderType.UPLOADS, name = Translation.uploads.title)).putArg("showUploads", true)
             getBaseActivity()?.addFragmentOnTop(R.id.contentFl, frag, true)
         }
         fileBtn.setOnClickListener {
@@ -110,15 +108,25 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
     }
 
     override fun showStorageInfo(storageInfo: StorageInfo) {
-        leftProgressTv.text = "${formatter.formatSize(storageInfo.used)}"
-        rightProgressTv.text = "${formatter.formatSize(storageInfo.total - storageInfo.used)}"
+        if(storageInfo.used > 0) {
+            leftProgressTv.text = "${formatter.formatSize(storageInfo.used)}"
+            rightProgressTv.text = "${formatter.formatSize(storageInfo.total - storageInfo.used)} ${Translation.uploads.remainingText}"
+        }
+        else
+        {
+            if(!verified)
+                leftProgressTv.text = "${Translation.uploads.notVerifiedInitialAvailableSpace}"
+            else
+                leftProgressTv.text = "${Translation.uploads.verifiedInitialAvailableSpace}"
+        }
         storageProgressBar.visibility = View.INVISIBLE
         storagePb.progress = (storageInfo.used.toFloat() / storageInfo.total.toFloat() * 100f).roundToInt()
         storagePb.visibility = View.VISIBLE
     }
 
     override fun showLatestUploads(messages: List<Message>) {
-        latestUploadsPb.visibility = View.INVISIBLE
+        latestUploadsPb.visibility = View.GONE
+        latestUploadsLl.removeAllViews()
         uploads.clear()
         uploads.addAll(messages)
         if (uploads.size > 0) {
@@ -128,7 +136,8 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
                 storageRowContainer.setVisible(true)
             }
             latestUploadsLl.visibility = View.VISIBLE
-            lastestUploadsFl.visibility = View.VISIBLE
+            latestUploadsFl.visibility = View.VISIBLE
+            latestUploadsTopRowFl.visibility = View.VISIBLE
             for (i in 1..uploads.size) {
                 var currentItem = uploads[i - 1]
 
@@ -140,9 +149,11 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
                 val dividerV = v.findViewById<View>(R.id.dividerV)
                 val showContainerLl = v.findViewById<LinearLayout>(R.id.showContainerLl)
                 val uploadingContainerLl = v.findViewById<FrameLayout>(R.id.uploadingContainerLl)
+                showContainerLl.setVisible(true)
+                uploadingContainerLl.setVisible(false)
 
-                headerTv.text = currentItem.id
-                subHeaderTv.text = currentItem.subject
+                headerTv.text = currentItem.subject
+                subHeaderTv.text = currentItem.folder?.name ?: ""
                 dateTv.text = formatter.formatDateRelative(currentItem)
 
                 v.setOnClickListener {
@@ -150,16 +161,6 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
                             .activity(MessageOpeningActivity::class.java)
                             .putExtra(Message::class.java.simpleName, currentItem)
                             .start()
-
-                    /*
-                    if(showContainerLl.visibility == View.VISIBLE){
-                        uploadingContainerLl.visibility = View.VISIBLE
-                        showContainerLl.visibility = View.GONE
-                    } else {
-                        uploadingContainerLl.visibility = View.GONE
-                        showContainerLl.visibility = View.VISIBLE
-                    }
-                    */
                 }
 
                 if(i == uploads.size ){
@@ -178,9 +179,60 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
                 emptyNonVerifiedUserLl.setVisible(true)
             }
 
-            lastestUploadsFl.setVisible(false)
+            latestUploadsTopRowFl.setVisible(false)
+            latestUploadsFl.setVisible(false)
             latestUploadsLl.setVisible(false)
         }
+    }
+
+    var uploadPctProgressTv : TextView? = null
+    var uploadView : View? = null
+    var circularProgress : CircularProgressBar? = null
+
+    override fun showUploadProgress()
+    {
+        //setting the header
+        val v = inflator.inflate(R.layout.viewholder_upload_row,latestUploadsLl, false)
+        uploadView = v
+        uploadPctProgressTv = v.findViewById<TextView>(R.id.uploadPctProgressTv)
+        val showContainerLl = v.findViewById<LinearLayout>(R.id.showContainerLl)
+        val uploadingContainerLl = v.findViewById<FrameLayout>(R.id.uploadingContainerLl)
+        circularProgress = v.findViewById<CircularProgressBar>(R.id.circularProgressBar)
+        circularProgress?.progress = 0.0f
+        circularProgress?.visibility = View.VISIBLE
+        uploadPctProgressTv?.text = "0%"
+        uploadingContainerLl.visibility = View.VISIBLE
+        showContainerLl.visibility = View.GONE
+
+        fileBtn.isEnabled = false
+        photoBtn.isEnabled = false
+
+        /*
+        headerTv.text = currentItem.id
+        subHeaderTv.text = currentItem.subject
+        dateTv.text = formatter.formatDateRelative(currentItem)
+        */
+        latestUploadsLl.addView(v, 0)
+    }
+
+    override fun updateUploadProgress(pct : Double)
+    {
+        uploadPctProgressTv?.let {
+            val value = pct * 100.0
+            it.setText("${value.roundToInt()}%")
+        }
+        circularProgress?.let {
+            val value = pct * 100.0
+            it.progress = value.toFloat()
+        }
+    }
+
+    override fun hideUploadProgress()
+    {
+        circularProgress?.visibility = View.GONE
+        uploadView?.let { latestUploadsLl.removeView(it) }
+        fileBtn.isEnabled = true
+        photoBtn.isEnabled = true
     }
 
     private fun findFile() {

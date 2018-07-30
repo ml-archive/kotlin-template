@@ -15,7 +15,7 @@ interface UploadFileInteractor : Interactor {
 
     interface Output {
         fun onUploadFileComplete()
-        fun onUploadFileProgress(pct : Float)
+        fun onUploadFileProgress(pct : Double)
         fun onUploadFileError(error : ViewError)
     }
 }

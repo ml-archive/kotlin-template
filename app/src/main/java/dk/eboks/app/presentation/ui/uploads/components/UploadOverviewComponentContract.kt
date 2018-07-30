@@ -14,6 +14,9 @@ interface UploadOverviewComponentContract {
         fun setupView(verifiedUser : Boolean)
         fun showStorageInfo(storageInfo: StorageInfo)
         fun showLatestUploads(messages : List<Message>)
+        fun showUploadProgress()
+        fun updateUploadProgress(pct : Double)
+        fun hideUploadProgress()
     }
 
     interface Presenter : BasePresenter<View> {

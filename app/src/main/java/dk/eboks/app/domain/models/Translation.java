@@ -53,8 +53,8 @@ public class Translation {
 		public static String connectionError = "No or bad connection. Please try again.";
 		public static String errorTitle = "Error";
 		public static String unknownError = "Unkown error, please try again";
-		public static String compromisedConnectionTitle = "__compromisedConnectionTitle";
-		public static String compromisedConnectionMessage = "__compromisedConnectionMessage";
+		public static String compromisedConnectionTitle = "Secure connection could not be established";
+		public static String compromisedConnectionMessage = "A secure connection to e-Boks could not be established. Your device or internet connection may be compromised. Please try from another network or check the configuration on your device.";
 		public static String resourceNotfoundMessage = "The requested resource could not be found";
 		public static String resourceNotfoundTitle = "Not found";
 		public static String authenticationErrorTitle = "Session expired";
@@ -141,7 +141,7 @@ public class Translation {
 		public static String comingSoonHeader = "Coming soon!";
 		public static String comingSoonMessage = "Soon you will be able to register senders you normally receive your mail from";
 		public static String searchBarPlaceholder = "Search";
-		public static String noSearchResult = "No Senders Found";
+		public static String noSearchResult = "No senders found";
 	}
 	public final static class start {
 		public static String signupButton = "Sign up";
@@ -291,7 +291,7 @@ public class Translation {
 		public static String promulgationOkButton = "OK";
 		public static String numberOfAttachmentsPluralSuffix = "attachments \u2022";
 		public static String numberOfAttachmentsSingularSuffix = "attachment \u2022";
-		public static String promulgationMessage = "You have received a court message that you have opened or otherwise processed. The message and exhibits, if any, have been properly serviced to you.    It is important that you thoroughly read the court message and exhibits, if any.    The message may for example include a summons, a call for a court hearing, or a judicial decision that all may have certain ramifications for you.   Any time limits apply as of today.    The court has received a return receipt in evidence of the message being serviced to you. You will find the return receipt under the folder Sent Items.";
+		public static String promulgationMessage = "You have received a court message that you have opened or otherwise processed. The message and exhibits, if any, have been properly serviced to you.  \r\n\r\nIt is important that you thoroughly read the court message and exhibits, if any.  \r\n\r\nThe message may for example include a summons, a call for a court hearing, or a judicial decision that all may have certain ramifications for you.  \r\nAny time limits apply as of today.  \r\n\r\nThe court has received a return receipt in evidence of the message being serviced to you. You will find the return receipt under the folder Sent Items.";
 		public static String voluntaryReceiptTitle = "Opening receipt";
 		public static String voluntaryReceiptMessage = "__voluntaryReceiptMessage";
 		public static String openMessageWithReceiptButton = "Open message with receipt";
@@ -683,6 +683,10 @@ public class Translation {
 		public static String transactionNumberHeader = "Transaction number";
 		public static String cancelPaymentAlertTitle = "Are you sure you want to cancel the payment?";
 		public static String cancelPaymentAlertMessage = "You are responsible for paying the invoice in other ways or contacting the sender if you do not want to pay.";
+		public static String paymentPending = "Payment pending";
+		public static String paymentCompleted = "Payment Completed";
+		public static String cancelPaymentOk = "Yes";
+		public static String cancelPaymentNo = "No";
 	}
 	public final static class paymentService {
 		public static String title = "Pay with Betalingsservice";
@@ -691,7 +695,7 @@ public class Translation {
 		public static String invoiceConfirmation = "Your invoice has been sent to the Betalingsservice app and awaits your confirmation.";
 		public static String goToAppButton = "Go to Betalingsservice";
 		public static String invoiveInfo = "By sending your invoice to the Betalingsservice app, you also accept that e-Boks provides Betalingsservice by NETS with your civil registration number and payment information. This information is used to identify you to Betalingsservice.";
-		public static String maxPaymentNotice = "Notice that the daily maximum limit for payments using the Betalingsservice app is 25,000 DKK.";
+		public static String maxPaymentNotice = "Please note that the daily maximum limit for payments using the Betalingsservice app is 25,000 DKK.";
 		public static String sendToAppButton = "Send to Betalingsservice";
 		public static String dueDateLabel = "Payment due on [date]";
 	}

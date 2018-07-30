@@ -27,7 +27,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 66
+        versionCode 67
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -274,6 +274,9 @@ dependencies {
 
     // Barcode Generation Library
     implementation 'com.google.zxing:core:3.3.0'
+
+    // circular progress
+    implementation 'com.mikhaellopez:circularprogressbar:2.0.0'
 
     // Testing
     testImplementation "junit:junit:$junit_version"

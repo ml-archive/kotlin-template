@@ -30,6 +30,7 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
     var editMode: Boolean = false
     var messages: MutableList<Message> = arrayListOf()
     var folder: Folder? = null
+    var showUploads: Boolean = false
 
     var onMessageCheckedChanged: ((Boolean, Message) -> Unit)? = null
     var onActionEvent: ((Message, MailMessageEvent) -> Unit)? = null
@@ -111,8 +112,15 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
                 subHeaderTv.setTypeface(null, Typeface.NORMAL)
             }
 
-            headerTv.text = currentItem.sender?.name
-            subHeaderTv.text = currentItem.subject
+            if(showUploads) {
+                headerTv.text = currentItem.subject
+                subHeaderTv.text = currentItem.folder?.name ?: ""
+            }
+            else
+            {
+                headerTv.text = currentItem.sender?.name
+                subHeaderTv.text = currentItem.subject
+            }
             dateTv.text = formatter.formatDateRelative(currentItem)
             checkBox.isSelected = false
 

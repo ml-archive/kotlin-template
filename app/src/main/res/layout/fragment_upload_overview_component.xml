@@ -170,7 +170,7 @@
             <!--Show Verified user content-->
 
             <FrameLayout
-                android:id="@+id/lastestUploadsFl"
+                android:id="@+id/latestUploadsTopRowFl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/backgroundColor"
@@ -192,12 +192,6 @@
                         android:text="_latest uploads"
                         nstack:key="@string/nstack_uploads_rowHeader" />
 
-                    <ProgressBar
-                        android:id="@+id/latestUploadsPb"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="center_vertical"/>
-
                 </LinearLayout>
 
                 <Button
@@ -211,17 +205,25 @@
                     nstack:key="@string/nstack_home_messagesSectionHeaderShowAllButton"/>
             </FrameLayout>
 
-            <LinearLayout
-                android:id="@+id/latestUploadsLl"
+            <FrameLayout
+                android:id="@+id/latestUploadsFl"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-
-            </LinearLayout>
+                android:layout_weight="1">
+                <LinearLayout
+                    android:id="@+id/latestUploadsLl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:visibility="visible" />
+                <ProgressBar
+                    android:id="@+id/latestUploadsPb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+            </FrameLayout>
 
             <!--show emptystate for verified user-->
             <TextView

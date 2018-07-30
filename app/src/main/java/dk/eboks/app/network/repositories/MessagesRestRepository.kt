@@ -279,7 +279,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
         throw(RuntimeException())
     }
 
-    override fun uploadFileAsMessage(folderId : Int, filename : String, uriString : String, mimetype : String, callback: (Long) -> Unit)
+    override fun uploadFileAsMessage(folderId : Int, filename : String, uriString : String, mimetype : String, callback: (Double) -> Unit)
     {
         var url = "${Config.getApiUrl()}mail/folders/$folderId/messages"
 

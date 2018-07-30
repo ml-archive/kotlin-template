@@ -55,6 +55,7 @@ class UploadOverviewComponentPresenter @Inject constructor(
     override fun upload(folderId: Int, filename: String, uriString: String, mimetype : String) {
         uploadFileInteractor.input = UploadFileInteractor.Input(folderId, filename, uriString, mimetype)
         uploadFileInteractor.run()
+        runAction { v->v.showUploadProgress() }
     }
 
     /**
@@ -82,14 +83,19 @@ class UploadOverviewComponentPresenter @Inject constructor(
      */
     override fun onUploadFileComplete() {
         Timber.e("onUploadFileComplete")
+        runAction { v->v.hideUploadProgress() }
         refresh()
     }
 
-    override fun onUploadFileProgress(pct: Float) {
+    override fun onUploadFileProgress(pct: Double) {
         Timber.e("onUploadFileProgress $pct")
+        runAction { v->v.updateUploadProgress(pct)}
     }
 
     override fun onUploadFileError(error: ViewError) {
-        runAction { v->v.showErrorDialog(error) }
+        runAction { v->
+            v.hideUploadProgress()
+            v.showErrorDialog(error)
+        }
     }
 }

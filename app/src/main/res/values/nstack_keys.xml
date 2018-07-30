@@ -593,6 +593,10 @@
   <string name='nstack_paymentdrawer_transactionNumberHeader' formatted='false'>paymentdrawer_transactionNumberHeader</string>
   <string name='nstack_paymentdrawer_cancelPaymentAlertTitle' formatted='false'>paymentdrawer_cancelPaymentAlertTitle</string>
   <string name='nstack_paymentdrawer_cancelPaymentAlertMessage' formatted='false'>paymentdrawer_cancelPaymentAlertMessage</string>
+  <string name='nstack_paymentdrawer_paymentPending' formatted='false'>paymentdrawer_paymentPending</string>
+  <string name='nstack_paymentdrawer_paymentCompleted' formatted='false'>paymentdrawer_paymentCompleted</string>
+  <string name='nstack_paymentdrawer_cancelPaymentOk' formatted='false'>paymentdrawer_cancelPaymentOk</string>
+  <string name='nstack_paymentdrawer_cancelPaymentNo' formatted='false'>paymentdrawer_cancelPaymentNo</string>
   <string name='nstack_paymentService_title' formatted='false'>paymentService_title</string>
   <string name='nstack_paymentService_installApp' formatted='false'>paymentService_installApp</string>
   <string name='nstack_paymentService_installAppButton' formatted='false'>paymentService_installAppButton</string>
