@@ -568,4 +568,9 @@ class InteractorModule {
     ): ConfirmPhoneInteractor {
         return ConfirmPhoneInteractorImpl(executor, api, userRestRepo)
     }
+
+    @Provides
+    fun provideGetSignLinkInteractor(executor: Executor, api: Api): GetSignLinkInteractor {
+        return GetSignLinkInteractorImpl(executor, api)
+    }
 }

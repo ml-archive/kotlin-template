@@ -364,6 +364,7 @@ public class Translation {
 		public static String comingSoonMessage = "Soon you will be able to upload and store your important files securely in e-Boks";
 		public static String allowCameraTitle = "Camera access required";
 		public static String allowCameraMessage = "In order to continue you will need to allow camera access. To do so open settings and allow camera permission.";
+		public static String noUploads = "No Uploads";
 	}
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";

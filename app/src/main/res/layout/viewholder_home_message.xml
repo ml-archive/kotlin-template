@@ -34,7 +34,6 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
             android:layout_marginStart="12dp"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -74,6 +73,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:paddingStart="4dp"
             android:orientation="vertical">
 
             <TextView
@@ -81,7 +81,7 @@
                 style="@style/text.subHeader5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="end"
+                android:layout_gravity="end"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:text="_Today"

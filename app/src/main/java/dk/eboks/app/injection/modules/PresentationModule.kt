@@ -143,6 +143,8 @@ import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningContra
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningPresenter
 import dk.eboks.app.presentation.ui.message.screens.reply.ReplyFormContract
 import dk.eboks.app.presentation.ui.message.screens.reply.ReplyFormPresenter
+import dk.eboks.app.presentation.ui.message.screens.sign.SignContract
+import dk.eboks.app.presentation.ui.message.screens.sign.SignPresenter
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentContract
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayContract
@@ -281,6 +283,12 @@ class PresentationModule {
     @Provides
     fun provideSignButtonComponentPresenter(stateManager: AppStateManager): SignButtonComponentContract.Presenter {
         return SignButtonComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideSignPresenter(stateManager: AppStateManager, getSignLinkInteractor: GetSignLinkInteractor): SignContract.Presenter {
+        return SignPresenter(stateManager, getSignLinkInteractor)
     }
 
     @ActivityScope

@@ -71,6 +71,15 @@ interface Api {
     @GET("mail/messages/uploads") fun getUploads(@Query("offset") offset : Int? = null, @Query("limit") limit : Int? = null) : Call<List<Message>>
     @GET("mail/storage") fun getStorageInfo() : Call<StorageInfo>
 
+    // sign
+    @GET("mail/folders/{folderId}/messages/{id}/sign/link") fun getSignLink(
+            @Path("id") id : String,
+            @Path("folderId") folderId : Int,
+            @Query("callback_cancel") callbackCancel : String,
+            @Query("callback_success") callbackSuccess : String,
+            @Query("callback_error") callbackError : String) : Call<Link>
+
+
     // reply forms
     @GET("mail/folders/{folderId}/messages/{id}/reply") fun getMessageReplyForm(@Path("id") id : String, @Path("folderId") folderId : Int) : Call<ReplyForm>
     @PATCH("mail/folders/{folderId}/messages/{id}/reply") fun submitMessageReplyForm(@Path("id") id : String, @Path("folderId") folderId : Int, @Body body : ReplyForm) : Call<Any>

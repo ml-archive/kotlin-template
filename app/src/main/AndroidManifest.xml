@@ -88,6 +88,7 @@
             android:theme="@style/TransTheme" />
         <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.storebox.StoreboxAddCardActivity" android:screenOrientation="portrait"/>
         <activity android:name=".presentation.ui.login.screens.PopupLoginActivity" android:screenOrientation="portrait"/>
+        <activity android:name="dk.eboks.app.presentation.ui.message.screens.sign.SignActivity" android:screenOrientation="portrait"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"

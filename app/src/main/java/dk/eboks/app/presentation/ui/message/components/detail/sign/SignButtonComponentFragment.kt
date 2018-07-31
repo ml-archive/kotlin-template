@@ -8,6 +8,8 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.APIConstants
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.message.screens.sign.SignActivity
+import dk.eboks.app.util.Starter
 import kotlinx.android.synthetic.main.fragment_sign_button_component.*
 import javax.inject.Inject
 
@@ -29,6 +31,8 @@ class SignButtonComponentFragment : BaseFragment(), SignButtonComponentContract.
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         arguments?.getSerializable(Message::class.java.simpleName)?.let { msg ->
+            msg as Message
+            //msg.sign?.status?.type = 2
             configureButton(msg as Message)
             signBtn.setOnClickListener {
                 presenter.sign(msg)
@@ -63,13 +67,11 @@ class SignButtonComponentFragment : BaseFragment(), SignButtonComponentContract.
     }
 
     override fun startSigning(msg: Message) {
-
-        /*
         activity.Starter()
-                .activity(ReplyFormActivity::class.java)
+                .activity(SignActivity::class.java)
                 .putExtra(Message::class.java.simpleName, msg)
                 .start()
-                */
+
     }
 
 }
