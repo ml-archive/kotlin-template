@@ -11,6 +11,7 @@ interface MessageEmbeddedContract {
     interface View : BaseView {
         fun addHeaderComponentFragment()
         fun addReplyButtonComponentFragment(message: Message)
+        fun addSignButtonComponentFragment(message: Message)
         fun addNotesComponentFragment()
         fun addAttachmentsComponentFragment()
         fun addFolderInfoComponentFragment()

@@ -127,7 +127,7 @@
                     android:ellipsize="end"
                     android:gravity="bottom"
                     android:lines="1"
-                    android:text="_Add another credit card" />
+                    android:text="" />
 
 
                 <TextView
@@ -136,7 +136,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
-                    android:text="_uploads" />
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text="" />
 
                 <TextView
                     android:id="@+id/urgentTv"
@@ -144,7 +146,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:lineSpacingExtra="7sp"
-                    android:text="_Inbox"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text=""
                     android:visibility="visible" />
 
             </LinearLayout>
@@ -160,8 +164,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:lines="1"
                     android:gravity="bottom"
-                    android:text="_today" />
+                    android:text="" />
 
                 <ImageView
                     android:id="@+id/clipIv"

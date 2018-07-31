@@ -26,6 +26,7 @@ object APIConstants {
     val MSG_PAY_OTHER = 5                                   // Payment other
 
     // regarding signing
+    val MSG_SIGN_NONE = 0                                   // no signing option available
     val MSG_SIGN_WEB_ONLY = 1                               // Sign option available (on web only)
     val MSG_SIGN_AVAILABLE = 2                              // Sign option available
     val MSG_SIGN_SIGNED = 3                                 // Signed

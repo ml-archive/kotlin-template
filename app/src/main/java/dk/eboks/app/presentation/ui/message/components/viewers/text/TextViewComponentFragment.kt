@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.base.EmbeddedViewer
+import dk.eboks.app.util.setVisible
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_textview_component.*
 import kotlinx.coroutines.experimental.CommonPool
@@ -37,6 +38,7 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        presenter.setup(arguments?.getString("URI"))
     }
 
     override fun showText(filename: String) {
@@ -92,9 +94,9 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
 
     private fun show(decoded : String)
     {
+        progresspb.setVisible(false)
+        contentTv.setVisible(true)
         try {
-
-
             Timber.e("Setting textview")
             contentTv.text = decoded
             Timber.e("Done setting textview")

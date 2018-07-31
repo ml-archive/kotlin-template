@@ -113,6 +113,8 @@ import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonC
 import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.detail.share.ShareComponentContract
 import dk.eboks.app.presentation.ui.message.components.detail.share.ShareComponentPresenter
+import dk.eboks.app.presentation.ui.message.components.detail.sign.SignButtonComponentContract
+import dk.eboks.app.presentation.ui.message.components.detail.sign.SignButtonComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.opening.privatesender.PrivateSenderWarningComponentContract
 import dk.eboks.app.presentation.ui.message.components.opening.privatesender.PrivateSenderWarningComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.opening.promulgation.PromulgationComponentContract
@@ -273,6 +275,12 @@ class PresentationModule {
     @Provides
     fun provideReplyButtonComponentPresenter(stateManager: AppStateManager): ReplyButtonComponentContract.Presenter {
         return ReplyButtonComponentPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideSignButtonComponentPresenter(stateManager: AppStateManager): SignButtonComponentContract.Presenter {
+        return SignButtonComponentPresenter(stateManager)
     }
 
     @ActivityScope

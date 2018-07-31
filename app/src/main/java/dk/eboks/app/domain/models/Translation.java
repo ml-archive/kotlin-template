@@ -699,4 +699,7 @@ public class Translation {
 		public static String sendToAppButton = "Send to Betalingsservice";
 		public static String dueDateLabel = "Payment due on [date]";
 	}
+	public final static class sign {
+		public static String title = "Sign";
+	}
 }

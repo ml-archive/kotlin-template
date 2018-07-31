@@ -606,4 +606,5 @@
   <string name='nstack_paymentService_maxPaymentNotice' formatted='false'>paymentService_maxPaymentNotice</string>
   <string name='nstack_paymentService_sendToAppButton' formatted='false'>paymentService_sendToAppButton</string>
   <string name='nstack_paymentService_dueDateLabel' formatted='false'>paymentService_dueDateLabel</string>
+  <string name='nstack_sign_title' formatted='false'>sign_title</string>
 </resources>

@@ -94,6 +94,8 @@ import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonC
 import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.detail.share.ShareComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.share.ShareComponentPresenter
+import dk.eboks.app.presentation.ui.message.components.detail.sign.SignButtonComponentFragment
+import dk.eboks.app.presentation.ui.message.components.detail.sign.SignButtonComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.opening.privatesender.PrivateSenderWarningComponentFragment
 import dk.eboks.app.presentation.ui.message.components.opening.privatesender.PrivateSenderWarningComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.opening.promulgation.PromulgationComponentFragment
@@ -256,6 +258,8 @@ interface PresentationComponent {
     fun inject(target : PromulgationComponentPresenter)
     fun inject(target : ReplyButtonComponentFragment)
     fun inject(target : ReplyButtonComponentPresenter)
+    fun inject(target : SignButtonComponentFragment)
+    fun inject(target : SignButtonComponentPresenter)
     fun inject(target : ReplyFormActivity)
     fun inject(target : ReplyFormPresenter)
 

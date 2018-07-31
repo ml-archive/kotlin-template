@@ -96,7 +96,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
 
         showAllBtn.setOnClickListener {
             var frag = MailListComponentFragment()
-            frag?.putArg("folder", Folder(type = FolderType.UPLOADS, name = Translation.uploads.title)).putArg("showUploads", true)
+            frag?.putArg("folder", Folder(type = FolderType.UPLOADS, name = Translation.uploads.title))
             getBaseActivity()?.addFragmentOnTop(R.id.contentFl, frag, true)
         }
         fileBtn.setOnClickListener {
@@ -153,7 +153,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
                 uploadingContainerLl.setVisible(false)
 
                 headerTv.text = currentItem.subject
-                subHeaderTv.text = currentItem.folder?.name ?: ""
+                subHeaderTv.text = currentItem.sender?.name ?: ""
                 dateTv.text = formatter.formatDateRelative(currentItem)
 
                 v.setOnClickListener {

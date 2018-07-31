@@ -25,6 +25,12 @@ class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateMan
                     v.addReplyButtonComponentFragment(message!!)
                 }
             }
+            if (BuildConfig.ENABLE_SIGN) {
+                message?.sign?.let {
+                    v.addSignButtonComponentFragment(message!!)
+                }
+            }
+
             v.addNotesComponentFragment()
             if(message?.attachments != null)
                 v.addAttachmentsComponentFragment()

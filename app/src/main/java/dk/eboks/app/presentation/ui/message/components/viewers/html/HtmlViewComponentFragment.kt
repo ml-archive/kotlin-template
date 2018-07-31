@@ -34,6 +34,7 @@ class HtmlViewComponentFragment : BaseFragment(), HtmlViewComponentContract.View
         settings.setLoadWithOverviewMode(true)
         settings.setBuiltInZoomControls(true)
         settings.setDisplayZoomControls(false)
+        presenter.setup(arguments?.getString("URI"))
 
     }
 

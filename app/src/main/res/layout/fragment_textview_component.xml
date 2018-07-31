@@ -11,14 +11,21 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <ProgressBar
+            android:id="@+id/progresspb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:layout_gravity="center"/>
         <TextView
             android:id="@+id/contentTv"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/notes_background"
             android:padding="16dp"
             android:layout_marginBottom="110dp"
-            android:text="_Loading"
+            android:text=""
             android:textColor="#000" />
 
 

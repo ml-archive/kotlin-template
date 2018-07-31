@@ -14,6 +14,7 @@ import dk.eboks.app.presentation.ui.message.components.detail.header.HeaderCompo
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.share.ShareComponentFragment
+import dk.eboks.app.presentation.ui.message.components.detail.sign.SignButtonComponentFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.html.HtmlViewComponentFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.image.ImageViewComponentFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.pdf.PdfViewComponentFragment
@@ -33,6 +34,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
 
     var headerComponentFragment: HeaderComponentFragment? = null
     var replyButtonComponentFragment: ReplyButtonComponentFragment? = null
+    var signButtonComponentFragment: SignButtonComponentFragment? = null
     var shareComponentFragment: ShareComponentFragment? = null
     var notesComponentFragment: NotesComponentFragment? = null
     var attachmentsComponentFragment: AttachmentsComponentFragment? = null
@@ -84,6 +86,17 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         replyButtonComponentFragment?.let{
             it.arguments = args
             supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, ReplyButtonComponentFragment::class.java.simpleName).commit()
+        }
+    }
+
+    override fun addSignButtonComponentFragment(message: Message)
+    {
+        signButtonComponentFragment = SignButtonComponentFragment()
+        val args = Bundle()
+        args.putSerializable(Message::class.java.simpleName, message)
+        signButtonComponentFragment?.let{
+            it.arguments = args
+            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, it::class.java.simpleName).commit()
         }
     }
 
