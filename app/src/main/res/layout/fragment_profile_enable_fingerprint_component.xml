@@ -75,27 +75,45 @@
 
     </android.support.design.widget.TextInputLayout>
 
-    <Button
-        android:id="@+id/enableBtn"
-        style="@style/enabledButtton"
-        android:textColor="@drawable/enabled_button"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:enabled="false"
-        android:text="_Enable"
-        nstack:key="@string/nstack_profile_enable"/>
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/buttonsLl"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:clipChildren="false">
+            <Button
+                android:id="@+id/enableBtn"
+                style="@style/enabledButtton"
+                android:textColor="@drawable/enabled_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:enabled="false"
+                android:text="_Enable"
+                nstack:key="@string/nstack_profile_enable"/>
 
-    <Button
-        android:id="@+id/redOptionTv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="center"
-        style="@style/button.borderless"
-        android:textStyle="bold"
-        android:text="_Cancel"
-        nstack:key="@string/nstack_default_cancel"/>
+            <Button
+                android:id="@+id/redOptionTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                style="@style/button.borderless"
+                android:textStyle="bold"
+                android:text="_Cancel"
+                nstack:key="@string/nstack_default_cancel"/>
+        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progressPb"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
 
 </LinearLayout>

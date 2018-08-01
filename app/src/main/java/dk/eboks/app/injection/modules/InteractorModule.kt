@@ -47,6 +47,15 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideTestLoginInteractor(
+            executor: Executor,
+            appStateManager: AppStateManager,
+            authClient: AuthClient
+    ): TestLoginInteractor {
+        return TestLoginInteractorImpl(executor, appStateManager, authClient)
+    }
+
+    @Provides
     fun provideDecryptInteractor(
             executor: Executor,
             encryptionPreferenceManager: EncryptionPreferenceManager

@@ -40,7 +40,8 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
 
         enableBtn.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                showFingerprintDialog()
+                verifyLoginCredentials()
+                //showFingerprintDialog()
             }
         }
 
@@ -49,13 +50,13 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
         }
     }
 
-    // Setters
 
+    // Setters
     override fun setProviderMode(mode: LoginInfoType) {
         this.mode = mode
 
         when (mode) {
-            LoginInfoType.EMAIL           -> {
+            LoginInfoType.EMAIL -> {
                 setupEmailFingerprintEnrollment()
             }
             LoginInfoType.SOCIAL_SECURITY -> {
@@ -65,6 +66,10 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     }
 
     // Setup Methods
+    private fun verifyLoginCredentials()
+    {
+        presenter.verifyLoginCredentials()
+    }
 
     private fun setupEmailFingerprintEnrollment() {
         Timber.d("setupEmailFingerprintEnrollment")
@@ -132,6 +137,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
 
     override fun onResume() {
         this.mode?.let { setProviderMode(it) }
+
         super.onResume()
     }
 
@@ -155,6 +161,12 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
         throw(IllegalStateException("mode must not be null"))
     }
 
+    override fun proceedAfterLoginVerification() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            showFingerprintDialog()
+        }
+    }
+
     @RequiresApi(Build.VERSION_CODES.M)
     private fun showFingerprintDialog() {
         val customFingerprintDialog = CustomFingerprintDialog(context)
@@ -164,9 +176,10 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
 
             when (it) {
                 FingerprintDialogEvent.CANCEL  -> {
-                    // Do nothing?
+                    showProgress(false)
                 }
                 FingerprintDialogEvent.SUCCESS -> {
+
                     presenter.encryptUserLoginInfo()
                 }
                 FingerprintDialogEvent.ERROR_CIPHER,
@@ -174,6 +187,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
                 FingerprintDialogEvent.ERROR_HARDWARE,
                 FingerprintDialogEvent.ERROR_SECURE,
                 FingerprintDialogEvent.ERROR   -> {
+                    showProgress(false)
                     showErrorDialog(
                             ViewError(
                                     Translation.error.genericTitle,
@@ -217,5 +231,10 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
 
     override fun finishView() {
         getBaseActivity()?.onBackPressed()
+    }
+
+    override fun showProgress(show: Boolean) {
+        buttonsLl.visibility = if(!show) View.VISIBLE else View.INVISIBLE
+        progressPb.setVisible(show)
     }
 }

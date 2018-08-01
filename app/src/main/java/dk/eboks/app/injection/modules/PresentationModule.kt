@@ -875,13 +875,15 @@ class PresentationModule {
             stateManager: AppStateManager,
             userSettingsManager: UserSettingsManager,
             encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,
-            saveUserInteractor: SaveUserInteractor
+            saveUserInteractor: SaveUserInteractor,
+            testLoginInteractor: TestLoginInteractor
     ): FingerPrintComponentContract.Presenter {
         return FingerPrintComponentPresenter(
                 stateManager,
                 userSettingsManager,
                 encryptUserLoginInfoInteractor,
-                saveUserInteractor
+                saveUserInteractor,
+                testLoginInteractor
         )
     }
 

@@ -15,9 +15,12 @@ interface FingerPrintComponentContract {
         fun getUserLoginInfo(): LoginInfo
         fun setProviderMode(mode: LoginInfoType)
         fun finishActivity(resultCode : Int?)
+        fun proceedAfterLoginVerification()
+        fun showProgress(show : Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
+        fun verifyLoginCredentials()
         fun encryptUserLoginInfo()
     }
 }

@@ -78,7 +78,7 @@ public class Translation {
 		public static String homeButton = "Home";
 		public static String mailButton = "Mail";
 		public static String sendersButton = "Senders";
-		public static String channelsButton = "Plus";
+		public static String channelsButton = "Services";
 		public static String uploadsButton = "Uploads";
 	}
 	public final static class folders {
@@ -99,7 +99,7 @@ public class Translation {
 	}
 	public final static class channels {
 		public static String channelsHeader = "Get your relevant information and actions directly on your e-Boks home screen";
-		public static String title = "Plus";
+		public static String title = "Services";
 		public static String install = "Add";
 		public static String open = "Open";
 		public static String openChannel = "Open channel";

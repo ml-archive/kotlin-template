@@ -12,6 +12,7 @@ import dk.nodes.locksmith.core.fingerprint.FingerprintAlertDialogBase
 import dk.nodes.locksmith.core.models.FingerprintDialogEvent
 import dk.nodes.locksmith.core.models.OnFingerprintDialogEventListener
 import kotlinx.android.synthetic.main.dialog_custom_fingerprint.*
+import timber.log.Timber
 
 @RequiresApi(Build.VERSION_CODES.M)
 class CustomFingerprintDialog(context: Context) : FingerprintAlertDialogBase(context) {
@@ -28,7 +29,8 @@ class CustomFingerprintDialog(context: Context) : FingerprintAlertDialogBase(con
         }
 
         dialogCustomFingerprintBtnCancel?.setOnClickListener {
-            closeDialog()
+            onCancelClicked()
+            //closeDialog()
         }
     }
 

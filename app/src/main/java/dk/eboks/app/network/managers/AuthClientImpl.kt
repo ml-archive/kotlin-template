@@ -122,16 +122,20 @@ class AuthClientImpl : AuthClient {
     }
 
     // Throws AuthException with http error code on other values than 200 okay
-    override fun login(username : String, password : String, activationCode : String?, longClient: Boolean, bearerToken : String?) : AccessToken? {
+    override fun login(username : String, password : String, activationCode : String?, longClient: Boolean, bearerToken : String?, verifyOnly : Boolean) : AccessToken? {
         val keys = getKeys(false, longClient)
 
         val formBody = FormBody.Builder()
                 .add("grant_type", "password")
-                .add("scope", "mobileapi offline_access")
                 .add("client_id", keys.first)
                 .add("client_secret", keys.second)
                 .add("username", username)
                 .add("password", password)
+
+        if(verifyOnly)
+            formBody.add("scope", "mobileapi")
+        else
+            formBody.add("scope", "mobileapi offline_access")
 
         activationCode?.let {
             formBody.add("acr_values", "activationcode:$it nationality:DK")
@@ -151,9 +155,12 @@ class AuthClientImpl : AuthClient {
 
         if(result.isSuccessful)
         {
-            result.body()?.string()?.let { json ->
-                gson.fromJson(json, AccessToken::class.java)?.let { token ->
-                    return token
+            // do not read the token if we're only verifying the login
+            if(!verifyOnly) {
+                result.body()?.string()?.let { json ->
+                    gson.fromJson(json, AccessToken::class.java)?.let { token ->
+                        return token
+                    }
                 }
             }
         }

@@ -9,6 +9,6 @@ interface AuthClient {
     fun transformKspToken(kspToken : String, oauthToken : String? = null, longClient: Boolean = false) : AccessToken?
     fun impersonate(token : String, userId : String)
     fun transformRefreshToken(refreshToken : String, longClient: Boolean = false) : AccessToken?
-    fun login(username : String, password : String, activationCode : String?, longClient: Boolean = false, bearerToken : String? = null) : AccessToken?
+    fun login(username : String, password : String, activationCode : String? = null, longClient: Boolean = false, bearerToken : String? = null, verifyOnly : Boolean = false) : AccessToken?
     fun decodeJWTBody(JWTEncoded: String) : JSONObject
 }
