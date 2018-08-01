@@ -79,14 +79,33 @@
                     android:layout_height="62dp"
                     android:layout_marginTop="20dp"
                     android:animateLayoutChanges="true">
-                    <Button
-                        style="@style/button.SolidGradient.large"
-                        android:visibility="gone"
-                        android:id="@+id/openBtn"
-                        android:layout_width="280dp"
+                    <LinearLayout
+                        android:id="@+id/buttonsLl"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="_Open message"/>
+                        android:visibility="gone">
+                        <Button
+                            style="@style/button.SolidGradient.large"
+                            android:id="@+id/openBtn"
+                            android:layout_width="280dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="_Open message"/>
+
+                        <Button
+                            android:id="@+id/secondaryOptionBtn"
+                            android:visibility="gone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_gravity="center"
+                            style="@style/button.borderless"
+                            android:textStyle="bold"
+                            android:text="_Cancel"
+                            />
+
+                    </LinearLayout>
 
                     <ProgressBar
                         android:id="@+id/progressPb"

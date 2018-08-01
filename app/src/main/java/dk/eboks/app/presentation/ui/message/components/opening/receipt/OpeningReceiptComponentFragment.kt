@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.util.setVisible
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_mail_opening_error_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -22,8 +23,9 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
     @Inject
     lateinit var presenter : OpeningReceiptComponentContract.Presenter
 
+    var voluntaryReceipt : Boolean = false
+
     val onLanguageChange : (Locale)->Unit = { locale ->
-        Timber.e("Locale changed to locale")
         updateTranslation()
     }
 
@@ -36,10 +38,21 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+
+        voluntaryReceipt = arguments?.getBoolean("voluntaryReceipt") ?: false
+
         openBtn.setOnClickListener {
-            presenter.setShouldProceed(true)
+            presenter.setShouldProceed(true, true)
         }
         openBtn.visibility = View.VISIBLE
+
+        if(voluntaryReceipt) {
+            secondaryOptionBtn.setVisible(true)
+            secondaryOptionBtn.setOnClickListener {
+                presenter.setShouldProceed(true, false)
+            }
+        }
+
         setupTopBar()
         updateTranslation()
         iconIv.setImageDrawable(resources.getDrawable(R.drawable.icon_48_read_receipt_white))
@@ -60,19 +73,21 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
         mainTb.title = Translation.message.receiptTitle
         headerTv.text = Translation.message.receiptTitle
         mainTv.text = Translation.message.receiptMessage
-        openBtn.text = Translation.message.openMessageButton
+        openBtn.text = Translation.message.openMessageWithReceiptButton
+        if(voluntaryReceipt)
+            secondaryOptionBtn.text = Translation.message.openMessageWithoutReceiptButton
     }
 
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.setNavigationOnClickListener {
-            presenter.setShouldProceed(false)
+            presenter.setShouldProceed(false, false)
             activity.onBackPressed()
         }
     }
 
     override fun showOpeningProgress(show: Boolean) {
         progressPb.visibility = if(show) View.VISIBLE else View.GONE
-        openBtn.visibility = if(!show) View.VISIBLE else View.GONE
+        buttonsLl.visibility = if(!show) View.VISIBLE else View.GONE
     }
 }

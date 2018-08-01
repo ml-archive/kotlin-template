@@ -10,7 +10,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface MessageOpeningContract {
     interface View : BaseView {
-        fun setOpeningFragment(cls : Class<out BaseFragment>)
+        fun setOpeningFragment(cls : Class<out BaseFragment>, voluntaryReceipt : Boolean = false)
         fun finish()
     }
 

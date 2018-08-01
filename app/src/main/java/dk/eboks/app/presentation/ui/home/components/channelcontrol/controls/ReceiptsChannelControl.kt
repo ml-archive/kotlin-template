@@ -9,6 +9,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
+import dk.eboks.app.util.guard
 
 class ReceiptsChannelControl(channel: Channel, control : Control, view: View, inflater : LayoutInflater, handler: Handler, val formatter: EboksFormatter) : ChannelControl(channel, control, view, inflater, handler) {
     lateinit var nameContainer : LinearLayout
@@ -34,6 +35,7 @@ class ReceiptsChannelControl(channel: Channel, control : Control, view: View, in
                 amount = v.findViewById<TextView>(R.id.amountTv)
                 date = v.findViewById<TextView>(R.id.dateTv)
 
+
                 if (row.date == null) {
                     soloAmount.text = formatter.formatPrice(row)
                     soloAmount.visibility = View.VISIBLE
@@ -41,6 +43,17 @@ class ReceiptsChannelControl(channel: Channel, control : Control, view: View, in
                 } else {
                     amount.text = formatter.formatPrice(row)
                     date.text = formatter.formatDateRelative(row)
+                }
+
+                row.amount?.let {
+                    if(it == 0.0)
+                    {
+                        amount.text = ""
+                        date.text = ""
+                    }
+                }.guard {
+                    amount.text = ""
+                    date.text = ""
                 }
 
                 if (row.description == null) {

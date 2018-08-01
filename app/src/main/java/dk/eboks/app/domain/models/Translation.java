@@ -145,7 +145,7 @@ public class Translation {
 	}
 	public final static class start {
 		public static String signupButton = "Sign up";
-		public static String addNewUser = "Log on another user";
+		public static String addNewUser = "Log on as another user";
 		public static String logonButton = "Log on";
 		public static String confimRemoveUserTitle = "Remove user";
 		public static String confirmRemoveUserMessage = "The user will be removed from this device";

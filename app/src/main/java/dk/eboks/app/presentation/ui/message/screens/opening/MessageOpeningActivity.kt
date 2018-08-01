@@ -7,6 +7,7 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.guard
+import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.activity_message_opening.*
 import javax.inject.Inject
 
@@ -23,9 +24,10 @@ class MessageOpeningActivity : BaseActivity(), MessageOpeningContract.View {
         }.guard { finish() }
     }
 
-    override fun setOpeningFragment(cls: Class<out BaseFragment>) {
+    override fun setOpeningFragment(cls: Class<out BaseFragment>, voluntaryReceipt : Boolean) {
         val fragment = cls.newInstance()
         progressPb.visibility = View.GONE
+        fragment.putArg("voluntaryReceipt", true)
         fragment?.let{
             supportFragmentManager.beginTransaction().add(R.id.contentFl, it, it::class.java.simpleName).commit()
         }

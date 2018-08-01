@@ -16,9 +16,10 @@ class OpeningReceiptComponentPresenter @Inject constructor(val appState: AppStat
     init {
     }
 
-    override fun setShouldProceed(proceed: Boolean) {
+    override fun setShouldProceed(proceed: Boolean, receipt : Boolean) {
         appState.state?.openingState?.let { state ->
             state.shouldProceedWithOpening = proceed
+            state.sendReceipt = receipt
         }
         runAction { v->v.showOpeningProgress(true) }
         executor.signal("messageOpenDone")
