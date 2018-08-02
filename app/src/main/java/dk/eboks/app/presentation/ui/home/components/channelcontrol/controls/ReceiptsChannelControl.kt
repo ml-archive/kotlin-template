@@ -57,7 +57,7 @@ class ReceiptsChannelControl(channel: Channel, control : Control, view: View, in
                 }
 
                 if (row.description == null) {
-                    soloName.text = row.id
+                    soloName.text = row.title
                     soloName.visibility = View.VISIBLE
                     nameContainer.visibility = View.GONE
                 } else {

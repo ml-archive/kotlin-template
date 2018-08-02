@@ -39,7 +39,6 @@ class NotificationsChannelControl(channel: Channel, control : Control, view: Vie
 
                     // hide data if its a zero or null timestamp
                     currentItem.date?.let {
-                        Timber.e("The fucking timestamp is ${it.time}")
                         if(it.time == -62135773200000L)
                         {
                             date.visibility = View.INVISIBLE

@@ -62,7 +62,7 @@
                     android:gravity="top"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:text="Inbox"
+                    android:text=""
                     android:visibility="visible" />
             </LinearLayout>
         </FrameLayout>

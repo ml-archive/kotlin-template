@@ -47,8 +47,8 @@ public class Translation {
 		public static String invalidActivationCodeNrOfChars = "Invalid activation code. Must be [numberOfChars] chars.";
 		public static String printReceiptErrorMessage = "Cannot print receipt";
 		public static String forwardReceiptErrorMessage = "Cannot forward receipt";
-		public static String timeoutTitle = "Timeout";
-		public static String timeoutMessage = "The request timed out";
+		public static String timeoutTitle = "No connection to e-Boks";
+		public static String timeoutMessage = "Please check you internet connection and try again.";
 		public static String authenticationErrorMessage = "Your session has expired. Please log on again.";
 		public static String connectionError = "No or bad connection. Please try again.";
 		public static String errorTitle = "Error";
@@ -234,7 +234,7 @@ public class Translation {
 		public static String signupTermsAcceptHeader = "One last thing! Terms and conditions.";
 		public static String dialogEmailExistsTitle = "This email address is already connected to an e-Boks account";
 		public static String dialogEmailExistsMsg = "Do you want to sign in instead?";
-		public static String dialogEmailExistsPositiveBtn = "Sign in";
+		public static String dialogEmailExistsPositiveBtn = "Log on";
 	}
 	public final static class activationcode {
 		public static String title = "Activation Code";
@@ -363,7 +363,7 @@ public class Translation {
 		public static String comingSoonHeader = "Coming soon!";
 		public static String comingSoonMessage = "Soon you will be able to upload and store your important files securely in e-Boks";
 		public static String allowCameraTitle = "Camera access required";
-		public static String allowCameraMessage = "In order to continue you will need to allow camera access. To do so open settings and allow camera permission.";
+		public static String allowCameraMessage = "We require access to your camera if you want to take pictures and store them securely in e-Boks";
 		public static String noUploads = "No Uploads";
 	}
 	public final static class loginproviders {
