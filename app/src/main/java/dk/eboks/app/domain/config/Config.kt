@@ -9,6 +9,7 @@ import dk.eboks.app.presentation.ui.login.components.providers.bankidno.BankIdNO
 import dk.eboks.app.presentation.ui.login.components.providers.bankidse.BankIdSEComponentFragment
 import dk.eboks.app.presentation.ui.login.components.providers.idporten.IdPortenComponentFragment
 import dk.eboks.app.presentation.ui.login.components.providers.nemid.NemIdComponentFragment
+import timber.log.Timber
 import java.net.URL
 
 // TODO this stuff should be downloaded from a url (on request of the customer) so that the app only contains
@@ -293,15 +294,18 @@ object Config {
 
     fun getCurrentEnvironmentName() : String?
     {
-        var result : String? = null
-        Config.currentMode.environments.forEach { s, environments ->
-            if(environments == Config.currentMode.environment)
+        Timber.e("Running GetCurrentEnvironmentName")
+        try {
+            for(env in currentMode.environments)
             {
-                result = s
-                return@forEach
+                if(env.value == currentMode.environment)
+                    return env.key
             }
         }
-        return result
+        catch (t : Throwable)
+        {
+        }
+        return null
     }
 
     fun getLogoResourceId() : Int
@@ -372,6 +376,7 @@ object Config {
 
 
     init {
+        Timber.e("Running Config Init")
         when(BuildConfig.mode)
         {
             "danish" -> {

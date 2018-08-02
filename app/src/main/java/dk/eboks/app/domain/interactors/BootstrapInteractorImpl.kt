@@ -10,6 +10,7 @@ import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.net.ssl.SSLPeerUnverifiedException
 
 /**
  * Created by bison on 24-06-2017.
@@ -86,8 +87,14 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
                 output?.onBootstrapDone(hasUsers)
             }
         } catch (e: Exception) {
+            e.printStackTrace()
             runOnUIThread {
-                output?.onBootstrapError(ViewError(title = Translation.error.startupTitle, message = Translation.error.startupMessage, shouldCloseView = true))
+                if(e is SSLPeerUnverifiedException)
+                {
+                    output?.onBootstrapError(ViewError(title = Translation.error.compromisedConnectionTitle, message = Translation.error.compromisedConnectionMessage, shouldCloseView = true))
+                }
+                else
+                    output?.onBootstrapError(ViewError(title = Translation.error.startupTitle, message = Translation.error.startupMessage, shouldCloseView = true))
             }
         }
     }

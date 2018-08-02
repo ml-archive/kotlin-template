@@ -54,7 +54,7 @@ public class Translation {
 		public static String errorTitle = "Error";
 		public static String unknownError = "Unkown error, please try again";
 		public static String compromisedConnectionTitle = "Secure connection could not be established";
-		public static String compromisedConnectionMessage = "A secure connection to e-Boks could not be established. Your device or internet connection may be compromised. Please try from another network or check the configuration on your device.";
+		public static String compromisedConnectionMessage = "A secure connection to e-Boks could not be established. Your device or internet connection may be compromised. Please try again from another network or check the configuration on your device.";
 		public static String resourceNotfoundMessage = "The requested resource could not be found";
 		public static String resourceNotfoundTitle = "Not found";
 		public static String authenticationErrorTitle = "Session expired";
