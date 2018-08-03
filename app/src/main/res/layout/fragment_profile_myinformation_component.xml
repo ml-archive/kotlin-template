@@ -57,8 +57,11 @@
 
                     <!--Primary email-->
                     <FrameLayout
+                        android:id="@+id/primaryMailFl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
                         android:orientation="vertical">
 
                         <com.rengwuxian.materialedittext.MaterialEditText
@@ -87,7 +90,7 @@
                         <Button
                             android:id="@+id/verifyEmailBtn"
                             style="@style/button.SolidGradient"
-                            android:layout_width="80dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:layout_gravity="end"
                             android:layout_marginEnd="16dp"
@@ -106,6 +109,8 @@
                         android:id="@+id/secondaryMailFl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
                         android:orientation="vertical">
 
                         <com.rengwuxian.materialedittext.MaterialEditText
@@ -131,7 +136,7 @@
                         <Button
                             android:id="@+id/verifySecondaryEmailBtn"
                             style="@style/button.SolidGradient"
-                            android:layout_width="80dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:layout_gravity="end"
                             android:layout_marginEnd="16dp"
@@ -149,6 +154,8 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clipToPadding="false"
+                        android:clipChildren="false"
                         android:orientation="vertical">
 
                         <com.rengwuxian.materialedittext.MaterialEditText
@@ -178,7 +185,7 @@
                         <Button
                             android:id="@+id/verifyMobileNumberBtn"
                             style="@style/button.SolidGradient"
-                            android:layout_width="80dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="20dp"
                             android:layout_gravity="end"
                             android:layout_marginEnd="16dp"

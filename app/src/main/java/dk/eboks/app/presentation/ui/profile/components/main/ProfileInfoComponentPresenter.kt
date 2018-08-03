@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.profile.components.main
 
 import android.arch.lifecycle.Lifecycle
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.user.GetUserProfileInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserSettingsInteractor
@@ -23,13 +22,17 @@ class ProfileInfoComponentPresenter @Inject constructor(
         SaveUserInteractor.Output,
         GetUserProfileInteractor.Output {
 
+    override var isUserVerified : Boolean = false
+
     override fun onViewCreated(view: ProfileInfoComponentContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
         saveUserInteractor.output = this
         getUserProfileInteractor.output = this
+        isUserVerified = appState.state?.currentUser?.verified ?: false
+        view.setName(appState.state?.currentUser?.name ?: "")
     }
 
-    override fun loadUserData() {
+    override fun loadUserData(showProgress : Boolean) {
         Timber.d("loadUserData")
 
         val currentUser = appState.state?.currentUser
@@ -40,13 +43,14 @@ class ProfileInfoComponentPresenter @Inject constructor(
 //            return
         }
 
-        runAction { v->v.showProgress(true) }
+        runAction { v->v.showProgress(showProgress) }
 
         getUserProfileInteractor.run()
     }
 
     override fun onGetUser(user: User) {
         runAction { v ->
+            v.detachListeners()
             v.setName(user.name)
             v.setVerified(user.verified)
             v.showFingerprintOptionIfSupported()
@@ -57,8 +61,8 @@ class ProfileInfoComponentPresenter @Inject constructor(
                 v.showFingerprintEnabled(it.hasFingerprint, it.lastLoginProviderId)
                 v.showKeepMeSignedIn(it.stayLoggedIn)
             }
-            v.setupListeners(user.verified)
             v.showProgress(false)
+            v.attachListeners()
         }
     }
 
@@ -100,7 +104,7 @@ class ProfileInfoComponentPresenter @Inject constructor(
     }
 
     override fun onSaveUser(user: User, numberOfUsers: Int) {
-        loadUserData()
+        loadUserData(false)
     }
 
     override fun onSaveUserError(error: ViewError) {

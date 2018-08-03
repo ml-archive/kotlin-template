@@ -14,6 +14,7 @@ import dk.eboks.app.domain.models.login.LoginInfo
 import dk.eboks.app.domain.models.login.LoginInfoType
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
+import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
 import dk.eboks.app.util.addAfterTextChangeListener
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.setVisible
@@ -48,6 +49,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
         redOptionTv.setOnClickListener {
             activity.onBackPressed()
         }
+        ProfileInfoComponentFragment.refreshOnResume = true
     }
 
 

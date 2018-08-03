@@ -23,7 +23,8 @@ class ProfileActivity : BaseActivity(), ProfileContract.View {
                     this.finishAfterTransition()
             }
         }
-        setRootFragment(R.id.profileActivityContainerFragment, ProfileInfoComponentFragment())
+        val frag = ProfileInfoComponentFragment()
+        setRootFragment(R.id.profileActivityContainerFragment, frag)
     }
 
     /*

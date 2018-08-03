@@ -37,7 +37,7 @@ import java.io.File
 import javax.inject.Inject
 import android.content.Context.FINGERPRINT_SERVICE
 import android.hardware.fingerprint.FingerprintManager
-
+import kotlinx.android.synthetic.*
 
 
 class ProfileInfoComponentFragment : BaseFragment(),
@@ -49,11 +49,14 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
     private val CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 4532
 
+    private var showProgressOnLoad = false
+
     override fun onCreateView(
             inflater: LayoutInflater?,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        Timber.e("onCreateView --------------------------------------------------------------")
         val rootView = inflater?.inflate(R.layout.fragment_profile_main_component, container, false)
         return rootView
     }
@@ -71,11 +74,31 @@ class ProfileInfoComponentFragment : BaseFragment(),
                 acquireUserImage()
             }
         }
+        Timber.e("OnViewCreated --------------------------------------------------------")
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.e("ProfileInfoComponentFragment onCreate --------------------------------")
+        showProgressOnLoad = true
+        refreshOnResume = true
     }
 
     override fun onResume() {
         super.onResume()
-        presenter.loadUserData()
+        clearFindViewByIdCache()
+        attachListeners()
+        if(refreshOnResume) {
+            refreshOnResume = false
+            presenter.loadUserData(showProgressOnLoad)
+            if(showProgressOnLoad)
+                showProgressOnLoad = false
+        }
+    }
+
+    override fun onPause() {
+        detachListeners()
+        super.onPause()
     }
 
     private fun setupCollapsingToolbar() {
@@ -113,13 +136,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
             profileDetailSwFingerprint.setVisible(false)
     }
 
-    override fun setupListeners(verified : Boolean) {
-        val profileActivity = if (activity is ProfileActivity) {
-            (activity as ProfileActivity)
-        } else {
-            null
-        }
-
+    override fun attachListeners() {
         profileDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 buttonView.setCompoundDrawablesWithIntrinsicBounds(
@@ -159,12 +176,12 @@ class ProfileInfoComponentFragment : BaseFragment(),
             {
                 if (isChecked) {
                     // show da Finger!
-                    if(verified)
+                    if(presenter.isUserVerified)
                         getBaseActivity()?.openComponentDrawer(FingerPrintComponentFragment::class.java)
                     else
                         getBaseActivity()?.openComponentDrawer(FingerHintComponentFragment::class.java)
                 } else {
-                    if(verified)
+                    if(presenter.isUserVerified)
                         presenter.enableUserFingerprint(false)
                 }
             }
@@ -204,6 +221,17 @@ class ProfileInfoComponentFragment : BaseFragment(),
                 openUrlExternal(link.link.url)
             }
         }
+    }
+
+    override fun detachListeners() {
+        profileDetailRegisterTB.setOnCheckedChangeListener(null)
+        profileDetailContainerMyInformation.setOnClickListener(null)
+        profileDetailSwFingerprint.setOnClickListener(null)
+        profileDetailSwKeepSignedIn.setOnClickListener(null)
+        profileDetailContainerTerms.setOnClickListener(null)
+        profileDetailContainerHelp.setOnClickListener(null)
+        profileDetailBtnSignout.setOnClickListener(null)
+        profileDetailContainerFeedback.setOnClickListener(null)
     }
 
     private fun openUrlExternal(url : String)
@@ -313,8 +341,12 @@ class ProfileInfoComponentFragment : BaseFragment(),
     }
 
     override fun showProgress(show: Boolean) {
+        Timber.e("showProgress $show called in ProfileInfoComponentFragment")
         progressFl.visibility = if(show) View.VISIBLE else View.GONE
         profileFragmentRootContainer.visibility = if(!show) View.VISIBLE else View.GONE
     }
 
+    companion object {
+        var refreshOnResume = false
+    }
 }

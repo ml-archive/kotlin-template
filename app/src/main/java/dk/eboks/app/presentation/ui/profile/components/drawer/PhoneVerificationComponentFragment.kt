@@ -7,11 +7,10 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.util.isValidActivationCode
+import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_profile_verify_mobile_number_component.*
 import javax.inject.Inject
@@ -38,6 +37,7 @@ class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComp
         presenter.onViewCreated(this, lifecycle)
         setup()
         arguments?.getString("mobile")?.let { presenter.setup(it) }
+        ProfileInfoComponentFragment.refreshOnResume = true
     }
 
     private fun setup() {

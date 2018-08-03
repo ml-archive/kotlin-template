@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
 import kotlinx.android.synthetic.main.fragment_profile_merge_account_component.*
 import javax.inject.Inject
 
@@ -28,6 +29,7 @@ class MergeAccountComponentFragment : BaseFragment(), MergeAccountComponentContr
         presenter.onViewCreated(this, lifecycle)
         mergeAccountsBtn.setOnClickListener { presenter.setMergeStatus(true)  }
         keepSeperatedBtn.setOnClickListener { presenter.setMergeStatus(false) }
+        ProfileInfoComponentFragment.refreshOnResume = true
     }
 
     override fun close() {

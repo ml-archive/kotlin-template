@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
 import kotlinx.android.synthetic.main.fragment_profile_verify_email_component.*
 import javax.inject.Inject
 
@@ -51,7 +52,7 @@ class EmailVerificationComponentFragment : BaseFragment(), EmailVerificationComp
             verifyBtn.isEnabled = false
             presenter.verifyMail(it)
         }
-
+        ProfileInfoComponentFragment.refreshOnResume = true
     }
 
     override fun setVerifyBtnEnabled(enabled: Boolean) {

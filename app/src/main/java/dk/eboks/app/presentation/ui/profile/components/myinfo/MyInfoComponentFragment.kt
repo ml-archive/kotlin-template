@@ -16,6 +16,7 @@ import dk.eboks.app.domain.models.login.ContactPoint
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.profile.components.drawer.EmailVerificationComponentFragment
 import dk.eboks.app.presentation.ui.profile.components.drawer.PhoneVerificationComponentFragment
+import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
 import dk.eboks.app.util.isValidEmail
 import dk.eboks.app.util.setVisible
 import dk.nodes.nstack.kotlin.NStack
@@ -24,7 +25,6 @@ import kotlinx.android.synthetic.main.fragment_profile_myinformation_component.*
 import java.util.*
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
-import timber.log.Timber
 
 class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, OnLanguageChangedListener, TextWatcher {
     @Inject
@@ -60,18 +60,20 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
             menuSave?.let { save->
                 if(save.isEnabled)
                 {
-                    showMustSaveDialog()
+                    showUnsavedChangesDialog()
                     return@setNavigationOnClickListener
                 }
             }
-            activity.onBackPressed()
+            fragmentManager.popBackStack()
         }
 
         menuSave = mainTb.menu.add(Translation.defaultSection.save)
         menuSave?.isEnabled = false
         menuSave?.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         menuSave?.setOnMenuItemClickListener { item: MenuItem ->
+            hideKeyboard()
             presenter.save()
+            ProfileInfoComponentFragment.refreshOnResume = true
             true
         }
 
@@ -146,6 +148,8 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
             }
             true
         }
+
+        updateVerifyButtonVisibility()
     }
 
     private fun showMustSaveDialog()
@@ -154,6 +158,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
                 .setTitle(Translation.myInformation.saveBeforeVerifyTitle)
                 .setMessage(Translation.myInformation.saveBeforeVerifyMessage)
                 .setPositiveButton(Translation.myInformation.unsavedChangesSaveButton) { dialog, which ->
+                    ProfileInfoComponentFragment.refreshOnResume = true
                     presenter.save(false)
                 }
                 .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
@@ -168,10 +173,11 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
                 .setTitle(Translation.myInformation.unsavedChangesTitle)
                 .setMessage(Translation.myInformation.unsavedChangesMessage)
                 .setPositiveButton(Translation.myInformation.unsavedChangesSaveButton) { dialog, which ->
+                    ProfileInfoComponentFragment.refreshOnResume = true
                     presenter.save(false)
                 }
                 .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-
+                    fragmentManager.popBackStack()
                 }
                 .show()
     }
@@ -184,8 +190,15 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         mobilEt.removeTextChangedListener(this)
     }
 
+    private fun updateVerifyButtonVisibility()
+    {
+        verifyEmailBtn.setVisible(!primaryMailEt.text.isBlank())
+        verifySecondaryEmailBtn.setVisible(!secondaryMailEt.text.isBlank())
+        verifyMobileNumberBtn.setVisible(!mobilEt.text.isBlank())
+    }
+
     override fun onDone() {
-        activity.finish()
+        fragmentManager.popBackStack()
     }
 
     override fun onResume() {
@@ -263,6 +276,10 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         progressFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
+    override fun showPrimaryEmail(show: Boolean) {
+        primaryMailFl.setVisible(show)
+    }
+
     override fun showSecondaryEmail(show: Boolean) {
         secondaryMailFl.setVisible(show)
     }
@@ -276,8 +293,9 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         focusThief.requestFocus()
     }
 
-    override fun afterTextChanged(p0: Editable?) {
+    override fun afterTextChanged(target: Editable?) {
         menuSave?.isEnabled = true
+        updateVerifyButtonVisibility()
     }
 
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
