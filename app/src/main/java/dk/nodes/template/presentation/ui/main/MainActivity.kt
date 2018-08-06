@@ -51,7 +51,6 @@ class MainActivity : BaseActivity(), MainContract.View {
         else {
             CrashManager.register(this)
         }
-
     }
 
     private fun setupNstack() {
@@ -71,12 +70,9 @@ class MainActivity : BaseActivity(), MainContract.View {
                 }
             }
         }
-        NStack.appOpen({ success -> Log.e("debug", "appopen success = $success") })
-    }
-
-
-    override fun setupTranslations() {
-        textview.text = Translation.defaultSection.settings
+        NStack.appOpen { success ->
+            Log.e("debug", "appopen success = $success")
+        }
     }
 
     override fun showPosts(posts: List<Post>) {

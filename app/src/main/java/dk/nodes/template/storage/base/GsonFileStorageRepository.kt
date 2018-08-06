@@ -11,6 +11,7 @@ import java.lang.reflect.Type
 
 abstract class GsonFileStorageRepository<T>(val context: Context, val gson: Gson, val filename: String) {
 
+    @Throws(RepositoryException::class)
     fun save(objects: T) {
         val outputStream: FileOutputStream
         try {
@@ -25,6 +26,7 @@ abstract class GsonFileStorageRepository<T>(val context: Context, val gson: Gson
         }
     }
 
+    @Throws(RepositoryException::class)
     fun load(type: Type): T {
         val inputStream: FileInputStream
         try {
