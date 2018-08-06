@@ -41,12 +41,15 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
 
         voluntaryReceipt = arguments?.getBoolean("voluntaryReceipt") ?: false
 
+        buttonsLl.setVisible(true)
+
         openBtn.setOnClickListener {
             presenter.setShouldProceed(true, true)
         }
         openBtn.visibility = View.VISIBLE
 
         if(voluntaryReceipt) {
+            Timber.e("This is a voluntary receipt")
             secondaryOptionBtn.setVisible(true)
             secondaryOptionBtn.setOnClickListener {
                 presenter.setShouldProceed(true, false)

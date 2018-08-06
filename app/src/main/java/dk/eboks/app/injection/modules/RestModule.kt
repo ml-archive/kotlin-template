@@ -25,6 +25,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.franmontiel.persistentcookiejar.ClearableCookieJar
+import okhttp3.Cookie
+import android.R.attr.host
+import okhttp3.HttpUrl
+import okhttp3.CookieJar
+import timber.log.Timber
 
 
 /**
@@ -85,7 +94,7 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideHttpClient(eboksHeaderInterceptor: EboksHeaderInterceptor, eAuth2: EAuth2, prefManager: PrefManager): OkHttpClient {
+    fun provideHttpClient(eboksHeaderInterceptor: EboksHeaderInterceptor, eAuth2: EAuth2, prefManager: PrefManager, context: Context): OkHttpClient {
 
         val clientBuilder = OkHttpClient.Builder()
                 .connectTimeout(45, TimeUnit.SECONDS)
@@ -104,7 +113,7 @@ class RestModule {
         if (BuildConfig.DEBUG) {
             val logging = okhttp3.logging.HttpLoggingInterceptor()
             logging.level = okhttp3.logging.HttpLoggingInterceptor.Level.BODY
-            clientBuilder.addInterceptor(logging)
+            clientBuilder.addNetworkInterceptor(logging)
         }
 
         if (!BuildConfig.DEBUG) {
@@ -120,6 +129,28 @@ class RestModule {
             )
             */
         }
+
+        val cookieJar = PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context))
+
+        /*
+        val cookieJar = object : CookieJar {
+            private val cookieStore = HashMap<String, List<Cookie>>()
+
+            override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
+                Timber.e("Saving Cookies $cookies")
+                cookieStore.put(url.host(), cookies)
+            }
+
+            override fun loadForRequest(url: HttpUrl): List<Cookie> {
+                val cookies = cookieStore.get(url.host())
+                Timber.e("Returning cookie for $url cookies: $cookies")
+                return if (cookies != null) cookies else ArrayList()
+            }
+        }
+        */
+
+        clientBuilder.cookieJar(cookieJar)
+
 
         return clientBuilder.build()
     }

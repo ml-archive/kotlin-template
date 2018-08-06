@@ -14,6 +14,7 @@ import dk.eboks.app.presentation.ui.message.components.opening.recalled.Recalled
 import dk.eboks.app.presentation.ui.message.components.opening.receipt.OpeningReceiptComponentFragment
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import timber.log.Timber
 
 /**
  * Created by bison on 20-05-2017.
@@ -62,6 +63,11 @@ class MessageOpeningPresenter(val appStateManager: AppStateManager, val executor
             OpenMessageInteractorImpl.MESSAGE_RECALLED -> runAction { v-> v.setOpeningFragment(RecalledComponentFragment::class.java) }
             OpenMessageInteractorImpl.PROMULGATION -> runAction { v-> v.setOpeningFragment(PromulgationComponentFragment::class.java) }
         }
+    }
+
+    override fun onReAuthenticate(loginProviderId: String) {
+        Timber.e("Must reauthenticate with $loginProviderId")
+        runAction { v->v.showMessageLocked(loginProviderId) }
     }
 
     override fun isViewAttached(): Boolean {

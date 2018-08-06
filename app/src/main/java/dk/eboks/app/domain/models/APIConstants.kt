@@ -7,11 +7,12 @@ object APIConstants {
     val MSG_STATUS_PAYMENT_AVAILABLE = 3
 
     // regarding locked mails (message->lockStatus)
-    val MSG_LOCKED_REQUIRES_HIGHER_SEC_LVL = 1              // Message locked, requires higher security level
-    val MSG_LOCKED_REQUIRES_HIGHER_IDP_LVL = 2              // Message locked, requires higher IDP security level (MinID>BankID)
-    val MSG_LOCKED_REQUIRES_OTHER_IDP = 3                   // Message locked, requires other IDP (ID-Porten)
-    val MSG_LOCKED_UNTIL_ACCEPTED = 4                       // Message locked, information hidden until conditions accepted
-    val MSG_LOCKED_WEB_ONLY = 5                             // Message locked (available on web)
+    val MSG_LOCKED_REQUIRES_NEW_AUTH = 1                    // Message locked, requires new authentication
+    val MSG_LOCKED_REQUIRES_HIGHER_SEC_LVL = 2              // Message locked, requires higher security level
+    val MSG_LOCKED_REQUIRES_HIGHER_IDP_LVL = 3              // Message locked, requires higher IDP security level (MinID>BankID)
+    val MSG_LOCKED_REQUIRES_PUBLIC_IDP = 4                  // Message locked, requires public authority IDP
+    val MSG_LOCKED_REQUIRES_PUBLIC_IDP2 = 5                 // Message locked, requires public authority IDP
+    val MSG_LOCKED_WEB_ONLY = 6                             // Message locked, must be opened using the webclient
 
     // regarding reply
     val MSG_REPLY_WEB_ONLY = 1                              // Reply option available (on web only)

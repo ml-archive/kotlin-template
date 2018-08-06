@@ -31,6 +31,7 @@ data class Message(
     var paymentStatus: Status? = null,
     var signStatus: Status? = null,
     var replyStatus: Status? = null,
+    @SerializedName("locked")
     var lockStatus: Status? = null,
     var status: Status? = null,
     @SerializedName("Note")

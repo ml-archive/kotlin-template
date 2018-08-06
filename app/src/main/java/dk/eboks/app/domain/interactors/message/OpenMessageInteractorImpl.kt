@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors.message
 
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.managers.AppStateManager
@@ -10,8 +11,6 @@ import dk.eboks.app.domain.models.APIConstants
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.EboksContentType
 import dk.eboks.app.domain.models.message.Message
-import dk.eboks.app.domain.models.protocol.ErrorType
-import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.util.FieldMapper
 import dk.eboks.app.util.exceptionToViewError
@@ -35,13 +34,14 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
     override fun execute() {
         try {
             input?.msg?.let { msg->
-                val updated_msg = messagesRepository.getMessage(msg.folderId, msg.id)
-                // update the (perhaps) more detailed message object with the extra info from the backend
-                // because the JVM can only deal with reference types silly reflection tricks like this are necessary
-                FieldMapper.copyAllFields(msg, updated_msg)
-
-                if(!checkMessageLockState(msg))
+                //throw(ServerErrorException(ServerError(id="homemade", code = PROMULGATION, type = ErrorType.ERROR)))
+                if(processLockedMessage(msg)) {
+                    val updated_msg = messagesRepository.getMessage(msg.folderId, msg.id)
+                    // update the (perhaps) more detailed message object with the extra info from the backend
+                    // because the JVM can only deal with reference types silly reflection tricks like this are necessary
+                    FieldMapper.copyAllFields(msg, updated_msg)
                     openMessage(msg)
+                }
             }
         }
         catch (t: Throwable) {
@@ -59,45 +59,13 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
         Handle special opening conditions. This utilizes a mutex to make the interacter thread (one running this) sleep while the UI
         is displaying opening screens. If you don't know what mean, you're not allowed to ride this attraction son
      */
-    fun handleServerException(e : ServerErrorException, msg : Message)
-    {
+    fun handleServerException(e : ServerErrorException, msg : Message) {
         Timber.e("ServerException arose from getMessage api call")
-
-        when(e.error.code)
-        {
-            NO_PRIVATE_SENDER_WARNING -> {}
-            MANDATORY_OPEN_RECEIPT -> {
-                appStateManager.state?.let { state->
-                    state.openingState.shouldProceedWithOpening = false
-                    state.openingState.serverError = e.error
-                }
-
-                runOnUIThread {
-                    output?.onOpenMessageServerError(e.error)
-                }
-
-                // goto sleep while the UI finishes it thang
-                executor.sleepUntilSignalled("messageOpenDone")
-                if(appStateManager.state?.openingState?.shouldProceedWithOpening == true)
-                {
-                    try {
-                        val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id ?: 0, input?.msg?.id ?: "", receipt = true)
-                        FieldMapper.copyAllFields(msg, updated_msg)
-                        openMessage(msg)
-                    }
-                    catch (t : Throwable)
-                    {
-                        runOnUIThread { output?.onOpenMessageError(exceptionToViewError(t, shouldClose = true)) }
-                    }
-                }
-                else    // abort
-                {
-                    val ve = ViewError(shouldCloseView = true, shouldDisplay = true)
-                    runOnUIThread { output?.onOpenMessageError(ve) }
-                }
+        when (e.error.code) {
+            NO_PRIVATE_SENDER_WARNING -> {
             }
-            VOLUNTARY_OPEN_RECEIPT -> {
-                appStateManager.state?.let { state->
+            MANDATORY_OPEN_RECEIPT -> {
+                appStateManager.state?.let { state ->
                     state.openingState.shouldProceedWithOpening = false
                     state.openingState.serverError = e.error
                 }
@@ -108,138 +76,136 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
 
                 // goto sleep while the UI finishes it thang
                 executor.sleepUntilSignalled("messageOpenDone")
-                if(appStateManager.state?.openingState?.shouldProceedWithOpening == true)
-                {
+                if (appStateManager.state?.openingState?.shouldProceedWithOpening == true) {
                     try {
-                        val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id ?: 0, input?.msg?.id ?: "", receipt = appStateManager.state?.openingState?.sendReceipt ?: false)
-                        FieldMapper.copyAllFields(msg, updated_msg)
-                        openMessage(msg)
-                    }
-                    catch (t : Throwable)
-                    {
+                        if(processLockedMessage(msg)) {
+                            val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id
+                                    ?: input?.msg?.folderId ?: 0, input?.msg?.id
+                                    ?: "", receipt = true)
+                            FieldMapper.copyAllFields(msg, updated_msg)
+                            openMessage(msg, true)
+                        }
+                    } catch (t: Throwable) {
                         runOnUIThread { output?.onOpenMessageError(exceptionToViewError(t, shouldClose = true)) }
                     }
-                }
-                else    // abort
+                } else    // abort
                 {
                     val ve = ViewError(shouldCloseView = true, shouldDisplay = false)
                     runOnUIThread { output?.onOpenMessageError(ve) }
                 }
             }
-            MESSAGE_QUARANTINED -> {}
-            MESSAGE_RECALLED -> {}
-            MESSAGE_LOCKED -> {}
-            PROMULGATION -> {}
-            else -> {
-                runOnUIThread { output?.onOpenMessageError(exceptionToViewError(e, shouldClose = true)) }
-            }
-        }
-
-
-
-        /*
-        val outcome = handle(e.error)
-
-        when(outcome)
-        {
-            PROCEED -> {
-                try {
-                    val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id ?: 0, input?.msg?.id ?: "", null, true)
-                    FieldMapper.copyAllFields(msg, updated_msg)
-                    openMessage(msg)
+            VOLUNTARY_OPEN_RECEIPT -> {
+                appStateManager.state?.let { state ->
+                    state.openingState.shouldProceedWithOpening = false
+                    state.openingState.serverError = e.error
                 }
-                catch (t : Throwable)
+
+                runOnUIThread {
+                    output?.onOpenMessageServerError(e.error)
+                }
+
+                // goto sleep while the UI finishes it thang
+                executor.sleepUntilSignalled("messageOpenDone")
+                if (appStateManager.state?.openingState?.shouldProceedWithOpening == true) {
+                    try {
+                        if(processLockedMessage(msg)) {
+                            val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id
+                                    ?: input?.msg?.folderId ?: 0, input?.msg?.id
+                                    ?: "", receipt = appStateManager.state?.openingState?.sendReceipt
+                                    ?: false)
+                            FieldMapper.copyAllFields(msg, updated_msg)
+                            openMessage(msg, true)
+                        }
+                    } catch (t: Throwable) {
+                        runOnUIThread { output?.onOpenMessageError(exceptionToViewError(t, shouldClose = true)) }
+                    }
+                } else    // abort
                 {
-                    runOnUIThread { output?.onOpenMessageError(exceptionToViewError(t, shouldClose = true)) }
+                    val ve = ViewError(shouldCloseView = true, shouldDisplay = false)
+                    runOnUIThread { output?.onOpenMessageError(ve) }
                 }
             }
-            SHOW_ERROR -> {
-                runOnUIThread { output?.onOpenMessageError(exceptionToViewError(e, shouldClose = true)) }
+            MESSAGE_QUARANTINED -> {
+            }
+            MESSAGE_RECALLED -> {
+            }
+            MESSAGE_LOCKED -> {
+            }
+            PROMULGATION -> {
+                appStateManager.state?.let { state ->
+                    state.openingState.shouldProceedWithOpening = false
+                    state.openingState.serverError = e.error
+                }
+
+                runOnUIThread {
+                    output?.onOpenMessageServerError(e.error)
+                }
+
+                // goto sleep while the UI finishes it thang
+                executor.sleepUntilSignalled("messageOpenDone")
+                if (appStateManager.state?.openingState?.shouldProceedWithOpening == true) {
+                    try {
+                        if(processLockedMessage(msg)) {
+                            val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id
+                                    ?: input?.msg?.folderId ?: 0, input?.msg?.id ?: "")
+                            FieldMapper.copyAllFields(msg, updated_msg)
+                            openMessage(msg, true)
+                        }
+                    } catch (t: Throwable) {
+                        runOnUIThread { output?.onOpenMessageError(exceptionToViewError(t, shouldClose = true)) }
+                    }
+                } else    // abort
+                {
+                    val ve = ViewError(shouldCloseView = true, shouldDisplay = false)
+                    runOnUIThread { output?.onOpenMessageError(ve) }
+                }
             }
             else -> {
-                val ve = ViewError(shouldCloseView = true, shouldDisplay = true)
-                runOnUIThread { output?.onOpenMessageError(ve) }
+                runOnUIThread { output?.onOpenMessageError(exceptionToViewError(e, shouldClose = true)) }
             }
         }
-        */
     }
 
     /*
-        Handles the server error, returns true if the interactor
-        should continue with whatever it was doing, otherwise
-        it returns false to indicate the interactor should abort
+        TODO needs support for norway and sweden
+
+        return true if message opening should continue at some later point or false
+        to do nothing
      */
-    /*
-    fun handle(error : ServerError) : Int
-    {
-        Timber.e("Handling server error $error")
-        // this is probably slow as we allocate a collection just to do a check :)
-        if(setOf(
-                        NO_PRIVATE_SENDER_WARNING,
-                        MANDATORY_OPEN_RECEIPT,
-                        VOLUNTARY_OPEN_RECEIPT,
-                        MESSAGE_QUARANTINED,
-                        MESSAGE_RECALLED,
-                        MESSAGE_LOCKED,
-                        PROMULGATION).contains(error.code))
-        {
-            appStateManager.state?.let { state->
-                state.openingState.shouldProceedWithOpening = false
-                state.openingState.serverError = error
-            }
-
-            runOnUIThread {
-                output?.onOpenMessageServerError(error)
-            }
-            //uiManager.showMessageOpeningScreen()
-            executor.sleepUntilSignalled("messageOpenDone")
-            if(appStateManager.state?.openingState?.shouldProceedWithOpening ?: false)
-                return PROCEED
-            else
-                return ABORT
-        }
-        else
-            return SHOW_ERROR
-            return SHOW_ERROR
-    }
-    */
-
-    fun checkMessageLockState(msg : Message) : Boolean
+    private fun processLockedMessage(msg : Message) : Boolean
     {
         // check for stupid message protection / locking
         msg.lockStatus?.let { status->
             when(status.type)
             {
-                APIConstants.MSG_LOCKED_REQUIRES_HIGHER_IDP_LVL ->
+                APIConstants.MSG_LOCKED_REQUIRES_NEW_AUTH ->
                 {
 
                 }
                 APIConstants.MSG_LOCKED_REQUIRES_HIGHER_SEC_LVL ->
                 {
-
-                }
-                APIConstants.MSG_LOCKED_REQUIRES_OTHER_IDP ->
-                {
-
-                }
-                APIConstants.MSG_LOCKED_UNTIL_ACCEPTED ->
-                {
-
+                    Config.getVerificationProviderId()?.let { providerId ->
+                        runOnUIThread { output?.onReAuthenticate(providerId) }
+                        executor.sleepUntilSignalled("authenticationDone")
+                        return true
+                    }
                 }
                 APIConstants.MSG_LOCKED_WEB_ONLY ->
                 {
-
+                    runOnUIThread { output?.onReAuthenticate("webonly") }
+                    executor.sleepUntilSignalled("authenticationDone")
+                    return false
                 }
                 else ->
                 {
-                    return false
+                    return true
                 }
             }
         }
-        return false
+        return true
     }
 
-    fun openMessage(msg : Message)
+    private fun openMessage(msg : Message, secondAttempt : Boolean = false)
     {
         msg.content?.let { content->
             var filename = cacheManager.getCachedContentFileName(content)
@@ -271,14 +237,14 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
             //appStateManager.save()
 
             // abort opening if view is no longer attached
-            output?.let {
-                if(!it.isViewAttached()) {
-                    Timber.e("User dismissed the view, abort opening")
-                    return
-                }
-                else
-                {
-                    Timber.e("View is still attached, proceeding")
+            if(!secondAttempt) {
+                output?.let {
+                    if (!it.isViewAttached()) {
+                        Timber.e("User dismissed the view, abort opening")
+                        return
+                    } else {
+                        Timber.e("View is still attached, proceeding")
+                    }
                 }
             }
             // set message to unread

@@ -4,148 +4,148 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include layout="@layout/include_toolbar" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:fillViewport="true">
 
-        <include layout="@layout/include_toolbar" />
-
-        <!--Top part-->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="@color/backgroundColor"
-            android:orientation="vertical"
-            android:weightSum="4">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2" />
-
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center"
-                android:src="@drawable/visual_mail" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2" />
-        </LinearLayout>
-
-        <!--middle image-->
-
-        <!--Bottom part-->
-        <android.support.v7.widget.CardView
-            android:id="@+id/containerCv"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="3dp">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <!--Top part-->
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="52dp"
-                android:paddingBottom="32dp"
-                android:orientation="vertical">
+                android:background="@color/backgroundColor"
+                >
 
-                <TextView
-                    style="@style/text.header1"
-                    android:id="@+id/headerTv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="28dp"
-                    android:layout_gravity="center_horizontal"
-                    android:text="_Private sender" />
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="@dimen/margin_normal"
+                    android:layout_marginBottom="32dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/visual_mail" />
 
-                <TextView
-                    style="@style/text.body6.secondary"
-                    android:id="@+id/mainTv"
-                    android:textAlignment="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingLeft="40dp"
-                    android:paddingRight="40dp"
-                    android:text="Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh." />
+            </FrameLayout>
 
-                <FrameLayout
+            <!--middle image-->
+
+            <!--Bottom part-->
+            <android.support.v7.widget.CardView
+                android:id="@+id/containerCv"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="62dp"
-                    android:layout_marginTop="20dp"
-                    android:animateLayoutChanges="true">
-                    <LinearLayout
-                        android:id="@+id/buttonsLl"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="52dp"
+                    android:paddingBottom="32dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/text.header1"
+                        android:id="@+id/headerTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="28dp"
+                        android:layout_gravity="center_horizontal"
+                        android:text="_Private sender" />
+
+                    <TextView
+                        style="@style/text.body6.secondary"
+                        android:id="@+id/mainTv"
+                        android:textAlignment="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:paddingLeft="40dp"
+                        android:paddingRight="40dp"
+                        android:text="Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh." />
+
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:visibility="gone">
-                        <Button
-                            style="@style/button.SolidGradient.large"
-                            android:id="@+id/openBtn"
-                            android:layout_width="280dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="4dp"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:animateLayoutChanges="true">
+                        <LinearLayout
+                            android:id="@+id/buttonsLl"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="_Open message"/>
+                            android:visibility="gone">
+                            <Button
+                                android:id="@+id/openBtn"
+                                style="@style/button.SolidGradient.large"
+                                android:visibility="gone"
+                                android:layout_width="280dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="_Open message"/>
 
-                        <Button
-                            android:id="@+id/secondaryOptionBtn"
+                            <Button
+                                android:id="@+id/secondaryOptionBtn"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="20dp"
+                                android:layout_gravity="center"
+                                style="@style/button.borderless"
+                                android:textStyle="bold"
+                                android:text="_Cancel"
+                                />
+
+                        </LinearLayout>
+
+                        <ProgressBar
+                            android:id="@+id/progressPb"
                             android:visibility="gone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginBottom="20dp"
                             android:layout_gravity="center"
-                            style="@style/button.borderless"
-                            android:textStyle="bold"
-                            android:text="_Cancel"
-                            />
+                            android:layout_width="52dp"
+                            android:layout_height="52dp" />
 
-                    </LinearLayout>
+                    </FrameLayout>
 
-                    <ProgressBar
-                        android:id="@+id/progressPb"
+                    <Button
+                        style="@style/button.SolidGradient.large"
+                        android:id="@+id/loginSecureBtn"
                         android:visibility="gone"
+                        android:layout_marginTop="20dp"
+                        android:layout_width="280dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_width="52dp"
-                        android:layout_height="52dp" />
+                        android:text="_Log on with NemID"/>
 
-                </FrameLayout>
+                    <TextView
+                        style="@style/text.buttonSmall.tertiary"
+                        android:id="@+id/loginTv"
+                        android:visibility="gone"
+                        android:clickable="true"
+                        android:text="_Log on with mobile access"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:paddingTop="20dp"
+                        android:paddingBottom="20dp"
+                        android:textColor="@color/delete_button_selector"
+                        />
 
-                <Button
-                    style="@style/button.SolidGradient.large"
-                    android:id="@+id/loginSecureBtn"
-                    android:visibility="gone"
-                    android:layout_marginTop="20dp"
-                    android:layout_width="280dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="_Log on with NemID"/>
-
-                <TextView
-                    style="@style/text.buttonSmall.tertiary"
-                    android:id="@+id/loginTv"
-                    android:visibility="gone"
-                    android:clickable="true"
-                    android:text="_Log on with mobile access"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="20dp"
-                    android:textColor="@color/delete_button_selector"
-                    />
-
-            </LinearLayout>
-
-
-        </android.support.v7.widget.CardView>
-    </LinearLayout>
-
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
     <ImageView
         android:id="@+id/BackBtn"
         android:layout_width="64dp"
