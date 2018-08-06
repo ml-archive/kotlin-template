@@ -7,6 +7,7 @@ import android.util.Log
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppUpdateState
 import dk.nodes.template.App
+import dk.nodes.template.BuildConfig
 import dk.nodes.template.R
 import dk.nodes.template.domain.models.Post
 import dk.nodes.template.domain.models.Translation
@@ -15,6 +16,8 @@ import dk.nodes.template.injection.components.PresentationComponent
 import dk.nodes.template.injection.modules.PresentationModule
 import dk.nodes.template.presentation.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import net.hockeyapp.android.CrashManager
+import net.hockeyapp.android.CrashManagerListener
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -37,12 +40,27 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initUiTestSamples()
-
-        //textview = findViewById(R.id.textview) as TextView
-        textview.text = Translation.defaultSection.settings
 
         setupNstack()
+        setupHockey()
+    }
+
+    private fun setupHockey() {
+        // Auto-send crashes without asking user
+        if(BuildConfig.DEBUG) {
+            CrashManager.register(this, object : CrashManagerListener() {
+                override fun shouldAutoUploadCrashes(): Boolean {
+                    return true
+                }
+            })
+        }
+
+        // GDPR / Google's Personal/Sensitive policy dictates that we should ask the user
+        // in user facing builds
+        else {
+            CrashManager.register(this)
+        }
+
     }
 
     private fun setupNstack() {
@@ -68,26 +86,6 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun setupTranslations() {
         textview.text = Translation.defaultSection.settings
-    }
-
-    //This is for the SampleActivityTest.class for Ui tests examples.
-    private fun initUiTestSamples() {
-        saveButton.setOnClickListener({
-            textview.text = edittext.text.trim()
-        })
-
-        buttonOpenDialog.setOnClickListener({
-            AlertDialog.Builder(this)
-                    .setTitle("Hello Ui Test!")
-                    .setMessage("This is an alert message. Let the UI test read it")
-                    .setNegativeButton("Cancel", null)
-                    .setPositiveButton("OK", null)
-                    .show()
-        })
-
-        buttonOpenActivity.setOnClickListener({
-            startActivity(Intent(this, SampleActivity::class.java))
-        })
     }
 
     override fun showPosts(posts: List<Post>) {
