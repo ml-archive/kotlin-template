@@ -1,13 +1,12 @@
 package dk.nodes.template.storage
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import dk.nodes.template.domain.managers.PrefManager
 
-/**
- * Created by bison on 11/10/17.
- */
+@SuppressLint("ApplySharedPref")
 class PrefManagerImpl(context: Context) : PrefManager {
     private var sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 

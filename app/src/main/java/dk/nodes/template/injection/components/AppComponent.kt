@@ -10,22 +10,16 @@ import dk.nodes.template.injection.modules.InteractorModule
 import dk.nodes.template.injection.modules.*
 import dk.nodes.template.network.rest.Api
 
-@Component(modules = arrayOf(
-        AppModule::class,
-        ExecutorModule::class,
-        InteractorModule::class,
-        RestModule::class,
-        RestRepositoryModule::class,
-        PresentationModule::class,
-        StorageModule::class))
-
+@Component(modules = [
+    AppModule::class,
+    ExecutorModule::class,
+    InteractorModule::class,
+    RestModule::class,
+    RestRepositoryModule::class,
+    StorageModule::class
+])
 @AppScope
-interface AppComponent
-{
+interface AppComponent {
     fun inject(app: App)
-
-    // expose functions to components dependent on this component
-    fun executor() : Executor
-    fun api() : Api
-    fun getPostsInteractor() : GetPostsInteractor
+    fun plus(presentationModule: PresentationModule): PresentationComponent
 }
