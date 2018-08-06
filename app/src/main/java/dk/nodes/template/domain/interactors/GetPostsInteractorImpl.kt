@@ -5,12 +5,12 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 import dk.nodes.template.domain.repositories.PostRepository
 import dk.nodes.template.domain.repositories.RepositoryException
 
-/**
- * Created by bison on 24-06-2017.
- */
-class GetPostsInteractorImpl(executor: Executor, val postRepository: PostRepository) : BaseInteractor(executor), GetPostsInteractor {
-    override var output : GetPostsInteractor.Output? = null
-    override var input : GetPostsInteractor.Input? = null
+class GetPostsInteractorImpl(
+        executor: Executor,
+        private val postRepository: PostRepository
+) : BaseInteractor(executor), GetPostsInteractor {
+    override var output: GetPostsInteractor.Output? = null
+    override var input: GetPostsInteractor.Input? = null
 
     override fun execute() {
         // we don't use input in this example but we could:

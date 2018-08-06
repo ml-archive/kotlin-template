@@ -105,7 +105,7 @@ dependencies {
         espresso_core_version = '3.0.1',
         mockito_version = '2.7.22',
         nodes_nstack_kotlin_version = '2.1.0',
-        nodes_arch_version = '1.1.8',
+        nodes_arch_version = '1.1.9',
 
         rx_android_version = '2.0.2',
 

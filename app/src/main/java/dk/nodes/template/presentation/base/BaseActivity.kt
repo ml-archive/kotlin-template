@@ -5,8 +5,14 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import dk.nodes.arch.presentation.base.BaseView
 import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
+import dk.nodes.template.App
+import dk.nodes.template.injection.modules.PresentationModule
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
+    open val component by lazy {
+        // Todo investigate a better way to do this
+        App.instance().appComponent.plus(PresentationModule())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,12 +23,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(NStackBaseContext(newBase))
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        setupTranslations()
     }
 
     protected abstract fun injectDependencies()
