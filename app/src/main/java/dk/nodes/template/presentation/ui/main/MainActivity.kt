@@ -1,10 +1,12 @@
 package dk.nodes.template.presentation.ui.main
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import dk.nodes.nstack.kotlin.NStack
+import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
 import dk.nodes.template.App
 import dk.nodes.template.BuildConfig
@@ -57,22 +59,79 @@ class MainActivity : BaseActivity(), MainContract.View {
         NStack.onAppUpdateListener = { appUpdate ->
             when (appUpdate.state) {
                 AppUpdateState.NONE -> {
-                    // Do nothing because there is no update
+
                 }
                 AppUpdateState.UPDATE -> {
-                    // Show a user a dialog that is dismissible
+                    showUpdateDialog(appUpdate)
                 }
                 AppUpdateState.FORCE -> {
-                    // Show the user an undismissable dialog
+                    showForceDialog(appUpdate)
                 }
                 AppUpdateState.CHANGELOG -> {
-                    // Show change log (Not yet implemented because its never used)
+                    showChangelogDialog(appUpdate)
                 }
             }
         }
         NStack.appOpen { success ->
             Log.e("debug", "appopen success = $success")
         }
+    }
+
+    private fun showUpdateDialog(appUpdate: AppUpdate) {
+        AlertDialog.Builder(this)
+                .setTitle(appUpdate.title)
+                .setMessage(appUpdate.message)
+                .setPositiveButton(Translation.defaultSection.ok) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+    }
+
+    private fun showChangelogDialog(appUpdate: AppUpdate) {
+        AlertDialog.Builder(this)
+                .setTitle(appUpdate.title)
+                .setMessage(appUpdate.message)
+                .setNegativeButton(appUpdate.negativeBtn) { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .show()
+    }
+
+    private fun showForceDialog(appUpdate: AppUpdate) {
+        val dialog = AlertDialog.Builder(this)
+                .setTitle(appUpdate.title)
+                .setMessage(appUpdate.message)
+                .setCancelable(false)
+                .setPositiveButton(Translation.defaultSection.ok, null)
+                .create()
+
+        dialog.setOnShowListener {
+            val b = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+            b.setOnClickListener {
+                startPlayStore()
+            }
+        }
+
+        dialog.show()
+    }
+
+    private fun startPlayStore() {
+        try {
+            startActivity(
+                    Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("market://details?id=$packageName")
+                    )
+            )
+        } catch (anfe: android.content.ActivityNotFoundException) {
+            startActivity(
+                    Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                    )
+            )
+        }
+
     }
 
     override fun showPosts(posts: List<Post>) {
