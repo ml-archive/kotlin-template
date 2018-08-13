@@ -135,11 +135,11 @@ interface Api {
 
     // E-Key Stuff
 
-    @GET("/channels/ekey/vault") fun keyVaultGet():Call<ResponseBody>
-    @PUT("/channels/ekey/vault") fun keyVaultSet():Call<ResponseBody>
-    @DELETE("/channels/ekey/vault") fun keyVaultDelete():Call<ResponseBody>
+    @GET("channels/ekey/vault") fun keyVaultGet():Call<ResponseBody>
+    @PUT("channels/ekey/vault") fun keyVaultSet():Call<ResponseBody>
+    @DELETE("channels/ekey/vault") fun keyVaultDelete():Call<ResponseBody>
 
-    @GET("/channels/ekey/masterkey") fun masterKeyGet():Call<ResponseBody>
-    @POST("/channels/ekey/masterkey") fun masterKeySet():Call<ResponseBody>
-    @DELETE("/channels/ekey/masterkey") fun masterKeyDelete():Call<ResponseBody>
+    @GET("channels/ekey/masterkey") fun masterKeyGet():Call<ResponseBody>
+    @POST("channels/ekey/masterkey") fun masterKeySet():Call<ResponseBody>
+    @DELETE("channels/ekey/masterkey") fun masterKeyDelete():Call<ResponseBody>
 }

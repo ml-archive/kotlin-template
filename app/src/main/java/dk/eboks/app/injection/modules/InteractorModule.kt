@@ -8,6 +8,7 @@ import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.GetMailCategoriesInteractorImpl
 import dk.eboks.app.domain.interactors.authentication.*
 import dk.eboks.app.domain.interactors.channel.*
+import dk.eboks.app.domain.interactors.ekey.*
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractorImpl
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
@@ -581,5 +582,22 @@ class InteractorModule {
     @Provides
     fun provideGetSignLinkInteractor(executor: Executor, api: Api): GetSignLinkInteractor {
         return GetSignLinkInteractorImpl(executor, api)
+    }
+
+    // E Key Interactors
+
+    @Provides
+    fun provideGetEKeyVaultInteractor(executor: Executor, api: Api): GetEKeyVaultInteractor{
+        return GetEKeyVaultInteractorImpl(executor,api)
+    }
+
+    @Provides
+    fun provideSetEKeyVaultInteractor(executor: Executor, api: Api): SetEKeyVaultInteractor{
+        return SetEKeyVaultInteractorImpl(executor,api)
+    }
+
+    @Provides
+    fun provideDeleteEKeyVaultInteractor(executor: Executor, api: Api): DeleteEKeyVaultInteractor{
+        return DeleteEKeyVaultInteractorImpl(executor,api)
     }
 }
