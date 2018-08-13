@@ -23,6 +23,7 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.shared.BooleanReply
 import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.domain.models.shared.ResourceLink
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -132,4 +133,13 @@ interface Api {
     @DELETE("groups/senders/{sId}/sendergroups/{gId}/alias/{aId}") fun unregisterSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long) : Call<Any> // bodyless version // TODO check URL!!!
     //    @DELETE("groups/senders/{sId}/sendergroups/{gId}") fun unregisterSenderGroup(@Path("sId") senderId : Long, @Path("gId") groupId : Long, @Body aliasRegistrations : AliasBody) : Call<Any> // TODO: This needs to be a PATCH or POST or be bodyless as the one above
 
+    // E-Key Stuff
+
+    @GET("/channels/ekey/vault") fun keyVaultGet():Call<ResponseBody>
+    @PUT("/channels/ekey/vault") fun keyVaultSet():Call<ResponseBody>
+    @DELETE("/channels/ekey/vault") fun keyVaultDelete():Call<ResponseBody>
+
+    @GET("/channels/ekey/masterkey") fun masterKeyGet():Call<ResponseBody>
+    @POST("/channels/ekey/masterkey") fun masterKeySet():Call<ResponseBody>
+    @DELETE("/channels/ekey/masterkey") fun masterKeyDelete():Call<ResponseBody>
 }

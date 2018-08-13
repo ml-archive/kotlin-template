@@ -49,7 +49,7 @@ public class Translation {
 		public static String forwardReceiptErrorMessage = "Cannot forward receipt";
 		public static String timeoutTitle = "No connection to e-Boks";
 		public static String timeoutMessage = "Please check you internet connection and try again.";
-		public static String authenticationErrorMessage = "Your session has expired. Please log on again.";
+		public static String authenticationErrorMessage = "Something seems to be wrong with your login. Please make sure your user exists";
 		public static String connectionError = "No or bad connection. Please try again.";
 		public static String errorTitle = "Error";
 		public static String unknownError = "Unkown error, please try again";
@@ -57,8 +57,10 @@ public class Translation {
 		public static String compromisedConnectionMessage = "A secure connection to e-Boks could not be established. Your device or internet connection may be compromised. Please try again from another network or check the configuration on your device.";
 		public static String resourceNotfoundMessage = "The requested resource could not be found";
 		public static String resourceNotfoundTitle = "Not found";
-		public static String authenticationErrorTitle = "Session expired";
+		public static String authenticationErrorTitle = "Authentication error";
 		public static String emptyTitleError = "Filename is needed in order to proceed with the upload";
+		public static String expiredTokenTitle = "Session expired";
+		public static String expiredTokenMessage = "Your session has expired. Please log on again.";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -98,7 +100,7 @@ public class Translation {
 		public static String lockedMessage = "__lockedMessage";
 	}
 	public final static class channels {
-		public static String channelsHeader = "Get your relevant information and actions directly on your e-Boks home screen";
+		public static String channelsHeader = "Get access relevant information and services with e-Boks Plus";
 		public static String title = "Services";
 		public static String install = "Add";
 		public static String open = "Open";
@@ -189,7 +191,7 @@ public class Translation {
 		public static String continueButton = "Continue";
 		public static String verifyButton = "Verify my profile";
 		public static String continueWithoutVerificationButton = "Continue without verification";
-		public static String continueToAppButton = "Continue to app";
+		public static String continueToAppButton = "Continue";
 		public static String nameHint = "Name";
 		public static String emailHint = "Email";
 		public static String passwordHint = "Password";
@@ -394,8 +396,8 @@ public class Translation {
 		public static String chooseFromLibrary = "Choose from library";
 		public static String verified = "Verified";
 		public static String verifyingAccountTitle = "Verify my profile";
-		public static String verifyingAccountBody = "Verify your profile by logging on with NemID.";
-		public static String logOnWithNemID = "Log on with NemID";
+		public static String verifyingAccountBody = "Verify your profile by logging on with [logonProvider].";
+		public static String logOnWithNemID = "Log on with  [logonProvider]";
 		public static String verifyEmailHeader = "Verify your email address";
 		public static String verifyEmailText = "Confirm your email address by following the link included in the message sent to [email]";
 		public static String verifyEmailBtn = "Resend confirmation email";

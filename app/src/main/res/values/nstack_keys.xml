@@ -49,6 +49,8 @@
   <string name='nstack_error_resourceNotfoundTitle' formatted='false'>error_resourceNotfoundTitle</string>
   <string name='nstack_error_authenticationErrorTitle' formatted='false'>error_authenticationErrorTitle</string>
   <string name='nstack_error_emptyTitleError' formatted='false'>error_emptyTitleError</string>
+  <string name='nstack_error_expiredTokenTitle' formatted='false'>error_expiredTokenTitle</string>
+  <string name='nstack_error_expiredTokenMessage' formatted='false'>error_expiredTokenMessage</string>
   <string name='nstack_mail_senderHeader' formatted='false'>mail_senderHeader</string>
   <string name='nstack_mail_showAllSendersButton' formatted='false'>mail_showAllSendersButton</string>
   <string name='nstack_mail_smartFolderHeader' formatted='false'>mail_smartFolderHeader</string>
