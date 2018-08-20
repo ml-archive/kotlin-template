@@ -36,12 +36,13 @@ class MessageOpeningActivity : BaseActivity(), MessageOpeningContract.View {
 
     override fun showMessageLocked(loginProviderId: String) {
         val fragment = ProtectedMessageComponentFragment()
+        progressPb.visibility = View.GONE
         fragment.putArg("loginProviderId", loginProviderId)
         fragment?.let{
             supportFragmentManager.beginTransaction().add(R.id.contentFl, it, it::class.java.simpleName).commit()
         }
         /*
-        val intent = Intent(this, PopupLoginActivity::class.java).putExtra("verifyLoginProviderId", Config.getVerificationProviderId())
+        val intent = Intent(this, PopupLoginActivity::class.java).putExtra("selectedLoginProviderId", Config.getVerificationProviderId())
         startActivityForResult(intent, PopupLoginActivity.REQUEST_VERIFICATION)
         */
     }

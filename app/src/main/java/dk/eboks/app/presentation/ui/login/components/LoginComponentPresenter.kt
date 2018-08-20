@@ -38,7 +38,8 @@ class LoginComponentPresenter @Inject constructor(
         decryptUserLoginInfoInteractor.output = this
     }
 
-    override fun setup(verifyLoginProviderId : String?) {
+    override fun setup(verifyLoginProviderId : String?, reauth : Boolean) {
+        Timber.e("Setting up login view for provider $verifyLoginProviderId, reauth: $reauth")
         this.verifyLoginProviderId = verifyLoginProviderId
         if(verifyLoginProviderId == null) {
             appState.state?.loginState?.let { state ->

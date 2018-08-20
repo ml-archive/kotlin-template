@@ -93,6 +93,11 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     override fun onResume() {
         super.onResume()
+        if(refreshOnResume)
+        {
+            refreshOnResume = false
+            presenter.refresh()
+        }
         adapter?.let { it.notifyDataSetChanged() }
     }
 
@@ -354,5 +359,9 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         Timber.e("Appending messages")
         adapter.messages.addAll(messages)
         messagesRv.adapter.notifyDataSetChanged()
+    }
+
+    companion object {
+        var refreshOnResume: Boolean = false
     }
 }

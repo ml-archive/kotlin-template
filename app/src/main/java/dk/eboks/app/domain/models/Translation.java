@@ -7,7 +7,7 @@ package dk.eboks.app.domain.models;
 
 public class Translation {
 	public final static class defaultSection {
-		public static String ok = "Ok";
+		public static String ok = "OK";
 		public static String cancel = "Cancel";
 		public static String yes = "Yes";
 		public static String back = "Back";
@@ -29,12 +29,12 @@ public class Translation {
 		public static String genericMessage = "An error occurred";
 		public static String genericTitle = "Error";
 		public static String noInternetTitle = "No connectivity";
-		public static String noInternetMessage = "This application requires a connection to the internet to perform the requested operation.";
+		public static String noInternetMessage = "e-Boks requires a connection to the internet to perform the requested operation.";
 		public static String startupTitle = "Error";
 		public static String startupMessage = "An initialization error happened during application startup. We apologize for the inconvenience.";
-		public static String genericServerTitle = "Server error";
+		public static String genericServerTitle = "Error";
 		public static String genericServerMessage = "An error occurred while communicating with the server. We apologize for the inconvenience.";
-		public static String genericStorageTitle = "Storage error";
+		public static String genericStorageTitle = "Error";
 		public static String genericStorageMessage = "An error occured accessing the persistent storage on this device.";
 		public static String genericOOMTitle = "Out of memory";
 		public static String genericOOMMessage = "There is not enough free resources on this device to accomplish the requested operation. Try shutting down other apps to free up more resources.";
@@ -49,7 +49,7 @@ public class Translation {
 		public static String forwardReceiptErrorMessage = "Cannot forward receipt";
 		public static String timeoutTitle = "No connection to e-Boks";
 		public static String timeoutMessage = "Please check you internet connection and try again.";
-		public static String authenticationErrorMessage = "Your session has expired. Please log on again.";
+		public static String authenticationErrorMessage = "Something seems to be wrong with your login. Please make sure your user exists";
 		public static String connectionError = "No or bad connection. Please try again.";
 		public static String errorTitle = "Error";
 		public static String unknownError = "Unkown error, please try again";
@@ -57,8 +57,10 @@ public class Translation {
 		public static String compromisedConnectionMessage = "A secure connection to e-Boks could not be established. Your device or internet connection may be compromised. Please try again from another network or check the configuration on your device.";
 		public static String resourceNotfoundMessage = "The requested resource could not be found";
 		public static String resourceNotfoundTitle = "Not found";
-		public static String authenticationErrorTitle = "Session expired";
-		public static String emptyTitleError = "Filename is needed in order to proceed with the upload";
+		public static String authenticationErrorTitle = "Authentication error";
+		public static String emptyTitleError = "Upload requires a file name";
+		public static String expiredTokenTitle = "Session expired";
+		public static String expiredTokenMessage = "Your session has expired. Please log on again.";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -98,7 +100,7 @@ public class Translation {
 		public static String lockedMessage = "__lockedMessage";
 	}
 	public final static class channels {
-		public static String channelsHeader = "Get your relevant information and actions directly on your e-Boks home screen";
+		public static String channelsHeader = "Get access relevant information and services with e-Boks Plus";
 		public static String title = "Services";
 		public static String install = "Add";
 		public static String open = "Open";
@@ -189,7 +191,7 @@ public class Translation {
 		public static String continueButton = "Continue";
 		public static String verifyButton = "Verify my profile";
 		public static String continueWithoutVerificationButton = "Continue without verification";
-		public static String continueToAppButton = "Continue to app";
+		public static String continueToAppButton = "Continue";
 		public static String nameHint = "Name";
 		public static String emailHint = "Email";
 		public static String passwordHint = "Password";
@@ -233,7 +235,7 @@ public class Translation {
 		public static String signOnBankIDButtonNOR = "Log on with BankID";
 		public static String signupTermsAcceptHeader = "One last thing! Terms and conditions.";
 		public static String dialogEmailExistsTitle = "This email address is already connected to an e-Boks account";
-		public static String dialogEmailExistsMsg = "Do you want to sign in instead?";
+		public static String dialogEmailExistsMsg = "Do you want to log on instead?";
 		public static String dialogEmailExistsPositiveBtn = "Log on";
 	}
 	public final static class activationcode {
@@ -364,7 +366,7 @@ public class Translation {
 		public static String comingSoonMessage = "Soon you will be able to upload and store your important files securely in e-Boks";
 		public static String allowCameraTitle = "Camera access required";
 		public static String allowCameraMessage = "We require access to your camera if you want to take pictures and store them securely in e-Boks";
-		public static String noUploads = "No Uploads";
+		public static String noUploads = "No uploads";
 	}
 	public final static class loginproviders {
 		public static String nemidTitle = "NemID";
@@ -394,8 +396,8 @@ public class Translation {
 		public static String chooseFromLibrary = "Choose from library";
 		public static String verified = "Verified";
 		public static String verifyingAccountTitle = "Verify my profile";
-		public static String verifyingAccountBody = "Verify your profile by logging on with NemID.";
-		public static String logOnWithNemID = "Log on with NemID";
+		public static String verifyingAccountBody = "Verify your profile by logging on with [logonProvider].";
+		public static String logOnWithNemID = "Log on with  [logonProvider]";
 		public static String verifyEmailHeader = "Verify your email address";
 		public static String verifyEmailText = "Confirm your email address by following the link included in the message sent to [email]";
 		public static String verifyEmailBtn = "Resend confirmation email";
@@ -406,7 +408,7 @@ public class Translation {
 		public static String fingerDrawerText = "__fingerDrawerText";
 		public static String enable = "Enable";
 		public static String mergeAccountHeader = "You already have a verified profile";
-		public static String mergeAccountText = "Do you want to merge your profiles so you only have one single account ?";
+		public static String mergeAccountText = "Do you want to merge your profiles so you only have one single account?";
 		public static String mergeAccountBtn = "Merge my profiles";
 		public static String mergeAccountCancel = "Keep profiles seperated";
 		public static String verifyMobilHeader = "Verify your mobile number";
@@ -470,7 +472,7 @@ public class Translation {
 		public static String messagesUnverifiedMessage = "Receive your mail digitally from private companies and public authorities.\r\nGet started by verifying your profile.";
 		public static String messagesUnverifiedButton = "Verify my profile";
 		public static String windowHeader = "Home";
-		public static String noContentText = "Intet indhold";
+		public static String noContentText = "No content";
 		public static String errorContentFetch = "Error retrieving content";
 	}
 	public final static class systemfolders {
@@ -685,7 +687,7 @@ public class Translation {
 		public static String cancelPaymentAlertTitle = "Are you sure you want to cancel the payment?";
 		public static String cancelPaymentAlertMessage = "You are responsible for paying the invoice in other ways or contacting the sender if you do not want to pay.";
 		public static String paymentPending = "Payment pending";
-		public static String paymentCompleted = "Payment Completed";
+		public static String paymentCompleted = "Payment completed";
 		public static String cancelPaymentOk = "Yes";
 		public static String cancelPaymentNo = "No";
 	}

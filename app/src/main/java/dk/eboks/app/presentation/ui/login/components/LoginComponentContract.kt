@@ -21,7 +21,7 @@ interface LoginComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setup(verifyLoginProviderId : String? = null)
+        fun setup(verifyLoginProviderId : String? = null, reauth : Boolean = false)
         fun fingerPrintConfirmed(user: User)
         fun updateLoginState(userName: String, providerId: String, password: String, activationCode: String?)
         fun login()

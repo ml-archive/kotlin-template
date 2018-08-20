@@ -21,7 +21,6 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
@@ -59,7 +58,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     var currentProvider: LoginProvider? = null
     var currentUser: User? = null
     var currentSettings: UserSettings? = null
-    var verifyLoginProviderId : String? = null
+    var selectedLoginProviderId : String? = null
+    var reauth : Boolean = false
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -81,9 +81,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             showGreeting = args.getBoolean("showGreeting", true)
         }
 
-        arguments?.getString("verifyLoginProviderId")?.let {
-            verifyLoginProviderId = it
-        }.guard { verifyLoginProviderId = null }
+        arguments?.getString("selectedLoginProviderId")?.let {
+            if(arguments?.getBoolean("reauth") == true)
+                reauth = true
+            selectedLoginProviderId = it
+        }.guard { selectedLoginProviderId = null }
 
         continueBtn.setOnClickListener {
             onContinue()
@@ -122,7 +124,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         super.onResume()
         Timber.d("onResume")
 
-        presenter.setup(verifyLoginProviderId)
+        presenter.setup(selectedLoginProviderId, reauth)
         setupCprEmailListeners()
         setupPasswordListener()
         KeyboardUtils.addKeyboardToggleListener(activity, keyboardListener)
@@ -181,8 +183,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     override fun proceedToApp() {
         //Timber.v("Signal - login_condition")
         signal("login_condition") // allow the eAuth2 authenticator to continue
-
-        (activity as StartActivity).startMain()
+        if(!reauth)
+            (activity as StartActivity).startMain()
     }
 
 
@@ -346,7 +348,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 else -> {
                     val providerFragment = provider.fragmentClass?.newInstance()
                     // if this is verification make sure the going back cancels the login instead presenting alternate providers
-                    if(verifyLoginProviderId != null)
+                    if(selectedLoginProviderId != null)
                     {
                         providerFragment?.putArg("closeLoginOnBack", true)
                     }

@@ -30,8 +30,9 @@ class PopupLoginActivity : BaseActivity(), PopupLoginContract.View {
                     finish()
             }
         }
-        intent?.getStringExtra("verifyLoginProviderId")?.let { provider_id->
-            setRootFragment(R.id.containerFl, LoginComponentFragment().putArg("verifyLoginProviderId", provider_id))
+        intent?.getStringExtra("selectedLoginProviderId")?.let { provider_id->
+            val reauth = intent?.getBooleanExtra("reauth", false) ?: false
+            setRootFragment(R.id.containerFl, LoginComponentFragment().putArg("selectedLoginProviderId", provider_id).putArg("reauth", reauth))
         }.guard {
             setRootFragment(R.id.containerFl, LoginComponentFragment())
         }
