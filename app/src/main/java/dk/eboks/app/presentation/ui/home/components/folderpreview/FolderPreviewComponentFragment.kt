@@ -60,6 +60,11 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
     override fun onResume() {
         super.onResume()
         EventBus.getDefault().register(this)
+        if(refreshOnResume)
+        {
+            refreshOnResume = false
+            presenter.refresh(false)
+        }
     }
 
     override fun onPause() {
@@ -167,5 +172,9 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: RefreshFolderPreviewEvent) {
         presenter.refresh(false)
+    }
+
+    companion object {
+        var refreshOnResume = false
     }
 }

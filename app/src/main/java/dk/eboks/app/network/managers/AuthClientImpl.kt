@@ -68,7 +68,7 @@ class AuthClientImpl : AuthClient {
         return null
     }
 
-    override fun impersonate(token : String, userId : String) {
+    override fun impersonate(token : String, userId : String) : AccessToken? {
         val keys = getKeys(true, false)
 
         val formBody = FormBody.Builder()
@@ -88,7 +88,11 @@ class AuthClientImpl : AuthClient {
         val result = httpClient.newCall(request).execute()
         if(result.isSuccessful)
         {
-            return
+            result.body()?.string()?.let { json ->
+                gson.fromJson(json, AccessToken::class.java)?.let { token ->
+                    return token
+                }
+            }
         }
         throw(InteractorException("impersonate failed"))
     }

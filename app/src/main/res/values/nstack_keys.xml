@@ -329,6 +329,7 @@
   <string name='nstack_loginproviders_idPortenDescription' formatted='false'>loginproviders_idPortenDescription</string>
   <string name='nstack_loginproviders_bankSeDescription' formatted='false'>loginproviders_bankSeDescription</string>
   <string name='nstack_loginproviders_bankNoDescription' formatted='false'>loginproviders_bankNoDescription</string>
+  <string name='nstack_loginproviders_idPortenSubtitle' formatted='false'>loginproviders_idPortenSubtitle</string>
   <string name='nstack_profile_signOut' formatted='false'>profile_signOut</string>
   <string name='nstack_profile_help' formatted='false'>profile_help</string>
   <string name='nstack_profile_privacyStatement' formatted='false'>profile_privacyStatement</string>
@@ -612,4 +613,5 @@
   <string name='nstack_sign_title' formatted='false'>sign_title</string>
   <string name='nstack_obtainssnse_title' formatted='false'>obtainssnse_title</string>
   <string name='nstack_obtainssnse_subtitle' formatted='false'>obtainssnse_subtitle</string>
+  <string name='nstack_obtainssnse_placeholder' formatted='false'>obtainssnse_placeholder</string>
 </resources>

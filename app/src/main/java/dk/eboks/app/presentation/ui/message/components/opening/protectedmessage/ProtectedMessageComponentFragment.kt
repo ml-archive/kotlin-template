@@ -16,6 +16,7 @@ import dk.eboks.app.presentation.ui.login.components.verification.VerificationCo
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
+import dk.eboks.app.util.ViewControl
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.setVisible
 import dk.eboks.app.util.translatedName
@@ -116,8 +117,13 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
             if(resultCode == Activity.RESULT_OK)
             {
                 Timber.e("Got result ok from login provider, reload message")
-                MailListComponentFragment.refreshOnResume = true
-                protectedMessage?.let { (activity as MessageOpeningActivity).openMessage(it) }
+                ViewControl.refreshAllOnResume()
+                protectedMessage?.let {
+                    if(it.id != "0")
+                        (activity as MessageOpeningActivity).openMessage(it)
+                    else
+                        finishActivity()
+                }.guard { finishActivity() }
             }
             else
             {

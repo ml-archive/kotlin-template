@@ -54,6 +54,7 @@ class UserManagerImpl(val context: Context, val gson: Gson) : UserManager {
     }
 
     override fun remove(user: User) {
+        Timber.e("Removing ${user.name} (${user.id})")
         users.remove(user)
         userStore.save(users)
     }

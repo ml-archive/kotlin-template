@@ -4,6 +4,7 @@ import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.login.UserSettings
 import dk.eboks.app.domain.repositories.MailCategoriesRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
@@ -45,10 +46,17 @@ class MergeAndImpersonateInteractorImpl(
                             output?.onMergeError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
                             return
                         }
-
+                        verificationState.userBeingVerified?.let { olduser ->
+                            Timber.e("Removing old user from manager after successful migration")
+                            userManager.remove(olduser)
+                            userSettingsManager.remove(UserSettings(olduser.id)) // also remove the settings for that userId
+                        }
                         // after migrate call impersonate
                         appStateManager.state?.loginState?.token?.let {
-                            authClient.impersonate(it.access_token, targetUserId)
+                            val new_token = authClient.impersonate(it.access_token, targetUserId)
+                            new_token?.let { newtoken ->
+                                appStateManager.state?.loginState?.token = new_token
+                            }
                         }
                     }
                 }
