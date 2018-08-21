@@ -64,6 +64,7 @@ class PromulgationComponentFragment : BaseFragment(), PromulgationComponentContr
     {
         mainTb.title = Translation.message.promulgationTopBarTitle
         okayBtn.text = Translation.message.promulgationOkButton
+        //promulgationHeaderTv.text = Translation.message.
 
     }
 

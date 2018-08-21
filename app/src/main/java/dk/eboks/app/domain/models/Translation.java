@@ -203,7 +203,7 @@ public class Translation {
 		public static String mmDetail = "To register you must enter your social security number";
 		public static String cprHint = "Your Social Security Number";
 		public static String continueWithoutMMButton = "Skip";
-		public static String signupWithMMButton = "Sign up with Mina Meddelanden";
+		public static String signupWithMMButton = "Continue";
 		public static String invalidName = "Invalid name";
 		public static String invalidPassword = "Invalid password";
 		public static String invalidPasswordMatch = "Passwords don\'t match";

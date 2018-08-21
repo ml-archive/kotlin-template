@@ -73,6 +73,10 @@ class MessageOpeningPresenter(val appStateManager: AppStateManager, val executor
         runAction { v->v.showMessageLocked(loginProviderId, msg) }
     }
 
+    override fun onPrivateSenderWarning(msg: Message) {
+        runAction { v->v.setOpeningFragment(PrivateSenderWarningComponentFragment::class.java) }
+    }
+
     override fun isViewAttached(): Boolean {
         return view != null
     }

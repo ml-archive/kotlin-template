@@ -175,7 +175,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
     private fun processLockedMessage(msg : Message) : Boolean
     {
         // TODO for the love of god, memba to 'move me (for testing locked messages status 1)
-        //msg.lockStatus?.type = 1
+        //msg.lockStatus?.type = 5
         // check for stupid message protection / locking
         msg.lockStatus?.let { status->
             when(status.type)
@@ -200,6 +200,12 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                     executor.sleepUntilSignalled("authenticationDone")
                     return false
                 }
+                APIConstants.MSG_LOCKED_REQUIRES_PUBLIC_IDP2 ->
+                {
+                    runOnUIThread { output?.onPrivateSenderWarning(msg) }
+                    return false
+                }
+
                 else ->
                 {
                     return true
