@@ -26,6 +26,8 @@ class MessageOpeningPresenter(val appStateManager: AppStateManager, val executor
 {
     //val serverError : ServerError? = appStateManager.state?.openingState?.serverError
 
+    var lockedMessage: Message? = null
+
     init {
         openMessageInteractor.output = this
         /*
@@ -65,9 +67,10 @@ class MessageOpeningPresenter(val appStateManager: AppStateManager, val executor
         }
     }
 
-    override fun onReAuthenticate(loginProviderId: String) {
+    override fun onReAuthenticate(loginProviderId: String, msg : Message) {
         Timber.e("Must reauthenticate with $loginProviderId")
-        runAction { v->v.showMessageLocked(loginProviderId) }
+        lockedMessage = msg
+        runAction { v->v.showMessageLocked(loginProviderId, msg) }
     }
 
     override fun isViewAttached(): Boolean {

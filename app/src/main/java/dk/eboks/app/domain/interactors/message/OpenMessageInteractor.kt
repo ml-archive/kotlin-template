@@ -18,7 +18,7 @@ interface OpenMessageInteractor : Interactor {
         fun onOpenMessageDone()
         fun onOpenMessageServerError(serverError : ServerError)
         fun onOpenMessageError(error : ViewError)
-        fun onReAuthenticate(loginProviderId : String)
+        fun onReAuthenticate(loginProviderId : String, msg : Message)
         fun isViewAttached() : Boolean
     }
 }

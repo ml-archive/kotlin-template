@@ -705,4 +705,8 @@ public class Translation {
 	public final static class sign {
 		public static String title = "Sign";
 	}
+	public final static class obtainssnse {
+		public static String title = "Enter social security number";
+		public static String subtitle = "BankId needs it bad";
+	}
 }

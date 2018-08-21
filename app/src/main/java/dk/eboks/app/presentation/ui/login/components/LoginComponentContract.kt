@@ -26,5 +26,6 @@ interface LoginComponentContract {
         fun updateLoginState(userName: String, providerId: String, password: String, activationCode: String?)
         fun login()
         fun switchLoginProvider(provider: LoginProvider)
+        var reauthing : Boolean
     }
 }

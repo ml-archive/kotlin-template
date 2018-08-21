@@ -185,6 +185,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         signal("login_condition") // allow the eAuth2 authenticator to continue
         if(!reauth)
             (activity as StartActivity).startMain()
+        else {
+            activity.setResult(Activity.RESULT_OK)
+            activity.finishAfterTransition()
+        }
     }
 
 
@@ -213,6 +217,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         currentSettings = settings
         if (settings.hasFingerprint) {
             addFingerPrintProvider()
+            if(presenter.reauthing)
+                handler.post {
+                    if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
+                        showFingerprintDialog()
+                }
         }
 
         if (BuildConfig.DEBUG) {

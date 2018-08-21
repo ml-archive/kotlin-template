@@ -10,12 +10,15 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
+import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.setVisible
+import dk.eboks.app.util.translatedName
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_mail_opening_error_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -30,6 +33,8 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
 
     @Inject
     lateinit var presenter : ProtectedMessageComponentContract.Presenter
+
+    var protectedMessage: Message? = null
 
     val onLanguageChange : (Locale)->Unit = { locale ->
         Timber.e("Locale changed to locale")
@@ -54,6 +59,10 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         arguments?.getString("loginProviderId")?.let { loginProviderId ->
             setLoginProvider(loginProviderId)
         }
+
+        arguments?.getSerializable(Message::class.java.simpleName)?.let {
+            protectedMessage = it as Message
+        }
     }
 
     override fun onResume() {
@@ -74,7 +83,7 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         Timber.e("Configuring for login provider $loginProviderId")
 
         Config.getLoginProvider(loginProviderId)?.let { provider ->
-            loginSecureBtn.text = Translation.logoncredentials.logonWithProvider.replace("[provider]", loginProviderId)
+            loginSecureBtn.text = Translation.logoncredentials.logonWithProvider.replace("[provider]", provider.translatedName())
             loginSecureBtn.setOnClickListener {
                 val intent = Intent(context, PopupLoginActivity::class.java).putExtra("selectedLoginProviderId", loginProviderId).putExtra("reauth", true)
                 startActivityForResult(intent, PopupLoginActivity.REQUEST_VERIFICATION)
@@ -106,14 +115,15 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         {
             if(resultCode == Activity.RESULT_OK)
             {
-                MailListComponentFragment.refreshOnResume = true
                 Timber.e("Got result ok from login provider, reload message")
+                MailListComponentFragment.refreshOnResume = true
+                protectedMessage?.let { (activity as MessageOpeningActivity).openMessage(it) }
             }
             else
             {
                 Timber.e("Got result cancel from login provider, doing nothing")
+                finishActivity()
             }
-            finishActivity()
         }
     }
 }

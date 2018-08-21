@@ -610,4 +610,6 @@
   <string name='nstack_paymentService_sendToAppButton' formatted='false'>paymentService_sendToAppButton</string>
   <string name='nstack_paymentService_dueDateLabel' formatted='false'>paymentService_dueDateLabel</string>
   <string name='nstack_sign_title' formatted='false'>sign_title</string>
+  <string name='nstack_obtainssnse_title' formatted='false'>obtainssnse_title</string>
+  <string name='nstack_obtainssnse_subtitle' formatted='false'>obtainssnse_subtitle</string>
 </resources>

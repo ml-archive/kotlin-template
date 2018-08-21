@@ -35,8 +35,8 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
         try {
             input?.msg?.let { msg->
                 //throw(ServerErrorException(ServerError(id="homemade", code = PROMULGATION, type = ErrorType.ERROR)))
+                val updated_msg = messagesRepository.getMessage(msg.folderId, msg.id)
                 if(processLockedMessage(msg)) {
-                    val updated_msg = messagesRepository.getMessage(msg.folderId, msg.id)
                     // update the (perhaps) more detailed message object with the extra info from the backend
                     // because the JVM can only deal with reference types silly reflection tricks like this are necessary
                     FieldMapper.copyAllFields(msg, updated_msg)
@@ -174,25 +174,29 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
      */
     private fun processLockedMessage(msg : Message) : Boolean
     {
+        // TODO for the love of god, memba to 'move me (for testing locked messages status 1)
+        //msg.lockStatus?.type = 1
         // check for stupid message protection / locking
         msg.lockStatus?.let { status->
             when(status.type)
             {
                 APIConstants.MSG_LOCKED_REQUIRES_NEW_AUTH ->
                 {
-
+                    runOnUIThread { output?.onReAuthenticate("cpr", msg) }
+                    executor.sleepUntilSignalled("authenticationDone")
+                    return true
                 }
                 APIConstants.MSG_LOCKED_REQUIRES_HIGHER_SEC_LVL ->
                 {
                     Config.getVerificationProviderId()?.let { providerId ->
-                        runOnUIThread { output?.onReAuthenticate(providerId) }
+                        runOnUIThread { output?.onReAuthenticate(providerId, msg) }
                         executor.sleepUntilSignalled("authenticationDone")
                         return true
                     }
                 }
                 APIConstants.MSG_LOCKED_WEB_ONLY ->
                 {
-                    runOnUIThread { output?.onReAuthenticate("webonly") }
+                    runOnUIThread { output?.onReAuthenticate("webonly", msg) }
                     executor.sleepUntilSignalled("authenticationDone")
                     return false
                 }

@@ -30,6 +30,7 @@ class LoginComponentPresenter @Inject constructor(
 
     var altProviders: List<LoginProvider> = Config.getAlternativeLoginProviders()
     var verifyLoginProviderId : String? = null
+    override var reauthing : Boolean = false
 
     init {
         appState.state?.currentUser = null
@@ -40,6 +41,7 @@ class LoginComponentPresenter @Inject constructor(
 
     override fun setup(verifyLoginProviderId : String?, reauth : Boolean) {
         Timber.e("Setting up login view for provider $verifyLoginProviderId, reauth: $reauth")
+        reauthing = reauth
         this.verifyLoginProviderId = verifyLoginProviderId
         if(verifyLoginProviderId == null) {
             appState.state?.loginState?.let { state ->
@@ -68,7 +70,13 @@ class LoginComponentPresenter @Inject constructor(
         {
             Config.getLoginProvider(verifyLoginProviderId)?.let { provider ->
                 Timber.e("Verification login setup")
-                runAction { v->v.setupView(provider, null, UserSettings(0), altLoginProviders = ArrayList()) }
+                appState.state?.loginState?.lastUser?.let { user ->
+                    val settings = userSettingsManager.get(user.id)
+                    runAction { v->v.setupView(provider, appState.state?.loginState?.lastUser, settings, altLoginProviders = ArrayList()) }
+                }.guard {
+                    runAction { v->v.setupView(provider, null, UserSettings(0), altLoginProviders = ArrayList()) }
+                }
+
             }
         }
     }

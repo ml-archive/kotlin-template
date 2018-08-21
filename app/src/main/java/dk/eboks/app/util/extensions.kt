@@ -21,6 +21,7 @@ import android.widget.EditText
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.Translation
@@ -324,3 +325,15 @@ fun Fragment.putArg(name: String, value: String) = apply { arguments.guard { arg
 fun Fragment.putArg(name: String, value: CharSequence) = apply { arguments.guard { arguments = Bundle() }; arguments?.putCharSequence(name, value) }
 fun Fragment.putArg(name: String, value: Parcelable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putParcelable(name, value) }
 
+fun LoginProvider.translatedName() : String {
+    when(this.id)
+    {
+        "email" -> return Translation.logonmethods.mobileAccess
+        "cpr" -> return Translation.logonmethods.mobileAccess
+        "nemid" -> return Translation.logonmethods.nemId
+        "idporten" -> return Translation.logonmethods.idPorten
+        "bankid_se" -> return Translation.logonmethods.bankId
+        "bankid_no" -> return Translation.logonmethods.nemId
+        else -> { return this.name }
+    }
+}
