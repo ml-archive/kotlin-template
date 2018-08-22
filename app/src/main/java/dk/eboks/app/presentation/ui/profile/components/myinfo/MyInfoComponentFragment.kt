@@ -276,9 +276,6 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         progressFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    override fun showPrimaryEmail(show: Boolean) {
-        primaryMailFl.setVisible(show)
-    }
 
     override fun showSecondaryEmail(show: Boolean) {
         secondaryMailFl.setVisible(show)

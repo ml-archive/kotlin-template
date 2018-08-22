@@ -41,7 +41,7 @@ class MyInfoComponentPresenter @Inject constructor(
                 }
                 else
                 {
-                    v.showPrimaryEmail(false)
+                    //v.showPrimaryEmail(false)
                     v.showSecondaryEmail(false)
                 }
 

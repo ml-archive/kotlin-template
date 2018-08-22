@@ -63,7 +63,7 @@ class SenderCarouselComponentPresenter @Inject constructor(val appState: AppStat
 
     private fun sortSenders(senders: List<Sender>) : List<Sender>
     {
-        return senders.sortedWith(compareBy({ it.name }, { it.unreadMessageCount > 0}))
+        return senders.sortedWith(compareBy({ it.unreadMessageCount <= 0}, { it.name }))
     }
 
     override fun onGetSendersError(error : ViewError) {

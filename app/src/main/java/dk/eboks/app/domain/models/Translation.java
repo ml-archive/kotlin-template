@@ -23,7 +23,7 @@ public class Translation {
 		public static String later = "Later";
 		public static String next = "Next";
 		public static String previous = "Previous";
-		public static String skip = "Skip";
+		public static String skip = "Skip this step";
 	}
 	public final static class error {
 		public static String genericMessage = "An error occurred";
@@ -190,7 +190,7 @@ public class Translation {
 		public static String verificationDetail = "Verifying your profile will enable the full feature set of e-Boks. Features like receiving mail, signing documents and paying, directly in e-Boks!";
 		public static String continueButton = "Continue";
 		public static String verifyButton = "Verify my profile";
-		public static String continueWithoutVerificationButton = "Skip";
+		public static String continueWithoutVerificationButton = "Skip this step";
 		public static String continueToAppButton = "Continue";
 		public static String nameHint = "Name";
 		public static String emailHint = "Email";
@@ -202,7 +202,7 @@ public class Translation {
 		public static String mmHeader = "Okay. Would you like to receive mail from public authorities?";
 		public static String mmDetail = "To register you must enter your social security number";
 		public static String cprHint = "Your Social Security Number";
-		public static String continueWithoutMMButton = "Skip";
+		public static String continueWithoutMMButton = "Skip this step";
 		public static String signupWithMMButton = "Continue";
 		public static String invalidName = "Invalid name";
 		public static String invalidPassword = "Invalid password";
@@ -378,7 +378,7 @@ public class Translation {
 		public static String idPortenDescription = "Log on with ID-porten";
 		public static String bankSeDescription = "Log on with BankID";
 		public static String bankNoDescription = "Log on with BankID";
-		public static String idPortenSubtitle = "Use this to see mail from public authorities";
+		public static String idPortenSubtitle = "View mails from public authorities";
 	}
 	public final static class profile {
 		public static String signOut = "Log off";
@@ -511,6 +511,7 @@ public class Translation {
 		public static String vatAmount = "VAT amount";
 		public static String confirmDeleteTitle = "Are you sure you want to delete this receipt?";
 		public static String confirmDeleteMessage = "Are you sure you want to delete this receipt?";
+		public static String receiptSavedToFolderToast = "Receipt saved to [folderName]";
 	}
 	public final static class channelsettingsstoreboxadditions {
 		public static String digitalReceiptsTitle = "Receive only receipts digitally";
@@ -708,8 +709,8 @@ public class Translation {
 		public static String title = "Sign";
 	}
 	public final static class obtainssnse {
-		public static String title = "Enter social security number";
-		public static String subtitle = "BankId needs it bad";
-		public static String placeholder = "Enter 2 digits";
+		public static String title = "Log on with BankID";
+		public static String subtitle = "Enter your social security number";
+		public static String placeholder = "yyyymmddxxxx";
 	}
 }

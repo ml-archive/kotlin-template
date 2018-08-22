@@ -582,4 +582,9 @@ class InteractorModule {
     fun provideGetSignLinkInteractor(executor: Executor, api: Api): GetSignLinkInteractor {
         return GetSignLinkInteractorImpl(executor, api)
     }
+
+    @Provides
+    fun provideSaveReceiptInteractor(executor: Executor, api: Api): SaveReceiptInteractor {
+        return SaveReceiptInteractorImpl(executor, api)
+    }
 }

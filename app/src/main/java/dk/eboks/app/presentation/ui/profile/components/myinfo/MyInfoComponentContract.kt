@@ -22,7 +22,7 @@ interface MyInfoComponentContract {
         fun setSaveEnabled(enabled : Boolean)
         fun setNeutralFocus()
         fun onDone()
-        fun showPrimaryEmail(show : Boolean)
+        //fun showPrimaryEmail(show : Boolean)
         fun showSecondaryEmail(show : Boolean)
     }
 

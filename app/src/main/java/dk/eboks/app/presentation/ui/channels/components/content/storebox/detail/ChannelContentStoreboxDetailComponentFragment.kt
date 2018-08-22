@@ -21,6 +21,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.storebox.*
+import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
@@ -294,8 +295,10 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         // deal with return from folder picker
         if (requestCode == FolderActivity.REQUEST_ID) {
             data?.extras?.let {
-                val moveToFolder = data.getSerializableExtra("res")
-                Timber.d("Move To Folder ${moveToFolder?.toString()}")
+                val moveToFolder = data.getSerializableExtra("res") as Folder
+                //Timber.d("Move To Folder ${moveToFolder?.toString()}")
+                Timber.e("Returned from folder picker. folder picked: ${moveToFolder.name}")
+                presenter.saveReceipt(moveToFolder)
             }
         }
     }

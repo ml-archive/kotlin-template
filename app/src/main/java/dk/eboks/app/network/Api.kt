@@ -108,6 +108,7 @@ interface Api {
     @GET("channels/storebox/user/cards") fun getStoreboxCreditCards():Call<MutableList<StoreboxCreditCard>>
     @DELETE("channels/storebox/user/cards/{cardId}") fun deleteStoreboxCreditCard(@Path("cardId") id:String): Call<Void>
     @DELETE("channels/storebox/user") fun deleteStoreboxAccountLink() : Call<Void>
+    @POST("channels/storebox/receipts/{id}/saveToFolder/{folderId}") fun saveStoreboxReceipt(@Path("id") id : String, @Path("folderId") folderId : Int) : Call<Void>
 
     // groups
     @GET("groups/registrations") fun getRegistrations() : Call<Registrations> // get all my registrations

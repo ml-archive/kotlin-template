@@ -449,6 +449,7 @@
   <string name='nstack_storeboxreceipt_vatAmount' formatted='false'>storeboxreceipt_vatAmount</string>
   <string name='nstack_storeboxreceipt_confirmDeleteTitle' formatted='false'>storeboxreceipt_confirmDeleteTitle</string>
   <string name='nstack_storeboxreceipt_confirmDeleteMessage' formatted='false'>storeboxreceipt_confirmDeleteMessage</string>
+  <string name='nstack_storeboxreceipt_receiptSavedToFolderToast' formatted='false'>storeboxreceipt_receiptSavedToFolderToast</string>
   <string name='nstack_channelsettingsstoreboxadditions_digitalReceiptsTitle' formatted='false'>channelsettingsstoreboxadditions_digitalReceiptsTitle</string>
   <string name='nstack_channelsettingsstoreboxadditions_digitalReceiptsMessage' formatted='false'>channelsettingsstoreboxadditions_digitalReceiptsMessage</string>
   <string name='nstack_channelsettingsstoreboxadditions_creditCardsSectionHeader' formatted='false'>channelsettingsstoreboxadditions_creditCardsSectionHeader</string>
