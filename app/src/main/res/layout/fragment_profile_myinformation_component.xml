@@ -190,7 +190,6 @@
                             android:layout_gravity="end"
                             android:layout_marginEnd="16dp"
                             android:layout_marginTop="12dp"
-                            android:text="_Verify email"
                             android:textSize="7dp"
                             android:textStyle="normal"
                             nstack:text="@string/nstack_myInformation_verifyNumber" />

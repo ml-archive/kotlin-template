@@ -827,9 +827,10 @@ class PresentationModule {
     fun provideMyInfoComponentPresenter(
             stateManager: AppStateManager,
             saveUserInteractor: SaveUserInteractor,
-            updateUserInteractor: UpdateUserInteractor
+            updateUserInteractor: UpdateUserInteractor,
+            getUserProfileInteractor: GetUserProfileInteractor
     ): MyInfoComponentContract.Presenter {
-        return MyInfoComponentPresenter(stateManager, saveUserInteractor, updateUserInteractor)
+        return MyInfoComponentPresenter(stateManager, saveUserInteractor, updateUserInteractor, getUserProfileInteractor)
     }
 
     @ActivityScope

@@ -29,5 +29,6 @@ interface MyInfoComponentContract {
     interface Presenter : BasePresenter<View> {
         fun setup()
         fun save(closeView : Boolean = true)
+        fun refresh()
     }
 }
