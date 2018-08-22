@@ -11,6 +11,9 @@ import dk.eboks.app.domain.models.APIConstants
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.EboksContentType
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.protocol.ErrorType
+import dk.eboks.app.domain.models.protocol.ErrorType.*
+import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.util.FieldMapper
 import dk.eboks.app.util.exceptionToViewError
@@ -34,7 +37,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
     override fun execute() {
         try {
             input?.msg?.let { msg->
-                //throw(ServerErrorException(ServerError(id="homemade", code = PROMULGATION, type = ErrorType.ERROR)))
+                //throw(ServerErrorException(ServerError(id="homemade", code = PROMULGATION, type = ERROR)))
                 val updated_msg = messagesRepository.getMessage(msg.folderId, msg.id)
                 if(processLockedMessage(msg)) {
                     // update the (perhaps) more detailed message object with the extra info from the backend

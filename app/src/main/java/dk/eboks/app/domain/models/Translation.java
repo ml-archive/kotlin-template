@@ -302,6 +302,7 @@ public class Translation {
 		public static String reply = "Reply";
 		public static String sign = "Sign";
 		public static String signed = "Signed";
+		public static String promulgationHeader = "The court message has now been serviced to you";
 	}
 	public final static class iosbiometrics {
 		public static String errorAuthentication = "There was a problem verifying your identity";

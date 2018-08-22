@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.message.components.opening.promulgation
 
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Translation
 import dk.nodes.arch.domain.executor.Executor
@@ -15,6 +16,7 @@ class PromulgationComponentPresenter @Inject constructor(val appState: AppStateM
 {
     init {
         runAction { v ->
+            v.setPromulgationHeader(Translation.message.promulgationHeader)
             v.setPromulgationText(Translation.message.promulgationMessage)
         }
     }

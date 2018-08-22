@@ -264,6 +264,7 @@
   <string name='nstack_message_reply' formatted='false'>message_reply</string>
   <string name='nstack_message_sign' formatted='false'>message_sign</string>
   <string name='nstack_message_signed' formatted='false'>message_signed</string>
+  <string name='nstack_message_promulgationHeader' formatted='false'>message_promulgationHeader</string>
   <string name='nstack_iosbiometrics_errorAuthentication' formatted='false'>iosbiometrics_errorAuthentication</string>
   <string name='nstack_iosbiometrics_errorUserCancel' formatted='false'>iosbiometrics_errorUserCancel</string>
   <string name='nstack_iosbiometrics_errorUserFallback' formatted='false'>iosbiometrics_errorUserFallback</string>
