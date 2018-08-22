@@ -22,13 +22,26 @@ class TestLoginInteractorImpl(
         try {
             input?.let { args ->
                 try {
-                    authClient.login(
-                        username = args.username,
-                        password = args.password,
-                        activationCode = args.activationCode,
-                        longClient = false,
-                        verifyOnly = true
-                    )
+                    if(!args.activationCode.isNullOrBlank()) {
+                        authClient.login(
+                                username = args.username,
+                                password = args.password,
+                                activationCode = args.activationCode,
+                                longClient = false,
+                                verifyOnly = true
+                        )
+                    }
+                    else
+                    {
+                        authClient.login(
+                                username = args.username,
+                                password = args.password,
+                                activationCode = null,
+                                longClient = false,
+                                verifyOnly = true
+                        )
+                    }
+
 
                     runOnUIThread {
                         output?.onTestLoginSuccess()

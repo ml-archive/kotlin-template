@@ -271,7 +271,7 @@ public class Translation {
 		public static String folder = "Folder";
 		public static String attachments = "Attachments";
 		public static String protectedTitle = "This message is protected";
-		public static String protectedMessage = "Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
+		public static String protectedMessage = "To open this message you need to log on using ID-porten.";
 		public static String recalledTitle = "Recalled by sender";
 		public static String recalledMessage = "Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
 		public static String privateSenderTitle = "Private sender";
