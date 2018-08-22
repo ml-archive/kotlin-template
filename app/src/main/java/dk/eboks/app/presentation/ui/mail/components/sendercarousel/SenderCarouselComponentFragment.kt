@@ -119,7 +119,8 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
             }
             holder?.senderNameTv?.text = senders[position].name
             holder?.root?.let {
-                it.isSelected = senders[position].messages?.metadata?.unreadCount ?: 0 > 0
+                //it.isSelected = senders[position].messages?.metadata?.unreadCount ?: 0 > 0
+                it.isSelected = senders[position].unreadMessageCount > 0
                 it.setOnClickListener {
 
                     val i = Intent(context, MailListActivity::class.java )

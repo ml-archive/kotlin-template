@@ -168,7 +168,20 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
                             .into(circleIv)
                 }
 
+                /*
                 currentItem?.messages?.metadata?.unreadCount?.let { unreadCount ->
+
+                    circleIv.isSelected = (unreadCount > 0)
+                    if (unreadCount > 0) {
+                        unreadCountTv.text = unreadCount.toString()
+                        unreadCountTv.visibility = View.VISIBLE
+                    } else {
+                        unreadCountTv.visibility = View.GONE
+                    }
+                }
+                */
+
+                currentItem.unreadMessageCount?.let { unreadCount ->
 
                     circleIv.isSelected = (unreadCount > 0)
                     if (unreadCount > 0) {

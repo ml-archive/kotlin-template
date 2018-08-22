@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.mail.components.sendercarousel
 import android.arch.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -50,13 +51,19 @@ class SenderCarouselComponentPresenter @Inject constructor(val appState: AppStat
             EventBus.getDefault().post(RefreshSenderCarouselDoneEvent())
             if(senders.isNotEmpty()) {
                 v.showEmpty(false, verified)
-                v.showSenders(senders)
+
+                v.showSenders(sortSenders(senders))
             }
             else
             {
                 v.showEmpty(true, verified)
             }
         }
+    }
+
+    private fun sortSenders(senders: List<Sender>) : List<Sender>
+    {
+        return senders.sortedWith(compareBy({ it.name }, { it.unreadMessageCount > 0}))
     }
 
     override fun onGetSendersError(error : ViewError) {
