@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
@@ -115,7 +116,10 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         override fun onBindViewHolder(holder: CircularSenderViewHolder?, position: Int) {
             holder?.circleIv?.let {
                 if(senders[position].logo != null)
-                    Glide.with(context).load(senders[position].logo?.getWorkaroundUrl()).into(it)
+                    Glide.with(context)
+                         .setDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder).error(R.drawable.ic_sender_placeholder))
+                         .load(senders[position].logo?.getWorkaroundUrl())
+                         .into(it)
             }
             holder?.senderNameTv?.text = senders[position].name
             holder?.root?.let {

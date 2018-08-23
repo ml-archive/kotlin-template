@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.start.screens
 
 import android.animation.LayoutTransition
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -13,8 +14,10 @@ import dk.eboks.app.presentation.ui.home.screens.HomeActivity
 import dk.eboks.app.presentation.ui.login.components.LoginComponentFragment
 import dk.eboks.app.presentation.ui.login.components.UserCarouselComponentFragment
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
+import dk.eboks.app.presentation.ui.start.components.disclaimer.BetaDisclaimerComponentFragment
 import dk.eboks.app.presentation.ui.start.components.signup.CompletedComponentFragment
 import dk.eboks.app.presentation.ui.start.components.welcome.SplashComponentFragment
+import dk.eboks.app.presentation.ui.start.components.welcome.WelcomeComponentFragment
 import dk.eboks.app.util.BroadcastReceiver
 import dk.eboks.app.util.setVisible
 import dk.nodes.nstack.kotlin.NStack
@@ -33,7 +36,7 @@ class StartActivity : BaseActivity(), StartContract.View {
     lateinit var presenter: StartContract.Presenter
 
     var splashFragment: SplashComponentFragment? = SplashComponentFragment()
-    //var splashFragment: SplashComponentFragment? = null
+    var disclaimerFragment: BetaDisclaimerComponentFragment? = BetaDisclaimerComponentFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -152,7 +155,16 @@ class StartActivity : BaseActivity(), StartContract.View {
 
     override fun showWelcomeComponent() {
         splashFragment?.transitionToWelcomeFragment()
-        //setRootFragment(R.id.containerFl, WelcomeComponentFragment())
+    }
+
+    fun continueFromDisclaimer()
+    {
+        setRootFragment(R.id.containerFl, WelcomeComponentFragment())
+    }
+
+    override fun showDisclaimer() {
+        Timber.e("showing beta disclaimer")
+        addFragmentOnTop(R.id.containerFl, disclaimerFragment, false)
     }
 
     override fun startMain() {

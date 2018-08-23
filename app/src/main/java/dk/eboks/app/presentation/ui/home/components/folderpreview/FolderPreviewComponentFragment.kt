@@ -143,10 +143,20 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
                 titleTv.setTypeface(null,Typeface.NORMAL)
             }
 
-            if (currentMessage.status != null && currentMessage.status!!.important) {
-                urgentTv.visibility = View.VISIBLE
-                urgentTv.text = currentMessage.status?.text
+            if (currentMessage.status?.title != null) {
+                urgentTv?.visibility = View.VISIBLE
+                urgentTv?.text = currentMessage.status?.title
+                if(currentMessage.status?.important == true)
+                {
+                    urgentTv.setTextColor(v.context.resources.getColor(R.color.rougeTwo))
+                }
+                else
+                    urgentTv.setTextColor(v.context.resources.getColor(R.color.silver))
+            } else {
+                urgentTv?.visibility = View.GONE
             }
+
+
             titleTv.text = currentMessage.sender?.name ?: ""
             subTitleTv.text = currentMessage.subject
             dateTv.text = formatter.formatDateRelative(currentMessage)

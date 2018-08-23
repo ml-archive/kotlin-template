@@ -49,7 +49,7 @@ public class Translation {
 		public static String forwardReceiptErrorMessage = "Cannot forward receipt";
 		public static String timeoutTitle = "No connection to e-Boks";
 		public static String timeoutMessage = "Please check you internet connection and try again.";
-		public static String authenticationErrorMessage = "Something seems to be wrong with your login. Please make sure your user exists";
+		public static String authenticationErrorMessage = "We could not find you as an e-Boks user. Select sign up to create your e-Boks profile.";
 		public static String connectionError = "No or bad connection. Please try again.";
 		public static String errorTitle = "Error";
 		public static String unknownError = "Unkown error, please try again";
@@ -57,10 +57,12 @@ public class Translation {
 		public static String compromisedConnectionMessage = "A secure connection to e-Boks could not be established. Your device or internet connection may be compromised. Please try again from another network or check the configuration on your device.";
 		public static String resourceNotfoundMessage = "The requested resource could not be found";
 		public static String resourceNotfoundTitle = "Not found";
-		public static String authenticationErrorTitle = "Authentication error";
+		public static String authenticationErrorTitle = "User not found";
 		public static String emptyTitleError = "Upload requires a file name";
 		public static String expiredTokenTitle = "Session expired";
 		public static String expiredTokenMessage = "Your session has expired. Please log on again.";
+		public static String attachmentOpenErrorText = "Attachment could not be opened";
+		public static String printError = "Could not print document";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -196,7 +198,7 @@ public class Translation {
 		public static String emailHint = "Email";
 		public static String passwordHint = "Password";
 		public static String repeatPasswordHint = "Repeat password";
-		public static String termsText = "By using this Site, you agree to be bound by, and to comply with, these Terms and Conditions. If you do not agree to these Terms and Conditions, please do not use this site.  \r\n\r\nPLEASE NOTE: We reserve the right, at our sole discretion, to change, modify or otherwise alter these Terms and Conditions at any time. Unless otherwise indicated, amendments will become effective immediately. Please review these Terms and Conditions periodically. Your continued use of the Site following the posting of changes and/or modifications will constitute your acceptance of the revised Terms and Conditions and the reasonableness of these standards for notice of changes. For your information, this page was last updated as of the date at the top of these terms and conditions. \r\n\r\n2. PRIVACY  Please review our Privacy Policy, which also governs your visit to this Site, to understand our practices.  3. LINKED SITES  This Site may contain links to other independent third-party Web sites (\"Linked Sites\u201D). These Linked Sites are provided solely as a convenience to our visitors. Such Linked Sites are not under our control, and we are not responsible for and does not endorse the content of such Linked Sites, including any information or materials contained on such Linked Sites. You will need to make your own independent judgment regarding your interaction with these Linked Sites.  4. FORWARD LOOKING STATEMENTS  All materials reproduced on this site speak as of the original date of publication or filing. The fact that a document is available on this site does not mean that the information contained in such document has not been modified or superseded by events or by a subsequent document or filing. We have no duty or policy to update any information or statements contained on this site and, therefore, such information or statements should not be relied upon as being current as of the date you access this site.  5. DISCLAIMER OF WARRANTIES AND LIMITATION OF LIABILITY  A. THIS SITE MAY CONTAIN INACCURACIES AND TYPOGRAPHICAL ERRORS. WE DOES NOT WARRANT THE ACCURACY OR COMPLETENESS OF THE MATERIALS OR THE RELIABILITY OF ANY ADVICE, OPINION, STATEMENT OR OTHER INFORMATION DISPLAYED OR DISTRIBUTED THROUGH THE SITE. YOU EXPRESSLY UNDERSTAND AND AGREE THAT: (i) YOUR USE OF THE SITE, INCLUDING ANY RELIANCE ON ANY SUCH OPINION, ADVICE, STATEMENT, MEMORANDUM, OR INFORMATION CONTAINED HEREIN, SHALL BE AT YOUR SOLE RISK; (ii) THE SITE IS PROVIDED ON AN \"AS IS\" AND \"AS AVAILABLE\" BASIS; (iii) EXCEPT AS EXPRESSLY PROVIDED HEREIN WE DISCLAIM ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, WORKMANLIKE EFFORT, TITLE AND NON-INFRINGEMENT; (iv) WE MAKE NO WARRANTY WITH RESPECT TO THE RESULTS THAT MAY BE OBTAINED FROM THIS SITE, THE PRODUCTS OR SERVICES ADVERTISED OR OFFERED OR MERCHANTS INVOLVED; (v) ANY MATERIAL DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE SITE IS DONE AT YOUR OWN DISCRETION AND RISK; and (vi) YOU WILL BE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR FOR ANY LOSS OF DATA THAT RESULTS FROM THE DOWNLOAD OF ANY SUCH MATERIAL.  B. YOU UNDERSTAND AND AGREE THAT UNDER NO CIRCUMSTANCES, INCLUDING, BUT NOT LIMITED TO, NEGLIGENCE, SHALL WE BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, PUNITIVE OR CONSEQUENTIAL DAMAGES THAT RESULT FROM THE USE OF, OR THE INABILITY TO USE, ANY OF OUR SITES OR MATERIALS OR FUNCTIONS ON ANY SUCH SITE, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. THE FOREGOING LIMITATIONS SHALL APPLY NOTWITHSTANDING ANY FAILURE OF ESSENTIAL PURPOSE OF ANY LIMITED REMEDY.  6. EXCLUSIONS AND LIMITATIONS  SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF CERTAIN WARRANTIES OR THE LIMITATION OR EXCLUSION OF LIABILITY FOR INCIDENTAL OR CONSEQUENTIAL DAMAGES. ACCORDINGLY, OUR LIABILITY IN SUCH JURISDICTION SHALL BE LIMITED TO THE MAXIMUM EXTENT PERMITTED BY LAW.  7. OUR PROPRIETARY RIGHTS  This Site and all its Contents are intended solely for personal, non-commercial use. Except as expressly provided, nothing within the Site shall be construed as conferring any license under our or any third party\'s intellectual property rights, whether by estoppel, implication, waiver, or otherwise. Without limiting the generality of the foregoing, you acknowledge and agree that all content available through and used to operate the Site and its services is protected by copyright, trademark, patent, or other proprietary rights. You agree not to: (a) modify, alter, or deface any of the trademarks, service marks, trade dress (collectively \"Trademarks\") or other intellectual property made available by us in connection with the Site; (b) hold yourself out as in any way sponsored by, affiliated with, or endorsed by us, or any of our affiliates or service providers; (c) use any of the Trademarks or other content accessible through the Site for any purpose other than the purpose for which we have made it available to you; (d) defame or disparage us, our Trademarks, or any aspect of the Site; and (e) adapt, translate, modify, decompile, disassemble, or reverse engineer the Site or any software or programs used in connection with it or its products and services.  The framing, mirroring, scraping or data mining of the Site or any of its content in any form and by any method is expressly prohibited.";
+		public static String termsText = "N/A";
 		public static String title = "Sign up";
 		public static String termsTitle = "Terms & Conditions";
 		public static String mmHeader = "Okay. Would you like to receive mail from public authorities?";
@@ -270,16 +272,16 @@ public class Translation {
 		public static String notes = "Note";
 		public static String folder = "Folder";
 		public static String attachments = "Attachments";
-		public static String protectedTitle = "This message is protected";
-		public static String protectedMessage = "To open this message you need to log on using ID-porten.";
+		public static String protectedTitle = "Message is locked";
+		public static String protectedMessage = "To open this message you need to log on again using [logonProvider]";
 		public static String recalledTitle = "Recalled by sender";
 		public static String recalledMessage = "Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
 		public static String privateSenderTitle = "Private sender";
-		public static String privateSenderMessage = "Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
-		public static String openMessageButton = "Open message";
+		public static String privateSenderMessage = "You have logged on using ID-porten which allows access to mail from public authorities. Activate viewing of mail from private senders to open this message.";
+		public static String openMessageButton = "Accept";
 		public static String deleteMessageButton = "Delete message";
 		public static String receiptTitle = "Opening receipt";
-		public static String receiptMessage = "Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh.";
+		public static String receiptMessage = "Sender has requested a receipt the first time you open this message.";
 		public static String recipientPrefixTo = "To:";
 		public static String uploadedByYou = "Uploaded by you";
 		public static String notePlaceholder = "Type here";
@@ -295,9 +297,9 @@ public class Translation {
 		public static String numberOfAttachmentsSingularSuffix = "attachment \u2022";
 		public static String promulgationMessage = "You have received a court message that you have opened or otherwise processed. The message and exhibits, if any, have been properly serviced to you.  \r\n\r\nIt is important that you thoroughly read the court message and exhibits, if any.  \r\n\r\nThe message may for example include a summons, a call for a court hearing, or a judicial decision that all may have certain ramifications for you.  \r\nAny time limits apply as of today.  \r\n\r\nThe court has received a return receipt in evidence of the message being serviced to you. You will find the return receipt under the folder Sent Items.";
 		public static String voluntaryReceiptTitle = "Opening receipt";
-		public static String voluntaryReceiptMessage = "__voluntaryReceiptMessage";
-		public static String openMessageWithReceiptButton = "Open message with receipt";
-		public static String openMessageWithoutReceiptButton = "Open message without receipt";
+		public static String voluntaryReceiptMessage = "Sender has requested a receipt the first time you open this message.";
+		public static String openMessageWithReceiptButton = "Accept";
+		public static String openMessageWithoutReceiptButton = "Do not send a receipt";
 		public static String note = "Note";
 		public static String reply = "Reply";
 		public static String sign = "Sign";
@@ -422,7 +424,7 @@ public class Translation {
 		public static String enableMobileAccessTitle = "[idtype] requires mobile access enabled";
 		public static String enableMobileAccessMessage = "The use of [idtype] requires that you log on to e-Boks in a browser and activate mobile access";
 		public static String enableBiometricsTitle = "Enable [idtype]";
-		public static String enableBiometricsMessage = "Type your password to enable [idtype]";
+		public static String enableBiometricsMessage = "Type your credentials to enable [idtype]";
 		public static String ssn = "Social Security Number";
 		public static String password = "Password";
 		public static String typeHere = "Type here";
@@ -434,8 +436,8 @@ public class Translation {
 		public static String errorBiometryVerificationRequiredTitle = "Verification required";
 		public static String errorbiometryVerificationRequiredMessage = "You need to verify your profile to enable [idtype]";
 		public static String feedbackCellTitle = "Provide feedback";
-		public static String enableBiometricsCredidentialsNeededMessage = "Enter credentials to enable [idtype]";
-		public static String enableBiometricsCredidentialsNeededTitle = "Credentials missing";
+		public static String enableBiometricsCredidentialsNeededMessage = "Type your credentials to enable [idtype]";
+		public static String enableBiometricsCredidentialsNeededTitle = "Credentials";
 	}
 	public final static class myInformation {
 		public static String title = "My Information";
@@ -559,7 +561,7 @@ public class Translation {
 		public static String uploadingFile = "Uploading file";
 	}
 	public final static class androidfingerprint {
-		public static String successMessage = "Successfully Authenticated";
+		public static String successMessage = "Successfully authenticated";
 		public static String errorMessage = "Unable to authenticate";
 		public static String errorInvalidData = "Data is not valid encrypted data";
 		public static String dialogTitle = "Log on with fingerprint";
@@ -712,5 +714,10 @@ public class Translation {
 		public static String title = "Log on with BankID";
 		public static String subtitle = "Enter your social security number";
 		public static String placeholder = "yyyymmddxxxx";
+	}
+	public final static class firstopen {
+		public static String title = "This is the new e-Boks App";
+		public static String message = "It is meant to replace the other e-Boks app, once we\'re sure you like it \uD83D\uDE0A";
+		public static String letsGo = "Let\'s go!";
 	}
 }

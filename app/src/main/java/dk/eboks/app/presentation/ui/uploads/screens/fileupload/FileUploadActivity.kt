@@ -59,11 +59,14 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
             }
         }
 
-        chooseFolderLl.setOnClickListener {
-            val i = Intent(this, FolderActivity::class.java)
-            i.putExtra("pick", true)
-            i.putExtra("selectFolder", true)
-            startActivityForResult(i, FolderActivity.REQUEST_ID)
+        if(presenter.isVerified())
+        {
+            chooseFolderLl.setOnClickListener {
+                val i = Intent(this, FolderActivity::class.java)
+                i.putExtra("pick", true)
+                i.putExtra("selectFolder", true)
+                startActivityForResult(i, FolderActivity.REQUEST_ID)
+            }
         }
 
         cancelBtn.setOnClickListener {
@@ -88,6 +91,12 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
                 setResult(Activity.RESULT_OK, intent)
                 finishAfterTransition()
             }
+        }
+
+        if(!presenter.isVerified())
+        {
+            fileNameEt.isEnabled = false
+            saveBtn.isEnabled = false
         }
         // set default result
         setResult(Activity.RESULT_CANCELED)

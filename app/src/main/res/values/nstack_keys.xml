@@ -51,6 +51,8 @@
   <string name='nstack_error_emptyTitleError' formatted='false'>error_emptyTitleError</string>
   <string name='nstack_error_expiredTokenTitle' formatted='false'>error_expiredTokenTitle</string>
   <string name='nstack_error_expiredTokenMessage' formatted='false'>error_expiredTokenMessage</string>
+  <string name='nstack_error_attachmentOpenErrorText' formatted='false'>error_attachmentOpenErrorText</string>
+  <string name='nstack_error_printError' formatted='false'>error_printError</string>
   <string name='nstack_mail_senderHeader' formatted='false'>mail_senderHeader</string>
   <string name='nstack_mail_showAllSendersButton' formatted='false'>mail_showAllSendersButton</string>
   <string name='nstack_mail_smartFolderHeader' formatted='false'>mail_smartFolderHeader</string>
@@ -616,4 +618,7 @@
   <string name='nstack_obtainssnse_title' formatted='false'>obtainssnse_title</string>
   <string name='nstack_obtainssnse_subtitle' formatted='false'>obtainssnse_subtitle</string>
   <string name='nstack_obtainssnse_placeholder' formatted='false'>obtainssnse_placeholder</string>
+  <string name='nstack_firstopen_title' formatted='false'>firstopen_title</string>
+  <string name='nstack_firstopen_message' formatted='false'>firstopen_message</string>
+  <string name='nstack_firstopen_letsGo' formatted='false'>firstopen_letsGo</string>
 </resources>

@@ -37,6 +37,14 @@ class TransformTokenInteractorImpl(
                     appStateManager.state?.loginState?.token = token
 
                     val userResult = api.getUserProfile().execute()
+                    // user exists in nemid, but not in eboks, show error
+                    if(userResult.code() == 400)
+                    {
+                        runOnUIThread {
+                            output?.onLoginError(ViewError(title = Translation.error.authenticationErrorTitle, message = Translation.error.authenticationErrorMessage, shouldCloseView = true))
+                        }
+                        return
+                    }
                     userResult?.body()?.let { user->
                         // update the states
                         Timber.e("Saving user $user")

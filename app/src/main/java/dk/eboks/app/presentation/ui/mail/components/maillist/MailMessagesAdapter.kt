@@ -125,9 +125,15 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
             checkBox.isSelected = false
 
 
-            if (currentItem.status?.text != null) {
+            if (currentItem.status?.title != null) {
                 urgentTv?.visibility = View.VISIBLE
-                urgentTv?.text = currentItem.status?.text
+                urgentTv?.text = currentItem.status?.title
+                if(currentItem.status?.important == true)
+                {
+                    urgentTv.setTextColor(root.context.resources.getColor(R.color.rougeTwo))
+                }
+                else
+                    urgentTv.setTextColor(root.context.resources.getColor(R.color.silver))
             } else {
                 urgentTv?.visibility = View.GONE
             }

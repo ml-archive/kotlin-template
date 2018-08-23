@@ -21,14 +21,14 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
 
     val messageDateFormat: SimpleDateFormat by lazy {
         try {
-            SimpleDateFormat("d. MMM", NStack.language)
+            SimpleDateFormat("d. MMM hh:mm", NStack.language)
         } catch (t: Throwable) {
             SimpleDateFormat()
         }
     }
     val messageDateYearFormat: SimpleDateFormat by lazy {
         try {
-            SimpleDateFormat("d. MMM YYYY", NStack.language)
+            SimpleDateFormat("d. MMM yyyy", NStack.language)
         } catch (t: Throwable) {
             SimpleDateFormat()
         }
@@ -192,7 +192,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
 
     override fun formatPrice(item : Item) : String
     {
-        return "%.2f ${item.currency}".format(NStack.language, item.amount)
+        return "%.2f".format(NStack.language, item.amount)
     }
 
 }

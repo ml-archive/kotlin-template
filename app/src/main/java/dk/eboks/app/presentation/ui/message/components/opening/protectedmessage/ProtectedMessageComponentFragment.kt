@@ -84,6 +84,7 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         Timber.e("Configuring for login provider $loginProviderId")
 
         Config.getLoginProvider(loginProviderId)?.let { provider ->
+            mainTv.text = Translation.message.protectedMessage.replace("[logonProvider]", provider.translatedName())
             loginSecureBtn.text = Translation.logoncredentials.logonWithProvider.replace("[provider]", provider.translatedName())
             loginSecureBtn.setOnClickListener {
                 val intent = Intent(context, PopupLoginActivity::class.java).putExtra("selectedLoginProviderId", loginProviderId).putExtra("reauth", true)
@@ -99,7 +100,6 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
     {
         mainTb.title = Translation.message.protectedTitle
         headerTv.text = Translation.message.protectedTitle
-        mainTv.text = Translation.message.protectedMessage
     }
 
     private fun setupTopBar() {

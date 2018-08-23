@@ -163,8 +163,6 @@ import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import dk.eboks.app.presentation.ui.start.screens.StartPresenter
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentPresenter
-import dk.eboks.app.presentation.ui.uploads.components.uploadfile.UploadFileComponentFragment
-import dk.eboks.app.presentation.ui.uploads.components.uploadfile.UploadFileComponentPresenter
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsActivity
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsPresenter
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadActivity
@@ -402,8 +400,6 @@ interface PresentationComponent {
 
     fun inject(target : UploadOverviewComponentFragment)
     fun inject(target : UploadOverviewComponentPresenter)
-    fun inject(target : UploadFileComponentFragment)
-    fun inject(target : UploadFileComponentPresenter)
     fun inject(target : FileUploadActivity)
     fun inject(target : FileUploadPresenter)
 

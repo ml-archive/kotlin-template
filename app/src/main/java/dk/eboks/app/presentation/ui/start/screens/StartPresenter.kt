@@ -1,18 +1,19 @@
 package dk.eboks.app.presentation.ui.start.screens
 
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.user.GetUserProfileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import timber.log.BuildConfig
 import timber.log.Timber
 
 /**
  * Created by bison on 20-05-2017.
  */
-class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteractor: BootstrapInteractor) :
+class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteractor: BootstrapInteractor, val prefManager: PrefManager) :
         StartContract.Presenter,
         BasePresenterImpl<StartContract.View>(),
         BootstrapInteractor.Output,
@@ -46,7 +47,15 @@ class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteract
             if (hasUsers) {
                 v.showUserCarouselComponent()
             } else {
-                v.showWelcomeComponent()
+                if(BuildConfig.ENABLE_BETA_DISCLAIMER) {
+                    if (!prefManager.getBoolean("didShowBetaDisclaimer", false)) {
+                        prefManager.setBoolean("didShowBetaDisclaimer", true)
+                        v.showDisclaimer()
+                    } else
+                        v.showWelcomeComponent()
+                }
+                else
+                    v.showWelcomeComponent()
             }
         }
     }

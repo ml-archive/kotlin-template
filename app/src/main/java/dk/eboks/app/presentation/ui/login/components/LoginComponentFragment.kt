@@ -343,12 +343,14 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             when (provider.id) {
                 "email" -> {
                     setupUserView(user)
+                    userEmailCprTv.setVisible(true)
                     cprEmailEt.inputType = InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
                     cprEmailTil.visibility = View.GONE
                     userLl.visibility = View.VISIBLE
                 }
                 "cpr" -> {
                     user?.let { setupUserView(it) }
+                    userEmailCprTv.setVisible(false)
                     cprEmailEt.inputType = InputType.TYPE_CLASS_NUMBER
                     userLl.visibility = View.VISIBLE
                     cprEmailTil.visibility = View.VISIBLE

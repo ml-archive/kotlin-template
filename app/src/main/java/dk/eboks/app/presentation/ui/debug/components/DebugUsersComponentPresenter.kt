@@ -19,21 +19,12 @@ class DebugUsersComponentPresenter @Inject constructor(val appState: AppStateMan
         u.clear()
         u.add(LoginState(selectedUser= User(id = -1, name="Storebox (0909061345)", identity = "0909061345"),
                 userName="0909061345", userPassWord="a12345", activationCode="f3M9KwDs"))
-        /*
-        u.add(LoginState(selectedUser= User(id = -2, name="Charlie Testb0urger (0703151319)", identity = "0703151319"),
-                userName="0703151319", userPassWord="a12345", activationCode="Rg9d2X3D"))
-                */
 
-        /*
-        u.add(LoginState(selectedUser= User(id = -2, name="Charlie Testb0urger (0703151319)", identity = "0703151319"),
-                userName="0703151319", userPassWord="a12345", activationCode = "Lz70Kqt6"))
-        */
         u.add(LoginState(selectedUser= User(id = -2, name="Charlie Testb0urger (0703161319)", identity = "0703161319"),
                 userName="0703161319", userPassWord="a12345", activationCode = "Lz70Kqt6"))
 
-
         u.add(LoginState(selectedUser= User(id = -3, name="Boxie Fairshare (0805730045)", identity = "0805730045"),
-                userName="0805730045", userPassWord="a12345", activationCode="Ha9y4P8J"))
+                userName="0805730045", userPassWord="a12345", activationCode=null))
         u.add(LoginState(selectedUser= User(id = -4, name="Signe Signfeature (090906-1349)", identity = "0909061349"),
                 userName="0909061349", userPassWord="a12345", activationCode="c0XHs82M"))
         u.add(LoginState(selectedUser= User(id = -5, name="Payment (090906-1348)", identity = "0909061348"),

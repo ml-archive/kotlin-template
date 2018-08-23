@@ -5,6 +5,8 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.DownloadManager
 import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.managers.UIManager
+import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.EboksContentType
 import dk.eboks.app.domain.models.message.Message
@@ -56,7 +58,7 @@ class OpenAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
         } catch (e: Throwable) {
             Timber.e(e)
             runOnUIThread {
-                output?.onOpenAttachmentError(exceptionToViewError(e))
+                output?.onOpenAttachmentError(ViewError(title = Translation.error.errorTitle, message = Translation.error.attachmentOpenErrorText))
             }
         }
     }

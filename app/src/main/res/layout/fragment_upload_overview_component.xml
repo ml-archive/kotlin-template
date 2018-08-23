@@ -42,6 +42,8 @@
                 <TextView
                     android:id="@+id/leftProgressTv"
                     style="@style/text.body6"
+                    android:lines="1"
+                    android:ellipsize="end"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

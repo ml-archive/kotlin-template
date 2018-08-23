@@ -14,7 +14,7 @@ data class Item(
         var description: String?,
         var date: Date?,
         var amount: Double?,
-        var currency: String?,
+        //var currency: String?,
         var status : Status?,
         var tag : String?,
         var image : Image?
