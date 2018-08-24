@@ -48,6 +48,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     private var paymentAdapter = PaymentLineAdapter()
 
     private var actionButtons = arrayListOf(
+            OverlayButton(ButtonType.MAIL),
             OverlayButton(ButtonType.MOVE),
             OverlayButton(ButtonType.DELETE)
     )
