@@ -141,8 +141,9 @@ class AuthClientImpl : AuthClient {
         else
             formBody.add("scope", "mobileapi offline_access")
 
+
         activationCode?.let {
-            formBody.add("acr_values", "activationcode:$it nationality:DK")
+            formBody.add("acr_values", "activationcode:$it nationality:${Config.getCurrentNationality()}")
         }
 
         val requestBuilder = Request.Builder()

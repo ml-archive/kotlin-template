@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.login.components.providers.idporten
 
+import android.app.Activity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.View
@@ -73,7 +74,10 @@ class IdPortenComponentFragment : BaseWebFragment(), WebLoginContract.View {
     }
 
     override fun proceed() {
-        (activity as StartActivity).startMain()
+        if(activity is StartActivity)
+            (activity as StartActivity).startMain()
+        else
+            finishActivity(Activity.RESULT_OK)
     }
 
     private fun showDebugDialog()
