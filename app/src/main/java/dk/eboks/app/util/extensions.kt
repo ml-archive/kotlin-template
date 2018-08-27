@@ -2,11 +2,16 @@ package dk.eboks.app.util
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Parcelable
+import android.print.PrintAttributes
+import android.print.PrintDocumentAdapter
+import android.print.PrintJob
+import android.print.PrintManager
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
@@ -17,6 +22,7 @@ import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.widget.EditText
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
@@ -336,4 +342,17 @@ fun LoginProvider.translatedName() : String {
         "bankid_no" -> return Translation.logonmethods.nemId
         else -> { return this.name }
     }
+}
+
+fun WebView.printAndForget(context : Context)
+{
+// Get a PrintManager instance
+    val printManager : PrintManager = context.getSystemService(Context.PRINT_SERVICE) as PrintManager
+
+    // Get a print adapter instance
+    val printAdapter : PrintDocumentAdapter = this.createPrintDocumentAdapter()
+
+    // Create a print job with name and adapter instance
+    val jobName = "eboks"
+    val printJob : PrintJob = printManager.print(jobName, printAdapter, PrintAttributes.Builder().build())
 }

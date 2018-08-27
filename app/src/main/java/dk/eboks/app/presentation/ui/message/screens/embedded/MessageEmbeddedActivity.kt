@@ -1,13 +1,18 @@
 package dk.eboks.app.presentation.ui.message.screens.embedded
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v4.app.Fragment
+import android.view.MenuItem
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseSheetActivity
+import dk.eboks.app.presentation.base.ViewerFragment
+import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import dk.eboks.app.presentation.ui.message.components.detail.attachments.AttachmentsComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.folderinfo.FolderInfoComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.header.HeaderComponentFragment
@@ -19,8 +24,12 @@ import dk.eboks.app.presentation.ui.message.components.viewers.html.HtmlViewComp
 import dk.eboks.app.presentation.ui.message.components.viewers.image.ImageViewComponentFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.pdf.PdfViewComponentFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.text.TextViewComponentFragment
+import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
+import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
+import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
 
 /**
  * Created by bison on 09-02-2018.
@@ -41,6 +50,10 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     var folderInfoComponentFragment: FolderInfoComponentFragment? = null
     var embeddedViewerComponentFragment: Fragment? = null
 
+    private var actionButtons = arrayListOf(
+            OverlayButton(ButtonType.PRINT)
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentSheet(R.layout.sheet_message)
@@ -58,6 +71,16 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         mainTb.setNavigationOnClickListener {
             onBackPressed()
         }
+
+        val menuItem = mainTb?.menu?.add("_options")
+        menuItem?.setIcon(R.drawable.icon_48_option_red_navigationbar)
+        menuItem?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        menuItem?.setOnMenuItemClickListener { item: MenuItem ->
+            val i = Intent(this@MessageEmbeddedActivity, OverlayActivity::class.java)
+            i.putExtra("buttons", actionButtons)
+            startActivityForResult(i, OverlayActivity.REQUEST_ID)
+            true
+        }
     }
 
     override fun setHighPeakHeight() {
@@ -66,6 +89,35 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
 
     override fun showTitle(message: Message) {
         mainTb.subtitle = formatter.formatDate(message)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // Deal with return from document action sheet
+        if (requestCode == OverlayActivity.REQUEST_ID) {
+            when (data?.getSerializableExtra("res")) {
+                (ButtonType.PRINT) -> {
+                    if(embeddedViewerComponentFragment is ViewerFragment)
+                        (embeddedViewerComponentFragment as ViewerFragment).print()
+                }
+                else                -> {
+                    // Request do nothing
+                }
+            }
+        }
+        // deal with return from folder picker
+        /*
+        if (requestCode == FolderActivity.REQUEST_ID) {
+            data?.extras?.let {
+                val moveToFolder = data.getSerializableExtra("res") as Folder
+                //Timber.d("Move To Folder ${moveToFolder?.toString()}")
+                Timber.e("Returned from folder picker. folder picked: ${moveToFolder.name}")
+                presenter.saveReceipt(moveToFolder)
+            }
+        }
+        */
     }
 
     override fun addHeaderComponentFragment()
