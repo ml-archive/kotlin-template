@@ -71,14 +71,14 @@ class DownloadManagerImpl(val context: Context, val client: OkHttpClient, val ca
                 .get()
                 .build()
         val response = client.newCall(request).execute()
-        val filename = "tmpreceipt.pdf"
+        val filename = "receipt.pdf"
         val downloadedFile = File(context.getCacheDir(), filename)
         // let okio do the actual buffering and writing of the file, after all thats why Jake made it, in his infinite wisdom
         val sink = Okio.buffer(Okio.sink(downloadedFile))
         sink.writeAll(response.body()!!.source())
         sink.close()
         Timber.e("Downloaded receipt $url to $filename")
-        return filename
+        return downloadedFile.path
     }
 
 }

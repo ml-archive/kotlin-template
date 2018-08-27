@@ -63,6 +63,8 @@ public class Translation {
 		public static String expiredTokenMessage = "Your session has expired. Please log on again.";
 		public static String attachmentOpenErrorText = "Attachment could not be opened";
 		public static String printError = "Could not print document";
+		public static String receiptOpenInErrorTitle = "Receipt error";
+		public static String receiptOpenInErrorMessage = "Receipt could not be opened";
 	}
 	public final static class mail {
 		public static String senderHeader = "Mail from your senders";
@@ -716,8 +718,8 @@ public class Translation {
 		public static String placeholder = "yyyymmddxxxx";
 	}
 	public final static class firstopen {
-		public static String title = "This is the new e-Boks App";
-		public static String message = "It is meant to replace the other e-Boks app, once we\'re sure you like it \uD83D\uDE0A";
-		public static String letsGo = "Let\'s go!";
+		public static String title = "New experiences. New possibilities.";
+		public static String message = "We\u2019ve now gone live with a new and improved version of the e-Boks app. Here you\u2019ll be able to experience a new interface, with a revamped design and improved navigation. \r\n\r\nWe are still working on the completion of all functionalities but were not able to resist providing you with an early access. That\u2019s why we recommend you to keep the previous e-Boks app in parallel, to preserve all the functions you\u2019re used to. \r\n\r\nIn our new app, we introduce e-Boks Plus, your short cut to a range of new services. It\u2019s you who decide which services you want to use, and we give you complete control of the content. Which services are to be included in future versions of e-Boks Plus will also be determined by you. So do provide us with your feedback in the app.";
+		public static String letsGo = "OK";
 	}
 }

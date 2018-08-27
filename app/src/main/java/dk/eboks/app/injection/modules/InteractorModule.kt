@@ -587,4 +587,9 @@ class InteractorModule {
     fun provideSaveReceiptInteractor(executor: Executor, api: Api): SaveReceiptInteractor {
         return SaveReceiptInteractorImpl(executor, api)
     }
+
+    @Provides
+    fun provideShareReceiptInteractor(executor: Executor, downloadManager: DownloadManager): ShareReceiptInteractor {
+        return ShareReceiptInteractorImpl(executor, downloadManager)
+    }
 }

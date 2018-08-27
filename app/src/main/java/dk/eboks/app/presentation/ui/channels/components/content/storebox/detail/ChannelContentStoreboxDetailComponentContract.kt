@@ -14,11 +14,14 @@ interface ChannelContentStoreboxDetailComponentContract {
         fun setReceipt(receipt: StoreboxReceipt)
         fun showProgress(isLoading: Boolean)
         fun returnToMasterView()
+        fun shareReceiptContent(filename : String)
+        fun mailReceiptContent(filename: String)
     }
 
     interface Presenter : BasePresenter<View> {
         fun loadReceipt()
         fun deleteReceipt()
         fun saveReceipt(dstFolder: Folder)
+        fun shareReceipt(asMail : Boolean)
     }
 }

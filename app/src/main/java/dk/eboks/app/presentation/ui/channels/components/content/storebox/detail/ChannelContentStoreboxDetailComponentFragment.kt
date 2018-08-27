@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color.BLACK
 import android.graphics.Color.WHITE
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.support.v7.app.AlertDialog
@@ -22,11 +23,13 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.storebox.*
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
+import dk.eboks.app.util.FileUtils
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_storebox_detail_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -35,6 +38,12 @@ import kotlinx.android.synthetic.main.viewholder_receipt_line.view.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
+import android.widget.Toast
+import java.nio.file.Files.exists
+import android.os.Environment.getExternalStorageDirectory
+import android.support.v4.content.FileProvider
+import dk.eboks.app.BuildConfig
+import java.io.File
 
 
 class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
@@ -48,6 +57,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     private var paymentAdapter = PaymentLineAdapter()
 
     private var actionButtons = arrayListOf(
+            OverlayButton(ButtonType.OPEN),
             OverlayButton(ButtonType.MAIL),
             OverlayButton(ButtonType.MOVE),
             OverlayButton(ButtonType.DELETE)
@@ -273,6 +283,37 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         fragmentManager.popBackStack()
     }
 
+    override fun shareReceiptContent(filename: String) {
+        try {
+            FileUtils.openExternalViewer(context, filename, "application/pdf")
+        }
+        catch (t : Throwable)
+        {
+            showErrorDialog(ViewError(title = Translation.error.receiptOpenInErrorTitle, message = Translation.error.receiptOpenInErrorMessage))
+        }
+    }
+
+    override fun mailReceiptContent(filename: String) {
+        try {
+            val intent = Intent(Intent.ACTION_SEND)
+            //intent.type = "text/plain"
+
+            val uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".fileprovider", File(filename))
+            intent.setDataAndType(uri, "application/pdf")
+            intent.putExtra(Intent.EXTRA_STREAM, uri)
+            intent.putExtra(Intent.EXTRA_EMAIL, "")
+            intent.putExtra(Intent.EXTRA_SUBJECT, "")
+            intent.putExtra(Intent.EXTRA_TEXT, "")
+
+            startActivity(Intent.createChooser(intent, Translation.overlaymenu.mail))
+        }
+        catch (t : Throwable)
+        {
+            t.printStackTrace()
+            showErrorDialog(ViewError(title = Translation.error.receiptOpenInErrorTitle, message = Translation.error.receiptOpenInErrorMessage))
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -286,6 +327,12 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
                 }
                 (ButtonType.DELETE) -> {
                     showRemoveChannelDialog()
+                }
+                (ButtonType.OPEN) -> {
+                    presenter.shareReceipt(false)
+                }
+                (ButtonType.MAIL) -> {
+                    presenter.shareReceipt(true)
                 }
                 else                -> {
                     // Request do nothing

@@ -632,13 +632,15 @@ class PresentationModule {
             stateManager: AppStateManager,
             getStoreboxReceiptInteractor: GetStoreboxReceiptInteractor,
             deleteStoreboxReceiptInteractor: DeleteStoreboxReceiptInteractor,
-            saveReceiptInteractor: SaveReceiptInteractor
+            saveReceiptInteractor: SaveReceiptInteractor,
+            shareReceiptInteractor: ShareReceiptInteractor
     ): ChannelContentStoreboxDetailComponentContract.Presenter {
         return ChannelContentStoreboxDetailComponentPresenter(
                 stateManager,
                 getStoreboxReceiptInteractor,
                 deleteStoreboxReceiptInteractor,
-                saveReceiptInteractor
+                saveReceiptInteractor,
+                shareReceiptInteractor
         )
     }
 
