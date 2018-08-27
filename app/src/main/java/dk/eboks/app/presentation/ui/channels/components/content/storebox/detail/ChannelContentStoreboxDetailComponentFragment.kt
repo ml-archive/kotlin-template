@@ -43,6 +43,7 @@ import java.nio.file.Files.exists
 import android.os.Environment.getExternalStorageDirectory
 import android.support.v4.content.FileProvider
 import dk.eboks.app.BuildConfig
+import dk.eboks.app.util.guard
 import java.io.File
 
 
@@ -177,7 +178,13 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     private fun setStoreInfo(merchant: StoreboxMerchant?, optionals: StoreboxOptionals?) {
         storeboxDetailTvStoreName.text = merchant?.name
         storeboxDetailTvAddressLineOne.text = merchant?.addressLine1
-        storeboxDetailTvAddressLineTwo.text = merchant?.addressLine2
+        if(merchant?.addressLine2?.isNullOrBlank() == false)
+        {
+            storeboxDetailTvAddressLineTwo.setVisible(true)
+            storeboxDetailTvAddressLineTwo.text = merchant?.addressLine2
+        }
+        else
+            storeboxDetailTvAddressLineTwo.setVisible(false)
         storeboxDetailTvPhoneNumber.text = optionals?.storeRegNumber
     }
 
@@ -404,17 +411,30 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         inner class ReceiptLineViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             fun bind(receiptLine: StoreboxReceiptLine) {
                 itemView.viewHolderReceiptTvItemName.text = receiptLine.name
+                itemView.viewHolderReceiptTvAmount.setVisible(false)
+                receiptLine.amount?.let { amount ->
+                    if(amount > 1) {
+                        itemView.viewHolderReceiptTvAmount.setVisible(true)
+                        itemView.viewHolderReceiptTvAmount.text = String.format(
+                                "%s x %.2f",
+                                receiptLine.amount?.toInt(),
+                                receiptLine.itemPrice?.value
+                        )
+                    }
+                }.guard {
+                    itemView.viewHolderReceiptTvAmount.setVisible(false)
+                }
 
-                itemView.viewHolderReceiptTvAmount.text = String.format(
-                        "%s x %.2f",
-                        receiptLine.amount?.toInt(),
-                        receiptLine.itemPrice?.value
-                )
+                itemView.viewHolderReceiptTvPrice.text = String.format("%.2f", receiptLine.totalPrice?.value)
 
-                itemView.viewHolderReceiptTvPrice.text = receiptLine.totalPrice?.value.toString()
+                itemView.viewHolderReceiptTvSubtitle.setVisible(false)
+                receiptLine.description?.let {
+                    if(!it.isBlank()) {
+                        itemView.viewHolderReceiptTvSubtitle.setVisible(true)
+                        itemView.viewHolderReceiptTvSubtitle.text = it
+                    }
+                }
 
-                itemView.viewHolderReceiptTvSubtitle.setVisible(receiptLine.description != null)
-                itemView.viewHolderReceiptTvSubtitle.text = receiptLine.description
             }
         }
     }

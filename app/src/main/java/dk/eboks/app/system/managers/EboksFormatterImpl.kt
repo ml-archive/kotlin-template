@@ -36,7 +36,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
 
     val hourDateFormat: SimpleDateFormat by lazy {
         try {
-            SimpleDateFormat("hh:mm:ss", NStack.language)
+            SimpleDateFormat("HH:mm:ss", NStack.language)
 
         } catch (t: Throwable) {
             SimpleDateFormat()
