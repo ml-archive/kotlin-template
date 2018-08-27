@@ -16,7 +16,7 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
+import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 
@@ -36,10 +36,10 @@ class RestModule {
     @AppScope
     fun provideGson(typeFactory: ItemTypeAdapterFactory, dateDeserializer: DateDeserializer): Gson {
         return GsonBuilder()
-                .registerTypeAdapterFactory(typeFactory)
-                .registerTypeAdapter(Date::class.java, dateDeserializer)
-                .setDateFormat(DateDeserializer.DATE_FORMATS[0])
-                .create()
+            .registerTypeAdapterFactory(typeFactory)
+            .registerTypeAdapter(Date::class.java, dateDeserializer)
+            .setDateFormat(DateDeserializer.DATE_FORMATS[0])
+            .create()
     }
 
     @Provides
@@ -58,10 +58,10 @@ class RestModule {
     @AppScope
     fun provideHttpClient(): OkHttpClient {
         val clientBuilder = OkHttpClient.Builder()
-                .connectTimeout(45, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS)
-                .addInterceptor(NMetaInterceptor(BuildConfig.BUILD_TYPE))
+            .connectTimeout(45, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .addInterceptor(NMetaInterceptor(BuildConfig.BUILD_TYPE))
 
         if (BuildConfig.DEBUG) {
             val logging = okhttp3.logging.HttpLoggingInterceptor()
@@ -74,14 +74,18 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideRetrofit(client: OkHttpClient, converter: Converter.Factory, @Named("NAME_BASE_URL") baseUrl: String): Retrofit {
+    fun provideRetrofit(
+        client: OkHttpClient,
+        converter: Converter.Factory,
+        @Named("NAME_BASE_URL") baseUrl: String
+    ): Retrofit {
         return Retrofit.Builder()
-                .client(client)
-                .baseUrl(baseUrl)
-                .addConverterFactory(BufferedSourceConverterFactory())
-                .addConverterFactory(converter)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
+            .client(client)
+            .baseUrl(baseUrl)
+            .addConverterFactory(BufferedSourceConverterFactory())
+            .addConverterFactory(converter)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
     }
 
     @Provides
