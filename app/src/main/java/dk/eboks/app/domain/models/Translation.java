@@ -722,4 +722,9 @@ public class Translation {
 		public static String message = "We\u2019ve now gone live with a new and improved version of the e-Boks app. Here you\u2019ll be able to experience a new interface, with a revamped design and improved navigation. \r\n\r\nWe are still working on the completion of all functionalities but were not able to resist providing you with an early access. That\u2019s why we recommend you to keep the previous e-Boks app in parallel, to preserve all the functions you\u2019re used to. \r\n\r\nIn our new app, we introduce e-Boks Plus, your short cut to a range of new services. It\u2019s you who decide which services you want to use, and we give you complete control of the content. Which services are to be included in future versions of e-Boks Plus will also be determined by you. So do provide us with your feedback in the app.";
 		public static String letsGo = "OK";
 	}
+	public final static class bankidsupport {
+		public static String bankIdNotInstalledTitle = "BankId not installed";
+		public static String bankidNotInstalledMessage = "BankId app needs to be installed to proceed";
+		public static String installBankIdBtn = "Install BankId";
+	}
 }

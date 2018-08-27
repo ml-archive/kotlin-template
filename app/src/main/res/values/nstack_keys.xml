@@ -623,4 +623,7 @@
   <string name='nstack_firstopen_title' formatted='false'>firstopen_title</string>
   <string name='nstack_firstopen_message' formatted='false'>firstopen_message</string>
   <string name='nstack_firstopen_letsGo' formatted='false'>firstopen_letsGo</string>
+  <string name='nstack_bankidsupport_bankIdNotInstalledTitle' formatted='false'>bankidsupport_bankIdNotInstalledTitle</string>
+  <string name='nstack_bankidsupport_bankidNotInstalledMessage' formatted='false'>bankidsupport_bankidNotInstalledMessage</string>
+  <string name='nstack_bankidsupport_installBankIdBtn' formatted='false'>bankidsupport_installBankIdBtn</string>
 </resources>
