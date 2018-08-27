@@ -12,6 +12,4 @@ class RestPostRepository(val api: Api) : PostRepository {
         }
         throw(RepositoryException(response.code(), response.message()))
     }
-
-
 }

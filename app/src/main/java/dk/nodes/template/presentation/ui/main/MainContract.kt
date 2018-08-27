@@ -10,6 +10,5 @@ interface MainContract {
         fun showError(msg: String)
     }
 
-    interface Presenter : BasePresenter<View> {
-    }
+    interface Presenter : BasePresenter<View>
 }

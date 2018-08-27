@@ -1,13 +1,17 @@
 package dk.nodes.template
 
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions.*
+import android.support.test.espresso.action.ViewActions.clearText
+import android.support.test.espresso.action.ViewActions.click
+import android.support.test.espresso.action.ViewActions.typeText
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.intent.Intents
 import android.support.test.espresso.intent.Intents.intended
 import android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import android.support.test.espresso.matcher.RootMatchers.isDialog
-import android.support.test.espresso.matcher.ViewMatchers.*
+import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
+import android.support.test.espresso.matcher.ViewMatchers.withId
+import android.support.test.espresso.matcher.ViewMatchers.withText
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import dk.nodes.template.presentation.ui.main.MainActivity
@@ -24,7 +28,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class SampleActivityTest {
 
-
     /*
     This is a UI sample test class show-casing how to make UI test on most views.
     The Aura and Linak Desk App are both close to 100% full UI test coverage, so take a look at them for more examples
@@ -34,7 +37,6 @@ class SampleActivityTest {
     @Rule
     @JvmField
     var mainActivityActivity = ActivityTestRule<MainActivity>(MainActivity::class.java)
-
 
     @Before
     fun setUp() {
@@ -46,25 +48,22 @@ class SampleActivityTest {
 
         // 1) Lets write something in the EditText
         onView(withId(R.id.edittext))
-                .check(matches(isDisplayed()))
-                .perform(clearText())
-                .perform(typeText("Hello!"))
-
+            .check(matches(isDisplayed()))
+            .perform(clearText())
+            .perform(typeText("Hello!"))
 
         // 2) Lets press on the save button
         onView(withId(R.id.saveButton))
-                .check(matches(isDisplayed()))
-                .perform(click())
-
+            .check(matches(isDisplayed()))
+            .perform(click())
 
         //If you want to pause the UI test for what ever reason you can sleep the thread
         // Thread.sleep(2000)
 
         // 3) We now check if our message has been saved into the TextView
         onView(withId(R.id.textview))
-                .check(matches(isDisplayed()))
-                .check(matches(withText("Hello!")))
-
+            .check(matches(isDisplayed()))
+            .check(matches(withText("Hello!")))
     }
 
     @Test
@@ -75,7 +74,6 @@ class SampleActivityTest {
 
         // 2) Check if the activity has started and is showing
         intended(hasComponent(SampleActivity::class.java.name))
-
     }
 
     @Test
@@ -88,12 +86,11 @@ class SampleActivityTest {
         // Here we check if the AlertDialog Title is showing.
 
         onView(withText("Hello Ui Test!"))
-                .inRoot(isDialog())
-                .check(matches(isDisplayed()))
+            .inRoot(isDialog())
+            .check(matches(isDisplayed()))
 
         //3 Lets press on the cancel button by finding the button with text.
         onView(withText("Cancel")).check(matches(isDisplayed())).perform(click())
-
 
         //4 Lets open the AlertDialog again and press on the OK button by the buttons ID
         onView(withId(R.id.buttonOpenDialog)).perform(click())
@@ -104,5 +101,4 @@ class SampleActivityTest {
     fun tearDown() {
         Intents.release()
     }
-
 }
