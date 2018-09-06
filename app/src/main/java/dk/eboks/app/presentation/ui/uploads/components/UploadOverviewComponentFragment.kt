@@ -95,8 +95,8 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
         }
 
         showAllBtn.setOnClickListener {
-            var frag = MailListComponentFragment()
-            frag?.putArg("folder", Folder(type = FolderType.UPLOADS, name = Translation.uploads.title))
+            val frag = MailListComponentFragment()
+            frag.putArg("folder", Folder(type = FolderType.UPLOADS, name = Translation.uploads.title))
             getBaseActivity()?.addFragmentOnTop(R.id.contentFl, frag, true)
         }
         fileBtn.setOnClickListener {
@@ -139,7 +139,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             latestUploadsFl.visibility = View.VISIBLE
             latestUploadsTopRowFl.visibility = View.VISIBLE
             for (i in 1..uploads.size) {
-                var currentItem = uploads[i - 1]
+                val currentItem = uploads[i - 1]
 
                 //setting the header
                 val v = inflator.inflate(R.layout.viewholder_upload_row,latestUploadsLl , false)

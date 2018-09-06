@@ -18,6 +18,9 @@ import kotlinx.android.synthetic.main.fragment_base_web.*
 import timber.log.Timber
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
+import android.content.Intent
+
+
 
 /**
  * Created by bison on 09-02-2018.
@@ -43,6 +46,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     private fun nemIdSpecificSetup()
     {
         webView.addJavascriptInterface(WebAppInterfaceNemID(), "NemIDActivityJSI")
+        webView.settings.javaScriptEnabled = true
         webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
@@ -127,8 +131,16 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
         @JavascriptInterface
         fun performAppSwitch() {
             Timber.e("Perform ipswitch")
+            //app switch test
+            val secondFactorIntent = activity?.getPackageManager()?.getLaunchIntentForPackage("dk.e_nettet.mobilekey.everyone.kopi")
+            secondFactorIntent?.setFlags(0)
+            startActivityForResult(secondFactorIntent, 0)
         }
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        println(requestCode)
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
     fun getJS(): String {

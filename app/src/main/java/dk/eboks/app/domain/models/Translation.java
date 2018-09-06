@@ -84,7 +84,7 @@ public class Translation {
 		public static String homeButton = "Home";
 		public static String mailButton = "Mail";
 		public static String sendersButton = "Senders";
-		public static String channelsButton = "Services";
+		public static String channelsButton = "Plus";
 		public static String uploadsButton = "Uploads";
 	}
 	public final static class folders {
@@ -105,12 +105,12 @@ public class Translation {
 	}
 	public final static class channels {
 		public static String channelsHeader = "Get access relevant information and services with e-Boks Plus";
-		public static String title = "Services";
+		public static String title = "e-Boks Plus";
 		public static String install = "Add";
 		public static String open = "Open";
-		public static String openChannel = "Open channel";
+		public static String openChannel = "Open service";
 		public static String logOnWithPKI = "Log on with [pkiName]";
-		public static String verifyYourProfile = "Verify your profile to access this channel";
+		public static String verifyYourProfile = "Verify your profile to access this service";
 		public static String channelNotAvailable = "[channelName] is not available for this device or no longer available as a channel";
 		public static String installChannel = "Add";
 		public static String updateProfile = "Update profile";
@@ -462,17 +462,17 @@ public class Translation {
 	}
 	public final static class home {
 		public static String messagesEmptyButton = "See my inbox";
-		public static String bottomChannelHeaderNoChannels = "Self service with with e-Boks Plus";
+		public static String bottomChannelHeaderNoChannels = "Self service with e-Boks Plus";
 		public static String messagesEmptyTitle = "No new mail";
 		public static String messagesEmptyMessage = "You have no new mail or messages that require your action";
 		public static String bottomChannelTextNoChannels = "With e-Boks Plus you get access to a range of new services that make your everyday life easier.";
 		public static String bottomChannelHeaderChannels = "There is more to see!";
 		public static String bottomChannelTextChannels = "We continuously add new services.";
 		public static String messagesSectionHeaderButtonNewMessagesSuffix = "[value] new messages";
-		public static String bottomChannelBtn = "View services";
+		public static String bottomChannelBtn = "View e-Boks Plus";
 		public static String messagesHeader = "Mail";
 		public static String messagesSectionHeaderShowAllButton = "Show all";
-		public static String channelsHeader = "Services";
+		public static String channelsHeader = "e-Boks Plus";
 		public static String channelsHeaderButton = "Edit";
 		public static String messagesUnverifiedTitle = "Receive your mail digitally";
 		public static String messagesUnverifiedMessage = "Receive your mail digitally from private companies and public authorities.\r\nGet started by verifying your profile.";

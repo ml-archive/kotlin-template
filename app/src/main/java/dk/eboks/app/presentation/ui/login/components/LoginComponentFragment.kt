@@ -92,7 +92,6 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
     }
 
-    // shamelessly ripped from chnt
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.ic_red_close)
         mainTb.title = Translation.logoncredentials.title

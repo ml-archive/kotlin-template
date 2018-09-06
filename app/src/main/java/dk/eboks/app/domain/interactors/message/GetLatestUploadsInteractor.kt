@@ -12,7 +12,7 @@ interface GetLatestUploadsInteractor : Interactor {
     var input : Input?
 
 
-    data class Input(var offset : Int = 0, var limit : Int = 3)
+    data class Input(var offset : Int = 0, var limit : Int = 5)
 
     interface Output {
         fun onGetLatestUploads(messages : List<Message>)
