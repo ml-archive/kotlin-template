@@ -31,7 +31,8 @@
         <Button
             android:id="@+id/signupBtn"
             nstack:key="@string/nstack_start_signupButton"
-            style="@style/buttonRoundedCorners.darkBlueGrey"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="@color/darkGreyBlue50"
             android:transitionName="signUpButtonTransition"
             android:layout_width="match_parent"
             android:layout_marginTop="12dp"
@@ -41,18 +42,6 @@
             android:layout_marginEnd="36dp"
             android:text="_Sign up" />
 
-        <!--
-        <Button
-            android:id="@+id/debugCreateBtn"
-            android:visibility="gone"
-            style="@style/buttonRoundedCorners.darkBlueGrey"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginEnd="36dp"
-            android:text="Skip to app (DEBUG)" />
-            -->
     </LinearLayout>
     <TextView
         android:id="@+id/debugOptionsTv"
