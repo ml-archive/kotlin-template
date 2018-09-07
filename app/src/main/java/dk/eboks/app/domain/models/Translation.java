@@ -727,4 +727,9 @@ public class Translation {
 		public static String bankidNotInstalledMessage = "BankId app needs to be installed to proceed";
 		public static String installBankIdBtn = "Install BankId";
 	}
+	public final static class nemidsupport {
+		public static String nemIdNotInstalledTitle = "NemID app not installed";
+		public static String nemIdNotInstalledMessage = "Please install NemID app or switch to keycard";
+		public static String installNemIdAppBtn = "Install NemID";
+	}
 }

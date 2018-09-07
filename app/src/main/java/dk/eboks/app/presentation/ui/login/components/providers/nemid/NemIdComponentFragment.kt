@@ -46,7 +46,6 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     private fun nemIdSpecificSetup()
     {
         webView.addJavascriptInterface(WebAppInterfaceNemID(), "NemIDActivityJSI")
-        webView.settings.javaScriptEnabled = true
         webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView, url: String) {
                 super.onPageFinished(view, url)
@@ -116,6 +115,11 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     }
 
     override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+        if(url?.startsWith("AwaitingAppApproval:/") == true)
+        {
+            Timber.e("AAAAAPPPPPPSWITCH")
+            return true
+        }
         return false
     }
 
@@ -144,17 +148,24 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     }
 
     fun getJS(): String {
-        return ("function onNemIDMessage(e) { "
-                + "console.log(\"onNemIdMessage\"); "
-                + "var event = e || event; "
-                + "var win = document.getElementById(\"nemid_iframe\").contentWindow, postMessage = {}, message; "
-                + "message = JSON.parse(event.data); "
-                + " if (message.command === \"AwaitingAppApproval\") { "
-                + "app.performAppSwitch();"
-                + "} }")
+
+       val temp = "function onNemIDMessage(e) { " + "var event = e || event;" +
+       "var win = document.getElementById(\"nemid_iframe\").contentWindow, postMessage = {}, message;" +
+       "message = JSON.parse(event.data);" +
+       "if (message.command === \"AwaitingAppApproval\") { " +
+       "window.location = 'AwaitingAppApproval:/' " + "}}" +
+       "if (window.addEventListener) { " +
+       "window.addEventListener(\"message\", onNemIDMessage); " +
+       "}else if (window.attachEvent) { " +
+       "window.attachEvent(\"onmessage\", onNemIDMessage); }" +
+       "function getContent() { " +
+       "return window.globalContent; }"
+
+        Timber.e(temp)
+        return temp
     }
 
-    override fun onCheckMergeAccountStatus() {
+        override fun onCheckMergeAccountStatus() {
         presenter.mergeAccountOrKeepSeparated()
     }
 }
