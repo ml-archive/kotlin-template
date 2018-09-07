@@ -12,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
@@ -112,10 +113,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     val keyboardListener = KeyboardUtils.SoftKeyboardToggleListener {
         if (it) {
             loginProvidersLl.visibility = View.GONE
-            continueBtn.visibility = View.GONE
+            continueBtn.visibility = View.VISIBLE
         } else {
             loginProvidersLl.visibility = View.VISIBLE
-            continueBtn.visibility = View.VISIBLE
+            if (passwordEt.text.toString().equals("") && cprEmailEt.text.toString().equals("")) continueBtn.visibility = View.GONE
         }
     }
 
@@ -261,7 +262,6 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                     showFingerprintDialog()
                 }
             }
-
             loginProvidersLl.addView(v)
         }
     }
@@ -307,7 +307,6 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         customFingerprintDialog.onUsePasswordBtnListener = {
             // Todo add use password section
         }
-
         customFingerprintDialog.show()
     }
 
@@ -320,6 +319,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             showToast("Password preset to 'a12345' (DEBUG)")
             passwordEt.setText("a12345")
             continueBtn.isEnabled = true
+            continueBtn.visibility = View.VISIBLE
         }
 
         // setting profile view
@@ -334,7 +334,6 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 .load(user?.avatarUri)
                 .apply(options)
                 .into(userAvatarIv)
-
     }
 
     private fun setupViewForProvider(user: User?) {
@@ -371,7 +370,6 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
     private fun setupAltLoginProviders(providers: List<LoginProvider>) {
-
         loginProvidersLl.removeAllViews()
         loginProvidersLl.visibility = View.VISIBLE
         val li = LayoutInflater.from(context)
@@ -403,11 +401,24 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
     }
 
+    private fun setupKeyboardListener(){}
+
     private fun setupPasswordListener() {
+
+        passwordEt.setOnEditorActionListener { v, actionId, event ->
+            when (actionId){
+                EditorInfo.IME_ACTION_GO -> {
+                    onContinue()
+                     true
+                }
+                else -> { false}
+            }
+        }
+
         passwordEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(password: Editable?) {
                 setContinueButton()
-                handler?.postDelayed({
+                handler.postDelayed({
                     setErrorMessages()
                 }, 1200)
             }
@@ -469,15 +480,6 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
 
     }
-
-//    private fun doUserLogin() {
-//        currentUser?.let { user ->
-//            currentProvider?.let { provider ->
-//                presenter.updateLoginState(user, provider.id, "todo")
-//                presenter.login() // TODO add credentials
-//            }
-//        }
-//    }
 
     override fun showProgress(show: Boolean) {
         continueBtn.isEnabled = !show
