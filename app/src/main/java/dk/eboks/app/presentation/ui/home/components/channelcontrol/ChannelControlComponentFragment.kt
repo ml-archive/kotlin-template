@@ -37,12 +37,12 @@ import javax.inject.Inject
 class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentContract.View {
 
     @Inject
-    lateinit var presenter : ChannelControlComponentContract.Presenter
+    lateinit var presenter: ChannelControlComponentContract.Presenter
 
     @Inject
     lateinit var eboksFormatter: EboksFormatter
 
-    val channelControlMap : MutableMap<Int, ChannelControl> = HashMap()
+    val channelControlMap: MutableMap<Int, ChannelControl> = HashMap()
 
     // TODO channel controls empty state is dependent on info from the folderpreview in the top (for retarded design reasons)
     // find a clean way of getting this info to the right place (both run a the same time so maybe a countdown latch)
@@ -63,7 +63,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     override fun onResume() {
         super.onResume()
         EventBus.getDefault().register(this)
-        if(refreshOnResume) {
+        if (refreshOnResume) {
             refreshOnResume = false
             presenter.refresh()
         }
@@ -77,9 +77,9 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     override fun setupChannels(channels: MutableList<Channel>) {
         channelsContentLL.removeAllViews()
         channelControlMap.clear()
+
         for (i in 0..channels.size - 1) {
             val currentChannel = channels[i]
-            //channelCount = channels.size
 
             //setting the header
             val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContentLL, false)
@@ -93,7 +93,6 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
                         .start()
             }
             headerTv.setText(currentChannel.name)
-            //val rowsContainerLl = v.findViewById<LinearLayout>(R.id.rowsContainerLl)
 
             logoIv?.let {
                 currentChannel?.logo?.let { logo ->
@@ -137,14 +136,12 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if(show) View.VISIBLE else View.GONE
+        progressFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    fun findControlView(channelId : Int) : View?
-    {
+    fun findControlView(channelId: Int): View? {
         for (v in channelsContentLL.views) {
-            if (v.tag as Int == channelId)
-            {
+            if (v.tag as Int == channelId) {
                 return v
             }
         }
@@ -154,11 +151,10 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     override fun updateControl(channel: Channel, control: Control) {
         // find the view associated with the channel
         findControlView(channel.id)?.let { view ->
-            if(channelControlMap.containsKey(channel.id)) // already instantiated, we're updating
+            if (channelControlMap.containsKey(channel.id)) // already instantiated, we're updating
             {
                 Timber.e("Already instantiated should update")
-            }
-            else    // widget not yet instantiated, do that and more
+            } else    // widget not yet instantiated, do that and more
             {
                 val cc = instantiateChannelControl(channel, control, view)
                 cc?.let {
@@ -171,7 +167,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
         }
     }
 
-    override fun setControl(channel: Channel, text : String) {
+    override fun setControl(channel: Channel, text: String) {
         // find the view associated with the channel
         findControlView(channel.id)?.let { view ->
             Timber.e("Setting empty view for channel id ${channel.id}")
@@ -186,8 +182,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
         }
     }
 
-    fun instantiateChannelControl(channel: Channel, control: Control, view: View) : ChannelControl?
-    {
+    fun instantiateChannelControl(channel: Channel, control: Control, view: View): ChannelControl? {
         when (control.type) {
             ItemType.RECEIPTS -> {
                 return ReceiptsChannelControl(channel, control, view, inflator, mainHandler, eboksFormatter)

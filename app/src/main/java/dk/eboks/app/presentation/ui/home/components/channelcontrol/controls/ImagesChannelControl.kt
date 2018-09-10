@@ -12,19 +12,22 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
+import dk.eboks.app.util.guard
 
 class ImagesChannelControl(channel: Channel, control : Control, view: View, inflater : LayoutInflater, handler: Handler, val formatter: EboksFormatter) : ChannelControl(channel, control, view, inflater, handler) {
     override fun buildView() {
         control.items?.let { items ->
-            for (row in items) {
                 val v = inflater.inflate(R.layout.viewholder_home_image_row, rowsContainerLl, false)
                 val title = v.findViewById<TextView>(R.id.titleTv)
                 val image = v.findViewById<ImageView>(R.id.backgroundIv)
-                val background = v.findViewById<LinearLayout>(R.id.backgroundColorLl)
+                val background = v.findViewById<View>(R.id.backgroundColorV)
 
                 val currentItem = items.first()
-                //todo this color should come from the channels object
-                channel.background?.rgba?.let { background?.background?.setTint(Color.parseColor(it)) }
+
+                channel.background.rgba?.let { background?.background?.setTint(Color.parseColor("#"+it)) }.guard {
+                    channel.background.rgb?.let { background?.background?.setTint(Color.parseColor("#"+it)) }
+                }
+
                 title.text = currentItem.title
                 image?.let {
                     currentItem.image?.url?.let {
@@ -33,6 +36,5 @@ class ImagesChannelControl(channel: Channel, control : Control, view: View, infl
                 }
                 rowsContainerLl.addView(v)
             }
-        }
     }
 }
