@@ -12,7 +12,7 @@ interface OpenMessageInteractor : Interactor {
     var output : Output?
     var input : Input?
 
-    data class Input(var msg : Message)
+    data class Input(var msg : Message, var terms: Boolean?= null)
 
     interface Output {
         fun onOpenMessageDone()

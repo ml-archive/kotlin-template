@@ -16,6 +16,12 @@
         app:cardCornerRadius="8dp"
         app:cardPreventCornerOverlap="true">
 
+        <View
+            android:id="@+id/backgroundColorV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:outlineProvider="background"
+            android:background="@drawable/channels_card_background_rounded"/>
 
         <ImageView
             android:id="@+id/backgroundIv"
@@ -23,19 +29,8 @@
             android:layout_height="match_parent"
             android:outlineProvider="background"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_menu_home" />
-
-
-        <LinearLayout
-            android:id="@+id/backgroundColorLl"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/channels_card_background_rounded"
-            android:backgroundTint="@color/transparent"
-            android:orientation="vertical"
-            android:paddingBottom="20dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp" />
+            android:src="@drawable/ic_menu_home"
+            android:alpha="0.2"/>
 
         <TextView
             android:id="@+id/titleTv"
