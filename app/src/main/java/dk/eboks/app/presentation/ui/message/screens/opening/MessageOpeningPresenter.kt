@@ -27,6 +27,7 @@ class MessageOpeningPresenter(val appStateManager: AppStateManager, val executor
     //val serverError : ServerError? = appStateManager.state?.openingState?.serverError
 
     var lockedMessage: Message? = null
+    var messageToOpen: Message? = null
 
     init {
         openMessageInteractor.output = this

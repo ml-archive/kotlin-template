@@ -24,7 +24,7 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
             input?.let { args->
                 args.folder?.let { folder->
                     if(folder.id != 0)
-                        getMessageFolder(folder, args.offset, args.limit)
+                        getMessageFolder(folder, args.offset, args.limit, args.acceptedTerms)
                     else
                         getMessages(false, folder)
                 }.guard {
@@ -45,19 +45,19 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
         }
     }
 
-    private fun getMessageFolder(folder: Folder, offset : Int = 0, limit : Int = 20)
+    private fun getMessageFolder(folder: Folder, offset : Int = 0, limit : Int = 20, acceptedTerms : Boolean)
     {
         Timber.d("Fetching folder (${folder.id} : ${folder.name}) messages $offset $limit")
-        val messages = messagesRepository.getMessagesByFolder(folder.id, offset, limit)
+        val messages = messagesRepository.getMessagesByFolder(folder.id, offset, limit, acceptedTerms)
         runOnUIThread {
             output?.onGetMessages(messages)
         }
     }
 
-    private fun getMessageSender(sender: Sender, offset : Int = 0, limit : Int = 20)
+    private fun getMessageSender(sender: Sender, offset : Int = 0, limit : Int = 20, acceptedTerms: Boolean ?= null)
     {
         Timber.d("Fetching sender (${sender.id} : ${sender.name}) messages $offset $limit")
-        val messages = messagesRepository.getMessagesBySender(sender.id, offset, limit)
+        val messages = messagesRepository.getMessagesBySender(sender.id, offset, limit, acceptedPrivateTerms = acceptedTerms)
         runOnUIThread {
             output?.onGetMessages(messages)
         }

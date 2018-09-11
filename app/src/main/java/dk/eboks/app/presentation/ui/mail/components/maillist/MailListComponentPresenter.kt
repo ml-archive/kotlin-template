@@ -40,6 +40,7 @@ class MailListComponentPresenter @Inject constructor(
     var currentOffset : Int = 0
     var currentLimit : Int = 20
     var totalMessages : Int = -1
+    var acceptedprivateterms : Boolean = false
 
     override var isLoading : Boolean = false
 
@@ -51,7 +52,7 @@ class MailListComponentPresenter @Inject constructor(
         currentFolder = folder
         mode = FOLDER_MODE
         isLoading = true
-        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, folder = folder, offset = currentOffset, limit = currentLimit)
+        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, folder = folder, offset = currentOffset, limit = currentLimit, acceptedTerms = acceptedprivateterms)
         getMessagesInteractor.run()
         runAction { v ->
             v.showProgress(true)
@@ -62,7 +63,7 @@ class MailListComponentPresenter @Inject constructor(
         currentSender = sender
         mode = SENDER_MODE
         isLoading = true
-        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, sender = sender, offset = currentOffset, limit = currentLimit)
+        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, sender = sender, offset = currentOffset, limit = currentLimit, acceptedTerms = acceptedprivateterms)
         getMessagesInteractor.run()
         runAction { v -> v.showProgress(true) }
     }
@@ -74,14 +75,7 @@ class MailListComponentPresenter @Inject constructor(
         if(currentOffset + currentLimit < totalMessages-1) {
             currentOffset += currentLimit
             Timber.e("loading next page.. offset = $currentOffset")
-            isLoading = true
-            getMessagesInteractor.input = GetMessagesInteractor.Input(
-                    cached = false,
-                    folder = currentFolder,
-                    sender = currentSender,
-                    offset = currentOffset,
-                    limit = currentLimit)
-            getMessagesInteractor.run()
+            getMessages()
             runAction { v->v.showRefreshProgress(true) }
         }
         else
@@ -92,26 +86,19 @@ class MailListComponentPresenter @Inject constructor(
 
     override fun refresh() {
         currentOffset = 0
-        isLoading = true
-        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, folder = currentFolder, sender = currentSender, offset = currentOffset, limit = currentLimit)
-        getMessagesInteractor.run()
+        getMessages()
+    }
 
-        /*
-        when (mode) {
-            FOLDER_MODE -> {
-                currentFolder?.let {
-                    getMessagesInteractor.input = GetMessagesInteractor.Input(false, it)
-                    getMessagesInteractor.run()
-                }
-            }
-            SENDER_MODE -> {
-                currentSender?.let {
-                    getMessagesInteractor.input = GetMessagesInteractor.Input(true, null, it)
-                    getMessagesInteractor.run()
-                }
-            }
-        }
-        */
+    fun getMessages() {
+        isLoading = true
+        getMessagesInteractor.input = GetMessagesInteractor.Input(
+                cached = false,
+                folder = currentFolder,
+                sender = currentSender,
+                offset = currentOffset,
+                limit = currentLimit,
+                acceptedTerms = acceptedprivateterms)
+        getMessagesInteractor.run()
     }
 
     override fun updateMessage(message: Message) {
