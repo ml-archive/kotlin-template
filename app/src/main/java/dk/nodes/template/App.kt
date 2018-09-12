@@ -1,51 +1,28 @@
 package dk.nodes.template
 
-import android.app.Application
-import dk.nodes.nstack.kotlin.NStack
-import dk.nodes.template.domain.models.Translation
-import dk.nodes.template.injection.components.AppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
+import dk.nodes.template.inititializers.AppInitializers
 import dk.nodes.template.injection.components.DaggerAppComponent
-import dk.nodes.template.injection.modules.AppModule
-import timber.log.Timber
+import javax.inject.Inject
 
-class App : Application() {
-    val appComponent: AppComponent by lazy {
-        DaggerAppComponent
-            .builder()
-            .appModule(AppModule(this))
-            .build()
-    }
+class App : DaggerApplication() {
 
+    @Inject lateinit var initializers: AppInitializers
     override fun onCreate() {
         super.onCreate()
-        _instance = this
-
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
-
-        appComponent.inject(this)
-
-        setupNStack()
-    }
-
-    private fun setupNStack() {
-        NStack.translationClass = Translation::class.java
-        NStack.init(this)
+        initializers.init(this)
     }
 
     // uncomment me if multidex
+
     /*
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         MultiDex.install(this)
     }
     */
-
-    companion object {
-        private lateinit var _instance: App
-        fun instance(): App {
-            return _instance
-        }
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.builder().create(this)
     }
 }

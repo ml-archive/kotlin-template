@@ -1,29 +1,23 @@
 package dk.nodes.template.presentation.base
 
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
-import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import dk.nodes.arch.presentation.base.BaseView
+import dagger.android.support.DaggerAppCompatActivity
 import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
-import dk.nodes.template.App
-import dk.nodes.template.injection.modules.PresentationModule
+import javax.inject.Inject
 
-abstract class BaseActivity : AppCompatActivity(), BaseView {
-    open val component by lazy {
-        // Todo investigate a better way to do this
-        App.instance().appComponent.plus(PresentationModule())
-    }
+abstract class BaseActivity : DaggerAppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        //Make sure all of our dependencies get injected
-        injectDependencies()
-    }
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(NStackBaseContext(newBase))
     }
 
-    protected abstract fun injectDependencies()
+    protected inline fun <reified VM : ViewModel> bindViewModel(): VM {
+        return ViewModelProviders.of(this, viewModelFactory)
+            .get(VM::class.java)
+    }
 }

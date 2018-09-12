@@ -13,35 +13,31 @@ import dk.nodes.template.R
 import dk.nodes.template.domain.models.Post
 import dk.nodes.template.domain.models.Translation
 import dk.nodes.template.presentation.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import dk.nodes.template.util.observeNonNull
 import net.hockeyapp.android.CrashManager
 import net.hockeyapp.android.CrashManagerListener
 import net.hockeyapp.android.UpdateManager
 import timber.log.Timber
-import javax.inject.Inject
 
-class MainActivity : BaseActivity(), MainContract.View {
-    @Inject
-    lateinit var presenter: MainContract.Presenter
+class MainActivity : BaseActivity() {
 
-    override fun injectDependencies() {
-        component.inject(this)
-        presenter.onViewCreated(this, lifecycle)
-    }
+    private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        setupNstack()
-        setupHockey()
+//        setupNstack()
+//        setupHockey()
+        viewModel = bindViewModel()
+        viewModel.errorLiveData.observeNonNull(this, ::showError)
+        viewModel.postsLiveData.observeNonNull(this, ::showPosts)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        // If we checked for hockey updates, unregister
-        UpdateManager.unregister()
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//        // If we checked for hockey updates, unregister
+//        UpdateManager.unregister()
+//    }
 
     private fun setupHockey() {
         if (BuildConfig.DEBUG) {
@@ -52,7 +48,7 @@ class MainActivity : BaseActivity(), MainContract.View {
                 }
             })
 
-            // Check for updates from Hockey
+//             Check for updates from Hockey
             UpdateManager.register(this)
         }
 
@@ -140,13 +136,13 @@ class MainActivity : BaseActivity(), MainContract.View {
         }
     }
 
-    override fun showPosts(posts: List<Post>) {
+    private fun showPosts(posts: List<Post>) {
         for (post in posts) {
             Timber.e(post.toString())
         }
     }
 
-    override fun showError(msg: String) {
+    private fun showError(msg: String) {
         Timber.e(msg)
     }
 }

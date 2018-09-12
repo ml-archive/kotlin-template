@@ -1,5 +1,8 @@
 package dk.nodes.template.util
 
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.Observer
 import android.view.View
 import android.view.ViewGroup
 
@@ -44,4 +47,22 @@ fun View.setVisible(isVisible: Boolean, invisibleType: Int = View.GONE) {
     } else {
         invisibleType
     }
+}
+
+inline fun <T> LiveData<T>.observe(
+    lifecycleOwner: LifecycleOwner,
+    crossinline observer: (T?) -> Unit
+) {
+    this.observe(lifecycleOwner, Observer {
+        observer(it)
+    })
+}
+
+inline fun <T> LiveData<T>.observeNonNull(
+    lifecycleOwner: LifecycleOwner,
+    crossinline observer: (T) -> Unit
+) {
+    this.observe(lifecycleOwner, Observer {
+        it?.let(observer)
+    })
 }
