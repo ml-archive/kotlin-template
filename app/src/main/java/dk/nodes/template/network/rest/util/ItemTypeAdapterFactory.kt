@@ -32,12 +32,10 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                     //Log.e("debug", "parsing element " + jsonElement.toString())
                     val jsonObject = jsonElement.asJsonObject
                     val entry_set = jsonObject.entrySet()
-                    if(entry_set.size == 1)
-                    {
-                        val key : String = entry_set.iterator().next().key ?: ""
-                        val ele : JsonElement = entry_set.iterator().next().value
-                        if(rootContainerNames.contains(key))
-                        {
+                    if (entry_set.size == 1) {
+                        val key: String = entry_set.iterator().next().key ?: ""
+                        val ele: JsonElement = entry_set.iterator().next().value
+                        if (rootContainerNames.contains(key)) {
                             //Log.e("debug", "Doing deserialization workaround")
                             return delegate.fromJsonTree(ele)
                         }
