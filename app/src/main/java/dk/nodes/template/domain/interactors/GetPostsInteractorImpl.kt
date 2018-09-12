@@ -6,8 +6,8 @@ import dk.nodes.template.domain.repositories.PostRepository
 import dk.nodes.template.domain.repositories.RepositoryException
 
 class GetPostsInteractorImpl(
-        executor: Executor,
-        private val postRepository: PostRepository
+    executor: Executor,
+    private val postRepository: PostRepository
 ) : BaseInteractor(executor), GetPostsInteractor {
     override var output: GetPostsInteractor.Output? = null
     override var input: GetPostsInteractor.Input? = null

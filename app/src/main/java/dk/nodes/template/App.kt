@@ -11,9 +11,9 @@ import timber.log.Timber
 class App : Application() {
     val appComponent: AppComponent by lazy {
         DaggerAppComponent
-                .builder()
-                .appModule(AppModule(this))
-                .build()
+            .builder()
+            .appModule(AppModule(this))
+            .build()
     }
 
     override fun onCreate() {
@@ -48,5 +48,4 @@ class App : Application() {
             return _instance
         }
     }
-
 }

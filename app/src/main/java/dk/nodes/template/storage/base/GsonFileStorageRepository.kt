@@ -9,7 +9,11 @@ import java.io.FileOutputStream
 import java.io.InputStreamReader
 import java.lang.reflect.Type
 
-abstract class GsonFileStorageRepository<T>(val context: Context, val gson: Gson, val filename: String) {
+abstract class GsonFileStorageRepository<T>(
+    val context: Context,
+    val gson: Gson,
+    val filename: String
+) {
 
     @Throws(RepositoryException::class)
     fun save(objects: T) {

@@ -8,7 +8,6 @@ import android.util.Log
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
-import dk.nodes.template.App
 import dk.nodes.template.BuildConfig
 import dk.nodes.template.R
 import dk.nodes.template.domain.models.Post
@@ -30,7 +29,6 @@ class MainActivity : BaseActivity(), MainContract.View {
         presenter.onViewCreated(this, lifecycle)
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -46,7 +44,7 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     private fun setupHockey() {
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             // Auto-send crashes without asking user
             CrashManager.register(this, object : CrashManagerListener() {
                 override fun shouldAutoUploadCrashes(): Boolean {
@@ -69,7 +67,6 @@ class MainActivity : BaseActivity(), MainContract.View {
         NStack.onAppUpdateListener = { appUpdate ->
             when (appUpdate.state) {
                 AppUpdateState.NONE -> {
-
                 }
                 AppUpdateState.UPDATE -> {
                     showUpdateDialog(appUpdate)
@@ -89,31 +86,31 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     private fun showUpdateDialog(appUpdate: AppUpdate) {
         AlertDialog.Builder(this)
-                .setTitle(appUpdate.title)
-                .setMessage(appUpdate.message)
-                .setPositiveButton(Translation.defaultSection.ok) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
+            .setTitle(appUpdate.title)
+            .setMessage(appUpdate.message)
+            .setPositiveButton(Translation.defaultSection.ok) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun showChangelogDialog(appUpdate: AppUpdate) {
         AlertDialog.Builder(this)
-                .setTitle(appUpdate.title)
-                .setMessage(appUpdate.message)
-                .setNegativeButton(appUpdate.negativeBtn) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
+            .setTitle(appUpdate.title)
+            .setMessage(appUpdate.message)
+            .setNegativeButton(appUpdate.negativeBtn) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun showForceDialog(appUpdate: AppUpdate) {
         val dialog = AlertDialog.Builder(this)
-                .setTitle(appUpdate.title)
-                .setMessage(appUpdate.message)
-                .setCancelable(false)
-                .setPositiveButton(Translation.defaultSection.ok, null)
-                .create()
+            .setTitle(appUpdate.title)
+            .setMessage(appUpdate.message)
+            .setCancelable(false)
+            .setPositiveButton(Translation.defaultSection.ok, null)
+            .create()
 
         dialog.setOnShowListener {
             val b = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
@@ -128,20 +125,19 @@ class MainActivity : BaseActivity(), MainContract.View {
     private fun startPlayStore() {
         try {
             startActivity(
-                    Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("market://details?id=$packageName")
-                    )
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=$packageName")
+                )
             )
         } catch (anfe: android.content.ActivityNotFoundException) {
             startActivity(
-                    Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
-                    )
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=$packageName")
+                )
             )
         }
-
     }
 
     override fun showPosts(posts: List<Post>) {
