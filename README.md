@@ -51,7 +51,7 @@ Example:
 6. Presenter instructs the view (if attached) to update itself with the new data, or display an error to the user
 
 ## Patterns in use:
-- MVP
+- MVVM
 - Repository
 - Interactor (implemented with a pluggable executor)
 - Dependency Injection (and thus factory)
