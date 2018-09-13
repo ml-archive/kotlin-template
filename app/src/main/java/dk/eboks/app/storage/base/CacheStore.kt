@@ -52,8 +52,10 @@ class CacheStore<K,V>(val cacheManager: CacheManager, val context: Context, val 
             res?.let { put(key, res) }
             return res
         }
-        else
+        else {
+            Timber.v("Cache $filename found key $key")
             return cacheMap[key]
+        }
     }
 
     fun put(key : K, value : V)
@@ -74,6 +76,11 @@ class CacheStore<K,V>(val cacheManager: CacheManager, val context: Context, val 
 
     override fun clearMemory() {
         cacheMap.clear()
+    }
+
+    override fun clearDisc() {
+        Timber.e("Deleting cache file $filename")
+        context.deleteFile(filename)
     }
 
     inner class GsonCacheStore : GsonFileStorageRepository<MutableMap<K, V>>(context, gson, filename)
