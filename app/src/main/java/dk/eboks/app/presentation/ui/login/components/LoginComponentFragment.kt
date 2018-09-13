@@ -150,7 +150,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 val identity: String = if (provider.id == "email") {
                     user.emails[0].value ?: ""
                 } else {
-                    user.identity ?: ""
+                    cprEmailEt.text.toString().trim()
+                    //user.identity ?: ""
                 }
                 presenter.updateLoginState(
                         identity,
