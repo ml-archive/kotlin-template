@@ -32,11 +32,7 @@ data class User(
     }
 
     fun getSecondaryEmail(): String? {
-        return try {
-            emails.getOrNull(1)?.value
-        } catch ( e: Throwable) {
-            ""
-        }
+        return emails.getOrNull(1)?.value
     }
 
     fun setSecondaryEmail(string: String?) {

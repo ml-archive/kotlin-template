@@ -24,7 +24,10 @@ class UpdateUserInteractorImpl(executor: Executor, val api: Api, val userRestRep
                 body.addProperty("newsletter", it.newsletter)
                 val mails = JsonArray()
                 mails.add(it.getPrimaryEmail())
-                mails.add(it.getSecondaryEmail())
+                it.getSecondaryEmail()?.let { email->
+                    mails.add(email)
+                }
+
                 body.add("emails", mails)
                 userRestRepo.updateProfile(body)
             }

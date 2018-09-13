@@ -77,7 +77,12 @@ class MyInfoComponentPresenter @Inject constructor(
             v.setSaveEnabled(false)
 
             user.setPrimaryEmail(v.getPrimaryEmail())
-            user.setSecondaryEmail(v.getSecondaryEmail())
+            // secondary email only apply to verified users
+            if(user.verified)
+                user.setSecondaryEmail(v.getSecondaryEmail())
+            else
+                user.setSecondaryEmail(null)
+
             user.newsletter = v.getNewsletter()
             user.name = v.getName()
             user.mobilenumber?.let {
