@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.message.screens.embedded
 
+import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter
@@ -22,9 +23,17 @@ interface MessageEmbeddedContract {
         fun addTextViewer()
         fun showTitle(message : Message)
         fun setHighPeakHeight()
+        fun setActionButton(unread: Boolean)
+        fun messageDeleted()
+        fun updateFolderName(name: String)
     }
 
     interface Presenter : BasePresenter<View> {
         fun setup()
+        fun moveMessage(folder : Folder)
+        fun deleteMessage()
+        fun archiveMessage()
+        fun markMessageRead()
+        fun markMessageUnread()
     }
 }

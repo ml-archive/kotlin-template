@@ -12,6 +12,8 @@ class MoveMessagesInteractorImpl(executor: Executor) :
 
     override fun execute() {
         // Todo implement move route?
+
+
         Thread.sleep(1000)
 
         runOnUIThread {

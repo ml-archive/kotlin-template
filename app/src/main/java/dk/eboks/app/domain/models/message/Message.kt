@@ -36,4 +36,12 @@ data class Message(
     var status: Status? = null,
     @SerializedName("Note")
     var note : String = ""
-) : Serializable
+) : Serializable {
+
+    fun findFolderId(): Int{
+        if (folderId == 0){
+            return folder?.id ?: throw RuntimeException("could not resolve folderId")
+        }
+        return folderId
+    }
+}

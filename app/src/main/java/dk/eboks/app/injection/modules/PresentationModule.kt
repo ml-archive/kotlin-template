@@ -245,8 +245,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMessageSheetPresenter(stateManager: AppStateManager): MessageEmbeddedContract.Presenter {
-        return MessageEmbeddedPresenter(stateManager)
+    fun provideMessageSheetPresenter(stateManager: AppStateManager, deleteMessagesInteractor: DeleteMessagesInteractor, updateMessageInteractor: UpdateMessageInteractor): MessageEmbeddedContract.Presenter {
+        return MessageEmbeddedPresenter(stateManager,deleteMessagesInteractor, updateMessageInteractor)
     }
 
     @ActivityScope
