@@ -35,6 +35,8 @@
     <color name="toolbarDisabledColor">@color/blueGrey</color>
 
 
+    <color name="fabButtonColor"> #ac3973</color>
+
     <color name="blueGreyBorderLight">#ECEFF3</color>
     <color name="blueGreyBorder">@color/silver</color>
 

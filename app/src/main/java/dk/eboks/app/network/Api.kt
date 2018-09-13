@@ -64,6 +64,9 @@ interface Api {
     // edit message / document/message operations
     @POST("mail/folders/{folderId}/messages/{messageId}") fun updateMessage(@Path("folderId") folderId : Int, @Path("messageId") messageId : String, @Body body : MessagePatch) : Call<Void>
 
+    // delete message
+    @DELETE("mail/folders/{folderId}/messages/{messageId}") fun deleteMessage(@Path("folderId") folderId: Int, @Path("messageId") messageId: String) : Call<Void>
+
     // get types of messages, used to be by folder type but now its just a couple of hardcoded endpoints
     @GET("mail/messages/highlights") fun getHighlights(@Query("acceptedprivateterms") terms : Boolean? = null) : Call<List<Message>>
     @GET("mail/messages/latest") fun getLatest(@Query("acceptedprivateterms") terms : Boolean? = null) : Call<List<Message>>

@@ -60,12 +60,11 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
-        mainHandler.post({ presenter.setup()})
+        mainHandler.post({ presenter.setup() })
 
     }
 
-    private fun setupTopBar()
-    {
+    private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = Translation.message.title
         mainTb.setNavigationOnClickListener {
@@ -99,10 +98,10 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         if (requestCode == OverlayActivity.REQUEST_ID) {
             when (data?.getSerializableExtra("res")) {
                 (ButtonType.PRINT) -> {
-                    if(embeddedViewerComponentFragment is ViewerFragment)
+                    if (embeddedViewerComponentFragment is ViewerFragment)
                         (embeddedViewerComponentFragment as ViewerFragment).print()
                 }
-                else                -> {
+                else -> {
                     // Request do nothing
                 }
             }
@@ -120,33 +119,30 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         */
     }
 
-    override fun addHeaderComponentFragment()
-    {
+    override fun addHeaderComponentFragment() {
         headerComponentFragment = HeaderComponentFragment()
-        headerComponentFragment?.let{
+        headerComponentFragment?.let {
             it.arguments = Bundle()
             it.arguments.putBoolean("show_divider", true)
             supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, HeaderComponentFragment::class.java.simpleName).commit()
         }
     }
 
-    override fun addReplyButtonComponentFragment(message: Message)
-    {
+    override fun addReplyButtonComponentFragment(message: Message) {
         replyButtonComponentFragment = ReplyButtonComponentFragment()
         val args = Bundle()
         args.putSerializable(Message::class.java.simpleName, message)
-        replyButtonComponentFragment?.let{
+        replyButtonComponentFragment?.let {
             it.arguments = args
             supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, ReplyButtonComponentFragment::class.java.simpleName).commit()
         }
     }
 
-    override fun addSignButtonComponentFragment(message: Message)
-    {
+    override fun addSignButtonComponentFragment(message: Message) {
         signButtonComponentFragment = SignButtonComponentFragment()
         val args = Bundle()
         args.putSerializable(Message::class.java.simpleName, message)
-        signButtonComponentFragment?.let{
+        signButtonComponentFragment?.let {
             it.arguments = args
             supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, it::class.java.simpleName).commit()
         }
@@ -154,14 +150,14 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
 
     override fun addShareComponentFragment() {
         shareComponentFragment = ShareComponentFragment()
-        shareComponentFragment?.let{
+        shareComponentFragment?.let {
             supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, ShareComponentFragment::class.java.simpleName).commit()
         }
     }
 
     override fun addNotesComponentFragment() {
         notesComponentFragment = NotesComponentFragment()
-        notesComponentFragment?.let{
+        notesComponentFragment?.let {
             supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, NotesComponentFragment::class.java.simpleName).commit()
         }
     }
@@ -218,5 +214,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
 
     }
 
-    override fun getNavigationMenuAction(): Int { return R.id.actionMail }
+    override fun getNavigationMenuAction(): Int {
+        return R.id.actionMail
+    }
 }

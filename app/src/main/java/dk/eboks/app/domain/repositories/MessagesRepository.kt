@@ -11,6 +11,9 @@ import dk.eboks.app.domain.models.sender.Sender
  * Created by bison on 01/02/18.
  */
 interface MessagesRepository {
+
+    fun deleteMessage(folderId: Int, messageId: String)
+
     fun getMessagesByFolder(folderId : Int, offset : Int = 0, limit : Int = 20, acceptedTerms : Boolean? = null) : List<Message>
     fun getMessagesBySender(senderId : Long, offset : Int = 0, limit : Int = 20, acceptedPrivateTerms: Boolean? = null): List<Message>
     //fun getMessages(cached : Boolean = false, type : FolderType) : List<Message>

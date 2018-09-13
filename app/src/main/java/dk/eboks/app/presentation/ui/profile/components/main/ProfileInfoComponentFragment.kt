@@ -37,6 +37,7 @@ import java.io.File
 import javax.inject.Inject
 import android.content.Context.FINGERPRINT_SERVICE
 import android.hardware.fingerprint.FingerprintManager
+import android.support.v4.app.ActivityCompat
 import kotlinx.android.synthetic.*
 
 
@@ -334,7 +335,9 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
     override fun logout() {
         val intent = Intent(getBaseActivity(), StartActivity::class.java)
+        ActivityCompat.finishAffinity(activity)
         startActivity(intent)
+
     }
 
     override fun showProgress(show: Boolean) {

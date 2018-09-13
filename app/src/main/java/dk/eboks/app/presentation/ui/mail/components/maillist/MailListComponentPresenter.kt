@@ -46,6 +46,7 @@ class MailListComponentPresenter @Inject constructor(
 
     init {
         getMessagesInteractor.output = this
+        deleteMessagesInteractor.output = this
     }
 
     override fun setup(folder: Folder) {
@@ -113,12 +114,9 @@ class MailListComponentPresenter @Inject constructor(
     }
 
     override fun deleteMessages(selectedMessages: MutableList<Message>) {
+        //todo implement deleting the entire list and not just first element
         view?.showProgress(true)
-
-        val messageIds = ArrayList(selectedMessages.map { it.id })
-
-        deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(messageIds)
-        deleteMessagesInteractor.output = this
+        deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(selectedMessages.get(0))
         deleteMessagesInteractor.run()
     }
 

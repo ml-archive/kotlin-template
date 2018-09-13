@@ -37,6 +37,18 @@ typealias CategoryMessageStore = CacheStore<String, List<Message>>
  */
 class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager, val okHttpClient: OkHttpClient) : MessagesRepository {
 
+    //delete message
+    override fun deleteMessage(folderId: Int, messageId: String) {
+        val response = api.deleteMessage(folderId, messageId).execute()
+        response?.let{
+            if (it.isSuccessful){
+                println("succes")
+                return
+            }
+        }
+    }
+
+
     val folderIdMessageStore: FolderIdMessageStore by lazy {
         FolderIdMessageStore(cacheManager, context, gson, "folder_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
             val response = api.getMessages(key).execute()

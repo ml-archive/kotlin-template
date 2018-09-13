@@ -39,7 +39,7 @@ class NotificationsChannelControl(channel: Channel, control : Control, view: Vie
 
                     // hide data if its a zero or null timestamp
                     currentItem.date?.let {
-                        if(it.time == -62135773200000L)
+                        if(it.time == -62135769600000L)
                         {
                             date.visibility = View.INVISIBLE
                         }
