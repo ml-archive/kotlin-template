@@ -106,7 +106,7 @@ class RestModule {
                 .addInterceptor(eboksHeaderInterceptor)
                 //.addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
 
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             clientBuilder.addInterceptor(ApiHostSelectionInterceptor())
         }
 
@@ -116,7 +116,7 @@ class RestModule {
             clientBuilder.addNetworkInterceptor(logging)
         }
 
-        if (!BuildConfig.DEBUG) {
+        if (!BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             // TODO: reenable cert pinning at some point
             /*
             clientBuilder.certificatePinner(

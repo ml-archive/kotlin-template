@@ -34,7 +34,7 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
                 // do something with unwrapped input
 
             }
-            if(BuildConfig.DEBUG) {
+            if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
                 // do we have a saved config?
                 prefManager.getString("config", null)?.let {
                     Timber.e("Setting config to $it")

@@ -57,7 +57,7 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(BuildConfig.DEBUG)
+        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
         {
             //setupShakeDetection()
         }
@@ -66,7 +66,7 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onViewCreated")
+        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) Timber.v("${this.javaClass.simpleName} onViewCreated")
         clearFindViewByIdCache()
     }
 

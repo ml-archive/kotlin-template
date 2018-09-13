@@ -31,7 +31,7 @@ class ActivationCodeComponentPresenter @Inject constructor(
         super.onViewCreated(view, lifecycle)
 
         appState.state?.loginState?.let {
-            if (BuildConfig.DEBUG && "3110276111" == it.userName) {
+            if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true) && "3110276111" == it.userName) {
                 runAction { v ->
                     v.setDebugUp("Cr4x3N6Q")
                 }

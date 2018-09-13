@@ -50,7 +50,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         presenter.onViewCreated(this, lifecycle)
         setupViewPager()
         signupBtn.setOnClickListener { getBaseActivity()?.addFragmentOnTop(R.id.containerFl, NameMailComponentFragment(), true) }
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             /*
             debugCreateBtn.visibility = View.VISIBLE
             debugCreateBtn.setOnClickListener {
@@ -133,7 +133,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                 val settings = users[position].second
                 val v = inflater.inflate(R.layout.viewholder_user_carousel, collection, false) as ViewGroup
 
-                if (BuildConfig.DEBUG) {
+                if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
                     var info = ""
                     if (settings.lastLoginProviderId != null)
                         info += "${settings.lastLoginProviderId}\n"
@@ -156,7 +156,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                     it.setOnClickListener {
                         presenter.login(user)
                     }
-                    if (BuildConfig.DEBUG) {
+                    if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
                         it.setOnLongClickListener {
                             DebugUserPresenter.editUser = user
                             activity.startActivity(Intent(activity, DebugUserActivity::class.java))
@@ -165,7 +165,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                     }
                 }
 
-                if (BuildConfig.DEBUG) {
+                if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
                     v.findViewById<TextView>(R.id.hintTv)?.visibility = View.VISIBLE
                 }
 

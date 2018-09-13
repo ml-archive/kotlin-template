@@ -224,7 +224,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 }
         }
 
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             testUsersBtn.visibility = View.VISIBLE
             testUsersBtn.setOnClickListener {
                 getBaseActivity()?.openComponentDrawer(DebugUsersComponentFragment::class.java)
@@ -314,7 +314,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
         continueBtn.visibility = View.GONE
         passwordTil.visibility = View.VISIBLE
-        if(BuildConfig.DEBUG)
+        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
         {
             showToast("Password preset to 'a12345' (DEBUG)")
             passwordEt.setText("a12345")

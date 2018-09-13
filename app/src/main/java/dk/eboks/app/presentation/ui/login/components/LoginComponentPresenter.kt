@@ -50,7 +50,7 @@ class LoginComponentPresenter @Inject constructor(
                     Timber.d("Loaded $settings")
                     var provider = settings.lastLoginProviderId
                     // Test-uses has "test" prefix, as in 'DebugUsersComponentPresenter'
-                    if (BuildConfig.DEBUG && true == provider?.contains("test")) {
+                    if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true) && true == provider?.contains("test")) {
                         provider = provider.removePrefix("test")// remove the prefix
 //                    setupLogin(it, provider)
                         appState.state?.loginState?.userLoginProviderId = provider

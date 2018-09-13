@@ -25,7 +25,7 @@ class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteract
 
     override fun startup() {
         Timber.e("Startup, running version control")
-        if(BuildConfig.DEBUG) {
+        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             runAction { v -> v.performVersionControl() }
         }
         else
