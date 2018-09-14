@@ -30,8 +30,8 @@ class DateDeserializer : JsonDeserializer<Date> {
             }
         }
         throw JsonParseException(
-            "Unparseable date: \"" + jsonElement.asString
-                + "\". Supported formats: " + Arrays.toString(DATE_FORMATS)
+            "Unparseable date: \"" + jsonElement.asString +
+                "\". Supported formats: " + Arrays.toString(DATE_FORMATS)
         )
     }
 
