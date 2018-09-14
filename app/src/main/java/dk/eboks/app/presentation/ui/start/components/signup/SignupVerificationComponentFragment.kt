@@ -68,11 +68,13 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
         showProgress(true)
         content.postDelayed({
             showProgress(false)
-            if(Config.isSE()) {
-                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, MMComponentFragment(), true)
-            } else {
-                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
-            }
+            // remove MM as it is out of scope for the current release
+//            if(Config.isSE()) {
+//                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, MMComponentFragment(), true)
+//            } else {
+//                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
+//            }
+            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
         }, 1000)
     }
 }
