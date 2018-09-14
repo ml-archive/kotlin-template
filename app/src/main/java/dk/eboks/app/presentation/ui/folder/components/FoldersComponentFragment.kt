@@ -38,6 +38,10 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     @Inject
     lateinit var presenter: FoldersComponentContract.Presenter
 
+    companion object {
+         var refreshOnResume: Boolean = false
+    }
+
     var systemfolders: MutableList<Folder> = ArrayList()
     var userfolders: MutableList<Folder> = ArrayList()
     var mode: FolderMode = FolderMode.NORMAL
@@ -76,6 +80,13 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             presenter.refresh()
         }
         setupMode()
+    }
+
+    override fun onResume() {
+        if (refreshOnResume){
+            presenter.refresh()
+        }
+        super.onResume()
     }
 
     private fun animateView() {
@@ -383,8 +394,8 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     }
 
     private fun editButtonClicked(v: View) {
-        var arguments = Bundle()
-        var editFolder = v.tag as Folder
+        val arguments = Bundle()
+        val editFolder = v.tag as Folder
         arguments.putSerializable("editFolder", editFolder)
         getBaseActivity()?.openComponentDrawer(NewFolderComponentFragment::class.java, arguments)
     }
@@ -395,7 +406,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             if (isSelected) {
                 unSelectCurrent()
             } else {
-                checkbox?.isSelected = true
+                checkbox.isSelected = true
                 unSelectCurrent()
                 pickedFolder = folder
                 pickedCheckBox = checkbox

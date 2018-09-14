@@ -14,6 +14,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderPatch
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.folder.components.FoldersComponentFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folder_newfolder.*
 import javax.inject.Inject
@@ -136,5 +137,10 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         if (parentFolder == null) {
             folderRootTv.text = rootFolderName
         }
+    }
+
+    override fun folderUpdated() {
+        FoldersComponentFragment.refreshOnResume = true
+        activity.onBackPressed()
     }
 }

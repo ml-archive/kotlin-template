@@ -35,12 +35,12 @@ class NewFolderComponentPresenter @Inject constructor(val appState: AppStateMana
     }
 
     override fun onUpdateFolderSuccess() {
-        //todo
-        println("tes")
+        runAction { v->
+            v.folderUpdated()
+        }
     }
 
     override fun onUpdateFolderError(error: ViewError) {
-        //todo
-        println("test")
+        runAction { it.showErrorDialog(error) }
     }
 }

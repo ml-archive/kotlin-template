@@ -66,7 +66,7 @@ interface Api {
     @POST("mail/folders/{folderId}/messages/{messageId}") fun updateMessage(@Path("folderId") folderId : Int, @Path("messageId") messageId : String, @Body body : MessagePatch) : Call<Void>
 
     //edit folder
-    @POST("mail/folders/{folderId}") fun updateFolder(@Path("folderId") folderId : Int, @Body body : FolderPatch) : Call<Void>
+    @PATCH("mail/folders/{folderId}") fun updateFolder(@Path("folderId") folderId : Int, @Body body : FolderPatch) : Call<Void>
 
     // delete message
     @DELETE("mail/folders/{folderId}/messages/{messageId}") fun deleteMessage(@Path("folderId") folderId: Int, @Path("messageId") messageId: String) : Call<Void>

@@ -10,6 +10,7 @@ import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
+import dk.eboks.app.domain.interactors.folder.UpdateFolderInteractor
 import dk.eboks.app.domain.interactors.message.*
 import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
@@ -964,8 +965,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideNewFolderComponentPresenter(stateManager: AppStateManager): NewFolderComponentContract.Presenter {
-        return NewFolderComponentPresenter(stateManager)
+    fun provideNewFolderComponentPresenter(stateManager: AppStateManager, updateFolderInteractor: UpdateFolderInteractor): NewFolderComponentContract.Presenter {
+        return NewFolderComponentPresenter(stateManager, updateFolderInteractor)
     }
 
     @ActivityScope

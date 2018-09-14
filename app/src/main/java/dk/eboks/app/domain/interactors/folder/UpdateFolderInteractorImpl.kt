@@ -7,7 +7,7 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 
-class UpdateMessageInteractorImpl(executor: Executor, val foldersRepository: FoldersRepository) : BaseInteractor(executor),
+class UpdateFolderInteractorImpl(executor: Executor, val foldersRepository: FoldersRepository) : BaseInteractor(executor),
         UpdateFolderInteractor {
     override var input: UpdateFolderInteractor.Input? = null
     override var output: UpdateFolderInteractor.Output? = null

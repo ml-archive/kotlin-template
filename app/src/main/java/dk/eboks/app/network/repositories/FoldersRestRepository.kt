@@ -47,7 +47,6 @@ class FoldersRestRepository(val context: Context, val api: Api, val gson: Gson, 
                 return
             }
         }
-
         throw(RuntimeException())
     }
 }

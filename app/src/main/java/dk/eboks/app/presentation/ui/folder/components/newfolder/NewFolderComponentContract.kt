@@ -10,6 +10,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface NewFolderComponentContract {
     interface View : BaseView {
         fun setRootFolder(user : String)
+        fun folderUpdated()
     }
 
     interface Presenter : BasePresenter<View> {
