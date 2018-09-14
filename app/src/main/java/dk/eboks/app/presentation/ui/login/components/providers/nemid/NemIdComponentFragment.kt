@@ -174,14 +174,6 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
         }
     }
 
-    /*
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        println(requestCode)
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-    */
-
-
     fun getJS(): String {
         return "function onNemIDMessage(e) \n" +
                 "{ \n" +
