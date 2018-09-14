@@ -33,7 +33,7 @@ class SampleActivityTest {
     The Aura and Linak Desk App are both close to 100% full UI test coverage, so take a look at them for more examples
      */
 
-    //Tells the UI Test that we'll start and tests in this Activity.
+    // Tells the UI Test that we'll start and tests in this Activity.
     @Rule
     @JvmField
     var mainActivityActivity = ActivityTestRule<MainActivity>(MainActivity::class.java)
@@ -57,7 +57,7 @@ class SampleActivityTest {
             .check(matches(isDisplayed()))
             .perform(click())
 
-        //If you want to pause the UI test for what ever reason you can sleep the thread
+        // If you want to pause the UI test for what ever reason you can sleep the thread
         // Thread.sleep(2000)
 
         // 3) We now check if our message has been saved into the TextView
@@ -89,10 +89,10 @@ class SampleActivityTest {
             .inRoot(isDialog())
             .check(matches(isDisplayed()))
 
-        //3 Lets press on the cancel button by finding the button with text.
+        // 3 Lets press on the cancel button by finding the button with text.
         onView(withText("Cancel")).check(matches(isDisplayed())).perform(click())
 
-        //4 Lets open the AlertDialog again and press on the OK button by the buttons ID
+        // 4 Lets open the AlertDialog again and press on the OK button by the buttons ID
         onView(withId(R.id.buttonOpenDialog)).perform(click())
         onView(withId(android.R.id.button1)).check(matches(isDisplayed())).perform(click())
     }
