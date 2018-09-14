@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderPatch
 import dk.eboks.app.domain.repositories.FoldersRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
@@ -35,5 +36,18 @@ class FoldersRestRepository(val context: Context, val api: Api, val gson: Gson, 
         }
         else
             return ArrayList()
+    }
+
+    override fun updateFolder(folderId: Int, folderPatch: FolderPatch) {
+        val call = api.updateFolder(folderId,folderPatch)
+        val result = call.execute()
+        result?.let { response ->
+            if(response.isSuccessful)
+            {
+                return
+            }
+        }
+
+        throw(RuntimeException())
     }
 }

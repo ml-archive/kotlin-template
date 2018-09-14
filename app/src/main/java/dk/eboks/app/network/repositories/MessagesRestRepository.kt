@@ -42,7 +42,6 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
         val response = api.deleteMessage(folderId, messageId).execute()
         response?.let{
             if (it.isSuccessful){
-                println("succes")
                 return
             }
         }

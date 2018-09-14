@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderPatch
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
@@ -83,10 +84,8 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         saveBtn.setOnClickListener {
             when (mode) {
                 FolderDrawerMode.EDIT -> {
-                    val folderID = folderRootTv.text
-                    val folderName = nameEt.text
-                    println(folderID.toString() + folderName)
-                    presenter.saveEditFolder()
+                    val folderName =  if (parentFolder?.name != nameEt.text.toString()) nameEt.text.toString() else null
+                    presenter.saveEditFolder(editFolder?.id, FolderPatch(null,parentFolder?.id, folderName))
                 }
                 FolderDrawerMode.NEW -> {
                     //todo save btn  do something
