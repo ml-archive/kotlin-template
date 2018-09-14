@@ -9,6 +9,7 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderPatch
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.login.User
@@ -63,6 +64,9 @@ interface Api {
 
     // edit message / document/message operations
     @POST("mail/folders/{folderId}/messages/{messageId}") fun updateMessage(@Path("folderId") folderId : Int, @Path("messageId") messageId : String, @Body body : MessagePatch) : Call<Void>
+
+    //edit folder
+    @PATCH("mail/folders/{folderId}") fun updateFolder(@Path("folderId") folderId : Int, @Body body : FolderPatch) : Call<Void>
 
     // delete message
     @DELETE("mail/folders/{folderId}/messages/{messageId}") fun deleteMessage(@Path("folderId") folderId: Int, @Path("messageId") messageId: String) : Call<Void>

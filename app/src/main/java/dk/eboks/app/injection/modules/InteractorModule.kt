@@ -12,11 +12,9 @@ import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractorImpl
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractorImpl
-import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
-import dk.eboks.app.domain.interactors.folder.GetFoldersInteractorImpl
-import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
-import dk.eboks.app.domain.interactors.folder.OpenFolderInteractorImpl
+import dk.eboks.app.domain.interactors.folder.*
 import dk.eboks.app.domain.interactors.message.*
+import dk.eboks.app.domain.interactors.message.UpdateMessageInteractorImpl
 import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.*
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
@@ -474,6 +472,11 @@ class InteractorModule {
             collectionsRepository: CollectionsRepository
     ): GetCollectionsInteractor {
         return GetCollectionsInteractorImpl(executor, collectionsRepository)
+    }
+
+    @Provides
+    fun provideUpdateFolderInteractor(executor: Executor, foldersRepository: FoldersRepository): UpdateFolderInteractor {
+        return UpdateFolderInteractorImpl(executor, foldersRepository)
     }
 
     @Provides

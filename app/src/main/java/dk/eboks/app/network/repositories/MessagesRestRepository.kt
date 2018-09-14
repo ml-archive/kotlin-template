@@ -42,7 +42,6 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
         val response = api.deleteMessage(folderId, messageId).execute()
         response?.let{
             if (it.isSuccessful){
-                println("succes")
                 return
             }
         }
@@ -257,14 +256,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
     }
 
     override fun updateMessage(message: Message, messagePatch: MessagePatch) {
-        val call = if(message.folderId != 0)
-            api.updateMessage(message.folderId, message.id, messagePatch)
-        else if(message.folder != null) {
-            api.updateMessage(message.folder!!.id, message.id, messagePatch)
-        }
-        else
-            throw(RuntimeException("Could not resolve message folder id!!!"))
-
+        val call = api.updateMessage(message.findFolderId(), message.id, messagePatch)
         val result = call.execute()
         result?.let { response ->
             if(response.isSuccessful)

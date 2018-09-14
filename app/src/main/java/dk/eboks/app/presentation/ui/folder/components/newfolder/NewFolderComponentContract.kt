@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.folder.components.newfolder
 
+import dk.eboks.app.domain.models.folder.FolderPatch
 import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter
 
@@ -9,8 +10,10 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface NewFolderComponentContract {
     interface View : BaseView {
         fun setRootFolder(user : String)
+        fun folderUpdated()
     }
 
     interface Presenter : BasePresenter<View> {
+        fun saveEditFolder(folderId: Int?, folderPatch: FolderPatch)
     }
 }

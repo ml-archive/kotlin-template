@@ -17,7 +17,7 @@ class DeleteMessagesInteractorImpl(executor: Executor, val messagesRepository: M
     override fun execute() {
         try {
             input?.message?.let {
-                val result = messagesRepository.deleteMessage(it.folderId,it.id)
+                val result = messagesRepository.deleteMessage(it.findFolderId(),it.id)
                 runOnUIThread {
                     output?.onDeleteMessagesSuccess()
                 }

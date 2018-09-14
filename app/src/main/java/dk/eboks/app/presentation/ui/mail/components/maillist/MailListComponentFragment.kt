@@ -14,6 +14,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
@@ -29,6 +30,7 @@ import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
+import kotlin.collections.ArrayList
 
 class MailListComponentFragment : BaseFragment(), MailListComponentContract.View {
     @Inject
@@ -40,14 +42,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     private var editEnabled: Boolean = false
     private var editAction: ButtonType? = null
     private var showUploads: Boolean = false
-
-    private var actionButtons = arrayListOf(
-            OverlayButton(ButtonType.MOVE),
-            OverlayButton(ButtonType.ARCHIVE),
-            OverlayButton(ButtonType.READ),
-            OverlayButton(ButtonType.UNREAD),
-            OverlayButton(ButtonType.DELETE)
-    )
 
     var sender: Sender? = null
 
@@ -78,16 +72,13 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         refreshSrl.setOnRefreshListener {
             presenter.refresh()
         }
-
         if (arguments == null) {
             onBackPressed()
             return
         }
-
         getFolderFromBundle()
         getSenderFromBundle()
         getEditFromBundle()
-
         setupTopBar()
     }
 
@@ -131,9 +122,29 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     private fun setupFab() {
         mainFab.setOnClickListener {
             val i = Intent(context, OverlayActivity::class.java)
-            i.putExtra("buttons", actionButtons)
+            i.putExtra("buttons", getActonButtons())
             startActivityForResult(i, OverlayActivity.REQUEST_ID)
         }
+    }
+
+    private fun getActonButtons(): ArrayList<OverlayButton> {
+        val actionButtons = arrayListOf(
+                OverlayButton(ButtonType.MOVE),
+                OverlayButton(ButtonType.ARCHIVE)
+
+        )
+        var showRead = false
+        var showUnread = false
+        for (msg in checkedList){
+            if (msg.unread == true ){ showRead = true}
+            if (msg.unread == false ){ showUnread = true}
+            if (showRead && showUnread) break
+        }
+        if (showRead) actionButtons.add(OverlayButton(ButtonType.READ))
+        if (showUnread) actionButtons.add(OverlayButton(ButtonType.UNREAD))
+
+        actionButtons.add(OverlayButton(ButtonType.DELETE))
+        return actionButtons
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -177,18 +188,12 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         // deal with return from folder picker
         if (requestCode == FolderActivity.REQUEST_ID) {
             data?.extras?.let {
-                val moveToFolder = data.getSerializableExtra("res")
-
-                Timber.d("Move To Folder ${moveToFolder?.toString()}")
-
-                presenter.moveMessages(moveToFolder?.toString(), checkedList)
-
+                val moveToFolder = data.getSerializableExtra("res") as Folder
+                presenter.moveMessages(moveToFolder.id, checkedList)
                 checkedList.clear()
-
                 if (modeEdit) {
                     toggleEditMode()
                 }
-
             }
         }
     }
@@ -264,17 +269,15 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
         adapter.onActionEvent = { message, mailMessageEvent ->
             Timber.d("onActionEvent: %s", mailMessageEvent)
-
             when (mailMessageEvent) {
                 OPEN -> {
                     editAction = ButtonType.OPEN
                     message.unread = false
-                    startMessageOpenActivity(message)
+                    presenter.openMessage(message)
                 }
                 READ -> {
                     editAction = ButtonType.READ
-                    message.unread = false
-                    presenter.updateMessage(message)
+                    presenter.updateMessage(message , MessagePatch(false,false,message.folderId,null))
                 }
                 MOVE -> {
                     editAction = ButtonType.MOVE
@@ -315,8 +318,8 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         presenter.loadNextPage()
     }
 
-    private fun startMessageOpenActivity(message: Message) {
-         activity.Starter()
+    override fun openMessage(message: Message) {
+        activity.Starter()
                 .activity(MessageOpeningActivity::class.java)
                 .putExtra(Message::class.java.simpleName, message)
                 .start()
