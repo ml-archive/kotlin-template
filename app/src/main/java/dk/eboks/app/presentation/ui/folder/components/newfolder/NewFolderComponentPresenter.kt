@@ -18,5 +18,7 @@ class NewFolderComponentPresenter @Inject constructor(val appState: AppStateMana
         }
     }
 
+    override fun saveEditFolder() {
 
+    }
 }

@@ -55,21 +55,19 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
     }
 
     private fun setup() {
-
         when (mode) {
             FolderDrawerMode.EDIT -> {
                 titleTv.text = Translation.folders.editFolder
                 folderRootTv.text = parentFolder?.name
                 deleteIv.visibility = View.VISIBLE
                 editFolder?.name?.let {
-                    var editableString = SpannableStringBuilder(it)
+                    val editableString = SpannableStringBuilder(it)
                     nameEt.text = editableString
                 }
                 deleteIv.setOnClickListener {
                     //todo delete folder
                 }
             }
-
             FolderDrawerMode.NEW -> {
                 deleteIv.visibility = View.GONE
             }
@@ -85,7 +83,10 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         saveBtn.setOnClickListener {
             when (mode) {
                 FolderDrawerMode.EDIT -> {
-                    //todo save btn  do something
+                    val folderID = folderRootTv.text
+                    val folderName = nameEt.text
+                    println(folderID.toString() + folderName)
+                    presenter.saveEditFolder()
                 }
                 FolderDrawerMode.NEW -> {
                     //todo save btn  do something
@@ -98,7 +99,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         }
 
         selectFolderLl.setOnClickListener {
-            var i = Intent(context, FolderActivity::class.java)
+            val i = Intent(context, FolderActivity::class.java)
             i.putExtra("pick", true)
             i.putExtra("selectFolder", true)
             startActivityForResult(i, FolderActivity.REQUEST_ID)
@@ -127,8 +128,6 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                     }
                 }
             }
-
-
         }
     }
 

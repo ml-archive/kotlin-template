@@ -12,5 +12,6 @@ interface NewFolderComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
+        fun saveEditFolder()
     }
 }

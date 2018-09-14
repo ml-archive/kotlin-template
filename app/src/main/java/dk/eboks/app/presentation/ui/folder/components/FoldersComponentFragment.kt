@@ -97,11 +97,9 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     }
 
     private fun setupMode() {
-
         refreshSrl.isEnabled = (mode == FolderMode.NORMAL)
         getBaseActivity()?.mainTb?.menu?.clear()
         mainFab.visibility = View.GONE
-
         systemFoldersLl.alpha = 1f
         systemFoldersLl.isClickable = true
 
