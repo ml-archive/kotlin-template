@@ -240,9 +240,10 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         nameEt.setText(name)
     }
 
-    override fun setPrimaryEmail(email: String, verified: Boolean) {
+    override fun setPrimaryEmail(email: String, verified: Boolean, userVerified : Boolean) {
         primaryMailEt.setText(email)
         verifyEmailBtn.setVisible(!verified)
+        primaryMailEt.isEnabled = userVerified
     }
 
     override fun setSecondaryEmail(email: String, verified: Boolean) {
