@@ -9,8 +9,8 @@ apply plugin: 'kotlin-kapt'
 translation {
     appId = "5Rg3muDHQL8J19lb6sZzjD6ANSOrigg5x55u"
     apiKey = "htCPriWP9yoaeoHHnPgYKYw68BoejYhJnR8w"
-    acceptHeader = "en-US"
-    autoRunUpdate = false
+    acceptHeader = "da-DK"
+    autoRunUpdate = true
 }
 
 bitrise {
@@ -28,7 +28,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 94
+        versionCode 97
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -44,7 +44,7 @@ android {
         buildConfigField "Boolean", "ENABLE_PROFILE_PICTURE", "false"
         buildConfigField "Boolean", "ENABLE_SENDERS", "false"
         buildConfigField "Boolean", "ENABLE_UPLOADS", "true"
-        buildConfigField "Boolean", "ENABLE_DOCUMENT_ACTIONS", "true"
+        buildConfigField "Boolean", "ENABLE_DOCUMENT_ACTIONS", "false"
         buildConfigField "Boolean", "ENABLE_FOLDERS_ACTIONS", "false"
         buildConfigField "Boolean", "ENABLE_PAYMENT", "false"
         buildConfigField "Boolean", "ENABLE_EKEY", "false"
