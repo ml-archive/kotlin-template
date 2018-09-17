@@ -82,8 +82,15 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
             Timber.e("binding msg viewholder: Sub ${currentItem.subject} Sender ${currentItem.sender?.name} unread=${currentItem.unread}")
             setGeneric(currentItem)
 
-            swipeLayout.isLeftSwipeEnabled = !editMode
-            swipeLayout.isRightSwipeEnabled = !editMode
+            if(BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
+                swipeLayout.isLeftSwipeEnabled = !editMode
+                swipeLayout.isRightSwipeEnabled = !editMode
+            }
+            else
+            {
+                swipeLayout.isLeftSwipeEnabled = false
+                swipeLayout.isRightSwipeEnabled = false
+            }
 
             if (editMode) {
                 setSelectable(currentItem, last)
@@ -125,9 +132,15 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
             checkBox.isSelected = false
 
 
-            if (currentItem.status?.text != null) {
+            if (currentItem.status?.title != null) {
                 urgentTv?.visibility = View.VISIBLE
-                urgentTv?.text = currentItem.status?.text
+                urgentTv?.text = currentItem.status?.title
+                if(currentItem.status?.important == true)
+                {
+                    urgentTv.setTextColor(root.context.resources.getColor(R.color.rougeTwo))
+                }
+                else
+                    urgentTv.setTextColor(root.context.resources.getColor(R.color.silver))
             } else {
                 urgentTv?.visibility = View.GONE
             }

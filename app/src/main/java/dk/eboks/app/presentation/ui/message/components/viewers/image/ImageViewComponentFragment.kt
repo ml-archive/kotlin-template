@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.base.ViewerFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.base.EmbeddedViewer
+import dk.eboks.app.util.printAndForget
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_imageview_component.*
 import timber.log.Timber
@@ -15,7 +17,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.View, EmbeddedViewer {
+class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.View, EmbeddedViewer, ViewerFragment {
 
     @Inject
     lateinit var presenter : ImageViewComponentContract.Presenter
@@ -51,4 +53,8 @@ class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.Vi
         showImage(file.path)
     }
 
+    override fun print() {
+        webView.printAndForget(context)
+        Timber.e("Print called")
+    }
 }

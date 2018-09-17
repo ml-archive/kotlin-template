@@ -190,8 +190,6 @@ import dk.eboks.app.presentation.ui.start.screens.StartContract
 import dk.eboks.app.presentation.ui.start.screens.StartPresenter
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentContract
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentPresenter
-import dk.eboks.app.presentation.ui.uploads.components.uploadfile.UploadFileComponentContract
-import dk.eboks.app.presentation.ui.uploads.components.uploadfile.UploadFileComponentPresenter
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsContract
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsPresenter
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadContract
@@ -491,9 +489,10 @@ class PresentationModule {
     @Provides
     fun provideStartPresenter(
             stateManager: AppStateManager,
-            bootstrapInteractor: BootstrapInteractor
+            bootstrapInteractor: BootstrapInteractor,
+            prefManager: PrefManager
     ): StartContract.Presenter {
-        return StartPresenter(stateManager, bootstrapInteractor)
+        return StartPresenter(stateManager, bootstrapInteractor, prefManager)
     }
 
     @ActivityScope
@@ -632,12 +631,16 @@ class PresentationModule {
     fun provideChannelContentStoreboxDetailComponentPresenter(
             stateManager: AppStateManager,
             getStoreboxReceiptInteractor: GetStoreboxReceiptInteractor,
-            deleteStoreboxReceiptInteractor: DeleteStoreboxReceiptInteractor
+            deleteStoreboxReceiptInteractor: DeleteStoreboxReceiptInteractor,
+            saveReceiptInteractor: SaveReceiptInteractor,
+            shareReceiptInteractor: ShareReceiptInteractor
     ): ChannelContentStoreboxDetailComponentContract.Presenter {
         return ChannelContentStoreboxDetailComponentPresenter(
                 stateManager,
                 getStoreboxReceiptInteractor,
-                deleteStoreboxReceiptInteractor
+                deleteStoreboxReceiptInteractor,
+                saveReceiptInteractor,
+                shareReceiptInteractor
         )
     }
 
@@ -825,9 +828,10 @@ class PresentationModule {
     fun provideMyInfoComponentPresenter(
             stateManager: AppStateManager,
             saveUserInteractor: SaveUserInteractor,
-            updateUserInteractor: UpdateUserInteractor
+            updateUserInteractor: UpdateUserInteractor,
+            getUserProfileInteractor: GetUserProfileInteractor
     ): MyInfoComponentContract.Presenter {
-        return MyInfoComponentPresenter(stateManager, saveUserInteractor, updateUserInteractor)
+        return MyInfoComponentPresenter(stateManager, saveUserInteractor, updateUserInteractor, getUserProfileInteractor)
     }
 
     @ActivityScope
@@ -910,13 +914,6 @@ class PresentationModule {
     fun provideOverlayPresenter(stateManager: AppStateManager): OverlayContract.Presenter {
         return OverlayPresenter(stateManager)
     }
-
-    @ActivityScope
-    @Provides
-    fun provideUploadFilePresenter(stateManager: AppStateManager): UploadFileComponentContract.Presenter {
-        return UploadFileComponentPresenter(stateManager)
-    }
-
 
     @ActivityScope
     @Provides

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color.BLACK
 import android.graphics.Color.WHITE
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.view.ViewCompat
 import android.support.v7.app.AlertDialog
@@ -21,11 +22,14 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.storebox.*
+import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
+import dk.eboks.app.util.FileUtils
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_storebox_detail_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -34,6 +38,13 @@ import kotlinx.android.synthetic.main.viewholder_receipt_line.view.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
+import android.widget.Toast
+import java.nio.file.Files.exists
+import android.os.Environment.getExternalStorageDirectory
+import android.support.v4.content.FileProvider
+import dk.eboks.app.BuildConfig
+import dk.eboks.app.util.guard
+import java.io.File
 
 
 class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
@@ -47,6 +58,8 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     private var paymentAdapter = PaymentLineAdapter()
 
     private var actionButtons = arrayListOf(
+            OverlayButton(ButtonType.OPEN),
+            OverlayButton(ButtonType.MAIL),
             OverlayButton(ButtonType.MOVE),
             OverlayButton(ButtonType.DELETE)
     )
@@ -165,7 +178,13 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     private fun setStoreInfo(merchant: StoreboxMerchant?, optionals: StoreboxOptionals?) {
         storeboxDetailTvStoreName.text = merchant?.name
         storeboxDetailTvAddressLineOne.text = merchant?.addressLine1
-        storeboxDetailTvAddressLineTwo.text = merchant?.addressLine2
+        if(merchant?.addressLine2?.isNullOrBlank() == false)
+        {
+            storeboxDetailTvAddressLineTwo.setVisible(true)
+            storeboxDetailTvAddressLineTwo.text = merchant?.addressLine2
+        }
+        else
+            storeboxDetailTvAddressLineTwo.setVisible(false)
         storeboxDetailTvPhoneNumber.text = optionals?.storeRegNumber
     }
 
@@ -271,6 +290,37 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         fragmentManager.popBackStack()
     }
 
+    override fun shareReceiptContent(filename: String) {
+        try {
+            FileUtils.openExternalViewer(context, filename, "application/pdf")
+        }
+        catch (t : Throwable)
+        {
+            showErrorDialog(ViewError(title = Translation.error.receiptOpenInErrorTitle, message = Translation.error.receiptOpenInErrorMessage))
+        }
+    }
+
+    override fun mailReceiptContent(filename: String) {
+        try {
+            val intent = Intent(Intent.ACTION_SEND)
+            //intent.type = "text/plain"
+
+            val uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".fileprovider", File(filename))
+            intent.setDataAndType(uri, "application/pdf")
+            intent.putExtra(Intent.EXTRA_STREAM, uri)
+            intent.putExtra(Intent.EXTRA_EMAIL, "")
+            intent.putExtra(Intent.EXTRA_SUBJECT, "")
+            intent.putExtra(Intent.EXTRA_TEXT, "")
+
+            startActivity(Intent.createChooser(intent, Translation.overlaymenu.mail))
+        }
+        catch (t : Throwable)
+        {
+            t.printStackTrace()
+            showErrorDialog(ViewError(title = Translation.error.receiptOpenInErrorTitle, message = Translation.error.receiptOpenInErrorMessage))
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -285,6 +335,12 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
                 (ButtonType.DELETE) -> {
                     showRemoveChannelDialog()
                 }
+                (ButtonType.OPEN) -> {
+                    presenter.shareReceipt(false)
+                }
+                (ButtonType.MAIL) -> {
+                    presenter.shareReceipt(true)
+                }
                 else                -> {
                     // Request do nothing
 
@@ -294,8 +350,10 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         // deal with return from folder picker
         if (requestCode == FolderActivity.REQUEST_ID) {
             data?.extras?.let {
-                val moveToFolder = data.getSerializableExtra("res")
-                Timber.d("Move To Folder ${moveToFolder?.toString()}")
+                val moveToFolder = data.getSerializableExtra("res") as Folder
+                //Timber.d("Move To Folder ${moveToFolder?.toString()}")
+                Timber.e("Returned from folder picker. folder picked: ${moveToFolder.name}")
+                presenter.saveReceipt(moveToFolder)
             }
         }
     }
@@ -353,17 +411,30 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         inner class ReceiptLineViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             fun bind(receiptLine: StoreboxReceiptLine) {
                 itemView.viewHolderReceiptTvItemName.text = receiptLine.name
+                itemView.viewHolderReceiptTvAmount.setVisible(false)
+                receiptLine.amount?.let { amount ->
+                    if(amount > 1) {
+                        itemView.viewHolderReceiptTvAmount.setVisible(true)
+                        itemView.viewHolderReceiptTvAmount.text = String.format(
+                                "%s x %.2f",
+                                receiptLine.amount?.toInt(),
+                                receiptLine.itemPrice?.value
+                        )
+                    }
+                }.guard {
+                    itemView.viewHolderReceiptTvAmount.setVisible(false)
+                }
 
-                itemView.viewHolderReceiptTvAmount.text = String.format(
-                        "%s x %.2f",
-                        receiptLine.amount?.toInt(),
-                        receiptLine.itemPrice?.value
-                )
+                itemView.viewHolderReceiptTvPrice.text = String.format("%.2f", receiptLine.totalPrice?.value)
 
-                itemView.viewHolderReceiptTvPrice.text = receiptLine.totalPrice?.value.toString()
+                itemView.viewHolderReceiptTvSubtitle.setVisible(false)
+                receiptLine.description?.let {
+                    if(!it.isBlank()) {
+                        itemView.viewHolderReceiptTvSubtitle.setVisible(true)
+                        itemView.viewHolderReceiptTvSubtitle.text = it
+                    }
+                }
 
-                itemView.viewHolderReceiptTvSubtitle.setVisible(receiptLine.description != null)
-                itemView.viewHolderReceiptTvSubtitle.text = receiptLine.description
             }
         }
     }

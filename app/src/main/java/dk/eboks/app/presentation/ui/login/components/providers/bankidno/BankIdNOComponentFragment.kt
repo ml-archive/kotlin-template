@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.login.components.providers.bankidno
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
@@ -73,7 +74,10 @@ class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
     }
 
     override fun proceed() {
-        (activity as StartActivity).startMain()
+        if(activity is StartActivity)
+            (activity as StartActivity).startMain()
+        else
+            finishActivity(Activity.RESULT_OK)
     }
 
     override fun showError(viewError: ViewError) {

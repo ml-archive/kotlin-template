@@ -31,9 +31,11 @@ class ForgotPasswordComponentPresenter @Inject constructor(
     }
 
     override fun onError(error: ViewError) {
+        /*
         runAction { v ->
             v.showError(error)
         }
+        */
     }
 
 

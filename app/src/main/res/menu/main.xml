@@ -14,7 +14,7 @@
 
     <item
         android:id="@+id/actionSenders"
-        android:icon="@drawable/ic_menu_senders"
+        android:icon="@drawable/icon_48_senders_grey"
         android:enabled="true"
         android:title="_Senders" />
 

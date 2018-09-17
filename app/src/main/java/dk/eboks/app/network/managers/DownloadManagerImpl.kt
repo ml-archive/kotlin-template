@@ -2,13 +2,10 @@ package dk.eboks.app.network.managers
 
 import android.content.Context
 import dk.eboks.app.domain.config.Config
-import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.managers.DownloadManager
 import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
-import dk.eboks.app.domain.models.protocol.ErrorType
-import dk.eboks.app.domain.models.protocol.ServerError
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okio.Okio
@@ -64,6 +61,24 @@ class DownloadManagerImpl(val context: Context, val client: OkHttpClient, val ca
         sink.close()
         Timber.e("Downloaded attachment $url to $filename")
         return filename
+    }
+
+    override fun downloadReceiptContent(receiptId : String) : String? {
+        Timber.e("Downloading receipt content...")
+        var url = "${Config.getApiUrl()}channels/storebox/receipts/$receiptId/content"
+
+        val request = Request.Builder().url(url)
+                .get()
+                .build()
+        val response = client.newCall(request).execute()
+        val filename = "receipt.pdf"
+        val downloadedFile = File(context.getCacheDir(), filename)
+        // let okio do the actual buffering and writing of the file, after all thats why Jake made it, in his infinite wisdom
+        val sink = Okio.buffer(Okio.sink(downloadedFile))
+        sink.writeAll(response.body()!!.source())
+        sink.close()
+        Timber.e("Downloaded receipt $url to $filename")
+        return downloadedFile.path
     }
 
 }

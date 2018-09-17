@@ -61,7 +61,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             countToDebug = 0
             setupShakeDetection()
         }

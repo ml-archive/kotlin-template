@@ -4,6 +4,7 @@ import dk.eboks.app.domain.interactors.user.ConfirmPhoneInteractor
 import dk.eboks.app.domain.interactors.user.VerifyPhoneInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.presentation.ui.profile.components.myinfo.MyInfoComponentFragment
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
@@ -29,8 +30,8 @@ class PhoneVerificationComponentPresenter @Inject constructor(val appState: AppS
     override fun setup(mobile: String) {
         currentMobile = mobile
         runAction { v->v.showNumber(mobile) }
-        verifyPhoneInteractor.input = VerifyPhoneInteractor.Input(mobile)
-        verifyPhoneInteractor.run()
+        //verifyPhoneInteractor.input = VerifyPhoneInteractor.Input(mobile)
+        //verifyPhoneInteractor.run()
     }
 
     override fun resendVerificationCode() {
@@ -55,6 +56,7 @@ class PhoneVerificationComponentPresenter @Inject constructor(val appState: AppS
      */
 
     override fun onVerifyPhone() {
+        MyInfoComponentFragment.refreshOnResume = true
         runAction { v->
             v.showProgress(false)
         }
@@ -71,6 +73,7 @@ class PhoneVerificationComponentPresenter @Inject constructor(val appState: AppS
      * ConfirmPhoneInteractor callbacks
      */
     override fun onConfirmPhone() {
+        MyInfoComponentFragment.refreshOnResume = true
         runAction { v->v.finishActivity(null) }
     }
 

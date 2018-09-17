@@ -12,13 +12,14 @@ interface OpenMessageInteractor : Interactor {
     var output : Output?
     var input : Input?
 
-    data class Input(var msg : Message)
+    data class Input(var msg : Message, var terms: Boolean?= null)
 
     interface Output {
         fun onOpenMessageDone()
         fun onOpenMessageServerError(serverError : ServerError)
         fun onOpenMessageError(error : ViewError)
-        fun onReAuthenticate(loginProviderId : String)
+        fun onReAuthenticate(loginProviderId : String, msg : Message)
+        fun onPrivateSenderWarning(msg : Message)
         fun isViewAttached() : Boolean
     }
 }

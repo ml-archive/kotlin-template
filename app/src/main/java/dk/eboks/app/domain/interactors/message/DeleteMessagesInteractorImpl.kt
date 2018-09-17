@@ -1,9 +1,13 @@
 package dk.eboks.app.domain.interactors.message
 
+import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.repositories.MessagesRepository
+import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import timber.log.Timber
 
-class DeleteMessagesInteractorImpl(executor: Executor) :
+class DeleteMessagesInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) :
         BaseInteractor(executor),
         DeleteMessagesInteractor {
     override var output: DeleteMessagesInteractor.Output? = null
@@ -11,11 +15,17 @@ class DeleteMessagesInteractorImpl(executor: Executor) :
 
 
     override fun execute() {
-        // Todo implement delete route?
-        Thread.sleep(1000)
-
-        runOnUIThread {
-            output?.onDeleteMessagesSuccess()
+        try {
+            input?.message?.let {
+                val result = messagesRepository.deleteMessage(it.folderId,it.id)
+                runOnUIThread {
+                    output?.onDeleteMessagesSuccess()
+                }
+            }
+        } catch (t: Throwable) {
+            runOnUIThread {
+                output?.onDeleteMessagesError(ViewError())
+            }
         }
     }
 }

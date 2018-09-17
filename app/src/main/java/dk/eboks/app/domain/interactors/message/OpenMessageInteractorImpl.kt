@@ -11,6 +11,9 @@ import dk.eboks.app.domain.models.APIConstants
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.EboksContentType
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.protocol.ErrorType
+import dk.eboks.app.domain.models.protocol.ErrorType.*
+import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.util.FieldMapper
 import dk.eboks.app.util.exceptionToViewError
@@ -34,9 +37,9 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
     override fun execute() {
         try {
             input?.msg?.let { msg->
-                //throw(ServerErrorException(ServerError(id="homemade", code = PROMULGATION, type = ErrorType.ERROR)))
+                //throw(ServerErrorException(ServerError(id="homemade", code = PROMULGATION, type = ERROR)))
+                val updated_msg = messagesRepository.getMessage(msg.folderId, msg.id, acceptedPrivateTerms = input?.terms)
                 if(processLockedMessage(msg)) {
-                    val updated_msg = messagesRepository.getMessage(msg.folderId, msg.id)
                     // update the (perhaps) more detailed message object with the extra info from the backend
                     // because the JVM can only deal with reference types silly reflection tricks like this are necessary
                     FieldMapper.copyAllFields(msg, updated_msg)
@@ -62,8 +65,6 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
     fun handleServerException(e : ServerErrorException, msg : Message) {
         Timber.e("ServerException arose from getMessage api call")
         when (e.error.code) {
-            NO_PRIVATE_SENDER_WARNING -> {
-            }
             MANDATORY_OPEN_RECEIPT -> {
                 appStateManager.state?.let { state ->
                     state.openingState.shouldProceedWithOpening = false
@@ -81,7 +82,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                         if(processLockedMessage(msg)) {
                             val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id
                                     ?: input?.msg?.folderId ?: 0, input?.msg?.id
-                                    ?: "", receipt = true)
+                                    ?: "", receipt = true, acceptedPrivateTerms = input?.terms)
                             FieldMapper.copyAllFields(msg, updated_msg)
                             openMessage(msg, true)
                         }
@@ -112,7 +113,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                             val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id
                                     ?: input?.msg?.folderId ?: 0, input?.msg?.id
                                     ?: "", receipt = appStateManager.state?.openingState?.sendReceipt
-                                    ?: false)
+                                    ?: false, acceptedPrivateTerms = input?.terms)
                             FieldMapper.copyAllFields(msg, updated_msg)
                             openMessage(msg, true)
                         }
@@ -147,7 +148,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                     try {
                         if(processLockedMessage(msg)) {
                             val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id
-                                    ?: input?.msg?.folderId ?: 0, input?.msg?.id ?: "")
+                                    ?: input?.msg?.folderId ?: 0, input?.msg?.id ?: "",  acceptedPrivateTerms = input?.terms)
                             FieldMapper.copyAllFields(msg, updated_msg)
                             openMessage(msg, true)
                         }
@@ -174,28 +175,45 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
      */
     private fun processLockedMessage(msg : Message) : Boolean
     {
+        // TODO for the love of god, memba to 'move me (for testing locked messages status 1)
+        //msg.lockStatus?.type = 5
         // check for stupid message protection / locking
         msg.lockStatus?.let { status->
             when(status.type)
             {
                 APIConstants.MSG_LOCKED_REQUIRES_NEW_AUTH ->
                 {
-
+                    runOnUIThread { output?.onReAuthenticate("cpr", msg) }
+                    executor.sleepUntilSignalled("authenticationDone")
+                    return true
                 }
                 APIConstants.MSG_LOCKED_REQUIRES_HIGHER_SEC_LVL ->
                 {
                     Config.getVerificationProviderId()?.let { providerId ->
-                        runOnUIThread { output?.onReAuthenticate(providerId) }
+                        runOnUIThread { output?.onReAuthenticate(providerId, msg) }
                         executor.sleepUntilSignalled("authenticationDone")
                         return true
                     }
                 }
                 APIConstants.MSG_LOCKED_WEB_ONLY ->
                 {
-                    runOnUIThread { output?.onReAuthenticate("webonly") }
+                    runOnUIThread { output?.onReAuthenticate("webonly", msg) }
                     executor.sleepUntilSignalled("authenticationDone")
                     return false
                 }
+                APIConstants.MSG_LOCKED_REQUIRES_PUBLIC_IDP2 ->
+                {
+                    runOnUIThread { output?.onPrivateSenderWarning(msg) }
+                    executor.sleepUntilSignalled("messageOpenDone")
+                    if(appStateManager.state?.openingState?.shouldProceedWithOpening == true)
+                    {
+                        openMessage(currentmsg = msg, acceptedPrivateTerms = true)
+                        return true
+                    }
+                    else
+                        return false
+                }
+
                 else ->
                 {
                     return true
@@ -205,8 +223,15 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
         return true
     }
 
-    private fun openMessage(msg : Message, secondAttempt : Boolean = false)
+    private fun openMessage(currentmsg : Message, secondAttempt : Boolean = false, acceptedPrivateTerms : Boolean = false)
     {
+        var msg = currentmsg
+        if (acceptedPrivateTerms){
+            msg = messagesRepository.getMessage(input?.msg?.folder?.id
+                    ?: input?.msg?.folderId ?: 0, input?.msg?.id
+                    ?: "", acceptedPrivateTerms = acceptedPrivateTerms)
+        }
+
         msg.content?.let { content->
             var filename = cacheManager.getCachedContentFileName(content)
             if(filename == null) // is not in users

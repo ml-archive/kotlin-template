@@ -12,6 +12,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
+import dk.eboks.app.util.translatedName
 import kotlinx.android.synthetic.main.fragment_verification_component.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -46,6 +47,13 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
 
         signupVerification = arguments?.getBoolean("signupVerification", false) ?: false
 
+        Config.getLoginProvider(Config.getVerificationProviderId() ?: "")?.let { provider->
+            headerTv.text = Translation.profile.verifyingAccountTitle.replace("[logonProvider]", provider.translatedName())
+            detailTv.text = Translation.profile.verifyingAccountBody.replace("[logonProvider]", provider.translatedName())
+            verifyBtn.text = Translation.profile.logOnWithNemID.replace("[logonProvider]", provider.translatedName())
+        }
+
+        /*
         when (Config.getCurrentConfigName()){
             "danish" ->{
                 headerTv.text = Translation.profile.verifyingAccountTitle
@@ -69,11 +77,12 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
                 verifyBtn.text = Translation.signup.signOnNemIdButton
             }
         }
+        */
 
         verifyBtn.setOnClickListener {
             // start popuploginactivity for result
             presenter.setupVerificationState(signupVerification)
-            val intent = Intent(context, PopupLoginActivity::class.java).putExtra("verifyLoginProviderId", Config.getVerificationProviderId())
+            val intent = Intent(context, PopupLoginActivity::class.java).putExtra("selectedLoginProviderId", Config.getVerificationProviderId())
             startActivityForResult(intent, PopupLoginActivity.REQUEST_VERIFICATION)
         }
 

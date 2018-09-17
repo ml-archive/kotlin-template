@@ -37,6 +37,7 @@ import java.io.File
 import javax.inject.Inject
 import android.content.Context.FINGERPRINT_SERVICE
 import android.hardware.fingerprint.FingerprintManager
+import android.support.v4.app.ActivityCompat
 import kotlinx.android.synthetic.*
 
 
@@ -56,7 +57,6 @@ class ProfileInfoComponentFragment : BaseFragment(),
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        Timber.e("onCreateView --------------------------------------------------------------")
         val rootView = inflater?.inflate(R.layout.fragment_profile_main_component, container, false)
         return rootView
     }
@@ -74,12 +74,10 @@ class ProfileInfoComponentFragment : BaseFragment(),
                 acquireUserImage()
             }
         }
-        Timber.e("OnViewCreated --------------------------------------------------------")
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Timber.e("ProfileInfoComponentFragment onCreate --------------------------------")
         showProgressOnLoad = true
         refreshOnResume = true
     }
@@ -337,7 +335,9 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
     override fun logout() {
         val intent = Intent(getBaseActivity(), StartActivity::class.java)
+        ActivityCompat.finishAffinity(activity)
         startActivity(intent)
+
     }
 
     override fun showProgress(show: Boolean) {

@@ -194,12 +194,14 @@
 
     <Button
         android:id="@+id/profileDetailBtnSignout"
-        style="@style/buttonRoundedCorners.Tintable.darkText"
+        android:background="@drawable/rounded_button"
         android:layout_width="100dp"
         android:layout_height="36dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:backgroundTint="@color/dividerColor"
+        android:textAllCaps="false"
+        android:textColor="@color/darkGreyBlue"
+        android:backgroundTint="@color/darkGreyBlue50"
         android:text="_Sign out"
         nstack:text="@string/nstack_profile_signOut"/>
 

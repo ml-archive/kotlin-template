@@ -35,7 +35,7 @@
 
             <TextView
                 android:id="@+id/sendersShowAllTv"
-                nstack:key="@string/nstack_mail_showAllSendersButton"
+                nstack:key="@string/nstack_mail_foldersButton"
                 style="@style/text.subHeader5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

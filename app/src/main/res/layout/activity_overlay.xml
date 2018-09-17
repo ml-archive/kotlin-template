@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/testrl"
+<RelativeLayout android:id="@+id/testrl"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@drawable/transparent_gradiant"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:paddingBottom="?actionBarSize">
+    android:paddingBottom="?actionBarSize"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:id="@+id/buttonContainerLl"
@@ -26,7 +26,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        app:backgroundTint="@color/fabButtonColor"
         android:src="@drawable/icon_48_close_white" />
-
 
 </RelativeLayout>

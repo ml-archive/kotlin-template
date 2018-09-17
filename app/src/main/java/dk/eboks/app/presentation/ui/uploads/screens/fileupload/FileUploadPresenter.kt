@@ -64,4 +64,12 @@ class FileUploadPresenter @Inject constructor(val appState: AppStateManager) : F
         // default
         runAction { v->v.showNoPreviewAvailable() }
     }
+
+    override fun isVerified(): Boolean {
+        appState.state?.currentUser?.let {
+            return it.verified
+        }
+        return false
+    }
+
 }

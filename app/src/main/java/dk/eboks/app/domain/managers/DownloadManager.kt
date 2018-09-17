@@ -9,4 +9,5 @@ import dk.eboks.app.domain.models.message.Message
 interface DownloadManager {
     fun downloadContent(message : Message, content: Content) : String?
     fun downloadAttachmentContent(message : Message, content: Content) : String?
+    fun downloadReceiptContent(receiptId : String) : String?
 }

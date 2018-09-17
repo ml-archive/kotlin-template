@@ -37,6 +37,17 @@ typealias CategoryMessageStore = CacheStore<String, List<Message>>
  */
 class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager, val okHttpClient: OkHttpClient) : MessagesRepository {
 
+    //delete message
+    override fun deleteMessage(folderId: Int, messageId: String) {
+        val response = api.deleteMessage(folderId, messageId).execute()
+        response?.let{
+            if (it.isSuccessful){
+                return
+            }
+        }
+    }
+
+
     val folderIdMessageStore: FolderIdMessageStore by lazy {
         FolderIdMessageStore(cacheManager, context, gson, "folder_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
             val response = api.getMessages(key).execute()
@@ -114,9 +125,9 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
     }
 
-    override fun getMessagesByFolder(folderId : Int, offset : Int, limit : Int): List<Message>
+    override fun getMessagesByFolder(folderId : Int, offset : Int, limit : Int, acceptedTerms : Boolean?): List<Message>
     {
-        val response = api.getMessages(folderId, offset, limit).execute()
+        val response = api.getMessages(folderId, offset, limit, terms = acceptedTerms).execute()
         if(response.isSuccessful) {
             response.body()?.let {
                 return it
@@ -125,9 +136,9 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
         return ArrayList()
     }
 
-    override fun getMessagesBySender(senderId : Long, offset : Int, limit : Int): List<Message> {
+    override fun getMessagesBySender(senderId : Long, offset : Int, limit : Int, acceptedTerms: Boolean?): List<Message> {
 
-        val response = api.getMessagesBySender(senderId, offset, limit).execute()
+        val response = api.getMessagesBySender(senderId, offset, limit, terms = acceptedTerms ).execute()
         if(response.isSuccessful) {
             response.body()?.let {
                 return it
@@ -179,11 +190,10 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
     }
 
     override fun getMessage(folderId: Int, id: String, receipt : Boolean?, terms : Boolean?) : Message {
-        val call = api.getMessage(id, folderId, receipt, terms)
+        val call = api.getMessage(id, folderId, receipt, terms = terms)
         val result = call.execute()
         result?.let { response ->
-            if(response.isSuccessful)
-            {
+            if(response.isSuccessful) {
                 return response.body() ?: throw(RuntimeException("Unknown"))
             }
         }

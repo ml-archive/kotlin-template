@@ -1,5 +1,8 @@
 package dk.eboks.app.presentation.ui.login.components.providers.bankidse
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.View
@@ -46,7 +49,48 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
         }
     }
 
+    fun openBankId(url : String) : Boolean
+    {
+        val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        val packageManager = activity.packageManager
+        if (i.resolveActivity(packageManager) != null) {
+            startActivity(i)
+            return true
+        } else {
+            Timber.d("No Intent available to handle action")
+            return false
+        }
+    }
+
     override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+        url?.let {
+            if(it.startsWith("bankid://"))
+            {
+                Timber.e("Detected BankId deeplink")
+                val result = openBankId(url)
+                if(!result) // if mobile pay not installed on device
+                {
+                    AlertDialog.Builder(context)
+                            .setTitle(Translation.bankidsupport.bankIdNotInstalledTitle)
+                            .setMessage(Translation.bankidsupport.bankidNotInstalledMessage)
+                            .setPositiveButton(Translation.bankidsupport.installBankIdBtn.toUpperCase()) { dialog, which ->
+                                val appPackageName = "com.bankid.bus"
+                                try {
+                                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
+                                } catch (anfe: android.content.ActivityNotFoundException) {
+                                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
+                                }
+
+                            }
+                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+
+                            }
+                            .create()
+                            .show()
+                }
+                return true
+            }
+        }
         return false
     }
 
@@ -75,7 +119,10 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
     }
 
     override fun proceed() {
-        (activity as StartActivity).startMain()
+        if(activity is StartActivity)
+            (activity as StartActivity).startMain()
+        else
+            finishActivity(Activity.RESULT_OK)
     }
 
     override fun showError(viewError: ViewError) {

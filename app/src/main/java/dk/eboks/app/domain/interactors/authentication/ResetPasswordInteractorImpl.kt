@@ -38,8 +38,5 @@ class ResetPasswordInteractorImpl(executor: Executor, val api: Api) : BaseIntera
                 output?.onError(exceptionToViewError(t))
             }
         }
-        runOnUIThread {
-            output?.onError(ViewError())
-        }
     }
 }

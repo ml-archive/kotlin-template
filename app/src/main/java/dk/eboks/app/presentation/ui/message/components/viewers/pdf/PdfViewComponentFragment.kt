@@ -10,10 +10,12 @@ import android.widget.ImageView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.base.ViewerFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.base.EmbeddedViewer
 import dk.eboks.app.presentation.widgets.pdf.AsyncPdfRenderer
 import dk.eboks.app.presentation.widgets.pdf.RenderedPage
 import kotlinx.android.synthetic.main.fragment_pdfview_component.*
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -21,7 +23,7 @@ import kotlin.math.roundToInt
 /**
  * Created by bison on 09-02-2018.
  */
-class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, EmbeddedViewer {
+class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, EmbeddedViewer, ViewerFragment {
     private var pages: MutableList<RenderedPage> = ArrayList()
     private lateinit var renderer: AsyncPdfRenderer
 
@@ -90,5 +92,7 @@ class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, 
         }
     }
 
-
+    override fun print() {
+        Timber.e("Print called")
+    }
 }

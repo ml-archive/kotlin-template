@@ -10,7 +10,8 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface MessageOpeningContract {
     interface View : BaseView {
-        fun showMessageLocked(loginProviderId : String)
+        fun openMessage(msg : Message)
+        fun showMessageLocked(loginProviderId : String, msg : Message)
         fun setOpeningFragment(cls : Class<out BaseFragment>, voluntaryReceipt : Boolean = false)
         fun finish()
     }

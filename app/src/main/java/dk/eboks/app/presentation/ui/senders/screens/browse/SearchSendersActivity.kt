@@ -49,6 +49,7 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
             private val deBounce = Runnable {
                 presenter.searchSenders(searchSenderSv.query.toString().trim())
             }
+
             override fun onQueryTextSubmit(query: String): Boolean {
                 searchSenderSv.removeCallbacks(deBounce)
                 searchSenderSv.post(deBounce)
@@ -56,7 +57,7 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                if(newText.isBlank()) {
+                if (newText.isBlank()) {
                     senders.clear()
                     searchSenderRv.adapter?.notifyDataSetChanged()
                 } else {
@@ -88,6 +89,8 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
     }
 
     override fun showSenders(senders: List<Sender>) {
+        if (senders.size == 0) emptyTv.visibility = View.VISIBLE else emptyTv.visibility = View.GONE
+
         this.senders.clear()
         this.senders.addAll(senders)
         searchSenderRv.adapter?.notifyDataSetChanged()
@@ -132,7 +135,7 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
                         .into(iconIv)
 
                 mainLl.setOnClickListener {
-                    val i = Intent(this@SearchSendersActivity, SenderDetailActivity::class.java )
+                    val i = Intent(this@SearchSendersActivity, SenderDetailActivity::class.java)
                     i.putExtra(Sender::class.simpleName, senders[position])
                     startActivity(i)
                 }

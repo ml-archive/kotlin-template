@@ -180,6 +180,7 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
                     amountDateContainer?.visibility = View.VISIBLE
                     soloAmountTv?.visibility = View.GONE
                     dateTv?.text = formatter.formatDateRelative(currentReceipt)
+                    Timber.e("Date: ${dateTv.text}")
                 } else {
                     amountDateContainer?.visibility = View.GONE
                     soloAmountTv?.visibility = View.VISIBLE

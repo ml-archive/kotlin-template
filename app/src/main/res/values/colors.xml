@@ -2,6 +2,7 @@
 <resources>
     <color name="darkGreyBlue">#294350</color>
     <color name="darkGreyBlue15">#26294350</color>
+    <color name="darkGreyBlue50">#80294350</color>
 
     <color name="greyButton">#16223944</color>
     <color name="greyButton15">#26223944</color>
@@ -33,6 +34,8 @@
     <color name="toolbarTitleColor">@color/darkGreyBlue</color>
     <color name="toolbarDisabledColor">@color/blueGrey</color>
 
+
+    <color name="fabButtonColor"> #ac3973</color>
 
     <color name="blueGreyBorderLight">#ECEFF3</color>
     <color name="blueGreyBorder">@color/silver</color>

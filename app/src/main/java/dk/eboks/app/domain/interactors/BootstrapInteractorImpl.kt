@@ -34,8 +34,7 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
                 // do something with unwrapped input
 
             }
-
-            if(BuildConfig.DEBUG) {
+            if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
                 // do we have a saved config?
                 prefManager.getString("config", null)?.let {
                     Timber.e("Setting config to $it")
@@ -74,6 +73,12 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
             loginState?.activationCode = null
             loginState?.userName = null
             loginState?.userPassWord = null
+            loginState?.selectedUser = null
+            appStateManager.state?.currentUser = null
+            appStateManager.state?.currentFolder = null
+            appStateManager.state?.currentMessage = null
+            appStateManager.state?.currentSettings = null
+            appStateManager.state?.currentViewerFileName = null
 
             // clear memory caches, this is necessary when the app hasn't been force closed in case another user
             // is logged in

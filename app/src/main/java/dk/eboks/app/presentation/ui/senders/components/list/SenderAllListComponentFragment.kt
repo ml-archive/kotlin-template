@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Sender
@@ -164,11 +165,25 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
 
                 currentItem?.logo?.url.let {
                     Glide.with(context)
+                            .setDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder).error(R.drawable.ic_sender_placeholder))
                             .load(it)
                             .into(circleIv)
                 }
 
+                /*
                 currentItem?.messages?.metadata?.unreadCount?.let { unreadCount ->
+
+                    circleIv.isSelected = (unreadCount > 0)
+                    if (unreadCount > 0) {
+                        unreadCountTv.text = unreadCount.toString()
+                        unreadCountTv.visibility = View.VISIBLE
+                    } else {
+                        unreadCountTv.visibility = View.GONE
+                    }
+                }
+                */
+
+                currentItem.unreadMessageCount?.let { unreadCount ->
 
                     circleIv.isSelected = (unreadCount > 0)
                     if (unreadCount > 0) {

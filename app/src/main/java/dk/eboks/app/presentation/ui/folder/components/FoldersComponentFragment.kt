@@ -179,14 +179,25 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
             pickedFolder?.let {
-                var intent = Intent()
+
+                val intent = Intent()
                 it.parentFolder = null
                 intent.putExtra("res", it)
+                activity.setResult(Activity.RESULT_OK, intent)
+
+                //activity.setResult(Activity.RESULT_OK)
+                activity.finish()
+                /*
                 getBaseActivity()?.setResult(Activity.RESULT_OK, intent)
                 getBaseActivity()?.finish()
+                */
             }.guard {
+                /*
                 getBaseActivity()?.setResult(Activity.RESULT_CANCELED, Intent())
                 getBaseActivity()?.finish()
+                */
+                activity.setResult(Activity.RESULT_CANCELED)
+                activity.finish()
             }
             true
 

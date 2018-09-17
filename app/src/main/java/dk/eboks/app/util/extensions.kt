@@ -2,11 +2,16 @@ package dk.eboks.app.util
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Parcelable
+import android.print.PrintAttributes
+import android.print.PrintDocumentAdapter
+import android.print.PrintJob
+import android.print.PrintManager
 import android.support.design.internal.BottomNavigationItemView
 import android.support.design.internal.BottomNavigationMenuView
 import android.support.design.widget.BottomNavigationView
@@ -17,10 +22,12 @@ import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import android.widget.EditText
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.Translation
@@ -324,3 +331,28 @@ fun Fragment.putArg(name: String, value: String) = apply { arguments.guard { arg
 fun Fragment.putArg(name: String, value: CharSequence) = apply { arguments.guard { arguments = Bundle() }; arguments?.putCharSequence(name, value) }
 fun Fragment.putArg(name: String, value: Parcelable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putParcelable(name, value) }
 
+fun LoginProvider.translatedName() : String {
+    when(this.id)
+    {
+        "email" -> return Translation.logonmethods.mobileAccess
+        "cpr" -> return Translation.logonmethods.mobileAccess
+        "nemid" -> return Translation.logonmethods.nemId
+        "idporten" -> return Translation.logonmethods.idPorten
+        "bankid_se" -> return Translation.logonmethods.bankId
+        "bankid_no" -> return Translation.logonmethods.nemId
+        else -> { return this.name }
+    }
+}
+
+fun WebView.printAndForget(context : Context)
+{
+// Get a PrintManager instance
+    val printManager : PrintManager = context.getSystemService(Context.PRINT_SERVICE) as PrintManager
+
+    // Get a print adapter instance
+    val printAdapter : PrintDocumentAdapter = this.createPrintDocumentAdapter()
+
+    // Create a print job with name and adapter instance
+    val jobName = "eboks"
+    val printJob : PrintJob = printManager.print(jobName, printAdapter, PrintAttributes.Builder().build())
+}

@@ -8,6 +8,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface PromulgationComponentContract {
     interface View : BaseView {
+        fun setPromulgationHeader(text : String)
         fun setPromulgationText(promulgationText: String)
     }
 

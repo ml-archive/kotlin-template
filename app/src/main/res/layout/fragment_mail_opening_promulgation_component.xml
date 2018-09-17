@@ -21,6 +21,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/promulgationHeaderTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="36dp"
+                android:layout_marginRight="36dp"
+                android:layout_marginTop="@dimen/margin_normal"
+                style="@style/text.header3"
+                android:text=""/>
             <!--Content-->
             <TextView
                 android:id="@+id/termsContentTv"

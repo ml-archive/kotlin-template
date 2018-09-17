@@ -7,7 +7,7 @@ class AuthException(var httpCode : Int = -1, var errorDescription : String) : Ru
 
 interface AuthClient {
     fun transformKspToken(kspToken : String, oauthToken : String? = null, longClient: Boolean = false) : AccessToken?
-    fun impersonate(token : String, userId : String)
+    fun impersonate(token : String, userId : String) : AccessToken?
     fun transformRefreshToken(refreshToken : String, longClient: Boolean = false) : AccessToken?
     fun login(username : String, password : String, activationCode : String? = null, longClient: Boolean = false, bearerToken : String? = null, verifyOnly : Boolean = false) : AccessToken?
     fun decodeJWTBody(JWTEncoded: String) : JSONObject

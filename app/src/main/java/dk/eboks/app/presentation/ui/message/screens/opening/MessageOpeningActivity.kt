@@ -34,21 +34,23 @@ class MessageOpeningActivity : BaseActivity(), MessageOpeningContract.View {
         }
     }
 
-    override fun showMessageLocked(loginProviderId: String) {
+    override fun showMessageLocked(loginProviderId: String, msg : Message) {
         val fragment = ProtectedMessageComponentFragment()
+        progressPb.visibility = View.GONE
         fragment.putArg("loginProviderId", loginProviderId)
+        fragment.putArg(Message::class.java.simpleName, msg)
         fragment?.let{
             supportFragmentManager.beginTransaction().add(R.id.contentFl, it, it::class.java.simpleName).commit()
         }
-        /*
-        val intent = Intent(this, PopupLoginActivity::class.java).putExtra("verifyLoginProviderId", Config.getVerificationProviderId())
-        startActivityForResult(intent, PopupLoginActivity.REQUEST_VERIFICATION)
-        */
     }
 
     override fun onBackPressed() {
         presenter.signalMessageOpenDone()
         super.onBackPressed()
+    }
+
+    override fun openMessage(msg: Message) {
+        presenter.setup(msg)
     }
 
     override fun getNavigationMenuAction(): Int { return R.id.actionMail }

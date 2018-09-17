@@ -21,5 +21,6 @@ interface FileUploadContract {
 
     interface Presenter : BasePresenter<View> {
         fun setup(uriString : String, mimeType : String?)
+        fun isVerified() : Boolean
     }
 }

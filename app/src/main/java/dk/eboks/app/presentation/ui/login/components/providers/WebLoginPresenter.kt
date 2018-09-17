@@ -9,6 +9,7 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
+import dk.eboks.app.util.ViewControl
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
@@ -77,7 +78,7 @@ open class WebLoginPresenter @Inject constructor(
 
     /**
      * yo B, 'tis be where the ksp token is handed of to, peace
-     * We have to deal with either a login, verification and probably some additional shit
+     * We have to deal with either a login, verification and probably some additional stuff
      */
     override fun login(webToken: String) {
         // Do we have a verification state
@@ -126,6 +127,7 @@ open class WebLoginPresenter @Inject constructor(
     override fun onVerificationSuccess(new_identity : String?) {
         Timber.e("VerificationSuccess")
         Timber.e("Got new identity back after verification: $new_identity")
+        ViewControl.refreshAllOnResume()
         newIdentity = new_identity
         runAction { v -> v.finishActivity(Activity.RESULT_OK) }
     }
@@ -145,6 +147,7 @@ open class WebLoginPresenter @Inject constructor(
      */
 
     override fun onMergeCompleted() {
+        ViewControl.refreshAllOnResume()
         runAction { v -> v.finishActivity(Activity.RESULT_OK) }
     }
 

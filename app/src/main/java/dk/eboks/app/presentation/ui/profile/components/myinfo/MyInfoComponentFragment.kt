@@ -25,13 +25,14 @@ import kotlinx.android.synthetic.main.fragment_profile_myinformation_component.*
 import java.util.*
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
 
 class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, OnLanguageChangedListener, TextWatcher {
     @Inject
     lateinit var presenter: MyInfoComponentContract.Presenter
     var menuSave: MenuItem? = null
 
-    val mobilenumber: ContactPoint = ContactPoint()
+    //val mobilenumber: ContactPoint = ContactPoint()
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -51,6 +52,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         onLanguageChanged(NStack.language)
         presenter.setup()
     }
+
 
     // shamelessly ripped from chnt
     private fun setupTopBar() {
@@ -192,9 +194,11 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
 
     private fun updateVerifyButtonVisibility()
     {
+        /*
         verifyEmailBtn.setVisible(!primaryMailEt.text.isBlank())
         verifySecondaryEmailBtn.setVisible(!secondaryMailEt.text.isBlank())
         verifyMobileNumberBtn.setVisible(!mobilEt.text.isBlank())
+        */
     }
 
     override fun onDone() {
@@ -205,6 +209,11 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         super.onResume()
         NStack.addLanguageChangeListener(this)
         attachListeners()
+        if(refreshOnResume)
+        {
+            refreshOnResume = false
+            presenter.refresh()
+        }
     }
 
     override fun onPause() {
@@ -231,9 +240,10 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         nameEt.setText(name)
     }
 
-    override fun setPrimaryEmail(email: String, verified: Boolean) {
+    override fun setPrimaryEmail(email: String, verified: Boolean, userVerified : Boolean) {
         primaryMailEt.setText(email)
         verifyEmailBtn.setVisible(!verified)
+        primaryMailEt.isEnabled = userVerified
     }
 
     override fun setSecondaryEmail(email: String, verified: Boolean) {
@@ -243,8 +253,9 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
 
     override fun setMobileNumber(mobile: String, verified: Boolean) {
         mobilEt.setText(mobile)
-        mobilenumber.value = mobile
-        mobilenumber.verified = verified
+        //mobilenumber.value = mobile
+        //mobilenumber.verified = verified
+        Timber.e("SetMobileNumber mobile $mobile veri: $verified")
         verifyMobileNumberBtn.setVisible(!verified)
     }
 
@@ -276,9 +287,6 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         progressFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    override fun showPrimaryEmail(show: Boolean) {
-        primaryMailFl.setVisible(show)
-    }
 
     override fun showSecondaryEmail(show: Boolean) {
         secondaryMailFl.setVisible(show)
@@ -301,4 +309,8 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+    companion object {
+        var refreshOnResume = false
+    }
 }

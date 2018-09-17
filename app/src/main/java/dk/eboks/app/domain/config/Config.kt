@@ -87,9 +87,9 @@ object Config {
 
             environments = mapOf<String, Environments>(
                     "test" to Environments(
-                            apiUrl = "http://test401-mobile-api-dk.internal.e-boks.com/2/",
+                            apiUrl = "http://test401-mobile-api-no.internal.e-boks.com/2/",
                             authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
-                            kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype=",
+                            kspUrl = "https://demo-m.e-boks.no/app/logon.aspx?logontype=",
                             shortAuthId = "MobileApp-Short-id",
                             shortAuthSecret = "MobileApp-Short-secret",
                             longAuthId = "MobileApp-Long-id",
@@ -100,9 +100,22 @@ object Config {
                             longAuthCustomSecret = "MobileApp-Long-Custom-secret"
                     ),
                     "demo" to Environments(
-                            apiUrl = "https://demo-mobile-api-dk.internal.e-boks.com/2/",
-                            authUrl = "https://demo-oauth-dk.internal.e-boks.com/1/connect/token",
-                            kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype=",
+                            apiUrl = "https://demo-mobile-api-no.internal.e-boks.com/2/",
+                            authUrl = "https://demo-oauth-no.internal.e-boks.com/1/connect/token",
+                            kspUrl = "https://demo-m.e-boks.no/app/logon.aspx?logontype=",
+                            shortAuthId = "MobileApp-Short-id",
+                            shortAuthSecret = "MobileApp-Short-secret",
+                            longAuthId = "MobileApp-Long-id",
+                            longAuthSecret = "MobileApp-Long-secret",
+                            shortAuthCustomId = "MobileApp-Short-Custom-id",
+                            shortAuthCustomSecret = "MobileApp-Short-Custom-secret",
+                            longAuthCustomId = "MobileApp-Long-Custom-id",
+                            longAuthCustomSecret = "MobileApp-Long-Custom-secret"
+                    ),
+                    "demo2" to Environments(
+                            apiUrl = "https://demo2-mobile-api-no.internal.e-boks.com/2/",
+                            authUrl = "https://demo2-oauth-no.internal.e-boks.com/1/connect/token",
+                            kspUrl = "https://demo2-m.e-boks.no/app/logon.aspx?logontype=",
                             shortAuthId = "MobileApp-Short-id",
                             shortAuthSecret = "MobileApp-Short-secret",
                             longAuthId = "MobileApp-Long-id",
@@ -124,12 +137,11 @@ object Config {
             cprLength = 12,
             demoVideo = "https://youtu.be/8OmF6uHxfWU",
 
-
             environments = mapOf<String, Environments>(
                 "test" to Environments(
-                    apiUrl = "http://test401-mobile-api-dk.internal.e-boks.com/2/",
-                    authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
-                    kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype=",
+                    apiUrl = "http://test401-mobile-api-se.internal.e-boks.com/2/",
+                    authUrl = "http://test401-oauth-se.internal.e-boks.com/1/connect/token",
+                    kspUrl = "https://demo-m.e-boks.se/app/logon.aspx?logontype=",
                     shortAuthId = "MobileApp-Short-id",
                     shortAuthSecret = "MobileApp-Short-secret",
                     longAuthId = "MobileApp-Long-id",
@@ -140,9 +152,9 @@ object Config {
                     longAuthCustomSecret = "MobileApp-Long-Custom-secret"
                 ),
                 "demo" to Environments(
-                    apiUrl = "https://demo-mobile-api-dk.internal.e-boks.com/2/",
-                    authUrl = "https://demo-oauth-dk.internal.e-boks.com/1/connect/token",
-                    kspUrl = "https://demo-m.e-boks.dk/app/logon.aspx?logontype=",
+                    apiUrl = "https://demo-mobile-api-se.internal.e-boks.com/2/",
+                    authUrl = "https://demo-oauth-se.internal.e-boks.com/1/connect/token",
+                    kspUrl = "https://demo-m.e-boks.se/app/logon.aspx?logontype=",
                     shortAuthId = "MobileApp-Short-id",
                     shortAuthSecret = "MobileApp-Short-secret",
                     longAuthId = "MobileApp-Long-id",
@@ -151,6 +163,19 @@ object Config {
                     shortAuthCustomSecret = "MobileApp-Short-Custom-secret",
                     longAuthCustomId = "MobileApp-Long-Custom-id",
                     longAuthCustomSecret = "MobileApp-Long-Custom-secret"
+                ),
+                "production" to Environments(
+                        apiUrl = "https://mobile-api-se.e-boks.com/2/",
+                        authUrl = "https://oauth-se.e-boks.com/1/connect/token",
+                        kspUrl = "https://m.e-boks.se/app/logon.aspx?logontype=",
+                        shortAuthId = "MobileApp-Short-id",
+                        shortAuthSecret = "Buz3YmYmjhDRM9R3",
+                        longAuthId = "MobileApp-Long-id",
+                        longAuthSecret = "TgtjcNpY9R9ffw8D",
+                        shortAuthCustomId = "MobileApp-Short-Custom-id",
+                        shortAuthCustomSecret = "QmaENW6MeYwwjzF5",
+                        longAuthCustomId = "MobileApp-Long-Custom-id",
+                        longAuthCustomSecret = "4ZLmEL2SY69MqGKs"
                 )
             ),
 
@@ -247,6 +272,17 @@ object Config {
     fun isDK() : Boolean { return currentMode == danish }
     fun isNO() : Boolean { return currentMode == norwegian }
     fun isSE() : Boolean { return currentMode == swedish }
+
+    fun getCurrentNationality() : String
+    {
+        return when(currentMode)
+        {
+            danish -> "DK"
+            swedish -> "SE"
+            norwegian -> "NO"
+            else -> "EN"
+        }
+    }
 
     fun changeConfig(name : String)
     {
@@ -390,7 +426,9 @@ object Config {
             }
             else -> throw(IllegalStateException("Configuration mode ${BuildConfig.mode} is invalid. Use danish, swedish or norwegian"))
         }
-        currentMode.environment = if(BuildConfig.DEBUG) currentMode.environments["demo"] else currentMode.environments["production"]
+        currentMode.environment = if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) currentMode.environments["demo"] else currentMode.environments["production"]
+        if(currentMode == norwegian)
+            currentMode.environment = currentMode.environments["demo2"]
         if(currentMode.environment == null)
             throw(IllegalStateException("currentMode.environment is not set!!"))
 

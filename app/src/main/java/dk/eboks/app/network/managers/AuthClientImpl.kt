@@ -68,7 +68,7 @@ class AuthClientImpl : AuthClient {
         return null
     }
 
-    override fun impersonate(token : String, userId : String) {
+    override fun impersonate(token : String, userId : String) : AccessToken? {
         val keys = getKeys(true, false)
 
         val formBody = FormBody.Builder()
@@ -88,7 +88,11 @@ class AuthClientImpl : AuthClient {
         val result = httpClient.newCall(request).execute()
         if(result.isSuccessful)
         {
-            return
+            result.body()?.string()?.let { json ->
+                gson.fromJson(json, AccessToken::class.java)?.let { token ->
+                    return token
+                }
+            }
         }
         throw(InteractorException("impersonate failed"))
     }
@@ -137,8 +141,9 @@ class AuthClientImpl : AuthClient {
         else
             formBody.add("scope", "mobileapi offline_access")
 
+
         activationCode?.let {
-            formBody.add("acr_values", "activationcode:$it nationality:DK")
+            formBody.add("acr_values", "activationcode:$it nationality:${Config.getCurrentNationality()}")
         }
 
         val requestBuilder = Request.Builder()

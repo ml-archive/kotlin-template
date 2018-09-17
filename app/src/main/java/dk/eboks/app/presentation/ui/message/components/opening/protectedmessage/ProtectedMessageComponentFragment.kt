@@ -1,13 +1,25 @@
 package dk.eboks.app.presentation.ui.message.components.opening.protectedmessage
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
+import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
+import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
+import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
+import dk.eboks.app.util.ViewControl
+import dk.eboks.app.util.guard
+import dk.eboks.app.util.setVisible
+import dk.eboks.app.util.translatedName
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_mail_opening_error_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -22,6 +34,8 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
 
     @Inject
     lateinit var presenter : ProtectedMessageComponentContract.Presenter
+
+    var protectedMessage: Message? = null
 
     val onLanguageChange : (Locale)->Unit = { locale ->
         Timber.e("Locale changed to locale")
@@ -38,10 +52,18 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         loginSecureBtn.visibility = View.VISIBLE
-        loginTv.visibility = View.VISIBLE
+        loginTv.visibility = View.GONE
+        //progressPb.visibility = View.GONE
         setupTopBar()
         updateTranslation()
         iconIv.setImageDrawable(resources.getDrawable(R.drawable.icon_48_lock_white))
+        arguments?.getString("loginProviderId")?.let { loginProviderId ->
+            setLoginProvider(loginProviderId)
+        }
+
+        arguments?.getSerializable(Message::class.java.simpleName)?.let {
+            protectedMessage = it as Message
+        }
     }
 
     override fun onResume() {
@@ -54,17 +76,30 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         super.onPause()
     }
 
+    /*
+
+     */
+    private fun setLoginProvider(loginProviderId : String)
+    {
+        Timber.e("Configuring for login provider $loginProviderId")
+
+        Config.getLoginProvider(loginProviderId)?.let { provider ->
+            mainTv.text = Translation.message.protectedMessage.replace("[logonProvider]", provider.translatedName())
+            loginSecureBtn.text = Translation.logoncredentials.logonWithProvider.replace("[provider]", provider.translatedName())
+            loginSecureBtn.setOnClickListener {
+                val intent = Intent(context, PopupLoginActivity::class.java).putExtra("selectedLoginProviderId", loginProviderId).putExtra("reauth", true)
+                startActivityForResult(intent, PopupLoginActivity.REQUEST_VERIFICATION)
+            }
+        }.guard {   // hide relog button for now
+            loginSecureBtn.setVisible(false)
+        }
+        //loginTv.text = Translation.logoncredentials.logonWithProvider.replace("[provider]",mobileProvider.name)
+    }
+
     private fun updateTranslation()
     {
-        // mocking login providers
-        var nemidProvider = LoginProvider("1","NemId",true,0,null,null,"fallback string")
-        var mobileProvider = LoginProvider("2","Mobile Access",true,0,null,null,"fallback string")
-
-        loginSecureBtn.text = Translation.logoncredentials.logonWithProvider.replace("[provider]",nemidProvider.name)
-        loginTv.text = Translation.logoncredentials.logonWithProvider.replace("[provider]",mobileProvider.name)
         mainTb.title = Translation.message.protectedTitle
         headerTv.text = Translation.message.protectedTitle
-        mainTv.text = Translation.message.protectedMessage
     }
 
     private fun setupTopBar() {
@@ -72,6 +107,29 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         mainTb.setNavigationOnClickListener {
             presenter.setShouldProceed(false)
             activity.onBackPressed()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == PopupLoginActivity.REQUEST_VERIFICATION)
+        {
+            if(resultCode == Activity.RESULT_OK)
+            {
+                Timber.e("Got result ok from login provider, reload message")
+                ViewControl.refreshAllOnResume()
+                protectedMessage?.let {
+                    if(it.id != "0")
+                        (activity as MessageOpeningActivity).openMessage(it)
+                    else
+                        finishActivity()
+                }.guard { finishActivity() }
+            }
+            else
+            {
+                Timber.e("Got result cancel from login provider, doing nothing")
+                finishActivity()
+            }
         }
     }
 }

@@ -36,7 +36,7 @@ class WelcomeComponentFragment : BaseFragment() {
         logonBtn.setOnClickListener {
             getBaseActivity()?.addFragmentOnTop(R.id.containerFl, LoginComponentFragment(), true)
         }
-        if(BuildConfig.DEBUG) {
+        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             /*
             debugCreateBtn.visibility = View.VISIBLE
             debugCreateBtn.setOnClickListener {

@@ -14,7 +14,7 @@ class GetLatestUploadsInteractorImpl(executor: Executor, val messagesRepository:
 
     override fun execute() {
         try {
-            val result = messagesRepository.getLatestUploads(input?.offset ?: 0, input?.limit ?: 3)
+            val result = messagesRepository.getLatestUploads(input?.offset ?: 0, input?.limit ?: 5)
             runOnUIThread {
                 output?.onGetLatestUploads(result)
             }

@@ -145,9 +145,10 @@ class InteractorModule {
 
     @Provides
     fun provideDeleteMessagesInteractor(
-            executor: Executor
+            executor: Executor,
+            messagesRepository: MessagesRepository
     ): DeleteMessagesInteractor {
-        return DeleteMessagesInteractorImpl(executor)
+        return DeleteMessagesInteractorImpl(executor, messagesRepository)
     }
 
     @Provides
@@ -599,5 +600,15 @@ class InteractorModule {
     @Provides
     fun provideDeleteEKeyVaultInteractor(executor: Executor, api: Api): DeleteEKeyVaultInteractor{
         return DeleteEKeyVaultInteractorImpl(executor,api)
+    }
+
+    @Provides
+    fun provideSaveReceiptInteractor(executor: Executor, api: Api): SaveReceiptInteractor {
+        return SaveReceiptInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun provideShareReceiptInteractor(executor: Executor, downloadManager: DownloadManager): ShareReceiptInteractor {
+        return ShareReceiptInteractorImpl(executor, downloadManager)
     }
 }
