@@ -9,7 +9,8 @@ apply plugin: 'kotlin-kapt'
 translation {
     appId = "5Rg3muDHQL8J19lb6sZzjD6ANSOrigg5x55u"
     apiKey = "htCPriWP9yoaeoHHnPgYKYw68BoejYhJnR8w"
-    acceptHeader = "en-US"
+    acceptHeader = "da-DK"
+    autoRunUpdate = true
 }
 
 bitrise {
@@ -27,7 +28,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 74
+        versionCode 99
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -53,6 +54,7 @@ android {
         buildConfigField "Boolean", "ENABLE_REPLY", "false"
         buildConfigField "Boolean", "ENABLE_SIGN", "true"
         buildConfigField "Boolean", "ENABLE_FINGERPRINT_NONVERIFIED", "false"
+        buildConfigField "Boolean", "ENABLE_BETA_DISCLAIMER", "true"
     }
 
     signingConfigs {
@@ -122,6 +124,7 @@ android {
         }
 
         release {
+            //debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
@@ -253,7 +256,7 @@ dependencies {
 
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-    implementation "dk.nodes.nstack:nstack-kotlin:2.1.0"
+    implementation "dk.nodes.nstack:nstack-kotlin:2.1.2"
 
     implementation "dk.nodes.arch:base:$nodes_arch_version"
     //implementation "dk.nodes.arch:base:LOCAL"
