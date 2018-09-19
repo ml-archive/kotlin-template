@@ -274,7 +274,8 @@ dependencies {
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 
     // Encryption Lib
-    implementation 'dk.nodes.locksmith:core:1.1.1'
+//    implementation 'dk.nodes.locksmith:core:1.1.1'
+    implementation project(':locksmith')
 
     // Barcode Generation Library
     implementation 'com.google.zxing:core:3.3.0'

@@ -603,6 +603,21 @@ class InteractorModule {
     }
 
     @Provides
+    fun provideGetEKeyMasterkeyInteractor(executor: Executor, api: Api): GetEKeyMasterkeyInteractor{
+        return GetEKeyMasterkeyInteractorImpl(executor,api)
+    }
+
+    @Provides
+    fun provideSetEKeyMasterkeyInteractor(executor: Executor, api: Api): SetEKeyMasterkeyInteractor{
+        return SetEKeyMasterkeyInteractorImpl(executor,api)
+    }
+
+    @Provides
+    fun provideDeleteEKeyMasterkeyInteractor(executor: Executor, api: Api): DeleteEKeyMasterkeyInteractor{
+        return DeleteEKeyMasterkeyInteractorImpl(executor,api)
+    }
+
+    @Provides
     fun provideSaveReceiptInteractor(executor: Executor, api: Api): SaveReceiptInteractor {
         return SaveReceiptInteractorImpl(executor, api)
     }

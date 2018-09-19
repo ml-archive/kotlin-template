@@ -15,15 +15,23 @@ import dk.eboks.app.domain.models.channel.ekey.Ekey
 import dk.eboks.app.domain.models.channel.ekey.Login
 import dk.eboks.app.domain.models.channel.ekey.Note
 import dk.eboks.app.domain.models.channel.ekey.Pin
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.additem.EkeyAddItemComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.open.EkeyOpenItemComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.util.dpToPx
 import dk.eboks.app.util.putArg
+import dk.nodes.locksmith.core.encryption.handlers.EncryptionHandlerImpl
+import dk.nodes.locksmith.core.encryption.providers.AesPasswordKeyProviderImpl
+import dk.nodes.locksmith.core.util.HashingUtils
+import dk.nodes.locksmith.core.util.RandomUtils
 import kotlinx.android.synthetic.main.fragment_channel_ekey.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
+
 
 /**
  * Created by bison on 09-02-2018.
@@ -49,6 +57,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
     lateinit var presenter: EkeyComponentContract.Presenter
 
     private val items = ArrayList<ListItem>()
+    private var pin: String? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_channel_ekey, container, false)
@@ -72,9 +81,13 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         presenter.getKeys()
         keysContentRv.isFocusable = false
         headerTv.requestFocus()
+
+        pin = arguments.getString("PIN_CODE", null)
+        if(pin != null) {
+            presenter.getMasterkey()
+//            generateNewKeyAndSend()
+        }
     }
-
-
 
     private fun setupTopBar() {
         getBaseActivity()?.mainTb?.menu?.clear()
@@ -101,6 +114,42 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         } else {
             emptyStateTv.visibility = View.GONE
         }
+    }
+
+    override fun onMasterkey(masterkey: String?) {
+        if(masterkey != null) {
+            val handler = EncryptionHandlerImpl(AesPasswordKeyProviderImpl(pin))
+            handler.init()
+
+            val decrypted = String(handler.decrypt(masterkey), charset("UTF-8"))
+            Timber.d("Decrypted from backend: $decrypted")
+        } else {
+            generateNewKeyAndSend()
+        }
+    }
+
+    override fun onGetMasterkeyError(viewError: ViewError) {
+        Timber.d("error: ${viewError.message}")
+    }
+
+    private fun generateNewKeyAndSend() {
+        Timber.d("pin: $pin")
+        val key = RandomUtils.generateRandomString(32)
+        Timber.d("gen key: $key")
+
+        val hashed = HashingUtils.sha256AsBase64(key)
+        Timber.d("Hash: $hashed")
+
+        val handler = EncryptionHandlerImpl(AesPasswordKeyProviderImpl(pin))
+        handler.init()
+
+        val encrypted = handler.encrypt(key.toByteArray(charset("UTF-8")))
+        Timber.d("Encrypted: $encrypted")
+
+        //store key
+
+        //send key to backend
+        presenter.setMasterkey(hashed, encrypted)
     }
 
     override fun showKeys(keys: List<Ekey>) {
@@ -164,5 +213,15 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
                 d.draw(c)
             }
         }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(pin: String) =
+                EkeyComponentFragment().apply {
+                    arguments = Bundle().apply {
+                        putString("PIN_CODE", pin)
+                    }
+                }
     }
 }

@@ -16,7 +16,7 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        if (intent.getBooleanExtra("showPin",false)){
+        if (intent.getBooleanExtra("showPin",true)){
             addFragmentOnTop(R.id.content,EkeyPinComponentFragment(),false)
 //            setRootFragment(R.id.content, EkeyPinComponentFragment())
         } else {

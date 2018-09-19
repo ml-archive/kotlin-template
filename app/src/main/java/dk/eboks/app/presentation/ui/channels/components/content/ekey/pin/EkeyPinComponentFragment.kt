@@ -40,6 +40,8 @@ class EkeyPinComponentFragment : BaseFragment(), EkeyPinComponentContract.View {
         setupTopbar()
 
         //todo will neeed logic to determine if its loggin in or creating a user
+
+
     }
 
     private fun setupTopbar() {
@@ -86,7 +88,7 @@ class EkeyPinComponentFragment : BaseFragment(), EkeyPinComponentContract.View {
                         pin4Et.setText(s[3].toString())
 
                         //todo try to login
-                        getBaseActivity()?.addFragmentOnTop(R.id.content,EkeyComponentFragment())
+                        getBaseActivity()?.addFragmentOnTop(R.id.content,EkeyComponentFragment.newInstance(s.toString()))
                     }else {
                         pin4Et.setText("")
                     }

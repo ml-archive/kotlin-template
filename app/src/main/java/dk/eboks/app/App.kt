@@ -10,6 +10,7 @@ import dk.eboks.app.injection.components.AppComponent
 import dk.eboks.app.injection.components.DaggerAppComponent
 import dk.eboks.app.injection.modules.AppModule
 import dk.nodes.locksmith.core.Locksmith
+import dk.nodes.locksmith.core.models.LocksmithConfiguration
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.NLog
 import timber.log.Timber
@@ -40,14 +41,17 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
         NStack.init(this)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            Locksmith.Builder(this)
-                    .setKeyValidityDuration(120)
-                    .setUseFingerprint(true)
-                    .build()
+            Locksmith.init(this, LocksmithConfiguration(120))
+//            Locksmith.instance.initFingerprint()
+//            Locksmith.Builder(this)
+//                    .setKeyValidityDuration(120)
+//                    .setUseFingerprint(true)
+//                    .build()
         } else {
-            Locksmith.Builder(this)
-                    .build()
-                    .init()
+            Locksmith.init(this, LocksmithConfiguration(120))
+//            Locksmith.Builder(this)
+//                    .build()
+//                    .init()
         }
 
         if(BuildConfig.DEBUG) {

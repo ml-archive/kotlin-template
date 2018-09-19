@@ -4,6 +4,7 @@ import com.google.gson.JsonObject
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.ChannelFlags
+import dk.eboks.app.domain.models.channel.ekey.EKeyGetMasterkeyResponse
 import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
 import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
@@ -143,7 +144,7 @@ interface Api {
     @PUT("channels/ekey/vault") fun keyVaultSet():Call<ResponseBody>
     @DELETE("channels/ekey/vault") fun keyVaultDelete():Call<ResponseBody>
 
-    @GET("channels/ekey/masterkey") fun masterKeyGet():Call<ResponseBody>
-    @POST("channels/ekey/masterkey") fun masterKeySet():Call<ResponseBody>
+    @GET("channels/ekey/masterkey") fun masterKeyGet():Call<EKeyGetMasterkeyResponse>
+    @POST("channels/ekey/masterkey") fun masterKeySet(@Body obj: JsonObject):Call<ResponseBody>
     @DELETE("channels/ekey/masterkey") fun masterKeyDelete():Call<ResponseBody>
 }
