@@ -12,4 +12,5 @@ interface UserSettingsManager {
     fun put(settings: UserSettings): UserSettings
     fun remove(settings : UserSettings)
     fun save()
+    fun removeFingerprintFromYall()
 }

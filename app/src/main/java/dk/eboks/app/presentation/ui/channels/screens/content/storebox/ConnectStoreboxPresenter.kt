@@ -93,7 +93,6 @@ class ConnectStoreboxPresenter(val appStateManager: AppStateManager,
     }
 
     override fun onStoreboxAccountCreated() {
-        Timber.e("WTF!!!!!")
         runAction { v->v.finish() }
     }
 

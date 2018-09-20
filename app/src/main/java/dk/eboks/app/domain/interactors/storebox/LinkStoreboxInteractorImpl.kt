@@ -32,9 +32,10 @@ class LinkStoreboxInteractorImpl(executor: Executor, private val api: Api) : Bas
                 if(result.isSuccessful) {
                     result.body()?.let { body ->
                         val str = body.toString()
-                        Timber.e("body : $str")
+                        val newstr = if(str.contains("{")) str.substring(4, str.length-1) else str
+                        Timber.e("body : $newstr")
                         runOnUIThread {
-                            output?.storeboxAccountFound(true, str)
+                            output?.storeboxAccountFound(true, newstr)
                         }
                     }
                 }

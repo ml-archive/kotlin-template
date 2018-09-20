@@ -57,5 +57,12 @@ class UserSettingsManagerImpl(val context: Context, val gson: Gson) : UserSettin
         Timber.i("Settings saved")
     }
 
+    override fun removeFingerprintFromYall() {
+        for(kv in userSettings)
+        {
+            kv.value.hasFingerprint = false
+        }
+    }
+
     inner class UserSettingsStore : GsonFileStorageRepository<MutableMap<Int, UserSettings>>(context, gson, "usersettings.json")
 }
