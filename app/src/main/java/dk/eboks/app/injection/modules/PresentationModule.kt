@@ -1,5 +1,6 @@
 package dk.eboks.app.injection.modules
 
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.BootstrapInteractor
@@ -7,6 +8,7 @@ import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.authentication.*
 import dk.eboks.app.domain.interactors.channel.*
 import dk.eboks.app.domain.interactors.ekey.GetEKeyMasterkeyInteractor
+import dk.eboks.app.domain.interactors.ekey.GetEKeyVaultInteractor
 import dk.eboks.app.domain.interactors.ekey.SetEKeyMasterkeyInteractor
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
@@ -986,8 +988,10 @@ class PresentationModule {
     @Provides
     fun provideEkeyComponentPresenter(stateManager: AppStateManager,
                                       getEKeyMasterkeyInteractor: GetEKeyMasterkeyInteractor,
-                                      setEKeyMasterkeyInteractor: SetEKeyMasterkeyInteractor): EkeyComponentContract.Presenter {
-        return EkeyComponentPresenter(stateManager, getEKeyMasterkeyInteractor, setEKeyMasterkeyInteractor)
+                                      setEKeyMasterkeyInteractor: SetEKeyMasterkeyInteractor,
+                                      getEKeyVaultInteractor: GetEKeyVaultInteractor,
+                                      gson: Gson): EkeyComponentContract.Presenter {
+        return EkeyComponentPresenter(stateManager, getEKeyMasterkeyInteractor, setEKeyMasterkeyInteractor, getEKeyVaultInteractor, gson)
     }
 
     @ActivityScope

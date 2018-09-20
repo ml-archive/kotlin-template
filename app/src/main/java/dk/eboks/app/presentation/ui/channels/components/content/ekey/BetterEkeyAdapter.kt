@@ -8,10 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.ekey.Ekey
-import dk.eboks.app.domain.models.channel.ekey.Login
-import dk.eboks.app.domain.models.channel.ekey.Note
-import dk.eboks.app.domain.models.channel.ekey.Pin
+import dk.eboks.app.domain.models.channel.ekey.*
 import timber.log.Timber
 
 class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklistener: BetterEkeyAdapter.Ekeyclicklistener? = null) : RecyclerView.Adapter<BetterEkeyAdapter.EKeyHolder>() {
@@ -63,7 +60,7 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
     }
 
     interface Ekeyclicklistener {
-        fun onEkeyClicked(ekey: Ekey)
+        fun onEkeyClicked(ekey: BaseEkey)
     }
 
     inner class EKeyViewHolder(val root: View) : EKeyHolder(root) {

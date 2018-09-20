@@ -4,12 +4,12 @@ import android.os.Parcel
 import android.os.Parcelable
 
 
-sealed class Ekey(
-        open val name : String,
-        open val note: String?
-) : Parcelable
+interface BaseEkey : Parcelable {
+    val name: String
+    val note: String?
+}
 
-data class Login(var username: String, var password: String, override val name: String, override val note: String?) : Parcelable, Ekey(name, note) {
+data class Login(var username: String, var password: String, override val name: String, override val note: String?) : Parcelable, BaseEkey {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
@@ -40,7 +40,7 @@ data class Login(var username: String, var password: String, override val name: 
     }
 }
 
-data class Note(override val name: String, override val note: String?) : Ekey(name, note) {
+data class Note(override val name: String, override val note: String?) : BaseEkey {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString()) {
@@ -67,7 +67,7 @@ data class Note(override val name: String, override val note: String?) : Ekey(na
     }
 }
 
-data class Pin(var cardholderName: String, var pin: String, override val name: String, override val note: String?) : Parcelable,Ekey(name, note) {
+data class Pin(var cardholderName: String, var pin: String, override val name: String, override val note: String?) : Parcelable, BaseEkey {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
@@ -98,3 +98,31 @@ data class Pin(var cardholderName: String, var pin: String, override val name: S
     }
 }
 
+data class Ekey(var pin: String, override val name: String, override val note: String?) : Parcelable,BaseEkey {
+    constructor(parcel: Parcel) : this(
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString()) {
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    override fun writeToParcel(dest: Parcel?, flags: Int) {
+//        super.writeToParcel(parcel, flags)
+        dest!!.writeString(pin)
+        dest.writeString(name)
+        dest.writeString(note)
+    }
+
+    companion object CREATOR : Parcelable.Creator<Ekey> {
+        override fun createFromParcel(parcel: Parcel): Ekey {
+            return Ekey(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Ekey?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

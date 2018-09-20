@@ -140,7 +140,7 @@ interface Api {
 
     // E-Key Stuff
 
-    @GET("channels/ekey/vault") fun keyVaultGet():Call<ResponseBody>
+    @GET("channels/ekey/vault") fun keyVaultGet(@Query("signaturetime") signaturetime: String, @Query("signature") signature: String):Call<ByteArray>
     @PUT("channels/ekey/vault") fun keyVaultSet():Call<ResponseBody>
     @DELETE("channels/ekey/vault") fun keyVaultDelete():Call<ResponseBody>
 

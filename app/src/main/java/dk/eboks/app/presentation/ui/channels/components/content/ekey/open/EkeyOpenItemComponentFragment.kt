@@ -11,10 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.ekey.Ekey
-import dk.eboks.app.domain.models.channel.ekey.Login
-import dk.eboks.app.domain.models.channel.ekey.Note
-import dk.eboks.app.domain.models.channel.ekey.Pin
+import dk.eboks.app.domain.models.channel.ekey.*
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailMode
@@ -29,7 +26,7 @@ import javax.inject.Inject
  */
 class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContract.View {
 
-    var ekey: Ekey? = null
+    var ekey: BaseEkey? = null
     var hidePassword: Boolean = true
     var category = EkeyDetailMode.LOGIN
 

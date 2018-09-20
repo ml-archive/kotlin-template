@@ -11,10 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.ekey.Ekey
-import dk.eboks.app.domain.models.channel.ekey.Login
-import dk.eboks.app.domain.models.channel.ekey.Note
-import dk.eboks.app.domain.models.channel.ekey.Pin
+import dk.eboks.app.domain.models.channel.ekey.*
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.additem.EkeyAddItemComponentFragment
@@ -29,6 +26,7 @@ import dk.nodes.locksmith.core.util.RandomUtils
 import kotlinx.android.synthetic.main.fragment_channel_ekey.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -37,7 +35,7 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, BetterEkeyAdapter.Ekeyclicklistener {
-    override fun onEkeyClicked(ekey: Ekey) {
+    override fun onEkeyClicked(ekey: BaseEkey) {
         val frag = EkeyOpenItemComponentFragment()
         when (ekey) {
             is Login -> {
@@ -123,6 +121,13 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
 
             val decrypted = String(handler.decrypt(masterkey), charset("UTF-8"))
             Timber.d("Decrypted from backend: $decrypted")
+
+            val keyHash = HashingUtils.sha256AsBase64(decrypted)
+
+            val dateFormat = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
+            val time = dateFormat.format(Date())
+            val hash = HashingUtils.hmacSha256(keyHash, time)
+            presenter.getKeys(time, hash)
         } else {
             generateNewKeyAndSend()
         }
@@ -152,7 +157,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         presenter.setMasterkey(hashed, encrypted)
     }
 
-    override fun showKeys(keys: List<Ekey>) {
+    override fun showKeys(keys: List<BaseEkey>) {
         items.clear()
 
         setEmptyState(keys.isEmpty())

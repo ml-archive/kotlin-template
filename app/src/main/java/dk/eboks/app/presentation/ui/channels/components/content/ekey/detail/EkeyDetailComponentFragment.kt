@@ -8,10 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.ekey.Ekey
-import dk.eboks.app.domain.models.channel.ekey.Login
-import dk.eboks.app.domain.models.channel.ekey.Note
-import dk.eboks.app.domain.models.channel.ekey.Pin
+import dk.eboks.app.domain.models.channel.ekey.*
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_channel_ekey_detail.*
@@ -25,7 +22,7 @@ import javax.inject.Inject
 class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.View {
 
     var category: EkeyDetailMode? = null
-    var editKey: Ekey? = null
+    var editKey: BaseEkey? = null
     var hidePassword: Boolean = false
 
     @Inject

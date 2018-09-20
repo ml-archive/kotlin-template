@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.channels.components.content.ekey
 
+import dk.eboks.app.domain.models.channel.ekey.BaseEkey
 import dk.eboks.app.domain.models.channel.ekey.Ekey
 import java.io.Serializable
 
@@ -11,4 +12,4 @@ import java.io.Serializable
 abstract class ListItem: Serializable
 
 data class Header(val text: String): ListItem()
-data class EkeyItem(val data: Ekey): ListItem()
+data class EkeyItem(val data: BaseEkey): ListItem()
