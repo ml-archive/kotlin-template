@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
+import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.repositories.*
@@ -42,9 +43,9 @@ class RepositoryModule {
 
     @Provides
     @AppScope
-    fun provideMessagesRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager, httpClient: OkHttpClient) : MessagesRepository
+    fun provideMessagesRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager, httpClient: OkHttpClient, appState: AppStateManager) : MessagesRepository
     {
-        return MessagesRestRepository(context, api, gson, cacheManager, httpClient)
+        return MessagesRestRepository(context, api, gson, cacheManager, httpClient, appState)
     }
 
     @Provides
