@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import com.google.gson.Gson
 import dk.eboks.app.App
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
@@ -60,6 +61,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
 
     private val items = ArrayList<ListItem>()
     private var pin: String? = null
+    private var masterkey: String? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_channel_ekey, container, false)
@@ -118,29 +120,59 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         }
     }
 
-    override fun onMasterkey(masterkey: String?) {
-        if(masterkey != null) {
+    override fun onMasterkey(backendKey: String?) {
+        if(backendKey != null) {
             val handler = EncryptionHandlerImpl(AesPasswordKeyProviderImpl(pin))
             handler.init()
 
-            val decrypted = String(handler.decrypt(masterkey), charset("UTF-8"))
-            Timber.d("Decrypted from backend: $decrypted")
+            masterkey = String(handler.decrypt(backendKey), charset("UTF-8"))
+            Timber.d("Decrypted from backend: $masterkey")
 
-            presenter.storeMasterkey(decrypted)
+            presenter.storeMasterkey(masterkey!!)
 
-            val keyHash = HashingUtils.sha256AsByteArray(decrypted)
-
-            val dateFormat = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
-            val time = dateFormat.format(Date())
-            val hash = HashingUtils.hmacSha256(keyHash, time)
-            presenter.getKeys(time, hash)
+            val signature = getSignatureAndSignatureTime()
+            presenter.getVault(signature.first, signature.second)
         } else {
             generateNewKeyAndSend()
         }
     }
 
+    private fun getSignatureAndSignatureTime(): Pair<String, String> {
+        val keyHash = HashingUtils.sha256AsBase64(masterkey)
+
+        val dateFormat = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
+        val time = dateFormat.format(Date())
+        val hash = HashingUtils.hmacSha256(time.toByteArray(charset("UTF-8")), keyHash)
+
+        return Pair(time, hash)
+    }
+
+    override fun onMasterkeyNotFound() {
+        generateNewKeyAndSend()
+    }
+
     override fun onGetMasterkeyError(viewError: ViewError) {
         Timber.d("error: ${viewError.message}")
+    }
+
+    override fun onVaultNotFound() {
+        val keyList = mutableListOf<BaseEkey>()
+        pin?.let {
+            keyList.add(Ekey(it,"Ekey", null))
+        }
+
+        //Encrypt
+        masterkey?.let {
+            val handler = EncryptionHandlerImpl(AesPasswordKeyProviderImpl(it))
+            handler.init()
+            val gson = Gson()
+
+            val encrypted = handler.encrypt(gson.toJson(keyList).toByteArray(charset("UTF-8")))
+            //post vault
+            val signature = getSignatureAndSignatureTime()
+            presenter.setVault(encrypted, signature.first, signature.second)
+        }
+
     }
 
     private fun generateNewKeyAndSend() {

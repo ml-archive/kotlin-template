@@ -7,8 +7,9 @@ interface GetEKeyVaultInteractor: Interactor {
     data class Input(val signatureTime: String, val signature: String)
 
     interface Output {
-        fun onGetEKeyVaultSuccess()
+        fun onGetEKeyVaultSuccess(vault: String)
         fun onGetEKeyVaultError(viewError: ViewError)
+        fun onGetEKeyVaultNotFound()
     }
 
     var output: Output?

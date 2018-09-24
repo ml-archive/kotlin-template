@@ -10,6 +10,7 @@ import dk.eboks.app.domain.interactors.channel.*
 import dk.eboks.app.domain.interactors.ekey.GetEKeyMasterkeyInteractor
 import dk.eboks.app.domain.interactors.ekey.GetEKeyVaultInteractor
 import dk.eboks.app.domain.interactors.ekey.SetEKeyMasterkeyInteractor
+import dk.eboks.app.domain.interactors.ekey.SetEKeyVaultInteractor
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
@@ -992,9 +993,10 @@ class PresentationModule {
                                       setEKeyMasterkeyInteractor: SetEKeyMasterkeyInteractor,
                                       getEKeyVaultInteractor: GetEKeyVaultInteractor,
                                       encryptedPreferences: EncryptedPreferences,
+                                      setEKeyVaultInteractor: SetEKeyVaultInteractor,
                                       gson: Gson): EkeyComponentContract.Presenter {
         return EkeyComponentPresenter(stateManager, getEKeyMasterkeyInteractor, setEKeyMasterkeyInteractor,
-                getEKeyVaultInteractor, encryptedPreferences, gson)
+                getEKeyVaultInteractor, encryptedPreferences, setEKeyVaultInteractor, gson)
     }
 
     @ActivityScope

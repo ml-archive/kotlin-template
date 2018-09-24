@@ -14,10 +14,12 @@ class SetEKeyVaultInteractorImpl(executor: Executor, private val api: Api) :
 
     override fun execute() {
         try {
-            val response = api.keyVaultSet().execute()
+            input?.let {
+                val response = api.keyVaultSet(it.vault, it.signatureTime, it.signature).execute()
 
-            if (response?.isSuccessful == true) {
-                output?.onSetEKeyVaultSuccess()
+                if (response?.isSuccessful == true) {
+                    output?.onSetEKeyVaultSuccess()
+                }
             }
         } catch (exception: Exception) {
             showViewException(exception)

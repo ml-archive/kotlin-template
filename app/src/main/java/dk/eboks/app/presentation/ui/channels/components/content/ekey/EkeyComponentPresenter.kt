@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import dk.eboks.app.domain.interactors.ekey.GetEKeyMasterkeyInteractor
 import dk.eboks.app.domain.interactors.ekey.GetEKeyVaultInteractor
 import dk.eboks.app.domain.interactors.ekey.SetEKeyMasterkeyInteractor
+import dk.eboks.app.domain.interactors.ekey.SetEKeyVaultInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.ekey.*
 import dk.eboks.app.domain.models.local.ViewError
@@ -19,6 +20,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
                                                  val setMasterKeyInteractor: SetEKeyMasterkeyInteractor,
                                                  val getEKeyVaultInteractor: GetEKeyVaultInteractor,
                                                  val encryptedPreferences: EncryptedPreferences,
+                                                 val setEKeyVaultInteractor: SetEKeyVaultInteractor,
                                                  val gson: Gson)
     : EkeyComponentContract.Presenter, BasePresenterImpl<EkeyComponentContract.View>(),
         GetEKeyMasterkeyInteractor.Output, SetEKeyMasterkeyInteractor.Output, GetEKeyVaultInteractor.Output {
@@ -28,8 +30,12 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         getEKeyVaultInteractor.output = this
     }
 
-    override fun onGetEKeyVaultSuccess() {
+    override fun onGetEKeyVaultSuccess(vault: String) {
         Timber.d("success")
+    }
+
+    override fun onGetEKeyVaultNotFound() {
+        runAction { view -> view.onVaultNotFound() }
     }
 
     override fun onGetEKeyVaultError(viewError: ViewError) {
@@ -46,6 +52,10 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
 
     override fun onGetEKeyMasterkeySuccess(masterkey: EKeyGetMasterkeyResponse) {
         runAction { view -> view.onMasterkey(masterkey.masterkey) }
+    }
+
+    override fun onGetEkeyMasterkeyNotFound() {
+        runAction { view -> view.onMasterkeyNotFound() }
     }
 
     override fun onGetEKeyMasterkeyError(viewError: ViewError) {
@@ -67,9 +77,14 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         getMasterkeyInteractor.run()
     }
 
-    override fun getKeys(signatureTime: String, signature: String) {
+    override fun getVault(signatureTime: String, signature: String) {
         getEKeyVaultInteractor.input = GetEKeyVaultInteractor.Input(signatureTime, signature)
         getEKeyVaultInteractor.run()
+    }
+
+    override fun setVault(vault: String, signatureTime: String, signature: String) {
+        setEKeyVaultInteractor.input = SetEKeyVaultInteractor.Input(vault, signatureTime, signature)
+        setEKeyVaultInteractor.run()
     }
 
     override fun getKeys() {

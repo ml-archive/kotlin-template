@@ -8,6 +8,7 @@ interface GetEKeyMasterkeyInteractor: Interactor {
     interface Output {
         fun onGetEKeyMasterkeySuccess(masterkey: EKeyGetMasterkeyResponse)
         fun onGetEKeyMasterkeyError(viewError: ViewError)
+        fun onGetEkeyMasterkeyNotFound()
     }
 
     var output: Output?

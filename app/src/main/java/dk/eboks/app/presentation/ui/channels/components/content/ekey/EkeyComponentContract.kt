@@ -14,13 +14,16 @@ interface EkeyComponentContract {
         fun showKeys(keys: List<BaseEkey>)
         fun onMasterkey(masterkey: String?)
         fun onGetMasterkeyError(viewError: ViewError)
+        fun onMasterkeyNotFound()
+        fun onVaultNotFound()
     }
 
     interface Presenter : BasePresenter<View> {
         fun getKeys()
-        fun getKeys(signatureTime: String, signature: String)
+        fun getVault(signatureTime: String, signature: String)
         fun getMasterkey()
         fun setMasterkey(hash: String, encrypted: String)
         fun storeMasterkey(masterKey: String)
+        fun setVault(vault: String, signatureTime: String, signature: String)
     }
 }

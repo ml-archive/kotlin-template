@@ -20,8 +20,10 @@ class GetEKeyMasterkeyInteractorImpl(executor: Executor, private val api: Api) :
 
             if (response?.isSuccessful == true) {
                 output?.onGetEKeyMasterkeySuccess(response.body()!!)
+            } else if(response?.code() == 404) {
+                output?.onGetEkeyMasterkeyNotFound()
             } else {
-                throw InteractorException("Error in response: ${response.code()}")
+                throw InteractorException("Error in response: ${response.code()}", response.code())
             }
         } catch (exception: Exception) {
             showViewException(exception)

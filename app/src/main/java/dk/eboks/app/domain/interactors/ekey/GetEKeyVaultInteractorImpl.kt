@@ -19,8 +19,10 @@ class GetEKeyVaultInteractorImpl(executor: Executor, private val api: Api) :
             input?.let {
                 val response = api.keyVaultGet(it.signatureTime, it.signature).execute()
 
-                if (response?.isSuccessful == true) {
-                    output?.onGetEKeyVaultSuccess()
+                when {
+                    response?.isSuccessful == true -> output?.onGetEKeyVaultSuccess(response.body()!!)
+                    response?.code() == 404 -> output?.onGetEKeyVaultNotFound()
+                    else -> throw InteractorException("Wrong input")
                 }
             }.guard {
                 throw InteractorException("Wrong input")
