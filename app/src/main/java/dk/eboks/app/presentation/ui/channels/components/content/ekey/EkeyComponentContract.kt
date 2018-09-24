@@ -21,5 +21,6 @@ interface EkeyComponentContract {
         fun getKeys(signatureTime: String, signature: String)
         fun getMasterkey()
         fun setMasterkey(hash: String, encrypted: String)
+        fun storeMasterkey(masterKey: String)
     }
 }

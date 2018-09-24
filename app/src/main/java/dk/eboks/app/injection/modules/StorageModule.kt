@@ -10,6 +10,7 @@ import dk.eboks.app.storage.managers.*
 import dk.eboks.app.system.managers.PrefManagerImpl
 import dk.eboks.app.system.managers.ResourceManagerImpl
 import dk.nodes.arch.domain.injection.scopes.AppScope
+import dk.nodes.locksmith.core.preferences.EncryptedPreferences
 
 /**
  * Created by bison on 25-07-2017.
@@ -62,5 +63,12 @@ class StorageModule {
     fun provideCacheManager(context: Context) : CacheManager
     {
         return CacheManagerImpl(context)
+    }
+
+    @Provides
+    @AppScope
+    fun provideEncryptedPreferences(context: Context) : EncryptedPreferences
+    {
+        return EncryptedPreferences(context, "EncryptedStorage", Context.MODE_PRIVATE)
     }
 }

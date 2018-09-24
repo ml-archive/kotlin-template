@@ -200,6 +200,7 @@ import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadContrac
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadPresenter
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
+import dk.nodes.locksmith.core.preferences.EncryptedPreferences
 import javax.inject.Named
 
 @Module
@@ -990,8 +991,10 @@ class PresentationModule {
                                       getEKeyMasterkeyInteractor: GetEKeyMasterkeyInteractor,
                                       setEKeyMasterkeyInteractor: SetEKeyMasterkeyInteractor,
                                       getEKeyVaultInteractor: GetEKeyVaultInteractor,
+                                      encryptedPreferences: EncryptedPreferences,
                                       gson: Gson): EkeyComponentContract.Presenter {
-        return EkeyComponentPresenter(stateManager, getEKeyMasterkeyInteractor, setEKeyMasterkeyInteractor, getEKeyVaultInteractor, gson)
+        return EkeyComponentPresenter(stateManager, getEKeyMasterkeyInteractor, setEKeyMasterkeyInteractor,
+                getEKeyVaultInteractor, encryptedPreferences, gson)
     }
 
     @ActivityScope

@@ -8,6 +8,7 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.ekey.*
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import dk.nodes.locksmith.core.preferences.EncryptedPreferences
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -16,7 +17,9 @@ import javax.inject.Inject
  */
 class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, val getMasterkeyInteractor: GetEKeyMasterkeyInteractor,
                                                  val setMasterKeyInteractor: SetEKeyMasterkeyInteractor,
-                                                 val getEKeyVaultInteractor: GetEKeyVaultInteractor, val gson: Gson)
+                                                 val getEKeyVaultInteractor: GetEKeyVaultInteractor,
+                                                 val encryptedPreferences: EncryptedPreferences,
+                                                 val gson: Gson)
     : EkeyComponentContract.Presenter, BasePresenterImpl<EkeyComponentContract.View>(),
         GetEKeyMasterkeyInteractor.Output, SetEKeyMasterkeyInteractor.Output, GetEKeyVaultInteractor.Output {
     init {
@@ -47,6 +50,12 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
 
     override fun onGetEKeyMasterkeyError(viewError: ViewError) {
         runAction { view -> view.onGetMasterkeyError(viewError) }
+    }
+
+    override fun storeMasterkey(masterKey: String) {
+        appState.state?.currentUser?.let {
+            encryptedPreferences.putString("ekey_${it.id}", masterKey)
+        }
     }
 
     override fun setMasterkey(hash: String, encrypted: String) {

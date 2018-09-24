@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.channels.components.content.ekey
 
+import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.os.Bundle
@@ -9,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import dk.eboks.app.App
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.ekey.*
@@ -19,8 +21,10 @@ import dk.eboks.app.presentation.ui.channels.components.content.ekey.open.EkeyOp
 import dk.eboks.app.presentation.ui.channels.components.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.util.dpToPx
 import dk.eboks.app.util.putArg
+import dk.nodes.locksmith.core.Locksmith
 import dk.nodes.locksmith.core.encryption.handlers.EncryptionHandlerImpl
 import dk.nodes.locksmith.core.encryption.providers.AesPasswordKeyProviderImpl
+import dk.nodes.locksmith.core.preferences.EncryptedPreferences
 import dk.nodes.locksmith.core.util.HashingUtils
 import dk.nodes.locksmith.core.util.RandomUtils
 import kotlinx.android.synthetic.main.fragment_channel_ekey.*
@@ -122,7 +126,9 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
             val decrypted = String(handler.decrypt(masterkey), charset("UTF-8"))
             Timber.d("Decrypted from backend: $decrypted")
 
-            val keyHash = HashingUtils.sha256AsBase64(decrypted)
+            presenter.storeMasterkey(decrypted)
+
+            val keyHash = HashingUtils.sha256AsByteArray(decrypted)
 
             val dateFormat = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
             val time = dateFormat.format(Date())
@@ -152,6 +158,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         Timber.d("Encrypted: $encrypted")
 
         //store key
+        presenter.storeMasterkey(key)
 
         //send key to backend
         presenter.setMasterkey(hashed, encrypted)
