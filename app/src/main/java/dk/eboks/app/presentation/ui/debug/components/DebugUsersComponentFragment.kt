@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.login.LoginState
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.login.components.LoginComponentFragment
 import kotlinx.android.synthetic.main.fragment_debug_users_component.*
 import javax.inject.Inject
 
@@ -35,6 +36,7 @@ class DebugUsersComponentFragment: BaseFragment(), DebugUsersComponentContract.V
         applyBtn.text = "Choose"
         applyBtn.setOnClickListener {
             presenter.updateLoginState(debugSp.selectedItem as LoginState)
+            LoginComponentFragment.loginOnResume = true
             activity.onBackPressed()
         }
     }

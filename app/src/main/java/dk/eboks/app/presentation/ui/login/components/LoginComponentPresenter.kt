@@ -39,7 +39,7 @@ class LoginComponentPresenter @Inject constructor(
         decryptUserLoginInfoInteractor.output = this
     }
 
-    override fun setup(verifyLoginProviderId : String?, reauth : Boolean) {
+    override fun setup(verifyLoginProviderId : String?, reauth : Boolean, autoLogin : Boolean) {
         Timber.e("Setting up login view for provider $verifyLoginProviderId, reauth: $reauth")
         reauthing = reauth
         this.verifyLoginProviderId = verifyLoginProviderId
@@ -50,11 +50,7 @@ class LoginComponentPresenter @Inject constructor(
                     Timber.d("Loaded $settings")
                     var provider = settings.lastLoginProviderId
                     // Test-uses has "test" prefix, as in 'DebugUsersComponentPresenter'
-                    if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true) && true == provider?.contains("test")) {
-                        provider = provider.removePrefix("test")// remove the prefix
-//                    setupLogin(it, provider)
-                        appState.state?.loginState?.userLoginProviderId = provider
-                        appState.save()
+                    if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true) && autoLogin) {
                         login()
                     } else {
                         setupLogin(it, provider)
@@ -89,12 +85,12 @@ class LoginComponentPresenter @Inject constructor(
         }
         runAction { v ->
             user?.let {
-                // setup for existing user
+                // setup for existing currentUser
                 val settings = userSettingsManager.get(it.id)
-                if (!it.verified) {   // user is not verified
+                if (!it.verified) {   // currentUser is not verified
                     v.setupView(loginProvider = lp, user = user, settings = settings, altLoginProviders = ArrayList())
                 } else {
-                    // user is verified
+                    // currentUser is verified
                     v.setupView(loginProvider = lp, user = user, settings = settings, altLoginProviders = altProviders)
                 }
             }.guard {

@@ -22,6 +22,7 @@ import dk.eboks.app.domain.interactors.user.*
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.managers.UserSettingsManager
+import dk.eboks.app.domain.models.login.LoginState
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentContract
@@ -802,8 +803,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideDebugUsersComponentPresenter(stateManager: AppStateManager, userSettingsManager: UserSettingsManager): DebugUsersComponentContract.Presenter {
-        return DebugUsersComponentPresenter(stateManager, userSettingsManager)
+    fun provideDebugUsersComponentPresenter(stateManager: AppStateManager, userSettingsManager: UserSettingsManager, testLoginStates : MutableList<LoginState>): DebugUsersComponentContract.Presenter {
+        return DebugUsersComponentPresenter(stateManager, userSettingsManager, testLoginStates)
     }
 
     @ActivityScope

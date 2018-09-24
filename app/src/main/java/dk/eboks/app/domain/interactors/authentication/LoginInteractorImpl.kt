@@ -46,7 +46,7 @@ class LoginInteractorImpl(
                         val userResult = api.getUserProfile().execute()
                         userResult?.body()?.let { user ->
                             // update the states
-                            Timber.i("Saving user $user")
+                            Timber.e("Saving currentUser $user on login")
                             val newUser = userManager.put(user)
                             val newSettings = userSettingsManager.get(newUser.id)
 
@@ -60,7 +60,7 @@ class LoginInteractorImpl(
                             /*
                             appStateManager.state?.loginState?.lastUser?.let { lastUser ->
                                 if (lastUser.id != newUser.id) {
-                                    Timber.e("Different user id detected on login, clearing caches")
+                                    Timber.e("Different currentUser id detected on login, clearing caches")
                                     cacheManager.clearStores()
                                 }
                             }
