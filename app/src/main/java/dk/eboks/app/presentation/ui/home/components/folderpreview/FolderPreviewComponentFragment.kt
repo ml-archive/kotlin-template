@@ -99,6 +99,7 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
                 emptyStateTextTv.text = Translation.home.messagesUnverifiedMessage
                 emptyStateBtn.setOnClickListener {
                     HomeActivity.refreshOnResume = true
+                    VerificationComponentFragment.verificationSucceeded = false
                     getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
                 }
             }

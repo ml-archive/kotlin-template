@@ -179,6 +179,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         button.backgroundTintList = ColorStateList.valueOf(colorTint)
         button?.setOnClickListener {
             //presenter.install(channel)
+            VerificationComponentFragment.verificationSucceeded = false
             getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
         }
     }

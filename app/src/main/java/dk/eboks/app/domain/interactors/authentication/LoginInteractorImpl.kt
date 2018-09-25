@@ -3,6 +3,7 @@ package dk.eboks.app.domain.interactors.authentication
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.message.MessageOpeningState
 import dk.eboks.app.domain.repositories.MailCategoriesRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.protocol.EAuth2
@@ -74,6 +75,13 @@ class LoginInteractorImpl(
                         }
                         appStateManager.state?.loginState?.userName = ""
                         appStateManager.state?.loginState?.userPassWord = ""
+
+                        // clear message opening state
+                        appStateManager.state?.openingState?.acceptPrivateTerms = false
+                        appStateManager.state?.openingState?.sendReceipt = false
+                        appStateManager.state?.openingState?.shouldProceedWithOpening = false
+                        appStateManager.state?.openingState?.serverError = null
+
                         appStateManager.save()
 
                         EAuth2.ignoreFurtherLoginRequests = false
