@@ -6,6 +6,8 @@ import dagger.Provides
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.login.LoginState
 import dk.eboks.app.domain.models.login.User
+import dk.eboks.app.domain.repositories.SettingsRepository
+import dk.eboks.app.system.managers.CryptoManagerImpl
 import dk.eboks.app.system.managers.EboksFormatterImpl
 import dk.eboks.app.system.managers.EncryptionPreferenceManagerImpl
 import dk.eboks.app.system.managers.GuidManagerImpl
@@ -46,6 +48,12 @@ class UtilModule {
         return PermissionManagerImpl(executor, context, uiManager)
     }
 
+
+    @Provides
+    @AppScope
+    fun provideCryptoManager(context: Context, settingsRepository: SettingsRepository): CryptoManager {
+        return CryptoManagerImpl(context, settingsRepository)
+    }
 
     @Provides
     @AppScope

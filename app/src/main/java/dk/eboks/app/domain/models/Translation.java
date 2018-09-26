@@ -732,4 +732,10 @@ public class Translation {
 		public static String nemIdNotInstalledMessage = "Installer NemID app\'en eller skift til n\u00F8glekort";
 		public static String installNemIdAppBtn = "Install\u00E9r NemID";
 	}
+	public final static class deviceactivation {
+		public static String header = "Aktiver Enhed";
+		public static String message = "Aktiver din enhed";
+		public static String activateBtn = "Aktiv\u00E9r";
+		public static String skipBtn = "Spring over";
+	}
 }

@@ -357,6 +357,8 @@ interface PresentationComponent {
     fun inject(target : BankIdNOComponentPresenter)
     fun inject(target : PopupLoginActivity)
     fun inject(target : PopupLoginPresenter)
+    fun inject(target : DeviceActivationComponentFragment)
+    fun inject(target : DeviceActivationComponentPresenter)
   
     // profile
 

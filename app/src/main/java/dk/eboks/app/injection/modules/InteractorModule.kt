@@ -593,4 +593,9 @@ class InteractorModule {
     fun provideShareReceiptInteractor(executor: Executor, downloadManager: DownloadManager): ShareReceiptInteractor {
         return ShareReceiptInteractorImpl(executor, downloadManager)
     }
+
+    @Provides
+    fun provideCheckRSAKeyPresenceInteractor(executor: Executor, cryptoManager: CryptoManager): CheckRSAKeyPresenceInteractor {
+        return CheckRSAKeyPresenceInteractorImpl(executor, cryptoManager)
+    }
 }

@@ -629,4 +629,8 @@
   <string name='nstack_nemidsupport_nemIdNotInstalledTitle' formatted='false'>nemidsupport_nemIdNotInstalledTitle</string>
   <string name='nstack_nemidsupport_nemIdNotInstalledMessage' formatted='false'>nemidsupport_nemIdNotInstalledMessage</string>
   <string name='nstack_nemidsupport_installNemIdAppBtn' formatted='false'>nemidsupport_installNemIdAppBtn</string>
+  <string name='nstack_deviceactivation_header' formatted='false'>deviceactivation_header</string>
+  <string name='nstack_deviceactivation_message' formatted='false'>deviceactivation_message</string>
+  <string name='nstack_deviceactivation_activateBtn' formatted='false'>deviceactivation_activateBtn</string>
+  <string name='nstack_deviceactivation_skipBtn' formatted='false'>deviceactivation_skipBtn</string>
 </resources>

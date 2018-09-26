@@ -567,13 +567,15 @@ class PresentationModule {
             stateManager: AppStateManager,
             userSettingsManager: UserSettingsManager,
             decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,
-            loginInteractor: LoginInteractor
+            loginInteractor: LoginInteractor,
+            checkRSAKeyPresenceInteractor: CheckRSAKeyPresenceInteractor
     ): LoginComponentContract.Presenter {
         return LoginComponentPresenter(
                 stateManager,
                 userSettingsManager,
                 decryptUserLoginInfoInteractor,
-                loginInteractor
+                loginInteractor,
+                checkRSAKeyPresenceInteractor
         )
     }
 
@@ -1046,6 +1048,12 @@ class PresentationModule {
     @Provides
     fun providePopupLoginPresenter(stateManager: AppStateManager): PopupLoginContract.Presenter {
         return PopupLoginPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideDeviceActivationComponentPresenter(stateManager: AppStateManager) : DeviceActivationComponentContract.Presenter {
+        return DeviceActivationComponentPresenter(stateManager)
     }
 
     /* Pasta

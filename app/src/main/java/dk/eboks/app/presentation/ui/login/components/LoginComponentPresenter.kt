@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.login.components
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
+import dk.eboks.app.domain.interactors.authentication.CheckRSAKeyPresenceInteractor
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.managers.AppStateManager
@@ -21,12 +22,15 @@ class LoginComponentPresenter @Inject constructor(
         val appState: AppStateManager,
         val userSettingsManager: UserSettingsManager,
         val decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,
-        val loginInteractor: LoginInteractor
+        val loginInteractor: LoginInteractor,
+        val checkRSAKeyPresenceInteractor: CheckRSAKeyPresenceInteractor
 ) :
         LoginComponentContract.Presenter,
         BasePresenterImpl<LoginComponentContract.View>(),
         DecryptUserLoginInfoInteractor.Output,
-        LoginInteractor.Output {
+        LoginInteractor.Output,
+        CheckRSAKeyPresenceInteractor.Output
+{
 
     var altProviders: List<LoginProvider> = Config.getAlternativeLoginProviders()
     var verifyLoginProviderId : String? = null
@@ -102,6 +106,7 @@ class LoginComponentPresenter @Inject constructor(
 
     override fun onLoginSuccess(response: AccessToken) {
         Timber.i("Login Success: $response")
+
         runAction { v ->
             v.proceedToApp()
         }
@@ -180,4 +185,11 @@ class LoginComponentPresenter @Inject constructor(
         }
     }
 
+    override fun onCheckRSAKeyPresence(keyExists: Boolean) {
+        Timber.e("RSAKeyPresence: $keyExists")
+    }
+
+    override fun onCheckRSAKeyPresenceError(error: ViewError) {
+        runAction { v->v.showErrorDialog(error) }
+    }
 }
