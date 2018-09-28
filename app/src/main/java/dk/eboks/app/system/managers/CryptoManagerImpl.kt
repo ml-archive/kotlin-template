@@ -80,7 +80,7 @@ class CryptoManagerImpl @Inject constructor(val context: Context, val settingsRe
         sig.update(byteData)
         val signatureBytes = sig.sign()
         val result = Base64.encodeToString(signatureBytes, Base64.NO_WRAP)
-        Timber.e("Signature:$result")
+        Timber.e("RSAHash: $result")
         return result
     }
 
@@ -106,6 +106,27 @@ class CryptoManagerImpl @Inject constructor(val context: Context, val settingsRe
         }
 
         return null
+    }
+
+    @Throws(Exception::class)
+    override fun deleteActivation(userId: String) {
+        val keyStore = KeyStore.getInstance(AndroidKeyStore)
+        keyStore.load(null)
+        keyStore.deleteEntry(userId)
+        Timber.e("Deleting entry $userId")
+    }
+
+    @Throws(Exception::class)
+    override fun deleteAllActivations() {
+        val keyStore = KeyStore.getInstance(AndroidKeyStore)
+        keyStore.load(null)
+
+        val aliases = keyStore.aliases()
+        while (aliases.hasMoreElements()) {
+            val alias = aliases.nextElement()
+            Timber.e("Deleting Alias: $alias")
+            keyStore.deleteEntry(alias)
+        }
     }
 
     /**

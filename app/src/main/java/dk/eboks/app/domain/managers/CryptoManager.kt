@@ -13,4 +13,6 @@ interface CryptoManager {
     fun getPublicKeyAsString(publicKey: PublicKey): String
     fun getPrivateKeyAsString(privateKey: PrivateKey): String
     fun getActivation(userId: String): DeviceActivation?
+    @Throws(Exception::class) fun deleteActivation(userId: String)
+    @Throws(Exception::class) fun deleteAllActivations()
 }

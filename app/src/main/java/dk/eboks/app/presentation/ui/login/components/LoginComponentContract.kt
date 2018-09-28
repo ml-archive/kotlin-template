@@ -17,6 +17,7 @@ interface LoginComponentContract {
         fun showError(viewError: ViewError)
         fun addFingerPrintProvider()
         fun proceedToApp()
+        fun startDeviceActivation()
         fun showProgress(show : Boolean)
     }
 

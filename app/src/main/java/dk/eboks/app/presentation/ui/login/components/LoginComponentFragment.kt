@@ -498,6 +498,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         KeyboardUtils.removeAllKeyboardToggleListeners()
     }
 
+    override fun startDeviceActivation() {
+        getBaseActivity()?.setRootFragment(R.id.containerFl, DeviceActivationComponentFragment())
+    }
+
     companion object {
         var loginOnResume = false
     }

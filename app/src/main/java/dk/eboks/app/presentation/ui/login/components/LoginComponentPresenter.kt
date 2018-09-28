@@ -41,6 +41,7 @@ class LoginComponentPresenter @Inject constructor(
         appState.state?.currentSettings = null
         loginInteractor.output = this
         decryptUserLoginInfoInteractor.output = this
+        checkRSAKeyPresenceInteractor.output = this
     }
 
     override fun setup(verifyLoginProviderId : String?, reauth : Boolean, autoLogin : Boolean) {
@@ -106,9 +107,9 @@ class LoginComponentPresenter @Inject constructor(
 
     override fun onLoginSuccess(response: AccessToken) {
         Timber.i("Login Success: $response")
-
-        runAction { v ->
-            v.proceedToApp()
+        appState.state?.currentUser?.let { user->
+            checkRSAKeyPresenceInteractor.input = CheckRSAKeyPresenceInteractor.Input(userId = user.id.toString())
+            checkRSAKeyPresenceInteractor.run()
         }
     }
 
@@ -187,6 +188,14 @@ class LoginComponentPresenter @Inject constructor(
 
     override fun onCheckRSAKeyPresence(keyExists: Boolean) {
         Timber.e("RSAKeyPresence: $keyExists")
+        if(keyExists)
+        {
+            runAction { it.proceedToApp() }
+        }
+        else
+        {
+            runAction { it.startDeviceActivation() }
+        }
     }
 
     override fun onCheckRSAKeyPresenceError(error: ViewError) {

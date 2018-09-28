@@ -65,6 +65,10 @@ public class Translation {
 		public static String printError = "__printError";
 		public static String receiptOpenInErrorTitle = "Fejl";
 		public static String receiptOpenInErrorMessage = "Kvittering kunne ikke \u00E5bnes";
+		public static String eKeyDecryptionFailedTitle = "__eKeyDecryptionFailedTitle";
+		public static String eKeyDecryptionFailedMessage = "__eKeyDecryptionFailedMessage";
+		public static String eKeyEncryptionFailedTitle = "__eKeyEncryptionFailedTitle";
+		public static String eKeyEncryptionFailedMessage = "__eKeyEncryptionFailedMessage";
 	}
 	public final static class mail {
 		public static String senderHeader = "Post fra dine afsendere";
@@ -479,7 +483,7 @@ public class Translation {
 		public static String messagesUnverifiedButton = "Verificer min profil";
 		public static String windowHeader = "Hjem";
 		public static String noContentText = "Intet indhold";
-		public static String errorContentFetch = "Det valgte dokument kunne ikke \u00E5bnes";
+		public static String errorContentFetch = "Indhold kunne ikke indl\u00E6ses";
 	}
 	public final static class systemfolders {
 		public static String inbox = "Indbakke";
@@ -635,6 +639,12 @@ public class Translation {
 		public static String editLogin = "Rediger legitimationsoplysninger";
 		public static String editNote = "Rediger note";
 		public static String typeHere = "Skriv her";
+		public static String unlockEkey = "__unlockEkey";
+		public static String insertPin = "Indtast din 4-cifrede kode";
+		public static String insertPinMessage = "__insertPinMessage";
+		public static String insertNewPin = "Indtast en 4-cifret kode";
+		public static String insertNewPinMessage = "__insertNewPinMessage";
+		public static String createEKey = "__createEKey";
 	}
 	public final static class storeboxlogin {
 		public static String header = "Link til din Storebox profil";

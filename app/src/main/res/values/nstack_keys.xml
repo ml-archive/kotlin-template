@@ -55,6 +55,10 @@
   <string name='nstack_error_printError' formatted='false'>error_printError</string>
   <string name='nstack_error_receiptOpenInErrorTitle' formatted='false'>error_receiptOpenInErrorTitle</string>
   <string name='nstack_error_receiptOpenInErrorMessage' formatted='false'>error_receiptOpenInErrorMessage</string>
+  <string name='nstack_error_eKeyDecryptionFailedTitle' formatted='false'>error_eKeyDecryptionFailedTitle</string>
+  <string name='nstack_error_eKeyDecryptionFailedMessage' formatted='false'>error_eKeyDecryptionFailedMessage</string>
+  <string name='nstack_error_eKeyEncryptionFailedTitle' formatted='false'>error_eKeyEncryptionFailedTitle</string>
+  <string name='nstack_error_eKeyEncryptionFailedMessage' formatted='false'>error_eKeyEncryptionFailedMessage</string>
   <string name='nstack_mail_senderHeader' formatted='false'>mail_senderHeader</string>
   <string name='nstack_mail_showAllSendersButton' formatted='false'>mail_showAllSendersButton</string>
   <string name='nstack_mail_smartFolderHeader' formatted='false'>mail_smartFolderHeader</string>
@@ -557,6 +561,12 @@
   <string name='nstack_ekey_editLogin' formatted='false'>ekey_editLogin</string>
   <string name='nstack_ekey_editNote' formatted='false'>ekey_editNote</string>
   <string name='nstack_ekey_typeHere' formatted='false'>ekey_typeHere</string>
+  <string name='nstack_ekey_unlockEkey' formatted='false'>ekey_unlockEkey</string>
+  <string name='nstack_ekey_insertPin' formatted='false'>ekey_insertPin</string>
+  <string name='nstack_ekey_insertPinMessage' formatted='false'>ekey_insertPinMessage</string>
+  <string name='nstack_ekey_insertNewPin' formatted='false'>ekey_insertNewPin</string>
+  <string name='nstack_ekey_insertNewPinMessage' formatted='false'>ekey_insertNewPinMessage</string>
+  <string name='nstack_ekey_createEKey' formatted='false'>ekey_createEKey</string>
   <string name='nstack_storeboxlogin_header' formatted='false'>storeboxlogin_header</string>
   <string name='nstack_storeboxlogin_subheader' formatted='false'>storeboxlogin_subheader</string>
   <string name='nstack_storeboxlogin_title' formatted='false'>storeboxlogin_title</string>
