@@ -25,7 +25,7 @@ class CheckRSAKeyPresenceInteractorImpl(executor: Executor, val cryptoManager: C
                     runOnUIThread { output?.onCheckRSAKeyPresence(true) }
                 }
                 else
-                    runOnUIThread { output?.onCheckRSAKeyPresence(true) }
+                    runOnUIThread { output?.onCheckRSAKeyPresence(false) }
             }
         } catch (t: Throwable) {
             runOnUIThread {

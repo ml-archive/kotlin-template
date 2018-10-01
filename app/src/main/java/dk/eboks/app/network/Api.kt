@@ -11,6 +11,7 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.home.HomeContent
+import dk.eboks.app.domain.models.login.ActivationDevice
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
@@ -36,6 +37,9 @@ interface Api {
     @FormUrlEncoded
     @POST("http://test401-oauth-dk.internal.e-boks.com/1/connect/token") fun getToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
     */
+
+    // mobile access
+    @PUT("user/current/device") fun activateDevice(@Body device: ActivationDevice): Call<Void>
 
     // resources
     @GET("resources/links") fun getResourceLinks() : Call<List<ResourceLink>>

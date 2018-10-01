@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <LinearLayout
-                        android:id="@+id/buttonGroupLl"
+                        android:id="@+id/activateDevicebuttonGroupLl"
                         android:orientation="vertical"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -83,7 +83,7 @@
                             nstack:key="@string/nstack_deviceactivation_skipBtn" />
                     </LinearLayout>
                     <FrameLayout
-                        android:id="@+id/progressFl"
+                        android:id="@+id/activateDeviceProgressFl"
                         android:background="@color/backgroundColor"
                         android:visibility="gone"
                         android:layout_width="match_parent"

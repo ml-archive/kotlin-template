@@ -5,6 +5,9 @@ import dagger.Provides
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.authentication.*
+import dk.eboks.app.domain.interactors.authentication.mobileacces.ActivateDeviceInteractor
+import dk.eboks.app.domain.interactors.authentication.mobileacces.DeleteRSAKeyInteractor
+import dk.eboks.app.domain.interactors.authentication.mobileacces.GenerateRSAKeyInteractor
 import dk.eboks.app.domain.interactors.channel.*
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
@@ -1052,8 +1055,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideDeviceActivationComponentPresenter(stateManager: AppStateManager) : DeviceActivationComponentContract.Presenter {
-        return DeviceActivationComponentPresenter(stateManager)
+    fun provideDeviceActivationComponentPresenter(stateManager: AppStateManager, generateRSAKeyInteractor: GenerateRSAKeyInteractor, activateDeviceInteractor: ActivateDeviceInteractor, deleteRSAKeyInteractor : DeleteRSAKeyInteractor) : DeviceActivationComponentContract.Presenter {
+        return DeviceActivationComponentPresenter(stateManager, generateRSAKeyInteractor, activateDeviceInteractor, deleteRSAKeyInteractor )
     }
 
     /* Pasta

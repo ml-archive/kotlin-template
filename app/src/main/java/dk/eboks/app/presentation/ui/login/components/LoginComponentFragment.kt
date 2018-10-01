@@ -499,7 +499,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
     override fun startDeviceActivation() {
-        getBaseActivity()?.setRootFragment(R.id.containerFl, DeviceActivationComponentFragment())
+//        getBaseActivity()?.setRootFragment(R.id.containerFl, DeviceActivationComponentFragment())
+        getBaseActivity()?.openComponentDrawer(DeviceActivationComponentFragment::class.java)
     }
 
     companion object {

@@ -1,13 +1,18 @@
 package dk.eboks.app.presentation.ui.login.components
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
 import kotlinx.android.synthetic.main.fragment_activation_code_component.*
+import kotlinx.android.synthetic.main.fragment_device_activation_component.*
 import javax.inject.Inject
 
 /**
@@ -41,7 +46,37 @@ class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationCompon
     }
 
     override fun showProgress(show: Boolean) {
-        buttonGroupLl.visibility = if(show) View.INVISIBLE else View.VISIBLE
-        progressFl.visibility = if(!show) View.GONE else View.VISIBLE
+        activateDevicebuttonGroupLl.visibility = if(show) View.INVISIBLE else View.VISIBLE
+        activateDeviceProgressFl.visibility = if(!show) View.GONE else View.VISIBLE
+    }
+
+    override fun setupButtons() {
+        activateBtn.setOnClickListener {
+                presenter.requestNemidLogin()
+        }
+
+        skipBtn.setOnClickListener {
+                presenter.skipKey()
+        }
+    }
+
+    override fun requestNemidLogin() {
+        var intent = Intent(context, PopupLoginActivity::class.java)
+        intent.putExtra("selectedLoginProviderId", Config.getVerificationProviderId())
+        startActivityForResult(intent,770 )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+       when (requestCode){
+           770 -> {
+               if ( requestCode == Activity.RESULT_OK){
+                   presenter.activateDevice()
+               }
+           }
+       }
+    }
+
+    override fun closeDrawer() {
+        getBaseActivity()?.onBackPressed()
     }
 }

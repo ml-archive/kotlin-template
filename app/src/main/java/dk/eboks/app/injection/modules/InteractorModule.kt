@@ -7,6 +7,7 @@ import dk.eboks.app.domain.interactors.BootstrapInteractorImpl
 import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.GetMailCategoriesInteractorImpl
 import dk.eboks.app.domain.interactors.authentication.*
+import dk.eboks.app.domain.interactors.authentication.mobileacces.*
 import dk.eboks.app.domain.interactors.channel.*
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractorImpl
@@ -302,6 +303,7 @@ class InteractorModule {
     ): CreateDebugUserInteractorImpl {
         return CreateDebugUserInteractorImpl(executor, userManager)
     }
+
     @Provides
     fun provideSaveUserSettingsInteractor(
             executor: Executor,
@@ -597,5 +599,20 @@ class InteractorModule {
     @Provides
     fun provideCheckRSAKeyPresenceInteractor(executor: Executor, cryptoManager: CryptoManager): CheckRSAKeyPresenceInteractor {
         return CheckRSAKeyPresenceInteractorImpl(executor, cryptoManager)
+    }
+
+    @Provides
+    fun provideGenerateRSAKey(executor: Executor, cryptoManager: CryptoManager): GenerateRSAKeyInteractor {
+        return GenerateRSAKeyInteractorImpl(executor, cryptoManager)
+    }
+
+    @Provides
+    fun provideDeleteRSAKey(executor: Executor, cryptoManager: CryptoManager): DeleteRSAKeyInteractor {
+        return DeleteRSAKeyInteractorImpl(executor, cryptoManager)
+    }
+
+    @Provides
+    fun provideActivateDeviceInteractor(executor: Executor, settingsRepository: SettingsRepository, api: Api): ActivateDeviceInteractor {
+        return ActivateDeviceInteractorImpl(executor, settingsRepository, api)
     }
 }
