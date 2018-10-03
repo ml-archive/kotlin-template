@@ -1,13 +1,14 @@
 package dk.eboks.app.presentation.ui.mail.components.maillist
 
-import dk.eboks.app.domain.interactors.message.DeleteMessagesInteractor
-import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
-import dk.eboks.app.domain.interactors.message.MoveMessagesInteractor
-import dk.eboks.app.domain.interactors.message.UpdateMessageInteractor
+import dk.eboks.app.domain.interactors.message.*
+import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesInteractor
+import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractor
+import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.network.util.metaData
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -23,8 +24,10 @@ class MailListComponentPresenter @Inject constructor(
 ) :
         MailListComponentContract.Presenter,
         BasePresenterImpl<MailListComponentContract.View>(),
-        GetMessagesInteractor.Output, DeleteMessagesInteractor.Output,
-        MoveMessagesInteractor.Output, UpdateMessageInteractor.Output
+        GetMessagesInteractor.Output,
+        DeleteMessagesInteractor.Output,
+        MoveMessagesInteractor.Output,
+        UpdateMessageInteractor.Output
 {
 
     companion object {
@@ -46,6 +49,7 @@ class MailListComponentPresenter @Inject constructor(
     init {
         getMessagesInteractor.output = this
         deleteMessagesInteractor.output = this
+        updateMessageInteractor.output = this
     }
 
     override fun setup(folder: Folder) {
@@ -112,35 +116,34 @@ class MailListComponentPresenter @Inject constructor(
     }
 
     override fun deleteMessages(selectedMessages: MutableList<Message>) {
-        //todo implement deleting the entire list and not just first element
         view?.showProgress(true)
-        deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(selectedMessages.get(0))
+        deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(ArrayList(selectedMessages))
         deleteMessagesInteractor.run()
     }
 
-    override fun moveMessages(folderName: String?, selectedMessages: MutableList<Message>) {
-        if (folderName == null) {
-            return
-        }
-
-        val messageIds = ArrayList(selectedMessages.map { it.id })
-
-        moveMessagesInteractor.input = MoveMessagesInteractor.Input(folderName, messageIds)
+    override fun moveMessages(folderId: Int, selectedMessages: MutableList<Message>) {
+        val messageIds = ArrayList(selectedMessages.map { it })
+        moveMessagesInteractor.input = MoveMessagesInteractor.Input(folderId, messageIds)
         moveMessagesInteractor.output = this
-
         moveMessagesInteractor.run()
     }
 
-    override fun markReadMessages(selectedMessages: MutableList<Message>) {
-
-    }
-
-    override fun markUnreadMessages(selectedMessages: MutableList<Message>) {
-
+    override fun markReadMessages(selectedMessages: MutableList<Message>, unread: Boolean) {
+        val messagePatch = MessagePatch(unread)
+        updateMessage(selectedMessages,messagePatch)
     }
 
     override fun archiveMessages(selectedMessages: MutableList<Message>) {
+        val messagePatch = MessagePatch(archive = true)
+        updateMessage(selectedMessages, messagePatch)
 
+    }
+
+    private fun updateMessage(selectedMessages: MutableList<Message>, messagePatch: MessagePatch) {
+        view?.showProgress(true)
+        val messages = ArrayList(selectedMessages)
+        updateMessageInteractor.input = UpdateMessageInteractor.Input(messages, messagePatch)
+        updateMessageInteractor.run()
     }
 
     override fun onGetMessages(messages: List<Message>) {

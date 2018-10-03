@@ -27,6 +27,7 @@
         android:layout_marginBottom="16dp"
         android:clickable="true"
         app:backgroundTint="@color/fabButtonColor"
+        android:scaleType="center"
         android:src="@drawable/icon_48_close_white" />
 
 </RelativeLayout>

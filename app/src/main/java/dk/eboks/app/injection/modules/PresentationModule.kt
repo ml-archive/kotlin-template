@@ -11,9 +11,13 @@ import dk.eboks.app.domain.interactors.authentication.mobileacces.GenerateRSAKey
 import dk.eboks.app.domain.interactors.channel.*
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
+import dk.eboks.app.domain.interactors.folder.CreateFolderInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.interactors.message.*
+import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesInteractor
+import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractor
+import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
@@ -970,8 +974,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideNewFolderComponentPresenter(stateManager: AppStateManager): NewFolderComponentContract.Presenter {
-        return NewFolderComponentPresenter(stateManager)
+    fun provideNewFolderComponentPresenter(stateManager: AppStateManager, createFolderInteractor: CreateFolderInteractor): NewFolderComponentContract.Presenter {
+        return NewFolderComponentPresenter(stateManager, createFolderInteractor)
     }
 
     @ActivityScope

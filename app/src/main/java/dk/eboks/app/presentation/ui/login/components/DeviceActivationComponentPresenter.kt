@@ -10,6 +10,7 @@ import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -26,6 +27,8 @@ class DeviceActivationComponentPresenter @Inject constructor(
         ActivateDeviceInteractor.Output,
         DeleteRSAKeyInteractor.Output,
         BasePresenterImpl<DeviceActivationComponentContract.View>() {
+
+    var loading = false
 
     init {
         generateRSAKeyInteractor.output = this
@@ -48,14 +51,17 @@ class DeviceActivationComponentPresenter @Inject constructor(
     }
 
     override fun activateDevice() {
-        appState.state?.currentUser?.let { user ->
-            generateRSAKeyInteractor.input = GenerateRSAKeyInteractor.Input(user.id.toString())
-            generateRSAKeyInteractor.run()
+        if (!loading) {
+            appState.state?.currentUser?.let { user ->
+                loading = true
+                generateRSAKeyInteractor.input = GenerateRSAKeyInteractor.Input(user.id.toString())
+                generateRSAKeyInteractor.run()
+            }
         }
     }
 
     override fun skipKey() {
-        runAction { v->
+        runAction { v ->
             v.closeDrawer()
         }
     }
@@ -66,25 +72,26 @@ class DeviceActivationComponentPresenter @Inject constructor(
     }
 
     override fun onGenerateRSAKeyError(error: ViewError) {
+        loading = false
     }
 
     override fun onActivateDeviceSuccess() {
         //todo
-        println("succes")
+        Timber.e("onActivateDevice  success")
+        loading = false
     }
 
     override fun onActivateDeviceError(error: ViewError, RSAKey: String?) {
-        RSAKey?.let {
-            deleteRSAKeyInteractor.input = DeleteRSAKeyInteractor.Input(it)
             deleteRSAKeyInteractor.run()
-        }
     }
 
     override fun onDeleteRSAKeySuccess() {
-
+        Timber.e("onDeleteRSAKeyError  success")
+        loading = false
     }
 
     override fun onDeleteRSAKeyError(error: ViewError) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Timber.e("onDeleteRSAKeyError  failed")
+        loading = false
     }
 }

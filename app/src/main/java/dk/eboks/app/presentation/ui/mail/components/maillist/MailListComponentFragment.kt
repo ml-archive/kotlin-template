@@ -158,12 +158,12 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 }
                 (ButtonType.READ)  -> {
                     editAction = ButtonType.READ
-                    presenter.markReadMessages(checkedList)
+                    presenter.markReadMessages(checkedList, false)
                     toggleEditMode()
                 }
                 (ButtonType.UNREAD)  -> {
                     editAction = ButtonType.UNREAD
-                    presenter.markUnreadMessages(checkedList)
+                    presenter.markReadMessages(checkedList, true)
                     toggleEditMode()
                 }
                 else                -> {
@@ -177,11 +177,11 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         // deal with return from folder picker
         if (requestCode == FolderActivity.REQUEST_ID) {
             data?.extras?.let {
-                val moveToFolder = data.getSerializableExtra("res")
+                val moveToFolder = data.getSerializableExtra("res") as Folder
 
                 Timber.d("Move To Folder ${moveToFolder?.toString()}")
 
-                presenter.moveMessages(moveToFolder?.toString(), checkedList)
+                presenter.moveMessages(moveToFolder.id, checkedList)
 
                 checkedList.clear()
 

@@ -145,6 +145,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     fun onContinueClicked() {
         presenter.confirmMail(emailEt.text.toString().trim(), nameEt.text.toString().trim())
         showProgress(true)
+        hideKeyboard(view)
     }
 
     override fun showSignupMail(exists: Boolean) {

@@ -184,18 +184,8 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 it.parentFolder = null
                 intent.putExtra("res", it)
                 activity.setResult(Activity.RESULT_OK, intent)
-
-                //activity.setResult(Activity.RESULT_OK)
                 activity.finish()
-                /*
-                getBaseActivity()?.setResult(Activity.RESULT_OK, intent)
-                getBaseActivity()?.finish()
-                */
             }.guard {
-                /*
-                getBaseActivity()?.setResult(Activity.RESULT_CANCELED, Intent())
-                getBaseActivity()?.finish()
-                */
                 activity.setResult(Activity.RESULT_CANCELED)
                 activity.finish()
             }

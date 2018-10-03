@@ -9,8 +9,11 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface NewFolderComponentContract {
     interface View : BaseView {
         fun setRootFolder(user : String)
+        fun showFolderNameError()
     }
 
     interface Presenter : BasePresenter<View> {
+        fun createNewFolder(parentFolderId : Int, name: String)
+        fun folderNameNotAllowed()
     }
 }

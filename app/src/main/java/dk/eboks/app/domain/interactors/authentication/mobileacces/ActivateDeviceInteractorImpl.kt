@@ -25,7 +25,6 @@ class ActivateDeviceInteractorImpl(executor: Executor, val settingsRepository: S
                 }
         } catch (t: Throwable) {
             runOnUIThread {
-
                 output?.onActivateDeviceError(exceptionToViewError(t), input?.key)
             }
         }

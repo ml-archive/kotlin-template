@@ -15,6 +15,7 @@ import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folder_newfolder.*
+import kotlinx.android.synthetic.main.fragment_folderinfo_component.*
 import javax.inject.Inject
 
 /**
@@ -50,7 +51,6 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                 disableFolderSelection = true
             }
         }
-
         setup()
     }
 
@@ -76,7 +76,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         }
         if (disableFolderSelection) {
             selectFolderLl.isEnabled = false
-            folderRootTv.setTextColor(ContextCompat.getColor(context,R.color.blueGrey))
+            folderRootTv.setTextColor(ContextCompat.getColor(context, R.color.blueGrey))
         }
         setupButtons()
     }
@@ -88,7 +88,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                     //todo save btn  do something
                 }
                 FolderDrawerMode.NEW -> {
-                    //todo save btn  do something
+                    createFolder()
                 }
             }
         }
@@ -102,6 +102,15 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
             i.putExtra("pick", true)
             i.putExtra("selectFolder", true)
             startActivityForResult(i, FolderActivity.REQUEST_ID)
+        }
+    }
+
+    private fun createFolder() {
+        val folderName = nameEt.text.toString()
+        if (folderName.isNotBlank()) {
+            presenter.createNewFolder(parentFolder?.id ?: 0, folderName)
+        } else {
+            presenter.folderNameNotAllowed()
         }
     }
 
@@ -127,8 +136,6 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                     }
                 }
             }
-
-
         }
     }
 
@@ -138,5 +145,9 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         if (parentFolder == null) {
             folderRootTv.text = rootFolderName
         }
+    }
+
+    override fun showFolderNameError() {
+        //todo
     }
 }

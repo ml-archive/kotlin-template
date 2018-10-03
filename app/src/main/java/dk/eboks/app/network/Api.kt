@@ -9,6 +9,7 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderRequest
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.login.ActivationDevice
@@ -43,6 +44,9 @@ interface Api {
 
     // resources
     @GET("resources/links") fun getResourceLinks() : Call<List<ResourceLink>>
+
+    //folders
+    @POST("/mail/folders") fun createFolder(@Body folderRequest: FolderRequest) : Call<Void>
 
     // user
     @GET("user/{identity}/exists") fun checkUserEmail(@Path("identity") identity : String) : Call<BooleanReply>

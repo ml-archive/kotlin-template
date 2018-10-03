@@ -69,7 +69,7 @@ class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationCompon
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
        when (requestCode){
            770 -> {
-               if ( requestCode == Activity.RESULT_OK){
+               if ( resultCode == Activity.RESULT_OK){
                    presenter.activateDevice()
                }
            }

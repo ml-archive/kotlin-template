@@ -13,11 +13,9 @@ import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractorImpl
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractorImpl
-import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
-import dk.eboks.app.domain.interactors.folder.GetFoldersInteractorImpl
-import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
-import dk.eboks.app.domain.interactors.folder.OpenFolderInteractorImpl
+import dk.eboks.app.domain.interactors.folder.*
 import dk.eboks.app.domain.interactors.message.*
+import dk.eboks.app.domain.interactors.message.messageoperations.*
 import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.*
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
@@ -152,8 +150,8 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideMoveMessagesInteractor(executor: Executor): MoveMessagesInteractor {
-        return MoveMessagesInteractorImpl(executor)
+    fun provideMoveMessagesInteractor(executor: Executor, messagesRepository: MessagesRepository): MoveMessagesInteractor {
+        return MoveMessagesInteractorImpl(executor, messagesRepository)
     }
 
 
@@ -612,7 +610,12 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideActivateDeviceInteractor(executor: Executor, settingsRepository: SettingsRepository, api: Api): ActivateDeviceInteractor {
+    fun provideActivateDevice(executor: Executor, settingsRepository: SettingsRepository, api: Api): ActivateDeviceInteractor {
         return ActivateDeviceInteractorImpl(executor, settingsRepository, api)
+    }
+
+    @Provides
+    fun provideCreateFolder(executor: Executor, foldersRepository: FoldersRepository): CreateFolderInteractor {
+        return CreateFolderInteractorImpl(executor, foldersRepository)
     }
 }

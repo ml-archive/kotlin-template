@@ -1,11 +1,9 @@
-package dk.eboks.app.domain.interactors.message
+package dk.eboks.app.domain.interactors.message.messageoperations
 
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.repositories.MessagesRepository
-import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
-import timber.log.Timber
 
 class DeleteMessagesInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) :
         BaseInteractor(executor),
@@ -16,8 +14,10 @@ class DeleteMessagesInteractorImpl(executor: Executor, val messagesRepository: M
 
     override fun execute() {
         try {
-            input?.message?.let {
-                val result = messagesRepository.deleteMessage(it.folderId,it.id)
+            input?.messages?.let { messages ->
+                for (msg in messages) {
+                    messagesRepository.deleteMessage(msg.folderId, msg.id)
+                }
                 runOnUIThread {
                     output?.onDeleteMessagesSuccess()
                 }

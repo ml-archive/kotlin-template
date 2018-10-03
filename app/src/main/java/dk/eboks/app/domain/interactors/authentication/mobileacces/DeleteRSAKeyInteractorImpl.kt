@@ -6,16 +6,13 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 class DeleteRSAKeyInteractorImpl(executor: Executor, val cryptoManager: CryptoManager) : BaseInteractor(executor), DeleteRSAKeyInteractor {
-    override var input: DeleteRSAKeyInteractor.Input? = null
     override var output: DeleteRSAKeyInteractor.Output? = null
 
     override fun execute() {
         try {
-            input?.let {
-                cryptoManager.deleteActivation(it.userId)
+                cryptoManager.deleteAllActivations()
                 runOnUIThread {
                     output?.onDeleteRSAKeySuccess()
-                }
             }
         } catch (t: Throwable) {
             runOnUIThread {

@@ -24,10 +24,9 @@ interface MailListComponentContract {
 
         fun updateMessage(message: Message)
         fun archiveMessages(selectedMessages: MutableList<Message>)
-        fun markReadMessages(selectedMessages: MutableList<Message>)
-        fun markUnreadMessages(selectedMessages: MutableList<Message>)
+        fun markReadMessages(selectedMessages: MutableList<Message>, unread : Boolean)
         fun deleteMessages(selectedMessages: MutableList<Message>)
-        fun moveMessages(folderName: String?, selectedMessages: MutableList<Message>)
+        fun moveMessages(folderId: Int, selectedMessages: MutableList<Message>)
 
         var isLoading : Boolean
     }
