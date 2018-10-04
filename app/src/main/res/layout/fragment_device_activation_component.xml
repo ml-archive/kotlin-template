@@ -80,7 +80,7 @@
                             android:layout_marginTop="@dimen/margin_half"
                             android:text="_Cancel"
                             android:textStyle="bold"
-                            nstack:key="@string/nstack_deviceactivation_skipBtn" />
+                            nstack:key="@string/nstack_default_cancel" />
                     </LinearLayout>
                     <FrameLayout
                         android:id="@+id/activateDeviceProgressFl"

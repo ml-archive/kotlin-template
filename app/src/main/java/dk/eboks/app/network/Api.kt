@@ -46,7 +46,9 @@ interface Api {
     @GET("resources/links") fun getResourceLinks() : Call<List<ResourceLink>>
 
     //folders
-    @POST("/mail/folders") fun createFolder(@Body folderRequest: FolderRequest) : Call<Void>
+    @POST("mail/folders") fun createFolder(@Body folderRequest: FolderRequest) : Call<Void>
+    @PATCH("mail/folders/{folderid}") fun editFolder(@Path("folderid") folderId: Int, @Body folderRequest: FolderRequest) : Call<Void>
+    @DELETE("mail/folders/{folderid}") fun deleteFolder(@Path("folderid") folderId: Int) : Call<Void>
 
     // user
     @GET("user/{identity}/exists") fun checkUserEmail(@Path("identity") identity : String) : Call<BooleanReply>

@@ -618,4 +618,14 @@ class InteractorModule {
     fun provideCreateFolder(executor: Executor, foldersRepository: FoldersRepository): CreateFolderInteractor {
         return CreateFolderInteractorImpl(executor, foldersRepository)
     }
+
+    @Provides
+    fun provideDeleteFolder(executor: Executor, foldersRepository: FoldersRepository): DeleteFolderInteractor {
+        return DeleteFolderInteractorImpl(executor, foldersRepository)
+    }
+
+    @Provides
+    fun provideEditFolder(executor: Executor, foldersRepository: FoldersRepository): EditFolderInteractor {
+        return EditFolderInteractorImpl(executor, foldersRepository)
+    }
 }

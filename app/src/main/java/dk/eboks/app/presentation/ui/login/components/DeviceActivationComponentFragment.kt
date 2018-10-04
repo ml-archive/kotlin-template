@@ -56,7 +56,7 @@ class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationCompon
         }
 
         skipBtn.setOnClickListener {
-                presenter.skipKey()
+                closeDrawer()
         }
     }
 

@@ -18,6 +18,7 @@ class CreateFolderInteractorImpl(
         try {
             input?.folderRequest?.let { folderRequest ->
                 val folderRequesttest = folderRequest
+                //todo find out what the userId is used for
                 folderRequesttest.userId = null
                     foldersRepository.createFolder(folderRequesttest)
                     runOnUIThread {

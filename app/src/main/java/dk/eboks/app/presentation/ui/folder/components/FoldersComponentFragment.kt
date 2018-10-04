@@ -118,25 +118,21 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 addFolderBtn.setOnClickListener {
                     openDrawer()
                 }
+                systemFoldersLl.visibility = View.VISIBLE
             }
             FolderMode.SELECT -> {
                 setSelectTopbar()
-                showUserFolders(userfolders)
+                systemFoldersLl.visibility = View.GONE
             }
             FolderMode.EDIT -> {
                 setEditTopBar()
-
-                for (view in systemFoldersLl.views) {
-                    editView(view)
-                    systemFoldersLl.alpha = 0.5f
-                }
+                systemFoldersLl.visibility = View.GONE
 
                 for (view in foldersLl.views) {
                     editView(view)
                 }
                 mainFab.visibility = View.VISIBLE
             }
-
         }
     }
 
@@ -192,6 +188,11 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             true
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.refresh()
     }
 
     override fun setUser(user: User?) {
@@ -304,7 +305,6 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 FolderMode.EDIT -> {
                     editView(v)
                 }
-
             }
 
 
@@ -334,7 +334,11 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         if (selectFolder) {
             if (folder.type == FolderType.INBOX) {
                 currentUser?.let { user ->
-                    v.nameTv.text = user.name
+                    // the system folder is added to represent the root. Which is why its altered. You are not allowed to move folders into systemfolders
+                    // root folder id = 0  and root.foldername  = username
+                    folder.id = 0
+                    folder.name = user.name
+                    v.nameTv.text = folder.name
                     v.iconIv?.let {
                         Glide.with(context)
                                 .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))

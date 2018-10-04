@@ -9,4 +9,6 @@ import dk.eboks.app.domain.models.folder.FolderRequest
 interface FoldersRepository {
     fun getFolders(cached : Boolean = false) : List<Folder>
     fun createFolder(folderRequest: FolderRequest)
+    fun editFolder(folderId: Int, folderRequest: FolderRequest)
+    fun deleteFolder(folderId: Int)
 }

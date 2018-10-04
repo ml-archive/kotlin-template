@@ -60,12 +60,6 @@ class DeviceActivationComponentPresenter @Inject constructor(
         }
     }
 
-    override fun skipKey() {
-        runAction { v ->
-            v.closeDrawer()
-        }
-    }
-
     override fun onGenerateRSAKeySuccess(RSAKey: String) {
         activateDeviceInteractor.input = ActivateDeviceInteractor.Input(RSAKey)
         activateDeviceInteractor.run()

@@ -16,7 +16,6 @@ interface DeviceActivationComponentContract {
 
     interface Presenter : BasePresenter<View> {
         fun activateDevice()
-        fun skipKey()
         fun requestNemidLogin()
     }
 }

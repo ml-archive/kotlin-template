@@ -46,4 +46,22 @@ class FoldersRestRepository(val context: Context, val api: Api, val gson: Gson, 
             }
         }
     }
+
+    override fun editFolder(folderId: Int, folderRequest: FolderRequest) {
+        val response = api.editFolder(folderId, folderRequest).execute()
+        response?.let{
+            if (it.isSuccessful){
+                return
+            }
+        }
+    }
+
+    override fun deleteFolder(folderId: Int) {
+        val response = api.deleteFolder(folderId).execute()
+        response?.let{
+            if (it.isSuccessful){
+                return
+            }
+        }
+    }
 }

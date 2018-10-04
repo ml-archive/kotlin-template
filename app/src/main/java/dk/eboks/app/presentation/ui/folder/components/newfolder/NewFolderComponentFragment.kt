@@ -55,7 +55,6 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
     }
 
     private fun setup() {
-
         when (mode) {
             FolderDrawerMode.EDIT -> {
                 titleTv.text = Translation.folders.editFolder
@@ -66,7 +65,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                     nameEt.text = editableString
                 }
                 deleteIv.setOnClickListener {
-                    //todo delete folder
+                    presenter.deleteFolder(editFolder!!.id)
                 }
             }
 
@@ -85,7 +84,9 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         saveBtn.setOnClickListener {
             when (mode) {
                 FolderDrawerMode.EDIT -> {
-                    //todo save btn  do something
+                    editFolder?.id?.let { folderId ->
+                        presenter.editFolder(folderId, parentFolder?.id, nameEt.text.toString())
+                    }
                 }
                 FolderDrawerMode.NEW -> {
                     createFolder()
@@ -129,7 +130,6 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                             }
                         }
                         FolderDrawerMode.EDIT -> {
-                            // todo API move folder to new location
                             parentFolder = data?.getSerializableExtra("res") as Folder
                             folderRootTv.text = parentFolder?.name
                         }
@@ -137,6 +137,10 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                 }
             }
         }
+    }
+
+    override fun finsish() {
+        activity.onBackPressed()
     }
 
     override fun setRootFolder(name: String) {

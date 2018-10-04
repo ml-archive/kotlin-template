@@ -4,6 +4,6 @@ import java.io.Serializable
 
 data class FolderRequest(
         var userId : Int?,
-        var parentFolderId : Int,
-        var name : String
+        var parentFolderId : Int?,
+        var name : String?
 ) : Serializable
