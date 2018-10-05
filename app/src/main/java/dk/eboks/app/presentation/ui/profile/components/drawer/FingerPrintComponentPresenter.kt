@@ -98,6 +98,7 @@ class FingerPrintComponentPresenter @Inject constructor(
             return
         }
 
+        userSettingsManager.removeFingerprintFromYall()
         userSettingsManager.get(currentUser.id).hasFingerprint = true
         userSettingsManager.save()
 

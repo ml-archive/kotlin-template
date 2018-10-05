@@ -24,7 +24,12 @@ class UpdateUserInteractorImpl(executor: Executor, val api: Api, val userRestRep
                 body.addProperty("newsletter", it.newsletter)
                 val mails = JsonArray()
                 mails.add(it.getPrimaryEmail())
-                mails.add(it.getSecondaryEmail())
+                // only verified users are allowed to edit ANY email
+                if(it.verified) {
+                    it.getSecondaryEmail()?.let { email ->
+                        mails.add(email)
+                    }
+                }
                 body.add("emails", mails)
                 userRestRepo.updateProfile(body)
             }

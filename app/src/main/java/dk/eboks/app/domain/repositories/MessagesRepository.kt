@@ -14,8 +14,8 @@ interface MessagesRepository {
 
     fun deleteMessage(folderId: Int, messageId: String)
 
-    fun getMessagesByFolder(folderId : Int, offset : Int = 0, limit : Int = 20, acceptedTerms : Boolean? = null) : List<Message>
-    fun getMessagesBySender(senderId : Long, offset : Int = 0, limit : Int = 20, acceptedPrivateTerms: Boolean? = null): List<Message>
+    fun getMessagesByFolder(folderId : Int, offset : Int = 0, limit : Int = 20) : List<Message>
+    fun getMessagesBySender(senderId : Long, offset : Int = 0, limit : Int = 20): List<Message>
     //fun getMessages(cached : Boolean = false, type : FolderType) : List<Message>
     fun getMessage(folderId: Int, id : String, receipt : Boolean? = null, acceptedPrivateTerms: Boolean? = null) : Message
     fun getMessageReplyForm(folderId: Int, id : String) : ReplyForm

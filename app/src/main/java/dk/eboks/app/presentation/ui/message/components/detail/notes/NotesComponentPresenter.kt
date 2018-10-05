@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.message.components.detail.notes
 
-import dk.eboks.app.domain.interactors.message.UpdateMessageInteractor
+import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
@@ -32,7 +32,8 @@ class NotesComponentPresenter @Inject constructor(val appState: AppStateManager,
 
     override fun saveNote(note : String) {
         currentMessage?.let { msg->
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(msg, MessagePatch(note = note))
+            val messages = arrayListOf(msg)
+            updateMessageInteractor.input = UpdateMessageInteractor.Input(messages, MessagePatch(note = note))
             updateMessageInteractor.run()
         }
     }

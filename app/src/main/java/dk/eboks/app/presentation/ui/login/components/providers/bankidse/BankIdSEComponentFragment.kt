@@ -13,6 +13,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseWebFragment
+import dk.eboks.app.presentation.base.ViewErrorController
 import dk.eboks.app.presentation.ui.login.components.providers.WebLoginContract
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
@@ -29,6 +30,10 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
     lateinit var presenter : BankIdSEComponentPresenter
 
     var loginUser: User? = null
+
+    override val defaultErrorHandler: ViewErrorController by lazy {
+        ViewErrorController(context = context, closeFunction = {activity.finish()} )
+    }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -152,4 +157,7 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
         presenter.login(kspwebtoken)
     }
 
+    override fun onCheckMergeAccountStatus() {
+        presenter.mergeAccountOrKeepSeparated()
+    }
 }

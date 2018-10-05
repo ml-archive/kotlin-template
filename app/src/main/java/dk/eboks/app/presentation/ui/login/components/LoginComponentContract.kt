@@ -17,11 +17,12 @@ interface LoginComponentContract {
         fun showError(viewError: ViewError)
         fun addFingerPrintProvider()
         fun proceedToApp()
+        fun startDeviceActivation()
         fun showProgress(show : Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setup(verifyLoginProviderId : String? = null, reauth : Boolean = false)
+        fun setup(verifyLoginProviderId : String? = null, reauth : Boolean = false, autoLogin : Boolean = false)
         fun fingerPrintConfirmed(user: User)
         fun updateLoginState(userName: String, providerId: String, password: String, activationCode: String?)
         fun login()

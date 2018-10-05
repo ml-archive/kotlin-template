@@ -20,7 +20,7 @@ class UserManagerImpl(val context: Context, val gson: Gson) : UserManager {
         val type = object : TypeToken<ArrayList<User>>() {}.type
         try {
             users = userStore.load(type)
-            Timber.e("Loaded user store with ${users.size} entries")
+            Timber.e("Loaded currentUser store with ${users.size} entries")
 
             for (entry in users) {
                 Timber.e("Entry: ${entry}")
@@ -31,8 +31,8 @@ class UserManagerImpl(val context: Context, val gson: Gson) : UserManager {
     }
 
     /**
-     * try to update an existing user, or add it if it doesn't exist yet
-     * if updated the reference saved in the user manager is returned
+     * try to update an existing currentUser, or add it if it doesn't exist yet
+     * if updated the reference saved in the currentUser manager is returned
      * replace this in your client code
      */
     override fun put(user: User): User {

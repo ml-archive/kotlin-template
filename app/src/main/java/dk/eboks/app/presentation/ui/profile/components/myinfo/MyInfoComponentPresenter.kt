@@ -31,11 +31,12 @@ class MyInfoComponentPresenter @Inject constructor(
         getUserProfileInteractor.output = this
     }
 
-    var user = User()
+    var currentUser : User? = null
     var closeView = true
 
     override fun setup() {
         appState.state?.currentUser?.let { user ->
+            currentUser = user
             showUser(user)
         }
     }
@@ -47,8 +48,9 @@ class MyInfoComponentPresenter @Inject constructor(
     private fun showUser(user : User)
     {
         runAction { v ->
+            Timber.e("SHOWING USER ID = ${user.id}")
             v.setName(user.name)
-            user.getPrimaryEmail()?.let { v.setPrimaryEmail(it, user.getPrimaryEmailIsVerified()) }
+            user.getPrimaryEmail()?.let { v.setPrimaryEmail(it, user.getPrimaryEmailIsVerified(), user.verified) }
             if(user.verified)
             {
                 user.getSecondaryEmail()?.let { v.setSecondaryEmail(it, user.getSecondaryEmailIsVerified()) }
@@ -71,32 +73,38 @@ class MyInfoComponentPresenter @Inject constructor(
     }
 
     override fun save(closeView : Boolean) {
-        this.closeView = closeView
-        runAction { v ->
-            v.showProgress(true)
-            v.setSaveEnabled(false)
+        currentUser?.let { user->
+            this.closeView = closeView
+            runAction { v ->
+                v.showProgress(true)
+                v.setSaveEnabled(false)
 
-            user.setPrimaryEmail(v.getPrimaryEmail())
-            user.setSecondaryEmail(v.getSecondaryEmail())
-            user.newsletter = v.getNewsletter()
-            user.name = v.getName()
-            user.mobilenumber?.let {
-                it.value = v.getMobileNumber()
-            }.guard {
-                user.mobilenumber = ContactPoint(v.getMobileNumber(), false)
+                Timber.e("Attempting to save currentUser id: ${user.id}")
+                user.setPrimaryEmail(v.getPrimaryEmail())
+                // secondary email only apply to verified users
+                if(user.verified)
+                    user.setSecondaryEmail(v.getSecondaryEmail())
+
+                user.newsletter = v.getNewsletter()
+                user.name = v.getName()
+                user.mobilenumber?.let {
+                    it.value = v.getMobileNumber()
+                }.guard {
+                    user.mobilenumber = ContactPoint(v.getMobileNumber(), false)
+                }
+                user.newsletter = v.getNewsletter()
+                appState.state?.currentUser = currentUser
+
+                // save currentUser on the server
+                updateUserInteractor.input = UpdateUserInteractor.Input(user)
+                updateUserInteractor.run()
+
             }
-            user.newsletter = v.getNewsletter()
-            appState.state?.currentUser = user
-
-            // save user on the server
-            updateUserInteractor.input = UpdateUserInteractor.Input(user)
-            updateUserInteractor.run()
-
         }
     }
 
     override fun onSaveUser(user: User, numberOfUsers: Int) {
-        Timber.e("User saved")
+        Timber.e("User saved ${user.id}")
         runAction { v ->
             v.setSaveEnabled(false)
             v.showProgress(false)
@@ -116,12 +124,11 @@ class MyInfoComponentPresenter @Inject constructor(
     }
 
     override fun onUpdateProfile() {
-        //todo  needs to save the user locally after the profile has been saved on the server.
-        Timber.e("onUpdateProfile succesful")
-        // save user locally
-        saveUserInteractor.input = SaveUserInteractor.Input(user)
-        saveUserInteractor.run()
-
+        currentUser?.let { user ->
+            // save currentUser locally
+            saveUserInteractor.input = SaveUserInteractor.Input(user)
+            saveUserInteractor.run()
+        }
     }
 
     override fun onUpdateProfileError(error: ViewError) {

@@ -7,6 +7,7 @@ import dk.eboks.app.domain.interactors.BootstrapInteractorImpl
 import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.GetMailCategoriesInteractorImpl
 import dk.eboks.app.domain.interactors.authentication.*
+import dk.eboks.app.domain.interactors.authentication.mobileacces.*
 import dk.eboks.app.domain.interactors.channel.*
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractorImpl
@@ -14,7 +15,7 @@ import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractorImpl
 import dk.eboks.app.domain.interactors.folder.*
 import dk.eboks.app.domain.interactors.message.*
-import dk.eboks.app.domain.interactors.message.UpdateMessageInteractorImpl
+import dk.eboks.app.domain.interactors.message.messageoperations.*
 import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.*
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
@@ -149,8 +150,8 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideMoveMessagesInteractor(executor: Executor): MoveMessagesInteractor {
-        return MoveMessagesInteractorImpl(executor)
+    fun provideMoveMessagesInteractor(executor: Executor, messagesRepository: MessagesRepository): MoveMessagesInteractor {
+        return MoveMessagesInteractorImpl(executor, messagesRepository)
     }
 
 
@@ -300,6 +301,7 @@ class InteractorModule {
     ): CreateDebugUserInteractorImpl {
         return CreateDebugUserInteractorImpl(executor, userManager)
     }
+
     @Provides
     fun provideSaveUserSettingsInteractor(
             executor: Executor,
@@ -475,11 +477,6 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideUpdateFolderInteractor(executor: Executor, foldersRepository: FoldersRepository): UpdateFolderInteractor {
-        return UpdateFolderInteractorImpl(executor, foldersRepository)
-    }
-
-    @Provides
     fun provideRegisterInteractor(executor: Executor, api: Api): RegisterInteractor {
         return RegisterInteractorImpl(executor, api)
     }
@@ -595,5 +592,40 @@ class InteractorModule {
     @Provides
     fun provideShareReceiptInteractor(executor: Executor, downloadManager: DownloadManager): ShareReceiptInteractor {
         return ShareReceiptInteractorImpl(executor, downloadManager)
+    }
+
+    @Provides
+    fun provideCheckRSAKeyPresenceInteractor(executor: Executor, cryptoManager: CryptoManager): CheckRSAKeyPresenceInteractor {
+        return CheckRSAKeyPresenceInteractorImpl(executor, cryptoManager)
+    }
+
+    @Provides
+    fun provideGenerateRSAKey(executor: Executor, cryptoManager: CryptoManager): GenerateRSAKeyInteractor {
+        return GenerateRSAKeyInteractorImpl(executor, cryptoManager)
+    }
+
+    @Provides
+    fun provideDeleteRSAKey(executor: Executor, cryptoManager: CryptoManager): DeleteRSAKeyInteractor {
+        return DeleteRSAKeyInteractorImpl(executor, cryptoManager)
+    }
+
+    @Provides
+    fun provideActivateDevice(executor: Executor, settingsRepository: SettingsRepository, api: Api): ActivateDeviceInteractor {
+        return ActivateDeviceInteractorImpl(executor, settingsRepository, api)
+    }
+
+    @Provides
+    fun provideCreateFolder(executor: Executor, foldersRepository: FoldersRepository): CreateFolderInteractor {
+        return CreateFolderInteractorImpl(executor, foldersRepository)
+    }
+
+    @Provides
+    fun provideDeleteFolder(executor: Executor, foldersRepository: FoldersRepository): DeleteFolderInteractor {
+        return DeleteFolderInteractorImpl(executor, foldersRepository)
+    }
+
+    @Provides
+    fun provideEditFolder(executor: Executor, foldersRepository: FoldersRepository): EditFolderInteractor {
+        return EditFolderInteractorImpl(executor, foldersRepository)
     }
 }

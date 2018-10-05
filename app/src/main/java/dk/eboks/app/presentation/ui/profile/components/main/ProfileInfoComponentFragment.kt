@@ -143,6 +143,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
                         R.drawable.icon_48_checkmark_white,
                         0
                 )
+                VerificationComponentFragment.verificationSucceeded = false
                 getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
             } else {
                 buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)

@@ -123,8 +123,9 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     override fun onResume() {
         super.onResume()
         Timber.d("onResume")
-
-        presenter.setup(selectedLoginProviderId, reauth)
+        presenter.setup(selectedLoginProviderId, reauth, loginOnResume)
+        if(loginOnResume)
+            loginOnResume = false
         setupCprEmailListeners()
         setupPasswordListener()
         KeyboardUtils.addKeyboardToggleListener(activity, keyboardListener)
@@ -150,7 +151,13 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 val identity: String = if (provider.id == "email") {
                     user.emails[0].value ?: ""
                 } else {
-                    user.identity ?: ""
+                    if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true) && !user.identity.isNullOrBlank())
+                    {
+                        user.identity ?: cprEmailEt.text.toString().trim()
+                    }
+                    else
+                        cprEmailEt.text.toString().trim()
+                    //currentUser.identity ?: ""
                 }
                 presenter.updateLoginState(
                         identity,
@@ -168,7 +175,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
     private fun loginExistingUser() {
-        Timber.e("Log in to existing user")
+        Timber.e("Log in to existing currentUser")
         val emailOrCpr = cprEmailEt.text?.toString()?.trim() ?: ""
         val password = passwordEt.text?.toString()?.trim() ?: ""
         if (emailOrCpr.isNotBlank() && password.isNotBlank()) {
@@ -176,7 +183,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             presenter.updateLoginState(userName = emailOrCpr, providerId = providerId, password = password, activationCode = null)
             presenter.login()
         } else {
-            Timber.e("Need a username and password to login to existing user")
+            Timber.e("Need a username and password to login to existing currentUser")
         }
     }
 
@@ -193,7 +200,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
 
     override fun setupView(loginProvider: LoginProvider?, user: User?, settings: UserSettings, altLoginProviders: List<LoginProvider>) {
-        Timber.i("SetupView called loginProvider: $loginProvider, user: $user, altProviders:  $altLoginProviders")
+        Timber.i("SetupView called loginProvider: $loginProvider, currentUser: $user, altProviders:  $altLoginProviders")
         continuePb.visibility = View.INVISIBLE
 
         loginProvider?.let { provider ->
@@ -224,7 +231,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 }
         }
 
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             testUsersBtn.visibility = View.VISIBLE
             testUsersBtn.setOnClickListener {
                 getBaseActivity()?.openComponentDrawer(DebugUsersComponentFragment::class.java)
@@ -282,7 +289,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                         currentProvider?.let { provider ->
                             presenter.fingerPrintConfirmed(user)
 //                            bgarof
-//                            presenter.updateLoginState(user.name, provider.id, "todo", "todo")
+//                            presenter.updateLoginState(currentUser.name, provider.id, "todo", "todo")
 //                            presenter.login()
                         }
                     }
@@ -314,7 +321,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
         continueBtn.visibility = View.GONE
         passwordTil.visibility = View.VISIBLE
-        if(BuildConfig.DEBUG)
+        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
         {
             showToast("Password preset to 'a12345' (DEBUG)")
             passwordEt.setText("a12345")
@@ -491,6 +498,14 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         KeyboardUtils.removeAllKeyboardToggleListeners()
     }
 
+    override fun startDeviceActivation() {
+//        getBaseActivity()?.setRootFragment(R.id.containerFl, DeviceActivationComponentFragment())
+        getBaseActivity()?.openComponentDrawer(DeviceActivationComponentFragment::class.java)
+    }
+
+    companion object {
+        var loginOnResume = false
+    }
 
 }
 

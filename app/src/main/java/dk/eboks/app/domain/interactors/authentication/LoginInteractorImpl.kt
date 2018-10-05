@@ -3,6 +3,7 @@ package dk.eboks.app.domain.interactors.authentication
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.message.MessageOpeningState
 import dk.eboks.app.domain.repositories.MailCategoriesRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.protocol.EAuth2
@@ -46,7 +47,7 @@ class LoginInteractorImpl(
                         val userResult = api.getUserProfile().execute()
                         userResult?.body()?.let { user ->
                             // update the states
-                            Timber.i("Saving user $user")
+                            Timber.e("Saving currentUser $user on login")
                             val newUser = userManager.put(user)
                             val newSettings = userSettingsManager.get(newUser.id)
 
@@ -60,7 +61,7 @@ class LoginInteractorImpl(
                             /*
                             appStateManager.state?.loginState?.lastUser?.let { lastUser ->
                                 if (lastUser.id != newUser.id) {
-                                    Timber.e("Different user id detected on login, clearing caches")
+                                    Timber.e("Different currentUser id detected on login, clearing caches")
                                     cacheManager.clearStores()
                                 }
                             }
@@ -74,6 +75,13 @@ class LoginInteractorImpl(
                         }
                         appStateManager.state?.loginState?.userName = ""
                         appStateManager.state?.loginState?.userPassWord = ""
+
+                        // clear message opening state
+                        appStateManager.state?.openingState?.acceptPrivateTerms = false
+                        appStateManager.state?.openingState?.sendReceipt = false
+                        appStateManager.state?.openingState?.shouldProceedWithOpening = false
+                        appStateManager.state?.openingState?.serverError = null
+
                         appStateManager.save()
 
                         EAuth2.ignoreFurtherLoginRequests = false

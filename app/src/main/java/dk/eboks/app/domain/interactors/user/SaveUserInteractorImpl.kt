@@ -15,7 +15,6 @@ class SaveUserInteractorImpl(executor: Executor, val userManager: UserManager) :
     override var input : SaveUserInteractor.Input? = null
 
     override fun execute() {
-        // we don't use input in this example but we could:
         try {
             input?.user?.let { user->
                 userManager.put(user)

@@ -63,6 +63,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/channels_card_background_rounded"
+        android:backgroundTint="@color/white"
         android:clickable="true"
         android:orientation="horizontal">
 
@@ -86,8 +87,7 @@
             android:layout_height="match_parent"
             android:layout_marginRight="20dp"
             android:gravity="center_vertical"
-            android:maxLines="1"
-            android:text="_user name" />
+            android:maxLines="1" />
 
     </LinearLayout>
 

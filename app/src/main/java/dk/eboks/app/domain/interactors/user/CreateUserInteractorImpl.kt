@@ -2,6 +2,8 @@ package dk.eboks.app.domain.interactors.user
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import dk.eboks.app.BuildConfig
+import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.UserManager
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
@@ -26,7 +28,9 @@ class CreateUserInteractorImpl(executor: Executor, val userManager: UserManager,
                     body.addProperty("identity", user.identity)
                     body.addProperty("password", password)
                     body.addProperty("identityType", "P")
-                    body.addProperty("nationality", "DK")
+                    if(Config.isSE()) body.addProperty("nationality", "SE")
+                    if(Config.isDK()) body.addProperty("nationality", "DK")
+                    if(Config.isNO()) body.addProperty("nationality", "NO")
                     //body.addProperty("mobilenumber", "31674031")
                     //body.addProperty("newsletter", false)
                     val mails = JsonArray()

@@ -134,7 +134,8 @@ open class WebLoginPresenter @Inject constructor(
 
     override fun onVerificationError(error: ViewError) {
         runAction { v ->
-            v.showError(error)
+            error.shouldCloseView = true
+            v.showErrorDialog(error)
         }
     }
 

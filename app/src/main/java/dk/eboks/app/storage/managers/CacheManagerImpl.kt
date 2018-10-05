@@ -18,6 +18,10 @@ class CacheManagerImpl(val context: Context) : CacheManager {
     {
         clearStoresMemoryOnly()
         deleteCache()
+        for(store in cacheStores)
+        {
+            store.clearDisc()
+        }
     }
 
     override fun clearStoresMemoryOnly() {

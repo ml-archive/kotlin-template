@@ -205,13 +205,13 @@ class StartActivity : BaseActivity(), StartContract.View {
 
     override fun onPause() {
         super.onPause()
-        if(BuildConfig.DEBUG)
+        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
             UpdateManager.unregister()
     }
 
     override fun onResume() {
         super.onResume()
-        if(BuildConfig.DEBUG) {
+        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             UpdateManager.register(this)
             debugConfEnvTv.text = "Conf/Env: ${Config.getCurrentConfigName()}/${Config.getCurrentEnvironmentName()}"
         }
@@ -227,7 +227,7 @@ class StartActivity : BaseActivity(), StartContract.View {
 
     private fun updateConfEnvDisplay()
     {
-        if(BuildConfig.DEBUG) {
+        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             debugConfEnvTv.text = "Conf/Env: ${Config.getCurrentConfigName()}/${Config.getCurrentEnvironmentName()}"
             debugConfEnvTv.setVisible(true)
         }

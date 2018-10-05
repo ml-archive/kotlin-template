@@ -14,7 +14,6 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
-import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
@@ -30,7 +29,6 @@ import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
-import kotlin.collections.ArrayList
 
 class MailListComponentFragment : BaseFragment(), MailListComponentContract.View {
     @Inject
@@ -169,12 +167,12 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 }
                 (ButtonType.READ)  -> {
                     editAction = ButtonType.READ
-                    presenter.markReadMessages(checkedList)
+                    presenter.markReadMessages(checkedList, false)
                     toggleEditMode()
                 }
                 (ButtonType.UNREAD)  -> {
                     editAction = ButtonType.UNREAD
-                    presenter.markUnreadMessages(checkedList)
+                    presenter.markReadMessages(checkedList, true)
                     toggleEditMode()
                 }
                 else                -> {
@@ -273,11 +271,12 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 OPEN -> {
                     editAction = ButtonType.OPEN
                     message.unread = false
-                    presenter.openMessage(message)
+                    startMessageOpenActivity(message)
                 }
                 READ -> {
                     editAction = ButtonType.READ
-                    presenter.updateMessage(message , MessagePatch(false,false,message.folderId,null))
+                    message.unread = false
+                    presenter.updateMessage(message)
                 }
                 MOVE -> {
                     editAction = ButtonType.MOVE
@@ -318,8 +317,8 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         presenter.loadNextPage()
     }
 
-    override fun openMessage(message: Message) {
-        activity.Starter()
+    private fun startMessageOpenActivity(message: Message) {
+         activity.Starter()
                 .activity(MessageOpeningActivity::class.java)
                 .putExtra(Message::class.java.simpleName, message)
                 .start()

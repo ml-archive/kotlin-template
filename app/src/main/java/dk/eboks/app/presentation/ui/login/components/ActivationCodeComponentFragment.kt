@@ -94,7 +94,7 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
     }
 
     override fun setDebugUp(activationCode: String?) {
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             activationCodeEt.setText(activationCode)
             continueBtn.isEnabled = activationCodeEt.text?.isValidActivationCode() ?: false
         }

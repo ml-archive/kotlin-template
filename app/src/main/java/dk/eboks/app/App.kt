@@ -29,12 +29,13 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
         App.Companion._instance = this
         // NStack.customRequestUrl = Config.currentMode.customTranslationUrl
 
-        NStack.translationClass = Translation::class.java
-        NStack.debugMode = BuildConfig.DEBUG
-        NStack.debugLogLevel = NLog.Level.OFF
-        // Set custom translation url if not in debug
-        if(!BuildConfig.DEBUG)
+        if(!BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
             NStack.customRequestUrl = Config.currentMode.customTranslationUrl
+
+        NStack.translationClass = Translation::class.java
+        NStack.debugMode = BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)
+        NStack.debugLogLevel = NLog.Level.VERBOSE
+        // Set custom translation url if not in debug
 
         NStack.init(this)
 
@@ -49,9 +50,10 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
                     .init()
         }
 
-        if (BuildConfig.DEBUG) {
+        if(BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+
 
         appComponent.inject(this)
 

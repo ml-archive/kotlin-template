@@ -21,7 +21,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
 
     val messageDateFormat: SimpleDateFormat by lazy {
         try {
-            SimpleDateFormat("d. MMM hh:mm", NStack.language)
+            SimpleDateFormat("d. MMM", NStack.language)
         } catch (t: Throwable) {
             SimpleDateFormat()
         }

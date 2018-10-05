@@ -106,7 +106,7 @@ class RestModule {
                 .addInterceptor(eboksHeaderInterceptor)
                 //.addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
 
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             clientBuilder.addInterceptor(ApiHostSelectionInterceptor())
         }
 
@@ -116,18 +116,19 @@ class RestModule {
             clientBuilder.addNetworkInterceptor(logging)
         }
 
-        if (!BuildConfig.DEBUG) {
+        if (!BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             // TODO: reenable cert pinning at some point
-            /*
+
             clientBuilder.certificatePinner(
                     CertificatePinner.Builder()
                             //.add("*.e-boks.dk", "sha256/ABF0819A9C2A025C108014F66A7382E8BC4084612D53530792FF8BF3AA5B8503")
                             //.add("*.eboks.dk", "sha256/bdf29436f609e83fcca59f1119a7e9e6eb69506a")
-                            .add("*.e-boks.dk", "sha256/bdf29436f609e83fcca59f1119a7e9e6eb69506a")
+                            //.add("*.e-boks.com", "sha256/bdf29436f609e83fcca59f1119a7e9e6eb69506a")
+                            .add("*.e-boks.com", "sha256/ai4fadHtzoMb+LlJR11Ar8YHh6wzhlSX9USbrDs8yjw=")
                             //.add("*.e-boks.com", "sha256/bdf29436f609e83fcca59f1119a7e9e6eb69506a")
                             .build()
             )
-            */
+
         }
 
         val cookieJar = PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context))

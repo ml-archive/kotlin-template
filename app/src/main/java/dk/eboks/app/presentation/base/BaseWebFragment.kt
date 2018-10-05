@@ -102,8 +102,6 @@ abstract class BaseWebFragment : BaseFragment() {
     open fun loginKspToken(kspwebtoken : String) {}
     open fun onCheckMergeAccountStatus() {}
 
-
-
     private inner class WebAppInterface {
         @JavascriptInterface
         fun logon(kspweb: String, ticket: String) {

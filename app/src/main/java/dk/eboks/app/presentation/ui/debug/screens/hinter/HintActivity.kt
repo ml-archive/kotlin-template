@@ -46,7 +46,7 @@ class HintActivity : BaseActivity() {
         var hintKey : String = ""
         fun showHint(activity : Activity, newhint : String)
         {
-            if(BuildConfig.DEBUG) {
+            if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
                 Handler(Looper.getMainLooper()).postDelayed({
                     val sharedPrefs : SharedPreferences? = PreferenceManager.getDefaultSharedPreferences(activity)
                     if(sharedPrefs != null) {

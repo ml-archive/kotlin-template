@@ -11,12 +11,11 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
-import dk.eboks.app.domain.models.folder.FolderPatch
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.folder.components.FoldersComponentFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folder_newfolder.*
+import kotlinx.android.synthetic.main.fragment_folderinfo_component.*
 import javax.inject.Inject
 
 /**
@@ -52,7 +51,6 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                 disableFolderSelection = true
             }
         }
-
         setup()
     }
 
@@ -63,20 +61,21 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                 folderRootTv.text = parentFolder?.name
                 deleteIv.visibility = View.VISIBLE
                 editFolder?.name?.let {
-                    val editableString = SpannableStringBuilder(it)
+                    var editableString = SpannableStringBuilder(it)
                     nameEt.text = editableString
                 }
                 deleteIv.setOnClickListener {
-                    //todo delete folder
+                    presenter.deleteFolder(editFolder!!.id)
                 }
             }
+
             FolderDrawerMode.NEW -> {
                 deleteIv.visibility = View.GONE
             }
         }
         if (disableFolderSelection) {
             selectFolderLl.isEnabled = false
-            folderRootTv.setTextColor(ContextCompat.getColor(context,R.color.blueGrey))
+            folderRootTv.setTextColor(ContextCompat.getColor(context, R.color.blueGrey))
         }
         setupButtons()
     }
@@ -85,11 +84,12 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         saveBtn.setOnClickListener {
             when (mode) {
                 FolderDrawerMode.EDIT -> {
-                    val folderName =  if (parentFolder?.name != nameEt.text.toString()) nameEt.text.toString() else null
-                    presenter.saveEditFolder(editFolder?.id, FolderPatch(null,parentFolder?.id, folderName))
+                    editFolder?.id?.let { folderId ->
+                        presenter.editFolder(folderId, parentFolder?.id, nameEt.text.toString())
+                    }
                 }
                 FolderDrawerMode.NEW -> {
-                    //todo save btn  do something
+                    createFolder()
                 }
             }
         }
@@ -99,10 +99,19 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         }
 
         selectFolderLl.setOnClickListener {
-            val i = Intent(context, FolderActivity::class.java)
+            var i = Intent(context, FolderActivity::class.java)
             i.putExtra("pick", true)
             i.putExtra("selectFolder", true)
             startActivityForResult(i, FolderActivity.REQUEST_ID)
+        }
+    }
+
+    private fun createFolder() {
+        val folderName = nameEt.text.toString()
+        if (folderName.isNotBlank()) {
+            presenter.createNewFolder(parentFolder?.id ?: 0, folderName)
+        } else {
+            presenter.folderNameNotAllowed()
         }
     }
 
@@ -121,7 +130,6 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                             }
                         }
                         FolderDrawerMode.EDIT -> {
-                            // todo API move folder to new location
                             parentFolder = data?.getSerializableExtra("res") as Folder
                             folderRootTv.text = parentFolder?.name
                         }
@@ -129,6 +137,10 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                 }
             }
         }
+    }
+
+    override fun finsish() {
+        activity.onBackPressed()
     }
 
     override fun setRootFolder(name: String) {
@@ -139,8 +151,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         }
     }
 
-    override fun folderUpdated() {
-        FoldersComponentFragment.refreshOnResume = true
-        activity.onBackPressed()
+    override fun showFolderNameError() {
+        //todo
     }
 }

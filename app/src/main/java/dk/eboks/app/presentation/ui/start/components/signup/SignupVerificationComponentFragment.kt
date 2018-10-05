@@ -30,6 +30,7 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        VerificationComponentFragment.verificationSucceeded = false
         verifyBtn.setOnClickListener {
             val args = Bundle()
             args.putBoolean("signupVerification", true)
@@ -46,6 +47,7 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
         if(VerificationComponentFragment.verificationSucceeded)
         {
             getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
+            VerificationComponentFragment.verificationSucceeded = false
         }
     }
 
@@ -68,11 +70,13 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
         showProgress(true)
         content.postDelayed({
             showProgress(false)
-            if(Config.isSE()) {
-                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, MMComponentFragment(), true)
-            } else {
-                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
-            }
+            // remove MM as it is out of scope for the current release
+//            if(Config.isSE()) {
+//                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, MMComponentFragment(), true)
+//            } else {
+//                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
+//            }
+            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
         }, 1000)
     }
 }

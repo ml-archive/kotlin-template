@@ -1,5 +1,6 @@
 package dk.eboks.app.domain.interactors.message
 
+import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractor
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 

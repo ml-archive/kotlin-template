@@ -167,6 +167,10 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
         didAttemptToInstallNemID = true
     }
 
+    override fun onCheckMergeAccountStatus() {
+        presenter.mergeAccountOrKeepSeparated()
+    }
+
     private inner class WebAppInterfaceNemID {
         @JavascriptInterface
         fun performAppSwitch() {
@@ -196,7 +200,5 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
                 "console.log(\"registered eventhandlers and shit\");"
     }
 
-    override fun onCheckMergeAccountStatus() {
-        presenter.mergeAccountOrKeepSeparated()
-    }
+
 }

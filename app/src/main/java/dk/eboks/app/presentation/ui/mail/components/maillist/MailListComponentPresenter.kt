@@ -1,9 +1,9 @@
 package dk.eboks.app.presentation.ui.mail.components.maillist
 
-import dk.eboks.app.domain.interactors.message.DeleteMessagesInteractor
-import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
-import dk.eboks.app.domain.interactors.message.MoveMessagesInteractor
-import dk.eboks.app.domain.interactors.message.UpdateMessageInteractor
+import dk.eboks.app.domain.interactors.message.*
+import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesInteractor
+import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractor
+import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
@@ -27,7 +27,8 @@ class MailListComponentPresenter @Inject constructor(
         GetMessagesInteractor.Output,
         DeleteMessagesInteractor.Output,
         MoveMessagesInteractor.Output,
-        UpdateMessageInteractor.Output {
+        UpdateMessageInteractor.Output
+{
 
     companion object {
         val FOLDER_MODE = 1
@@ -39,12 +40,11 @@ class MailListComponentPresenter @Inject constructor(
     var currentFolder: Folder? = null
     var currentSender: Sender? = null
 
-    var currentOffset: Int = 0
-    var currentLimit: Int = 20
-    var totalMessages: Int = -1
-    var acceptedprivateterms: Boolean = false
+    var currentOffset : Int = 0
+    var currentLimit : Int = 20
+    var totalMessages : Int = -1
 
-    override var isLoading: Boolean = false
+    override var isLoading : Boolean = false
 
     init {
         getMessagesInteractor.output = this
@@ -56,7 +56,7 @@ class MailListComponentPresenter @Inject constructor(
         currentFolder = folder
         mode = FOLDER_MODE
         isLoading = true
-        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, folder = folder, offset = currentOffset, limit = currentLimit, acceptedTerms = acceptedprivateterms)
+        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, folder = folder, offset = currentOffset, limit = currentLimit)
         getMessagesInteractor.run()
         runAction { v ->
             v.showProgress(true)
@@ -67,21 +67,25 @@ class MailListComponentPresenter @Inject constructor(
         currentSender = sender
         mode = SENDER_MODE
         isLoading = true
-        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, sender = sender, offset = currentOffset, limit = currentLimit, acceptedTerms = acceptedprivateterms)
+        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, sender = sender, offset = currentOffset, limit = currentLimit)
         getMessagesInteractor.run()
         runAction { v -> v.showProgress(true) }
     }
 
-    override fun loadNextPage() {
+    override fun loadNextPage()
+    {
         // bail out if were still loading the previous page
-        if (isLoading)
+        if(isLoading) {
             return
-        if (currentOffset + currentLimit < totalMessages - 1) {
+        }
+        if(currentOffset + currentLimit < totalMessages-1) {
             currentOffset += currentLimit
             Timber.e("loading next page.. offset = $currentOffset")
             getMessages()
-            runAction { v -> v.showRefreshProgress(true) }
-        } else {
+            runAction { v->v.showRefreshProgress(true) }
+        }
+        else
+        {
             Timber.e("No more pages to load offset = $currentOffset")
         }
     }
@@ -91,13 +95,6 @@ class MailListComponentPresenter @Inject constructor(
         getMessages()
     }
 
-    override fun openMessage(message: Message) {
-        appState.state?.currentMessage = message
-        runAction { v->
-            v.openMessage(message)
-        }
-    }
-
     fun getMessages() {
         isLoading = true
         getMessagesInteractor.input = GetMessagesInteractor.Input(
@@ -105,54 +102,57 @@ class MailListComponentPresenter @Inject constructor(
                 folder = currentFolder,
                 sender = currentSender,
                 offset = currentOffset,
-                limit = currentLimit,
-                acceptedTerms = acceptedprivateterms)
+                limit = currentLimit)
         getMessagesInteractor.run()
     }
 
-    override fun updateMessage(message: Message, messagePatch : MessagePatch) {
+    override fun updateMessage(message: Message) {
         view?.showProgress(true)
-        //todo implment the entire list
-        updateMessageInteractor.input = UpdateMessageInteractor.Input(message, messagePatch)
+
+        // TODO do something to the stuff below
+        /*
+        updateMessageInteractor.input = UpdateMessageInteractor.Input(message)
+        updateMessageInteractor.output = this
         updateMessageInteractor.run()
+        */
     }
 
     override fun deleteMessages(selectedMessages: MutableList<Message>) {
-        //todo implement deleting the entire list and not just first element
         view?.showProgress(true)
-        deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(selectedMessages.get(0))
+        deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(ArrayList(selectedMessages))
         deleteMessagesInteractor.run()
     }
 
     override fun moveMessages(folderId: Int, selectedMessages: MutableList<Message>) {
-        //todo implement multiselect
-        val message = selectedMessages[0]
-        updateMessage(message, MessagePatch(false,null,folderId,null))
+        val messageIds = ArrayList(selectedMessages.map { it })
+        moveMessagesInteractor.input = MoveMessagesInteractor.Input(folderId, messageIds)
+        moveMessagesInteractor.output = this
+        moveMessagesInteractor.run()
     }
 
-    override fun markReadMessages(selectedMessages: MutableList<Message>) {
-        //todo implement multiselect
-        val message = selectedMessages[0]
-        updateMessage(message, MessagePatch(false,null,null,null))
-    }
-
-    override fun markUnreadMessages(selectedMessages: MutableList<Message>) {
-        //todo implement multiselect
-        val message = selectedMessages[0]
-        updateMessage(message, MessagePatch(true,null,null,null))
+    override fun markReadMessages(selectedMessages: MutableList<Message>, unread: Boolean) {
+        val messagePatch = MessagePatch(unread)
+        updateMessage(selectedMessages,messagePatch)
     }
 
     override fun archiveMessages(selectedMessages: MutableList<Message>) {
-        //todo implmenet multiselect
-        val message = selectedMessages[0]
-        updateMessage(message, MessagePatch(null,true,null,null))
+        val messagePatch = MessagePatch(archive = true)
+        updateMessage(selectedMessages, messagePatch)
+
+    }
+
+    private fun updateMessage(selectedMessages: MutableList<Message>, messagePatch: MessagePatch) {
+        view?.showProgress(true)
+        val messages = ArrayList(selectedMessages)
+        updateMessageInteractor.input = UpdateMessageInteractor.Input(messages, messagePatch)
+        updateMessageInteractor.run()
     }
 
     override fun onGetMessages(messages: List<Message>) {
         isLoading = false
         totalMessages = messages.metaData?.total ?: -1
         Timber.e("Got messages offset = $currentOffset totalMsgs = $totalMessages")
-        if (currentOffset == 0) {
+        if(currentOffset == 0) {
             runAction { v ->
                 v.showProgress(false)
                 v.showRefreshProgress(false)

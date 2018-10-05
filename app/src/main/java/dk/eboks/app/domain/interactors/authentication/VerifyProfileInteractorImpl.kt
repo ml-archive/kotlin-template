@@ -39,16 +39,26 @@ class VerifyProfileInteractorImpl(
 
                     // if this verification during signup, we don't need to check for migration since the account isn't
                     // yet created. Hence there is no source account to migrate from yo
+
                     var newIdentity : String? = null
-                    if(verificationState.signupVerification)
-                    {
-                        Timber.e("Doing signup verification for the lord")
-                        if(jwtJson.has("sub"))
-                        {
-                            val arr = jwtJson.getString("sub").split("-").toTypedArray()
-                            newIdentity = arr[1]
-                            Timber.e("Got identity in JWT = $newIdentity")
+                    try {
+                        if (verificationState.signupVerification) {
+                            Timber.e("Doing signup verification for the lord")
+                            if (jwtJson.has("sub")) {
+                                val arr = jwtJson.getString("sub").split("-").toTypedArray()
+                                newIdentity = arr[1]
+                                Timber.e("Got identity in JWT = $newIdentity")
+                            }
                         }
+                    }
+                    catch (t : Throwable)
+                    {
+                        Timber.e(t)
+                        Timber.e("New identity not found in sub field of JWT (like its supposed to) erroring out on verification")
+                        runOnUIThread {
+                            output?.onVerificationError(ViewError("Error", "No identify found in JWT, can't verify"))
+                        }
+                        return
                     }
 
                     // do we need to do the whole migration dance?
@@ -85,6 +95,7 @@ class VerifyProfileInteractorImpl(
                             }
                             appStateManager.save()
                         }
+
                         runOnUIThread {
                             output?.onVerificationSuccess(newIdentity)
                         }

@@ -93,4 +93,7 @@ class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
         presenter.login(kspwebtoken)
     }
 
+    override fun onCheckMergeAccountStatus() {
+        presenter.mergeAccountOrKeepSeparated()
+    }
 }

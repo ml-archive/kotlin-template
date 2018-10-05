@@ -5,6 +5,7 @@ import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.login.VerificationState
 import dk.eboks.app.domain.repositories.SettingsRepository
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.Executor
@@ -34,7 +35,7 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
                 // do something with unwrapped input
 
             }
-            if(BuildConfig.DEBUG) {
+            if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
                 // do we have a saved config?
                 prefManager.getString("config", null)?.let {
                     Timber.e("Setting config to $it")
@@ -79,6 +80,7 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
             appStateManager.state?.currentMessage = null
             appStateManager.state?.currentSettings = null
             appStateManager.state?.currentViewerFileName = null
+            appStateManager.state?.verificationState = null
 
             // clear memory caches, this is necessary when the app hasn't been force closed in case another user
             // is logged in
