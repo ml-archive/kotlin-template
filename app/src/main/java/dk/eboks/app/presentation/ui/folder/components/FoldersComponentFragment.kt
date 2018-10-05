@@ -199,10 +199,6 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        presenter.refresh()
-    }
 
     override fun setUser(user: User?) {
         currentUser = user

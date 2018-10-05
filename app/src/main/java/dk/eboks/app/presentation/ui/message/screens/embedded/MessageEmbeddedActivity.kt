@@ -118,11 +118,11 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
                     if (embeddedViewerComponentFragment is ViewerFragment)
                         (embeddedViewerComponentFragment as ViewerFragment).print()
                 }
-                (ButtonType.MOVE) -> { startFolderSelectActivity() }
-                (ButtonType.ARCHIVE) -> { presenter.archiveMessage() }
-                (ButtonType.READ) -> { presenter.markMessageRead() }
-                (ButtonType.UNREAD) -> { presenter.markMessageUnread() }
-                (ButtonType.DELETE) -> { presenter.deleteMessage() }
+//                (ButtonType.MOVE) -> { startFolderSelectActivity() }
+//                (ButtonType.ARCHIVE) -> { presenter.archiveMessage() }
+//                (ButtonType.READ) -> { presenter.markMessageRead() }
+//                (ButtonType.UNREAD) -> { presenter.markMessageUnread() }
+//                (ButtonType.DELETE) -> { presenter.deleteMessage() }
                 else -> {
                     // Request do nothing
                 }

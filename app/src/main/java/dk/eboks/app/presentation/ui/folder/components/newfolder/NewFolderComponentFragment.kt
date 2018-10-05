@@ -8,11 +8,13 @@ import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.folder.components.FoldersComponentFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folder_newfolder.*
 import kotlinx.android.synthetic.main.fragment_folderinfo_component.*
@@ -108,11 +110,12 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
 
     private fun createFolder() {
         val folderName = nameEt.text.toString()
-        if (folderName.isNotBlank()) {
+        //todo find out if the error handling for names should be done frontend. also the server will not accept special characters etc
+//        if (folderName.isNotBlank()) {
             presenter.createNewFolder(parentFolder?.id ?: 0, folderName)
-        } else {
-            presenter.folderNameNotAllowed()
-        }
+//        } else {
+//            presenter.folderNameNotAllowed()
+//        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -139,7 +142,8 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         }
     }
 
-    override fun finsish() {
+    override fun finish() {
+        FoldersComponentFragment.refreshOnResume = true
         activity.onBackPressed()
     }
 
@@ -153,5 +157,6 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
 
     override fun showFolderNameError() {
         //todo
+
     }
 }

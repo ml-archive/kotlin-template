@@ -1,17 +1,14 @@
 package dk.eboks.app.presentation.ui.message.screens.embedded
 
 import dk.eboks.app.BuildConfig
-import dk.eboks.app.domain.interactors.message.DeleteMessagesInteractor
-import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
-import dk.eboks.app.domain.interactors.message.MoveMessagesInteractor
-import dk.eboks.app.domain.interactors.message.UpdateMessageInteractor
+
+import dk.eboks.app.domain.interactors.message.messageoperations.*
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -92,10 +89,10 @@ class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateMan
     }
 
     fun updateMessage(messagePatch: MessagePatch) {
-        message?.let {
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(it, messagePatch)
-            updateMessageInteractor.run()
-        }
+//        message?.let {
+//            updateMessageInteractor.input = UpdateMessageInteractor.Input( messagePatch)
+//            updateMessageInteractor.run()
+//        }
     }
 
     override fun moveMessage(folder: Folder) {
@@ -104,10 +101,10 @@ class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateMan
     }
 
     override fun deleteMessage() {
-        message?.let {
-            deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(it)
-            deleteMessagesInteractor.run()
-        }
+//        message?.let {
+//            deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(it)
+//            deleteMessagesInteractor.run()
+//        }
     }
 
     override fun archiveMessage() {

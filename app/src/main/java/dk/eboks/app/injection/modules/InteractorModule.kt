@@ -16,6 +16,7 @@ import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.folder.*
 import dk.eboks.app.domain.interactors.message.*
 import dk.eboks.app.domain.interactors.message.messageoperations.*
+import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractorImpl
 import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.*
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor

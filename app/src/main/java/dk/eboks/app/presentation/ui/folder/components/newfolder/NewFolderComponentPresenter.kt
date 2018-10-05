@@ -56,7 +56,7 @@ class NewFolderComponentPresenter @Inject constructor(
 
     private fun finishView() {
         runAction { view ->
-            view.finsish()
+            view.finish()
         }
     }
 

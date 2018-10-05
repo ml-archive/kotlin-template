@@ -9,6 +9,7 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderPatch
 import dk.eboks.app.domain.models.folder.FolderRequest
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.home.HomeContent

@@ -10,7 +10,7 @@ interface NewFolderComponentContract {
     interface View : BaseView {
         fun setRootFolder(user : String)
         fun showFolderNameError()
-        fun finsish()
+        fun finish()
     }
 
     interface Presenter : BasePresenter<View> {
