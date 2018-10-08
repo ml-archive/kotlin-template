@@ -17,5 +17,7 @@ data class StoreboxMerchant(
         @SerializedName("zipCode")
         var zipCode: String? = null,
         @SerializedName("phoneNumber")
-        var phoneNumber: String? = null
+        var phoneNumber: String? = null,
+        @SerializedName("city")
+        var city: String? = null
 ) : Parcelable

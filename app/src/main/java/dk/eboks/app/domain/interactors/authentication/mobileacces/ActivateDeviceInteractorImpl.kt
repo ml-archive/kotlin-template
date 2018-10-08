@@ -18,7 +18,9 @@ class ActivateDeviceInteractorImpl(executor: Executor, val settingsRepository: S
 
                 val deviceId = settingsRepository.get().deviceId
                 val deviceName = "test device"
-                val os = "Android " + Build.VERSION.RELEASE
+                val os = "Android"
+                //todo change this back, using hardcoded values to help debug the api
+//                val os = "Android " + Build.VERSION.RELEASE
                 val key = it.key
                 val userResult = api.activateDevice(ActivationDevice(deviceId,deviceName,os,key)).execute()
                     runOnUIThread { output?.onActivateDeviceSuccess() }

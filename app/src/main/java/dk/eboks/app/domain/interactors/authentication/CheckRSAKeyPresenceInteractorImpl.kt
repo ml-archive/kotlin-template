@@ -26,6 +26,7 @@ class CheckRSAKeyPresenceInteractorImpl(executor: Executor, val cryptoManager: C
                 }
                 else
                     //todo change this to false once they get the api to work...
+                    //mobileaccess login
                     runOnUIThread { output?.onCheckRSAKeyPresence(true) }
             }
         } catch (t: Throwable) {

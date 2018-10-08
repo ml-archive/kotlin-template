@@ -178,14 +178,13 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     private fun setStoreInfo(merchant: StoreboxMerchant?, optionals: StoreboxOptionals?) {
         storeboxDetailTvStoreName.text = merchant?.name
         storeboxDetailTvAddressLineOne.text = merchant?.addressLine1
-        if(merchant?.addressLine2?.isNullOrBlank() == false)
-        {
+        merchant?.zipCode?.let {
             storeboxDetailTvAddressLineTwo.setVisible(true)
-            storeboxDetailTvAddressLineTwo.text = merchant?.addressLine2
-        }
-        else
+            storeboxDetailTvAddressLineTwo.text = it + " " + merchant.city
+    }.guard {
             storeboxDetailTvAddressLineTwo.setVisible(false)
-        storeboxDetailTvPhoneNumber.text = optionals?.storeRegNumber
+        }
+        storeboxDetailTvPhoneNumber.text = "MOMS NR: " + optionals?.storeRegNumber
     }
 
     private fun setReceiptAmount(grandTotal: StoreboxReceiptPrice?) {

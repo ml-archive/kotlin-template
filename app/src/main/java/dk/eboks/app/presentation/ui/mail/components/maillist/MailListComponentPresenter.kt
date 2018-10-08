@@ -106,17 +106,6 @@ class MailListComponentPresenter @Inject constructor(
         getMessagesInteractor.run()
     }
 
-    override fun updateMessage(message: Message) {
-        view?.showProgress(true)
-
-        // TODO do something to the stuff below
-        /*
-        updateMessageInteractor.input = UpdateMessageInteractor.Input(message)
-        updateMessageInteractor.output = this
-        updateMessageInteractor.run()
-        */
-    }
-
     override fun deleteMessages(selectedMessages: MutableList<Message>) {
         view?.showProgress(true)
         deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(ArrayList(selectedMessages))

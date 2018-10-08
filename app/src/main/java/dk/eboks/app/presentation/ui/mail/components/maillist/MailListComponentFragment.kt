@@ -256,7 +256,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                     activity.mainTb.title = it.name
                 }
             }
-
         }
     }
 
@@ -275,8 +274,8 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 }
                 READ -> {
                     editAction = ButtonType.READ
-                    message.unread = false
-                    presenter.updateMessage(message)
+                    message.unread = !message.unread
+                    presenter.markReadMessages(arrayListOf(message), message.unread)
                 }
                 MOVE -> {
                     editAction = ButtonType.MOVE
@@ -298,7 +297,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         }
 
         messagesRv.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
                 layoutManager?.let {
@@ -309,11 +307,9 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 super.onScrolled(recyclerView, dx, dy)
             }
         })
-
     }
 
-    private fun onScrolledToLastItem()
-    {
+    private fun onScrolledToLastItem() {
         presenter.loadNextPage()
     }
 
