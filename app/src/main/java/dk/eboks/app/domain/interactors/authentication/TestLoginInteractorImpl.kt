@@ -19,63 +19,63 @@ class TestLoginInteractorImpl(
     override var input: TestLoginInteractor.Input? = null
 
     override fun execute() {
-        try {
-            input?.let { args ->
-                try {
-                    if(!args.activationCode.isNullOrBlank()) {
-                        authClient.login(
-                                username = args.username,
-                                password = args.password,
-                                activationCode = args.activationCode,
-                                longClient = false,
-                                verifyOnly = true
-                        )
-                    }
-                    else
-                    {
-                        authClient.login(
-                                username = args.username,
-                                password = args.password,
-                                activationCode = null,
-                                longClient = false,
-                                verifyOnly = true
-                        )
-                    }
-
-
-                    runOnUIThread {
-                        output?.onTestLoginSuccess()
-                    }
-                }
-                catch (e : AuthException)
-                {
-                    Timber.e("AuthException = ${e.httpCode} ${e.errorDescription}")
-                    if(e.httpCode == 400)
-                    {
-                        runOnUIThread {
-                            when {
-                                e.errorDescription.contentEquals("User verification error") -> output?.onTestLoginDenied(ViewError(
-                                        title = Translation.logoncredentials.invalidCredentialsTitle,
-                                        message = Translation.logoncredentials.invalidCredentialsMessage,
-                                        shouldCloseView = false))
-                                e.errorDescription.contentEquals("Activation code is required") -> output?.onTestLoginSuccess() // counts as a success, we won't bother actually getting the activationCode
-                                else -> output?.onTestLoginDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = false))
-                            }
-                        }
-                    }
-                    else
-                    {
-                        runOnUIThread {
-                            output?.onTestLoginDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true))
-                        }
-                    }
-                }
-
-            }
-        } catch (t: Throwable) {
-            runOnUIThread {
-                output?.onTestLoginError(exceptionToViewError(t))
-            }
-        }
+//        try {
+//            input?.let { args ->
+//                try {
+//                    if(!args.activationCode.isNullOrBlank()) {
+//                        authClient.login(
+//                                username = args.username,
+//                                password = args.password,
+//                                activationCode = args.activationCode,
+//                                longClient = false,
+//                                verifyOnly = true
+//                        )
+//                    }
+//                    else
+//                    {
+//                        authClient.login(
+//                                username = args.username,
+//                                password = args.password,
+//                                activationCode = null,
+//                                longClient = false,
+//                                verifyOnly = true
+//                        )
+//                    }
+//
+//
+//                    runOnUIThread {
+//                        output?.onTestLoginSuccess()
+//                    }
+//                }
+//                catch (e : AuthException)
+//                {
+//                    Timber.e("AuthException = ${e.httpCode} ${e.errorDescription}")
+//                    if(e.httpCode == 400)
+//                    {
+//                        runOnUIThread {
+//                            when {
+//                                e.errorDescription.contentEquals("User verification error") -> output?.onTestLoginDenied(ViewError(
+//                                        title = Translation.logoncredentials.invalidCredentialsTitle,
+//                                        message = Translation.logoncredentials.invalidCredentialsMessage,
+//                                        shouldCloseView = false))
+//                                e.errorDescription.contentEquals("Activation code is required") -> output?.onTestLoginSuccess() // counts as a success, we won't bother actually getting the activationCode
+//                                else -> output?.onTestLoginDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = false))
+//                            }
+//                        }
+//                    }
+//                    else
+//                    {
+//                        runOnUIThread {
+//                            output?.onTestLoginDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true))
+//                        }
+//                    }
+//                }
+//
+//            }
+//        } catch (t: Throwable) {
+//            runOnUIThread {
+//                output?.onTestLoginError(exceptionToViewError(t))
+//            }
+//        }
     }
 }

@@ -12,6 +12,7 @@ interface DeviceActivationComponentContract {
         fun setupButtons()
         fun requestNemidLogin()
         fun closeDrawer()
+        fun login()
     }
 
     interface Presenter : BasePresenter<View> {

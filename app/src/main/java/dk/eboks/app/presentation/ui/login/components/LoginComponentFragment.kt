@@ -59,8 +59,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     var currentProvider: LoginProvider? = null
     var currentUser: User? = null
     var currentSettings: UserSettings? = null
-    var selectedLoginProviderId : String? = null
-    var reauth : Boolean = false
+    var selectedLoginProviderId: String? = null
+    var reauth: Boolean = false
 
     override fun onCreateView(
             inflater: LayoutInflater?,
@@ -83,7 +83,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
 
         arguments?.getString("selectedLoginProviderId")?.let {
-            if(arguments?.getBoolean("reauth") == true)
+            if (arguments?.getBoolean("reauth") == true)
                 reauth = true
             selectedLoginProviderId = it
         }.guard { selectedLoginProviderId = null }
@@ -124,8 +124,9 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         super.onResume()
         Timber.d("onResume")
         presenter.setup(selectedLoginProviderId, reauth, loginOnResume)
-        if(loginOnResume)
+        if (loginOnResume) {
             loginOnResume = false
+        }
         setupCprEmailListeners()
         setupPasswordListener()
         KeyboardUtils.addKeyboardToggleListener(activity, keyboardListener)
@@ -151,11 +152,9 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 val identity: String = if (provider.id == "email") {
                     user.emails[0].value ?: ""
                 } else {
-                    if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true) && !user.identity.isNullOrBlank())
-                    {
+                    if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true) && !user.identity.isNullOrBlank()) {
                         user.identity ?: cprEmailEt.text.toString().trim()
-                    }
-                    else
+                    } else
                         cprEmailEt.text.toString().trim()
                     //currentUser.identity ?: ""
                 }
@@ -190,7 +189,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     override fun proceedToApp() {
         //Timber.v("Signal - login_condition")
         signal("login_condition") // allow the eAuth2 authenticator to continue
-        if(!reauth)
+        if (!reauth)
             (activity as StartActivity).startMain()
         else {
             activity.setResult(Activity.RESULT_OK)
@@ -224,7 +223,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         currentSettings = settings
         if (settings.hasFingerprint) {
             addFingerPrintProvider()
-            if(presenter.reauthing)
+            if (presenter.reauthing)
                 handler.post {
                     if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M)
                         showFingerprintDialog()
@@ -321,8 +320,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
         continueBtn.visibility = View.GONE
         passwordTil.visibility = View.VISIBLE
-        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
-        {
+        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             showToast("Password preset to 'a12345' (DEBUG)")
             passwordEt.setText("a12345")
             continueBtn.isEnabled = true
@@ -364,8 +362,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 else -> {
                     val providerFragment = provider.fragmentClass?.newInstance()
                     // if this is verification make sure the going back cancels the login instead presenting alternate providers
-                    if(selectedLoginProviderId != null)
-                    {
+                    if (selectedLoginProviderId != null) {
                         providerFragment?.putArg("closeLoginOnBack", true)
                     }
                     getBaseActivity()?.addFragmentOnTop(
@@ -408,17 +405,19 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
     }
 
-    private fun setupKeyboardListener(){}
+    private fun setupKeyboardListener() {}
 
     private fun setupPasswordListener() {
 
         passwordEt.setOnEditorActionListener { v, actionId, event ->
-            when (actionId){
+            when (actionId) {
                 EditorInfo.IME_ACTION_GO -> {
                     onContinue()
-                     true
+                    true
                 }
-                else -> { false}
+                else -> {
+                    false
+                }
             }
         }
 

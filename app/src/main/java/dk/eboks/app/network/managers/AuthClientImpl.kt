@@ -7,7 +7,9 @@ import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.managers.AuthClient
 import dk.eboks.app.domain.managers.AuthException
+import dk.eboks.app.domain.managers.CryptoManager
 import dk.eboks.app.domain.models.login.AccessToken
+import dk.eboks.app.domain.repositories.SettingsRepository
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -15,9 +17,13 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONObject
 import timber.log.Timber
 import java.io.UnsupportedEncodingException
+import java.sql.Time
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.TimeUnit
 
-class AuthClientImpl : AuthClient {
+class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: SettingsRepository) : AuthClient {
     private var httpClient: OkHttpClient
     private var gson: Gson = Gson()
 
@@ -37,7 +43,7 @@ class AuthClientImpl : AuthClient {
         httpClient = clientBuilder.build()
     }
 
-    override fun transformKspToken(kspToken : String, oauthToken : String?, longClient: Boolean) : AccessToken? {
+    override fun transformKspToken(kspToken: String, oauthToken: String?, longClient: Boolean): AccessToken? {
         val keys = getKeys(true, longClient)
 
         val formBody = FormBody.Builder()
@@ -48,7 +54,7 @@ class AuthClientImpl : AuthClient {
                 .add("client_secret", keys.second)
 
 
-        if(oauthToken != null)
+        if (oauthToken != null)
             formBody.add("oauthtoken", oauthToken)
 
         val request = Request.Builder()
@@ -57,8 +63,7 @@ class AuthClientImpl : AuthClient {
                 .build()
 
         val result = httpClient.newCall(request).execute()
-        if(result.isSuccessful)
-        {
+        if (result.isSuccessful) {
             result.body()?.string()?.let { json ->
                 gson.fromJson(json, AccessToken::class.java)?.let { token ->
                     return token
@@ -68,7 +73,7 @@ class AuthClientImpl : AuthClient {
         return null
     }
 
-    override fun impersonate(token : String, userId : String) : AccessToken? {
+    override fun impersonate(token: String, userId: String): AccessToken? {
         val keys = getKeys(true, false)
 
         val formBody = FormBody.Builder()
@@ -86,8 +91,7 @@ class AuthClientImpl : AuthClient {
                 .build()
 
         val result = httpClient.newCall(request).execute()
-        if(result.isSuccessful)
-        {
+        if (result.isSuccessful) {
             result.body()?.string()?.let { json ->
                 gson.fromJson(json, AccessToken::class.java)?.let { token ->
                     return token
@@ -97,7 +101,7 @@ class AuthClientImpl : AuthClient {
         throw(InteractorException("impersonate failed"))
     }
 
-    override fun transformRefreshToken(refreshToken : String, longClient: Boolean) : AccessToken? {
+    override fun transformRefreshToken(refreshToken: String, longClient: Boolean): AccessToken? {
         val keys = getKeys(false, longClient)
 
         val formBody = FormBody.Builder()
@@ -114,8 +118,7 @@ class AuthClientImpl : AuthClient {
                 .build()
 
         val result = httpClient.newCall(request).execute()
-        if(result.isSuccessful)
-        {
+        if (result.isSuccessful) {
             result.body()?.string()?.let { json ->
                 gson.fromJson(json, AccessToken::class.java)?.let { token ->
                     return token
@@ -126,7 +129,7 @@ class AuthClientImpl : AuthClient {
     }
 
     // Throws AuthException with http error code on other values than 200 okay
-    override fun login(username : String, password : String, activationCode : String?, longClient: Boolean, bearerToken : String?, verifyOnly : Boolean) : AccessToken? {
+    override fun login(username: String, password: String, longClient: Boolean, bearerToken: String?, verifyOnly: Boolean, userId: String?): AccessToken? {
         val keys = getKeys(false, longClient)
 
         val formBody = FormBody.Builder()
@@ -136,21 +139,39 @@ class AuthClientImpl : AuthClient {
                 .add("username", username)
                 .add("password", password)
 
-        if(verifyOnly)
+        if (verifyOnly)
             formBody.add("scope", "mobileapi")
         else
             formBody.add("scope", "mobileapi offline_access")
 
+//        ---------- mobile access ----------------------------
+        val baseTime = Date()
+        val utcTime =  SimpleDateFormat("yyyyMMddHHmmss", Locale.UK).format(baseTime)
+        val isoTime = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.UK).format(baseTime)
+        val deviceId = settingsRepository.get().deviceId
 
-        activationCode?.let {
-            formBody.add("acr_values", "activationcode:$it nationality:${Config.getCurrentNationality()}")
+        Timber.e("devicekey utcTime : " + utcTime + " ------------ isoTime : " + isoTime)
+
+        userId?.let { userId ->
+            if (!cryptoManager.hasActivation(userId)) {
+                formBody.add("acr_values", "deviceid:${deviceId}")
+            } else {
+                var challenge = "EBOKS:${username}:${password}:${deviceId}:${utcTime}"
+                Timber.e("devicekey challenge : " + challenge)
+                cryptoManager.getActivation(userId)?.privateKey?.let { privateKey ->
+                    challenge = cryptoManager.hashStringData(challenge, privateKey)
+                    Timber.e("devicekey hashedchallenge : " + challenge)
+                    formBody.add("acr_values", "challenge:${challenge} timestamp:${isoTime} deviceid:${deviceId}")
+                }
+            }
         }
+//        ----------------------------------------------------------
 
         val requestBuilder = Request.Builder()
                 .url(Config.getAuthUrl())
                 .post(formBody.build())
 
-        bearerToken?.let { token->
+        bearerToken?.let { token ->
             requestBuilder.addHeader("Authorization", "Bearer $token")
         }
 
@@ -158,26 +179,21 @@ class AuthClientImpl : AuthClient {
 
         val result = httpClient.newCall(request).execute()
 
-        if(result.isSuccessful)
-        {
+        if (result.isSuccessful) {
             // do not read the token if we're only verifying the login
-            if(!verifyOnly) {
+            if (!verifyOnly) {
                 result.body()?.string()?.let { json ->
                     gson.fromJson(json, AccessToken::class.java)?.let { token ->
                         return token
                     }
                 }
             }
-        }
-        else
-        {
+        } else {
             result.body()?.string()?.let { json ->
-                var jsonObj : JSONObject? = null
+                var jsonObj: JSONObject? = null
                 try {
                     jsonObj = JSONObject(json)
-                }
-                catch (t : Throwable)
-                {
+                } catch (t: Throwable) {
                     Timber.e(t)
                     throw(AuthException(result.code(), ""))
                 }
@@ -186,27 +202,30 @@ class AuthClientImpl : AuthClient {
 
                 throw(AuthException(result.code(), jsonObj?.getString("error_description") ?: ""))
             }
-
         }
         return null
     }
 
-    private fun getKeys(isCustom: Boolean, isLong: Boolean) : Pair<String, String> {
+    private fun getKeys(isCustom: Boolean, isLong: Boolean): Pair<String, String> {
         lateinit var idSecret: Pair<String, String>
-        if(isCustom && isLong) {
-            idSecret = Pair(Config.currentMode.environment?.longAuthCustomId ?: "", Config.currentMode.environment?.longAuthCustomSecret ?: "")
+        if (isCustom && isLong) {
+            idSecret = Pair(Config.currentMode.environment?.longAuthCustomId
+                    ?: "", Config.currentMode.environment?.longAuthCustomSecret ?: "")
         } else if (isCustom && !isLong) {
-            idSecret = Pair(Config.currentMode.environment?.shortAuthCustomId ?: "", Config.currentMode.environment?.shortAuthCustomSecret ?: "")
-        } else if(!isCustom && isLong) {
-            idSecret = Pair(Config.currentMode.environment?.longAuthId ?: "", Config.currentMode.environment?.longAuthSecret ?: "")
+            idSecret = Pair(Config.currentMode.environment?.shortAuthCustomId
+                    ?: "", Config.currentMode.environment?.shortAuthCustomSecret ?: "")
+        } else if (!isCustom && isLong) {
+            idSecret = Pair(Config.currentMode.environment?.longAuthId
+                    ?: "", Config.currentMode.environment?.longAuthSecret ?: "")
         } else if (!isCustom && !isLong) {
-            idSecret = Pair(Config.currentMode.environment?.shortAuthId ?: "", Config.currentMode.environment?.shortAuthSecret ?: "")
+            idSecret = Pair(Config.currentMode.environment?.shortAuthId
+                    ?: "", Config.currentMode.environment?.shortAuthSecret ?: "")
         }
         return idSecret
     }
 
     @Throws(Exception::class)
-    override fun decodeJWTBody(JWTEncoded: String) : JSONObject {
+    override fun decodeJWTBody(JWTEncoded: String): JSONObject {
         val split = JWTEncoded.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         //val jwtHeaderJson = JSONObject(getJson(split[0]))
         val jwtBodyJson = JSONObject(getJson(split[1]))

@@ -520,6 +520,7 @@ public class Translation {
 		public static String confirmDeleteTitle = "Skal den valgte kvittering slettes?";
 		public static String confirmDeleteMessage = "Er du sikker p\u00E5, du vil slette denne kvittering?";
 		public static String receiptSavedToFolderToast = "Kvittering er gemt i [folderName]";
+		public static String cvrPrefix = "CVR: ";
 	}
 	public final static class channelsettingsstoreboxadditions {
 		public static String digitalReceiptsTitle = "Modtag kun kvitteringer digitalt";
@@ -744,9 +745,9 @@ public class Translation {
 		public static String installNemIdAppBtn = "Install\u00E9r NemID";
 	}
 	public final static class deviceactivation {
-		public static String header = "Aktiver Enhed";
+		public static String header = "Aktivering";
 		public static String message = "Aktiver din enhed";
 		public static String activateBtn = "Aktiv\u00E9r";
-		public static String skipBtn = "Spring over";
+		public static String skipBtn = "Annuller";
 	}
 }
