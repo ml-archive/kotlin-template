@@ -17,9 +17,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.json.JSONObject
 import timber.log.Timber
 import java.io.UnsupportedEncodingException
-import java.sql.Time
-import java.text.DateFormat
 import java.text.SimpleDateFormat
+import java.time.ZoneOffset
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -146,11 +145,18 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
 
 //        ---------- mobile access ----------------------------
         val baseTime = Date()
-        val utcTime =  SimpleDateFormat("yyyyMMddHHmmss", Locale.UK).format(baseTime)
-        val isoTime = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.UK).format(baseTime)
+        val utcFormatter = SimpleDateFormat("yyyyMMddHHmmss", Locale.UK)
+        utcFormatter.timeZone = TimeZone.getTimeZone("ECT") // chnt 101518 HACK: use Euro-time TODO: change to "UTC" (this should always be in UTC according to spec)
+
+        val isoFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.UK)
+        isoFormatter.timeZone = TimeZone.getTimeZone("ECT") // chnt 101518 HACK: use Euro-time TODO: RemoveMe (this should always be ISO-8601 and include time zone)
+
+        val utcTime = utcFormatter.format(baseTime)
+        val localTime = isoFormatter.format(baseTime)
+
         val deviceId = settingsRepository.get().deviceId
 
-        Timber.e("devicekey utcTime : " + utcTime + " ------------ isoTime : " + isoTime)
+        Timber.e("devicekey utcTime : " + utcTime + " ------------ isoTime : " + localTime)
 
         userId?.let { userId ->
             if (!cryptoManager.hasActivation(userId)) {
@@ -161,7 +167,7 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
                 cryptoManager.getActivation(userId)?.privateKey?.let { privateKey ->
                     challenge = cryptoManager.hashStringData(challenge, privateKey)
                     Timber.e("devicekey hashedchallenge : " + challenge)
-                    formBody.add("acr_values", "challenge:${challenge} timestamp:${isoTime} deviceid:${deviceId}")
+                    formBody.add("acr_values", "challenge:${challenge} timestamp:${localTime} deviceid:${deviceId}")
                 }
             }
         }
