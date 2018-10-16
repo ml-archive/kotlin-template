@@ -31,7 +31,7 @@
                 android:outlineProvider="background"
                 android:background="@drawable/channels_card_background_rounded"/>
 
-            <!-- alpha needs to be 0. otherwise old-phones don't draw the underlying view -->
+            <!-- android:alpha needs to be 0. Otherwise old-phones don't draw the underlying view -->
             <!-- We set the alpha back to 0.2 in code after loading the image -->
             <ImageView
                 android:id="@+id/backgroundIv"
