@@ -18,7 +18,6 @@ import org.json.JSONObject
 import timber.log.Timber
 import java.io.UnsupportedEncodingException
 import java.text.SimpleDateFormat
-import java.time.ZoneOffset
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -144,29 +143,30 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
             formBody.add("scope", "mobileapi offline_access")
 
 //      ---------- mobile access ----------
-        val baseTime = Date()
         val utcFormatter = SimpleDateFormat("yyyyMMddHHmmss", Locale.UK)
         utcFormatter.timeZone = TimeZone.getTimeZone("GMT+02:00") // chnt 101518 HACK: use Euro-time TODO: change to "UTC" (this should always be in UTC according to spec)
 
         val isoFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.UK)
-        isoFormatter.timeZone = TimeZone.getTimeZone("GMT-11:00") // chnt 101518 HACK: use New-Zealand-time TODO: RemoveMe (this should always be ISO-8601 and include time zone)
+        isoFormatter.timeZone = TimeZone.getTimeZone("GMT-11:00") // chnt 101518 Example: use New-Zealand-time TODO: RemoveMe
 
-        val utcTime = utcFormatter.format(baseTime)
+        val baseTime = Date()
+        val challengeTime = utcFormatter.format(baseTime)
         val localTime = isoFormatter.format(baseTime)
 
         val deviceId = settingsRepository.get().deviceId
 
-        Timber.e("devicekey utcTime : " + utcTime + " ------------ isoTime : " + localTime)
+        Timber.v("login - ChallengeTime: $challengeTime, LocalTime: $localTime")
 
-        userId?.let { userId ->
-            if (!cryptoManager.hasActivation(userId)) {
-                formBody.add("acr_values", "deviceid:${deviceId}")
+        userId?.let { id ->
+            if (!cryptoManager.hasActivation(id)) {
+                formBody.add("acr_values", "deviceid:$deviceId")
             } else {
-                var challenge = "EBOKS:${username}:${password}:${deviceId}:${utcTime}"
-                Timber.e("devicekey challenge : " + challenge)
-                cryptoManager.getActivation(userId)?.privateKey?.let { privateKey ->
+                var challenge = "EBOKS:$username:$password:$deviceId:$challengeTime"
+                Timber.i("login - challenge: $challenge")
+
+                cryptoManager.getActivation(id)?.privateKey?.let { privateKey ->
                     challenge = cryptoManager.hashStringData(challenge, privateKey)
-                    Timber.e("devicekey hashedchallenge : " + challenge)
+                    Timber.i("login - hashedchallenge : " + challenge)
                     formBody.add("acr_values", "challenge:${challenge} timestamp:${localTime} deviceid:${deviceId}")
                 }
             }
@@ -214,17 +214,21 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
     private fun getKeys(isCustom: Boolean, isLong: Boolean): Pair<String, String> {
         lateinit var idSecret: Pair<String, String>
         if (isCustom && isLong) {
-            idSecret = Pair(Config.currentMode.environment?.longAuthCustomId
-                    ?: "", Config.currentMode.environment?.longAuthCustomSecret ?: "")
+            idSecret = Pair(
+                    Config.currentMode.environment?.longAuthCustomId ?: "",
+                    Config.currentMode.environment?.longAuthCustomSecret ?: "")
         } else if (isCustom && !isLong) {
-            idSecret = Pair(Config.currentMode.environment?.shortAuthCustomId
-                    ?: "", Config.currentMode.environment?.shortAuthCustomSecret ?: "")
+            idSecret = Pair(
+                    Config.currentMode.environment?.shortAuthCustomId ?: "",
+                    Config.currentMode.environment?.shortAuthCustomSecret ?: "")
         } else if (!isCustom && isLong) {
-            idSecret = Pair(Config.currentMode.environment?.longAuthId
-                    ?: "", Config.currentMode.environment?.longAuthSecret ?: "")
+            idSecret = Pair(
+                    Config.currentMode.environment?.longAuthId ?: "",
+                    Config.currentMode.environment?.longAuthSecret ?: "")
         } else if (!isCustom && !isLong) {
-            idSecret = Pair(Config.currentMode.environment?.shortAuthId
-                    ?: "", Config.currentMode.environment?.shortAuthSecret ?: "")
+            idSecret = Pair(
+                    Config.currentMode.environment?.shortAuthId ?: "",
+                    Config.currentMode.environment?.shortAuthSecret ?: "")
         }
         return idSecret
     }

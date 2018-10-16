@@ -36,9 +36,9 @@ import dk.eboks.app.util.*
 import dk.nodes.arch.domain.executor.SignalDispatcher.signal
 import dk.nodes.locksmith.core.models.FingerprintDialogEvent.*
 import kotlinx.android.synthetic.main.fragment_login_component.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.include_toolbar.*
 
 /**
  * Created by bison on 09-02-2018.
@@ -332,13 +332,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         userNameTv.text = user?.name
         userEmailCprTv.text = user?.emails?.firstOrNull()?.value
 
-        val options = RequestOptions()
-        options.error(R.drawable.ic_profile_placeholder)
-        options.placeholder(R.drawable.ic_profile_placeholder)
-        options.transforms(CenterCrop(), RoundedCorners(30))
         Glide.with(context)
                 .load(user?.avatarUri)
-                .apply(options)
+                .apply(RequestOptions()
+                        .error(R.drawable.ic_profile_placeholder)
+                        .placeholder(R.drawable.ic_profile_placeholder)
+                        .transforms(CenterCrop(), RoundedCorners(30)))
                 .into(userAvatarIv)
     }
 
