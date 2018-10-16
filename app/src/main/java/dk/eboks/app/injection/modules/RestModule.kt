@@ -31,6 +31,7 @@ import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.ClearableCookieJar
 import okhttp3.Cookie
 import android.R.attr.host
+import dk.eboks.app.domain.repositories.SettingsRepository
 import okhttp3.HttpUrl
 import okhttp3.CookieJar
 import timber.log.Timber
@@ -186,8 +187,8 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideAuthClient(): AuthClient {
-        return AuthClientImpl()
+    fun provideAuthClient(cryptoManager: CryptoManager,settingsRepository: SettingsRepository ): AuthClient {
+        return AuthClientImpl(cryptoManager, settingsRepository)
     }
 
 

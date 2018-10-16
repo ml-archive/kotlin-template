@@ -48,7 +48,7 @@ import java.io.File
 
 
 class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
-                                                      ChannelContentStoreboxDetailComponentContract.View {
+        ChannelContentStoreboxDetailComponentContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
     @Inject
@@ -95,7 +95,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         mainTb?.setNavigationOnClickListener {
             fragmentManager.popBackStack()
         }
-        
+
         //mainTb?.overflowIcon = context.resources.getDrawable(R.drawable.icon_48_option_red_navigationbar)
 
         val menuItem = mainTb?.menu?.add("_options")
@@ -131,8 +131,6 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     }
 
     override fun setReceipt(receipt: StoreboxReceipt) {
-        Timber.d("Setting Receipt: %s", receipt)
-
         mainTb?.title = receipt.merchant?.name ?: ""
         setStoreInfo(receipt.merchant, receipt.optionals)
         setReceiptDate(receipt.purchaseDateTime ?: Date(), receipt.optionals)
@@ -176,16 +174,27 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     }
 
     private fun setStoreInfo(merchant: StoreboxMerchant?, optionals: StoreboxOptionals?) {
-        storeboxDetailTvStoreName.text = merchant?.name
-        storeboxDetailTvAddressLineOne.text = merchant?.addressLine1
-        if(merchant?.addressLine2?.isNullOrBlank() == false)
-        {
-            storeboxDetailTvAddressLineTwo.setVisible(true)
-            storeboxDetailTvAddressLineTwo.text = merchant?.addressLine2
+        var zipCityName = ""
+        merchant?.let {
+            storeboxDetailTvStoreName.setVisible(!it.name.isNullOrBlank())
+            storeboxDetailTvStoreName.text = it.name
+            storeboxDetailTvAddressLineOne.setVisible(!it.addressLine1.isNullOrBlank())
+            storeboxDetailTvAddressLineOne.text = it.addressLine1
+            storeboxDetailTvAddressLineTwo.setVisible(!it.addressLine2.isNullOrBlank())
+            storeboxDetailTvAddressLineTwo.text = it.addressLine2
+            storeboxDetailTvCvrNumber.setVisible(!optionals?.storeRegNumber.isNullOrBlank())
+            storeboxDetailTvCvrNumber.text = Translation.storeboxreceipt.cvrPrefix + optionals?.storeRegNumber
+
+            if (it.zipCode != null) {
+                zipCityName = it.zipCode + " "
+            }
+            if (it.city != null) {
+                zipCityName += it.city
+            }
         }
-        else
-            storeboxDetailTvAddressLineTwo.setVisible(false)
-        storeboxDetailTvPhoneNumber.text = optionals?.storeRegNumber
+        storeboxDetailTvZipAndCity.setVisible(zipCityName.isNotBlank())
+        storeboxDetailTvZipAndCity.text = zipCityName
+
     }
 
     private fun setReceiptAmount(grandTotal: StoreboxReceiptPrice?) {
@@ -293,9 +302,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     override fun shareReceiptContent(filename: String) {
         try {
             FileUtils.openExternalViewer(context, filename, "application/pdf")
-        }
-        catch (t : Throwable)
-        {
+        } catch (t: Throwable) {
             showErrorDialog(ViewError(title = Translation.error.receiptOpenInErrorTitle, message = Translation.error.receiptOpenInErrorMessage))
         }
     }
@@ -313,9 +320,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             intent.putExtra(Intent.EXTRA_TEXT, "")
 
             startActivity(Intent.createChooser(intent, Translation.overlaymenu.mail))
-        }
-        catch (t : Throwable)
-        {
+        } catch (t: Throwable) {
             t.printStackTrace()
             showErrorDialog(ViewError(title = Translation.error.receiptOpenInErrorTitle, message = Translation.error.receiptOpenInErrorMessage))
         }
@@ -327,7 +332,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         // Deal with return from document action sheet
         if (requestCode == OverlayActivity.REQUEST_ID) {
             when (data?.getSerializableExtra("res")) {
-                (ButtonType.MOVE)   -> {
+                (ButtonType.MOVE) -> {
                     val i = Intent(context, FolderActivity::class.java)
                     i.putExtra("pick", true)
                     startActivityForResult(i, FolderActivity.REQUEST_ID)
@@ -341,7 +346,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
                 (ButtonType.MAIL) -> {
                     presenter.shareReceipt(true)
                 }
-                else                -> {
+                else -> {
                     // Request do nothing
 
                 }
@@ -413,7 +418,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
                 itemView.viewHolderReceiptTvItemName.text = receiptLine.name
                 itemView.viewHolderReceiptTvAmount.setVisible(false)
                 receiptLine.amount?.let { amount ->
-                    if(amount > 1) {
+                    if (amount > 1) {
                         itemView.viewHolderReceiptTvAmount.setVisible(true)
                         itemView.viewHolderReceiptTvAmount.text = String.format(
                                 "%s x %.2f",
@@ -429,7 +434,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
 
                 itemView.viewHolderReceiptTvSubtitle.setVisible(false)
                 receiptLine.description?.let {
-                    if(!it.isBlank()) {
+                    if (!it.isBlank()) {
                         itemView.viewHolderReceiptTvSubtitle.setVisible(true)
                         itemView.viewHolderReceiptTvSubtitle.text = it
                     }

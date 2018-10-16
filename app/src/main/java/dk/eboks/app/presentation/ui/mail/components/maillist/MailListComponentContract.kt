@@ -22,7 +22,7 @@ interface MailListComponentContract {
         fun refresh()
         fun loadNextPage()
 
-        fun updateMessage(message: Message)
+//        fun updateMessage(message: Message)
         fun archiveMessages(selectedMessages: MutableList<Message>)
         fun markReadMessages(selectedMessages: MutableList<Message>, unread : Boolean)
         fun deleteMessages(selectedMessages: MutableList<Message>)

@@ -73,6 +73,9 @@ class DeviceActivationComponentPresenter @Inject constructor(
         //todo
         Timber.e("onActivateDevice  success")
         loading = false
+        runAction { view->
+            view.login()
+        }
     }
 
     override fun onActivateDeviceError(error: ViewError, RSAKey: String?) {

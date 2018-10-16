@@ -17,6 +17,7 @@ import dk.eboks.app.App
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
@@ -68,6 +69,7 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
         private val urgentTv = contentContainer.findViewById<TextView>(R.id.urgentTv)
         private val clipIv = contentContainer.findViewById<ImageView>(R.id.clipIv)
         private val imageIv = contentContainer.findViewById<ImageView>(R.id.imageIv)
+        private val markAsReadTv = markAsReadContainer.findViewById<TextView>(R.id.markAsReadTv)
 
 
         init {
@@ -85,6 +87,11 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
             if(BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
                 swipeLayout.isLeftSwipeEnabled = !editMode
                 swipeLayout.isRightSwipeEnabled = !editMode
+                if (currentItem.unread == false){
+                    markAsReadTv.text = Translation.inbox.actionMarkAsUnread
+                } else {
+                    markAsReadTv.text = Translation.inbox.actionMarkAsRead
+                }
             }
             else
             {

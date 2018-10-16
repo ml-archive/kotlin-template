@@ -119,6 +119,7 @@ class ProfileInfoComponentPresenter @Inject constructor(
         appState.state?.loginState?.userPassWord = ""
         appState.state?.loginState?.userName = ""
         appState.state?.loginState?.token = null
+        appState.state?.openingState?.acceptPrivateTerms = false
         appState.save()
         view?.logout()
     }

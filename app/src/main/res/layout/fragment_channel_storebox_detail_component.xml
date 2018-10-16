@@ -86,10 +86,18 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_small"
                             android:gravity="start"
+                            tools:text="Stuen T.V." />
+
+                        <TextView
+                            android:id="@+id/storeboxDetailTvZipAndCity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_small"
+                            android:gravity="start"
                             tools:text="2980 Kokkedal" />
 
                         <TextView
-                            android:id="@+id/storeboxDetailTvPhoneNumber"
+                            android:id="@+id/storeboxDetailTvCvrNumber"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_small"

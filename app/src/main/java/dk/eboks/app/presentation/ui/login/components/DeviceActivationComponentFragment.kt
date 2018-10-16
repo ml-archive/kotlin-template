@@ -76,6 +76,11 @@ class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationCompon
        }
     }
 
+    override fun login() {
+        LoginComponentFragment.loginOnResume = true
+        closeDrawer()
+    }
+
     override fun closeDrawer() {
         getBaseActivity()?.onBackPressed()
     }

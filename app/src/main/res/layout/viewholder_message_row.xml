@@ -23,6 +23,7 @@
             app:srcCompat="@drawable/ic_menu_mail" />
 
         <TextView
+            android:id="@+id/markAsReadTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
