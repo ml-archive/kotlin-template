@@ -31,21 +31,17 @@
                 android:outlineProvider="background"
                 android:background="@drawable/channels_card_background_rounded"/>
 
+            <!-- android:alpha needs to be 0. Otherwise old-phones don't draw the underlying view -->
+            <!-- We set the alpha back to 0.2 in code after loading the image -->
             <ImageView
                 android:id="@+id/backgroundIv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:outlineProvider="background"
                 android:scaleType="centerCrop"
-                android:alpha="0.2"
+                android:alpha="0.0"
                 android:src="@drawable/ic_menu_home" />
 
-            <!--<View-->
-                <!--android:id="@+id/backgroundOverlayV"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:outlineProvider="background"-->
-                <!--android:background="@drawable/channels_card_overlay_rounded"/>-->
 
             <LinearLayout
                 android:id="@+id/backgroundColorLl"

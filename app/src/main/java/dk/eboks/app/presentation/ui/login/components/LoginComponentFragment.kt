@@ -122,10 +122,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     override fun onResume() {
         super.onResume()
-        Timber.d("onResume")
+        Timber.d("onResume: $loginOnResume")
         presenter.setup(selectedLoginProviderId, reauth, loginOnResume)
         if (loginOnResume) {
             loginOnResume = false
+            onContinue()
         }
         setupCprEmailListeners()
         setupPasswordListener()

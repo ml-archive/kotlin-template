@@ -45,7 +45,7 @@ class LoginComponentPresenter @Inject constructor(
     }
 
     override fun setup(verifyLoginProviderId : String?, reauth : Boolean, autoLogin : Boolean) {
-        Timber.e("Setting up login view for provider $verifyLoginProviderId, reauth: $reauth")
+        Timber.e("Setting up login view for provider $verifyLoginProviderId, reauth: $reauth, autologin: $autoLogin")
         reauthing = reauth
         this.verifyLoginProviderId = verifyLoginProviderId
         if(verifyLoginProviderId == null) {

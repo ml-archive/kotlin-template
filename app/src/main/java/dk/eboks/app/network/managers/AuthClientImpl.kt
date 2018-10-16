@@ -143,13 +143,13 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
         else
             formBody.add("scope", "mobileapi offline_access")
 
-//        ---------- mobile access ----------------------------
+//      ---------- mobile access ----------
         val baseTime = Date()
         val utcFormatter = SimpleDateFormat("yyyyMMddHHmmss", Locale.UK)
-        utcFormatter.timeZone = TimeZone.getTimeZone("ECT") // chnt 101518 HACK: use Euro-time TODO: change to "UTC" (this should always be in UTC according to spec)
+        utcFormatter.timeZone = TimeZone.getTimeZone("GMT+02:00") // chnt 101518 HACK: use Euro-time TODO: change to "UTC" (this should always be in UTC according to spec)
 
         val isoFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.UK)
-        isoFormatter.timeZone = TimeZone.getTimeZone("ECT") // chnt 101518 HACK: use Euro-time TODO: RemoveMe (this should always be ISO-8601 and include time zone)
+        isoFormatter.timeZone = TimeZone.getTimeZone("GMT-11:00") // chnt 101518 HACK: use New-Zealand-time TODO: RemoveMe (this should always be ISO-8601 and include time zone)
 
         val utcTime = utcFormatter.format(baseTime)
         val localTime = isoFormatter.format(baseTime)
@@ -171,8 +171,7 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
                 }
             }
         }
-//        ----------------------------------------------------------
-
+//      -----------------------------------
         val requestBuilder = Request.Builder()
                 .url(Config.getAuthUrl())
                 .post(formBody.build())
