@@ -1,6 +1,8 @@
 package dk.eboks.app.presentation.ui.channels.components.overview
 
 import android.animation.Animator
+import android.graphics.PorterDuff
+import android.graphics.drawable.ShapeDrawable
 import android.os.Bundle
 import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
@@ -23,6 +25,7 @@ import dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentActiv
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -148,8 +151,12 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 holder.headerTv?.visibility = View.GONE
                 holder.cardContainerCv?.visibility = View.VISIBLE
 
+//                holder.backgroundColorV?.background?.setTint(currentChannel.background.color)
+                holder.backgroundColorV?.background?.let { d ->
+                    d.clearColorFilter()
+                    d.setColorFilter(currentChannel.background.color, PorterDuff.Mode.MULTIPLY)
+                }
 
-                holder.backgroundColorV?.background?.setTint(currentChannel.background.color)
                 holder.backgroundIv?.let {
                     val requestOptions = RequestOptions()
                             .transform(RoundedCorners(15))
@@ -158,6 +165,8 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                             .load(currentChannel.image?.url)
                             .apply(requestOptions)
                             .into(it)
+
+                    it.alpha = 0.2f
                 }
 
                 if (currentChannel.logo != null) {
