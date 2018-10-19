@@ -2,15 +2,18 @@ package dk.eboks.app.presentation.ui.channels.components.overview
 
 import android.animation.Animator
 import android.graphics.PorterDuff
-import android.graphics.drawable.ShapeDrawable
 import android.os.Bundle
+import android.support.v4.view.animation.FastOutSlowInInterpolator
+import android.support.v4.view.animation.LinearOutSlowInInterpolator
 import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.CycleInterpolator
+import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -120,7 +123,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
             val cardContainerCv = root.findViewById<CardView>(R.id.cardContainerCv)
             val backgroundColorV = root.findViewById<View>(R.id.backgroundColorV)
             val backgroundIv = root.findViewById<ImageView>(R.id.backgroundIv)
-//            val backgroundOverlayV = root.findViewById<View>(R.id.backgroundOverlayV)
+            //            val backgroundOverlayV = root.findViewById<View>(R.id.backgroundOverlayV)
             val headlineTv = root.findViewById<TextView>(R.id.headlineTv)
             val logoIv = root.findViewById<ImageView>(R.id.logoIv)
             val nameTv = root.findViewById<TextView>(R.id.nameTv)
@@ -133,7 +136,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                     parent,
                     false
             )
-            return  ChannelViewHolder(v)
+            return ChannelViewHolder(v)
         }
 
         override fun getItemCount(): Int {
@@ -185,11 +188,38 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                     holder.openActionTv?.text = Translation.channels.install
                 }
 
-                holder
-                        .cardContainerCv
-                        ?.setOnClickListener({ v ->
-                                                 onCardContainerClicked(v, currentChannel)
-                                             })
+                holder.cardContainerCv?.setClickable(true)
+                holder.cardContainerCv?.setOnTouchListener { v, event ->
+                    if(event.action == MotionEvent.ACTION_DOWN) {
+                        v.animate()
+                                .scaleX(0.98f)
+                                .scaleY(0.95f)
+                                .setDuration(60)
+                                .setInterpolator(LinearOutSlowInInterpolator())
+                                .start()
+                    }
+                    if(event.action == MotionEvent.ACTION_UP) {
+                        v.animate()
+                                .scaleX(1.00f)
+                                .scaleY(1.00f)
+                                .setDuration(60)
+                                .setInterpolator(FastOutSlowInInterpolator())
+                                .start()
+                    }
+                    if(event.action == MotionEvent.ACTION_CANCEL) {
+                        v.animate()
+                                .scaleX(1.00f)
+                                .scaleY(1.00f)
+                                .setDuration(120)
+                                .setInterpolator(FastOutSlowInInterpolator())
+                                .start()
+                    }
+                    return@setOnTouchListener v.onTouchEvent(event)
+                }
+
+                holder.cardContainerCv?.setOnClickListener { v ->
+                    presenter.openChannel(currentChannel)
+                }
             }
 
             holder.root.invalidate()

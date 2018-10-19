@@ -33,19 +33,26 @@ class TransformTokenInteractorImpl(
     override fun execute() {
         try {
             input?.loginState?.kspToken?.let { kspToken ->
-                authClient.transformKspToken(kspToken, longClient = appStateManager.state?.currentSettings?.stayLoggedIn ?: false)?.let { token ->
+                authClient.transformKspToken(kspToken, longClient = appStateManager.state?.currentSettings?.stayLoggedIn
+                        ?: false)?.let { token ->
                     appStateManager.state?.loginState?.token = token
 
                     val userResult = api.getUserProfile().execute()
                     // user exists in nemid, but not in eboks, show error
-                    if(userResult.code() == 400)
-                    {
+                    if (userResult.code() == 400) {
                         runOnUIThread {
                             output?.onLoginError(ViewError(title = Translation.error.authenticationErrorTitle, message = Translation.error.authenticationErrorMessage, shouldCloseView = true))
                         }
                         return
                     }
-                    userResult?.body()?.let { user->
+                    // user exists in nemid, but is not the same as in eboks (used wrong Nem-ID), show error
+                    if (userResult.code() == 403) {
+                        runOnUIThread {
+                            output?.onLoginError(ViewError(title = Translation.error.wrongIdErrorTitle, message = Translation.error.wrongIdErrorMessage, shouldCloseView = true))
+                        }
+                        return
+                    }
+                    userResult?.body()?.let { user ->
                         // update the states
                         Timber.e("Saving user $user")
                         val newUser = userManager.put(user)
@@ -60,7 +67,6 @@ class TransformTokenInteractorImpl(
 
                         /*
                         appStateManager.state?.loginState?.lastUser?.let { lastUser ->
-                            if (lastUser.id != newUser.id) {
                                 Timber.e("Different user id detected on login, clearing caches")
                                 cacheManager.clearStores()
                             }

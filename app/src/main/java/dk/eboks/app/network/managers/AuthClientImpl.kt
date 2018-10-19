@@ -144,10 +144,11 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
 
 //      ---------- mobile access ----------
         val utcFormatter = SimpleDateFormat("yyyyMMddHHmmss", Locale.UK)
-        utcFormatter.timeZone = TimeZone.getTimeZone("GMT+02:00") // chnt 101518 HACK: use Euro-time TODO: change to "UTC" (this should always be in UTC according to spec)
+        utcFormatter.timeZone = TimeZone.getTimeZone("GMT+02:00") // chnt 101518 HACK: use Euro-time TODO: change zone to "UTC" (this should always be in UTC according to spec)
+//      utcFormatter.timeZone = TimeZone.getTimeZone("GMT+00:00")                                    TODO: <--- like this
 
         val isoFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.UK)
-        isoFormatter.timeZone = TimeZone.getTimeZone("GMT-11:00") // chnt 101518 Example: use New-Zealand-time TODO: RemoveMe
+        isoFormatter.timeZone = TimeZone.getTimeZone("GMT+99:00") // chnt 101518 Example: use New-Zealand-time TODO: RemoveMe, i'm only here to illustrate a point
 
         val baseTime = Date()
         val challengeTime = utcFormatter.format(baseTime)
@@ -161,13 +162,13 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
             if (!cryptoManager.hasActivation(id)) {
                 formBody.add("acr_values", "deviceid:$deviceId")
             } else {
-                var challenge = "EBOKS:$username:$password:$deviceId:$challengeTime"
+                val challenge = "EBOKS:$username:$password:$deviceId:$challengeTime"
                 Timber.i("login - challenge: $challenge")
 
                 cryptoManager.getActivation(id)?.privateKey?.let { privateKey ->
-                    challenge = cryptoManager.hashStringData(challenge, privateKey)
-                    Timber.i("login - hashedchallenge : " + challenge)
-                    formBody.add("acr_values", "challenge:${challenge} timestamp:${localTime} deviceid:${deviceId}")
+                    val hashedChallenge = cryptoManager.hashStringData(challenge, privateKey)
+                    Timber.i("login - hashedchallenge: $hashedChallenge")
+                    formBody.add("acr_values", "challenge:$hashedChallenge timestamp:$localTime deviceid:$deviceId")
                 }
             }
         }

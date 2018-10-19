@@ -69,6 +69,8 @@ public class Translation {
 		public static String eKeyDecryptionFailedMessage = "__eKeyDecryptionFailedMessage";
 		public static String eKeyEncryptionFailedTitle = "__eKeyEncryptionFailedTitle";
 		public static String eKeyEncryptionFailedMessage = "__eKeyEncryptionFailedMessage";
+		public static String wrongIdErrorTitle = "Forkert Nem-ID";
+		public static String wrongIdErrorMessage = "Det ser ud til at det brugte Nem-ID tilh\u00F8rer en anden person.";
 	}
 	public final static class mail {
 		public static String senderHeader = "Post fra dine afsendere";
@@ -746,7 +748,7 @@ public class Translation {
 	}
 	public final static class deviceactivation {
 		public static String header = "Aktivering";
-		public static String message = "Aktiver din enhed";
+		public static String message = "Aktiver med [provider]";
 		public static String activateBtn = "Aktiv\u00E9r";
 		public static String skipBtn = "Annuller";
 	}
