@@ -46,8 +46,7 @@ class ReceiptsChannelControl(channel: Channel, control : Control, view: View, in
                 }
 
                 row.amount?.let {
-                    if(it == 0.0)
-                    {
+                    if(it == 0.0) {
                         amount.text = ""
                         date.text = ""
                     }

@@ -21,14 +21,14 @@ androidExtensions {
     experimental = true
 }
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     buildToolsVersion '27.0.3'
     flavorDimensions "default"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 26
-        versionCode 101
+        targetSdkVersion 28
+        versionCode 102
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -38,7 +38,7 @@ android {
                 apiKey: translation.apiKey
         ]
 
-        buildConfigField "Long", "INPUT_VALIDATION_DELAY", "1800L"
+        buildConfigField "Long", "INPUT_VALIDATION_DELAY", "2100L"
 
         // flags for disabling various functionality for the different betas
         buildConfigField "Boolean", "ENABLE_PROFILE_PICTURE", "false"
