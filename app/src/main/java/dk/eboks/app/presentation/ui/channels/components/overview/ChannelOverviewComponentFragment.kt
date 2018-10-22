@@ -224,31 +224,6 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
 
             holder.root.invalidate()
         }
-
-        // TODO make this animation go down on down press and stay down till the user lets go
-        // instead of just playing animation
-        private fun onCardContainerClicked(v: View, currentCard: Channel) {
-            v.animate()
-                    .scaleX(1.05f)
-                    .scaleY(1.05f)
-                    .setDuration(150)
-                    .setInterpolator(CycleInterpolator(0.5f))
-                    .setListener(object : Animator.AnimatorListener {
-                        override fun onAnimationRepeat(p0: Animator?) {
-                        }
-
-                        override fun onAnimationEnd(p0: Animator?) {
-                            presenter.openChannel(currentCard)
-                        }
-
-                        override fun onAnimationCancel(p0: Animator?) {
-                        }
-
-                        override fun onAnimationStart(p0: Animator?) {
-                        }
-                    })
-                    .start()
-        }
     }
 
 

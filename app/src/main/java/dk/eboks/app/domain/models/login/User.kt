@@ -28,7 +28,11 @@ data class User(
     }
 
     fun setPrimaryEmail(string: String?) {
-        emails[0] = ContactPoint(string, true)
+        if(emails.size >= 1) {
+            emails[0] = ContactPoint(string, true)
+        } else {
+            emails.add(0, ContactPoint(string, true))
+        }
     }
 
     fun getSecondaryEmail(): String? {
@@ -36,7 +40,7 @@ data class User(
     }
 
     fun setSecondaryEmail(string: String?) {
-        if(emails.size > 1) {
+        if(emails.size >= 2) {
             emails[1] = ContactPoint(string, true)
         } else {
             emails.add(1, ContactPoint(string, true))

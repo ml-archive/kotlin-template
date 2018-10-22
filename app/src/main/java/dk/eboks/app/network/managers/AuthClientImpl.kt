@@ -143,16 +143,16 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
             formBody.add("scope", "mobileapi offline_access")
 
 //      ---------- mobile access ----------
-        val utcFormatter = SimpleDateFormat("yyyyMMddHHmmss", Locale.UK)
-        utcFormatter.timeZone = TimeZone.getTimeZone("GMT+02:00") // chnt 101518 HACK: use Euro-time TODO: change zone to "UTC" (this should always be in UTC according to spec)
-//      utcFormatter.timeZone = TimeZone.getTimeZone("GMT+00:00")                                    TODO: <--- like this
+        val challengeFormatter = SimpleDateFormat("yyyyMMddHHmmss", Locale.UK)
+        challengeFormatter.timeZone = TimeZone.getTimeZone("GMT+02:00") // chnt 101518 HACK: use Euro-time TODO: change zone to "UTC" (this should always be in UTC according to spec)
+//      challengeFormatter.timeZone = TimeZone.getTimeZone("GMT+00:00")                                    TODO: <--- like this
 
-        val isoFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.UK)
-        isoFormatter.timeZone = TimeZone.getTimeZone("GMT+99:00") // chnt 101518 Example: use New-Zealand-time TODO: RemoveMe, i'm only here to illustrate a point
+        val localFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.UK)
+        localFormatter.timeZone = TimeZone.getTimeZone("GMT+99:00") // chnt 101518 Example: use Lalaland-time TODO: RemoveMe, i'm only here to illustrate a point
 
         val baseTime = Date()
-        val challengeTime = utcFormatter.format(baseTime)
-        val localTime = isoFormatter.format(baseTime)
+        val challengeTime = challengeFormatter.format(baseTime)
+        val localTime = localFormatter.format(baseTime)
 
         val deviceId = settingsRepository.get().deviceId
 
