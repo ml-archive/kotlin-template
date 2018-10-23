@@ -104,13 +104,12 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     
     // shamelessly ripped from chnt
     private fun setupTopBar() {
-        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
         mainTb.setNavigationOnClickListener {
             if(!closeLoginOnBack) {
                 presenter.cancelAndClose()
             }
-            else
-            {
+            else {
                 activity.finish()
             }
         }
