@@ -105,6 +105,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     }
 
     override fun showOpenState(channel: Channel) {
+        Timber.i("showOpenState ${channel.name}")
         val v = inflater.inflate(R.layout.include_channel_detail_bottom_open, contentBottom, false)
         setupTopView(channel)
         contentBottom.addView(v)
@@ -118,6 +119,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     }
 
     override fun showDisabledState(channel: Channel) {
+        Timber.i("showDisabledState ${channel.name}")
         val v = inflater.inflate(
                 R.layout.include_channel_detail_bottom_not_available,
                 contentBottom,
@@ -128,6 +130,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     }
 
     override fun showInstallState(channel: Channel) {
+        Timber.i("showInstallState ${channel.name}")
         contentBottom.removeAllViews()
 
         val v = inflater.inflate(
@@ -142,8 +145,12 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         val colorTint = channel.background.color
         installBtn.backgroundTintList = ColorStateList.valueOf(colorTint)
         installBtn?.setOnClickListener {
-            ChannelControlComponentFragment.refreshOnResume = true
-            presenter.install(channel)
+            if (channel.getType() == "storebox") { // notify about storebox one last time...
+                showStoreboxConfirmDialog(channel)
+            } else {
+                ChannelControlComponentFragment.refreshOnResume = true
+                presenter.install(channel)
+            }
         }
         if (channel.getType() == "storebox") {
             linkStoreboxBtn.visibility = View.VISIBLE
@@ -155,6 +162,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     }
 
     override fun showVerifyState(channel: Channel, provider: LoginProvider) {
+        Timber.i("showVerifyState ${channel.name}")
         contentBottom.removeAllViews()
         val v = inflater.inflate(
                 R.layout.include_channel_detail_bottom_verify,
@@ -198,11 +206,27 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
                 .show()
     }
 
+    private fun showStoreboxConfirmDialog(channel: Channel) {
+        Timber.i("showStoreboxConfirmDialog")
+        AlertDialog.Builder(context)
+                .setMessage(Translation.storeboxlogin.createUserButton)
+                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                    ChannelControlComponentFragment.refreshOnResume = true
+                    presenter.install(channel)
+                }
+                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                    dialog.dismiss()
+                }
+                .create()
+                .show()
+    }
+
     override fun showProgress(show: Boolean) {
         progress.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun showRequirementsDrawer(channel: Channel) {
+        Timber.i("showRequirementsDrawer ${channel.name}")
         channel.requirements?.let {
             val data = Bundle()
             data.putSerializable("channel", channel)
@@ -216,16 +240,19 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     }
 
     override fun openChannelContent(channel : Channel) {
+        Timber.i("openChannelContent ${channel.name}")
         val fragment = ChannelContentComponentFragment().putArg(Channel::class.simpleName!!, channel)
         getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
     }
 
     override fun openStoreBoxContent(channel : Channel) {
+        Timber.i("openStoreBoxContent ${channel.name}")
         val fragment = ChannelContentStoreboxComponentFragment().putArg(Channel::class.java.simpleName, channel) as BaseFragment
         getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
     }
 
     override fun openEkeyContent() {
+        Timber.i("openEkeyContent")
         startActivity(Intent(context, EkeyContentActivity::class.java))
         activity.finish()
     }

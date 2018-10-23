@@ -202,7 +202,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                         v.animate()
                                 .scaleX(1.00f)
                                 .scaleY(1.00f)
-                                .setDuration(60)
+                                .setDuration(120)
                                 .setInterpolator(FastOutSlowInInterpolator())
                                 .start()
                     }
@@ -210,7 +210,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                         v.animate()
                                 .scaleX(1.00f)
                                 .scaleY(1.00f)
-                                .setDuration(120)
+                                .setDuration(450)
                                 .setInterpolator(FastOutSlowInInterpolator())
                                 .start()
                     }

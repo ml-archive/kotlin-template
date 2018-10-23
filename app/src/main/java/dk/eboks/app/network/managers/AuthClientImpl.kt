@@ -148,7 +148,6 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
 //      challengeFormatter.timeZone = TimeZone.getTimeZone("GMT+00:00") //                                 TODO: <--- like this
 
         val localFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.UK)
-//        localFormatter.timeZone = TimeZone.getTimeZone("GMT+99:00") // chnt 101518 Example: use Lalaland-time TODO: RemoveMe, i'm only here to illustrate a point
 
         val baseTime = Date()
         val challengeTime = challengeFormatter.format(baseTime)
