@@ -33,7 +33,7 @@ class CryptoManagerImpl @Inject constructor(val context: Context, val settingsRe
 
             val spec = KeyPairGeneratorSpec.Builder(context)
                     .setAlias(userId)
-                    .setSubject(X500Principal("CN=$userId"))
+//                    .setSubject(X500Principal("CN=$userId"))
                     .setSerialNumber(BigInteger.TEN)
                     .setStartDate(start.time)
                     .setKeySize(2048)
@@ -52,6 +52,26 @@ class CryptoManagerImpl @Inject constructor(val context: Context, val settingsRe
         Empty because the android key store saves the key when its generated above
      */
     override fun saveActivation(userId: String) {
+
+    }
+
+    /**
+     * change the Alias of a key
+     */
+    override fun renameActivation(oldAlias : String, newAlias : String) {
+        try {
+            val keyStore = KeyStore.getInstance(AndroidKeyStore)
+            keyStore.load(null)
+            if (keyStore.containsAlias(oldAlias)) {
+                val entry = keyStore.getEntry(oldAlias, null)
+                keyStore.setEntry(newAlias, entry, null)
+                keyStore.deleteEntry(oldAlias)
+            } else {
+                throw NoSuchElementException("Could not load alias: $oldAlias")
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
     }
 

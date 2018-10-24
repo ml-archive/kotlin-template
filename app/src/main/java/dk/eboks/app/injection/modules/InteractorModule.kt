@@ -290,9 +290,10 @@ class InteractorModule {
     fun provideCreateUserInteractor(
             executor: Executor,
             userManager: UserManager,
-            api: Api
+            api: Api,
+            settingsRepository: SettingsRepository
     ): CreateUserInteractor {
-        return CreateUserInteractorImpl(executor, userManager, api)
+        return CreateUserInteractorImpl(executor, userManager, api, settingsRepository)
     }
 
     @Provides

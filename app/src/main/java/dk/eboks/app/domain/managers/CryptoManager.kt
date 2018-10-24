@@ -9,6 +9,7 @@ interface CryptoManager {
     fun saveActivation(userId: String)
     fun loadActivation(userId: String): Boolean
     fun hasActivation(userId: String): Boolean
+    @Throws(NoSuchElementException::class) fun renameActivation(oldAlias : String, newAlias : String)
     @Throws(Exception::class) fun hashStringData(data: String, pk: PrivateKey): String
     fun getPublicKeyAsString(publicKey: PublicKey): String
     fun getPrivateKeyAsString(privateKey: PrivateKey): String

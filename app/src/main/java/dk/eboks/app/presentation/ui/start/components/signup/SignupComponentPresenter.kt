@@ -8,6 +8,7 @@ import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
+import dk.eboks.app.domain.models.login.ActivationDevice
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.ui.login.components.providers.WebLoginPresenter
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
@@ -63,6 +64,7 @@ class SignupComponentPresenter @Inject constructor(
             WebLoginPresenter.newIdentity?.let { identity->
                 tempUser.identity = identity
             }.guard { tempUser.identity = tempUser.getPrimaryEmail() }
+
             createUserInteractor.input = CreateUserInteractor.Input(tempUser, it)
             createUserInteractor.run()
         }
