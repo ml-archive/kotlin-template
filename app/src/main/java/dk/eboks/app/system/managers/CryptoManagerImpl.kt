@@ -1,9 +1,7 @@
 package dk.eboks.app.system.managers
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.security.KeyPairGeneratorSpec
 import android.util.Base64
 import dk.eboks.app.domain.managers.CryptoManager
@@ -33,7 +31,7 @@ class CryptoManagerImpl @Inject constructor(val context: Context, val settingsRe
 
             val spec = KeyPairGeneratorSpec.Builder(context)
                     .setAlias(userId)
-//                    .setSubject(X500Principal("CN=$userId"))
+// we need to make this independant on user-id                   .setSubject(X500Principal("CN=$userId"))
                     .setSerialNumber(BigInteger.TEN)
                     .setStartDate(start.time)
                     .setKeySize(2048)
