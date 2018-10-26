@@ -316,7 +316,7 @@ public class Translation {
 	}
 	public final static class iosbiometrics {
 		public static String errorAuthentication = "Din identitet kunne ikke verificeres";
-		public static String errorUserCancel = "__errorUserCancel";
+		public static String errorUserCancel = "Du afbr\u00F8d handlingen";
 		public static String errorUserFallback = "__errorUserFallback";
 		public static String faceID = "Face ID";
 		public static String touchID = "Touch ID";
