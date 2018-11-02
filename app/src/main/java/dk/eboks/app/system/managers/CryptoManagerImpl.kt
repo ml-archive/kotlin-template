@@ -86,7 +86,6 @@ class CryptoManagerImpl @Inject constructor(val context: Context, val settingsRe
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
         return false
     }
 
