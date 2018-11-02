@@ -144,8 +144,7 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
 
 //      ---------- mobile access ----------
         val challengeFormatter = SimpleDateFormat("yyyyMMddHHmmss", Locale.UK)
-        challengeFormatter.timeZone = TimeZone.getTimeZone("GMT+02:00") // chnt 101518 HACK: use Euro-time TODO: change zone to "UTC" (this should always be in UTC according to spec)
-//      challengeFormatter.timeZone = TimeZone.getTimeZone("GMT+00:00") //                                 TODO: <--- like this
+        challengeFormatter.timeZone = TimeZone.getTimeZone("UTC")
 
         val localFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ", Locale.UK)
 
