@@ -196,7 +196,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
                 "{\n" +
                 "    window.attachEvent(\"onmessage\", onNemIDMessage); \n" +
                 "}" +
-                "console.log(\"registered eventhandlers and shit\");"
+                "console.log(\"registered eventhandlers\");"
     }
 
 

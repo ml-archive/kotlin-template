@@ -42,7 +42,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
 
 
                 if (reader.path != "$") {
-                    //Timber.e("Not root path, not doing custom shit")
+                    //Timber.e("Not root path, not doing custom stuff")
                     return delegate.fromJsonTree(jsonElement)
                 }
 
