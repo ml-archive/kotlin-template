@@ -19,18 +19,11 @@ class ActivateDeviceInteractorImpl(executor: Executor, val settingsRepository: S
                 val deviceId = settingsRepository.get().deviceId
                 val deviceName = "test device"
                 val os = "Android"
-                //todo change this back, using hardcoded values to help debug the api
-//                val os = "Android " + Build.VERSION.RELEASE
                 val key = it.key
 
-//                val keyType = "RSA2048"
-                //todo (sikk) this is a temporary requirement for the API and should be removed once it becomes unnecessary
-                //see: https://3.basecamp.com/3171131/buckets/2493171/messages/1315281094#__recording_1385562221
-                
-//                val userResult = api.activateDevice(ActivationDevice(deviceId,deviceName,os,key,keyType)).execute()
-                val userResult = api.activateDevice(ActivationDevice(deviceId,deviceName,os,key)).execute()
-                    runOnUIThread { output?.onActivateDeviceSuccess() }
-                }
+                val userResult = api.activateDevice(ActivationDevice(deviceId, deviceName, os, key)).execute()
+                runOnUIThread { output?.onActivateDeviceSuccess() }
+            }
         } catch (t: Throwable) {
             runOnUIThread {
                 output?.onActivateDeviceError(exceptionToViewError(t), input?.key)

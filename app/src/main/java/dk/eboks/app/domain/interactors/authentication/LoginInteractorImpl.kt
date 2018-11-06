@@ -85,8 +85,8 @@ class LoginInteractorImpl(
                             appStateManager.state?.currentUser = newUser
                             appStateManager.state?.currentSettings = newSettings
                         }
-                        appStateManager.state?.loginState?.userName = ""
-                        appStateManager.state?.loginState?.userPassWord = ""
+//                        appStateManager.state?.loginState?.userName = ""
+//                        appStateManager.state?.loginState?.userPassWord = ""
 
                         // clear message opening state
                         appStateManager.state?.openingState?.acceptPrivateTerms = false
