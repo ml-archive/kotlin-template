@@ -1,6 +1,6 @@
 package dk.nodes.template.injection.modules
 
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dk.nodes.template.injection.DaggerViewModelFactory
