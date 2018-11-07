@@ -1,8 +1,8 @@
 package dk.nodes.template.presentation.base
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import dagger.android.support.DaggerAppCompatActivity
 import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
