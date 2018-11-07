@@ -95,26 +95,23 @@ repositories {
 
 dependencies {
     def kotlinx_coroutines_version = '1.0.0',
-        support_library_version = '27.1.1',
         constraint_layout_version = '2.0.0-alpha2',
         dagger_version = "2.16",
         lifecycle_version = "2.0.0",
         hockey_sdk_version = "5.1.0",
         timber_version = "4.7.1",
         junit_version = '4.12',
-        espresso_core_version = '3.0.1',
+        espresso_core_version = '3.1.0',
         mockito_version = '2.7.22',
         nodes_nstack_kotlin_version = '2.1.4',
         nodes_arch_version = '2.1.9',
-
         rx_android_version = '2.1.0',
-
         retrofit_version = "2.3.0",
         okhttp_version = "3.9.0",
         store_version = "3.0.0-beta"
 
     fileTree(dir: "libs", include: ["*.jar"])
-    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espresso_core_version", {
         exclude group: "com.android.support", module: "support-annotations"
     })
 
@@ -161,9 +158,9 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-android:$mockito_version"
 
     //For Espresso UI testing
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-    androidTestImplementation('androidx.test.espresso:espresso-intents:3.1.0')
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.0'
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_core_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_core_version"
 
 
     // The following section is only used to force the latest version to resolve conflicts
