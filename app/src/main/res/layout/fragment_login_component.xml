@@ -127,6 +127,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress"
+                            android:importantForAutofill="noExcludeDescendants"
                             nstack:hint="@string/nstack_logoncredentials_emailOrSSNHeader"/>
 
                     </android.support.design.widget.TextInputLayout>
@@ -148,6 +149,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPassword"
+                            android:importantForAutofill="noExcludeDescendants"
                             nstack:hint="@string/nstack_logoncredentials_passwordfieldHeader"/>
 
                     </android.support.design.widget.TextInputLayout>
