@@ -28,7 +28,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 108
+        versionCode 109
         versionName "4.0.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -104,6 +104,7 @@ android {
 
     buildTypes {
         debug {
+            debuggable true
             applicationIdSuffix ".debug"
             signingConfig null
 

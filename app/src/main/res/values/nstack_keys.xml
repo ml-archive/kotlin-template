@@ -647,4 +647,5 @@
   <string name='nstack_deviceactivation_message' formatted='false'>deviceactivation_message</string>
   <string name='nstack_deviceactivation_activateBtn' formatted='false'>deviceactivation_activateBtn</string>
   <string name='nstack_deviceactivation_skipBtn' formatted='false'>deviceactivation_skipBtn</string>
+  <string name='nstack_deviceactivation_cancelButton' formatted='false'>deviceactivation_cancelButton</string>
 </resources>

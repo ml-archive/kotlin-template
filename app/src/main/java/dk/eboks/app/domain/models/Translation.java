@@ -748,8 +748,9 @@ public class Translation {
 	}
 	public final static class deviceactivation {
 		public static String header = "Aktivering";
-		public static String message = "Aktiver med [provider]";
+		public static String message = "For at logge p\u00E5 skal du nu aktivere din mobile enhed med [provider]";
 		public static String activateBtn = "Aktiv\u00E9r";
 		public static String skipBtn = "Annuller";
+		public static String cancelButton = "Annuller";
 	}
 }

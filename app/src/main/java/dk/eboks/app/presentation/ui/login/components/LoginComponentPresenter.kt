@@ -195,7 +195,16 @@ class LoginComponentPresenter @Inject constructor(
         }
         else
         {
-            runAction { it.startDeviceActivation() }
+            val verified = appState.state?.loginState?.let { state ->
+                state.lastUser?.let { user ->
+                    user.verified
+                }
+            } ?: false
+            if(verified) {
+                runAction { it.startDeviceActivation() }
+            } else {
+                runAction { it.proceedToApp() }
+            }
         }
     }
 
