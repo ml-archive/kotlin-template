@@ -40,7 +40,7 @@ class MergeAndImpersonateInteractorImpl(
                 {
                     verificationState.allowMigrateUserId?.let { userId ->
                         targetUserId = userId
-                        val result = api.migrateUser(userId ).execute()
+                        val result = api.migrateUser(userId).execute()
                         if(!result.isSuccessful)
                         {
                             output?.onMergeError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error

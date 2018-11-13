@@ -112,6 +112,8 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
         {
             showEmptyState(true, verifiedUser)
             return
+        } else {
+            showEmptyState(false, verifiedUser)
         }
 
         mailListContentLL.removeAllViews()
