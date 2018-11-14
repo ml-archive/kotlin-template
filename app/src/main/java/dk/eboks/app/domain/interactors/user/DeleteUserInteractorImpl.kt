@@ -1,5 +1,7 @@
 package dk.eboks.app.domain.interactors.user
 
+import dk.eboks.app.domain.interactors.authentication.mobileacces.DeleteRSAKeyForUserInteractor
+import dk.eboks.app.domain.interactors.authentication.mobileacces.DeleteRSAKeyInteractor
 import dk.eboks.app.domain.managers.UserManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.Translation
@@ -13,7 +15,7 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 /**
  * Created by bison on 24-06-2017.
  */
-class DeleteUserInteractorImpl(executor: Executor, val userManager: UserManager, val userSettingsManager: UserSettingsManager) : BaseInteractor(executor), DeleteUserInteractor {
+class DeleteUserInteractorImpl(executor: Executor, val userManager: UserManager, val userSettingsManager: UserSettingsManager, val deleteRSAKeyForUserInteractor: DeleteRSAKeyForUserInteractor) : BaseInteractor(executor), DeleteUserInteractor {
     override var output : DeleteUserInteractor.Output? = null
     override var input : DeleteUserInteractor.Input? = null
 
@@ -22,6 +24,8 @@ class DeleteUserInteractorImpl(executor: Executor, val userManager: UserManager,
         try {
             input?.user?.let { user->
                 userManager.remove(user)
+                deleteRSAKeyForUserInteractor.input = DeleteRSAKeyForUserInteractor.Input(user.id.toString())
+                deleteRSAKeyForUserInteractor.run()
                 userSettingsManager.remove(UserSettings(user.id)) // also remove the settings for that userId
                 runOnUIThread {
                     output?.onDeleteUser(user)

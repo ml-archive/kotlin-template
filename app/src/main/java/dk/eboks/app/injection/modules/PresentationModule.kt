@@ -826,9 +826,10 @@ class PresentationModule {
             stateManager: AppStateManager,
             saveUserInteractor: SaveUserInteractor,
             saveUserSettingsInteractor: SaveUserSettingsInteractor,
-            getUserProfileInteractor: GetUserProfileInteractor
+            getUserProfileInteractor: GetUserProfileInteractor,
+            userSettingsManager: UserSettingsManager
     ): ProfileInfoComponentContract.Presenter {
-        return ProfileInfoComponentPresenter(stateManager, saveUserInteractor, saveUserSettingsInteractor, getUserProfileInteractor)
+        return ProfileInfoComponentPresenter(stateManager, saveUserInteractor, saveUserSettingsInteractor, getUserProfileInteractor, userSettingsManager)
     }
 
     @ActivityScope

@@ -329,14 +329,22 @@ class InteractorModule {
         return SaveUsersInteractorImpl(executor, userManager)
     }
 
+    @Provides
+    fun provideDeleteRSAKeyForUserInteractor(
+            executor: Executor,
+            cryptoManager: CryptoManager
+    ): DeleteRSAKeyForUserInteractor {
+        return DeleteRSAKeyForUserInteractorImpl(executor, cryptoManager)
+    }
 
     @Provides
     fun provideDeleteUserInteractor(
             executor: Executor,
             userManager: UserManager,
-            userSettingsManager: UserSettingsManager
+            userSettingsManager: UserSettingsManager,
+            deleteRSAKeyForUserInteractor: DeleteRSAKeyForUserInteractor
     ): DeleteUserInteractor {
-        return DeleteUserInteractorImpl(executor, userManager, userSettingsManager)
+        return DeleteUserInteractorImpl(executor, userManager, userSettingsManager, deleteRSAKeyForUserInteractor)
     }
 
     @Provides

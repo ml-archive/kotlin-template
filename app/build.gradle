@@ -29,7 +29,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 111
-        versionName "4.0.0"
+        versionName "4.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -165,7 +165,7 @@ android {
             dimension "default"
 
             applicationId "dk.eboks.app"
-            versionName '4.0.0'
+            versionName '4.0.2'
 
             hockeyAppId = "c420719986b14750af457e6ac686fb5d"
             hockeyAppIdStaging = "5787fa63d0a0404bbdcd93456360db79"
@@ -182,7 +182,7 @@ android {
             dimension "default"
 
             applicationId "se.eboks.app"
-            versionName '4.0.0'
+            versionName '4.0.2'
 
             hockeyAppId = "6cde34b0caee42cd938ed52b8e461b97"
             hockeyAppIdStaging = "74e3a5f6d05c4a02a17697bbb11d8af0"
@@ -199,7 +199,7 @@ android {
             dimension "default"
 
             applicationId "no.eboks.app"
-            versionName '4.0.0'
+            versionName '4.0.2'
 
             hockeyAppId = "7ae0dc6ff4a945d18f4ec28cbf14f385"
             hockeyAppIdStaging = "e323e110faa049b787027ea5b0a93cec"

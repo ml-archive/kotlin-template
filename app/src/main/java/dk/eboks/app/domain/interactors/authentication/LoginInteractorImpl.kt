@@ -33,7 +33,6 @@ class LoginInteractorImpl(
                 try {
                     val useLongToken = userSettingsManager.get(args.loginState.selectedUser?.id ?: -1).stayLoggedIn
 
-//                    ---- test stuff this should not be implemented like this - only to test the login --------
                     var userid = "no id"
                     args.loginState.lastUser?.id?.let {
                             userid = it.toString()
@@ -41,7 +40,6 @@ class LoginInteractorImpl(
                     args.loginState.selectedUser?.id?.let {
                             userid = it.toString()
                     }
-//                    ----------------------------------------------------
 
                     val token = authClient.login(
                             username = args.loginState.userName ?: "",
