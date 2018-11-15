@@ -28,7 +28,7 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 113
+        versionCode 114
         versionName "4.0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -257,7 +257,7 @@ dependencies {
 
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
-    implementation "dk.nodes.nstack:nstack-kotlin:2.1.4"
+    implementation "dk.nodes.nstack:nstack-kotlin:2.1.8"
 
     implementation "dk.nodes.arch:base:$nodes_arch_version"
     //implementation "dk.nodes.arch:base:LOCAL"
