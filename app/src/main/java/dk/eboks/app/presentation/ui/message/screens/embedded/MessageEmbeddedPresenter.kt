@@ -88,39 +88,47 @@ class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateMan
         }
     }
 
-    fun updateMessage(messagePatch: MessagePatch) {
-//        message?.let {
-//            updateMessageInteractor.input = UpdateMessageInteractor.Input( messagePatch)
-//            updateMessageInteractor.run()
-//        }
+    fun updateMessage(messages: ArrayList<Message>, messagePatch: MessagePatch) {
+        message?.let {
+            updateMessageInteractor.input = UpdateMessageInteractor.Input(messages, messagePatch)
+            updateMessageInteractor.run()
+        }
     }
 
     override fun moveMessage(folder: Folder) {
-        moveToFolder = folder.name
-        updateMessage(MessagePatch(false, null, folder.id, null))
+        message?.let {
+            moveToFolder = folder.name
+            updateMessage(arrayListOf(it), MessagePatch(false, null, folder.id, null))
+        }
     }
 
     override fun deleteMessage() {
-//        message?.let {
-//            deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(it)
-//            deleteMessagesInteractor.run()
-//        }
+        message?.let {
+            deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(arrayListOf(it))
+            deleteMessagesInteractor.run()
+        }
     }
 
     override fun archiveMessage() {
-        updateMessage(MessagePatch(null, true, null, null))
+        message?.let {
+            updateMessage(arrayListOf(it), MessagePatch(null, true, null, null))
+        }
     }
 
     override fun markMessageRead() {
-        updateMessage(MessagePatch(false, null, null, null))
+        message?.let {
+            updateMessage(arrayListOf(it), MessagePatch(false, null, null, null))
+        }
     }
 
     override fun markMessageUnread() {
-        updateMessage(MessagePatch(true, null, null, null))
+        message?.let {
+            updateMessage(arrayListOf(it), MessagePatch(true, null, null, null))
+        }
     }
 
     override fun onDeleteMessagesSuccess() {
-        runAction { v->
+        runAction { v ->
             v.messageDeleted()
         }
     }
@@ -133,7 +141,7 @@ class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateMan
 
     override fun onUpdateMessageSuccess() {
         moveToFolder?.let {
-            runAction { v->
+            runAction { v ->
                 v.updateFolderName(it)
             }
         }

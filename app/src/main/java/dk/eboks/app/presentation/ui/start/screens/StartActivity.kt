@@ -109,7 +109,7 @@ class StartActivity : BaseActivity(), StartContract.View {
             showUpdateDialog(it)
         }
         NStack.appOpen{success ->
-            NStack.forceReloadTranslations()
+//            NStack.forceReloadTranslations()
         }
     }
 
