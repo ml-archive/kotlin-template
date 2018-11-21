@@ -125,8 +125,8 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
             val handler = EncryptionHandlerImpl(AesPasswordKeyProviderImpl(pin))
             handler.init()
 
-//            masterkey = String(handler.decrypt(backendKey), charset("UTF-8"))
-            masterkey = backendKey
+            masterkey = String(handler.decrypt(backendKey), charset("UTF-8"))
+//            masterkey = backendKey
             Timber.d("Decrypted from backend: $masterkey")
 
             presenter.storeMasterkey(masterkey!!)
@@ -200,7 +200,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         presenter.storeMasterkey(key)
 
         //send key to backend
-        presenter.setMasterkey(hashed, key)
+        presenter.setMasterkey(hashed, encrypted)
     }
 
     override fun showKeys(keys: List<BaseEkey>) {
