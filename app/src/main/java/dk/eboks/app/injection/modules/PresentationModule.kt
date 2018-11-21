@@ -7,10 +7,7 @@ import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.authentication.*
 import dk.eboks.app.domain.interactors.channel.*
-import dk.eboks.app.domain.interactors.ekey.GetEKeyMasterkeyInteractor
-import dk.eboks.app.domain.interactors.ekey.GetEKeyVaultInteractor
-import dk.eboks.app.domain.interactors.ekey.SetEKeyMasterkeyInteractor
-import dk.eboks.app.domain.interactors.ekey.SetEKeyVaultInteractor
+import dk.eboks.app.domain.interactors.ekey.*
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
@@ -991,12 +988,14 @@ class PresentationModule {
     fun provideEkeyComponentPresenter(stateManager: AppStateManager,
                                       getEKeyMasterkeyInteractor: GetEKeyMasterkeyInteractor,
                                       setEKeyMasterkeyInteractor: SetEKeyMasterkeyInteractor,
+                                      deleteEKeyMasterkeyInteractor: DeleteEKeyMasterkeyInteractor,
                                       getEKeyVaultInteractor: GetEKeyVaultInteractor,
                                       encryptedPreferences: EncryptedPreferences,
                                       setEKeyVaultInteractor: SetEKeyVaultInteractor,
+                                      deleteEKeyVaultInteractor: DeleteEKeyVaultInteractor,
                                       gson: Gson): EkeyComponentContract.Presenter {
-        return EkeyComponentPresenter(stateManager, getEKeyMasterkeyInteractor, setEKeyMasterkeyInteractor,
-                getEKeyVaultInteractor, encryptedPreferences, setEKeyVaultInteractor, gson)
+        return EkeyComponentPresenter(stateManager, getEKeyMasterkeyInteractor, setEKeyMasterkeyInteractor, deleteEKeyMasterkeyInteractor,
+                getEKeyVaultInteractor, encryptedPreferences, setEKeyVaultInteractor, deleteEKeyVaultInteractor, gson)
     }
 
     @ActivityScope

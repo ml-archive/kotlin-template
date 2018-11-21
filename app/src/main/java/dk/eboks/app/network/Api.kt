@@ -142,7 +142,7 @@ interface Api {
 
     @GET("channels/ekey/vault") fun keyVaultGet(@Query("signaturetime") signaturetime: String, @Query("signature") signature: String):Call<String>
     @PUT("channels/ekey/vault") fun keyVaultSet(@Body vault: String, @Query("signaturetime") signaturetime: String, @Query("signature") signature: String):Call<ResponseBody>
-    @DELETE("channels/ekey/vault") fun keyVaultDelete():Call<ResponseBody>
+    @DELETE("channels/ekey/vault") fun keyVaultDelete(@Query("signaturetime") signaturetime: String, @Query("signature") signature: String):Call<ResponseBody>
 
     @GET("channels/ekey/masterkey") fun masterKeyGet():Call<EKeyGetMasterkeyResponse>
     @POST("channels/ekey/masterkey") fun masterKeySet(@Body obj: JsonObject):Call<ResponseBody>

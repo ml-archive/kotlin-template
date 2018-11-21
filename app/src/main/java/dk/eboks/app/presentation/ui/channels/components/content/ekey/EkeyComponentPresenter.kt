@@ -1,10 +1,7 @@
 package dk.eboks.app.presentation.ui.channels.components.content.ekey
 
 import com.google.gson.Gson
-import dk.eboks.app.domain.interactors.ekey.GetEKeyMasterkeyInteractor
-import dk.eboks.app.domain.interactors.ekey.GetEKeyVaultInteractor
-import dk.eboks.app.domain.interactors.ekey.SetEKeyMasterkeyInteractor
-import dk.eboks.app.domain.interactors.ekey.SetEKeyVaultInteractor
+import dk.eboks.app.domain.interactors.ekey.*
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.ekey.*
 import dk.eboks.app.domain.models.local.ViewError
@@ -18,9 +15,11 @@ import javax.inject.Inject
  */
 class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, val getMasterkeyInteractor: GetEKeyMasterkeyInteractor,
                                                  val setMasterKeyInteractor: SetEKeyMasterkeyInteractor,
+                                                 val deleteMasterKeyInteractor: DeleteEKeyMasterkeyInteractor,
                                                  val getEKeyVaultInteractor: GetEKeyVaultInteractor,
                                                  val encryptedPreferences: EncryptedPreferences,
                                                  val setEKeyVaultInteractor: SetEKeyVaultInteractor,
+                                                 val deleteEKeyVaultInteractor: DeleteEKeyVaultInteractor,
                                                  val gson: Gson)
     : EkeyComponentContract.Presenter, BasePresenterImpl<EkeyComponentContract.View>(),
         GetEKeyMasterkeyInteractor.Output, SetEKeyMasterkeyInteractor.Output, GetEKeyVaultInteractor.Output {
@@ -85,6 +84,15 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
     override fun setVault(vault: String, signatureTime: String, signature: String) {
         setEKeyVaultInteractor.input = SetEKeyVaultInteractor.Input(vault, signatureTime, signature)
         setEKeyVaultInteractor.run()
+    }
+
+    override fun deleteMasterKey() {
+        deleteMasterKeyInteractor.run()
+    }
+
+    override fun deleteVault(signature: String, signatureTime: String) {
+        deleteEKeyVaultInteractor.input = DeleteEKeyVaultInteractor.Input(signature, signatureTime)
+        deleteEKeyVaultInteractor.run()
     }
 
     override fun getKeys() {

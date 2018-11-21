@@ -9,5 +9,11 @@ interface DeleteEKeyVaultInteractor: Interactor {
         fun onDeleteEKeyVaultError(viewError: ViewError)
     }
 
+    data class Input(
+            val signature: String,
+            val signatureTime: String
+    )
+
     var output: Output?
+    var input: Input?
 }

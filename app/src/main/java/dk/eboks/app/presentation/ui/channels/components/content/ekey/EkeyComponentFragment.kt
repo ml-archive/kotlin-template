@@ -73,7 +73,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        keysContentRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        keysContentRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         keysContentRv.addItemDecoration(DividerDecoration())
         keysContentRv.adapter = BetterEkeyAdapter(items, this)
 
@@ -125,13 +125,15 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
             val handler = EncryptionHandlerImpl(AesPasswordKeyProviderImpl(pin))
             handler.init()
 
-            masterkey = String(handler.decrypt(backendKey), charset("UTF-8"))
+//            masterkey = String(handler.decrypt(backendKey), charset("UTF-8"))
+            masterkey = backendKey
             Timber.d("Decrypted from backend: $masterkey")
 
             presenter.storeMasterkey(masterkey!!)
 
             val signature = getSignatureAndSignatureTime()
             presenter.getVault(signature.first, signature.second)
+//            presenter.deleteVault(signature.second, signature.first)
         } else {
             generateNewKeyAndSend()
         }
@@ -140,9 +142,14 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
     private fun getSignatureAndSignatureTime(): Pair<String, String> {
         val keyHash = HashingUtils.sha256AsBase64(masterkey)
 
-        val dateFormat = SimpleDateFormat("yyyyMMddHHmmss", Locale.getDefault())
-        val time = dateFormat.format(Date())
-        val hash = HashingUtils.hmacSha256(time.toByteArray(charset("UTF-8")), keyHash)
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSS'Z'", Locale.GERMAN)
+        dateFormat.timeZone = TimeZone.getTimeZone("GMT")
+        val dateFormat2 = SimpleDateFormat("yyyyMMddHHmmss", Locale.GERMAN)
+        dateFormat2.timeZone = TimeZone.getTimeZone("GMT")
+        val date = Date()
+        val time = dateFormat.format(date)
+        val time2 = dateFormat2.format(date)
+        val hash = HashingUtils.hmacSha256(keyHash, time2)
 
         return Pair(time, hash)
     }
@@ -193,7 +200,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         presenter.storeMasterkey(key)
 
         //send key to backend
-        presenter.setMasterkey(hashed, encrypted)
+        presenter.setMasterkey(hashed, key)
     }
 
     override fun showKeys(keys: List<BaseEkey>) {

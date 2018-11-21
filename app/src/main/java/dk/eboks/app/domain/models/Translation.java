@@ -65,6 +65,12 @@ public class Translation {
 		public static String printError = "__printError";
 		public static String receiptOpenInErrorTitle = "Fejl";
 		public static String receiptOpenInErrorMessage = "Kvittering kunne ikke \u00E5bnes";
+		public static String eKeyDecryptionFailedTitle = "__eKeyDecryptionFailedTitle";
+		public static String eKeyDecryptionFailedMessage = "__eKeyDecryptionFailedMessage";
+		public static String eKeyEncryptionFailedTitle = "__eKeyEncryptionFailedTitle";
+		public static String eKeyEncryptionFailedMessage = "__eKeyEncryptionFailedMessage";
+		public static String wrongIdErrorTitle = "Forkert Nem-ID";
+		public static String wrongIdErrorMessage = "Det ser ud til at det brugte Nem-ID tilh\u00F8rer en anden person.";
 	}
 	public final static class mail {
 		public static String senderHeader = "Post fra dine afsendere";
@@ -310,7 +316,7 @@ public class Translation {
 	}
 	public final static class iosbiometrics {
 		public static String errorAuthentication = "Din identitet kunne ikke verificeres";
-		public static String errorUserCancel = "__errorUserCancel";
+		public static String errorUserCancel = "Du afbr\u00F8d handlingen";
 		public static String errorUserFallback = "__errorUserFallback";
 		public static String faceID = "Face ID";
 		public static String touchID = "Touch ID";
@@ -479,7 +485,7 @@ public class Translation {
 		public static String messagesUnverifiedButton = "Verificer min profil";
 		public static String windowHeader = "Hjem";
 		public static String noContentText = "Intet indhold";
-		public static String errorContentFetch = "Det valgte dokument kunne ikke \u00E5bnes";
+		public static String errorContentFetch = "Indhold kunne ikke indl\u00E6ses";
 	}
 	public final static class systemfolders {
 		public static String inbox = "Indbakke";
@@ -516,6 +522,7 @@ public class Translation {
 		public static String confirmDeleteTitle = "Skal den valgte kvittering slettes?";
 		public static String confirmDeleteMessage = "Er du sikker p\u00E5, du vil slette denne kvittering?";
 		public static String receiptSavedToFolderToast = "Kvittering er gemt i [folderName]";
+		public static String cvrPrefix = "CVR: ";
 	}
 	public final static class channelsettingsstoreboxadditions {
 		public static String digitalReceiptsTitle = "Modtag kun kvitteringer digitalt";
@@ -635,6 +642,13 @@ public class Translation {
 		public static String editLogin = "Rediger legitimationsoplysninger";
 		public static String editNote = "Rediger note";
 		public static String typeHere = "Skriv her";
+		public static String unlockEkey = "__unlockEkey";
+		public static String insertPin = "Indtast din 4-cifrede kode";
+		public static String insertPinMessage = "__insertPinMessage";
+		public static String insertNewPin = "Indtast en 4-cifret kode";
+		public static String insertNewPinMessage = "__insertNewPinMessage";
+		public static String createEKey = "__createEKey";
+		public static String ekeySecureKeyDescription = "Dette er din pinkode til e-Key, s\u00E5 du kan logge ind p\u00E5 andre enheder. Det er dog en god id\u00E9, at kunne huske denne kode, hvis du mister denne enhed.";
 	}
 	public final static class storeboxlogin {
 		public static String header = "Link til din Storebox profil";
@@ -731,5 +745,12 @@ public class Translation {
 		public static String nemIdNotInstalledTitle = "NemID App ikke installeret";
 		public static String nemIdNotInstalledMessage = "Installer NemID app\'en eller skift til n\u00F8glekort";
 		public static String installNemIdAppBtn = "Install\u00E9r NemID";
+	}
+	public final static class deviceactivation {
+		public static String header = "Aktivering";
+		public static String message = "For at logge p\u00E5 skal du nu aktivere din mobile enhed med [provider]";
+		public static String activateBtn = "Aktiv\u00E9r";
+		public static String skipBtn = "Annuller";
+		public static String cancelButton = "Annuller";
 	}
 }

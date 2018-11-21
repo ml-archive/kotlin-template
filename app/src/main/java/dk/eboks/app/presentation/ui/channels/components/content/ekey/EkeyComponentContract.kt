@@ -20,10 +20,12 @@ interface EkeyComponentContract {
 
     interface Presenter : BasePresenter<View> {
         fun getKeys()
-        fun getVault(signatureTime: String, signature: String)
         fun getMasterkey()
         fun setMasterkey(hash: String, encrypted: String)
+        fun deleteMasterKey()
         fun storeMasterkey(masterKey: String)
+        fun getVault(signatureTime: String, signature: String)
         fun setVault(vault: String, signatureTime: String, signature: String)
+        fun deleteVault(signature: String, signatureTime: String)
     }
 }
