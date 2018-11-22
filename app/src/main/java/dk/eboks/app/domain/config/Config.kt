@@ -440,7 +440,7 @@ object Config {
             else -> throw(IllegalStateException("Configuration mode ${BuildConfig.mode} is invalid. Use danish, swedish or norwegian"))
         }
         currentMode.environment = if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) currentMode.environments["demo"] else currentMode.environments["production"]
-        if(currentMode == norwegian)
+        if(currentMode == norwegian && BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
             currentMode.environment = currentMode.environments["demo2"]
         if(currentMode.environment == null)
             throw(IllegalStateException("currentMode.environment is not set!!"))
