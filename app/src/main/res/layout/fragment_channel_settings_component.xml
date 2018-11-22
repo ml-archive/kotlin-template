@@ -290,8 +290,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingLeft="16dp"
-                    android:text="_Add another credit card"
-                    nstack:text="@string/nstack_channelsettings_addAnotherCard" />
+                    tools:text="_Add another credit card"
+                    android:text="@string/nstack_channelsettings_addAnotherCard" />
 
 
             </LinearLayout>

@@ -46,13 +46,13 @@
                         android:layout_marginLeft="16dp"
                         android:layout_marginRight="16dp"
                         android:layout_marginTop="12dp"
-                        android:hint="_Name"
+                        tools:hint="_Name"
                         android:inputType="text"
                         android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
                         app:met_floatingLabel="normal"
                         app:met_floatingLabelText="_name"
                         app:met_textColorHint="@color/blueGrey"
-                        nstack:hint="@string/nstack_myInformation_name" />
+                        android:hint="@string/nstack_myInformation_name" />
 
 
                     <!--Primary email-->
@@ -72,7 +72,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
                             android:layout_marginTop="12dp"
-                            android:hint="_Primary email"
+                            tools:hint="_Primary email"
                             android:inputType="textEmailAddress"
                             android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
                             app:met_bottomTextSize="12dp"
@@ -85,7 +85,7 @@
                             app:met_primaryColor="@color/blueGrey"
                             app:met_textColorHint="@color/blueGrey"
                             app:met_underlineColor="@color/dividerColor"
-                            nstack:hint="@string/nstack_myInformation_primaryEmail" />
+                            android:hint="@string/nstack_myInformation_primaryEmail" />
 
                         <Button
                             android:id="@+id/verifyEmailBtn"
@@ -121,7 +121,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
                             android:layout_marginTop="12dp"
-                            android:hint="_Secondary email"
+                            tools:hint="_Secondary email"
                             android:inputType="textEmailAddress"
                             android:textColorHint="@color/blueGrey"
                             android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
@@ -131,7 +131,7 @@
                             app:met_hideUnderline="false"
                             app:met_textColorHint="@color/blueGrey"
                             app:met_underlineColor="@color/dividerColor"
-                            nstack:hint="@string/nstack_myInformation_secondaryEmail" />
+                            android:hint="@string/nstack_myInformation_secondaryEmail" />
 
                         <Button
                             android:id="@+id/verifySecondaryEmailBtn"
@@ -190,9 +190,10 @@
                             android:layout_gravity="end"
                             android:layout_marginEnd="16dp"
                             android:layout_marginTop="12dp"
+                            tools:text="_Verify email"
                             android:textSize="7dp"
                             android:textStyle="normal"
-                            nstack:text="@string/nstack_myInformation_verifyNumber" />
+                            android:text="@string/nstack_myInformation_verifyNumber" />
 
 
                     </FrameLayout>
