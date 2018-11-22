@@ -35,14 +35,14 @@
 
             <TextView
                 android:id="@+id/sendersShowAllTv"
-                tools:text="@string/nstack_mail_showAllSendersButton"
+                android:text="@string/nstack_mail_showAllSendersButton"
                 style="@style/text.subHeader5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/ic_chevron_right"
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
-                android:text="_Show all" />
+                tools:text="_Show all" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView

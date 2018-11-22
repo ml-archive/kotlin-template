@@ -29,13 +29,13 @@
     <Button
         style="@style/buttonRoundedCorners.darkBlueGrey"
         android:id="@+id/linkStoreboxBtn"
-        tools:text="@string/nstack_channels_storeboxAlreadyHaveProfileButton"
+        android:text="@string/nstack_channels_storeboxAlreadyHaveProfileButton"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="@dimen/margin_vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="_Already have"
+        tools:text="_Already have"
         android:visibility="gone"/>
 
 </LinearLayout>

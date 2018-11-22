@@ -95,10 +95,10 @@
                             android:layout_gravity="end"
                             android:layout_marginEnd="16dp"
                             android:layout_marginTop="12dp"
-                            android:text="_Verify email"
+                            tools:text="_Verify email"
                             android:textSize="7dp"
                             android:textStyle="normal"
-                            nstack:text="@string/nstack_myInformation_verifyEmail" />
+                            android:text="@string/nstack_myInformation_verifyEmail" />
 
 
                     </FrameLayout>
@@ -141,10 +141,10 @@
                             android:layout_gravity="end"
                             android:layout_marginEnd="16dp"
                             android:layout_marginTop="12dp"
-                            android:text="_Verify email"
+                            tools:text="_Verify email"
                             android:textSize="7dp"
                             android:textStyle="normal"
-                            nstack:text="@string/nstack_myInformation_verifyEmail" />
+                            android:text="@string/nstack_myInformation_verifyEmail" />
 
 
                     </FrameLayout>
@@ -166,7 +166,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
                             android:layout_marginTop="12dp"
-                            android:hint="_Mobile number"
+                            tools:hint="_Mobile number"
                             android:inputType="phone"
                             android:paddingBottom="20dp"
                             android:textColorHint="@color/blueGrey"
@@ -180,7 +180,7 @@
                             app:met_hideUnderline="false"
                             app:met_textColorHint="@color/blueGrey"
                             app:met_underlineColor="@color/dividerColor"
-                            nstack:hint="@string/nstack_myInformation_mobileNumber" />
+                            android:hint="@string/nstack_myInformation_mobileNumber" />
 
                         <Button
                             android:id="@+id/verifyMobileNumberBtn"
