@@ -124,6 +124,19 @@ object Config {
                             shortAuthCustomSecret = "MobileApp-Short-Custom-secret",
                             longAuthCustomId = "MobileApp-Long-Custom-id",
                             longAuthCustomSecret = "MobileApp-Long-Custom-secret"
+                    ),
+                    "production" to Environments(
+                            apiUrl = "https://mobile-api-no.e-boks.com/2/",
+                            authUrl = "https://oauth-no.e-boks.com/1/connect/token",
+                            kspUrl = "https://m.e-boks.no/app/logon.aspx?logontype=",
+                            shortAuthId = "MobileApp-Short-id",
+                            shortAuthSecret = "Buz3YmYmjhDRM9R3",
+                            longAuthId = "MobileApp-Long-id",
+                            longAuthSecret = "TgtjcNpY9R9ffw8D",
+                            shortAuthCustomId = "MobileApp-Short-Custom-id",
+                            shortAuthCustomSecret = "QmaENW6MeYwwjzF5",
+                            longAuthCustomId = "MobileApp-Long-Custom-id",
+                            longAuthCustomSecret = "4ZLmEL2SY69MqGKs"
                     )
             ),
 
