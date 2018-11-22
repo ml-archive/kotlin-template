@@ -21,8 +21,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="32dp"
-        android:text="_You already something"
-        nstack:key="@string/nstack_profile_mergeAccountHeader"
+        tools:text="_You already something"
+        android:text="@string/nstack_profile_mergeAccountHeader"
         />
 
     <TextView
@@ -31,8 +31,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="8dp"
-        android:text="_Do you want to merge profiles yada yada bla bla balba bla."
-        nstack:key="@string/nstack_profile_mergeAccountText"
+        tools:text="_Do you want to merge profiles yada yada bla bla balba bla."
+        android:text="@string/nstack_profile_mergeAccountText"
         android:textColor="@color/blueGrey" />
 
     <Button
@@ -41,8 +41,8 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_marginTop="24dp"
-        android:text="_Merge my accounts"
-        nstack:key="@string/nstack_profile_mergeAccountBtn"
+        tools:text="_Merge my accounts"
+        android:text="@string/nstack_profile_mergeAccountBtn"
         android:textSize="16dp"/>
 
     <Button
@@ -53,8 +53,8 @@
         android:layout_marginBottom="20dp"
         android:layout_gravity="center"
         style="@style/button.borderless"
-        android:text="_Cancel"
-        nstack:key="@string/nstack_profile_mergeAccountCancel"
+        tools:text="_Cancel"
+        android:text="@string/nstack_profile_mergeAccountCancel"
         android:textStyle="bold"/>
 
 </LinearLayout>

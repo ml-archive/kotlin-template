@@ -73,7 +73,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="20dp"
             android:gravity="center_vertical"
-            nstack:key="@string/nstack_folders_folder" />
+            android:text="@string/nstack_folders_folder" />
 
         <View
             android:layout_width="0dp"
@@ -100,8 +100,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginTop="24dp"
-        android:text="_save"
-        nstack:key="@string/nstack_default_save" />
+        tools:text="_save"
+        android:text="@string/nstack_default_save" />
 
     <Button
         android:id="@+id/cancelBtn"
@@ -111,7 +111,7 @@
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="_Cancel"
+        tools:text="_Cancel"
         android:textSize="14dp"
-        nstack:key="@string/nstack_default_cancel" />
+        android:text="@string/nstack_default_cancel" />
 </LinearLayout>

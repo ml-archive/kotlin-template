@@ -89,9 +89,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="_Header"
+                    tools:text="_Header"
                     android:visibility="gone"
-                    nstack:key="@string/nstack_logoncredentials_topLabel"/>
+                    android:text="@string/nstack_logoncredentials_topLabel"/>
 
                 <TextView
                     android:id="@+id/detailTv"
@@ -99,9 +99,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="_Please fill in the information below"
+                    tools:text="_Please fill in the information below"
                     android:visibility="gone"
-                    nstack:key="@string/nstack_logoncredentials_topSublabel"/>
+                    android:text="@string/nstack_logoncredentials_topSublabel"/>
 
 
                 <!-- Input container-->
@@ -172,9 +172,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="52dp"
                         android:enabled="false"
-                        android:text="_Continue"
+                        tools:text="_Continue"
                         android:visibility="visible"
-                        nstack:key="@string/nstack_logoncredentials_continueButton"/>
+                        android:text="@string/nstack_logoncredentials_continueButton"/>
 
                     <ProgressBar
                         android:id="@+id/continuePb"

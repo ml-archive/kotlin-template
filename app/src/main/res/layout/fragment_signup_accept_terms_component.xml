@@ -34,8 +34,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="_Welcome! To use e-Boks you need to accept the Terms and Conditions."
-            nstack:key="@string/nstack_signup_termsAcceptHeader" />
+            tools:text="_Welcome! To use e-Boks you need to accept the Terms and Conditions."
+            android:text="@string/nstack_signup_termsAcceptHeader" />
 
         <TextView
             android:id="@+id/subHeaderTv"
@@ -44,9 +44,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
             android:layout_marginTop="8dp"
-            android:text="_Please read and accept to continue"
+            tools:text="_Please read and accept to continue"
             android:textColor="@color/blueGrey"
-            nstack:key="@string/nstack_signup_termsAcceptSubHeader" />
+            android:text="@string/nstack_signup_termsAcceptSubHeader" />
 
     </LinearLayout>
 
@@ -100,7 +100,7 @@
 
             <Button
                 android:id="@+id/acceptBtn"
-                nstack:key="@string/nstack_signup_termsAcceptButton"
+                tools:text="@string/nstack_signup_termsAcceptButton"
                 style="@style/button.SolidGradient"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
@@ -111,7 +111,7 @@
 
             <Button
                 android:id="@+id/cancelBtn"
-                nstack:key="@string/nstack_signup_cancelTermsBtn"
+                tools:text="@string/nstack_signup_cancelTermsBtn"
                 style="@style/button.borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

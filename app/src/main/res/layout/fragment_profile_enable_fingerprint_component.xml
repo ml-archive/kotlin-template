@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="32dp"
-        android:text="_Enable fingerprint"
-        nstack:key="@string/nstack_profile_fingerDrawerHeader"
+        tools:text="_Enable fingerprint"
+        android:text="@string/nstack_profile_fingerDrawerHeader"
         />
 
     <TextView
@@ -33,8 +33,8 @@
         android:gravity="center"
         android:paddingTop="8dp"
         android:layout_marginBottom="24dp"
-        android:text="_Lorem ipsum dolor sit amet consectetur adipiscing elit. Integer cursus dui."
-        nstack:key="@string/nstack_profile_fingerDrawerText"
+        tools:text="_Lorem ipsum dolor sit amet consectetur adipiscing elit. Integer cursus dui."
+        android:text="@string/nstack_profile_fingerDrawerText"
         android:textColor="@color/blueGrey" />
 
     <android.support.design.widget.TextInputLayout
@@ -93,8 +93,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:enabled="false"
-                android:text="_Enable"
-                nstack:key="@string/nstack_profile_enable"/>
+                tools:text="_Enable"
+                android:text="@string/nstack_profile_enable"/>
 
             <Button
                 android:id="@+id/redOptionTv"
@@ -105,8 +105,8 @@
                 android:layout_gravity="center"
                 style="@style/button.borderless"
                 android:textStyle="bold"
-                android:text="_Cancel"
-                nstack:key="@string/nstack_default_cancel"/>
+                tools:text="_Cancel"
+                android:text="@string/nstack_default_cancel"/>
         </LinearLayout>
         <ProgressBar
             android:id="@+id/progressPb"

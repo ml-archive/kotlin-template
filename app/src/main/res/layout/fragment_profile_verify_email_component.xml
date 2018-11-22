@@ -21,8 +21,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="32dp"
-        android:text="_Verify your email"
-        nstack:key="@string/nstack_profile_verifyEmailHeader"/>
+        tools:text="_Verify your email"
+        android:text="@string/nstack_profile_verifyEmailHeader"/>
 
     <TextView
         android:id="@+id/bodyTv"
@@ -40,8 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_marginTop="24dp"
-        android:text="_Resend confirmation email"
-        nstack:key="@string/nstack_profile_verifyEmailBtn"
+        tools:text="_Resend confirmation email"
+        android:text="@string/nstack_profile_verifyEmailBtn"
         android:textSize="16dp"/>
 
     <Button
@@ -52,8 +52,8 @@
         android:layout_marginBottom="20dp"
         android:layout_gravity="center"
         style="@style/button.borderless"
-        android:text="_Cancel"
-        nstack:key="@string/nstack_profile_verifyEmailCancel"
+        tools:text="_Cancel"
+        android:text="@string/nstack_profile_verifyEmailCancel"
         android:textStyle="bold"/>
 
 </LinearLayout>

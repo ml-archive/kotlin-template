@@ -25,8 +25,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="32dp"
-        android:text="_Verify your mobile number"
-        nstack:key="@string/nstack_profile_verifyMobilHeader"/>
+        tools:text="_Verify your mobile number"
+        android:text="@string/nstack_profile_verifyMobilHeader"/>
 
     <TextView
         android:id="@+id/verifyNumberSubTv"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="8dp"
-        nstack:key="@string/nstack_profile_verifyMobilText"
+        android:text="@string/nstack_profile_verifyMobilText"
         android:textColor="@color/blueGrey" />
 
     <android.support.design.widget.TextInputLayout
@@ -76,8 +76,8 @@
                 android:layout_height="52dp"
                 android:layout_marginBottom="12dp"
                 android:textSize="16dp"
-                android:text="_Resend code"
-                nstack:key="@string/nstack_profile_verifyMobilResend"/>
+                tools:text="_Resend code"
+                android:text="@string/nstack_profile_verifyMobilResend"/>
 
             <Button
                 android:id="@+id/verifyBtn"
@@ -85,8 +85,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:textSize="16dp"
-                android:text="_Continue"
-                nstack:key="@string/nstack_profile_verifyMobileContinueBtn"/>
+                tools:text="_Continue"
+                android:text="@string/nstack_profile_verifyMobileContinueBtn"/>
 
             <Button
                 android:id="@+id/cancelBtn"
@@ -96,8 +96,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"
                 style="@style/button.borderless"
-                android:text="_Cancel"
-                nstack:key="@string/nstack_profile_verifyMobilCancel"/>
+                tools:text="_Cancel"
+                android:text="@string/nstack_profile_verifyMobilCancel"/>
         </LinearLayout>
         <FrameLayout
             android:id="@+id/progressFl"

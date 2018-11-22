@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:nstack="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/backgroundColor"
     android:paddingBottom="@dimen/margin_normal">
@@ -29,7 +29,7 @@
     <Button
         style="@style/buttonRoundedCorners.darkBlueGrey"
         android:id="@+id/linkStoreboxBtn"
-        nstack:key="@string/nstack_channels_storeboxAlreadyHaveProfileButton"
+        tools:text="@string/nstack_channels_storeboxAlreadyHaveProfileButton"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="@dimen/margin_vertical"

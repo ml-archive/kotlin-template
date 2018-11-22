@@ -27,8 +27,8 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="40dp"
-                android:text="_Upload and store your important files and pictures in one secure place"
-                nstack:key="@string/nstack_uploads_uploadsHeader" />
+                tools:text="_Upload and store your important files and pictures in one secure place"
+                android:text="@string/nstack_uploads_uploadsHeader" />
 
             <!--progresstext-->
             <LinearLayout
@@ -106,8 +106,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:text="_take photo"
-                    nstack:key="@string/nstack_uploads_takePhoto" />
+                    tools:text="_take photo"
+                    android:text="@string/nstack_uploads_takePhoto" />
 
                 <Button
                     android:id="@+id/fileBtn"
@@ -116,8 +116,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
-                    android:text="_choose a file"
-                    nstack:key="@string/nstack_uploads_chooseFile" />
+                    tools:text="_choose a file"
+                    android:text="@string/nstack_uploads_chooseFile" />
 
             </LinearLayout>
 
@@ -140,8 +140,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="_Get 1 GB for free asd"
-                    nstack:key="@string/nstack_uploads_storageRowHeader" />
+                    tools:text="_Get 1 GB for free asd"
+                    android:text="@string/nstack_uploads_storageRowHeader" />
 
                 <TextView
                     style="@style/text.subHeader5"
@@ -149,9 +149,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="10dp"
-                    android:text="_and much more"
+                    tools:text="_and much more"
                     android:textColor="@color/blueGrey"
-                    nstack:key="@string/nstack_uploads_storageRowSubHeader" />
+                    android:text="@string/nstack_uploads_storageRowSubHeader" />
 
                 <Button
                     android:id="@+id/otherVerifyProfileBtn"
@@ -160,8 +160,8 @@
                     android:layout_height="40dp"
                     android:layout_gravity="end|center_vertical"
                     android:gravity="center"
-                    android:text="_Verify profile"
-                    nstack:key="@string/nstack_uploads_storageRowButton" />
+                    tools:text="_Verify profile"
+                    android:text="@string/nstack_uploads_storageRowButton" />
 
             </FrameLayout>
 
@@ -191,8 +191,8 @@
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
                         android:paddingTop="20dp"
-                        android:text="_latest uploads"
-                        nstack:key="@string/nstack_uploads_rowHeader" />
+                        tools:text="_latest uploads"
+                        android:text="@string/nstack_uploads_rowHeader" />
 
                 </LinearLayout>
 
@@ -203,8 +203,8 @@
                     android:layout_width="80dp"
                     android:layout_height="30dp"
                     android:layout_marginEnd="@dimen/margin_normal"
-                    android:text="_show all"
-                    nstack:key="@string/nstack_home_messagesSectionHeaderShowAllButton"/>
+                    tools:text="_show all"
+                    android:text="@string/nstack_home_messagesSectionHeaderShowAllButton"/>
             </FrameLayout>
 
             <FrameLayout
@@ -237,7 +237,7 @@
                 android:background="@color/backgroundColor"
                 android:gravity="center"
                 android:visibility="gone"
-                nstack:key="@string/nstack_uploads_verifiedEmptyMsg"
+                android:text="@string/nstack_uploads_verifiedEmptyMsg"
                 />
 
             <!--show state for non verified user-->
@@ -257,8 +257,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
                     android:gravity="center"
-                    android:text="_Get 1 GB free storage"
-                    nstack:key="@string/nstack_uploads_nonVerifiedHeader"
+                    tools:text="_Get 1 GB free storage"
+                    android:text="@string/nstack_uploads_nonVerifiedHeader"
                     />
 
                 <TextView
@@ -267,8 +267,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_normal"
                     android:gravity="center"
-                    android:text="_All you have to do is verify your profile lorem ipsum dolor sit amet integer lorem lorem ipsum dolor sit"
-                    nstack:key="@string/nstack_uploads_nonVerifiedMsg"/>
+                    tools:text="_All you have to do is verify your profile lorem ipsum dolor sit amet integer lorem lorem ipsum dolor sit"
+                    android:text="@string/nstack_uploads_nonVerifiedMsg"/>
 
                 <Button
                     android:id="@+id/verifyProfileBtn"
@@ -280,9 +280,9 @@
                     android:gravity="center"
                     android:paddingLeft="@dimen/margin_normal"
                     android:paddingRight="@dimen/margin_normal"
-                    android:text="_verify profile"
+                    tools:text="_verify profile"
                     android:textColor="@color/darkGreyBlue"
-                    nstack:key="@string/nstack_uploads_nonVerifiedButton"/>
+                    android:text="@string/nstack_uploads_nonVerifiedButton"/>
 
             </LinearLayout>
         </LinearLayout>

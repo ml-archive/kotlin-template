@@ -44,7 +44,7 @@
 
             <TextView
                 android:id="@+id/noMessagesTv"
-                nstack:key="@string/nstack_mail_noMessagesToDisplay"
+                android:text="@string/nstack_mail_noMessagesToDisplay"
                 style="@style/text.body6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                 android:textColor="@color/blueGrey"
                 android:layout_marginRight="24dp"
                 android:layout_marginLeft="24dp"
-                android:text="_No messages"/>
+                tools:text="_No messages"/>
 
 
     </FrameLayout>

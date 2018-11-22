@@ -30,7 +30,7 @@
         android:layout_height="wrap_content">
         <Button
             android:id="@+id/signupBtn"
-            nstack:key="@string/nstack_start_signupButton"
+            android:text="@string/nstack_start_signupButton"
             android:background="@drawable/rounded_button"
             android:backgroundTint="@color/darkGreyBlue50"
             android:transitionName="signUpButtonTransition"
@@ -40,7 +40,7 @@
             android:layout_marginBottom="24dp"
             android:layout_marginStart="36dp"
             android:layout_marginEnd="36dp"
-            android:text="_Sign up" />
+            tools:text="_Sign up" />
 
     </LinearLayout>
     <TextView
