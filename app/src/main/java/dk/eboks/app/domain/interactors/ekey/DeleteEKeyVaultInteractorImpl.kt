@@ -19,7 +19,7 @@ class DeleteEKeyVaultInteractorImpl(executor: Executor, private val api: Api) :
                 val response = api.keyVaultDelete(it.signatureTime, it.signature).execute()
 
                 if (response?.isSuccessful == true) {
-                    output?.onDeleteEKeyVaultSuccess()
+                    runOnUIThread { output?.onDeleteEKeyVaultSuccess() }
                 }
             }.guard {
                 throw Exception("Wrong input")
@@ -32,6 +32,6 @@ class DeleteEKeyVaultInteractorImpl(executor: Executor, private val api: Api) :
 
     private fun showViewException(exception: Exception) {
         val viewError = exceptionToViewError(exception)
-        output?.onDeleteEKeyVaultError(viewError)
+        runOnUIThread { output?.onDeleteEKeyVaultError(viewError) }
     }
 }

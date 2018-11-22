@@ -7,15 +7,23 @@ import android.os.Parcelable
 interface BaseEkey : Parcelable {
     val name: String
     val note: String?
+    val ekeyType: String
 }
 
-data class Login(var username: String, var password: String, override val name: String, override val note: String?) : Parcelable, BaseEkey {
+data class Login(var username: String, var password: String, override val name: String, override val note: String?, override val ekeyType: String = "Login") : Parcelable, BaseEkey {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString()) {
     }
+
+    constructor() : this(
+            "",
+            "",
+            "",
+            ""
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         //        super.writeToParcel(parcel, flags)
@@ -40,11 +48,16 @@ data class Login(var username: String, var password: String, override val name: 
     }
 }
 
-data class Note(override val name: String, override val note: String?) : BaseEkey {
+data class Note(override val name: String, override val note: String?, override val ekeyType: String = "Note") : BaseEkey {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString()) {
     }
+
+    constructor() : this(
+            "",
+            ""
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
 //        super.writeToParcel(parcel, flags)
@@ -67,13 +80,20 @@ data class Note(override val name: String, override val note: String?) : BaseEke
     }
 }
 
-data class Pin(var cardholderName: String, var pin: String, override val name: String, override val note: String?) : Parcelable, BaseEkey {
+data class Pin(var cardholderName: String, var pin: String, override val name: String, override val note: String?, override val ekeyType: String = "Pin") : Parcelable, BaseEkey {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
             parcel.readString()) {
     }
+
+    constructor() : this(
+            "",
+            "",
+            "",
+            ""
+    )
 
     override fun describeContents(): Int {
         return 0
@@ -98,12 +118,18 @@ data class Pin(var cardholderName: String, var pin: String, override val name: S
     }
 }
 
-data class Ekey(var pin: String, override val name: String, override val note: String?) : Parcelable,BaseEkey {
+data class Ekey(var pin: String, override val name: String, override val note: String?, override val ekeyType: String = "Ekey") : Parcelable,BaseEkey {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
             parcel.readString()) {
     }
+
+    constructor() : this(
+            "",
+            "",
+            ""
+    )
 
     override fun describeContents(): Int {
         return 0

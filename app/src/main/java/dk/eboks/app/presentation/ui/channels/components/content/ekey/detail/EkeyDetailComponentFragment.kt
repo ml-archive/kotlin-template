@@ -10,6 +10,8 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.ekey.*
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
+import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_channel_ekey_detail.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -27,6 +29,8 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
 
     @Inject
     lateinit var presenter: EkeyDetailComponentContract.Presenter
+
+    var pin: String? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_channel_ekey_detail, container, false)
@@ -51,6 +55,8 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
             if (args.containsKey("note")) {
                 editKey = args.get("note") as Note
             }
+
+            pin = args.getString("PIN_CODE")
         }
 
         pinShowPasswordIb.setOnClickListener {
@@ -63,6 +69,11 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
         showPassword()
         setupTopBar()
         setupInputfields()
+    }
+
+    override fun onSuccess() {
+        (activity as EkeyContentActivity).shouldRefresh = true
+        getBaseActivity()?.setRootFragment(R.id.content, pin?.let { EkeyComponentFragment.newInstance(it) })
     }
 
     private fun setupInputfields() {
@@ -161,7 +172,36 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
             //todo save clicked
             var temp = "_Save clicked"
             Timber.e(temp)
+            val items = (activity as EkeyContentActivity).getVault()
+            items?.let {items ->
+                getBaseEkey()?.let { presenter.putVault(items, it) }
+            }
             true
+        }
+    }
+
+    private fun getBaseEkey(): BaseEkey? {
+        return when (category) {
+            EkeyDetailMode.LOGIN -> {
+                Login(
+                        usernameEt.text.toString(),
+                        passwordEt.text.toString(),
+                        nameEt.text.toString(),
+                        noteEt.text.toString())
+            }
+            EkeyDetailMode.PIN -> {
+                Pin(cardholderEt.text.toString(),
+                        pinEt.text.toString(),
+                        nameEt.text.toString(),
+                        noteEt.text.toString())
+            }
+            EkeyDetailMode.NOTE -> {
+                Note(nameEt.text.toString(),
+                        noteEt.text.toString())
+            }
+            else -> {
+                null
+            }
         }
     }
 

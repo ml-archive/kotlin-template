@@ -21,14 +21,14 @@ class SetEKeyMasterkeyInteractorImpl(executor: Executor, private val api: Api) :
             input?.let {
                 json.addProperty("masterkey", it.masterKey)
                 json.addProperty("masterkeyhash", it.masterKeyHash)
+
+                val response = api.masterKeySet(json).execute()
+
+                if (response?.isSuccessful == true) {
+                    runOnUIThread { output?.onSetEKeyMasterkeySuccess(it.masterKey, it.pin) }
+                }
             }.guard {
                 throw InteractorException("wrong args")
-            }
-
-            val response = api.masterKeySet(json).execute()
-
-            if (response?.isSuccessful == true) {
-                output?.onSetEKeyMasterkeySuccess()
             }
         } catch (exception: Exception) {
             showViewException(exception)
@@ -38,6 +38,6 @@ class SetEKeyMasterkeyInteractorImpl(executor: Executor, private val api: Api) :
 
     private fun showViewException(exception: Exception) {
         val viewError = exceptionToViewError(exception)
-        output?.onSetEKeyMasterkeyError(viewError)
+        runOnUIThread { output?.onSetEKeyMasterkeyError(viewError) }
     }
 }

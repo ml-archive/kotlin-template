@@ -18,7 +18,7 @@ class SetEKeyVaultInteractorImpl(executor: Executor, private val api: Api) :
                 val response = api.keyVaultSet(it.vault, it.signatureTime, it.signature).execute()
 
                 if (response?.isSuccessful == true) {
-                    output?.onSetEKeyVaultSuccess()
+                    runOnUIThread { output?.onSetEKeyVaultSuccess() }
                 }
             }
         } catch (exception: Exception) {
@@ -29,6 +29,6 @@ class SetEKeyVaultInteractorImpl(executor: Executor, private val api: Api) :
 
     private fun showViewException(exception: Exception) {
         val viewError = exceptionToViewError(exception)
-        output?.onSetEKeyVaultError(viewError)
+        runOnUIThread { output?.onSetEKeyVaultError(viewError) }
     }
 }

@@ -992,10 +992,9 @@ class PresentationModule {
                                       getEKeyVaultInteractor: GetEKeyVaultInteractor,
                                       encryptedPreferences: EncryptedPreferences,
                                       setEKeyVaultInteractor: SetEKeyVaultInteractor,
-                                      deleteEKeyVaultInteractor: DeleteEKeyVaultInteractor,
-                                      gson: Gson): EkeyComponentContract.Presenter {
+                                      deleteEKeyVaultInteractor: DeleteEKeyVaultInteractor): EkeyComponentContract.Presenter {
         return EkeyComponentPresenter(stateManager, getEKeyMasterkeyInteractor, setEKeyMasterkeyInteractor, deleteEKeyMasterkeyInteractor,
-                getEKeyVaultInteractor, encryptedPreferences, setEKeyVaultInteractor, deleteEKeyVaultInteractor, gson)
+                getEKeyVaultInteractor, encryptedPreferences, setEKeyVaultInteractor, deleteEKeyVaultInteractor)
     }
 
     @ActivityScope
@@ -1006,8 +1005,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideEkeyDetailComponentPresenter(stateManager: AppStateManager): EkeyDetailComponentContract.Presenter {
-        return EkeyDetailComponentPresenter(stateManager)
+    fun provideEkeyDetailComponentPresenter(stateManager: AppStateManager, encryptedPreferences: EncryptedPreferences, setEKeyVaultInteractor: SetEKeyVaultInteractor): EkeyDetailComponentContract.Presenter {
+        return EkeyDetailComponentPresenter(stateManager, encryptedPreferences, setEKeyVaultInteractor)
     }
 
     @ActivityScope

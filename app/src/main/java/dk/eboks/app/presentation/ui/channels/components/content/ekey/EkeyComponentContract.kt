@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.channels.components.content.ekey
 
 import dk.eboks.app.domain.models.channel.ekey.BaseEkey
-import dk.eboks.app.domain.models.channel.ekey.Ekey
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter
@@ -12,20 +11,19 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface EkeyComponentContract {
     interface View : BaseView {
         fun showKeys(keys: List<BaseEkey>)
-        fun onMasterkey(masterkey: String?)
         fun onGetMasterkeyError(viewError: ViewError)
-        fun onMasterkeyNotFound()
-        fun onVaultNotFound()
     }
 
     interface Presenter : BasePresenter<View> {
         fun getKeys()
-        fun getMasterkey()
-        fun setMasterkey(hash: String, encrypted: String)
+        fun getMasterkey(pin: String)
+        fun setMasterkey(hash: String, encrypted: String, pin: String)
         fun deleteMasterKey()
         fun storeMasterkey(masterKey: String)
-        fun getVault(signatureTime: String, signature: String)
-        fun setVault(vault: String, signatureTime: String, signature: String)
+        fun getVault(masterKey: String, pin: String)
+        fun setVault(it: String, keyList: MutableList<BaseEkey>)
         fun deleteVault(signature: String, signatureTime: String)
+        fun decryptVault(masterKey: String, vault: String): String
+        fun getKeyList(): MutableList<BaseEkey>
     }
 }

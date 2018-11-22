@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.channels.screens.content.ekey
 
 import android.os.Bundle
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.channel.ekey.BaseEkey
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.pin.EkeyPinComponentFragment
@@ -9,6 +10,9 @@ import javax.inject.Inject
 
 class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
     @Inject lateinit var presenter: EkeyContentContract.Presenter
+
+    private var keys: MutableList<BaseEkey>? = null
+    var shouldRefresh = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,5 +42,11 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
         }
     }
 
+    fun setVault(keyList: MutableList<BaseEkey>) {
+        keys = keyList
+    }
 
+    fun getVault(): MutableList<BaseEkey>? {
+        return keys
+    }
 }

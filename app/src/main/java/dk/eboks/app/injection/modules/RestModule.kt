@@ -57,7 +57,7 @@ class RestModule {
         val gson = GsonBuilder()
                 .registerTypeAdapterFactory(typeFactory)
                 .registerTypeAdapter(Date::class.java, dateDeserializer)
-                //.registerTypeAdapter(List::class.java, ListDeserializer())
+//                .registerTypeAdapter(List::class.java, ListDeserializer())
                 .setDateFormat(DateDeserializer.DATE_FORMATS[0])
                 .create()
         return gson

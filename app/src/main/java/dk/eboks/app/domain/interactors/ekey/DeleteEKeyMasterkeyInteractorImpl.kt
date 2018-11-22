@@ -16,7 +16,7 @@ class DeleteEKeyMasterkeyInteractorImpl(executor: Executor, private val api: Api
             val response = api.masterKeyDelete().execute()
 
             if (response?.isSuccessful == true) {
-                output?.onDeleteEKeyMasterkeySuccess()
+                runOnUIThread { output?.onDeleteEKeyMasterkeySuccess() }
             }
         } catch (exception: Exception) {
             showViewException(exception)
@@ -26,6 +26,6 @@ class DeleteEKeyMasterkeyInteractorImpl(executor: Executor, private val api: Api
 
     private fun showViewException(exception: Exception) {
         val viewError = exceptionToViewError(exception)
-        output?.onDeleteEKeyMasterkeyError(viewError)
+        runOnUIThread { output?.onDeleteEKeyMasterkeyError(viewError) }
     }
 }
