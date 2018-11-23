@@ -31,7 +31,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:gravity="center"
-                    nstack:text="@string/nstack_ekey_overviewAddItemHeadline" />
+                    android:text="@string/nstack_ekey_overviewAddItemHeadline" />
 
                 <TextView
                     android:id="@+id/itemTextTv"
@@ -42,7 +42,7 @@
                     android:layout_marginRight="32dp"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    nstack:text="@string/nstack_ekey_overviewAddItemText" />
+                    android:text="@string/nstack_ekey_overviewAddItemText" />
 
                 <Button
                     android:id="@+id/addItemBtn"
@@ -55,7 +55,7 @@
                     android:textColor="@color/white"
                     android:textSize="14dp"
                     android:textStyle="normal"
-                    nstack:text="@string/nstack_ekey_overviewAddItemBtn" />
+                    android:text="@string/nstack_ekey_overviewAddItemBtn" />
 
             </LinearLayout>
 
@@ -76,16 +76,16 @@
                 android:layout_marginBottom="@dimen/margin_normal"
                 android:background="@color/dividerColor" />
 
-            <!--<TextView-->
-                <!--android:id="@+id/emptyStateTv"-->
-                <!--style="@style/text.body6.secondary"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:background="@color/backgroundColor"-->
-                <!--android:gravity="center"-->
-                <!--android:visibility="visible"-->
-                <!--nstack:text="@string/nstack_ekey_noContent" />-->
+            <TextView
+                android:id="@+id/emptyStateTv"
+                style="@style/text.body6.secondary"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/backgroundColor"
+                android:gravity="center"
+                android:visibility="gone"
+                android:text="@string/nstack_ekey_noContent" />
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
 import kotlinx.android.synthetic.main.fragment_channel_ekey_pin.*
@@ -47,7 +48,7 @@ class EkeyPinComponentFragment : BaseFragment(), EkeyPinComponentContract.View {
     private fun setupTopbar() {
         getBaseActivity()?.mainTb?.menu?.clear()
 
-        getBaseActivity()?.mainTb?.title = "_login"
+        getBaseActivity()?.mainTb?.title = Translation.ekey.pincode
 
         getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         getBaseActivity()?.mainTb?.setNavigationOnClickListener {
@@ -107,7 +108,7 @@ class EkeyPinComponentFragment : BaseFragment(), EkeyPinComponentContract.View {
     private fun showKeyboard() {
         handler.postDelayed({
             thief.requestFocus()
-            var imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(thief, InputMethodManager.SHOW_IMPLICIT)
         }, 200)
     }

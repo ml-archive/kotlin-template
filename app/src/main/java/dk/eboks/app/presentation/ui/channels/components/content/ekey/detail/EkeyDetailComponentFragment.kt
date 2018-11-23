@@ -98,6 +98,8 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
                         loginShowPasswordIb.visibility = View.VISIBLE
                     }
                 }
+
+                nameEt.requestFocus()
             }
             EkeyDetailMode.PIN -> {
                 pinTil.visibility = View.VISIBLE
@@ -112,6 +114,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
                         pinShowPasswordIb.visibility = View.VISIBLE
                     }
                 }
+                nameEt.requestFocus()
             }
             EkeyDetailMode.NOTE -> {
                 editKey?.let {
@@ -120,6 +123,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
                         noteEt.setText(it.note)
                     }
                 }
+                nameEt.requestFocus()
             }
         }
     }

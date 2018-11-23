@@ -31,7 +31,7 @@
                 android:layout_height="match_parent"
                 android:importantForAutofill="noExcludeDescendants"
                 android:inputType="textPersonName|textCapWords"
-                nstack:hint="@string/nstack_ekey_inputHintName" />
+                android:hint="@string/nstack_ekey_inputHintName" />
         </android.support.design.widget.TextInputLayout>
 
         <!--Pin-->
@@ -51,7 +51,7 @@
                 android:layout_height="match_parent"
                 android:importantForAutofill="noExcludeDescendants"
                 android:inputType="textPersonName|textCapWords"
-                nstack:hint="@string/nstack_ekey_inputHintCardholder" />
+                android:hint="@string/nstack_ekey_inputHintCardholder" />
         </android.support.design.widget.TextInputLayout>
 
         <FrameLayout
@@ -73,7 +73,7 @@
                     android:layout_height="match_parent"
                     android:importantForAutofill="noExcludeDescendants"
                     android:inputType="textPassword"
-                    nstack:hint="@string/nstack_ekey_inputHintPin" />
+                    android:hint="@string/nstack_ekey_inputHintPin" />
             </android.support.design.widget.TextInputLayout>
 
             <ImageButton
@@ -100,7 +100,7 @@
                 android:layout_height="match_parent"
                 android:importantForAutofill="noExcludeDescendants"
                 android:inputType="textPersonName|textCapWords"
-                nstack:hint="@string/nstack_ekey_inputHintUsername" />
+                android:hint="@string/nstack_ekey_inputHintUsername" />
         </android.support.design.widget.TextInputLayout>
 
         <FrameLayout
@@ -122,7 +122,7 @@
                     android:layout_height="match_parent"
                     android:importantForAutofill="noExcludeDescendants"
                     android:inputType="textPersonName|textCapWords"
-                    nstack:hint="@string/nstack_ekey_inputHintPassword" />
+                    android:hint="@string/nstack_ekey_inputHintPassword" />
             </android.support.design.widget.TextInputLayout>
 
             <ImageButton
@@ -150,7 +150,7 @@
                 android:layout_height="match_parent"
                 android:importantForAutofill="noExcludeDescendants"
                 android:inputType="textPersonName|textMultiLine"
-                nstack:hint="@string/nstack_ekey_inputHintNote" />
+                android:hint="@string/nstack_ekey_inputHintNote" />
         </android.support.design.widget.TextInputLayout>
 
         <TextView
@@ -160,6 +160,6 @@
             android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
             android:textSize="@dimen/text_size_subheader_6"
-            nstack:text="@string/nstack_ekey_requiredFields" />
+            android:text="@string/nstack_ekey_requiredFields" />
     </LinearLayout>
 </LinearLayout>

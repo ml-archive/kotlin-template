@@ -15,8 +15,8 @@
         android:layout_marginBottom="@dimen/margin_half"
         android:layout_marginLeft="@dimen/margin_normal"
         android:layout_marginTop="20dp"
-        android:text="_Select Category"
-        nstack:text="@string/nstack_ekey_addItemSelectCategory" />
+        tools:text="_Select Category"
+        android:text="@string/nstack_ekey_addItemSelectCategory" />
 
     <View
         android:layout_width="match_parent"
@@ -62,8 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/margin_normal"
-            android:text="_Login"
-            nstack:text="@string/nstack_ekey_addItemLogin" />
+            tools:text="_Login"
+            android:text="@string/nstack_ekey_addItemLogin" />
 
     </LinearLayout>
 
@@ -107,8 +107,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/margin_normal"
-            android:text="_Cards"
-            nstack:text="@string/nstack_ekey_addItemCards" />
+            tools:text="_Cards"
+            android:text="@string/nstack_ekey_addItemCards" />
 
     </LinearLayout>
 
@@ -152,8 +152,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/margin_normal"
-            android:text="_Notes"
-            nstack:text="@string/nstack_ekey_addItemNote" />
+            tools:text="_Notes"
+            android:text="@string/nstack_ekey_addItemNote" />
 
     </LinearLayout>
 

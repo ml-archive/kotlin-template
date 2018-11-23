@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/backgroundColor"
     android:paddingLeft="32dp"
@@ -13,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:gravity="center"
-        android:text="_Indtast din 4-cifrede kode" />
+        tools:text="_Indtast din 4-cifrede kode"
+        android:text="@string/nstack_ekey_insertPin"/>
 
     <TextView
         style="@style/text.subHeader5.quaternary"
@@ -21,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_half"
-        android:text="_Lorem ipsum dolor sit amet, consectur adipiscing elit, sed do  eisumod tempor" />
+        tools:text="_Dette er din pinkode til e-Key, så du kan logge ind på andre enheder. Det er dog en god idé, at kunne huske denne kode, hvis du mister denne enhed."
+        android:text="@string/nstack_ekey_ekeySecureKeyDescription"/>
 
     <EditText
         android:id="@+id/thief"
