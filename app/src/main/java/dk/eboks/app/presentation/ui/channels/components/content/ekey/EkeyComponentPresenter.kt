@@ -67,6 +67,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         //Encrypt
         masterKey?.let {
             setVault(it, keyList)
+            runAction { view -> view.showKeys(keyList) }
         }
     }
 
@@ -87,11 +88,16 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
             val handler = EncryptionHandlerImpl(AesCBCPasswordKeyProviderImpl(pin))
             handler.init()
 
-            masterKey = String(handler.decrypt(it), charset("UTF-8"))
-            Timber.d("Decrypted from backend: $masterKey")
+            try {
+                masterKey = String(handler.decrypt(it), charset("UTF-8"))
+                Timber.d("Decrypted from backend: $masterKey")
 
-            storeMasterkey(masterKey!!)
-            getVault(masterKey!!, pin)
+                storeMasterkey(masterKey!!)
+                getVault(masterKey!!, pin)
+            } catch (e: Exception) {
+                runAction { view -> view.showErrorDialog(ViewError()) }
+            }
+
         }.guard {
             generateNewKeyAndSend(pin)
         }
