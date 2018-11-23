@@ -30,8 +30,6 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
     @Inject
     lateinit var presenter: EkeyDetailComponentContract.Presenter
 
-    var pin: String? = null
-
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater?.inflate(R.layout.fragment_channel_ekey_detail, container, false)
         return rootView
@@ -55,8 +53,6 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
             if (args.containsKey("note")) {
                 editKey = args.get("note") as Note
             }
-
-            pin = args.getString("PIN_CODE")
         }
 
         pinShowPasswordIb.setOnClickListener {
@@ -73,7 +69,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
 
     override fun onSuccess() {
         (activity as EkeyContentActivity).shouldRefresh = true
-        getBaseActivity()?.setRootFragment(R.id.content, pin?.let { EkeyComponentFragment.newInstance(it) })
+        getBaseActivity()?.setRootFragment(R.id.content, (activity as EkeyContentActivity).pin?.let { EkeyComponentFragment.newInstance(it) })
     }
 
     private fun setupInputfields() {
@@ -173,11 +169,12 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
         val menuSearch = getBaseActivity()?.mainTb?.menu?.add(Translation.defaultSection.save.toUpperCase())
         menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
-            //todo save clicked
-            var temp = "_Save clicked"
-            Timber.e(temp)
+
             val items = (activity as EkeyContentActivity).getVault()
+            val doesExist = items?.firstOrNull { i -> i.hashCode() == editKey?.hashCode() }
+
             items?.let {items ->
+                doesExist?.let { items.remove(it) }
                 getBaseEkey()?.let { presenter.putVault(items, it) }
             }
             true

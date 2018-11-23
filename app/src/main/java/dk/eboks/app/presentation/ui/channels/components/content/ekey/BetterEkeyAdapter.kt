@@ -96,6 +96,11 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
                     subHeadingTv.text = eKey.data.username
                     logoIv.setImageResource(R.drawable.icon_48_lock_white)
                 }
+                is Ekey -> {
+                    headingTv.text = eKey.data.name
+                    subHeadingTv.text = eKey.data.note
+                    logoIv.setImageResource(R.drawable.icon_48_lock_white)
+                }
             }
         }
 

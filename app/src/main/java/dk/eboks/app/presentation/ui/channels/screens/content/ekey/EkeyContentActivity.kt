@@ -13,6 +13,7 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
 
     private var keys: MutableList<BaseEkey>? = null
     var shouldRefresh = false
+    var pin: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -13,8 +13,10 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.ekey.*
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailMode
+import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.fragment_channel_ekey_openitem.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -55,6 +57,10 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
             if (args.containsKey("note")) {
                 ekey = args.get("note") as Note
             }
+
+            if (args.containsKey("ekey")) {
+                ekey = args.get("ekey") as Ekey
+            }
         }
 
         setupTopbar()
@@ -74,6 +80,9 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
             is Note -> {
                 getBaseActivity()?.mainTb?.title = Translation.ekey.addItemNote
             }
+            is Ekey -> {
+                getBaseActivity()?.mainTb?.title = Translation.ekey.overviewEkey
+            }
         }
 
         getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
@@ -89,7 +98,11 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
             AlertDialog.Builder(context)
                     .setMessage(Translation.ekey.deleteDialogMsg.replace("[item]", category.toString()))
                     .setPositiveButton(Translation.ekey.deleteDialogRemoveBtn) { dialog, which ->
-                                //todo delete pin
+                        ekey?.let {
+                            val items = (activity as EkeyContentActivity).getVault()
+                            items?.removeAll { r -> r.hashCode() == it.hashCode() }
+                            items?.let { items -> presenter.putVault(items) }
+                        }
                     }
                     .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
 
@@ -160,6 +173,19 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
                 is Note -> {
                     category = EkeyDetailMode.NOTE
                 }
+                is Ekey -> {
+                    pinContainerFl.visibility = View.VISIBLE
+                    pinTv.text = getPassword(it.pin)
+                    pinShowPasswordIb.isSelected = !hidePassword
+                    pinShowPasswordIb.setOnClickListener {
+                        hidePassword = !hidePassword
+                        pinShowPasswordIb.isSelected = !hidePassword
+                        ekey?.let {
+                            it as Ekey
+                            pinTv.text = getPassword(it.pin)
+                        }
+                    }
+                }
             }
             editBtn.setOnClickListener {
                 val fragment = EkeyDetailComponentFragment()
@@ -176,10 +202,18 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
                     is Note -> {
                         fragment.putArg("note", key)
                     }
+                    is Ekey -> {
+                        fragment.putArg("ekey", key)
+                    }
                 }
                 getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, true)
             }
         }
+    }
+
+    override fun onSuccess() {
+        (activity as EkeyContentActivity).shouldRefresh = true
+        getBaseActivity()?.setRootFragment(R.id.content, (activity as EkeyContentActivity).pin?.let { EkeyComponentFragment.newInstance(it) })
     }
 
     private fun getPassword(password: String): String? {

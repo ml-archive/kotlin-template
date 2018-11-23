@@ -33,11 +33,9 @@ class EkeyAddItemComponentFragment : BaseFragment(), EkeyAddItemComponentContrac
 
         setupTopBar()
 
-        val pin = arguments.getString("PIN_CODE", null)
-        //todo set the on click listeners
-        notesLl.setOnClickListener { showNextView(EkeyDetailMode.NOTE, pin) }
-        cardsLl.setOnClickListener { showNextView(EkeyDetailMode.PIN, pin) }
-        loginLl.setOnClickListener { showNextView(EkeyDetailMode.LOGIN, pin) }
+        notesLl.setOnClickListener { showNextView(EkeyDetailMode.NOTE) }
+        cardsLl.setOnClickListener { showNextView(EkeyDetailMode.PIN) }
+        loginLl.setOnClickListener { showNextView(EkeyDetailMode.LOGIN) }
     }
 
     private fun setupTopBar() {
@@ -51,24 +49,12 @@ class EkeyAddItemComponentFragment : BaseFragment(), EkeyAddItemComponentContrac
         }
     }
 
-    private fun showNextView(category: EkeyDetailMode, pin: String){
-
+    private fun showNextView(category: EkeyDetailMode){
         val fragment = EkeyDetailComponentFragment()
         val args = Bundle()
         args.putSerializable("category", category)
-        args.putString("PIN_CODE", pin)
         fragment.arguments = args
         getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, true)
-    }
-
-    companion object {
-        fun newInstance(pin: String): EkeyAddItemComponentFragment {
-            return EkeyAddItemComponentFragment().apply {
-                arguments = Bundle().apply {
-                    putString("PIN_CODE", pin)
-                }
-            }
-        }
     }
 
 }

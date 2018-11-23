@@ -1039,8 +1039,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideEkeyOpenItemComponentPresenter(stateManager: AppStateManager): EkeyOpenItemComponentContract.Presenter {
-        return EkeyOpenItemComponentPresenter(stateManager)
+    fun provideEkeyOpenItemComponentPresenter(stateManager: AppStateManager, encryptedPreferences: EncryptedPreferences, setEKeyVaultInteractor: SetEKeyVaultInteractor): EkeyOpenItemComponentContract.Presenter {
+        return EkeyOpenItemComponentPresenter(stateManager, encryptedPreferences, setEKeyVaultInteractor)
     }
 
     @ActivityScope

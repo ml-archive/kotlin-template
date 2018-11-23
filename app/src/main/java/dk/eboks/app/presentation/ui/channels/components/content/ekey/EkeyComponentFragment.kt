@@ -34,6 +34,7 @@ import javax.inject.Inject
 class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, BetterEkeyAdapter.Ekeyclicklistener {
     override fun onEkeyClicked(ekey: BaseEkey) {
         val frag = EkeyOpenItemComponentFragment()
+        (activity as EkeyContentActivity).setVault(presenter.getKeyList())
         when (ekey) {
             is Login -> {
                 frag.putArg("login", ekey)
@@ -80,12 +81,13 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
 
         pin = arguments.getString("PIN_CODE")
         pin?.let {
+            (activity as EkeyContentActivity).pin = pin
             presenter.getMasterkey(it)
         }
 
         addItemBtn.setOnClickListener {
             (activity as EkeyContentActivity).setVault(presenter.getKeyList())
-            getBaseActivity()?.addFragmentOnTop(R.id.content, EkeyAddItemComponentFragment.newInstance(this.pin as String), true)
+            getBaseActivity()?.addFragmentOnTop(R.id.content, EkeyAddItemComponentFragment(), true)
         }
     }
 
@@ -119,11 +121,11 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
     }
 
     private fun setEmptyState(empty: Boolean) {
-//        if (empty) {
-//            emptyStateTv.visibility = View.VISIBLE
-//        } else {
-//            emptyStateTv.visibility = View.GONE
-//        }
+        if (empty) {
+            emptyStateTv.visibility = View.VISIBLE
+        } else {
+            emptyStateTv.visibility = View.GONE
+        }
     }
 
     override fun onGetMasterkeyError(viewError: ViewError) {
@@ -136,10 +138,10 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         setEmptyState(keys.isEmpty())
 
         // group by type
-        keys.filter { it is Login }.forEach { items.add(EkeyItem(it)) }
-        keys.filter { it is Pin }.forEach { items.add(EkeyItem(it)) }
-        keys.filter { it is Note }.forEach { items.add(EkeyItem(it)) }
-        keys.filter { it is Ekey }.forEach { items.add(EkeyItem(it)) }
+        keys.filter { it is Login }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name }).forEach { items.add(EkeyItem(it)) }
+        keys.filter { it is Pin }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name }).forEach { items.add(EkeyItem(it)) }
+        keys.filter { it is Note }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name }).forEach { items.add(EkeyItem(it)) }
+        keys.filter { it is Ekey }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name }).forEach { items.add(EkeyItem(it)) }
 
         // add headers
         var index = items.indexOfFirst { it is EkeyItem && it.data is Login }
