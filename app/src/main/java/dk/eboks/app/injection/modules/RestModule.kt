@@ -33,6 +33,7 @@ import okhttp3.Cookie
 import android.R.attr.host
 import okhttp3.HttpUrl
 import okhttp3.CookieJar
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import timber.log.Timber
 
 
@@ -166,6 +167,7 @@ class RestModule {
         return Retrofit.Builder()
                 .client(client)
                 .baseUrl(baseUrl)
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(BufferedSourceConverterFactory())
                 .addConverterFactory(converter)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

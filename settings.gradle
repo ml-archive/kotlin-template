@@ -1,3 +1,2 @@
-include ':app', ':locksmith'
-project(':locksmith').projectDir = new File(settingsDir, '../locksmith/locksmith')
+include ':app'
 

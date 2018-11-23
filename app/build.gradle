@@ -249,6 +249,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
 
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation 'com.squareup.retrofit2:converter-scalars:2.1.0'
 
     implementation("com.squareup.retrofit2:converter-gson:$retrofit_version") {
         exclude module: "retrofit:$retrofit_version"
@@ -274,8 +275,7 @@ dependencies {
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 
     // Encryption Lib
-//    implementation 'dk.nodes.locksmith:core:1.1.1'
-    implementation project(':locksmith')
+    implementation 'dk.nodes.locksmith:core:1.2.2'
 
     // Barcode Generation Library
     implementation 'com.google.zxing:core:3.3.0'
