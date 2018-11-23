@@ -37,7 +37,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:textStyle="normal"
-                        nstack:key="@string/nstack_home_messagesHeader" />
+                        android:text="@string/nstack_home_messagesHeader" />
 
                     <Button
                         android:id="@+id/showBtn"
@@ -51,7 +51,7 @@
                         android:textSize="14sp"
                         android:textColor="@color/colorPrimaryDark"
                         android:visibility="visible"
-                        nstack:key="@string/nstack_home_messagesSectionHeaderShowAllButton" />
+                        android:text="@string/nstack_home_messagesSectionHeaderShowAllButton" />
                 </FrameLayout>
 
                 <FrameLayout
@@ -74,7 +74,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:textStyle="normal"
-                        nstack:key="@string/nstack_home_channelsHeader" />
+                        android:text="@string/nstack_home_channelsHeader" />
 
                     <Button
                         android:id="@+id/editChannelsBtn"
@@ -86,7 +86,7 @@
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="14sp"
                         android:visibility="gone"
-                        nstack:key="@string/nstack_home_channelsHeaderButton" />
+                        android:text="@string/nstack_home_channelsHeaderButton" />
 
                 </FrameLayout>
 

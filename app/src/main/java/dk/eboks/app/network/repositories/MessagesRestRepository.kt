@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
@@ -35,7 +36,7 @@ typealias CategoryMessageStore = CacheStore<String, List<Message>>
 /**
  * Created by bison on 01/02/18.
  */
-class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager, val okHttpClient: OkHttpClient) : MessagesRepository {
+class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager, val okHttpClient: OkHttpClient, val appState: AppStateManager) : MessagesRepository {
 
     //delete message
     override fun deleteMessage(folderId: Int, messageId: String) {
@@ -62,7 +63,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
     val highlightsMessageStore: CategoryMessageStore by lazy {
         CategoryMessageStore(cacheManager, context, gson, "highlights_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
-            val response = api.getHighlights().execute()
+            val response = api.getHighlights(terms = appState.state?.openingState?.acceptPrivateTerms).execute()
             var result : List<Message>? = null
             response?.let {
                 if(it.isSuccessful)
@@ -74,7 +75,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
     val latestMessageStore: CategoryMessageStore by lazy {
         CategoryMessageStore(cacheManager, context, gson, "latest_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
-            val response = api.getLatest().execute()
+            val response = api.getLatest(terms = appState.state?.openingState?.acceptPrivateTerms).execute()
             var result : List<Message>? = null
             response?.let {
                 if(it.isSuccessful)
@@ -86,7 +87,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
     val unreadMessageStore: CategoryMessageStore by lazy {
         CategoryMessageStore(cacheManager, context, gson, "unread_message_store.json", object : TypeToken<MutableMap<String, List<Message>>>() {}.type, { key ->
-            val response = api.getUnread().execute()
+            val response = api.getUnread(terms = appState.state?.openingState?.acceptPrivateTerms).execute()
             var result : List<Message>? = null
             response?.let {
                 if(it.isSuccessful)
@@ -125,9 +126,9 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
     }
 
-    override fun getMessagesByFolder(folderId : Int, offset : Int, limit : Int, acceptedTerms : Boolean?): List<Message>
+    override fun getMessagesByFolder(folderId : Int, offset : Int, limit : Int): List<Message>
     {
-        val response = api.getMessages(folderId, offset, limit, terms = acceptedTerms).execute()
+        val response = api.getMessages(folderId, offset, limit, terms = appState.state?.openingState?.acceptPrivateTerms).execute()
         if(response.isSuccessful) {
             response.body()?.let {
                 return it
@@ -136,9 +137,9 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
         return ArrayList()
     }
 
-    override fun getMessagesBySender(senderId : Long, offset : Int, limit : Int, acceptedTerms: Boolean?): List<Message> {
+    override fun getMessagesBySender(senderId : Long, offset : Int, limit : Int): List<Message> {
 
-        val response = api.getMessagesBySender(senderId, offset, limit, terms = acceptedTerms ).execute()
+        val response = api.getMessagesBySender(senderId, offset, limit, terms = appState.state?.openingState?.acceptPrivateTerms).execute()
         if(response.isSuccessful) {
             response.body()?.let {
                 return it
@@ -256,14 +257,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
     }
 
     override fun updateMessage(message: Message, messagePatch: MessagePatch) {
-        val call = if(message.folderId != 0)
-            api.updateMessage(message.folderId, message.id, messagePatch)
-        else if(message.folder != null) {
-            api.updateMessage(message.folder!!.id, message.id, messagePatch)
-        }
-        else
-            throw(RuntimeException("Could not resolve message folder id!!!"))
-
+        val call = api.updateMessage(message.findFolderId(), message.id, messagePatch)
         val result = call.execute()
         result?.let { response ->
             if(response.isSuccessful)

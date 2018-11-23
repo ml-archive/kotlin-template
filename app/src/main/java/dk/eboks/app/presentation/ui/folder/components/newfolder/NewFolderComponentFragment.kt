@@ -8,13 +8,16 @@ import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.folder.components.FoldersComponentFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folder_newfolder.*
+import kotlinx.android.synthetic.main.fragment_folderinfo_component.*
 import javax.inject.Inject
 
 /**
@@ -50,12 +53,10 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                 disableFolderSelection = true
             }
         }
-
         setup()
     }
 
     private fun setup() {
-
         when (mode) {
             FolderDrawerMode.EDIT -> {
                 titleTv.text = Translation.folders.editFolder
@@ -66,7 +67,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                     nameEt.text = editableString
                 }
                 deleteIv.setOnClickListener {
-                    //todo delete folder
+                    presenter.deleteFolder(editFolder!!.id)
                 }
             }
 
@@ -76,7 +77,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         }
         if (disableFolderSelection) {
             selectFolderLl.isEnabled = false
-            folderRootTv.setTextColor(ContextCompat.getColor(context,R.color.blueGrey))
+            folderRootTv.setTextColor(ContextCompat.getColor(context, R.color.blueGrey))
         }
         setupButtons()
     }
@@ -85,10 +86,12 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         saveBtn.setOnClickListener {
             when (mode) {
                 FolderDrawerMode.EDIT -> {
-                    //todo save btn  do something
+                    editFolder?.id?.let { folderId ->
+                        presenter.editFolder(folderId, parentFolder?.id, nameEt.text.toString())
+                    }
                 }
                 FolderDrawerMode.NEW -> {
-                    //todo save btn  do something
+                    createFolder()
                 }
             }
         }
@@ -103,6 +106,16 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
             i.putExtra("selectFolder", true)
             startActivityForResult(i, FolderActivity.REQUEST_ID)
         }
+    }
+
+    private fun createFolder() {
+        val folderName = nameEt.text.toString()
+        //todo find out if the error handling for names should be done frontend. also the server will not accept special characters etc
+//        if (folderName.isNotBlank()) {
+            presenter.createNewFolder(parentFolder?.id ?: 0, folderName)
+//        } else {
+//            presenter.folderNameNotAllowed()
+//        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -120,16 +133,18 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                             }
                         }
                         FolderDrawerMode.EDIT -> {
-                            // todo API move folder to new location
                             parentFolder = data?.getSerializableExtra("res") as Folder
                             folderRootTv.text = parentFolder?.name
                         }
                     }
                 }
             }
-
-
         }
+    }
+
+    override fun finish() {
+        FoldersComponentFragment.refreshOnResume = true
+        activity.onBackPressed()
     }
 
     override fun setRootFolder(name: String) {
@@ -138,5 +153,10 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         if (parentFolder == null) {
             folderRootTv.text = rootFolderName
         }
+    }
+
+    override fun showFolderNameError() {
+        //todo
+
     }
 }

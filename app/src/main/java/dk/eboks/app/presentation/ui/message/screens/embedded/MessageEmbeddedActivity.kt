@@ -27,6 +27,7 @@ import dk.eboks.app.presentation.ui.message.components.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
+import dk.eboks.app.util.ViewControl
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -82,6 +83,16 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         }
     }
 
+    override fun setActionButton(unread: Boolean) {
+        val actionButtons = arrayListOf(
+                OverlayButton(ButtonType.MOVE),
+                OverlayButton(ButtonType.ARCHIVE)
+        )
+        if (unread) actionButtons.add(OverlayButton(ButtonType.READ)) else actionButtons.add(OverlayButton(ButtonType.UNREAD))
+        actionButtons.add(OverlayButton(ButtonType.DELETE))
+        this.actionButtons = actionButtons
+    }
+
     override fun setHighPeakHeight() {
         setupPeakHeight(140)
     }
@@ -91,32 +102,61 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     }
 
 
+    private fun startFolderSelectActivity() {
+        val i = Intent(this, FolderActivity::class.java)
+        i.putExtra("pick", true)
+        startActivityForResult(i, FolderActivity.REQUEST_ID)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        if (requestCode == FolderActivity.REQUEST_ID) {
+            data?.extras?.let {
+                val moveToFolder = data.getSerializableExtra("res") as Folder
+                presenter.moveMessage(moveToFolder)
+            }
+        }
         // Deal with return from document action sheet
-        if (requestCode == OverlayActivity.REQUEST_ID) {
+        else if (requestCode == OverlayActivity.REQUEST_ID) {
             when (data?.getSerializableExtra("res")) {
                 (ButtonType.PRINT) -> {
                     if (embeddedViewerComponentFragment is ViewerFragment)
                         (embeddedViewerComponentFragment as ViewerFragment).print()
+                }
+                (ButtonType.MOVE) -> {
+                    startFolderSelectActivity()
+                }
+                (ButtonType.ARCHIVE) -> {
+                    presenter.archiveMessage()
+                }
+                (ButtonType.READ) -> {
+                    presenter.markMessageRead()
+                }
+                (ButtonType.UNREAD) -> {
+                    presenter.markMessageUnread()
+                }
+                (ButtonType.DELETE) -> {
+                    presenter.deleteMessage()
                 }
                 else -> {
                     // Request do nothing
                 }
             }
         }
-        // deal with return from folder picker
-        /*
-        if (requestCode == FolderActivity.REQUEST_ID) {
-            data?.extras?.let {
-                val moveToFolder = data.getSerializableExtra("res") as Folder
-                //Timber.d("Move To Folder ${moveToFolder?.toString()}")
-                Timber.e("Returned from folder picker. folder picked: ${moveToFolder.name}")
-                presenter.saveReceipt(moveToFolder)
-            }
-        }
-        */
+    }
+
+    override fun messageDeleted() {
+        onBackPressed()
+    }
+
+    override fun onBackPressed() {
+        ViewControl.refreshAllOnResume()
+        super.onBackPressed()
+    }
+
+    override fun updateFolderName(name: String) {
+        folderInfoComponentFragment?.updateView(name)
     }
 
     override fun addHeaderComponentFragment() {
@@ -178,39 +218,39 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     }
 
     override fun addPdfViewer() {
-        Handler(mainLooper).post({
+        Handler(mainLooper).post {
             embeddedViewerComponentFragment = PdfViewComponentFragment()
             embeddedViewerComponentFragment?.let {
                 supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, PdfViewComponentFragment::class.java.simpleName).commit()
             }
-        })
+        }
     }
 
     override fun addImageViewer() {
-        Handler(mainLooper).post({
+        Handler(mainLooper).post {
             embeddedViewerComponentFragment = ImageViewComponentFragment()
             embeddedViewerComponentFragment?.let {
                 supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, ImageViewComponentFragment::class.java.simpleName).commit()
             }
-        })
+        }
     }
 
     override fun addHtmlViewer() {
-        Handler(mainLooper).post({
+        Handler(mainLooper).post {
             embeddedViewerComponentFragment = HtmlViewComponentFragment()
             embeddedViewerComponentFragment?.let {
                 supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, HtmlViewComponentFragment::class.java.simpleName).commit()
             }
-        })
+        }
     }
 
     override fun addTextViewer() {
-        Handler(mainLooper).post({
+        Handler(mainLooper).post {
             embeddedViewerComponentFragment = TextViewComponentFragment()
             embeddedViewerComponentFragment?.let {
                 supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, TextViewComponentFragment::class.java.simpleName).commit()
             }
-        })
+        }
 
     }
 

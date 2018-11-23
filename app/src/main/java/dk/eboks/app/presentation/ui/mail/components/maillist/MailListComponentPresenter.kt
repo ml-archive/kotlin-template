@@ -1,13 +1,14 @@
 package dk.eboks.app.presentation.ui.mail.components.maillist
 
-import dk.eboks.app.domain.interactors.message.DeleteMessagesInteractor
-import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
-import dk.eboks.app.domain.interactors.message.MoveMessagesInteractor
-import dk.eboks.app.domain.interactors.message.UpdateMessageInteractor
+import dk.eboks.app.domain.interactors.message.*
+import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesInteractor
+import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractor
+import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.network.util.metaData
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -23,8 +24,10 @@ class MailListComponentPresenter @Inject constructor(
 ) :
         MailListComponentContract.Presenter,
         BasePresenterImpl<MailListComponentContract.View>(),
-        GetMessagesInteractor.Output, DeleteMessagesInteractor.Output,
-        MoveMessagesInteractor.Output, UpdateMessageInteractor.Output
+        GetMessagesInteractor.Output,
+        DeleteMessagesInteractor.Output,
+        MoveMessagesInteractor.Output,
+        UpdateMessageInteractor.Output
 {
 
     companion object {
@@ -40,20 +43,20 @@ class MailListComponentPresenter @Inject constructor(
     var currentOffset : Int = 0
     var currentLimit : Int = 20
     var totalMessages : Int = -1
-    var acceptedprivateterms : Boolean = false
 
     override var isLoading : Boolean = false
 
     init {
         getMessagesInteractor.output = this
         deleteMessagesInteractor.output = this
+        updateMessageInteractor.output = this
     }
 
     override fun setup(folder: Folder) {
         currentFolder = folder
         mode = FOLDER_MODE
         isLoading = true
-        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, folder = folder, offset = currentOffset, limit = currentLimit, acceptedTerms = acceptedprivateterms)
+        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, folder = folder, offset = currentOffset, limit = currentLimit)
         getMessagesInteractor.run()
         runAction { v ->
             v.showProgress(true)
@@ -64,15 +67,17 @@ class MailListComponentPresenter @Inject constructor(
         currentSender = sender
         mode = SENDER_MODE
         isLoading = true
-        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, sender = sender, offset = currentOffset, limit = currentLimit, acceptedTerms = acceptedprivateterms)
+        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, sender = sender, offset = currentOffset, limit = currentLimit)
         getMessagesInteractor.run()
         runAction { v -> v.showProgress(true) }
     }
 
-    override fun loadNextPage() {
+    override fun loadNextPage()
+    {
         // bail out if were still loading the previous page
-        if(isLoading)
+        if(isLoading) {
             return
+        }
         if(currentOffset + currentLimit < totalMessages-1) {
             currentOffset += currentLimit
             Timber.e("loading next page.. offset = $currentOffset")
@@ -97,52 +102,39 @@ class MailListComponentPresenter @Inject constructor(
                 folder = currentFolder,
                 sender = currentSender,
                 offset = currentOffset,
-                limit = currentLimit,
-                acceptedTerms = acceptedprivateterms)
+                limit = currentLimit)
         getMessagesInteractor.run()
     }
 
-    override fun updateMessage(message: Message) {
-        view?.showProgress(true)
-
-        // TODO do something to the stuff below
-        /*
-        updateMessageInteractor.input = UpdateMessageInteractor.Input(message)
-        updateMessageInteractor.output = this
-        updateMessageInteractor.run()
-        */
-    }
-
     override fun deleteMessages(selectedMessages: MutableList<Message>) {
-        //todo implement deleting the entire list and not just first element
         view?.showProgress(true)
-        deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(selectedMessages.get(0))
+        deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(ArrayList(selectedMessages))
         deleteMessagesInteractor.run()
     }
 
-    override fun moveMessages(folderName: String?, selectedMessages: MutableList<Message>) {
-        if (folderName == null) {
-            return
-        }
-
-        val messageIds = ArrayList(selectedMessages.map { it.id })
-
-        moveMessagesInteractor.input = MoveMessagesInteractor.Input(folderName, messageIds)
+    override fun moveMessages(folderId: Int, selectedMessages: MutableList<Message>) {
+        val messageIds = ArrayList(selectedMessages.map { it })
+        moveMessagesInteractor.input = MoveMessagesInteractor.Input(folderId, messageIds)
         moveMessagesInteractor.output = this
-
         moveMessagesInteractor.run()
     }
 
-    override fun markReadMessages(selectedMessages: MutableList<Message>) {
-
-    }
-
-    override fun markUnreadMessages(selectedMessages: MutableList<Message>) {
-
+    override fun markReadMessages(selectedMessages: MutableList<Message>, unread: Boolean) {
+        val messagePatch = MessagePatch(unread)
+        updateMessage(selectedMessages,messagePatch)
     }
 
     override fun archiveMessages(selectedMessages: MutableList<Message>) {
+        val messagePatch = MessagePatch(archive = true)
+        updateMessage(selectedMessages, messagePatch)
 
+    }
+
+    private fun updateMessage(selectedMessages: MutableList<Message>, messagePatch: MessagePatch) {
+        view?.showProgress(true)
+        val messages = ArrayList(selectedMessages)
+        updateMessageInteractor.input = UpdateMessageInteractor.Input(messages, messagePatch)
+        updateMessageInteractor.run()
     }
 
     override fun onGetMessages(messages: List<Message>) {
@@ -159,9 +151,7 @@ class MailListComponentPresenter @Inject constructor(
                 } else
                     v.showEmpty(true)
             }
-        }
-        else
-        {
+        } else {
             runAction { v ->
                 v.showRefreshProgress(false)
                 if (messages.isNotEmpty()) {
@@ -182,7 +172,6 @@ class MailListComponentPresenter @Inject constructor(
     }
 
     // Delete Messages
-
     override fun onDeleteMessagesSuccess() {
         Timber.d("onDeleteMessagesSuccess")
         runAction { v ->
@@ -200,7 +189,6 @@ class MailListComponentPresenter @Inject constructor(
     }
 
     // Move Messages
-
     override fun onMoveMessagesSuccess() {
         Timber.d("onMoveMessagesSuccess")
         runAction { v ->
@@ -218,7 +206,6 @@ class MailListComponentPresenter @Inject constructor(
     }
 
     // Update Message
-
     override fun onUpdateMessageSuccess() {
         Timber.d("onUpdateMessageSuccess")
         runAction { v ->

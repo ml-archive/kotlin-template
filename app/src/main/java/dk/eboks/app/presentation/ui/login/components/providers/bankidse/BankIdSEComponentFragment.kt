@@ -13,6 +13,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseWebFragment
+import dk.eboks.app.presentation.base.ViewErrorController
 import dk.eboks.app.presentation.ui.login.components.providers.WebLoginContract
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
@@ -30,6 +31,10 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     var loginUser: User? = null
 
+    override val defaultErrorHandler: ViewErrorController by lazy {
+        ViewErrorController(context = context, closeFunction = {activity.finish()} )
+    }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
@@ -43,9 +48,14 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     // shamelessly ripped from chnt
     private fun setupTopBar() {
-        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
         mainTb.setNavigationOnClickListener {
-            activity.onBackPressed()
+            if(!closeLoginOnBack) {
+                presenter.cancelAndClose()
+            }
+            else {
+                activity.finish()
+            }
         }
     }
 
@@ -152,4 +162,7 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
         presenter.login(kspwebtoken)
     }
 
+    override fun onCheckMergeAccountStatus() {
+        presenter.mergeAccountOrKeepSeparated()
+    }
 }

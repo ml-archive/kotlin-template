@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/listComponentTitleTv"
-        nstack:key="@string/nstack_senders_allCategories"
+        android:text="@string/nstack_senders_allCategories"
         style="@style/text.header3"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -17,7 +17,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="6dp"
         android:gravity="bottom|left"
-        android:text="All categories"/>
+        tools:text="All categories"/>
 
     <LinearLayout
         android:id="@+id/listComponentContentLl"

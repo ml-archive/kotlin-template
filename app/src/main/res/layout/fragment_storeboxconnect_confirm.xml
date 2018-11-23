@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_half"
             android:gravity="center"
-            android:text="_nstack_storeboxverify_header"
-            nstack:key="@string/nstack_storeboxverify_header"/>
+            tools:text="_nstack_storeboxverify_header"
+            android:text="@string/nstack_storeboxverify_header"/>
 
         <TextView
             style="@style/text.body6.secondary"
@@ -33,8 +33,8 @@
             android:layout_marginLeft="@dimen/margin_half"
             android:layout_marginRight="@dimen/margin_half"
             android:gravity="center"
-            android:text="_Connect your Storebox profile to e-Boks by entering the email address and optional mobile number from your Storebox Profile."
-            nstack:key="@string/nstack_storeboxverify_subheader"/>
+            tools:text="_Connect your Storebox profile to e-Boks by entering the email address and optional mobile number from your Storebox Profile."
+            android:text="@string/nstack_storeboxverify_subheader"/>
     </LinearLayout>
 
     <View

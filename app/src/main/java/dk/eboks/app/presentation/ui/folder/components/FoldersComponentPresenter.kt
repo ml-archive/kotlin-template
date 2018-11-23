@@ -51,8 +51,8 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
 
 
     override fun onGetSystemFolders(folders: List<Folder>) {
-
-        runAction { v -> v.showSystemFolders(folders) }
+        runAction { v -> v.showSystemFolders(folders)
+        }
     }
 
     override fun onGetFoldersError(error : ViewError) {

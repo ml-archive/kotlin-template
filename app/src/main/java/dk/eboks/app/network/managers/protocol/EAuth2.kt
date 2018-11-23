@@ -118,12 +118,11 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
         try {
             val userName = appStateManager.state?.loginState?.userName
             val password = appStateManager.state?.loginState?.userPassWord
-            val actiCode = appStateManager.state?.loginState?.activationCode
             val longToken = userSettingsManager.get(appStateManager.state?.loginState?.selectedUser?.id ?: 0).stayLoggedIn
             if (userName.isNullOrBlank() || password.isNullOrBlank()) {
                 return null // todo much, much, much more drastic error here - this is when the authenticator was started without a user being selected
             }
-            return authClient.login(userName!!, password!!, actiCode, longToken)
+            return authClient.login(userName!!, password!!, longToken)
         } catch (e: Throwable) {
             Timber.e("New token fail: $e")
         }

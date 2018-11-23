@@ -12,14 +12,14 @@
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/yourMailTv"
-            nstack:key="@string/nstack_mail_smartFolderHeader"
+            android:text="@string/nstack_mail_smartFolderHeader"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:gravity="left|bottom"
             android:paddingStart="@dimen/margin_normal"
             android:paddingBottom="8dp"
             style="@style/text.header3"
-            android:text="_Your mail"/>
+            tools:text="_Your mail"/>
 
         <View
             android:layout_width="match_parent"

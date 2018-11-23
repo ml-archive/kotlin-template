@@ -12,6 +12,4 @@ data class VerificationState(
         var shouldMergeProfiles : Boolean = false,
         var signupVerification : Boolean = false
 
-) {
-
-}
+)

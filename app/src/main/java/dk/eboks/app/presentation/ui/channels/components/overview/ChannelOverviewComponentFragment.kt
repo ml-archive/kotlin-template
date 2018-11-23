@@ -1,14 +1,19 @@
 package dk.eboks.app.presentation.ui.channels.components.overview
 
 import android.animation.Animator
+import android.graphics.PorterDuff
 import android.os.Bundle
+import android.support.v4.view.animation.FastOutSlowInInterpolator
+import android.support.v4.view.animation.LinearOutSlowInInterpolator
 import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.CycleInterpolator
+import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -23,6 +28,7 @@ import dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentActiv
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -117,7 +123,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
             val cardContainerCv = root.findViewById<CardView>(R.id.cardContainerCv)
             val backgroundColorV = root.findViewById<View>(R.id.backgroundColorV)
             val backgroundIv = root.findViewById<ImageView>(R.id.backgroundIv)
-//            val backgroundOverlayV = root.findViewById<View>(R.id.backgroundOverlayV)
+            //            val backgroundOverlayV = root.findViewById<View>(R.id.backgroundOverlayV)
             val headlineTv = root.findViewById<TextView>(R.id.headlineTv)
             val logoIv = root.findViewById<ImageView>(R.id.logoIv)
             val nameTv = root.findViewById<TextView>(R.id.nameTv)
@@ -130,7 +136,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                     parent,
                     false
             )
-            return  ChannelViewHolder(v)
+            return ChannelViewHolder(v)
         }
 
         override fun getItemCount(): Int {
@@ -148,8 +154,12 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                 holder.headerTv?.visibility = View.GONE
                 holder.cardContainerCv?.visibility = View.VISIBLE
 
+//                holder.backgroundColorV?.background?.setTint(currentChannel.background.color)
+                holder.backgroundColorV?.background?.let { d ->
+                    d.clearColorFilter()
+                    d.setColorFilter(currentChannel.background.color, PorterDuff.Mode.MULTIPLY)
+                }
 
-                holder.backgroundColorV?.background?.setTint(currentChannel.background.color)
                 holder.backgroundIv?.let {
                     val requestOptions = RequestOptions()
                             .transform(RoundedCorners(15))
@@ -158,6 +168,8 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                             .load(currentChannel.image?.url)
                             .apply(requestOptions)
                             .into(it)
+
+                    it.alpha = 0.2f
                 }
 
                 if (currentChannel.logo != null) {
@@ -176,39 +188,41 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                     holder.openActionTv?.text = Translation.channels.install
                 }
 
-                holder
-                        .cardContainerCv
-                        ?.setOnClickListener({ v ->
-                                                 onCardContainerClicked(v, currentChannel)
-                                             })
+                holder.cardContainerCv?.setClickable(true)
+                holder.cardContainerCv?.setOnTouchListener { v, event ->
+                    if(event.action == MotionEvent.ACTION_DOWN) {
+                        v.animate()
+                                .scaleX(0.98f)
+                                .scaleY(0.95f)
+                                .setDuration(60)
+                                .setInterpolator(LinearOutSlowInInterpolator())
+                                .start()
+                    }
+                    if(event.action == MotionEvent.ACTION_UP) {
+                        v.animate()
+                                .scaleX(1.00f)
+                                .scaleY(1.00f)
+                                .setDuration(120)
+                                .setInterpolator(FastOutSlowInInterpolator())
+                                .start()
+                    }
+                    if(event.action == MotionEvent.ACTION_CANCEL) {
+                        v.animate()
+                                .scaleX(1.00f)
+                                .scaleY(1.00f)
+                                .setDuration(450)
+                                .setInterpolator(FastOutSlowInInterpolator())
+                                .start()
+                    }
+                    return@setOnTouchListener v.onTouchEvent(event)
+                }
+
+                holder.cardContainerCv?.setOnClickListener { v ->
+                    presenter.openChannel(currentChannel)
+                }
             }
 
             holder.root.invalidate()
-        }
-
-        // TODO make this animation go down on down press and stay down till the user lets go
-        // instead of just playing animation
-        private fun onCardContainerClicked(v: View, currentCard: Channel) {
-            v.animate()
-                    .scaleX(1.05f)
-                    .scaleY(1.05f)
-                    .setDuration(150)
-                    .setInterpolator(CycleInterpolator(0.5f))
-                    .setListener(object : Animator.AnimatorListener {
-                        override fun onAnimationRepeat(p0: Animator?) {
-                        }
-
-                        override fun onAnimationEnd(p0: Animator?) {
-                            presenter.openChannel(currentCard)
-                        }
-
-                        override fun onAnimationCancel(p0: Animator?) {
-                        }
-
-                        override fun onAnimationStart(p0: Animator?) {
-                        }
-                    })
-                    .start()
         }
     }
 

@@ -21,7 +21,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
 
     val messageDateFormat: SimpleDateFormat by lazy {
         try {
-            SimpleDateFormat("d. MMM hh:mm", NStack.language)
+            SimpleDateFormat("d. MMM", NStack.language)
         } catch (t: Throwable) {
             SimpleDateFormat()
         }
@@ -73,7 +73,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
     }
 
     override fun formatDateRelative(target: Item): String {
-        return formatDateRelative(target.date!!)
+        return formatDateRelative(target.date)
     }
 
     override fun formatDateRelative(target: Message): String {
@@ -86,6 +86,10 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
 
     private fun formatDateRelative(target: Date?): String {
         var result = ""
+        if(target == null) {
+            // no date, no text!
+            return result
+        }
         val currentLocale = getCurrentLocale(context)
         val cal_recv = Calendar.getInstance(currentLocale)
 

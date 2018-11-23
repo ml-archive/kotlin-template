@@ -24,8 +24,8 @@
             android:gravity="center"
             android:paddingBottom="20dp"
             android:paddingTop="20dp"
-            android:text="_Settings"
-            nstack:text="@string/nstack_settings_header" />
+            tools:text="_Settings"
+            android:text="@string/nstack_settings_header" />
 
         <View
             android:layout_width="match_parent"
@@ -196,8 +196,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="_Receive only receipts digitally"
-                        nstack:text="@string/nstack_channelsettingsstoreboxadditions_digitalReceiptsTitle" />
+                        tools:text="_Receive only receipts digitally"
+                        android:text="@string/nstack_channelsettingsstoreboxadditions_digitalReceiptsTitle" />
 
                     <TextView
                         android:id="@+id/optionalSubHeaderTv"
@@ -205,8 +205,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="_Accepting this you not recieve paper"
-                        nstack:text="@string/nstack_channelsettingsstoreboxadditions_digitalReceiptsMessage" />
+                        tools:text="_Accepting this you not recieve paper"
+                        android:text="@string/nstack_channelsettingsstoreboxadditions_digitalReceiptsMessage" />
 
                 </LinearLayout>
 
@@ -245,8 +245,8 @@
                 android:paddingBottom="8dp"
                 android:paddingLeft="16dp"
                 android:paddingTop="20dp"
-                android:text="_Credit cards"
-                nstack:text="@string/nstack_settings_creditCardHeader" />
+                tools:text="_Credit cards"
+                android:text="@string/nstack_settings_creditCardHeader" />
 
             <View
                 android:layout_width="match_parent"
@@ -290,8 +290,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingLeft="16dp"
-                    android:text="_Add another credit card"
-                    nstack:text="@string/nstack_channelsettings_addAnotherCard" />
+                    tools:text="_Add another credit card"
+                    android:text="@string/nstack_channelsettings_addAnotherCard" />
 
 
             </LinearLayout>
@@ -316,7 +316,7 @@
             android:layout_marginBottom="24dp"
             android:layout_marginTop="16dp"
             android:textColor="@color/colorPrimaryDark"
-            nstack:key="@string/nstack_settings_removeChannelBtn" />
+            android:text="@string/nstack_settings_removeChannelBtn" />
 
 
     </LinearLayout>

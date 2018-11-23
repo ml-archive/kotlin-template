@@ -43,8 +43,8 @@
                     style="@style/text.header1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Header"
-                    nstack:key="@string/nstack_signup_verificationHeader"/>
+                    tools:text="Header"
+                    android:text="@string/nstack_signup_verificationHeader"/>
 
                 <TextView
                     android:id="@+id/detailTv"
@@ -52,8 +52,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="_Please fill in the information below"
-                    nstack:key="@string/nstack_signup_verificationDetail"/>
+                    tools:text="_Please fill in the information below"
+                    android:text="@string/nstack_signup_verificationDetail"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -66,8 +66,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="52dp"
-                    android:text="_Verify my account"
-                    nstack:key="@string/nstack_signup_verifyButton"/>
+                    tools:text="_Verify my account"
+                    android:text="@string/nstack_signup_verifyButton"/>
 
                 <Button
                     android:id="@+id/continueWithoutVerificationBtn"
@@ -77,8 +77,8 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="24dp"
                     android:layout_marginTop="10dp"
-                    android:text="_Continue without verification"
-                    nstack:key="@string/nstack_signup_continueWithoutVerificationButton"/>
+                    tools:text="_Continue without verification"
+                    android:text="@string/nstack_signup_continueWithoutVerificationButton"/>
 
             </LinearLayout>
         </ScrollView>

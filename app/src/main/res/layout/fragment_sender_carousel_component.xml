@@ -26,7 +26,7 @@
 
             <TextView
                 android:id="@+id/sendersHeaderTv"
-                nstack:key="@string/nstack_mail_senderHeader"
+                tools:text="@string/nstack_mail_senderHeader"
                 style="@style/text.header3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -35,14 +35,14 @@
 
             <TextView
                 android:id="@+id/sendersShowAllTv"
-                nstack:key="@string/nstack_mail_foldersButton"
+                android:text="@string/nstack_mail_showAllSendersButton"
                 style="@style/text.subHeader5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/ic_chevron_right"
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
-                android:text="_Show all" />
+                tools:text="_Show all" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
@@ -67,7 +67,7 @@
 
         <TextView
             android:id="@+id/sendersEmptyHeaderTv"
-            nstack:key="@string/nstack_mail_sendersEmptyHeader"
+            tools:text="@string/nstack_mail_sendersEmptyHeader"
             style="@style/text.header3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
 
         <TextView
             android:id="@+id/sendersEmptyDescTv"
-            nstack:key="@string/nstack_mail_sendersEmptyMessage"
+            tools:text="@string/nstack_mail_sendersEmptyMessage"
             style="@style/text.body6.secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
 
         <Button
             android:id="@+id/addMoreSendersBtn"
-            nstack:key="@string/nstack_mail_addMoreSendersButton"
+            tools:text="@string/nstack_mail_addMoreSendersButton"
             style="@style/button.SolidGradient"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
             android:layout_marginTop="25dp"
             android:gravity="center"
             android:textStyle="normal"
-            nstack:key="@string/nstack_home_messagesUnverifiedTitle" />
+            android:text="@string/nstack_home_messagesUnverifiedTitle" />
 
         <ImageView
             android:id="@+id/emptyStateImageIv"
@@ -137,7 +137,7 @@
             android:textAlignment="center"
             android:textColor="@color/blueGrey"
             android:textStyle="normal"
-            nstack:key="@string/nstack_home_messagesUnverifiedMessage" />
+            android:text="@string/nstack_home_messagesUnverifiedMessage" />
 
         <Button
             android:id="@+id/emptyStateBtn"
@@ -148,7 +148,7 @@
             android:layout_marginBottom="24dp"
             android:layout_marginTop="@dimen/margin_normal"
             android:textAppearance="@style/text.buttonSmall"
-            nstack:key="@string/nstack_home_messagesUnverifiedButton" />
+            android:text="@string/nstack_home_messagesUnverifiedButton" />
     </LinearLayout>
 
 

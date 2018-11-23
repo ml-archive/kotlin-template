@@ -5,6 +5,7 @@ import dk.eboks.app.domain.interactors.user.GetUserProfileInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserSettingsInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -15,7 +16,8 @@ class ProfileInfoComponentPresenter @Inject constructor(
         val appState: AppStateManager,
         private val saveUserInteractor: SaveUserInteractor,
         private val saveUserSettingsInteractor: SaveUserSettingsInteractor,
-        val getUserProfileInteractor: GetUserProfileInteractor
+        val getUserProfileInteractor: GetUserProfileInteractor,
+        val userSettingsManager: UserSettingsManager
 ) :
         ProfileInfoComponentContract.Presenter,
         BasePresenterImpl<ProfileInfoComponentContract.View>(),
@@ -119,6 +121,9 @@ class ProfileInfoComponentPresenter @Inject constructor(
         appState.state?.loginState?.userPassWord = ""
         appState.state?.loginState?.userName = ""
         appState.state?.loginState?.token = null
+        appState.state?.openingState?.acceptPrivateTerms = false
+        //activationCode still used ?
+        appState.state?.loginState?.activationCode = null
         appState.save()
         view?.logout()
     }

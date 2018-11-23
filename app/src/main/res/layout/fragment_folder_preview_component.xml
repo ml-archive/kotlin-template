@@ -35,7 +35,7 @@
             android:layout_marginTop="25dp"
             android:gravity="center"
             android:textStyle="normal"
-            nstack:key="@string/nstack_home_messagesUnverifiedTitle" />
+            android:text="@string/nstack_home_messagesUnverifiedTitle" />
 
         <TextView
             android:id="@+id/emptyStateTextTv"
@@ -45,7 +45,7 @@
             android:textAlignment="center"
             android:textColor="@color/blueGrey"
             android:textStyle="normal"
-            nstack:key="@string/nstack_home_messagesUnverifiedMessage" />
+            android:text="@string/nstack_home_messagesUnverifiedMessage" />
 
         <Button
             android:id="@+id/emptyStateBtn"
@@ -56,7 +56,7 @@
             android:layout_marginBottom="24dp"
             android:layout_marginTop="@dimen/margin_normal"
             android:textAppearance="@style/text.buttonSmall"
-            nstack:key="@string/nstack_home_messagesUnverifiedButton" />
+            android:text="@string/nstack_home_messagesUnverifiedButton" />
     </LinearLayout>
 
     <FrameLayout

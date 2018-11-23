@@ -13,12 +13,12 @@
     tools:ignore="MissingPrefix">
     <TextView
         android:id="@+id/attachmentsTv"
-        nstack:key="@string/nstack_message_attachments"
+        android:text="@string/nstack_message_attachments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="16dp"
         style="@style/text.header3"
-        android:text="_Attachments"/>
+        tools:text="_Attachments"/>
     <LinearLayout
         android:id="@+id/attachmentsLl"
         android:orientation="vertical"

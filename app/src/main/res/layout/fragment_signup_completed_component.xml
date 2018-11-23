@@ -35,25 +35,16 @@
                 style="@style/text.header1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Header"
-                nstack:key="@string/nstack_signup_completedHeader"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"></View>
+                tools:text="Header"
+                android:text="@string/nstack_signup_completedHeader"/>
 
             <ImageView
                 android:layout_width="224dp"
-                android:layout_height="224dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="32dp"
-                android:src="@drawable/visual_new_user"/>
-
-            <View
-                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"></View>
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_margin="32dp"
+                android:src="@drawable/visual_new_user"/>
 
             <Button
                 android:id="@+id/continueBtn"
@@ -61,9 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginBottom="32dp"
-                android:layout_marginTop="52dp"
-                android:text="_Continue to app"
-                nstack:key="@string/nstack_signup_continueToAppButton"/>
+                tools:text="_Continue to app"
+                android:text="@string/nstack_signup_continueToAppButton"/>
 
         </LinearLayout>
     </LinearLayout>

@@ -25,14 +25,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/text.header1"
-                nstack:key="@string/nstack_firstopen_title"/>
+                android:text="@string/nstack_firstopen_title"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/text"
                 android:layout_marginTop="36dp"
-                nstack:key="@string/nstack_firstopen_message"/>
+                android:text="@string/nstack_firstopen_message"/>
         </LinearLayout>
     </ScrollView>
 
@@ -43,7 +43,7 @@
         android:layout_margin="36dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        nstack:key="@string/nstack_firstopen_letsGo"
+        android:text="@string/nstack_firstopen_letsGo"
         />
 
 </LinearLayout>

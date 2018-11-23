@@ -38,12 +38,12 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
         try {
             input?.msg?.let { msg->
                 //throw(ServerErrorException(ServerError(id="homemade", code = PROMULGATION, type = ERROR)))
-                val updated_msg = messagesRepository.getMessage(msg.folderId, msg.id, acceptedPrivateTerms = input?.terms)
+                val updated_msg = messagesRepository.getMessage(msg.folderId, msg.id, acceptedPrivateTerms = appStateManager.state?.openingState?.acceptPrivateTerms)
                 if(processLockedMessage(msg)) {
                     // update the (perhaps) more detailed message object with the extra info from the backend
                     // because the JVM can only deal with reference types silly reflection tricks like this are necessary
                     FieldMapper.copyAllFields(msg, updated_msg)
-                    openMessage(msg)
+                    openMessage(msg, acceptedPrivateTerms = appStateManager.state?.openingState?.acceptPrivateTerms ?: false)
                 }
             }
         }
@@ -82,7 +82,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                         if(processLockedMessage(msg)) {
                             val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id
                                     ?: input?.msg?.folderId ?: 0, input?.msg?.id
-                                    ?: "", receipt = true, acceptedPrivateTerms = input?.terms)
+                                    ?: "", receipt = true, acceptedPrivateTerms = appStateManager.state?.openingState?.acceptPrivateTerms)
                             FieldMapper.copyAllFields(msg, updated_msg)
                             openMessage(msg, true)
                         }
@@ -113,7 +113,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                             val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id
                                     ?: input?.msg?.folderId ?: 0, input?.msg?.id
                                     ?: "", receipt = appStateManager.state?.openingState?.sendReceipt
-                                    ?: false, acceptedPrivateTerms = input?.terms)
+                                    ?: false, acceptedPrivateTerms = appStateManager.state?.openingState?.acceptPrivateTerms)
                             FieldMapper.copyAllFields(msg, updated_msg)
                             openMessage(msg, true)
                         }
@@ -148,7 +148,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                     try {
                         if(processLockedMessage(msg)) {
                             val updated_msg = messagesRepository.getMessage(input?.msg?.folder?.id
-                                    ?: input?.msg?.folderId ?: 0, input?.msg?.id ?: "",  acceptedPrivateTerms = input?.terms)
+                                    ?: input?.msg?.folderId ?: 0, input?.msg?.id ?: "", receipt = null, acceptedPrivateTerms = appStateManager.state?.openingState?.acceptPrivateTerms)
                             FieldMapper.copyAllFields(msg, updated_msg)
                             openMessage(msg, true)
                         }
@@ -207,7 +207,8 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                     executor.sleepUntilSignalled("messageOpenDone")
                     if(appStateManager.state?.openingState?.shouldProceedWithOpening == true)
                     {
-                        openMessage(currentmsg = msg, acceptedPrivateTerms = true)
+                        appStateManager.state?.openingState?.acceptPrivateTerms = true
+                        //openMessage(currentmsg = msg, acceptedPrivateTerms = true)
                         return true
                     }
                     else
@@ -229,7 +230,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
         if (acceptedPrivateTerms){
             msg = messagesRepository.getMessage(input?.msg?.folder?.id
                     ?: input?.msg?.folderId ?: 0, input?.msg?.id
-                    ?: "", acceptedPrivateTerms = acceptedPrivateTerms)
+                    ?: "", receipt = null, acceptedPrivateTerms = acceptedPrivateTerms)
         }
 
         msg.content?.let { content->

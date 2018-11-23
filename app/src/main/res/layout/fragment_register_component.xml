@@ -39,7 +39,7 @@
 
     <Button
         android:id="@+id/registerRegBtn"
-        nstack:key="@string/nstack_senderdetails_register"
+        tools:text="@string/nstack_senderdetails_register"
         style="@style/button.SolidGradient.large"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
 
     <Button
         android:id="@+id/registerCancelBtn"
-        nstack:key="@string/nstack_default_cancel"
+        tools:text="@string/nstack_default_cancel"
         style="@style/button.borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

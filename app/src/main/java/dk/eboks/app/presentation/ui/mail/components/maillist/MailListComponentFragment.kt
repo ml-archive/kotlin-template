@@ -41,14 +41,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     private var editAction: ButtonType? = null
     private var showUploads: Boolean = false
 
-    private var actionButtons = arrayListOf(
-            OverlayButton(ButtonType.MOVE),
-            OverlayButton(ButtonType.ARCHIVE),
-            OverlayButton(ButtonType.READ),
-            OverlayButton(ButtonType.UNREAD),
-            OverlayButton(ButtonType.DELETE)
-    )
-
     var sender: Sender? = null
 
     var folder: Folder? = null
@@ -78,16 +70,13 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         refreshSrl.setOnRefreshListener {
             presenter.refresh()
         }
-
         if (arguments == null) {
             onBackPressed()
             return
         }
-
         getFolderFromBundle()
         getSenderFromBundle()
         getEditFromBundle()
-
         setupTopBar()
     }
 
@@ -131,9 +120,29 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     private fun setupFab() {
         mainFab.setOnClickListener {
             val i = Intent(context, OverlayActivity::class.java)
-            i.putExtra("buttons", actionButtons)
+            i.putExtra("buttons", getActonButtons())
             startActivityForResult(i, OverlayActivity.REQUEST_ID)
         }
+    }
+
+    private fun getActonButtons(): ArrayList<OverlayButton> {
+        val actionButtons = arrayListOf(
+                OverlayButton(ButtonType.MOVE),
+                OverlayButton(ButtonType.ARCHIVE)
+
+        )
+        var showRead = false
+        var showUnread = false
+        for (msg in checkedList){
+            if (msg.unread == true ){ showRead = true}
+            if (msg.unread == false ){ showUnread = true}
+            if (showRead && showUnread) break
+        }
+        if (showRead) actionButtons.add(OverlayButton(ButtonType.READ))
+        if (showUnread) actionButtons.add(OverlayButton(ButtonType.UNREAD))
+
+        actionButtons.add(OverlayButton(ButtonType.DELETE))
+        return actionButtons
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -158,12 +167,12 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 }
                 (ButtonType.READ)  -> {
                     editAction = ButtonType.READ
-                    presenter.markReadMessages(checkedList)
+                    presenter.markReadMessages(checkedList, false)
                     toggleEditMode()
                 }
                 (ButtonType.UNREAD)  -> {
                     editAction = ButtonType.UNREAD
-                    presenter.markUnreadMessages(checkedList)
+                    presenter.markReadMessages(checkedList, true)
                     toggleEditMode()
                 }
                 else                -> {
@@ -177,18 +186,12 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         // deal with return from folder picker
         if (requestCode == FolderActivity.REQUEST_ID) {
             data?.extras?.let {
-                val moveToFolder = data.getSerializableExtra("res")
-
-                Timber.d("Move To Folder ${moveToFolder?.toString()}")
-
-                presenter.moveMessages(moveToFolder?.toString(), checkedList)
-
+                val moveToFolder = data.getSerializableExtra("res") as Folder
+                presenter.moveMessages(moveToFolder.id, checkedList)
                 checkedList.clear()
-
                 if (modeEdit) {
                     toggleEditMode()
                 }
-
             }
         }
     }
@@ -253,7 +256,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                     activity.mainTb.title = it.name
                 }
             }
-
         }
     }
 
@@ -264,7 +266,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
         adapter.onActionEvent = { message, mailMessageEvent ->
             Timber.d("onActionEvent: %s", mailMessageEvent)
-
             when (mailMessageEvent) {
                 OPEN -> {
                     editAction = ButtonType.OPEN
@@ -273,8 +274,8 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 }
                 READ -> {
                     editAction = ButtonType.READ
-                    message.unread = false
-                    presenter.updateMessage(message)
+                    message.unread = !message.unread
+                    presenter.markReadMessages(arrayListOf(message), message.unread)
                 }
                 MOVE -> {
                     editAction = ButtonType.MOVE
@@ -296,7 +297,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         }
 
         messagesRv.addOnScrollListener(object : RecyclerView.OnScrollListener(){
-
             override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
                 val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
                 layoutManager?.let {
@@ -307,11 +307,9 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 super.onScrolled(recyclerView, dx, dy)
             }
         })
-
     }
 
-    private fun onScrolledToLastItem()
-    {
+    private fun onScrolledToLastItem() {
         presenter.loadNextPage()
     }
 

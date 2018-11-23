@@ -47,7 +47,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center"
                                 android:textStyle="normal"
-                                nstack:key="@string/nstack_home_messagesHeader" />
+                                android:text="@string/nstack_home_messagesHeader" />
 
                             <Button
                                 android:id="@+id/showBtn"
@@ -61,7 +61,7 @@
                                 android:textSize="14dp"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:visibility="visible"
-                                nstack:key="@string/nstack_home_messagesSectionHeaderShowAllButton" />
+                                android:text="@string/nstack_home_messagesSectionHeaderShowAllButton" />
 
 
                         </FrameLayout>
@@ -95,7 +95,7 @@
                             android:layout_marginTop="25dp"
                             android:gravity="center"
                             android:textStyle="normal"
-                            nstack:key="@string/nstack_home_messagesUnverifiedTitle" />
+                            android:text="@string/nstack_home_messagesUnverifiedTitle" />
 
                         <ImageView
                             android:id="@+id/emptyStateImageIv"
@@ -112,7 +112,7 @@
                             android:textAlignment="center"
                             android:textColor="@color/blueGrey"
                             android:textStyle="normal"
-                            nstack:key="@string/nstack_home_messagesUnverifiedMessage" />
+                            android:text="@string/nstack_home_messagesUnverifiedMessage" />
 
                         <Button
                             android:id="@+id/emptyStateBtn"
@@ -123,7 +123,7 @@
                             android:layout_marginBottom="24dp"
                             android:layout_marginTop="@dimen/margin_normal"
                             android:textAppearance="@style/text.buttonSmall"
-                            nstack:key="@string/nstack_home_messagesUnverifiedButton" />
+                            android:text="@string/nstack_home_messagesUnverifiedButton" />
 
                     </LinearLayout>
 
@@ -154,7 +154,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center"
                                 android:textStyle="normal"
-                                nstack:key="@string/nstack_home_channelsHeader" />
+                                android:text="@string/nstack_home_channelsHeader" />
 
                             <Button
                                 android:id="@+id/editChannelsBtn"
@@ -165,7 +165,7 @@
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textSize="14dp"
                                 android:visibility="visible"
-                                nstack:key="@string/nstack_home_channelsHeaderButton" />
+                                android:text="@string/nstack_home_channelsHeaderButton" />
 
                         </FrameLayout>
 
@@ -219,7 +219,7 @@
                         android:paddingLeft="16dp"
                         android:paddingRight="16dp"
                         android:textSize="14dp"
-                        nstack:key="@string/nstack_home_bottomChannelBtn" />
+                        android:text="@string/nstack_home_bottomChannelBtn" />
 
 
                 </LinearLayout>

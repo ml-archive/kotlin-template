@@ -6,13 +6,18 @@ import dagger.Provides
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.authentication.*
+import dk.eboks.app.domain.interactors.authentication.mobileacces.ActivateDeviceInteractor
+import dk.eboks.app.domain.interactors.authentication.mobileacces.DeleteRSAKeyInteractor
+import dk.eboks.app.domain.interactors.authentication.mobileacces.GenerateRSAKeyInteractor
 import dk.eboks.app.domain.interactors.channel.*
 import dk.eboks.app.domain.interactors.ekey.*
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
-import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
-import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
+import dk.eboks.app.domain.interactors.folder.*
 import dk.eboks.app.domain.interactors.message.*
+import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesInteractor
+import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractor
+import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
@@ -24,6 +29,7 @@ import dk.eboks.app.domain.interactors.user.*
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.managers.UserSettingsManager
+import dk.eboks.app.domain.models.login.LoginState
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentContract
@@ -248,8 +254,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMessageSheetPresenter(stateManager: AppStateManager): MessageEmbeddedContract.Presenter {
-        return MessageEmbeddedPresenter(stateManager)
+    fun provideMessageSheetPresenter(stateManager: AppStateManager, deleteMessagesInteractor: DeleteMessagesInteractor, updateMessageInteractor: UpdateMessageInteractor): MessageEmbeddedContract.Presenter {
+        return MessageEmbeddedPresenter(stateManager, deleteMessagesInteractor, updateMessageInteractor)
     }
 
     @ActivityScope
@@ -569,13 +575,15 @@ class PresentationModule {
             stateManager: AppStateManager,
             userSettingsManager: UserSettingsManager,
             decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,
-            loginInteractor: LoginInteractor
+            loginInteractor: LoginInteractor,
+            checkRSAKeyPresenceInteractor: CheckRSAKeyPresenceInteractor
     ): LoginComponentContract.Presenter {
         return LoginComponentPresenter(
                 stateManager,
                 userSettingsManager,
                 decryptUserLoginInfoInteractor,
-                loginInteractor
+                loginInteractor,
+                checkRSAKeyPresenceInteractor
         )
     }
 
@@ -805,8 +813,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideDebugUsersComponentPresenter(stateManager: AppStateManager, userSettingsManager: UserSettingsManager): DebugUsersComponentContract.Presenter {
-        return DebugUsersComponentPresenter(stateManager, userSettingsManager)
+    fun provideDebugUsersComponentPresenter(stateManager: AppStateManager, userSettingsManager: UserSettingsManager, testLoginStates : MutableList<LoginState>): DebugUsersComponentContract.Presenter {
+        return DebugUsersComponentPresenter(stateManager, userSettingsManager, testLoginStates)
     }
 
     @ActivityScope
@@ -821,9 +829,10 @@ class PresentationModule {
             stateManager: AppStateManager,
             saveUserInteractor: SaveUserInteractor,
             saveUserSettingsInteractor: SaveUserSettingsInteractor,
-            getUserProfileInteractor: GetUserProfileInteractor
+            getUserProfileInteractor: GetUserProfileInteractor,
+            userSettingsManager: UserSettingsManager
     ): ProfileInfoComponentContract.Presenter {
-        return ProfileInfoComponentPresenter(stateManager, saveUserInteractor, saveUserSettingsInteractor, getUserProfileInteractor)
+        return ProfileInfoComponentPresenter(stateManager, saveUserInteractor, saveUserSettingsInteractor, getUserProfileInteractor, userSettingsManager)
     }
 
     @ActivityScope
@@ -967,8 +976,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideNewFolderComponentPresenter(stateManager: AppStateManager): NewFolderComponentContract.Presenter {
-        return NewFolderComponentPresenter(stateManager)
+    fun provideNewFolderComponentPresenter(stateManager: AppStateManager, createFolderInteractor: CreateFolderInteractor, deleteFolderInteractor: DeleteFolderInteractor, editFolderInteractor: EditFolderInteractor): NewFolderComponentContract.Presenter {
+        return NewFolderComponentPresenter(stateManager, createFolderInteractor, deleteFolderInteractor, editFolderInteractor)
     }
 
     @ActivityScope
@@ -1056,6 +1065,12 @@ class PresentationModule {
     @Provides
     fun providePopupLoginPresenter(stateManager: AppStateManager): PopupLoginContract.Presenter {
         return PopupLoginPresenter(stateManager)
+    }
+
+    @ActivityScope
+    @Provides
+    fun provideDeviceActivationComponentPresenter(stateManager: AppStateManager, generateRSAKeyInteractor: GenerateRSAKeyInteractor, activateDeviceInteractor: ActivateDeviceInteractor, deleteRSAKeyInteractor : DeleteRSAKeyInteractor) : DeviceActivationComponentContract.Presenter {
+        return DeviceActivationComponentPresenter(stateManager, generateRSAKeyInteractor, activateDeviceInteractor, deleteRSAKeyInteractor )
     }
 
     /* Pasta

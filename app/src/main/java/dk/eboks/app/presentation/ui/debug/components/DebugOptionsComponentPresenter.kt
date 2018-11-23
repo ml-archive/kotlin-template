@@ -26,14 +26,11 @@ class DebugOptionsComponentPresenter @Inject constructor(val appState: AppStateM
         Timber.e("Config changed: new current configuration is ${Config.getCurrentConfigName()}")
         runAction { v->v.showEnvironmentSpinner(Config.currentMode.environments, Config.currentMode.environment) }
         prefManager.setString("config", name)
-        Config.currentMode.environments.forEach { s, environments ->
-            if(environments == Config.currentMode.environment)
-            {
-                prefManager.setString("environment", s)
-                return@forEach
+        for ((key,env) in Config.currentMode.environments){
+            if (env == Config.currentMode.environment){
+                prefManager.setString("environment", key)
             }
         }
-
     }
 
     override fun setEnvironment(name: String) {
@@ -58,5 +55,4 @@ class DebugOptionsComponentPresenter @Inject constructor(val appState: AppStateM
             else -> {}
         }
     }
-
 }

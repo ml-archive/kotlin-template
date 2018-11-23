@@ -20,17 +20,17 @@
 
         <Button
             android:id="@+id/logonBtn"
-            nstack:key="@string/nstack_start_logonButton"
+            android:text="@string/nstack_start_logonButton"
             style="@style/button.SolidGradient"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginStart="36dp"
             android:layout_marginEnd="36dp"
-            android:text="_Log on" />
+            tools:text="_Log on" />
 
         <Button
             android:id="@+id/signupBtn"
-            nstack:key="@string/nstack_start_signupButton"
+            android:text="@string/nstack_start_signupButton"
             style="@style/buttonRoundedCorners.darkBlueGrey"
             android:backgroundTint="#0D223944"
             android:transitionName="signUpButtonTransition"
@@ -40,7 +40,7 @@
             android:layout_marginBottom="24dp"
             android:layout_marginStart="36dp"
             android:layout_marginEnd="36dp"
-            android:text="_Sign up" />
+            tools:text="_Sign up" />
 
         <!--
         <Button

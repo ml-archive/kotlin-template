@@ -38,6 +38,10 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     @Inject
     lateinit var presenter: FoldersComponentContract.Presenter
 
+    companion object {
+         var refreshOnResume: Boolean = false
+    }
+
     var systemfolders: MutableList<Folder> = ArrayList()
     var userfolders: MutableList<Folder> = ArrayList()
     var mode: FolderMode = FolderMode.NORMAL
@@ -78,6 +82,13 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         setupMode()
     }
 
+    override fun onResume() {
+        if (refreshOnResume){
+            presenter.refresh()
+        }
+        super.onResume()
+    }
+
     private fun animateView() {
         //view should only animate in selectview
         if (mode == FolderMode.SELECT) {
@@ -97,11 +108,9 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     }
 
     private fun setupMode() {
-
         refreshSrl.isEnabled = (mode == FolderMode.NORMAL)
         getBaseActivity()?.mainTb?.menu?.clear()
         mainFab.visibility = View.GONE
-
         systemFoldersLl.alpha = 1f
         systemFoldersLl.isClickable = true
 
@@ -118,25 +127,21 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 addFolderBtn.setOnClickListener {
                     openDrawer()
                 }
+                systemFoldersLl.visibility = View.VISIBLE
             }
             FolderMode.SELECT -> {
                 setSelectTopbar()
-                showUserFolders(userfolders)
+                systemFoldersLl.visibility = View.GONE
             }
             FolderMode.EDIT -> {
                 setEditTopBar()
-
-                for (view in systemFoldersLl.views) {
-                    editView(view)
-                    systemFoldersLl.alpha = 0.5f
-                }
+                systemFoldersLl.visibility = View.GONE
 
                 for (view in foldersLl.views) {
                     editView(view)
                 }
                 mainFab.visibility = View.VISIBLE
             }
-
         }
     }
 
@@ -184,18 +189,8 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 it.parentFolder = null
                 intent.putExtra("res", it)
                 activity.setResult(Activity.RESULT_OK, intent)
-
-                //activity.setResult(Activity.RESULT_OK)
                 activity.finish()
-                /*
-                getBaseActivity()?.setResult(Activity.RESULT_OK, intent)
-                getBaseActivity()?.finish()
-                */
             }.guard {
-                /*
-                getBaseActivity()?.setResult(Activity.RESULT_CANCELED, Intent())
-                getBaseActivity()?.finish()
-                */
                 activity.setResult(Activity.RESULT_CANCELED)
                 activity.finish()
             }
@@ -203,6 +198,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
         }
     }
+
 
     override fun setUser(user: User?) {
         currentUser = user
@@ -314,7 +310,6 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 FolderMode.EDIT -> {
                     editView(v)
                 }
-
             }
 
 
@@ -344,7 +339,11 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         if (selectFolder) {
             if (folder.type == FolderType.INBOX) {
                 currentUser?.let { user ->
-                    v.nameTv.text = user.name
+                    // the system folder is added to represent the root. Which is why its altered. You are not allowed to move folders into systemfolders
+                    // root folder id = 0  and root.foldername  = username
+                    folder.id = 0
+                    folder.name = user.name
+                    v.nameTv.text = folder.name
                     v.iconIv?.let {
                         Glide.with(context)
                                 .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
@@ -385,8 +384,8 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     }
 
     private fun editButtonClicked(v: View) {
-        var arguments = Bundle()
-        var editFolder = v.tag as Folder
+        val arguments = Bundle()
+        val editFolder = v.tag as Folder
         arguments.putSerializable("editFolder", editFolder)
         getBaseActivity()?.openComponentDrawer(NewFolderComponentFragment::class.java, arguments)
     }
@@ -397,7 +396,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             if (isSelected) {
                 unSelectCurrent()
             } else {
-                checkbox?.isSelected = true
+                checkbox.isSelected = true
                 unSelectCurrent()
                 pickedFolder = folder
                 pickedCheckBox = checkbox

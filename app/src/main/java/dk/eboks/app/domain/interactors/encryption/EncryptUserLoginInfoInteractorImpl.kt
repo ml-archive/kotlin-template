@@ -29,7 +29,9 @@ class EncryptUserLoginInfoInteractorImpl(
 
         try {
             encryptionPreferenceManager.setString(LoginInfo.KEY, loginInfoString)
-            output?.onSuccess()
+            runOnUIThread {
+                output?.onSuccess()
+            }
         } catch (e: Exception) {
             val viewError = ViewError(
                     Translation.androidfingerprint.dialogTitle,
@@ -37,7 +39,9 @@ class EncryptUserLoginInfoInteractorImpl(
                     true,
                     true
             );
-            output?.onError(viewError)
+            runOnUIThread {
+                output?.onError(viewError)
+            }
         }
     }
 }

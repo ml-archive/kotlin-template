@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors.message
+package dk.eboks.app.domain.interactors.message.messageoperations
 
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
@@ -9,7 +9,7 @@ interface UpdateMessageInteractor : Interactor {
     var output: Output?
     var input: Input?
 
-    data class Input(var message: Message, var messagePatch: MessagePatch)
+    data class Input(var messages: ArrayList<Message>, var messagePatch: MessagePatch)
 
     interface Output {
         fun onUpdateMessageSuccess()

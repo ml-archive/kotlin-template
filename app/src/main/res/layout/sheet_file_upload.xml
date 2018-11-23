@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_normal"
         android:gravity="center"
-        nstack:key="@string/nstack_uploads_uploadFile" />
+        android:text="@string/nstack_uploads_uploadFile" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/fileNameTil"
@@ -57,7 +57,7 @@
             android:layout_height="match_parent"
             android:layout_marginStart="20dp"
             android:gravity="center_vertical"
-            nstack:key="@string/nstack_folders_folder" />
+            android:text="@string/nstack_folders_folder" />
 
         <TextView
             android:id="@+id/destinationTv"
@@ -79,9 +79,9 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="24dp"
         android:enabled="false"
-        android:text="_Save"
+        tools:text="_Save"
         android:textColor="@drawable/enabled_button"
-        nstack:key="@string/nstack_signup_continueButton" />
+        android:text="@string/nstack_signup_continueButton" />
 
     <Button
         android:id="@+id/cancelBtn"
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_vertical"
         android:layout_marginTop="20dp"
-        android:text="_cancel"
-        nstack:key="@string/nstack_default_cancel" />
+        tools:text="_cancel"
+        android:text="@string/nstack_default_cancel" />
 
 </LinearLayout>

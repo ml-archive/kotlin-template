@@ -8,21 +8,26 @@
 
     <TextView
         android:id="@+id/viewHolderReceiptTvItemName"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:lineSpacingExtra="4sp"
         android:textColor="#233e4b"
         android:textSize="16sp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/viewHolderReceiptTvPrice"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Thise Letmælk" />
+        tools:text="Thise LetmælkThise Letmædfyhzvrd ydv hdry  drz y" />
 
     <TextView
         android:id="@+id/viewHolderReceiptTvSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:lineSpacingExtra="4sp"
         android:textColor="#6d757a"
         android:textSize="12sp"
@@ -36,6 +41,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:lineSpacingExtra="4sp"
         android:textColor="#6d757a"
         android:textSize="12sp"
@@ -49,6 +56,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_small"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:lineSpacingExtra="4sp"
         android:textColor="#233e4b"
         android:textSize="16sp"

@@ -96,7 +96,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN && BuildConfig.DEBUG) {
             countToDebug++
             if (countToDebug > 2) {
                 startActivity(Intent(this, DebugActivity::class.java))

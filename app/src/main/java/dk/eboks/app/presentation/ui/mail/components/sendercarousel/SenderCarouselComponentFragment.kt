@@ -55,6 +55,7 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
 
         emptyStateBtn.setOnClickListener {
             MailOverviewActivity.refreshOnResume = true
+            VerificationComponentFragment.verificationSucceeded = false
             getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
         }
     }

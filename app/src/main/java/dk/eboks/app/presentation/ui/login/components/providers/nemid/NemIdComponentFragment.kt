@@ -104,13 +104,12 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     
     // shamelessly ripped from chnt
     private fun setupTopBar() {
-        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
         mainTb.setNavigationOnClickListener {
             if(!closeLoginOnBack) {
                 presenter.cancelAndClose()
             }
-            else
-            {
+            else {
                 activity.finish()
             }
         }
@@ -167,6 +166,10 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
         didAttemptToInstallNemID = true
     }
 
+    override fun onCheckMergeAccountStatus() {
+        presenter.mergeAccountOrKeepSeparated()
+    }
+
     private inner class WebAppInterfaceNemID {
         @JavascriptInterface
         fun performAppSwitch() {
@@ -193,10 +196,8 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
                 "{\n" +
                 "    window.attachEvent(\"onmessage\", onNemIDMessage); \n" +
                 "}" +
-                "console.log(\"registered eventhandlers and shit\");"
+                "console.log(\"registered eventhandlers\");"
     }
 
-    override fun onCheckMergeAccountStatus() {
-        presenter.mergeAccountOrKeepSeparated()
-    }
+
 }

@@ -10,8 +10,11 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderPatch
+import dk.eboks.app.domain.models.folder.FolderRequest
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.home.HomeContent
+import dk.eboks.app.domain.models.login.ActivationDevice
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
@@ -39,8 +42,16 @@ interface Api {
     @POST("http://test401-oauth-dk.internal.e-boks.com/1/connect/token") fun getToken(@FieldMap bodyMap: Map<String, String>): Call<AccessToken>
     */
 
+    // mobile access
+    @PUT("user/current/device") fun activateDevice(@Body device: ActivationDevice): Call<Void>
+
     // resources
     @GET("resources/links") fun getResourceLinks() : Call<List<ResourceLink>>
+
+    //folders
+    @POST("mail/folders") fun createFolder(@Body folderRequest: FolderRequest) : Call<Void>
+    @PATCH("mail/folders/{folderid}") fun editFolder(@Path("folderid") folderId: Int, @Body folderRequest: FolderRequest) : Call<Void>
+    @DELETE("mail/folders/{folderid}") fun deleteFolder(@Path("folderid") folderId: Int) : Call<Void>
 
     // user
     @GET("user/{identity}/exists") fun checkUserEmail(@Path("identity") identity : String) : Call<BooleanReply>
@@ -58,21 +69,24 @@ interface Api {
     // @GET("regions") fun getRegions() : Call<List<Region>>
     @GET("mail/folders/selected") fun getMailCategories() : Call<List<Folder>>
     @GET("mail/folders") fun getFolders() : Call<List<Folder>>
-    @GET("mail/folders/{id}/messages") fun getMessages(@Path("id") id : Int, @Query("offset") offset : Int? = null, @Query("limit") limit : Int? = null, @Query("acceptedprivateterms") terms : Boolean? = null) : Call<List<Message>>
-    @GET("mail/messages/senders/{id}") fun getMessagesBySender(@Path("id") id : Long, @Query("offset") offset : Int? = null, @Query("limit") limit : Int? = null,@Query("acceptedprivateterms") terms : Boolean? = null) : Call<List<Message>>
-    @GET("mail/folders/{folderId}/messages/{id}") fun getMessage(@Path("id") id : String, @Path("folderId") folderId : Int, @Query("receipt") receipt : Boolean? = null, @Query("acceptedprivateterms") terms : Boolean? = null) : Call<Message>
+    @GET("mail/folders/{id}/messages") fun getMessages(@Path("id") id : Int, @Query("offset") offset : Int? = null, @Query("limit") limit : Int? = null, @Query("acceptprivateterms") terms : Boolean? = null) : Call<List<Message>>
+    @GET("mail/messages/senders/{id}") fun getMessagesBySender(@Path("id") id : Long, @Query("offset") offset : Int? = null, @Query("limit") limit : Int? = null,@Query("acceptprivateterms") terms : Boolean? = null) : Call<List<Message>>
+    @GET("mail/folders/{folderId}/messages/{id}") fun getMessage(@Path("id") id : String, @Path("folderId") folderId : Int, @Query("receipt") receipt : Boolean? = null, @Query("acceptprivateterms") terms : Boolean? = null) : Call<Message>
     @GET("mail/senders") fun getSenders() : Call<List<Sender>>
 
     // edit message / document/message operations
     @POST("mail/folders/{folderId}/messages/{messageId}") fun updateMessage(@Path("folderId") folderId : Int, @Path("messageId") messageId : String, @Body body : MessagePatch) : Call<Void>
 
+    //edit folder
+    @PATCH("mail/folders/{folderId}") fun updateFolder(@Path("folderId") folderId : Int, @Body body : FolderPatch) : Call<Void>
+
     // delete message
     @DELETE("mail/folders/{folderId}/messages/{messageId}") fun deleteMessage(@Path("folderId") folderId: Int, @Path("messageId") messageId: String) : Call<Void>
 
     // get types of messages, used to be by folder type but now its just a couple of hardcoded endpoints
-    @GET("mail/messages/highlights") fun getHighlights(@Query("acceptedprivateterms") terms : Boolean? = null) : Call<List<Message>>
-    @GET("mail/messages/latest") fun getLatest(@Query("acceptedprivateterms") terms : Boolean? = null) : Call<List<Message>>
-    @GET("mail/messages/unread") fun getUnread(@Query("acceptedprivateterms") terms : Boolean? = null) : Call<List<Message>>
+    @GET("mail/messages/highlights") fun getHighlights(@Query("acceptprivateterms") terms : Boolean? = null) : Call<List<Message>>
+    @GET("mail/messages/latest") fun getLatest(@Query("acceptprivateterms") terms : Boolean? = null) : Call<List<Message>>
+    @GET("mail/messages/unread") fun getUnread(@Query("acceptprivateterms") terms : Boolean? = null) : Call<List<Message>>
     @GET("mail/messages/uploads") fun getUploads(@Query("offset") offset : Int? = null, @Query("limit") limit : Int? = null) : Call<List<Message>>
     @GET("mail/storage") fun getStorageInfo() : Call<StorageInfo>
 

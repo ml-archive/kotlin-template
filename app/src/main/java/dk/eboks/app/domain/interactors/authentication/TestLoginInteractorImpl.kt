@@ -26,7 +26,6 @@ class TestLoginInteractorImpl(
                         authClient.login(
                                 username = args.username,
                                 password = args.password,
-                                activationCode = args.activationCode,
                                 longClient = false,
                                 verifyOnly = true
                         )
@@ -36,7 +35,6 @@ class TestLoginInteractorImpl(
                         authClient.login(
                                 username = args.username,
                                 password = args.password,
-                                activationCode = null,
                                 longClient = false,
                                 verifyOnly = true
                         )

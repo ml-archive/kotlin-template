@@ -53,7 +53,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.debug.screens.user.DebugUserActivity" android:screenOrientation="portrait"/>
         <activity android:name="dk.eboks.app.pasta.activity.PastaActivity" android:screenOrientation="portrait"/>
         <activity android:name="dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity"
-            android:theme="@style/TransTheme" android:screenOrientation="portrait"/>
+            android:theme="@style/TransTheme"/>
         <activity android:name="dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
         <activity android:name="dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity" android:launchMode="singleTop" android:screenOrientation="portrait"/>
         <activity android:name="dk.eboks.app.presentation.ui.folder.screens.FolderActivity" android:launchMode="singleTop" android:screenOrientation="portrait"/>
@@ -68,7 +68,7 @@
         <activity android:name="dk.eboks.app.presentation.ui.senders.screens.browse.BrowseCategoryActivity" android:screenOrientation="portrait"/>
         <activity android:name="dk.eboks.app.presentation.ui.senders.screens.browse.SearchSendersActivity" android:screenOrientation="portrait"/>
         <activity android:name="dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.profile.screens.ProfileActivity" android:theme="@style/TransTheme" android:screenOrientation="portrait"/>
+        <activity android:name="dk.eboks.app.presentation.ui.profile.screens.ProfileActivity" android:theme="@style/TransTheme"/>
         <activity android:name="dk.eboks.app.presentation.ui.profile.screens.myinfo.MyInfoActivity"  android:screenOrientation="portrait" />
         <activity android:name="dk.eboks.app.presentation.ui.home.screens.HomeActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
         <activity android:name="dk.eboks.app.presentation.ui.uploads.screens.UploadsActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
@@ -84,7 +84,6 @@
         <activity
             android:name="dk.eboks.app.presentation.base.SheetComponentActivity"
             android:windowSoftInputMode="adjustPan"
-            android:screenOrientation="portrait"
             android:theme="@style/TransTheme" />
         <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.storebox.StoreboxAddCardActivity" android:screenOrientation="portrait"/>
         <activity android:name=".presentation.ui.login.screens.PopupLoginActivity" android:screenOrientation="portrait"/>

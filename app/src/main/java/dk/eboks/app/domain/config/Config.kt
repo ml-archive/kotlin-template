@@ -74,7 +74,7 @@ object Config {
                     )
             ),
 
-            customTranslationUrl = "https://m.e-boks.dk/app/resources/android/eboks.android.4.0.json",
+            customTranslationUrl = "https://m.e-boks.dk/app/resources/android/eboks.android.4.0.2.json",
             alternativeLoginProviders = listOf("nemid")
     )
 
@@ -124,10 +124,23 @@ object Config {
                             shortAuthCustomSecret = "MobileApp-Short-Custom-secret",
                             longAuthCustomId = "MobileApp-Long-Custom-id",
                             longAuthCustomSecret = "MobileApp-Long-Custom-secret"
+                    ),
+                    "production" to Environments(
+                            apiUrl = "https://mobile-api-no.e-boks.com/2/",
+                            authUrl = "https://oauth-no.e-boks.com/1/connect/token",
+                            kspUrl = "https://m.e-boks.no/app/logon.aspx?logontype=",
+                            shortAuthId = "MobileApp-Short-id",
+                            shortAuthSecret = "Buz3YmYmjhDRM9R3",
+                            longAuthId = "MobileApp-Long-id",
+                            longAuthSecret = "TgtjcNpY9R9ffw8D",
+                            shortAuthCustomId = "MobileApp-Short-Custom-id",
+                            shortAuthCustomSecret = "QmaENW6MeYwwjzF5",
+                            longAuthCustomId = "MobileApp-Long-Custom-id",
+                            longAuthCustomSecret = "4ZLmEL2SY69MqGKs"
                     )
             ),
 
-            customTranslationUrl = "https://m.e-boks.no/app/resources/android/eboks.android.4.0.json",
+            customTranslationUrl = "https://m.e-boks.no/app/resources/android/eboks.android.4.0.2.json",
             alternativeLoginProviders = listOf("idporten", "bankid_no")
     )
 
@@ -179,7 +192,7 @@ object Config {
                 )
             ),
 
-            customTranslationUrl = "https://m.e-boks.se/app/resources/android/eboks.android.4.0.json",
+            customTranslationUrl = "https://m.e-boks.se/app/resources/android/eboks.android.4.0.2.json",
             alternativeLoginProviders = listOf("bankid_se")
     )
 
@@ -427,7 +440,7 @@ object Config {
             else -> throw(IllegalStateException("Configuration mode ${BuildConfig.mode} is invalid. Use danish, swedish or norwegian"))
         }
         currentMode.environment = if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) currentMode.environments["demo"] else currentMode.environments["production"]
-        if(currentMode == norwegian)
+        if(currentMode == norwegian && BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
             currentMode.environment = currentMode.environments["demo2"]
         if(currentMode.environment == null)
             throw(IllegalStateException("currentMode.environment is not set!!"))

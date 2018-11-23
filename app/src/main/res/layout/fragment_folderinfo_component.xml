@@ -17,11 +17,11 @@
         android:paddingBottom="14dp">
         <TextView
             android:id="@+id/folderTv"
-            nstack:key="@string/nstack_message_folder"
+            android:text="@string/nstack_message_folder"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/text.header3"
-            android:text="_Folder"/>
+            tools:text="_Folder"/>
 
         <TextView
             android:id="@+id/folderNameTv"

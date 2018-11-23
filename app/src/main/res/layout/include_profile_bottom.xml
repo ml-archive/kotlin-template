@@ -22,9 +22,9 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/margin_normal"
             android:paddingRight="@dimen/margin_normal"
-            android:text="_My information"
+            tools:text="_My information"
             android:textAppearance="@style/text.header4"
-            nstack:text="@string/nstack_profile_myInformation"/>
+            android:text="@string/nstack_profile_myInformation"/>
     </FrameLayout>
 
     <include
@@ -52,11 +52,11 @@
             android:background="@color/white"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/margin_normal"
-            android:text="_Fingerprint"
+            tools:text="_Fingerprint"
             android:textAppearance="@style/text.header4"
             android:thumbTint="@drawable/switch_thumb"
             android:trackTint="@drawable/switch_track"
-            nstack:text="@string/nstack_profile_fingerprint"/>
+            android:text="@string/nstack_profile_fingerprint"/>
 
         <include layout="@layout/include_divider_leftmargin_whitebackground"/>
 
@@ -70,11 +70,11 @@
             android:background="@color/white"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/margin_normal"
-            android:text="_Keep me signed in"
+            tools:text="_Keep me signed in"
             android:textAppearance="@style/text.header4"
             android:thumbTint="@drawable/switch_thumb"
             android:trackTint="@drawable/switch_track"
-            nstack:text="@string/nstack_profile_keepMeSignedIn"/>
+            android:text="@string/nstack_profile_keepMeSignedIn"/>
 
     </LinearLayout>
 
@@ -92,9 +92,9 @@
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        android:text="_Keep me signed in when i close the e-boks app orem ipsum dolor sit amet"
+        tools:text="_Keep me signed in when i close the e-boks app orem ipsum dolor sit amet"
         android:textColor="@color/blueGrey"
-        nstack:text="@string/nstack_profile_keepMeSignedInDescription"/>
+        android:text="@string/nstack_profile_keepMeSignedInDescription"/>
 
     <include
         layout="@layout/include_divider"
@@ -116,9 +116,9 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/margin_normal"
             android:paddingRight="@dimen/margin_normal"
-            android:text="_Terms and Conditions"
+            tools:text="_Terms and Conditions"
             android:textAppearance="@style/text.header4"
-            nstack:text="@string/nstack_profile_termsAndConditions"/>
+            android:text="@string/nstack_profile_termsAndConditions"/>
 
         <include layout="@layout/include_divider_leftmargin_whitebackground"/>
 
@@ -134,9 +134,9 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/margin_normal"
             android:paddingRight="@dimen/margin_normal"
-            android:text="_Privacy Statement"
+            tools:text="_Privacy Statement"
             android:textAppearance="@style/text.header4"
-            nstack:text="@string/nstack_profile_privacyStatement"/>
+            android:text="@string/nstack_profile_privacyStatement"/>
     </LinearLayout>
 
     <include
@@ -159,9 +159,9 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/margin_normal"
             android:paddingRight="@dimen/margin_normal"
-            android:text="_help"
+            tools:text="_help"
             android:textAppearance="@style/text.header4"
-            nstack:text="@string/nstack_profile_help"/>
+            android:text="@string/nstack_profile_help"/>
     </FrameLayout>
 
     <include layout="@layout/include_divider_leftmargin_whitebackground"/>
@@ -181,9 +181,9 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="@dimen/margin_normal"
             android:paddingRight="@dimen/margin_normal"
-            android:text="_feedback"
+            tools:text="_feedback"
             android:textAppearance="@style/text.header4"
-            nstack:text="@string/nstack_profile_feedbackCellTitle"/>
+            android:text="@string/nstack_profile_feedbackCellTitle"/>
     </FrameLayout>
 
     <include
@@ -202,8 +202,8 @@
         android:textAllCaps="false"
         android:textColor="@color/darkGreyBlue"
         android:backgroundTint="@color/darkGreyBlue50"
-        android:text="_Sign out"
-        nstack:text="@string/nstack_profile_signOut"/>
+        tools:text="_Sign out"
+        android:text="@string/nstack_profile_signOut"/>
 
     <!--Version textView-->
 

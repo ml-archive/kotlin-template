@@ -12,12 +12,12 @@
     tools:ignore="MissingPrefix">
     <TextView
         android:id="@+id/notesTv"
-        nstack:key="@string/nstack_message_notes"
+        android:text="@string/nstack_message_notes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="16dp"
         style="@style/text.header3"
-        android:text="_Notes"/>
+        tools:text="_Notes"/>
     <View
         android:id="@+id/focusThiefV"
         android:focusable="true"

@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
-                nstack:key="@string/nstack_home_bottomChannelHeaderChannels"
+                android:text="@string/nstack_home_bottomChannelHeaderChannels"
                 android:gravity="center"
                 android:textStyle="normal" />
 
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
                 android:layout_marginRight="32dp"
-                nstack:key="@string/nstack_home_bottomChannelTextChannels"
+                android:text="@string/nstack_home_bottomChannelTextChannels"
                 android:layout_marginTop="@dimen/default_padding_top"
                 android:gravity="center"
                 android:textColor="@color/blueGrey" />
@@ -70,7 +70,7 @@
                 android:paddingRight="16dp"
                 android:textSize="14dp"
                 android:textStyle="normal"
-                nstack:key="@string/nstack_home_bottomChannelBtn" />
+                android:text="@string/nstack_home_bottomChannelBtn" />
         </LinearLayout>
     </LinearLayout>
 
@@ -120,7 +120,7 @@
             android:paddingRight="16dp"
             android:textSize="14dp"
             android:textStyle="normal"
-            nstack:key="@string/nstack_home_bottomChannelBtn" />
+            android:text="@string/nstack_home_bottomChannelBtn" />
     </LinearLayout>
 
     <!-- progress -->

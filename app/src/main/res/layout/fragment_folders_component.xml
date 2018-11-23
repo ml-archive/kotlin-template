@@ -97,7 +97,7 @@
                         android:paddingRight="16dp"
                         android:textSize="14dp"
                         android:textStyle="normal"
-                        nstack:key="folders_noFoldersBtn" />
+                        android:text="folders_noFoldersBtn" />
                 </LinearLayout>
 
             </LinearLayout>

@@ -21,8 +21,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="32dp"
-        android:text="_Enable Mobile access to use fingerprint"
-        nstack:key="@string/nstack_profile_fingerHintTitle" />
+        tools:text="_Enable Mobile access to use fingerprint"
+        android:text="@string/nstack_profile_fingerHintTitle" />
 
     <TextView
         style="@style/text.body6"
@@ -30,9 +30,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingTop="8dp"
-        android:text="_Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer cursus, dui vel pretium laoreet, sapien nunc laoreet neque, ac vestibulum velit tellus at diam. "
+        tools:text="_Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer cursus, dui vel pretium laoreet, sapien nunc laoreet neque, ac vestibulum velit tellus at diam. "
         android:textColor="@color/blueGrey"
-        nstack:key="@string/nstack_profile_fingerHintText" />
+        android:text="@string/nstack_profile_fingerHintText" />
 
     <Button
         android:id="@+id/okBtn"
@@ -42,9 +42,9 @@
         android:layout_marginBottom="24dp"
         android:layout_marginTop="16dp"
         android:backgroundTint="#0D223944"
-        android:text="_Ok"
+        tools:text="_Ok"
         android:textSize="16dp"
-        nstack:key="@string/nstack_default_ok" />
+        android:text="@string/nstack_default_ok" />
 
 
 </LinearLayout>

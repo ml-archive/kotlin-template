@@ -39,9 +39,14 @@ class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     // shamelessly ripped from chnt
     private fun setupTopBar() {
-        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+        mainTb.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
         mainTb.setNavigationOnClickListener {
-            activity.onBackPressed()
+            if(!closeLoginOnBack) {
+                presenter.cancelAndClose()
+            }
+            else {
+                activity.finish()
+            }
         }
     }
 
@@ -93,4 +98,7 @@ class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
         presenter.login(kspwebtoken)
     }
 
+    override fun onCheckMergeAccountStatus() {
+        presenter.mergeAccountOrKeepSeparated()
+    }
 }
