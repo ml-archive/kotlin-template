@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.channels.screens.content.ekey
 
 import android.os.Bundle
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.ekey.BaseEkey
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
@@ -14,6 +15,7 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
     private var keys: MutableList<BaseEkey>? = null
     var shouldRefresh = false
     var pin: String? = null
+    var channel: Channel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +23,7 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
+        channel = intent.getSerializableExtra("channel") as Channel?
         if (intent.getBooleanExtra("showPin",true)){
             addFragmentOnTop(R.id.content,EkeyPinComponentFragment(),false)
 //            setRootFragment(R.id.content, EkeyPinComponentFragment())

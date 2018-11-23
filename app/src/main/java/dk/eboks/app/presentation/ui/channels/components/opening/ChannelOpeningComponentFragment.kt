@@ -251,9 +251,11 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
     }
 
-    override fun openEkeyContent() {
+    override fun openEkeyContent(channel: Channel) {
         Timber.i("openEkeyContent")
-        startActivity(Intent(context, EkeyContentActivity::class.java))
+        val intent = Intent(context, EkeyContentActivity::class.java)
+        intent.putExtra("channel", channel)
+        startActivity(intent)
         activity.finish()
     }
 }

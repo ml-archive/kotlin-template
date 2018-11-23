@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.ekey.*
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
@@ -70,12 +71,11 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         presenter.onViewCreated(this, lifecycle)
         keysContentRv.layoutManager = LinearLayoutManager(context)
         ViewCompat.setNestedScrollingEnabled(keysContentRv, false)
-//        keysContentRv.addItemDecoration(DividerDecoration())
+        keysContentRv.addItemDecoration(DividerDecoration())
         keysContentRv.adapter = BetterEkeyAdapter(items, this)
 
         setupTopBar()
 
-//        presenter.getKeys()
         keysContentRv.isFocusable = false
         headerTv.requestFocus()
 
@@ -105,7 +105,15 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         menuSearch?.setIcon(R.drawable.ic_settings_red)
         menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
-            getBaseActivity()?.openComponentDrawer(ChannelSettingsComponentFragment::class.java)
+            (activity as EkeyContentActivity).channel?.let { channel ->
+                val arguments = Bundle()
+                arguments.putCharSequence("arguments", "ekey")
+                arguments.putSerializable(Channel::class.java.simpleName, channel)
+                getBaseActivity()?.openComponentDrawer(
+                        ChannelSettingsComponentFragment::class.java,
+                        arguments
+                )
+            }
             true
         }
     }

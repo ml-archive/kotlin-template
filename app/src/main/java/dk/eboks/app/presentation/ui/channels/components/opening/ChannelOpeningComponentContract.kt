@@ -18,7 +18,7 @@ interface ChannelOpeningComponentContract {
         fun showRequirementsDrawer(channel: Channel)
         fun openChannelContent(channel : Channel)
         fun openStoreBoxContent(channel : Channel)
-        fun openEkeyContent()
+        fun openEkeyContent(channel: Channel)
         fun showStoreboxUserAlreadyExists()
     }
 

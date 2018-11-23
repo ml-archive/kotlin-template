@@ -94,7 +94,7 @@ class ChannelOpeningComponentPresenter @Inject constructor(
             }
             "ekey" -> {
                 runAction { v ->
-                    v.openEkeyContent()
+                    v.openEkeyContent(channel)
                 }
             }
         }
