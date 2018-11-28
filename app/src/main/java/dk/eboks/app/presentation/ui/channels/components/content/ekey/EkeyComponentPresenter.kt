@@ -36,7 +36,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         GetEKeyMasterkeyInteractor.Output, SetEKeyMasterkeyInteractor.Output, GetEKeyVaultInteractor.Output {
 
     val gson: Gson
-    var masterKey: String? = null
+    override var masterKey: String? = null
 
     init {
         getMasterkeyInteractor.output = this

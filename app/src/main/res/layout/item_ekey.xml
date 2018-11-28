@@ -1,43 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="60dp"
-              android:background="@color/white">
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:nstack="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainSwipeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="MissingPrefix">
 
     <LinearLayout
-        android:translationZ="1dp"
-        android:layout_width="match_parent"
+        android:id="@+id/containerMarkAsRead"
+        android:layout_width="88dp"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:paddingLeft="72dp"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/square_gradient"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/headingTv"
-            style="@style/text.header4"
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:text="_Gmail"/>
+            android:tint="@color/white"
+            app:srcCompat="@drawable/ic_deleted" />
 
         <TextView
-            android:id="@+id/subHeadingTv"
-            style="@style/text.subHeader5.quaternary"
-            android:layout_width="match_parent"
+            android:id="@+id/markAsReadTv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="_email@gmail.com"/>
-
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="3sp"
+            android:textColor="#ffffff"
+            android:textSize="9sp"
+            nstack:text="@string/nstack_ekey_deleteSwipeBtn" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/logoIv"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="center_vertical"
-        android:translationZ="2dp"
-        android:layout_marginLeft="@dimen/margin_normal"
-        android:background="@drawable/circle_gradiant"
-        android:padding="@dimen/margin_half"
-        android:src="@drawable/icon_48_lock_white"/>
-</FrameLayout>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/white"
+        android:id="@+id/contentContainer">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="72dp"
+            android:translationZ="1dp">
+
+            <TextView
+                android:id="@+id/headingTv"
+                style="@style/text.header4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:text="_Gmail" />
+
+            <TextView
+                android:id="@+id/subHeadingTv"
+                style="@style/text.subHeader5.quaternary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="_email@gmail.com" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/logoIv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:background="@drawable/circle_gradiant"
+            android:padding="@dimen/margin_half"
+            android:src="@drawable/icon_48_lock_white"
+            android:translationZ="2dp" />
+    </FrameLayout>
+</com.daimajia.swipe.SwipeLayout>

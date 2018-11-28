@@ -7,10 +7,10 @@ import android.os.Parcelable
 interface BaseEkey : Parcelable {
     val name: String
     val note: String?
-    val ekeyType: String
+    val eKeyType: String
 }
 
-data class Login(var username: String, var password: String, override val name: String, override val note: String?, override val ekeyType: String = "Login") : Parcelable, BaseEkey {
+data class Login(var username: String, var password: String, override val name: String, override val note: String?, override val eKeyType: String = "Login") : Parcelable, BaseEkey {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
@@ -48,7 +48,7 @@ data class Login(var username: String, var password: String, override val name: 
     }
 }
 
-data class Note(override val name: String, override val note: String?, override val ekeyType: String = "Note") : BaseEkey {
+data class Note(override val name: String, override val note: String?, override val eKeyType: String = "Note") : BaseEkey {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString()) {
@@ -80,7 +80,7 @@ data class Note(override val name: String, override val note: String?, override 
     }
 }
 
-data class Pin(var cardholderName: String, var pin: String, override val name: String, override val note: String?, override val ekeyType: String = "Pin") : Parcelable, BaseEkey {
+data class Pin(var cardholderName: String, var pin: String, override val name: String, override val note: String?, override val eKeyType: String = "Pin") : Parcelable, BaseEkey {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
@@ -118,7 +118,7 @@ data class Pin(var cardholderName: String, var pin: String, override val name: S
     }
 }
 
-data class Ekey(var pin: String, override val name: String, override val note: String?, override val ekeyType: String = "Ekey") : Parcelable,BaseEkey {
+data class Ekey(var pin: String, override val name: String, override val note: String?, override val eKeyType: String = "Ekey") : Parcelable,BaseEkey {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),

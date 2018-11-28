@@ -18,7 +18,7 @@ class EKeySerializer : JsonSerializer<ArrayList<BaseEkey>> {
         else {
             val ja = JsonArray()
             for (bc in src) {
-                val c = map.get(bc.ekeyType) ?: throw RuntimeException("Unknow class: " + bc.ekeyType)
+                val c = map.get(bc.eKeyType) ?: throw RuntimeException("Unknow class: " + bc.eKeyType)
                 ja.add(context.serialize(bc, c))
 
             }

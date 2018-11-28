@@ -21,9 +21,10 @@ interface EkeyComponentContract {
         fun deleteMasterKey()
         fun storeMasterkey(masterKey: String)
         fun getVault(masterKey: String, pin: String)
-        fun setVault(it: String, keyList: MutableList<BaseEkey>)
+        fun setVault(masterKey: String, keyList: MutableList<BaseEkey>)
         fun deleteVault(signature: String, signatureTime: String)
         fun decryptVault(masterKey: String, vault: String): String
         fun getKeyList(): MutableList<BaseEkey>
+        var masterKey: String?
     }
 }

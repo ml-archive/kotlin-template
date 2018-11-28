@@ -18,7 +18,7 @@ class EKeyDeserializer : JsonDeserializer<List<BaseEkey>> {
         val ja = json.asJsonArray
 
         for (je in ja) {
-            val type = je.asJsonObject.get("ekeyType").asString
+            val type = je.asJsonObject.get("eKeyType").asString
             val c = map.get(type) ?: throw RuntimeException("Unknow class: $type")
             list.add(context.deserialize<BaseEkey>(je, c))
         }

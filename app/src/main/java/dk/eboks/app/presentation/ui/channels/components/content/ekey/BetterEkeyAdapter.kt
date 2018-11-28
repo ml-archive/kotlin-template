@@ -4,14 +4,20 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import com.daimajia.swipe.SwipeLayout
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.ekey.*
+import dk.eboks.app.presentation.ui.mail.components.maillist.MailMessagesAdapter
 import timber.log.Timber
 
 class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklistener: BetterEkeyAdapter.Ekeyclicklistener? = null) : RecyclerView.Adapter<BetterEkeyAdapter.EKeyHolder>() {
+
+    var onActionEvent: ((BaseEkey) -> Unit)? = null
 
     override fun getItemViewType(position: Int): Int {
         return when (keyList[position]) {
@@ -64,18 +70,32 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
     }
 
     inner class EKeyViewHolder(val root: View) : EKeyHolder(root) {
+        private val swipeLayout = root as SwipeLayout
+        private val markAsReadContainer = root.findViewById<ViewGroup>(R.id.containerMarkAsRead)
 
+        private var content = root.findViewById<FrameLayout>(R.id.contentContainer)
         private var logoIv = root.findViewById<ImageView>(R.id.logoIv)
         private var headingTv = root.findViewById<TextView>(R.id.headingTv)
         private var subHeadingTv = root.findViewById<TextView>(R.id.subHeadingTv)
 
+        init {
+            swipeLayout.showMode = SwipeLayout.ShowMode.PullOut
+            swipeLayout.addDrag(SwipeLayout.DragEdge.Left, markAsReadContainer)
+        }
+
         override fun bind(item: ListItem) {
             val eKey = item as EkeyItem
 
-            root.setOnClickListener {
+            swipeLayout.isRightSwipeEnabled = eKey.data.eKeyType != "Ekey"
+            Timber.d("${eKey.data.name} - ${swipeLayout.isLeftSwipeEnabled}")
+            markAsReadContainer.setOnClickListener {
+                onActionEvent?.invoke(item.data)
+            }
+
+            content.setOnClickListener {
                 //todo clicked
                 Timber.i(item.toString())
-                ekeyclicklistener?.let{
+                ekeyclicklistener?.let {
                     it.onEkeyClicked(eKey.data)
                 }
             }

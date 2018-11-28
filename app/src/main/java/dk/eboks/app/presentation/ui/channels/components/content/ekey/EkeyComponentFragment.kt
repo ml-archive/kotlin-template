@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 /**
@@ -57,8 +58,8 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
     lateinit var presenter: EkeyComponentContract.Presenter
 
     private val items = ArrayList<ListItem>()
+    private val actualItems = ArrayList<BaseEkey>()
     private var pin: String? = null
-    private var masterkey: String? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_channel_ekey, container, false)
@@ -69,10 +70,8 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
 
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        keysContentRv.layoutManager = LinearLayoutManager(context)
-        ViewCompat.setNestedScrollingEnabled(keysContentRv, false)
-        keysContentRv.addItemDecoration(DividerDecoration())
-        keysContentRv.adapter = BetterEkeyAdapter(items, this)
+
+        setupRecycler()
 
         setupTopBar()
 
@@ -89,6 +88,25 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
             (activity as EkeyContentActivity).setVault(presenter.getKeyList())
             getBaseActivity()?.addFragmentOnTop(R.id.content, EkeyAddItemComponentFragment(), true)
         }
+    }
+
+    private fun setupRecycler() {
+        keysContentRv.layoutManager = LinearLayoutManager(context)
+        ViewCompat.setNestedScrollingEnabled(keysContentRv, false)
+        keysContentRv.addItemDecoration(DividerDecoration())
+        val adapter = BetterEkeyAdapter(items, this)
+
+        adapter.onActionEvent = {baseEkey ->
+            val list = arrayListOf<BaseEkey>()
+            actualItems.forEach { item ->
+                if(item != baseEkey)
+                    list.add(item)
+            }
+            presenter.masterKey?.let { presenter.setVault(it, list) }
+            showKeys(list)
+        }
+
+        keysContentRv.adapter = adapter
     }
 
     private fun setupTopBar() {
@@ -142,6 +160,8 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
 
     override fun showKeys(keys: List<BaseEkey>) {
         items.clear()
+        actualItems.clear()
+        actualItems.addAll(keys)
 
         setEmptyState(keys.isEmpty())
 
