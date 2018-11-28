@@ -70,7 +70,9 @@ class ChannelOpeningComponentPresenter @Inject constructor(
                         createStoreboxInteractor.run()
                     }
                     "ekey" -> {
-                        // TODO not implemented
+                        installChannelInteractor.input = InstallChannelInteractor.Input(channel.id)
+                        runAction { v -> v.showProgress(true) }
+                        installChannelInteractor.run()
                     }
                 }
             }
