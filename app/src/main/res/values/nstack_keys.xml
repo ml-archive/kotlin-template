@@ -572,6 +572,7 @@
   <string name='nstack_ekey_createEKey' formatted='false'>{ekey_createEKey}</string>
   <string name='nstack_ekey_ekeySecureKeyDescription' formatted='false'>{ekey_ekeySecureKeyDescription}</string>
   <string name='nstack_ekey_deleteSwipeBtn' formatted='false'>{ekey_deleteSwipeBtn}</string>
+  <string name='nstack_ekey_fieldIsRequired' formatted='false'>{ekey_fieldIsRequired}</string>
   <string name='nstack_storeboxlogin_header' formatted='false'>{storeboxlogin_header}</string>
   <string name='nstack_storeboxlogin_subheader' formatted='false'>{storeboxlogin_subheader}</string>
   <string name='nstack_storeboxlogin_title' formatted='false'>{storeboxlogin_title}</string>

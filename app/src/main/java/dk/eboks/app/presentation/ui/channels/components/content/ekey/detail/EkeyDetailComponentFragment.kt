@@ -175,9 +175,75 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
 
             items?.let {items ->
                 doesExist?.let { items.remove(it) }
-                getBaseEkey()?.let { presenter.putVault(items, it) }
+                if(isDataValid()) {
+                    getBaseEkey()?.let { presenter.putVault(items, it) }
+                }
             }
             true
+        }
+    }
+
+    private fun isDataValid(): Boolean {
+        var valid = true
+        usernameTil.error = null
+        passwordTil.error = null
+        nameTil.error = null
+        noteTil.error = null
+        cardholderTil.error = null
+        pinTil.error = null
+        return when (category) {
+            EkeyDetailMode.LOGIN -> {
+                if(usernameEt.text.toString().isEmpty()) {
+                    usernameTil.error = Translation.ekey.fieldIsRequired
+                    valid = false
+                }
+                if(passwordEt.text.toString().isEmpty()) {
+                    passwordTil.error = Translation.ekey.fieldIsRequired
+                    valid = false
+                }
+                if(nameEt.text.toString().isEmpty()) {
+                    nameTil.error = Translation.ekey.fieldIsRequired
+                    valid = false
+                }
+                if(noteEt.text.toString().isEmpty()) {
+                    noteTil.error = Translation.ekey.fieldIsRequired
+                    valid = false
+                }
+                valid
+            }
+            EkeyDetailMode.PIN -> {
+                if(cardholderEt.text.toString().isEmpty()) {
+                    cardholderTil.error = Translation.ekey.fieldIsRequired
+                    valid = false
+                }
+                if(pinEt.text.toString().isEmpty()) {
+                    pinTil.error = Translation.ekey.fieldIsRequired
+                    valid = false
+                }
+                if(nameEt.text.toString().isEmpty()) {
+                    nameTil.error = Translation.ekey.fieldIsRequired
+                    valid = false
+                }
+                if(noteEt.text.toString().isEmpty()) {
+                    noteTil.error = Translation.ekey.fieldIsRequired
+                    valid = false
+                }
+                valid
+            }
+            EkeyDetailMode.NOTE -> {
+                if(nameEt.text.toString().isEmpty()) {
+                    nameTil.error = Translation.ekey.fieldIsRequired
+                    valid = false
+                }
+                if(noteEt.text.toString().isEmpty()) {
+                    noteTil.error = Translation.ekey.fieldIsRequired
+                    valid = false
+                }
+                valid
+            }
+            else -> {
+                true
+            }
         }
     }
 

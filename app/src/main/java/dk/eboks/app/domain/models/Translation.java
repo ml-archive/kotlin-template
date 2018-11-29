@@ -650,6 +650,7 @@ public class Translation {
 		public static String createEKey = "__createEKey";
 		public static String ekeySecureKeyDescription = "Dette er din pinkode til e-Key, s\u00E5 du kan logge ind p\u00E5 andre enheder. Det er dog en god id\u00E9, at kunne huske denne kode, hvis du mister denne enhed.";
 		public static String deleteSwipeBtn = "Slet";
+		public static String fieldIsRequired = "fieldIsRequired";
 	}
 	public final static class storeboxlogin {
 		public static String header = "Link til din Storebox profil";
