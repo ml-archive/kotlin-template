@@ -69,7 +69,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
 
     override fun onSuccess() {
         (activity as EkeyContentActivity).shouldRefresh = true
-        getBaseActivity()?.setRootFragment(R.id.content, (activity as EkeyContentActivity).pin?.let { EkeyComponentFragment.newInstance(it) })
+        getBaseActivity()?.setRootFragment(R.id.content, EkeyComponentFragment.newInstance())
     }
 
     private fun setupInputfields() {

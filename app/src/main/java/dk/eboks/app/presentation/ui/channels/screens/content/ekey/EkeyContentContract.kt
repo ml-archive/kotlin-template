@@ -11,5 +11,6 @@ interface EkeyContentContract {
     }
 
     interface Presenter : BasePresenter<View> {
+        fun getMasterKey(): String?
     }
 }

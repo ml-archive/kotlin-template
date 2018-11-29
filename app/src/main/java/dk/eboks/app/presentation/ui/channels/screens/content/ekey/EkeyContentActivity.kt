@@ -24,9 +24,8 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
         presenter.onViewCreated(this, lifecycle)
 
         channel = intent.getSerializableExtra("channel") as Channel?
-        if (intent.getBooleanExtra("showPin",true)){
+        if (presenter.getMasterKey() == null){
             addFragmentOnTop(R.id.content,EkeyPinComponentFragment(),false)
-//            setRootFragment(R.id.content, EkeyPinComponentFragment())
         } else {
             setRootFragment(R.id.content, EkeyComponentFragment())
         }

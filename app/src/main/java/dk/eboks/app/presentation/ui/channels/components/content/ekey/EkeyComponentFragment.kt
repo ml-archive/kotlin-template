@@ -21,6 +21,7 @@ import dk.eboks.app.presentation.ui.channels.components.content.ekey.open.EkeyOp
 import dk.eboks.app.presentation.ui.channels.components.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.util.dpToPx
+import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.fragment_channel_ekey.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -78,10 +79,12 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         keysContentRv.isFocusable = false
         headerTv.requestFocus()
 
-        pin = arguments.getString("PIN_CODE")
+        pin = arguments?.getString("PIN_CODE", null)
         pin?.let {
             (activity as EkeyContentActivity).pin = pin
-            presenter.getMasterkey(it)
+            presenter.getMasterkeyFromBackend(it)
+        }.guard {
+            presenter.getMasterKeyLocally()
         }
 
         addItemBtn.setOnClickListener {
@@ -141,7 +144,9 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         if((activity as EkeyContentActivity).shouldRefresh) {
             (activity as EkeyContentActivity).shouldRefresh = false
             pin?.let {
-                presenter.getMasterkey(it)
+                presenter.getMasterkeyFromBackend(it)
+            }.guard {
+                presenter.getMasterKeyLocally()
             }
         }
     }
@@ -232,7 +237,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
 
     companion object {
         @JvmStatic
-        fun newInstance(pin: String) =
+        fun newInstance(pin: String? = null) =
                 EkeyComponentFragment().apply {
                     arguments = Bundle().apply {
                         putString("PIN_CODE", pin)

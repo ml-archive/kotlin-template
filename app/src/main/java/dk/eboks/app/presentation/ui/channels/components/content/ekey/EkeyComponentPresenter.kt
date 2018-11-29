@@ -37,6 +37,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
 
     val gson: Gson
     override var masterKey: String? = null
+    var pin: String? = null
 
     init {
         getMasterkeyInteractor.output = this
@@ -60,9 +61,11 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         }
     }
 
-    override fun onGetEKeyVaultNotFound(pin: String) {
+    override fun onGetEKeyVaultNotFound() {
         val keyList = mutableListOf<BaseEkey>()
-        keyList.add(Ekey(pin, "Ekey", null))
+        pin?.let {
+            keyList.add(Ekey(it, "Ekey", null))
+        }
 
         //Encrypt
         masterKey?.let {
@@ -75,8 +78,8 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         Timber.d("onGetEKeyVaultError")
     }
 
-    override fun onSetEKeyMasterkeySuccess(masterKey: String, pin: String) {
-        onGetEKeyMasterkeySuccess(masterKey, pin)
+    override fun onSetEKeyMasterkeySuccess(masterKey: String) {
+        handleMasterKeySuccess(masterKey)
     }
 
     override fun onSetEKeyMasterkeyError(viewError: ViewError) {
@@ -92,8 +95,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
                 masterKey = String(handler.decrypt(it), charset("UTF-8"))
                 Timber.d("Decrypted from backend: $masterKey")
 
-                storeMasterkey(masterKey!!)
-                getVault(masterKey!!, pin)
+                handleMasterKeySuccess(masterKey!!)
             } catch (e: Exception) {
                 runAction { view -> view.showErrorDialog(ViewError()) }
             }
@@ -101,6 +103,21 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         }.guard {
             generateNewKeyAndSend(pin)
         }
+    }
+
+    override fun getMasterKeyLocally() {
+        appState.state?.currentUser?.let {
+            val mk = encryptedPreferences.getString("ekey_${it.id}", null)
+            mk?.let {
+                masterKey = it
+                handleMasterKeySuccess(it)
+            }
+        }
+    }
+
+    private fun handleMasterKeySuccess(masterKey: String) {
+        storeMasterkey(masterKey)
+        getVault(masterKey)
     }
 
     override fun onGetEkeyMasterkeyNotFound(pin: String) {
@@ -117,19 +134,19 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         }
     }
 
-    override fun setMasterkey(hash: String, encrypted: String, pin: String) {
-        setMasterKeyInteractor.input = SetEKeyMasterkeyInteractor.Input(encrypted, hash, pin)
+    override fun setMasterkey(hash: String, encrypted: String) {
+        setMasterKeyInteractor.input = SetEKeyMasterkeyInteractor.Input(encrypted, hash)
         setMasterKeyInteractor.run()
     }
 
-    override fun getMasterkey(pin: String) {
+    override fun getMasterkeyFromBackend(pin: String) {
         getMasterkeyInteractor.input = GetEKeyMasterkeyInteractor.Input(pin)
         getMasterkeyInteractor.run()
     }
 
-    override fun getVault(masterKey: String, pin: String) {
+    override fun getVault(masterKey: String) {
         val time = getSignatureAndSignatureTime(masterKey)
-        getEKeyVaultInteractor.input = GetEKeyVaultInteractor.Input(time.first, time.second, pin)
+        getEKeyVaultInteractor.input = GetEKeyVaultInteractor.Input(time.first, time.second)
         getEKeyVaultInteractor.run()
     }
 
@@ -193,7 +210,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         Timber.d("Encrypted: $encrypted")
 
         //send key to backend
-        setMasterkey(hashed, encrypted, pin)
+        setMasterkey(hashed, encrypted)
     }
 
     override fun getKeys() {

@@ -988,8 +988,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideEkeyContentPresenter(stateManager: AppStateManager): EkeyContentContract.Presenter {
-        return EkeyContentPresenter(stateManager)
+    fun provideEkeyContentPresenter(stateManager: AppStateManager, encryptedPreferences: EncryptedPreferences): EkeyContentContract.Presenter {
+        return EkeyContentPresenter(stateManager, encryptedPreferences)
     }
 
     @ActivityScope
