@@ -90,25 +90,27 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
             getBaseActivity()?.onBackPressed()
         }
 
-        val menuSearch = getBaseActivity()?.mainTb?.menu?.add("_settings")
-        menuSearch?.setIcon(R.drawable.icon_48_delete_red)
-        menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
+        if(ekey !is Ekey) {
+            val menuSearch = getBaseActivity()?.mainTb?.menu?.add("_settings")
+            menuSearch?.setIcon(R.drawable.icon_48_delete_red)
+            menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
 
-            AlertDialog.Builder(context)
-                    .setMessage(Translation.ekey.deleteDialogMsg.replace("[item]", category.toString()))
-                    .setPositiveButton(Translation.ekey.deleteDialogRemoveBtn) { dialog, which ->
-                        ekey?.let {
-                            val items = (activity as EkeyContentActivity).getVault()
-                            items?.removeAll { r -> r.hashCode() == it.hashCode() }
-                            items?.let { items -> presenter.putVault(items) }
+                AlertDialog.Builder(context)
+                        .setMessage(Translation.ekey.deleteDialogMsg.replace("[item]", category.toString()))
+                        .setPositiveButton(Translation.ekey.deleteDialogRemoveBtn) { dialog, which ->
+                            ekey?.let {
+                                val items = (activity as EkeyContentActivity).getVault()
+                                items?.removeAll { r -> r.hashCode() == it.hashCode() }
+                                items?.let { items -> presenter.putVault(items) }
+                            }
                         }
-                    }
-                    .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                        .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
 
-                    }
-                    .show()
-            true
+                        }
+                        .show()
+                true
+            }
         }
     }
 
@@ -185,6 +187,7 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
                             pinTv.text = getPassword(it.pin)
                         }
                     }
+                    editBtn.visibility = View.GONE
                 }
             }
             editBtn.setOnClickListener {
