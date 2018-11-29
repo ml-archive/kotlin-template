@@ -187,7 +187,11 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
 
                     circleIv.isSelected = (unreadCount > 0)
                     if (unreadCount > 0) {
-                        unreadCountTv.text = unreadCount.toString()
+                        unreadCountTv.text = if(unreadCount > 99) {
+                            "99+"
+                        } else {
+                            unreadCount.toString()
+                        }
                         unreadCountTv.visibility = View.VISIBLE
                     } else {
                         unreadCountTv.visibility = View.GONE
