@@ -105,6 +105,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
                 editKey?.let {
                     if (it is Pin) {
                         nameEt.setText(it.name)
+                        cardholderEt.setText(it.cardholderName)
                         pinEt.setText(it.pin)
                         noteEt.setText(it.note)
                         pinShowPasswordIb.visibility = View.VISIBLE
