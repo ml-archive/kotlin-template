@@ -206,10 +206,6 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
                     nameTil.error = Translation.ekey.fieldIsRequired
                     valid = false
                 }
-                if(noteEt.text.toString().isEmpty()) {
-                    noteTil.error = Translation.ekey.fieldIsRequired
-                    valid = false
-                }
                 valid
             }
             EkeyDetailMode.PIN -> {
@@ -225,19 +221,11 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
                     nameTil.error = Translation.ekey.fieldIsRequired
                     valid = false
                 }
-                if(noteEt.text.toString().isEmpty()) {
-                    noteTil.error = Translation.ekey.fieldIsRequired
-                    valid = false
-                }
                 valid
             }
             EkeyDetailMode.NOTE -> {
                 if(nameEt.text.toString().isEmpty()) {
                     nameTil.error = Translation.ekey.fieldIsRequired
-                    valid = false
-                }
-                if(noteEt.text.toString().isEmpty()) {
-                    noteTil.error = Translation.ekey.fieldIsRequired
                     valid = false
                 }
                 valid

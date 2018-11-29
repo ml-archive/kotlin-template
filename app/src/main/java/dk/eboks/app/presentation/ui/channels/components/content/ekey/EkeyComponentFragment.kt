@@ -80,6 +80,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         headerTv.requestFocus()
 
         pin = arguments?.getString("PIN_CODE", null)
+        showLoading(true)
         pin?.let {
             (activity as EkeyContentActivity).pin = pin
             presenter.getMasterkeyFromBackend(it)
@@ -142,6 +143,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
     override fun onResume() {
         super.onResume()
         if((activity as EkeyContentActivity).shouldRefresh) {
+            showLoading(true)
             (activity as EkeyContentActivity).shouldRefresh = false
             pin?.let {
                 presenter.getMasterkeyFromBackend(it)
@@ -153,9 +155,9 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
 
     private fun setEmptyState(empty: Boolean) {
         if (empty) {
-            emptyStateTv.visibility = View.VISIBLE
+            emptyStateTv?.visibility = View.VISIBLE
         } else {
-            emptyStateTv.visibility = View.GONE
+            emptyStateTv?.visibility = View.GONE
         }
     }
 
@@ -198,6 +200,18 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         Timber.d("ADDED ${items.size} items")
         keysContentRv.adapter.notifyDataSetChanged()
         keysContentRv.invalidate()
+
+        showLoading(false)
+    }
+
+    private fun showLoading(show: Boolean) {
+        if(show) {
+            content.visibility = View.GONE
+            progressBar.visibility = View.VISIBLE
+        } else {
+            content.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
+        }
     }
 
     inner class DividerDecoration : RecyclerView.ItemDecoration() {
