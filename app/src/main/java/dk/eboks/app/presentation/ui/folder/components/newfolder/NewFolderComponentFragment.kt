@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.folder.components.newfolder
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -19,6 +20,9 @@ import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folder_newfolder.*
 import kotlinx.android.synthetic.main.fragment_folderinfo_component.*
 import javax.inject.Inject
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.inputmethod.InputMethodManager
+
 
 /**
  * Created by bison on 09-02-2018.
@@ -79,6 +83,10 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
             selectFolderLl.isEnabled = false
             folderRootTv.setTextColor(ContextCompat.getColor(context, R.color.blueGrey))
         }
+
+//        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//        imm.hideSoftInputFromWindow(view?.windowToken, 0)
+
         setupButtons()
     }
 
