@@ -183,7 +183,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             storeboxDetailTvAddressLineTwo.setVisible(!it.addressLine2.isNullOrBlank())
             storeboxDetailTvAddressLineTwo.text = it.addressLine2
             storeboxDetailTvCvrNumber.setVisible(!optionals?.storeRegNumber.isNullOrBlank())
-            storeboxDetailTvCvrNumber.text = Translation.storeboxreceipt.cvrPrefix + optionals?.storeRegNumber
+            storeboxDetailTvCvrNumber.text = optionals?.storeRegNumber
 
             if (it.zipCode != null) {
                 zipCityName = it.zipCode + " "
