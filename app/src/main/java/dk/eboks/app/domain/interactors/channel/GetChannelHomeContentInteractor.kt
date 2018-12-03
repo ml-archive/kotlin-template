@@ -21,5 +21,6 @@ interface GetChannelHomeContentInteractor : Interactor {
         fun onGetChannelHomeContentError(channel : Channel)
         fun onGetChannelHomeContentEmpty(channel : Channel)
         fun onGetChannelHomeContentDone()
+        fun continueGetChannelHomeContent(): Boolean
     }
 }

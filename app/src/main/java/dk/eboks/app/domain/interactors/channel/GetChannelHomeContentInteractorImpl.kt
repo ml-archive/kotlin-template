@@ -3,6 +3,7 @@ package dk.eboks.app.domain.interactors.channel
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.repositories.ChannelsRepository
+import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelControlComponentFragment
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -149,6 +150,14 @@ class GetChannelHomeContentInteractorImpl(executor: Executor, val channelsReposi
                 pinnedChannels.forEachIndexed { index, channel ->
                     // if we had to fetch the data in emitCachedData() dont load it from the network again
                     try {
+                        Timber.d("TESTING output == null ? ${output == null}")
+                        output?.let {
+                            if(!it.continueGetChannelHomeContent()) {
+                                Timber.d("TESTING IN IF")
+                                ChannelControlComponentFragment.refreshOnResume = true
+                                return@runBlocking
+                            }
+                        }
                         val d = async { channelsRepository.getChannelHomeContent(channel.id.toLong(), false) }
                         d.await()
                         val content = d.getCompleted()

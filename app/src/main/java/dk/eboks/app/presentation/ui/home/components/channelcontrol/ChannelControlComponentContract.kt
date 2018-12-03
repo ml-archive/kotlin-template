@@ -14,10 +14,12 @@ interface ChannelControlComponentContract {
         fun updateControl(channel : Channel, control : Control)
         fun setControl(channel : Channel, text : String)
         fun showProgress(show : Boolean)
+        fun isDetached(): Boolean
     }
 
     interface Presenter : BasePresenter<View> {
         fun setup()
         fun refresh()
+        var continueFetching: Boolean
     }
 }

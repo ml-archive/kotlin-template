@@ -19,7 +19,7 @@ class ChannelControlComponentPresenter @Inject constructor(val appState: AppStat
         BasePresenterImpl<ChannelControlComponentContract.View>(),
         GetChannelHomeContentInteractor.Output
 {
-
+    override var continueFetching: Boolean = true
     init {
         getChannelHomeContentInteractor.output = this
     }
@@ -63,5 +63,9 @@ class ChannelControlComponentPresenter @Inject constructor(val appState: AppStat
     override fun onGetChannelHomeContentEmpty(channel: Channel) {
         Timber.e("onGetChannelHomeContentEmpty")
         runAction { v -> v.setControl(channel, Translation.home.noContentText) }
+    }
+
+    override fun continueGetChannelHomeContent(): Boolean {
+        return continueFetching
     }
 }

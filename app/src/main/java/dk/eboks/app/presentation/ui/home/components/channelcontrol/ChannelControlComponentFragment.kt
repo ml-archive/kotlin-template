@@ -62,6 +62,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
 
     override fun onResume() {
         super.onResume()
+        presenter.continueFetching = true
         EventBus.getDefault().register(this)
         if (refreshOnResume) {
             refreshOnResume = false
@@ -71,6 +72,8 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
 
     override fun onPause() {
         EventBus.getDefault().unregister(this)
+        Timber.d("TESTING ONPAUSE")
+        presenter.continueFetching = false
         super.onPause()
     }
 
