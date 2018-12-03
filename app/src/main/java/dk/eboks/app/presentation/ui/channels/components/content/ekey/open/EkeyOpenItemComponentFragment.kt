@@ -85,6 +85,21 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
             }
         }
 
+        val categoryString = when(ekey) {
+            is Login -> {
+                Translation.ekey.deleteItemDescriptionLogin
+            }
+            is Pin -> {
+                Translation.ekey.deleteItemDescriptionCard
+            }
+            is Note -> {
+                Translation.ekey.deleteItemDescriptionNote
+            }
+            else -> {
+                Translation.ekey.deleteItemDescriptionEKey
+            }
+        }
+
         getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         getBaseActivity()?.mainTb?.setNavigationOnClickListener {
             getBaseActivity()?.onBackPressed()
@@ -97,7 +112,7 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
             menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
 
                 AlertDialog.Builder(context)
-                        .setMessage(Translation.ekey.deleteDialogMsg.replace("[item]", category.toString()))
+                        .setMessage(Translation.ekey.deleteDialogMsg.replace("[item]", categoryString))
                         .setPositiveButton(Translation.ekey.deleteDialogRemoveBtn) { dialog, which ->
                             ekey?.let {
                                 val items = (activity as EkeyContentActivity).getVault()

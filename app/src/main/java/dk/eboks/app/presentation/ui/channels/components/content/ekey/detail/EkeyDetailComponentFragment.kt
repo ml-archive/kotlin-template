@@ -143,24 +143,31 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
 
     private fun setupTopBar() {
         getBaseActivity()?.mainTb?.menu?.clear()
-        var item = ""
-        when (category) {
-            EkeyDetailMode.LOGIN -> {
-                item = Translation.ekey.addItemLogin
+        val item = when {
+            category == EkeyDetailMode.LOGIN && editKey == null -> {
+                Translation.ekey.addLogin
             }
-            EkeyDetailMode.PIN -> {
-                item = Translation.ekey.addPinCode
+            category == EkeyDetailMode.LOGIN && editKey != null -> {
+                Translation.ekey.editLogin
             }
-            EkeyDetailMode.NOTE -> {
-                item = Translation.ekey.addItemNote
+            category == EkeyDetailMode.PIN && editKey == null -> {
+                Translation.ekey.addPinCode
+            }
+            category == EkeyDetailMode.PIN && editKey != null -> {
+                Translation.ekey.editPin
+            }
+            category == EkeyDetailMode.NOTE && editKey == null -> {
+                Translation.ekey.addNote
+            }
+            category == EkeyDetailMode.NOTE && editKey != null -> {
+                Translation.ekey.editNote
+            }
+            else -> {
+                Translation.ekey.addItemTopBarTitle
             }
         }
 
-        editKey.let {
-            getBaseActivity()?.mainTb?.title = item
-        }.guard {
-            getBaseActivity()?.mainTb?.title = Translation.ekey.saveTopbar.replace("[item]", item)
-        }
+        getBaseActivity()?.mainTb?.title = item
 
         getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         getBaseActivity()?.mainTb?.setNavigationOnClickListener {

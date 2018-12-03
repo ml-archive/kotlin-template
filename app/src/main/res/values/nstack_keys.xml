@@ -574,6 +574,10 @@
   <string name='nstack_ekey_deleteSwipeBtn' formatted='false'>{ekey_deleteSwipeBtn}</string>
   <string name='nstack_ekey_fieldIsRequired' formatted='false'>{ekey_fieldIsRequired}</string>
   <string name='nstack_ekey_addButton' formatted='false'>{ekey_addButton}</string>
+  <string name='nstack_ekey_deleteItemDescriptionEKey' formatted='false'>{ekey_deleteItemDescriptionEKey}</string>
+  <string name='nstack_ekey_deleteItemDescriptionNote' formatted='false'>{ekey_deleteItemDescriptionNote}</string>
+  <string name='nstack_ekey_deleteItemDescriptionCard' formatted='false'>{ekey_deleteItemDescriptionCard}</string>
+  <string name='nstack_ekey_deleteItemDescriptionLogin' formatted='false'>{ekey_deleteItemDescriptionLogin}</string>
   <string name='nstack_storeboxlogin_header' formatted='false'>{storeboxlogin_header}</string>
   <string name='nstack_storeboxlogin_subheader' formatted='false'>{storeboxlogin_subheader}</string>
   <string name='nstack_storeboxlogin_title' formatted='false'>{storeboxlogin_title}</string>

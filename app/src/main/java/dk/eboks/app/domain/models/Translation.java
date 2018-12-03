@@ -652,6 +652,10 @@ public class Translation {
 		public static String deleteSwipeBtn = "Slet";
 		public static String fieldIsRequired = "fieldIsRequired";
 		public static String addButton = "__addButton";
+		public static String deleteItemDescriptionEKey = "__deleteItemDescriptionEKey";
+		public static String deleteItemDescriptionNote = "__deleteItemDescriptionNote";
+		public static String deleteItemDescriptionCard = "__deleteItemDescriptionCard";
+		public static String deleteItemDescriptionLogin = "__deleteItemDescriptionLogin";
 	}
 	public final static class storeboxlogin {
 		public static String header = "Link til din Storebox profil";
