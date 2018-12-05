@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="_No mails from your senders" />
+            android:text="@string/nstack_mail_sendersEmptyHeader" />
 
         <TextView
             android:id="@+id/sendersEmptyDescTv"
@@ -85,7 +85,7 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="4dp"
             android:lineSpacingExtra="5sp"
-            android:text="_Bla bla bla" />
+            android:text="@string/nstack_mail_sendersEmptyMessage" />
 
         <Button
             android:id="@+id/addMoreSendersBtn"
@@ -96,7 +96,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="12dp"
             android:layout_marginTop="12dp"
-            android:text="_Add more senders" />
+            android:text="@string/nstack_mail_addMoreSendersButton" />
 
     </LinearLayout>
 

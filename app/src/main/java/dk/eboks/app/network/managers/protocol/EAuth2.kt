@@ -104,7 +104,7 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
         if (reToken.isNullOrBlank()) {
             return null // no refresh token
         }
-        appStateManager.state?.loginState?.token = null // consume it. IUf we can't refresh it, we need a new one anyway
+        appStateManager.state?.loginState?.token = null // consume it. If we can't refresh it, we need a new one anyway
 
         try {
             return authClient.transformRefreshToken(reToken!!)

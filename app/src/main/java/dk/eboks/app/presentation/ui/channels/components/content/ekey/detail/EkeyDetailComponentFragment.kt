@@ -65,6 +65,8 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
         showPassword()
         setupTopBar()
         setupInputfields()
+
+        fuckosThief.requestFocus()
     }
 
     override fun onSuccess() {

@@ -45,16 +45,13 @@
                     android:text="@string/nstack_ekey_overviewAddItemText" />
 
                 <Button
+                    style="@style/button.SolidGradient.large"
                     android:id="@+id/addItemBtn"
                     android:layout_width="125dp"
                     android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="24dp"
                     android:layout_marginTop="12dp"
-                    android:background="@drawable/rounded_gradient_button"
-                    android:textColor="@color/white"
-                    android:textSize="14dp"
-                    android:textStyle="normal"
                     android:text="@string/nstack_ekey_overviewAddItemBtn" />
 
             </LinearLayout>
