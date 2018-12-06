@@ -2,14 +2,14 @@ package dk.nodes.template.presentation.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import dk.nodes.template.domain.interactors.GetPostsInteractor
 import dk.nodes.template.domain.models.Post
+import dk.nodes.template.presentation.base.BaseViewModel
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(
     private val getPostsInteractor: GetPostsInteractor
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val output = object : GetPostsInteractor.Output {
         override fun onPostsLoaded(posts: List<Post>) {
@@ -23,7 +23,7 @@ class MainActivityViewModel @Inject constructor(
 
     private val _postsLiveData = MutableLiveData<List<Post>>()
     private val _errorLiveData = MutableLiveData<String>()
-    // Facade so the view doesnt know its mutable
+    // Facade so the view doesn't know its mutable
     val postsLiveData: LiveData<List<Post>> = _postsLiveData
     val errorLiveData: LiveData<String> = _errorLiveData
 
