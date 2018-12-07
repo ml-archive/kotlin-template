@@ -10,7 +10,7 @@ enum class EkeyDetailMode(val type: String) {
 
     override fun toString(): String {
         when (this) {
-            PIN -> return Translation.ekey.addItemCards
+            PIN -> return Translation.ekey.addItemPinCode
             NOTE -> return Translation.ekey.addItemNote
             LOGIN -> return Translation.ekey.addItemLogin
             else -> return "unknown"

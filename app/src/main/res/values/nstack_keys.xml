@@ -523,14 +523,14 @@
   <string name='nstack_ekey_topBarTitle' formatted='false'>{ekey_topBarTitle}</string>
   <string name='nstack_ekey_addItemTopBarTitle' formatted='false'>{ekey_addItemTopBarTitle}</string>
   <string name='nstack_ekey_addItemLogin' formatted='false'>{ekey_addItemLogin}</string>
-  <string name='nstack_ekey_addItemCards' formatted='false'>{ekey_addItemCards}</string>
+  <string name='nstack_ekey_addItemPinCode' formatted='false'>{ekey_addItemPinCode}</string>
   <string name='nstack_ekey_addItemNote' formatted='false'>{ekey_addItemNote}</string>
   <string name='nstack_ekey_addItemSelectCategory' formatted='false'>{ekey_addItemSelectCategory}</string>
   <string name='nstack_ekey_saveTopbar' formatted='false'>{ekey_saveTopbar}</string>
   <string name='nstack_ekey_inputHintName' formatted='false'>{ekey_inputHintName}</string>
   <string name='nstack_ekey_inputHintNote' formatted='false'>{ekey_inputHintNote}</string>
   <string name='nstack_ekey_requiredFields' formatted='false'>{ekey_requiredFields}</string>
-  <string name='nstack_ekey_inputHintPin' formatted='false'>{ekey_inputHintPin}</string>
+  <string name='nstack_ekey_inputHintPinCode' formatted='false'>{ekey_inputHintPinCode}</string>
   <string name='nstack_ekey_inputHintUsername' formatted='false'>{ekey_inputHintUsername}</string>
   <string name='nstack_ekey_inputHintPassword' formatted='false'>{ekey_inputHintPassword}</string>
   <string name='nstack_ekey_overviewAddItemHeadline' formatted='false'>{ekey_overviewAddItemHeadline}</string>
@@ -538,37 +538,33 @@
   <string name='nstack_ekey_overviewAddItemBtn' formatted='false'>{ekey_overviewAddItemBtn}</string>
   <string name='nstack_ekey_overviewNote' formatted='false'>{ekey_overviewNote}</string>
   <string name='nstack_ekey_overviewLogins' formatted='false'>{ekey_overviewLogins}</string>
-  <string name='nstack_ekey_overviewPins' formatted='false'>{ekey_overviewPins}</string>
+  <string name='nstack_ekey_overviewPinCodes' formatted='false'>{ekey_overviewPinCodes}</string>
   <string name='nstack_ekey_overviewNotes' formatted='false'>{ekey_overviewNotes}</string>
   <string name='nstack_ekey_deleteDialogMsg' formatted='false'>{ekey_deleteDialogMsg}</string>
   <string name='nstack_ekey_deleteDialogRemoveBtn' formatted='false'>{ekey_deleteDialogRemoveBtn}</string>
   <string name='nstack_ekey_noContent' formatted='false'>{ekey_noContent}</string>
   <string name='nstack_ekey_copiedToClipboard' formatted='false'>{ekey_copiedToClipboard}</string>
-  <string name='nstack_ekey_inputHintCardholder' formatted='false'>{ekey_inputHintCardholder}</string>
   <string name='nstack_ekey_edit' formatted='false'>{ekey_edit}</string>
   <string name='nstack_ekey_name' formatted='false'>{ekey_name}</string>
-  <string name='nstack_ekey_cardholderName' formatted='false'>{ekey_cardholderName}</string>
-  <string name='nstack_ekey_pincode' formatted='false'>{ekey_pincode}</string>
+  <string name='nstack_ekey_pinCode' formatted='false'>{ekey_pinCode}</string>
   <string name='nstack_ekey_username' formatted='false'>{ekey_username}</string>
   <string name='nstack_ekey_password' formatted='false'>{ekey_password}</string>
-  <string name='nstack_ekey_addItemCardsSubtitle' formatted='false'>{ekey_addItemCardsSubtitle}</string>
+  <string name='nstack_ekey_addItemPinCodeSubtitle' formatted='false'>{ekey_addItemPinCodeSubtitle}</string>
   <string name='nstack_ekey_addItemLoginSubtitle' formatted='false'>{ekey_addItemLoginSubtitle}</string>
   <string name='nstack_ekey_addItemNoteSubtitle' formatted='false'>{ekey_addItemNoteSubtitle}</string>
   <string name='nstack_ekey_addPinCode' formatted='false'>{ekey_addPinCode}</string>
-  <string name='nstack_ekey_inputHintCardtype' formatted='false'>{ekey_inputHintCardtype}</string>
-  <string name='nstack_ekey_cardType' formatted='false'>{ekey_cardType}</string>
   <string name='nstack_ekey_overviewEkey' formatted='false'>{ekey_overviewEkey}</string>
   <string name='nstack_ekey_addLogin' formatted='false'>{ekey_addLogin}</string>
   <string name='nstack_ekey_addNote' formatted='false'>{ekey_addNote}</string>
-  <string name='nstack_ekey_editPin' formatted='false'>{ekey_editPin}</string>
+  <string name='nstack_ekey_editPinCode' formatted='false'>{ekey_editPinCode}</string>
   <string name='nstack_ekey_editLogin' formatted='false'>{ekey_editLogin}</string>
   <string name='nstack_ekey_editNote' formatted='false'>{ekey_editNote}</string>
   <string name='nstack_ekey_typeHere' formatted='false'>{ekey_typeHere}</string>
   <string name='nstack_ekey_unlockEkey' formatted='false'>{ekey_unlockEkey}</string>
-  <string name='nstack_ekey_insertPin' formatted='false'>{ekey_insertPin}</string>
-  <string name='nstack_ekey_insertPinMessage' formatted='false'>{ekey_insertPinMessage}</string>
-  <string name='nstack_ekey_insertNewPin' formatted='false'>{ekey_insertNewPin}</string>
-  <string name='nstack_ekey_insertNewPinMessage' formatted='false'>{ekey_insertNewPinMessage}</string>
+  <string name='nstack_ekey_insertPinCode' formatted='false'>{ekey_insertPinCode}</string>
+  <string name='nstack_ekey_insertPinCodeMessage' formatted='false'>{ekey_insertPinCodeMessage}</string>
+  <string name='nstack_ekey_insertNewPinCode' formatted='false'>{ekey_insertNewPinCode}</string>
+  <string name='nstack_ekey_insertNewPinCodeMessage' formatted='false'>{ekey_insertNewPinCodeMessage}</string>
   <string name='nstack_ekey_createEKey' formatted='false'>{ekey_createEKey}</string>
   <string name='nstack_ekey_ekeySecureKeyDescription' formatted='false'>{ekey_ekeySecureKeyDescription}</string>
   <string name='nstack_ekey_deleteSwipeBtn' formatted='false'>{ekey_deleteSwipeBtn}</string>
@@ -576,8 +572,9 @@
   <string name='nstack_ekey_addButton' formatted='false'>{ekey_addButton}</string>
   <string name='nstack_ekey_deleteItemDescriptionEKey' formatted='false'>{ekey_deleteItemDescriptionEKey}</string>
   <string name='nstack_ekey_deleteItemDescriptionNote' formatted='false'>{ekey_deleteItemDescriptionNote}</string>
-  <string name='nstack_ekey_deleteItemDescriptionCard' formatted='false'>{ekey_deleteItemDescriptionCard}</string>
+  <string name='nstack_ekey_deleteItemDescriptionPinCode' formatted='false'>{ekey_deleteItemDescriptionPinCode}</string>
   <string name='nstack_ekey_deleteItemDescriptionLogin' formatted='false'>{ekey_deleteItemDescriptionLogin}</string>
+  <string name='nstack_ekey_overviewPinCode' formatted='false'>{ekey_overviewPinCode}</string>
   <string name='nstack_storeboxlogin_header' formatted='false'>{storeboxlogin_header}</string>
   <string name='nstack_storeboxlogin_subheader' formatted='false'>{storeboxlogin_subheader}</string>
   <string name='nstack_storeboxlogin_title' formatted='false'>{storeboxlogin_title}</string>

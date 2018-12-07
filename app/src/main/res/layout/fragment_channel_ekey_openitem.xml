@@ -50,7 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    nstack:text="@string/nstack_ekey_cardholderName" />
+                    nstack:text="@string/nstack_ekey_pinCode" />
 
                 <TextView
                     android:visibility="gone"
@@ -72,7 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        nstack:text="@string/nstack_ekey_pincode" />
+                        nstack:text="@string/nstack_ekey_pinCode" />
 
                     <TextView
                         android:id="@+id/pinTv"

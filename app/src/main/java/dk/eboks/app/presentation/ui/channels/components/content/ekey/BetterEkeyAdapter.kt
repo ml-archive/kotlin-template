@@ -81,6 +81,9 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
         init {
             swipeLayout.showMode = SwipeLayout.ShowMode.PullOut
             swipeLayout.addDrag(SwipeLayout.DragEdge.Left, markAsReadContainer)
+            val lp = markAsReadContainer.layoutParams
+            lp.width = 0
+            subHeadingTv.layoutParams = lp
         }
 
         override fun bind(item: ListItem) {

@@ -10,7 +10,8 @@ import dk.eboks.app.presentation.ui.channels.components.content.ekey.pin.EkeyPin
 import javax.inject.Inject
 
 class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
-    @Inject lateinit var presenter: EkeyContentContract.Presenter
+    @Inject
+    lateinit var presenter: EkeyContentContract.Presenter
 
     private var keys: MutableList<BaseEkey>? = null
     var shouldRefresh = false
@@ -24,8 +25,8 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
         presenter.onViewCreated(this, lifecycle)
 
         channel = intent.getSerializableExtra("channel") as Channel?
-        if (presenter.getMasterKey() == null){
-            addFragmentOnTop(R.id.content,EkeyPinComponentFragment(),false)
+        if (presenter.getMasterKey() == null) {
+            addFragmentOnTop(R.id.content, EkeyPinComponentFragment(), false)
         } else {
             setRootFragment(R.id.content, EkeyComponentFragment())
         }

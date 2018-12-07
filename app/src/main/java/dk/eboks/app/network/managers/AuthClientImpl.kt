@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit
 class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: SettingsRepository) : AuthClient {
     private var httpClient: OkHttpClient
     private var gson: Gson = Gson()
+    private var useCustomId = false
 
     init {
         val clientBuilder = OkHttpClient.Builder()
@@ -42,7 +43,8 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
     }
 
     override fun transformKspToken(kspToken: String, oauthToken: String?, longClient: Boolean): AccessToken? {
-        val keys = getKeys(true, longClient)
+        useCustomId = true
+        val keys = getKeys(useCustomId, longClient)
 
         val formBody = FormBody.Builder()
                 .add("kspwebtoken", kspToken)
@@ -72,7 +74,8 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
     }
 
     override fun impersonate(token: String, userId: String): AccessToken? {
-        val keys = getKeys(true, false)
+        useCustomId = true
+        val keys = getKeys(useCustomId, false)
 
         val formBody = FormBody.Builder()
                 .add("token", token)
@@ -100,7 +103,9 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
     }
 
     override fun transformRefreshToken(refreshToken: String, longClient: Boolean): AccessToken? {
-        val keys = getKeys(false, longClient)
+        // CustomID/non-customID would be determined at the original login, and the same should be used here
+        // useCustomId = true
+        val keys = getKeys(useCustomId, longClient)
 
         val formBody = FormBody.Builder()
                 .add("refresh_token", refreshToken)
@@ -128,7 +133,8 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
 
     // Throws AuthException with http error code on other values than 200 okay
     override fun login(username: String, password: String, longClient: Boolean, bearerToken: String?, verifyOnly: Boolean, userId: String?): AccessToken? {
-        val keys = getKeys(false, longClient)
+        useCustomId = false
+        val keys = getKeys(useCustomId, longClient)
 
         val formBody = FormBody.Builder()
                 .add("grant_type", "password")
