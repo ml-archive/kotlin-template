@@ -25,11 +25,9 @@ class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteract
 
     override fun startup() {
         Timber.e("Startup, running version control")
-        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             runAction { v -> v.performVersionControl() }
-        }
-        else
-        {
+        } else {
             Timber.e("Release not running appOpen call")
             proceed()
         }
@@ -40,21 +38,22 @@ class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteract
         bootstrapInteractor.run()
     }
 
-    override fun onBootstrapDone(hasUsers: Boolean) {
+    override fun onBootstrapDone(hasUsers: Boolean, autoLogin: Boolean) {
         Timber.e("Boostrap done")
         runAction { v ->
             v.bootstrapDone()
-            if (hasUsers) {
+            if (autoLogin) {
+                v.startMain()
+            } else if (hasUsers) {
                 v.showUserCarouselComponent()
             } else {
-                if(BuildConfig.ENABLE_BETA_DISCLAIMER) {
+                if (BuildConfig.ENABLE_BETA_DISCLAIMER) {
                     if (!prefManager.getBoolean("didShowBetaDisclaimer", false)) {
                         prefManager.setBoolean("didShowBetaDisclaimer", true)
                         v.showDisclaimer()
                     } else
                         v.showWelcomeComponent()
-                }
-                else
+                } else
                     v.showWelcomeComponent()
             }
         }

@@ -56,12 +56,6 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
                 }
             }
 
-
-            val hasUsers = userManager.users.isNotEmpty()
-
-            val loginState = appStateManager.state?.loginState
-            loginState?.firstLogin = !hasUsers
-
             val settings = settingsRepository.get()
             if (settings.deviceId.isBlank()) {
                 settings.deviceId = guidManager.generateGuid()
@@ -69,29 +63,37 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
             }
             settingsRepository.put(settings)
 
-            loginState?.kspToken = ""
-            loginState?.token = null
-            loginState?.activationCode = null
-            loginState?.userName = null
-            loginState?.userPassWord = null
-            loginState?.selectedUser = null
-            appStateManager.state?.currentUser = null
-            appStateManager.state?.currentFolder = null
-            appStateManager.state?.currentMessage = null
-            appStateManager.state?.currentSettings = null
-            appStateManager.state?.currentViewerFileName = null
-            appStateManager.state?.verificationState = null
+            val hasUsers = userManager.users.isNotEmpty()
+            val stayLoggedIn = true == appStateManager.state?.currentSettings?.stayLoggedIn
+            val loginState = appStateManager.state?.loginState
+            loginState?.firstLogin = !hasUsers
 
-            // clear memory caches, this is necessary when the app hasn't been force closed in case another user
-            // is logged in
-            Timber.d("Clearing CacheStore memory")
-            cacheManager.clearStoresMemoryOnly()
-            fileCacheManager.clearMemoryOnly()
+            if(!stayLoggedIn) {
+                loginState?.kspToken = ""
+                loginState?.token = null
+                loginState?.activationCode = null
+                loginState?.userName = null
+                loginState?.userPassWord = null
+                loginState?.selectedUser = null
+                appStateManager.state?.currentUser = null
+                appStateManager.state?.currentFolder = null
+                appStateManager.state?.currentMessage = null
+                appStateManager.state?.currentSettings = null
+                appStateManager.state?.currentViewerFileName = null
+                appStateManager.state?.verificationState = null
+
+                // clear memory caches, this is necessary when the app hasn't been force closed in case
+                // another user is logged in
+                Timber.d("Clearing CacheStore memory")
+                cacheManager.clearStoresMemoryOnly()
+                fileCacheManager.clearMemoryOnly()
+            }
+
 
             Timber.d("LoginState: $loginState?")
             //Thread.sleep(2000)
             runOnUIThread {
-                output?.onBootstrapDone(hasUsers)
+                output?.onBootstrapDone(hasUsers, stayLoggedIn)
             }
         } catch (e: Exception) {
             e.printStackTrace()

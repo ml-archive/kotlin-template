@@ -85,6 +85,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
 
     override fun onSetEKeyMasterkeyError(viewError: ViewError) {
         Timber.d("onSetEKeyMasterkeyError")
+
         runAction { view -> view.showErrorDialog(viewError) }
     }
 

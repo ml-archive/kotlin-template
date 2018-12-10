@@ -105,9 +105,10 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
             return null // no refresh token
         }
         appStateManager.state?.loginState?.token = null // consume it. If we can't refresh it, we need a new one anyway
+        val longClient = appStateManager.state?.loginState?.useLongClientId == true
 
         try {
-            return authClient.transformRefreshToken(reToken!!)
+            return authClient.transformRefreshToken(reToken!!, longClient)
         } catch (e: Throwable) {
             Timber.e("Token refresh fail: $e")
         }
@@ -120,7 +121,8 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
             val password = appStateManager.state?.loginState?.userPassWord
             val longToken = userSettingsManager.get(appStateManager.state?.loginState?.selectedUser?.id ?: 0).stayLoggedIn
             if (userName.isNullOrBlank() || password.isNullOrBlank()) {
-                return null // todo much, much, much more drastic error here - this is when the authenticator was started without a user being selected
+                Timber.wtf("Much, much, much drastic error here - this is when the authenticator was started without a user being selected")
+                return null
             }
             return authClient.login(userName!!, password!!, longToken)
         } catch (e: Throwable) {
