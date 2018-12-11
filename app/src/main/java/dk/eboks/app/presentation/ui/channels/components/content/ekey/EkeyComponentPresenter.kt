@@ -80,6 +80,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
     }
 
     override fun onSetEKeyMasterkeySuccess(masterKey: String) {
+        this.masterKey = masterKey
         handleMasterKeySuccess(masterKey)
     }
 
@@ -137,8 +138,8 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         }
     }
 
-    override fun setMasterkey(hash: String, encrypted: String) {
-        setMasterKeyInteractor.input = SetEKeyMasterkeyInteractor.Input(encrypted, hash)
+    private fun setMasterkey(hash: String, encrypted: String, unencrypted: String) {
+        setMasterKeyInteractor.input = SetEKeyMasterkeyInteractor.Input(encrypted, hash, unencrypted)
         setMasterKeyInteractor.run()
     }
 
@@ -187,9 +188,9 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         val keyHash = HashingUtils.sha256AsBase64(masterKey)
 
         val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSS'Z'", Locale.GERMAN)
-        dateFormat.timeZone = TimeZone.getTimeZone("GMT")
+        dateFormat.timeZone = TimeZone.getTimeZone("UTC")
         val dateFormat2 = SimpleDateFormat("yyyyMMddHHmmss", Locale.GERMAN)
-        dateFormat2.timeZone = TimeZone.getTimeZone("GMT")
+        dateFormat2.timeZone = TimeZone.getTimeZone("UTC")
         val date = Date()
         val time = dateFormat.format(date)
         val time2 = dateFormat2.format(date)
@@ -213,7 +214,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         Timber.d("Encrypted: $encrypted")
 
         //send key to backend
-        setMasterkey(hashed, encrypted)
+        setMasterkey(hashed, encrypted, key)
     }
 
     override fun getKeys() {

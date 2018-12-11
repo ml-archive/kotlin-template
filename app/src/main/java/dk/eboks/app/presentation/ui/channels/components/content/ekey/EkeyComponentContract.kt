@@ -17,7 +17,6 @@ interface EkeyComponentContract {
     interface Presenter : BasePresenter<View> {
         fun getKeys()
         fun getMasterkeyFromBackend(pin: String)
-        fun setMasterkey(hash: String, encrypted: String)
         fun deleteMasterKey()
         fun storeMasterkey(masterKey: String)
         fun getVault(masterKey: String)
