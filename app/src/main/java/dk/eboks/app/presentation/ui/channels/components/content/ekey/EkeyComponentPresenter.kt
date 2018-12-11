@@ -144,6 +144,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
     }
 
     override fun getMasterkeyFromBackend(pin: String) {
+        this.pin = pin
         getMasterkeyInteractor.input = GetEKeyMasterkeyInteractor.Input(pin)
         getMasterkeyInteractor.run()
     }
