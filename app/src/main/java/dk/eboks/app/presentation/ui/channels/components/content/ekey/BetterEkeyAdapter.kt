@@ -86,6 +86,7 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
         override fun bind(item: ListItem) {
             val eKey = item as EkeyItem
 
+            swipeLayout.isLeftSwipeEnabled = false
             swipeLayout.isRightSwipeEnabled = eKey.data.eKeyType != "Ekey"
             Timber.d("${eKey.data.name} - ${swipeLayout.isLeftSwipeEnabled}")
             markAsReadContainer.setOnClickListener {
