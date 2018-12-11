@@ -108,7 +108,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/margin_normal"
             tools:text="_Cards"
-            android:text="@string/nstack_ekey_addItemCards" />
+            android:text="@string/nstack_ekey_addItemPinCode" />
 
     </LinearLayout>
 

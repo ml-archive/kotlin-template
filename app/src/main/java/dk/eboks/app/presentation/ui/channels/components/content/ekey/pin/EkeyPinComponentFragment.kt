@@ -48,7 +48,7 @@ class EkeyPinComponentFragment : BaseFragment(), EkeyPinComponentContract.View {
     private fun setupTopbar() {
         getBaseActivity()?.mainTb?.menu?.clear()
 
-        getBaseActivity()?.mainTb?.title = Translation.ekey.pincode
+        getBaseActivity()?.mainTb?.title = Translation.ekey.pinCode
 
         getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         getBaseActivity()?.mainTb?.setNavigationOnClickListener {
@@ -77,29 +77,26 @@ class EkeyPinComponentFragment : BaseFragment(), EkeyPinComponentContract.View {
                     }
                     if (s.length > 1) {
                         pin2Et.setText(s[1].toString())
-                    }else {
+                    } else {
                         pin2Et.setText("")
                     }
                     if (s.length > 2) {
                         pin3Et.setText(s[2].toString())
-                    }else {
+                    } else {
                         pin3Et.setText("")
                     }
                     if (s.length > 3) {
                         pin4Et.setText(s[3].toString())
 
                         //todo try to login
-                        getBaseActivity()?.addFragmentOnTop(R.id.content,EkeyComponentFragment.newInstance(s.toString()))
-                    }else {
+                        getBaseActivity()?.addFragmentOnTop(R.id.content, EkeyComponentFragment.newInstance(s.toString()))
+                    } else {
                         pin4Et.setText("")
                     }
                 }
-
-
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
@@ -107,9 +104,11 @@ class EkeyPinComponentFragment : BaseFragment(), EkeyPinComponentContract.View {
 
     private fun showKeyboard() {
         handler.postDelayed({
-            thief.requestFocus()
-            val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(thief, InputMethodManager.SHOW_IMPLICIT)
+            thief?.let { v ->
+                v.requestFocus()
+                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT)
+            }
         }, 200)
     }
 

@@ -75,7 +75,7 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
                 getBaseActivity()?.mainTb?.title = Translation.ekey.addItemLogin
             }
             is Pin -> {
-                getBaseActivity()?.mainTb?.title = Translation.ekey.addItemCards
+                getBaseActivity()?.mainTb?.title = Translation.ekey.addItemPinCode
             }
             is Note -> {
                 getBaseActivity()?.mainTb?.title = Translation.ekey.addItemNote
@@ -90,7 +90,7 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
                 Translation.ekey.deleteItemDescriptionLogin
             }
             is Pin -> {
-                Translation.ekey.deleteItemDescriptionCard
+                Translation.ekey.deleteItemDescriptionPinCode
             }
             is Note -> {
                 Translation.ekey.deleteItemDescriptionNote
@@ -173,7 +173,7 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
                     cardholderHintTv.visibility = View.VISIBLE
                     cardholderTv.visibility = View.VISIBLE
                     pinTv.text = getPassword(it.pin)
-                    nameHintTv.text = Translation.ekey.cardType
+                    nameHintTv.text = Translation.ekey.editPinCode
                     cardholderTv.text = it.cardholderName
                     pinShowPasswordIb.isSelected = !hidePassword
                     category = EkeyDetailMode.PIN

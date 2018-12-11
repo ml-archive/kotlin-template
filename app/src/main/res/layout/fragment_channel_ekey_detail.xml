@@ -16,6 +16,14 @@
         android:paddingLeft="@dimen/margin_normal"
         android:paddingRight="@dimen/margin_normal">
 
+        <View
+            android:id="@+id/fuckosThief"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"/>
+
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/nameTil"
             android:layout_width="match_parent"
@@ -51,7 +59,7 @@
                 android:layout_height="match_parent"
                 android:importantForAutofill="noExcludeDescendants"
                 android:inputType="textPersonName|textCapWords"
-                android:hint="@string/nstack_ekey_inputHintCardholder" />
+                android:hint="@string/nstack_ekey_inputHintPinCode" />
         </android.support.design.widget.TextInputLayout>
 
         <FrameLayout
@@ -73,7 +81,7 @@
                     android:layout_height="match_parent"
                     android:importantForAutofill="noExcludeDescendants"
                     android:inputType="textPassword"
-                    android:hint="@string/nstack_ekey_inputHintPin" />
+                    android:hint="@string/nstack_ekey_inputHintPinCode" />
             </android.support.design.widget.TextInputLayout>
 
             <ImageButton
@@ -84,6 +92,14 @@
                 android:background="@color/white"
                 android:src="@drawable/show_password_selector" />
         </FrameLayout>
+
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <Switch
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"/>
         <!--Login -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/usernameTil"

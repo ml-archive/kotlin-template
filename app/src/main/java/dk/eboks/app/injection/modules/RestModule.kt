@@ -1,6 +1,9 @@
 package dk.eboks.app.injection.modules
 
 import android.content.Context
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -8,6 +11,7 @@ import dagger.Provides
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.*
+import dk.eboks.app.domain.repositories.SettingsRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.AuthClientImpl
 import dk.eboks.app.network.managers.DownloadManagerImpl
@@ -22,20 +26,10 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache
-import com.franmontiel.persistentcookiejar.PersistentCookieJar
-import com.franmontiel.persistentcookiejar.ClearableCookieJar
-import okhttp3.Cookie
-import android.R.attr.host
-import dk.eboks.app.domain.repositories.SettingsRepository
-import okhttp3.HttpUrl
-import okhttp3.CookieJar
-import retrofit2.converter.scalars.ScalarsConverterFactory
-import timber.log.Timber
 
 
 /**
@@ -106,7 +100,7 @@ class RestModule {
                 .addInterceptor(AcceptLanguageHeaderInterceptor())
                 .addInterceptor(ServerErrorInterceptor()) // parses the server error structure and throws the ServerErrorException
                 .addInterceptor(eboksHeaderInterceptor)
-                //.addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
+        //.addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
 
         if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             clientBuilder.addInterceptor(ApiHostSelectionInterceptor())
@@ -189,8 +183,8 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideAuthClient(cryptoManager: CryptoManager,settingsRepository: SettingsRepository ): AuthClient {
-        return AuthClientImpl(cryptoManager, settingsRepository)
+    fun provideAuthClient(cryptoManager: CryptoManager, settingsRepository: SettingsRepository, appStateManager: AppStateManager): AuthClient {
+        return AuthClientImpl(cryptoManager, settingsRepository, appStateManager)
     }
 
 

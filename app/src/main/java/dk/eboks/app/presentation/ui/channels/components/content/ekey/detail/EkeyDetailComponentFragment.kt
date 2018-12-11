@@ -65,6 +65,8 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
         showPassword()
         setupTopBar()
         setupInputfields()
+
+        fuckosThief.requestFocus()
     }
 
     override fun onSuccess() {
@@ -100,7 +102,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
             EkeyDetailMode.PIN -> {
                 pinTil.visibility = View.VISIBLE
                 cardholderTil.visibility = View.VISIBLE
-                nameTil.hint = Translation.ekey.inputHintCardtype
+                nameTil.hint = Translation.ekey.inputHintPinCode
 
                 editKey?.let {
                     if (it is Pin) {
@@ -154,7 +156,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
                 Translation.ekey.addPinCode
             }
             category == EkeyDetailMode.PIN && editKey != null -> {
-                Translation.ekey.editPin
+                Translation.ekey.editPinCode
             }
             category == EkeyDetailMode.NOTE && editKey == null -> {
                 Translation.ekey.addNote

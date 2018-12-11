@@ -163,6 +163,8 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
 
     override fun onGetMasterkeyError(viewError: ViewError) {
         Timber.d("error: ${viewError.message}")
+
+        showErrorDialog(viewError)
     }
 
     override fun showKeys(keys: List<BaseEkey>) {
@@ -185,7 +187,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         }
         index = items.indexOfFirst { it is EkeyItem && it.data is Pin }
         if (index >= 0) {
-            items.add(index, Header(Translation.ekey.overviewPins))
+            items.add(index, Header(Translation.ekey.overviewPinCodes))
         }
         index = items.indexOfFirst { it is EkeyItem && it.data is Note }
         if (index >= 0) {

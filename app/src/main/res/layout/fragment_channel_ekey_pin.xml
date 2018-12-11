@@ -15,7 +15,7 @@
         android:layout_marginTop="52dp"
         android:gravity="center"
         tools:text="_Indtast din 4-cifrede kode"
-        android:text="@string/nstack_ekey_insertPin"/>
+        android:text="@string/nstack_ekey_insertPinCode"/>
 
     <TextView
         style="@style/text.subHeader5.quaternary"

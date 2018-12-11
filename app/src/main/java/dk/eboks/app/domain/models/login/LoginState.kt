@@ -15,7 +15,9 @@ data class LoginState(
 
         var activationCode: String? = null,
         var kspToken: String? = null,
-        var token: AccessToken? = null
+        var token: AccessToken? = null,
+        var useCustomClientId: Boolean = false,
+        var useLongClientId: Boolean = false
 ) {
     override fun toString(): String {
         return selectedUser?.name ?: super.toString()

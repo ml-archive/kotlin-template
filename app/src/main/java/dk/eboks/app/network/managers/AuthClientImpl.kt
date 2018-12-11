@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.exceptions.InteractorException
+import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.AuthClient
 import dk.eboks.app.domain.managers.AuthException
 import dk.eboks.app.domain.managers.CryptoManager
@@ -21,9 +22,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: SettingsRepository) : AuthClient {
+class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: SettingsRepository, val appStateManager: AppStateManager) : AuthClient {
     private var httpClient: OkHttpClient
     private var gson: Gson = Gson()
+    private var useCustomId: Boolean = false
 
     init {
         val clientBuilder = OkHttpClient.Builder()
@@ -42,7 +44,10 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
     }
 
     override fun transformKspToken(kspToken: String, oauthToken: String?, longClient: Boolean): AccessToken? {
-        val keys = getKeys(true, longClient)
+        appStateManager.state?.loginState?.useCustomClientId = true
+        appStateManager.state?.loginState?.useLongClientId = longClient
+        appStateManager.save()
+        val keys = getKeys(longClient)
 
         val formBody = FormBody.Builder()
                 .add("kspwebtoken", kspToken)
@@ -72,7 +77,10 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
     }
 
     override fun impersonate(token: String, userId: String): AccessToken? {
-        val keys = getKeys(true, false)
+        appStateManager.state?.loginState?.useCustomClientId = true
+        appStateManager.state?.loginState?.useLongClientId = false
+        appStateManager.save()
+        val keys = getKeys(false)
 
         val formBody = FormBody.Builder()
                 .add("token", token)
@@ -100,7 +108,8 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
     }
 
     override fun transformRefreshToken(refreshToken: String, longClient: Boolean): AccessToken? {
-        val keys = getKeys(false, longClient)
+        // CustomID/non-customID would be determined at the original login, and the same should be used here
+        val keys = getKeys(longClient)
 
         val formBody = FormBody.Builder()
                 .add("refresh_token", refreshToken)
@@ -128,7 +137,10 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
 
     // Throws AuthException with http error code on other values than 200 okay
     override fun login(username: String, password: String, longClient: Boolean, bearerToken: String?, verifyOnly: Boolean, userId: String?): AccessToken? {
-        val keys = getKeys(false, longClient)
+        appStateManager.state?.loginState?.useCustomClientId = false
+        appStateManager.state?.loginState?.useLongClientId = longClient
+        appStateManager.save()
+        val keys = getKeys(longClient)
 
         val formBody = FormBody.Builder()
                 .add("grant_type", "password")
@@ -210,7 +222,9 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
         return null
     }
 
-    private fun getKeys(isCustom: Boolean, isLong: Boolean): Pair<String, String> {
+    private fun getKeys(isLong: Boolean): Pair<String, String> {
+        val isCustom = appStateManager.state?.loginState?.useCustomClientId ?: false
+
         lateinit var idSecret: Pair<String, String>
         if (isCustom && isLong) {
             idSecret = Pair(
