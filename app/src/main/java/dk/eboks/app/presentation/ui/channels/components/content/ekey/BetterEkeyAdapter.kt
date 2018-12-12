@@ -108,7 +108,7 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
                 }
                 is Pin -> {
                     headingTv.text = eKey.data.name
-                    subHeadingTv.text = eKey.data.cardholderName
+                    subHeadingTv.text = Translation.ekey.pinCode
                     logoIv.setImageResource(R.drawable.icon_48_payment_white)
 
                 }
@@ -119,7 +119,7 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
                 }
                 is Ekey -> {
                     headingTv.text = eKey.data.name
-                    subHeadingTv.text = eKey.data.note
+                    subHeadingTv.text = Translation.ekey.overviewEkey
                     logoIv.setImageResource(R.drawable.icon_48_lock_white)
                 }
             }

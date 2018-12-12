@@ -78,7 +78,6 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
         pinShowPasswordIb.visibility = View.GONE
         loginShowPasswordIb.visibility = View.GONE
         pinTil.visibility = View.GONE
-        cardholderTil.visibility = View.GONE
         usernameTil.visibility = View.GONE
         passwordTil.visibility = View.GONE
 
@@ -101,13 +100,10 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
             }
             EkeyDetailMode.PIN -> {
                 pinTil.visibility = View.VISIBLE
-                cardholderTil.visibility = View.VISIBLE
-                nameTil.hint = Translation.ekey.inputHintPinCode
 
                 editKey?.let {
                     if (it is Pin) {
                         nameEt.setText(it.name)
-                        cardholderEt.setText(it.cardholderName)
                         pinEt.setText(it.pin)
                         noteEt.setText(it.note)
                         pinShowPasswordIb.visibility = View.VISIBLE
@@ -199,7 +195,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
         passwordTil.error = null
         nameTil.error = null
         noteTil.error = null
-        cardholderTil.error = null
+//        cardholderTil.error = null
         pinTil.error = null
         return when (category) {
             EkeyDetailMode.LOGIN -> {
@@ -218,10 +214,6 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
                 valid
             }
             EkeyDetailMode.PIN -> {
-                if(cardholderEt.text.toString().isEmpty()) {
-                    cardholderTil.error = Translation.ekey.fieldIsRequired
-                    valid = false
-                }
                 if(pinEt.text.toString().isEmpty()) {
                     pinTil.error = Translation.ekey.fieldIsRequired
                     valid = false
@@ -255,7 +247,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
                         noteEt.text.toString())
             }
             EkeyDetailMode.PIN -> {
-                Pin(cardholderEt.text.toString(),
+                Pin(
                         pinEt.text.toString(),
                         nameEt.text.toString(),
                         noteEt.text.toString())

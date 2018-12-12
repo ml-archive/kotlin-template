@@ -231,13 +231,13 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
     private fun createMocks(): List<BaseEkey> {
         val keyList = mutableListOf<BaseEkey>()
         keyList.add(Login("test1@gmail.com", "gmailPW1", "Gmail", "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"))
-        keyList.add(Pin("Peter", "1234", "Visa", null))
+        keyList.add(Pin("Peter", "1234", "Visa"))
         keyList.add(Login("test1@hotmail.com", "hotmailPW1", "Hotmail", null))
         keyList.add(Login("test1@hotmail.com", "hotmailPW1", "Hotmail", null))
         keyList.add(Login("test1@hotmail.com", "hotmailPW1", "Hotmail", null))
         keyList.add(Login("test1@hotmail.com", "hotmailPW1", "Hotmail", null))
         keyList.add(Note("Summerhouse", "Lorem ipsum dolor sit amet"))
-        keyList.add(Pin("Knud", "4321", "MasterCard", null))
+        keyList.add(Pin("Knud", "4321", "MasterCard"))
         keyList.add(Ekey("1234", "Ekey", null))
 
         val temp = gson.toJson(keyList)
