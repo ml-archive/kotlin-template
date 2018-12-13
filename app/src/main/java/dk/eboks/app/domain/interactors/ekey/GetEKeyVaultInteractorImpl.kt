@@ -21,6 +21,7 @@ class GetEKeyVaultInteractorImpl(executor: Executor, private val api: Api) :
 
                 when {
                     response?.isSuccessful == true -> runOnUIThread { output?.onGetEKeyVaultSuccess(response.body()!!) }
+                    response?.code() == 403 -> runOnUIThread { output?.onAuthError(it.retryCount) }
                     response?.code() == 404 -> runOnUIThread { output?.onGetEKeyVaultNotFound() }
                     else -> throw InteractorException("Wrong input")
                 }

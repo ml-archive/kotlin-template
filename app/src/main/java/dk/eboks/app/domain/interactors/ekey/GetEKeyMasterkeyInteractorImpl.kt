@@ -18,12 +18,11 @@ class GetEKeyMasterkeyInteractorImpl(executor: Executor, private val api: Api) :
             input?.let {
                 val response = api.masterKeyGet().execute()
 
-                if (response?.isSuccessful == true) {
-                    runOnUIThread { output?.onGetEKeyMasterkeySuccess(response.body()?.masterkey, it.pin) }
-                } else if (response?.code() == 404) {
-                    runOnUIThread { output?.onGetEkeyMasterkeyNotFound(it.pin) }
-                } else {
-                    throw InteractorException("Error in response: ${response.code()}", response.code())
+                when {
+                    response?.isSuccessful == true -> runOnUIThread { output?.onGetEKeyMasterkeySuccess(response.body()?.masterkey, it.pin) }
+                    response?.code() == 403 -> runOnUIThread { output?.onAuthError(it.isRetry) }
+                    response?.code() == 404 -> runOnUIThread { output?.onGetEkeyMasterkeyNotFound(it.pin) }
+                    else -> throw InteractorException("Error in response: ${response.code()}", response.code())
                 }
             }
         } catch (exception: Exception) {

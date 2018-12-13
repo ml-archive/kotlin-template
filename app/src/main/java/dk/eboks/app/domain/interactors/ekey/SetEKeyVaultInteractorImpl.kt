@@ -1,7 +1,9 @@
 package dk.eboks.app.domain.interactors.ekey
 
+import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
+import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
@@ -17,9 +19,13 @@ class SetEKeyVaultInteractorImpl(executor: Executor, private val api: Api) :
             input?.let {
                 val response = api.keyVaultSet(it.vault, it.signatureTime, it.signature).execute()
 
-                if (response?.isSuccessful == true) {
-                    runOnUIThread { output?.onSetEKeyVaultSuccess() }
+                when {
+                    response?.isSuccessful == true -> runOnUIThread { output?.onSetEKeyVaultSuccess() }
+                    response?.code() == 403 -> runOnUIThread { output?.onAuthError(it.retryCount) }
+                    else -> throw InteractorException("Wrong input")
                 }
+            }.guard {
+                throw InteractorException("Wrong input")
             }
         } catch (exception: Exception) {
             showViewException(exception)

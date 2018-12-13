@@ -79,6 +79,14 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         runAction { view -> view.showErrorDialog(viewError) }
     }
 
+    override fun onAuthError(retryCount: Int) {
+        appState.state?.currentUser?.let {
+            encryptedPreferences.remove("ekey_${it.id}")
+        }
+
+        runAction { view -> view.showPinView() }
+    }
+
     override fun onSetEKeyMasterkeySuccess(masterKey: String) {
         this.masterKey = masterKey
         handleMasterKeySuccess(masterKey)
@@ -101,7 +109,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
 
                 handleMasterKeySuccess(masterKey!!)
             } catch (e: Exception) {
-                runAction { view -> view.showErrorDialog(ViewError()) }
+                runAction { view -> view.showPinView() }
             }
 
         }.guard {
@@ -151,7 +159,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
 
     override fun getVault(masterKey: String) {
         val time = getSignatureAndSignatureTime(masterKey)
-        getEKeyVaultInteractor.input = GetEKeyVaultInteractor.Input(time.first, time.second)
+        getEKeyVaultInteractor.input = GetEKeyVaultInteractor.Input(time.first, time.second, 0)
         getEKeyVaultInteractor.run()
     }
 
@@ -164,7 +172,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         //post vault
         val signature = getSignatureAndSignatureTime(masterKey)
 
-        setEKeyVaultInteractor.input = SetEKeyVaultInteractor.Input(encrypted, signature.first, signature.second)
+        setEKeyVaultInteractor.input = SetEKeyVaultInteractor.Input(encrypted, signature.first, signature.second, 0)
         setEKeyVaultInteractor.run()
     }
 

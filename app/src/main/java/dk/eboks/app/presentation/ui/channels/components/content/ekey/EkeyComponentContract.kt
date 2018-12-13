@@ -12,6 +12,7 @@ interface EkeyComponentContract {
     interface View : BaseView {
         fun showKeys(keys: List<BaseEkey>)
         fun onGetMasterkeyError(viewError: ViewError)
+        fun showPinView()
     }
 
     interface Presenter : BasePresenter<View> {

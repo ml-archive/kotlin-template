@@ -11,6 +11,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.ekey.*
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
+import dk.eboks.app.presentation.ui.channels.components.content.ekey.pin.EkeyPinComponentFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_channel_ekey_detail.*
@@ -67,6 +68,15 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
         setupInputfields()
 
         fuckosThief.requestFocus()
+    }
+
+    override fun showPinView() {
+        val act = if(activity is EkeyContentActivity) {
+            activity as EkeyContentActivity
+        } else {
+            null
+        }
+        act?.clearBackStackAndSetToPin()
     }
 
     override fun onSuccess() {

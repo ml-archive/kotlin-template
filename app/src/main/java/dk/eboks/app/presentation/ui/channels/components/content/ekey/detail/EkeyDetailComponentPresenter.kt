@@ -53,6 +53,14 @@ class EkeyDetailComponentPresenter @Inject constructor(val appState: AppStateMan
         runAction { view -> view.onSuccess() }
     }
 
+    override fun onAuthError(retryCount: Int) {
+        appState.state?.currentUser?.let {
+            encryptedPreferences.remove("ekey_${it.id}")
+        }
+
+        runAction { view -> view.showPinView() }
+    }
+
     override fun onSetEKeyVaultError(viewError: ViewError) {
         runAction { view -> view.showErrorDialog(viewError) }
     }
@@ -66,7 +74,7 @@ class EkeyDetailComponentPresenter @Inject constructor(val appState: AppStateMan
         //post vault
         val signature = getSignatureAndSignatureTime(masterKey)
 
-        setEKeyVaultInteractor.input = SetEKeyVaultInteractor.Input(encrypted, signature.first, signature.second)
+        setEKeyVaultInteractor.input = SetEKeyVaultInteractor.Input(encrypted, signature.first, signature.second, 0)
         setEKeyVaultInteractor.run()
     }
 

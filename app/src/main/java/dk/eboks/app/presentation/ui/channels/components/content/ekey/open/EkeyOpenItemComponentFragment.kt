@@ -16,6 +16,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailMode
+import dk.eboks.app.presentation.ui.channels.components.content.ekey.pin.EkeyPinComponentFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.fragment_channel_ekey_openitem.*
@@ -230,6 +231,15 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
     override fun onSuccess() {
         (activity as EkeyContentActivity).shouldRefresh = true
         getBaseActivity()?.setRootFragment(R.id.content, EkeyComponentFragment.newInstance())
+    }
+
+    override fun showPinView() {
+        val act = if(activity is EkeyContentActivity) {
+            activity as EkeyContentActivity
+        } else {
+            null
+        }
+        act?.clearBackStackAndSetToPin()
     }
 
     private fun getPassword(password: String): String? {

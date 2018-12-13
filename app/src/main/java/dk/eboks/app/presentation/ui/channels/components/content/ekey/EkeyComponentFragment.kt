@@ -18,6 +18,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.additem.EkeyAddItemComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.open.EkeyOpenItemComponentFragment
+import dk.eboks.app.presentation.ui.channels.components.content.ekey.pin.EkeyPinComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.util.dpToPx
@@ -165,6 +166,15 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         Timber.d("error: ${viewError.message}")
 
         showErrorDialog(viewError)
+    }
+
+    override fun showPinView() {
+        val act = if(activity is EkeyContentActivity) {
+            activity as EkeyContentActivity
+        } else {
+            null
+        }
+        act?.clearBackStackAndSetToPin()
     }
 
     override fun showKeys(keys: List<BaseEkey>) {
