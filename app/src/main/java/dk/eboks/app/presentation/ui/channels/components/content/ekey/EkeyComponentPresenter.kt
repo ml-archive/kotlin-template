@@ -79,7 +79,16 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         runAction { view -> view.showErrorDialog(viewError) }
     }
 
+    override fun onAuthError(retryCount: Int) {
+        appState.state?.currentUser?.let {
+            encryptedPreferences.remove("ekey_${it.id}")
+        }
+
+        runAction { view -> view.showPinView() }
+    }
+
     override fun onSetEKeyMasterkeySuccess(masterKey: String) {
+        this.masterKey = masterKey
         handleMasterKeySuccess(masterKey)
     }
 
@@ -100,7 +109,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
 
                 handleMasterKeySuccess(masterKey!!)
             } catch (e: Exception) {
-                runAction { view -> view.showErrorDialog(ViewError()) }
+                runAction { view -> view.showPinView() }
             }
 
         }.guard {
@@ -137,19 +146,20 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         }
     }
 
-    override fun setMasterkey(hash: String, encrypted: String) {
-        setMasterKeyInteractor.input = SetEKeyMasterkeyInteractor.Input(encrypted, hash)
+    private fun setMasterkey(hash: String, encrypted: String, unencrypted: String) {
+        setMasterKeyInteractor.input = SetEKeyMasterkeyInteractor.Input(encrypted, hash, unencrypted)
         setMasterKeyInteractor.run()
     }
 
     override fun getMasterkeyFromBackend(pin: String) {
+        this.pin = pin
         getMasterkeyInteractor.input = GetEKeyMasterkeyInteractor.Input(pin)
         getMasterkeyInteractor.run()
     }
 
     override fun getVault(masterKey: String) {
         val time = getSignatureAndSignatureTime(masterKey)
-        getEKeyVaultInteractor.input = GetEKeyVaultInteractor.Input(time.first, time.second)
+        getEKeyVaultInteractor.input = GetEKeyVaultInteractor.Input(time.first, time.second, 0)
         getEKeyVaultInteractor.run()
     }
 
@@ -162,7 +172,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         //post vault
         val signature = getSignatureAndSignatureTime(masterKey)
 
-        setEKeyVaultInteractor.input = SetEKeyVaultInteractor.Input(encrypted, signature.first, signature.second)
+        setEKeyVaultInteractor.input = SetEKeyVaultInteractor.Input(encrypted, signature.first, signature.second, 0)
         setEKeyVaultInteractor.run()
     }
 
@@ -187,9 +197,9 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         val keyHash = HashingUtils.sha256AsBase64(masterKey)
 
         val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSS'Z'", Locale.GERMAN)
-        dateFormat.timeZone = TimeZone.getTimeZone("GMT")
+        dateFormat.timeZone = TimeZone.getTimeZone("UTC")
         val dateFormat2 = SimpleDateFormat("yyyyMMddHHmmss", Locale.GERMAN)
-        dateFormat2.timeZone = TimeZone.getTimeZone("GMT")
+        dateFormat2.timeZone = TimeZone.getTimeZone("UTC")
         val date = Date()
         val time = dateFormat.format(date)
         val time2 = dateFormat2.format(date)
@@ -213,7 +223,7 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
         Timber.d("Encrypted: $encrypted")
 
         //send key to backend
-        setMasterkey(hashed, encrypted)
+        setMasterkey(hashed, encrypted, key)
     }
 
     override fun getKeys() {
@@ -229,13 +239,13 @@ class EkeyComponentPresenter @Inject constructor(val appState: AppStateManager, 
     private fun createMocks(): List<BaseEkey> {
         val keyList = mutableListOf<BaseEkey>()
         keyList.add(Login("test1@gmail.com", "gmailPW1", "Gmail", "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"))
-        keyList.add(Pin("Peter", "1234", "Visa", null))
+        keyList.add(Pin("Peter", "1234", "Visa"))
         keyList.add(Login("test1@hotmail.com", "hotmailPW1", "Hotmail", null))
         keyList.add(Login("test1@hotmail.com", "hotmailPW1", "Hotmail", null))
         keyList.add(Login("test1@hotmail.com", "hotmailPW1", "Hotmail", null))
         keyList.add(Login("test1@hotmail.com", "hotmailPW1", "Hotmail", null))
         keyList.add(Note("Summerhouse", "Lorem ipsum dolor sit amet"))
-        keyList.add(Pin("Knud", "4321", "MasterCard", null))
+        keyList.add(Pin("Knud", "4321", "MasterCard"))
         keyList.add(Ekey("1234", "Ekey", null))
 
         val temp = gson.toJson(keyList)

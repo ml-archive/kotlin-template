@@ -8,10 +8,12 @@ interface GetEKeyMasterkeyInteractor: Interactor {
         fun onGetEKeyMasterkeySuccess(masterKeyResponse: String?, pin: String)
         fun onGetEKeyMasterkeyError(viewError: ViewError)
         fun onGetEkeyMasterkeyNotFound(pin: String)
+        fun onAuthError(retryCount: Int)
     }
 
     data class Input(
-            val pin: String
+            val pin: String,
+            val isRetry: Int = 0
     )
 
     var output: Output?

@@ -12,12 +12,12 @@ interface EkeyComponentContract {
     interface View : BaseView {
         fun showKeys(keys: List<BaseEkey>)
         fun onGetMasterkeyError(viewError: ViewError)
+        fun showPinView()
     }
 
     interface Presenter : BasePresenter<View> {
         fun getKeys()
         fun getMasterkeyFromBackend(pin: String)
-        fun setMasterkey(hash: String, encrypted: String)
         fun deleteMasterKey()
         fun storeMasterkey(masterKey: String)
         fun getVault(masterKey: String)

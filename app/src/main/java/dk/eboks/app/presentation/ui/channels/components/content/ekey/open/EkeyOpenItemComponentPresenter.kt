@@ -47,6 +47,14 @@ class EkeyOpenItemComponentPresenter @Inject constructor(val appState: AppStateM
         }
     }
 
+    override fun onAuthError(retryCount: Int) {
+        appState.state?.currentUser?.let {
+            encryptedPreferences.remove("ekey_${it.id}")
+        }
+
+        runAction { view -> view.showPinView() }
+    }
+
     override fun onSetEKeyVaultSuccess() {
         Timber.d("onSetEKeyVaultSuccess")
         runAction { view -> view.onSuccess() }
@@ -65,7 +73,7 @@ class EkeyOpenItemComponentPresenter @Inject constructor(val appState: AppStateM
         //post vault
         val signature = getSignatureAndSignatureTime(masterKey)
 
-        setEKeyVaultInteractor.input = SetEKeyVaultInteractor.Input(encrypted, signature.first, signature.second)
+        setEKeyVaultInteractor.input = SetEKeyVaultInteractor.Input(encrypted, signature.first, signature.second,0)
         setEKeyVaultInteractor.run()
     }
 

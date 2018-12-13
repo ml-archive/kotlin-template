@@ -81,14 +81,12 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
         init {
             swipeLayout.showMode = SwipeLayout.ShowMode.PullOut
             swipeLayout.addDrag(SwipeLayout.DragEdge.Left, markAsReadContainer)
-            val lp = markAsReadContainer.layoutParams
-            lp.width = 0
-            subHeadingTv.layoutParams = lp
         }
 
         override fun bind(item: ListItem) {
             val eKey = item as EkeyItem
 
+            swipeLayout.isLeftSwipeEnabled = false
             swipeLayout.isRightSwipeEnabled = eKey.data.eKeyType != "Ekey"
             Timber.d("${eKey.data.name} - ${swipeLayout.isLeftSwipeEnabled}")
             markAsReadContainer.setOnClickListener {
@@ -110,7 +108,7 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
                 }
                 is Pin -> {
                     headingTv.text = eKey.data.name
-                    subHeadingTv.text = eKey.data.cardholderName
+                    subHeadingTv.text = Translation.ekey.pinCode
                     logoIv.setImageResource(R.drawable.icon_48_payment_white)
 
                 }
@@ -121,7 +119,7 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
                 }
                 is Ekey -> {
                     headingTv.text = eKey.data.name
-                    subHeadingTv.text = eKey.data.note
+                    subHeadingTv.text = Translation.ekey.overviewEkey
                     logoIv.setImageResource(R.drawable.icon_48_lock_white)
                 }
             }

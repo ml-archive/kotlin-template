@@ -10,6 +10,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface EkeyOpenItemComponentContract {
     interface View : BaseView {
         fun onSuccess()
+        fun showPinView()
 
     }
 

@@ -11,6 +11,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.ekey.*
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
+import dk.eboks.app.presentation.ui.channels.components.content.ekey.pin.EkeyPinComponentFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_channel_ekey_detail.*
@@ -69,6 +70,15 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
         fuckosThief.requestFocus()
     }
 
+    override fun showPinView() {
+        val act = if(activity is EkeyContentActivity) {
+            activity as EkeyContentActivity
+        } else {
+            null
+        }
+        act?.clearBackStackAndSetToPin()
+    }
+
     override fun onSuccess() {
         (activity as EkeyContentActivity).shouldRefresh = true
         getBaseActivity()?.setRootFragment(R.id.content, EkeyComponentFragment.newInstance())
@@ -78,7 +88,6 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
         pinShowPasswordIb.visibility = View.GONE
         loginShowPasswordIb.visibility = View.GONE
         pinTil.visibility = View.GONE
-        cardholderTil.visibility = View.GONE
         usernameTil.visibility = View.GONE
         passwordTil.visibility = View.GONE
 
@@ -101,13 +110,10 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
             }
             EkeyDetailMode.PIN -> {
                 pinTil.visibility = View.VISIBLE
-                cardholderTil.visibility = View.VISIBLE
-                nameTil.hint = Translation.ekey.inputHintPinCode
 
                 editKey?.let {
                     if (it is Pin) {
                         nameEt.setText(it.name)
-                        cardholderEt.setText(it.cardholderName)
                         pinEt.setText(it.pin)
                         noteEt.setText(it.note)
                         pinShowPasswordIb.visibility = View.VISIBLE
@@ -199,7 +205,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
         passwordTil.error = null
         nameTil.error = null
         noteTil.error = null
-        cardholderTil.error = null
+//        cardholderTil.error = null
         pinTil.error = null
         return when (category) {
             EkeyDetailMode.LOGIN -> {
@@ -218,10 +224,6 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
                 valid
             }
             EkeyDetailMode.PIN -> {
-                if(cardholderEt.text.toString().isEmpty()) {
-                    cardholderTil.error = Translation.ekey.fieldIsRequired
-                    valid = false
-                }
                 if(pinEt.text.toString().isEmpty()) {
                     pinTil.error = Translation.ekey.fieldIsRequired
                     valid = false
@@ -255,7 +257,7 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
                         noteEt.text.toString())
             }
             EkeyDetailMode.PIN -> {
-                Pin(cardholderEt.text.toString(),
+                Pin(
                         pinEt.text.toString(),
                         nameEt.text.toString(),
                         noteEt.text.toString())

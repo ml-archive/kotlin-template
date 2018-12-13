@@ -44,24 +44,6 @@
 
         <!--Pin-->
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/cardholderTil"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textColorHint="@color/blueGrey"
-            android:theme="@style/TextInputLayoutTheme">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/cardholderEt"
-                style="@style/EditText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:importantForAutofill="noExcludeDescendants"
-                android:inputType="textPersonName|textCapWords"
-                android:hint="@string/nstack_ekey_inputHintPinCode" />
-        </android.support.design.widget.TextInputLayout>
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -93,13 +75,6 @@
                 android:src="@drawable/show_password_selector" />
         </FrameLayout>
 
-        <Switch
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <Switch
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:checked="true"/>
         <!--Login -->
         <android.support.design.widget.TextInputLayout
             android:id="@+id/usernameTil"
