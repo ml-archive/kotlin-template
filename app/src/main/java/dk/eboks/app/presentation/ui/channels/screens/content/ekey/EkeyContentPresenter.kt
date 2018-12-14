@@ -22,9 +22,9 @@ import dk.nodes.locksmith.core.preferences.EncryptedPreferences
 import dk.nodes.locksmith.core.util.HashingUtils
 import dk.nodes.locksmith.core.util.RandomUtils
 import timber.log.Timber
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.Exception
 import kotlin.collections.ArrayList
 
 /**
@@ -36,7 +36,7 @@ class EkeyContentPresenter(val appState: AppStateManager,
                            val setMasterKeyInteractor: SetEKeyMasterkeyInteractor,
                            val getEKeyVaultInteractor: GetEKeyVaultInteractor,
                            val setEKeyVaultInteractor: SetEKeyVaultInteractor
-                           ) : EkeyContentContract.Presenter, BasePresenterImpl<EkeyContentContract.View>(), GetEKeyMasterkeyInteractor.Output, SetEKeyMasterkeyInteractor.Output, GetEKeyVaultInteractor.Output, SetEKeyVaultInteractor.Output {
+) : EkeyContentContract.Presenter, BasePresenterImpl<EkeyContentContract.View>(), GetEKeyMasterkeyInteractor.Output, SetEKeyMasterkeyInteractor.Output, GetEKeyVaultInteractor.Output, SetEKeyVaultInteractor.Output {
 
     private var gson: Gson
     var masterKey: String? = null
@@ -58,7 +58,7 @@ class EkeyContentPresenter(val appState: AppStateManager,
     }
 
     override fun onSetEKeyVaultError(viewError: ViewError) {
-        if(hasRetried) {
+        if (hasRetried) {
             runAction { view -> view.showErrorDialog(viewError) }
             hasRetried = false
         } else {
@@ -75,11 +75,13 @@ class EkeyContentPresenter(val appState: AppStateManager,
     }
 
     override fun onGetEKeyVaultSuccess(vault: String) {
-        masterKey?.let {
-            val decrypted = decryptVault(it, vault)
-            val baseEkeyListType = object : TypeToken<MutableList<BaseEkey>>() {}.type
-            keys = gson.fromJson<ArrayList<BaseEkey>>(decrypted, baseEkeyListType)
-            runAction { v -> v.showKeys(keys) }
+        masterKey?.let { mk ->
+            val decrypted = decryptVault(mk, vault)
+            decrypted?.let { decryptedString ->
+                val baseEkeyListType = object : TypeToken<MutableList<BaseEkey>>() {}.type
+                keys = gson.fromJson<ArrayList<BaseEkey>>(decryptedString, baseEkeyListType)
+                runAction { v -> v.showKeys(keys) }
+            }
         }
     }
 
@@ -121,7 +123,7 @@ class EkeyContentPresenter(val appState: AppStateManager,
     }
 
     override fun onGetEKeyMasterkeySuccess(masterKeyResponse: String?) {
-        if(pin != null) {
+        if (pin != null) {
             masterKeyResponse?.let {
                 val handler = EncryptionHandlerImpl(AesCBCPasswordKeyProviderImpl(pin))
                 handler.init()
@@ -148,7 +150,7 @@ class EkeyContentPresenter(val appState: AppStateManager,
     }
 
     override fun onGetEkeyMasterkeyNotFound() {
-        if(pin != null) {
+        if (pin != null) {
             generateNewKeyAndSend(pin)
         } else {
             runAction { view -> view.showPinView(true) }
@@ -163,7 +165,7 @@ class EkeyContentPresenter(val appState: AppStateManager,
     override fun putVault(items: ArrayList<BaseEkey>) {
         appState.state?.currentUser?.let {
             val masterKey = encryptedPreferences.getString("ekey_${it.id}", null)
-            masterKey?.let {mk ->
+            masterKey?.let { mk ->
                 keys = items
                 setVault(mk, items)
             }
@@ -198,12 +200,19 @@ class EkeyContentPresenter(val appState: AppStateManager,
         return Pair(time, hash)
     }
 
-    fun decryptVault(masterKey: String, vault: String): String {
+    private fun decryptVault(masterKey: String, vault: String): String? {
         val handler = EncryptionHandlerImpl(AesCBCPasswordKeyProviderImpl(masterKey))
         handler.init()
 
-        val decrypted = String(handler.decrypt(vault), charset("UTF-8"))
-        return decrypted
+        return try {
+            String(handler.decrypt(vault), charset("UTF-8"))
+        } catch (e: Exception) {
+            runAction { view ->
+                view.showErrorDialog(ViewError(title = Translation.error.eKeyDecryptionFailedTitle, message = Translation.error.eKeyDecryptionFailedMessage))
+                view.showPinView(false)
+            }
+            null
+        }
     }
 
     private fun handleMasterKeySuccess(masterKey: String) {
@@ -254,7 +263,7 @@ class EkeyContentPresenter(val appState: AppStateManager,
     override fun getData() {
         appState.state?.currentUser?.let {
             val mk = encryptedPreferences.getString("ekey_${it.id}", "")
-            if(!mk.isEmpty()) {
+            if (!mk.isEmpty()) {
                 masterKey = mk
                 getVault(mk)
             } else {
