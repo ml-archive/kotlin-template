@@ -257,8 +257,8 @@ class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContr
             }
             EkeyDetailMode.PIN -> {
                 Pin(
-                        pinEt.text.toString(),
                         nameEt.text.toString(),
+                        pinEt.text.toString(),
                         noteEt.text.toString())
             }
             EkeyDetailMode.NOTE -> {
