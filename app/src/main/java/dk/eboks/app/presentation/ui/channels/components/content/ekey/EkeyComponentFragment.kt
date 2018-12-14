@@ -93,6 +93,12 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, Be
     }
 
     private fun setupRecycler() {
+        //REFRESH
+        refreshSrl.setOnRefreshListener {
+            getEkeyBaseActivity()?.presenter?.getData()
+        }
+
+        //RECYCLER
         keysContentRv.layoutManager = LinearLayoutManager(context)
         ViewCompat.setNestedScrollingEnabled(keysContentRv, false)
         keysContentRv.addItemDecoration(DividerDecoration())

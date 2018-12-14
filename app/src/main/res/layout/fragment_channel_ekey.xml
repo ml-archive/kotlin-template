@@ -7,85 +7,92 @@
     android:orientation="vertical"
     tools:ignore="MissingPrefix">
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/content"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refreshSrl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/headerTv"
-                    style="@style/text.header1"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:gravity="center"
-                    android:text="@string/nstack_ekey_overviewAddItemHeadline" />
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/headerTv"
+                        style="@style/text.header1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:gravity="center"
+                        android:text="@string/nstack_ekey_overviewAddItemHeadline" />
+
+                    <TextView
+                        android:id="@+id/itemTextTv"
+                        style="@style/text.body6.secondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="32dp"
+                        android:gravity="center"
+                        android:text="@string/nstack_ekey_overviewAddItemText" />
+
+                    <Button
+                        android:id="@+id/addItemBtn"
+                        style="@style/button.SolidGradient.large"
+                        android:layout_width="125dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="@string/nstack_ekey_overviewAddItemBtn" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/dividerColor" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/keysContentRv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginBottom="@dimen/margin_normal"
+                    android:background="@color/dividerColor" />
 
                 <TextView
-                    android:id="@+id/itemTextTv"
+                    android:id="@+id/emptyStateTv"
                     style="@style/text.body6.secondary"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginRight="32dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/backgroundColor"
                     android:gravity="center"
-                    android:text="@string/nstack_ekey_overviewAddItemText" />
-
-                <Button
-                    style="@style/button.SolidGradient.large"
-                    android:id="@+id/addItemBtn"
-                    android:layout_width="125dp"
-                    android:layout_height="36dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/nstack_ekey_overviewAddItemBtn" />
+                    android:text="@string/nstack_ekey_noContent"
+                    android:visibility="gone" />
 
             </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/dividerColor" />
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/keysContentRv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginBottom="@dimen/margin_normal"
-                android:background="@color/dividerColor" />
-
-            <TextView
-                android:id="@+id/emptyStateTv"
-                style="@style/text.body6.secondary"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:background="@color/backgroundColor"
-                android:gravity="center"
-                android:visibility="gone"
-                android:text="@string/nstack_ekey_noContent" />
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
