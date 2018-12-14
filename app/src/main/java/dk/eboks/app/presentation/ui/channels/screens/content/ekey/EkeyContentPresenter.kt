@@ -8,6 +8,7 @@ import dk.eboks.app.domain.interactors.ekey.GetEKeyVaultInteractor
 import dk.eboks.app.domain.interactors.ekey.SetEKeyMasterkeyInteractor
 import dk.eboks.app.domain.interactors.ekey.SetEKeyVaultInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.ekey.BaseEkey
 import dk.eboks.app.domain.models.channel.ekey.Ekey
 import dk.eboks.app.domain.models.local.ViewError
@@ -131,7 +132,10 @@ class EkeyContentPresenter(val appState: AppStateManager,
 
                     handleMasterKeySuccess(masterKey!!)
                 } catch (e: Exception) {
-                    runAction { view -> view.showPinView(false) }
+                    runAction { view ->
+                        view.showErrorDialog(ViewError(title = Translation.error.eKeyDecryptionFailedTitle, message = Translation.error.eKeyDecryptionFailedMessage))
+                        view.showPinView(false)
+                    }
                 }
 
             }.guard {
