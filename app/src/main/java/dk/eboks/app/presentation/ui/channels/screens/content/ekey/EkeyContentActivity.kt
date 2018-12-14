@@ -2,12 +2,15 @@ package dk.eboks.app.presentation.ui.channels.screens.content.ekey
 
 import android.app.FragmentManager
 import android.os.Bundle
+import android.view.View
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.ekey.BaseEkey
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.pin.EkeyPinComponentFragment
+import kotlinx.android.synthetic.main.activity_ekey_content.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -15,9 +18,7 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
     @Inject
     lateinit var presenter: EkeyContentContract.Presenter
 
-    private var keys: MutableList<BaseEkey>? = null
-    var shouldRefresh = false
-    var pin: String? = null
+    private var keys: ArrayList<BaseEkey>? = null
     var channel: Channel? = null
     var isDestroyable: Boolean = true
 
@@ -28,18 +29,34 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
         presenter.onViewCreated(this, lifecycle)
 
         channel = intent.getSerializableExtra("channel") as Channel?
-        if (presenter.getMasterKey() == null) {
-            addFragmentOnTop(R.id.content, EkeyPinComponentFragment(), false)
+        showLoading(true)
+        presenter.getData()
+    }
+
+    override fun showKeys(keys: ArrayList<BaseEkey>) {
+        this.keys = keys
+        showLoading(false)
+        setRootFragment(R.id.content, EkeyComponentFragment.newInstance(keys))
+    }
+
+    override fun showPinView(isCreate: Boolean) {
+        showLoading(false)
+        clearBackStackAndSetToPin(isCreate)
+    }
+
+    override fun onGetMasterkeyError(viewError: ViewError) {
+        Timber.d("error: ${viewError.message}")
+
+        showErrorDialog(viewError)
+    }
+
+    private fun showLoading(show: Boolean) {
+        if(show) {
+            content.visibility = View.GONE
+            ekeyActivityProgressBar.visibility = View.VISIBLE
         } else {
-            setRootFragment(R.id.content, EkeyComponentFragment())
-        }
-        supportFragmentManager.addOnBackStackChangedListener {
-            if (supportFragmentManager.backStackEntryCount == 0) {
-                if (!isDestroyed && isDestroyable) {
-                    Timber.d("BACKSTACK DESTROY")
-                    finish()
-                }
-            }
+            content.visibility = View.VISIBLE
+            ekeyActivityProgressBar.visibility = View.GONE
         }
     }
 
@@ -51,23 +68,35 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
         }
     }
 
-    fun clearBackStackAndSetToPin() {
+    fun clearBackStackAndSetToPin(isCreate: Boolean) {
         isDestroyable = false
         supportFragmentManager.popBackStack(
                 backStackRootTag,
                 FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
 
-        addFragmentOnTop(R.id.content, EkeyPinComponentFragment(), false)
+        addFragmentOnTop(R.id.content, EkeyPinComponentFragment.newInstance(isCreate), false)
         isDestroyable = true
         Timber.d("BACKSTACK ADD")
     }
 
-    fun setVault(keyList: MutableList<BaseEkey>) {
-        keys = keyList
-    }
-
     fun getVault(): MutableList<BaseEkey>? {
         return keys
+    }
+
+    fun refreshClearAndShowMain() {
+        supportFragmentManager.popBackStack(
+                backStackRootTag,
+                FragmentManager.POP_BACK_STACK_INCLUSIVE
+        )
+        presenter.getData()
+    }
+
+    fun refreshAndShowMain() {
+        presenter.getData()
+    }
+
+    fun setPin(pin: String) {
+        presenter.pin = pin
     }
 }

@@ -5,14 +5,13 @@ import dk.nodes.arch.domain.interactor.Interactor
 
 interface GetEKeyMasterkeyInteractor: Interactor {
     interface Output {
-        fun onGetEKeyMasterkeySuccess(masterKeyResponse: String?, pin: String)
+        fun onGetEKeyMasterkeySuccess(masterKeyResponse: String?)
         fun onGetEKeyMasterkeyError(viewError: ViewError)
-        fun onGetEkeyMasterkeyNotFound(pin: String)
+        fun onGetEkeyMasterkeyNotFound()
         fun onAuthError(retryCount: Int)
     }
 
     data class Input(
-            val pin: String,
             val isRetry: Int = 0
     )
 

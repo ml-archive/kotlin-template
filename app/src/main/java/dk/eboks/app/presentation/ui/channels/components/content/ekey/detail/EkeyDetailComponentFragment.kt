@@ -10,6 +10,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.ekey.*
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.channels.components.content.ekey.BaseEkeyFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.pin.EkeyPinComponentFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
@@ -22,7 +23,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.View {
+class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContract.View {
 
     var category: EkeyDetailMode? = null
     var editKey: BaseEkey? = null
@@ -76,12 +77,11 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
         } else {
             null
         }
-        act?.clearBackStackAndSetToPin()
+        act?.clearBackStackAndSetToPin(false)
     }
 
     override fun onSuccess() {
-        (activity as EkeyContentActivity).shouldRefresh = true
-        getBaseActivity()?.setRootFragment(R.id.content, EkeyComponentFragment.newInstance())
+        getEkeyBaseActivity()?.refreshAndShowMain()
     }
 
     private fun setupInputfields() {
@@ -205,7 +205,6 @@ class EkeyDetailComponentFragment : BaseFragment(), EkeyDetailComponentContract.
         passwordTil.error = null
         nameTil.error = null
         noteTil.error = null
-//        cardholderTil.error = null
         pinTil.error = null
         return when (category) {
             EkeyDetailMode.LOGIN -> {

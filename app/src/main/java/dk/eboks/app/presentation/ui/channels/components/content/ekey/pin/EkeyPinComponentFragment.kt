@@ -11,8 +11,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
+import dk.eboks.app.presentation.ui.channels.components.content.ekey.BaseEkeyFragment
 import kotlinx.android.synthetic.main.fragment_channel_ekey_pin.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -20,7 +19,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class EkeyPinComponentFragment : BaseFragment(), EkeyPinComponentContract.View {
+class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.View {
 
     @Inject
     lateinit var presenter: EkeyPinComponentContract.Presenter
@@ -37,24 +36,32 @@ class EkeyPinComponentFragment : BaseFragment(), EkeyPinComponentContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
+        val isCreate = arguments?.getBoolean("ISCREATE", false) ?: false
+
         setupInputfields()
-        setupTopbar()
-
-        //todo will neeed logic to determine if its loggin in or creating a user
-
-
+        setupTopbar(isCreate)
+        setupTexts(isCreate)
     }
 
-    private fun setupTopbar() {
+    private fun setupTexts(isCreate: Boolean) {
+        pinHeaderTv.text = when(isCreate) {
+            true -> Translation.ekey.createEKey
+            false -> Translation.ekey.pinCode
+        }
+    }
+
+    private fun setupTopbar(isCreate: Boolean) {
         getBaseActivity()?.mainTb?.menu?.clear()
 
-        getBaseActivity()?.mainTb?.title = Translation.ekey.pinCode
+        getBaseActivity()?.mainTb?.title = when (isCreate) {
+            true -> Translation.ekey.createEKey
+            false -> Translation.ekey.pinCode
+        }
 
         getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         getBaseActivity()?.mainTb?.setNavigationOnClickListener {
             getBaseActivity()?.finish()
         }
-
     }
 
     override fun onResume() {
@@ -63,9 +70,7 @@ class EkeyPinComponentFragment : BaseFragment(), EkeyPinComponentContract.View {
     }
 
     private fun setupInputfields() {
-
         showKeyboard()
-
 
         thief.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -89,7 +94,11 @@ class EkeyPinComponentFragment : BaseFragment(), EkeyPinComponentContract.View {
                         pin4Et.setText(s[3].toString())
 
                         //todo try to login
-                        getBaseActivity()?.addFragmentOnTop(R.id.content, EkeyComponentFragment.newInstance(s.toString()))
+                        val str = s.toString()
+                        s.clear()
+                        getEkeyBaseActivity()?.setPin(str)
+                        getEkeyBaseActivity()?.refreshClearAndShowMain()
+
                     } else {
                         pin4Et.setText("")
                     }
@@ -115,5 +124,15 @@ class EkeyPinComponentFragment : BaseFragment(), EkeyPinComponentContract.View {
     override fun onPause() {
         handler.removeCallbacksAndMessages(null)
         super.onPause()
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance(isCreate: Boolean) =
+                EkeyPinComponentFragment().apply {
+                    arguments = Bundle().apply {
+                        putBoolean("ISCREATE", isCreate)
+                    }
+                }
     }
 }

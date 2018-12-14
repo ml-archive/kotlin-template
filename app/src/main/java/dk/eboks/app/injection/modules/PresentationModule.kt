@@ -988,22 +988,19 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideEkeyContentPresenter(stateManager: AppStateManager, encryptedPreferences: EncryptedPreferences): EkeyContentContract.Presenter {
-        return EkeyContentPresenter(stateManager, encryptedPreferences)
+    fun provideEkeyContentPresenter(stateManager: AppStateManager, encryptedPreferences: EncryptedPreferences,
+                                    getEKeyMasterkeyInteractor: GetEKeyMasterkeyInteractor,
+                                    setEKeyMasterkeyInteractor: SetEKeyMasterkeyInteractor,
+                                    getEKeyVaultInteractor: GetEKeyVaultInteractor,
+                                    setEKeyVaultInteractor: SetEKeyVaultInteractor): EkeyContentContract.Presenter {
+        return EkeyContentPresenter(stateManager, encryptedPreferences, getEKeyMasterkeyInteractor, setEKeyMasterkeyInteractor,
+                getEKeyVaultInteractor, setEKeyVaultInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideEkeyComponentPresenter(stateManager: AppStateManager,
-                                      getEKeyMasterkeyInteractor: GetEKeyMasterkeyInteractor,
-                                      setEKeyMasterkeyInteractor: SetEKeyMasterkeyInteractor,
-                                      deleteEKeyMasterkeyInteractor: DeleteEKeyMasterkeyInteractor,
-                                      getEKeyVaultInteractor: GetEKeyVaultInteractor,
-                                      encryptedPreferences: EncryptedPreferences,
-                                      setEKeyVaultInteractor: SetEKeyVaultInteractor,
-                                      deleteEKeyVaultInteractor: DeleteEKeyVaultInteractor): EkeyComponentContract.Presenter {
-        return EkeyComponentPresenter(stateManager, getEKeyMasterkeyInteractor, setEKeyMasterkeyInteractor, deleteEKeyMasterkeyInteractor,
-                getEKeyVaultInteractor, encryptedPreferences, setEKeyVaultInteractor, deleteEKeyVaultInteractor)
+    fun provideEkeyComponentPresenter(stateManager: AppStateManager): EkeyComponentContract.Presenter {
+        return EkeyComponentPresenter(stateManager)
     }
 
     @ActivityScope

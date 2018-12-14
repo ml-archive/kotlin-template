@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.channels.components.content.ekey
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.os.Bundle
+import android.os.Parcelable
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -27,6 +28,7 @@ import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.fragment_channel_ekey.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
+import java.io.Serializable
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
@@ -35,10 +37,9 @@ import kotlin.collections.ArrayList
 /**
  * Created by bison on 09-02-2018.
  */
-class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, BetterEkeyAdapter.Ekeyclicklistener {
+class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, BetterEkeyAdapter.Ekeyclicklistener {
     override fun onEkeyClicked(ekey: BaseEkey) {
         val frag = EkeyOpenItemComponentFragment()
-        (activity as EkeyContentActivity).setVault(presenter.getKeyList())
         when (ekey) {
             is Login -> {
                 frag.putArg("login", ekey)
@@ -61,7 +62,6 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
 
     private val items = ArrayList<ListItem>()
     private val actualItems = ArrayList<BaseEkey>()
-    private var pin: String? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_channel_ekey, container, false)
@@ -80,17 +80,14 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         keysContentRv.isFocusable = false
         headerTv.requestFocus()
 
-        pin = arguments?.getString("PIN_CODE", null)
-        showLoading(true)
-        pin?.let {
-            (activity as EkeyContentActivity).pin = pin
-            presenter.getMasterkeyFromBackend(it)
+        val keys = arguments?.getParcelableArrayList<BaseEkey>("VAULT")
+        keys?.let {
+            showKeys(it)
         }.guard {
-            presenter.getMasterKeyLocally()
+            Timber.d("GUARD")
         }
 
         addItemBtn.setOnClickListener {
-            (activity as EkeyContentActivity).setVault(presenter.getKeyList())
             getBaseActivity()?.addFragmentOnTop(R.id.content, EkeyAddItemComponentFragment(), true)
         }
     }
@@ -107,7 +104,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
                 if(item != baseEkey)
                     list.add(item)
             }
-            presenter.masterKey?.let { presenter.setVault(it, list) }
+            getEkeyBaseActivity()?.presenter?.putVault(list)
             showKeys(list)
         }
 
@@ -141,19 +138,6 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        if((activity as EkeyContentActivity).shouldRefresh) {
-            showLoading(true)
-            (activity as EkeyContentActivity).shouldRefresh = false
-            pin?.let {
-                presenter.getMasterkeyFromBackend(it)
-            }.guard {
-                presenter.getMasterKeyLocally()
-            }
-        }
-    }
-
     private fun setEmptyState(empty: Boolean) {
         if (empty) {
             emptyStateTv?.visibility = View.VISIBLE
@@ -162,22 +146,7 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
         }
     }
 
-    override fun onGetMasterkeyError(viewError: ViewError) {
-        Timber.d("error: ${viewError.message}")
-
-        showErrorDialog(viewError)
-    }
-
-    override fun showPinView() {
-        val act = if(activity is EkeyContentActivity) {
-            activity as EkeyContentActivity
-        } else {
-            null
-        }
-        act?.clearBackStackAndSetToPin()
-    }
-
-    override fun showKeys(keys: List<BaseEkey>) {
+    fun showKeys(keys: List<BaseEkey>) {
         items.clear()
         actualItems.clear()
         actualItems.addAll(keys)
@@ -263,10 +232,10 @@ class EkeyComponentFragment : BaseFragment(), EkeyComponentContract.View, Better
 
     companion object {
         @JvmStatic
-        fun newInstance(pin: String? = null) =
+        fun newInstance(vault: ArrayList<BaseEkey>) =
                 EkeyComponentFragment().apply {
                     arguments = Bundle().apply {
-                        putString("PIN_CODE", pin)
+                        putParcelableArrayList("VAULT", vault)
                     }
                 }
     }

@@ -562,9 +562,7 @@
   <string name='nstack_ekey_typeHere' formatted='false'>{ekey_typeHere}</string>
   <string name='nstack_ekey_unlockEkey' formatted='false'>{ekey_unlockEkey}</string>
   <string name='nstack_ekey_insertPinCode' formatted='false'>{ekey_insertPinCode}</string>
-  <string name='nstack_ekey_insertPinCodeMessage' formatted='false'>{ekey_insertPinCodeMessage}</string>
   <string name='nstack_ekey_insertNewPinCode' formatted='false'>{ekey_insertNewPinCode}</string>
-  <string name='nstack_ekey_insertNewPinCodeMessage' formatted='false'>{ekey_insertNewPinCodeMessage}</string>
   <string name='nstack_ekey_createEKey' formatted='false'>{ekey_createEKey}</string>
   <string name='nstack_ekey_ekeySecureKeyDescription' formatted='false'>{ekey_ekeySecureKeyDescription}</string>
   <string name='nstack_ekey_deleteSwipeBtn' formatted='false'>{ekey_deleteSwipeBtn}</string>

@@ -9,6 +9,7 @@
     android:paddingRight="32dp">
 
     <TextView
+        android:id="@+id/pinHeaderTv"
         style="@style/text.header3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,15 +17,6 @@
         android:gravity="center"
         tools:text="_Indtast din 4-cifrede kode"
         android:text="@string/nstack_ekey_insertPinCode"/>
-
-    <TextView
-        style="@style/text.subHeader5.quaternary"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_half"
-        tools:text="_Dette er din pinkode til e-Key, så du kan logge ind på andre enheder. Det er dog en god idé, at kunne huske denne kode, hvis du mister denne enhed."
-        android:text="@string/nstack_ekey_ekeySecureKeyDescription"/>
 
     <EditText
         android:id="@+id/thief"

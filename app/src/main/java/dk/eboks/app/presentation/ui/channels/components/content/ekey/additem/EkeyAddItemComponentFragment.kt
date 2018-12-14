@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.channels.components.content.ekey.BaseEkeyFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailMode
 import kotlinx.android.synthetic.main.fragment_channel_ekey_additem.*
@@ -16,7 +17,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class EkeyAddItemComponentFragment : BaseFragment(), EkeyAddItemComponentContract.View {
+class EkeyAddItemComponentFragment : BaseEkeyFragment(), EkeyAddItemComponentContract.View {
 
     @Inject
     lateinit var presenter : EkeyAddItemComponentContract.Presenter

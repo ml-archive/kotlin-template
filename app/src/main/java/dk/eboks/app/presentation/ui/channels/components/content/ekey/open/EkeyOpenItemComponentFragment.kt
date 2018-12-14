@@ -13,6 +13,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.ekey.*
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.channels.components.content.ekey.BaseEkeyFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailMode
@@ -27,7 +28,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContract.View {
+class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentContract.View {
 
     var ekey: BaseEkey? = null
     var hidePassword: Boolean = true
@@ -229,8 +230,7 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
     }
 
     override fun onSuccess() {
-        (activity as EkeyContentActivity).shouldRefresh = true
-        getBaseActivity()?.setRootFragment(R.id.content, EkeyComponentFragment.newInstance())
+        getEkeyBaseActivity()?.refreshAndShowMain()
     }
 
     override fun showPinView() {
@@ -239,7 +239,7 @@ class EkeyOpenItemComponentFragment : BaseFragment(), EkeyOpenItemComponentContr
         } else {
             null
         }
-        act?.clearBackStackAndSetToPin()
+        act?.clearBackStackAndSetToPin(false)
     }
 
     private fun getPassword(password: String): String? {

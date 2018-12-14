@@ -640,9 +640,7 @@ public class Translation {
 		public static String typeHere = "Skriv her";
 		public static String unlockEkey = "L\u00E5s op";
 		public static String insertPinCode = "Indtast din 4-cifrede kode";
-		public static String insertPinCodeMessage = "__insertPinCodeMessage";
 		public static String insertNewPinCode = "Indtast en 4-cifret kode";
-		public static String insertNewPinCodeMessage = "__insertNewPinCodeMessage";
 		public static String createEKey = "Opret pinkode";
 		public static String ekeySecureKeyDescription = "Dette er din pinkode til e-Key, s\u00E5 du kan logge ind p\u00E5 andre enheder. Det er dog en god id\u00E9, at kunne huske denne kode, hvis du mister denne enhed.";
 		public static String deleteSwipeBtn = "Slet";
