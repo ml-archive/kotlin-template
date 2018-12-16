@@ -1,15 +1,18 @@
 package dk.nodes.template.domain.interactors
 
 import dk.nodes.arch.domain.interactor.Result
+import dk.nodes.arch.util.AppCoroutineDispatchers
 import dk.nodes.template.domain.models.Post
 import dk.nodes.template.domain.repositories.PostRepository
-import dk.nodes.template.domain.repositories.RepositoryException
 import kotlinx.coroutines.CoroutineDispatcher
+import javax.inject.Inject
 
-class GetPostsInteractorImpl(
+class GetPostsInteractorImpl @Inject constructor(
     private val postRepository: PostRepository,
-    override val dispatcher: CoroutineDispatcher
+    dispatchers: AppCoroutineDispatchers
 ) : GetPostsInteractor {
+    override val dispatcher: CoroutineDispatcher = dispatchers.io
+
     override suspend fun invoke(
         executeParams: GetPostsInteractor.Input,
         onResult: (Result<List<Post>>) -> Unit
@@ -17,7 +20,7 @@ class GetPostsInteractorImpl(
         try {
             val posts = postRepository.getPosts(true)
             onResult.invoke(Result.Success(posts))
-        } catch (e: RepositoryException) {
+        } catch (e: Exception) {
             onResult.invoke(Result.Failure(e))
         }
     }
