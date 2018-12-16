@@ -5,7 +5,7 @@ import dk.nodes.template.domain.repositories.PostRepository
 import dk.nodes.template.domain.repositories.RepositoryException
 
 class RestPostRepository(val api: Api) : PostRepository {
-    override fun getPosts(cached: Boolean): List<Post> {
+    override suspend fun getPosts(cached: Boolean): List<Post> {
         val response = api.getPosts().execute()
         if (response.isSuccessful) {
             return response.body()!!

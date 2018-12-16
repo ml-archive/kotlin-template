@@ -1,5 +1,6 @@
 package dk.nodes.template.domain.interactors
 
+import dk.nodes.arch.extensions.safeSuspendCall
 import dk.nodes.arch.util.AppCoroutineDispatchers
 import dk.nodes.template.domain.models.Post
 import dk.nodes.template.domain.repositories.PostRepository
@@ -16,11 +17,10 @@ class GetPostsInteractorImpl @Inject constructor(
         executeParams: GetPostsInteractor.Input,
         onResult: (Result<List<Post>>) -> Unit
     ) {
-        try {
-            val posts = postRepository.getPosts(true)
-            onResult.invoke(Result.success(posts))
-        } catch (e: Exception) {
-            onResult.invoke(Result.failure(e))
-        }
+        safeSuspendCall(
+            call = { postRepository.getPosts(true) },
+            errorMessage = "Error Getting posts",
+            onResult = onResult
+        )
     }
 }

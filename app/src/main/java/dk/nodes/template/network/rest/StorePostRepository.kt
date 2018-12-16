@@ -32,7 +32,7 @@ class StorePostRepository(val api: Api, val gson: Gson, val context: Context) : 
             .open()
     }
 
-    override fun getPosts(cached: Boolean): List<Post> {
+    override suspend fun getPosts(cached: Boolean): List<Post> {
         try {
             return if (cached) postStore.get(0).blockingGet() else postStore.fetch(0).blockingGet()
         } catch (e: Exception) {
