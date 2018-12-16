@@ -13,7 +13,6 @@ import dk.nodes.template.inititializers.TimberInitializer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.rx2.asCoroutineDispatcher
 
 @Module
 class AppModule {
@@ -38,9 +37,9 @@ class AppModule {
 
     @AppScope
     @Provides
-    fun provideCoroutineDispatchers(schedulers: AppRxSchedulers) = AppCoroutineDispatchers(
+    fun provideCoroutineDispatchers() = AppCoroutineDispatchers(
         io = Dispatchers.IO,
-        computation = schedulers.computation.asCoroutineDispatcher(),
+        computation = Dispatchers.Default,
         main = Dispatchers.Main
     )
 }
