@@ -1,31 +1,24 @@
 package dk.nodes.template.domain.interactors
 
-import dk.nodes.arch.domain.executor.Executor
-import dk.nodes.arch.domain.interactor.BaseInteractor
+import dk.nodes.arch.domain.interactor.Result
+import dk.nodes.template.domain.models.Post
 import dk.nodes.template.domain.repositories.PostRepository
 import dk.nodes.template.domain.repositories.RepositoryException
+import kotlinx.coroutines.CoroutineDispatcher
 
 class GetPostsInteractorImpl(
-    executor: Executor,
-    private val postRepository: PostRepository
-) : BaseInteractor(executor), GetPostsInteractor {
-    override var output: GetPostsInteractor.Output? = null
-    override var input: GetPostsInteractor.Input? = null
-
-    override fun execute() {
-        // we don't use input in this example but we could:
-        input?.let {
-            // do something with unwrapped input
-        }
+    private val postRepository: PostRepository,
+    override val dispatcher: CoroutineDispatcher
+) : GetPostsInteractor {
+    override suspend fun invoke(
+        executeParams: GetPostsInteractor.Input,
+        onResult: (Result<List<Post>>) -> Unit
+    ) {
         try {
             val posts = postRepository.getPosts(true)
-            runOnUIThread {
-                output?.onPostsLoaded(posts)
-            }
+            onResult.invoke(Result.Success(posts))
         } catch (e: RepositoryException) {
-            runOnUIThread {
-                output?.onError(e.message ?: "Unknown error")
-            }
+            onResult.invoke(Result.Failure(e))
         }
     }
 }

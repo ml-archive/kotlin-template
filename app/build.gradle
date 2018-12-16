@@ -104,7 +104,6 @@ dependencies {
         espresso_core_version = '3.1.0',
         mockito_version = '2.7.22',
         nodes_nstack_kotlin_version = '2.1.4',
-        nodes_arch_version = '2.1.9',
         retrofit_version = "2.3.0",
         okhttp_version = "3.9.0",
         store_version = "3.0.0-beta",
@@ -119,8 +118,8 @@ dependencies {
         exclude group: "com.android.support", module: "support-annotations"
     })
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:${versions.kotlin}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
 
@@ -145,7 +144,7 @@ dependencies {
     implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
     implementation "dk.nodes.nstack:nstack-kotlin:$nodes_nstack_kotlin_version"
-    implementation "dk.nodes.arch:base:$nodes_arch_version"
+    implementation project(":arch")
 
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
 

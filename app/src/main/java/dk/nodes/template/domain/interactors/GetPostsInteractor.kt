@@ -1,16 +1,8 @@
 package dk.nodes.template.domain.interactors
 
-import dk.nodes.arch.domain.interactor.Interactor
+import dk.nodes.arch.domain.interactor.ResultInteractor
 import dk.nodes.template.domain.models.Post
 
-interface GetPostsInteractor : Interactor {
-    var input: Input?
-    var output: Output?
-
+interface GetPostsInteractor : ResultInteractor<GetPostsInteractor.Input, List<Post>> {
     data class Input(val i: Int)
-
-    interface Output {
-        fun onPostsLoaded(posts: List<Post>)
-        fun onError(msg: String)
-    }
 }
