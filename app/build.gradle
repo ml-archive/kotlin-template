@@ -110,7 +110,8 @@ dependencies {
         store_version = "3.0.0-beta",
         rx_android_version = '2.1.0',
         rx_java_version = "2.2.4",
-        rx_kolin_version = "2.2.0"
+        rx_kolin_version = "2.2.0",
+        ktx_version = "1.0.0-alpha1"
 
     fileTree(dir: "libs", include: ["*.jar"])
     androidTestImplementation("androidx.test.espresso:espresso-core:$espresso_core_version", {
@@ -175,5 +176,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
-    kapt 'androidx.lifecycle:lifecycle-compiler:2.0.0'
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    implementation "androidx.core:core-ktx:$ktx_version"
 }
