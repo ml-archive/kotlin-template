@@ -47,13 +47,13 @@ Example:
 1. User clicks a button that loads a list of posts in a view.
 3. OnClickListener executes a Interactor/UseCase asynchronously in the business logic layer.
 4. The Interactor runs in the background accessing a post repository which fetches a list of posts
-5. Presenter gets notified with the loaded posts or a message in case of error trough a callback
-6. Presenter instructs the view (if attached) to update itself with the new data, or display an error to the user
+5. ViewModel gets notified with the loaded posts or a message in case of error trough a kotlin.Result callback
+6. ViewModel updates a MutableLiveData(Facade pattern) with the new data, or display an error to the user using the same MutableLiveData pattern
 
 ## Patterns in use:
 - MVVM
 - Repository
-- Interactor (implemented with a pluggable executor)
+- Interactor (implemented with a pluggable dispatcher)
 - Dependency Injection (and thus factory)
 - Inward dependency rule (all dependencies must point inwards)
 
