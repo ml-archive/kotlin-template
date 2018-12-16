@@ -1,10 +1,10 @@
 package dk.nodes.template.util
 
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import android.view.View
-import android.view.ViewGroup
 
 // makes viewgroups iterable (you can for the each out of them!:)
 
@@ -64,5 +64,14 @@ inline fun <T> LiveData<T>.observeNonNull(
 ) {
     this.observe(lifecycleOwner, Observer {
         it?.let(observer)
+    })
+}
+
+inline fun <E, T: Event<E>> LiveData<T>.observeEvent(
+    lifecycleOwner: LifecycleOwner,
+    crossinline observer: (E) -> Unit
+) {
+    this.observe(lifecycleOwner, EventObserver {
+        observer(it)
     })
 }
