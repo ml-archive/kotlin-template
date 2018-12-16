@@ -1,6 +1,5 @@
 package dk.nodes.template.domain.interactors
 
-import dk.nodes.arch.domain.interactor.Result
 import dk.nodes.arch.util.AppCoroutineDispatchers
 import dk.nodes.template.domain.models.Post
 import dk.nodes.template.domain.repositories.PostRepository
@@ -19,9 +18,9 @@ class GetPostsInteractorImpl @Inject constructor(
     ) {
         try {
             val posts = postRepository.getPosts(true)
-            onResult.invoke(Result.Success(posts))
+            onResult.invoke(Result.success(posts))
         } catch (e: Exception) {
-            onResult.invoke(Result.Failure(e))
+            onResult.invoke(Result.failure(e))
         }
     }
 }
