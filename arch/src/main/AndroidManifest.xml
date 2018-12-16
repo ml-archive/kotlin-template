@@ -1,5 +1,4 @@
-<manifest package="dk.nodes.arch"
-          xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="dk.nodes.arch">
 
     <!--
     <application

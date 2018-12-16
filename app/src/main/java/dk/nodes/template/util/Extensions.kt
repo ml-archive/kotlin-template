@@ -67,7 +67,7 @@ inline fun <T> LiveData<T>.observeNonNull(
     })
 }
 
-inline fun <E, T: Event<E>> LiveData<T>.observeEvent(
+inline fun <E, T : Event<E>> LiveData<T>.observeEvent(
     lifecycleOwner: LifecycleOwner,
     crossinline observer: (E) -> Unit
 ) {

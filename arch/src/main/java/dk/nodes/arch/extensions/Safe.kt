@@ -16,7 +16,11 @@ fun <T : Any> safeCall(call: () -> T, errorMessage: String, onResult: (Result<T>
     }
 }
 
-suspend fun <T : Any> safeSuspendCall(call: suspend () -> T, errorMessage: String, onResult: (Result<T>) -> Unit) {
+suspend fun <T : Any> safeSuspendCall(
+    call: suspend () -> T,
+    errorMessage: String,
+    onResult: (Result<T>) -> Unit
+) {
     try {
         val value = call()
         onResult.invoke(Result.success(value))
