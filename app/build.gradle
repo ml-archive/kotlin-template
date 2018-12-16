@@ -111,7 +111,8 @@ dependencies {
         rx_android_version = '2.1.0',
         rx_java_version = "2.2.4",
         rx_kolin_version = "2.2.0",
-        ktx_version = "1.0.0-alpha1"
+        ktx_version = "1.0.1",
+        rx_lint_version = '1.7.0'
 
     fileTree(dir: "libs", include: ["*.jar"])
     androidTestImplementation("androidx.test.espresso:espresso-core:$espresso_core_version", {
@@ -178,4 +179,5 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
     implementation "androidx.core:core-ktx:$ktx_version"
+    implementation "nl.littlerobots.rxlint:rxlint:$rx_lint_version"
 }
