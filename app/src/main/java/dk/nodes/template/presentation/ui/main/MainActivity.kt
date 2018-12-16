@@ -12,6 +12,7 @@ import dk.nodes.template.R
 import dk.nodes.template.domain.models.Post
 import dk.nodes.template.domain.models.Translation
 import dk.nodes.template.presentation.base.BaseActivity
+import dk.nodes.template.util.observeEvent
 import dk.nodes.template.util.observeNonNull
 import net.hockeyapp.android.CrashManager
 import net.hockeyapp.android.CrashManagerListener
@@ -28,7 +29,7 @@ class MainActivity : BaseActivity() {
 //        setupNstack()
 //        setupHockey()
         viewModel = bindViewModel()
-        viewModel.errorLiveData.observeNonNull(this, ::showError)
+        viewModel.errorLiveData.observeEvent(this, ::showError)
         viewModel.postsLiveData.observeNonNull(this, ::showPosts)
     }
 
