@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
-import android.util.Log
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
@@ -76,7 +75,7 @@ class MainActivity : BaseActivity() {
             }
         }
         NStack.appOpen { success ->
-            Log.e("debug", "appopen success = $success")
+            Timber.e( "appopen success = $success")
         }
     }
 
