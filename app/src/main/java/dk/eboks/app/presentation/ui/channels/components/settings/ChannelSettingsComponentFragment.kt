@@ -18,6 +18,7 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
 import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
 import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.presentation.ui.channels.screens.content.storebox.StoreboxAddCardActivity
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.setVisible
@@ -34,6 +35,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
     private val adapter = CreditCardAdapter()
     private var isStorebox = false
+    private var isEkey = false
     private var didShowCardView = false
 
     override fun onCreateView(
@@ -53,6 +55,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
         arguments?.getCharSequence("arguments")?.let {
             isStorebox = (arguments.getCharSequence("arguments") == "storebox")
+            isEkey = (arguments.getCharSequence("arguments") == "ekey")
         }
 
         arguments?.getSerializable(Channel::class.java.simpleName)?.let { channel->
@@ -204,6 +207,9 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     override fun closeView()
     {
         activity.finish()
+        if(isEkey) {
+            EkeyContentActivity.shouldFinish = true
+        }
     }
 
     inner class CreditCardAdapter : RecyclerView.Adapter<CreditCardAdapter.CreditCardViewHolder>() {

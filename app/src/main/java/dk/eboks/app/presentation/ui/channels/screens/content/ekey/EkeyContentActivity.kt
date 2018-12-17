@@ -99,4 +99,16 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
     fun setPin(pin: String) {
         presenter.pin = pin
     }
+
+    override fun onResume() {
+        super.onResume()
+        if(shouldFinish) {
+            shouldFinish = false
+            finish()
+        }
+    }
+
+    companion object {
+        var shouldFinish: Boolean = false
+    }
 }
