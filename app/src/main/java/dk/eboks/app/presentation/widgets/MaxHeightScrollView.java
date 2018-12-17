@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 
 import dk.eboks.app.R;
+import timber.log.Timber;
 
 public class MaxHeightScrollView extends NestedScrollView {
 
@@ -59,7 +60,8 @@ public class MaxHeightScrollView extends NestedScrollView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        heightMeasureSpec = MeasureSpec.makeMeasureSpec(maxHeight, MeasureSpec.AT_MOST);
+        int mHeight = Math.min(MeasureSpec.getSize(heightMeasureSpec), maxHeight);
+        heightMeasureSpec = MeasureSpec.makeMeasureSpec(mHeight, MeasureSpec.AT_MOST);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 }
