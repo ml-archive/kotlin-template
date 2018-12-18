@@ -30,37 +30,35 @@ class SignButtonComponentFragment : BaseFragment(), SignButtonComponentContract.
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        arguments?.getSerializable(Message::class.java.simpleName)?.let { msg ->
-            msg as Message
+        arguments?.getParcelable<Message>(Message::class.java.simpleName)?.let { msg ->
             //msg.sign?.status?.type = 2
-            configureButton(msg as Message)
+            configureButton(msg)
             signBtn.setOnClickListener {
                 presenter.sign(msg)
             }
         }
     }
 
-    private fun configureButton(msg : Message)
-    {
+    private fun configureButton(msg : Message) {
         signBtn.isEnabled = false
         msg.sign?.let { sign->
-            when(sign.status?.type)
+            when(sign.status.type)
             {
                 APIConstants.MSG_SIGN_WEB_ONLY -> {
-                    signBtn.text = sign.status?.title
+                    signBtn.text = sign.status.title
                 }
                 APIConstants.MSG_SIGN_AVAILABLE -> {
                     signBtn.isEnabled = true
-                    signBtn.text = sign.status?.title
+                    signBtn.text = sign.status.title
                 }
                 APIConstants.MSG_SIGN_SIGNED -> {
-                    signBtn.text = sign.status?.title
+                    signBtn.text = sign.status.title
                 }
                 APIConstants.MSG_SIGN_OTHER -> {
-                    signBtn.text = sign.status?.title
+                    signBtn.text = sign.status.title
                 }
                 else -> {
-                    signBtn.text = sign.status?.title
+                    signBtn.text = sign.status.title
                 }
             }
         }

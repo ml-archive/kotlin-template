@@ -12,6 +12,5 @@ interface SendersOverviewContract {
         fun showCollections(collections : List<CollectionContainer>)
     }
 
-    interface Presenter : BasePresenter<View> {
-    }
+    interface Presenter : BasePresenter<View>
 }

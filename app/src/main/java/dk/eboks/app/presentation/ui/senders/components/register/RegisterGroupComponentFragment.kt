@@ -51,7 +51,7 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        val group = arguments.getSerializable(SenderGroup::class.simpleName) as SenderGroup?
+        val group = arguments.getParcelable<SenderGroup>(SenderGroup::class.simpleName)
         val senderId = arguments.getLong(Sender::class.simpleName, 0)
 
         if (group != null) {

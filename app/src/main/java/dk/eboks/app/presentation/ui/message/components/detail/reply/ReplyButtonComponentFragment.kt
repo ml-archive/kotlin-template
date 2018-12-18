@@ -29,9 +29,9 @@ class ReplyButtonComponentFragment : BaseFragment(), ReplyButtonComponentContrac
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        arguments?.getSerializable(Message::class.java.simpleName)?.let { msg ->
+        arguments?.getParcelable<Message>(Message::class.java.simpleName)?.let { msg ->
             replyBtn.setOnClickListener {
-                presenter.reply(msg as Message)
+                presenter.reply(msg)
             }
         }
     }

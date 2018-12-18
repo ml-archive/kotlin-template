@@ -41,9 +41,7 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
             getBaseActivity()?.onBackPressed()
         }
 
-        arguments?.getSerializable(("channel"))?.let { channel ->
-            presenter.setup(channel as Channel)
-        }
+        arguments?.getParcelable<Channel>(("channel"))?.let(presenter::setup)
     }
 
 

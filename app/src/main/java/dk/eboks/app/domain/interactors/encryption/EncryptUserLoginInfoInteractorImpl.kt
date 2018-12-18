@@ -38,7 +38,7 @@ class EncryptUserLoginInfoInteractorImpl(
                     Translation.androidfingerprint.errorMessage,
                     true,
                     true
-            );
+            )
             runOnUIThread {
                 output?.onError(viewError)
             }

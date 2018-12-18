@@ -48,8 +48,7 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
 
         sendersListLl.removeAllViews()
 
-        val senders = arguments.getSerializable(CollectionContainer::class.simpleName) as CollectionContainer?
-        senders?.let {
+        arguments.getParcelable<CollectionContainer>(CollectionContainer::class.simpleName)?.let {
             sendersTitleTv.text = it.description?.title
 
             it.senders?.forEach {

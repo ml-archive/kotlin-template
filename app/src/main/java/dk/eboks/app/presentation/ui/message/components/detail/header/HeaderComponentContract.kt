@@ -12,6 +12,5 @@ interface HeaderComponentContract {
         fun updateView(message : Message)
     }
 
-    interface Presenter : BasePresenter<HeaderComponentContract.View> {
-    }
+    interface Presenter : BasePresenter<HeaderComponentContract.View>
 }

@@ -17,24 +17,19 @@ interface SignupComponentContract {
         fun showSignupMailError(error: ViewError)
     }
 
-    interface PasswordView : SignupView {
-
-    }
+    interface PasswordView : SignupView
 
     interface MMView : SignupView {
         fun ssnExists(ssnExisits: Boolean)
     }
 
-    interface VerificationView : SignupView {
-
-    }
+    interface VerificationView : SignupView
 
     interface TermsView : SignupView {
         fun showSignupCompleted()
     }
 
-    interface CompletedView : SignupView {
-    }
+    interface CompletedView : SignupView
 
     interface Presenter : BasePresenter<SignupView> {
         fun setPassword(password: String)

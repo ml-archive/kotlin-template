@@ -31,7 +31,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        val sender = intent.getSerializableExtra(Sender::class.simpleName) as Sender?
+        val sender = intent.getParcelableExtra<Sender>(Sender::class.simpleName)
         if (sender == null) {
             finish()
             return
@@ -41,7 +41,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
 
         // pass your knowledge on to your siblings, so they in turn can use it and pass it on to their siblings...
         val b = Bundle()
-        b.putSerializable(Sender::class.simpleName, sender)
+        b.putParcelable(Sender::class.simpleName, sender)
 
         senderGroupsListComponentF.arguments = b
         senderDetailInfoF.arguments = b
@@ -88,7 +88,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
     override fun showSender(sender: Sender) {
         // pass the knowledge on to your siblings, so they in turn can use it
         val b = Bundle()
-        b.putSerializable(Sender::class.simpleName, sender)
+        b.putParcelable(Sender::class.simpleName, sender)
 
         senderGroupsListComponentF.arguments = b
         senderDetailInfoF.arguments = b

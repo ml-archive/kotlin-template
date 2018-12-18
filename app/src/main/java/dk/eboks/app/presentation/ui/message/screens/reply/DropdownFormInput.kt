@@ -60,7 +60,7 @@ class DropdownFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         // Apply the adapter to the spinner
         dropdownSpr?.adapter = adapter
-        dropdownSpr?.setSelected(false)  // otherwise listener will be called on initialization
+        dropdownSpr?.isSelected = false  // otherwise listener will be called on initialization
         dropdownSpr?.setSelection(preselect,true)  // otherwise listener will be called on initialization
         dropdownSpr?.onItemSelectedListener = this
 

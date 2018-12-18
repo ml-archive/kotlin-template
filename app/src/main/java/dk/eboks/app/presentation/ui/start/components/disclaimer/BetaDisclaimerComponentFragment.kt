@@ -26,9 +26,4 @@ class BetaDisclaimerComponentFragment : BaseFragment() {
                 (activity as StartActivity).continueFromDisclaimer()
         }
     }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
 }

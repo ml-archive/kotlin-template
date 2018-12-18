@@ -219,7 +219,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
     {
         uploadPctProgressTv?.let {
             val value = pct * 100.0
-            it.setText("${value.roundToInt()}%")
+            it.text = "${value.roundToInt()}%"
         }
         circularProgress?.let {
             val value = pct * 100.0

@@ -11,6 +11,5 @@ interface FolderInfoComponentContract {
         fun updateView(name : String)
     }
 
-    interface Presenter : BasePresenter<FolderInfoComponentContract.View> {
-    }
+    interface Presenter : BasePresenter<FolderInfoComponentContract.View>
 }

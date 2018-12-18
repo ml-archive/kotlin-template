@@ -14,6 +14,5 @@ interface RegistrationsContract {
         fun showRegistrations(registrations: Registrations)
     }
 
-    interface Presenter : BasePresenter<View> {
-    }
+    interface Presenter : BasePresenter<View>
 }

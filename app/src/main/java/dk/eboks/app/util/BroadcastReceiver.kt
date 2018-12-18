@@ -60,7 +60,7 @@ class BroadcastReceiver {
         val TAG = BroadcastReceiver::class.java.simpleName
 
         fun broadcast(c: Context, intent: Intent) {
-            Timber.e("Broadcasting action " + intent.getAction())
+            Timber.e("Broadcasting action " + intent.action)
             LocalBroadcastManager.getInstance(c).sendBroadcast(intent)
         }
     }

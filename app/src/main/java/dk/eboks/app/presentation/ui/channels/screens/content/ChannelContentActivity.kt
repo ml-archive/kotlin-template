@@ -22,28 +22,33 @@ class ChannelContentActivity : BaseActivity(), ChannelContentContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         val opendirectly = intent.getBooleanExtra("openDirectly", false)
-        intent.getSerializableExtra(Channel::class.java.simpleName)?.let { channel ->
-            if(!opendirectly) {
+        intent.getParcelableExtra<Channel>(Channel::class.java.simpleName)?.let { channel ->
+            if (!opendirectly) {
                 supportFragmentManager.beginTransaction().add(
-                        R.id.content,
-                        ChannelOpeningComponentFragment().putArg(Channel::class.java.simpleName, channel),
-                        ChannelOpeningComponentFragment::class.java.simpleName).commit()
-            }
-            else
-            {
-                presenter.open(channel as Channel)
+                    R.id.content,
+                    ChannelOpeningComponentFragment().putArg(
+                        Channel::class.java.simpleName,
+                        channel
+                    ),
+                    ChannelOpeningComponentFragment::class.java.simpleName
+                ).commit()
+            } else {
+                presenter.open(channel)
             }
         }
-
     }
 
-    override fun openChannelContent(channel : Channel) {
-        val fragment = ChannelContentComponentFragment().putArg(Channel::class.simpleName!!, channel)
+    override fun openChannelContent(channel: Channel) {
+        val fragment =
+            ChannelContentComponentFragment().putArg(Channel::class.simpleName!!, channel)
         addFragmentOnTop(R.id.content, fragment, false)
     }
 
-    override fun openStoreBoxContent(channel : Channel) {
-        val fragment = ChannelContentStoreboxComponentFragment().putArg(Channel::class.java.simpleName, channel) as BaseFragment
+    override fun openStoreBoxContent(channel: Channel) {
+        val fragment = ChannelContentStoreboxComponentFragment().putArg(
+            Channel::class.java.simpleName,
+            channel
+        ) as BaseFragment
         addFragmentOnTop(R.id.content, fragment, false)
     }
 
@@ -51,5 +56,4 @@ class ChannelContentActivity : BaseActivity(), ChannelContentContract.View {
         startActivity(Intent(this, EkeyContentActivity::class.java))
         finish()
     }
-
 }

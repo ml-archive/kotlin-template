@@ -61,8 +61,8 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
             setLoginProvider(loginProviderId)
         }
 
-        arguments?.getSerializable(Message::class.java.simpleName)?.let {
-            protectedMessage = it as Message
+        arguments?.getParcelable<Message>(Message::class.java.simpleName)?.let {
+            protectedMessage = it
         }
     }
 

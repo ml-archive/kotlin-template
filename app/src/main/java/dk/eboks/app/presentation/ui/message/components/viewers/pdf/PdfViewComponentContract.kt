@@ -12,6 +12,5 @@ interface PdfViewComponentContract {
         fun updateView(folder : Folder)
     }
 
-    interface Presenter : BasePresenter<View> {
-    }
+    interface Presenter : BasePresenter<View>
 }

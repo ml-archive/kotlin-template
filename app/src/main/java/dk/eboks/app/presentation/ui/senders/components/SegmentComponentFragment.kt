@@ -28,9 +28,7 @@ class SegmentComponentFragment : BaseFragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val container = arguments.getSerializable(CollectionContainer::class.simpleName) as CollectionContainer?
-        container?.let{
+        arguments.getParcelable<CollectionContainer>(CollectionContainer::class.simpleName)?.let{
             segmentTitleTv.text = it.description?.text?:""
             it.segment?.let { seg ->
                 Glide.with(context)

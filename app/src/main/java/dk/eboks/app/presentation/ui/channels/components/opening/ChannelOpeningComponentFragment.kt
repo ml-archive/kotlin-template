@@ -59,9 +59,8 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        arguments?.getSerializable(Channel::class.java.simpleName)?.let { channel ->
-            presenter.setup((channel as Channel).id)
-        }.guard {
+        arguments?.getParcelable<Channel>(Channel::class.java.simpleName)?.id?.let(presenter::setup)
+            .guard {
             //activity.onBackPressed()
         }
     }
@@ -111,7 +110,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         contentBottom.addView(v)
         val button = v.findViewById<Button>(R.id.openBtn)
         button?.text = Translation.channels.openChannel
-        val colorTint = Color.parseColor(channel.background?.rgb)
+        val colorTint = Color.parseColor(channel.background.rgb)
         button.backgroundTintList = ColorStateList.valueOf(colorTint)
         button?.setOnClickListener {
             presenter.open(channel)
@@ -229,7 +228,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         Timber.i("showRequirementsDrawer ${channel.name}")
         channel.requirements?.let {
             val data = Bundle()
-            data.putSerializable("channel", channel)
+            data.putParcelable("channel", channel)
             getBaseActivity()?.openComponentDrawer(
                     ChannelRequirementsComponentFragment::class.java,
                     data

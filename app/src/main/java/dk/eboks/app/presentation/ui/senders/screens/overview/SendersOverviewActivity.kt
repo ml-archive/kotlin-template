@@ -63,15 +63,15 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
             var f : BaseFragment? = null
             when (it.type) {
                 "segment" -> {
-                    b.putSerializable(CollectionContainer::class.simpleName, it)
+                    b.putParcelable(CollectionContainer::class.simpleName, it)
                     f = SegmentComponentFragment()
                 }
                 "sender" -> {
-                    b.putSerializable(Sender::class.simpleName, it.sender)
+                    b.putParcelable(Sender::class.simpleName, it.sender)
                     f = SenderComponentFragment()
                 }
                 "senders" -> {
-                    b.putSerializable(CollectionContainer::class.simpleName, it)
+                    b.putParcelable(CollectionContainer::class.simpleName, it)
                     f = SenderListComponentFragment()
                 }
             }

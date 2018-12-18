@@ -43,7 +43,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
         super.onCreate(savedInstanceState)
         setContentView(dk.eboks.app.R.layout.activity_senders_browse_category)
         component.inject(this)
-        val cat = intent.getSerializableExtra(SenderCategory::class.simpleName) as SenderCategory?
+        val cat = intent.getParcelableExtra<SenderCategory>(SenderCategory::class.simpleName)
         if (cat == null) {
             // lets close the view after we informed the user of the error, since we can't initialize it proper without the arguments anyway I take it? :)
             showErrorDialog(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true))

@@ -42,9 +42,7 @@ class SenderComponentFragment : BaseFragment(), RegistrationContract.View {
 
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-
-        val sender = arguments.getSerializable(Sender::class.simpleName) as Sender?
-        sender?.let {
+        arguments.getParcelable<Sender>(Sender::class.simpleName)?.let { sender ->
             Glide.with(context)
                     .load(sender.logo?.url)
                     .apply(RequestOptions()
@@ -52,16 +50,16 @@ class SenderComponentFragment : BaseFragment(), RegistrationContract.View {
                             .placeholder(R.drawable.icon_64_senders_private)
                     )
                     .into(senderIv)
-            senderNameTv.text = it.name
+            senderNameTv.text = sender.name
             senderCv.setOnClickListener {
                 val i = Intent(context, SenderDetailActivity::class.java)
                 i.putExtra(Sender::class.simpleName, sender)
                 startActivity(i)
             }
 
-            setButtonText(senderRegisterBtn, it)
+            setButtonText(senderRegisterBtn, sender)
             senderRegisterBtn.setOnClickListener { v ->
-                if (it.registered != 0) {
+                if (sender.registered != 0) {
                     AlertDialog.Builder(context)
                             .setTitle(Translation.senders.unregisterAlertTitle)
                             .setMessage(Translation.senders.unregisterAlertDescription)
@@ -69,9 +67,9 @@ class SenderComponentFragment : BaseFragment(), RegistrationContract.View {
                                 dialog.cancel()
                             }
                             .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                presenter.unregisterSender(it)
-                                it.registered = 0
-                                setButtonText(senderRegisterBtn, it)
+                                presenter.unregisterSender(sender)
+                                sender.registered = 0
+                                setButtonText(senderRegisterBtn, sender)
                                 dialog.dismiss()
                             }
                             .show()
@@ -83,9 +81,9 @@ class SenderComponentFragment : BaseFragment(), RegistrationContract.View {
                                 dialog.cancel()
                             }
                             .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                presenter.registerSender(it)
-                                it.registered = 1
-                                setButtonText(senderRegisterBtn, it)
+                                presenter.registerSender(sender)
+                                sender.registered = 1
+                                setButtonText(senderRegisterBtn, sender)
                                 dialog.dismiss()
                             }
                             .show()

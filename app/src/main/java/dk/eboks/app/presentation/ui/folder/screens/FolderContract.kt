@@ -7,9 +7,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
  * Created by bison on 07-11-2017.
  */
 interface FolderContract {
-    interface View : BaseView {
-    }
+    interface View : BaseView
 
-    interface Presenter : BasePresenter<View> {
-    }
+    interface Presenter : BasePresenter<View>
 }

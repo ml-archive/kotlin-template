@@ -95,10 +95,10 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
                         .putExtra(Channel::class.java.simpleName, currentChannel)
                         .start()
             }
-            headerTv.setText(currentChannel.name)
+            headerTv.text = currentChannel.name
 
             logoIv?.let {
-                currentChannel?.logo?.let { logo ->
+                currentChannel.logo?.let { logo ->
                     Glide.with(context).load(logo.url).into(it)
                 }
             }

@@ -50,11 +50,6 @@ abstract class BaseFragment : Fragment(), BaseView {
     protected var showEmptyState : Boolean = false
     */
 
-    override fun onStart() {
-        super.onStart()
-        //if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onStart")
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
@@ -84,23 +79,6 @@ abstract class BaseFragment : Fragment(), BaseView {
         })
     }
     */
-
-    override fun onPause() {
-        super.onPause()
-        //sensorManager?.unregisterListener(shakeDetector)
-        //if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onPause")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        //sensorManager?.registerListener(shakeDetector, acceleroMeter, SensorManager.SENSOR_DELAY_UI)
-        //if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onResume")
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        //if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onViewStateRestored")
-    }
 
     /*
     override fun onAttach(context: Context?) {

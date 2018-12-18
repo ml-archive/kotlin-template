@@ -52,8 +52,8 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             }, 200)
         }
 
-        arguments?.getSerializable(Channel::class.simpleName)?.let {
-            presenter.setup(it as Channel)
+        arguments?.getParcelable<Channel>(Channel::class.simpleName)?.let {
+            presenter.setup(it)
             setupTopBar()
         }
 
@@ -103,7 +103,7 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
         menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuItem.setOnMenuItemClickListener { item: MenuItem ->
             val args = Bundle()
-            args.putSerializable(Channel::class.java.simpleName, presenter.currentChannel)
+            args.putParcelable(Channel::class.java.simpleName, presenter.currentChannel)
             getBaseActivity()?.openComponentDrawer(ChannelSettingsComponentFragment::class.java, args)
             true
         }

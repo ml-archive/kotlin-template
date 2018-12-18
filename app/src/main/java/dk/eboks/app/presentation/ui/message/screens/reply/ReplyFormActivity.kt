@@ -34,11 +34,10 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
         setupTopBar(Translation.reply.title)
 
         // deserialize or message and hand it to the presenter
-        intent?.extras?.getSerializable(Message::class.java.simpleName)?.let { msg ->
-            presenter.setup(msg as Message)
-        }.guard {
-            finish()    // finish if we didn't get a message
-        }
+        intent?.extras?.getParcelable<Message>(Message::class.java.simpleName)?.let(presenter::setup)
+            .guard {
+                finish()    // finish if we didn't get a message
+            }
 
         submitBtn.setOnClickListener {
             presenter.submit()

@@ -79,7 +79,7 @@ class MessageActivity : BaseActivity(), MessageContract.View {
     {
         replyButtonComponentFragment = ReplyButtonComponentFragment()
         val args = Bundle()
-        args.putSerializable(Message::class.java.simpleName, message)
+        args.putParcelable(Message::class.java.simpleName, message)
         replyButtonComponentFragment?.let{
             it.arguments = args
             supportFragmentManager.beginTransaction().add(R.id.bodyContainerLl, it, ReplyButtonComponentFragment::class.java.simpleName).commit()

@@ -31,7 +31,7 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        val segment = intent.getSerializableExtra(Segment::class.simpleName) as Segment?
+        val segment = intent.getParcelableExtra<Segment>(Segment::class.simpleName)
         if (segment == null) {
             finish()
             return
@@ -80,7 +80,7 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
 
         // pass the knowledge on...
         val b = Bundle()
-        b.putSerializable(Segment::class.simpleName, segment)
+        b.putParcelable(Segment::class.simpleName, segment)
 
         val frag = CategoriesComponentFragment()
         frag.arguments = b

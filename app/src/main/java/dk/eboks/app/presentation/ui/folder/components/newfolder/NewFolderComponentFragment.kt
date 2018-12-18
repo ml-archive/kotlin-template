@@ -50,7 +50,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         arguments?.let { args ->
             if (args.containsKey("editFolder")) {
                 mode = FolderDrawerMode.EDIT
-                editFolder = args.getSerializable("editFolder") as Folder
+                editFolder = args.getParcelable("editFolder")
                 parentFolder = editFolder?.parentFolder
             }
             if (args.containsKey("disableFolderSelection")) {
@@ -133,7 +133,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                 FolderActivity.REQUEST_ID -> {
                     when (mode) {
                         FolderDrawerMode.NEW -> {
-                            parentFolder = data?.getSerializableExtra("res") as Folder
+                            parentFolder = data?.getParcelableExtra("res")
                             if (parentFolder?.type == FolderType.INBOX) {
                                 folderRootTv.text = rootFolderName
                             } else {
@@ -141,7 +141,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
                             }
                         }
                         FolderDrawerMode.EDIT -> {
-                            parentFolder = data?.getSerializableExtra("res") as Folder
+                            parentFolder = data?.getParcelableExtra("res")
                             folderRootTv.text = parentFolder?.name
                         }
                     }

@@ -126,15 +126,11 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
         val test9 = String("ö".toByteArray(), charset)     // shown as Ã¶
         val test10 = String("Ö".toByteArray(), charset)    // shown as Ã
 
-        if (latin1String.contains(test1) || latin1String.contains(test2) ||
-                latin1String.contains(test3) || latin1String.contains(test4) ||
-                latin1String.contains(test5) || latin1String.contains(test6) ||
-                latin1String.contains(test7) || latin1String.contains(test8) ||
-                latin1String.contains(test9) || latin1String.contains(test10)) {
-            return true
-        }
-        else
-            return false
+        return latin1String.contains(test1) || latin1String.contains(test2) ||
+            latin1String.contains(test3) || latin1String.contains(test4) ||
+            latin1String.contains(test5) || latin1String.contains(test6) ||
+            latin1String.contains(test7) || latin1String.contains(test8) ||
+            latin1String.contains(test9) || latin1String.contains(test10)
     }
 
     override fun print() {

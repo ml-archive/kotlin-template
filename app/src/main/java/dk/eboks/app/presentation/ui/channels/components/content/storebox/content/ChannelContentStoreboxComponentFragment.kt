@@ -57,15 +57,15 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         setup()
         setupTopbar()
 
-        arguments?.getSerializable(Channel::class.java.simpleName)?.let {
-            channel = it as Channel
+        arguments?.getParcelable<Channel>(Channel::class.java.simpleName)?.let {
+            channel = it
         }
 
         addCreditCardsBtn.setOnClickListener {
             val arguments = Bundle()
             arguments.putCharSequence("arguments", "storebox")
             arguments.putBoolean("openAddCreditCards", true)
-            arguments.putSerializable(Channel::class.java.simpleName, channel)
+            arguments.putParcelable(Channel::class.java.simpleName, channel)
             getBaseActivity()?.openComponentDrawer(
                     ChannelSettingsComponentFragment::class.java,
                     arguments
@@ -89,7 +89,7 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
             val arguments = Bundle()
             arguments.putCharSequence("arguments", "storebox")
-            arguments.putSerializable(Channel::class.java.simpleName, channel)
+            arguments.putParcelable(Channel::class.java.simpleName, channel)
             getBaseActivity()?.openComponentDrawer(
                     ChannelSettingsComponentFragment::class.java,
                     arguments

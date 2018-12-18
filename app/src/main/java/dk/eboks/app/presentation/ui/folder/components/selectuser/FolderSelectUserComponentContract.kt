@@ -12,6 +12,5 @@ interface FolderSelectUserComponentContract {
         fun setUser(user: User?)
     }
 
-    interface Presenter : BasePresenter<View> {
-    }
+    interface Presenter : BasePresenter<View>
 }

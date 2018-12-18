@@ -35,7 +35,7 @@ class SenderDetailInfoFragment : BaseFragment() {
     override fun setArguments(args: Bundle?) {
         super.setArguments(args)
 
-        val sender = arguments.getSerializable(Sender::class.simpleName) as Sender?
+        val sender = arguments.getParcelable<Sender>(Sender::class.simpleName)
 
         sender?.description?.let {
             senderInfoBodyTv.text = it.text

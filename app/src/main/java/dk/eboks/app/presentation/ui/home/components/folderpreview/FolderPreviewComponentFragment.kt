@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.home.components.folderpreview
 
-import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,7 +17,6 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
-import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
 import dk.eboks.app.util.Starter
@@ -50,11 +48,10 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        (arguments?.getSerializable(Folder::class.java.simpleName) as Folder)?.let { folder->
-            presenter.setup(folder)
-        }.guard {
-            showEmptyState(true, false)
-        }
+        arguments?.getParcelable<Folder>(Folder::class.java.simpleName)?.let(presenter::setup)
+            .guard {
+                showEmptyState(true, false)
+            }
     }
 
     override fun onResume() {

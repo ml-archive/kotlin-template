@@ -105,7 +105,7 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            destinationFolder = data?.getSerializableExtra("res") as Folder
+            destinationFolder = data?.getParcelableExtra("res")
             destinationTv.text = destinationFolder?.name ?: ""
         }
     }

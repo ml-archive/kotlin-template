@@ -81,7 +81,7 @@ abstract class BaseWebFragment : BaseFragment() {
         webView.scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
         //webView.loadUrl(loginUrl)
 
-        webView.getSettings().setJavaScriptEnabled(true)
+        webView.settings.javaScriptEnabled = true
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 if(!onOverrideUrlLoading(view, url))

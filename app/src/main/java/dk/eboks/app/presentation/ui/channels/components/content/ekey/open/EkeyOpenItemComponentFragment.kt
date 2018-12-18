@@ -160,13 +160,13 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
                     copyPasswordBtn.setOnClickListener { view ->
                         var clipboard  = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                         var clip = android.content.ClipData.newPlainText("copied password", it.password)
-                        clipboard?.primaryClip = clip
+                        clipboard.primaryClip = clip
                         Toast.makeText(context, (Translation.ekey.copiedToClipboard), Toast.LENGTH_SHORT).show()
                 }
                     copyUsernameBtn.setOnClickListener { view ->
                         var clipboard  = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                         var clip = android.content.ClipData.newPlainText("copied username", it.username)
-                        clipboard?.primaryClip = clip
+                        clipboard.primaryClip = clip
                         Toast.makeText(context, (Translation.ekey.copiedToClipboard), Toast.LENGTH_SHORT).show()
                     }
                 }

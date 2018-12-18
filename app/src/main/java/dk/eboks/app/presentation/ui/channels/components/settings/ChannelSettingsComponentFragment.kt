@@ -58,9 +58,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
             isEkey = (arguments.getCharSequence("arguments") == "ekey")
         }
 
-        arguments?.getSerializable(Channel::class.java.simpleName)?.let { channel->
-            presenter.setup((channel as Channel).id)
-        }
+        arguments?.getParcelable<Channel>(Channel::class.java.simpleName)?.id?.let(presenter::setup)
 
         // should we open an display add a credit card webview immediately?
         arguments?.getBoolean("openAddCreditCards")?.let { open->

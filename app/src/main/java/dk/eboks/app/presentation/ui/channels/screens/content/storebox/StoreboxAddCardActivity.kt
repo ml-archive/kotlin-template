@@ -34,13 +34,10 @@ class StoreboxAddCardActivity : BaseActivity() {
 
     }
 
-    class StoreboxAddCardFragment : BaseWebFragment()
-    {
+    class StoreboxAddCardFragment : BaseWebFragment() {
         override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-            arguments?.getSerializable(Link::class.java.simpleName)?.let { link ->
-                webView.loadUrl((link as Link).url)
-            }
+            arguments?.getParcelable<Link>(Link::class.java.simpleName)?.url?.let(webView::loadUrl)
             setupTopBar()
         }
 

@@ -188,7 +188,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                     holder.openActionTv?.text = Translation.channels.install
                 }
 
-                holder.cardContainerCv?.setClickable(true)
+                holder.cardContainerCv?.isClickable = true
                 holder.cardContainerCv?.setOnTouchListener { v, event ->
                     if(event.action == MotionEvent.ACTION_DOWN) {
                         v.animate()
