@@ -499,6 +499,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     override fun startDeviceActivation() {
 //        getBaseActivity()?.setRootFragment(R.id.containerFl, DeviceActivationComponentFragment())
+        hideKeyboard(this.view)
         getBaseActivity()?.openComponentDrawer(DeviceActivationComponentFragment::class.java)
     }
 

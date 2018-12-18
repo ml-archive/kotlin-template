@@ -163,6 +163,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     }
 
     override fun setCreditCards(cards: MutableList<StoreboxCreditCard>) {
+        Timber.d("CARDS: ${cards.size}")
         showProgress(false)
         adapter.creditCards.clear()
         adapter.creditCards.addAll(cards)
@@ -192,6 +193,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     override fun showAddCardView(link: Link) {
         didShowCardView = true
         activity.Starter().activity(StoreboxAddCardActivity::class.java).putExtra(Link::class.java.simpleName, link).start()
+        closeView()
     }
 
     override fun setOnlyDigitalReceipts(onlyDigital: Boolean) {
