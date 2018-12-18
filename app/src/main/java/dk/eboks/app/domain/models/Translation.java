@@ -31,11 +31,11 @@ public class Translation {
 		public static String noInternetTitle = "Ingen internetforbindelse";
 		public static String noInternetMessage = "e-Boks kr\u00E6ver en forbindelse til internettet for at udf\u00F8re den \u00F8nskede handling.";
 		public static String startupTitle = "Fejl";
-		public static String startupMessage = "__startupMessage";
+		public static String startupMessage = "En fejl opstod da applikationen skulle starte";
 		public static String genericServerTitle = "Fejl";
-		public static String genericServerMessage = "__genericServerMessage";
+		public static String genericServerMessage = "En fejl opstod ved kommunikation med serveren";
 		public static String genericStorageTitle = "Fejl";
-		public static String genericStorageMessage = "__genericStorageMessage";
+		public static String genericStorageMessage = "En fejl opstod ved indl\u00E6sning";
 		public static String genericOOMTitle = "Ikke nok hukommelse";
 		public static String genericOOMMessage = "Der er ikke nok ledige ressourcer p\u00E5 denne enhed til at udf\u00F8re den \u00F8nskede handling. Pr\u00F8v at lukke andre apps for at frig\u00F8re flere ressourcer.";
 		public static String attachmentErrorTitle = "Kunne ikke \u00E5bnes";
@@ -43,7 +43,7 @@ public class Translation {
 		public static String attachmentErrorSaveBtn = "Gem";
 		public static String attachmentErrorNegativeBtn = "Luk";
 		public static String attachmentOpenWith = "\u00C5bn med";
-		public static String emptyField = "__emptyField";
+		public static String emptyField = "Tomt felt";
 		public static String invalidActivationCodeNrOfChars = "Ugyldig aktiveringskode. Skal indeholde [numberOfChars] tegn.";
 		public static String printReceiptErrorMessage = "Kvittering kunne ikke udskrives";
 		public static String forwardReceiptErrorMessage = "Kvittering kunne ikke videresendes";
@@ -62,13 +62,13 @@ public class Translation {
 		public static String expiredTokenTitle = "Session udl\u00F8bet";
 		public static String expiredTokenMessage = "Din session er udl\u00F8bet.\r\nLog venligst p\u00E5 igen.";
 		public static String attachmentOpenErrorText = "Den vedh\u00E6ftede fil kunne ikke \u00E5bnes";
-		public static String printError = "__printError";
+		public static String printError = "Kunne ikke udskrive dokumentet";
 		public static String receiptOpenInErrorTitle = "Fejl";
 		public static String receiptOpenInErrorMessage = "Kvittering kunne ikke \u00E5bnes";
-		public static String eKeyDecryptionFailedTitle = "__eKeyDecryptionFailedTitle";
-		public static String eKeyDecryptionFailedMessage = "__eKeyDecryptionFailedMessage";
-		public static String eKeyEncryptionFailedTitle = "__eKeyEncryptionFailedTitle";
-		public static String eKeyEncryptionFailedMessage = "__eKeyEncryptionFailedMessage";
+		public static String eKeyDecryptionFailedTitle = "Ugyldig pinkode";
+		public static String eKeyDecryptionFailedMessage = "Du har indtastet en ugyldig pinkode.";
+		public static String eKeyEncryptionFailedTitle = "En fejl opstod";
+		public static String eKeyEncryptionFailedMessage = "En fejl opstod da vi skulle \u00E5bne denne service. Pr\u00F8v igen.";
 		public static String wrongIdErrorTitle = "Forkert Nem-ID";
 		public static String wrongIdErrorMessage = "Det ser ud til at det brugte Nem-ID tilh\u00F8rer en anden person.";
 	}
@@ -646,7 +646,7 @@ public class Translation {
 		public static String deleteSwipeBtn = "Slet";
 		public static String fieldIsRequired = "Obligatorisk";
 		public static String addButton = "Tilf\u00F8j";
-		public static String deleteItemDescriptionEKey = "e-Key";
+		public static String deleteItemDescriptionEKey = "e-N\u00F8gle";
 		public static String deleteItemDescriptionNote = "note";
 		public static String deleteItemDescriptionPinCode = "pinkode";
 		public static String deleteItemDescriptionLogin = "legitimationsoplysning";
