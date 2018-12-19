@@ -174,7 +174,7 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
                 currentItem.sender?.logo?.let { logo->
                     //Timber.e("Loading the logo at URL ${logo.getWorkaroundUrl()}")
                     Glide.with(itemView.context)
-                            .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
+                            .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder))
                             .load(logo.getWorkaroundUrl() )
                             .into(imageIv)
 
