@@ -10,7 +10,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
-
+import timber.log.Timber
 
 /**
  * Created by bison on 01/02/18.
@@ -42,7 +42,7 @@ class SaveAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
                 }.guard{ throw(InteractorException("Copying cached file to downloads dir failed"))}
             }
         } catch (e: Throwable) {
-            e.printStackTrace()
+            Timber.e(e)
             runOnUIThread {
                 output?.onSaveAttachmentError(ViewError(title = Translation.error.genericStorageTitle, message = Translation.error.genericStorageMessage))
             }
