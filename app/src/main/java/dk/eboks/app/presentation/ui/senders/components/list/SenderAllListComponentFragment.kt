@@ -2,15 +2,14 @@ package dk.eboks.app.presentation.ui.senders.components.list
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
@@ -20,8 +19,8 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
 import kotlinx.android.synthetic.main.activity_senders_list.*
 import kotlinx.android.synthetic.main.fragment_sender_list.*
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
+import javax.inject.Inject
 
 /**
  * Created by bison on 09-02-2018.
@@ -36,12 +35,12 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
     var searchMode: Boolean = false
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_sender_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_sender_list, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -95,7 +94,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         getBaseActivity()?.mainTb?.setNavigationOnClickListener {
             getBaseActivity()?.mainTb?.navigationIcon = null
-            fragmentManager.popBackStack()
+            fragmentManager?.popBackStack()
         }
 
 
@@ -119,12 +118,16 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
             getBaseActivity()?.mainAb?.visibility = View.VISIBLE
             getBaseActivity()?.mainAllSenderAb?.visibility = View.GONE
             presenter.loadAllSenders()
-            allSendersRv.adapter.notifyDataSetChanged()
+            allSendersRv.adapter?.notifyDataSetChanged()
         }
     }
 
     private fun setupRecyclerView() {
-        allSendersRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        allSendersRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            false
+        )
         allSendersRv.adapter = SendersAdapter()
 
     }
@@ -143,12 +146,12 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         filteredSenders.clear()
         this.senders.addAll(senders)
         filteredSenders.addAll(senders)
-        allSendersRv.adapter.notifyDataSetChanged()
+        allSendersRv.adapter?.notifyDataSetChanged()
     }
 
-    inner class SendersAdapter : RecyclerView.Adapter<SendersAdapter.SenderViewHolder>() {
+    inner class SendersAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<SendersAdapter.SenderViewHolder>() {
 
-        inner class SenderViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
+        inner class SenderViewHolder(val root: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
             val title = root.findViewById<TextView>(R.id.titleTv)
             val unreadCountTv = root.findViewById<TextView>(R.id.unreadCountTv)
             val dividerV = root.findViewById<View>(R.id.dividerV)
@@ -164,7 +167,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
                 title.text = currentItem.name
 
                 currentItem.logo?.url.let {
-                    Glide.with(context)
+                    Glide.with(context ?: return)
                             .setDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder).error(R.drawable.ic_sender_placeholder))
                             .load(it)
                             .into(circleIv)
@@ -219,9 +222,9 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
             return filteredSenders.size
         }
 
-        override fun onBindViewHolder(holder: SenderViewHolder?, position: Int) {
-            var last = (position == filteredSenders.size)
-            holder?.bind(filteredSenders[position], last)
+        override fun onBindViewHolder(holder: SenderViewHolder, position: Int) {
+            val last = (position == filteredSenders.size)
+            holder.bind(filteredSenders[position], last)
         }
     }
 }

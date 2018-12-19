@@ -1,16 +1,14 @@
 package dk.eboks.app.presentation.ui.mail.components.sendercarousel
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import timber.log.Timber
 import javax.inject.Inject
 
 /**

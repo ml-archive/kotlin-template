@@ -4,9 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.View
 import android.webkit.WebView
+import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
@@ -17,9 +17,9 @@ import dk.eboks.app.presentation.base.ViewErrorController
 import dk.eboks.app.presentation.ui.login.components.providers.WebLoginContract
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.include_toolbar.*
 
 /**
  * Created by bison on 09-02-2018.
@@ -27,15 +27,15 @@ import kotlinx.android.synthetic.main.include_toolbar.*
 class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     @Inject
-    lateinit var presenter : BankIdSEComponentPresenter
+    lateinit var presenter: BankIdSEComponentPresenter
 
     var loginUser: User? = null
 
     override val defaultErrorHandler: ViewErrorController by lazy {
-        ViewErrorController(context = context, closeFunction = {activity.finish()} )
+        ViewErrorController(context = context!!, closeFunction = { activity?.finish() })
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -50,53 +50,62 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
         mainTb.setNavigationOnClickListener {
-            if(!closeLoginOnBack) {
+            if (!closeLoginOnBack) {
                 presenter.cancelAndClose()
-            }
-            else {
-                activity.finish()
+            } else {
+                activity?.finish()
             }
         }
     }
 
-    fun openBankId(url : String) : Boolean
-    {
+    fun openBankId(url: String): Boolean {
         val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        val packageManager = activity.packageManager
-        if (i.resolveActivity(packageManager) != null) {
-            startActivity(i)
-            return true
-        } else {
-            Timber.d("No Intent available to handle action")
-            return false
+        activity?.packageManager?.let {
+            return if (i.resolveActivity(it) != null) {
+                startActivity(i)
+                true
+            } else {
+                Timber.d("No Intent available to handle action")
+                false
+            }
         }
+        return false
     }
 
     override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {
         url?.let {
-            if(it.startsWith("bankid://"))
-            {
+            if (it.startsWith("bankid://")) {
                 Timber.e("Detected BankId deeplink")
                 val result = openBankId(url)
-                if(!result) // if mobile pay not installed on device
+                if (!result) // if mobile pay not installed on device
                 {
-                    AlertDialog.Builder(context)
-                            .setTitle(Translation.bankidsupport.bankIdNotInstalledTitle)
-                            .setMessage(Translation.bankidsupport.bankidNotInstalledMessage)
-                            .setPositiveButton(Translation.bankidsupport.installBankIdBtn.toUpperCase()) { dialog, which ->
-                                val appPackageName = "com.bankid.bus"
-                                try {
-                                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
-                                } catch (anfe: android.content.ActivityNotFoundException) {
-                                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
-                                }
-
+                    AlertDialog.Builder(context ?: return@let)
+                        .setTitle(Translation.bankidsupport.bankIdNotInstalledTitle)
+                        .setMessage(Translation.bankidsupport.bankidNotInstalledMessage)
+                        .setPositiveButton(Translation.bankidsupport.installBankIdBtn.toUpperCase()) { dialog, which ->
+                            val appPackageName = "com.bankid.bus"
+                            try {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse("market://details?id=$appPackageName")
+                                    )
+                                )
+                            } catch (anfe: android.content.ActivityNotFoundException) {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                                    )
+                                )
                             }
-                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
 
-                            }
-                            .create()
-                            .show()
+                        }
+                        .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+
+                        }
+                        .create()
+                        .show()
                 }
                 return true
             }
@@ -105,7 +114,6 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
     }
 
     override fun onLoadFinished(view: WebView?, url: String?) {
-
     }
 
     override fun onResume() {
@@ -129,7 +137,7 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
     }
 
     override fun proceed() {
-        if(activity is StartActivity)
+        if (activity is StartActivity)
             (activity as StartActivity).startMain()
         else
             finishActivity(Activity.RESULT_OK)
@@ -139,23 +147,22 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
         showErrorDialog(viewError)
     }
 
-    private fun showDebugDialog()
-    {
-        AlertDialog.Builder(activity)
-                .setTitle("Debug")
-                .setMessage("Press okay to simulate a successful login with login provider")
-                .setPositiveButton("Login") { dialog, which ->
-                    presenter.login("kspToken xx")
-                    dialog.dismiss()
-                }
-                .setNegativeButton("Close") { dialog, which ->
-                    webView.postDelayed({ presenter.cancelAndClose() }, 500)
-                }
-                .show()
+    private fun showDebugDialog() {
+        AlertDialog.Builder(activity ?: return)
+            .setTitle("Debug")
+            .setMessage("Press okay to simulate a successful login with login provider")
+            .setPositiveButton("Login") { dialog, which ->
+                presenter.login("kspToken xx")
+                dialog.dismiss()
+            }
+            .setNegativeButton("Close") { dialog, which ->
+                webView.postDelayed({ presenter.cancelAndClose() }, 500)
+            }
+            .show()
     }
 
     override fun close() {
-        fragmentManager.popBackStack()
+        fragmentManager?.popBackStack()
     }
 
     override fun loginKspToken(kspwebtoken: String) {

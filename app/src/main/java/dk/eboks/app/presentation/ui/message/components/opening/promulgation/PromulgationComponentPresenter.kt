@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.message.components.opening.promulgation
 
-import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Translation
 import dk.nodes.arch.domain.executor.Executor

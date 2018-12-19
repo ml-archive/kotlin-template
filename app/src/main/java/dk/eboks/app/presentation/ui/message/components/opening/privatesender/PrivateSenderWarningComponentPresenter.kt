@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.message.components.opening.privatesender
 
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject

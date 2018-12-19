@@ -8,7 +8,6 @@ import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.ShapeDrawable
 import android.os.Build
 import android.os.Bundle
-import android.support.design.widget.BottomSheetBehavior
 import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -16,6 +15,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.view.animation.TranslateAnimation
 import android.widget.FrameLayout
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import dk.eboks.app.R
 import dk.eboks.app.util.MathUtil
 import kotlinx.android.synthetic.main.activity_sheet_component.*

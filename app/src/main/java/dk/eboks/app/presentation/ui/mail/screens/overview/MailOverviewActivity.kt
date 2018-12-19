@@ -11,10 +11,9 @@ import dk.eboks.app.presentation.ui.dialogs.ConfirmDialogFragment
 import dk.eboks.app.presentation.ui.folder.components.selectuser.FolderSelectUserComponentFragment
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.activity_mail_overview.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.include_toolbar.*
-
 
 class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
     @Inject lateinit var presenter: MailOverviewContract.Presenter

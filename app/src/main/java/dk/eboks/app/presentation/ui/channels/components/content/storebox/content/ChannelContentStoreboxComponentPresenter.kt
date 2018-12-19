@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.channels.components.content.storebox.content
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxCreditCardsInteractor
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptsInteractor
 import dk.eboks.app.domain.managers.AppStateManager

@@ -1,11 +1,12 @@
 package dk.eboks.app.presentation.ui.senders.screens.segment
 
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.MotionEvent
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.appbar.AppBarLayout
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Segment
@@ -14,7 +15,7 @@ import dk.eboks.app.presentation.ui.senders.components.categories.CategoriesComp
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_senders_detail.*
 import timber.log.Timber
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
@@ -54,14 +55,13 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         }
 
         senderDetailCTL.isTitleEnabled = false
-
-        senderDetailABL.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+        senderDetailABL.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (appBarLayout.totalScrollRange + verticalOffset < 200) {
                 senderDetailTB.title = segment.name
             } else {
                 senderDetailTB.title = ""
             }
-        }
+        })
 
         senderDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
             Timber.d("toggle")

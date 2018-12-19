@@ -16,8 +16,8 @@ import dk.eboks.app.presentation.ui.senders.screens.browse.SearchSendersActivity
 import dk.eboks.app.presentation.ui.senders.screens.registrations.PendingActivity
 import dk.eboks.app.presentation.ui.senders.screens.registrations.RegistrationsActivity
 import kotlinx.android.synthetic.main.activity_senders_overview.*
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
+import javax.inject.Inject
 
 class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
 

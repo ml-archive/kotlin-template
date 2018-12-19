@@ -1,7 +1,11 @@
 package dk.eboks.app.domain.interactors.authentication
 
 import dk.eboks.app.domain.exceptions.InteractorException
-import dk.eboks.app.domain.managers.*
+import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.AuthClient
+import dk.eboks.app.domain.managers.CacheManager
+import dk.eboks.app.domain.managers.UserManager
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.UserSettings
@@ -12,7 +16,6 @@ import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
-
 
 /**
  * Created by Christian on 5/28/2018.
@@ -34,7 +37,7 @@ class MergeAndImpersonateInteractorImpl(
     override fun execute() {
         try {
             input?.verificationState?.let { verificationState ->
-                var targetUserId : String = ""
+                var targetUserId = ""
                 // if user choose to merge profiles, do that first, otherwise impersonate only
                 if(verificationState.shouldMergeProfiles)
                 {

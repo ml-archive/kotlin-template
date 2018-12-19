@@ -18,12 +18,13 @@ class MergeAccountComponentFragment : BaseFragment(), MergeAccountComponentContr
     @Inject
     lateinit var presenter : MergeAccountComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_profile_merge_account_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_profile_merge_account_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -33,7 +34,7 @@ class MergeAccountComponentFragment : BaseFragment(), MergeAccountComponentContr
     }
 
     override fun close() {
-        activity.finish()
+        activity?.finish()
     }
 
 }

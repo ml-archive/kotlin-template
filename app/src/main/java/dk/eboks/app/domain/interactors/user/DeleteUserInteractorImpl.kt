@@ -1,7 +1,6 @@
 package dk.eboks.app.domain.interactors.user
 
 import dk.eboks.app.domain.interactors.authentication.mobileacces.DeleteRSAKeyForUserInteractor
-import dk.eboks.app.domain.interactors.authentication.mobileacces.DeleteRSAKeyInteractor
 import dk.eboks.app.domain.managers.UserManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.Translation

@@ -2,11 +2,11 @@ package dk.eboks.app.presentation.ui.senders.components
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
@@ -32,18 +32,18 @@ class SenderComponentFragment : BaseFragment(), RegistrationContract.View {
     @Inject
     lateinit var presenter: RegistrationContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_sender_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_sender_component, container, false)
     }
 
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        arguments.getParcelable<Sender>(Sender::class.simpleName)?.let { sender ->
-            Glide.with(context)
+        arguments?.getParcelable<Sender>(Sender::class.simpleName)?.let { sender ->
+            Glide.with(context ?: return)
                     .load(sender.logo?.url)
                     .apply(RequestOptions()
                             .fallback(R.drawable.icon_64_senders_private)
@@ -60,7 +60,7 @@ class SenderComponentFragment : BaseFragment(), RegistrationContract.View {
             setButtonText(senderRegisterBtn, sender)
             senderRegisterBtn.setOnClickListener { v ->
                 if (sender.registered != 0) {
-                    AlertDialog.Builder(context)
+                    AlertDialog.Builder(v.context)
                             .setTitle(Translation.senders.unregisterAlertTitle)
                             .setMessage(Translation.senders.unregisterAlertDescription)
                             .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
@@ -74,7 +74,7 @@ class SenderComponentFragment : BaseFragment(), RegistrationContract.View {
                             }
                             .show()
                 } else {
-                    AlertDialog.Builder(context)
+                    AlertDialog.Builder(v.context)
                             .setTitle(Translation.senders.registerAlertTitle)
                             .setMessage(Translation.senders.registerAlertDescription)
                             .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->

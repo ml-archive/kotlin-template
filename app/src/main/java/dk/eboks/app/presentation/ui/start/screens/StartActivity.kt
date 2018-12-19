@@ -1,10 +1,9 @@
 package dk.eboks.app.presentation.ui.start.screens
 
 import android.animation.LayoutTransition
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config

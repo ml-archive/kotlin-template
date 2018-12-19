@@ -23,9 +23,9 @@ import dk.nodes.locksmith.core.util.HashingUtils
 import dk.nodes.locksmith.core.util.RandomUtils
 import timber.log.Timber
 import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.Exception
-import kotlin.collections.ArrayList
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 /**
  * Created by bison on 20-05-2017.

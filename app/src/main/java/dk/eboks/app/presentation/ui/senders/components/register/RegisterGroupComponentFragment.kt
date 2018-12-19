@@ -1,14 +1,14 @@
 package dk.eboks.app.presentation.ui.senders.components.register
 
 import android.os.Bundle
-import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
-import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Sender
@@ -32,27 +32,27 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
     override fun showSuccess() {
         Timber.i("Success!")
         registerRegBtn.isEnabled = true
-        activity.onBackPressed()
+        activity?.onBackPressed()
     }
 
     override fun showError(message: String) {
         Timber.i("Fail!")
         registerRegBtn.isEnabled = true
-        activity.onBackPressed() // TODO show error
+        activity?.onBackPressed() // TODO show error
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_register_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_register_component, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        val group = arguments.getParcelable<SenderGroup>(SenderGroup::class.simpleName)
-        val senderId = arguments.getLong(Sender::class.simpleName, 0)
+        val group = arguments?.getParcelable<SenderGroup>(SenderGroup::class.simpleName)
+        val senderId = arguments?.getLong(Sender::class.simpleName, 0)
 
         if (group != null) {
             registerTitleTv.text = group.name
@@ -120,26 +120,26 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
                 }
 
                 if(group.registered != 0) {
-                    AlertDialog.Builder(context)
+                    AlertDialog.Builder(context ?: return@setOnClickListener)
                             .setTitle(Translation.senders.unregisterAlertTitle)
                             .setMessage(Translation.senders.unregisterAlertDescription)
                             .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
                                 dialog.cancel()
                             }
                             .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                presenter.unregisterSenderGroup(senderId, group)
+                                presenter.unregisterSenderGroup(senderId ?: return@setPositiveButton, group)
                                 dialog.dismiss()
                             }
                             .show()
                 } else {
-                    AlertDialog.Builder(context)
+                    AlertDialog.Builder(context ?: return@setOnClickListener)
                             .setTitle(Translation.senders.registerAlertTitle)
                             .setMessage(Translation.senders.registerAlertDescription)
                             .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
                                 dialog.cancel()
                             }
                             .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                presenter.registerSenderGroup(senderId, group)
+                                presenter.registerSenderGroup(senderId ?: return@setPositiveButton, group)
                                 dialog.dismiss()
                             }
                             .show()
@@ -149,7 +149,7 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
         }
 
         registerCancelBtn.setOnClickListener {
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
     }
 }

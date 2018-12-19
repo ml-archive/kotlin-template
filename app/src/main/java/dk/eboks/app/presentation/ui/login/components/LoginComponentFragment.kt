@@ -4,7 +4,6 @@ import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.support.annotation.RequiresApi
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -16,6 +15,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -32,9 +32,20 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.debug.components.DebugUsersComponentFragment
 import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
-import dk.eboks.app.util.*
+import dk.eboks.app.util.KeyboardUtils
+import dk.eboks.app.util.guard
+import dk.eboks.app.util.isValidCpr
+import dk.eboks.app.util.isValidEmail
+import dk.eboks.app.util.putArg
+import dk.eboks.app.util.setVisible
 import dk.nodes.arch.domain.executor.SignalDispatcher.signal
-import dk.nodes.locksmith.core.models.FingerprintDialogEvent.*
+import dk.nodes.locksmith.core.models.FingerprintDialogEvent.CANCEL
+import dk.nodes.locksmith.core.models.FingerprintDialogEvent.ERROR
+import dk.nodes.locksmith.core.models.FingerprintDialogEvent.ERROR_CIPHER
+import dk.nodes.locksmith.core.models.FingerprintDialogEvent.ERROR_ENROLLMENT
+import dk.nodes.locksmith.core.models.FingerprintDialogEvent.ERROR_HARDWARE
+import dk.nodes.locksmith.core.models.FingerprintDialogEvent.ERROR_SECURE
+import dk.nodes.locksmith.core.models.FingerprintDialogEvent.SUCCESS
 import kotlinx.android.synthetic.main.fragment_login_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -63,15 +74,15 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     var reauth: Boolean = false
 
     override fun onCreateView(
-            inflater: LayoutInflater?,
+            inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_login_component, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_login_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -98,7 +109,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         mainTb.title = Translation.logoncredentials.title
         mainTb.setNavigationOnClickListener {
             hideKeyboard(view)
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
 
         val menuRegist = mainTb.menu.add(Translation.logoncredentials.forgotPasswordButton)
@@ -193,8 +204,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         if (!reauth)
             (activity as StartActivity).startMain()
         else {
-            activity.setResult(Activity.RESULT_OK)
-            activity.finishAfterTransition()
+            activity?.run {
+                setResult(Activity.RESULT_OK)
+                finishAfterTransition()
+            }
         }
     }
 
@@ -275,7 +288,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun showFingerprintDialog() {
-        val customFingerprintDialog = CustomFingerprintDialog(context)
+        val customFingerprintDialog = CustomFingerprintDialog(context ?: return)
 
         customFingerprintDialog.setOnFingerprintDialogEventListener {
             customFingerprintDialog.dismiss()
@@ -332,7 +345,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         userNameTv.text = user?.name
         userEmailCprTv.text = user?.emails?.firstOrNull()?.value
 
-        Glide.with(context)
+        Glide.with(context ?: return)
                 .load(user?.avatarUri)
                 .apply(RequestOptions()
                         .error(R.drawable.ic_profile_placeholder)
@@ -469,7 +482,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     private fun setContinueButton() {
 
-        emailCprIsValid = (cprEmailEt.text.isValidEmail() || cprEmailEt.text.isValidCpr())
+        emailCprIsValid = (cprEmailEt.text?.isValidEmail() == true || cprEmailEt.text?.isValidCpr() == true)
         passwordIsValid = (!passwordEt.text.isNullOrBlank())
 
         currentProvider?.let { provider ->

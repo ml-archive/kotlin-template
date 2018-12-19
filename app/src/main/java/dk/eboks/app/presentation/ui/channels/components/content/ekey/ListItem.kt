@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.channels.components.content.ekey
 
 import dk.eboks.app.domain.models.channel.ekey.BaseEkey
-import dk.eboks.app.domain.models.channel.ekey.Ekey
 import java.io.Serializable
 
 /**

@@ -9,7 +9,7 @@
 
     <include layout="@layout/include_toolbar" />
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/storeboxDetailContentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -146,7 +146,7 @@
                     android:layout_marginTop="@dimen/margin_normal"
                     android:background="@color/dividerColor" />
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/storeboxDetailRvReceiptLines"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -215,7 +215,7 @@
 
                 </FrameLayout>
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/storeboxDetailRvPayments"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -299,7 +299,7 @@
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
         android:id="@+id/storeboxDetailProgressBar"

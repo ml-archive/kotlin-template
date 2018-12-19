@@ -1,14 +1,13 @@
 package dk.eboks.app.presentation.ui.channels.components.settings
 
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
@@ -39,14 +38,14 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     private var didShowCardView = false
 
     override fun onCreateView(
-            inflater: LayoutInflater?,
+            inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        return inflater?.inflate(R.layout.fragment_channel_settings_component, container, false)
+        return inflater.inflate(R.layout.fragment_channel_settings_component, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Timber.d("onViewCreated")
 
         super.onViewCreated(view, savedInstanceState)
@@ -54,8 +53,8 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         presenter.onViewCreated(this, lifecycle)
 
         arguments?.getCharSequence("arguments")?.let {
-            isStorebox = (arguments.getCharSequence("arguments") == "storebox")
-            isEkey = (arguments.getCharSequence("arguments") == "ekey")
+            isStorebox = (arguments?.getCharSequence("arguments") == "storebox")
+            isEkey = (arguments?.getCharSequence("arguments") == "ekey")
         }
 
         arguments?.getParcelable<Channel>(Channel::class.java.simpleName)?.id?.let(presenter::setup)
@@ -121,7 +120,11 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
         storeboxProfileLl.visibility = View.VISIBLE
         creditCardContainerLl.visibility = View.VISIBLE
-        creditcardRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        creditcardRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            false
+        )
         creditcardRv.adapter = adapter
 
         addCardLl.setOnClickListener {
@@ -134,7 +137,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
     private fun showRemoveChannelDialog() {
         if(isStorebox) {
-            AlertDialog.Builder(context)
+            AlertDialog.Builder(context ?: return)
                     .setTitle(Translation.channelsettingsstoreboxadditions.removeChannelTitle)
                     .setMessage(Translation.channelsettingsstoreboxadditions.removeChannelMessage)
                     .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
@@ -148,7 +151,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         }
         else
         {
-            AlertDialog.Builder(context)
+            AlertDialog.Builder(context ?: return)
                     .setTitle(Translation.channelsettings.confirmDeleteTitle)
                     .setMessage(Translation.channelsettings.confirmDeleteMessageReplaceChannelName.replace("[channelname]", presenter.currentChannel?.name ?: ""))
                     .setPositiveButton(Translation.channelsettings.confirmRemoveButton.toUpperCase()) { dialog, which ->
@@ -192,7 +195,9 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
     override fun showAddCardView(link: Link) {
         didShowCardView = true
-        activity.Starter().activity(StoreboxAddCardActivity::class.java).putExtra(Link::class.java.simpleName, link).start()
+        activity?.run {
+            Starter().activity(StoreboxAddCardActivity::class.java).putExtra(Link::class.java.simpleName, link).start()
+        }
         closeView()
     }
 
@@ -204,15 +209,14 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         }
     }
 
-    override fun closeView()
-    {
-        activity.finish()
+    override fun closeView() {
+        activity?.finish()
         if(isEkey) {
             EkeyContentActivity.shouldFinish = true
         }
     }
 
-    inner class CreditCardAdapter : RecyclerView.Adapter<CreditCardAdapter.CreditCardViewHolder>() {
+    inner class CreditCardAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<CreditCardAdapter.CreditCardViewHolder>() {
         var creditCards: MutableList<StoreboxCreditCard> = ArrayList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreditCardViewHolder {
@@ -228,12 +232,12 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
             return creditCards.size
         }
 
-        override fun onBindViewHolder(holder: CreditCardViewHolder?, position: Int) {
+        override fun onBindViewHolder(holder: CreditCardViewHolder, position: Int) {
             val currentCard = creditCards[position]
-            holder?.bind(currentCard)
+            holder.bind(currentCard)
         }
 
-        inner class CreditCardViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
+        inner class CreditCardViewHolder(val root: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
             private var creditNumberTv = root.findViewById<TextView>(R.id.creditNumberTv)
             private var deleteIb = root.findViewById<ImageButton>(R.id.deleteIb)
 
@@ -246,7 +250,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
             }
 
             private fun showDialog(storeboxCreditCard: StoreboxCreditCard) {
-                AlertDialog.Builder(context)
+                AlertDialog.Builder(context ?: return)
                         .setTitle(Translation.channelsettingsstoreboxadditions.deleteCardAlertTitle)
                         .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
                             showProgress(true)

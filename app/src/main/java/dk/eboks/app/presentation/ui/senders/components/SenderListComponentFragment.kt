@@ -2,13 +2,13 @@ package dk.eboks.app.presentation.ui.senders.components
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
@@ -36,11 +36,11 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
     @Inject
     lateinit var presenter: RegistrationContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_senders_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_senders_component, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         component.inject(this)
@@ -48,7 +48,7 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
 
         sendersListLl.removeAllViews()
 
-        arguments.getParcelable<CollectionContainer>(CollectionContainer::class.simpleName)?.let {
+        arguments?.getParcelable<CollectionContainer>(CollectionContainer::class.simpleName)?.let {
             sendersTitleTv.text = it.description?.title
 
             it.senders?.forEach {
@@ -58,7 +58,7 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
                 val senderRegisterBtn = v.findViewById<Button>(R.id.senderRegisterBtn)
                 val senderLogoIv = v.findViewById<ImageView>(R.id.senderLogoIv)
 
-                Glide.with(context)
+                Glide.with(context ?: return)
                         .load(it.logo?.url)
                         .apply(RequestOptions()
                                 .fallback(R.drawable.icon_64_senders_private)
@@ -71,7 +71,7 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
 
                 senderRegisterBtn.setOnClickListener { v ->
                     if (it.registered != 0) {
-                        AlertDialog.Builder(context)
+                        AlertDialog.Builder(v.context)
                                 .setTitle(Translation.senders.unregisterAlertTitle)
                                 .setMessage(Translation.senders.unregisterAlertDescription)
                                 .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
@@ -85,7 +85,7 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
                                 }
                                 .show()
                     } else {
-                        AlertDialog.Builder(context)
+                        AlertDialog.Builder(v.context)
                                 .setTitle(Translation.senders.registerAlertTitle)
                                 .setMessage(Translation.senders.registerAlertDescription)
                                 .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->

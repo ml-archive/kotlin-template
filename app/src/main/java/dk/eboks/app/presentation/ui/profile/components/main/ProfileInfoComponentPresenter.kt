@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.profile.components.main
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.user.GetUserProfileInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserSettingsInteractor

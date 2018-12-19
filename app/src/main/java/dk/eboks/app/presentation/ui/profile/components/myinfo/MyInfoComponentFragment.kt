@@ -2,7 +2,6 @@ package dk.eboks.app.presentation.ui.profile.components.myinfo
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -10,9 +9,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.login.ContactPoint
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.profile.components.drawer.EmailVerificationComponentFragment
 import dk.eboks.app.presentation.ui.profile.components.drawer.PhoneVerificationComponentFragment
@@ -22,10 +21,10 @@ import dk.eboks.app.util.setVisible
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.fragment_profile_myinformation_component.*
-import java.util.*
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
+import java.util.Locale
+import javax.inject.Inject
 
 class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, OnLanguageChangedListener, TextWatcher {
     @Inject
@@ -35,15 +34,16 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
     //val mobilenumber: ContactPoint = ContactPoint()
 
     override fun onCreateView(
-            inflater: LayoutInflater?,
+            inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_profile_myinformation_component, container, false)
+        val rootView =
+            inflater.inflate(R.layout.fragment_profile_myinformation_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -66,7 +66,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
                     return@setNavigationOnClickListener
                 }
             }
-            fragmentManager.popBackStack()
+            fragmentManager?.popBackStack()
         }
 
         menuSave = mainTb.menu.add(Translation.defaultSection.save)
@@ -82,8 +82,8 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
     }
 
     private fun hideKeyboard() {
-        val inputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+        val inputMethodManager = activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
+        inputMethodManager?.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
     private fun attachListeners() {
@@ -146,7 +146,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
             }
             else
             {
-                activity.onBackPressed()
+                activity?.onBackPressed()
             }
             true
         }
@@ -156,7 +156,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
 
     private fun showMustSaveDialog()
     {
-        AlertDialog.Builder(activity)
+        AlertDialog.Builder(activity ?: return)
                 .setTitle(Translation.myInformation.saveBeforeVerifyTitle)
                 .setMessage(Translation.myInformation.saveBeforeVerifyMessage)
                 .setPositiveButton(Translation.myInformation.unsavedChangesSaveButton) { dialog, which ->
@@ -171,7 +171,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
 
     private fun showUnsavedChangesDialog()
     {
-        AlertDialog.Builder(activity)
+        AlertDialog.Builder(activity ?: return)
                 .setTitle(Translation.myInformation.unsavedChangesTitle)
                 .setMessage(Translation.myInformation.unsavedChangesMessage)
                 .setPositiveButton(Translation.myInformation.unsavedChangesSaveButton) { dialog, which ->
@@ -179,7 +179,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
                     presenter.save(false)
                 }
                 .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                    fragmentManager.popBackStack()
+                    fragmentManager?.popBackStack()
                 }
                 .show()
     }
@@ -202,7 +202,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
     }
 
     override fun onDone() {
-        fragmentManager.popBackStack()
+        fragmentManager?.popBackStack()
     }
 
     override fun onResume() {

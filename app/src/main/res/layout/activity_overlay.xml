@@ -17,7 +17,7 @@
 
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/mainFab"
         android:layout_width="56dp"
         android:layout_height="56dp"

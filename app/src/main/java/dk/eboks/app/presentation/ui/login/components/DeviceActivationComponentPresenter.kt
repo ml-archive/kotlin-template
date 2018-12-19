@@ -1,14 +1,11 @@
 package dk.eboks.app.presentation.ui.login.components
 
-import android.arch.lifecycle.Lifecycle
-import android.os.Build
+import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.authentication.mobileacces.ActivateDeviceInteractor
 import dk.eboks.app.domain.interactors.authentication.mobileacces.DeleteRSAKeyInteractor
 import dk.eboks.app.domain.interactors.authentication.mobileacces.GenerateRSAKeyInteractor
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject

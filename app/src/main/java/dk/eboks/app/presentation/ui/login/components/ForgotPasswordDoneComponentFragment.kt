@@ -17,18 +17,19 @@ class ForgotPasswordDoneComponentFragment : BaseFragment(), ForgotPasswordDoneCo
     @Inject
     lateinit var presenter : ForgotPasswordDoneComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_forgot_password_mail_sent_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_forgot_password_mail_sent_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
         okBtn.setOnClickListener {
-           activity.onBackPressed()
+           activity?.onBackPressed()
         }
     }
 }

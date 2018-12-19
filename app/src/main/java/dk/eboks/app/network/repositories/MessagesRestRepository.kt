@@ -19,15 +19,9 @@ import dk.eboks.app.storage.base.CacheStore
 import dk.eboks.app.util.CountingFileRequestBody
 import dk.eboks.app.util.guard
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
-import okhttp3.MediaType
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.RequestBody
-import okhttp3.MultipartBody
-
-
-
-
 
 typealias SenderIdMessageStore = CacheStore<Long, List<Message>>
 typealias FolderIdMessageStore = CacheStore<Int, List<Message>>

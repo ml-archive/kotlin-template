@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.mail.screens.overview
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.presentation.ui.mail.components.foldershortcuts.RefreshFolderShortcutsDoneEvent
 import dk.eboks.app.presentation.ui.mail.components.foldershortcuts.RefreshFolderShortcutsEvent

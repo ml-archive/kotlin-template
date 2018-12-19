@@ -1,21 +1,16 @@
 package dk.eboks.app.presentation.ui.channels.components.overview
 
-import android.animation.Animator
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.support.v4.view.animation.FastOutSlowInInterpolator
-import android.support.v4.view.animation.LinearOutSlowInInterpolator
-import android.support.v7.widget.CardView
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.CycleInterpolator
-import android.view.animation.OvershootInterpolator
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -28,7 +23,6 @@ import dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentActiv
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -42,14 +36,14 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
     lateinit var presenter: ChannelOverviewComponentContract.Presenter
 
     override fun onCreateView(
-            inflater: LayoutInflater?,
+            inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        return inflater?.inflate(R.layout.fragment_channel_list_component, container, false)
+        return inflater.inflate(R.layout.fragment_channel_list_component, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -76,7 +70,11 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
     }
 
     private fun setupRecyclerView() {
-        channelRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        channelRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            false
+        )
         channelRv.adapter = ChannelAdapter()
     }
 
@@ -84,7 +82,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
         //storebox channels id 1 - 3
         //ekey channels id 101 - 103
 
-        activity.Starter().activity(ChannelContentActivity::class.java).putExtra(Channel::class.java.simpleName, channel).start()
+        activity?.run { Starter().activity(ChannelContentActivity::class.java).putExtra(Channel::class.java.simpleName, channel).start() }
 
 
         //addFragmentOnTop(R.id.containerFl, ChannelOpeningComponentFragment().putArg(Channel::class.java.simpleName, channel) as BaseFragment, false)
@@ -112,15 +110,15 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
         */
     }
 
-    inner class ChannelAdapter : RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder>() {
+    inner class ChannelAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<ChannelAdapter.ChannelViewHolder>() {
 
-        inner class ChannelViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
+        inner class ChannelViewHolder(val root: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
             val base = root
             //header
             val headerTv = root.findViewById<TextView>(R.id.headerTv)
 
             //cards
-            val cardContainerCv = root.findViewById<CardView>(R.id.cardContainerCv)
+            val cardContainerCv = root.findViewById<androidx.cardview.widget.CardView>(R.id.cardContainerCv)
             val backgroundColorV = root.findViewById<View>(R.id.backgroundColorV)
             val backgroundIv = root.findViewById<ImageView>(R.id.backgroundIv)
             //            val backgroundOverlayV = root.findViewById<View>(R.id.backgroundOverlayV)
@@ -164,7 +162,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
                     val requestOptions = RequestOptions()
                             .transform(RoundedCorners(15))
 
-                    Glide.with(context)
+                    Glide.with(context ?: return)
                             .load(currentChannel.image?.url)
                             .apply(requestOptions)
                             .into(it)
@@ -174,7 +172,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
 
                 if (currentChannel.logo != null) {
                     holder.logoIv?.let {
-                        Glide.with(context).load(currentChannel.logo?.url).into(it)
+                        Glide.with(context ?: return).load(currentChannel.logo?.url).into(it)
                     }
                 }
 
@@ -236,7 +234,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
         for (channel in channels) {
             cards.add(channel)
         }
-        channelRv.adapter.notifyDataSetChanged()
+        channelRv.adapter?.notifyDataSetChanged()
     }
 
 }

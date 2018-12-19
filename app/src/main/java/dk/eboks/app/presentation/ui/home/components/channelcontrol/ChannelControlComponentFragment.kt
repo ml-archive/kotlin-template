@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.home.components.channelcontrol
 
 import android.os.Bundle
-import android.support.v7.widget.CardView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,8 +16,13 @@ import dk.eboks.app.domain.models.home.Control
 import dk.eboks.app.domain.models.home.ItemType
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentActivity
-import dk.eboks.app.presentation.ui.channels.screens.overview.ChannelOverviewActivity
-import dk.eboks.app.presentation.ui.home.components.channelcontrol.controls.*
+import dk.eboks.app.presentation.ui.home.components.channelcontrol.controls.ChannelControl
+import dk.eboks.app.presentation.ui.home.components.channelcontrol.controls.FilesChannelControl
+import dk.eboks.app.presentation.ui.home.components.channelcontrol.controls.ImagesChannelControl
+import dk.eboks.app.presentation.ui.home.components.channelcontrol.controls.MessagesChannelControl
+import dk.eboks.app.presentation.ui.home.components.channelcontrol.controls.NewsChannelControl
+import dk.eboks.app.presentation.ui.home.components.channelcontrol.controls.NotificationsChannelControl
+import dk.eboks.app.presentation.ui.home.components.channelcontrol.controls.ReceiptsChannelControl
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
 import dk.eboks.app.util.Starter
@@ -48,12 +52,13 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     // find a clean way of getting this info to the right place (both run a the same time so maybe a countdown latch)
     var emailCount = 0
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_channel_control_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_channel_control_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -88,18 +93,20 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
             val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContentLL, false)
             val logoIv = v.findViewById<ImageView>(R.id.logoIv)
             val headerTv = v.findViewById<TextView>(R.id.headerTv)
-            val cardView = v.findViewById<CardView>(R.id.channelItemCv)
+            val cardView = v.findViewById<androidx.cardview.widget.CardView>(R.id.channelItemCv)
             cardView?.setOnClickListener {
-                activity.Starter().activity(ChannelContentActivity::class.java)
+                activity?.run {
+                    Starter().activity(ChannelContentActivity::class.java)
                         .putExtra("openDirectly", true)
                         .putExtra(Channel::class.java.simpleName, currentChannel)
                         .start()
+                }
             }
             headerTv.text = currentChannel.name
 
             logoIv?.let {
                 currentChannel.logo?.let { logo ->
-                    Glide.with(context).load(logo.url).into(it)
+                    Glide.with(context ?: return).load(logo.url).into(it)
                 }
             }
 
@@ -123,7 +130,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
             bottomChannelHeaderTv.visibility = View.VISIBLE
             bottomChannelTextTv.visibility = View.VISIBLE
             bottomChannelBtn.setOnClickListener {
-                NavBarComponentFragment.gotoChannels(activity)
+                NavBarComponentFragment.gotoChannels(activity ?: return@setOnClickListener)
             }
         } else {
             emptyStateLl.visibility = View.GONE
@@ -131,7 +138,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
             bottomChannelHeaderTv.visibility = View.GONE
             bottomChannelTextTv.visibility = View.GONE
             teaserChannelBtn.setOnClickListener {
-                NavBarComponentFragment.gotoChannels(activity)
+                NavBarComponentFragment.gotoChannels(activity ?: return@setOnClickListener)
             }
             teaserLl.setVisible(true)
 

@@ -20,12 +20,11 @@ class ReplyButtonComponentFragment : BaseFragment(), ReplyButtonComponentContrac
     @Inject
     lateinit var presenter : ReplyButtonComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_reply_button_component, container, false)
-        return rootView
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_reply_button_component, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -37,10 +36,12 @@ class ReplyButtonComponentFragment : BaseFragment(), ReplyButtonComponentContrac
     }
 
     override fun showReplyForm(msg: Message) {
-        activity.Starter()
+        activity?.run {
+            Starter()
                 .activity(ReplyFormActivity::class.java)
                 .putExtra(Message::class.java.simpleName, msg)
                 .start()
+        }
     }
 
 }

@@ -4,7 +4,7 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.home.Item
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
-import java.util.*
+import java.util.Date
 
 /**
  * Created by bison on 19/02/18.

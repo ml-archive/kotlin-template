@@ -13,9 +13,9 @@ import dk.eboks.app.presentation.base.BaseWebFragment
 import dk.eboks.app.presentation.ui.login.components.providers.WebLoginContract
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.include_toolbar.*
 
 /**
  * Created by bison on 09-02-2018.
@@ -27,7 +27,7 @@ class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     var loginUser: User? = null
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -45,7 +45,7 @@ class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
                 presenter.cancelAndClose()
             }
             else {
-                activity.finish()
+                activity?.finish()
             }
         }
     }
@@ -79,10 +79,7 @@ class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
     }
 
     override fun proceed() {
-        if(activity is StartActivity)
-            (activity as StartActivity).startMain()
-        else
-            finishActivity(Activity.RESULT_OK)
+        (activity as? StartActivity)?.startMain() ?: finishActivity(Activity.RESULT_OK)
     }
 
     override fun showError(viewError: ViewError) {
@@ -91,7 +88,7 @@ class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
 
     override fun close() {
-        fragmentManager.popBackStack()
+        fragmentManager?.popBackStack()
     }
 
     override fun loginKspToken(kspwebtoken: String) {

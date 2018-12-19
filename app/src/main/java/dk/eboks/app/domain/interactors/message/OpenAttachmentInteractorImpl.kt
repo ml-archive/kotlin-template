@@ -10,7 +10,6 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.EboksContentType
 import dk.eboks.app.domain.models.message.Message
-import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber

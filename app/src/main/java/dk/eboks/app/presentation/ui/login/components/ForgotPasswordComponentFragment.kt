@@ -29,12 +29,13 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
 
     var handler = Handler()
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_forgot_password_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_forgot_password_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -46,8 +47,8 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
         emailEt.setOnEditorActionListener { v, actionId, event ->
             var handled = false
             if (actionId == EditorInfo.IME_ACTION_SEND) {
-                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(activity.currentFocus.windowToken, 0)
+                val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                imm?.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
                 if(validate()) {
                     presenter.resetPassword(emailEt.text.toString().trim())
                     resetPasswordBtn.isEnabled = false
@@ -75,7 +76,7 @@ class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentC
     }
 
     private fun validate() : Boolean {
-        val isGood = emailEt.text.isValidEmail()
+        val isGood = emailEt.text?.isValidEmail() ?: false
         if(isGood) {
             emailTil.error = null
         } else {

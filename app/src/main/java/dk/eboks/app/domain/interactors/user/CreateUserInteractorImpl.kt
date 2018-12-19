@@ -1,11 +1,9 @@
 package dk.eboks.app.domain.interactors.user
 
-import com.google.gson.GsonBuilder
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.UserManager
-import dk.eboks.app.domain.models.login.ActivationDevice
 import dk.eboks.app.domain.repositories.SettingsRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError

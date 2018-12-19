@@ -1,7 +1,6 @@
 package dk.eboks.app.util;
 
 import java.io.File;
-import java.io.IOException;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;

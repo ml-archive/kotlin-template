@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.mail.components.maillist
 
-import dk.eboks.app.domain.interactors.message.*
+import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor

@@ -28,12 +28,13 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
 
     var mHandler = Handler()
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_activation_code_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_activation_code_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -86,7 +87,7 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
 
     override fun proceedToApp() {
         startActivity(Intent(context, HomeActivity::class.java))
-        activity.finish()
+        activity?.finish()
     }
 
     override fun showError(error: String?) {

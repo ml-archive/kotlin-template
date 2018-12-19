@@ -1,11 +1,14 @@
 package dk.eboks.app.presentation.ui.login.components.providers.nemid
 
 import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
@@ -15,13 +18,9 @@ import dk.eboks.app.presentation.base.BaseWebFragment
 import dk.eboks.app.presentation.ui.login.components.providers.WebLoginContract
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.include_toolbar.*
-import android.content.Intent
-import android.net.Uri
-import android.support.v7.app.AlertDialog
-
 
 /**
  * Created by bison on 09-02-2018.
@@ -34,7 +33,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     var loginUser: User? = null
     var didAttemptToInstallNemID = false
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -70,7 +69,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
             }
             else
             {
-                activity.finish()
+                activity?.finish()
             }
             true
         }
@@ -110,7 +109,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
                 presenter.cancelAndClose()
             }
             else {
-                activity.finish()
+                activity?.finish()
             }
         }
     }
@@ -128,7 +127,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     }
 
     override fun close() {
-        fragmentManager.popBackStack()
+        fragmentManager?.popBackStack()
     }
 
     private fun openNemIdApp()
@@ -141,7 +140,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
         if(secondFactorIntent == null)
         {
-            AlertDialog.Builder(context)
+            AlertDialog.Builder(context ?: return)
                     .setTitle(Translation.nemidsupport.nemIdNotInstalledTitle)
                     .setMessage(Translation.nemidsupport.nemIdNotInstalledMessage)
                     .setPositiveButton(Translation.nemidsupport.installNemIdAppBtn.toUpperCase()) { dialog, which ->

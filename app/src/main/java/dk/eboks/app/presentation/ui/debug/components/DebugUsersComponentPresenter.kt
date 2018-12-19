@@ -3,7 +3,6 @@ package dk.eboks.app.presentation.ui.debug.components
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.login.LoginState
-import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
