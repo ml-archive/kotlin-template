@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.channels.components.content.ekey
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,14 +7,16 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import com.daimajia.swipe.SwipeLayout
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.ekey.*
-import dk.eboks.app.presentation.ui.mail.components.maillist.MailMessagesAdapter
+import dk.eboks.app.domain.models.channel.ekey.BaseEkey
+import dk.eboks.app.domain.models.channel.ekey.Ekey
+import dk.eboks.app.domain.models.channel.ekey.Login
+import dk.eboks.app.domain.models.channel.ekey.Note
+import dk.eboks.app.domain.models.channel.ekey.Pin
 import timber.log.Timber
 
-class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklistener: BetterEkeyAdapter.Ekeyclicklistener? = null) : RecyclerView.Adapter<BetterEkeyAdapter.EKeyHolder>() {
+class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklistener: BetterEkeyAdapter.Ekeyclicklistener? = null) : androidx.recyclerview.widget.RecyclerView.Adapter<BetterEkeyAdapter.EKeyHolder>() {
 
     var onActionEvent: ((BaseEkey) -> Unit)? = null
 
@@ -45,11 +46,11 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
         }
     }
 
-    override fun onBindViewHolder(holder: EKeyHolder?, position: Int) {
-        holder?.bind(keyList[position])
+    override fun onBindViewHolder(holder: EKeyHolder, position: Int) {
+        holder.bind(keyList[position])
     }
 
-    abstract class EKeyHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    abstract class EKeyHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         abstract fun bind(item: ListItem)
     }
 

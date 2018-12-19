@@ -17,7 +17,7 @@
         android:gravity="center"
         android:text="@string/nstack_uploads_uploadFile" />
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/fileNameTil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,14 +30,14 @@
         app:errorTextAppearance="@style/errorappearance"
         app:hintTextAppearance="@style/HintSmallTextAppearance">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/fileNameEt"
             style="@style/EditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="text"
             nstack:hint="@string/nstack_uploads_fileName" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:id="@+id/chooseFolderLl"

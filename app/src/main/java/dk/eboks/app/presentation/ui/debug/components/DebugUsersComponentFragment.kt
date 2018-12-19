@@ -22,12 +22,12 @@ class DebugUsersComponentFragment: BaseFragment(), DebugUsersComponentContract.V
     @Inject
     lateinit var presenter : DebugUsersComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_debug_users_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_debug_users_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -37,7 +37,7 @@ class DebugUsersComponentFragment: BaseFragment(), DebugUsersComponentContract.V
         applyBtn.setOnClickListener {
             presenter.updateLoginState(debugSp.selectedItem as LoginState)
             LoginComponentFragment.loginOnResume = true
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
     }
 

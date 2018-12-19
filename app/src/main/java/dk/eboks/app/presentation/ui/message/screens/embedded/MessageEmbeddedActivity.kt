@@ -3,7 +3,6 @@ package dk.eboks.app.presentation.ui.message.screens.embedded
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.Fragment
 import android.view.MenuItem
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
@@ -28,9 +27,8 @@ import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
 import dk.eboks.app.util.ViewControl
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
-import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 09-02-2018.
@@ -49,7 +47,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     var notesComponentFragment: NotesComponentFragment? = null
     var attachmentsComponentFragment: AttachmentsComponentFragment? = null
     var folderInfoComponentFragment: FolderInfoComponentFragment? = null
-    var embeddedViewerComponentFragment: Fragment? = null
+    var embeddedViewerComponentFragment: androidx.fragment.app.Fragment? = null
 
     private var actionButtons = arrayListOf(
             OverlayButton(ButtonType.PRINT)
@@ -159,8 +157,9 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     override fun addHeaderComponentFragment() {
         headerComponentFragment = HeaderComponentFragment()
         headerComponentFragment?.let {
-            it.arguments = Bundle()
-            it.arguments.putBoolean("show_divider", true)
+            it.arguments = Bundle().apply {
+                putBoolean("show_divider", true)
+            }
             supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, HeaderComponentFragment::class.java.simpleName).commit()
         }
     }

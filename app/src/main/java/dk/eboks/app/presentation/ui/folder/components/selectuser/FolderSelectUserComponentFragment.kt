@@ -2,13 +2,12 @@ package dk.eboks.app.presentation.ui.folder.components.selectuser
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -34,12 +33,12 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
     var sharedUsers: MutableList<SharedUser> = ArrayList()
 
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_folders_selectuser, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_folders_selectuser, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -53,7 +52,7 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
         profileFl.visibility = View.GONE
         profilePicIv.visibility = View.VISIBLE
 
-        Glide.with(context)
+        Glide.with(context ?: return)
                 .applyDefaultRequestOptions(RequestOptions().circleCrop())
                 .load(user?.avatarUri)
                 .listener(object: RequestListener<Drawable>{
@@ -87,22 +86,26 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
     }
 
     private fun setupRecyclerView() {
-        sharedAccountsRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        sharedAccountsRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            false
+        )
         sharedAccountsRv.adapter = SharedUserAdapter()
     }
 
     private fun setupMyProfile() {
         myProfileLl.setOnClickListener {
             //close
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
         myProfileSubHeaderTv.text = Translation.profile.myProfile
 
     }
 
-    inner class SharedUserAdapter : RecyclerView.Adapter<SharedUserAdapter.SharedUserViewHolder>() {
+    inner class SharedUserAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<SharedUserAdapter.SharedUserViewHolder>() {
 
-        inner class SharedUserViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
+        inner class SharedUserViewHolder(val root: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
 
             val nameTv = root.findViewById<TextView>(R.id.nameTv)
             val roleTv = root.findViewById<TextView>(R.id.roleTv)
@@ -119,14 +122,14 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
             return sharedUsers.size
         }
 
-        override fun onBindViewHolder(holder: SharedUserViewHolder?, position: Int) {
-            var currentUser = sharedUsers[position]
-            holder?.nameTv?.text = currentUser.name
-            holder?.roleTv?.text = currentUser.permission
-            holder?.root?.setOnClickListener {
+        override fun onBindViewHolder(holder: SharedUserViewHolder, position: Int) {
+            val currentUser = sharedUsers[position]
+            holder.nameTv?.text = currentUser.name
+            holder.roleTv?.text = currentUser.permission
+            holder.root.setOnClickListener {
                 //open normal maillist for sharedUsers[position] and close the drawer
                 Timber.d(sharedUsers[position].toString())
-                activity.onBackPressed()
+                activity?.onBackPressed()
             }
         }
     }

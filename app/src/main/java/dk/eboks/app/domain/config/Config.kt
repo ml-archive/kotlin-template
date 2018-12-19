@@ -421,7 +421,7 @@ object Config {
         return null
     }
 
-    lateinit var currentMode : Mode
+    var currentMode : Mode
 
 
     init {

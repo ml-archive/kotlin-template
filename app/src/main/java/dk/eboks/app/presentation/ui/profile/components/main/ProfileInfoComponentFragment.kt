@@ -2,15 +2,18 @@ package dk.eboks.app.presentation.ui.profile.components.main
 
 import android.content.Context
 import android.content.Intent
+import android.hardware.fingerprint.FingerprintManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.appbar.AppBarLayout
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config
@@ -22,7 +25,6 @@ import dk.eboks.app.presentation.ui.profile.components.PrivacyFragment
 import dk.eboks.app.presentation.ui.profile.components.drawer.FingerHintComponentFragment
 import dk.eboks.app.presentation.ui.profile.components.drawer.FingerPrintComponentFragment
 import dk.eboks.app.presentation.ui.profile.components.myinfo.MyInfoComponentFragment
-import dk.eboks.app.presentation.ui.profile.screens.ProfileActivity
 import dk.eboks.app.presentation.ui.start.components.signup.AcceptTermsComponentFragment
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import dk.eboks.app.util.dpToPx
@@ -30,19 +32,15 @@ import dk.eboks.app.util.setVisible
 import dk.nodes.filepicker.FilePickerActivity
 import dk.nodes.filepicker.FilePickerConstants
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_profile_main_component.*
 import kotlinx.android.synthetic.main.include_profile_bottom.*
 import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
-import android.content.Context.FINGERPRINT_SERVICE
-import android.hardware.fingerprint.FingerprintManager
-import android.support.v4.app.ActivityCompat
-import kotlinx.android.synthetic.*
-
 
 class ProfileInfoComponentFragment : BaseFragment(),
-        ProfileInfoComponentContract.View {
+    ProfileInfoComponentContract.View {
     @Inject
     lateinit var presenter: ProfileInfoComponentContract.Presenter
 
@@ -53,15 +51,15 @@ class ProfileInfoComponentFragment : BaseFragment(),
     private var showProgressOnLoad = false
 
     override fun onCreateView(
-            inflater: LayoutInflater?,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_profile_main_component, container, false)
+        val rootView = inflater.inflate(R.layout.fragment_profile_main_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -86,10 +84,10 @@ class ProfileInfoComponentFragment : BaseFragment(),
         super.onResume()
         clearFindViewByIdCache()
         attachListeners()
-        if(refreshOnResume) {
+        if (refreshOnResume) {
             refreshOnResume = false
             presenter.loadUserData(showProgressOnLoad)
-            if(showProgressOnLoad)
+            if (showProgressOnLoad)
                 showProgressOnLoad = false
         }
     }
@@ -102,16 +100,16 @@ class ProfileInfoComponentFragment : BaseFragment(),
     private fun setupCollapsingToolbar() {
         profileDetailCTL.isTitleEnabled = false
 
-        profileDetailABL.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+        profileDetailABL.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (appBarLayout.totalScrollRange + verticalOffset < 200) {
                 profileDetailTB.title = toolbarTitle
             } else {
                 profileDetailTB.title = ""
             }
-        }
+        })
 
         profileDetailTB.setNavigationOnClickListener {
-            activity.finishAfterTransition()
+            activity?.finishAfterTransition()
         }
 
         profileDetailRegisterTB.textOn = Translation.senders.registered
@@ -119,18 +117,16 @@ class ProfileInfoComponentFragment : BaseFragment(),
     }
 
     override fun showFingerprintOptionIfSupported() {
-        if(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             // Show our fingerprint stuff only if we are above API M
 //Fingerprint API only available on from Android 6.0 (M)
-            val fingerprintManager = context.getSystemService(Context.FINGERPRINT_SERVICE) as FingerprintManager
-            if (fingerprintManager.isHardwareDetected) {
+            val fingerprintManager =
+                context?.getSystemService(Context.FINGERPRINT_SERVICE) as? FingerprintManager
+            if (fingerprintManager?.isHardwareDetected == true) {
                 profileDetailSwFingerprint.setVisible(true)
                 // Device doesn't support fingerprint authentication
-            }
-            else
-                fingerprintManager.isHardwareDetected
-        }
-        else
+            } else fingerprintManager?.isHardwareDetected
+        } else
             profileDetailSwFingerprint.setVisible(false)
     }
 
@@ -138,10 +134,10 @@ class ProfileInfoComponentFragment : BaseFragment(),
         profileDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 buttonView.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        R.drawable.icon_48_checkmark_white,
-                        0
+                    0,
+                    0,
+                    R.drawable.icon_48_checkmark_white,
+                    0
                 )
                 VerificationComponentFragment.verificationSucceeded = false
                 getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
@@ -154,8 +150,8 @@ class ProfileInfoComponentFragment : BaseFragment(),
         profileDetailContainerMyInformation.setOnClickListener {
             Timber.d("profileDetailContainerMyInformation Clicked")
             getBaseActivity()?.addFragmentOnTop(
-                    R.id.profileActivityContainerFragment,
-                    MyInfoComponentFragment()
+                R.id.profileActivityContainerFragment,
+                MyInfoComponentFragment()
             )
         }
 
@@ -170,17 +166,15 @@ class ProfileInfoComponentFragment : BaseFragment(),
                 } else {
                     presenter.enableUserFingerprint(false)
                 }
-            }
-            else
-            {
+            } else {
                 if (isChecked) {
                     // show da Finger!
-                    if(presenter.isUserVerified)
+                    if (presenter.isUserVerified)
                         getBaseActivity()?.openComponentDrawer(FingerPrintComponentFragment::class.java)
                     else
                         getBaseActivity()?.openComponentDrawer(FingerHintComponentFragment::class.java)
                 } else {
-                    if(presenter.isUserVerified)
+                    if (presenter.isUserVerified)
                         presenter.enableUserFingerprint(false)
                 }
             }
@@ -202,12 +196,18 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
         profileDetailContainerPrivacy.setOnClickListener {
             Timber.d("profileDetailContainerPrivacy Clicked")
-            getBaseActivity()?.addFragmentOnTop(R.id.profileActivityContainerFragment, PrivacyFragment())
+            getBaseActivity()?.addFragmentOnTop(
+                R.id.profileActivityContainerFragment,
+                PrivacyFragment()
+            )
         }
 
         profileDetailContainerHelp.setOnClickListener {
             Timber.d("profileDetailContainerHelp Clicked")
-            getBaseActivity()?.addFragmentOnTop(R.id.profileActivityContainerFragment, HelpFragment())
+            getBaseActivity()?.addFragmentOnTop(
+                R.id.profileActivityContainerFragment,
+                HelpFragment()
+            )
         }
 
         profileDetailBtnSignout.setOnClickListener {
@@ -216,7 +216,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
 
         profileDetailContainerFeedback.setOnClickListener {
-            Config.getResourceLinkByType("feedback")?.let { link->
+            Config.getResourceLinkByType("feedback")?.let { link ->
                 openUrlExternal(link.link.url)
             }
         }
@@ -233,8 +233,8 @@ class ProfileInfoComponentFragment : BaseFragment(),
         profileDetailContainerFeedback.setOnClickListener(null)
     }
 
-    private fun openUrlExternal(url : String)
-    {
+    private fun openUrlExternal(url: String) {
+        val context = context ?: return
         val intent = Intent(Intent.ACTION_VIEW)
         intent.data = Uri.parse(url)
         if (intent.resolveActivity(context.packageManager) != null) {
@@ -247,8 +247,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
         profileDetailSwFingerprint.isChecked = enabled
     }
 
-    private fun acquireUserImage()
-    {
+    private fun acquireUserImage() {
         val intent = Intent(activity, FilePickerActivity::class.java)
         intent.putExtra(FilePickerConstants.CAMERA, true)
         startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE)
@@ -257,7 +256,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             data?.let {
-                val file = FilePickerUriHelper.getFile(activity, data)
+                val file = FilePickerUriHelper.getFile(activity ?: return, data)
                 val uri = FilePickerUriHelper.getUri(data)
                 setProfileImageLocal(file)
             }
@@ -281,14 +280,14 @@ class ProfileInfoComponentFragment : BaseFragment(),
             if (!url.isNullOrEmpty()) {
                 profileDetailIv.setPadding(dpToPx(4), dpToPx(4), dpToPx(4), dpToPx(4))
             }
-            var options = RequestOptions()
+            val options = RequestOptions()
             options.error(R.drawable.ic_profile)
             options.placeholder(R.drawable.ic_profile)
             options.circleCrop()
-            Glide.with(context)
-                    .load(url)
-                    .apply(options)
-                    .into(it)
+            Glide.with(context ?: return)
+                .load(url)
+                .apply(options)
+                .into(it)
         }
     }
 
@@ -299,21 +298,21 @@ class ProfileInfoComponentFragment : BaseFragment(),
             //todo should save image on server ?
             presenter.saveUserImg(Uri.fromFile(imgfile).toString())
 
-            var options = RequestOptions()
+            val options = RequestOptions()
             options.error(R.drawable.ic_profile)
             options.placeholder(R.drawable.ic_profile)
             options.circleCrop()
-            Glide.with(context)
-                    .load(Uri.fromFile(imgfile))
-                    .apply(options)
-                    .into(it)
+            Glide.with(context ?: return)
+                .load(Uri.fromFile(imgfile))
+                .apply(options)
+                .into(it)
         }
     }
 
     override fun setVerified(isVerified: Boolean) {
         profileDetailRegisterTB?.let {
             it.isChecked = isVerified
-            if(isVerified)
+            if (isVerified)
                 it.isEnabled = false
         }
     }
@@ -336,15 +335,14 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
     override fun logout() {
         val intent = Intent(getBaseActivity(), StartActivity::class.java)
-        ActivityCompat.finishAffinity(activity)
+        ActivityCompat.finishAffinity(activity ?: return)
         startActivity(intent)
-
     }
 
     override fun showProgress(show: Boolean) {
         Timber.e("showProgress $show called in ProfileInfoComponentFragment")
-        progressFl.visibility = if(show) View.VISIBLE else View.GONE
-        profileFragmentRootContainer.visibility = if(!show) View.VISIBLE else View.GONE
+        progressFl.visibility = if (show) View.VISIBLE else View.GONE
+        profileFragmentRootContainer.visibility = if (!show) View.VISIBLE else View.GONE
     }
 
     companion object {

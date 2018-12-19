@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical"
-    xmlns:nstack="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingPrefix">
 
@@ -52,12 +51,12 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/requirementRowsRv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        </android.support.v7.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
             <Button
                 android:id="@+id/updateProfileBtn"

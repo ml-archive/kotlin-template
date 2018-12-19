@@ -7,7 +7,9 @@ import com.google.gson.JsonParseException
 import java.lang.reflect.Type
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.HashMap
+import java.util.Locale
 
 class DateDeserializer : JsonDeserializer<Date> {
     @Throws(JsonParseException::class)

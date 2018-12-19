@@ -10,8 +10,6 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
 import dk.eboks.app.util.guard
-import dk.eboks.app.util.setVisible
-import timber.log.Timber
 
 class NotificationsChannelControl(channel: Channel, control : Control, view: View, inflater : LayoutInflater, handler: Handler, val formatter: EboksFormatter) : ChannelControl(channel, control, view, inflater, handler) {
     override fun buildView() {

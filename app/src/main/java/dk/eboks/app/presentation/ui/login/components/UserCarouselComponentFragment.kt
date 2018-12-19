@@ -2,14 +2,13 @@ package dk.eboks.app.presentation.ui.login.components
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.view.PagerAdapter
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config
@@ -39,12 +38,12 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
     @Inject
     lateinit var formatter: EboksFormatter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_user_carousel_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_user_carousel_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -63,10 +62,10 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
             }
             debugCreateUserTv.visibility = View.VISIBLE
             debugCreateUserTv.setOnClickListener {
-                activity.startActivity(Intent(activity, DebugUserActivity::class.java))
+                activity?.startActivity(Intent(activity, DebugUserActivity::class.java))
             }
         }
-        (activity as StartActivity).enableFragmentCheapFades()
+        (activity as? StartActivity)?.enableFragmentCheapFades()
     }
 
     override fun onResume() {
@@ -111,7 +110,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
     }
 
     private fun showDeleteDialog(user: User) {
-        AlertDialog.Builder(activity)
+        AlertDialog.Builder(activity ?: return)
                 .setTitle(Translation.start.confimRemoveUserTitle)
                 .setMessage(Translation.start.confirmRemoveUserMessage)
                 .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
@@ -125,7 +124,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                 .show()
     }
 
-    inner class UserPagerAdapter(val users: MutableList<Pair<User, UserSettings>>) : PagerAdapter() {
+    inner class UserPagerAdapter(val users: MutableList<Pair<User, UserSettings>>) : androidx.viewpager.widget.PagerAdapter() {
         override fun instantiateItem(collection: ViewGroup, position: Int): Any {
             val inflater = LayoutInflater.from(context)
             if (position < users.size) {
@@ -159,7 +158,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                     if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
                         it.setOnLongClickListener {
                             DebugUserPresenter.editUser = user
-                            activity.startActivity(Intent(activity, DebugUserActivity::class.java))
+                            activity?.startActivity(Intent(activity, DebugUserActivity::class.java))
                             true
                         }
                     }

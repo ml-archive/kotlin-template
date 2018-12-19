@@ -21,12 +21,12 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
     @Inject
     lateinit var presenter: HeaderComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_header_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_header_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -44,7 +44,7 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
                 senderTv.text = message.sender?.name ?: ""
                 titleTv.text = message.subject
                 message.sender?.logo.let {
-                    Glide.with(context).load(it?.url).into(senderLogoIv)
+                    Glide.with(context ?: return).load(it?.url).into(senderLogoIv)
                 }
             }
             MessageType.DRAFT -> {
@@ -68,7 +68,7 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
                 senderTv.text = message.sender?.name ?: ""
                 titleTv.text = message.subject
                 message.sender?.logo.let {
-                    Glide.with(context).load(it?.url).into(senderLogoIv)
+                    Glide.with(context ?: return).load(it?.url).into(senderLogoIv)
                 }
             }
         }

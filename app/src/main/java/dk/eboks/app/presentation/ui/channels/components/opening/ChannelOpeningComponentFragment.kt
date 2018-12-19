@@ -4,12 +4,12 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
@@ -43,25 +43,25 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     lateinit var presenter: ChannelOpeningComponentContract.Presenter
 
     override fun onCreateView(
-            inflater: LayoutInflater?,
+            inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        return inflater?.inflate(
-                R.layout.fragment_channel_opening_component,
-                container,
-                false
+        return inflater.inflate(
+            R.layout.fragment_channel_opening_component,
+            container,
+            false
         )
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
         arguments?.getParcelable<Channel>(Channel::class.java.simpleName)?.id?.let(presenter::setup)
             .guard {
-            //activity.onBackPressed()
+            //activity?.onBackPressed()
         }
     }
 
@@ -88,18 +88,18 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
             val url = it.url
 
             channel.background.let {
-                Glide.with(context).load(url).apply(
+                Glide.with(context ?: return).load(url).apply(
                         RequestOptions.bitmapTransform(
                                 GlideAlphaTransform(it.color)
                         )
                 ).into(backgroundIv)
             }.guard {
-                Glide.with(context).load(url).into(backgroundIv)
+                Glide.with(context ?: return).load(url).into(backgroundIv)
             }
         }
 
         channel.logo?.let {
-            Glide.with(context).load(it.url).into(logoIv)
+            Glide.with(context ?: return).load(it.url).into(logoIv)
         }
     }
 
@@ -193,7 +193,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
 
     override fun showStoreboxUserAlreadyExists() {
         Timber.i("show already exists")
-        AlertDialog.Builder(context)
+        AlertDialog.Builder(context ?: return)
                 .setMessage(Translation.storeboxlogin.errorAlreadyExistsMessage)
                 .setPositiveButton(Translation.storeboxlogin.signInButton) { dialog, which ->
                     startActivity(Intent(context, ConnectStoreboxActivity::class.java))
@@ -207,7 +207,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
 
     private fun showStoreboxConfirmDialog(channel: Channel) {
         Timber.i("showStoreboxConfirmDialog")
-        AlertDialog.Builder(context)
+        AlertDialog.Builder(context ?: return)
                 .setMessage(Translation.storeboxlogin.createUserButton)
                 .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
                     ChannelControlComponentFragment.refreshOnResume = true
@@ -255,6 +255,6 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         val intent = Intent(context, EkeyContentActivity::class.java)
         intent.putExtra("channel", channel)
         startActivity(intent)
-        activity.finish()
+        activity?.finish()
     }
 }

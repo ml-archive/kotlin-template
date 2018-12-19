@@ -19,7 +19,9 @@ import org.json.JSONObject
 import timber.log.Timber
 import java.io.UnsupportedEncodingException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 
 class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: SettingsRepository, val appStateManager: AppStateManager) : AuthClient {

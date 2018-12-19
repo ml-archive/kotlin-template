@@ -8,13 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config
-import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
-import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
 import dk.eboks.app.util.ViewControl
 import dk.eboks.app.util.guard
@@ -24,7 +21,7 @@ import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_mail_opening_error_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 /**
@@ -42,12 +39,13 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         updateTranslation()
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_mail_opening_error_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_mail_opening_error_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -106,7 +104,7 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.setNavigationOnClickListener {
             presenter.setShouldProceed(false)
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
     }
 

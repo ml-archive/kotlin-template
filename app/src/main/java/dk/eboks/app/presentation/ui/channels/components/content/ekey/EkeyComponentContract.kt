@@ -1,7 +1,5 @@
 package dk.eboks.app.presentation.ui.channels.components.content.ekey
 
-import dk.eboks.app.domain.models.channel.ekey.BaseEkey
-import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter
 

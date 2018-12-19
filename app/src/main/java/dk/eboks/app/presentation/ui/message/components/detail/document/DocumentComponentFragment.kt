@@ -1,10 +1,10 @@
 package dk.eboks.app.presentation.ui.message.components.detail.document
 
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.managers.UIManager
@@ -30,12 +30,12 @@ class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View
 
     var currentMessage : Message? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_document_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_document_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -58,18 +58,18 @@ class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View
     }
 
     override fun openExternalViewer(filename: String, mimeType : String) {
-        if(!FileUtils.openExternalViewer(context, filename, mimeType))
+        if(!FileUtils.openExternalViewer(context ?: return, filename, mimeType))
         {   // could not be opened in external viewer, ask if user wanna save to downloads
-            AlertDialog.Builder(context)
+            AlertDialog.Builder(context ?: return)
                     .setTitle(Translation.error.attachmentErrorTitle)
                     .setMessage(Translation.error.attachmentErrorMessage)
-                    .setPositiveButton(Translation.error.attachmentErrorSaveBtn, {dialogInterface, i ->
+                    .setPositiveButton(Translation.error.attachmentErrorSaveBtn) { dialogInterface, i ->
                         currentMessage?.content?.let { presenter.saveAttachment(it) }
-                    })
-                    .setNegativeButton(Translation.error.attachmentErrorNegativeBtn, {dialogInterface, i ->
+                    }
+                .setNegativeButton(Translation.error.attachmentErrorNegativeBtn) { dialogInterface, i ->
 
-                    })
-                    .show()
+                }
+                .show()
         }
     }
 }

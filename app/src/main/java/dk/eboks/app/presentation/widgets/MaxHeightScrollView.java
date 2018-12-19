@@ -2,10 +2,10 @@ package dk.eboks.app.presentation.widgets;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
+import androidx.core.widget.NestedScrollView;
 import dk.eboks.app.R;
 
 public class MaxHeightScrollView extends NestedScrollView {

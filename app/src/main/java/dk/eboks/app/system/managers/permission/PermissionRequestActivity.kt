@@ -2,8 +2,8 @@ package dk.eboks.app.system.managers.permission
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.PermissionManager
 import dk.eboks.app.presentation.base.BaseActivity

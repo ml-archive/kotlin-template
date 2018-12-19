@@ -1,8 +1,6 @@
 package dk.eboks.app.presentation.ui.channels.components.requirements
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,12 +25,13 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
 
     //lateinit var currentItem: Channel
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_channel_requirements_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_channel_requirements_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -48,13 +47,15 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
     override fun setupView(channel: Channel) {
         updateTranslation(channel.name)
         updateProfileBtn.setOnClickListener {
-            activity.Starter().activity(MyInfoActivity::class.java).putExtra("channel", channel).start()
-            activity.finish()
+            activity?.run {
+                Starter().activity(MyInfoActivity::class.java).putExtra("channel", channel).start()
+                finish()
+            }
         }
     }
 
     override fun showUnverifiedRequirements(requirements: List<Requirement>) {
-        requirementRowsRv.layoutManager = LinearLayoutManager(context)
+        requirementRowsRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         requirementRowsRv.adapter = RowAdapter(requirements)
     }
 
@@ -62,11 +63,10 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
         headerTextTv.text = Translation.channels.drawerHeaderText.replace("[channelname]", channelName)
     }
 
-    inner class RowAdapter(requirements: List<Requirement>) : RecyclerView.Adapter<RowAdapter.ChannelRequirementViewHolder>() {
-        val requirements: List<Requirement> = requirements
+    inner class RowAdapter(val requirements: List<Requirement>) : androidx.recyclerview.widget.RecyclerView.Adapter<RowAdapter.ChannelRequirementViewHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ChannelRequirementViewHolder {
-            val view = LayoutInflater.from(parent?.context).inflate(R.layout.viewholder_channel_setting_boxrow, parent, false)
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChannelRequirementViewHolder {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.viewholder_channel_setting_boxrow, parent, false)
             return ChannelRequirementViewHolder(view)
         }
 
@@ -74,12 +74,12 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
             return requirements.size
         }
 
-        override fun onBindViewHolder(holder: ChannelRequirementViewHolder?, position: Int) {
+        override fun onBindViewHolder(holder: ChannelRequirementViewHolder, position: Int) {
             val requirement = requirements[position]
-            holder?.bind(requirement)
+            holder.bind(requirement)
         }
 
-        inner class ChannelRequirementViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        inner class ChannelRequirementViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
             fun bind(requirement: Requirement) {
                 if (requirement.value.isNullOrBlank()) {
                     //if no value, set name on centeredHeader

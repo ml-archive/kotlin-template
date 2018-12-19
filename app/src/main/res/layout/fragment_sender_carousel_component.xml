@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:animateLayoutChanges="true"
     android:background="@color/white"
-    xmlns:nstack="http://schemas.android.com/apk/res-auto"
     tools:ignore="MissingPrefix">
 
     <LinearLayout
@@ -45,7 +44,7 @@
                 tools:text="_Show all" />
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sendersRv"
             android:layout_width="match_parent"
             android:layout_height="148dp"

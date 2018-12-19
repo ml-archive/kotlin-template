@@ -11,7 +11,9 @@ import dk.eboks.app.domain.models.message.Message
 import dk.nodes.nstack.kotlin.NStack
 import timber.log.Timber
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 /**
  * Created by bison on 19/02/18.

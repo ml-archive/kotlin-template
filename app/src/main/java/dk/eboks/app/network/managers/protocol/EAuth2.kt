@@ -1,7 +1,11 @@
 package dk.eboks.app.network.managers.protocol
 
 import dk.eboks.app.App
-import dk.eboks.app.domain.managers.*
+import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.AuthClient
+import dk.eboks.app.domain.managers.PrefManager
+import dk.eboks.app.domain.managers.UIManager
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
@@ -10,7 +14,6 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
 import timber.log.Timber
-import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 /**

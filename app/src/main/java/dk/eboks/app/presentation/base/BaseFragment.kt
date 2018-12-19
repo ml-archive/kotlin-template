@@ -4,7 +4,6 @@ import android.app.FragmentManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -16,7 +15,7 @@ import dk.eboks.app.injection.modules.PresentationModule
 import kotlinx.android.synthetic.*
 import timber.log.Timber
 
-abstract class BaseFragment : Fragment(), BaseView {
+abstract class BaseFragment : androidx.fragment.app.Fragment(), BaseView {
     protected val component: PresentationComponent by lazy {
         App.instance().appComponent.plus(PresentationModule())
     }
@@ -40,7 +39,7 @@ abstract class BaseFragment : Fragment(), BaseView {
      */
     open val defaultErrorHandler: ViewErrorController by lazy {
         //ViewErrorController(context = context, closeFunction = {fragmentManager.popBackStack()} )
-        ViewErrorController(context = context, closeFunction = {activity.onBackPressed()} )
+        ViewErrorController(context = context!!, closeFunction = { activity?.onBackPressed() })
     }
 
     /*
@@ -52,16 +51,19 @@ abstract class BaseFragment : Fragment(), BaseView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
-        {
+        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             //setupShakeDetection()
         }
         //if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onCreate")
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) Timber.v("${this.javaClass.simpleName} onViewCreated")
+        if (BuildConfig.BUILD_TYPE.contains(
+                "debug",
+                ignoreCase = true
+            )
+        ) Timber.v("${this.javaClass.simpleName} onViewCreated")
         clearFindViewByIdCache()
     }
 
@@ -92,51 +94,53 @@ abstract class BaseFragment : Fragment(), BaseView {
     }
     */
 
-    fun getBaseActivity() : BaseActivity?
-    {
-        if(activity is BaseActivity)
+    fun getBaseActivity(): BaseActivity? {
+        if (activity is BaseActivity)
             return activity as BaseActivity
         return null
     }
 
     protected open fun onShake() {}
 
-    override fun showErrorDialog(error : ViewError) {
+    override fun showErrorDialog(error: ViewError) {
         defaultErrorHandler.showErrorDialog(error)
     }
 
     override fun showToast(msg: String, showLongTime: Boolean) {
-        val dur = if(showLongTime) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
+        val dur = if (showLongTime) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
         Toast.makeText(context, msg, dur).show()
     }
 
     fun setRootFragment(resId: Int, fragment: BaseFragment?) {
         fragment?.let {
-            activity.supportFragmentManager.popBackStack(
+            activity?.run {
+                supportFragmentManager.popBackStack(
                     BaseActivity.backStackRootTag,
                     FragmentManager.POP_BACK_STACK_INCLUSIVE
-            )
-            activity.supportFragmentManager.beginTransaction()
-                    .replace(resId, fragment)
-                    .addToBackStack(BaseActivity.backStackRootTag)
-                    .commit()
+                )
+                activity?.run {
+                    supportFragmentManager.beginTransaction()
+                        .replace(resId, fragment)
+                        .addToBackStack(BaseActivity.backStackRootTag)
+                        .commit()
+                }
+            }
         }
     }
 
     fun addFragmentOnTop(resId: Int, fragment: BaseFragment?, addToBack: Boolean = true) {
         fragment?.let {
-            val trans = activity.supportFragmentManager.beginTransaction().replace(resId, it)
+            val trans = activity?.supportFragmentManager?.beginTransaction()?.replace(resId, it)
             if (addToBack)
-                trans.addToBackStack(null)
-            trans.commit()
+                trans?.addToBackStack(null)
+            trans?.commit()
         }
     }
 
-    fun finishActivity(resultCode : Int? = null)
-    {
-        resultCode?.let { code->
-            activity.setResult(code)
+    fun finishActivity(resultCode: Int? = null) {
+        resultCode?.let { code ->
+            activity?.setResult(code)
         }
-        activity.finish()
+        activity?.finish()
     }
 }

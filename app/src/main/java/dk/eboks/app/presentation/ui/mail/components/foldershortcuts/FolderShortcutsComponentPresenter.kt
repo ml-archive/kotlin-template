@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.mail.components.foldershortcuts
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.managers.AppStateManager

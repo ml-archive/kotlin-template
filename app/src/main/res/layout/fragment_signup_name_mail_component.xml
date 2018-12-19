@@ -56,7 +56,7 @@
                     tools:text="_Please fill in the information below"
                     android:text="@string/nstack_signup_nameEmailDetail"/>
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/nameTil"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -67,17 +67,17 @@
                     app:errorTextAppearance="@style/errorappearance"
                     app:hintTextAppearance="@style/HintTextAppearance">
 
-                    <android.support.design.widget.TextInputEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/nameEt"
                         style="@style/EditText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="textPersonName|textCapWords"
                         nstack:hint="@string/nstack_signup_nameHint"/>
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
 
-                <android.support.design.widget.TextInputLayout
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/emailTil"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
                     app:errorTextAppearance="@style/errorappearance"
                     app:hintTextAppearance="@style/HintTextAppearance">
 
-                    <android.support.design.widget.TextInputEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/emailEt"
                         style="@style/EditText"
                         android:layout_width="match_parent"
@@ -96,7 +96,7 @@
                         android:inputType="textEmailAddress"
                         nstack:hint="@string/nstack_signup_emailHint"/>
 
-                </android.support.design.widget.TextInputLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/continueBtn"

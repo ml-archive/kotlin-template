@@ -12,10 +12,11 @@ import dk.eboks.app.util.guard
 import dk.eboks.app.util.views
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.activity_reply_form.*
-import timber.log.Timber
-import java.util.*
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
+import java.util.Locale
+import java.util.Observer
+import javax.inject.Inject
 
 class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChangedListener {
     @Inject lateinit var presenter: ReplyFormContract.Presenter

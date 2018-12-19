@@ -3,26 +3,26 @@ package dk.eboks.app.presentation.ui.channels.components.content.ekey.open
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.ekey.*
-import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.domain.models.channel.ekey.BaseEkey
+import dk.eboks.app.domain.models.channel.ekey.Ekey
+import dk.eboks.app.domain.models.channel.ekey.Login
+import dk.eboks.app.domain.models.channel.ekey.Note
+import dk.eboks.app.domain.models.channel.ekey.Pin
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.BaseEkeyFragment
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailMode
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.pin.EkeyPinComponentFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.fragment_channel_ekey_openitem.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import java.lang.StringBuilder
 import javax.inject.Inject
 
 /**
@@ -37,12 +37,12 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
     @Inject
     lateinit var presenter: EkeyOpenItemComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_channel_ekey_openitem, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_channel_ekey_openitem, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -113,7 +113,7 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
             menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
 
-                AlertDialog.Builder(context)
+                AlertDialog.Builder(context ?: return@setOnMenuItemClickListener false)
                         .setMessage(Translation.ekey.deleteDialogMsg.replace("[item]", categoryString))
                         .setPositiveButton(Translation.ekey.deleteDialogRemoveBtn) { dialog, which ->
                             ekey?.let {
@@ -158,15 +158,15 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
                     }
 
                     copyPasswordBtn.setOnClickListener { view ->
-                        var clipboard  = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        var clip = android.content.ClipData.newPlainText("copied password", it.password)
-                        clipboard.primaryClip = clip
+                        val clipboard  = context?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+                        val clip = android.content.ClipData.newPlainText("copied password", it.password)
+                        clipboard?.primaryClip = clip
                         Toast.makeText(context, (Translation.ekey.copiedToClipboard), Toast.LENGTH_SHORT).show()
                 }
                     copyUsernameBtn.setOnClickListener { view ->
-                        var clipboard  = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        var clip = android.content.ClipData.newPlainText("copied username", it.username)
-                        clipboard.primaryClip = clip
+                        val clipboard  = context?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+                        val clip = android.content.ClipData.newPlainText("copied username", it.username)
+                        clipboard?.primaryClip = clip
                         Toast.makeText(context, (Translation.ekey.copiedToClipboard), Toast.LENGTH_SHORT).show()
                     }
                 }

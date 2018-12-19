@@ -1,6 +1,5 @@
 package dk.eboks.app.domain.interactors.authentication.mobileacces
 
-import android.os.Build
 import dk.eboks.app.domain.models.login.ActivationDevice
 import dk.eboks.app.domain.repositories.SettingsRepository
 import dk.eboks.app.network.Api

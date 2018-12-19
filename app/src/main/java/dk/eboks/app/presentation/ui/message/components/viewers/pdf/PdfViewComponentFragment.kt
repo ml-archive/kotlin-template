@@ -1,12 +1,11 @@
 package dk.eboks.app.presentation.ui.message.components.viewers.pdf
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.presentation.base.BaseFragment
@@ -16,7 +15,7 @@ import dk.eboks.app.presentation.widgets.pdf.AsyncPdfRenderer
 import dk.eboks.app.presentation.widgets.pdf.RenderedPage
 import kotlinx.android.synthetic.main.fragment_pdfview_component.*
 import timber.log.Timber
-import java.util.*
+import java.util.ArrayList
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -32,12 +31,12 @@ class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, 
 
     var pageMarginPx = 0
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_pdfview_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_pdfview_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -49,14 +48,18 @@ class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, 
         pages.add(RenderedPage())
         setupRecyclerView()
 
-        renderer = AsyncPdfRenderer(context)
+        renderer = AsyncPdfRenderer(context ?: return)
         renderer.start("pdf.pdf")
         renderer.requestPage(0)
     }
 
     fun setupRecyclerView()
     {
-        pagesRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        pagesRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            false
+        )
         pagesRv.adapter = PageAdapter()
     }
 
@@ -65,9 +68,9 @@ class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, 
     }
 
 
-    inner class PageAdapter : RecyclerView.Adapter<PageAdapter.PageViewHolder>() {
+    inner class PageAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<PageAdapter.PageViewHolder>() {
 
-        inner class PageViewHolder(val pageIv : ImageView) : RecyclerView.ViewHolder(pageIv)
+        inner class PageViewHolder(val pageIv : ImageView) : androidx.recyclerview.widget.RecyclerView.ViewHolder(pageIv)
         {
             //val circleIv = root.findViewById<ImageView>(R.id.circleIv)
 
@@ -84,11 +87,11 @@ class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, 
             return pages.size
         }
 
-        override fun onBindViewHolder(holder: PageViewHolder?, position: Int) {
-            val params = RecyclerView.LayoutParams(612, 792)
+        override fun onBindViewHolder(holder: PageViewHolder, position: Int) {
+            val params = androidx.recyclerview.widget.RecyclerView.LayoutParams(612, 792)
             params.setMargins(pageMarginPx, pageMarginPx, pageMarginPx, pageMarginPx)
-            holder?.pageIv?.layoutParams = params
-            holder?.pageIv?.background = resources.getDrawable(R.color.white)
+            holder.pageIv.layoutParams = params
+            holder.pageIv.background = resources.getDrawable(R.color.white)
         }
     }
 

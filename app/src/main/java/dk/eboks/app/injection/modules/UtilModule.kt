@@ -3,7 +3,12 @@ package dk.eboks.app.injection.modules
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import dk.eboks.app.domain.managers.*
+import dk.eboks.app.domain.managers.CryptoManager
+import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.managers.EncryptionPreferenceManager
+import dk.eboks.app.domain.managers.GuidManager
+import dk.eboks.app.domain.managers.PermissionManager
+import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.domain.models.login.LoginState
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.repositories.SettingsRepository

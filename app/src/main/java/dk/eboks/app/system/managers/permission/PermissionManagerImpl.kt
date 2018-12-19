@@ -2,7 +2,7 @@ package dk.eboks.app.system.managers.permission
 
 import android.content.Context
 import android.content.pm.PackageManager
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import dk.eboks.app.domain.managers.PermissionManager
 import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.util.guard

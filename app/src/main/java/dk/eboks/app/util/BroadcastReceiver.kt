@@ -3,7 +3,6 @@ package dk.eboks.app.util
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.support.v4.content.LocalBroadcastManager
 import timber.log.Timber
 
 /**
@@ -40,14 +39,14 @@ class BroadcastReceiver {
 
     fun register(c: Context): BroadcastReceiver {
         //NLog.d(TAG, "Registering receiver.");
-        LocalBroadcastManager.getInstance(c).registerReceiver(messageReceiver, filter)
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(c).registerReceiver(messageReceiver, filter)
         isRegistered = true
         return this
     }
 
     fun deregister(c: Context): BroadcastReceiver {
         //NLog.d(TAG, "Deregistering receiver.");
-        LocalBroadcastManager.getInstance(c).unregisterReceiver(messageReceiver)
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(c).unregisterReceiver(messageReceiver)
         isRegistered = false
         return this
     }
@@ -61,7 +60,7 @@ class BroadcastReceiver {
 
         fun broadcast(c: Context, intent: Intent) {
             Timber.e("Broadcasting action " + intent.action)
-            LocalBroadcastManager.getInstance(c).sendBroadcast(intent)
+            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(c).sendBroadcast(intent)
         }
     }
 }

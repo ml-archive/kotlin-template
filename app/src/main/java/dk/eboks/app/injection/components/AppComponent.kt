@@ -2,8 +2,23 @@ package dk.eboks.app.injection.components
 
 import dagger.Component
 import dk.eboks.app.App
-import dk.eboks.app.domain.managers.*
-import dk.eboks.app.injection.modules.*
+import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.DownloadManager
+import dk.eboks.app.domain.managers.EboksFormatter
+import dk.eboks.app.domain.managers.FileCacheManager
+import dk.eboks.app.domain.managers.PermissionManager
+import dk.eboks.app.domain.managers.PrefManager
+import dk.eboks.app.domain.managers.UIManager
+import dk.eboks.app.domain.managers.UserManager
+import dk.eboks.app.domain.managers.UserSettingsManager
+import dk.eboks.app.injection.modules.AppModule
+import dk.eboks.app.injection.modules.ExecutorModule
+import dk.eboks.app.injection.modules.InteractorModule
+import dk.eboks.app.injection.modules.PresentationModule
+import dk.eboks.app.injection.modules.RepositoryModule
+import dk.eboks.app.injection.modules.RestModule
+import dk.eboks.app.injection.modules.StorageModule
+import dk.eboks.app.injection.modules.UtilModule
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.protocol.EAuth2
 import dk.eboks.app.network.managers.protocol.ServerErrorInterceptor

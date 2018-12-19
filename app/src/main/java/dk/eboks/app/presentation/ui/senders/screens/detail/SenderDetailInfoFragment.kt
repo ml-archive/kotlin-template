@@ -18,12 +18,13 @@ import kotlinx.android.synthetic.main.fragment_sender_detail_information.*
  */
 class SenderDetailInfoFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_sender_detail_information, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_sender_detail_information, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         senderInfoMoreBtn.visibility = View.GONE
@@ -35,7 +36,7 @@ class SenderDetailInfoFragment : BaseFragment() {
     override fun setArguments(args: Bundle?) {
         super.setArguments(args)
 
-        val sender = arguments.getParcelable<Sender>(Sender::class.simpleName)
+        val sender = arguments?.getParcelable<Sender>(Sender::class.simpleName)
 
         sender?.description?.let {
             senderInfoBodyTv.text = it.text
@@ -43,9 +44,11 @@ class SenderDetailInfoFragment : BaseFragment() {
                 senderInfoMoreBtn.setOnClickListener { v ->
                     val intent = Intent(Intent.ACTION_VIEW)
                     intent.data = Uri.parse(it.url)
-                    if (intent.resolveActivity(context.packageManager) != null) {
+
+                    if (intent.resolveActivity(v.context.packageManager) != null) {
                         startActivity(intent)
                     }
+
                 }
                 senderInfoMoreBtn.text = it.text
                 senderInfoMoreBtn.visibility = View.VISIBLE
@@ -65,6 +68,7 @@ class SenderDetailInfoFragment : BaseFragment() {
                 val gmmIntentUri = Uri.parse(navString)
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                 mapIntent.`package` = "com.google.android.apps.maps"
+                val context = context ?: return@setOnClickListener
                 if (mapIntent.resolveActivity(context.packageManager) != null) {
                     startActivity(mapIntent)
                 }
@@ -78,6 +82,7 @@ class SenderDetailInfoFragment : BaseFragment() {
             senderInfoWebLL.setOnClickListener {
                 val intent = Intent(Intent.ACTION_VIEW)
                 intent.data = Uri.parse(url)
+                val context = context ?: return@setOnClickListener
                 if (intent.resolveActivity(context.packageManager) != null) {
                     startActivity(intent)
                 }
@@ -85,11 +90,13 @@ class SenderDetailInfoFragment : BaseFragment() {
             senderInfoWebLL.visibility = View.VISIBLE
         }
         sender?.address?.phone?.let {
+
             val phone = it
             senderInfoPhoneTv.text = phone
             senderInfoPhoneLL.setOnClickListener {
                 val intent = Intent(Intent.ACTION_DIAL)
                 intent.data = Uri.parse("tel:$phone")
+                val context = context ?: return@setOnClickListener
                 if (intent.resolveActivity(context.packageManager) != null) {
                     startActivity(intent)
                 }

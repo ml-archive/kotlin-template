@@ -1,10 +1,10 @@
 package dk.eboks.app.presentation.ui.folder.screens
 
 import android.os.Bundle
-import android.support.design.widget.CoordinatorLayout
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
@@ -13,8 +13,8 @@ import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragmen
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.activity_folder.*
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
+import javax.inject.Inject
 
 class FolderActivity : BaseActivity(), FolderContract.View {
     @Inject lateinit var presenter: FolderContract.Presenter
@@ -45,7 +45,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
     }
 
     private fun removeNavBarMargin() {
-        var params = CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT)
+        var params = androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT)
         val tv = TypedValue()
         var actionBarHeight = 0
         if (this.theme.resolveAttribute(android.R.attr.actionBarSize, tv, true))

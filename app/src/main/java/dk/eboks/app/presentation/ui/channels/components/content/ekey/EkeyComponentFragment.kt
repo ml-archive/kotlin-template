@@ -3,23 +3,21 @@ package dk.eboks.app.presentation.ui.channels.components.content.ekey
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.os.Bundle
-import android.os.Parcelable
-import android.support.v4.view.ViewCompat
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
-import dk.eboks.app.domain.models.channel.ekey.*
-import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.domain.models.channel.ekey.BaseEkey
+import dk.eboks.app.domain.models.channel.ekey.Ekey
+import dk.eboks.app.domain.models.channel.ekey.Login
+import dk.eboks.app.domain.models.channel.ekey.Note
+import dk.eboks.app.domain.models.channel.ekey.Pin
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.additem.EkeyAddItemComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.open.EkeyOpenItemComponentFragment
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.pin.EkeyPinComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.util.dpToPx
@@ -28,11 +26,7 @@ import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.fragment_channel_ekey.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
-import java.io.Serializable
-import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
-
 
 /**
  * Created by bison on 09-02-2018.
@@ -63,11 +57,11 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, Be
     private val items = ArrayList<ListItem>()
     private val actualItems = ArrayList<BaseEkey>()
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_channel_ekey, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_channel_ekey, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         component.inject(this)
@@ -99,7 +93,7 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, Be
         }
 
         //RECYCLER
-        keysContentRv.layoutManager = LinearLayoutManager(context)
+        keysContentRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         ViewCompat.setNestedScrollingEnabled(keysContentRv, false)
         keysContentRv.addItemDecoration(DividerDecoration())
         val adapter = BetterEkeyAdapter(items, this)
@@ -185,7 +179,7 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, Be
 
         // all done
         Timber.d("ADDED ${items.size} items")
-        keysContentRv.adapter.notifyDataSetChanged()
+        keysContentRv.adapter?.notifyDataSetChanged()
         keysContentRv.invalidate()
 
         showLoading(false)
@@ -201,16 +195,16 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, Be
         }
     }
 
-    inner class DividerDecoration : RecyclerView.ItemDecoration() {
+    inner class DividerDecoration : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
         private val d = resources.getDrawable(R.drawable.shape_divider)
 
-        override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
             super.getItemOffsets(outRect, view, parent, state)
 
             outRect.bottom += d.intrinsicHeight
         }
 
-        override fun onDraw(c: Canvas, parent: RecyclerView) {
+        override fun onDraw(c: Canvas, parent: androidx.recyclerview.widget.RecyclerView) {
 
             for (i in 0 until parent.childCount - 1) { // not after the last
                 val child = parent.getChildAt(i)
@@ -218,10 +212,10 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, Be
                 var marginLeft = dpToPx(72)
 
                 val aPos = parent.getChildAdapterPosition(child)
-                if (parent.adapter.getItemViewType(aPos) == 42762461) {
+                if (parent.adapter?.getItemViewType(aPos) == 42762461) {
                     marginLeft = 0
                 }
-                if (parent.adapter.getItemViewType(aPos + 1) == 42762461) {
+                if (parent.adapter?.getItemViewType(aPos + 1) == 42762461) {
                     marginLeft = 0
                 }
 

@@ -9,7 +9,6 @@
     android:paddingEnd="@dimen/margin_normal"
     android:paddingTop="14dp"
     android:paddingBottom="18dp"
-    xmlns:nstack="http://schemas.android.com/apk/res-auto"
     tools:ignore="MissingPrefix">
 
     <FrameLayout

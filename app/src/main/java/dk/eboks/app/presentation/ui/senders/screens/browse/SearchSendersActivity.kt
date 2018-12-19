@@ -2,14 +2,13 @@ package dk.eboks.app.presentation.ui.senders.screens.browse
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.l4digital.fastscroll.FastScroller
@@ -43,7 +42,11 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
         }
 
         searchSenderRv.adapter = SenderAdapter(senders)
-        searchSenderRv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        searchSenderRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            this,
+            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            false
+        )
 
         searchSenderSv.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             private val deBounce = Runnable {
@@ -96,7 +99,7 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
         searchSenderRv.adapter?.notifyDataSetChanged()
     }
 
-    inner class SenderAdapter(val senders: List<Sender>) : RecyclerView.Adapter<SenderAdapter.SenderViewHolder>(), FastScroller.SectionIndexer {
+    inner class SenderAdapter(val senders: List<Sender>) : androidx.recyclerview.widget.RecyclerView.Adapter<SenderAdapter.SenderViewHolder>(), FastScroller.SectionIndexer {
         override fun getSectionText(position: Int): String {
             return "${senders[position].name.first()}"
         }
@@ -105,15 +108,15 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
             return SenderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_sender, parent, false))
         }
 
-        override fun onBindViewHolder(holder: SenderViewHolder?, position: Int) {
-            holder?.bind(senders[position])
+        override fun onBindViewHolder(holder: SenderViewHolder, position: Int) {
+            holder.bind(senders[position])
         }
 
         override fun getItemCount(): Int {
             return senders.size
         }
 
-        inner class SenderViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
+        inner class SenderViewHolder(val v: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
             val mainLl = v.findViewById<View>(R.id.senderMainLl)
             val indexTv = v.findViewById<TextView>(R.id.senderIndexTv)
             val nameTv = v.findViewById<TextView>(R.id.senderNameTv)

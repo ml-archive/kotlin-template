@@ -4,12 +4,12 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.MenuItem
 import android.view.View
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
@@ -22,7 +22,6 @@ import timber.log.Timber
 import java.net.URLEncoder
 import javax.inject.Inject
 
-
 /**
  * Created by bison on 09-02-2018.
  */
@@ -33,7 +32,7 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
 
     var channelAppInterface: ChannelContentComponentFragment.ChannelAppInterface? = null
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
 
@@ -60,17 +59,19 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
     }
 
     // looks like this "mobilepay://send?amount=100&phone=24770011" taste like crab
-    fun openMobilePay(url : String) : Boolean
-    {
+    fun openMobilePay(url : String) : Boolean {
         val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-        val packageManager = activity.packageManager
-        if (i.resolveActivity(packageManager) != null) {
-            startActivity(i)
-            return true
-        } else {
-            Timber.d("No Intent available to handle action")
-            return false
+        activity?.packageManager?.let {
+            return if (i.resolveActivity(it) != null) {
+                startActivity(i)
+                true
+            } else {
+                Timber.d("No Intent available to handle action")
+                false
+            }
         }
+        return false
+
     }
 
     override fun onResume() {
@@ -79,7 +80,7 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             if(webView.canGoBack())
                 webView.goBack()
             else
-                activity.finish()
+                activity?.finish()
             true
         }
     }
@@ -95,7 +96,7 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             if(webView.canGoBack())
                 webView.goBack()
             else
-                activity.finish()
+                activity?.finish()
         }
 
         val menuItem = mainTb.menu.add("_settings")
@@ -132,7 +133,7 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
                 val result = openMobilePay(url)
                 if(!result) // if mobile pay not installed on device
                 {
-                    AlertDialog.Builder(context)
+                    AlertDialog.Builder(context ?: return@let)
                             .setTitle(Translation.mobilepaysupport.mobilePayNotInstalledTitle)
                             .setMessage(Translation.mobilepaysupport.mobilePayNotInstalledMessage)
                             .setPositiveButton(Translation.mobilepaysupport.installMobilePayBtn.toUpperCase()) { dialog, which ->
@@ -268,9 +269,12 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             Timber.v("Map: $name, $address = $search")
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(search)
-            if (intent.resolveActivity(baseFragment.context.packageManager) != null) {
-                baseFragment.startActivity(intent)
+            baseFragment.context?.packageManager?.let {
+                if (intent.resolveActivity(it) != null) {
+                    baseFragment.startActivity(intent)
+                }
             }
+
         }
     }
 }

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:nstack="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@color/backgroundColor"
-              android:orientation="vertical"
-              tools:ignore="MissingPrefix">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix">
 
     <!--My information-->
     <FrameLayout
@@ -45,7 +44,7 @@
 
         <!--Fingerprint switch-->
 
-        <android.support.v7.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/profileDetailSwFingerprint"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -63,7 +62,7 @@
 
         <!--Keep me signed in switch-->
 
-        <android.support.v7.widget.SwitchCompat
+        <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/profileDetailSwKeepSignedIn"
             android:layout_width="match_parent"
             android:layout_height="60dp"

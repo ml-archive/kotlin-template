@@ -5,7 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.*
+import android.webkit.CookieManager
+import android.webkit.JavascriptInterface
+import android.webkit.WebSettings
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import dk.eboks.app.R
 import dk.eboks.app.presentation.ui.profile.components.drawer.MergeAccountComponentFragment
 import kotlinx.android.synthetic.main.fragment_base_web.*
@@ -19,12 +23,12 @@ abstract class BaseWebFragment : BaseFragment() {
     var closeLoginOnBack : Boolean = false
     var shouldCheckMergeAccountOnResume = false
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_base_web, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_base_web, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         refreshSrl.isEnabled = false
         setupWebView()

@@ -10,12 +10,22 @@ import dagger.Module
 import dagger.Provides
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
-import dk.eboks.app.domain.managers.*
+import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.AuthClient
+import dk.eboks.app.domain.managers.CryptoManager
+import dk.eboks.app.domain.managers.DownloadManager
+import dk.eboks.app.domain.managers.FileCacheManager
+import dk.eboks.app.domain.managers.PrefManager
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.repositories.SettingsRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.AuthClientImpl
 import dk.eboks.app.network.managers.DownloadManagerImpl
-import dk.eboks.app.network.managers.protocol.*
+import dk.eboks.app.network.managers.protocol.AcceptLanguageHeaderInterceptor
+import dk.eboks.app.network.managers.protocol.ApiHostSelectionInterceptor
+import dk.eboks.app.network.managers.protocol.EAuth2
+import dk.eboks.app.network.managers.protocol.EboksHeaderInterceptor
+import dk.eboks.app.network.managers.protocol.ServerErrorInterceptor
 import dk.eboks.app.network.util.BufferedSourceConverterFactory
 import dk.eboks.app.network.util.DateDeserializer
 import dk.eboks.app.network.util.ItemTypeAdapterFactory
@@ -27,10 +37,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import java.util.*
+import java.util.Date
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
-
 
 /**
  * Created by bison on 25/07/17.

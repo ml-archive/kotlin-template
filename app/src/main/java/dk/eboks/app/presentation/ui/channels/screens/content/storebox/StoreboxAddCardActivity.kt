@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
 import dk.eboks.app.R
-import dk.eboks.app.domain.interactors.storebox.GetStoreboxCardLinkInteractor
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxCardLinkInteractorImpl
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
@@ -35,7 +34,7 @@ class StoreboxAddCardActivity : BaseActivity() {
     }
 
     class StoreboxAddCardFragment : BaseWebFragment() {
-        override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
             arguments?.getParcelable<Link>(Link::class.java.simpleName)?.url?.let(webView::loadUrl)
             setupTopBar()
@@ -45,7 +44,7 @@ class StoreboxAddCardActivity : BaseActivity() {
         private fun setupTopBar() {
             mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
             mainTb.setNavigationOnClickListener {
-                activity.onBackPressed()
+                activity?.onBackPressed()
             }
             mainTb.title = Translation.channelsettingsstoreboxadditions.addCardTitle
         }
@@ -53,9 +52,8 @@ class StoreboxAddCardActivity : BaseActivity() {
         override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             Timber.e("URL override: $url")
             url?.let {
-                if(url.contains(GetStoreboxCardLinkInteractorImpl.SUCCESS_CALLBACK))
-                {
-                    activity.finish()
+                if(url.contains(GetStoreboxCardLinkInteractorImpl.SUCCESS_CALLBACK)) {
+                    activity?.finish()
                 }
                 if(url.contains(GetStoreboxCardLinkInteractorImpl.ERROR_CALLBACK))
                 {
