@@ -146,12 +146,10 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
             }
 
             currentMessage.sender?.logo?.let {logo ->
-                context?.let {
-                    Glide.with(it)
-                            .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder))
-                            .load(logo.getWorkaroundUrl() )
-                            .into(circleIv)
-                }
+                Glide.with(context ?: return)
+                        .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder))
+                        .load(logo.getWorkaroundUrl() )
+                        .into(circleIv)
             }
 
             if (currentMessage.status?.title != null) {
