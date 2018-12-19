@@ -94,7 +94,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         getBaseActivity()?.mainTb?.title = Translation.senders.allSenders
         getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         getBaseActivity()?.mainTb?.setNavigationOnClickListener {
-            getBaseActivity()?.mainTb?.setNavigationIcon(null)
+            getBaseActivity()?.mainTb?.navigationIcon = null
             fragmentManager.popBackStack()
         }
 
@@ -163,7 +163,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
 
                 title.text = currentItem.name
 
-                currentItem?.logo?.url.let {
+                currentItem.logo?.url.let {
                     Glide.with(context)
                             .setDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder).error(R.drawable.ic_sender_placeholder))
                             .load(it)
@@ -183,7 +183,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
                 }
                 */
 
-                currentItem.unreadMessageCount?.let { unreadCount ->
+                currentItem.unreadMessageCount.let { unreadCount ->
 
                     circleIv.isSelected = (unreadCount > 0)
                     if (unreadCount > 0) {

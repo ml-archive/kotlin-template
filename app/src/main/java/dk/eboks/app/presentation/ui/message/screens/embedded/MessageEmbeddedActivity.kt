@@ -112,10 +112,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == FolderActivity.REQUEST_ID) {
-            data?.extras?.let {
-                val moveToFolder = data.getSerializableExtra("res") as Folder
-                presenter.moveMessage(moveToFolder)
-            }
+                data?.getParcelableExtra<Folder>("res")?.let(presenter::moveMessage)
         }
         // Deal with return from document action sheet
         else if (requestCode == OverlayActivity.REQUEST_ID) {
@@ -171,7 +168,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     override fun addReplyButtonComponentFragment(message: Message) {
         replyButtonComponentFragment = ReplyButtonComponentFragment()
         val args = Bundle()
-        args.putSerializable(Message::class.java.simpleName, message)
+        args.putParcelable(Message::class.java.simpleName, message)
         replyButtonComponentFragment?.let {
             it.arguments = args
             supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, ReplyButtonComponentFragment::class.java.simpleName).commit()
@@ -181,7 +178,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     override fun addSignButtonComponentFragment(message: Message) {
         signButtonComponentFragment = SignButtonComponentFragment()
         val args = Bundle()
-        args.putSerializable(Message::class.java.simpleName, message)
+        args.putParcelable(Message::class.java.simpleName, message)
         signButtonComponentFragment?.let {
             it.arguments = args
             supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, it::class.java.simpleName).commit()

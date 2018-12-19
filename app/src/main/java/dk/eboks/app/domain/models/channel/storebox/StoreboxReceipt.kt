@@ -3,7 +3,8 @@ package dk.eboks.app.domain.models.channel.storebox
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import java.util.*
+import java.util.ArrayList
+import java.util.Date
 
 @Parcelize
 data class StoreboxReceipt(

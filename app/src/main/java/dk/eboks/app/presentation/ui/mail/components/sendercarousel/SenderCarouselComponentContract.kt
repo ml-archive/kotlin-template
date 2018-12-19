@@ -13,6 +13,5 @@ interface SenderCarouselComponentContract {
         fun showEmpty(show : Boolean, verified : Boolean)
     }
 
-    interface Presenter : BasePresenter<SenderCarouselComponentContract.View> {
-    }
+    interface Presenter : BasePresenter<SenderCarouselComponentContract.View>
 }

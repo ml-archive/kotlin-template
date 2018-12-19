@@ -7,8 +7,8 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
 import dk.eboks.app.util.putArg
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
+import javax.inject.Inject
 
 class MailListActivity : BaseActivity(), MailListContract.View {
     @Inject lateinit var presenter: MailListContract.Presenter
@@ -19,16 +19,14 @@ class MailListActivity : BaseActivity(), MailListContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         val frag = MailListComponentFragment()
-        intent?.extras?.let { extras->
-            if(extras.containsKey("sender"))
-            {
-                val sender = extras.getSerializable("sender") as Sender
+        intent?.extras?.let { extras ->
+            extras.getParcelable<Sender>("sender")?.let { sender ->
                 presenter.setupSender(sender)
                 frag.putArg("sender", sender)
+
             }
-            if(extras.containsKey("folder"))
-            {
-                val folder = extras.getSerializable("folder") as Folder
+
+            extras.getParcelable<Folder>("folder")?.let { folder ->
                 presenter.setupFolder(folder)
                 frag.putArg("folder", folder)
             }
@@ -43,7 +41,7 @@ class MailListActivity : BaseActivity(), MailListContract.View {
         }
     }
 
-    private fun setupTopBar(txt : String) {
+    private fun setupTopBar(txt: String) {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = txt
         mainTb.setNavigationOnClickListener {
@@ -55,5 +53,7 @@ class MailListActivity : BaseActivity(), MailListContract.View {
         setupTopBar(name)
     }
 
-    override fun getNavigationMenuAction(): Int { return R.id.actionMail }
+    override fun getNavigationMenuAction(): Int {
+        return R.id.actionMail
+    }
 }

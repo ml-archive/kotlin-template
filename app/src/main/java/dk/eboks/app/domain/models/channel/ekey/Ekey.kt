@@ -15,8 +15,7 @@ data class Login(var username: String, var password: String, override val name: 
             parcel.readString(),
             parcel.readString(),
             parcel.readString(),
-            parcel.readString()) {
-    }
+            parcel.readString())
 
     constructor() : this(
             "",
@@ -51,8 +50,7 @@ data class Login(var username: String, var password: String, override val name: 
 data class Note(override val name: String, override val note: String?, override val eKeyType: String = "Note") : BaseEkey {
     constructor(parcel: Parcel) : this(
             parcel.readString(),
-            parcel.readString()) {
-    }
+            parcel.readString())
 
     constructor() : this(
             "",
@@ -84,8 +82,7 @@ data class Pin(override val name: String, var pin: String, override val note: St
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
-            parcel.readString()) {
-    }
+            parcel.readString())
 
     constructor() : this(
             "",
@@ -118,8 +115,7 @@ data class Ekey(var pin: String, override val name: String, override val note: S
     constructor(parcel: Parcel) : this(
             parcel.readString(),
             parcel.readString(),
-            parcel.readString()) {
-    }
+            parcel.readString())
 
     constructor() : this(
             "",

@@ -102,7 +102,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         var fragment = NewFolderComponentFragment()
         var arguments = Bundle()
         if (userfolders.size == 0) {
-            arguments.putSerializable("disableFolderSelection", true)
+            arguments.putBoolean("disableFolderSelection", true)
         }
         getBaseActivity()?.openComponentDrawer(fragment::class.java, arguments)
     }
@@ -386,7 +386,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     private fun editButtonClicked(v: View) {
         val arguments = Bundle()
         val editFolder = v.tag as Folder
-        arguments.putSerializable("editFolder", editFolder)
+        arguments.putParcelable("editFolder", editFolder)
         getBaseActivity()?.openComponentDrawer(NewFolderComponentFragment::class.java, arguments)
     }
 

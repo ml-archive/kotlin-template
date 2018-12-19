@@ -59,7 +59,7 @@ class UIManagerImpl(val context: Context) : UIManager {
 
     override fun showMessageOpeningScreen() {
         handler.post {
-            App.currentActivity()?.let { it.startActivity(Intent(context, MessageOpeningActivity::class.java)) }
+            App.currentActivity()?.startActivity(Intent(context, MessageOpeningActivity::class.java))
                     .guard { context.startActivity(Intent(context, MessageOpeningActivity::class.java)) }
         }
     }
@@ -68,14 +68,14 @@ class UIManagerImpl(val context: Context) : UIManager {
         val intent = Intent(context, MailListActivity::class.java)
         intent.putExtra("folder", folder)
         handler.post {
-            App.currentActivity()?.let { it.startActivity(intent) }
+            App.currentActivity()?.startActivity(intent)
                     .guard { context.startActivity(intent) }
         }
     }
 
     override fun showPermissionRequestScreen() {
         handler.post {
-            App.currentActivity()?.let { it.startActivity(Intent(context, PermissionRequestActivity::class.java)) }
+            App.currentActivity()?.startActivity(Intent(context, PermissionRequestActivity::class.java))
                     .guard { context.startActivity(Intent(context, PermissionRequestActivity::class.java)) }
         }
     }

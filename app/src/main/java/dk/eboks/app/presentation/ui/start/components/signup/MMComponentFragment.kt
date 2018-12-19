@@ -46,7 +46,7 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
                 mHandler.removeCallbacksAndMessages(null)
                 cprTil.error = null
                 signupWithMMBtn.isEnabled = cprNumber?.isValidCpr() ?: false
-                mHandler?.postDelayed({
+                mHandler.postDelayed({
                     if (!signupWithMMBtn.isEnabled && !cprEt.text.isNullOrBlank()) {
                         cprTil.error = Translation.signup.mmInvalidCprNumber
                     }

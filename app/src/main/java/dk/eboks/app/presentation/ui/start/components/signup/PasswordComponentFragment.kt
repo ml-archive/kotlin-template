@@ -72,7 +72,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
                 handler.removeCallbacksAndMessages(null)
                 repeatPasswordTil.error = null
                 comparePasswords()
-                handler?.postDelayed({
+                handler.postDelayed({
                     setErrorMessages()
                 }, 1200)
             }
@@ -110,7 +110,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
                 handler.removeCallbacksAndMessages(null)
                 passwordTil.error = null
                 comparePasswords()
-                handler?.postDelayed({
+                handler.postDelayed({
                     setErrorMessages()
                 }, 1200)
             }

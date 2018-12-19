@@ -1,15 +1,17 @@
 package dk.eboks.app.domain.models.channel
 
 import android.graphics.Color
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by thsk on 19/02/2018.
  */
+@Parcelize
 data class ChannelColor(
         val rgb: String? = null,
         val rgba: String? = null
-) : Serializable {
+) : Parcelable {
     // I'm not proud of this
     val color: Int
         get() {

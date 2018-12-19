@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
-import dk.eboks.app.R.id.listComponentContentLl
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.sender.SenderGroup
@@ -26,8 +25,7 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
     lateinit var presenter: SenderGroupsComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_list_component, container, false)
-        return rootView
+        return inflater?.inflate(R.layout.fragment_list_component, container, false)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -39,11 +37,8 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
 
     override fun setArguments(args: Bundle?) {
         super.setArguments(args)
-
-        val sender = arguments.getSerializable(Sender::class.simpleName) as Sender?
-        if (sender != null) {
-            presenter.getSenderGroups(sender) // ask presenter to get the sendergroups for this
-        }
+        // ask presenter to get the sendergroups for this
+        arguments.getParcelable<Sender>(Sender::class.simpleName)?.let(presenter::getSenderGroups)
     }
 
     override fun showSenderGroups(sender:Sender) {
@@ -59,8 +54,8 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
             }
             v.setOnClickListener { c ->
                 val data = Bundle()
-                data.putSerializable(Sender::class.simpleName, sender.id)
-                data.putSerializable(SenderGroup::class.simpleName, it)
+                data.putLong(Sender::class.simpleName, sender.id)
+                data.putParcelable(SenderGroup::class.simpleName, it)
                 getBaseActivity()?.openComponentDrawer(RegisterGroupComponentFragment::class.java, data)
             }
             listComponentContentLl.addView(v)

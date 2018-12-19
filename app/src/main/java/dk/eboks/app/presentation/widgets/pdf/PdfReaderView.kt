@@ -96,7 +96,7 @@ class PdfReaderView : View {
             }
         }
         */
-        if(!scroller.isFinished()) {
+        if(!scroller.isFinished) {
             scroller.computeScrollOffset()
             scrollOffset = scroller.currY.toFloat()
             Timber.e("scrollOffset $scrollOffset")

@@ -20,16 +20,15 @@ class MessageOpeningActivity : BaseActivity(), MessageOpeningContract.View {
         setContentView(dk.eboks.app.R.layout.activity_message_opening)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        intent?.extras?.getSerializable(Message::class.java.simpleName)?.let {
-            presenter.setup(it as Message)
-        }.guard { finish() }
+        intent?.extras?.getParcelable<Message>(Message::class.java.simpleName)?.let(presenter::setup)
+            .guard { finish() }
     }
 
     override fun setOpeningFragment(cls: Class<out BaseFragment>, voluntaryReceipt : Boolean) {
         val fragment = cls.newInstance()
         progressPb.visibility = View.GONE
         fragment.putArg("voluntaryReceipt", voluntaryReceipt)
-        fragment?.let{
+        fragment.let{
             supportFragmentManager.beginTransaction().add(R.id.contentFl, it, it::class.java.simpleName).commit()
         }
     }
@@ -39,7 +38,7 @@ class MessageOpeningActivity : BaseActivity(), MessageOpeningContract.View {
         progressPb.visibility = View.GONE
         fragment.putArg("loginProviderId", loginProviderId)
         fragment.putArg(Message::class.java.simpleName, msg)
-        fragment?.let{
+        fragment.let{
             supportFragmentManager.beginTransaction().add(R.id.contentFl, it, it::class.java.simpleName).commit()
         }
     }

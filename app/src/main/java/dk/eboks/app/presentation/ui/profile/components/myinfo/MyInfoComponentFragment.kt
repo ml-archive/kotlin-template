@@ -105,7 +105,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
             }
             if (primaryMailEt.text.isValidEmail()) {
                 val args = Bundle()
-                args.putSerializable("mail", primaryMailEt.text.toString())
+                args.putString("mail", primaryMailEt.text.toString())
                 getBaseActivity()?.openComponentDrawer(EmailVerificationComponentFragment::class.java, args)
             }
         }
@@ -120,7 +120,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
             }
             if (secondaryMailEt.text.isValidEmail()) {
                 val args = Bundle()
-                args.putSerializable("mail", secondaryMailEt.text.toString())
+                args.putString("mail", secondaryMailEt.text.toString())
                 getBaseActivity()?.openComponentDrawer(EmailVerificationComponentFragment::class.java, args)
             }
         }
@@ -225,14 +225,14 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
     override fun onLanguageChanged(locale: Locale) {
         mainTb.title = Translation.myInformation.title
 
-        nameEt.setFloatingLabelText(Translation.myInformation.name)
+        nameEt.floatingLabelText = Translation.myInformation.name
         primaryMailEt.setHelperText(Translation.myInformation.notifyByEmailText)
-        primaryMailEt.setFloatingLabelText(Translation.myInformation.primaryEmail)
+        primaryMailEt.floatingLabelText = Translation.myInformation.primaryEmail
 
-        secondaryMailEt.setFloatingLabelText(Translation.myInformation.secondaryEmail)
+        secondaryMailEt.floatingLabelText = Translation.myInformation.secondaryEmail
 
         mobilEt.setHelperText(Translation.myInformation.notifyBySMSText)
-        mobilEt.setFloatingLabelText(Translation.myInformation.mobileNumber)
+        mobilEt.floatingLabelText = Translation.myInformation.mobileNumber
         menuSave?.title = Translation.defaultSection.save
     }
 

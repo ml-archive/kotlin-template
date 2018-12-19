@@ -34,7 +34,7 @@ class CategoriesComponentFragment : BaseFragment(), CategoriesComponentContract.
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        val segment = arguments?.getSerializable(Segment::class.simpleName) as Segment?
+        val segment = arguments?.getParcelable<Segment>(Segment::class.simpleName)
         if (segment == null) {
             presenter.getCategories()
         }

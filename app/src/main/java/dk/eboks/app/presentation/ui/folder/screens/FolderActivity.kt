@@ -48,7 +48,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
         var params = CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT)
         val tv = TypedValue()
         var actionBarHeight = 0
-        if (this.getTheme().resolveAttribute(android.R.attr.actionBarSize, tv, true))
+        if (this.theme.resolveAttribute(android.R.attr.actionBarSize, tv, true))
             run { actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics) }
         params.setMargins(0, actionBarHeight,0,0)
         foldersContainerFl.layoutParams = params

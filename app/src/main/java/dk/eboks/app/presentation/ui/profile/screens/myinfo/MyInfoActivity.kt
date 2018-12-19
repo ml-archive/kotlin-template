@@ -15,12 +15,12 @@ class MyInfoActivity : BaseActivity(), MyInfoContract.View {
         setContentView(dk.eboks.app.R.layout.activity_profile_myinfo)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        var channel = intent.extras.getSerializable("channel") as Channel
+        val channel = intent?.extras?.getParcelable<Channel>("channel")
         val fragment = MyInfoComponentFragment()
         val args = Bundle()
-        args.putSerializable("channel",channel)
+        args.putParcelable("channel", channel)
         fragment.arguments = args
-        setRootFragment(R.id.contentFl,fragment )
+        setRootFragment(R.id.contentFl, fragment)
 
         supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount == 0) {
@@ -29,5 +29,4 @@ class MyInfoActivity : BaseActivity(), MyInfoContract.View {
             }
         }
     }
-
 }

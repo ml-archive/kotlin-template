@@ -32,10 +32,10 @@ class HtmlViewComponentFragment : BaseFragment(), HtmlViewComponentContract.View
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        val settings = webView.getSettings()
-        settings.setLoadWithOverviewMode(true)
-        settings.setBuiltInZoomControls(true)
-        settings.setDisplayZoomControls(false)
+        val settings = webView.settings
+        settings.loadWithOverviewMode = true
+        settings.builtInZoomControls = true
+        settings.displayZoomControls = false
         presenter.setup(arguments?.getString("URI"))
 
     }

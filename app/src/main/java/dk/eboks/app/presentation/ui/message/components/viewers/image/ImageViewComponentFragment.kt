@@ -33,11 +33,11 @@ class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.Vi
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        val settings = webView.getSettings()
-        settings.setUseWideViewPort(true)
-        settings.setLoadWithOverviewMode(true)
-        settings.setBuiltInZoomControls(true)
-        settings.setDisplayZoomControls(false)
+        val settings = webView.settings
+        settings.useWideViewPort = true
+        settings.loadWithOverviewMode = true
+        settings.builtInZoomControls = true
+        settings.displayZoomControls = false
         presenter.setup(arguments?.getString("URI"))
     }
 

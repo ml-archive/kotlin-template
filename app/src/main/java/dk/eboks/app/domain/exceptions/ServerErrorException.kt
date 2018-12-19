@@ -5,6 +5,4 @@ import dk.eboks.app.domain.models.protocol.ServerError
 /**
  * Created by bison on 24-06-2017.
  */
-class ServerErrorException(val error: ServerError) : RuntimeException("ServerErrorException") {
-
-}
+class ServerErrorException(val error: ServerError) : RuntimeException("ServerErrorException")

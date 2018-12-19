@@ -72,7 +72,7 @@ class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComp
         verificationCodeEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(password: Editable?) {
                 setEnableStateContinueButton()
-                handler?.postDelayed({
+                handler.postDelayed({
                     setErrorMessages()
                 }, 1200)
             }

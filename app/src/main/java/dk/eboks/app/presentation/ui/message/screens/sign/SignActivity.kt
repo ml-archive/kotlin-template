@@ -33,10 +33,7 @@ class SignActivity : BaseActivity(), SignContract.View {
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
         setupWebView()
-        intent.getSerializableExtra(Message::class.java.simpleName)?.let { msg ->
-            msg as Message
-            presenter.setup(msg)
-        }
+        intent.getParcelableExtra<Message>(Message::class.java.simpleName)?.let(presenter::setup)
     }
 
     private fun setupTopBar()
@@ -85,7 +82,7 @@ class SignActivity : BaseActivity(), SignContract.View {
         webView.scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
         //webView.loadUrl(loginUrl)
 
-        webView.getSettings().setJavaScriptEnabled(true)
+        webView.settings.javaScriptEnabled = true
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 if(!onOverrideUrlLoading(view, url))

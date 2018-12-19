@@ -1,7 +1,9 @@
 package dk.eboks.app.domain.models.login
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class User(
         var id: Int = -1,
         var name: String = "",
@@ -13,7 +15,7 @@ data class User(
         var verified: Boolean = false,
         var newsletter: Boolean = false,
         var avatarUri: String? = null
-) : Serializable {
+) : Parcelable {
 
     fun getPrimaryEmail(): String? {
         return emails.getOrNull(0)?.value

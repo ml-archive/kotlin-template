@@ -35,7 +35,7 @@ class CreateStoreboxInteractorImpl(executor: Executor, private val api: Api) : B
                 Timber.e(t)
                 if(t is ServerErrorException)
                 {
-                    val error = (t as ServerErrorException).error
+                    val error = t.error
                     Timber.e("got servererroreception")
                     when(error.code)
                     {

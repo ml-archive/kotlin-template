@@ -139,8 +139,8 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
 
     @Throws(IOException::class)
     private fun copyFileToExternalStorage(sourceFile: File, destFile: File) {
-        if (!destFile.getParentFile().exists())
-            destFile.getParentFile().mkdirs()
+        if (!destFile.parentFile.exists())
+            destFile.parentFile.mkdirs()
 
         if (!destFile.exists()) {
             destFile.createNewFile()
@@ -150,15 +150,15 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
         var destination: FileChannel? = null
 
         try {
-            source = FileInputStream(sourceFile).getChannel()
-            destination = FileOutputStream(destFile).getChannel()
+            source = FileInputStream(sourceFile).channel
+            destination = FileOutputStream(destFile).channel
             destination!!.transferFrom(source, 0, source!!.size())
         } finally {
             if (source != null) {
-                source!!.close()
+                source.close()
             }
             if (destination != null) {
-                destination!!.close()
+                destination.close()
             }
         }
     }

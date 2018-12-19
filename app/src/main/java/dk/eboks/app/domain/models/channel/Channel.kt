@@ -1,12 +1,14 @@
 package dk.eboks.app.domain.models.channel
 
+import android.os.Parcelable
 import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.shared.Status
-import java.io.Serializable
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by thsk on 16/02/2018.
  */
+@Parcelize
 data class Channel(
         var id : Int,
         var name : String,
@@ -20,4 +22,4 @@ data class Channel(
         var installed : Boolean,
         var pinned : Boolean?,
         var supportPinned : Boolean? = null
-) : Serializable
+) : Parcelable

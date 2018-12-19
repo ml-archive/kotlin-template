@@ -34,7 +34,7 @@ class DownloadManagerImpl(val context: Context, val client: OkHttpClient, val ca
                 .build()
         val response = client.newCall(request).execute()
         val filename = cacheManager.generateFileName(content)
-        val downloadedFile = File(context.getCacheDir(), filename)
+        val downloadedFile = File(context.cacheDir, filename)
         // let okio do the actual buffering and writing of the file, after all thats why Jake made it, in his infinite wisdom
         val sink = Okio.buffer(Okio.sink(downloadedFile))
         sink.writeAll(response.body()!!.source())
@@ -54,7 +54,7 @@ class DownloadManagerImpl(val context: Context, val client: OkHttpClient, val ca
                 .build()
         val response = client.newCall(request).execute()
         val filename = cacheManager.generateFileName(content)
-        val downloadedFile = File(context.getCacheDir(), filename)
+        val downloadedFile = File(context.cacheDir, filename)
         // let okio do the actual buffering and writing of the file, after all thats why Jake made it, in his infinite wisdom
         val sink = Okio.buffer(Okio.sink(downloadedFile))
         sink.writeAll(response.body()!!.source())
@@ -72,7 +72,7 @@ class DownloadManagerImpl(val context: Context, val client: OkHttpClient, val ca
                 .build()
         val response = client.newCall(request).execute()
         val filename = "receipt.pdf"
-        val downloadedFile = File(context.getCacheDir(), filename)
+        val downloadedFile = File(context.cacheDir, filename)
         // let okio do the actual buffering and writing of the file, after all thats why Jake made it, in his infinite wisdom
         val sink = Okio.buffer(Okio.sink(downloadedFile))
         sink.writeAll(response.body()!!.source())

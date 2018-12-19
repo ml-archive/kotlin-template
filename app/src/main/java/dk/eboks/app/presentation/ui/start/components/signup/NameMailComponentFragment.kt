@@ -91,7 +91,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
                 emailValid = (s?.isValidEmail() ?: false)
                 checkContinueBtn()
 
-                handler?.postDelayed({
+                handler.postDelayed({
                     if (!emailValid) {
                         emailTil.error = Translation.signup.invalidEmail
                     }

@@ -134,7 +134,7 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, Be
             (activity as EkeyContentActivity).channel?.let { channel ->
                 val arguments = Bundle()
                 arguments.putCharSequence("arguments", "ekey")
-                arguments.putSerializable(Channel::class.java.simpleName, channel)
+                arguments.putParcelable(Channel::class.java.simpleName, channel)
                 getBaseActivity()?.openComponentDrawer(
                         ChannelSettingsComponentFragment::class.java,
                         arguments

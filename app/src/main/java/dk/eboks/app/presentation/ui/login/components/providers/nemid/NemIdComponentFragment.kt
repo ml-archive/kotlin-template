@@ -135,9 +135,9 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     {
         //app switch test
         val secondFactorIntent = if(Config.getCurrentEnvironmentName()?.contentEquals("production") == false)
-            activity?.getPackageManager()?.getLaunchIntentForPackage("dk.e_nettet.mobilekey.everyone.kopi")
+            activity?.packageManager?.getLaunchIntentForPackage("dk.e_nettet.mobilekey.everyone.kopi")
         else
-            activity?.getPackageManager()?.getLaunchIntentForPackage("dk.e_nettet.mobilekey.everyone")
+            activity?.packageManager?.getLaunchIntentForPackage("dk.e_nettet.mobilekey.everyone")
 
         if(secondFactorIntent == null)
         {
@@ -161,7 +161,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
             return
         }
 
-        secondFactorIntent?.setFlags(0)
+        secondFactorIntent.flags = 0
         startActivityForResult(secondFactorIntent, 0)
         didAttemptToInstallNemID = true
     }

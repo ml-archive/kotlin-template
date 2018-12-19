@@ -1,9 +1,11 @@
 package dk.eboks.app.domain.models.formreply
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
+import kotlinx.android.parcel.Parcelize
 
-enum class FormInputType(val type : String) : Serializable {
+@Parcelize
+enum class FormInputType(val type : String) : Parcelable {
     @SerializedName("description") DESCRIPTION("description"),
     @SerializedName("link") LINK("link"),
     @SerializedName("text") TEXT("text"),

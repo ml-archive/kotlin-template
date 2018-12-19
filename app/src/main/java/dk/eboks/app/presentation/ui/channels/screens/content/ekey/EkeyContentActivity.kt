@@ -28,7 +28,7 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        channel = intent.getSerializableExtra("channel") as Channel?
+        channel = intent.getParcelableExtra("channel")
         showLoading(true)
         presenter.getData()
     }
