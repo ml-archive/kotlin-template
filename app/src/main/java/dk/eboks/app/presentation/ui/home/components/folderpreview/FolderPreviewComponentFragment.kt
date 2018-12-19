@@ -146,7 +146,7 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
             }
 
             currentMessage.sender?.logo?.let {logo ->
-                Glide.with(context)
+                Glide.with(context ?: return)
                         .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder))
                         .load(logo.getWorkaroundUrl() )
                         .into(circleIv)
