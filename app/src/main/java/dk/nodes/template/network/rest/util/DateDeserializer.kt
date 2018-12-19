@@ -31,6 +31,12 @@ class DateDeserializer : JsonDeserializer<Date> {
     // replacement for a static member
     companion object {
         private val formatters = HashMap<String, SimpleDateFormat>()
-        val DATE_FORMATS = arrayOf("yyyy-MM-dd'T'HH:mm:ssZ", "yyyy-MM-dd", "MMM dd, yyyy hh:mm:ss aaa")
+        val DATE_FORMATS = arrayOf(
+                "yyyy-MM-dd'T'HH:mm:ss.SSSX",
+                "yyyy-MM-dd'T'HH:mm:ss'Z'",
+                "yyyy-MM-dd'T'HH:mm:ssZ",
+                "yyyy-MM-dd",
+                "MMM dd, yyyy hh:mm:ss aaa"
+        )
     }
 }
