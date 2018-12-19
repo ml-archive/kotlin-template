@@ -2,7 +2,13 @@ package dk.eboks.app.presentation.ui.channels.components.settings
 
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.UninstallChannelInteractor
-import dk.eboks.app.domain.interactors.storebox.*
+import dk.eboks.app.domain.interactors.storebox.DeleteStoreboxAccountLinkInteractor
+import dk.eboks.app.domain.interactors.storebox.DeleteStoreboxCreditCardInteractor
+import dk.eboks.app.domain.interactors.storebox.GetStoreboxCardLinkInteractor
+import dk.eboks.app.domain.interactors.storebox.GetStoreboxCreditCardsInteractor
+import dk.eboks.app.domain.interactors.storebox.GetStoreboxProfileInteractor
+import dk.eboks.app.domain.interactors.storebox.PutStoreboxProfileInteractor
+import dk.eboks.app.domain.interactors.storebox.UpdateStoreboxFlagsInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.ChannelFlags

@@ -2,13 +2,12 @@ package dk.eboks.app.presentation.ui.mail.components.sendercarousel
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.BuildConfig
@@ -34,12 +33,13 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
 
     var senders : MutableList<Sender> = ArrayList()
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_sender_carousel_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_sender_carousel_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -62,14 +62,18 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
 
     fun setupRecyclerView()
     {
-        sendersRv.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        sendersRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            androidx.recyclerview.widget.RecyclerView.HORIZONTAL,
+            false
+        )
         sendersRv.adapter = HorizontalSendersAdapter()
     }
 
     override fun showSenders(senders: List<Sender>) {
         this.senders.clear()
         this.senders.addAll(senders)
-        sendersRv.adapter.notifyDataSetChanged()
+        sendersRv.adapter?.notifyDataSetChanged()
     }
 
     override fun showProgress(show: Boolean) {
@@ -95,9 +99,9 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         sendersListLl.visibility = if(!show) View.VISIBLE else View.GONE
     }
 
-    inner class HorizontalSendersAdapter : RecyclerView.Adapter<HorizontalSendersAdapter.CircularSenderViewHolder>() {
+    inner class HorizontalSendersAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<HorizontalSendersAdapter.CircularSenderViewHolder>() {
 
-        inner class CircularSenderViewHolder(val root : View) : RecyclerView.ViewHolder(root)
+        inner class CircularSenderViewHolder(val root : View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root)
         {
 
             val circleIv = root.findViewById<ImageView>(R.id.circleIv)
@@ -114,16 +118,16 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
             return senders.size
         }
 
-        override fun onBindViewHolder(holder: CircularSenderViewHolder?, position: Int) {
-            holder?.circleIv?.let {
+        override fun onBindViewHolder(holder: CircularSenderViewHolder, position: Int) {
+            holder.circleIv?.let {
                 if(senders[position].logo != null)
-                    Glide.with(context)
+                    Glide.with(context ?: return)
                          .setDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder).error(R.drawable.ic_sender_placeholder))
                          .load(senders[position].logo?.getWorkaroundUrl())
                          .into(it)
             }
-            holder?.senderNameTv?.text = senders[position].name
-            holder?.root?.let {
+            holder.senderNameTv?.text = senders[position].name
+            holder.root.let {
                 //it.isSelected = senders[position].messages?.metadata?.unreadCount ?: 0 > 0
                 it.isSelected = senders[position].unreadMessageCount > 0
                 it.setOnClickListener {

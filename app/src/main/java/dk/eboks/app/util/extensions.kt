@@ -12,10 +12,6 @@ import android.print.PrintAttributes
 import android.print.PrintDocumentAdapter
 import android.print.PrintJob
 import android.print.PrintManager
-import android.support.design.internal.BottomNavigationItemView
-import android.support.design.internal.BottomNavigationMenuView
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
@@ -24,6 +20,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.EditText
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.domain.config.Config
@@ -85,7 +85,7 @@ fun BottomNavigationView.disableShiftingMode() {
         shiftingMode.isAccessible = false
         for (i in 0 until menuView.childCount) {
             val item = menuView.getChildAt(i) as BottomNavigationItemView
-            item.setShiftingMode(false)
+            item.setLabelVisibilityMode(LabelVisibilityMode.LABEL_VISIBILITY_LABELED)
             // set once again checked value, so view will be updated
             item.setChecked(item.itemData.isChecked)
         }
@@ -97,19 +97,21 @@ fun BottomNavigationView.disableShiftingMode() {
 
 }
 
-fun Editable.isValidEmail(): Boolean {
-    return !TextUtils.isEmpty(toString().trim()) && Patterns.EMAIL_ADDRESS.matcher(toString().trim()).matches()
+fun Editable?.isValidEmail(): Boolean {
+    return if (this == null) return false else !TextUtils.isEmpty(toString().trim()) && Patterns.EMAIL_ADDRESS.matcher(toString().trim()).matches()
 
 }
 
-fun Editable.isValidCpr(): Boolean {
-    var cprLength = Config.currentMode.cprLength
+fun Editable?.isValidCpr(): Boolean {
+    if(this == null) return false
+    val cprLength = Config.currentMode.cprLength
     val cprRegex = Regex("^[0-9]{$cprLength}$")
     val text = toString().trim()
     return !TextUtils.isEmpty(text) && text.matches(cprRegex)
 }
 
-fun Editable.isValidActivationCode(): Boolean {
+fun Editable?.isValidActivationCode(): Boolean {
+    if (this == null) return false
     val cprRegex = Regex("^[a-zA-Z0-9]{8}$")
     val text = toString().trim()
     return !TextUtils.isEmpty(text) && text.matches(cprRegex)
@@ -318,29 +320,30 @@ fun Activity.Starter(): ActivityStarter {
     return ActivityStarter(this)
 }
 
-fun Fragment.putArg(name: String, value: Serializable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putSerializable(name, value) }
-fun Fragment.putArg(name: String, value: Boolean) = apply { arguments.guard { arguments = Bundle() }; arguments?.putBoolean(name, value) }
-fun Fragment.putArg(name: String, value: Byte) = apply { arguments.guard { arguments = Bundle() }; arguments?.putByte(name, value) }
-fun Fragment.putArg(name: String, value: Char) = apply { arguments.guard { arguments = Bundle() }; arguments?.putChar(name, value) }
-fun Fragment.putArg(name: String, value: Short) = apply { arguments.guard { arguments = Bundle() }; arguments?.putShort(name, value) }
-fun Fragment.putArg(name: String, value: Int) = apply { arguments.guard { arguments = Bundle() }; arguments?.putInt(name, value) }
-fun Fragment.putArg(name: String, value: Long) = apply { arguments.guard { arguments = Bundle() }; arguments?.putLong(name, value) }
-fun Fragment.putArg(name: String, value: Float) = apply { arguments.guard { arguments = Bundle() }; arguments?.putFloat(name, value) }
-fun Fragment.putArg(name: String, value: Double) = apply { arguments.guard { arguments = Bundle() }; arguments?.putDouble(name, value) }
-fun Fragment.putArg(name: String, value: String) = apply { arguments.guard { arguments = Bundle() }; arguments?.putString(name, value) }
-fun Fragment.putArg(name: String, value: CharSequence) = apply { arguments.guard { arguments = Bundle() }; arguments?.putCharSequence(name, value) }
-fun Fragment.putArg(name: String, value: Parcelable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putParcelable(name, value) }
+fun androidx.fragment.app.Fragment.putArg(name: String, value: Serializable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putSerializable(name, value) }
+fun androidx.fragment.app.Fragment.putArg(name: String, value: Boolean) = apply { arguments.guard { arguments = Bundle() }; arguments?.putBoolean(name, value) }
+fun androidx.fragment.app.Fragment.putArg(name: String, value: Byte) = apply { arguments.guard { arguments = Bundle() }; arguments?.putByte(name, value) }
+fun androidx.fragment.app.Fragment.putArg(name: String, value: Char) = apply { arguments.guard { arguments = Bundle() }; arguments?.putChar(name, value) }
+fun androidx.fragment.app.Fragment.putArg(name: String, value: Short) = apply { arguments.guard { arguments = Bundle() }; arguments?.putShort(name, value) }
+fun androidx.fragment.app.Fragment.putArg(name: String, value: Int) = apply { arguments.guard { arguments = Bundle() }; arguments?.putInt(name, value) }
+fun androidx.fragment.app.Fragment.putArg(name: String, value: Long) = apply { arguments.guard { arguments = Bundle() }; arguments?.putLong(name, value) }
+fun androidx.fragment.app.Fragment.putArg(name: String, value: Float) = apply { arguments.guard { arguments = Bundle() }; arguments?.putFloat(name, value) }
+fun androidx.fragment.app.Fragment.putArg(name: String, value: Double) = apply { arguments.guard { arguments = Bundle() }; arguments?.putDouble(name, value) }
+fun androidx.fragment.app.Fragment.putArg(name: String, value: String) = apply { arguments.guard { arguments = Bundle() }; arguments?.putString(name, value) }
+fun androidx.fragment.app.Fragment.putArg(name: String, value: CharSequence) = apply { arguments.guard { arguments = Bundle() }; arguments?.putCharSequence(name, value) }
+fun androidx.fragment.app.Fragment.putArg(name: String, value: Parcelable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putParcelable(name, value) }
 
 fun LoginProvider.translatedName() : String {
-    when(this.id)
-    {
-        "email" -> return Translation.logonmethods.mobileAccess
-        "cpr" -> return Translation.logonmethods.mobileAccess
-        "nemid" -> return Translation.logonmethods.nemId
-        "idporten" -> return Translation.logonmethods.idPorten
-        "bankid_se" -> return Translation.logonmethods.bankId
-        "bankid_no" -> return Translation.logonmethods.nemId
-        else -> { return this.name }
+    return when(this.id) {
+        "email" -> Translation.logonmethods.mobileAccess
+        "cpr" -> Translation.logonmethods.mobileAccess
+        "nemid" -> Translation.logonmethods.nemId
+        "idporten" -> Translation.logonmethods.idPorten
+        "bankid_se" -> Translation.logonmethods.bankId
+        "bankid_no" -> Translation.logonmethods.nemId
+        else -> {
+            this.name
+        }
     }
 }
 

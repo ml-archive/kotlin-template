@@ -22,7 +22,7 @@ androidExtensions {
 }
 android {
     compileSdkVersion 28
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.3'
     flavorDimensions "default"
 
     defaultConfig {
@@ -30,7 +30,7 @@ android {
         targetSdkVersion 28
         versionCode 129
         versionName "4.0.3"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
         manifestPlaceholders = [
@@ -55,6 +55,9 @@ android {
         buildConfigField "Boolean", "ENABLE_SIGN", "true"
         buildConfigField "Boolean", "ENABLE_FINGERPRINT_NONVERIFIED", "false"
         buildConfigField "Boolean", "ENABLE_BETA_DISCLAIMER", "true"
+        defaultConfig {
+            vectorDrawables.useSupportLibrary = true
+        }
     }
 
     signingConfigs {
@@ -221,7 +224,7 @@ repositories {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    androidTestImplementation("com.android.support.test.espresso:espresso-core:$espresso_core_version", {
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.1', {
         exclude group: "com.android.support", module: "support-annotations"
     })
 
@@ -233,11 +236,11 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
 
-    implementation "com.android.support:appcompat-v7:$support_library_version"
-    implementation "com.android.support:recyclerview-v7:$support_library_version"
-    implementation "com.android.support:design:$support_library_version"
-    implementation "com.android.support:cardview-v7:$support_library_version"
-    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.recyclerview:recyclerview:$appcompat_version"
+    implementation "com.google.android.material:material:$material_version"
+    implementation "androidx.cardview:cardview:$cardview_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
 
@@ -294,7 +297,7 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-android:$mockito_version"
 
     //For Espresso UI testing
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_core_version"
-    androidTestImplementation("com.android.support.test.espresso:espresso-intents:$espresso_core_version")
-    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espresso_core_version"
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation('androidx.test.espresso:espresso-intents:3.1.1')
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.1'
 }

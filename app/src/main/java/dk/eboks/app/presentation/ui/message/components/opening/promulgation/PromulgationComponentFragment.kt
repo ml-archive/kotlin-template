@@ -10,8 +10,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_mail_opening_promulgation_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import timber.log.Timber
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 /**
@@ -26,8 +25,9 @@ class PromulgationComponentFragment : BaseFragment(), PromulgationComponentContr
     @Inject
     lateinit var presenter : PromulgationComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_mail_opening_promulgation_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_mail_opening_promulgation_component, container, false)
         return rootView
 
     }
@@ -46,13 +46,13 @@ class PromulgationComponentFragment : BaseFragment(), PromulgationComponentContr
         super.onPause()
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         okayBtn.setOnClickListener {
             presenter.setShouldProceed(true)
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
         okayBtn.visibility = View.VISIBLE
         setupTopBar()

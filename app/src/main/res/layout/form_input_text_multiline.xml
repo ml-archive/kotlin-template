@@ -10,7 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textTil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
         app:errorTextAppearance="@style/errorappearance"
         app:hintTextAppearance="@style/HintTextAppearance">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textEt"
             style="@style/EditText"
             android:minLines="1"
@@ -32,6 +32,6 @@
             android:layout_height="match_parent"
             />
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

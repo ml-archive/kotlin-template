@@ -2,10 +2,14 @@ package dk.eboks.app.domain.interactors
 
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
-import dk.eboks.app.domain.managers.*
+import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.CacheManager
+import dk.eboks.app.domain.managers.FileCacheManager
+import dk.eboks.app.domain.managers.GuidManager
+import dk.eboks.app.domain.managers.PrefManager
+import dk.eboks.app.domain.managers.UserManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.login.VerificationState
 import dk.eboks.app.domain.repositories.SettingsRepository
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.Executor
@@ -98,12 +102,12 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
         } catch (e: Exception) {
             e.printStackTrace()
             runOnUIThread {
-                if(e is SSLPeerUnverifiedException)
-                {
+                if(e is SSLPeerUnverifiedException) {
                     output?.onBootstrapError(ViewError(title = Translation.error.compromisedConnectionTitle, message = Translation.error.compromisedConnectionMessage, shouldCloseView = true))
                 }
-                else
+                else {
                     output?.onBootstrapError(ViewError(title = Translation.error.startupTitle, message = Translation.error.startupMessage, shouldCloseView = true))
+                }
             }
         }
     }

@@ -2,13 +2,12 @@ package dk.eboks.app.presentation.ui.senders.screens.browse
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.l4digital.fastscroll.FastScroller
@@ -22,9 +21,9 @@ import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import dk.eboks.app.presentation.widgets.DividerItemDecoration
 import dk.eboks.app.util.setBubbleDrawable
 import kotlinx.android.synthetic.main.activity_senders_browse_category.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.include_toolbar.*
 
 /**
  * Created by Christian on 3/13/2018.
@@ -58,7 +57,11 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
         }
 
         browseCatRv.adapter = SenderAdapter(senders)
-        browseCatRv.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        browseCatRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            this,
+            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            false
+        )
         browseCatRv.addItemDecoration(
                 DividerItemDecoration(
                         drawable = resources.getDrawable(R.drawable.shape_divider),
@@ -80,7 +83,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
                             sender1.name.toLowerCase().compareTo(sender2.name.toLowerCase())
                         }
                 ))
-        browseCatRv.adapter.notifyDataSetChanged()
+        browseCatRv.adapter?.notifyDataSetChanged()
     }
 
     override fun showProgress(show: Boolean) {
@@ -98,7 +101,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
         Timber.e(msg) // errorhandling lol
     }
 
-    inner class SenderAdapter(val senders: List<Sender>) : RecyclerView.Adapter<SenderAdapter.SenderViewHolder>(), FastScroller.SectionIndexer {
+    inner class SenderAdapter(val senders: List<Sender>) : androidx.recyclerview.widget.RecyclerView.Adapter<SenderAdapter.SenderViewHolder>(), FastScroller.SectionIndexer {
         override fun getSectionText(position: Int): String {
             return "${senders[position].name.first().toUpperCase()}"
         }
@@ -107,7 +110,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
             return SenderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_sender, parent, false))
         }
 
-        override fun onBindViewHolder(holder: SenderViewHolder?, position: Int) {
+        override fun onBindViewHolder(holder: SenderViewHolder, position: Int) {
             val s = senders[position]
 
             // REMOVED FEATURE
@@ -120,7 +123,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
 //                }
 //            }  catch (e : Exception) {}
 
-            holder?.bind(s)
+            holder.bind(s)
 //            holder?.showIndex(firstInGroup)
         }
 
@@ -128,7 +131,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
             return senders.size
         }
 
-        inner class SenderViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
+        inner class SenderViewHolder(val v: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
             val mainLl = v.findViewById<View>(R.id.senderMainLl)
             val indexTv = v.findViewById<TextView>(R.id.senderIndexTv)
             val nameTv = v.findViewById<TextView>(R.id.senderNameTv)

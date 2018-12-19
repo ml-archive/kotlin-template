@@ -9,8 +9,13 @@ import dk.eboks.app.domain.models.local.DeviceActivation
 import dk.eboks.app.domain.repositories.SettingsRepository
 import timber.log.Timber
 import java.math.BigInteger
-import java.security.*
-import java.util.*
+import java.security.KeyPairGenerator
+import java.security.KeyStore
+import java.security.PrivateKey
+import java.security.PublicKey
+import java.security.Signature
+import java.util.Calendar
+import java.util.NoSuchElementException
 import javax.inject.Inject
 import javax.security.auth.x500.X500Principal
 

@@ -1,9 +1,13 @@
 package dk.eboks.app.domain.interactors.authentication
 
-import dk.eboks.app.domain.managers.*
+import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.managers.AuthClient
+import dk.eboks.app.domain.managers.AuthException
+import dk.eboks.app.domain.managers.CacheManager
+import dk.eboks.app.domain.managers.UserManager
+import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.message.MessageOpeningState
 import dk.eboks.app.domain.repositories.MailCategoriesRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.protocol.EAuth2

@@ -17,8 +17,8 @@ import kotlinx.android.synthetic.main.fragment_splash_component.*
  */
 class SplashComponentFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_splash_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_splash_component, container, false)
         return rootView
     }
 
@@ -44,11 +44,13 @@ class SplashComponentFragment : BaseFragment() {
 
 
         //fragmentManager.popBackStack(BaseActivity.backStackRootTag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        fragmentManager.beginTransaction()
+        fragmentManager?.run {
+            beginTransaction()
                 .replace(R.id.containerFl, fragment)
                 .addToBackStack(BaseActivity.backStackRootTag)
                 .addSharedElement(logoIv, "eboksLogoTransition")
                 .commitAllowingStateLoss()
+        }
 
     }
 
@@ -69,11 +71,12 @@ class SplashComponentFragment : BaseFragment() {
 
 
         //fragmentManager.popBackStack(BaseActivity.backStackRootTag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        fragmentManager.beginTransaction()
+        fragmentManager?.run {
+            beginTransaction()
                 .replace(R.id.containerFl, fragment)
                 .addToBackStack(BaseActivity.backStackRootTag)
                 .addSharedElement(logoIv, "eboksLogoTransition")
                 .commitAllowingStateLoss()
-
+        }
     }
 }

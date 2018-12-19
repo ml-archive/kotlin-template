@@ -22,13 +22,13 @@ class HtmlViewComponentFragment : BaseFragment(), HtmlViewComponentContract.View
     @Inject
     lateinit var presenter : HtmlViewComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_htmlview_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_htmlview_component, container, false)
         Timber.e("onCreateView HTMLVIEWER")
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -44,14 +44,14 @@ class HtmlViewComponentFragment : BaseFragment(), HtmlViewComponentContract.View
         webView.loadUrl("file://$filename")
     }
 
-    override fun showHtmlURI(uri: String) {
-        Timber.e("Attempting to open URI $uri")
-        val file = FilePickerUriHelper.getFile(activity, uri)
+    override fun showHtmlURI(uriString: String) {
+        Timber.e("Attempting to open URI $uriString")
+        val file = FilePickerUriHelper.getFile(activity ?: return, uriString)
         showHtml(file.path)
     }
 
     override fun print() {
         Timber.e("Print called")
-        webView.printAndForget(context)
+        webView.printAndForget(context?: return)
     }
 }

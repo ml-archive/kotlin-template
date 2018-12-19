@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import dk.eboks.app.util.dpToPx
 
@@ -22,15 +21,15 @@ import dk.eboks.app.util.dpToPx
  */
 class DividerItemDecoration(private val drawable : Drawable = ColorDrawable(Color.GRAY),
                             private val indentationDp: Int = 0,
-                            private val backgroundColor: Int = Color.TRANSPARENT)  : RecyclerView.ItemDecoration() {
+                            private val backgroundColor: Int = Color.TRANSPARENT)  : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
 
         outRect.bottom += drawable.intrinsicHeight
     }
 
-    override fun onDraw(c: Canvas, parent: RecyclerView) {
+    override fun onDraw(c: Canvas, parent: androidx.recyclerview.widget.RecyclerView) {
         for (i in 0 until parent.childCount - 1) { // not after the last
             val child = parent.getChildAt(i)
 

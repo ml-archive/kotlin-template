@@ -3,7 +3,6 @@ package dk.eboks.app.presentation.ui.message.components.viewers.image
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import javax.inject.Inject
 
 /**

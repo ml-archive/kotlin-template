@@ -3,10 +3,10 @@ package dk.eboks.app.presentation.ui.profile.components.drawer
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.support.annotation.RequiresApi
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
@@ -30,11 +30,11 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     var handler = Handler()
     private var mode: LoginInfoType? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_profile_enable_fingerprint_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_profile_enable_fingerprint_component, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -47,7 +47,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
         }
 
         redOptionTv.setOnClickListener {
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
         ProfileInfoComponentFragment.refreshOnResume = true
     }
@@ -171,7 +171,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
 
     @RequiresApi(Build.VERSION_CODES.M)
     private fun showFingerprintDialog() {
-        val customFingerprintDialog = CustomFingerprintDialog(context)
+        val customFingerprintDialog = CustomFingerprintDialog(context ?: return)
 
         customFingerprintDialog.setOnFingerprintDialogEventListener {
             customFingerprintDialog.dismiss()

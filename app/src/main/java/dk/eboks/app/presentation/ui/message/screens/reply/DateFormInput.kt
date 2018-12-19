@@ -3,20 +3,22 @@ package dk.eboks.app.presentation.ui.message.screens.reply
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Handler
-import android.support.design.widget.TextInputLayout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.TimePicker
+import com.google.android.material.textfield.TextInputLayout
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
 import dk.nodes.nstack.kotlin.NStack
 import timber.log.Timber
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.GregorianCalendar
 
 class DateFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler, val isDateTime : Boolean = false) : ReplyFormInput(formInput, inflater, handler)
 {

@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.profile.components
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.config.Config
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject

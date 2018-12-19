@@ -38,12 +38,12 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
     @Inject
     lateinit var formatter: EboksFormatter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_folder_preview_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_folder_preview_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -86,7 +86,7 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
                 emptyStateHeaderTv.text = Translation.home.messagesEmptyTitle
                 emptyStateTextTv.text = Translation.home.messagesEmptyMessage
                 emptyStateBtn.setOnClickListener {
-                    NavBarComponentFragment.gotoInbox(activity)
+                    NavBarComponentFragment.gotoInbox(activity ?:return@setOnClickListener)
                 }
             }
             else
@@ -119,7 +119,7 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
             showCount = messages.size
         }
 
-        for (i in 0..showCount - 1) {
+        for (i in 0 until showCount) {
             val v = inflator.inflate(R.layout.viewholder_home_message, mailListContentLL, false)
             val currentMessage = messages[i]
             val circleIv = v.findViewById<ImageView>(R.id.circleIv)
@@ -131,7 +131,7 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
             val rootLl = v.findViewById<LinearLayout>(R.id.rootLl)
 
             currentMessage.sender?.logo?.let {
-                Glide.with(context).load(it.url).into(circleIv)
+                Glide.with(context ?: return).load(it.url).into(circleIv)
             }
 
             if (currentMessage.unread) {
@@ -165,10 +165,12 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
             }
 
             rootLl?.setOnClickListener {
-                activity.Starter()
+                activity?.run {
+                    Starter()
                         .activity(MessageOpeningActivity::class.java)
                         .putExtra(Message::class.java.simpleName, currentMessage)
                         .start()
+                }
             }
             mailListContentLL.addView(v)
 

@@ -2,11 +2,10 @@ package dk.eboks.app.presentation.ui.mail.components.maillist
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
@@ -62,7 +61,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         return inflater.inflate(R.layout.fragment_mail_list_component, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -94,14 +93,14 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     private fun getFolderFromBundle() {
-        arguments.getParcelable<Folder>("folder")?.let { folder ->
+        arguments?.getParcelable<Folder>("folder")?.let { folder ->
             this.folder = folder
             presenter.setup(folder)
         }
     }
 
     private fun getSenderFromBundle() {
-        arguments.getParcelable<Sender>("sender")?.let {
+        arguments?.getParcelable<Sender>("sender")?.let {
             sender = it
             presenter.setup(it)
         }
@@ -216,7 +215,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     private fun onBackPressed() {
-        fragmentManager.popBackStack()
+        fragmentManager?.popBackStack()
     }
 
     private fun toggleEditMode() {
@@ -225,7 +224,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         checkedList.clear()
         setTopBar()
         checkFabState()
-        messagesRv.adapter.notifyItemRangeChanged(0, adapter.messages.size)
+        messagesRv.adapter?.notifyItemRangeChanged(0, adapter.messages.size)
     }
 
     private fun checkFabState() {
@@ -238,21 +237,23 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     private fun setTopBar() {
-        if (checkedList.size > 0) {
-            activity.mainTb.title = checkedList.size.toString() + " " + Translation.uploads.chosen
-        } else {
-            folder?.let {
-                when (it.type) {
-                    FolderType.UPLOADS -> {
-                        activity.mainTb.title = Translation.uploads.title
+        activity?.run {
+            if (checkedList.size > 0) {
+                mainTb.title = checkedList.size.toString() + " " + Translation.uploads.chosen
+            } else {
+                folder?.let {
+                    when (it.type) {
+                        FolderType.UPLOADS -> {
+                            mainTb.title = Translation.uploads.title
+                        }
+                        else -> {
+                            mainTb.title = it.name
+                        }
                     }
-                    else -> {
-                        activity.mainTb.title = it.name
+                }.guard {
+                    sender?.let {
+                        mainTb.title = it.name
                     }
-                }
-            }.guard {
-                sender?.let {
-                    activity.mainTb.title = it.name
                 }
             }
         }
@@ -260,7 +261,11 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     private fun setupRecyclerView() {
         adapter.showUploads = showUploads
-        messagesRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        messagesRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            false
+        )
         messagesRv.adapter = adapter
 
         adapter.onActionEvent = { message, mailMessageEvent ->
@@ -295,9 +300,9 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             checkFabState()
         }
 
-        messagesRv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                val layoutManager = recyclerView?.layoutManager as LinearLayoutManager
+        messagesRv.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
+                val layoutManager = recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager
                 layoutManager.let {
                     if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
                         onScrolledToLastItem()
@@ -313,10 +318,12 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     private fun startMessageOpenActivity(message: Message) {
-        activity.Starter()
-            .activity(MessageOpeningActivity::class.java)
-            .putExtra(Message::class.java.simpleName, message)
-            .start()
+        activity?.run {
+            Starter()
+                .activity(MessageOpeningActivity::class.java)
+                .putExtra(Message::class.java.simpleName, message)
+                .start()
+        }
     }
 
     private fun startFolderSelectActivity() {
@@ -349,13 +356,13 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         checkedList.clear()
         adapter.messages.clear()
         adapter.messages.addAll(messages)
-        messagesRv.adapter.notifyDataSetChanged()
+        messagesRv.adapter?.notifyDataSetChanged()
     }
 
     override fun appendMessages(messages: List<Message>) {
         Timber.e("Appending messages")
         adapter.messages.addAll(messages)
-        messagesRv.adapter.notifyDataSetChanged()
+        messagesRv.adapter?.notifyDataSetChanged()
     }
 
     companion object {

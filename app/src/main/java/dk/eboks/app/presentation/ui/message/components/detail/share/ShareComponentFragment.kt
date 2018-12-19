@@ -23,12 +23,12 @@ class ShareComponentFragment : BaseFragment(), ShareComponentContract.View {
     @Inject
     lateinit var uiManager: UIManager
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_share_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_share_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -48,6 +48,6 @@ class ShareComponentFragment : BaseFragment(), ShareComponentContract.View {
     }
 
     override fun openExternalViewer(filename: String, mimeType : String) {
-        FileUtils.openExternalViewer(context, filename, mimeType)
+        FileUtils.openExternalViewer(context ?: return, filename, mimeType)
     }
 }

@@ -1,13 +1,17 @@
 package dk.eboks.app.network.util
 
 import com.google.gson.JsonArray
-import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonElement
+import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
-import dk.eboks.app.domain.models.channel.ekey.*
+import dk.eboks.app.domain.models.channel.ekey.BaseEkey
+import dk.eboks.app.domain.models.channel.ekey.Ekey
+import dk.eboks.app.domain.models.channel.ekey.Login
+import dk.eboks.app.domain.models.channel.ekey.Note
+import dk.eboks.app.domain.models.channel.ekey.Pin
 import java.lang.reflect.Type
-import java.util.*
-
+import java.util.ArrayList
+import java.util.TreeMap
 
 class EKeySerializer : JsonSerializer<ArrayList<BaseEkey>> {
 

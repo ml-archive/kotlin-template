@@ -20,13 +20,13 @@ import dk.eboks.app.presentation.ui.profile.screens.ProfileActivity
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import timber.log.Timber
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.include_toolbar.*
 
 class HomeActivity : BaseActivity(), HomeContract.View {
     @Inject lateinit var presenter: HomeContract.Presenter

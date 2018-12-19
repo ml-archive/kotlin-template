@@ -8,35 +8,42 @@ import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.ViewerFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.base.EmbeddedViewer
-import dk.eboks.app.util.printAndForget
 import dk.eboks.app.util.setVisible
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_textview_component.*
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.io.*
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileInputStream
+import java.io.IOException
+import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
 import javax.inject.Inject
-
 
 /**
  * Created by bison on 09-02-2018.
  */
-class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View, EmbeddedViewer, ViewerFragment {
+class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View, EmbeddedViewer,
+    ViewerFragment {
 
     @Inject
-    lateinit var presenter : TextViewComponentContract.Presenter
+    lateinit var presenter: TextViewComponentContract.Presenter
 
     internal var data: ByteArray? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_textview_component, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val rootView = inflater.inflate(R.layout.fragment_textview_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -44,8 +51,7 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
     }
 
     override fun showText(filename: String) {
-        launch(CommonPool)
-        {
+        GlobalScope.launch(Dispatchers.Default) {
             data = convertFileToByteArray(File(filename))
             data?.let {
                 //show()
@@ -55,8 +61,7 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
                     decoded = String(data!!, Charset.forName("utf-8"))
                 }
 
-                launch(UI)
-                {
+                launch(Dispatchers.Main) {
                     Timber.e("Calling show")
                     show(decoded)
                 }
@@ -66,11 +71,11 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
 
     override fun showTextURI(uri: String) {
         Timber.e("Attempting to open URI $uri")
-        val file = FilePickerUriHelper.getFile(activity, uri)
+        val file = FilePickerUriHelper.getFile(activity ?: return, uri)
         showText(file.path)
     }
 
-    fun convertFileToByteArray(f: File): ByteArray? {
+    private fun convertFileToByteArray(f: File): ByteArray? {
         var byteArray: ByteArray? = null
         try {
             val inputStream = FileInputStream(f)
@@ -78,10 +83,9 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
             val b = ByteArray(1024 * 8)
             var bytesRead = 0
 
-            while(true)
-            {
+            while (true) {
                 bytesRead = inputStream.read(b)
-                if(bytesRead == -1)
+                if (bytesRead == -1)
                     break
                 bos.write(b, 0, bytesRead)
             }
@@ -94,26 +98,20 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
         return byteArray
     }
 
-    private fun show(decoded : String)
-    {
+    private fun show(decoded: String) {
         progresspb.setVisible(false)
         contentTv.setVisible(true)
         try {
             Timber.e("Setting textview")
             contentTv.text = decoded
             Timber.e("Done setting textview")
-
         } catch (e: UnsupportedEncodingException) {
             contentTv.visibility = View.GONE
-
         }
-
     }
 
-
     @Throws(UnsupportedEncodingException::class)
-    private fun utf8Test(latin1String: String): Boolean
-    {
+    private fun utf8Test(latin1String: String): Boolean {
         val charset = Charset.forName("ISO-8859-1")
         val test1 = String("æ".toByteArray(), charset)     // shown as Ã¦
         val test2 = String("Æ".toByteArray(), charset)     // shown as Ã

@@ -111,7 +111,7 @@
                     android:layout_marginTop="20dp"
                     android:orientation="vertical">
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/cprEmailTil"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
                         app:errorTextAppearance="@style/errorappearance"
                         app:hintTextAppearance="@style/HintTextAppearance">
 
-                        <android.support.design.widget.TextInputEditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/cprEmailEt"
                             style="@style/EditText"
                             android:layout_width="match_parent"
@@ -130,9 +130,9 @@
                             android:importantForAutofill="noExcludeDescendants"
                             nstack:hint="@string/nstack_logoncredentials_emailOrSSNHeader"/>
 
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/passwordTil"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -142,7 +142,7 @@
                         app:errorTextAppearance="@style/errorappearance"
                         app:hintTextAppearance="@style/HintTextAppearance">
 
-                        <android.support.design.widget.TextInputEditText
+                        <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/passwordEt"
                             style="@style/EditText"
                             android:imeOptions="actionGo"
@@ -152,7 +152,7 @@
                             android:importantForAutofill="noExcludeDescendants"
                             nstack:hint="@string/nstack_logoncredentials_passwordfieldHeader"/>
 
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <FrameLayout

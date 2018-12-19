@@ -1,11 +1,10 @@
 package dk.eboks.app.presentation.ui.start.components.signup
 
-import android.content.DialogInterface
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
@@ -23,12 +22,13 @@ class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.Ter
     @Inject
     lateinit var presenter: SignupComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_signup_accept_terms_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_signup_accept_terms_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -41,7 +41,7 @@ class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.Ter
                 mainTb.title = Translation.signup.termsTitle
                 mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
                 mainTb.setNavigationOnClickListener {
-                    fragmentManager.popBackStack()
+                    fragmentManager?.popBackStack()
                 }
             }
         }
@@ -56,17 +56,17 @@ class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.Ter
     }
 
     private fun showDialog() {
-        val dialogBuilder = AlertDialog.Builder(context)
+        val dialogBuilder = AlertDialog.Builder(context ?: return)
 
         dialogBuilder.setTitle(Translation.signup.cancelDialogHeader)
         dialogBuilder.setMessage(Translation.signup.cancelDialogText)
-        dialogBuilder.setPositiveButton(Translation.signup.cancelDialogCancelBtn, DialogInterface.OnClickListener { dialog, whichButton ->
+        dialogBuilder.setPositiveButton(Translation.signup.cancelDialogCancelBtn) { dialog, whichButton ->
 
-        })
+        }
 
-        dialogBuilder.setNegativeButton(Translation.signup.cancelDialogDiscardBtn, DialogInterface.OnClickListener { dialog, whichButton ->
+        dialogBuilder.setNegativeButton(Translation.signup.cancelDialogDiscardBtn) { dialog, whichButton ->
             getBaseActivity()?.addFragmentOnTop(R.id.containerFl, WelcomeComponentFragment(), true)
-        })
+        }
         val b = dialogBuilder.create()
         b.show()
     }

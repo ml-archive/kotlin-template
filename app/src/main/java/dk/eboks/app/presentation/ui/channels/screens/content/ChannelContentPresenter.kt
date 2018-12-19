@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.channels.screens.content
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.presentation.ui.channels.components.settings.CloseChannelEvent

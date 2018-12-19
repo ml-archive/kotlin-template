@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    android:layout_width="match_parent"
+<FrameLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:nstack="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingPrefix">
     <FrameLayout
@@ -12,20 +10,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
-        <android.support.v4.widget.SwipeRefreshLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refreshSrl"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/messagesRv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scrollbars="none"
                     />
 
-        </android.support.v4.widget.SwipeRefreshLayout>
-        <android.support.design.widget.FloatingActionButton
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/mainFab"
             android:layout_width="56dp"
             android:layout_height="56dp"

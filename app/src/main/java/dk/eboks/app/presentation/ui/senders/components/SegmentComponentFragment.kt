@@ -22,16 +22,16 @@ import kotlinx.android.synthetic.main.fragment_segment_component.*
  */
 class SegmentComponentFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_segment_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_segment_component, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments.getParcelable<CollectionContainer>(CollectionContainer::class.simpleName)?.let{
+        arguments?.getParcelable<CollectionContainer>(CollectionContainer::class.simpleName)?.let{
             segmentTitleTv.text = it.description?.text?:""
             it.segment?.let { seg ->
-                Glide.with(context)
+                Glide.with(context ?: return)
                         .load(seg.image?.url)
                         .apply(RequestOptions()
                                 .fallback(R.drawable.icon_72_senders_private)

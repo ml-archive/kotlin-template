@@ -10,7 +10,7 @@ import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
-import java.util.*
+import java.util.Observable
 
 abstract class ChannelControl(val channel: Channel, val control : Control, val view: View, val inflater : LayoutInflater, val handler: Handler) : Observable() {
     var logoIv : ImageView

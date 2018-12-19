@@ -13,8 +13,8 @@ import dk.eboks.app.presentation.ui.message.components.detail.header.HeaderCompo
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.share.ShareComponentFragment
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
+import javax.inject.Inject
 
 class MessageActivity : BaseActivity(), MessageContract.View {
     @Inject lateinit var presenter: MessageContract.Presenter
@@ -38,8 +38,7 @@ class MessageActivity : BaseActivity(), MessageContract.View {
         presenter.setup()
     }
 
-    private fun setupTopBar()
-    {
+    private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = Translation.message.title
         mainTb.setNavigationOnClickListener {
@@ -55,63 +54,75 @@ class MessageActivity : BaseActivity(), MessageContract.View {
         return R.id.actionMail
     }
 
-    override fun addHeaderComponentFragment()
-    {
+    override fun addHeaderComponentFragment() {
         headerComponentFragment = HeaderComponentFragment()
-        headerComponentFragment?.let{
-            it.arguments = Bundle()
-            it.arguments.putBoolean("show_divider", false)
-            supportFragmentManager.beginTransaction().add(R.id.headerContainerLl, it, HeaderComponentFragment::class.java.simpleName).commit()
+        headerComponentFragment?.let {
+            it.arguments = Bundle().apply {
+                putBoolean("show_divider", false)
+            }
+            supportFragmentManager.beginTransaction()
+                .add(R.id.headerContainerLl, it, HeaderComponentFragment::class.java.simpleName)
+                .commit()
         }
     }
 
-    override fun addDocumentComponentFragment()
-    {
+    override fun addDocumentComponentFragment() {
         documentComponentFragment = DocumentComponentFragment()
-        documentComponentFragment?.let{
-            it.arguments = Bundle()
-            it.arguments.putBoolean("show_divider", true)
-            supportFragmentManager.beginTransaction().add(R.id.headerContainerLl, it, DocumentComponentFragment::class.java.simpleName).commit()
+        documentComponentFragment?.let {
+            it.arguments = Bundle().apply {
+                putBoolean("show_divider", true)
+            }
+            supportFragmentManager.beginTransaction()
+                .add(R.id.headerContainerLl, it, DocumentComponentFragment::class.java.simpleName)
+                .commit()
         }
     }
 
-    override fun addReplyButtonComponentFragment(message: Message)
-    {
+    override fun addReplyButtonComponentFragment(message: Message) {
         replyButtonComponentFragment = ReplyButtonComponentFragment()
         val args = Bundle()
         args.putParcelable(Message::class.java.simpleName, message)
-        replyButtonComponentFragment?.let{
+        replyButtonComponentFragment?.let {
             it.arguments = args
-            supportFragmentManager.beginTransaction().add(R.id.bodyContainerLl, it, ReplyButtonComponentFragment::class.java.simpleName).commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.bodyContainerLl, it, ReplyButtonComponentFragment::class.java.simpleName)
+                .commit()
         }
     }
 
     override fun addShareComponentFragment() {
         shareComponentFragment = ShareComponentFragment()
-        shareComponentFragment?.let{
-            supportFragmentManager.beginTransaction().add(R.id.bodyContainerLl, it, ShareComponentFragment::class.java.simpleName).commit()
+        shareComponentFragment?.let {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.bodyContainerLl, it, ShareComponentFragment::class.java.simpleName)
+                .commit()
         }
     }
 
     override fun addNotesComponentFragment() {
         notesComponentFragment = NotesComponentFragment()
-        notesComponentFragment?.let{
-            supportFragmentManager.beginTransaction().add(R.id.bodyContainerLl, it, NotesComponentFragment::class.java.simpleName).commit()
+        notesComponentFragment?.let {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.bodyContainerLl, it, NotesComponentFragment::class.java.simpleName)
+                .commit()
         }
     }
 
     override fun addAttachmentsComponentFragment() {
         attachmentsComponentFragment = AttachmentsComponentFragment()
         attachmentsComponentFragment?.let {
-            supportFragmentManager.beginTransaction().add(R.id.bodyContainerLl, it, AttachmentsComponentFragment::class.java.simpleName).commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.bodyContainerLl, it, AttachmentsComponentFragment::class.java.simpleName)
+                .commit()
         }
     }
-
 
     override fun addFolderInfoComponentFragment() {
         folderInfoComponentFragment = FolderInfoComponentFragment()
         folderInfoComponentFragment?.let {
-            supportFragmentManager.beginTransaction().add(R.id.footerContainerLl, it, FolderInfoComponentFragment::class.java.simpleName).commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.footerContainerLl, it, FolderInfoComponentFragment::class.java.simpleName)
+                .commit()
         }
     }
 }

@@ -25,10 +25,10 @@ import dk.eboks.app.presentation.ui.folder.components.newfolder.NewFolderCompone
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.views
 import kotlinx.android.synthetic.main.fragment_folders_component.*
-import kotlinx.android.synthetic.main.viewholder_folder.view.*
-import java.util.*
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
+import kotlinx.android.synthetic.main.viewholder_folder.view.*
+import java.util.ArrayList
+import javax.inject.Inject
 
 /**
  * Created by bison on 09-02-2018.
@@ -50,12 +50,12 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     var pickedCheckBox: ImageButton? = null
     var currentUser: User? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_folders_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_folders_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
 
@@ -64,10 +64,10 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             addFolderBtn.visibility = View.GONE
         }
 
-        if (activity.intent.getBooleanExtra("pick", false)) {
+        if (activity?.intent?.getBooleanExtra("pick", false) == true) {
             mode = FolderMode.SELECT
         }
-        selectFolder = activity.intent.getBooleanExtra("selectFolder", false)
+        selectFolder = activity?.intent?.getBooleanExtra("selectFolder", false) ?: false
 
         presenter.onViewCreated(this, lifecycle)
 
@@ -92,15 +92,15 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     private fun animateView() {
         //view should only animate in selectview
         if (mode == FolderMode.SELECT) {
-            var animation = AnimationUtils.loadAnimation(context, R.anim.abc_slide_in_bottom)
+            val animation = AnimationUtils.loadAnimation(context, R.anim.abc_slide_in_bottom)
             animation.duration = 1000
             view?.startAnimation(animation)
         }
     }
 
     private fun openDrawer() {
-        var fragment = NewFolderComponentFragment()
-        var arguments = Bundle()
+        val fragment = NewFolderComponentFragment()
+        val arguments = Bundle()
         if (userfolders.size == 0) {
             arguments.putBoolean("disableFolderSelection", true)
         }
@@ -149,7 +149,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         getBaseActivity()?.mainTb?.title = Translation.folders.foldersHeader
         getBaseActivity()?.mainTb?.setNavigationOnClickListener {
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
 
         if(BuildConfig.ENABLE_FOLDERS_ACTIONS) {
@@ -175,7 +175,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     private fun setSelectTopbar() {
         getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
         getBaseActivity()?.mainTb?.setNavigationOnClickListener {
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
 
         getBaseActivity()?.mainTb?.title = Translation.overlaymenu.chooseLocation
@@ -188,11 +188,15 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 val intent = Intent()
                 it.parentFolder = null
                 intent.putExtra("res", it)
-                activity.setResult(Activity.RESULT_OK, intent)
-                activity.finish()
+                activity?.run {
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
+                }
             }.guard {
-                activity.setResult(Activity.RESULT_CANCELED)
-                activity.finish()
+                activity?.run{
+                    setResult(Activity.RESULT_CANCELED)
+                    finish()
+                }
             }
             true
 
@@ -345,7 +349,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                     folder.name = user.name
                     v.nameTv.text = folder.name
                     v.iconIv?.let {
-                        Glide.with(context)
+                        Glide.with(context ?: return)
                                 .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
                                 .load(user.avatarUri)
                                 .into(it)

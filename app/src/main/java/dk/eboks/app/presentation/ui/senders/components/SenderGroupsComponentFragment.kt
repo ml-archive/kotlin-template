@@ -24,11 +24,11 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
     @Inject
     lateinit var presenter: SenderGroupsComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_list_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_list_component, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -38,7 +38,7 @@ class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContr
     override fun setArguments(args: Bundle?) {
         super.setArguments(args)
         // ask presenter to get the sendergroups for this
-        arguments.getParcelable<Sender>(Sender::class.simpleName)?.let(presenter::getSenderGroups)
+        arguments?.getParcelable<Sender>(Sender::class.simpleName)?.let(presenter::getSenderGroups)
     }
 
     override fun showSenderGroups(sender:Sender) {

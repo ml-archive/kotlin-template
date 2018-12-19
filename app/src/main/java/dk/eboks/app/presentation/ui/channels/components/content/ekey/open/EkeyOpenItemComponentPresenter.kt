@@ -16,7 +16,9 @@ import dk.nodes.locksmith.core.preferences.EncryptedPreferences
 import dk.nodes.locksmith.core.util.HashingUtils
 import timber.log.Timber
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 import javax.inject.Inject
 
 /**

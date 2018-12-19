@@ -1,8 +1,6 @@
 package dk.eboks.app.presentation.ui.channels.components.content.storebox.content
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -10,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
@@ -39,18 +38,18 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
     private var channel : Channel? = null
 
     override fun onCreateView(
-            inflater: LayoutInflater?,
+            inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        return inflater?.inflate(
+        return inflater.inflate(
                 R.layout.fragment_channel_storebox_component,
                 container,
                 false
         )
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -100,7 +99,11 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
     }
 
     private fun setup() {
-        receiptRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        receiptRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+            context,
+            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            false
+        )
         receiptRv.adapter = adapter
     }
 
@@ -142,7 +145,7 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         showEmptyView(data.isEmpty())
     }
 
-    inner class StoreboxAdapter : RecyclerView.Adapter<StoreboxAdapter.StoreboxViewHolder>() {
+    inner class StoreboxAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<StoreboxAdapter.StoreboxViewHolder>() {
         var receipts: MutableList<StoreboxReceiptItem> = ArrayList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoreboxViewHolder {
@@ -158,12 +161,12 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
             return receipts.size
         }
 
-        override fun onBindViewHolder(holder: StoreboxViewHolder?, position: Int) {
+        override fun onBindViewHolder(holder: StoreboxViewHolder, position: Int) {
             val currentReceipt = receipts[position]
-            holder?.bind(currentReceipt)
+            holder.bind(currentReceipt)
         }
 
-        inner class StoreboxViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
+        inner class StoreboxViewHolder(val root: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
             //cards
             private var amountDateContainer = root.findViewById<LinearLayout>(R.id.amountDateContainerLl)
             private var soloAmountTv = root.findViewById<TextView>(R.id.soloAmountTv)
@@ -191,7 +194,7 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
                 )
                 if (currentReceipt.logo?.url != null) {
                     logoIv?.let {
-                        Glide.with(context).load(currentReceipt.logo?.url).into(it)
+                        Glide.with(root.context).load(currentReceipt.logo?.url).into(it)
                     }
                 }
 

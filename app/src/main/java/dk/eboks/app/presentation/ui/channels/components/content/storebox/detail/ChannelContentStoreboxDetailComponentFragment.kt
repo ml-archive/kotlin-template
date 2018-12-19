@@ -4,24 +4,29 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color.BLACK
 import android.graphics.Color.WHITE
-import android.net.Uri
 import android.os.Bundle
-import android.support.v4.view.ViewCompat
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.FileProvider
+import androidx.core.view.ViewCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.storebox.*
+import dk.eboks.app.domain.models.channel.storebox.StoreboxBarcode
+import dk.eboks.app.domain.models.channel.storebox.StoreboxMerchant
+import dk.eboks.app.domain.models.channel.storebox.StoreboxOptionals
+import dk.eboks.app.domain.models.channel.storebox.StoreboxPayment
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptLine
+import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptPrice
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
@@ -30,22 +35,17 @@ import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
 import dk.eboks.app.util.FileUtils
+import dk.eboks.app.util.guard
 import dk.eboks.app.util.setVisible
 import kotlinx.android.synthetic.main.fragment_channel_storebox_detail_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import kotlinx.android.synthetic.main.viewholder_payment_line.view.*
 import kotlinx.android.synthetic.main.viewholder_receipt_line.view.*
 import timber.log.Timber
-import java.util.*
-import javax.inject.Inject
-import android.widget.Toast
-import java.nio.file.Files.exists
-import android.os.Environment.getExternalStorageDirectory
-import android.support.v4.content.FileProvider
-import dk.eboks.app.BuildConfig
-import dk.eboks.app.util.guard
 import java.io.File
-
+import java.util.ArrayList
+import java.util.Date
+import javax.inject.Inject
 
 class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         ChannelContentStoreboxDetailComponentContract.View {
@@ -65,18 +65,18 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     )
 
     override fun onCreateView(
-            inflater: LayoutInflater?,
+            inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        return inflater?.inflate(
+        return inflater.inflate(
                 R.layout.fragment_channel_storebox_detail_component,
                 container,
                 false
         )
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showProgress(true)
 
@@ -93,7 +93,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
 
         mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb?.setNavigationOnClickListener {
-            fragmentManager.popBackStack()
+            fragmentManager?.popBackStack()
         }
 
         //mainTb?.overflowIcon = context.resources.getDrawable(R.drawable.icon_48_option_red_navigationbar)
@@ -110,12 +110,14 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     }
 
     private fun setupRecyclers() {
-        storeboxDetailRvReceiptLines.layoutManager = LinearLayoutManager(context)
+        storeboxDetailRvReceiptLines.layoutManager =
+            androidx.recyclerview.widget.LinearLayoutManager(context)
         storeboxDetailRvReceiptLines.adapter = adapter
 
         ViewCompat.setNestedScrollingEnabled(storeboxDetailRvReceiptLines, false)
 
-        storeboxDetailRvPayments.layoutManager = LinearLayoutManager(context)
+        storeboxDetailRvPayments.layoutManager =
+            androidx.recyclerview.widget.LinearLayoutManager(context)
         storeboxDetailRvPayments.adapter = paymentAdapter
 
         ViewCompat.setNestedScrollingEnabled(storeboxDetailRvPayments, false)
@@ -282,7 +284,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     }
 
     private fun showRemoveChannelDialog() {
-        AlertDialog.Builder(context)
+        AlertDialog.Builder(context?: return)
                 .setTitle(Translation.storeboxreceipt.confirmDeleteTitle)
                 .setMessage(Translation.storeboxreceipt.confirmDeleteMessage)
                 .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
@@ -296,12 +298,12 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     }
 
     override fun returnToMasterView() {
-        fragmentManager.popBackStack()
+        fragmentManager?.popBackStack()
     }
 
     override fun shareReceiptContent(filename: String) {
         try {
-            FileUtils.openExternalViewer(context, filename, "application/pdf")
+            FileUtils.openExternalViewer(context ?: return, filename, "application/pdf")
         } catch (t: Throwable) {
             showErrorDialog(ViewError(title = Translation.error.receiptOpenInErrorTitle, message = Translation.error.receiptOpenInErrorMessage))
         }
@@ -312,7 +314,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             val intent = Intent(Intent.ACTION_SEND)
             //intent.type = "text/plain"
 
-            val uri = FileProvider.getUriForFile(context, BuildConfig.APPLICATION_ID + ".fileprovider", File(filename))
+            val uri = FileProvider.getUriForFile(context ?: return, BuildConfig.APPLICATION_ID + ".fileprovider", File(filename))
             intent.setDataAndType(uri, "application/pdf")
             intent.putExtra(Intent.EXTRA_STREAM, uri)
             intent.putExtra(Intent.EXTRA_EMAIL, "")
@@ -363,7 +365,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         }
     }
 
-    inner class PaymentLineAdapter : RecyclerView.Adapter<PaymentLineAdapter.PaymentLineViewHolder>() {
+    inner class PaymentLineAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<PaymentLineAdapter.PaymentLineViewHolder>() {
         var payments: ArrayList<StoreboxPayment> = arrayListOf()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentLineViewHolder {
@@ -384,7 +386,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             holder.bind(payment)
         }
 
-        inner class PaymentLineViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        inner class PaymentLineViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
             fun bind(payment: StoreboxPayment) {
                 itemView.viewHolderPaymentTvCardName.text = payment.cardName
                 itemView.viewHolderPaymentTvAmount.text = payment.priceValue
@@ -392,7 +394,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         }
     }
 
-    inner class ReceiptLineAdapter : RecyclerView.Adapter<ReceiptLineAdapter.ReceiptLineViewHolder>() {
+    inner class ReceiptLineAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<ReceiptLineAdapter.ReceiptLineViewHolder>() {
         var receiptLines: ArrayList<StoreboxReceiptLine> = arrayListOf()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReceiptLineViewHolder {
@@ -413,7 +415,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             holder.bind(payment)
         }
 
-        inner class ReceiptLineViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        inner class ReceiptLineViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
             fun bind(receiptLine: StoreboxReceiptLine) {
                 itemView.viewHolderReceiptTvItemName.text = receiptLine.name
                 itemView.viewHolderReceiptTvAmount.setVisible(false)

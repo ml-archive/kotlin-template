@@ -8,16 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.ekey.*
-import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.domain.models.channel.ekey.BaseEkey
+import dk.eboks.app.domain.models.channel.ekey.Login
+import dk.eboks.app.domain.models.channel.ekey.Note
+import dk.eboks.app.domain.models.channel.ekey.Pin
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.BaseEkeyFragment
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.pin.EkeyPinComponentFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
-import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_channel_ekey_detail.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -32,12 +30,12 @@ class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContr
     @Inject
     lateinit var presenter: EkeyDetailComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_channel_ekey_detail, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_channel_ekey_detail, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)

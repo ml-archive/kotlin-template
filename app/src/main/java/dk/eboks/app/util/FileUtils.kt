@@ -2,7 +2,7 @@ package dk.eboks.app.util
 
 import android.content.Context
 import android.content.Intent
-import android.support.v4.content.FileProvider
+import androidx.core.content.FileProvider
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.models.Translation
 import timber.log.Timber

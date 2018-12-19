@@ -6,12 +6,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import dk.eboks.app.App
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.models.local.ViewError
@@ -22,7 +21,6 @@ import dk.eboks.app.util.BroadcastReceiver
 import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
-
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
     protected val component: PresentationComponent by lazy {
@@ -118,7 +116,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         return mainTb
     }
 
-    fun setRootFragment(resId: Int, fragment: Fragment?) {
+    fun setRootFragment(resId: Int, fragment: androidx.fragment.app.Fragment?) {
         fragment?.let {
             supportFragmentManager.popBackStack(
                     backStackRootTag,
@@ -131,7 +129,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         }
     }
 
-    fun addFragmentOnTop(resId: Int, fragment: Fragment?, addToBack: Boolean = true) {
+    fun addFragmentOnTop(resId: Int, fragment: androidx.fragment.app.Fragment?, addToBack: Boolean = true) {
         fragment?.let {
             val trans = supportFragmentManager.beginTransaction().replace(resId, it)
             if (addToBack)

@@ -1,13 +1,13 @@
 package dk.eboks.app.presentation.ui.message.screens.reply
 
 import android.os.Handler
-import android.support.design.widget.TextInputLayout
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import com.google.android.material.textfield.TextInputLayout
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation

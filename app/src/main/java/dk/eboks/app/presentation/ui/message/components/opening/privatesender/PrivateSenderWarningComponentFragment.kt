@@ -12,7 +12,7 @@ import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_mail_opening_error_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
 /**
@@ -28,8 +28,9 @@ class PrivateSenderWarningComponentFragment : BaseFragment(), PrivateSenderWarni
     @Inject
     lateinit var presenter : PrivateSenderWarningComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_mail_opening_error_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_mail_opening_error_component, container, false)
         return rootView
 
     }
@@ -44,7 +45,7 @@ class PrivateSenderWarningComponentFragment : BaseFragment(), PrivateSenderWarni
         super.onPause()
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -72,7 +73,7 @@ class PrivateSenderWarningComponentFragment : BaseFragment(), PrivateSenderWarni
         mainTb.title = Translation.message.privateSenderTitle
         mainTb.setNavigationOnClickListener {
             presenter.setShouldProceed(false)
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
     }
 

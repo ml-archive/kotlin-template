@@ -22,13 +22,13 @@ class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.Vi
     @Inject
     lateinit var presenter : ImageViewComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_imageview_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_imageview_component, container, false)
         Timber.e("onCreateView IMAGEVIEWER")
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -49,12 +49,12 @@ class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.Vi
 
     override fun showImageURI(uri: String) {
         Timber.e("Attempting to open URI $uri")
-        val file = FilePickerUriHelper.getFile(activity, uri)
+        val file = FilePickerUriHelper.getFile(activity ?: return, uri)
         showImage(file.path)
     }
 
     override fun print() {
-        webView.printAndForget(context)
+        webView.printAndForget(context ?: return)
         Timber.e("Print called")
     }
 }

@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.login.components
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
 import dk.eboks.app.domain.managers.AppStateManager

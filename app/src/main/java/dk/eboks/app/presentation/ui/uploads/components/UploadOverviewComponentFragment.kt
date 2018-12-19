@@ -28,10 +28,10 @@ import dk.nodes.filepicker.FilePickerActivity
 import dk.nodes.filepicker.FilePickerConstants
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_upload_overview_component.*
-import java.util.*
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
+import java.util.ArrayList
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
 /**
@@ -50,12 +50,13 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
     var uploads: MutableList<Message> = ArrayList()
     var verified = false
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_upload_overview_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_upload_overview_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -157,10 +158,12 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
                 dateTv.text = formatter.formatDateRelative(currentItem)
 
                 v.setOnClickListener {
-                    activity.Starter()
+                    activity?.run {
+                        Starter()
                             .activity(MessageOpeningActivity::class.java)
                             .putExtra(Message::class.java.simpleName, currentItem)
                             .start()
+                    }
                 }
 
                 if(i == uploads.size ){

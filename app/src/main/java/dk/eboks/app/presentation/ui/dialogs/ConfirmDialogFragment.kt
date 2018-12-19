@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +14,7 @@ import dk.eboks.app.R
 /**
  * Created by bison on 31/01/18.
  */
-class ConfirmDialogFragment : DialogFragment() {
+class ConfirmDialogFragment : androidx.fragment.app.DialogFragment() {
     lateinit var dialogInstance : Dialog
     var parentView : View? = null
 
@@ -36,8 +35,8 @@ class ConfirmDialogFragment : DialogFragment() {
         return dialogInstance
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view : View? = inflater?.inflate(R.layout.dialog_confirm, container)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view : View? = inflater.inflate(R.layout.dialog_confirm, container)
         parentView?.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         parentView?.requestLayout()
         return view

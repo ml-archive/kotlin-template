@@ -1,15 +1,13 @@
 package dk.eboks.app.presentation.ui.folder.components.newfolder
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
@@ -18,11 +16,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.components.FoldersComponentFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folder_newfolder.*
-import kotlinx.android.synthetic.main.fragment_folderinfo_component.*
 import javax.inject.Inject
-import android.content.Context.INPUT_METHOD_SERVICE
-import android.view.inputmethod.InputMethodManager
-
 
 /**
  * Created by bison on 09-02-2018.
@@ -38,12 +32,12 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
     var rootFolderName: String? = null
     var disableFolderSelection: Boolean = false
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_folder_newfolder, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_folder_newfolder, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -81,7 +75,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         }
         if (disableFolderSelection) {
             selectFolderLl.isEnabled = false
-            folderRootTv.setTextColor(ContextCompat.getColor(context, R.color.blueGrey))
+            folderRootTv.setTextColor(ContextCompat.getColor(context ?: return, R.color.blueGrey))
         }
 
 //        val imm = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -105,7 +99,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         }
 
         cancelBtn.setOnClickListener {
-            activity.onBackPressed()
+            activity?.onBackPressed()
         }
 
         selectFolderLl.setOnClickListener {
@@ -152,7 +146,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
 
     override fun finish() {
         FoldersComponentFragment.refreshOnResume = true
-        activity.onBackPressed()
+        activity?.onBackPressed()
     }
 
     override fun setRootFolder(name: String) {

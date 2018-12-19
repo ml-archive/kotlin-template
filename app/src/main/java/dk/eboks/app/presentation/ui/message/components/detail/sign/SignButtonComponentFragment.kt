@@ -21,12 +21,12 @@ class SignButtonComponentFragment : BaseFragment(), SignButtonComponentContract.
     @Inject
     lateinit var presenter : SignButtonComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_sign_button_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_sign_button_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -65,10 +65,12 @@ class SignButtonComponentFragment : BaseFragment(), SignButtonComponentContract.
     }
 
     override fun startSigning(msg: Message) {
-        activity.Starter()
+        activity?.run {
+            Starter()
                 .activity(SignActivity::class.java)
                 .putExtra(Message::class.java.simpleName, msg)
                 .start()
+        }
 
     }
 

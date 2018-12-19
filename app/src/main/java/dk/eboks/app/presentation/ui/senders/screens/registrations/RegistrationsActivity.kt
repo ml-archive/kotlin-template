@@ -2,7 +2,6 @@ package dk.eboks.app.presentation.ui.senders.screens.registrations
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,8 +20,8 @@ import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import dk.eboks.app.presentation.ui.senders.screens.segment.SegmentDetailActivity
 import kotlinx.android.synthetic.main.activity_senders_registrations.*
-import javax.inject.Inject
 import kotlinx.android.synthetic.main.include_toolbar.*
+import javax.inject.Inject
 
 /**
  * Created by Christian on 3/28/2018.
@@ -98,21 +97,21 @@ class RegistrationsActivity : BaseActivity(), RegistrationsContract.View {
         }
     }
 
-    inner class SenderAdapter(val senders: List<Sender>) : RecyclerView.Adapter<SenderAdapter.SenderViewHolder>() {
+    inner class SenderAdapter(val senders: List<Sender>) : androidx.recyclerview.widget.RecyclerView.Adapter<SenderAdapter.SenderViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SenderViewHolder {
             return SenderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_sender, parent, false))
         }
 
-        override fun onBindViewHolder(holder: SenderViewHolder?, position: Int) {
-            holder?.bind(senders[position])
+        override fun onBindViewHolder(holder: SenderViewHolder, position: Int) {
+            holder.bind(senders[position])
         }
 
         override fun getItemCount(): Int {
             return senders.size
         }
 
-        inner class SenderViewHolder(val v: View) : RecyclerView.ViewHolder(v) {
+        inner class SenderViewHolder(val v: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
             val mainLl = v.findViewById<View>(R.id.senderMainLl)
             val indexTv = v.findViewById<TextView>(R.id.senderIndexTv)
             val nameTv = v.findViewById<TextView>(R.id.senderNameTv)

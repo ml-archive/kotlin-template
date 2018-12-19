@@ -1,12 +1,11 @@
 package dk.eboks.app.presentation.ui.channels.screens.content.storebox
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
@@ -103,14 +102,14 @@ class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
     }
 }
 
-class UserInfoFragment : Fragment() {
+class UserInfoFragment : androidx.fragment.app.Fragment() {
     var presenter: ConnectStoreboxContract.Presenter? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_storeboxconnect_userinfo, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_storeboxconnect_userinfo, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         userinfoEmailTil.editText?.addAfterTextChangeListener {
@@ -135,14 +134,14 @@ class UserInfoFragment : Fragment() {
     }
 }
 
-class ConfirmCodeFragment : Fragment() {
+class ConfirmCodeFragment : androidx.fragment.app.Fragment() {
     var presenter: ConnectStoreboxContract.Presenter? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_storeboxconnect_confirm, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_storeboxconnect_confirm, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         connectCodeTil.editText?.setOnEditorActionListener { v, actionId, event ->

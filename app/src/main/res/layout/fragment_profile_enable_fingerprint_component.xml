@@ -37,7 +37,7 @@
         android:text="@string/nstack_profile_fingerDrawerText"
         android:textColor="@color/blueGrey" />
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/socialSecurityTil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
         app:errorTextAppearance="@style/errorappearance"
         app:hintTextAppearance="@style/HintTextAppearance">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/socialSecurityEt"
             style="@style/EditText"
             android:layout_width="match_parent"
@@ -54,9 +54,9 @@
             android:inputType="number"
             nstack:hint="@string/nstack_logoncredentials_ssnHeader"/>
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordTil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
         app:errorTextAppearance="@style/errorappearance"
         app:hintTextAppearance="@style/HintTextAppearance">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEt"
             style="@style/EditText"
             android:layout_width="match_parent"
@@ -73,7 +73,7 @@
             android:inputType="textPassword"
             nstack:hint="@string/nstack_logoncredentials_passwordfieldHeader"/>
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <FrameLayout
         android:layout_width="match_parent"

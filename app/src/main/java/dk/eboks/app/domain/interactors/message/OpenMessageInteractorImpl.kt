@@ -11,9 +11,6 @@ import dk.eboks.app.domain.models.APIConstants
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.EboksContentType
 import dk.eboks.app.domain.models.message.Message
-import dk.eboks.app.domain.models.protocol.ErrorType
-import dk.eboks.app.domain.models.protocol.ErrorType.*
-import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.util.FieldMapper
 import dk.eboks.app.util.exceptionToViewError

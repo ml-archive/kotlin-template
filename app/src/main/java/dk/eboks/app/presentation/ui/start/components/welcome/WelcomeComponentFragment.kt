@@ -22,12 +22,12 @@ import kotlinx.android.synthetic.main.fragment_welcome_component.*
  */
 class WelcomeComponentFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_welcome_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_welcome_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //(activity as StartActivity).showLogo(true)
         signupBtn.setOnClickListener {
@@ -49,7 +49,7 @@ class WelcomeComponentFragment : BaseFragment() {
             }
             debugCreateUserTv.visibility = View.VISIBLE
             debugCreateUserTv.setOnClickListener {
-                activity.startActivity(Intent(activity, DebugUserActivity::class.java))
+                activity?.startActivity(Intent(activity, DebugUserActivity::class.java))
             }
         }
         /*

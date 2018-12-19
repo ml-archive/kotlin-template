@@ -33,7 +33,7 @@
 
     </FrameLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameTil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
         app:errorTextAppearance="@style/errorappearance"
         app:hintTextAppearance="@style/HintSmallTextAppearance.red">
 
-        <android.support.design.widget.TextInputEditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameEt"
             style="@style/EditText"
             android:layout_width="match_parent"
@@ -54,7 +54,7 @@
             android:inputType="text"
             nstack:hint="@string/nstack_folders_newfolderHint"
             android:importantForAutofill="noExcludeDescendants"/>
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:id="@+id/selectFolderLl"

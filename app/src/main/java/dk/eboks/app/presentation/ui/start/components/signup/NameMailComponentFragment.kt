@@ -3,13 +3,13 @@ package dk.eboks.app.presentation.ui.start.components.signup
 import android.app.Activity
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AlertDialog
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.fragment_signup_name_mail_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
-
 
 /**
  * Created by bison on 09-02-2018.
@@ -34,12 +33,13 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     var emailValid = false
     var handler = Handler()
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_signup_name_mail_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_signup_name_mail_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -66,7 +66,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         mainTb.title = Translation.signup.title
         mainTb.setNavigationOnClickListener {
             hideKeyboard(view)
-            fragmentManager.popBackStack()
+            fragmentManager?.popBackStack()
         }
     }
 
@@ -76,12 +76,10 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     }
 
     private fun setupEmailListeners() {
-        emailEt.onFocusChangeListener = object : View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
-                if (!emailEt.text.isValidEmail() && !hasFocus) {
-                    emailValid = false
-                    checkContinueBtn()
-                }
+        emailEt.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+            if (emailEt.text?.isValidEmail() == false && !hasFocus) {
+                emailValid = false
+                checkContinueBtn()
             }
         }
         emailEt.addTextChangedListener(object : TextWatcher {
@@ -153,15 +151,15 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         if (!exists) {
             getBaseActivity()?.addFragmentOnTop(R.id.containerFl, PasswordComponentFragment(), true)
         } else {
-            val builder = AlertDialog.Builder(context)
+            val builder = AlertDialog.Builder(context ?: return)
             builder.setTitle(Translation.signup.dialogEmailExistsTitle)
             builder.setMessage(Translation.signup.dialogEmailExistsMsg)
-            builder.setNegativeButton(Translation.defaultSection.cancel,{ dialogInterface, i ->
+            builder.setNegativeButton(Translation.defaultSection.cancel) { dialogInterface, i ->
                 dialogInterface.dismiss()
-            })
-            builder.setPositiveButton(Translation.signup.dialogEmailExistsPositiveBtn.toUpperCase(),{ dialogInterface, i ->
+            }
+            builder.setPositiveButton(Translation.signup.dialogEmailExistsPositiveBtn.toUpperCase()) { dialogInterface, i ->
                 getBaseActivity()?.onBackPressed()
-            })
+            }
             builder.show()
         }
     }

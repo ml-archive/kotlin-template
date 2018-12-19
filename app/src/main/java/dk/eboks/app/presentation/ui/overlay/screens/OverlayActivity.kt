@@ -4,10 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.FloatingActionButton
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.util.views
@@ -15,9 +15,8 @@ import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.activity_overlay.*
 import kotlinx.android.synthetic.main.viewholder_overlay_row.view.*
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedListener {
 

@@ -3,16 +3,15 @@ package dk.eboks.app.presentation.ui.dialogs
 import android.content.Context
 import android.os.Build
 import android.os.Handler
-import android.support.annotation.RequiresApi
-import android.support.annotation.StyleRes
 import android.view.View
+import androidx.annotation.RequiresApi
+import androidx.annotation.StyleRes
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.nodes.locksmith.core.fingerprint.FingerprintAlertDialogBase
 import dk.nodes.locksmith.core.models.FingerprintDialogEvent
 import dk.nodes.locksmith.core.models.OnFingerprintDialogEventListener
 import kotlinx.android.synthetic.main.dialog_custom_fingerprint.*
-import timber.log.Timber
 
 @RequiresApi(Build.VERSION_CODES.M)
 class CustomFingerprintDialog(context: Context) : FingerprintAlertDialogBase(context) {

@@ -1,8 +1,6 @@
 package dk.eboks.app.presentation.ui.mail.components.maillist
 
 import android.graphics.Typeface
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +8,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.daimajia.swipe.SwipeLayout
@@ -24,7 +23,7 @@ import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.util.getWorkaroundUrl
 import timber.log.Timber
 
-class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageViewHolder>() {
+class MailMessagesAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<MailMessagesAdapter.MessageViewHolder>() {
     enum class MailMessageEvent { OPEN, READ, MOVE }
 
     private val formatter: EboksFormatter = App.instance().appComponent.eboksFormatter()
@@ -49,12 +48,12 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
         return messages.size
     }
 
-    override fun onBindViewHolder(holder: MessageViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         val last = (position == messages.size)
-        holder?.bind(messages[position], last)
+        holder.bind(messages[position], last)
     }
 
-    inner class MessageViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
+    inner class MessageViewHolder(val root: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
         private val swipeLayout = root as SwipeLayout
         private val contentContainer = root.findViewById<ViewGroup>(R.id.mainContainerView)
         private val markAsReadContainer = root.findViewById<ViewGroup>(R.id.containerMarkAsRead)

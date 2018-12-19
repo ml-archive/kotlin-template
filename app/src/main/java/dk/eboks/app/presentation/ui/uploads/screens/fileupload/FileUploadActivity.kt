@@ -5,15 +5,12 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.app.Fragment
 import android.text.Editable
 import android.text.TextWatcher
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.folder.Folder
-import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.presentation.base.BaseSheetActivity
-import dk.eboks.app.presentation.ui.folder.components.newfolder.FolderDrawerMode
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import dk.eboks.app.presentation.ui.message.components.viewers.html.HtmlViewComponentFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.image.ImageViewComponentFragment
@@ -39,7 +36,7 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
 
-    var embeddedViewerComponentFragment: Fragment? = null
+    var embeddedViewerComponentFragment: androidx.fragment.app.Fragment? = null
 
     var destinationFolder : Folder? = null
     var uriString : String? = null

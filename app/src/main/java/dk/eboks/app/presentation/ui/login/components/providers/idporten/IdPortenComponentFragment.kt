@@ -2,9 +2,9 @@ package dk.eboks.app.presentation.ui.login.components.providers.idporten
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.view.View
 import android.webkit.WebView
+import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
@@ -14,9 +14,9 @@ import dk.eboks.app.presentation.base.BaseWebFragment
 import dk.eboks.app.presentation.ui.login.components.providers.WebLoginContract
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.include_toolbar.*
 
 /**
  * Created by bison on 09-02-2018.
@@ -24,11 +24,11 @@ import kotlinx.android.synthetic.main.include_toolbar.*
 class IdPortenComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     @Inject
-    lateinit var presenter : IdPortenComponentPresenter
+    lateinit var presenter: IdPortenComponentPresenter
 
     var loginUser: User? = null
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -41,11 +41,10 @@ class IdPortenComponentFragment : BaseWebFragment(), WebLoginContract.View {
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
         mainTb.setNavigationOnClickListener {
-            if(!closeLoginOnBack) {
+            if (!closeLoginOnBack) {
                 presenter.cancelAndClose()
-            }
-            else {
-                activity.finish()
+            } else {
+                activity?.finish()
             }
         }
     }
@@ -55,7 +54,6 @@ class IdPortenComponentFragment : BaseWebFragment(), WebLoginContract.View {
     }
 
     override fun onLoadFinished(view: WebView?, url: String?) {
-
     }
 
     override fun onResume() {
@@ -79,29 +77,28 @@ class IdPortenComponentFragment : BaseWebFragment(), WebLoginContract.View {
     }
 
     override fun proceed() {
-        if(activity is StartActivity)
+        if (activity is StartActivity)
             (activity as StartActivity).startMain()
         else
             finishActivity(Activity.RESULT_OK)
     }
 
-    private fun showDebugDialog()
-    {
-        AlertDialog.Builder(activity)
-                .setTitle("Debug")
-                .setMessage("Press okay to simulate a successful login with login provider")
-                .setPositiveButton("Login") { dialog, which ->
-                    presenter.login("kspToken xx")
-                    dialog.dismiss()
-                }
-                .setNegativeButton("Close") { dialog, which ->
-                    webView.postDelayed({ presenter.cancelAndClose() }, 500)
-                }
-                .show()
+    private fun showDebugDialog() {
+        AlertDialog.Builder(activity ?: return)
+            .setTitle("Debug")
+            .setMessage("Press okay to simulate a successful login with login provider")
+            .setPositiveButton("Login") { dialog, which ->
+                presenter.login("kspToken xx")
+                dialog.dismiss()
+            }
+            .setNegativeButton("Close") { dialog, which ->
+                webView.postDelayed({ presenter.cancelAndClose() }, 500)
+            }
+            .show()
     }
 
     override fun close() {
-        fragmentManager.popBackStack()
+        fragmentManager?.popBackStack()
     }
 
     override fun showError(viewError: ViewError) {

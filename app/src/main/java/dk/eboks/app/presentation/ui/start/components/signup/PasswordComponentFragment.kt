@@ -26,12 +26,13 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     var repeatPasswordValid = false
     var handler = Handler()
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater?.inflate(R.layout.fragment_signup_password_component, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView =
+            inflater.inflate(R.layout.fragment_signup_password_component, container, false)
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -54,7 +55,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = Translation.signup.title
         mainTb.setNavigationOnClickListener {
-            fragmentManager.popBackStack()
+            fragmentManager?.popBackStack()
         }
     }
 
