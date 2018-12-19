@@ -205,14 +205,14 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             onBackPressed()
         }
 
-//        if (editEnabled && BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
-//            val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.uploads.topbarEdit)
-//            menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-//            menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
-//                toggleEditMode()
-//                true
-//            }
-//        }
+        if (editEnabled && BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
+            val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.uploads.topbarEdit)
+            menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
+                toggleEditMode()
+                true
+            }
+        }
         setTopBar()
     }
 
