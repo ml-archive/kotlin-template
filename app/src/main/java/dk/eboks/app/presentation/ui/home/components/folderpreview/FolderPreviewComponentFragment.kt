@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
@@ -22,6 +23,7 @@ import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
 import dk.eboks.app.util.Starter
+import dk.eboks.app.util.getWorkaroundUrl
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_folder_preview_component.*
 import org.greenrobot.eventbus.EventBus
@@ -144,6 +146,13 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
             } else {
                 dateTv.setTypeface(null,Typeface.NORMAL)
                 titleTv.setTypeface(null,Typeface.NORMAL)
+            }
+
+            currentMessage.sender?.logo?.let {logo ->
+                Glide.with(context)
+                        .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder))
+                        .load(logo.getWorkaroundUrl() )
+                        .into(circleIv)
             }
 
             if (currentMessage.status?.title != null) {
