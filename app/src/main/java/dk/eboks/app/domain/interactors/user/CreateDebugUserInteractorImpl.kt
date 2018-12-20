@@ -7,6 +7,7 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import timber.log.Timber
 
 /**
  * Created by Christian on 5/29/2018.
@@ -32,6 +33,7 @@ class CreateDebugUserInteractorImpl(executor: Executor, val userManager: UserMan
             }
 
         } catch (t: Throwable) {
+            Timber.e(t)
             runOnUIThread {
                 output?.onCreateUserError(exceptionToViewError(t))
             }

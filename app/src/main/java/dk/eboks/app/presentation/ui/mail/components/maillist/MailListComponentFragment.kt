@@ -39,6 +39,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     private var editEnabled: Boolean = false
     private var editAction: ButtonType? = null
     private var showUploads: Boolean = false
+    private var menuProfile: MenuItem? = null
 
     var sender: Sender? = null
 
@@ -204,7 +205,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         }
 
         if (editEnabled && BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
-            val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.uploads.topbarEdit)
+            menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.uploads.topbarEdit)
             menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
                 toggleEditMode()
@@ -238,6 +239,20 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     private fun setTopBar() {
         activity?.run {
+            if (modeEdit) {
+                mainTb.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
+                menuProfile?.isVisible = false
+                mainTb.setNavigationOnClickListener {
+                    toggleEditMode()
+                }
+            } else {
+                mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+                menuProfile?.isVisible = true
+                mainTb.setNavigationOnClickListener {
+                    mainTb.navigationIcon = null
+                    onBackPressed()
+                }
+            }
             if (checkedList.size > 0) {
                 mainTb.title = checkedList.size.toString() + " " + Translation.uploads.chosen
             } else {

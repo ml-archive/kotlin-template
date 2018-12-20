@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout android:layout_width="match_parent"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingPrefix">
+
     <FrameLayout
         android:id="@+id/contentFl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/refreshSrl"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/messagesRv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scrollbars="none"
-                    />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/messagesRv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="none"
+                tools:listitem="@layout/viewholder_message_row" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/mainFab"
             android:layout_width="56dp"
@@ -35,37 +38,40 @@
 
     <FrameLayout
         android:id="@+id/emptyFl"
-        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/backgroundColor">
+        android:background="@color/backgroundColor"
+        android:visibility="visible"
+        tools:visibility="gone">
 
-            <TextView
-                android:id="@+id/noMessagesTv"
-                android:text="@string/nstack_mail_noMessagesToDisplay"
-                style="@style/text.body6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:textColor="@color/blueGrey"
-                android:layout_marginRight="24dp"
-                android:layout_marginLeft="24dp"
-                tools:text="_No messages"/>
+        <TextView
+            android:id="@+id/noMessagesTv"
+            style="@style/text.body6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:gravity="center"
+            android:text="@string/nstack_mail_noMessagesToDisplay"
+            android:textColor="@color/blueGrey"
+            tools:text="_No messages" />
 
 
     </FrameLayout>
 
     <FrameLayout
-        android:visibility="visible"
         android:id="@+id/progressFl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:visibility="visible"
+        tools:visibility="gone">
+
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
     </FrameLayout>
 </FrameLayout>

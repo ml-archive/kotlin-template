@@ -100,7 +100,7 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
                 output?.onBootstrapDone(hasUsers, stayLoggedIn)
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            Timber.e(e)
             runOnUIThread {
                 if(e is SSLPeerUnverifiedException) {
                     output?.onBootstrapError(ViewError(title = Translation.error.compromisedConnectionTitle, message = Translation.error.compromisedConnectionMessage, shouldCloseView = true))
