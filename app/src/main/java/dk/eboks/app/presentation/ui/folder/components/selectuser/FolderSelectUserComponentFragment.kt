@@ -42,7 +42,13 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+
+        profileContentLl.visibility = View.GONE
+        profileProgress.visibility = View.VISIBLE
+
         setup()
+
+        presenter.getShared()
     }
 
     override fun setUser(user: User?) {
@@ -67,20 +73,9 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
                     }
                 })
                 .into(profilePicIv)
-
-    }
-
-
-
-    private fun createMocks() {
-        sharedUsers.add(SharedUser(1, 2, "_*Peter Petersen", "_*Administrator", null, null))
-        sharedUsers.add(SharedUser(1, 3, "_*John Johnson", "_*Read only", null, null))
-        sharedUsers.add(SharedUser(1, 4, "_*Søren Sørensen", "_*Read only", null, null))
-        sharedUsers.add(SharedUser(1, 5, "_*Ole Olsen", "_*Administrator", null, null))
     }
 
     private fun setup() {
-        createMocks()
         setupMyProfile()
         setupRecyclerView()
     }
@@ -101,6 +96,21 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
         }
         myProfileSubHeaderTv.text = Translation.profile.myProfile
 
+    }
+
+    override fun showShares(shares: List<SharedUser>) {
+        sharedUsers.addAll(shares)
+        sharedAccountsRv.adapter?.notifyDataSetChanged()
+    }
+
+    override fun showProgress(visible: Boolean) {
+        if(visible) {
+            profileProgress.visibility = View.VISIBLE
+            profileContentLl.visibility = View.GONE
+        } else {
+            profileProgress.visibility = View.GONE
+            profileContentLl.visibility = View.VISIBLE
+        }
     }
 
     inner class SharedUserAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<SharedUserAdapter.SharedUserViewHolder>() {
