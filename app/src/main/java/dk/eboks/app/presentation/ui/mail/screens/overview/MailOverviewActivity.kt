@@ -45,9 +45,9 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
     private fun setupTopbar(user: User?) {
         mainTb.title = user?.name
         if(BuildConfig.ENABLE_SHARES) {
-            var imageView = ImageView(this)
+            val imageView = ImageView(this)
             imageView.setImageResource(R.drawable.icon_48_small_arrow_down)
-            var layoutparams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            val layoutparams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             imageView.layoutParams = layoutparams
             mainTb.addView(imageView)
             mainTb.isClickable = true
