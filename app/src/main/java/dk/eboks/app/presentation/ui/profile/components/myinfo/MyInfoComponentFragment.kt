@@ -26,7 +26,8 @@ import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 
-class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, OnLanguageChangedListener, TextWatcher {
+class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
+    OnLanguageChangedListener, TextWatcher {
     @Inject
     lateinit var presenter: MyInfoComponentContract.Presenter
     var menuSave: MenuItem? = null
@@ -34,13 +35,11 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
     //val mobilenumber: ContactPoint = ContactPoint()
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_profile_myinformation_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_profile_myinformation_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,15 +52,13 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         presenter.setup()
     }
 
-
     // shamelessly ripped from chnt
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.setNavigationOnClickListener {
             hideKeyboard()
-            menuSave?.let { save->
-                if(save.isEnabled)
-                {
+            menuSave?.let { save ->
+                if (save.isEnabled) {
                     showUnsavedChangesDialog()
                     return@setNavigationOnClickListener
                 }
@@ -78,11 +75,11 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
             ProfileInfoComponentFragment.refreshOnResume = true
             true
         }
-
     }
 
     private fun hideKeyboard() {
-        val inputMethodManager = activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
+        val inputMethodManager =
+            activity?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
@@ -96,9 +93,8 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         }
 
         verifyEmailBtn.setOnClickListener {
-            menuSave?.let { save->
-                if(save.isEnabled)
-                {
+            menuSave?.let { save ->
+                if (save.isEnabled) {
                     showMustSaveDialog()
                     return@setOnClickListener
                 }
@@ -106,14 +102,16 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
             if (primaryMailEt.text.isValidEmail()) {
                 val args = Bundle()
                 args.putString("mail", primaryMailEt.text.toString())
-                getBaseActivity()?.openComponentDrawer(EmailVerificationComponentFragment::class.java, args)
+                getBaseActivity()?.openComponentDrawer(
+                    EmailVerificationComponentFragment::class.java,
+                    args
+                )
             }
         }
 
         verifySecondaryEmailBtn.setOnClickListener {
-            menuSave?.let { save->
-                if(save.isEnabled)
-                {
+            menuSave?.let { save ->
+                if (save.isEnabled) {
                     showMustSaveDialog()
                     return@setOnClickListener
                 }
@@ -121,31 +119,34 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
             if (secondaryMailEt.text.isValidEmail()) {
                 val args = Bundle()
                 args.putString("mail", secondaryMailEt.text.toString())
-                getBaseActivity()?.openComponentDrawer(EmailVerificationComponentFragment::class.java, args)
+                getBaseActivity()?.openComponentDrawer(
+                    EmailVerificationComponentFragment::class.java,
+                    args
+                )
             }
         }
 
         verifyMobileNumberBtn.setOnClickListener {
-            menuSave?.let { save->
-                if(save.isEnabled)
-                {
+            menuSave?.let { save ->
+                if (save.isEnabled) {
                     showMustSaveDialog()
                     return@setOnClickListener
                 }
             }
-            if(!mobilEt.text.isNullOrEmpty()) {
+            if (!mobilEt.text.isNullOrEmpty()) {
                 val args = Bundle()
                 args.putString("mobile", mobilEt.text.toString())
-                getBaseActivity()?.openComponentDrawer(PhoneVerificationComponentFragment::class.java, args)
+                getBaseActivity()?.openComponentDrawer(
+                    PhoneVerificationComponentFragment::class.java,
+                    args
+                )
             }
         }
 
         getBaseActivity()?.backPressedCallback = {
-            if(menuSave?.isEnabled == true) {
+            if (menuSave?.isEnabled == true) {
                 showUnsavedChangesDialog()
-            }
-            else
-            {
+            } else {
                 activity?.onBackPressed()
             }
             true
@@ -154,34 +155,32 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         updateVerifyButtonVisibility()
     }
 
-    private fun showMustSaveDialog()
-    {
+    private fun showMustSaveDialog() {
         AlertDialog.Builder(activity ?: return)
-                .setTitle(Translation.myInformation.saveBeforeVerifyTitle)
-                .setMessage(Translation.myInformation.saveBeforeVerifyMessage)
-                .setPositiveButton(Translation.myInformation.unsavedChangesSaveButton) { dialog, which ->
-                    ProfileInfoComponentFragment.refreshOnResume = true
-                    presenter.save(false)
-                }
-                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+            .setTitle(Translation.myInformation.saveBeforeVerifyTitle)
+            .setMessage(Translation.myInformation.saveBeforeVerifyMessage)
+            .setPositiveButton(Translation.myInformation.unsavedChangesSaveButton) { dialog, which ->
+                ProfileInfoComponentFragment.refreshOnResume = true
+                presenter.save(false)
+            }
+            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
 
-                }
-                .show()
+            }
+            .show()
     }
 
-    private fun showUnsavedChangesDialog()
-    {
+    private fun showUnsavedChangesDialog() {
         AlertDialog.Builder(activity ?: return)
-                .setTitle(Translation.myInformation.unsavedChangesTitle)
-                .setMessage(Translation.myInformation.unsavedChangesMessage)
-                .setPositiveButton(Translation.myInformation.unsavedChangesSaveButton) { dialog, which ->
-                    ProfileInfoComponentFragment.refreshOnResume = true
-                    presenter.save(false)
-                }
-                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                    fragmentManager?.popBackStack()
-                }
-                .show()
+            .setTitle(Translation.myInformation.unsavedChangesTitle)
+            .setMessage(Translation.myInformation.unsavedChangesMessage)
+            .setPositiveButton(Translation.myInformation.unsavedChangesSaveButton) { dialog, which ->
+                ProfileInfoComponentFragment.refreshOnResume = true
+                presenter.save(false)
+            }
+            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                fragmentManager?.popBackStack()
+            }
+            .show()
     }
 
     private fun detachListeners() {
@@ -192,8 +191,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         mobilEt.removeTextChangedListener(this)
     }
 
-    private fun updateVerifyButtonVisibility()
-    {
+    private fun updateVerifyButtonVisibility() {
         /*
         verifyEmailBtn.setVisible(!primaryMailEt.text.isBlank())
         verifySecondaryEmailBtn.setVisible(!secondaryMailEt.text.isBlank())
@@ -209,8 +207,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         super.onResume()
         NStack.addLanguageChangeListener(this)
         attachListeners()
-        if(refreshOnResume)
-        {
+        if (refreshOnResume) {
             refreshOnResume = false
             presenter.refresh()
         }
@@ -240,7 +237,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         nameEt.setText(name)
     }
 
-    override fun setPrimaryEmail(email: String, verified: Boolean, userVerified : Boolean) {
+    override fun setPrimaryEmail(email: String, verified: Boolean, userVerified: Boolean) {
         primaryMailEt.setText(email)
         verifyEmailBtn.setVisible(!verified)
         primaryMailEt.isEnabled = userVerified
@@ -287,14 +284,12 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View, On
         progressFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-
     override fun showSecondaryEmail(show: Boolean) {
         secondaryMailFl.setVisible(show)
     }
 
     override fun setSaveEnabled(enabled: Boolean) {
         menuSave?.isEnabled = enabled
-
     }
 
     override fun setNeutralFocus() {
