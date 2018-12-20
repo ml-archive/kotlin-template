@@ -38,7 +38,6 @@ class MyInfoComponentPresenter @Inject constructor(
             currentUser = user
             showUser(user)
         }
-        refresh()
     }
 
     override fun refresh() {

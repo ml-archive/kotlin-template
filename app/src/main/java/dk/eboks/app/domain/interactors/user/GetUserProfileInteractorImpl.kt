@@ -29,12 +29,12 @@ class GetUserProfileInteractorImpl(
         try {
             val result = api.getUserProfile().execute()
             result?.body()?.let {
+                userManager.put(it)
+                appStateManager.state?.currentUser = it
+                appStateManager.state?.currentSettings = userSettingsManager.get(it.id) // also load settings
+                appStateManager.save()
+
                 runOnUIThread {
-                    /*userManager.put(it)
-                    appStateManager.state?.currentUser = it
-                    appStateManager.state?.currentSettings = userSettingsManager.get(it.id) // also load settings
-                    appStateManager.save()
-                    */
                     output?.onGetUser(it)
                 }
                 return
