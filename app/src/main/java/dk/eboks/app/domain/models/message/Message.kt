@@ -37,7 +37,7 @@ data class Message(
     var lockStatus: Status? = null,
     var status: Status? = null,
     @SerializedName("Note")
-    var note: String = ""
+    var note: String? = ""
 ) : Parcelable {
 
     fun findFolderId(): Int {
