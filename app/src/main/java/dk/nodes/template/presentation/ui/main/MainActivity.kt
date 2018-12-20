@@ -76,7 +76,7 @@ class MainActivity : BaseActivity() {
             }
         }
         NStack.appOpen { success ->
-            Timber.e( "appopen success = $success")
+            Timber.e("appopen success = $success")
         }
     }
 

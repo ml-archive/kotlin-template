@@ -94,7 +94,7 @@ repositories {
 }
 
 dependencies {
-    def kotlinx_coroutines_version = '1.0.0',
+    def kotlinx_coroutines_version = '1.0.1',
         constraint_layout_version = '2.0.0-alpha2',
         dagger_version = "2.16",
         lifecycle_version = "2.0.0",
