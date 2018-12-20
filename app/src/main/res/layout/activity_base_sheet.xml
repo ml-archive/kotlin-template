@@ -54,7 +54,7 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         android:paddingTop="8dp"
-        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <dk.eboks.app.presentation.widgets.MaxHeightScrollView
             android:id="@+id/contextSheetSv"
