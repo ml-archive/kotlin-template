@@ -2,7 +2,7 @@ package dk.nodes.template.presentation.base
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import dk.nodes.arch.presentation.base.BaseView
 import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
 import dk.nodes.template.App
