@@ -139,6 +139,7 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
             holder.root.setOnClickListener {
                 //open normal maillist for sharedUsers[position] and close the drawer
                 Timber.d(sharedUsers[position].toString())
+                presenter.setSharedUser(sharedUsers[position])
                 activity?.onBackPressed()
             }
         }

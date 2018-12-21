@@ -6,6 +6,7 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.SharedUser
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -33,13 +34,20 @@ class FolderSelectUserComponentPresenter @Inject constructor(val appState: AppSt
 
     override fun onGetAllShares(shares: List<SharedUser>) {
         runAction { view ->
-            view.showShares(shares)
+            val now = Date()
+            view.showShares(shares.filter { s -> s.expiryDate?.after(now) ?: false && s.status?.equals("accepted", true) ?: false })
             view.showProgress(false)
         }
     }
 
     override fun onGetAllSharesError(viewError: ViewError) {
         runAction { view -> view.showErrorDialog(viewError) }
+    }
+
+    override fun setSharedUser(sharedUser: SharedUser) {
+        if(appState.state?.currentUser?.id != sharedUser.id) {
+            appState.state?.impersoniateUser = sharedUser
+        }
     }
 
     private fun createMocks(): MutableList<SharedUser> {

@@ -24,7 +24,7 @@ class MailOverviewPresenter @Inject constructor(val appState: AppStateManager) :
 
     init {
         runAction { v ->
-            v.setUser(appState.state?.currentUser)
+            setUser(v)
         }
     }
 
@@ -44,6 +44,18 @@ class MailOverviewPresenter @Inject constructor(val appState: AppStateManager) :
         refreshingSenders = true
         EventBus.getDefault().post(RefreshFolderShortcutsEvent())
         EventBus.getDefault().post(RefreshSenderCarouselEvent())
+
+        runAction { view ->
+            setUser(view)
+        }
+    }
+
+    private fun setUser(view: MailOverviewContract.View) {
+        if(appState.state?.impersoniateUser == null) {
+            view.setUser(appState.state?.currentUser, appState.state?.currentUser?.name)
+        } else {
+            view.setUser(appState.state?.currentUser, appState.state?.impersoniateUser?.name)
+        }
     }
 
     fun stopProgressIfDone()

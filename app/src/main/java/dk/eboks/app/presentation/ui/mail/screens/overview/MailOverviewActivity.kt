@@ -42,8 +42,8 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
         }
     }
 
-    private fun setupTopbar(user: User?) {
-        mainTb.title = user?.name
+    private fun setupTopbar(userName: String?) {
+        mainTb.title = userName
         if(BuildConfig.ENABLE_SHARES) {
             val imageView = ImageView(this)
             imageView.setImageResource(R.drawable.icon_48_small_arrow_down)
@@ -52,6 +52,7 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
             mainTb.addView(imageView)
             mainTb.isClickable = true
             mainTb.setOnClickListener {
+                refreshOnResume = true
                 openComponentDrawer(FolderSelectUserComponentFragment::class.java)
             }
         }
@@ -69,8 +70,8 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
             refreshSrl.isRefreshing = show
     }
 
-    override fun setUser(user: User?) {
-        setupTopbar(user)
+    override fun setUser(user: User?, userName: String?) {
+        setupTopbar(userName)
         user?.let {
             folderShortcutsFragmentContainerFl.setVisible(it.verified)
         }
