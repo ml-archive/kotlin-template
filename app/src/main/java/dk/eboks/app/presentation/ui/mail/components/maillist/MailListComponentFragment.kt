@@ -16,7 +16,9 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
-import dk.eboks.app.presentation.ui.mail.components.maillist.MailMessagesAdapter.MailMessageEvent.*
+import dk.eboks.app.presentation.ui.mail.components.maillist.MailMessagesAdapter.MailMessageEvent.MOVE
+import dk.eboks.app.presentation.ui.mail.components.maillist.MailMessagesAdapter.MailMessageEvent.OPEN
+import dk.eboks.app.presentation.ui.mail.components.maillist.MailMessagesAdapter.MailMessageEvent.READ
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
@@ -26,7 +28,7 @@ import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
-import java.util.*
+import java.util.ArrayList
 import javax.inject.Inject
 
 class MailListComponentFragment : BaseFragment(), MailListComponentContract.View {
@@ -242,6 +244,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             if (modeEdit) {
                 mainTb.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
                 menuProfile?.isVisible = false
+
                 mainTb.setNavigationOnClickListener {
                     toggleEditMode()
                 }
@@ -256,18 +259,20 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             if (checkedList.size > 0) {
                 mainTb.title = checkedList.size.toString() + " " + Translation.uploads.chosen
             } else {
-                folder?.let {
-                    when (it.type) {
-                        FolderType.UPLOADS -> {
-                            mainTb.title = Translation.uploads.title
+                if (modeEdit) {
+                    mainTb.title = Translation.inbox.chooseMails
+                } else {
+                    folder?.let {
+                        when (it.type) {
+                            FolderType.UPLOADS -> {
+                                mainTb.title = Translation.uploads.title
+                            }
+                            else -> {
+                                mainTb.title = it.name
+                            }
                         }
-                        else -> {
-                            mainTb.title = it.name
-                        }
-                    }
-                }.guard {
-                    sender?.let {
-                        mainTb.title = it.name
+                    }.guard {
+                        sender?.name?.let(mainTb::setTitle)
                     }
                 }
             }
@@ -315,9 +320,15 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             checkFabState()
         }
 
-        messagesRv.addOnScrollListener(object : androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: androidx.recyclerview.widget.RecyclerView, dx: Int, dy: Int) {
-                val layoutManager = recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager
+        messagesRv.addOnScrollListener(object :
+            androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+            override fun onScrolled(
+                recyclerView: androidx.recyclerview.widget.RecyclerView,
+                dx: Int,
+                dy: Int
+            ) {
+                val layoutManager =
+                    recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager
                 layoutManager.let {
                     if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
                         onScrolledToLastItem()
