@@ -12,6 +12,6 @@ data class SharedUser(
         var name: String,
         var permission: String,
         var expiryDate: Date?,
-        var status: Status?
+        var status: String?
 
 ) : Parcelable

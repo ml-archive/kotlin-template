@@ -15,6 +15,7 @@ import dk.eboks.app.domain.models.folder.FolderRequest
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.login.ActivationDevice
+import dk.eboks.app.domain.models.login.SharedUser
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
@@ -168,4 +169,7 @@ interface Api {
     @GET("channels/ekey/masterkey") fun masterKeyGet():Call<EKeyGetMasterkeyResponse>
     @POST("channels/ekey/masterkey") fun masterKeySet(@Body obj: JsonObject):Call<ResponseBody>
     @DELETE("channels/ekey/masterkey") fun masterKeyDelete():Call<ResponseBody>
+
+    // shares
+    @GET("mail/shares/all") fun getAllShares(): Call<List<SharedUser>>
 }

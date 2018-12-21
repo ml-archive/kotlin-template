@@ -112,6 +112,8 @@ import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractorImpl
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractorImpl
+import dk.eboks.app.domain.interactors.shares.GetAllSharesInteractor
+import dk.eboks.app.domain.interactors.shares.GetAllSharesInteractorImpl
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractorImpl
 import dk.eboks.app.domain.interactors.storebox.ConfirmStoreboxInteractor
@@ -836,5 +838,10 @@ class InteractorModule {
     @Provides
     fun provideEditFolder(executor: Executor, foldersRepository: FoldersRepository): EditFolderInteractor {
         return EditFolderInteractorImpl(executor, foldersRepository)
+    }
+
+    @Provides
+    fun provideGetAllSharesInteractor(executor: Executor, api: Api): GetAllSharesInteractor {
+        return GetAllSharesInteractorImpl(executor, api)
     }
 }
