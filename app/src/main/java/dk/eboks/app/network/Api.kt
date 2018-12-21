@@ -75,12 +75,12 @@ interface Api {
     @POST("user/current/mobile/{mobile}/verify/{activationCode}") fun confirmMobile(@Path("mobile") mobile: String, @Path("activationCode") activationCode : String) : Call<Void>
 
     // @GET("regions") fun getRegions() : Call<List<Region>>
-    @GET("mail/folders/selected") fun getMailCategories() : Call<List<Folder>>
-    @GET("mail/folders") fun getFolders() : Call<List<Folder>>
+    @GET("mail/folders/selected") fun getMailCategories(@Query("userId") userId: String? = null) : Call<List<Folder>>
+    @GET("mail/folders") fun getFolders(@Query("userId") userId: String?) : Call<List<Folder>>
     @GET("mail/folders/{id}/messages") fun getMessages(@Path("id") id : Int, @Query("offset") offset : Int? = null, @Query("limit") limit : Int? = null, @Query("acceptprivateterms") terms : Boolean? = null) : Call<List<Message>>
     @GET("mail/messages/senders/{id}") fun getMessagesBySender(@Path("id") id : Long, @Query("offset") offset : Int? = null, @Query("limit") limit : Int? = null,@Query("acceptprivateterms") terms : Boolean? = null) : Call<List<Message>>
     @GET("mail/folders/{folderId}/messages/{id}") fun getMessage(@Path("id") id : String, @Path("folderId") folderId : Int, @Query("receipt") receipt : Boolean? = null, @Query("acceptprivateterms") terms : Boolean? = null) : Call<Message>
-    @GET("mail/senders") fun getSenders() : Call<List<Sender>>
+    @GET("mail/senders") fun getSenders(@Query("userId") userId: String?) : Call<List<Sender>>
 
     // edit message / document/message operations
     @POST("mail/folders/{folderId}/messages/{messageId}") fun updateMessage(@Path("folderId") folderId : Int, @Path("messageId") messageId : String, @Body body : MessagePatch) : Call<Void>

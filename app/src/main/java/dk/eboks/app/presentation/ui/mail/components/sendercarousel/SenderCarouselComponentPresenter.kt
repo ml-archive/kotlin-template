@@ -36,7 +36,7 @@ class SenderCarouselComponentPresenter @Inject constructor(val appState: AppStat
 
     fun refresh(cached : Boolean)
     {
-        getSendersInteractor.input = GetSendersInteractor.Input(cached)
+        getSendersInteractor.input = GetSendersInteractor.Input(cached, userId = appState.state?.impersoniateUser?.userId.toString())
         getSendersInteractor.output = this
         getSendersInteractor.run()
     }

@@ -21,7 +21,7 @@ class SenderAllListComponentPresenter @Inject constructor(val appState: AppState
     }
 
     override fun refresh() {
-        getSendersInteractor.input = GetSendersInteractor.Input()
+        getSendersInteractor.input = GetSendersInteractor.Input(userId = appState.state?.impersoniateUser?.userId.toString())
         getSendersInteractor.output = this
         getSendersInteractor.run()
     }

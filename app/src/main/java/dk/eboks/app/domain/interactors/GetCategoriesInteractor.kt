@@ -11,7 +11,7 @@ interface GetCategoriesInteractor : Interactor {
     var output : Output?
     var input : Input?
 
-    data class Input(val cached: Boolean)
+    data class Input(val cached: Boolean, val userId: String?)
 
     interface Output {
         fun onGetCategories(folders : List<Folder>)

@@ -32,7 +32,7 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
     }
 
     override fun refresh() {
-        getFoldersInteractor.input = GetFoldersInteractor.Input(false, pickermode )
+        getFoldersInteractor.input = GetFoldersInteractor.Input(false, pickermode, appState.state?.impersoniateUser?.userId.toString())
         getFoldersInteractor.run()
     }
 

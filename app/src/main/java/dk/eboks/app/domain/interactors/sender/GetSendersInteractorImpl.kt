@@ -32,7 +32,7 @@ class GetSendersInteractorImpl(executor: Executor, val sendersRepository: Sender
         Timber.d("doGet")
         try {
             input?.let { args->
-                var senders = sendersRepository.getSenders(input?.cached ?: true)
+                var senders = sendersRepository.getSenders(input?.cached ?: true, args.userId)
                 runOnUIThread {
                     if(args.cached) Timber.e("Returning cache senders") else Timber.e("Returning fresh senders on first run")
                     output?.onGetSenders(senders)
@@ -40,7 +40,7 @@ class GetSendersInteractorImpl(executor: Executor, val sendersRepository: Sender
                 // if we returned cached, refresh from network
                 if(args.cached)
                 {
-                    senders = sendersRepository.getSenders(false)
+                    senders = sendersRepository.getSenders(false, args.userId)
                     runOnUIThread {
                         Timber.e("Returning fresh senders")
                         output?.onGetSenders(senders)

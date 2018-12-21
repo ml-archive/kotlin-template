@@ -16,9 +16,11 @@ typealias MailCategoryStore = CacheStore<Long, List<Folder>>
  */
 class MailCategoriesRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager) : MailCategoriesRepository {
 
+    var userId: String? = null
+
     val mailCategoryStore: MailCategoryStore by lazy {
         MailCategoryStore(cacheManager, context, gson, "mail_category_store.json", object : TypeToken<MutableMap<Long, List<Folder>>>() {}.type, { key ->
-            val response = api.getMailCategories().execute()
+            val response = api.getMailCategories(userId).execute()
             var result : List<Folder>? = null
             response?.let {
                 if(it.isSuccessful)
@@ -28,7 +30,8 @@ class MailCategoriesRestRepository(val context: Context, val api: Api, val gson:
         })
     }
 
-    override fun getMailCategories(cached: Boolean): List<Folder> {
+    override fun getMailCategories(cached: Boolean, userId: String?): List<Folder> {
+        this.userId = userId
         val res = if(cached) mailCategoryStore.get(0) else mailCategoryStore.fetch(0)
         if(res != null)
             return res
