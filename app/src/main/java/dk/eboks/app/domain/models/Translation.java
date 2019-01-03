@@ -587,6 +587,7 @@ public class Translation {
 		public static String actionMarkAsRead = "Marker som l\u00E6st";
 		public static String editButton = "Rediger";
 		public static String actionMarkAsUnread = "Marker som ul\u00E6st";
+		public static String chooseMails = "__chooseMails";
 	}
 	public final static class sharedusers {
 		public static String title = "V\u00E6lg adgang";
