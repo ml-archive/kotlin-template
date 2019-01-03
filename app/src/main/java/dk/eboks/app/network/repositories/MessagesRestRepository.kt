@@ -45,7 +45,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
     val folderIdMessageStore: FolderIdMessageStore by lazy {
         FolderIdMessageStore(cacheManager, context, gson, "folder_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
-            val response = api.getMessages(key).execute()
+            val response = api.getMessages(key, appState.state?.impersoniateUser?.userId).execute()
             var result : List<Message>? = null
             response?.let {
                 if(it.isSuccessful)
@@ -106,7 +106,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
     val senderIdMessageStore: SenderIdMessageStore by lazy {
         SenderIdMessageStore(cacheManager, context, gson, "sender_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
-            val response = api.getMessagesBySender(key).execute()
+            val response = api.getMessagesBySender(key, appState.state?.impersoniateUser?.userId).execute()
             var result : List<Message>? = null
             response?.let {
                 if(it.isSuccessful)
@@ -122,7 +122,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
     override fun getMessagesByFolder(folderId : Int, offset : Int, limit : Int): List<Message>
     {
-        val response = api.getMessages(folderId, offset, limit, terms = appState.state?.openingState?.acceptPrivateTerms).execute()
+        val response = api.getMessages(folderId, appState.state?.impersoniateUser?.userId, offset, limit, terms = appState.state?.openingState?.acceptPrivateTerms).execute()
         if(response.isSuccessful) {
             response.body()?.let {
                 return it
@@ -133,7 +133,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
     override fun getMessagesBySender(senderId : Long, offset : Int, limit : Int): List<Message> {
 
-        val response = api.getMessagesBySender(senderId, offset, limit, terms = appState.state?.openingState?.acceptPrivateTerms).execute()
+        val response = api.getMessagesBySender(senderId, appState.state?.impersoniateUser?.userId, offset, limit, terms = appState.state?.openingState?.acceptPrivateTerms).execute()
         if(response.isSuccessful) {
             response.body()?.let {
                 return it
@@ -185,7 +185,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
     }
 
     override fun getMessage(folderId: Int, id: String, receipt : Boolean?, terms : Boolean?) : Message {
-        val call = api.getMessage(id, folderId, receipt, terms = terms)
+        val call = api.getMessage(id, folderId, appState.state?.impersoniateUser?.userId, receipt, terms = terms)
         val result = call.execute()
         result?.let { response ->
             if(response.isSuccessful) {
@@ -251,7 +251,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
     }
 
     override fun updateMessage(message: Message, messagePatch: MessagePatch) {
-        val call = api.updateMessage(message.findFolderId(), message.id, messagePatch)
+        val call = api.updateMessage(message.findFolderId(), message.id, messagePatch, appState.state?.impersoniateUser?.userId)
         val result = call.execute()
         result?.let { response ->
             if(response.isSuccessful)
