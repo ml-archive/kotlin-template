@@ -104,7 +104,7 @@ class LoginInteractorImpl(
                             output?.onLoginSuccess(t)
                         }
 
-                        appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(false, appStateManager.state?.impersoniateUser?.userId.toString())
+                        appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(false, appStateManager.state?.impersoniateUser?.userId)
 
                     }.guard {
                         runOnUIThread {

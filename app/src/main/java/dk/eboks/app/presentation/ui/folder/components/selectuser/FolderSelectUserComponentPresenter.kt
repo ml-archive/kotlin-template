@@ -22,13 +22,6 @@ class FolderSelectUserComponentPresenter @Inject constructor(val appState: AppSt
     }
 
     override fun getShared() {
-//        Handler().postDelayed({
-//            val mocks = createMocks()
-//            runAction { view ->
-//                view.showShares(mocks)
-//                view.showProgress(false)
-//            }
-//        }, 2000)
         getAllSharesInteractor.run()
     }
 
@@ -44,9 +37,11 @@ class FolderSelectUserComponentPresenter @Inject constructor(val appState: AppSt
         runAction { view -> view.showErrorDialog(viewError) }
     }
 
-    override fun setSharedUser(sharedUser: SharedUser) {
-        if(appState.state?.currentUser?.id != sharedUser.id) {
-            appState.state?.impersoniateUser = sharedUser
+    override fun setSharedUser(sharedUser: SharedUser?) {
+        appState.state?.impersoniateUser = if(appState.state?.currentUser?.id != sharedUser?.id) {
+            sharedUser
+        } else {
+            null
         }
     }
 

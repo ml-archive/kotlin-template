@@ -70,7 +70,7 @@ class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppSta
 
     fun refresh(cached : Boolean) {
         getCategoriesInteractor.output = this
-        getCategoriesInteractor.input = GetCategoriesInteractor.Input(cached, appState.state?.impersoniateUser?.userId.toString())
+        getCategoriesInteractor.input = GetCategoriesInteractor.Input(cached, appState.state?.impersoniateUser?.userId)
         getCategoriesInteractor.run()
     }
 

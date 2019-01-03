@@ -54,7 +54,6 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
     override fun setUser(user: User?) {
         myProfileNameTv.text = user?.name ?: Translation.myInformation.name
 
-
         profileFl.visibility = View.GONE
         profilePicIv.visibility = View.VISIBLE
 
@@ -92,6 +91,7 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
     private fun setupMyProfile() {
         myProfileLl.setOnClickListener {
             //close
+            presenter.setSharedUser(null)
             activity?.onBackPressed()
         }
         myProfileSubHeaderTv.text = Translation.profile.myProfile

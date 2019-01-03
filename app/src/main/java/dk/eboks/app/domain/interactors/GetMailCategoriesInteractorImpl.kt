@@ -30,7 +30,7 @@ class GetMailCategoriesInteractorImpl(executor: Executor, val foldersRepositoryM
         }
     }
 
-    private fun loadAndEmit(cached: Boolean, userId: String?)
+    private fun loadAndEmit(cached: Boolean, userId: Int?)
     {
         val senders = foldersRepositoryMail.getMailCategories(cached, userId)
         runOnUIThread {

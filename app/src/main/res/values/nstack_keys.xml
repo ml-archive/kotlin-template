@@ -513,6 +513,7 @@
   <string name='nstack_inbox_actionMarkAsRead' formatted='false'>{inbox_actionMarkAsRead}</string>
   <string name='nstack_inbox_editButton' formatted='false'>{inbox_editButton}</string>
   <string name='nstack_inbox_actionMarkAsUnread' formatted='false'>{inbox_actionMarkAsUnread}</string>
+  <string name='nstack_inbox_chooseMails' formatted='false'>{inbox_chooseMails}</string>
   <string name='nstack_sharedusers_title' formatted='false'>{sharedusers_title}</string>
   <string name='nstack_sharedusers_sharedAccountsHeader' formatted='false'>{sharedusers_sharedAccountsHeader}</string>
   <string name='nstack_sharedusers_permissionA' formatted='false'>{sharedusers_permissionA}</string>

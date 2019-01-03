@@ -7,7 +7,7 @@ import dk.eboks.app.domain.models.folder.FolderRequest
  * Created by bison on 01/02/18.
  */
 interface FoldersRepository {
-    fun getFolders(cached : Boolean = false, userId: String?) : List<Folder>
+    fun getFolders(cached : Boolean = false, userId: Int?) : List<Folder>
 
     fun createFolder(folderRequest: FolderRequest)
     fun editFolder(folderId: Int, folderRequest: FolderRequest)
