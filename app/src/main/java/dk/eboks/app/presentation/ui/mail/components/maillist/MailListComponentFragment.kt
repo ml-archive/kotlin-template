@@ -187,7 +187,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         // deal with return from folder picker
         if (requestCode == FolderActivity.REQUEST_ID) {
             data?.extras?.let {
-                val moveToFolder = data.getSerializableExtra("res") as Folder
+                val moveToFolder = data.getParcelableExtra<Folder>("res")
                 presenter.moveMessages(moveToFolder.id, checkedList)
                 checkedList.clear()
                 if (modeEdit) {

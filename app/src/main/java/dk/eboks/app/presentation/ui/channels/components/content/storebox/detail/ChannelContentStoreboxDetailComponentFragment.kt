@@ -357,7 +357,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         // deal with return from folder picker
         if (requestCode == FolderActivity.REQUEST_ID) {
             data?.extras?.let {
-                val moveToFolder = data.getSerializableExtra("res") as Folder
+                val moveToFolder = data.getParcelableExtra<Folder>("res")
                 //Timber.d("Move To Folder ${moveToFolder?.toString()}")
                 Timber.e("Returned from folder picker. folder picked: ${moveToFolder.name}")
                 presenter.saveReceipt(moveToFolder)
