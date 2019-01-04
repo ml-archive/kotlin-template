@@ -62,7 +62,7 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
                 item.icon?.let {
                     button.setImageResource(it)
                 }
-                v.tag = button
+                v.tag = item
                 button.setOnClickListener {
                     closeAnimation(item.type)
                 }
