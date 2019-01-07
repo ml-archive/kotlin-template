@@ -22,23 +22,21 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
     @Inject lateinit var presenter: ReplyFormContract.Presenter
 
     // observer without rx, how is teh possible?
-    var inputObserver: Observer = Observer { observable, newval ->
+    private val inputObserver = Observer { observable, newval ->
         Timber.e("Input observer firing! $observable")
         submitBtn.isEnabled = allInputsValidate()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(dk.eboks.app.R.layout.activity_reply_form)
+        setContentView(R.layout.activity_reply_form)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupTopBar(Translation.reply.title)
 
         // deserialize or message and hand it to the presenter
         intent?.extras?.getParcelable<Message>(Message::class.java.simpleName)?.let(presenter::setup)
-            .guard {
-                finish()    // finish if we didn't get a message
-            }
+            .guard { finish() }   // finish if we didn't get a message
 
         submitBtn.setOnClickListener {
             presenter.submit()

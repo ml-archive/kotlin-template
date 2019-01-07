@@ -59,8 +59,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
-        mainHandler.post({ presenter.setup() })
-
+        mainHandler.post { presenter.setup() }
     }
 
     private fun setupTopBar() {
