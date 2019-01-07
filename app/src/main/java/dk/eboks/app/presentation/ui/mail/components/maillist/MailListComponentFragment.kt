@@ -93,7 +93,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     private fun getFolderFromBundle() {
-        arguments?.getParcelable<Folder>("folder")?.let { folder ->
+        (arguments?.getSerializable("folder") as? Folder)?.let { folder ->
             this.folder = folder
             presenter.setup(folder)
         }

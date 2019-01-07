@@ -113,7 +113,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == FolderActivity.REQUEST_ID) {
-            data?.getParcelableExtra<Folder>("res")?.let(presenter::moveMessage)
+            (data?.getSerializableExtra("res") as? Folder)?.let(presenter::moveMessage)
         }
         // Deal with return from document action sheet
         else if (requestCode == OverlayActivity.REQUEST_ID) {

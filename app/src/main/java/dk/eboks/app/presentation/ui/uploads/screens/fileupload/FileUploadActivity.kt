@@ -102,7 +102,7 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
-            destinationFolder = data?.getParcelableExtra("res")
+            destinationFolder = data?.getSerializableExtra("res") as? Folder
             destinationTv.text = destinationFolder?.name ?: ""
         }
     }
@@ -143,44 +143,43 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
     }
 
     override fun addPdfViewer(uri : String) {
-        Handler(mainLooper).post({
+        Handler(mainLooper).post {
             embeddedViewerComponentFragment = PdfViewComponentFragment()
             embeddedViewerComponentFragment?.putArg("URI", uri)
             embeddedViewerComponentFragment?.let {
                 supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, PdfViewComponentFragment::class.java.simpleName).commit()
             }
-        })
+        }
     }
 
     override fun addImageViewer(uri : String) {
-        Handler(mainLooper).post({
+        Handler(mainLooper).post {
             embeddedViewerComponentFragment = ImageViewComponentFragment()
             embeddedViewerComponentFragment?.putArg("URI", uri)
             embeddedViewerComponentFragment?.let {
                 supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, ImageViewComponentFragment::class.java.simpleName).commit()
             }
-        })
+        }
     }
 
     override fun addHtmlViewer(uri : String) {
-        Handler(mainLooper).post({
+        Handler(mainLooper).post {
             embeddedViewerComponentFragment = HtmlViewComponentFragment()
             embeddedViewerComponentFragment?.putArg("URI", uri)
             embeddedViewerComponentFragment?.let {
                 supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, HtmlViewComponentFragment::class.java.simpleName).commit()
             }
-        })
+        }
     }
 
     override fun addTextViewer(uri : String) {
-        Handler(mainLooper).post({
+        Handler(mainLooper).post {
             embeddedViewerComponentFragment = TextViewComponentFragment()
             embeddedViewerComponentFragment?.putArg("URI", uri)
             embeddedViewerComponentFragment?.let {
                 supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, TextViewComponentFragment::class.java.simpleName).commit()
             }
-        })
-
+        }
     }
 
     override fun shouldStartExpanded(): Boolean {

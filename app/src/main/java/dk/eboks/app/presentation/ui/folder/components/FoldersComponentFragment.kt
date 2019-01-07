@@ -390,7 +390,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     private fun editButtonClicked(v: View) {
         val arguments = Bundle()
         val editFolder = v.tag as Folder
-        arguments.putParcelable("editFolder", editFolder)
+        arguments.putSerializable("editFolder", editFolder)
         getBaseActivity()?.openComponentDrawer(NewFolderComponentFragment::class.java, arguments)
     }
 
