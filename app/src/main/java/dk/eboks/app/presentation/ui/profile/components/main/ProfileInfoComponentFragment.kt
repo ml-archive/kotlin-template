@@ -20,6 +20,9 @@ import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
+import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
+import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
+import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
 import dk.eboks.app.presentation.ui.profile.components.HelpFragment
 import dk.eboks.app.presentation.ui.profile.components.PrivacyFragment
 import dk.eboks.app.presentation.ui.profile.components.drawer.FingerHintComponentFragment
@@ -44,7 +47,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
     @Inject
     lateinit var presenter: ProfileInfoComponentContract.Presenter
 
-    var toolbarTitle = ""
+    private var toolbarTitle = ""
 
     private val CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 4532
 
@@ -55,8 +58,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_profile_main_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_profile_main_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -248,17 +250,41 @@ class ProfileInfoComponentFragment : BaseFragment(),
     }
 
     private fun acquireUserImage() {
-        val intent = Intent(activity, FilePickerActivity::class.java)
-        intent.putExtra(FilePickerConstants.CAMERA, true)
-        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE)
+        startActivityForResult(
+            OverlayActivity.createIntent(
+                requireContext(),
+                arrayListOf(OverlayButton(ButtonType.CAMERA), OverlayButton(ButtonType.GALLERY))
+            ), OverlayActivity.REQUEST_ID
+        )
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            data?.let {
-                val file = FilePickerUriHelper.getFile(activity ?: return, data)
-                val uri = FilePickerUriHelper.getUri(data)
-                setProfileImageLocal(file)
+        when (requestCode) {
+            OverlayActivity.REQUEST_ID -> {
+                val button = data?.getSerializableExtra("res") as? ButtonType
+                when (button) {
+                    ButtonType.GALLERY -> {
+                        val intent = Intent(activity, FilePickerActivity::class.java)
+                        intent.putExtra(FilePickerConstants.FILE, true)
+                        intent.putExtra(FilePickerConstants.TYPE, FilePickerConstants.MIME_IMAGE)
+                        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE)
+                    }
+                    ButtonType.CAMERA -> {
+                        val intent = Intent(activity, FilePickerActivity::class.java)
+                        intent.putExtra(FilePickerConstants.CAMERA, true)
+                        startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE)
+                    }
+                    else -> {
+                        // Nothing to do
+                    }
+                }
+            }
+            CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                data?.let {
+                    val file = FilePickerUriHelper.getFile(activity ?: return, data)
+                    val uri = FilePickerUriHelper.getUri(data)
+                    setProfileImageLocal(file)
+                }
             }
         }
     }

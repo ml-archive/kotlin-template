@@ -481,6 +481,8 @@
   <string name='nstack_overlaymenu_markAsRead' formatted='false'>{overlaymenu_markAsRead}</string>
   <string name='nstack_overlaymenu_markAsUnread' formatted='false'>{overlaymenu_markAsUnread}</string>
   <string name='nstack_overlaymenu_archive' formatted='false'>{overlaymenu_archive}</string>
+  <string name='nstack_overlaymenu_takePhoto' formatted='false'>{overlaymenu_takePhoto}</string>
+  <string name='nstack_overlaymenu_chooseFromLibrary' formatted='false'>{overlaymenu_chooseFromLibrary}</string>
   <string name='nstack_senderregistration_title' formatted='false'>{senderregistration_title}</string>
   <string name='nstack_senderregistration_body' formatted='false'>{senderregistration_body}</string>
   <string name='nstack_senderregistration_register' formatted='false'>{senderregistration_register}</string>

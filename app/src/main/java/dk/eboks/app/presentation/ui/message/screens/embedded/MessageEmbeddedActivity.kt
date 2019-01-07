@@ -50,7 +50,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     var embeddedViewerComponentFragment: androidx.fragment.app.Fragment? = null
 
     private var actionButtons = arrayListOf(
-            OverlayButton(ButtonType.PRINT)
+        OverlayButton(ButtonType.PRINT)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,19 +73,24 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         menuItem?.setIcon(R.drawable.icon_48_option_red_navigationbar)
         menuItem?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuItem?.setOnMenuItemClickListener { item: MenuItem ->
-            val i = Intent(this@MessageEmbeddedActivity, OverlayActivity::class.java)
-            i.putExtra("buttons", actionButtons)
-            startActivityForResult(i, OverlayActivity.REQUEST_ID)
+            startActivityForResult(
+                OverlayActivity.createIntent(
+                    this@MessageEmbeddedActivity,
+                    actionButtons
+                ), OverlayActivity.REQUEST_ID
+            )
             true
         }
     }
 
     override fun setActionButton(unread: Boolean) {
         val actionButtons = arrayListOf(
-                OverlayButton(ButtonType.MOVE),
-                OverlayButton(ButtonType.ARCHIVE)
+            OverlayButton(ButtonType.MOVE),
+            OverlayButton(ButtonType.ARCHIVE)
         )
-        if (unread) actionButtons.add(OverlayButton(ButtonType.READ)) else actionButtons.add(OverlayButton(ButtonType.UNREAD))
+        if (unread) actionButtons.add(OverlayButton(ButtonType.READ)) else actionButtons.add(
+            OverlayButton(ButtonType.UNREAD)
+        )
         actionButtons.add(OverlayButton(ButtonType.DELETE))
         this.actionButtons = actionButtons
     }
@@ -98,7 +103,6 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         mainTb.subtitle = formatter.formatDate(message)
     }
 
-
     private fun startFolderSelectActivity() {
         val i = Intent(this, FolderActivity::class.java)
         i.putExtra("pick", true)
@@ -109,7 +113,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == FolderActivity.REQUEST_ID) {
-                data?.getParcelableExtra<Folder>("res")?.let(presenter::moveMessage)
+            data?.getParcelableExtra<Folder>("res")?.let(presenter::moveMessage)
         }
         // Deal with return from document action sheet
         else if (requestCode == OverlayActivity.REQUEST_ID) {
@@ -159,7 +163,9 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
             it.arguments = Bundle().apply {
                 putBoolean("show_divider", true)
             }
-            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, HeaderComponentFragment::class.java.simpleName).commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.sheetComponentsLl, it, HeaderComponentFragment::class.java.simpleName)
+                .commit()
         }
     }
 
@@ -169,7 +175,11 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         args.putParcelable(Message::class.java.simpleName, message)
         replyButtonComponentFragment?.let {
             it.arguments = args
-            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, ReplyButtonComponentFragment::class.java.simpleName).commit()
+            supportFragmentManager.beginTransaction().add(
+                R.id.sheetComponentsLl,
+                it,
+                ReplyButtonComponentFragment::class.java.simpleName
+            ).commit()
         }
     }
 
@@ -179,36 +189,46 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         args.putParcelable(Message::class.java.simpleName, message)
         signButtonComponentFragment?.let {
             it.arguments = args
-            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, it::class.java.simpleName).commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.sheetComponentsLl, it, it::class.java.simpleName).commit()
         }
     }
 
     override fun addShareComponentFragment() {
         shareComponentFragment = ShareComponentFragment()
         shareComponentFragment?.let {
-            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, ShareComponentFragment::class.java.simpleName).commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.sheetComponentsLl, it, ShareComponentFragment::class.java.simpleName)
+                .commit()
         }
     }
 
     override fun addNotesComponentFragment() {
         notesComponentFragment = NotesComponentFragment()
         notesComponentFragment?.let {
-            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, NotesComponentFragment::class.java.simpleName).commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.sheetComponentsLl, it, NotesComponentFragment::class.java.simpleName)
+                .commit()
         }
     }
 
     override fun addAttachmentsComponentFragment() {
         attachmentsComponentFragment = AttachmentsComponentFragment()
         attachmentsComponentFragment?.let {
-            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, AttachmentsComponentFragment::class.java.simpleName).commit()
+            supportFragmentManager.beginTransaction().add(
+                R.id.sheetComponentsLl,
+                it,
+                AttachmentsComponentFragment::class.java.simpleName
+            ).commit()
         }
     }
-
 
     override fun addFolderInfoComponentFragment() {
         folderInfoComponentFragment = FolderInfoComponentFragment()
         folderInfoComponentFragment?.let {
-            supportFragmentManager.beginTransaction().add(R.id.sheetComponentsLl, it, FolderInfoComponentFragment::class.java.simpleName).commit()
+            supportFragmentManager.beginTransaction()
+                .add(R.id.sheetComponentsLl, it, FolderInfoComponentFragment::class.java.simpleName)
+                .commit()
         }
     }
 
@@ -216,7 +236,9 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         Handler(mainLooper).post {
             embeddedViewerComponentFragment = PdfViewComponentFragment()
             embeddedViewerComponentFragment?.let {
-                supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, PdfViewComponentFragment::class.java.simpleName).commit()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.viewerFl, it, PdfViewComponentFragment::class.java.simpleName)
+                    .commit()
             }
         }
     }
@@ -225,7 +247,9 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         Handler(mainLooper).post {
             embeddedViewerComponentFragment = ImageViewComponentFragment()
             embeddedViewerComponentFragment?.let {
-                supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, ImageViewComponentFragment::class.java.simpleName).commit()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.viewerFl, it, ImageViewComponentFragment::class.java.simpleName)
+                    .commit()
             }
         }
     }
@@ -234,7 +258,9 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         Handler(mainLooper).post {
             embeddedViewerComponentFragment = HtmlViewComponentFragment()
             embeddedViewerComponentFragment?.let {
-                supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, HtmlViewComponentFragment::class.java.simpleName).commit()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.viewerFl, it, HtmlViewComponentFragment::class.java.simpleName)
+                    .commit()
             }
         }
     }
@@ -243,10 +269,11 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         Handler(mainLooper).post {
             embeddedViewerComponentFragment = TextViewComponentFragment()
             embeddedViewerComponentFragment?.let {
-                supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, TextViewComponentFragment::class.java.simpleName).commit()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.viewerFl, it, TextViewComponentFragment::class.java.simpleName)
+                    .commit()
             }
         }
-
     }
 
     override fun getNavigationMenuAction(): Int {
