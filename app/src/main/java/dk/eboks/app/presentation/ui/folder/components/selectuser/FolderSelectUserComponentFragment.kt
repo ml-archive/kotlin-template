@@ -114,9 +114,6 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
         }
     }
 
-    override fun showErrorDialog(error: ViewError) {
-        super.showErrorDialog(error)
-    }
 
     inner class SharedUserAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<SharedUserAdapter.SharedUserViewHolder>() {
 

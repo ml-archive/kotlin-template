@@ -23,7 +23,6 @@ class FolderSelectUserComponentPresenter @Inject constructor(val appState: AppSt
     }
 
     override fun getShared() {
-        Timber.d("Get Shared")
         getAllSharesInteractor.run()
     }
 
@@ -36,7 +35,6 @@ class FolderSelectUserComponentPresenter @Inject constructor(val appState: AppSt
     }
 
     override fun onGetAllSharesError(viewError: ViewError) {
-        Timber.d("onGetAllSharesError: $viewError")
         runAction { view ->
             view.showErrorDialog(viewError)
             view.showProgress(false)
@@ -51,12 +49,4 @@ class FolderSelectUserComponentPresenter @Inject constructor(val appState: AppSt
         }
     }
 
-    private fun createMocks(): MutableList<SharedUser> {
-        val sharedUsers = mutableListOf<SharedUser>()
-        sharedUsers.add(SharedUser(1, 2, "_*Peter Petersen", "_*Administrator", null, null))
-        sharedUsers.add(SharedUser(1, 3, "_*John Johnson", "_*Read only", null, null))
-        sharedUsers.add(SharedUser(1, 4, "_*Søren Sørensen", "_*Read only", null, null))
-        sharedUsers.add(SharedUser(1, 5, "_*Ole Olsen", "_*Administrator", null, null))
-        return sharedUsers
-    }
 }
