@@ -6,6 +6,7 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.SharedUser
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -22,6 +23,7 @@ class FolderSelectUserComponentPresenter @Inject constructor(val appState: AppSt
     }
 
     override fun getShared() {
+        Timber.d("Get Shared")
         getAllSharesInteractor.run()
     }
 
@@ -34,7 +36,11 @@ class FolderSelectUserComponentPresenter @Inject constructor(val appState: AppSt
     }
 
     override fun onGetAllSharesError(viewError: ViewError) {
-        runAction { view -> view.showErrorDialog(viewError) }
+        Timber.d("onGetAllSharesError: $viewError")
+        runAction { view ->
+            view.showErrorDialog(viewError)
+            view.showProgress(false)
+        }
     }
 
     override fun setSharedUser(sharedUser: SharedUser?) {

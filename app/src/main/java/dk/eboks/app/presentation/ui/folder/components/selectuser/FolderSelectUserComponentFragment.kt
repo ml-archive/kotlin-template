@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.SharedUser
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
@@ -111,6 +112,10 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
             profileProgress.visibility = View.GONE
             profileContentLl.visibility = View.VISIBLE
         }
+    }
+
+    override fun showErrorDialog(error: ViewError) {
+        super.showErrorDialog(error)
     }
 
     inner class SharedUserAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<SharedUserAdapter.SharedUserViewHolder>() {
