@@ -24,6 +24,7 @@ import java.net.URL
 object Config {
 
     var resourceLinks : List<ResourceLink>? = null
+    private const val VERSION = BuildConfig.VERSION_NAME
 
 
     private val danish : Mode = Mode(
@@ -74,7 +75,7 @@ object Config {
                     )
             ),
 
-            customTranslationUrl = "https://m.e-boks.dk/app/resources/android/eboks.android.4.0.2.json",
+            customTranslationUrl = "https://m.e-boks.dk/app/resources/android/eboks.android.$VERSION.json",
             alternativeLoginProviders = listOf("nemid")
     )
 
@@ -140,7 +141,7 @@ object Config {
                     )
             ),
 
-            customTranslationUrl = "https://m.e-boks.no/app/resources/android/eboks.android.4.0.2.json",
+            customTranslationUrl = "https://m.e-boks.no/app/resources/android/eboks.android.$VERSION.json",
             alternativeLoginProviders = listOf("idporten", "bankid_no")
     )
 
@@ -192,7 +193,7 @@ object Config {
                 )
             ),
 
-            customTranslationUrl = "https://m.e-boks.se/app/resources/android/eboks.android.4.0.2.json",
+            customTranslationUrl = "https://m.e-boks.se/app/resources/android/eboks.android.$VERSION.json",
             alternativeLoginProviders = listOf("bankid_se")
     )
 
