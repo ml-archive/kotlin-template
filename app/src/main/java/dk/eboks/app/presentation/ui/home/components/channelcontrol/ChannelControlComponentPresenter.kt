@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.home.components.channelcontrol
 
+import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Translation
@@ -52,6 +53,7 @@ class ChannelControlComponentPresenter @Inject constructor(val appState: AppStat
     override fun onGetInstalledChannelListError(error: ViewError) {
         Timber.e("onGetInstalledChannelListError")
         EventBus.getDefault().post(RefreshChannelControlDoneEvent())
+        if (BuildConfig.DEBUG) //TODO Temp until backend is fixed
         runAction { v->v.showErrorDialog(error) }
     }
 

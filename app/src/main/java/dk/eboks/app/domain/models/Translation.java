@@ -547,6 +547,8 @@ public class Translation {
 		public static String markAsRead = "Marker som l\u00E6st";
 		public static String markAsUnread = "Marker som ul\u00E6st";
 		public static String archive = "Arkiv\u00E9r";
+		public static String takePhoto = "__takePhoto";
+		public static String chooseFromLibrary = "__chooseFromLibrary";
 	}
 	public final static class senderregistration {
 		public static String title = "__title";

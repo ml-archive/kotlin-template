@@ -20,6 +20,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.EditText
+import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -320,18 +321,18 @@ fun Activity.Starter(): ActivityStarter {
     return ActivityStarter(this)
 }
 
-fun androidx.fragment.app.Fragment.putArg(name: String, value: Serializable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putSerializable(name, value) }
-fun androidx.fragment.app.Fragment.putArg(name: String, value: Boolean) = apply { arguments.guard { arguments = Bundle() }; arguments?.putBoolean(name, value) }
-fun androidx.fragment.app.Fragment.putArg(name: String, value: Byte) = apply { arguments.guard { arguments = Bundle() }; arguments?.putByte(name, value) }
-fun androidx.fragment.app.Fragment.putArg(name: String, value: Char) = apply { arguments.guard { arguments = Bundle() }; arguments?.putChar(name, value) }
-fun androidx.fragment.app.Fragment.putArg(name: String, value: Short) = apply { arguments.guard { arguments = Bundle() }; arguments?.putShort(name, value) }
-fun androidx.fragment.app.Fragment.putArg(name: String, value: Int) = apply { arguments.guard { arguments = Bundle() }; arguments?.putInt(name, value) }
-fun androidx.fragment.app.Fragment.putArg(name: String, value: Long) = apply { arguments.guard { arguments = Bundle() }; arguments?.putLong(name, value) }
-fun androidx.fragment.app.Fragment.putArg(name: String, value: Float) = apply { arguments.guard { arguments = Bundle() }; arguments?.putFloat(name, value) }
-fun androidx.fragment.app.Fragment.putArg(name: String, value: Double) = apply { arguments.guard { arguments = Bundle() }; arguments?.putDouble(name, value) }
-fun androidx.fragment.app.Fragment.putArg(name: String, value: String) = apply { arguments.guard { arguments = Bundle() }; arguments?.putString(name, value) }
-fun androidx.fragment.app.Fragment.putArg(name: String, value: CharSequence) = apply { arguments.guard { arguments = Bundle() }; arguments?.putCharSequence(name, value) }
-fun androidx.fragment.app.Fragment.putArg(name: String, value: Parcelable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putParcelable(name, value) }
+fun Fragment.putArg(name: String, value: Serializable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putSerializable(name, value) }
+fun Fragment.putArg(name: String, value: Boolean) = apply { arguments.guard { arguments = Bundle() }; arguments?.putBoolean(name, value) }
+fun Fragment.putArg(name: String, value: Byte) = apply { arguments.guard { arguments = Bundle() }; arguments?.putByte(name, value) }
+fun Fragment.putArg(name: String, value: Char) = apply { arguments.guard { arguments = Bundle() }; arguments?.putChar(name, value) }
+fun Fragment.putArg(name: String, value: Short) = apply { arguments.guard { arguments = Bundle() }; arguments?.putShort(name, value) }
+fun Fragment.putArg(name: String, value: Int) = apply { arguments.guard { arguments = Bundle() }; arguments?.putInt(name, value) }
+fun Fragment.putArg(name: String, value: Long) = apply { arguments.guard { arguments = Bundle() }; arguments?.putLong(name, value) }
+fun Fragment.putArg(name: String, value: Float) = apply { arguments.guard { arguments = Bundle() }; arguments?.putFloat(name, value) }
+fun Fragment.putArg(name: String, value: Double) = apply { arguments.guard { arguments = Bundle() }; arguments?.putDouble(name, value) }
+fun Fragment.putArg(name: String, value: String) = apply { arguments.guard { arguments = Bundle() }; arguments?.putString(name, value) }
+fun Fragment.putArg(name: String, value: CharSequence) = apply { arguments.guard { arguments = Bundle() }; arguments?.putCharSequence(name, value) }
+fun Fragment.putArg(name: String, value: Parcelable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putParcelable(name, value) }
 
 fun LoginProvider.translatedName() : String {
     return when(this.id) {
