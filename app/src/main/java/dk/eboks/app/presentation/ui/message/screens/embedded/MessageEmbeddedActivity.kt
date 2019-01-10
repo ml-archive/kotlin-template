@@ -9,6 +9,7 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.presentation.base.BaseSheetActivity
 import dk.eboks.app.presentation.base.ViewerFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
@@ -81,13 +82,15 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         }
     }
 
-    override fun setActionButton(unread: Boolean) {
+    override fun setActionButton(message: Message) {
         val actionButtons = arrayListOf(
                 OverlayButton(ButtonType.MOVE),
-                OverlayButton(ButtonType.ARCHIVE)
-        )
-        if (unread) actionButtons.add(OverlayButton(ButtonType.READ)) else actionButtons.add(OverlayButton(ButtonType.UNREAD))
-        actionButtons.add(OverlayButton(ButtonType.DELETE))
+                OverlayButton(ButtonType.DELETE))
+
+        if (message.type != MessageType.UPLOAD) {
+            if (message.unread) actionButtons.add(OverlayButton(ButtonType.READ)) else actionButtons.add(OverlayButton(ButtonType.UNREAD))
+            actionButtons.add(OverlayButton(ButtonType.ARCHIVE))
+        }
         this.actionButtons = actionButtons
     }
 
