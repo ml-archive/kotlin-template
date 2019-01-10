@@ -30,7 +30,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
         val frag = FoldersComponentFragment()
         intent?.extras?.let { extras->
             Timber.d("${extras.getBoolean(ARG_OVERIDE_USER)}")
-            frag.putArg("override_user", extras.getBoolean(ARG_OVERIDE_USER))
+            frag.putArg("override_user", extras.getBoolean(ARG_OVERIDE_USER, false))
             if(extras.containsKey("pick")) {
                 frag.putArg("pick", true)
             }

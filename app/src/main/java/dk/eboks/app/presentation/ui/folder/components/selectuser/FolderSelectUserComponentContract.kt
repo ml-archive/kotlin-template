@@ -18,6 +18,5 @@ interface FolderSelectUserComponentContract {
     interface Presenter : BasePresenter<View> {
         fun getShared()
         fun setSharedUser(sharedUser: SharedUser?)
-        fun openSharedUserFolders(sharedUser: SharedUser)
     }
 }

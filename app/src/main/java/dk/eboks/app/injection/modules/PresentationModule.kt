@@ -1059,8 +1059,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideFolderSelectUserComponentPresenter(stateManager: AppStateManager, openFolderInteractor: OpenFolderInteractor, getAllSharesInteractor: GetAllSharesInteractor): FolderSelectUserComponentContract.Presenter {
-        return FolderSelectUserComponentPresenter(stateManager, openFolderInteractor, getAllSharesInteractor)
+    fun provideFolderSelectUserComponentPresenter(stateManager: AppStateManager, getAllSharesInteractor: GetAllSharesInteractor): FolderSelectUserComponentContract.Presenter {
+        return FolderSelectUserComponentPresenter(stateManager, getAllSharesInteractor)
     }
 
     @ActivityScope

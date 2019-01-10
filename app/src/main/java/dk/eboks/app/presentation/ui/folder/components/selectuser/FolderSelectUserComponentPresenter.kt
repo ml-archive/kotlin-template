@@ -16,19 +16,16 @@ import javax.inject.Inject
  */
 class FolderSelectUserComponentPresenter @Inject constructor(
         val appState: AppStateManager,
-        private val openFolderInteractor: OpenFolderInteractor,
         val getAllSharesInteractor: GetAllSharesInteractor)
     : FolderSelectUserComponentContract.Presenter,
         BasePresenterImpl<FolderSelectUserComponentContract.View>(),
-        GetAllSharesInteractor.Output,
-        OpenFolderInteractor.Output {
+        GetAllSharesInteractor.Output {
 
     init {
         runAction { v ->
             v.setUser(appState.state?.currentUser)
         }
         getAllSharesInteractor.output = this
-        openFolderInteractor.output = this
     }
 
     override fun getShared() {
@@ -51,7 +48,6 @@ class FolderSelectUserComponentPresenter @Inject constructor(
     }
 
     override fun setSharedUser(sharedUser: SharedUser?) {
-        Timber.d("Set shared user: $sharedUser, curernt ${appState.state?.currentUser?.id}")
         appState.state?.impersoniateUser = if(appState.state?.currentUser?.id != sharedUser?.id) {
             sharedUser
         } else {
@@ -59,14 +55,5 @@ class FolderSelectUserComponentPresenter @Inject constructor(
         }
     }
 
-    override fun openSharedUserFolders(sharedUser: SharedUser) {
 
-    }
-
-    override fun onOpenFolderDone() {
-    }
-
-    override fun onOpenFolderError(error: ViewError) {
-
-    }
 }

@@ -34,15 +34,7 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
 
     override fun refresh() {
         Timber.d("${view?.isSharedUserActive}")
-        val userId = if (view?.isSharedUserActive == false)  {
-            Timber.d("Render normal usr")
-            null
-        } else  {
-            Timber.d("Redner shared")
-            appState.state?.impersoniateUser?.userId
-        }
-
-        Timber.d("id: $userId")
+        val userId = if (view?.isSharedUserActive == false) null else  appState.state?.impersoniateUser?.userId
         getFoldersInteractor.input = GetFoldersInteractor.Input(false, pickermode, userId)
         getFoldersInteractor.run()
     }
