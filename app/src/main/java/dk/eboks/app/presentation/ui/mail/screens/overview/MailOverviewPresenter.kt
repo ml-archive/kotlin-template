@@ -17,8 +17,7 @@ import javax.inject.Inject
  */
 class MailOverviewPresenter @Inject constructor(val appState: AppStateManager) :
         MailOverviewContract.Presenter,
-        BasePresenterImpl<MailOverviewContract.View>()
-{
+        BasePresenterImpl<MailOverviewContract.View>() {
     var refreshingFolders = false
     var refreshingSenders = false
 
@@ -38,8 +37,7 @@ class MailOverviewPresenter @Inject constructor(val appState: AppStateManager) :
         super.onViewDetached()
     }
 
-    override fun refresh()
-    {
+    override fun refresh() {
         refreshingFolders = true
         refreshingSenders = true
         EventBus.getDefault().post(RefreshFolderShortcutsEvent())
@@ -51,17 +49,13 @@ class MailOverviewPresenter @Inject constructor(val appState: AppStateManager) :
     }
 
     private fun setUser(view: MailOverviewContract.View) {
-        if(appState.state?.impersoniateUser == null) {
-            view.setUser(appState.state?.currentUser, appState.state?.currentUser?.name)
-        } else {
-            view.setUser(appState.state?.currentUser, appState.state?.impersoniateUser?.name)
-        }
+        view.setUser(appState.state?.currentUser, appState.state?.currentUser?.name)
+
     }
 
-    fun stopProgressIfDone()
-    {
-        if(!refreshingFolders && !refreshingSenders)
-            runAction { v-> v.showProgress(false) }
+    fun stopProgressIfDone() {
+        if (!refreshingFolders && !refreshingSenders)
+            runAction { v -> v.showProgress(false) }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

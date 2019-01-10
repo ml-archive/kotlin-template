@@ -10,6 +10,7 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -70,7 +71,7 @@ class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppSta
 
     fun refresh(cached : Boolean) {
         getCategoriesInteractor.output = this
-        getCategoriesInteractor.input = GetCategoriesInteractor.Input(cached, appState.state?.impersoniateUser?.userId)
+        getCategoriesInteractor.input = GetCategoriesInteractor.Input(cached, null)
         getCategoriesInteractor.run()
     }
 

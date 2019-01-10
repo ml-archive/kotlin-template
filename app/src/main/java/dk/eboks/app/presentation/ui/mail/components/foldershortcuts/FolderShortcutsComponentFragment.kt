@@ -13,6 +13,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folder_shortcuts_component.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -75,7 +76,7 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
         val iv = v.findViewById<ImageView>(R.id.iconIv)
         iv?.setImageResource(R.drawable.ic_folder)
         v.setOnClickListener {
-            startActivity(Intent(context, FolderActivity::class.java))
+            FolderActivity.startAsIntent(context, false)
         }
         yourMailLl.addView(v)
     }

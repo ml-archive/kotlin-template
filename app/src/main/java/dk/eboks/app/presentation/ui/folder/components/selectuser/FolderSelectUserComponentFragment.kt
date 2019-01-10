@@ -20,6 +20,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.SharedUser
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folders_selectuser.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -143,6 +144,7 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
                 Timber.d(sharedUsers[position].toString())
                 presenter.setSharedUser(sharedUsers[position])
                 activity?.onBackPressed()
+                FolderActivity.startAsIntent(context, true)
             }
         }
     }

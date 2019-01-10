@@ -1,5 +1,7 @@
 package dk.eboks.app.presentation.ui.folder.screens
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
@@ -14,11 +16,11 @@ import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.activity_folder.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
 import javax.inject.Inject
 
 class FolderActivity : BaseActivity(), FolderContract.View {
     @Inject lateinit var presenter: FolderContract.Presenter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_folder)
@@ -27,7 +29,11 @@ class FolderActivity : BaseActivity(), FolderContract.View {
         setupTopBar()
         val frag = FoldersComponentFragment()
         intent?.extras?.let { extras->
-            if(extras.containsKey("pick")) { frag.putArg("pick", true) }
+            Timber.d("${extras.getBoolean(ARG_OVERIDE_USER)}")
+            frag.putArg("override_user", extras.getBoolean(ARG_OVERIDE_USER))
+            if(extras.containsKey("pick")) {
+                frag.putArg("pick", true)
+            }
             navBarContainer.visibility = View.GONE
             removeNavBarMargin()
         }.guard {
@@ -67,5 +73,13 @@ class FolderActivity : BaseActivity(), FolderContract.View {
 
     companion object {
         val REQUEST_ID: Int = 2468
+        private const val ARG_OVERIDE_USER = "override_user"
+
+        fun startAsIntent(context: Context?, overrideCurrentUser: Boolean = false) {
+            val intent = Intent(context, FolderActivity::class.java).apply {
+                putExtra(ARG_OVERIDE_USER, overrideCurrentUser)
+            }
+            context?.startActivity(intent)
+        }
     }
 }

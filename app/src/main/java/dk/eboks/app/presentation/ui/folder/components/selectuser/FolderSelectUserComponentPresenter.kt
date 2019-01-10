@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.folder.components.selectuser
 
 import android.os.Handler
+import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.interactors.shares.GetAllSharesInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
@@ -13,13 +14,21 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class FolderSelectUserComponentPresenter @Inject constructor(val appState: AppStateManager, val getAllSharesInteractor: GetAllSharesInteractor) : FolderSelectUserComponentContract.Presenter, BasePresenterImpl<FolderSelectUserComponentContract.View>(), GetAllSharesInteractor.Output {
+class FolderSelectUserComponentPresenter @Inject constructor(
+        val appState: AppStateManager,
+        private val openFolderInteractor: OpenFolderInteractor,
+        val getAllSharesInteractor: GetAllSharesInteractor)
+    : FolderSelectUserComponentContract.Presenter,
+        BasePresenterImpl<FolderSelectUserComponentContract.View>(),
+        GetAllSharesInteractor.Output,
+        OpenFolderInteractor.Output {
 
     init {
         runAction { v ->
             v.setUser(appState.state?.currentUser)
         }
         getAllSharesInteractor.output = this
+        openFolderInteractor.output = this
     }
 
     override fun getShared() {
@@ -42,6 +51,7 @@ class FolderSelectUserComponentPresenter @Inject constructor(val appState: AppSt
     }
 
     override fun setSharedUser(sharedUser: SharedUser?) {
+        Timber.d("Set shared user: $sharedUser, curernt ${appState.state?.currentUser?.id}")
         appState.state?.impersoniateUser = if(appState.state?.currentUser?.id != sharedUser?.id) {
             sharedUser
         } else {
@@ -49,4 +59,14 @@ class FolderSelectUserComponentPresenter @Inject constructor(val appState: AppSt
         }
     }
 
+    override fun openSharedUserFolders(sharedUser: SharedUser) {
+
+    }
+
+    override fun onOpenFolderDone() {
+    }
+
+    override fun onOpenFolderError(error: ViewError) {
+
+    }
 }
