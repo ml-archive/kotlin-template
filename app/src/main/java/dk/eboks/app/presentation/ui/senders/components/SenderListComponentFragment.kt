@@ -49,7 +49,7 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
         sendersListLl.removeAllViews()
 
         arguments?.getParcelable<CollectionContainer>(CollectionContainer::class.simpleName)?.let {
-            sendersTitleTv.text = it.description?.title
+            sendersTitleTv.text = it.description
 
             it.senders?.forEach {
                 val v = inflator.inflate(R.layout.viewholder_sender, sendersListLl, false)

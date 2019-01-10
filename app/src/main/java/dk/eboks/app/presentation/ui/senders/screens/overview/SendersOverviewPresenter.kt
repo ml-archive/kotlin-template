@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.senders.screens.overview
 
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
@@ -9,7 +8,7 @@ import timber.log.Timber
 /**
  * Created by bison on 20-05-2017.
  */
-class SendersOverviewPresenter(val appStateManager: AppStateManager, val collectionsInteractor: GetCollectionsInteractor) :
+class SendersOverviewPresenter(collectionsInteractor: GetCollectionsInteractor) :
         SendersOverviewContract.Presenter,
         BasePresenterImpl<SendersOverviewContract.View>(),
         GetCollectionsInteractor.Output {
