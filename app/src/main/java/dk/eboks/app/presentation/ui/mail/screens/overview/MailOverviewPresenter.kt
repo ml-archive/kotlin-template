@@ -43,6 +43,8 @@ class MailOverviewPresenter @Inject constructor(val appState: AppStateManager) :
         EventBus.getDefault().post(RefreshFolderShortcutsEvent())
         EventBus.getDefault().post(RefreshSenderCarouselEvent())
 
+        // Reset shared user
+        appState.state?.impersoniateUser = null
         runAction { view ->
             setUser(view)
         }
