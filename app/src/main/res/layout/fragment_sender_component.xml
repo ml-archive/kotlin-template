@@ -1,66 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/senderCv"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/margin_normal"
+    android:layout_marginTop="4dp"
+    android:layout_marginRight="@dimen/margin_normal"
+    android:layout_marginBottom="@dimen/margin_normal"
+    android:foreground="?selectableItemBackground"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="@dimen/card_elevation">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/senderCv"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_normal"
-        android:layout_marginLeft="@dimen/margin_normal"
-        android:layout_marginRight="@dimen/margin_normal"
-        android:layout_marginTop="4dp"
-        android:foreground="?selectableItemBackground"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="@dimen/card_elevation">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <ImageView
+            android:id="@+id/senderIv"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:padding="@dimen/margin_normal"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_64_senders_private"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <ImageView
-                android:id="@+id/senderIv"
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:padding="@dimen/margin_normal"
-                android:scaleType="fitCenter"
-                android:src="@drawable/icon_64_senders_private"/>
+        <include
+            android:id="@+id/include"
+            layout="@layout/include_divider"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/senderIv" />
 
-            <include
-                layout="@layout/include_divider"
-                android:visibility="visible"/>
 
-            <LinearLayout
-                android:id="@+id/senderBottomLl"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/margin_normal"
-                android:paddingRight="@dimen/margin_normal">
+        <TextView
+            android:id="@+id/senderNameTv"
+            style="@style/text.header4"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_normal"
+            tools:text="_Alm. Brand"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/senderRegisterBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include" />
 
-                <TextView
-                    android:id="@+id/senderNameTv"
-                    style="@style/text.header4"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="_Alm. Brand"/>
+        <Button
+            android:id="@+id/senderRegisterBtn"
+            style="@style/buttonRoundedCorners.darkBlueGrey.small"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:gravity="center_vertical"
+            tools:text="_Register"
+            android:layout_marginEnd="@dimen/margin_normal"
+            app:layout_constraintBottom_toBottomOf="@+id/senderNameTv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/senderNameTv" />
 
-                <Button
-                    android:id="@+id/senderRegisterBtn"
-                    style="@style/buttonRoundedCorners.darkBlueGrey.small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:gravity="center_vertical"
-                    android:text="_Register"/>
-            </LinearLayout>
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

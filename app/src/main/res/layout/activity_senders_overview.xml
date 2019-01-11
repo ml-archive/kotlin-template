@@ -39,12 +39,12 @@
                 android:gravity="left|center_vertical"
                 android:text="Yending"/>
 
-            <LinearLayout
-                android:id="@+id/sendersCollectionContainerLl"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:animateLayoutChanges="true" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             <fragment
                 android:id="@+id/sendersCategoriesFrag"

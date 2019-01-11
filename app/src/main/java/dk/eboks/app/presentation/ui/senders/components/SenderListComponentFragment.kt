@@ -51,26 +51,26 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
         arguments?.getParcelable<CollectionContainer>(CollectionContainer::class.simpleName)?.let {
             sendersTitleTv.text = it.description
 
-            it.senders?.forEach {
+            it.senders?.forEach {sender ->
                 val v = inflator.inflate(R.layout.viewholder_sender, sendersListLl, false)
-                Timber.v("inflate sender: ${it.name}, ${it.logo?.url}")
+                Timber.v("inflate sender: ${sender.name}, ${sender.logo?.url}")
                 val senderNameTv = v.findViewById<TextView>(R.id.senderNameTv)
                 val senderRegisterBtn = v.findViewById<Button>(R.id.senderRegisterBtn)
                 val senderLogoIv = v.findViewById<ImageView>(R.id.senderLogoIv)
 
                 Glide.with(context ?: return)
-                        .load(it.logo?.url)
+                        .load(sender.logo?.url)
                         .apply(RequestOptions()
                                 .fallback(R.drawable.icon_64_senders_private)
                                 .placeholder(R.drawable.icon_64_senders_private)
                         )
                         .into(senderLogoIv)
-                senderNameTv.text = it.name
+                senderNameTv.text = sender.name
                 senderRegisterBtn.visibility = View.VISIBLE
-                setButtonText(senderRegisterBtn, it)
+                setButtonText(senderRegisterBtn, sender)
 
                 senderRegisterBtn.setOnClickListener { v ->
-                    if (it.registered != 0) {
+                    if (sender.registered != 0) {
                         AlertDialog.Builder(v.context)
                                 .setTitle(Translation.senders.unregisterAlertTitle)
                                 .setMessage(Translation.senders.unregisterAlertDescription)
@@ -78,9 +78,9 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
                                     dialog.cancel()
                                 }
                                 .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                    presenter.unregisterSender(it)
-                                    it.registered = 0
-                                    setButtonText(senderRegisterBtn, it)
+                                    presenter.unregisterSender(sender)
+                                    sender.registered = 0
+                                    setButtonText(senderRegisterBtn, sender)
                                     dialog.dismiss()
                                 }
                                 .show()
@@ -92,9 +92,9 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
                                     dialog.cancel()
                                 }
                                 .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                    presenter.registerSender(it)
-                                    it.registered = 1
-                                    setButtonText(senderRegisterBtn, it)
+                                    presenter.registerSender(sender)
+                                    sender.registered = 1
+                                    setButtonText(senderRegisterBtn, sender)
                                     dialog.dismiss()
                                 }
                                 .show()
@@ -102,7 +102,7 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
                 }
                 v.setOnClickListener { _ ->
                     val i = Intent(context, SenderDetailActivity::class.java)
-                    i.putExtra(Sender::class.simpleName, it)
+                    i.putExtra(Sender::class.simpleName, sender)
                     startActivity(i)
                 }
                 sendersListLl.addView(v)

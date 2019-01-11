@@ -16,10 +16,12 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Patterns
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.EditText
+import androidx.annotation.LayoutRes
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -358,4 +360,8 @@ fun WebView.printAndForget(context : Context)
     // Create a print job with name and adapter instance
     val jobName = "eboks"
     val printJob : PrintJob = printManager.print(jobName, printAdapter, PrintAttributes.Builder().build())
+}
+
+fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
+    return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }

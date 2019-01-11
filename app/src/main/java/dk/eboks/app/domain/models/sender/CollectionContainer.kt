@@ -16,3 +16,18 @@ data class CollectionContainer(
     val senders: List<Sender>?,
     val type: String?
 ) : Parcelable
+
+enum class CollectionContainerTypeEnum(val value: String?) {
+    SEGMENT("segment"),
+    SENDER("sender"),
+    SENDERS("senders"),
+    UNKNOWN("")
+}
+
+val CollectionContainer.typeEnum: CollectionContainerTypeEnum
+    get() = when (type) {
+        CollectionContainerTypeEnum.SEGMENT.value -> CollectionContainerTypeEnum.SEGMENT
+        CollectionContainerTypeEnum.SENDER.value -> CollectionContainerTypeEnum.SENDER
+        CollectionContainerTypeEnum.SENDERS.value -> CollectionContainerTypeEnum.SENDERS
+        else -> CollectionContainerTypeEnum.UNKNOWN
+    }
