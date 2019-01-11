@@ -15,7 +15,7 @@ class CategoriesComponentPresenter @Inject constructor(private val getSenderCate
         GetSenderCategoriesInteractor.Output {
 
     override fun getCategories() {
-        getSenderCategoriesInteractor.input = GetSenderCategoriesInteractor.Input(false)
+        getSenderCategoriesInteractor.input = GetSenderCategoriesInteractor.Input(true)
         getSenderCategoriesInteractor.output = this
         getSenderCategoriesInteractor.run()
     }

@@ -241,7 +241,7 @@ interface Api {
     @GET("groups/collections")
     fun getCollections(): Call<List<CollectionContainer>> // for the Senders-landing page
 
-    @GET("groups/{segment}/categories")
+    @GET("groups/segments/type/{segment}/categories")
     fun getSenderCategories(@Path("segment") segment: String): Call<List<SenderCategory>> // private or public
 
     @GET("groups/categories/{id}/senders")
