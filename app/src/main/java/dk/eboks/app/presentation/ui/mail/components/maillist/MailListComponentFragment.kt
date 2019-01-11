@@ -127,8 +127,8 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             OverlayButton(ButtonType.DELETE)
 
         )
-        val showRead = checkedList.any { it.unread }
-        val showUnread = checkedList.any { !it.unread }
+        val showRead = checkedList.any { it.unread &&  it.type != MessageType.UPLOAD}
+        val showUnread = checkedList.any { !it.unread &&  it.type != MessageType.UPLOAD}
         val showArchive = checkedList.any { it.type != MessageType.UPLOAD }
 
         if (showRead) actionButtons.add(OverlayButton(ButtonType.READ))
