@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.folder.components.selectuser
 
+import dk.eboks.app.domain.models.login.SharedUser
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter
@@ -10,7 +11,12 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface FolderSelectUserComponentContract {
     interface View : BaseView {
         fun setUser(user: User?)
+        fun showShares(shares: List<SharedUser>)
+        fun showProgress(visible: Boolean)
     }
 
-    interface Presenter : BasePresenter<View>
+    interface Presenter : BasePresenter<View> {
+        fun getShared()
+        fun setSharedUser(sharedUser: SharedUser?)
+    }
 }

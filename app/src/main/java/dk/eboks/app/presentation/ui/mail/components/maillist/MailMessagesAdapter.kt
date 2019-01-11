@@ -114,7 +114,7 @@ class MailMessagesAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<Ma
         }
 
         private fun setGeneric(currentItem: Message) {
-            if (currentItem.unread) {
+            if (currentItem.unread && currentItem.type  != MessageType.UPLOAD) {
                 headerTv.setTypeface(null, Typeface.BOLD)
                 dateTv?.setTypeface(null, Typeface.BOLD)
                 subHeaderTv?.setTypeface(null, Typeface.BOLD)

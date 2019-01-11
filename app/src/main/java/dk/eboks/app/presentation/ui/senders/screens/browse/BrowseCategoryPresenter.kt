@@ -24,7 +24,7 @@ class BrowseCategoryPresenter(val appStateManager: AppStateManager, val getSende
         }
         runAction { v ->
             v.showProgress(true)
-                getSendersInteractor.input = GetSendersInteractor.Input(false, "", senderId)
+                getSendersInteractor.input = GetSendersInteractor.Input(false, "", appStateManager.state?.impersoniateUser?.userId, senderId)
                 getSendersInteractor.run()
         }
     }
@@ -33,7 +33,7 @@ class BrowseCategoryPresenter(val appStateManager: AppStateManager, val getSende
         runAction { v ->
             v.showProgress(true)
             if (searchText.isNotBlank()) {
-                getSendersInteractor.input = GetSendersInteractor.Input(false, searchText)
+                getSendersInteractor.input = GetSendersInteractor.Input(false, searchText, appStateManager.state?.impersoniateUser?.userId)
                 getSendersInteractor.run()
             } else {
                 onGetSenders(ArrayList()) // empty result

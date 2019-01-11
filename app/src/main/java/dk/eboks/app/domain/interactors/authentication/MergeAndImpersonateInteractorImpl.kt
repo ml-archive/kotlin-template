@@ -101,7 +101,7 @@ class MergeAndImpersonateInteractorImpl(
                 runOnUIThread {
                     output?.onMergeCompleted()
                 }
-                appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(false)
+                appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(false, appStateManager.state?.impersoniateUser?.userId)
             }.guard {
                 runOnUIThread {
                     output?.onMergeError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error

@@ -54,6 +54,7 @@ import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
+import dk.eboks.app.domain.interactors.shares.GetAllSharesInteractor
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
 import dk.eboks.app.domain.interactors.storebox.ConfirmStoreboxInteractor
 import dk.eboks.app.domain.interactors.storebox.CreateStoreboxInteractor
@@ -1189,8 +1190,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideFolderSelectUserComponentPresenter(stateManager: AppStateManager): FolderSelectUserComponentContract.Presenter {
-        return FolderSelectUserComponentPresenter(stateManager)
+    fun provideFolderSelectUserComponentPresenter(stateManager: AppStateManager, getAllSharesInteractor: GetAllSharesInteractor): FolderSelectUserComponentContract.Presenter {
+        return FolderSelectUserComponentPresenter(stateManager, getAllSharesInteractor)
     }
 
     @ActivityScope

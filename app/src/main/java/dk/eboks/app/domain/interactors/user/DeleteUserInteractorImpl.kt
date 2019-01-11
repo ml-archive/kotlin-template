@@ -10,6 +10,7 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import timber.log.Timber
 
 /**
  * Created by bison on 24-06-2017.
@@ -36,6 +37,7 @@ class DeleteUserInteractorImpl(executor: Executor, val userManager: UserManager,
             }
 
         } catch (t: Throwable) {
+            Timber.e(t)
             runOnUIThread {
                 output?.onDeleteUserError(exceptionToViewError(t))
             }

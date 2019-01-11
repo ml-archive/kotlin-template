@@ -8,8 +8,8 @@ import java.io.Serializable
  * Created by thsk on 12/04/2018.
  */
 class OverlayButton(val type: ButtonType) : Serializable {
-    var text: String? = getText(type)
-    var icon: Int? = getIcon(type)
+    val text: String? = getText(type)
+    val icon: Int? = getIcon(type)
 
     fun getText(type: ButtonType): String {
         return when (type) {
@@ -23,9 +23,6 @@ class OverlayButton(val type: ButtonType) : Serializable {
             ButtonType.UNREAD -> Translation.overlaymenu.markAsUnread
             ButtonType.GALLERY -> Translation.overlaymenu.chooseFromLibrary
             ButtonType.CAMERA -> Translation.overlaymenu.takePhoto
-            else                -> {
-                ""
-            }
         }
 
     }
@@ -40,10 +37,7 @@ class OverlayButton(val type: ButtonType) : Serializable {
             ButtonType.ARCHIVE -> R.drawable.icon_48_archive_red
             ButtonType.READ -> R.drawable.icon_48_mail_open_red
             ButtonType.UNREAD -> R.drawable.icon_48_mail_red
-            ButtonType.GALLERY -> R.drawable.icon_48_gallery_red
-            ButtonType.CAMERA -> R.drawable.icon_48_camera_red
-
-            else              -> {
+            else -> {
                 null
             }
         }

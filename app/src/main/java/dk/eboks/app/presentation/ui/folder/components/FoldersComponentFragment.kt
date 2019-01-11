@@ -42,6 +42,9 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
          var refreshOnResume: Boolean = false
     }
 
+    override val isSharedUserActive: Boolean
+        get() = arguments?.getBoolean("override_user") ?: false
+
     var systemfolders: MutableList<Folder> = ArrayList()
     var userfolders: MutableList<Folder> = ArrayList()
     var mode: FolderMode = FolderMode.NORMAL

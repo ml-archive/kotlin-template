@@ -15,6 +15,7 @@ import dk.eboks.app.domain.models.folder.FolderRequest
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.login.ActivationDevice
+import dk.eboks.app.domain.models.login.SharedUser
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
@@ -100,38 +101,26 @@ interface Api {
 
     // @GET("regions") fun getRegions() : Call<List<Region>>
     @GET("mail/folders/selected")
-    fun getMailCategories(): Call<List<Folder>>
+    fun getMailCategories(@Query("userId") userId: Int? = null): Call<List<Folder>>
 
     @GET("mail/folders")
-    fun getFolders(): Call<List<Folder>>
+    fun getFolders(@Query("userId") userId: Int?): Call<List<Folder>>
 
     @GET("mail/folders/{id}/messages")
-    fun getMessages(
-        @Path("id") id: Int, @Query("offset") offset: Int? = null, @Query("limit") limit: Int? = null, @Query(
-            "acceptprivateterms"
-        ) terms: Boolean? = null
-    ): Call<List<Message>>
+    fun getMessages(@Path("id") id: Int, @Query("userId") userId: Int?, @Query("offset") offset: Int? = null, @Query("limit") limit: Int? = null, @Query("acceptprivateterms") terms: Boolean? = null): Call<List<Message>>
 
     @GET("mail/messages/senders/{id}")
-    fun getMessagesBySender(
-        @Path("id") id: Long, @Query("offset") offset: Int? = null, @Query("limit") limit: Int? = null, @Query(
-            "acceptprivateterms"
-        ) terms: Boolean? = null
-    ): Call<List<Message>>
+    fun getMessagesBySender(@Path("id") id: Long, @Query("userId") userId: Int?, @Query("offset") offset: Int? = null, @Query("limit") limit: Int? = null, @Query("acceptprivateterms") terms: Boolean? = null): Call<List<Message>>
 
     @GET("mail/folders/{folderId}/messages/{id}")
-    fun getMessage(
-        @Path("id") id: String, @Path("folderId") folderId: Int, @Query("receipt") receipt: Boolean? = null, @Query(
-            "acceptprivateterms"
-        ) terms: Boolean? = null
-    ): Call<Message>
+    fun getMessage(@Path("id") id: String, @Path("folderId") folderId: Int, @Query("userId") userId: Int?, @Query("receipt") receipt: Boolean? = null, @Query("acceptprivateterms") terms: Boolean? = null): Call<Message>
 
     @GET("mail/senders")
-    fun getSenders(): Call<List<Sender>>
+    fun getSenders(@Query("userId") userId: Int?): Call<List<Sender>>
 
     // edit message / document/message operations
     @POST("mail/folders/{folderId}/messages/{messageId}")
-    fun updateMessage(@Path("folderId") folderId: Int, @Path("messageId") messageId: String, @Body body: MessagePatch): Call<Void>
+    fun updateMessage(@Path("folderId") folderId: Int, @Path("messageId") messageId: String, @Body body: MessagePatch, @Query("userId") userId: Int?): Call<Void>
 
     //edit folder
     @PATCH("mail/folders/{folderId}")
@@ -160,11 +149,11 @@ interface Api {
     // sign
     @GET("mail/folders/{folderId}/messages/{id}/sign/link")
     fun getSignLink(
-        @Path("id") id: String,
-        @Path("folderId") folderId: Int,
-        @Query("callback_cancel") callbackCancel: String,
-        @Query("callback_success") callbackSuccess: String,
-        @Query("callback_error") callbackError: String
+            @Path("id") id: String,
+            @Path("folderId") folderId: Int,
+            @Query("callback_cancel") callbackCancel: String,
+            @Query("callback_success") callbackSuccess: String,
+            @Query("callback_error") callbackError: String
     ): Call<Link>
 
     // reply forms
@@ -311,9 +300,13 @@ interface Api {
     @GET("channels/ekey/masterkey")
     fun masterKeyGet(): Call<EKeyGetMasterkeyResponse>
 
-    @POST("channels/ekey/masterkey")
     fun masterKeySet(@Body obj: JsonObject): Call<ResponseBody>
 
     @DELETE("channels/ekey/masterkey")
     fun masterKeyDelete(): Call<ResponseBody>
+
+    // shares
+    @GET("mail/shares/all")
+    fun getAllShares(): Call<List<SharedUser>>
+
 }

@@ -10,6 +10,7 @@ import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.dialogs.ConfirmDialogFragment
 import dk.eboks.app.presentation.ui.folder.components.selectuser.FolderSelectUserComponentFragment
 import dk.eboks.app.util.setVisible
+import dk.nodes.nstack.kotlin.util.getChildrenViews
 import kotlinx.android.synthetic.main.activity_mail_overview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -42,16 +43,19 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
         }
     }
 
-    private fun setupTopbar(user: User?) {
-        mainTb.title = user?.name
+    private fun setupTopbar(userName: String?) {
+        mainTb.title = userName
         if(BuildConfig.ENABLE_SHARES) {
-            val imageView = ImageView(this)
-            imageView.setImageResource(R.drawable.icon_48_small_arrow_down)
-            val layoutparams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            imageView.layoutParams = layoutparams
-            mainTb.addView(imageView)
+            if(!mainTb.getChildrenViews().any { view -> view is ImageView }) {
+                val imageView = ImageView(this)
+                imageView.setImageResource(R.drawable.icon_48_small_arrow_down)
+                val layoutparams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                imageView.layoutParams = layoutparams
+                mainTb.addView(imageView)
+            }
             mainTb.isClickable = true
             mainTb.setOnClickListener {
+                refreshOnResume = true
                 openComponentDrawer(FolderSelectUserComponentFragment::class.java)
             }
         }
@@ -69,8 +73,8 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
             refreshSrl.isRefreshing = show
     }
 
-    override fun setUser(user: User?) {
-        setupTopbar(user)
+    override fun setUser(user: User?, userName: String?) {
+        setupTopbar(userName)
         user?.let {
             folderShortcutsFragmentContainerFl.setVisible(it.verified)
         }

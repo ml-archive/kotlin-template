@@ -12,4 +12,9 @@ data class MessagePatch(
    var archive : Boolean? = null,
    var folderId : Int? = null,
    var note : String? = null
-) : Parcelable
+)  : Parcelable {
+
+
+    fun isApplicableForUppload() : Boolean = unread == null && archive == null
+
+}

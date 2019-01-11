@@ -23,7 +23,7 @@ interface MessageEmbeddedContract {
         fun addTextViewer()
         fun showTitle(message : Message)
         fun setHighPeakHeight()
-        fun setActionButton(unread: Boolean)
+        fun setActionButton(message: Message)
         fun messageDeleted()
         fun updateFolderName(name: String)
     }

@@ -11,6 +11,7 @@ import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
+import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.domain.models.message.StorageInfo
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.repositories.MessagesRepository
@@ -22,6 +23,7 @@ import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import timber.log.Timber
 
 typealias SenderIdMessageStore = CacheStore<Long, List<Message>>
 typealias FolderIdMessageStore = CacheStore<Int, List<Message>>
@@ -45,7 +47,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
     val folderIdMessageStore: FolderIdMessageStore by lazy {
         FolderIdMessageStore(cacheManager, context, gson, "folder_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
-            val response = api.getMessages(key).execute()
+            val response = api.getMessages(key, appState.state?.impersoniateUser?.userId).execute()
             var result : List<Message>? = null
             response?.let {
                 if(it.isSuccessful)
@@ -106,7 +108,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
     val senderIdMessageStore: SenderIdMessageStore by lazy {
         SenderIdMessageStore(cacheManager, context, gson, "sender_id_message_store.json", object : TypeToken<MutableMap<Long, List<Message>>>() {}.type, { key ->
-            val response = api.getMessagesBySender(key).execute()
+            val response = api.getMessagesBySender(key, appState.state?.impersoniateUser?.userId).execute()
             var result : List<Message>? = null
             response?.let {
                 if(it.isSuccessful)
@@ -122,7 +124,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
     override fun getMessagesByFolder(folderId : Int, offset : Int, limit : Int): List<Message>
     {
-        val response = api.getMessages(folderId, offset, limit, terms = appState.state?.openingState?.acceptPrivateTerms).execute()
+        val response = api.getMessages(folderId, appState.state?.impersoniateUser?.userId, offset, limit, terms = appState.state?.openingState?.acceptPrivateTerms).execute()
         if(response.isSuccessful) {
             response.body()?.let {
                 return it
@@ -133,7 +135,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
     override fun getMessagesBySender(senderId : Long, offset : Int, limit : Int): List<Message> {
 
-        val response = api.getMessagesBySender(senderId, offset, limit, terms = appState.state?.openingState?.acceptPrivateTerms).execute()
+        val response = api.getMessagesBySender(senderId, appState.state?.impersoniateUser?.userId, offset, limit, terms = appState.state?.openingState?.acceptPrivateTerms).execute()
         if(response.isSuccessful) {
             response.body()?.let {
                 return it
@@ -185,7 +187,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
     }
 
     override fun getMessage(folderId: Int, id: String, receipt : Boolean?, terms : Boolean?) : Message {
-        val call = api.getMessage(id, folderId, receipt, terms = terms)
+        val call = api.getMessage(id, folderId, appState.state?.impersoniateUser?.userId, receipt, terms = terms)
         val result = call.execute()
         result?.let { response ->
             if(response.isSuccessful) {
@@ -251,7 +253,14 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
     }
 
     override fun updateMessage(message: Message, messagePatch: MessagePatch) {
-        val call = api.updateMessage(message.findFolderId(), message.id, messagePatch)
+        Timber.d("AppStateUser: ${appState.state?.impersoniateUser?.userId}")
+
+        // Skip Archiving and Mark as Read/Unread for upploads
+        if (message.type == MessageType.UPLOAD && !messagePatch.isApplicableForUppload()) {
+            return
+        }
+
+        val call = api.updateMessage(message.findFolderId(), message.id, messagePatch, appState.state?.impersoniateUser?.userId)
         val result = call.execute()
         result?.let { response ->
             if(response.isSuccessful)

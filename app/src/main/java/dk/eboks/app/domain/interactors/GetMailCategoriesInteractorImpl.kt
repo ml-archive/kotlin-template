@@ -17,10 +17,10 @@ class GetMailCategoriesInteractorImpl(executor: Executor, val foldersRepositoryM
     override fun execute() {
         try {
             input?.let { args->
-                loadAndEmit(args.cached)
+                loadAndEmit(args.cached, args.userId)
                 if(args.cached)
                 {
-                    loadAndEmit(false)
+                    loadAndEmit(false, args.userId)
                 }
             }.guard { runOnUIThread { output?.onGetCategoriesError(ViewError()) } }
         } catch (t: Throwable) {
@@ -30,9 +30,9 @@ class GetMailCategoriesInteractorImpl(executor: Executor, val foldersRepositoryM
         }
     }
 
-    private fun loadAndEmit(cached : Boolean)
+    private fun loadAndEmit(cached: Boolean, userId: Int?)
     {
-        val senders = foldersRepositoryMail.getMailCategories(cached)
+        val senders = foldersRepositoryMail.getMailCategories(cached, userId)
         runOnUIThread {
             output?.onGetCategories(senders)
         }

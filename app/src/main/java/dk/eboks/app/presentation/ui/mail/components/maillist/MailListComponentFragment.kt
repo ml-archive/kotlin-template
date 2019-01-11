@@ -13,6 +13,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
@@ -39,6 +40,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     private var editEnabled: Boolean = false
     private var editAction: ButtonType? = null
     private var showUploads: Boolean = false
+    private var menuProfile: MenuItem? = null
 
     var sender: Sender? = null
 
@@ -120,24 +122,17 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     private fun getActonButtons(): ArrayList<OverlayButton> {
         val actionButtons = arrayListOf(
             OverlayButton(ButtonType.MOVE),
-            OverlayButton(ButtonType.ARCHIVE)
+            OverlayButton(ButtonType.DELETE)
 
         )
-        var showRead = false
-        var showUnread = false
-        for (msg in checkedList) {
-            if (msg.unread) {
-                showRead = true
-            }
-            if (!msg.unread) {
-                showUnread = true
-            }
-            if (showRead && showUnread) break
-        }
+        val showRead = checkedList.any { it.unread &&  it.type != MessageType.UPLOAD}
+        val showUnread = checkedList.any { !it.unread &&  it.type != MessageType.UPLOAD}
+        val showArchive = checkedList.any { it.type != MessageType.UPLOAD } && folder?.type == FolderType.INBOX
+
         if (showRead) actionButtons.add(OverlayButton(ButtonType.READ))
         if (showUnread) actionButtons.add(OverlayButton(ButtonType.UNREAD))
+        if (showArchive) actionButtons.add(OverlayButton(ButtonType.ARCHIVE))
 
-        actionButtons.add(OverlayButton(ButtonType.DELETE))
         return actionButtons
     }
 
@@ -202,7 +197,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         }
 
         if (editEnabled && BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
-            val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.uploads.topbarEdit)
+            menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.uploads.topbarEdit)
             menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
                 toggleEditMode()
@@ -236,6 +231,20 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     private fun setTopBar() {
         activity?.run {
+            if (modeEdit) {
+                mainTb.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
+                menuProfile?.isVisible = false
+                mainTb.setNavigationOnClickListener {
+                    toggleEditMode()
+                }
+            } else {
+                mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+                menuProfile?.isVisible = true
+                mainTb.setNavigationOnClickListener {
+                    mainTb.navigationIcon = null
+                    onBackPressed()
+                }
+            }
             if (checkedList.size > 0) {
                 mainTb.title = checkedList.size.toString() + " " + Translation.uploads.chosen
             } else {
