@@ -29,7 +29,7 @@ class SegmentComponentFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getParcelable<CollectionContainer>(CollectionContainer::class.simpleName)?.let{
-            segmentTitleTv.text = it.description?.text?:""
+            segmentTitleTv.text = it.description?:""
             it.segment?.let { seg ->
                 Glide.with(context ?: return)
                         .load(seg.image?.url)

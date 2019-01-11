@@ -17,10 +17,10 @@ typealias FolderListStore = CacheStore<Int, List<Folder>>
  */
 class FoldersRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager) : FoldersRepository {
 
-    var userId: Int? = null
+    private var userId: Int? = null
 
-    val folderStore: FolderListStore by lazy {
-        FolderListStore(cacheManager, context, gson, "folder_list_store.json", object : TypeToken<MutableMap<Int, List<Folder>>>() {}.type, { key ->
+    private val folderStore: FolderListStore by lazy {
+        FolderListStore(cacheManager, context, gson, "folder_list_store.json", object : TypeToken<MutableMap<Int, List<Folder>>>() {}.type) { key ->
             val response = api.getFolders(userId).execute()
             var result : List<Folder>? = null
             response?.let {
@@ -28,16 +28,15 @@ class FoldersRestRepository(val context: Context, val api: Api, val gson: Gson, 
                     result = it.body()
             }
             result
-        })
+        }
     }
 
     override fun getFolders(cached: Boolean, userId: Int?): List<Folder> {
         this.userId = userId
-        val res = if(cached) folderStore.get(0) else folderStore.fetch(0)
-        if(res != null) {
+        val res = if (cached) folderStore.get(0) else folderStore.fetch(0)
+        if (res != null) {
             return res
-        }
-        else
+        } else
             return ArrayList()
     }
 

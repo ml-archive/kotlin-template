@@ -48,7 +48,7 @@ import java.util.Date
 import javax.inject.Inject
 
 class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
-        ChannelContentStoreboxDetailComponentContract.View {
+    ChannelContentStoreboxDetailComponentContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
     @Inject
@@ -58,21 +58,21 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     private var paymentAdapter = PaymentLineAdapter()
 
     private var actionButtons = arrayListOf(
-            OverlayButton(ButtonType.OPEN),
-            OverlayButton(ButtonType.MAIL),
-            OverlayButton(ButtonType.MOVE),
-            OverlayButton(ButtonType.DELETE)
+        OverlayButton(ButtonType.OPEN),
+        OverlayButton(ButtonType.MAIL),
+        OverlayButton(ButtonType.MOVE),
+        OverlayButton(ButtonType.DELETE)
     )
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(
-                R.layout.fragment_channel_storebox_detail_component,
-                container,
-                false
+            R.layout.fragment_channel_storebox_detail_component,
+            container,
+            false
         )
     }
 
@@ -102,9 +102,11 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         menuItem?.setIcon(R.drawable.icon_48_option_red_navigationbar)
         menuItem?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuItem?.setOnMenuItemClickListener { item: MenuItem ->
-            val i = Intent(context, OverlayActivity::class.java)
-            i.putExtra("buttons", actionButtons)
-            startActivityForResult(i, OverlayActivity.REQUEST_ID)
+            startActivityForResult(
+                OverlayActivity.createIntent(
+                    context ?: return@setOnMenuItemClickListener false, actionButtons
+                ), OverlayActivity.REQUEST_ID
+            )
             true
         }
     }
@@ -144,7 +146,6 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         setBarcode(receipt.barcode)
 
         showProgress(false)
-
     }
 
     private fun setLogo(url: String?) {
@@ -158,10 +159,9 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         requestOptions.override(300, 300)
 
         Glide.with(this)
-                .load(url)
-                .apply(requestOptions)
-                .into(storeboxDetailIvLogo)
-
+            .load(url)
+            .apply(requestOptions)
+            .into(storeboxDetailIvLogo)
     }
 
     private fun setReceiptDate(date: Date, optionals: StoreboxOptionals?) {
@@ -169,9 +169,9 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         storeboxDetailTvTime.text = formatter.formatDateToTime(date)
 
         storeboxDetailTvOrderNumber.text = String.format(
-                "%s %s",
-                Translation.storeboxreceipt.orderNo,
-                optionals?.orderNumber
+            "%s %s",
+            Translation.storeboxreceipt.orderNo,
+            optionals?.orderNumber
         )
     }
 
@@ -196,7 +196,6 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         }
         storeboxDetailTvZipAndCity.setVisible(zipCityName.isNotBlank())
         storeboxDetailTvZipAndCity.text = zipCityName
-
     }
 
     private fun setReceiptAmount(grandTotal: StoreboxReceiptPrice?) {
@@ -243,7 +242,6 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         } else {
             storeboxDetailTvOptionalFooter.setVisible(false)
         }
-
     }
 
     private fun setBarcode(barcode: StoreboxBarcode?) {
@@ -284,17 +282,17 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     }
 
     private fun showRemoveChannelDialog() {
-        AlertDialog.Builder(context?: return)
-                .setTitle(Translation.storeboxreceipt.confirmDeleteTitle)
-                .setMessage(Translation.storeboxreceipt.confirmDeleteMessage)
-                .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
-                    presenter.deleteReceipt()
-                }
-                .setNegativeButton(Translation.channelsettingsstoreboxadditions.deleteCardCancelButton) { dialog, which ->
+        AlertDialog.Builder(context ?: return)
+            .setTitle(Translation.storeboxreceipt.confirmDeleteTitle)
+            .setMessage(Translation.storeboxreceipt.confirmDeleteMessage)
+            .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
+                presenter.deleteReceipt()
+            }
+            .setNegativeButton(Translation.channelsettingsstoreboxadditions.deleteCardCancelButton) { dialog, which ->
 
-                }
-                .create()
-                .show()
+            }
+            .create()
+            .show()
     }
 
     override fun returnToMasterView() {
@@ -305,7 +303,12 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         try {
             FileUtils.openExternalViewer(context ?: return, filename, "application/pdf")
         } catch (t: Throwable) {
-            showErrorDialog(ViewError(title = Translation.error.receiptOpenInErrorTitle, message = Translation.error.receiptOpenInErrorMessage))
+            showErrorDialog(
+                ViewError(
+                    title = Translation.error.receiptOpenInErrorTitle,
+                    message = Translation.error.receiptOpenInErrorMessage
+                )
+            )
         }
     }
 
@@ -314,7 +317,11 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             val intent = Intent(Intent.ACTION_SEND)
             //intent.type = "text/plain"
 
-            val uri = FileProvider.getUriForFile(context ?: return, BuildConfig.APPLICATION_ID + ".fileprovider", File(filename))
+            val uri = FileProvider.getUriForFile(
+                context ?: return,
+                BuildConfig.APPLICATION_ID + ".fileprovider",
+                File(filename)
+            )
             intent.setDataAndType(uri, "application/pdf")
             intent.putExtra(Intent.EXTRA_STREAM, uri)
             intent.putExtra(Intent.EXTRA_EMAIL, "")
@@ -324,7 +331,12 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             startActivity(Intent.createChooser(intent, Translation.overlaymenu.mail))
         } catch (t: Throwable) {
             t.printStackTrace()
-            showErrorDialog(ViewError(title = Translation.error.receiptOpenInErrorTitle, message = Translation.error.receiptOpenInErrorMessage))
+            showErrorDialog(
+                ViewError(
+                    title = Translation.error.receiptOpenInErrorTitle,
+                    message = Translation.error.receiptOpenInErrorMessage
+                )
+            )
         }
     }
 
@@ -350,7 +362,6 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
                 }
                 else -> {
                     // Request do nothing
-
                 }
             }
         }
@@ -365,14 +376,15 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         }
     }
 
-    inner class PaymentLineAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<PaymentLineAdapter.PaymentLineViewHolder>() {
+    inner class PaymentLineAdapter :
+        androidx.recyclerview.widget.RecyclerView.Adapter<PaymentLineAdapter.PaymentLineViewHolder>() {
         var payments: ArrayList<StoreboxPayment> = arrayListOf()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentLineViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(
-                    R.layout.viewholder_payment_line,
-                    parent,
-                    false
+                R.layout.viewholder_payment_line,
+                parent,
+                false
             )
             return PaymentLineViewHolder(view)
         }
@@ -386,7 +398,8 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             holder.bind(payment)
         }
 
-        inner class PaymentLineViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+        inner class PaymentLineViewHolder(view: View) :
+            androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
             fun bind(payment: StoreboxPayment) {
                 itemView.viewHolderPaymentTvCardName.text = payment.cardName
                 itemView.viewHolderPaymentTvAmount.text = payment.priceValue
@@ -394,14 +407,15 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         }
     }
 
-    inner class ReceiptLineAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<ReceiptLineAdapter.ReceiptLineViewHolder>() {
+    inner class ReceiptLineAdapter :
+        androidx.recyclerview.widget.RecyclerView.Adapter<ReceiptLineAdapter.ReceiptLineViewHolder>() {
         var receiptLines: ArrayList<StoreboxReceiptLine> = arrayListOf()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReceiptLineViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(
-                    R.layout.viewholder_receipt_line,
-                    parent,
-                    false
+                R.layout.viewholder_receipt_line,
+                parent,
+                false
             )
             return ReceiptLineViewHolder(view)
         }
@@ -415,7 +429,8 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             holder.bind(payment)
         }
 
-        inner class ReceiptLineViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+        inner class ReceiptLineViewHolder(view: View) :
+            androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
             fun bind(receiptLine: StoreboxReceiptLine) {
                 itemView.viewHolderReceiptTvItemName.text = receiptLine.name
                 itemView.viewHolderReceiptTvAmount.setVisible(false)
@@ -423,16 +438,17 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
                     if (amount > 1) {
                         itemView.viewHolderReceiptTvAmount.setVisible(true)
                         itemView.viewHolderReceiptTvAmount.text = String.format(
-                                "%s x %.2f",
-                                receiptLine.amount?.toInt(),
-                                receiptLine.itemPrice?.value
+                            "%s x %.2f",
+                            receiptLine.amount?.toInt(),
+                            receiptLine.itemPrice?.value
                         )
                     }
                 }.guard {
                     itemView.viewHolderReceiptTvAmount.setVisible(false)
                 }
 
-                itemView.viewHolderReceiptTvPrice.text = String.format("%.2f", receiptLine.totalPrice?.value)
+                itemView.viewHolderReceiptTvPrice.text =
+                    String.format("%.2f", receiptLine.totalPrice?.value)
 
                 itemView.viewHolderReceiptTvSubtitle.setVisible(false)
                 receiptLine.description?.let {
@@ -441,7 +457,6 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
                         itemView.viewHolderReceiptTvSubtitle.text = it
                     }
                 }
-
             }
         }
     }

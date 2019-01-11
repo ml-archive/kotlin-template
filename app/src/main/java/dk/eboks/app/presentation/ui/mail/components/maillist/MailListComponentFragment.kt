@@ -95,7 +95,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     private fun getFolderFromBundle() {
-        arguments?.getParcelable<Folder>("folder")?.let { folder ->
+        (arguments?.getSerializable("folder") as? Folder)?.let { folder ->
             this.folder = folder
             presenter.setup(folder)
         }
@@ -115,9 +115,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     private fun setupFab() {
         mainFab.setOnClickListener {
-            val i = Intent(context, OverlayActivity::class.java)
-            i.putExtra("buttons", getActonButtons())
-            startActivityForResult(i, OverlayActivity.REQUEST_ID)
+            startActivityForResult(OverlayActivity.createIntent(it.context, getActonButtons()), OverlayActivity.REQUEST_ID)
         }
     }
 
@@ -179,7 +177,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         // deal with return from folder picker
         if (requestCode == FolderActivity.REQUEST_ID) {
             data?.extras?.let {
-                val moveToFolder = data.getParcelableExtra("res") as Folder
+                val moveToFolder = data.getSerializableExtra("res") as Folder
                 presenter.moveMessages(moveToFolder.id, checkedList)
                 checkedList.clear()
                 if (modeEdit) {

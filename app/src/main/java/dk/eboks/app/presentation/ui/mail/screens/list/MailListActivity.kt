@@ -26,7 +26,7 @@ class MailListActivity : BaseActivity(), MailListContract.View {
 
             }
 
-            extras.getParcelable<Folder>("folder")?.let { folder ->
+            (extras.getSerializable("folder") as? Folder)?.let { folder ->
                 presenter.setupFolder(folder)
                 frag.putArg("folder", folder)
             }

@@ -568,7 +568,7 @@ class PresentationModule {
             stateManager: AppStateManager,
             collectionsInteractor: GetCollectionsInteractor
     ): SendersOverviewContract.Presenter {
-        return SendersOverviewPresenter(stateManager, collectionsInteractor)
+        return SendersOverviewPresenter(collectionsInteractor)
     }
 
     @ActivityScope
@@ -772,7 +772,7 @@ class PresentationModule {
             stateManager: AppStateManager,
             getSenderCategoriesInteractor: GetSenderCategoriesInteractor
     ): CategoriesComponentContract.Presenter {
-        return CategoriesComponentPresenter(stateManager, getSenderCategoriesInteractor)
+        return CategoriesComponentPresenter(getSenderCategoriesInteractor)
     }
 
 

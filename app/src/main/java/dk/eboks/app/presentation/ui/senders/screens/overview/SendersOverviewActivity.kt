@@ -32,7 +32,7 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View {
         setupTopBar()
 
         senderPendingBtn.setOnClickListener { v ->
-            startActivity(Intent(this, PendingActivity::class.java))
+            startActivity(Intent(v.context, PendingActivity::class.java))
         }
     }
 

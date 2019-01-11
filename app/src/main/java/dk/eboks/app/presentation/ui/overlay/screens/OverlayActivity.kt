@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.overlay.screens
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -42,7 +43,7 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
     }
 
     private fun getButtons() {
-        buttons = intent.getSerializableExtra("buttons") as ArrayList<OverlayButton>
+        buttons = intent.getSerializableExtra(PARAM_BUTTONS) as ArrayList<OverlayButton>
     }
 
     private fun inflateButtons() {
@@ -62,7 +63,7 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
                 item.icon?.let {
                     button.setImageResource(it)
                 }
-                v.tag = button
+                v.tag = item
                 button.setOnClickListener {
                     closeAnimation(item.type)
                 }
@@ -105,7 +106,12 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
     }
 
     companion object {
-        val REQUEST_ID: Int = 1454
+        const val REQUEST_ID: Int = 1454
+        private const val PARAM_BUTTONS = "buttons"
+        fun createIntent(context: Context, buttons: ArrayList<OverlayButton>): Intent {
+            return Intent(context, OverlayActivity::class.java).putExtra(PARAM_BUTTONS, buttons)
+        }
+
     }
 
 
