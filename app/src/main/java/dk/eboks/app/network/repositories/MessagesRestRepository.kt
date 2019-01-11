@@ -11,6 +11,7 @@ import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
+import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.domain.models.message.StorageInfo
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.repositories.MessagesRepository
@@ -22,6 +23,7 @@ import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import timber.log.Timber
 
 typealias SenderIdMessageStore = CacheStore<Long, List<Message>>
 typealias FolderIdMessageStore = CacheStore<Int, List<Message>>
@@ -251,6 +253,13 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
     }
 
     override fun updateMessage(message: Message, messagePatch: MessagePatch) {
+        Timber.d("AppStateUser: ${appState.state?.impersoniateUser?.userId}")
+
+        // Skip Archiving and Mark as Read/Unread for upploads
+        if (message.type == MessageType.UPLOAD && !messagePatch.isApplicableForUppload()) {
+            return
+        }
+
         val call = api.updateMessage(message.findFolderId(), message.id, messagePatch, appState.state?.impersoniateUser?.userId)
         val result = call.execute()
         result?.let { response ->
