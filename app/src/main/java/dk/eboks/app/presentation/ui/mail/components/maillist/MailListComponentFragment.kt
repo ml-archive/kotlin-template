@@ -129,7 +129,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         )
         val showRead = checkedList.any { it.unread &&  it.type != MessageType.UPLOAD}
         val showUnread = checkedList.any { !it.unread &&  it.type != MessageType.UPLOAD}
-        val showArchive = checkedList.any { it.type != MessageType.UPLOAD }
+        val showArchive = checkedList.any { it.type != MessageType.UPLOAD } && folder?.type == FolderType.INBOX
 
         if (showRead) actionButtons.add(OverlayButton(ButtonType.READ))
         if (showUnread) actionButtons.add(OverlayButton(ButtonType.UNREAD))

@@ -40,6 +40,7 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
     override fun showFolders(folders: List<Folder>) {
         yourMailLl.removeAllViews()
         val li : LayoutInflater = LayoutInflater.from(context)
+        Timber.d("Filders: $folders")
         for(folder in folders)
         {
             var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
