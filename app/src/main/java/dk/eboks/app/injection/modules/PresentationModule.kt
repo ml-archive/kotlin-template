@@ -578,10 +578,16 @@ class PresentationModule {
     @Provides
     fun provideSendersOverviewPresenter(
         collectionsInteractor: GetCollectionsInteractor,
+        getPendingInteractor: GetPendingInteractor,
         registerInteractor: RegisterInteractor,
         unRegisterInteractor: UnRegisterInteractor
     ): SendersOverviewContract.Presenter {
-        return SendersOverviewPresenter(collectionsInteractor, registerInteractor, unRegisterInteractor)
+        return SendersOverviewPresenter(
+            collectionsInteractor,
+            getPendingInteractor,
+            registerInteractor,
+            unRegisterInteractor
+        )
     }
 
     @ActivityScope
@@ -1190,7 +1196,10 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideFolderSelectUserComponentPresenter(stateManager: AppStateManager, getAllSharesInteractor: GetAllSharesInteractor): FolderSelectUserComponentContract.Presenter {
+    fun provideFolderSelectUserComponentPresenter(
+        stateManager: AppStateManager,
+        getAllSharesInteractor: GetAllSharesInteractor
+    ): FolderSelectUserComponentContract.Presenter {
         return FolderSelectUserComponentPresenter(stateManager, getAllSharesInteractor)
     }
 

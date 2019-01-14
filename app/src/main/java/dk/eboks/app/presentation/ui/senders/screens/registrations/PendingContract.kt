@@ -16,6 +16,8 @@ interface PendingContract {
     }
 
     interface Presenter : BasePresenter<View> {
+        fun loadPending()
+
         fun registerSender(id: Long)
         fun unregisterSender(id: Long)
 

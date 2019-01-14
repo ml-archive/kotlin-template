@@ -1,18 +1,15 @@
 package dk.eboks.app.presentation.ui.senders.screens.overview
 
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
+import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
-import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.CollectionContainer
-import dk.eboks.app.domain.models.sender.CollectionContainerTypeEnum
 import dk.eboks.app.domain.models.sender.Sender
-import dk.eboks.app.domain.models.sender.typeEnum
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -21,6 +18,7 @@ import timber.log.Timber
  */
 class SendersOverviewPresenter(
     collectionsInteractor: GetCollectionsInteractor,
+    getPendingInteractor: GetPendingInteractor,
     private val registerInteractor: RegisterInteractor,
     private val unRegisterInteractor: UnRegisterInteractor
 ) :
@@ -28,43 +26,35 @@ class SendersOverviewPresenter(
     BasePresenterImpl<SendersOverviewContract.View>(),
     GetCollectionsInteractor.Output,
     RegisterInteractor.Output,
-    UnRegisterInteractor.Output {
+    UnRegisterInteractor.Output, GetPendingInteractor.Output {
     init {
         collectionsInteractor.output = this
         registerInteractor.output = this
         unRegisterInteractor.output = this
+        getPendingInteractor.output = this
         collectionsInteractor.input = GetCollectionsInteractor.Input(false)
         collectionsInteractor.run()
+        getPendingInteractor.run()
     }
 
     override fun onGetCollections(collections: List<CollectionContainer>) {
         Timber.i("Collection loaded")
-        GlobalScope.launch(Dispatchers.Main) {
-            val unregisteredCount = async(Dispatchers.IO) {
-                var count = 0
-                collections.forEach {
-                    Timber.d("Container type: ${it.type}")
-                    when {
-                        it.typeEnum == CollectionContainerTypeEnum.SENDER && it.sender?.registered == 0 -> count++
-                        it.typeEnum == CollectionContainerTypeEnum.SEGMENT && it.segment?.registered == 0 -> count++
-                        it.typeEnum == CollectionContainerTypeEnum.SENDERS -> it.senders?.forEach { if (it.registered == 0) count++ }
-                    }
-                }
-                return@async count
-            }.await()
-            runAction { v ->
-                v.showCollections(collections)
-                if (unregisteredCount > 0) {
-                    v.showPendingRegistrations(
-                        Translation.senders.pendingRegistrations.replace(
-                            "[COUNT]",
-                            unregisteredCount.toString()
-                        )
-                    )
-                } else {
-                    v.hidePendingRegistrations()
-                }
+        GlobalScope.launch(Dispatchers.IO) {
+            collections.forEach {
+                Timber.d("Container type: ${it.type}")
+            }
+        }
+        runAction { v ->
+            v.showCollections(collections)
+        }
+    }
 
+    override fun onRegistrationsLoaded(registrations: List<CollectionContainer>) {
+        runAction {
+            if (registrations.isEmpty()) {
+                it.hidePendingRegistrations()
+            } else {
+                it.showPendingRegistrations(registrations)
             }
         }
     }

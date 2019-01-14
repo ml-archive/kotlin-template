@@ -37,9 +37,6 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View,
         recyclerView.adapter = adapter
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
-        senderPendingBtn.setOnClickListener { v ->
-            startActivity(Intent(v.context, PendingActivity::class.java))
-        }
     }
 
     // TODO add translation
@@ -48,14 +45,14 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View,
         mainTb.title = Translation.senders.title
         val menuRegist = mainTb.menu.add(Translation.senders.registrations)
         menuRegist.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-        menuRegist.setOnMenuItemClickListener { item: MenuItem ->
+        menuRegist.setOnMenuItemClickListener {
             startActivity(Intent(this, RegistrationsActivity::class.java))
             true
         }
         val menuSearch = mainTb.menu.add("search")
         menuSearch.setIcon(R.drawable.search)
         menuSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        menuSearch.setOnMenuItemClickListener { item: MenuItem ->
+        menuSearch.setOnMenuItemClickListener {
             startActivity(Intent(this, SearchSendersActivity::class.java))
             true
         }
@@ -93,8 +90,19 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View,
         senderPendingBtn.visibility = View.GONE
     }
 
-    override fun showPendingRegistrations(pendingRegistrationsString: String) {
+    override fun showPendingRegistrations(pendingRegistrations: List<CollectionContainer>) {
         senderPendingBtn.visibility = View.VISIBLE
-        senderPendingBtn.text = pendingRegistrationsString
+        senderPendingBtn.text = Translation.senders.pendingRegistrations.replace(
+            "[COUNT]",
+            pendingRegistrations.size.toString()
+        )
+        senderPendingBtn.setOnClickListener { v ->
+            startActivity(
+                PendingActivity.createIntent(
+                    v.context,
+                    pendingRegistrations
+                )
+            )
+        }
     }
 }

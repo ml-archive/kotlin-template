@@ -13,22 +13,27 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
  * @author   Christian
  * @since    3/28/2018.
  */
-class PendingPresenter(val appStateManager: AppStateManager,
-                       val getPendingInteractor: GetPendingInteractor,
-                       val registerInteractor: RegisterInteractor,
-                       val unregisterInteractor: UnRegisterInteractor) :
-        BasePresenterImpl<PendingContract.View>(),
-        PendingContract.Presenter,
-        GetPendingInteractor.Output,
-        RegisterInteractor.Output,
-        UnRegisterInteractor.Output {
+class PendingPresenter(
+    val appStateManager: AppStateManager,
+    private val getPendingInteractor: GetPendingInteractor,
+    private val registerInteractor: RegisterInteractor,
+    private val unregisterInteractor: UnRegisterInteractor
+) :
+    BasePresenterImpl<PendingContract.View>(),
+    PendingContract.Presenter,
+    GetPendingInteractor.Output,
+    RegisterInteractor.Output,
+    UnRegisterInteractor.Output {
 
 
     init {
         getPendingInteractor.output = this
-        getPendingInteractor.run()
         registerInteractor.output = this
         unregisterInteractor.output = this
+    }
+
+    override fun loadPending() {
+        getPendingInteractor.run()
     }
 
     override fun onRegistrationsLoaded(registrations: List<CollectionContainer>) {
