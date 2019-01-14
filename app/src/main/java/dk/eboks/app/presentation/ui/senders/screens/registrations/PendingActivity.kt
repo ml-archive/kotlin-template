@@ -49,7 +49,7 @@ class PendingActivity : BaseActivity(), PendingContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(dk.eboks.app.R.layout.activity_senders_pending)
+        setContentView(R.layout.activity_senders_pending)
 
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
@@ -147,6 +147,7 @@ class PendingActivity : BaseActivity(), PendingContract.View {
         private const val PARAM_PENDING_LIST = "pendingList"
         fun createIntent(context: Context, list: List<CollectionContainer>) =
             Intent(context, PendingActivity::class.java).apply {
+                // TODO uncomment when backend is fixed
 //                putExtra(PARAM_PENDING_LIST, ArrayList(list))
             }
     }
