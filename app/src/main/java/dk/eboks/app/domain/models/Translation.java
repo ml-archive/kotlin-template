@@ -154,6 +154,7 @@ public class Translation {
 		public static String comingSoonMessage = "Snart vil du kunne tilmelde de afsendere, som du normalt modtager post fra";
 		public static String searchBarPlaceholder = "S\u00F8g";
 		public static String noSearchResult = "Ingen afsendere fundet";
+		public static String pendingRegistrations = "__pendingRegistrations";
 	}
 	public final static class start {
 		public static String signupButton = "Bliv bruger";

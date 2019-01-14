@@ -132,6 +132,7 @@
   <string name='nstack_senders_comingSoonMessage' formatted='false'>{senders_comingSoonMessage}</string>
   <string name='nstack_senders_searchBarPlaceholder' formatted='false'>{senders_searchBarPlaceholder}</string>
   <string name='nstack_senders_noSearchResult' formatted='false'>{senders_noSearchResult}</string>
+  <string name='nstack_senders_pendingRegistrations' formatted='false'>{senders_pendingRegistrations}</string>
   <string name='nstack_start_signupButton' formatted='false'>{start_signupButton}</string>
   <string name='nstack_start_addNewUser' formatted='false'>{start_addNewUser}</string>
   <string name='nstack_start_logonButton' formatted='false'>{start_logonButton}</string>

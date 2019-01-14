@@ -13,6 +13,8 @@ interface SendersOverviewContract {
         fun showCollections(collections : List<CollectionContainer>)
         fun showSuccess()
         fun showError(s: String)
+        fun hidePendingRegistrations()
+        fun showPendingRegistrations(pendingRegistrationsString: String)
     }
 
     interface Presenter : BasePresenter<View> {

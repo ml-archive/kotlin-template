@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.senders.screens.overview
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
@@ -26,6 +27,7 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View,
     lateinit var presenter: SendersOverviewContract.Presenter
 
     private lateinit var adapter: SendersCollectionAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_senders_overview)
@@ -86,4 +88,13 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View,
     override fun showSuccess() {}
 
     override fun showError(s: String) {}
+
+    override fun hidePendingRegistrations() {
+        senderPendingBtn.visibility = View.GONE
+    }
+
+    override fun showPendingRegistrations(pendingRegistrationsString: String) {
+        senderPendingBtn.visibility = View.VISIBLE
+        senderPendingBtn.text = pendingRegistrationsString
+    }
 }
