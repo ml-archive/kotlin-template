@@ -12,6 +12,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Registrations(
         val senders : List<Sender>,
-        val private : Status,
-        val public : Status
+        val private : Status? = null,
+        val public : Status? = null
 ) : Parcelable

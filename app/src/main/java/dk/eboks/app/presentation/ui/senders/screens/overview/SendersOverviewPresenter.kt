@@ -7,6 +7,9 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 /**
@@ -21,20 +24,24 @@ class SendersOverviewPresenter(
     BasePresenterImpl<SendersOverviewContract.View>(),
     GetCollectionsInteractor.Output,
     RegisterInteractor.Output,
-    UnRegisterInteractor.Output{
+    UnRegisterInteractor.Output {
     init {
         collectionsInteractor.output = this
         registerInteractor.output = this
         unRegisterInteractor.output = this
-        collectionsInteractor.input = GetCollectionsInteractor.Input(true)
+        collectionsInteractor.input = GetCollectionsInteractor.Input(false)
         collectionsInteractor.run()
     }
 
     override fun onGetCollections(collections: List<CollectionContainer>) {
 
         Timber.i("Collection loaded")
-        collections.forEach {
-            Timber.d("Container type: ${it.type}")
+        GlobalScope.launch {
+            async {
+                collections.forEach {
+                    Timber.d("Container type: ${it.type}")
+                }
+            }
         }
 
         runAction { v ->
@@ -61,7 +68,7 @@ class SendersOverviewPresenter(
 
     override fun onError(error: ViewError) {
         runAction { v ->
-            v.showError(error.message?:"")
+            v.showError(error.message ?: "")
         }
     }
 }

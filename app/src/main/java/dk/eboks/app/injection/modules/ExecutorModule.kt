@@ -13,8 +13,7 @@ import dk.nodes.arch.domain.injection.scopes.AppScope
 class ExecutorModule {
     @Provides
     @AppScope
-    fun provideExecutor() : Executor
-    {
+    fun provideExecutor() : Executor {
         return ThreadExecutor()
     }
 }
