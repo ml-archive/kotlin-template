@@ -27,7 +27,7 @@ class StoreboxAddCardActivity : BaseActivity() {
                     finish()
             }
         }
-        intent?.getSerializableExtra(Link::class.java.simpleName)?.let { link ->
+        intent?.getParcelableExtra<Link>(Link::class.java.simpleName)?.let { link ->
             setRootFragment(R.id.containerFl, StoreboxAddCardFragment().putArg(Link::class.java.simpleName, link) as BaseFragment)
         }
 
