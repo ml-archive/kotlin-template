@@ -155,6 +155,7 @@ public class Translation {
 		public static String searchBarPlaceholder = "S\u00F8g";
 		public static String noSearchResult = "Ingen afsendere fundet";
 		public static String pendingRegistrations = "__pendingRegistrations";
+		public static String sendersHeader = "Slip for papirposten";
 	}
 	public final static class start {
 		public static String signupButton = "Bliv bruger";
@@ -604,7 +605,7 @@ public class Translation {
 	public final static class ekey {
 		public static String topBarTitle = "Noter";
 		public static String addItemTopBarTitle = "Tilf\u00F8j emne";
-		public static String addItemLogin = "Legitimationsoplysninger";
+		public static String addItemLogin = "Brugeroplysninger";
 		public static String addItemPinCode = "Pinkoder";
 		public static String addItemNote = "Noter";
 		public static String addItemSelectCategory = "V\u00E6lg kategori";
@@ -616,10 +617,10 @@ public class Translation {
 		public static String inputHintUsername = "Brugernavn *";
 		public static String inputHintPassword = "Adgangskode *";
 		public static String overviewAddItemHeadline = "Private noter";
-		public static String overviewAddItemText = "Her kan du gemme dine pinkoder, legitimationsoplysninger og noter.";
+		public static String overviewAddItemText = "Her kan du gemme dine pinkoder, brugeroplysninger og noter.";
 		public static String overviewAddItemBtn = "Tilf\u00F8j emne";
 		public static String overviewNote = "Note";
-		public static String overviewLogins = "Legitimationsoplysninger";
+		public static String overviewLogins = "Brugeroplysninger";
 		public static String overviewPinCodes = "Pinkoder";
 		public static String overviewNotes = "Noter";
 		public static String deleteDialogMsg = "Er du sikker p\u00E5 [item] skal slettes?";
@@ -631,15 +632,15 @@ public class Translation {
 		public static String pinCode = "Pinkode";
 		public static String username = "Brugernavn";
 		public static String password = "Adgangskode";
-		public static String addItemPinCodeSubtitle = "Pinkode til dine betalingskort";
-		public static String addItemLoginSubtitle = "fx Post, Facebook";
+		public static String addItemPinCodeSubtitle = "fx kodel\u00E5s";
+		public static String addItemLoginSubtitle = "fx brugernavn";
 		public static String addItemNoteSubtitle = "fx vigtige aftaler";
 		public static String addPinCode = "Tilf\u00F8j pinkode";
 		public static String overviewEkey = "Informasjon";
-		public static String addLogin = "Tilf\u00F8j legitimationsoplysninger";
+		public static String addLogin = "Tilf\u00F8j brugeroplysninger";
 		public static String addNote = "Tilf\u00F8j note";
 		public static String editPinCode = "Rediger pinkode";
-		public static String editLogin = "Rediger legitimationsoplysninger";
+		public static String editLogin = "Rediger brugeroplysninger";
 		public static String editNote = "Rediger note";
 		public static String typeHere = "Skriv her";
 		public static String unlockEkey = "L\u00E5s op";
@@ -653,7 +654,7 @@ public class Translation {
 		public static String deleteItemDescriptionEKey = "Kodehusker";
 		public static String deleteItemDescriptionNote = "note";
 		public static String deleteItemDescriptionPinCode = "pinkode";
-		public static String deleteItemDescriptionLogin = "legitimationsoplysning";
+		public static String deleteItemDescriptionLogin = "brugeroplysning";
 		public static String overviewPinCode = "Pinkode";
 	}
 	public final static class storeboxlogin {

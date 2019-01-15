@@ -34,8 +34,7 @@ class FolderSelectUserComponentPresenter @Inject constructor(
 
     override fun onGetAllShares(shares: List<SharedUser>) {
         runAction { view ->
-            val now = Date()
-            view.showShares(shares.filter { s -> s.expiryDate?.after(now) ?: false && s.status?.equals("accepted", true) ?: false })
+            view.showShares(shares)
             view.showProgress(false)
         }
     }
