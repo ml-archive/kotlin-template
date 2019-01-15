@@ -1,86 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/segmentCv"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="192dp"
+    android:layout_marginLeft="@dimen/margin_normal"
+    android:layout_marginTop="4dp"
+    android:layout_marginRight="@dimen/margin_normal"
+    android:layout_marginBottom="@dimen/margin_normal"
+    android:foreground="?selectableItemBackground"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="@dimen/card_elevation"
+    app:contentPadding="4dp">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/segmentCv"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="192dp"
-        android:layout_marginBottom="@dimen/margin_normal"
-        android:layout_marginLeft="@dimen/margin_normal"
-        android:layout_marginRight="@dimen/margin_normal"
-        android:layout_marginTop="4dp"
-        android:foreground="?selectableItemBackground"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="@dimen/card_elevation"
-        app:contentPadding="4dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="120dp">
 
-            <FrameLayout
+            <ImageView
+                android:id="@+id/segmentIv"
                 android:layout_width="match_parent"
-                android:layout_height="120dp">
+                android:layout_height="match_parent"
+                android:layout_margin="0.25dp"
+                android:background="@drawable/rounded_mask"
+                android:outlineProvider="background"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_menu_home" />
 
-                <ImageView
-                    android:id="@+id/segmentIv"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="0.25dp"
-                    android:background="@drawable/rounded_mask"
-                    android:outlineProvider="background"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_menu_home"/>
-
-                <TextView
-                    android:id="@+id/segmentTitleTv"
-                    style="@style/text.buttonLarge"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="@dimen/margin_normal"
-                    android:gravity="center"
-                    android:text="_Modtag din post digitalt fra alle offentlige myndigheder"
-                    android:background="@drawable/rounded_gradient_card"
-                    android:textColor="@color/colorPrimary"/>
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/segmentBottomFl"
+            <TextView
+                android:id="@+id/segmentTitleTv"
+                style="@style/text.buttonLarge"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/margin_normal">
+                android:layout_height="match_parent"
+                android:background="@drawable/rounded_gradient_card"
+                android:gravity="center"
+                android:padding="@dimen/margin_normal"
+                android:text="_Modtag din post digitalt fra alle offentlige myndigheder"
+                android:textColor="@color/colorPrimary" />
+        </FrameLayout>
 
-                <TextView
-                    android:id="@+id/segmentCatTv"
-                    style="@style/text.buttonSmall"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="top|left"
-                    android:gravity="bottom"
-                    android:text="Bolig og ejendom"/>
+        <FrameLayout
+            android:id="@+id/segmentBottomFl"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/margin_normal">
 
-                <TextView
-                    android:id="@+id/segmentSignTv"
-                    style="@style/text.subHeader5.quaternary"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_gravity="bottom|left"
-                    android:text="39 senders"/>
+            <TextView
+                android:id="@+id/segmentCatTv"
+                style="@style/text.buttonSmall"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="top|left"
+                android:gravity="bottom"
+                android:text="Bolig og ejendom" />
 
-                <View
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_gravity="right|center_vertical"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/icon_48_arrow_right_grey"/>
-            </FrameLayout>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/segmentSignTv"
+                style="@style/text.subHeader5.quaternary"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom|left"
+                android:text="39 senders" />
 
-</LinearLayout>
+            <View
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="right|center_vertical"
+                android:layout_margin="4dp"
+                android:background="@drawable/icon_48_arrow_right_grey" />
+        </FrameLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

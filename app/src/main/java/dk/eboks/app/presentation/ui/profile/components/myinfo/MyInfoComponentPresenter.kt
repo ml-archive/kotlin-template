@@ -14,24 +14,23 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class MyInfoComponentPresenter @Inject constructor(
-        val appState: AppStateManager,
-        val saveUserInteractor: SaveUserInteractor,
-        val updateUserInteractor: UpdateUserInteractor,
-        val getUserProfileInteractor: GetUserProfileInteractor
+    val appState: AppStateManager,
+    val saveUserInteractor: SaveUserInteractor,
+    val updateUserInteractor: UpdateUserInteractor,
+    val getUserProfileInteractor: GetUserProfileInteractor
 ) :
-        MyInfoComponentContract.Presenter,
-        BasePresenterImpl<MyInfoComponentContract.View>(),
-        UpdateUserInteractor.Output,
-        SaveUserInteractor.Output,
-        GetUserProfileInteractor.Output
-{
+    MyInfoComponentContract.Presenter,
+    BasePresenterImpl<MyInfoComponentContract.View>(),
+    UpdateUserInteractor.Output,
+    SaveUserInteractor.Output,
+    GetUserProfileInteractor.Output {
     init {
         saveUserInteractor.output = this
         updateUserInteractor.output = this
         getUserProfileInteractor.output = this
     }
 
-    var currentUser : User? = null
+    var currentUser: User? = null
     var closeView = true
 
     override fun setup() {
@@ -45,19 +44,17 @@ class MyInfoComponentPresenter @Inject constructor(
         getUserProfileInteractor.run()
     }
 
-    private fun showUser(user : User)
-    {
+    private fun showUser(user: User) {
         runAction { v ->
             Timber.e("SHOWING USER ID = ${user.id}")
             v.setName(user.name)
-            user.getPrimaryEmail()?.let { v.setPrimaryEmail(it, user.getPrimaryEmailIsVerified(), user.verified) }
-            if(user.verified)
-            {
-                user.getSecondaryEmail()?.let { v.setSecondaryEmail(it, user.getSecondaryEmailIsVerified()) }
+            user.getPrimaryEmail()
+                ?.let { v.setPrimaryEmail(it, user.getPrimaryEmailIsVerified(), user.verified) }
+            if (user.verified) {
+                user.getSecondaryEmail()
+                    ?.let { v.setSecondaryEmail(it, user.getSecondaryEmailIsVerified()) }
                 v.showSecondaryEmail(true)
-            }
-            else
-            {
+            } else {
                 //v.showPrimaryEmail(false)
                 v.showSecondaryEmail(false)
             }
@@ -72,8 +69,8 @@ class MyInfoComponentPresenter @Inject constructor(
         }
     }
 
-    override fun save(closeView : Boolean) {
-        currentUser?.let { user->
+    override fun save(closeView: Boolean) {
+        currentUser?.let { user ->
             this.closeView = closeView
             runAction { v ->
                 v.showProgress(true)
@@ -82,7 +79,7 @@ class MyInfoComponentPresenter @Inject constructor(
                 Timber.e("Attempting to save currentUser id: ${user.id}")
                 user.setPrimaryEmail(v.getPrimaryEmail())
                 // secondary email only apply to verified users
-                if(user.verified)
+                if (user.verified)
                     user.setSecondaryEmail(v.getSecondaryEmail())
 
                 user.newsletter = v.getNewsletter()
@@ -113,7 +110,6 @@ class MyInfoComponentPresenter @Inject constructor(
             //if(closeView)
             //    v.onDone()
         }
-
     }
 
     override fun onSaveUserError(error: ViewError) {

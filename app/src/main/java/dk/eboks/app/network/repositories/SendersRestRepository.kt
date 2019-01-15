@@ -14,21 +14,29 @@ typealias SenderStore = CacheStore<Int, List<Sender>>
 /**
  * Created by bison on 01/02/18.
  */
-class SendersRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager) : SendersRepository {
+class SendersRestRepository(
+    val context: Context,
+    val api: Api,
+    val gson: Gson,
+    val cacheManager: CacheManager
+) : SendersRepository {
+
+    var userId: Int? = null
 
     val senderStore: SenderStore by lazy {
-        SenderStore(cacheManager, context, gson, "sender_store.json", object : TypeToken<MutableMap<Int, List<Sender>>>() {}.type, { key ->
-            val response = api.getSenders().execute()
+        SenderStore(cacheManager, context, gson, "sender_store.json", object : TypeToken<MutableMap<Int, List<Sender>>>() {}.type ){ key ->
+            val response = api.getSenders(userId).execute()
             var result : List<Sender>? = null
+
             response?.let {
-                if(it.isSuccessful)
+                if (it.isSuccessful)
                     result = it.body()
             }
             result
-        })
+        }
     }
 
-    override fun getSenders(cached: Boolean): List<Sender> {
+    override fun getSenders(cached: Boolean, userId: Int?): List<Sender> {
         return (if (cached) senderStore.get(0) else senderStore.fetch(0)) ?: throw(RuntimeException("darn"))
     }
 

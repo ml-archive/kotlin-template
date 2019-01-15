@@ -28,8 +28,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 134
-        versionName "4.0.3"
+        versionCode 135
+        versionName "4.0.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 
@@ -50,7 +50,7 @@ android {
         buildConfigField "Boolean", "ENABLE_EKEY", "true"
         buildConfigField "Boolean", "ENABLE_CHANNEL_REORDERING", "false"
         buildConfigField "Boolean", "ENABLE_PROFILE_DATA_VERIFICATION", "true"
-        buildConfigField "Boolean", "ENABLE_SHARES", "false"
+        buildConfigField "Boolean", "ENABLE_SHARES", "true"
         buildConfigField "Boolean", "ENABLE_REPLY", "false"
         buildConfigField "Boolean", "ENABLE_SIGN", "true"
         buildConfigField "Boolean", "ENABLE_FINGERPRINT_NONVERIFIED", "false"

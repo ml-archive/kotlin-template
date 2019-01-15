@@ -154,6 +154,7 @@ public class Translation {
 		public static String comingSoonMessage = "Snart vil du kunne tilmelde de afsendere, som du normalt modtager post fra";
 		public static String searchBarPlaceholder = "S\u00F8g";
 		public static String noSearchResult = "Ingen afsendere fundet";
+		public static String pendingRegistrations = "__pendingRegistrations";
 	}
 	public final static class start {
 		public static String signupButton = "Bliv bruger";
@@ -601,7 +602,7 @@ public class Translation {
 		public static String myProfile = "Dig";
 	}
 	public final static class ekey {
-		public static String topBarTitle = "Keeper";
+		public static String topBarTitle = "Noter";
 		public static String addItemTopBarTitle = "Tilf\u00F8j emne";
 		public static String addItemLogin = "Legitimationsoplysninger";
 		public static String addItemPinCode = "Pinkoder";
@@ -634,7 +635,7 @@ public class Translation {
 		public static String addItemLoginSubtitle = "fx Post, Facebook";
 		public static String addItemNoteSubtitle = "fx vigtige aftaler";
 		public static String addPinCode = "Tilf\u00F8j pinkode";
-		public static String overviewEkey = "Keeper";
+		public static String overviewEkey = "Informasjon";
 		public static String addLogin = "Tilf\u00F8j legitimationsoplysninger";
 		public static String addNote = "Tilf\u00F8j note";
 		public static String editPinCode = "Rediger pinkode";
@@ -645,11 +646,11 @@ public class Translation {
 		public static String insertPinCode = "Indtast din 4-cifrede kode";
 		public static String insertNewPinCode = "Indtast en 4-cifret kode";
 		public static String createEKey = "Opret pinkode";
-		public static String ekeySecureKeyDescription = "Dette er din pinkode til Keeper, s\u00E5 du kan logge ind p\u00E5 andre enheder. Det er dog en god id\u00E9, at kunne huske denne kode, hvis du mister denne enhed.";
+		public static String ekeySecureKeyDescription = "Dette er din pinkode til denne service, s\u00E5 du kan logge ind p\u00E5 andre enheder. Det er dog en god id\u00E9, at kunne huske denne kode, hvis du mister denne enhed.";
 		public static String deleteSwipeBtn = "Slet";
 		public static String fieldIsRequired = "Obligatorisk";
 		public static String addButton = "Tilf\u00F8j";
-		public static String deleteItemDescriptionEKey = "Keeper";
+		public static String deleteItemDescriptionEKey = "Kodehusker";
 		public static String deleteItemDescriptionNote = "note";
 		public static String deleteItemDescriptionPinCode = "pinkode";
 		public static String deleteItemDescriptionLogin = "legitimationsoplysning";
@@ -757,5 +758,12 @@ public class Translation {
 		public static String activateBtn = "Aktiv\u00E9r";
 		public static String skipBtn = "Annuller";
 		public static String cancelButton = "Annuller";
+	}
+	public final static class pendingregistrations {
+		public static String title = "__title";
+		public static String pendingSenderHeader = "__pendingSenderHeader";
+		public static String pendingSenderDescription = "__pendingSenderDescription";
+		public static String registerButton = "__registerButton";
+		public static String registerAllButton = "__registerAllButton";
 	}
 }

@@ -102,7 +102,7 @@ class VerifyProfileInteractorImpl(
                         runOnUIThread {
                             output?.onVerificationSuccess(newIdentity)
                         }
-                        appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(false)
+                        appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(false, appStateManager.state?.impersoniateUser?.userId)
                     }
                 }.guard {
                     runOnUIThread {

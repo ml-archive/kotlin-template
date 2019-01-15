@@ -132,6 +132,7 @@
   <string name='nstack_senders_comingSoonMessage' formatted='false'>{senders_comingSoonMessage}</string>
   <string name='nstack_senders_searchBarPlaceholder' formatted='false'>{senders_searchBarPlaceholder}</string>
   <string name='nstack_senders_noSearchResult' formatted='false'>{senders_noSearchResult}</string>
+  <string name='nstack_senders_pendingRegistrations' formatted='false'>{senders_pendingRegistrations}</string>
   <string name='nstack_start_signupButton' formatted='false'>{start_signupButton}</string>
   <string name='nstack_start_addNewUser' formatted='false'>{start_addNewUser}</string>
   <string name='nstack_start_logonButton' formatted='false'>{start_logonButton}</string>
@@ -653,4 +654,9 @@
   <string name='nstack_deviceactivation_activateBtn' formatted='false'>{deviceactivation_activateBtn}</string>
   <string name='nstack_deviceactivation_skipBtn' formatted='false'>{deviceactivation_skipBtn}</string>
   <string name='nstack_deviceactivation_cancelButton' formatted='false'>{deviceactivation_cancelButton}</string>
+  <string name='nstack_pendingregistrations_title' formatted='false'>{pendingregistrations_title}</string>
+  <string name='nstack_pendingregistrations_pendingSenderHeader' formatted='false'>{pendingregistrations_pendingSenderHeader}</string>
+  <string name='nstack_pendingregistrations_pendingSenderDescription' formatted='false'>{pendingregistrations_pendingSenderDescription}</string>
+  <string name='nstack_pendingregistrations_registerButton' formatted='false'>{pendingregistrations_registerButton}</string>
+  <string name='nstack_pendingregistrations_registerAllButton' formatted='false'>{pendingregistrations_registerAllButton}</string>
 </resources>

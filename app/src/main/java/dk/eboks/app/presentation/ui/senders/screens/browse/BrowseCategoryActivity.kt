@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -19,6 +21,7 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import dk.eboks.app.presentation.widgets.DividerItemDecoration
+import dk.eboks.app.util.guard
 import dk.eboks.app.util.setBubbleDrawable
 import kotlinx.android.synthetic.main.activity_senders_browse_category.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -32,7 +35,6 @@ import javax.inject.Inject
  */
 class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
 
-
     @Inject
     lateinit var presenter: BrowseCategoryContract.Presenter
 
@@ -42,47 +44,53 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
         super.onCreate(savedInstanceState)
         setContentView(dk.eboks.app.R.layout.activity_senders_browse_category)
         component.inject(this)
-        val cat = intent.getParcelableExtra<SenderCategory>(SenderCategory::class.simpleName)
-        if (cat == null) {
-            // lets close the view after we informed the user of the error, since we can't initialize it proper without the arguments anyway I take it? :)
-            showErrorDialog(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true))
-        } else {
-            presenter.loadSenders(cat.id)
-            mainTb.title = cat.name
-        }
-
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.setNavigationOnClickListener {
             finish()
         }
 
         browseCatRv.adapter = SenderAdapter(senders)
-        browseCatRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+        browseCatRv.layoutManager = LinearLayoutManager(
             this,
-            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            RecyclerView.VERTICAL,
             false
         )
         browseCatRv.addItemDecoration(
-                DividerItemDecoration(
-                        drawable = resources.getDrawable(R.drawable.shape_divider),
-                        indentationDp = 72,
-                        backgroundColor = resources.getColor(R.color.white)
-                )
+            DividerItemDecoration(
+                drawable = ContextCompat.getDrawable(this, R.drawable.shape_divider)!!,
+                indentationDp = 72,
+                backgroundColor = ContextCompat.getColor(this, R.color.white)
+            )
         )
 
         presenter.onViewCreated(this, lifecycle)
-
+        val cat = intent.getParcelableExtra<SenderCategory>(SenderCategory::class.simpleName)
+        if (cat == null) {
+            // lets close the view after we informed the user of the error, since we can't initialize it proper without the arguments anyway I take it? :)
+            showErrorDialog(
+                ViewError(
+                    title = Translation.error.genericTitle,
+                    message = Translation.error.genericMessage,
+                    shouldCloseView = true
+                )
+            )
+        } else {
+            cat.senders?.let(::showSenders).guard {
+                presenter.loadSenders(cat.id)
+            }
+            mainTb.title = cat.name
+        }
         browseCatRv.setBubbleDrawable(resources.getDrawable(R.drawable.fastscroll_bubble))
     }
 
     override fun showSenders(senders: List<Sender>) {
         this.senders.clear()
         this.senders.addAll(
-                senders.sortedWith(
-                        Comparator { sender1, sender2 ->
-                            sender1.name.toLowerCase().compareTo(sender2.name.toLowerCase())
-                        }
-                ))
+            senders.sortedWith(
+                Comparator { sender1, sender2 ->
+                    sender1.name.toLowerCase().compareTo(sender2.name.toLowerCase())
+                }
+            ))
         browseCatRv.adapter?.notifyDataSetChanged()
     }
 
@@ -96,18 +104,25 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
     override fun showEmpty(show: Boolean) {
     }
 
-
     override fun showError(msg: String) {
         Timber.e(msg) // errorhandling lol
     }
 
-    inner class SenderAdapter(val senders: List<Sender>) : androidx.recyclerview.widget.RecyclerView.Adapter<SenderAdapter.SenderViewHolder>(), FastScroller.SectionIndexer {
+    inner class SenderAdapter(val senders: List<Sender>) :
+        androidx.recyclerview.widget.RecyclerView.Adapter<SenderAdapter.SenderViewHolder>(),
+        FastScroller.SectionIndexer {
         override fun getSectionText(position: Int): String {
             return "${senders[position].name.first().toUpperCase()}"
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SenderViewHolder {
-            return SenderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_sender, parent, false))
+            return SenderViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.viewholder_sender,
+                    parent,
+                    false
+                )
+            )
         }
 
         override fun onBindViewHolder(holder: SenderViewHolder, position: Int) {
@@ -131,7 +146,8 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
             return senders.size
         }
 
-        inner class SenderViewHolder(val v: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
+        inner class SenderViewHolder(val v: View) :
+            androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
             val mainLl = v.findViewById<View>(R.id.senderMainLl)
             val indexTv = v.findViewById<TextView>(R.id.senderIndexTv)
             val nameTv = v.findViewById<TextView>(R.id.senderNameTv)
@@ -146,12 +162,13 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
                 indexTv.text = "${sender.name.first().toUpperCase()}"
                 nameTv.text = sender.name
                 Glide.with(v.context)
-                        .load(sender.logo?.url)
-                        .apply(RequestOptions()
-                                .fallback(R.drawable.icon_64_senders_private)
-                                .placeholder(R.drawable.icon_64_senders_private)
-                        )
-                        .into(iconIv)
+                    .load(sender.logo?.url)
+                    .apply(
+                        RequestOptions()
+                            .fallback(R.drawable.icon_64_senders_private)
+                            .placeholder(R.drawable.icon_64_senders_private)
+                    )
+                    .into(iconIv)
 
                 mainLl.setOnClickListener {
                     val i = Intent(this@BrowseCategoryActivity, SenderDetailActivity::class.java)

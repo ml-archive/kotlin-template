@@ -49,7 +49,7 @@ class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateMan
                     }
                 }
                 if (BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
-                    v.setActionButton(message.unread)
+                    v.setActionButton(message)
                 }
 
                 v.addNotesComponentFragment()

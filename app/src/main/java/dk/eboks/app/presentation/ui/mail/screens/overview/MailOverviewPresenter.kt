@@ -17,14 +17,13 @@ import javax.inject.Inject
  */
 class MailOverviewPresenter @Inject constructor(val appState: AppStateManager) :
         MailOverviewContract.Presenter,
-        BasePresenterImpl<MailOverviewContract.View>()
-{
+        BasePresenterImpl<MailOverviewContract.View>() {
     var refreshingFolders = false
     var refreshingSenders = false
 
     init {
         runAction { v ->
-            v.setUser(appState.state?.currentUser)
+            setUser(v)
         }
     }
 
@@ -38,18 +37,27 @@ class MailOverviewPresenter @Inject constructor(val appState: AppStateManager) :
         super.onViewDetached()
     }
 
-    override fun refresh()
-    {
+    override fun refresh() {
         refreshingFolders = true
         refreshingSenders = true
         EventBus.getDefault().post(RefreshFolderShortcutsEvent())
         EventBus.getDefault().post(RefreshSenderCarouselEvent())
+
+        // Reset shared user
+        appState.state?.impersoniateUser = null
+        runAction { view ->
+            setUser(view)
+        }
     }
 
-    fun stopProgressIfDone()
-    {
-        if(!refreshingFolders && !refreshingSenders)
-            runAction { v-> v.showProgress(false) }
+    private fun setUser(view: MailOverviewContract.View) {
+        view.setUser(appState.state?.currentUser, appState.state?.currentUser?.name)
+
+    }
+
+    fun stopProgressIfDone() {
+        if (!refreshingFolders && !refreshingSenders)
+            runAction { v -> v.showProgress(false) }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

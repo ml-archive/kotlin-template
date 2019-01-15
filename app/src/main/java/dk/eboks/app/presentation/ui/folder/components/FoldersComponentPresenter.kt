@@ -6,6 +6,7 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -20,6 +21,7 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
   var pickermode : FolderMode = FolderMode.NORMAL
 
     init {
+
         openFolderInteractor.output = this
         getFoldersInteractor.output = this
         runAction { v ->
@@ -32,7 +34,9 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
     }
 
     override fun refresh() {
-        getFoldersInteractor.input = GetFoldersInteractor.Input(false, pickermode )
+        Timber.d("${view?.isSharedUserActive}")
+        val userId = if (view?.isSharedUserActive == false) null else  appState.state?.impersoniateUser?.userId
+        getFoldersInteractor.input = GetFoldersInteractor.Input(false, pickermode, userId)
         getFoldersInteractor.run()
     }
 

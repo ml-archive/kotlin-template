@@ -16,25 +16,33 @@ typealias CollectionsStore = CacheStore<Int, List<CollectionContainer>>
  * @author   chnt
  * @since    01/02/18.
  */
-class CollectionsRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager) : CollectionsRepository {
+class CollectionsRestRepository(
+    val context: Context,
+    val api: Api,
+    val gson: Gson,
+    val cacheManager: CacheManager
+) : CollectionsRepository {
 
-    val collectionsStore: CollectionsStore by lazy {
-        CollectionsStore(cacheManager, context, gson, "collectons_store.json", object : TypeToken<MutableMap<Int, List<CollectionContainer>>>() {}.type, { key ->
+    private val collectionsStore: CollectionsStore by lazy {
+        CollectionsStore(
+            cacheManager,
+            context,
+            gson,
+            "collectons_store.json",
+            object : TypeToken<MutableMap<Int, List<CollectionContainer>>>() {}.type
+        ) { key ->
             val response = api.getCollections().execute()
-            var result : List<CollectionContainer>? = null
+            var result: List<CollectionContainer>? = null
             response?.let {
-                if(it.isSuccessful)
+                if (it.isSuccessful)
                     result = it.body()
             }
             result
-        })
+        }
     }
 
     override fun getCollections(cached: Boolean): List<CollectionContainer> {
-        val result = if (cached) collectionsStore.get(0) else collectionsStore.fetch(0)
-        if (result == null) {
-            throw(RuntimeException("dang!"))
-        }
-        return result
+        return (if (cached) collectionsStore.get(0) else collectionsStore.fetch(0))
+            ?: throw(RuntimeException("dang!"))
     }
 }

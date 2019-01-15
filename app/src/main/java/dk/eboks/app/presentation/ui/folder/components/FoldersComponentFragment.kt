@@ -42,6 +42,9 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
          var refreshOnResume: Boolean = false
     }
 
+    override val isSharedUserActive: Boolean
+        get() = arguments?.getBoolean("override_user") ?: false
+
     var systemfolders: MutableList<Folder> = ArrayList()
     var userfolders: MutableList<Folder> = ArrayList()
     var mode: FolderMode = FolderMode.NORMAL
@@ -103,6 +106,9 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         val arguments = Bundle()
         if (userfolders.size == 0) {
             arguments.putBoolean("disableFolderSelection", true)
+        }
+        arguments.apply {
+            putBoolean("override_user", isSharedUserActive)
         }
         getBaseActivity()?.openComponentDrawer(fragment::class.java, arguments)
     }
@@ -390,7 +396,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     private fun editButtonClicked(v: View) {
         val arguments = Bundle()
         val editFolder = v.tag as Folder
-        arguments.putParcelable("editFolder", editFolder)
+        arguments.putSerializable("editFolder", editFolder)
         getBaseActivity()?.openComponentDrawer(NewFolderComponentFragment::class.java, arguments)
     }
 

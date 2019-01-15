@@ -20,7 +20,7 @@ class GetFoldersInteractorImpl(executor: Executor, val foldersRepository: Folder
     override fun execute() {
         val modeType = input?.pickermode ?: FolderMode.NORMAL
         if (modeType == FolderMode.SELECT) {
-            val folders = foldersRepository.getFolders(input?.cached ?: true)
+            val folders = foldersRepository.getFolders(input?.cached ?: true, input?.userId)
             runOnUIThread {
                 val pickerfolders = ArrayList<Folder>()
                 folders.forEach{ f ->
@@ -37,7 +37,7 @@ class GetFoldersInteractorImpl(executor: Executor, val foldersRepository: Folder
             }
         } else {
             try {
-                val folders = foldersRepository.getFolders(input?.cached ?: true)
+                val folders = foldersRepository.getFolders(input?.cached ?: true, input?.userId)
                 Timber.e("Got folders $folders")
                 val system = ArrayList<Folder>()
                 val user = ArrayList<Folder>()

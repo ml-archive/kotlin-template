@@ -14,30 +14,37 @@ typealias SenderCategoryStore = CacheStore<String, List<SenderCategory>>
 /**
  * Created by bison on 01/02/18.
  */
-class SenderCategoriesRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager) : SenderCategoriesRepository {
+class SenderCategoriesRestRepository(
+    val context: Context,
+    val api: Api,
+    val gson: Gson,
+    val cacheManager: CacheManager
+) : SenderCategoriesRepository {
 
-    val senderCategoryStore: SenderCategoryStore by lazy {
-        SenderCategoryStore(cacheManager, context, gson, "sender_category_store.json", object : TypeToken<MutableMap<String, List<SenderCategory>>>() {}.type, { key ->
+    private val senderCategoryStore: SenderCategoryStore by lazy {
+        SenderCategoryStore(
+            cacheManager,
+            context,
+            gson,
+            "sender_category_store.json",
+            object : TypeToken<MutableMap<String, List<SenderCategory>>>() {}.type
+        ) { key ->
             val response = api.getSenderCategories(key).execute()
-            var result : List<SenderCategory>? = null
+            var result: List<SenderCategory>? = null
             response?.let {
-                if(it.isSuccessful)
+                if (it.isSuccessful)
                     result = it.body()
             }
             result
-        })
+        }
     }
 
     override fun getSenderCategories(cached: Boolean): List<SenderCategory> {
-            val result = if(cached) {
-                senderCategoryStore.get("private")
-            } else {
-                senderCategoryStore.fetch("private")
-            }
-            if(result == null) {
-                throw(RuntimeException("dang"))
-            }
-            return result
+        return (if (cached) {
+            senderCategoryStore.get("private")
+        } else {
+            senderCategoryStore.fetch("private")
+        }) ?: throw(RuntimeException("dang"))
     }
 
     override fun getSendersByCategory(catId: Long): SenderCategory {

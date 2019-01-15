@@ -9,7 +9,11 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
  * @author   Christian
  * @since    6/19/2018.
  */
-class SaveUserSettingsInteractorImpl(executor: Executor, val appState: AppStateManager, val userSettingsManager: UserSettingsManager) : BaseInteractor(executor), SaveUserSettingsInteractor {
+class SaveUserSettingsInteractorImpl(
+    executor: Executor,
+    val appState: AppStateManager,
+    val userSettingsManager: UserSettingsManager
+) : BaseInteractor(executor), SaveUserSettingsInteractor {
     override var output: SaveUserSettingsInteractor.Output? = null
     override var input: SaveUserSettingsInteractor.Input? = null
 
@@ -23,7 +27,6 @@ class SaveUserSettingsInteractorImpl(executor: Executor, val appState: AppStateM
                     output?.onSaveSettings()
                 }
             }
-
         } catch (t: Throwable) {
 
         }

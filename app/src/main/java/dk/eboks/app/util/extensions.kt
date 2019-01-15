@@ -16,10 +16,12 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Patterns
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.EditText
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
@@ -95,16 +97,16 @@ fun BottomNavigationView.disableShiftingMode() {
     } catch (e: IllegalAccessException) {
         Timber.e("Unable to change value of shift mode")
     }
-
 }
 
 fun Editable?.isValidEmail(): Boolean {
-    return if (this == null) return false else !TextUtils.isEmpty(toString().trim()) && Patterns.EMAIL_ADDRESS.matcher(toString().trim()).matches()
-
+    return if (this == null) return false else !TextUtils.isEmpty(toString().trim()) && Patterns.EMAIL_ADDRESS.matcher(
+        toString().trim()
+    ).matches()
 }
 
 fun Editable?.isValidCpr(): Boolean {
-    if(this == null) return false
+    if (this == null) return false
     val cprLength = Config.currentMode.cprLength
     val cprRegex = Regex("^[0-9]{$cprLength}$")
     val text = toString().trim()
@@ -117,7 +119,6 @@ fun Editable?.isValidActivationCode(): Boolean {
     val text = toString().trim()
     return !TextUtils.isEmpty(text) && text.matches(cprRegex)
 }
-
 
 inline fun <T> T.guard(block: T.() -> Unit): T {
     if (this == null) block(); return this
@@ -183,18 +184,15 @@ fun Channel.getType(): String {
     return "channel"
 }
 
-fun Image.getWorkaroundUrl() : String
-{
+fun Image.getWorkaroundUrl(): String {
     return "$url&type=1"
 }
 
-fun Channel.areAllRequirementsVerified() : Boolean
-{
+fun Channel.areAllRequirementsVerified(): Boolean {
     this.requirements?.let { reqs ->
-        for(req in reqs)
-        {
+        for (req in reqs) {
             req.verified?.let {
-                if(!it)
+                if (!it)
                     return false
             }
         }
@@ -202,7 +200,6 @@ fun Channel.areAllRequirementsVerified() : Boolean
     }.guard { return true }
     return true
 }
-
 
 /**
  * Add cases to this where you want to use the standard exception to view error method
@@ -212,8 +209,8 @@ fun Channel.areAllRequirementsVerified() : Boolean
  */
 
 fun BaseInteractor.errorBodyToViewError(
-        response: Response<*>,
-        shouldClose: Boolean = false
+    response: Response<*>,
+    shouldClose: Boolean = false
 ): ViewError {
     val responseString = response.errorBody()?.string()
 
@@ -222,64 +219,64 @@ fun BaseInteractor.errorBodyToViewError(
     return when (response.code()) {
         else -> {
             ViewError(
-                    Translation.error.genericTitle,
-                    Translation.error.genericMessage,
-                    true,
-                    shouldClose
+                Translation.error.genericTitle,
+                Translation.error.genericMessage,
+                true,
+                shouldClose
             )
         }
     }
 }
 
-
-internal fun throwableToViewError(t: Throwable,
-                                  shouldClose: Boolean = false,
-                                  shouldDisplay: Boolean = true) : ViewError
-{
+internal fun throwableToViewError(
+    t: Throwable,
+    shouldClose: Boolean = false,
+    shouldDisplay: Boolean = true
+): ViewError {
     when (t) {
         is ConnectException -> return ViewError(
-                title = Translation.error.noInternetTitle,
-                message = Translation.error.noInternetMessage,
-                shouldDisplay = shouldDisplay,
-                shouldCloseView = shouldClose
+            title = Translation.error.noInternetTitle,
+            message = Translation.error.noInternetMessage,
+            shouldDisplay = shouldDisplay,
+            shouldCloseView = shouldClose
         )
         is UnknownHostException -> return ViewError(
-                title = Translation.error.noInternetTitle,
-                message = Translation.error.noInternetMessage,
-                shouldDisplay = shouldDisplay,
-                shouldCloseView = shouldClose
+            title = Translation.error.noInternetTitle,
+            message = Translation.error.noInternetMessage,
+            shouldDisplay = shouldDisplay,
+            shouldCloseView = shouldClose
         )
         is IOException -> return ViewError(
-                title = Translation.error.genericStorageTitle,
-                message = Translation.error.genericStorageMessage,
-                shouldDisplay = shouldDisplay,
-                shouldCloseView = shouldClose
+            title = Translation.error.genericStorageTitle,
+            message = Translation.error.genericStorageMessage,
+            shouldDisplay = shouldDisplay,
+            shouldCloseView = shouldClose
         )
         is SocketTimeoutException -> return ViewError(
-                title = Translation.error.noInternetTitle,
-                message = Translation.error.noInternetMessage,
-                shouldDisplay = shouldDisplay,
-                shouldCloseView = shouldClose
+            title = Translation.error.noInternetTitle,
+            message = Translation.error.noInternetMessage,
+            shouldDisplay = shouldDisplay,
+            shouldCloseView = shouldClose
         )
         is ServerErrorException -> {
             return ViewError(
-                    title = t.error.description?.title,
-                    message = t.error.description?.text,
-                    shouldDisplay = shouldDisplay,
-                    shouldCloseView = shouldClose
+                title = t.error.description?.title,
+                message = t.error.description?.text,
+                shouldDisplay = shouldDisplay,
+                shouldCloseView = shouldClose
             )
         }
         else -> return ViewError(
-                shouldDisplay = shouldDisplay,
-                shouldCloseView = shouldClose
+            shouldDisplay = shouldDisplay,
+            shouldCloseView = shouldClose
         )
     }
 }
 
 fun BaseInteractor.exceptionToViewError(
-        t: Throwable,
-        shouldClose: Boolean = false,
-        shouldDisplay: Boolean = true
+    t: Throwable,
+    shouldClose: Boolean = false,
+    shouldDisplay: Boolean = true
 ): ViewError {
     t.cause?.let {
         return throwableToViewError(it, shouldClose, shouldDisplay)
@@ -298,19 +295,44 @@ class ActivityStarter(val callingActivity: Activity) {
         this.intent = Intent(callingActivity, activityClass)
     }
 
-    fun putExtra(name: String, value: Serializable): ActivityStarter = apply { this.intent?.putExtra(name, value) }
-    fun putExtra(name: String, value: Boolean): ActivityStarter = apply { this.intent?.putExtra(name, value) }
-    fun putExtra(name: String, value: Byte): ActivityStarter = apply { this.intent?.putExtra(name, value) }
-    fun putExtra(name: String, value: Char): ActivityStarter = apply { this.intent?.putExtra(name, value) }
-    fun putExtra(name: String, value: Short): ActivityStarter = apply { this.intent?.putExtra(name, value) }
-    fun putExtra(name: String, value: Int): ActivityStarter = apply { this.intent?.putExtra(name, value) }
-    fun putExtra(name: String, value: Long): ActivityStarter = apply { this.intent?.putExtra(name, value) }
-    fun putExtra(name: String, value: Float): ActivityStarter = apply { this.intent?.putExtra(name, value) }
-    fun putExtra(name: String, value: Double): ActivityStarter = apply { this.intent?.putExtra(name, value) }
-    fun putExtra(name: String, value: String): ActivityStarter = apply { this.intent?.putExtra(name, value) }
-    fun putExtra(name: String, value: CharSequence): ActivityStarter = apply { this.intent?.putExtra(name, value) }
-    fun putExtra(name: String, value: Parcelable): ActivityStarter = apply { this.intent?.putExtra(name, value) }
-    fun putExtra(name: String, value: Array<Parcelable>): ActivityStarter = apply { this.intent?.putExtra(name, value) }
+    fun putExtra(name: String, value: Serializable): ActivityStarter =
+        apply { this.intent?.putExtra(name, value) }
+
+    fun putExtra(name: String, value: Boolean): ActivityStarter =
+        apply { this.intent?.putExtra(name, value) }
+
+    fun putExtra(name: String, value: Byte): ActivityStarter =
+        apply { this.intent?.putExtra(name, value) }
+
+    fun putExtra(name: String, value: Char): ActivityStarter =
+        apply { this.intent?.putExtra(name, value) }
+
+    fun putExtra(name: String, value: Short): ActivityStarter =
+        apply { this.intent?.putExtra(name, value) }
+
+    fun putExtra(name: String, value: Int): ActivityStarter =
+        apply { this.intent?.putExtra(name, value) }
+
+    fun putExtra(name: String, value: Long): ActivityStarter =
+        apply { this.intent?.putExtra(name, value) }
+
+    fun putExtra(name: String, value: Float): ActivityStarter =
+        apply { this.intent?.putExtra(name, value) }
+
+    fun putExtra(name: String, value: Double): ActivityStarter =
+        apply { this.intent?.putExtra(name, value) }
+
+    fun putExtra(name: String, value: String): ActivityStarter =
+        apply { this.intent?.putExtra(name, value) }
+
+    fun putExtra(name: String, value: CharSequence): ActivityStarter =
+        apply { this.intent?.putExtra(name, value) }
+
+    fun putExtra(name: String, value: Parcelable): ActivityStarter =
+        apply { this.intent?.putExtra(name, value) }
+
+    fun putExtra(name: String, value: Array<Parcelable>): ActivityStarter =
+        apply { this.intent?.putExtra(name, value) }
 
     fun start() {
         callingActivity.startActivity(intent)
@@ -321,21 +343,44 @@ fun Activity.Starter(): ActivityStarter {
     return ActivityStarter(this)
 }
 
-fun Fragment.putArg(name: String, value: Serializable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putSerializable(name, value) }
-fun Fragment.putArg(name: String, value: Boolean) = apply { arguments.guard { arguments = Bundle() }; arguments?.putBoolean(name, value) }
-fun Fragment.putArg(name: String, value: Byte) = apply { arguments.guard { arguments = Bundle() }; arguments?.putByte(name, value) }
-fun Fragment.putArg(name: String, value: Char) = apply { arguments.guard { arguments = Bundle() }; arguments?.putChar(name, value) }
-fun Fragment.putArg(name: String, value: Short) = apply { arguments.guard { arguments = Bundle() }; arguments?.putShort(name, value) }
-fun Fragment.putArg(name: String, value: Int) = apply { arguments.guard { arguments = Bundle() }; arguments?.putInt(name, value) }
-fun Fragment.putArg(name: String, value: Long) = apply { arguments.guard { arguments = Bundle() }; arguments?.putLong(name, value) }
-fun Fragment.putArg(name: String, value: Float) = apply { arguments.guard { arguments = Bundle() }; arguments?.putFloat(name, value) }
-fun Fragment.putArg(name: String, value: Double) = apply { arguments.guard { arguments = Bundle() }; arguments?.putDouble(name, value) }
-fun Fragment.putArg(name: String, value: String) = apply { arguments.guard { arguments = Bundle() }; arguments?.putString(name, value) }
-fun Fragment.putArg(name: String, value: CharSequence) = apply { arguments.guard { arguments = Bundle() }; arguments?.putCharSequence(name, value) }
-fun Fragment.putArg(name: String, value: Parcelable) = apply { arguments.guard { arguments = Bundle() }; arguments?.putParcelable(name, value) }
+fun Fragment.putArg(name: String, value: Serializable) =
+    apply { arguments.guard { arguments = Bundle() }; arguments?.putSerializable(name, value) }
 
-fun LoginProvider.translatedName() : String {
-    return when(this.id) {
+fun Fragment.putArg(name: String, value: Boolean) =
+    apply { arguments.guard { arguments = Bundle() }; arguments?.putBoolean(name, value) }
+
+fun Fragment.putArg(name: String, value: Byte) =
+    apply { arguments.guard { arguments = Bundle() }; arguments?.putByte(name, value) }
+
+fun Fragment.putArg(name: String, value: Char) =
+    apply { arguments.guard { arguments = Bundle() }; arguments?.putChar(name, value) }
+
+fun Fragment.putArg(name: String, value: Short) =
+    apply { arguments.guard { arguments = Bundle() }; arguments?.putShort(name, value) }
+
+fun Fragment.putArg(name: String, value: Int) =
+    apply { arguments.guard { arguments = Bundle() }; arguments?.putInt(name, value) }
+
+fun Fragment.putArg(name: String, value: Long) =
+    apply { arguments.guard { arguments = Bundle() }; arguments?.putLong(name, value) }
+
+fun Fragment.putArg(name: String, value: Float) =
+    apply { arguments.guard { arguments = Bundle() }; arguments?.putFloat(name, value) }
+
+fun Fragment.putArg(name: String, value: Double) =
+    apply { arguments.guard { arguments = Bundle() }; arguments?.putDouble(name, value) }
+
+fun Fragment.putArg(name: String, value: String) =
+    apply { arguments.guard { arguments = Bundle() }; arguments?.putString(name, value) }
+
+fun Fragment.putArg(name: String, value: CharSequence) =
+    apply { arguments.guard { arguments = Bundle() }; arguments?.putCharSequence(name, value) }
+
+fun Fragment.putArg(name: String, value: Parcelable) =
+    apply { arguments.guard { arguments = Bundle() }; arguments?.putParcelable(name, value) }
+
+fun LoginProvider.translatedName(): String {
+    return when (this.id) {
         "email" -> Translation.logonmethods.mobileAccess
         "cpr" -> Translation.logonmethods.mobileAccess
         "nemid" -> Translation.logonmethods.nemId
@@ -348,15 +393,19 @@ fun LoginProvider.translatedName() : String {
     }
 }
 
-fun WebView.printAndForget(context : Context)
-{
+fun WebView.printAndForget(context: Context) {
 // Get a PrintManager instance
-    val printManager : PrintManager = context.getSystemService(Context.PRINT_SERVICE) as PrintManager
+    val printManager: PrintManager = context.getSystemService(Context.PRINT_SERVICE) as PrintManager
 
     // Get a print adapter instance
-    val printAdapter : PrintDocumentAdapter = this.createPrintDocumentAdapter()
+    val printAdapter: PrintDocumentAdapter = this.createPrintDocumentAdapter()
 
     // Create a print job with name and adapter instance
     val jobName = "eboks"
-    val printJob : PrintJob = printManager.print(jobName, printAdapter, PrintAttributes.Builder().build())
+    val printJob: PrintJob =
+        printManager.print(jobName, printAdapter, PrintAttributes.Builder().build())
+}
+
+fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
+    return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }

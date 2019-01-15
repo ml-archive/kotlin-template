@@ -7,46 +7,38 @@ import java.io.Serializable
 /**
  * Created by thsk on 12/04/2018.
  */
-class OverlayButton(type: ButtonType) : Serializable {
-    var type: ButtonType
-    var text: String?
-    var icon: Int?
-
-    init {
-        this.type = type
-        this.text = getText(type)
-        this.icon = getIcon(type)
-    }
+class OverlayButton(val type: ButtonType) : Serializable {
+    val text: String? = getText(type)
+    val icon: Int? = getIcon(type)
 
     fun getText(type: ButtonType): String {
-        when (type) {
-            ButtonType.MOVE -> return Translation.overlaymenu.move
-            ButtonType.DELETE -> return Translation.overlaymenu.delete
-            ButtonType.PRINT -> return Translation.overlaymenu.print
-            ButtonType.MAIL -> return Translation.overlaymenu.mail
-            ButtonType.OPEN -> return Translation.overlaymenu.openIn
-            ButtonType.ARCHIVE -> return Translation.overlaymenu.archive
-            ButtonType.READ -> return Translation.overlaymenu.markAsRead
-            ButtonType.UNREAD -> return Translation.overlaymenu.markAsUnread
-            else                -> {
-                return ""
-            }
+        return when (type) {
+            ButtonType.MOVE -> Translation.overlaymenu.move
+            ButtonType.DELETE -> Translation.overlaymenu.delete
+            ButtonType.PRINT -> Translation.overlaymenu.print
+            ButtonType.MAIL -> Translation.overlaymenu.mail
+            ButtonType.OPEN -> Translation.overlaymenu.openIn
+            ButtonType.ARCHIVE -> Translation.overlaymenu.archive
+            ButtonType.READ -> Translation.overlaymenu.markAsRead
+            ButtonType.UNREAD -> Translation.overlaymenu.markAsUnread
+            ButtonType.GALLERY -> Translation.overlaymenu.chooseFromLibrary
+            ButtonType.CAMERA -> Translation.overlaymenu.takePhoto
         }
 
     }
 
     private fun getIcon(type: ButtonType): Int? {
-        when (type) {
-            ButtonType.MOVE -> return R.drawable.ic_folder
-            ButtonType.DELETE -> return R.drawable.icon_48_delete_red
-            ButtonType.PRINT -> return R.drawable.icon_48_print_red
-            ButtonType.MAIL -> return R.drawable.icon_48_forward_red
-            ButtonType.OPEN -> return R.drawable.icon_48_share_red
-            ButtonType.ARCHIVE -> return R.drawable.icon_48_archive_red
-            ButtonType.READ -> return R.drawable.icon_48_mail_open_red
-            ButtonType.UNREAD -> return R.drawable.icon_48_mail_red
-            else              -> {
-                return null
+        return when (type) {
+            ButtonType.MOVE -> R.drawable.ic_folder
+            ButtonType.DELETE -> R.drawable.icon_48_delete_red
+            ButtonType.PRINT -> R.drawable.icon_48_print_red
+            ButtonType.MAIL -> R.drawable.icon_48_forward_red
+            ButtonType.OPEN -> R.drawable.icon_48_share_red
+            ButtonType.ARCHIVE -> R.drawable.icon_48_archive_red
+            ButtonType.READ -> R.drawable.icon_48_mail_open_red
+            ButtonType.UNREAD -> R.drawable.icon_48_mail_red
+            else -> {
+                null
             }
         }
     }
@@ -55,5 +47,5 @@ class OverlayButton(type: ButtonType) : Serializable {
 
 
 enum class ButtonType {
-    MOVE, DELETE, PRINT, MAIL, OPEN, READ, UNREAD, ARCHIVE
+    MOVE, DELETE, PRINT, MAIL, OPEN, READ, UNREAD, ARCHIVE, CAMERA, GALLERY
 }

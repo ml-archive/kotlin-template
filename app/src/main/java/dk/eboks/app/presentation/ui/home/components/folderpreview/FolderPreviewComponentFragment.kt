@@ -50,7 +50,7 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        arguments?.getParcelable<Folder>(Folder::class.java.simpleName)?.let(presenter::setup)
+        (arguments?.getSerializable(Folder::class.java.simpleName) as? Folder)?.let(presenter::setup)
             .guard {
                 showEmptyState(true, false)
             }

@@ -16,9 +16,12 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.SharedUser
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.base.SheetComponentActivity
+import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folders_selectuser.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -42,12 +45,17 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+
+        profileContentLl.visibility = View.GONE
+        profileProgress.visibility = View.VISIBLE
+
         setup()
+
+        presenter.getShared()
     }
 
     override fun setUser(user: User?) {
         myProfileNameTv.text = user?.name ?: Translation.myInformation.name
-
 
         profileFl.visibility = View.GONE
         profilePicIv.visibility = View.VISIBLE
@@ -67,20 +75,9 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
                     }
                 })
                 .into(profilePicIv)
-
-    }
-
-
-
-    private fun createMocks() {
-        sharedUsers.add(SharedUser(1, 2, "_*Peter Petersen", "_*Administrator", null, null))
-        sharedUsers.add(SharedUser(1, 3, "_*John Johnson", "_*Read only", null, null))
-        sharedUsers.add(SharedUser(1, 4, "_*Søren Sørensen", "_*Read only", null, null))
-        sharedUsers.add(SharedUser(1, 5, "_*Ole Olsen", "_*Administrator", null, null))
     }
 
     private fun setup() {
-        createMocks()
         setupMyProfile()
         setupRecyclerView()
     }
@@ -97,11 +94,28 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
     private fun setupMyProfile() {
         myProfileLl.setOnClickListener {
             //close
+            presenter.setSharedUser(null)
             activity?.onBackPressed()
         }
         myProfileSubHeaderTv.text = Translation.profile.myProfile
 
     }
+
+    override fun showShares(shares: List<SharedUser>) {
+        sharedUsers.addAll(shares)
+        sharedAccountsRv.adapter?.notifyDataSetChanged()
+    }
+
+    override fun showProgress(visible: Boolean) {
+        if(visible) {
+            profileProgress.visibility = View.VISIBLE
+            profileContentLl.visibility = View.GONE
+        } else {
+            profileProgress.visibility = View.GONE
+            profileContentLl.visibility = View.VISIBLE
+        }
+    }
+
 
     inner class SharedUserAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<SharedUserAdapter.SharedUserViewHolder>() {
 
@@ -129,7 +143,9 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
             holder.root.setOnClickListener {
                 //open normal maillist for sharedUsers[position] and close the drawer
                 Timber.d(sharedUsers[position].toString())
+                presenter.setSharedUser(sharedUsers[position])
                 activity?.onBackPressed()
+                FolderActivity.startAsIntent(context, true)
             }
         }
     }

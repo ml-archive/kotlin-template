@@ -17,6 +17,7 @@ interface FoldersComponentContract {
         fun showSelectFolders(folders : List<Folder>)
         fun setUser(user: User?)
 
+        val isSharedUserActive: Boolean
     }
 
     interface Presenter : BasePresenter<View> {

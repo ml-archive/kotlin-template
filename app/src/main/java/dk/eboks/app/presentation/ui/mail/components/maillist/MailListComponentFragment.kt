@@ -13,6 +13,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
@@ -96,7 +97,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     private fun getFolderFromBundle() {
-        arguments?.getParcelable<Folder>("folder")?.let { folder ->
+        (arguments?.getSerializable("folder") as? Folder)?.let { folder ->
             this.folder = folder
             presenter.setup(folder)
         }
@@ -116,33 +117,24 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     private fun setupFab() {
         mainFab.setOnClickListener {
-            val i = Intent(context, OverlayActivity::class.java)
-            i.putExtra("buttons", getActonButtons())
-            startActivityForResult(i, OverlayActivity.REQUEST_ID)
+            startActivityForResult(OverlayActivity.createIntent(it.context, getActonButtons()), OverlayActivity.REQUEST_ID)
         }
     }
 
     private fun getActonButtons(): ArrayList<OverlayButton> {
         val actionButtons = arrayListOf(
             OverlayButton(ButtonType.MOVE),
-            OverlayButton(ButtonType.ARCHIVE)
+            OverlayButton(ButtonType.DELETE)
 
         )
-        var showRead = false
-        var showUnread = false
-        for (msg in checkedList) {
-            if (msg.unread) {
-                showRead = true
-            }
-            if (!msg.unread) {
-                showUnread = true
-            }
-            if (showRead && showUnread) break
-        }
+        val showRead = checkedList.any { it.unread &&  it.type != MessageType.UPLOAD}
+        val showUnread = checkedList.any { !it.unread &&  it.type != MessageType.UPLOAD}
+        val showArchive = checkedList.any { it.type != MessageType.UPLOAD } && folder?.type == FolderType.INBOX
+
         if (showRead) actionButtons.add(OverlayButton(ButtonType.READ))
         if (showUnread) actionButtons.add(OverlayButton(ButtonType.UNREAD))
+        if (showArchive) actionButtons.add(OverlayButton(ButtonType.ARCHIVE))
 
-        actionButtons.add(OverlayButton(ButtonType.DELETE))
         return actionButtons
     }
 
@@ -187,7 +179,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         // deal with return from folder picker
         if (requestCode == FolderActivity.REQUEST_ID) {
             data?.extras?.let {
-                val moveToFolder = data.getParcelableExtra<Folder>("res")
+                val moveToFolder = data.getSerializableExtra("res") as Folder
                 presenter.moveMessages(moveToFolder.id, checkedList)
                 checkedList.clear()
                 if (modeEdit) {

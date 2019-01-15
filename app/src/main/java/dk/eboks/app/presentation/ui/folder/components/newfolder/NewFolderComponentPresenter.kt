@@ -7,6 +7,7 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.FolderRequest
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -28,15 +29,19 @@ class NewFolderComponentPresenter @Inject constructor(
         createFolderInteractor.output = this
         deleteFolderInteractor.output = this
         editFolderInteractor.output = this
-        appState.state?.currentUser?.let { user ->
+
+        val currentUserName = appState.state?.impersoniateUser?.name ?: appState.state?.currentUser?.name
+        currentUserName?.let { user ->
             runAction { v ->
-                v.setRootFolder(user.name)
+                v.setRootFolder(user)
             }
         }
     }
 
     override fun createNewFolder(parentFolderId: Int, name: String) {
-        createFolderInteractor.input = CreateFolderInteractor.Input(FolderRequest(appState.state?.currentUser?.id,parentFolderId,name))
+
+        val userId = if (view?.overrideActiveUser == true) appState.state?.impersoniateUser?.userId else null
+        createFolderInteractor.input = CreateFolderInteractor.Input(FolderRequest(userId,parentFolderId,name))
         createFolderInteractor.run()
     }
 

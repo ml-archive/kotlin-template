@@ -1,7 +1,6 @@
 package dk.eboks.app.domain.models.sender
 
 import android.os.Parcelable
-import dk.eboks.app.domain.models.shared.Description
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -11,9 +10,24 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class CollectionContainer(
-        var type: String? = "",
-        var description: Description? = null,
-        var segment : Segment? = null,
-        var sender: Sender? = null,
-    var senders : List<Sender>? = null
+    val description: String?,
+    val segment: Segment?,
+    val sender: Sender?,
+    val senders: List<Sender>?,
+    val type: String?
 ) : Parcelable
+
+enum class CollectionContainerTypeEnum(val value: String?) {
+    SEGMENT("segment"),
+    SENDER("sender"),
+    SENDERS("senders"),
+    UNKNOWN("")
+}
+
+val CollectionContainer.typeEnum: CollectionContainerTypeEnum
+    get() = when (type) {
+        CollectionContainerTypeEnum.SEGMENT.value -> CollectionContainerTypeEnum.SEGMENT
+        CollectionContainerTypeEnum.SENDER.value -> CollectionContainerTypeEnum.SENDER
+        CollectionContainerTypeEnum.SENDERS.value -> CollectionContainerTypeEnum.SENDERS
+        else -> CollectionContainerTypeEnum.UNKNOWN
+    }

@@ -10,7 +10,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface MailOverviewContract {
     interface View : BaseView {
         fun showProgress(show: Boolean)
-        fun setUser(user: User?)
+        fun setUser(user: User?, userName: String?)
     }
 
     interface Presenter : BasePresenter<View> {

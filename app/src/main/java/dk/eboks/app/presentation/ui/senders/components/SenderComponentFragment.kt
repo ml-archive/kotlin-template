@@ -36,7 +36,6 @@ class SenderComponentFragment : BaseFragment(), RegistrationContract.View {
         return inflater.inflate(R.layout.fragment_sender_component, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
