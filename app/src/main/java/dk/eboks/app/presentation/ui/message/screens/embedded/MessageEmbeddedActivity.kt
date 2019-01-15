@@ -52,7 +52,9 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     var embeddedViewerComponentFragment: androidx.fragment.app.Fragment? = null
 
     private var actionButtons = arrayListOf(
-        OverlayButton(ButtonType.PRINT)
+            OverlayButton(ButtonType.PRINT),
+            OverlayButton(ButtonType.MOVE),
+            OverlayButton(ButtonType.DELETE)
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,26 +78,22 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         menuItem?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuItem?.setOnMenuItemClickListener { item: MenuItem ->
             startActivityForResult(
-                OverlayActivity.createIntent(
-                    this@MessageEmbeddedActivity,
-                    actionButtons
-                ), OverlayActivity.REQUEST_ID
+                    OverlayActivity.createIntent(
+                            this@MessageEmbeddedActivity,
+                            actionButtons
+                    ), OverlayActivity.REQUEST_ID
             )
             true
         }
     }
 
     override fun setActionButton(message: Message) {
-        val actionButtons = arrayListOf(
-                OverlayButton(ButtonType.MOVE),
-                OverlayButton(ButtonType.DELETE))
 
-        if (message.type != MessageType.UPLOAD && message.folder?.type != FolderType.INBOX) {
+        if (message.type != MessageType.UPLOAD && message.folder?.type == FolderType.INBOX) {
             if (message.unread) actionButtons.add(OverlayButton(ButtonType.READ)) else actionButtons.add(OverlayButton(ButtonType.UNREAD))
             actionButtons.add(OverlayButton(ButtonType.ARCHIVE))
         }
 
-        this.actionButtons = actionButtons
     }
 
     override fun setHighPeakHeight() {
@@ -167,8 +165,8 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
                 putBoolean("show_divider", true)
             }
             supportFragmentManager.beginTransaction()
-                .add(R.id.sheetComponentsLl, it, HeaderComponentFragment::class.java.simpleName)
-                .commit()
+                    .add(R.id.sheetComponentsLl, it, HeaderComponentFragment::class.java.simpleName)
+                    .commit()
         }
     }
 
@@ -179,9 +177,9 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         replyButtonComponentFragment?.let {
             it.arguments = args
             supportFragmentManager.beginTransaction().add(
-                R.id.sheetComponentsLl,
-                it,
-                ReplyButtonComponentFragment::class.java.simpleName
+                    R.id.sheetComponentsLl,
+                    it,
+                    ReplyButtonComponentFragment::class.java.simpleName
             ).commit()
         }
     }
@@ -193,7 +191,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         signButtonComponentFragment?.let {
             it.arguments = args
             supportFragmentManager.beginTransaction()
-                .add(R.id.sheetComponentsLl, it, it::class.java.simpleName).commit()
+                    .add(R.id.sheetComponentsLl, it, it::class.java.simpleName).commit()
         }
     }
 
@@ -201,8 +199,8 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         shareComponentFragment = ShareComponentFragment()
         shareComponentFragment?.let {
             supportFragmentManager.beginTransaction()
-                .add(R.id.sheetComponentsLl, it, ShareComponentFragment::class.java.simpleName)
-                .commit()
+                    .add(R.id.sheetComponentsLl, it, ShareComponentFragment::class.java.simpleName)
+                    .commit()
         }
     }
 
@@ -210,8 +208,8 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         notesComponentFragment = NotesComponentFragment()
         notesComponentFragment?.let {
             supportFragmentManager.beginTransaction()
-                .add(R.id.sheetComponentsLl, it, NotesComponentFragment::class.java.simpleName)
-                .commit()
+                    .add(R.id.sheetComponentsLl, it, NotesComponentFragment::class.java.simpleName)
+                    .commit()
         }
     }
 
@@ -219,9 +217,9 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         attachmentsComponentFragment = AttachmentsComponentFragment()
         attachmentsComponentFragment?.let {
             supportFragmentManager.beginTransaction().add(
-                R.id.sheetComponentsLl,
-                it,
-                AttachmentsComponentFragment::class.java.simpleName
+                    R.id.sheetComponentsLl,
+                    it,
+                    AttachmentsComponentFragment::class.java.simpleName
             ).commit()
         }
     }
@@ -230,8 +228,8 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         folderInfoComponentFragment = FolderInfoComponentFragment()
         folderInfoComponentFragment?.let {
             supportFragmentManager.beginTransaction()
-                .add(R.id.sheetComponentsLl, it, FolderInfoComponentFragment::class.java.simpleName)
-                .commit()
+                    .add(R.id.sheetComponentsLl, it, FolderInfoComponentFragment::class.java.simpleName)
+                    .commit()
         }
     }
 
@@ -240,8 +238,8 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
             embeddedViewerComponentFragment = PdfViewComponentFragment()
             embeddedViewerComponentFragment?.let {
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.viewerFl, it, PdfViewComponentFragment::class.java.simpleName)
-                    .commit()
+                        .add(R.id.viewerFl, it, PdfViewComponentFragment::class.java.simpleName)
+                        .commit()
             }
         }
     }
@@ -251,8 +249,8 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
             embeddedViewerComponentFragment = ImageViewComponentFragment()
             embeddedViewerComponentFragment?.let {
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.viewerFl, it, ImageViewComponentFragment::class.java.simpleName)
-                    .commit()
+                        .add(R.id.viewerFl, it, ImageViewComponentFragment::class.java.simpleName)
+                        .commit()
             }
         }
     }
@@ -262,8 +260,8 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
             embeddedViewerComponentFragment = HtmlViewComponentFragment()
             embeddedViewerComponentFragment?.let {
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.viewerFl, it, HtmlViewComponentFragment::class.java.simpleName)
-                    .commit()
+                        .add(R.id.viewerFl, it, HtmlViewComponentFragment::class.java.simpleName)
+                        .commit()
             }
         }
     }
@@ -273,8 +271,8 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
             embeddedViewerComponentFragment = TextViewComponentFragment()
             embeddedViewerComponentFragment?.let {
                 supportFragmentManager.beginTransaction()
-                    .add(R.id.viewerFl, it, TextViewComponentFragment::class.java.simpleName)
-                    .commit()
+                        .add(R.id.viewerFl, it, TextViewComponentFragment::class.java.simpleName)
+                        .commit()
             }
         }
     }
