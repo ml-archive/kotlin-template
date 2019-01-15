@@ -6,7 +6,7 @@ buildscript {
 
     ext {
         // Plugins
-        gradle_version = '3.2.1'
+        gradle_version = '3.3.0'
         kotlin_version = '1.3.11'
         nodes_nstack_translation_version = '0.35'
         bitrise_version = '1.0'
