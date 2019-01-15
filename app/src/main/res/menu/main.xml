@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/actionHome"
-        android:icon="@drawable/ic_menu_home"
         android:enabled="true"
-        android:title="_Home" />
+        android:icon="@drawable/ic_menu_home"
+        android:title="@string/nstack_mainnav_homeButton"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/actionMail"
-        android:icon="@drawable/ic_menu_mail"
         android:enabled="true"
-        android:title="_Mail" />
+        android:icon="@drawable/ic_menu_mail"
+        android:title="@string/nstack_mainnav_mailButton"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/actionSenders"
-        android:icon="@drawable/icon_48_senders_grey"
         android:enabled="true"
-        android:title="_Senders" />
+        android:icon="@drawable/icon_48_senders_grey"
+        android:title="@string/nstack_mainnav_sendersButton"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/actionChannels"
-        android:icon="@drawable/ic_menu_channels"
         android:enabled="true"
-        android:title="_Channels" />
+        android:icon="@drawable/ic_menu_channels"
+        android:title="@string/nstack_mainnav_channelsButton"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/actionUploads"
-        android:icon="@drawable/ic_menu_uploads"
         android:enabled="true"
-        android:title="_Uploads" />
+        android:icon="@drawable/ic_menu_uploads"
+        android:title="@string/nstack_mainnav_uploadsButton"
+        app:showAsAction="ifRoom" />
 
 </menu>

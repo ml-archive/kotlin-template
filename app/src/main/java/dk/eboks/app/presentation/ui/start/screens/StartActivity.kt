@@ -12,6 +12,7 @@ import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
 import dk.eboks.app.presentation.ui.login.components.LoginComponentFragment
 import dk.eboks.app.presentation.ui.login.components.UserCarouselComponentFragment
+import dk.eboks.app.presentation.ui.main.MainActivity
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.start.components.disclaimer.BetaDisclaimerComponentFragment
 import dk.eboks.app.presentation.ui.start.components.signup.CompletedComponentFragment
@@ -171,7 +172,7 @@ class StartActivity : BaseActivity(), StartContract.View {
     override fun startMain() {
         //TODO change back to regular when done
         NavBarComponentFragment.currentMenuItem = R.id.actionMail
-        startActivity(Intent(this, HomeActivity::class.java))
+        startActivity(Intent(this, MainActivity::class.java))
 
         //overridePendingTransition(0, 0)
         Timber.d("Finishing StartActivity")

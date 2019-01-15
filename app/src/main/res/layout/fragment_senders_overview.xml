@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:animateLayoutChanges="true"
+    tools:showIn="@layout/activity_senders_overview">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/margin_normal"
+        android:animateLayoutChanges="true">
+
+        <Button
+            android:id="@+id/senderPendingBtn"
+            style="@style/button.SolidGradient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:layout_marginLeft="@dimen/margin_normal"
+            android:layout_marginRight="@dimen/margin_normal"
+            android:layout_marginBottom="@dimen/margin_normal"
+            android:drawableStart="@drawable/icon_48_senders_white"
+            android:drawablePadding="@dimen/margin_normal"
+            android:gravity="start|center_vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
+            tools:text="Yending" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <fragment
+            android:id="@+id/sendersCategoriesFrag"
+            android:name="dk.eboks.app.presentation.ui.senders.components.categories.CategoriesComponentFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

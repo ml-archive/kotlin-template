@@ -175,6 +175,7 @@ import dk.eboks.app.presentation.ui.senders.screens.list.SenderAllListActivity
 import dk.eboks.app.presentation.ui.senders.screens.list.SenderAllListPresenter
 import dk.eboks.app.presentation.ui.senders.screens.overview.SendersOverviewActivity
 import dk.eboks.app.presentation.ui.senders.screens.overview.SendersOverviewPresenter
+import dk.eboks.app.presentation.ui.senders.screens.overview.SerdersOverviewFragment
 import dk.eboks.app.presentation.ui.senders.screens.registrations.PendingActivity
 import dk.eboks.app.presentation.ui.senders.screens.registrations.RegistrationsActivity
 import dk.eboks.app.presentation.ui.senders.screens.segment.SegmentDetailActivity
@@ -221,6 +222,7 @@ interface PresentationComponent {
     fun inject(target: ChannelContentActivity)
     fun inject(target: ChannelContentPresenter)
     fun inject(target: SendersOverviewActivity)
+    fun inject(target: SerdersOverviewFragment)
     fun inject(target: SendersOverviewPresenter)
     fun inject(target: StartActivity)
     fun inject(target: StartPresenter)
@@ -440,4 +442,5 @@ interface PresentationComponent {
     fun inject(target : DebugUsersComponentPresenter)
     fun inject(target : DebugUserActivity)
     fun inject(target : DebugUserPresenter)
+
 }

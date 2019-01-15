@@ -8,100 +8,14 @@
 
     <include layout="@layout/include_toolbar" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refreshSrl"
+    <include layout="@layout/fragment_home" />
+
+    <include
+        layout="@layout/include_navigation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?actionBarSize"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fillViewport="true">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <FrameLayout
-                    android:id="@+id/mailHeaderFl"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:paddingLeft="@dimen/margin_normal"
-                    android:paddingRight="@dimen/margin_normal">
-
-                    <TextView
-                        style="@style/text.header2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:textStyle="normal"
-                        android:text="@string/nstack_home_messagesHeader" />
-
-                    <Button
-                        android:id="@+id/showBtn"
-                        style="@style/buttonRoundedCorners"
-                        android:layout_width="wrap_content"
-                        android:layout_height="28dp"
-                        android:layout_gravity="right|center_vertical"
-                        android:enabled="true"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"
-                        android:textSize="14sp"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:visibility="visible"
-                        android:text="@string/nstack_home_messagesSectionHeaderShowAllButton" />
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/folderPreviewFl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-
-                <FrameLayout
-                    android:id="@+id/channelsHeaderFl"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/margin_normal"
-                    android:paddingRight="@dimen/margin_normal">
-
-                    <TextView
-                        style="@style/text.header2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:textStyle="normal"
-                        android:text="@string/nstack_home_channelsHeader" />
-
-                    <Button
-                        android:id="@+id/editChannelsBtn"
-                        style="@style/buttonRoundedCorners"
-                        android:background="@color/backgroundColor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="28dp"
-                        android:layout_gravity="right|center_vertical"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14sp"
-                        android:visibility="gone"
-                        android:text="@string/nstack_home_channelsHeaderButton" />
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/channelControlFl"
-                    android:background="@color/backgroundColor"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-    <include layout="@layout/include_navigation_view" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

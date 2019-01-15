@@ -3,60 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:animateLayoutChanges="true">
 
-    <include layout="@layout/include_toolbar"/>
+    <include layout="@layout/include_toolbar" />
 
-    <include layout="@layout/include_navigation_view"/>
+    <include layout="@layout/include_navigation_view" />
 
-    <androidx.core.widget.NestedScrollView
+    <include
+        layout="@layout/fragment_senders_overview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"
-        android:background="@color/backgroundColor"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:animateLayoutChanges="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/margin_normal"
-            android:animateLayoutChanges="true">
-
-            <Button
-                android:id="@+id/senderPendingBtn"
-                style="@style/button.SolidGradient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="48dp"
-                android:layout_marginLeft="@dimen/margin_normal"
-                android:layout_marginRight="@dimen/margin_normal"
-                android:layout_marginBottom="@dimen/margin_normal"
-                android:drawableStart="@drawable/icon_48_senders_white"
-                android:drawablePadding="@dimen/margin_normal"
-                android:gravity="start|center_vertical"
-                android:visibility="gone"
-                tools:visibility="visible"
-                tools:text="Yending"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-            <fragment
-                android:id="@+id/sendersCategoriesFrag"
-                android:name="dk.eboks.app.presentation.ui.senders.components.categories.CategoriesComponentFragment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
