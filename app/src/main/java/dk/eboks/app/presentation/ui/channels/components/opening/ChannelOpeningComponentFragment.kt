@@ -246,7 +246,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
 
     override fun openStoreBoxContent(channel : Channel) {
         Timber.i("openStoreBoxContent ${channel.name}")
-        val fragment = ChannelContentStoreboxComponentFragment().putArg(Channel::class.java.simpleName, channel) as BaseFragment
+        val fragment = ChannelContentStoreboxComponentFragment().putArg(Channel::class.java.simpleName, channel)
         getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
     }
 

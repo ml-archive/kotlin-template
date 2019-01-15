@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.base
 
-import android.app.FragmentManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +10,8 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import dk.eboks.app.App
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.models.local.ViewError
@@ -39,12 +40,11 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         ViewErrorController(context = this, closeFunction = { finish() })
     }
 
-
     companion object {
-        val backStackRootTag = "root_fragment"
+        const val backStackRootTag = "root_fragment"
     }
 
-    private val broadcastReceiver : BroadcastReceiver = BroadcastReceiver()
+    private val broadcastReceiver: BroadcastReceiver = BroadcastReceiver()
 
     /**
      * easy shortcut to get an inflater, this only gets instantiated if you use it and only the first time
@@ -116,22 +116,26 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         return mainTb
     }
 
-    fun setRootFragment(resId: Int, fragment: androidx.fragment.app.Fragment?) {
+    fun setRootFragment(resId: Int, fragment: Fragment?) {
         fragment?.let {
             supportFragmentManager.popBackStack(
-                    backStackRootTag,
-                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                backStackRootTag,
+                FragmentManager.POP_BACK_STACK_INCLUSIVE
             )
             supportFragmentManager.beginTransaction()
-                    .replace(resId, fragment)
-                    .addToBackStack(backStackRootTag)
-                    .commit()
+                .replace(resId, fragment, it::class.java.simpleName)
+                .addToBackStack(backStackRootTag)
+                .commit()
         }
     }
 
-    fun addFragmentOnTop(resId: Int, fragment: androidx.fragment.app.Fragment?, addToBack: Boolean = true) {
+    protected inline fun <reified T> findFragment(): T? {
+        return supportFragmentManager.findFragmentByTag(T::class.java.simpleName) as? T
+    }
+
+    fun addFragmentOnTop(resId: Int, fragment: Fragment?, addToBack: Boolean = true) {
         fragment?.let {
-            val trans = supportFragmentManager.beginTransaction().replace(resId, it)
+            val trans = supportFragmentManager.beginTransaction().replace(resId, it, it::class.java.simpleName)
             if (addToBack)
                 trans.addToBackStack(null)
             trans.commit()
@@ -164,8 +168,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     /**
      * Override this if your activity shouldn't finish itself when receiving the session expired event
      */
-    open fun handleSessionExpired()
-    {
+    open fun handleSessionExpired() {
         finish()
     }
 

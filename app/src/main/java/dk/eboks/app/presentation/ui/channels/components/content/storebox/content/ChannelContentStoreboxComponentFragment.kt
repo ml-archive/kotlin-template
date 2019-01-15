@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
@@ -27,7 +28,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class ChannelContentStoreboxComponentFragment : BaseFragment(),
-                                                ChannelContentStoreboxComponentContract.View {
+    ChannelContentStoreboxComponentContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
     @Inject
@@ -35,17 +36,17 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
 
     private var adapter = StoreboxAdapter()
 
-    private var channel : Channel? = null
+    private var channel: Channel? = null
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(
-                R.layout.fragment_channel_storebox_component,
-                container,
-                false
+            R.layout.fragment_channel_storebox_component,
+            container,
+            false
         )
     }
 
@@ -66,8 +67,8 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
             arguments.putBoolean("openAddCreditCards", true)
             arguments.putParcelable(Channel::class.java.simpleName, channel)
             getBaseActivity()?.openComponentDrawer(
-                    ChannelSettingsComponentFragment::class.java,
-                    arguments
+                ChannelSettingsComponentFragment::class.java,
+                arguments
             )
         }
         showProgress(true)
@@ -90,8 +91,8 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
             arguments.putCharSequence("arguments", "storebox")
             arguments.putParcelable(Channel::class.java.simpleName, channel)
             getBaseActivity()?.openComponentDrawer(
-                    ChannelSettingsComponentFragment::class.java,
-                    arguments
+                ChannelSettingsComponentFragment::class.java,
+                arguments
             )
             true
         }
@@ -99,11 +100,7 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
     }
 
     private fun setup() {
-        receiptRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
-            context,
-            androidx.recyclerview.widget.RecyclerView.VERTICAL,
-            false
-        )
+        receiptRv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         receiptRv.adapter = adapter
     }
 
@@ -145,14 +142,15 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         showEmptyView(data.isEmpty())
     }
 
-    inner class StoreboxAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<StoreboxAdapter.StoreboxViewHolder>() {
+    inner class StoreboxAdapter :
+        androidx.recyclerview.widget.RecyclerView.Adapter<StoreboxAdapter.StoreboxViewHolder>() {
         var receipts: MutableList<StoreboxReceiptItem> = ArrayList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoreboxViewHolder {
             val v = LayoutInflater.from(context).inflate(
-                    R.layout.viewholder_channel_storebox_row,
-                    parent,
-                    false
+                R.layout.viewholder_channel_storebox_row,
+                parent,
+                false
             )
             return StoreboxViewHolder(v)
         }
@@ -166,9 +164,11 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
             holder.bind(currentReceipt)
         }
 
-        inner class StoreboxViewHolder(val root: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
+        inner class StoreboxViewHolder(val root: View) :
+            androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
             //cards
-            private var amountDateContainer = root.findViewById<LinearLayout>(R.id.amountDateContainerLl)
+            private var amountDateContainer =
+                root.findViewById<LinearLayout>(R.id.amountDateContainerLl)
             private var soloAmountTv = root.findViewById<TextView>(R.id.soloAmountTv)
             private val row = root.findViewById<LinearLayout>(R.id.rowLl)
             private val headerTv = root.findViewById<TextView>(R.id.headerTv)
@@ -189,8 +189,8 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
                     soloAmountTv?.visibility = View.VISIBLE
                 }
                 amountTv?.text = String.format(
-                        "%.2f",
-                        currentReceipt.grandTotal
+                    "%.2f",
+                    currentReceipt.grandTotal
                 )
                 if (currentReceipt.logo?.url != null) {
                     logoIv?.let {
@@ -200,7 +200,14 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
 
                 row?.setOnClickListener {
                     Timber.d("Receipt Clicked: %s", currentReceipt.id)
-                    addFragmentOnTop(R.id.content, ChannelContentStoreboxDetailComponentFragment().putArg(StoreboxReceipt.KEY_ID!!, currentReceipt.id) as BaseFragment, true)
+                    addFragmentOnTop(
+                        R.id.content,
+                        ChannelContentStoreboxDetailComponentFragment().putArg(
+                            StoreboxReceipt.KEY_ID!!,
+                            currentReceipt.id
+                        ),
+                        true
+                    )
                 }
             }
         }

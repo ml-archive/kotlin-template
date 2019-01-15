@@ -5,27 +5,30 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-class ChannelOverviewComponentPresenter @Inject constructor(val appState: AppStateManager, val getChannelsInteractor: GetChannelsInteractor) :
-        ChannelOverviewComponentContract.Presenter,
-        BasePresenterImpl<ChannelOverviewComponentContract.View>(),
-        GetChannelsInteractor.Output
-{
+class ChannelOverviewComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val getChannelsInteractor: GetChannelsInteractor
+) :
+    ChannelOverviewComponentContract.Presenter,
+    BasePresenterImpl<ChannelOverviewComponentContract.View>(),
+    GetChannelsInteractor.Output {
 
     init {
         getChannelsInteractor.output = this
     }
 
     override fun setup() {
-        //refresh(true)
+        refresh(true)
     }
 
-    override fun refresh(cached : Boolean)
-    {
+    override fun refresh(cached: Boolean) {
+        Timber.d("Cached: $cached")
         getChannelsInteractor.input = GetChannelsInteractor.Input(cached)
         getChannelsInteractor.run()
     }
@@ -36,17 +39,17 @@ class ChannelOverviewComponentPresenter @Inject constructor(val appState: AppSta
             state.selectedChannel = channel
         }
         */
-        runAction { v-> v.showChannelOpening(channel) }
+        runAction { v -> v.showChannelOpening(channel) }
     }
 
     override fun onGetChannels(channels: List<Channel>) {
-        runAction { v->
+        runAction { v ->
             v.showChannels(channels)
             v.showProgress(false)
         }
     }
 
-    override fun onGetChannelsError(error : ViewError) {
+    override fun onGetChannelsError(error: ViewError) {
         runAction { it.showErrorDialog(error) }
     }
 }

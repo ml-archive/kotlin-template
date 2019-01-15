@@ -11,6 +11,9 @@ import javax.inject.Inject
 class ChannelOverviewActivity : BaseActivity(), ChannelOverviewContract.View {
     @Inject lateinit var presenter: ChannelOverviewContract.Presenter
 
+    private val channelOverviewComponentFragment: ChannelOverviewComponentFragment
+        get() = findFragment() ?: ChannelOverviewComponentFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_overview_channels)
@@ -26,11 +29,10 @@ class ChannelOverviewActivity : BaseActivity(), ChannelOverviewContract.View {
             }
         }
 
-        setRootFragment(R.id.containerFl, ChannelOverviewComponentFragment())
+        setRootFragment(R.id.containerFl, channelOverviewComponentFragment)
     }
 
     private fun setupTopBar() {
         mainTb.title = Translation.channels.title
     }
-
 }

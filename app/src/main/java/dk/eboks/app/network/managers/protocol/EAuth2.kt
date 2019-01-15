@@ -111,7 +111,7 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
         val longClient = appStateManager.state?.loginState?.useLongClientId == true
 
         try {
-            return authClient.transformRefreshToken(reToken!!, longClient)
+            return authClient.transformRefreshToken(reToken, longClient)
         } catch (e: Throwable) {
             Timber.e("Token refresh fail: $e")
         }
@@ -127,7 +127,7 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
                 Timber.wtf("Much, much, much drastic error here - this is when the authenticator was started without a user being selected")
                 return null
             }
-            return authClient.login(userName!!, password!!, longToken)
+            return authClient.login(userName, password, longToken)
         } catch (e: Throwable) {
             Timber.e("New token fail: $e")
         }
@@ -141,7 +141,7 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
         }
         appStateManager.state?.loginState?.kspToken = null // consume it
         try {
-            return authClient.transformKspToken(kspToken!!)
+            return authClient.transformKspToken(kspToken)
         } catch (e: Throwable) {
             Timber.e("Token transform fail: $e")
         }

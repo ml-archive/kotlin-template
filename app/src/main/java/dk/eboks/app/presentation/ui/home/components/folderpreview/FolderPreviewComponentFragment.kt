@@ -41,8 +41,7 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
     lateinit var formatter: EboksFormatter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_folder_preview_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_folder_preview_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

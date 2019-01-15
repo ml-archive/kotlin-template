@@ -48,7 +48,7 @@ class ChannelContentActivity : BaseActivity(), ChannelContentContract.View {
         val fragment = ChannelContentStoreboxComponentFragment().putArg(
             Channel::class.java.simpleName,
             channel
-        ) as BaseFragment
+        )
         addFragmentOnTop(R.id.content, fragment, false)
     }
 

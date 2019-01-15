@@ -31,12 +31,13 @@ import javax.inject.Inject
 class HomeActivity : BaseActivity(), HomeContract.View {
     @Inject lateinit var presenter: HomeContract.Presenter
 
-    var folderPreviewFragment : FolderPreviewComponentFragment? = null
-    var channelControlFragment : ChannelControlComponentFragment? = null
+    var folderPreviewFragment: FolderPreviewComponentFragment? = null
+    private val channelControlFragment: ChannelControlComponentFragment
+        get() = findFragment() ?: ChannelControlComponentFragment()
     var doneRefreshingFolderPreview = false
     var doneRefreshingChannelControls = false
 
-    val onLanguageChange : (Locale)->Unit = { locale ->
+    val onLanguageChange: (Locale) -> Unit = { locale ->
         Timber.e("Locale changed to locale")
         updateTranslation()
     }
@@ -62,7 +63,8 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         }
 
         showBtn.setOnClickListener {
-            Starter().activity(MailListActivity::class.java).putExtra("folder", Folder(type = FolderType.HIGHLIGHTS)).start()
+            Starter().activity(MailListActivity::class.java)
+                .putExtra("folder", Folder(type = FolderType.HIGHLIGHTS)).start()
         }
 
 
@@ -72,8 +74,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     override fun onResume() {
         super.onResume()
         EventBus.getDefault().register(this)
-        if(refreshOnResume)
-        {
+        if (refreshOnResume) {
             refreshOnResume = false
             mainHandler.postDelayed({
                 // fire event to signal ChannelControlComponent and FolderPreviewComponent to refresh
@@ -104,42 +105,43 @@ class HomeActivity : BaseActivity(), HomeContract.View {
             //overridePendingTransition(R.anim.slide_up, 0)
             true
         }
-
     }
 
     override fun getNavigationMenuAction(): Int {
         return R.id.actionHome
     }
 
-    override fun addFolderPreviewComponentFragment(folder : Folder)
-    {
-        folderPreviewFragment = FolderPreviewComponentFragment().putArg(Folder::class.java.simpleName, folder) as FolderPreviewComponentFragment
-        folderPreviewFragment?.let{
-            supportFragmentManager.beginTransaction().add(R.id.folderPreviewFl, it, it::class.java.simpleName).commit()
+    override fun addFolderPreviewComponentFragment(folder: Folder) {
+        folderPreviewFragment = FolderPreviewComponentFragment().putArg(
+            Folder::class.java.simpleName,
+            folder
+        )
+        folderPreviewFragment?.let {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.folderPreviewFl, it, it::class.java.simpleName).commit()
         }
     }
 
-    override fun addChannelControlComponentFragment()
-    {
-        channelControlFragment = ChannelControlComponentFragment()
-        channelControlFragment?.let{
-            supportFragmentManager.beginTransaction().add(R.id.channelControlFl, it, it::class.java.simpleName).commit()
-        }
+    override fun addChannelControlComponentFragment() {
+        supportFragmentManager.beginTransaction()
+            .add(
+                R.id.channelControlFl,
+                channelControlFragment,
+                channelControlFragment::class.java.simpleName
+            ).commit()
     }
 
     override fun showMailsHeader(show: Boolean) {
-        mailHeaderFl.visibility = if(show) View.VISIBLE else View.GONE
+        mailHeaderFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun showChannelControlsHeader(show: Boolean) {
-        channelsHeaderFl.visibility = if(show) View.VISIBLE else View.GONE
+        channelsHeaderFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    fun updateRefreshStatus()
-    {
-        if(doneRefreshingChannelControls && doneRefreshingFolderPreview)
-        {
-            if(refreshSrl.isRefreshing)
+    fun updateRefreshStatus() {
+        if (doneRefreshingChannelControls && doneRefreshingFolderPreview) {
+            if (refreshSrl.isRefreshing)
                 refreshSrl.isRefreshing = false
         }
     }

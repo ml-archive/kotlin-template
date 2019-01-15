@@ -343,40 +343,40 @@ fun Activity.Starter(): ActivityStarter {
     return ActivityStarter(this)
 }
 
-fun Fragment.putArg(name: String, value: Serializable) =
+fun <T : Fragment> T.putArg(name: String, value: Serializable) =
     apply { arguments.guard { arguments = Bundle() }; arguments?.putSerializable(name, value) }
 
-fun Fragment.putArg(name: String, value: Boolean) =
+fun <T : Fragment> T.putArg(name: String, value: Boolean) =
     apply { arguments.guard { arguments = Bundle() }; arguments?.putBoolean(name, value) }
 
-fun Fragment.putArg(name: String, value: Byte) =
+fun <T : Fragment> T.putArg(name: String, value: Byte) =
     apply { arguments.guard { arguments = Bundle() }; arguments?.putByte(name, value) }
 
-fun Fragment.putArg(name: String, value: Char) =
+fun <T : Fragment> T.putArg(name: String, value: Char) =
     apply { arguments.guard { arguments = Bundle() }; arguments?.putChar(name, value) }
 
-fun Fragment.putArg(name: String, value: Short) =
+fun <T : Fragment> T.putArg(name: String, value: Short) =
     apply { arguments.guard { arguments = Bundle() }; arguments?.putShort(name, value) }
 
-fun Fragment.putArg(name: String, value: Int) =
+fun <T : Fragment> T.putArg(name: String, value: Int) =
     apply { arguments.guard { arguments = Bundle() }; arguments?.putInt(name, value) }
 
-fun Fragment.putArg(name: String, value: Long) =
+fun <T : Fragment> T.putArg(name: String, value: Long) =
     apply { arguments.guard { arguments = Bundle() }; arguments?.putLong(name, value) }
 
-fun Fragment.putArg(name: String, value: Float) =
+fun <T : Fragment> T.putArg(name: String, value: Float) =
     apply { arguments.guard { arguments = Bundle() }; arguments?.putFloat(name, value) }
 
-fun Fragment.putArg(name: String, value: Double) =
+fun <T : Fragment> T.putArg(name: String, value: Double) =
     apply { arguments.guard { arguments = Bundle() }; arguments?.putDouble(name, value) }
 
-fun Fragment.putArg(name: String, value: String) =
+fun <T : Fragment> T.putArg(name: String, value: String) =
     apply { arguments.guard { arguments = Bundle() }; arguments?.putString(name, value) }
 
-fun Fragment.putArg(name: String, value: CharSequence) =
+fun <T : Fragment> T.putArg(name: String, value: CharSequence) =
     apply { arguments.guard { arguments = Bundle() }; arguments?.putCharSequence(name, value) }
 
-fun Fragment.putArg(name: String, value: Parcelable) =
+fun <T : Fragment> T.putArg(name: String, value: Parcelable) =
     apply { arguments.guard { arguments = Bundle() }; arguments?.putParcelable(name, value) }
 
 fun LoginProvider.translatedName(): String {

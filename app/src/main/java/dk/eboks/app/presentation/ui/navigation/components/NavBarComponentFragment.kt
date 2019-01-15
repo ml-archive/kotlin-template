@@ -26,12 +26,14 @@ import javax.inject.Inject
  */
 class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
 
-    @Inject
-    lateinit var presenter : NavBarComponentContract.Presenter
+    @Inject lateinit var presenter: NavBarComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_navbar_component, container, false)
-        return rootView
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_navbar_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,10 +43,9 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
         setupMainNavigation()
     }
 
-    private fun setupMainNavigation()
-    {
+    private fun setupMainNavigation() {
         mainNavigationBnv.inflateMenu(R.menu.main)
-        var menu = mainNavigationBnv.menu
+        val menu = mainNavigationBnv.menu
         menu.findItem(R.id.actionHome).title = Translation.mainnav.homeButton
         menu.findItem(R.id.actionMail).title = Translation.mainnav.mailButton
         menu.findItem(R.id.actionSenders).title = Translation.mainnav.sendersButton
@@ -53,47 +54,37 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
         mainNavigationBnv.disableShiftingMode()
 
         getBaseActivity()?.let {
-            val menu_id = it.getNavigationMenuAction()
-            if(menu_id != -1)
-                currentMenuItem = menu_id
+            val menuId = it.getNavigationMenuAction()
+            if (menuId != -1)
+                currentMenuItem = menuId
         }
 
         mainNavigationBnv.selectedItemId = currentMenuItem
 
         mainNavigationBnv.setOnNavigationItemSelectedListener { item ->
-            var activityCls : Class<out Activity>? = null
-            when(item.itemId)
-            {
+
+            currentMenuItem = item.itemId
+            val activityCls = when (currentMenuItem) {
                 R.id.actionHome -> {
-                    activityCls = HomeActivity::class.java
-                    currentMenuItem = R.id.actionHome
+                    HomeActivity::class.java
                 }
                 R.id.actionMail -> {
-                    activityCls = MailOverviewActivity::class.java
-                    currentMenuItem = R.id.actionMail
+                    MailOverviewActivity::class.java
                 }
                 R.id.actionChannels -> {
-                    activityCls = ChannelOverviewActivity::class.java
-                    currentMenuItem = R.id.actionChannels
+                    ChannelOverviewActivity::class.java
                 }
                 R.id.actionSenders -> {
-                    if(BuildConfig.ENABLE_SENDERS) {
-                        activityCls = SendersOverviewActivity::class.java
-                    }
-                    else
-                    {
-                        activityCls = ComingSoonActivity::class.java
-                    }
-                    currentMenuItem = R.id.actionSenders
+                    if (BuildConfig.ENABLE_SENDERS) SendersOverviewActivity::class.java
+                    else ComingSoonActivity::class.java
                 }
                 R.id.actionUploads -> {
-                    if(BuildConfig.ENABLE_UPLOADS)
-                        activityCls = UploadsActivity::class.java
-                    else
-                        activityCls = ComingSoonActivity::class.java
-                    currentMenuItem = R.id.actionUploads
+                    if (BuildConfig.ENABLE_UPLOADS) UploadsActivity::class.java
+                    else ComingSoonActivity::class.java
                 }
-                else -> { }
+                else -> {
+                    null
+                }
             }
             activityCls?.let {
                 startActivity(Intent(context, activityCls))
@@ -106,23 +97,20 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
     companion object {
         var currentMenuItem = 0
 
-        fun gotoChannels(activity: Activity)
-        {
+        fun gotoChannels(activity: Activity) {
             currentMenuItem = R.id.actionChannels
             activity.Starter().activity(ChannelOverviewActivity::class.java).start()
         }
 
-        fun gotoMail(activity: Activity)
-        {
+        fun gotoMail(activity: Activity) {
             currentMenuItem = R.id.actionMail
             activity.Starter().activity(MailOverviewActivity::class.java).start()
         }
 
-        fun gotoInbox(activity: Activity)
-        {
+        fun gotoInbox(activity: Activity) {
             currentMenuItem = R.id.actionMail
-            activity.Starter().activity(MailOverviewActivity::class.java).putExtra("openInbox", true).start()
+            activity.Starter().activity(MailOverviewActivity::class.java)
+                .putExtra("openInbox", true).start()
         }
     }
-
 }

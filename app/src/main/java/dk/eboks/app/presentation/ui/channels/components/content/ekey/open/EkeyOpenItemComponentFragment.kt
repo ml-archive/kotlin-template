@@ -37,7 +37,11 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
     @Inject
     lateinit var presenter: EkeyOpenItemComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_channel_ekey_openitem, container, false)
         return rootView
     }
@@ -87,7 +91,7 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
             }
         }
 
-        val categoryString = when(ekey) {
+        val categoryString = when (ekey) {
             is Login -> {
                 Translation.ekey.deleteItemDescriptionLogin
             }
@@ -107,25 +111,25 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
             getBaseActivity()?.onBackPressed()
         }
 
-        if(ekey !is Ekey) {
+        if (ekey !is Ekey) {
             val menuSearch = getBaseActivity()?.mainTb?.menu?.add("_settings")
             menuSearch?.setIcon(R.drawable.icon_48_delete_red)
             menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
 
                 AlertDialog.Builder(context ?: return@setOnMenuItemClickListener false)
-                        .setMessage(Translation.ekey.deleteDialogMsg.replace("[item]", categoryString))
-                        .setPositiveButton(Translation.ekey.deleteDialogRemoveBtn) { dialog, which ->
-                            ekey?.let {
-                                val items = (activity as EkeyContentActivity).getVault()
-                                items?.removeAll { r -> r.hashCode() == it.hashCode() }
-                                items?.let { items -> presenter.putVault(items) }
-                            }
+                    .setMessage(Translation.ekey.deleteDialogMsg.replace("[item]", categoryString))
+                    .setPositiveButton(Translation.ekey.deleteDialogRemoveBtn) { dialog, which ->
+                        ekey?.let {
+                            val items = (activity as EkeyContentActivity).getVault()
+                            items?.removeAll { r -> r.hashCode() == it.hashCode() }
+                            items?.let { items -> presenter.putVault(items) }
                         }
-                        .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                    }
+                    .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
 
-                        }
-                        .show()
+                    }
+                    .show()
                 true
             }
         }
@@ -135,7 +139,7 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
         ekey?.let {
             nameTv.text = it.name
 
-            if(it.note != null) {
+            if (it.note != null) {
                 noteTv.text = it.note
             } else {
                 noteHeaderTv.visibility = View.GONE
@@ -158,16 +162,28 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
                     }
 
                     copyPasswordBtn.setOnClickListener { view ->
-                        val clipboard  = context?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
-                        val clip = android.content.ClipData.newPlainText("copied password", it.password)
+                        val clipboard =
+                            context?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+                        val clip =
+                            android.content.ClipData.newPlainText("copied password", it.password)
                         clipboard?.primaryClip = clip
-                        Toast.makeText(context, (Translation.ekey.copiedToClipboard), Toast.LENGTH_SHORT).show()
-                }
+                        Toast.makeText(
+                            context,
+                            (Translation.ekey.copiedToClipboard),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                     copyUsernameBtn.setOnClickListener { view ->
-                        val clipboard  = context?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
-                        val clip = android.content.ClipData.newPlainText("copied username", it.username)
+                        val clipboard =
+                            context?.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+                        val clip =
+                            android.content.ClipData.newPlainText("copied username", it.username)
                         clipboard?.primaryClip = clip
-                        Toast.makeText(context, (Translation.ekey.copiedToClipboard), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            (Translation.ekey.copiedToClipboard),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
                 is Pin -> {
@@ -185,7 +201,6 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
                             pinTv.text = getPassword(it.pin)
                         }
                     }
-
                 }
                 is Note -> {
                     category = EkeyDetailMode.NOTE
@@ -208,21 +223,13 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
             editBtn.setOnClickListener {
                 val fragment = EkeyDetailComponentFragment()
 
-                fragment.putArg("category",category)
-                var key = ekey
+                fragment.putArg("category", category)
+                val key = ekey
                 when (key) {
-                    is Login -> {
-                        fragment.putArg("login", key)
-                    }
-                    is Pin -> {
-                        fragment.putArg("pin", key)
-                    }
-                    is Note -> {
-                        fragment.putArg("note", key)
-                    }
-                    is Ekey -> {
-                        fragment.putArg("ekey", key)
-                    }
+                    is Login -> fragment.putArg("login", key)
+                    is Pin -> fragment.putArg("pin", key)
+                    is Note -> fragment.putArg("note", key)
+                    is Ekey -> fragment.putArg("ekey", key)
                 }
                 getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, true)
             }
@@ -234,7 +241,7 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
     }
 
     override fun showPinView() {
-        val act = if(activity is EkeyContentActivity) {
+        val act = if (activity is EkeyContentActivity) {
             activity as EkeyContentActivity
         } else {
             null
@@ -253,6 +260,4 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
             return password
         }
     }
-
-
 }
