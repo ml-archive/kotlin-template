@@ -73,7 +73,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
 
     companion object {
         val REQUEST_ID: Int = 2468
-        private const val ARG_OVERIDE_USER = "override_user"
+        const val ARG_OVERIDE_USER = "override_user"
 
         fun startAsIntent(context: Context?, overrideCurrentUser: Boolean = false) {
             val intent = Intent(context, FolderActivity::class.java).apply {

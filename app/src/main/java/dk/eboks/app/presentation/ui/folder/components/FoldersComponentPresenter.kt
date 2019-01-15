@@ -21,6 +21,7 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
   var pickermode : FolderMode = FolderMode.NORMAL
 
     init {
+
         openFolderInteractor.output = this
         getFoldersInteractor.output = this
         runAction { v ->

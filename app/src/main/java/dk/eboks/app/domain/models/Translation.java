@@ -759,4 +759,11 @@ public class Translation {
 		public static String skipBtn = "Annuller";
 		public static String cancelButton = "Annuller";
 	}
+	public final static class pendingregistrations {
+		public static String title = "__title";
+		public static String pendingSenderHeader = "__pendingSenderHeader";
+		public static String pendingSenderDescription = "__pendingSenderDescription";
+		public static String registerButton = "__registerButton";
+		public static String registerAllButton = "__registerAllButton";
+	}
 }

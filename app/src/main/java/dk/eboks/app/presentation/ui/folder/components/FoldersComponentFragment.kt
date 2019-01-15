@@ -107,6 +107,9 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         if (userfolders.size == 0) {
             arguments.putBoolean("disableFolderSelection", true)
         }
+        arguments.apply {
+            putBoolean("override_user", isSharedUserActive)
+        }
         getBaseActivity()?.openComponentDrawer(fragment::class.java, arguments)
     }
 

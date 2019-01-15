@@ -16,6 +16,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.components.FoldersComponentFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folder_newfolder.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -31,6 +32,8 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
     var editFolder: Folder? = null
     var rootFolderName: String? = null
     var disableFolderSelection: Boolean = false
+    override val overrideActiveUser: Boolean
+        get() = arguments?.getBoolean("override_user") ?: false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_folder_newfolder, container, false)
@@ -106,6 +109,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
             var i = Intent(context, FolderActivity::class.java)
             i.putExtra("pick", true)
             i.putExtra("selectFolder", true)
+            i.putExtra(FolderActivity.ARG_OVERIDE_USER, overrideActiveUser)
             startActivityForResult(i, FolderActivity.REQUEST_ID)
         }
     }

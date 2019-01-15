@@ -11,6 +11,7 @@ interface NewFolderComponentContract {
         fun setRootFolder(user : String)
         fun showFolderNameError()
         fun finish()
+        val overrideActiveUser: Boolean
     }
 
     interface Presenter : BasePresenter<View> {
