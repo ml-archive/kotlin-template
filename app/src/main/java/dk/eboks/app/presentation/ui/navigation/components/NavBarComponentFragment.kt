@@ -24,6 +24,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
+@Deprecated("Use MainActivity")
 class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
 
     @Inject lateinit var presenter: NavBarComponentContract.Presenter

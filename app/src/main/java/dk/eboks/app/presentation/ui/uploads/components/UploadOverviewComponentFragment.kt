@@ -51,9 +51,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
     var verified = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_upload_overview_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_upload_overview_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

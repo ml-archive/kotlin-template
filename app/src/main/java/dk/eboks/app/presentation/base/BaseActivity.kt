@@ -157,13 +157,6 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         super.attachBaseContext(NStackBaseContext(newBase))
     }
 
-    protected open fun clearBackStack() {
-        // Pop them
-        while (supportFragmentManager.backStackEntryCount > 0) {
-            supportFragmentManager.popBackStackImmediate()
-        }
-    }
-
     protected open fun onShake() {}
 
     /**

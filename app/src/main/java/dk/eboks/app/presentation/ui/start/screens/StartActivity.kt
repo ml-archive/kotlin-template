@@ -171,8 +171,7 @@ class StartActivity : BaseActivity(), StartContract.View {
 
     override fun startMain() {
         //TODO change back to regular when done
-        NavBarComponentFragment.currentMenuItem = R.id.actionMail
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(MainActivity.createIntent(this))
 
         //overridePendingTransition(0, 0)
         Timber.d("Finishing StartActivity")

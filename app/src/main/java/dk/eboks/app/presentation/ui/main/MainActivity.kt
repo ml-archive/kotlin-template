@@ -1,5 +1,7 @@
 package dk.eboks.app.presentation.ui.main
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -13,6 +15,7 @@ import dk.eboks.app.presentation.ui.mail.components.foldershortcuts.FolderShortc
 import dk.eboks.app.presentation.ui.notimplemented.screens.ComingSoonFragment
 import dk.eboks.app.presentation.ui.senders.screens.overview.SerdersOverviewFragment
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
+import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainNavigator {
@@ -57,12 +60,14 @@ class MainActivity : BaseActivity(), MainNavigator {
 
     private fun setupBottomNavigation() {
         mainNavigationBnv.run {
-            menu.getItem(0).title = Translation.mainnav.homeButton
-            menu.getItem(1).title = Translation.mainnav.mailButton
-            menu.getItem(2).title = Translation.mainnav.sendersButton
-            menu.getItem(3).title = Translation.mainnav.channelsButton
-            menu.getItem(4).title = Translation.mainnav.uploadsButton
-            setOnNavigationItemSelectedListener(navListener)
+            menu.findItem(R.id.actionHome).title = Translation.mainnav.homeButton
+            menu.findItem(R.id.actionMail).title = Translation.mainnav.mailButton
+            menu.findItem(R.id.actionSenders).title = Translation.mainnav.sendersButton
+            menu.findItem(R.id.actionChannels).title = Translation.mainnav.channelsButton
+            menu.findItem(R.id.actionUploads).title = Translation.mainnav.uploadsButton
+            (intent.getSerializableExtra(PARAM_SECTION) as? Section)?.let(::showMainSection).guard {
+                setOnNavigationItemSelectedListener(navListener)
+            }
         }
     }
 
@@ -74,8 +79,11 @@ class MainActivity : BaseActivity(), MainNavigator {
             Section.Mail -> setMainFragment(folderShortcutsComponentFragment)
             Section.Channels -> setMainFragment(channelOverviewComponentFragment)
             Section.Senders -> {
-                if (BuildConfig.ENABLE_SENDERS) setMainFragment(sendersOverviewFragment)
-                else setMainFragment(csSender, ComingSoonSenderTag)
+                if (BuildConfig.ENABLE_SENDERS) {
+                    setMainFragment(sendersOverviewFragment)
+                } else {
+                    setMainFragment(csSender, ComingSoonSenderTag)
+                }
             }
             Section.Uploads -> {
                 if (BuildConfig.ENABLE_UPLOADS) {
@@ -88,10 +96,19 @@ class MainActivity : BaseActivity(), MainNavigator {
         mainNavigationBnv.setOnNavigationItemSelectedListener(navListener)
     }
 
-    private fun setMainFragment(fragment: Fragment, tag: String? = null) {
+    private fun setMainFragment(
+        fragment: Fragment,
+        tag: String? = null,
+        clearBackStack: Boolean = true
+    ) {
         if (shownFragment == fragment) return
         // Clear back stack and avoid pop animations
-        clearBackStack()
+
+        if (clearBackStack) {
+            while (supportFragmentManager.backStackEntryCount > 0) {
+                supportFragmentManager.popBackStackImmediate()
+            }
+        }
         val ft = supportFragmentManager.beginTransaction()
 
         // We hide/show the fragments normally, add() only once
@@ -114,5 +131,9 @@ class MainActivity : BaseActivity(), MainNavigator {
     companion object {
         private const val ComingSoonSenderTag = "csSender"
         private const val ComingSoonUploadTag = "csUpload"
+        private const val PARAM_SECTION = "section"
+        fun createIntent(context: Context, section: Section = Section.Mail): Intent =
+            Intent(context, MainActivity::class.java)
+                .putExtra(PARAM_SECTION, section)
     }
 }
