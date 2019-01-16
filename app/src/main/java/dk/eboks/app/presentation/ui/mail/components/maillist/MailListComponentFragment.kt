@@ -190,6 +190,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     private fun setupTopBar() {
+        activity?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         getBaseActivity()?.mainTb?.menu?.clear()
 
         getBaseActivity()?.mainTb?.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
@@ -385,5 +386,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     companion object {
         var refreshOnResume: Boolean = false
+
+
     }
 }

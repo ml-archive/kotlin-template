@@ -12,11 +12,13 @@ import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.overview.ChannelOverviewComponentFragment
 import dk.eboks.app.presentation.ui.home.screens.HomeFragment
+import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
 import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewFragment
 import dk.eboks.app.presentation.ui.notimplemented.screens.ComingSoonFragment
 import dk.eboks.app.presentation.ui.senders.screens.overview.SerdersOverviewFragment
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
 import dk.eboks.app.util.guard
+import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 
@@ -100,10 +102,34 @@ class MainActivity : BaseActivity(), MainNavigator {
         mainNavigationBnv.setOnNavigationItemSelectedListener(navListener)
     }
 
+
+    override fun showSecondary(secondarySection: SecondarySection) {
+        val fragment = when (secondarySection) {
+            is SecondarySection.MailsList -> {
+              MailListComponentFragment().apply {
+                    putArg("folder", secondarySection.folder)
+                }
+
+            }
+        }
+        //setMainFragment(fragment, fragment::class.java.simpleName, false, true)
+        setSecondary(fragment)
+    }
+
+    private fun setSecondary(fragment: Fragment) {
+        val ft = supportFragmentManager.beginTransaction()
+                .add(R.id.fragmentHolderLayout, fragment)
+                .addToBackStack(null)
+
+        shownFragment?.let { ft.hide(it) }
+        ft.commit()
+    }
+
     private fun setMainFragment(
         fragment: Fragment,
         tag: String? = null,
-        clearBackStack: Boolean = true
+        clearBackStack: Boolean = true,
+        addToBackStak: Boolean = false
     ) {
         if (shownFragment == fragment) return
         // Clear back stack and avoid pop animations
@@ -113,6 +139,7 @@ class MainActivity : BaseActivity(), MainNavigator {
                 supportFragmentManager.popBackStackImmediate()
             }
         }
+
         val ft = supportFragmentManager.beginTransaction()
 
         // We hide/show the fragments normally, add() only once
@@ -126,10 +153,21 @@ class MainActivity : BaseActivity(), MainNavigator {
             ft.hide(it)
         }
 
+        if (addToBackStak) ft.addToBackStack(tag ?: fragment::class.java.simpleName)
+
         ft.commit()
 
         // Save for later
         shownFragment = fragment
+    }
+
+    override fun onBackPressed() {
+        with(supportFragmentManager) {
+            if (backStackEntryCount > 0) {
+                popBackStack()
+            }
+            else super.onBackPressed()
+        }
     }
 
     companion object {

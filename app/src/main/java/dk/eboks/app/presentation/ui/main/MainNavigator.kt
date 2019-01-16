@@ -3,9 +3,11 @@ package dk.eboks.app.presentation.ui.main
 import androidx.annotation.IdRes
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.folder.Folder
 
 interface MainNavigator {
     fun showMainSection(section: Section)
+    fun showSecondary(secondarySection: SecondarySection)
 }
 
 enum class Section(@IdRes val id: Int, val title: String) {
@@ -27,4 +29,8 @@ enum class Section(@IdRes val id: Int, val title: String) {
             }
         }
     }
+}
+
+sealed class SecondarySection {
+    data class MailsList(val folder: Folder) : SecondarySection()
 }
