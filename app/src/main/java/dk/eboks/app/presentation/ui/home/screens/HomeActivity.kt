@@ -76,8 +76,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
                 .putExtra("folder", Folder(type = FolderType.HIGHLIGHTS)).start()
         }
 
-
-        presenter.setup()
     }
 
     override fun onResume() {

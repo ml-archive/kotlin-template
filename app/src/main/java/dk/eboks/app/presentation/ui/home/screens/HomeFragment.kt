@@ -126,12 +126,12 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
     }
 
     override fun onRefreshFolderDone() {
-        doneRefreshingFolderPreview = false
+        doneRefreshingFolderPreview = true
         updateRefreshStatus()
     }
 
     override fun onRefreshChannelDone() {
-        doneRefreshingChannelControls = false
+        doneRefreshingChannelControls = true
         updateRefreshStatus()
     }
 

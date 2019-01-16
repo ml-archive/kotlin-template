@@ -32,14 +32,6 @@ class HomePresenter @Inject constructor(
         fetch(true)
     }
 
-    override fun setup() {
-        fetch(true)
-//        runAction { v ->
-//            v.addFolderPreview(Folder(type = FolderType.HIGHLIGHTS))
-//            v.addChannelControl()
-//        }
-    }
-
     private fun fetch(cached: Boolean) {
         getChannelHomeContentInteractor.input = GetChannelHomeContentInteractor.Input(cached)
         getMessagesInteractor.input =
@@ -73,9 +65,7 @@ class HomePresenter @Inject constructor(
     }
 
     override fun onGetChannelHomeContentDone() {
-        runAction {
-            it.onRefreshChannelDone()
-        }
+        runAction { v -> v.onRefreshChannelDone() }
     }
 
     override fun onGetInstalledChannelList(channels: MutableList<Channel>) {

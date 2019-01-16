@@ -27,7 +27,6 @@ interface HomeContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setup()
         fun refresh()
         var continueFetching: Boolean
     }
