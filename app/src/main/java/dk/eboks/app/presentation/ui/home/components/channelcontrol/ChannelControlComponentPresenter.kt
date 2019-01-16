@@ -15,12 +15,15 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class ChannelControlComponentPresenter @Inject constructor(val appState: AppStateManager, val getChannelHomeContentInteractor: GetChannelHomeContentInteractor) :
-        ChannelControlComponentContract.Presenter,
-        BasePresenterImpl<ChannelControlComponentContract.View>(),
-        GetChannelHomeContentInteractor.Output
-{
+class ChannelControlComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val getChannelHomeContentInteractor: GetChannelHomeContentInteractor
+) :
+    ChannelControlComponentContract.Presenter,
+    BasePresenterImpl<ChannelControlComponentContract.View>(),
+    GetChannelHomeContentInteractor.Output {
     override var continueFetching: Boolean = true
+
     init {
         getChannelHomeContentInteractor.output = this
     }
@@ -31,7 +34,8 @@ class ChannelControlComponentPresenter @Inject constructor(val appState: AppStat
     }
 
     override fun refresh() {
-        getChannelHomeContentInteractor.input = GetChannelHomeContentInteractor.Input(cached = false)
+        getChannelHomeContentInteractor.input =
+            GetChannelHomeContentInteractor.Input(cached = false)
         getChannelHomeContentInteractor.run()
     }
 
@@ -54,7 +58,7 @@ class ChannelControlComponentPresenter @Inject constructor(val appState: AppStat
         Timber.e("onGetInstalledChannelListError")
         EventBus.getDefault().post(RefreshChannelControlDoneEvent())
         if (BuildConfig.DEBUG) //TODO Temp until backend is fixed
-        runAction { v->v.showErrorDialog(error) }
+            runAction { v -> v.showErrorDialog(error) }
     }
 
     override fun onGetChannelHomeContentError(channel: Channel) {

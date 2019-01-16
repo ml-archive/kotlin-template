@@ -22,7 +22,6 @@ import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
 import dk.eboks.app.presentation.ui.profile.screens.ProfileActivity
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.putArg
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -41,6 +40,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     private val channelControlFragment: ChannelControlComponentFragment
         get() = findFragment() ?: ChannelControlComponentFragment()
     var doneRefreshingFolderPreview = false
+    override fun onRefreshChannelDone() {
+
+    }
+
     var doneRefreshingChannelControls = false
 
     val onLanguageChange: (Locale) -> Unit = { locale ->
@@ -158,6 +161,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         updateRefreshStatus()
     }
 
+    override fun onRefreshFolderDone() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: RefreshChannelControlDoneEvent) {
         doneRefreshingChannelControls = true
@@ -176,7 +183,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setupChannels(channels: MutableList<Channel>) {
+    override fun setupChannels(channels: List<Channel>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

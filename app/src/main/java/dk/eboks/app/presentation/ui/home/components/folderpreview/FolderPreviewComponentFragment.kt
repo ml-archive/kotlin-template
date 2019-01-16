@@ -35,12 +35,16 @@ import javax.inject.Inject
 class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentContract.View {
 
     @Inject
-    lateinit var presenter : FolderPreviewComponentContract.Presenter
+    lateinit var presenter: FolderPreviewComponentContract.Presenter
 
     @Inject
     lateinit var formatter: EboksFormatter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_folder_preview_component, container, false)
     }
 
@@ -58,8 +62,7 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
     override fun onResume() {
         super.onResume()
         EventBus.getDefault().register(this)
-        if(refreshOnResume)
-        {
+        if (refreshOnResume) {
             refreshOnResume = false
             presenter.refresh(false)
         }
@@ -70,28 +73,23 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
         super.onPause()
     }
 
-    override fun showEmptyState(show: Boolean, verifiedUser : Boolean) {
-        emptyStateLl.visibility = if(show) View.VISIBLE else View.GONE
-        mailListContentLL.visibility = if(!show) View.VISIBLE else View.GONE
+    private fun showEmptyState(show: Boolean, verifiedUser: Boolean) {
+        emptyStateLl.visibility = if (show) View.VISIBLE else View.GONE
+        mailListContentLL.visibility = if (!show) View.VISIBLE else View.GONE
 
         // show the header in the parent activity if said activity is HomeActivity
-        if(activity is HomeActivity)
-        {
+        if (activity is HomeActivity) {
             (activity as HomeActivity).showMailsHeader(!show)
         }
-        if(show)
-        {
-            if(verifiedUser)
-            {
+        if (show) {
+            if (verifiedUser) {
                 emptyStateBtn.text = Translation.home.messagesEmptyButton
                 emptyStateHeaderTv.text = Translation.home.messagesEmptyTitle
                 emptyStateTextTv.text = Translation.home.messagesEmptyMessage
                 emptyStateBtn.setOnClickListener {
-                    NavBarComponentFragment.gotoInbox(activity ?:return@setOnClickListener)
+                    NavBarComponentFragment.gotoInbox(activity ?: return@setOnClickListener)
                 }
-            }
-            else
-            {
+            } else {
                 emptyStateBtn.text = Translation.home.messagesUnverifiedButton
                 emptyStateHeaderTv.text = Translation.home.messagesUnverifiedTitle
                 emptyStateTextTv.text = Translation.home.messagesUnverifiedMessage
@@ -104,10 +102,9 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
         }
     }
 
-    override fun showFolder(messages: List<Message>, verifiedUser : Boolean) {
+    override fun showFolder(messages: List<Message>, verifiedUser: Boolean) {
 
-        if(messages.isEmpty())
-        {
+        if (messages.isEmpty()) {
             showEmptyState(true, verifiedUser)
             return
         } else {
@@ -138,27 +135,25 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
             if (currentMessage.unread) {
                 circleIv.isSelected = true
                 dateTv.setTypeface(null, Typeface.BOLD)
-                titleTv.setTypeface(null,Typeface.BOLD)
+                titleTv.setTypeface(null, Typeface.BOLD)
             } else {
-                dateTv.setTypeface(null,Typeface.NORMAL)
-                titleTv.setTypeface(null,Typeface.NORMAL)
+                dateTv.setTypeface(null, Typeface.NORMAL)
+                titleTv.setTypeface(null, Typeface.NORMAL)
             }
 
-            currentMessage.sender?.logo?.let {logo ->
+            currentMessage.sender?.logo?.let { logo ->
                 Glide.with(context ?: return)
-                        .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder))
-                        .load(logo.getWorkaroundUrl() )
-                        .into(circleIv)
+                    .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder))
+                    .load(logo.getWorkaroundUrl())
+                    .into(circleIv)
             }
 
             if (currentMessage.status?.title != null) {
                 urgentTv?.visibility = View.VISIBLE
                 urgentTv?.text = currentMessage.status?.title
-                if(currentMessage.status?.important == true)
-                {
+                if (currentMessage.status?.important == true) {
                     urgentTv.setTextColor(v.context.resources.getColor(R.color.rougeTwo))
-                }
-                else
+                } else
                     urgentTv.setTextColor(v.context.resources.getColor(R.color.silver))
             } else {
                 urgentTv?.visibility = View.GONE
@@ -181,12 +176,11 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
                 }
             }
             mailListContentLL.addView(v)
-
         }
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if(show) View.VISIBLE else View.GONE
+        progressFolderFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
