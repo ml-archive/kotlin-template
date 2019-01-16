@@ -86,9 +86,10 @@ class RestModule {
     fun provideDownloadManager(
             context: Context,
             client: OkHttpClient,
-            cacheManager: FileCacheManager
+            cacheManager: FileCacheManager,
+            appStateManager: AppStateManager
     ): DownloadManager {
-        return DownloadManagerImpl(context, client, cacheManager)
+        return DownloadManagerImpl(context, client, cacheManager, appStateManager)
     }
 
     @Provides
