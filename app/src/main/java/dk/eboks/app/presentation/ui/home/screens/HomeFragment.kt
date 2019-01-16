@@ -9,7 +9,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.home.Control
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.profile.screens.ProfileActivity
 import dk.eboks.app.util.visible
@@ -17,6 +20,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject
 
 class HomeFragment : BaseFragment(), HomeContract.View {
+
+
     @Inject lateinit var presenter: HomeContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,5 +69,29 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
     override fun showChannelControlsHeader(show: Boolean) {
         channelsHeaderFl.visible = show
+    }
+
+    override fun showFolderProgress(show: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showFolder(messages: List<Message>, verifiedUser: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showChannelProgress(show: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setupChannels(channels: MutableList<Channel>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun updateControl(channel: Channel, control: Control) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setControl(channel: Channel, text: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

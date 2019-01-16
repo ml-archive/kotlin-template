@@ -6,8 +6,11 @@ import android.view.MenuItem
 import android.view.View
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.home.Control
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelControlComponentFragment
 import dk.eboks.app.presentation.ui.home.components.channelcontrol.RefreshChannelControlDoneEvent
@@ -30,6 +33,8 @@ import java.util.Locale
 import javax.inject.Inject
 
 class HomeActivity : BaseActivity(), HomeContract.View {
+
+
     @Inject lateinit var presenter: HomeContract.Presenter
 
     var folderPreviewFragment: FolderPreviewComponentFragment? = null
@@ -157,5 +162,29 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     fun onEvent(event: RefreshChannelControlDoneEvent) {
         doneRefreshingChannelControls = true
         updateRefreshStatus()
+    }
+
+    override fun showFolderProgress(show: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showFolder(messages: List<Message>, verifiedUser: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showChannelProgress(show: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setupChannels(channels: MutableList<Channel>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun updateControl(channel: Channel, control: Control) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setControl(channel: Channel, text: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }
