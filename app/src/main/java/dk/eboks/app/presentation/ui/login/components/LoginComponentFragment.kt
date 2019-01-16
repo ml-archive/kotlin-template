@@ -37,7 +37,7 @@ import dk.eboks.app.util.guard
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.isValidEmail
 import dk.eboks.app.util.putArg
-import dk.eboks.app.util.setVisible
+import dk.eboks.app.util.visible
 import dk.nodes.arch.domain.executor.SignalDispatcher.signal
 import dk.nodes.locksmith.core.models.FingerprintDialogEvent.CANCEL
 import dk.nodes.locksmith.core.models.FingerprintDialogEvent.ERROR
@@ -359,14 +359,14 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             when (provider.id) {
                 "email" -> {
                     setupUserView(user)
-                    userEmailCprTv.setVisible(true)
+                    userEmailCprTv.visible = (true)
                     cprEmailEt.inputType = InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
                     cprEmailTil.visibility = View.GONE
                     userLl.visibility = View.VISIBLE
                 }
                 "cpr" -> {
                     user?.let { setupUserView(it) }
-                    userEmailCprTv.setVisible(false)
+                    userEmailCprTv.visible = (false)
                     cprEmailEt.inputType = InputType.TYPE_CLASS_NUMBER
                     userLl.visibility = View.VISIBLE
                     cprEmailTil.visibility = View.VISIBLE

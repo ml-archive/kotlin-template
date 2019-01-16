@@ -62,11 +62,11 @@ class MainActivity : BaseActivity(), MainNavigator {
 
     private fun setupBottomNavigation() {
         mainNavigationBnv.run {
-            menu.findItem(R.id.actionHome).title = Translation.mainnav.homeButton
-            menu.findItem(R.id.actionMail).title = Translation.mainnav.mailButton
-            menu.findItem(R.id.actionSenders).title = Translation.mainnav.sendersButton
-            menu.findItem(R.id.actionChannels).title = Translation.mainnav.channelsButton
-            menu.findItem(R.id.actionUploads).title = Translation.mainnav.uploadsButton
+            menu.findItem(Section.Home.id).title = Section.Home.title
+            menu.findItem(Section.Mail.id).title = Section.Mail.title
+            menu.findItem(Section.Senders.id).title = Section.Senders.title
+            menu.findItem(Section.Channels.id).title = Section.Channels.title
+            menu.findItem(Section.Uploads.id).title = Section.Uploads.title
             (intent.getSerializableExtra(PARAM_SECTION) as? Section)?.let(::showMainSection).guard {
                 setOnNavigationItemSelectedListener(navListener)
             }

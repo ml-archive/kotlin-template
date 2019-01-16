@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.util.setVisible
+import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_mail_opening_error_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -21,15 +21,19 @@ import javax.inject.Inject
 class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentContract.View {
 
     @Inject
-    lateinit var presenter : OpeningReceiptComponentContract.Presenter
+    lateinit var presenter: OpeningReceiptComponentContract.Presenter
 
-    var voluntaryReceipt : Boolean = false
+    var voluntaryReceipt: Boolean = false
 
-    val onLanguageChange : (Locale)->Unit = { locale ->
+    val onLanguageChange: (Locale) -> Unit = { locale ->
         updateTranslation()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView =
             inflater.inflate(R.layout.fragment_mail_opening_error_component, container, false)
         return rootView
@@ -42,16 +46,16 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
 
         voluntaryReceipt = arguments?.getBoolean("voluntaryReceipt") ?: false
 
-        buttonsLl.setVisible(true)
+        buttonsLl.visible = (true)
 
         openBtn.setOnClickListener {
             presenter.setShouldProceed(true, true)
         }
         openBtn.visibility = View.VISIBLE
 
-        if(voluntaryReceipt) {
+        if (voluntaryReceipt) {
             Timber.e("This is a voluntary receipt")
-            secondaryOptionBtn.setVisible(true)
+            secondaryOptionBtn.visible = (true)
             secondaryOptionBtn.setOnClickListener {
                 presenter.setShouldProceed(true, false)
             }
@@ -72,13 +76,12 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
         super.onPause()
     }
 
-    private fun updateTranslation()
-    {
+    private fun updateTranslation() {
         mainTb.title = Translation.message.receiptTitle
         headerTv.text = Translation.message.receiptTitle
         mainTv.text = Translation.message.receiptMessage
         openBtn.text = Translation.message.openMessageWithReceiptButton
-        if(voluntaryReceipt)
+        if (voluntaryReceipt)
             secondaryOptionBtn.text = Translation.message.openMessageWithoutReceiptButton
     }
 
@@ -91,7 +94,7 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
     }
 
     override fun showOpeningProgress(show: Boolean) {
-        progressPb.visibility = if(show) View.VISIBLE else View.GONE
-        buttonsLl.visibility = if(!show) View.VISIBLE else View.GONE
+        progressPb.visibility = if (show) View.VISIBLE else View.GONE
+        buttonsLl.visibility = if (!show) View.VISIBLE else View.GONE
     }
 }

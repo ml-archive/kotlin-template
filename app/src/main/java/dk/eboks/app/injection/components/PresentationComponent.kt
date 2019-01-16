@@ -1,6 +1,7 @@
 package dk.eboks.app.injection.components
 
 import dagger.Subcomponent
+import dk.eboks.app.injection.modules.PresentationBindingModule
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.pasta.activity.PastaActivity
 import dk.eboks.app.pasta.activity.PastaPresenter
@@ -56,6 +57,7 @@ import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelContro
 import dk.eboks.app.presentation.ui.home.components.folderpreview.FolderPreviewComponentFragment
 import dk.eboks.app.presentation.ui.home.components.folderpreview.FolderPreviewComponentPresenter
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
+import dk.eboks.app.presentation.ui.home.screens.HomeFragment
 import dk.eboks.app.presentation.ui.home.screens.HomePresenter
 import dk.eboks.app.presentation.ui.login.components.ActivationCodeComponentFragment
 import dk.eboks.app.presentation.ui.login.components.ActivationCodeComponentPresenter
@@ -197,7 +199,7 @@ import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadPresent
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
-@Subcomponent(modules = [PresentationModule::class])
+@Subcomponent(modules = [PresentationModule::class, PresentationBindingModule::class])
 @ActivityScope
 interface PresentationComponent {
 
@@ -407,6 +409,7 @@ interface PresentationComponent {
 
     // home
     fun inject(target: HomeActivity)
+    fun inject(target: HomeFragment)
     fun inject(target: HomePresenter)
     fun inject(target : FolderPreviewComponentFragment)
     fun inject(target : FolderPreviewComponentPresenter)

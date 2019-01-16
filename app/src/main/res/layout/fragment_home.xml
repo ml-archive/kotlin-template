@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/refreshSrl"
     android:layout_width="match_parent"
@@ -13,9 +12,9 @@
         android:fillViewport="true">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <FrameLayout
                 android:id="@+id/mailHeaderFl"
@@ -29,8 +28,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:textStyle="normal"
-                    android:text="@string/nstack_home_messagesHeader" />
+                    android:text="@string/nstack_home_messagesHeader"
+                    android:textStyle="normal" />
 
                 <Button
                     android:id="@+id/showBtn"
@@ -41,14 +40,15 @@
                     android:enabled="true"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
-                    android:textSize="14sp"
+                    android:text="@string/nstack_home_messagesSectionHeaderShowAllButton"
                     android:textColor="@color/colorPrimaryDark"
-                    android:visibility="visible"
-                    android:text="@string/nstack_home_messagesSectionHeaderShowAllButton" />
+                    android:textSize="14sp"
+                    android:visibility="visible" />
             </FrameLayout>
 
-            <FrameLayout
+            <include
                 android:id="@+id/folderPreviewFl"
+                layout="@layout/fragment_folder_preview_component"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -66,29 +66,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:textStyle="normal"
-                    android:text="@string/nstack_home_channelsHeader" />
+                    android:text="@string/nstack_home_channelsHeader"
+                    android:textStyle="normal" />
 
                 <Button
                     android:id="@+id/editChannelsBtn"
                     style="@style/buttonRoundedCorners"
-                    android:background="@color/backgroundColor"
                     android:layout_width="wrap_content"
                     android:layout_height="28dp"
                     android:layout_gravity="right|center_vertical"
+                    android:background="@color/backgroundColor"
+                    android:text="@string/nstack_home_channelsHeaderButton"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp"
-                    android:visibility="gone"
-                    android:text="@string/nstack_home_channelsHeaderButton" />
+                    android:visibility="gone" />
 
             </FrameLayout>
 
-            <FrameLayout
+            <include
                 android:id="@+id/channelControlFl"
-                android:background="@color/backgroundColor"
+                layout="@layout/fragment_channel_control_component"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:background="@color/backgroundColor" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

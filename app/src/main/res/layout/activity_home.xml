@@ -8,14 +8,14 @@
 
     <include layout="@layout/include_toolbar" />
 
-    <include layout="@layout/fragment_home" />
-
     <include
-        layout="@layout/include_navigation_view"
+        layout="@layout/fragment_home"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?actionBarSize"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <include layout="@layout/include_navigation_view" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

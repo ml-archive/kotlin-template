@@ -49,7 +49,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(dk.eboks.app.R.layout.activity_home)
+        setContentView(R.layout.activity_home)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
@@ -112,7 +112,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         return R.id.actionHome
     }
 
-    override fun addFolderPreviewComponentFragment(folder: Folder) {
+    override fun addFolderPreview(folder: Folder) {
         folderPreviewFragment = FolderPreviewComponentFragment().putArg(
             Folder::class.java.simpleName,
             folder
@@ -123,7 +123,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         }
     }
 
-    override fun addChannelControlComponentFragment() {
+    override fun addChannelControl() {
         supportFragmentManager.beginTransaction()
             .add(
                 R.id.channelControlFl,

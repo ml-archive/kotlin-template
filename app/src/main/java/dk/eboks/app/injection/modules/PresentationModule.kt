@@ -141,8 +141,6 @@ import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelContro
 import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelControlComponentPresenter
 import dk.eboks.app.presentation.ui.home.components.folderpreview.FolderPreviewComponentContract
 import dk.eboks.app.presentation.ui.home.components.folderpreview.FolderPreviewComponentPresenter
-import dk.eboks.app.presentation.ui.home.screens.HomeContract
-import dk.eboks.app.presentation.ui.home.screens.HomePresenter
 import dk.eboks.app.presentation.ui.login.components.ActivationCodeComponentContract
 import dk.eboks.app.presentation.ui.login.components.ActivationCodeComponentPresenter
 import dk.eboks.app.presentation.ui.login.components.DeviceActivationComponentContract
@@ -967,12 +965,6 @@ class PresentationModule {
             registerInteractor,
             unRegisterInteractor
         )
-    }
-
-    @ActivityScope
-    @Provides
-    fun provideHomePresenter(stateManager: AppStateManager): HomeContract.Presenter {
-        return HomePresenter(stateManager)
     }
 
     @ActivityScope

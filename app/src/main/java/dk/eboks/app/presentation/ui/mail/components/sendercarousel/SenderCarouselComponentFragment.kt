@@ -19,7 +19,7 @@ import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
 import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.senders.screens.list.SenderAllListActivity
 import dk.eboks.app.util.getWorkaroundUrl
-import dk.eboks.app.util.setVisible
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_sender_carousel_component.*
 import javax.inject.Inject
 
@@ -82,15 +82,15 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
 
     override fun showEmpty(show: Boolean, verified : Boolean) {
         if(verified) {
-            sendersListEmptyUnverifiedLl.setVisible(false)
-            sendersListEmptyLl.setVisible(show)
+            sendersListEmptyUnverifiedLl.visible = (false)
+            sendersListEmptyLl.visible = (show)
         }
         else
         {
-            sendersListEmptyLl.setVisible(false)
-            sendersListEmptyUnverifiedLl.setVisible(show)
+            sendersListEmptyLl.visible = (false)
+            sendersListEmptyUnverifiedLl.visible = (show)
         }
-        sendersListLl.setVisible(!show)
+        sendersListLl.visible = (!show)
 
     }
 
