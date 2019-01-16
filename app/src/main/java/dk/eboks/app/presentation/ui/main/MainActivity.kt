@@ -17,6 +17,7 @@ import dk.eboks.app.presentation.ui.senders.screens.overview.SerdersOverviewFrag
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 
 class MainActivity : BaseActivity(), MainNavigator {
 
@@ -55,6 +56,7 @@ class MainActivity : BaseActivity(), MainNavigator {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(mainTb)
         setupBottomNavigation()
     }
 
@@ -74,6 +76,7 @@ class MainActivity : BaseActivity(), MainNavigator {
     override fun showMainSection(section: Section) {
         mainNavigationBnv.setOnNavigationItemSelectedListener(null)
         mainNavigationBnv.selectedItemId = section.id
+        supportActionBar?.title = section.title
         when (section) {
             Section.Home -> setMainFragment(homeFragment)
             Section.Mail -> setMainFragment(folderShortcutsComponentFragment)
