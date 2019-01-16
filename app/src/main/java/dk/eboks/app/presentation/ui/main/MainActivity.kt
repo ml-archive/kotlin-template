@@ -9,9 +9,10 @@ import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.overview.ChannelOverviewComponentFragment
 import dk.eboks.app.presentation.ui.home.screens.HomeFragment
-import dk.eboks.app.presentation.ui.mail.components.foldershortcuts.FolderShortcutsComponentFragment
+import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewFragment
 import dk.eboks.app.presentation.ui.notimplemented.screens.ComingSoonFragment
 import dk.eboks.app.presentation.ui.senders.screens.overview.SerdersOverviewFragment
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
@@ -34,8 +35,8 @@ class MainActivity : BaseActivity(), MainNavigator {
     private val uploadOverviewComponentFragment: UploadOverviewComponentFragment
         get() = findFragment() ?: UploadOverviewComponentFragment()
 
-    private val folderShortcutsComponentFragment: FolderShortcutsComponentFragment
-        get() = findFragment() ?: FolderShortcutsComponentFragment()
+    private val mailOverviewFragment: MailOverviewFragment
+        get() = findFragment() ?: MailOverviewFragment()
 
     private val csSender: ComingSoonFragment
         get() = findFragment(ComingSoonSenderTag) ?: ComingSoonFragment.newInstance(
@@ -79,7 +80,7 @@ class MainActivity : BaseActivity(), MainNavigator {
         supportActionBar?.title = section.title
         when (section) {
             Section.Home -> setMainFragment(homeFragment)
-            Section.Mail -> setMainFragment(folderShortcutsComponentFragment)
+            Section.Mail -> setMainFragment(mailOverviewFragment)
             Section.Channels -> setMainFragment(channelOverviewComponentFragment)
             Section.Senders -> {
                 if (BuildConfig.ENABLE_SENDERS) {

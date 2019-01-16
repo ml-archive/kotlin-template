@@ -92,6 +92,7 @@ import dk.eboks.app.presentation.ui.mail.components.sendercarousel.SenderCarouse
 import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
 import dk.eboks.app.presentation.ui.mail.screens.list.MailListPresenter
 import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity
+import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewFragment
 import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewPresenter
 import dk.eboks.app.presentation.ui.message.components.detail.attachments.AttachmentsComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.attachments.AttachmentsComponentPresenter
@@ -306,6 +307,7 @@ interface PresentationComponent {
     fun inject(target : MailListComponentFragment)
     fun inject(target : MailListComponentPresenter)
     fun inject(target : SearchSendersActivity)
+    fun inject(target: MailOverviewFragment)
 
     // generic
 
