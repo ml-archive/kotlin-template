@@ -14,6 +14,7 @@ import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.folder.components.selectuser.FolderSelectUserComponentFragment
 import dk.eboks.app.util.views
 import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.util.getChildrenViews
@@ -43,6 +44,10 @@ class MailOverviewFragment : BaseFragment(), MailOverviewContract.View {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        presenter.refresh()
+    }
 
 
     private fun setupToolbar(userName: String?) {
@@ -58,10 +63,9 @@ class MailOverviewFragment : BaseFragment(), MailOverviewContract.View {
                     mainTb.addView(imageView)
                 }
                 mainTb.isClickable = true
-               /* mainTb.setOnClickListener {
-                    MailOverviewActivity.refreshOnResume = true
-                    openComponentDrawer(FolderSelectUserComponentFragment::class.java)
-                }*/
+                mainTb.setOnClickListener {
+                    activity?.openComponentDrawer(FolderSelectUserComponentFragment::class.java)
+                }
             }
         }
 
