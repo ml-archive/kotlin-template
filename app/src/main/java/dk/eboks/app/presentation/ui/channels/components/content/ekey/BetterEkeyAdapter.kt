@@ -110,7 +110,7 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
                 is Pin -> {
                     headingTv.text = eKey.data.name
                     subHeadingTv.text = Translation.ekey.pinCode
-                    logoIv.setImageResource(R.drawable.icon_48_payment_white)
+                    logoIv.setImageResource(R.drawable.icon_48_pincode_white)
 
                 }
                 is Login -> {
