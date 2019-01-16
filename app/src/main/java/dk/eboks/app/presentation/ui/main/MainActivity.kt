@@ -15,7 +15,6 @@ import dk.eboks.app.presentation.ui.mail.components.foldershortcuts.FolderShortc
 import dk.eboks.app.presentation.ui.notimplemented.screens.ComingSoonFragment
 import dk.eboks.app.presentation.ui.senders.screens.overview.SerdersOverviewFragment
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
-import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 
@@ -58,6 +57,7 @@ class MainActivity : BaseActivity(), MainNavigator {
         setContentView(R.layout.activity_main)
         setSupportActionBar(mainTb)
         setupBottomNavigation()
+        handleIntent(intent)
     }
 
     private fun setupBottomNavigation() {
@@ -67,9 +67,18 @@ class MainActivity : BaseActivity(), MainNavigator {
             menu.findItem(Section.Senders.id).title = Section.Senders.title
             menu.findItem(Section.Channels.id).title = Section.Channels.title
             menu.findItem(Section.Uploads.id).title = Section.Uploads.title
-            (intent.getSerializableExtra(PARAM_SECTION) as? Section)?.let(::showMainSection).guard {
-                setOnNavigationItemSelectedListener(navListener)
-            }
+            setOnNavigationItemSelectedListener(navListener)
+        }
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        intent?.let {
+            (it.getSerializableExtra(PARAM_SECTION) as? Section)?.let(::showMainSection)
         }
     }
 
@@ -138,5 +147,6 @@ class MainActivity : BaseActivity(), MainNavigator {
         fun createIntent(context: Context, section: Section = Section.Mail): Intent =
             Intent(context, MainActivity::class.java)
                 .putExtra(PARAM_SECTION, section)
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
     }
 }

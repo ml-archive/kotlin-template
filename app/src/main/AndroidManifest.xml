@@ -26,7 +26,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".presentation.ui.main.MainActivity"></activity>
+        <activity
+            android:name=".presentation.ui.main.MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <!-- nstack app id and key from build.gradle manifest placeholder -->
         <meta-data
             android:name="dk.nodes.nstack.appId"

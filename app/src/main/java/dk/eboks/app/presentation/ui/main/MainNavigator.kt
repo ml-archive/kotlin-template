@@ -13,7 +13,8 @@ enum class Section(@IdRes val id: Int, val title: String) {
     Mail(R.id.actionMail, Translation.mainnav.mailButton),
     Channels(R.id.actionChannels, Translation.mainnav.channelsButton),
     Senders(R.id.actionSenders, Translation.mainnav.sendersButton),
-    Uploads(R.id.actionUploads, Translation.mainnav.uploadsButton);
+    Uploads(R.id.actionUploads, Translation.mainnav.uploadsButton),
+    Inbox(R.id.actionInbox, Translation.mainnav.mailButton);
 
     companion object {
         fun fromId(@IdRes id: Int): Section {
