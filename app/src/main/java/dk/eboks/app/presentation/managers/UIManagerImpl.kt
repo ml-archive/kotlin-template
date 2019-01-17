@@ -7,8 +7,6 @@ import dk.eboks.app.App
 import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
-import dk.eboks.app.presentation.ui.main.MainNavigator
-import dk.eboks.app.presentation.ui.main.SecondarySection
 import dk.eboks.app.presentation.ui.message.screens.MessageActivity
 import dk.eboks.app.presentation.ui.message.screens.embedded.MessageEmbeddedActivity
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
@@ -68,15 +66,10 @@ class UIManagerImpl(val context: Context) : UIManager {
 
     override fun showFolderContentScreen(folder: Folder) {
         val intent = Intent(context, MailListActivity::class.java)
-
         intent.putExtra("folder", folder)
         handler.post {
-            val currentActivity = App.currentActivity()
-            if (currentActivity is MainNavigator) {
-                currentActivity.showSecondary(SecondarySection.MailsList(folder))
-            } else {
-                currentActivity?.startActivity(intent).guard { context.startActivity(intent) }
-            }
+            App.currentActivity()?.let { it.startActivity(intent) }
+                    .guard { context.startActivity(intent) }
         }
     }
 

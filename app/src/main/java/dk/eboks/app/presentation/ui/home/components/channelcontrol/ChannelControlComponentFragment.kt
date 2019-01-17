@@ -29,6 +29,7 @@ import dk.eboks.app.util.Starter
 import dk.eboks.app.util.visible
 import dk.eboks.app.util.views
 import kotlinx.android.synthetic.main.fragment_channel_control_component.*
+import kotlinx.android.synthetic.main.fragment_login_component.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -119,7 +120,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
         if (channels.size == 0) {
             (activity as HomeActivity).showChannelControlsHeader(false)
             teaserLl.visible = (false)
-            emptyStateLl.visibility = View.VISIBLE
+            emptyStateChannelLl.visibility = View.VISIBLE
             //bottomChannelBtn.isEnabled = (emailCount > 0)
             bottomChannelBtn.isEnabled = true
             bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderNoChannels
@@ -131,7 +132,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
                 NavBarComponentFragment.gotoChannels(activity ?: return@setOnClickListener)
             }
         } else {
-            emptyStateLl.visibility = View.GONE
+            emptyStateChannelLl.visibility = View.GONE
             bottomChannelBtn.visibility = View.GONE
             bottomChannelHeaderTv.visibility = View.GONE
             bottomChannelTextTv.visibility = View.GONE
@@ -144,7 +145,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if (show) View.VISIBLE else View.GONE
+        progressChannelFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     fun findControlView(channelId: Int): View? {

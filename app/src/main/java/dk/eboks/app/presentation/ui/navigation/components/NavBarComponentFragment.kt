@@ -13,6 +13,8 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.screens.overview.ChannelOverviewActivity
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
 import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity
+import dk.eboks.app.presentation.ui.main.MainActivity
+import dk.eboks.app.presentation.ui.main.Section
 import dk.eboks.app.presentation.ui.notimplemented.screens.ComingSoonActivity
 import dk.eboks.app.presentation.ui.senders.screens.overview.SendersOverviewActivity
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsActivity
@@ -63,34 +65,13 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
         mainNavigationBnv.selectedItemId = currentMenuItem
 
         mainNavigationBnv.setOnNavigationItemSelectedListener { item ->
-
+            startActivity(
+                MainActivity.createIntent(
+                    context ?: return@setOnNavigationItemSelectedListener false,
+                    Section.fromId(item.itemId)
+                )
+            )
             currentMenuItem = item.itemId
-            val activityCls = when (currentMenuItem) {
-                R.id.actionHome -> {
-                    HomeActivity::class.java
-                }
-                R.id.actionMail -> {
-                    MailOverviewActivity::class.java
-                }
-                R.id.actionChannels -> {
-                    ChannelOverviewActivity::class.java
-                }
-                R.id.actionSenders -> {
-                    if (BuildConfig.ENABLE_SENDERS) SendersOverviewActivity::class.java
-                    else ComingSoonActivity::class.java
-                }
-                R.id.actionUploads -> {
-                    if (BuildConfig.ENABLE_UPLOADS) UploadsActivity::class.java
-                    else ComingSoonActivity::class.java
-                }
-                else -> {
-                    null
-                }
-            }
-            activityCls?.let {
-                startActivity(Intent(context, activityCls))
-                //activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
-            }
             false
         }
     }
@@ -99,19 +80,19 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
         var currentMenuItem = 0
 
         fun gotoChannels(activity: Activity) {
+            activity.startActivity(MainActivity.createIntent(activity, Section.Channels))
             currentMenuItem = R.id.actionChannels
-            activity.Starter().activity(ChannelOverviewActivity::class.java).start()
+
         }
 
         fun gotoMail(activity: Activity) {
             currentMenuItem = R.id.actionMail
-            activity.Starter().activity(MailOverviewActivity::class.java).start()
+            activity.startActivity(MainActivity.createIntent(activity, Section.Mail))
         }
 
         fun gotoInbox(activity: Activity) {
             currentMenuItem = R.id.actionMail
-            activity.Starter().activity(MailOverviewActivity::class.java)
-                .putExtra("openInbox", true).start()
+            activity.startActivity(MainActivity.createIntent(activity, Section.Inbox))
         }
     }
 }

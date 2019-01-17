@@ -58,7 +58,7 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/progressFl"
+        android:id="@+id/progressFolderFl"
         android:layout_width="match_parent"
         android:layout_height="140dp">
         <ProgressBar

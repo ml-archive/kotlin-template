@@ -7,7 +7,6 @@ import dk.eboks.app.domain.models.folder.Folder
 
 interface MainNavigator {
     fun showMainSection(section: Section)
-    fun showSecondary(secondarySection: SecondarySection)
 }
 
 enum class Section(@IdRes val id: Int, val title: String) {
@@ -15,7 +14,8 @@ enum class Section(@IdRes val id: Int, val title: String) {
     Mail(R.id.actionMail, Translation.mainnav.mailButton),
     Channels(R.id.actionChannels, Translation.mainnav.channelsButton),
     Senders(R.id.actionSenders, Translation.mainnav.sendersButton),
-    Uploads(R.id.actionUploads, Translation.mainnav.uploadsButton);
+    Uploads(R.id.actionUploads, Translation.mainnav.uploadsButton),
+    Inbox(R.id.actionInbox, Translation.mainnav.mailButton);
 
     companion object {
         fun fromId(@IdRes id: Int): Section {
@@ -29,8 +29,4 @@ enum class Section(@IdRes val id: Int, val title: String) {
             }
         }
     }
-}
-
-sealed class SecondarySection {
-    data class MailsList(val folder: Folder) : SecondarySection()
 }

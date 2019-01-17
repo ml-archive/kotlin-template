@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="@dimen/padding_normal"
     android:animateLayoutChanges="false"
     android:background="@color/backgroundColor"
@@ -75,7 +76,7 @@
 
     <!-- empty state -->
     <LinearLayout
-        android:id="@+id/emptyStateLl"
+        android:id="@+id/emptyStateChannelLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -124,7 +125,7 @@
 
     <!-- progress -->
     <FrameLayout
-        android:id="@+id/progressFl"
+        android:id="@+id/progressChannelFl"
         tools:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="140dp">

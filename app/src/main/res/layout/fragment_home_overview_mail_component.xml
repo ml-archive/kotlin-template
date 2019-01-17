@@ -169,7 +169,7 @@
                         </FrameLayout>
 
                         <LinearLayout
-                            android:id="@+id/channelsContentLL"
+                            android:id="@+id/channelsRecyclerView"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:animateLayoutChanges="true"
