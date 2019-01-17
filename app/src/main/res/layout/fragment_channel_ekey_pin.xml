@@ -18,22 +18,23 @@
         tools:text="_Indtast din 4-cifrede kode"
         android:text="@string/nstack_ekey_insertPinCode"/>
 
-    <EditText
-        android:id="@+id/thief"
-        android:layout_width="1px"
-        android:layout_height="1px"
-        android:inputType="number"
-        android:maxLength="4" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
+    <FrameLayout
         android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:gravity="center"
         android:paddingTop="1dp">
 
         <EditText
+            android:focusable="false"
             android:id="@+id/pin1Et"
             android:layout_width="56dp"
             android:layout_height="68dp"
@@ -54,7 +55,7 @@
             android:layout_width="56dp"
             android:layout_height="68dp"
             android:layout_marginRight="16dp"
-
+            android:focusable="false"
             android:background="@drawable/rounded8_mask"
             android:backgroundTint="@color/white"
             android:elevation="2dp"
@@ -66,6 +67,7 @@
             android:textSize="60dp"/>
 
         <EditText
+            android:focusable="false"
             android:id="@+id/pin3Et"
             android:layout_width="56dp"
             android:layout_height="68dp"
@@ -81,6 +83,7 @@
             android:textSize="60dp"/>
 
         <EditText
+            android:focusable="false"
             android:id="@+id/pin4Et"
             android:layout_width="56dp"
             android:layout_height="68dp"
@@ -96,6 +99,19 @@
             android:textSize="60dp"/>
 
 
-    </LinearLayout>
+        </LinearLayout>
+
+        <EditText
+            android:background="@null"
+            android:id="@+id/thief"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="number"
+            android:cursorVisible="false"
+            android:maxLength="4"
+            android:textColor="@android:color/transparent" />
+
+    </FrameLayout>
+
 
 </LinearLayout>
