@@ -46,13 +46,16 @@ class MailOverviewFragment : BaseFragment(), MailOverviewContract.View {
 
     override fun onResume() {
         super.onResume()
-        presenter.refresh()
+        if (!isHidden) presenter.refresh()
     }
 
+    override fun onPause() {
+        super.onPause()
+        if (!isHidden) resetToolbar()
+    }
 
     private fun setupToolbar(userName: String?) {
         val mainTb = activity?.getToolbar() ?: return
-        Timber.d("Toolbar set $userName")
         mainTb.title = userName
             if(BuildConfig.ENABLE_SHARES) {
                 if(!mainTb.getChildrenViews().any { view -> view is ImageView }) {
@@ -72,13 +75,17 @@ class MailOverviewFragment : BaseFragment(), MailOverviewContract.View {
 
     override fun onHiddenChanged(hidden: Boolean) {
         if (hidden) {
-            val mainTb = activity?.getToolbar() ?: return
-            val imageView = mainTb.views.firstOrNull { it is ImageView } ?: return
-            mainTb.removeView(imageView)
-            mainTb.isClickable = false
+           resetToolbar()
         } else {
             presenter.refresh()
         }
+    }
+
+    private fun resetToolbar() {
+        val mainTb = activity?.getToolbar() ?: return
+        val imageView = mainTb.views.firstOrNull { it is ImageView } ?: return
+        mainTb.removeView(imageView)
+        mainTb.isClickable = false
     }
 
     override fun showProgress(show: Boolean) {
