@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/testrl"
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@+id/testrl"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:background="@drawable/transparent_gradiant"
@@ -9,11 +9,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
+        android:animateLayoutChanges="true"
         android:id="@+id/buttonContainerLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/mainFab"
         android:orientation="vertical"
-        android:layout_above="@+id/mainFab">
+        app:layout_constraintBottom_toTopOf="@+id/mainFab"
+        app:layout_constraintEnd_toEndOf="@+id/mainFab"
+        app:layout_constraintStart_toStartOf="@+id/mainFab">
 
     </LinearLayout>
 
@@ -23,11 +27,12 @@
         android:layout_height="56dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
+        android:src="@drawable/icon_48_close_white"
         app:backgroundTint="@color/fabButtonColor"
-        android:scaleType="center"
-        android:src="@drawable/icon_48_close_white" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

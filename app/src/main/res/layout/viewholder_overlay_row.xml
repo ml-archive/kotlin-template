@@ -17,17 +17,19 @@
         android:layout_gravity="center"
         android:text="_Open in..."
         android:textColor="@color/white"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <!-- Using android: backgroundtint will crash on android 5-->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
+        android:background="@drawable/ripple_cirlced_white"
         android:id="@+id/buttonFab"
-        android:layout_width="40dp"
         android:layout_height="40dp"
+        android:layout_width="40dp"
         app:backgroundTint="@color/white"
         android:clickable="true"
-        android:src="@drawable/icon_48_share_red"
-        android:visibility="gone" />
+        android:layout_gravity="start"
+        android:src="@drawable/ic_delete_red"
+        android:visibility="visible" />
 
 
 </LinearLayout>

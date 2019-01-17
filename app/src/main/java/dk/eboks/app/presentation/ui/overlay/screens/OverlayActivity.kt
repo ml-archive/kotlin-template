@@ -6,11 +6,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.util.setVisible
 import dk.eboks.app.util.views
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
@@ -56,7 +58,7 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
                         buttonContainerLl,
                         false
                 )
-                val button = v.findViewById<FloatingActionButton>(R.id.buttonFab)
+                val button = v.findViewById<ImageButton>(R.id.buttonFab)
                 val text = v.findViewById<TextView>(R.id.textTv)
 
                 text.text = item.text
@@ -69,7 +71,7 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
                 }
                 buttonContainerLl.addView(v)
                 buttonContainerLl.requestLayout()
-                button.show()
+                button.setVisible(true)
                 text.visibility = View.VISIBLE
             }, delay)
             delay += animationTime
@@ -88,7 +90,7 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
         for (v in buttonContainerLl.views) {
             handler.postDelayed({
                 v.textTv.visibility = View.GONE
-                v.buttonFab.hide()
+                v.buttonFab.setVisible(false)
             }
                     , delay)
             delay += animationTime
