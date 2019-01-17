@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.viewpager.widget.PagerAdapter
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config
@@ -124,7 +125,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                 .show()
     }
 
-    inner class UserPagerAdapter(val users: MutableList<Pair<User, UserSettings>>) : androidx.viewpager.widget.PagerAdapter() {
+    inner class UserPagerAdapter(val users: MutableList<Pair<User, UserSettings>>) : PagerAdapter() {
         override fun instantiateItem(collection: ViewGroup, position: Int): Any {
             val inflater = LayoutInflater.from(context)
             if (position < users.size) {

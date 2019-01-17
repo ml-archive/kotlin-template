@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
@@ -64,6 +65,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = Translation.signup.title
+        mainTb.setBackgroundColor(ContextCompat.getColor(context ?: return, R.color.backgroundColor))
         mainTb.setNavigationOnClickListener {
             hideKeyboard(view)
             fragmentManager?.popBackStack()

@@ -766,5 +766,6 @@ public class Translation {
 		public static String pendingSenderDescription = "__pendingSenderDescription";
 		public static String registerButton = "__registerButton";
 		public static String registerAllButton = "__registerAllButton";
+		public static String pendingSenderHeaderOneSender = "__pendingSenderHeaderOneSender";
 	}
 }
