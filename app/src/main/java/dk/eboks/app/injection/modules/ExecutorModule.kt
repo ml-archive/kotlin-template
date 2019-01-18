@@ -64,7 +64,7 @@ class MyThreadExecutor : Executor {
     }
 
     override fun signal(condId: String) {
-        SignalDispatcher.signal(condId)
+        MySignalDispatcher.signal(condId)
     }
 }
 
