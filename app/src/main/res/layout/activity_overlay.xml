@@ -5,7 +5,6 @@
     android:background="@drawable/transparent_gradiant"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:paddingBottom="?actionBarSize"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
@@ -25,11 +24,8 @@
         android:id="@+id/mainFab"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:clickable="true"
         android:src="@drawable/icon_48_close_white"
         app:backgroundTint="@color/fabButtonColor"
         app:layout_constraintBottom_toBottomOf="parent"

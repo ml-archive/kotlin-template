@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.mail.components.maillist
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -44,6 +45,8 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     private var showUploads: Boolean = false
     private var menuProfile: MenuItem? = null
 
+    private var componentListener: MailListComponentListener? = null
+
     var sender: Sender? = null
 
     var folder: Folder? = null
@@ -63,6 +66,16 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_mail_list_component, container, false)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        componentListener = context as? MailListComponentListener
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        componentListener = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -218,6 +231,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         refreshSrl?.isEnabled = !modeEdit
         checkedList.clear()
         setTopBar()
+        componentListener?.onEditModeActive(modeEdit)
         checkFabState()
         messagesRv.adapter?.notifyItemRangeChanged(0, adapter.messages.size)
     }
@@ -385,5 +399,9 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     companion object {
         var refreshOnResume: Boolean = false
+    }
+
+    interface MailListComponentListener {
+        fun onEditModeActive(active: Boolean)
     }
 }
