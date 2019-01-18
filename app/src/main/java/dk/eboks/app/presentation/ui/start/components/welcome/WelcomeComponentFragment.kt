@@ -23,8 +23,7 @@ import kotlinx.android.synthetic.main.fragment_welcome_component.*
 class WelcomeComponentFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_welcome_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_welcome_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

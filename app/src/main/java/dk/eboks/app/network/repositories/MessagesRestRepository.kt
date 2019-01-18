@@ -257,6 +257,7 @@ class MessagesRestRepository(val context: Context, val api: Api, val gson: Gson,
 
         // Skip Archiving and Mark as Read/Unread for upploads
         if (message.type == MessageType.UPLOAD && !messagePatch.isApplicableForUppload()) {
+            Timber.d("Request Skipped: ${message.type}, $messagePatch")
             return
         }
 

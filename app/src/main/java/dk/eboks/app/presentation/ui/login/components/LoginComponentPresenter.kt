@@ -186,12 +186,14 @@ class LoginComponentPresenter @Inject constructor(
 
     override fun onLoginActivationCodeRequired() {
         runAction { v ->
+            v.showProgress(false)
             v.showActivationCodeDialog()
         }
     }
 
     override fun onCheckRSAKeyPresence(keyExists: Boolean) {
         Timber.e("RSAKeyPresence: $keyExists")
+        runAction { it.showProgress(false) }
         //todo make sure key is connected to the correct user
         if(keyExists)
         {

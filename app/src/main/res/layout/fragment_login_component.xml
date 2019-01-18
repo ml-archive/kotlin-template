@@ -53,7 +53,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center_horizontal"
-                        android:background="@drawable/circle_transparent_greyblue_border"
+                        android:background="@drawable/circle_white_greyblue_border"
                         android:src="@drawable/ic_profile_placeholder"/>
 
                     <TextView
@@ -137,6 +137,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColorHint="@color/blueGrey"
+                        android:layout_marginTop="8dp"
                         android:theme="@style/TextInputLayoutTheme"
                         android:visibility="gone"
                         app:errorTextAppearance="@style/errorappearance"
