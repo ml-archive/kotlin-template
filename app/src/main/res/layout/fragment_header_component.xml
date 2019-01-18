@@ -40,6 +40,7 @@
                 style="@style/text.subHeader5.quaternary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/blueGrey"
                 android:layout_marginStart="11dp"
                 android:text="header component" />
         </LinearLayout>

@@ -281,7 +281,7 @@
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/rounded_gradient_button</item>
         <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="Progress" parent="Widget.AppCompat.ProgressBar.Horizontal">

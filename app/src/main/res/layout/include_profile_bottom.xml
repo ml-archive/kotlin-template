@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/backgroundColor"
     android:orientation="vertical"
     tools:ignore="MissingPrefix">
@@ -51,6 +52,7 @@
             android:background="@color/white"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/margin_normal"
+            android:textColor="@color/darkGreyBlue"
             tools:text="_Fingerprint"
             android:textAppearance="@style/text.header4"
             android:thumbTint="@drawable/switch_thumb"
@@ -71,6 +73,7 @@
             android:padding="@dimen/margin_normal"
             tools:text="_Keep me signed in"
             android:textAppearance="@style/text.header4"
+            android:textColor="@color/darkGreyBlue"
             android:thumbTint="@drawable/switch_thumb"
             android:trackTint="@drawable/switch_track"
             android:text="@string/nstack_profile_keepMeSignedIn"/>
@@ -91,6 +94,7 @@
         android:gravity="center_vertical"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
+        android:textStyle="normal"
         tools:text="_Keep me signed in when i close the e-boks app orem ipsum dolor sit amet"
         android:textColor="@color/blueGrey"
         android:text="@string/nstack_profile_keepMeSignedInDescription"/>
@@ -130,7 +134,7 @@
             android:background="@color/white"
             android:elevation="0dp"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
-            android:gravity="left|center_vertical"
+            android:gravity="start|center_vertical"
             android:paddingLeft="@dimen/margin_normal"
             android:paddingRight="@dimen/margin_normal"
             tools:text="_Privacy Statement"

@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -134,18 +135,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
     override fun attachListeners() {
         profileDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.icon_48_checkmark_white,
-                    0
-                )
-                VerificationComponentFragment.verificationSucceeded = false
-                getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
-            } else {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-            }
+            handleRegistereredButton(isChecked, buttonView)
         }
 
 
@@ -221,6 +211,24 @@ class ProfileInfoComponentFragment : BaseFragment(),
             Config.getResourceLinkByType("feedback")?.let { link ->
                 openUrlExternal(link.link.url)
             }
+        }
+    }
+
+    private fun handleRegistereredButton(
+        isRegistered: Boolean,
+        buttonView: CompoundButton
+    ) {
+        if (isRegistered) {
+            buttonView.setCompoundDrawablesWithIntrinsicBounds(
+                0,
+                0,
+                R.drawable.icon_48_checkmark_white,
+                0
+            )
+            VerificationComponentFragment.verificationSucceeded = false
+            getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
+        } else {
+            buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
         }
     }
 
@@ -336,6 +344,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
     }
 
     override fun setVerified(isVerified: Boolean) {
+        handleRegistereredButton(isVerified, profileDetailRegisterTB)
         profileDetailRegisterTB?.let {
             it.isChecked = isVerified
             if (isVerified)
