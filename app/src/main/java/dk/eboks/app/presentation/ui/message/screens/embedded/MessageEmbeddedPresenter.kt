@@ -98,7 +98,7 @@ class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateMan
     override fun moveMessage(folder: Folder) {
         message?.let {
             moveToFolder = folder.name
-            updateMessage(arrayListOf(it), MessagePatch(false, null, folder.id, null))
+            updateMessage(arrayListOf(it), MessagePatch(folderId =  folder.id))
         }
     }
 

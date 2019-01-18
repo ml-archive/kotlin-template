@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.message.components.viewers.html
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,10 @@ import dk.eboks.app.util.printAndForget
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_htmlview_component.*
 import timber.log.Timber
+import java.io.File
 import javax.inject.Inject
+
+
 
 /**
  * Created by bison on 09-02-2018.
@@ -41,7 +45,8 @@ class HtmlViewComponentFragment : BaseFragment(), HtmlViewComponentContract.View
     }
 
     override fun showHtml(filename: String) {
-        webView.loadUrl("file://$filename")
+        val content = File(filename).inputStream().readBytes().toString(Charsets.UTF_8)
+        webView.loadDataWithBaseURL("", content, "text/html", "UTF-8", "")
     }
 
     override fun showHtmlURI(uriString: String) {

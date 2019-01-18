@@ -38,6 +38,7 @@
                     -->
 
         <FrameLayout
+            android:id="@+id/navBarContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <include layout="@layout/include_navigation_view" />

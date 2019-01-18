@@ -6,14 +6,26 @@
 
     <include layout="@layout/include_toolbar" />
 
-    <FrameLayout
-        android:id="@+id/contentFl"
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_marginBottom="?actionBarSize"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <include layout="@layout/include_navigation_view" />
+    <FrameLayout
+        android:layout_weight="1"
+        android:id="@+id/contentFl"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
+        <FrameLayout
+            android:id="@+id/navBarContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/include_navigation_view" />
+        </FrameLayout>
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

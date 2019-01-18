@@ -5,6 +5,7 @@ import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import timber.log.Timber
 
 class MoveMessagesInteractorImpl(
         executor: Executor,

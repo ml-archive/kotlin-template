@@ -7,10 +7,12 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
 import dk.eboks.app.util.putArg
+import dk.eboks.app.util.setVisible
+import kotlinx.android.synthetic.main.activity_mail_list.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
-class MailListActivity : BaseActivity(), MailListContract.View {
+class MailListActivity : BaseActivity(), MailListContract.View, MailListComponentFragment.MailListComponentListener {
     @Inject lateinit var presenter: MailListContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,5 +57,9 @@ class MailListActivity : BaseActivity(), MailListContract.View {
 
     override fun getNavigationMenuAction(): Int {
         return R.id.actionMail
+    }
+
+    override fun onEditModeActive(active: Boolean) {
+        navBarContainer.setVisible(!active)
     }
 }
