@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="@string/nstack_senders_registrations"
+        android:id="@+id/menu_registrations"
+        app:showAsAction="ifRoom"/>
+    <item android:title="search"
+        android:id="@+id/menu_search"
+        android:icon="@drawable/search"
+        app:showAsAction="always"/>
+
+</menu>
