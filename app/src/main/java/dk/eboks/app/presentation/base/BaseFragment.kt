@@ -7,12 +7,14 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import dk.eboks.app.App
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import kotlinx.android.synthetic.*
+import net.hockeyapp.android.metrics.model.Base
 import timber.log.Timber
 
 abstract class BaseFragment : androidx.fragment.app.Fragment(), BaseView {
@@ -30,6 +32,9 @@ abstract class BaseFragment : androidx.fragment.app.Fragment(), BaseView {
     val mainHandler by lazy {
         Handler(Looper.getMainLooper())
     }
+
+    val activity: BaseActivity?
+        get() = getActivity() as? BaseActivity?
 
     /**
      * Make another default error handler and override showErrorDialog if you wanna do something really custom

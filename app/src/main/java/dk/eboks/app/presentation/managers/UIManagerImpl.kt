@@ -68,7 +68,7 @@ class UIManagerImpl(val context: Context) : UIManager {
         val intent = Intent(context, MailListActivity::class.java)
         intent.putExtra("folder", folder)
         handler.post {
-            App.currentActivity()?.startActivity(intent)
+            App.currentActivity()?.let { it.startActivity(intent) }
                     .guard { context.startActivity(intent) }
         }
     }
