@@ -1,13 +1,12 @@
 package dk.nodes.template.presentation.ui.main
 
-import android.arch.lifecycle.Lifecycle
+import androidx.lifecycle.Lifecycle
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import dk.nodes.template.domain.interactors.PostsInteractor
 import dk.nodes.template.domain.models.Post
+import dk.nodes.template.domain.models.Result
 import dk.nodes.template.domain.models.Translation
-import kotlinx.coroutines.experimental.android.UI
-import kotlinx.coroutines.experimental.async
-import kotlinx.coroutines.experimental.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 class MainPresenter @Inject constructor(
@@ -20,11 +19,11 @@ class MainPresenter @Inject constructor(
         loadData()
     }
 
-    private fun loadData() = launch(UI) {
-        val result = async { postsInteractor.run() }.await()
+    private fun loadData() = GlobalScope.launch(Dispatchers.Main) {
+        val result = withContext(Dispatchers.IO) { postsInteractor.run() }
         when(result) {
-            is PostsInteractor.Result.Success -> view?.showPosts(posts = result.posts)
-            is PostsInteractor.Result.Failure -> view?.showError(Translation.error.unknownError)
+            is Result.Success -> view?.showPosts(result.data)
+            is Result.Error -> view?.showError(Translation.error.unknownError)
         }
     }
 }
