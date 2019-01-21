@@ -1,25 +1,16 @@
 package dk.nodes.template.presentation.base
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import dk.nodes.arch.presentation.base.BaseView
-import dk.nodes.template.App
-import dk.nodes.template.injection.modules.PresentationModule
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import dagger.android.support.DaggerFragment
+import javax.inject.Inject
 
-abstract class BaseFragment : androidx.fragment.app.Fragment(), BaseView {
-    open val component by lazy {
-        // Todo investigate a better way to do this
-        App.instance().appComponent.plus(PresentationModule())
+abstract class BaseFragment : DaggerFragment() {
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    protected inline fun <reified VM : ViewModel> bindViewModel(): VM {
+        return ViewModelProviders.of(this, viewModelFactory)
+            .get(VM::class.java)
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        retainInstance = true
-
-        //Make sure all of our dependencies get injected
-        injectDependencies()
-    }
-
-    protected abstract fun injectDependencies()
 }

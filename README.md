@@ -34,7 +34,7 @@ Consist of interactors and repositories (the interfaces). The interactors encaps
  background and return information to the outer layer through callbacks implemented in the outer layers.
  
 #### Interface Adapters
-Presenters (as part of the MVP pattern) are implemented in this layer. Presenters present information
+ViewModel (as part of the MVVM pattern) are implemented in this layer. ViewModel holds information
 from the inner layers (business logic and entities) to the user interface etc. In other words they adapt
 the data for output to the outermost layer (Framework and Drivers)
 
@@ -51,7 +51,7 @@ Example:
 6. Presenter instructs the view (if attached) to update itself with the new data, or display an error to the user
 
 ## Patterns in use:
-- MVP
+- MVVM
 - Repository
 - Interactor (implemented with a pluggable executor)
 - Dependency Injection (and thus factory)
