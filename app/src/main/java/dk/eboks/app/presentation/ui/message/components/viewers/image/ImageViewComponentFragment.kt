@@ -43,7 +43,7 @@ class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.Vi
 
     override fun showImage(filename : String) {
         Timber.e("Attempting to open $filename")
-        val html = "<html><head></head><body style=\"background-color: #aaa; margin: 0px; padding: 0px\"><img src=\"file://$filename\" width=\"100%\"></body></html>"
+        val html = "<html><head></head><body style=\"background-image: linear-gradient(#294350, #537888);\n; margin: 0px; padding: 0px\"><img src=\"file://$filename\" width=\"100%\"></body></html>"
         webView.loadDataWithBaseURL("", html, "text/html", "utf-8", "")
     }
 
