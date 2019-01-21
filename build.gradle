@@ -18,6 +18,10 @@ buildscript {
     }
 }
 
+plugins {
+    id "com.diffplug.gradle.spotless" version "3.14.0"
+}
+
 allprojects {
     repositories {
         mavenCentral()
@@ -27,6 +31,13 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
-    delete rootProject.buildDir
+
+subprojects {
+    apply plugin: 'com.diffplug.gradle.spotless'
+    spotless {
+        kotlin {
+            target "**/*.kt"
+            ktlint('0.29.0')
+        }
+    }
 }

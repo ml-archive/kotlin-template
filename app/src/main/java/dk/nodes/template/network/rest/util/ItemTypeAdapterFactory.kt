@@ -29,16 +29,14 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
 
                 var jsonElement = elementAdapter.read(`in`)
                 if (jsonElement.isJsonObject) {
-                    //Log.e("debug", "parsing element " + jsonElement.toString())
+                    // Log.e("debug", "parsing element " + jsonElement.toString())
                     val jsonObject = jsonElement.asJsonObject
                     val entry_set = jsonObject.entrySet()
-                    if(entry_set.size == 1)
-                    {
-                        val key : String = entry_set.iterator().next().key ?: ""
-                        val ele : JsonElement = entry_set.iterator().next().value
-                        if(rootContainerNames.contains(key))
-                        {
-                            //Log.e("debug", "Doing deserialization workaround")
+                    if (entry_set.size == 1) {
+                        val key: String = entry_set.iterator().next().key ?: ""
+                        val ele: JsonElement = entry_set.iterator().next().value
+                        if (rootContainerNames.contains(key)) {
+                            // Log.e("debug", "Doing deserialization workaround")
                             return delegate.fromJsonTree(ele)
                         }
                     }

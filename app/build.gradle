@@ -26,8 +26,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [
-            appId : translation.appId,
-            apiKey: translation.apiKey
+                appId : translation.appId,
+                apiKey: translation.apiKey
         ]
     }
 
@@ -95,22 +95,27 @@ repositories {
 
 dependencies {
     def kotlinx_coroutines_version = '1.0.1',
-        dagger_version = "2.11",
+        constraint_layout_version = '2.0.0-alpha2',
+        dagger_version = "2.16",
+        lifecycle_version = "2.0.0",
         hockey_sdk_version = "5.1.0",
         timber_version = "4.7.1",
         junit_version = '4.12',
+        espresso_core_version = '3.1.0',
         mockito_version = '2.7.22',
         nodes_nstack_kotlin_version = '2.1.4',
-        nodes_arch_version = '1.1.9',
-
-        rx_android_version = '2.0.2',
-
+        nodes_arch_version = '2.1.9',
         retrofit_version = "2.3.0",
         okhttp_version = "3.9.0",
-        store_version = "3.0.0-beta"
+        store_version = "3.0.0-beta",
+        rx_android_version = '2.1.0',
+        rx_java_version = "2.2.4",
+        rx_kolin_version = "2.2.0",
+        ktx_version = "1.0.1",
+        rx_lint_version = '1.7.0'
 
     fileTree(dir: "libs", include: ["*.jar"])
-    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.1', {
+    androidTestImplementation("androidx.test.espresso:espresso-core:$espresso_core_version", {
         exclude group: "com.android.support", module: "support-annotations"
     })
 
@@ -119,14 +124,16 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
 
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha01'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha01'
-    implementation 'com.google.android.material:material:1.1.0-alpha02'
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.material:material:1.1.0-alpha01'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
 
-    implementation "com.google.dagger:dagger:$dagger_version"
+    implementation "com.google.dagger:dagger-android:$dagger_version"
+    implementation "com.google.dagger:dagger-android-support:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
 
     implementation "net.hockeyapp.android:HockeySDK:$hockey_sdk_version"
     implementation "com.jakewharton.timber:timber:$timber_version"
@@ -143,6 +150,8 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
 
     implementation "io.reactivex.rxjava2:rxandroid:$rx_android_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rx_java_version"
+    implementation "io.reactivex.rxjava2:rxkotlin:$rx_kolin_version"
     implementation "com.nytimes.android:store-kotlin3:$store_version"
     implementation "com.nytimes.android:middleware3:$store_version"
     implementation "com.nytimes.android:filesystem3:$store_version"
@@ -155,15 +164,20 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-android:$mockito_version"
 
     //For Espresso UI testing
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    androidTestImplementation('androidx.test.espresso:espresso-intents:3.1.1')
-    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.1.1'
-
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_core_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_core_version"
 
     // The following section is only used to force the latest version to resolve conflicts
     implementation 'androidx.arch.core:core-common:2.0.0'
     implementation 'androidx.arch.core:core-runtime:2.0.1-alpha01'
-    implementation 'androidx.lifecycle:lifecycle-livedata-core:2.0.0'
-    implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0'
-    implementation 'androidx.lifecycle:lifecycle-common:2.0.0'
+    implementation "androidx.lifecycle:lifecycle-livedata-core:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    implementation "androidx.core:core-ktx:$ktx_version"
+    implementation "nl.littlerobots.rxlint:rxlint:$rx_lint_version"
 }
