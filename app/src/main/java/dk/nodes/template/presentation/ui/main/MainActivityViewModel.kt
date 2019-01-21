@@ -17,17 +17,28 @@ class MainActivityViewModel @Inject constructor(
         private val postsInteractor: PostsInteractor
 ) : BaseViewModel() {
 
+    /*
     private val _postsLiveData = MutableLiveData<List<Post>>()
     private val _errorLiveData = MutableLiveData<Event<String>>()
     // Facade so the view doesn't know its mutable
     val postsLiveData: LiveData<List<Post>> = _postsLiveData
     val errorLiveData: LiveData<Event<String>> = _errorLiveData
+    */
+    private val _viewState = MutableLiveData<MainActivityViewState>()
+    val viewState: LiveData<MainActivityViewState> = _viewState
 
     fun fetchPosts() = scope.launch {
+        _viewState.value = MainActivityViewState(isLoading = true)
         val result = withContext(Dispatchers.IO) { postsInteractor.run() }
         when (result) {
-            is Result.Success -> _postsLiveData.value = result.data
-            is Result.Error -> _errorLiveData.value = Event(Translation.error.unknownError)
+            is Result.Success -> _viewState.value = _viewState.value?.copy(
+                    isLoading = false,
+                    posts = result.data
+            )
+            is Result.Error -> _viewState.value = _viewState.value?.copy(
+                    isLoading = false,
+                    errorMessage = Event(Translation.error.unknownError)
+            )
         }
     }
 
