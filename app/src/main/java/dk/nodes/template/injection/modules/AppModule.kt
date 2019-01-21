@@ -3,20 +3,21 @@ package dk.nodes.template.injection.modules
 import android.content.Context
 import dagger.Module
 import dagger.Provides
-import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.template.App
+import dk.nodes.template.inititializers.AppInitializers
+import dk.nodes.template.inititializers.NStackInitializer
+import dk.nodes.template.inititializers.TimberInitializer
 
 @Module
-class AppModule(private val application: App) {
+class AppModule {
     @Provides
-    @AppScope
-    fun provideContext(): Context {
-        return application.baseContext
-    }
+    fun provideContext(application: App): Context = application.applicationContext
 
     @Provides
-    @AppScope
-    fun provideApp(): App {
-        return application
+    fun provideInitializers(
+        nStackInitializer: NStackInitializer,
+        timberInitializer: TimberInitializer
+    ): AppInitializers {
+        return AppInitializers(nStackInitializer, timberInitializer)
     }
 }

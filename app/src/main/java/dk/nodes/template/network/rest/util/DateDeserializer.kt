@@ -7,12 +7,18 @@ import com.google.gson.JsonParseException
 import java.lang.reflect.Type
 import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Arrays
+import java.util.Date
+import java.util.HashMap
+import java.util.Locale
 
 class DateDeserializer : JsonDeserializer<Date> {
     @Throws(JsonParseException::class)
-    override fun deserialize(jsonElement: JsonElement, typeOF: Type,
-                             context: JsonDeserializationContext): Date {
+    override fun deserialize(
+        jsonElement: JsonElement,
+        typeOF: Type,
+        context: JsonDeserializationContext
+    ): Date {
         for (format in DATE_FORMATS) {
             if (!formatters.containsKey(format)) {
                 formatters.put(format, SimpleDateFormat(format, Locale.getDefault()))
@@ -22,10 +28,11 @@ class DateDeserializer : JsonDeserializer<Date> {
                 return formatters[format]?.parse(jsonElement.asString) ?: Date()
             } catch (e: ParseException) {
             }
-
         }
-        throw JsonParseException("Unparseable date: \"" + jsonElement.asString
-                + "\". Supported formats: " + Arrays.toString(DATE_FORMATS))
+        throw JsonParseException(
+            "Unparseable date: \"" + jsonElement.asString +
+                "\". Supported formats: " + Arrays.toString(DATE_FORMATS)
+        )
     }
 
     // replacement for a static member
