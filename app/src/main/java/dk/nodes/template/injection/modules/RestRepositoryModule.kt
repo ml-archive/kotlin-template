@@ -7,13 +7,13 @@ import dagger.Provides
 import dk.nodes.arch.domain.injection.scopes.AppScope
 import dk.nodes.template.domain.repositories.PostRepository
 import dk.nodes.template.network.rest.Api
-import dk.nodes.template.network.rest.StorePostRepository
+import dk.nodes.template.network.rest.RestPostRepository
 
 @Module
 class RestRepositoryModule {
     @Provides
     @AppScope
     fun providePostRepository(api: Api, gson: Gson, context: Context): PostRepository {
-        return StorePostRepository(api, gson, context)
+        return RestPostRepository(api)
     }
 }

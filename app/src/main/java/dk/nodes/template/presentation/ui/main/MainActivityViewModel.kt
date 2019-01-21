@@ -2,25 +2,20 @@ package dk.nodes.template.presentation.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import dk.nodes.template.domain.interactors.GetPostsInteractor
+import dk.nodes.template.domain.interactors.PostsInteractor
 import dk.nodes.template.domain.models.Post
+import dk.nodes.template.domain.models.Result
+import dk.nodes.template.domain.models.Translation
 import dk.nodes.template.presentation.base.BaseViewModel
 import dk.nodes.template.util.Event
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(
-    private val getPostsInteractor: GetPostsInteractor
+        private val postsInteractor: PostsInteractor
 ) : BaseViewModel() {
-
-    private val output = object : GetPostsInteractor.Output {
-        override fun onPostsLoaded(posts: List<Post>) {
-            _postsLiveData.postValue(posts)
-        }
-
-        override fun onError(msg: String) {
-            _errorLiveData.postValue(Event(msg))
-        }
-    }
 
     private val _postsLiveData = MutableLiveData<List<Post>>()
     private val _errorLiveData = MutableLiveData<Event<String>>()
@@ -28,13 +23,15 @@ class MainActivityViewModel @Inject constructor(
     val postsLiveData: LiveData<List<Post>> = _postsLiveData
     val errorLiveData: LiveData<Event<String>> = _errorLiveData
 
-    init {
-        getPostsInteractor.output = output
-        getPostsInteractor.run()
+    fun fetchPosts() = scope.launch {
+        val result = withContext(Dispatchers.IO) { postsInteractor.run() }
+        when (result) {
+            is Result.Success -> _postsLiveData.value = result.data
+            is Result.Error -> _errorLiveData.value = Event(Translation.error.unknownError)
+        }
     }
 
     override fun onCleared() {
         super.onCleared()
-        getPostsInteractor.output = null
     }
 }
