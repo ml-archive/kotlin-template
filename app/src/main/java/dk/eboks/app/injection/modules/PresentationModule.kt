@@ -312,8 +312,8 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMessagePresenter(appState: AppStateManager): MessageContract.Presenter {
-        return MessagePresenter(appState)
+    fun provideMessagePresenter(appState: AppStateManager, deleteMessagesInteractor: DeleteMessagesInteractor, updateMessageInteractor: UpdateMessageInteractor): MessageContract.Presenter {
+        return MessagePresenter(appState, deleteMessagesInteractor, updateMessageInteractor)
     }
 
     @ActivityScope

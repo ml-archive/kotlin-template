@@ -347,8 +347,15 @@ class ProfileInfoComponentFragment : BaseFragment(),
         handleRegistereredButton(isVerified, profileDetailRegisterTB)
         profileDetailRegisterTB?.let {
             it.isChecked = isVerified
-            if (isVerified)
+            if (isVerified) {
                 it.isEnabled = false
+                it.setCompoundDrawablesWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.icon_48_checkmark_white,
+                        0
+                )
+            }
         }
     }
 

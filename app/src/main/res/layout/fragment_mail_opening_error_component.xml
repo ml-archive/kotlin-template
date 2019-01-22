@@ -2,25 +2,24 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <include layout="@layout/include_toolbar" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:fillViewport="true">
+
 
         <LinearLayout
+            android:layout_gravity="bottom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <!--Top part-->
             <FrameLayout
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/backgroundColor"
                 >
 
@@ -40,8 +39,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/containerCv"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="3dp">
 
@@ -72,6 +70,8 @@
                         android:text="Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh." />
 
                     <FrameLayout
+                        android:visibility="gone"
+                        android:id="@+id/openMessageButtons"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -80,12 +80,14 @@
                         android:clipToPadding="false"
                         android:animateLayoutChanges="true">
                         <LinearLayout
+                            tools:visibility="visible"
                             android:id="@+id/buttonsLl"
                             android:orientation="vertical"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:visibility="gone">
                             <Button
+                                tools:visibility="visible"
                                 android:id="@+id/openBtn"
                                 style="@style/button.SolidGradient.large"
                                 android:visibility="gone"
@@ -95,6 +97,7 @@
                                 android:text="_Open message"/>
 
                             <Button
+                                tools:visibility="visible"
                                 android:id="@+id/secondaryOptionBtn"
                                 android:visibility="gone"
                                 android:layout_width="wrap_content"
@@ -121,6 +124,7 @@
                         style="@style/button.SolidGradient.large"
                         android:id="@+id/loginSecureBtn"
                         android:visibility="gone"
+                        tools:visibility="visible"
                         android:layout_marginTop="20dp"
                         android:layout_width="280dp"
                         android:layout_height="wrap_content"
@@ -131,6 +135,7 @@
                         style="@style/text.buttonSmall.tertiary"
                         android:id="@+id/loginTv"
                         android:visibility="gone"
+                        tools:visibility="visible"
                         android:clickable="true"
                         android:text="_Log on with mobile access"
                         android:layout_width="wrap_content"
@@ -144,9 +149,11 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
-    </ScrollView>
+
     <ImageView
-        android:id="@+id/BackBtn"
+        android:scaleType="center"
+        android:src="@drawable/icon_48_mail_white"
+        android:id="@+id/iconIv"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_gravity="center"
@@ -154,12 +161,5 @@
         app:layout_anchor="@+id/containerCv"
         app:layout_anchorGravity="center|top" />
 
-    <ImageView
-        android:id="@+id/iconIv"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_gravity="center"
-        android:src="@drawable/icon_48_mail_white"
-        app:layout_anchor="@+id/containerCv"
-        app:layout_anchorGravity="center|top" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

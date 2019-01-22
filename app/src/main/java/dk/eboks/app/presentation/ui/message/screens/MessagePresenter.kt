@@ -1,8 +1,13 @@
 package dk.eboks.app.presentation.ui.message.screens
 
 import dk.eboks.app.BuildConfig
+import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesInteractor
+import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.MessagePatch
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -10,8 +15,22 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class MessagePresenter @Inject constructor(val appState: AppStateManager) : MessageContract.Presenter, BasePresenterImpl<MessageContract.View>() {
+class MessagePresenter @Inject constructor(
+        val appState: AppStateManager,
+        val deleteMessagesInteractor: DeleteMessagesInteractor,
+        val updateMessageInteractor: UpdateMessageInteractor) :
+
+        MessageContract.Presenter,
+        BasePresenterImpl<MessageContract.View>(),
+        DeleteMessagesInteractor.Output,
+        UpdateMessageInteractor.Output {
     var message: Message? = null
+    var moveToFolder: String? = null
+
+    init {
+        deleteMessagesInteractor.output = this
+        updateMessageInteractor.output = this
+    }
 
     override fun setup() {
         Timber.e("Current message ${appState.state?.currentMessage}")
@@ -29,7 +48,64 @@ class MessagePresenter @Inject constructor(val appState: AppStateManager) : Mess
                 v.addAttachmentsComponentFragment()
             v.addShareComponentFragment()
             v.addFolderInfoComponentFragment()
-            message?.let { v.showTitle(it) }
+            message?.let {
+                v.setActionButtons(it)
+                v.showTitle(it) }
+        }
+    }
+
+
+    override fun moveMessage(folder: Folder) {
+        message?.let {
+            moveToFolder = folder.name
+            updateMessageInteractor.input = UpdateMessageInteractor.Input(arrayListOf(it), MessagePatch(folderId = folder.id))
+            updateMessageInteractor.run()
+        }
+    }
+
+    override fun deleteMessage() {
+        message?.let {
+            deleteMessagesInteractor.input = DeleteMessagesInteractor.Input(arrayListOf(it))
+            deleteMessagesInteractor.run()
+        }
+    }
+
+    override fun onDeleteMessagesSuccess() {
+        runAction { it.messageDeleted() }
+    }
+
+    override fun onDeleteMessagesError(error: ViewError) {
+        runAction { it.showErrorDialog(error) }
+    }
+
+    override fun onUpdateMessageSuccess() {
+        moveToFolder?.let { name ->
+            runAction {
+                it.updateFolderName(name)
+                moveToFolder = null
+            }
+        }
+    }
+
+    override fun onUpdateMessageError(error: ViewError) {
+        moveToFolder = null
+        runAction { view ->
+            view.showErrorDialog(error)
+        }
+    }
+
+    override fun archiveMessage() {
+        message?.let {
+            updateMessageInteractor.input = UpdateMessageInteractor.Input(arrayListOf(it), MessagePatch(archive = true))
+            updateMessageInteractor.run()
+        }
+    }
+
+
+    override fun markAsUnread(unread: Boolean) {
+        message?.let {
+            updateMessageInteractor.input = UpdateMessageInteractor.Input(arrayListOf(it), MessagePatch(unread = unread))
+            updateMessageInteractor.run()
         }
     }
 }

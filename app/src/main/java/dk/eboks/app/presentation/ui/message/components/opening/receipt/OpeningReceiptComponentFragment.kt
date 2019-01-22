@@ -43,6 +43,7 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
         voluntaryReceipt = arguments?.getBoolean("voluntaryReceipt") ?: false
 
         buttonsLl.setVisible(true)
+        openMessageButtons.setVisible(true)
 
         openBtn.setOnClickListener {
             presenter.setShouldProceed(true, true)

@@ -551,6 +551,7 @@ public class Translation {
 		public static String archive = "Arkiv\u00E9r";
 		public static String takePhoto = "__takePhoto";
 		public static String chooseFromLibrary = "__chooseFromLibrary";
+		public static String rename = "__rename";
 	}
 	public final static class senderregistration {
 		public static String title = "__title";
@@ -767,5 +768,10 @@ public class Translation {
 		public static String registerButton = "__registerButton";
 		public static String registerAllButton = "__registerAllButton";
 		public static String pendingSenderHeaderOneSender = "__pendingSenderHeaderOneSender";
+	}
+	public final static class editupload {
+		public static String editUpload = "__editUpload";
+		public static String uploadName = "__uploadName";
+		public static String uploadNameNonEmpty = "__uploadNameNonEmpty";
 	}
 }
