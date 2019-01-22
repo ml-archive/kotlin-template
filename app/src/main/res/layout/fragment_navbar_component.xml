@@ -7,6 +7,9 @@
     android:layout_height="?attr/actionBarSize"
     android:layout_gravity="bottom"
     app:itemBackground="@color/colorPrimary"
+    app:labelVisibilityMode="labeled"
+    app:itemTextAppearanceActive="@style/text.navigation"
+    app:itemTextAppearanceInactive="@style/text.navigation"
     app:itemIconTint="@color/nav_item_selector"
     app:itemTextColor="@color/nav_item_selector">
     <View

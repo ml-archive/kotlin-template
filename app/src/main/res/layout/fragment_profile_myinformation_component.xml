@@ -51,6 +51,7 @@
                         app:met_floatingLabel="normal"
                         app:met_floatingLabelText="_name"
                         app:met_textColorHint="@color/blueGrey"
+                        app:met_floatingLabelTextColor="@color/blueGrey"
                         android:hint="@string/nstack_myInformation_name" />
 
 
@@ -69,7 +70,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="16dp"
+                            android:textColor="@color/colorAccent"
                             android:layout_marginRight="16dp"
+                            app:met_textColor="@color/darkGreyBlue"
                             android:layout_marginTop="12dp"
                             tools:hint="_Primary email"
                             android:inputType="textEmailAddress"
@@ -80,6 +83,7 @@
                             app:met_helperText="_You will be notified by e-mail when you recieve new mail"
                             app:met_helperTextAlwaysShown="true"
                             app:met_helperTextColor="@color/blueGrey"
+                            app:met_floatingLabelTextColor="@color/blueGrey"
                             app:met_hideUnderline="false"
                             app:met_primaryColor="@color/blueGrey"
                             app:met_textColorHint="@color/blueGrey"
@@ -95,7 +99,7 @@
                             android:layout_marginEnd="16dp"
                             android:layout_marginTop="12dp"
                             tools:text="_Verify email"
-                            android:textSize="7dp"
+                            android:textSize="12sp"
                             android:textStyle="normal"
                             android:text="@string/nstack_myInformation_verifyEmail" />
 
@@ -118,7 +122,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="16dp"
+                            app:met_textColor="@color/darkGreyBlue"
                             android:layout_marginRight="16dp"
+                            app:met_floatingLabelTextColor="@color/darkGreyBlue50"
+                            android:textColor="@color/darkGreyBlue"
+
                             android:layout_marginTop="12dp"
                             tools:hint="_Secondary email"
                             android:inputType="textEmailAddress"
@@ -128,7 +136,7 @@
                             app:met_floatingLabel="normal"
                             app:met_floatingLabelText="_Secondary email"
                             app:met_hideUnderline="false"
-                            app:met_textColorHint="@color/blueGrey"
+                            app:met_textColorHint="@color/darkGreyBlue50"
                             app:met_underlineColor="@color/dividerColor"
                             android:hint="@string/nstack_myInformation_secondaryEmail" />
 
@@ -141,7 +149,7 @@
                             android:layout_marginEnd="16dp"
                             android:layout_marginTop="12dp"
                             tools:text="_Verify email"
-                            android:textSize="7dp"
+                            android:textSize="12sp"
                             android:textStyle="normal"
                             android:text="@string/nstack_myInformation_verifyEmail" />
 
@@ -163,12 +171,13 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="16dp"
+                            app:met_textColor="@color/darkGreyBlue"
                             android:layout_marginRight="16dp"
                             android:layout_marginTop="12dp"
                             tools:hint="_Mobile number"
                             android:inputType="phone"
+                            app:met_floatingLabelTextColor="@color/blueGrey"
                             android:paddingBottom="20dp"
-                            android:textColorHint="@color/blueGrey"
                             android:theme="@style/MaterialTextInputLayoutMyProfileTheme"
                             app:met_bottomTextSize="12dp"
                             app:met_floatingLabel="normal"
@@ -190,7 +199,7 @@
                             android:layout_marginEnd="16dp"
                             android:layout_marginTop="12dp"
                             tools:text="_Verify email"
-                            android:textSize="7dp"
+                            android:textSize="12sp"
                             android:textStyle="normal"
                             android:text="@string/nstack_myInformation_verifyNumber" />
 

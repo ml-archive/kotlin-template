@@ -34,7 +34,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:gravity="center"
-            android:textStyle="normal"
             android:text="@string/nstack_uploads_comingSoonHeader" />
 
         <TextView

@@ -85,10 +85,9 @@
 
     <!-- Header 4 -->
     <style name="text.header4">
-        <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_size_header_4</item>
         <item name="android:lineSpacingExtra">4sp</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="text.header4.secondary">
@@ -343,6 +342,12 @@
     <style name="EditText">
         <item name="android:textColor">@color/darkGreyBlue</item>
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="text.navigation">
+        <item name="android:textSize">9sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">normal</item>
     </style>
 
 
