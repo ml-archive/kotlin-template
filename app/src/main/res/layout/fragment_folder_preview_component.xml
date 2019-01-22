@@ -23,6 +23,7 @@
         android:orientation="vertical"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
+        tools:visibility="visible"
         android:visibility="gone">
 
         <TextView
@@ -60,6 +61,7 @@
     <FrameLayout
         android:id="@+id/progressFl"
         android:layout_width="match_parent"
+        tools:visibility="gone"
         android:layout_height="140dp">
         <ProgressBar
             android:layout_gravity="center"

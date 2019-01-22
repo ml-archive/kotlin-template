@@ -68,7 +68,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:paddingBottom="0dp"
-        android:paddingTop="14dp">
+        android:layout_marginTop="14dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -137,6 +137,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
+                    android:textColor="@color/blueGrey"
                     android:ellipsize="end"
                     android:lines="1"
                     android:text="" />
@@ -156,7 +157,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -164,18 +165,16 @@
                     style="@style/text.subHeader5.quaternary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
                     android:ellipsize="end"
                     android:lines="1"
-                    android:gravity="bottom"
+                    tools:text="Today"
                     android:text="" />
 
                 <ImageView
                     android:id="@+id/clipIv"
-                    android:layout_width="24dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="24dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_gravity="right"
+                    android:layout_gravity="end"
                     android:src="@drawable/icon_48_attachment_small_grey"
                     android:visibility="visible" />
             </LinearLayout>

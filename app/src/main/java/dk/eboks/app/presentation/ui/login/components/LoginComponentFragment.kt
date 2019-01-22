@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -111,7 +112,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             hideKeyboard(view)
             activity?.onBackPressed()
         }
-
+        mainTb.setBackgroundColor(ContextCompat.getColor(context ?: return, R.color.backgroundColor))
         val menuRegist = mainTb.menu.add(Translation.logoncredentials.forgotPasswordButton)
         menuRegist.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         menuRegist.setOnMenuItemClickListener { item: MenuItem ->
@@ -127,7 +128,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             continueBtn.visibility = View.VISIBLE
         } else {
             loginProvidersLl.visibility = View.VISIBLE
-            if (passwordEt.text.toString().equals("") && cprEmailEt.text.toString().equals("")) continueBtn.visibility = View.GONE
+            if (passwordEt.text.isNullOrEmpty() && cprEmailEt.text.isNullOrBlank()) continueBtn.visibility = View.GONE
         }
     }
 

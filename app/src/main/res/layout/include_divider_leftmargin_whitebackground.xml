@@ -10,6 +10,6 @@
         android:layout_height="0.5dp"
         android:layout_gravity="bottom"
         android:background="@color/dividerColor"
-        android:layout_marginLeft="16dp"/>
+        android:layout_marginStart="16dp"/>
 
 </LinearLayout>

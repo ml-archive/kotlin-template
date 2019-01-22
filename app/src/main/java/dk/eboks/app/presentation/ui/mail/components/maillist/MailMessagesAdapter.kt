@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.daimajia.swipe.SwipeLayout
@@ -23,7 +24,7 @@ import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.util.getWorkaroundUrl
 import timber.log.Timber
 
-class MailMessagesAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<MailMessagesAdapter.MessageViewHolder>() {
+class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageViewHolder>() {
     enum class MailMessageEvent { OPEN, READ, MOVE }
 
     private val formatter: EboksFormatter = App.instance().appComponent.eboksFormatter()
@@ -53,7 +54,7 @@ class MailMessagesAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<Ma
         holder.bind(messages[position], last)
     }
 
-    inner class MessageViewHolder(val root: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
+    inner class MessageViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
         private val swipeLayout = root as SwipeLayout
         private val contentContainer = root.findViewById<ViewGroup>(R.id.mainContainerView)
         private val markAsReadContainer = root.findViewById<ViewGroup>(R.id.containerMarkAsRead)
@@ -86,7 +87,7 @@ class MailMessagesAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<Ma
             if(BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
                 swipeLayout.isLeftSwipeEnabled = !editMode
                 swipeLayout.isRightSwipeEnabled = !editMode
-                if (currentItem.unread == false){
+                if (!currentItem.unread){
                     markAsReadTv.text = Translation.inbox.actionMarkAsUnread
                 } else {
                     markAsReadTv.text = Translation.inbox.actionMarkAsRead
@@ -123,6 +124,7 @@ class MailMessagesAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<Ma
                 headerTv?.setTypeface(null, Typeface.NORMAL)
                 dateTv?.setTypeface(null, Typeface.NORMAL)
                 subHeaderTv.setTypeface(null, Typeface.NORMAL)
+                dateTv?.setTextColor(ContextCompat.getColor(itemView.context, R.color.silver))
             }
 
             if(showUploads) {

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
@@ -139,7 +140,9 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
                 circleIv.isSelected = true
                 dateTv.setTypeface(null, Typeface.BOLD)
                 titleTv.setTypeface(null,Typeface.BOLD)
+                titleTv.setTextColor(ContextCompat.getColor(titleTv.context, R.color.darkGreyBlue))
             } else {
+                titleTv.setTextColor(ContextCompat.getColor(titleTv.context, R.color.textColorPrimary))
                 dateTv.setTypeface(null,Typeface.NORMAL)
                 titleTv.setTypeface(null,Typeface.NORMAL)
             }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/backgroundColor"
     android:orientation="vertical"
     tools:ignore="MissingPrefix">
@@ -49,9 +50,9 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/white"
+            android:textColor="@color/darkGreyBlue"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/margin_normal"
-            android:textColor="@color/darkGreyBlue"
             android:text="@string/nstack_profile_fingerprint"
             android:textAppearance="@style/text.header4"
             android:thumbTint="@drawable/switch_thumb"
@@ -70,9 +71,9 @@
             android:background="@color/white"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:padding="@dimen/margin_normal"
-            android:textColor="@color/darkGreyBlue"
             android:text="@string/nstack_profile_keepMeSignedIn"
             android:textAppearance="@style/text.header4"
+            android:textColor="@color/darkGreyBlue"
             android:thumbTint="@drawable/switch_thumb"
             android:trackTint="@drawable/switch_track"
             tools:text="_Keep me signed in" />
@@ -96,6 +97,7 @@
         android:textSize="13sp"
         android:paddingRight="16dp"
         android:text="@string/nstack_profile_keepMeSignedInDescription"
+        android:textStyle="normal"
         android:textColor="@color/blueGrey"
         tools:text="_Keep me signed in when i close the e-boks app orem ipsum dolor sit amet" />
 
@@ -142,7 +144,7 @@
             android:background="@color/white"
             android:elevation="0dp"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
-            android:gravity="left|center_vertical"
+            android:gravity="start|center_vertical"
             android:paddingLeft="@dimen/margin_normal"
             android:textColor="@color/darkGreyBlue"
             android:paddingRight="@dimen/margin_normal"

@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
@@ -27,9 +28,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     var handler = Handler()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_signup_password_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_signup_password_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,6 +53,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = Translation.signup.title
+        mainTb.setBackgroundColor(ContextCompat.getColor(context ?: return, R.color.backgroundColor))
         mainTb.setNavigationOnClickListener {
             fragmentManager?.popBackStack()
         }
