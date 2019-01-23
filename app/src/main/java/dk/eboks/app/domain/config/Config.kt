@@ -247,7 +247,7 @@ object Config {
                     id = "bankid_no",
                     name = "Bank ID",
                     onlyVerified = true,
-                    icon = R.drawable.ic_bankid,
+                    icon = R.drawable.ic_bankid_no,
                     description = Translation.loginproviders.bankNoDescription,
                     fragmentClass = BankIdNOComponentFragment::class.java,
                     fallbackProvider = "cpr"
