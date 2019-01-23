@@ -10,7 +10,7 @@ translation {
     appId = "5Rg3muDHQL8J19lb6sZzjD6ANSOrigg5x55u"
     apiKey = "htCPriWP9yoaeoHHnPgYKYw68BoejYhJnR8w"
     acceptHeader = "da-DK"
-    autoRunUpdate = true
+    autoRunUpdate = false
 }
 
 bitrise {
@@ -241,6 +241,7 @@ dependencies {
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.cardview:cardview:$cardview_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+    compile "com.android.support:exifinterface:28.0.0"
 
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
 
