@@ -39,6 +39,7 @@
                 android:text="Header" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/descTv"
                 style="@style/text.subHeader5.quaternary"
                 android:layout_width="match_parent"
