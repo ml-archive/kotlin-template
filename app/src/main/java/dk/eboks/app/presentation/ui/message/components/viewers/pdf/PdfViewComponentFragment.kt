@@ -5,19 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.ViewerFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.base.EmbeddedViewer
 import dk.eboks.app.presentation.widgets.pdf.AsyncPdfRenderer
+import dk.eboks.app.presentation.widgets.pdf.PdfReaderView
 import dk.eboks.app.presentation.widgets.pdf.RenderedPage
 import kotlinx.android.synthetic.main.fragment_pdfview_component.*
 import timber.log.Timber
 import java.util.ArrayList
 import javax.inject.Inject
-import kotlin.math.roundToInt
 
 /**
  * Created by bison on 09-02-2018.
@@ -41,26 +40,24 @@ class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, 
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        pageMarginPx = (resources.displayMetrics.density * 16f).roundToInt()
 
-        pages.add(RenderedPage())
-        pages.add(RenderedPage())
-        pages.add(RenderedPage())
-        setupRecyclerView()
-
-        renderer = AsyncPdfRenderer(context ?: return)
-        renderer.start("pdf.pdf")
-        renderer.requestPage(0)
     }
+
+
+    override fun showPdfView(filename: String) {
+      pdfView.showFile(filename)
+    }
+
+
 
     fun setupRecyclerView()
     {
-        pagesRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+      /*  pagesRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
             context,
             androidx.recyclerview.widget.RecyclerView.VERTICAL,
             false
         )
-        pagesRv.adapter = PageAdapter()
+        pagesRv.adapter = PageAdapter()*/
     }
 
     override fun updateView(folder: Folder) {

@@ -15,25 +15,31 @@ import java.util.concurrent.LinkedBlockingQueue
  * Created by bison on 12-02-2018.
  */
 class AsyncPdfRenderer(val context: Context) : Runnable {
-    private val thread : Thread = Thread(this)
-    private val requestQueue : BlockingQueue<RenderRequest> = LinkedBlockingQueue<RenderRequest>()
-    private val pageCache : ConcurrentHashMap<Int, RenderedPage> = ConcurrentHashMap()
+    private val thread: Thread = Thread(this)
+    private val requestQueue: BlockingQueue<RenderRequest> = LinkedBlockingQueue<RenderRequest>()
+    private val pageCache: ConcurrentHashMap<Int, RenderedPage> = ConcurrentHashMap()
 
     private var pdfRenderer: PdfRenderer? = null
     private var fileDescriptor: ParcelFileDescriptor? = null
     //private var currentPage: PdfRenderer.Page? = null
     private var filename: String = ""
 
+    var listener: PdfRendererListener? = null
+
+
+    init {
+        Timber.d("Initilized")
+    }
+
     override fun run() {
         Timber.e("Starting AsyncPdfRenderer thread, going to sleep waiting for requests")
 
         initThread()
 
-        while(true)
-        {
+        while (true) {
             val request = requestQueue.take()
             Timber.e("Woke up on request")
-            if(request.quit) // quit on special request (this is how you exit a looping thread proper)
+            if (request.quit) // quit on special request (this is how you exit a looping thread proper)
                 break
             Timber.e("Processing request for page ${request.pageNo}")
             pdfRenderer?.let { renderer ->
@@ -46,6 +52,7 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
                     // the default result.
                     // Pass either RENDER_MODE_FOR_DISPLAY or RENDER_MODE_FOR_PRINT for the last parameter.
                     page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                    listener?.onPageLoaded(bitmap, page.index)
                     page.close()
                 }
 
@@ -56,10 +63,10 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
         shutdownThread()
     }
 
-    fun initThread()
-    {
+    fun initThread() {
+        Timber.d("init thread")
         try {
-            val file = File(context.cacheDir, filename)
+            val file = File(filename)
             if (!file.exists()) {
                 // Since PdfRenderer cannot handle the compressed asset file directly, we copy it into
                 // the users directory.
@@ -82,29 +89,25 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
                 pdfRenderer = PdfRenderer(fileDescriptor)
                 Timber.e("Loaded pdf succesfully")
             }
-        }
-        catch (t : Throwable)
-        {
+        } catch (t: Throwable) {
             t.printStackTrace()
             return
         }
     }
 
-    fun shutdownThread()
-    {
+    fun shutdownThread() {
         pdfRenderer?.close()
         fileDescriptor?.close()
     }
 
-    fun start(filename : String)
-    {
+    fun start(filename: String) {
+        Timber.d("Start for $filename")
         this.filename = filename
         thread.start()
     }
 
     // call from UI thread to collect thread
-    fun finish()
-    {
+    fun finish() {
         // put quit request in queue and join the thread
         val req = RenderRequest()
         req.quit = true
@@ -113,10 +116,15 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
     }
 
     // called from main thread
-    fun requestPage(pageno : Int)
-    {
+    fun requestPage(pageno: Int) {
+        Timber.d("requestPage: $pageno")
         val req = RenderRequest()
         req.pageNo = pageno
         requestQueue.put(req)
     }
+
+    interface PdfRendererListener {
+        fun onPageLoaded(bitmap: Bitmap, pageNumber: Int)
+    }
+
 }

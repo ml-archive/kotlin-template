@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.message.components.viewers.pdf
 
+import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
@@ -9,10 +10,13 @@ import javax.inject.Inject
  */
 class PdfViewComponentPresenter @Inject constructor(val appState: AppStateManager) : PdfViewComponentContract.Presenter, BasePresenterImpl<PdfViewComponentContract.View>() {
 
-    init {
-        runAction { v->
-
+    override fun onViewCreated(view: PdfViewComponentContract.View, lifecycle: Lifecycle) {
+        super.onViewCreated(view, lifecycle)
+        appState.state?.currentViewerFileName?.let {filename ->
+            runAction {
+                it.showPdfView(filename)
+            }
         }
-    }
 
+    }
 }

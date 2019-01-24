@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.widgets.pdf
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -17,9 +18,17 @@ import timber.log.Timber
  * Created by bison on 12-02-2018.
  */
 class PdfReaderView : View {
-    constructor(context: Context?) : super(context) { init() }
-    constructor(context: Context?, attributes: AttributeSet?) : super(context, attributes) { init() }
-    constructor(context: Context?, attributes: AttributeSet?, defStyle: Int) : super(context, attributes, defStyle) { init() }
+    constructor(context: Context?) : super(context) {
+        init()
+    }
+
+    constructor(context: Context?, attributes: AttributeSet?) : super(context, attributes) {
+        init()
+    }
+
+    constructor(context: Context?, attributes: AttributeSet?, defStyle: Int) : super(context, attributes, defStyle) {
+        init()
+    }
 
     private lateinit var renderer: AsyncPdfRenderer
 
@@ -40,12 +49,12 @@ class PdfReaderView : View {
     var isInitialized = false
 
     var currentPageNo = 0
+    var bitmap: Bitmap? = null
 
     var filename: String = ""
     lateinit var paint: Paint
 
-    private fun init()
-    {
+    private fun init() {
         Timber.e("Init")
         isInitialized = true
         paint = Paint()
@@ -59,6 +68,18 @@ class PdfReaderView : View {
         super.onAttachedToWindow()
         Timber.e("onAttachedToWindow")
         renderer = AsyncPdfRenderer(context)
+        renderer.listener = object : AsyncPdfRenderer.PdfRendererListener {
+            override fun onPageLoaded(bitmap: Bitmap, pageNumber: Int) {
+                Timber.d("Page loaded: $pageNumber")
+                this@PdfReaderView.bitmap = bitmap
+                this@PdfReaderView.invalidate()
+            }
+        }
+
+    }
+
+    fun showFile(filename: String) {
+        Timber.d("show file $filename")
         renderer.start(filename)
         renderer.requestPage(0)
     }
@@ -71,14 +92,19 @@ class PdfReaderView : View {
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
+        Timber.d("Draw")
         //Timber.e("onDraw ${canvas?.width} x ${canvas?.height} scale = $scaleFactor pan = $posX,$posY")
         //Timber.e("scrollOffset $scrollOffset")
-        canvas?.let { c->
-            c.save()
-            c.translate(posX, scrollOffset)
-            c.scale(scaleFactor, scaleFactor)
-            c.drawRect(100f, 100f, 500f, 500f, paint)
-            canvas.restore()
+        canvas?.let { c ->
+            if (bitmap != null) {
+                Timber.d("Draw bitmap")
+                c.save()
+                c.translate(posX, scrollOffset)
+                c.scale(scaleFactor, scaleFactor)
+                c.drawBitmap(bitmap, 0f, 0f, null)
+                c.restore()
+            }
+
         }
 
         /*
@@ -96,7 +122,7 @@ class PdfReaderView : View {
             }
         }
         */
-        if(!scroller.isFinished) {
+        if (!scroller.isFinished) {
             scroller.computeScrollOffset()
             scrollOffset = scroller.currY.toFloat()
             Timber.e("scrollOffset $scrollOffset")
@@ -138,12 +164,10 @@ class PdfReaderView : View {
                     posY += dy
 
                     invalidate()
-                }
-                else
-                {
+                } else {
                     Timber.e("Starting scroll")
                     scrollOffset += dy
-                    scroller.startScroll(0, (scrollOffset).toInt(), 0, (dy*5f).toInt())
+                    scroller.startScroll(0, (scrollOffset).toInt(), 0, (dy * 5f).toInt())
                     /*
                     val dy = y - lastTouchY
                     scrollOffset += dy
@@ -160,8 +184,7 @@ class PdfReaderView : View {
                 val pointerIndex = ev.findPointerIndex(activePointerId)
                 val y = ev.getY(pointerIndex)
                 activePointerId = INVALID_POINTER_ID
-                if(!scaleDetector.isInProgress)
-                {
+                if (!scaleDetector.isInProgress) {
 
                 }
             }
@@ -192,7 +215,7 @@ class PdfReaderView : View {
         override fun onScale(detector: ScaleGestureDetector): Boolean {
             scroller.forceFinished(true)
             scaleFactor *= detector.scaleFactor
-
+            Timber.d("onScael")
             // Don't let the object get too small or too large.
             scaleFactor = Math.max(0.50f, Math.min(scaleFactor, 2.0f))
 
