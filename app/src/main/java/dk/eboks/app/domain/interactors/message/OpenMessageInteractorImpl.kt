@@ -37,6 +37,7 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                 //throw(ServerErrorException(ServerError(id="homemade", code = PROMULGATION, type = ERROR)))
                 val updated_msg = messagesRepository.getMessage(msg.folderId, msg.id, acceptedPrivateTerms = appStateManager.state?.openingState?.acceptPrivateTerms)
                 if(processLockedMessage(msg)) {
+                    Timber.d("Message opneing: $updated_msg ")
                     // update the (perhaps) more detailed message object with the extra info from the backend
                     // because the JVM can only deal with reference types silly reflection tricks like this are necessary
                     FieldMapper.copyAllFields(msg, updated_msg)

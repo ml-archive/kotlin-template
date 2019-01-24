@@ -196,12 +196,12 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     }
 
     override fun addShareComponentFragment() {
-        shareComponentFragment = ShareComponentFragment()
+       /* shareComponentFragment = ShareComponentFragment()
         shareComponentFragment?.let {
             supportFragmentManager.beginTransaction()
                     .add(R.id.sheetComponentsLl, it, ShareComponentFragment::class.java.simpleName)
                     .commit()
-        }
+        }*/
     }
 
     override fun addNotesComponentFragment() {

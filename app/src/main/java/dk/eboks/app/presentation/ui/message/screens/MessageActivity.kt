@@ -131,12 +131,12 @@ class MessageActivity : BaseActivity(), MessageContract.View {
     }
 
     override fun addShareComponentFragment() {
-        shareComponentFragment = ShareComponentFragment()
+        /*shareComponentFragment = ShareComponentFragment()
         shareComponentFragment?.let {
             supportFragmentManager.beginTransaction()
                 .add(R.id.bodyContainerLl, it, ShareComponentFragment::class.java.simpleName)
                 .commit()
-        }
+        }*/
     }
 
     override fun addNotesComponentFragment() {

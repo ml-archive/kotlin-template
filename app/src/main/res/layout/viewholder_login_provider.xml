@@ -14,19 +14,20 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:layout_weight="3"
             android:id="@+id/iconIv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="0dp"
+            android:scaleType="centerInside"
+            android:layout_height="match_parent"
+            android:padding="16dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/ic_fingerprint" />
+            android:src="@drawable/ic_bankid_no" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="16dp"
-            android:layout_weight="1"
+            android:layout_weight="10"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
@@ -38,6 +39,7 @@
                 android:text="Header" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/descTv"
                 style="@style/text.subHeader5.quaternary"
                 android:layout_width="match_parent"
