@@ -24,7 +24,6 @@ class ChannelContentActivity : BaseActivity(), ChannelContentContract.View {
         presenter.onViewCreated(this, lifecycle)
         val opendirectly = intent.getBooleanExtra("openDirectly", false)
         intent.getParcelableExtra<Channel>(Channel::class.java.simpleName)?.let { channel ->
-            setupToolbar(channel)
             if (!opendirectly) {
                 supportFragmentManager.beginTransaction().add(
                     R.id.content,
@@ -37,14 +36,6 @@ class ChannelContentActivity : BaseActivity(), ChannelContentContract.View {
             } else {
                 presenter.open(channel)
             }
-        }
-    }
-
-    private fun setupToolbar(channel: Channel) {
-        mainTb.title = channel.name
-        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
-        mainTb.setNavigationOnClickListener {
-            onBackPressed()
         }
     }
 
