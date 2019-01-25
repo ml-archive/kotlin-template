@@ -3,6 +3,8 @@ package dk.eboks.app.presentation.widgets.pdf
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.pdf.PdfRenderer
+import android.os.Handler
+import android.os.Looper
 import android.os.ParcelFileDescriptor
 import timber.log.Timber
 import java.io.File
@@ -52,7 +54,7 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
                     // the default result.
                     // Pass either RENDER_MODE_FOR_DISPLAY or RENDER_MODE_FOR_PRINT for the last parameter.
                     page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                    listener?.onPageLoaded(bitmap, page.index)
+                    runOnUiThread {  listener?.onPageLoaded(bitmap, page.index) }
                     page.close()
                 }
 
@@ -87,6 +89,7 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
             // This is the PdfRenderer we use to render the PDF.
             if (fileDescriptor != null) {
                 pdfRenderer = PdfRenderer(fileDescriptor)
+                runOnUiThread { listener?.onPDFFileLoaded(pdfRenderer?.pageCount ?: 0) }
                 Timber.e("Loaded pdf succesfully")
             }
         } catch (t: Throwable) {
@@ -123,8 +126,14 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
         requestQueue.put(req)
     }
 
+
+    private fun runOnUiThread(block: () -> Unit) {
+        Handler(Looper.getMainLooper()).post(block)
+    }
+
     interface PdfRendererListener {
         fun onPageLoaded(bitmap: Bitmap, pageNumber: Int)
+        fun onPDFFileLoaded(pageCount: Int)
     }
 
 }

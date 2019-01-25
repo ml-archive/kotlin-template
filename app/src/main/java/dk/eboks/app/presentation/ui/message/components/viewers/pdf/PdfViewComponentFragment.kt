@@ -11,7 +11,6 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.ViewerFragment
 import dk.eboks.app.presentation.ui.message.components.viewers.base.EmbeddedViewer
 import dk.eboks.app.presentation.widgets.pdf.AsyncPdfRenderer
-import dk.eboks.app.presentation.widgets.pdf.PdfReaderView
 import dk.eboks.app.presentation.widgets.pdf.RenderedPage
 import kotlinx.android.synthetic.main.fragment_pdfview_component.*
 import timber.log.Timber
@@ -45,7 +44,7 @@ class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, 
 
 
     override fun showPdfView(filename: String) {
-      pdfView.showFile(filename)
+      pdfView.initWithFilename(filename)
     }
 
 

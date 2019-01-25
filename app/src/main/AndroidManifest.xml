@@ -24,6 +24,7 @@
         android:label="${APP_NAME}"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        tools:replace="android:allowBackup,android:label"
         android:theme="@style/AppTheme">
 
         <!-- nstack app id and key from build.gradle manifest placeholder -->
