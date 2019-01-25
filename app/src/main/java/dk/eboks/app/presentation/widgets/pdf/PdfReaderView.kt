@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.view.*
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
 import dk.eboks.app.util.setVisible
@@ -74,10 +73,8 @@ class PdfReaderView @JvmOverloads constructor(context: Context, attrs: Attribute
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         Timber.e("onDetachedFromWindow")
-
         renderer.listener = null
         renderer.finish()
-
     }
 
     override fun onPageChanged(newPageNumber: Int) {

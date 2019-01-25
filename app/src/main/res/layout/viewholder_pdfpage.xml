@@ -9,6 +9,7 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:scaleType="fitCenter"
         android:id="@+id/imageView"
         android:background="@color/white"
         android:layout_width="match_parent"
