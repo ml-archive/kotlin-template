@@ -5,24 +5,28 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/include_toolbar" />
+
     <FrameLayout
         android:id="@+id/fragmentHolderLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?android:attr/actionBarSize"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+    <com.google.android.material.bottomnavigation.BottomNavigationView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/mainNavigationBnv"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="bottom"
         app:itemBackground="@color/colorPrimary"
         app:itemIconTint="@color/nav_item_selector"
+        app:itemTextAppearanceActive="@style/text.navigation"
+        app:itemTextAppearanceInactive="@style/text.navigation"
         app:itemTextColor="@color/nav_item_selector"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/main">
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"

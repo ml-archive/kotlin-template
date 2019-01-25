@@ -15,6 +15,7 @@ import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewFragment
 import dk.eboks.app.presentation.ui.notimplemented.screens.ComingSoonFragment
 import dk.eboks.app.presentation.ui.senders.screens.overview.SerdersOverviewFragment
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
+import dk.eboks.app.util.disableShiftingMode
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -69,6 +70,7 @@ class MainActivity : BaseActivity(), MainNavigator {
             menu.findItem(Section.Channels.id).title = Section.Channels.title
             menu.findItem(Section.Uploads.id).title = Section.Uploads.title
             setOnNavigationItemSelectedListener(navListener)
+            disableShiftingMode()
         }
     }
 
@@ -156,7 +158,7 @@ class MainActivity : BaseActivity(), MainNavigator {
         private const val ComingSoonSenderTag = "csSender"
         private const val ComingSoonUploadTag = "csUpload"
         private const val PARAM_SECTION = "section"
-        fun createIntent(context: Context, section: Section = Section.Mail): Intent =
+        fun createIntent(context: Context, section: Section = Section.Home): Intent =
             Intent(context, MainActivity::class.java)
                 .putExtra(PARAM_SECTION, section)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
