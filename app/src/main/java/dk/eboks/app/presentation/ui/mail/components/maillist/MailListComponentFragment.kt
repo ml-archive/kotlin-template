@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
@@ -288,9 +289,9 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     private fun setupRecyclerView() {
         adapter.showUploads = showUploads
-        messagesRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+        messagesRv.layoutManager = LinearLayoutManager(
             context,
-            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            RecyclerView.VERTICAL,
             false
         )
         messagesRv.adapter = adapter
@@ -335,7 +336,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
                 dy: Int
             ) {
                 val layoutManager =
-                    recyclerView.layoutManager as androidx.recyclerview.widget.LinearLayoutManager
+                    recyclerView.layoutManager as LinearLayoutManager
                 layoutManager.let {
                     if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
                         onScrolledToLastItem()

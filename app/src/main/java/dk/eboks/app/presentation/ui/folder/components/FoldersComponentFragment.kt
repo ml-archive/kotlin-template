@@ -290,7 +290,6 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             if (left == 0f)
                 left = resources.displayMetrics.density * 16f
             v.setPadding(left.toInt(), v.paddingTop, v.paddingRight, v.paddingBottom)
-            v.findViewById<View>(R.id.underLineV)?.visibility = View.VISIBLE
             v.findViewById<TextView>(R.id.nameTv)?.text = folder.name
             if (folder.unreadCount != 0) {
                 v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.VISIBLE
@@ -328,8 +327,6 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
             if (folder.folders.isNotEmpty()) {
                 processFoldersRecursive(folder.folders, level + 1, folder)
-            } else {
-                v.findViewById<View>(R.id.underLineV)?.visibility = View.GONE
             }
         }
     }

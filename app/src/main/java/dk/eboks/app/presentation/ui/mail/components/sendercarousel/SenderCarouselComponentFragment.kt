@@ -29,11 +29,15 @@ import javax.inject.Inject
 class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentContract.View {
 
     @Inject
-    lateinit var presenter : SenderCarouselComponentContract.Presenter
+    lateinit var presenter: SenderCarouselComponentContract.Presenter
 
-    var senders : MutableList<Sender> = ArrayList()
+    var senders: MutableList<Sender> = ArrayList()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView =
             inflater.inflate(R.layout.fragment_sender_carousel_component, container, false)
         return rootView
@@ -48,8 +52,7 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         sendersShowAllTv.setOnClickListener {
             startActivity(Intent(context, SenderAllListActivity::class.java))
         }
-        if(!BuildConfig.ENABLE_SENDERS)
-        {
+        if (!BuildConfig.ENABLE_SENDERS) {
             addMoreSendersBtn.visibility = View.GONE
         }
 
@@ -60,11 +63,10 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         }
     }
 
-    fun setupRecyclerView()
-    {
+    fun setupRecyclerView() {
         sendersRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
             context,
-            androidx.recyclerview.widget.RecyclerView.HORIZONTAL,
+            RecyclerView.HORIZONTAL,
             false
         )
         sendersRv.adapter = HorizontalSendersAdapter()
@@ -77,39 +79,40 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if(show) View.VISIBLE else View.GONE
+        progressFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    override fun showEmpty(show: Boolean, verified : Boolean) {
-        if(verified) {
+    override fun showEmpty(show: Boolean, verified: Boolean) {
+        if (verified) {
             sendersListEmptyUnverifiedLl.visible = (false)
             sendersListEmptyLl.visible = (show)
-        }
-        else
-        {
+        } else {
             sendersListEmptyLl.visible = (false)
             sendersListEmptyUnverifiedLl.visible = (show)
         }
         sendersListLl.visible = (!show)
-
     }
 
     override fun showEmpty(show: Boolean) {
-        sendersListEmptyLl.visibility = if(show) View.VISIBLE else View.GONE
-        sendersListLl.visibility = if(!show) View.VISIBLE else View.GONE
+        sendersListEmptyLl.visibility = if (show) View.VISIBLE else View.GONE
+        sendersListLl.visibility = if (!show) View.VISIBLE else View.GONE
     }
 
-    inner class HorizontalSendersAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<HorizontalSendersAdapter.CircularSenderViewHolder>() {
+    inner class HorizontalSendersAdapter :
+        RecyclerView.Adapter<HorizontalSendersAdapter.CircularSenderViewHolder>() {
 
-        inner class CircularSenderViewHolder(val root : View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root)
-        {
+        inner class CircularSenderViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
 
             val circleIv = root.findViewById<ImageView>(R.id.circleIv)
             val senderNameTv = root.findViewById<TextView>(R.id.senderNameTv)
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CircularSenderViewHolder {
-            val v = LayoutInflater.from(context).inflate(R.layout.viewholder_circular_sender, parent, false)
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): CircularSenderViewHolder {
+            val v = LayoutInflater.from(context)
+                .inflate(R.layout.viewholder_circular_sender, parent, false)
             val vh = CircularSenderViewHolder(v)
             return vh
         }
@@ -120,11 +123,15 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
 
         override fun onBindViewHolder(holder: CircularSenderViewHolder, position: Int) {
             holder.circleIv?.let {
-                if(senders[position].logo != null)
-                    Glide.with(context ?: return)
-                         .setDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder).error(R.drawable.ic_sender_placeholder))
-                         .load(senders[position].logo?.getWorkaroundUrl())
-                         .into(it)
+                if (senders[position].logo != null)
+                    Glide.with(it.context)
+                        .setDefaultRequestOptions(
+                            RequestOptions().placeholder(R.drawable.ic_sender_placeholder).error(
+                                R.drawable.ic_sender_placeholder
+                            )
+                        )
+                        .load(senders[position].logo?.getWorkaroundUrl())
+                        .into(it)
             }
             holder.senderNameTv?.text = senders[position].name
             holder.root.let {
@@ -132,12 +139,11 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
                 it.isSelected = senders[position].unreadMessageCount > 0
                 it.setOnClickListener {
 
-                    val i = Intent(context, MailListActivity::class.java )
+                    val i = Intent(context, MailListActivity::class.java)
                     i.putExtra("sender", senders[position])
                     startActivity(i)
                 }
             }
         }
     }
-
 }

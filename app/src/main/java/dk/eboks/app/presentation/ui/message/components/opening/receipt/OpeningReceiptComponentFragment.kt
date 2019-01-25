@@ -34,9 +34,7 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_mail_opening_error_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_mail_opening_error_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,7 +44,8 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
 
         voluntaryReceipt = arguments?.getBoolean("voluntaryReceipt") ?: false
 
-        buttonsLl.visible = (true)
+        buttonsLl.visible = true
+        openMessageButtons.visible = true
 
         openBtn.setOnClickListener {
             presenter.setShouldProceed(true, true)

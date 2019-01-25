@@ -7,6 +7,7 @@
     android:minHeight="232dp"
     android:background="@color/backgroundColor"
     android:orientation="vertical"
+    android:paddingTop="6dp"
     tools:ignore="MissingPrefix">
 
     <LinearLayout
@@ -23,7 +24,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingBottom="20dp"
-            android:paddingTop="20dp"
             tools:text="_Settings"
             android:text="@string/nstack_settings_header" />
 
@@ -40,8 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/backgroundColor"
-            android:orientation="vertical"
-            android:paddingBottom="8dp">
+            android:orientation="vertical">
 
 
             <LinearLayout
@@ -167,6 +166,7 @@
             android:background="@color/dividerColor" />
 
         <LinearLayout
+            tools:visibility="visible"
             android:id="@+id/storeboxProfileLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -229,6 +229,7 @@
         </LinearLayout>
 
         <LinearLayout
+            tools:visibility="visible"
             android:id="@+id/creditCardContainerLl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -314,7 +315,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginBottom="24dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:textColor="@color/colorPrimaryDark"
             android:text="@string/nstack_settings_removeChannelBtn" />
 

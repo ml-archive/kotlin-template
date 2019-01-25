@@ -11,6 +11,7 @@ import dk.eboks.app.presentation.ui.channels.components.content.web.ChannelConte
 import dk.eboks.app.presentation.ui.channels.components.opening.ChannelOpeningComponentFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.util.putArg
+import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 class ChannelContentActivity : BaseActivity(), ChannelContentContract.View {

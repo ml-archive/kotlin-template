@@ -61,6 +61,7 @@
 
             <TextView
                 android:id="@+id/dateTv"
+                android:textColor="@color/blueGrey"
                 style="@style/text.subHeader5.quaternary"
                 android:maxLines="1"
                 android:ellipsize="end"

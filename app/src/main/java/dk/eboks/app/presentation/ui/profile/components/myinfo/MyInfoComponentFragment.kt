@@ -9,6 +9,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
+import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
@@ -192,11 +194,10 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
     }
 
     private fun updateVerifyButtonVisibility() {
-        /*
-        verifyEmailBtn.visible = (!primaryMailEt.text.isBlank())
-        verifySecondaryEmailBtn.visible = (!secondaryMailEt.text.isBlank())
-        verifyMobileNumberBtn.visible = (!mobilEt.text.isBlank())
-        */
+        verifyEmailBtn.setVerifiedButtonVissible(primaryMailEt)
+        verifySecondaryEmailBtn.setVerifiedButtonVissible(secondaryMailEt)
+        verifyMobileNumberBtn.setVerifiedButtonVissible(mobilEt)
+
     }
 
     override fun onDone() {
@@ -239,12 +240,17 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
 
     override fun setPrimaryEmail(email: String, verified: Boolean, userVerified: Boolean) {
         primaryMailEt.setText(email)
+        verifyEmailBtn.tag = verified
         verifyEmailBtn.visible = (!verified)
         primaryMailEt.isEnabled = userVerified
+        updateVerifyButtonVisibility()
+
     }
 
     override fun setSecondaryEmail(email: String, verified: Boolean) {
         secondaryMailEt.setText(email)
+        verifyMobileNumberBtn.tag = verified
+        updateVerifyButtonVisibility()
         verifySecondaryEmailBtn.visible = (!verified)
     }
 
@@ -253,6 +259,8 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
         //mobilenumber.value = mobile
         //mobilenumber.verified = verified
         Timber.e("SetMobileNumber mobile $mobile veri: $verified")
+        verifyMobileNumberBtn.tag = verified
+        updateVerifyButtonVisibility()
         verifyMobileNumberBtn.visible = (!verified)
     }
 
@@ -307,5 +315,11 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
 
     companion object {
         var refreshOnResume = false
+    }
+
+
+    private fun Button.setVerifiedButtonVissible(input: EditText) {
+        val verfiedTag = tag as? Boolean ?: false
+        visible = !input.text.isNullOrBlank() && !verfiedTag
     }
 }

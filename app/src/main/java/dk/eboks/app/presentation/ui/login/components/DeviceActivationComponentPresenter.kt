@@ -26,6 +26,10 @@ class DeviceActivationComponentPresenter @Inject constructor(
         BasePresenterImpl<DeviceActivationComponentContract.View>() {
 
     var loading = false
+        set(value) {
+            field = value
+            runAction { it.showProgress(value) }
+        }
 
     init {
         generateRSAKeyInteractor.output = this

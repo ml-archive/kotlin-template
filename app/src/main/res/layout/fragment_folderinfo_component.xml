@@ -25,11 +25,12 @@
             android:id="@+id/folderNameTv"
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:textColor="@color/blueGrey"
             android:layout_height="wrap_content"
             android:layout_marginStart="11dp"
             android:gravity="end"
             style="@style/text.subHeader5.quaternary"
-            android:text=""/>
+            tools:text="Fasdasd"/>
 
     </LinearLayout>
 

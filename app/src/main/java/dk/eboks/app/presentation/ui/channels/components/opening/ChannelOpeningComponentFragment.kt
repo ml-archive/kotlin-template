@@ -32,6 +32,7 @@ import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_channel_opening_component.*
 import kotlinx.android.synthetic.main.include_channel_detail_bottom_install.*
 import kotlinx.android.synthetic.main.include_channel_detail_top.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -59,8 +60,10 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        arguments?.getParcelable<Channel>(Channel::class.java.simpleName)?.id?.let(presenter::setup)
-            .guard {
+        arguments?.getParcelable<Channel>(Channel::class.java.simpleName)?.let {
+            presenter.setup(it.id)
+            setupToolbar(it)
+        }.guard {
             //activity?.onBackPressed()
         }
     }
@@ -69,6 +72,14 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         super.onResume()
         clearFindViewByIdCache()
         presenter.refreshChannel()
+    }
+
+    private fun setupToolbar(channel: Channel) {
+        mainTb.title = channel.name
+        mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
+        mainTb.setNavigationOnClickListener {
+            activity?.onBackPressed()
+        }
     }
 
 

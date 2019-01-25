@@ -49,6 +49,7 @@
                 <TextView
                     android:id="@+id/nameTv"
                     style="@style/text.header4.tertiary"
+                    android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="28dp"
                     android:layout_gravity="center_horizontal"

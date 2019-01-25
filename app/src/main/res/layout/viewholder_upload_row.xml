@@ -67,6 +67,7 @@
                     android:text="" />
 
                 <TextView
+                    android:textColor="@color/blueGrey"
                     android:id="@+id/dateTv"
                     style="@style/text.subHeader5.quaternary"
                     android:layout_width="wrap_content"
@@ -76,6 +77,7 @@
 
             <TextView
                 android:id="@+id/subHeaderTv"
+                android:textColor="@color/blueGrey"
                 style="@style/text.subHeader5.quaternary"
                 android:maxLines="1"
                 android:ellipsize="end"
