@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/listComponentTitleTv"
+    style="@style/text.header3"
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:gravity="bottom|left"
+    android:paddingLeft="16dp"
+    android:paddingRight="6dp"
+    android:paddingBottom="8dp"
+    android:text="@string/nstack_senders_allCategories"
+    tools:text="All categories" />

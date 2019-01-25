@@ -9,11 +9,13 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.ui.senders.screens.browse.BrowseCategoryActivity
 import dk.eboks.app.presentation.ui.senders.screens.browse.SearchSendersActivity
 import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import dk.eboks.app.presentation.ui.senders.screens.registrations.PendingActivity
@@ -24,6 +26,7 @@ import javax.inject.Inject
 
 class SerdersOverviewFragment : BaseFragment(), SendersOverviewContract.View,
     SendersCollectionAdapter.Callback {
+
 
     @Inject lateinit var presenter: SendersOverviewContract.Presenter
 
@@ -70,6 +73,10 @@ class SerdersOverviewFragment : BaseFragment(), SendersOverviewContract.View,
         presenter.onViewCreated(this, lifecycle)
     }
 
+    override fun showCategories(categories: List<SenderCategory>) {
+        adapter.setCategories(categories)
+    }
+
     override fun onSenderClick(sender: Sender) {
         val i = Intent(context ?: return, SenderDetailActivity::class.java)
         i.putExtra(Sender::class.simpleName, sender)
@@ -91,7 +98,7 @@ class SerdersOverviewFragment : BaseFragment(), SendersOverviewContract.View,
     }
 
     override fun showCollections(collections: List<CollectionContainer>) {
-        adapter.setData(collections)
+        adapter.setCollections(collections)
     }
 
     override fun showSuccess() {}
@@ -100,6 +107,12 @@ class SerdersOverviewFragment : BaseFragment(), SendersOverviewContract.View,
 
     override fun hidePendingRegistrations() {
         senderPendingBtn.visibility = View.GONE
+    }
+
+    override fun onCategoryClick(category: SenderCategory) {
+        val i = Intent(context, BrowseCategoryActivity::class.java)
+        i.putExtra(SenderCategory::class.simpleName, category)
+        startActivity(i)
     }
 
     override fun showPendingRegistrations(pendingRegistrations: List<CollectionContainer>) {

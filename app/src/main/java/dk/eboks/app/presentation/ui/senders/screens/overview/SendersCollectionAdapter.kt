@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.CollectionContainerTypeEnum
@@ -20,6 +21,7 @@ import dk.eboks.app.util.inflate
 import kotlinx.android.synthetic.main.fragment_segment_component.view.*
 import kotlinx.android.synthetic.main.fragment_sender_component.view.*
 import kotlinx.android.synthetic.main.viewholder_sender_item.view.*
+import kotlinx.android.synthetic.main.viewholder_title_subtitle.view.*
 import timber.log.Timber
 import java.lang.ref.WeakReference
 
@@ -31,18 +33,18 @@ class SendersCollectionAdapter(callback: Callback? = null) :
         fun onRegisterSenderClick(sender: Sender)
         fun onUnregisterSenderClick(sender: Sender)
         fun onSegmentClick(segment: Segment)
+        fun onCategoryClick(category: SenderCategory)
     }
 
     private val callbackWeakReference = WeakReference(callback)
 
-    private val data = mutableListOf<CollectionContainer>()
-
-    fun setData(collections: List<CollectionContainer>) {
-        data.clear()
-        data += collections
+    private val collections = mutableListOf<CollectionContainer>()
+    private val categories = mutableListOf<SenderCategory>()
+    fun setCollections(collections: List<CollectionContainer>) {
+        this.collections.clear()
+        this.collections += collections
         notifyDataSetChanged()
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -55,25 +57,35 @@ class SendersCollectionAdapter(callback: Callback? = null) :
             CollectionContainerTypeEnum.SENDERS.ordinal -> {
                 SenderCollectionViewHolder(parent.inflate(R.layout.viewholder_sender_item))
             }
+            TITLE -> {
+                TitleViewHolder(parent.inflate(R.layout.viewholder_title))
+            }
+            CATEGORY -> {
+                CategoriesViewHolder(parent.inflate(R.layout.viewholder_title_subtitle))
+            }
             else -> throw UnknownError("Unknown collection type")
         }
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return collections.size + categories.size + 1
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Timber.v("onBindViewHolder type ${data[position].type}")
         when (holder) {
-            is SegmentViewHolder -> holder.bind(data[position])
-            is SenderViewHolder -> data[position].sender!!.let(holder::bind)
-            is SenderCollectionViewHolder -> holder.bind(data[position])
+            is SegmentViewHolder -> holder.bind(collections[position])
+            is SenderViewHolder -> collections[position].sender!!.let(holder::bind)
+            is SenderCollectionViewHolder -> holder.bind(collections[position])
+            is CategoriesViewHolder -> holder.bind(categories[position - collections.size - 1])
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return data[position].typeEnum.ordinal
+        return when {
+            position < collections.size -> collections[position].typeEnum.ordinal
+            position == collections.size -> TITLE
+            else -> CATEGORY
+        }
     }
 
     private inner class SegmentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -262,10 +274,35 @@ class SendersCollectionAdapter(callback: Callback? = null) :
         }
     }
 
+    private inner class CategoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(category: SenderCategory) {
+            itemView.run {
+                titleTv.text = category.name
+                subTv.text = "${category.numberOfSenders}"
+                setOnClickListener {
+                    callbackWeakReference.get()?.onCategoryClick(category)
+                }
+            }
+        }
+    }
+
     private fun setButtonText(textView: TextView, sender: Sender) {
         textView.text = when (sender.registered) {
             0 -> Translation.senders.register
             else -> Translation.senders.registered
         }
+    }
+
+    private class TitleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    fun setCategories(categories: List<SenderCategory>) {
+        this.categories.clear()
+        this.categories += categories
+        notifyDataSetChanged()
+    }
+
+    companion object {
+        private const val TITLE = 4
+        private const val CATEGORY = 5
     }
 }
