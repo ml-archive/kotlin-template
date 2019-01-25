@@ -124,14 +124,6 @@ inline fun <T> T.guard(block: T.() -> Unit): T {
     if (this == null) block(); return this
 }
 
-fun View.setVisible(isVisible: Boolean) {
-    this.visibility = if (isVisible) {
-        View.VISIBLE
-    } else {
-        View.GONE
-    }
-}
-
 fun dpToPx(dp: Int): Int {
     return (dp * Resources.getSystem().displayMetrics.density).toInt()
 }
@@ -409,3 +401,9 @@ fun WebView.printAndForget(context: Context) {
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }
+
+var View.visible: Boolean
+    get() = visibility == View.VISIBLE
+    set(value) {
+        visibility = if (value) View.VISIBLE else View.GONE
+    }

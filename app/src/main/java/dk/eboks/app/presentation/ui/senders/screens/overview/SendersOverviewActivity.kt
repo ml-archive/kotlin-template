@@ -7,6 +7,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Segment
@@ -17,12 +18,20 @@ import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import dk.eboks.app.presentation.ui.senders.screens.registrations.PendingActivity
 import dk.eboks.app.presentation.ui.senders.screens.registrations.RegistrationsActivity
 import dk.eboks.app.presentation.ui.senders.screens.segment.SegmentDetailActivity
-import kotlinx.android.synthetic.main.activity_senders_overview.*
+import kotlinx.android.synthetic.main.fragment_senders_overview.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View,
     SendersCollectionAdapter.Callback {
+    override fun onCategoryClick(category: SenderCategory) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showCategories(categories: List<SenderCategory>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     @Inject
     lateinit var presenter: SendersOverviewContract.Presenter
 
@@ -79,7 +88,7 @@ class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View,
     }
 
     override fun showCollections(collections: List<CollectionContainer>) {
-        adapter.setData(collections)
+        adapter.setCollections(collections)
     }
 
     override fun showSuccess() {}

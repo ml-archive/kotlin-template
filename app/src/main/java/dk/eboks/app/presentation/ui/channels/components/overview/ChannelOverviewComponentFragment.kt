@@ -22,7 +22,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentActivity
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.inflate
-import dk.eboks.app.util.setVisible
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_channel_list_component.*
 import kotlinx.android.synthetic.main.viewholder_channel_cards.view.*
 import javax.inject.Inject
@@ -59,8 +59,8 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.setVisible(show)
-        refreshSrl.setVisible(!show)
+        progressFl.visible = (show)
+        refreshSrl.visible = (!show)
         if (!show) {
             refreshSrl.isRefreshing = false
         }

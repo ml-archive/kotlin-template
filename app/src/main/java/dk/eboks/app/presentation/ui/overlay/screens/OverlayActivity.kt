@@ -9,11 +9,10 @@ import android.view.View
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.util.setVisible
 import dk.eboks.app.util.views
+import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.activity_overlay.*
@@ -54,9 +53,9 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
         for (item in buttons) {
             handler.postDelayed({
                 val v = inflator.inflate(
-                        R.layout.viewholder_overlay_row,
-                        buttonContainerLl,
-                        false
+                    R.layout.viewholder_overlay_row,
+                    buttonContainerLl,
+                    false
                 )
                 val button = v.findViewById<ImageButton>(R.id.buttonFab)
                 val text = v.findViewById<TextView>(R.id.textTv)
@@ -71,7 +70,7 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
                 }
                 buttonContainerLl.addView(v)
                 buttonContainerLl.requestLayout()
-                button.setVisible(true)
+                button.visibility = View.VISIBLE
                 text.visibility = View.VISIBLE
             }, delay)
             delay += animationTime
@@ -90,9 +89,9 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
         for (v in buttonContainerLl.views) {
             handler.postDelayed({
                 v.textTv.visibility = View.GONE
-                v.buttonFab.setVisible(false)
+                v.buttonFab.visible = false
             }
-                    , delay)
+                , delay)
             delay += animationTime
         }
         handler.postDelayed({
@@ -113,8 +112,5 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
         fun createIntent(context: Context, buttons: ArrayList<OverlayButton>): Intent {
             return Intent(context, OverlayActivity::class.java).putExtra(PARAM_BUTTONS, buttons)
         }
-
     }
-
-
 }

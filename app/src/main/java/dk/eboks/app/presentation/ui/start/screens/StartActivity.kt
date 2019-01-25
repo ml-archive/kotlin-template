@@ -12,13 +12,14 @@ import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
 import dk.eboks.app.presentation.ui.login.components.LoginComponentFragment
 import dk.eboks.app.presentation.ui.login.components.UserCarouselComponentFragment
+import dk.eboks.app.presentation.ui.main.MainActivity
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.start.components.disclaimer.BetaDisclaimerComponentFragment
 import dk.eboks.app.presentation.ui.start.components.signup.CompletedComponentFragment
 import dk.eboks.app.presentation.ui.start.components.welcome.SplashComponentFragment
 import dk.eboks.app.presentation.ui.start.components.welcome.WelcomeComponentFragment
 import dk.eboks.app.util.BroadcastReceiver
-import dk.eboks.app.util.setVisible
+import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.managers.ConnectionManager
 import dk.nodes.nstack.kotlin.models.AppUpdate
@@ -170,8 +171,7 @@ class StartActivity : BaseActivity(), StartContract.View {
 
     override fun startMain() {
         //TODO change back to regular when done
-        NavBarComponentFragment.currentMenuItem = R.id.actionMail
-        startActivity(Intent(this, HomeActivity::class.java))
+        startActivity(MainActivity.createIntent(this))
 
         //overridePendingTransition(0, 0)
         Timber.d("Finishing StartActivity")
@@ -230,7 +230,7 @@ class StartActivity : BaseActivity(), StartContract.View {
     {
         if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             debugConfEnvTv.text = "Conf/Env: ${Config.getCurrentConfigName()}/${Config.getCurrentEnvironmentName()}"
-            debugConfEnvTv.setVisible(true)
+            debugConfEnvTv.visible = (true)
         }
     }
 }

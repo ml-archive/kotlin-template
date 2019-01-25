@@ -10,7 +10,6 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface FolderPreviewComponentContract {
     interface View : BaseView {
-        fun showEmptyState(show : Boolean, verifiedUser : Boolean)
         fun showFolder(messages : List<Message>, verifiedUser : Boolean)
         fun showProgress(show : Boolean)
     }

@@ -45,7 +45,6 @@ import dk.eboks.app.domain.interactors.message.UploadFileInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
-import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
 import dk.eboks.app.domain.interactors.sender.GetSegmentInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
@@ -141,8 +140,6 @@ import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelContro
 import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelControlComponentPresenter
 import dk.eboks.app.presentation.ui.home.components.folderpreview.FolderPreviewComponentContract
 import dk.eboks.app.presentation.ui.home.components.folderpreview.FolderPreviewComponentPresenter
-import dk.eboks.app.presentation.ui.home.screens.HomeContract
-import dk.eboks.app.presentation.ui.home.screens.HomePresenter
 import dk.eboks.app.presentation.ui.login.components.ActivationCodeComponentContract
 import dk.eboks.app.presentation.ui.login.components.ActivationCodeComponentPresenter
 import dk.eboks.app.presentation.ui.login.components.DeviceActivationComponentContract
@@ -312,7 +309,11 @@ class PresentationModule {
 
     @ActivityScope
     @Provides
-    fun provideMessagePresenter(appState: AppStateManager, deleteMessagesInteractor: DeleteMessagesInteractor, updateMessageInteractor: UpdateMessageInteractor): MessageContract.Presenter {
+    fun provideMessagePresenter(
+        appState: AppStateManager,
+        deleteMessagesInteractor: DeleteMessagesInteractor,
+        updateMessageInteractor: UpdateMessageInteractor
+    ): MessageContract.Presenter {
         return MessagePresenter(appState, deleteMessagesInteractor, updateMessageInteractor)
     }
 
@@ -577,17 +578,9 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideSendersOverviewPresenter(
-        collectionsInteractor: GetCollectionsInteractor,
-        getPendingInteractor: GetPendingInteractor,
-        registerInteractor: RegisterInteractor,
-        unRegisterInteractor: UnRegisterInteractor
+        presenter: SendersOverviewPresenter
     ): SendersOverviewContract.Presenter {
-        return SendersOverviewPresenter(
-            collectionsInteractor,
-            getPendingInteractor,
-            registerInteractor,
-            unRegisterInteractor
-        )
+        return presenter
     }
 
     @ActivityScope
@@ -967,12 +960,6 @@ class PresentationModule {
             registerInteractor,
             unRegisterInteractor
         )
-    }
-
-    @ActivityScope
-    @Provides
-    fun provideHomePresenter(stateManager: AppStateManager): HomeContract.Presenter {
-        return HomePresenter(stateManager)
     }
 
     @ActivityScope

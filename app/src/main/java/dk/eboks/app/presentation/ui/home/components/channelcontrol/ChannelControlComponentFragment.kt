@@ -26,9 +26,10 @@ import dk.eboks.app.presentation.ui.home.components.channelcontrol.controls.Rece
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
 import dk.eboks.app.util.Starter
-import dk.eboks.app.util.setVisible
+import dk.eboks.app.util.visible
 import dk.eboks.app.util.views
 import kotlinx.android.synthetic.main.fragment_channel_control_component.*
+import kotlinx.android.synthetic.main.fragment_login_component.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -53,9 +54,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     var emailCount = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_channel_control_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_channel_control_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -120,8 +119,8 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     private fun setupBottomView(channels: List<Channel>) {
         if (channels.size == 0) {
             (activity as HomeActivity).showChannelControlsHeader(false)
-            teaserLl.setVisible(false)
-            emptyStateLl.visibility = View.VISIBLE
+            teaserLl.visible = (false)
+            emptyStateChannelLl.visibility = View.VISIBLE
             //bottomChannelBtn.isEnabled = (emailCount > 0)
             bottomChannelBtn.isEnabled = true
             bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderNoChannels
@@ -133,20 +132,20 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
                 NavBarComponentFragment.gotoChannels(activity ?: return@setOnClickListener)
             }
         } else {
-            emptyStateLl.visibility = View.GONE
+            emptyStateChannelLl.visibility = View.GONE
             bottomChannelBtn.visibility = View.GONE
             bottomChannelHeaderTv.visibility = View.GONE
             bottomChannelTextTv.visibility = View.GONE
             teaserChannelBtn.setOnClickListener {
                 NavBarComponentFragment.gotoChannels(activity ?: return@setOnClickListener)
             }
-            teaserLl.setVisible(true)
+            teaserLl.visible = (true)
 
         }
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if (show) View.VISIBLE else View.GONE
+        progressChannelFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     fun findControlView(channelId: Int): View? {
@@ -184,10 +183,10 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
             val logoIv = view.findViewById<ImageView>(R.id.logoIv)
             val errorTv = view.findViewById<TextView>(R.id.errorTextTv)
             val progressPb = view.findViewById<ProgressBar>(R.id.progressPb)
-            progressPb.setVisible(false)
-            logoIv.setVisible(true)
+            progressPb.visible = (false)
+            logoIv.visible = (true)
             errorTv.text = text
-            errorTv.setVisible(true)
+            errorTv.visible = (true)
             //channelsContentLL.removeView(view)
         }
     }

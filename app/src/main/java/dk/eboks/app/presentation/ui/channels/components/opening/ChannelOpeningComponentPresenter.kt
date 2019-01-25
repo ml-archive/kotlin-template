@@ -52,7 +52,7 @@ class ChannelOpeningComponentPresenter @Inject constructor(
 
     override fun install(channel: Channel) {
         runAction { v ->
-            //v.showProgress(true)
+            //v.showChannelProgress(true)
             // do we have any requirements, if so are they all verified? if not show the requirements drawer
             if(!channel.areAllRequirementsVerified())
             {

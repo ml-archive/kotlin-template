@@ -18,14 +18,18 @@
         android:required="false" />
 
     <application
-        android:name="dk.eboks.app.App"
+        android:name=".App"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="${APP_NAME}"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".presentation.ui.main.MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <!-- nstack app id and key from build.gradle manifest placeholder -->
         <meta-data
             android:name="dk.nodes.nstack.appId"
@@ -34,60 +38,142 @@
         <meta-data
             android:name="dk.nodes.nstack.apiKey"
             android:value="${apiKey}"
-            tools:replace="android:value" />
-
-        <!-- hockey id included from build.gradle manifest placeholder -->
+            tools:replace="android:value" /> <!-- hockey id included from build.gradle manifest placeholder -->
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name="dk.eboks.app.presentation.ui.start.screens.StartActivity" android:theme="@style/AppTheme" android:screenOrientation="portrait">
+        <activity
+            android:name=".presentation.ui.start.screens.StartActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="dk.eboks.app.presentation.ui.debug.screens.hinter.HintActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.debug.screens.ComponentTestActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.debug.screens.DebugActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.debug.screens.user.DebugUserActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.pasta.activity.PastaActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity"
-            android:theme="@style/TransTheme"/>
-        <activity android:name="dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity" android:launchMode="singleTop" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.folder.screens.FolderActivity" android:launchMode="singleTop" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.message.screens.MessageActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.message.screens.embedded.MessageEmbeddedActivity" android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.channels.screens.overview.ChannelOverviewActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectStoreboxActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.overview.SendersOverviewActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.browse.BrowseCategoryActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.browse.SearchSendersActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.profile.screens.ProfileActivity" android:theme="@style/TransTheme"/>
-        <activity android:name="dk.eboks.app.presentation.ui.profile.screens.myinfo.MyInfoActivity"  android:screenOrientation="portrait" />
-        <activity android:name="dk.eboks.app.presentation.ui.home.screens.HomeActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.uploads.screens.UploadsActivity" android:launchMode="singleTask" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.segment.SegmentDetailActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.registrations.RegistrationsActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.registrations.PendingActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.senders.screens.list.SenderAllListActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".presentation.ui.message.screens.reply.ReplyFormActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.start.screens.HelpActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.notimplemented.screens.ComingSoonActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadActivity" android:windowSoftInputMode="adjustPan" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.system.managers.permission.PermissionRequestActivity" android:screenOrientation="portrait"/>
         <activity
-            android:name="dk.eboks.app.presentation.base.SheetComponentActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:name=".presentation.ui.debug.screens.hinter.HintActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.debug.screens.ComponentTestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.debug.screens.DebugActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.debug.screens.user.DebugUserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pasta.activity.PastaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.overlay.screens.OverlayActivity"
             android:theme="@style/TransTheme" />
-        <activity android:name="dk.eboks.app.presentation.ui.channels.screens.content.storebox.StoreboxAddCardActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".presentation.ui.login.screens.PopupLoginActivity" android:screenOrientation="portrait"/>
-        <activity android:name="dk.eboks.app.presentation.ui.message.screens.sign.SignActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".presentation.ui.mail.screens.overview.MailOverviewActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.mail.screens.list.MailListActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.folder.screens.FolderActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.message.screens.MessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.message.screens.opening.MessageOpeningActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.message.screens.embedded.MessageEmbeddedActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".presentation.ui.channels.screens.overview.ChannelOverviewActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.channels.screens.content.ChannelContentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.channels.screens.content.storebox.ConnectStoreboxActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.channels.screens.content.ekey.EkeyContentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.senders.screens.overview.SendersOverviewActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.senders.screens.browse.BrowseCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.senders.screens.browse.SearchSendersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.senders.screens.detail.SenderDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.profile.screens.ProfileActivity"
+            android:theme="@style/TransTheme" />
+        <activity
+            android:name=".presentation.ui.profile.screens.myinfo.MyInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.home.screens.HomeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.uploads.screens.UploadsActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.senders.screens.segment.SegmentDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.senders.screens.registrations.RegistrationsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.senders.screens.registrations.PendingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.senders.screens.list.SenderAllListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.message.screens.reply.ReplyFormActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.start.screens.HelpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.notimplemented.screens.ComingSoonActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.uploads.screens.fileupload.FileUploadActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".system.managers.permission.PermissionRequestActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.base.SheetComponentActivity"
+            android:theme="@style/TransTheme"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".presentation.ui.channels.screens.content.storebox.StoreboxAddCardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.login.screens.PopupLoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.message.screens.sign.SignActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -99,4 +185,5 @@
                 android:resource="@xml/filepaths" />
         </provider>
     </application>
+
 </manifest>

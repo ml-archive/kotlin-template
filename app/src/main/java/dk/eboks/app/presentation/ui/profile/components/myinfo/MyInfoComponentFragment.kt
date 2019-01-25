@@ -19,7 +19,7 @@ import dk.eboks.app.presentation.ui.profile.components.drawer.EmailVerificationC
 import dk.eboks.app.presentation.ui.profile.components.drawer.PhoneVerificationComponentFragment
 import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
 import dk.eboks.app.util.isValidEmail
-import dk.eboks.app.util.setVisible
+import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.fragment_profile_myinformation_component.*
@@ -27,8 +27,6 @@ import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
-
-
 
 class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
     OnLanguageChangedListener, TextWatcher {
@@ -54,7 +52,6 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
         newsletterSw.text = Translation.myInformation.newsletter
         onLanguageChanged(NStack.language)
         presenter.setup()
-
     }
 
     // shamelessly ripped from chnt
@@ -243,8 +240,8 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
 
     override fun setPrimaryEmail(email: String, verified: Boolean, userVerified: Boolean) {
         primaryMailEt.setText(email)
-        verifyEmailBtn.setVisible(!verified)
         verifyEmailBtn.tag = verified
+        verifyEmailBtn.visible = (!verified)
         primaryMailEt.isEnabled = userVerified
         updateVerifyButtonVisibility()
 
@@ -252,9 +249,9 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
 
     override fun setSecondaryEmail(email: String, verified: Boolean) {
         secondaryMailEt.setText(email)
-        verifySecondaryEmailBtn.setVisible(!verified)
         verifyMobileNumberBtn.tag = verified
         updateVerifyButtonVisibility()
+        verifySecondaryEmailBtn.visible = (!verified)
     }
 
     override fun setMobileNumber(mobile: String, verified: Boolean) {
@@ -262,9 +259,9 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
         //mobilenumber.value = mobile
         //mobilenumber.verified = verified
         Timber.e("SetMobileNumber mobile $mobile veri: $verified")
-        verifyMobileNumberBtn.setVisible(!verified)
         verifyMobileNumberBtn.tag = verified
         updateVerifyButtonVisibility()
+        verifyMobileNumberBtn.visible = (!verified)
     }
 
     override fun setNewsletter(b: Boolean) {
@@ -296,7 +293,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
     }
 
     override fun showSecondaryEmail(show: Boolean) {
-        secondaryMailFl.setVisible(show)
+        secondaryMailFl.visible = (show)
     }
 
     override fun setSaveEnabled(enabled: Boolean) {
@@ -323,6 +320,6 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
 
     private fun Button.setVerifiedButtonVissible(input: EditText) {
         val verfiedTag = tag as? Boolean ?: false
-        setVisible(!input.text.isNullOrBlank() && !verfiedTag)
+        visible = !input.text.isNullOrBlank() && !verfiedTag
     }
 }

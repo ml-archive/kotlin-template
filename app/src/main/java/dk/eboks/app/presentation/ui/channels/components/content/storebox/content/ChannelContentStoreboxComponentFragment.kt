@@ -21,7 +21,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.content.storebox.detail.ChannelContentStoreboxDetailComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.settings.ChannelSettingsComponentFragment
 import dk.eboks.app.util.putArg
-import dk.eboks.app.util.setVisible
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_channel_storebox_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -111,25 +111,25 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
     override fun showProgress(show: Boolean) {
         Timber.d("Show Progress View: %s", show)
 
-        storagePb.setVisible(show)
-        receiptRv.setVisible(!show)
-        containerEmpty.setVisible(false)
-        noCreditCardEmptyLl.setVisible(false)
+        storagePb.visible = show
+        receiptRv.visible = !show
+        containerEmpty.visible = false
+        noCreditCardEmptyLl.visible = false
     }
 
     override fun showEmptyView(show: Boolean) {
         Timber.d("Show Empty View: %s", show)
-        receiptRv.setVisible(!show)
-        storagePb.setVisible(false)
-        containerEmpty.setVisible(show)
-        noCreditCardEmptyLl.setVisible(show)
+        receiptRv.visible = !show
+        storagePb.visible = false
+        containerEmpty.visible = show
+        noCreditCardEmptyLl.visible = show
     }
 
     override fun showNoCreditCardsEmptyView(show: Boolean) {
-        receiptRv.setVisible(!show)
-        storagePb.setVisible(false)
-        containerEmpty.setVisible(show)
-        noCreditCardEmptyLl.setVisible(show)
+        receiptRv.visible = !show
+        storagePb.visible = false
+        containerEmpty.visible = show
+        noCreditCardEmptyLl.visible = show
     }
 
     override fun setReceipts(data: List<StoreboxReceiptItem>) {

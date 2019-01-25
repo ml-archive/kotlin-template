@@ -8,7 +8,6 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.ViewControl
-import dk.eboks.app.util.setVisible
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_mail_opening_error_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -19,21 +18,25 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class PrivateSenderWarningComponentFragment : BaseFragment(), PrivateSenderWarningComponentContract.View {
+class PrivateSenderWarningComponentFragment : BaseFragment(),
+    PrivateSenderWarningComponentContract.View {
 
-    val onLanguageChange : (Locale)->Unit = { locale ->
+    val onLanguageChange: (Locale) -> Unit = { locale ->
         Timber.e("Locale changed to locale")
         updateTranslation()
     }
 
     @Inject
-    lateinit var presenter : PrivateSenderWarningComponentContract.Presenter
+    lateinit var presenter: PrivateSenderWarningComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView =
             inflater.inflate(R.layout.fragment_mail_opening_error_component, container, false)
         return rootView
-
     }
 
     override fun onResume() {
@@ -56,14 +59,13 @@ class PrivateSenderWarningComponentFragment : BaseFragment(), PrivateSenderWarni
         }
         openBtn.visibility = View.VISIBLE
         buttonsLl.visibility = View.VISIBLE
-        openMessageButtons.setVisible(true)
+        openMessageButtons.visibility = View.VISIBLE
         setupTopBar()
         updateTranslation()
         iconIv.setImageDrawable(resources.getDrawable(R.drawable.icon_48_mail_white))
     }
 
-    private fun updateTranslation()
-    {
+    private fun updateTranslation() {
         mainTb.title = Translation.message.privateSenderTitle
         headerTv.text = Translation.message.privateSenderTitle
         mainTv.text = Translation.message.privateSenderMessage
@@ -80,7 +82,7 @@ class PrivateSenderWarningComponentFragment : BaseFragment(), PrivateSenderWarni
     }
 
     override fun showOpeningProgress(show: Boolean) {
-        progressPb.visibility = if(show) View.VISIBLE else View.GONE
-        openBtn.visibility = if(!show) View.VISIBLE else View.GONE
+        progressPb.visibility = if (show) View.VISIBLE else View.GONE
+        openBtn.visibility = if (!show) View.VISIBLE else View.GONE
     }
 }

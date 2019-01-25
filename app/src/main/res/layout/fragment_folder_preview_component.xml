@@ -59,7 +59,7 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/progressFl"
+        android:id="@+id/progressFolderFl"
         android:layout_width="match_parent"
         tools:visibility="gone"
         android:layout_height="140dp">
