@@ -25,7 +25,6 @@ class PdfReaderView @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private var pagesRecyclerView: RecyclerView
     private lateinit var adapter: PageAdapter
-    private lateinit var snapHelper: LinearSnapHelper
     private lateinit var renderer: AsyncPdfRenderer
 
 
@@ -42,9 +41,7 @@ class PdfReaderView @JvmOverloads constructor(context: Context, attrs: Attribute
         adapter = PageAdapter()
         pagesRecyclerView.layoutManager = LinearLayoutManager(context)
         pagesRecyclerView.adapter = adapter
-        snapHelper = LinearSnapHelper()
-        snapHelper.attachToRecyclerView(pagesRecyclerView)
-        pagesRecyclerView.addOnScrollListener(PageScrollListener(this, snapHelper))
+        pagesRecyclerView.addOnScrollListener(PageScrollListener(this))
 
     }
 
@@ -84,7 +81,7 @@ class PdfReaderView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     override fun onPageChanged(newPageNumber: Int) {
-
+        Timber.d("onPageChanged: $newPageNumber")
         // Load currently shown page if not available
         if (!pages[newPageNumber].loaded) {
             renderer.requestPage(newPageNumber)
@@ -105,8 +102,7 @@ class PdfReaderView @JvmOverloads constructor(context: Context, attrs: Attribute
             private val progressBar = root.progressBar
 
             fun bindView(page: RenderedPage) {
-                page.page?.let { pageIv.setImageBitmap(it) }
-                pageIv.setVisible(page.loaded)
+                pageIv.setImageBitmap(page.page)
                 progressBar.setVisible(!page.loaded)
             }
 

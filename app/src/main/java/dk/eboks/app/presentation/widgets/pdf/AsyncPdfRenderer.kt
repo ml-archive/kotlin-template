@@ -121,9 +121,10 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
     // called from main thread
     fun requestPage(pageno: Int) {
         Timber.d("requestPage: $pageno")
-        val req = RenderRequest()
-        req.pageNo = pageno
-        requestQueue.put(req)
+        val req = RenderRequest(pageNo = pageno)
+        if (!requestQueue.contains(req)) {
+            requestQueue.put(req)
+        }
     }
 
 

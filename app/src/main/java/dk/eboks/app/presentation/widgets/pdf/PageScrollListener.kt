@@ -1,23 +1,24 @@
 package dk.eboks.app.presentation.widgets.pdf
 
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
+import timber.log.Timber
 
-class PageScrollListener(val listener: OnPageScrollChangeListener, val snapHelper: SnapHelper) : RecyclerView.OnScrollListener() {
+class PageScrollListener(val listener: OnPageScrollChangeListener) : RecyclerView.OnScrollListener() {
 
     private var currentPosition = RecyclerView.NO_POSITION
         set(value) {
             field = value
-            listener.onPageChanged(value)
+            if (value != RecyclerView.NO_POSITION)
+                listener.onPageChanged(value)
         }
 
-    override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-        if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-               val snapPosition = snapHelper.getSnapPosition(recyclerView)
-                val pageChanged = snapPosition != currentPosition
-                if (pageChanged) {
-                    currentPosition = snapPosition
-                }
+
+    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+        val visiblePosition = recyclerView.linearLayoutManager?.findFirstVisibleItemPosition() ?: currentPosition
+        if (visiblePosition != currentPosition) {
+            currentPosition = visiblePosition
         }
     }
 
@@ -25,13 +26,9 @@ class PageScrollListener(val listener: OnPageScrollChangeListener, val snapHelpe
         fun onPageChanged(newPageNumber: Int)
     }
 
-    private fun SnapHelper.getSnapPosition(recyclerView: RecyclerView): Int {
-        val layoutManager = recyclerView.layoutManager ?: return RecyclerView.NO_POSITION
-        val snapView = findSnapView(layoutManager) ?: return RecyclerView.NO_POSITION
-        return layoutManager.getPosition(snapView)
 
-    }
-
+    private val RecyclerView.linearLayoutManager : LinearLayoutManager?
+        get() = layoutManager as? LinearLayoutManager?
 
 }
 
