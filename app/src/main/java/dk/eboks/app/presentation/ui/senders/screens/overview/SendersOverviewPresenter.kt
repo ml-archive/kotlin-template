@@ -33,8 +33,10 @@ class SendersOverviewPresenter(
         unRegisterInteractor.output = this
         getPendingInteractor.output = this
         collectionsInteractor.input = GetCollectionsInteractor.Input(false)
-        collectionsInteractor.run()
-        getPendingInteractor.run()
+        GlobalScope.launch(Dispatchers.IO) {
+            collectionsInteractor.run()
+            getPendingInteractor.run()
+        }
     }
 
     override fun onGetCollections(collections: List<CollectionContainer>) {

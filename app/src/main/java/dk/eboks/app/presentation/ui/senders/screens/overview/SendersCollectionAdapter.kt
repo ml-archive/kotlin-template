@@ -37,19 +37,12 @@ class SendersCollectionAdapter(callback: Callback? = null) :
 
     private val data = mutableListOf<CollectionContainer>()
 
-    init {
-        setHasStableIds(true)
-    }
-
     fun setData(collections: List<CollectionContainer>) {
         data.clear()
         data += collections
         notifyDataSetChanged()
     }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
