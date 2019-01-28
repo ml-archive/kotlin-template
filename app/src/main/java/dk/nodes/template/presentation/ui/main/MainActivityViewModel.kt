@@ -17,13 +17,6 @@ class MainActivityViewModel @Inject constructor(
         private val postsInteractor: PostsInteractor
 ) : BaseViewModel() {
 
-    /*
-    private val _postsLiveData = MutableLiveData<List<Post>>()
-    private val _errorLiveData = MutableLiveData<Event<String>>()
-    // Facade so the view doesn't know its mutable
-    val postsLiveData: LiveData<List<Post>> = _postsLiveData
-    val errorLiveData: LiveData<Event<String>> = _errorLiveData
-    */
     private val _viewState = MutableLiveData<MainActivityViewState>()
     val viewState: LiveData<MainActivityViewState> = _viewState
 

@@ -30,8 +30,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setupNstack()
-        setupHockey()
+        //setupNstack()
+        //setupHockey()
         viewModel = bindViewModel()
         viewModel.viewState.observe(this, Observer(this::showLoading))
         viewModel.viewState.observe(this, Observer(this::showPosts))
