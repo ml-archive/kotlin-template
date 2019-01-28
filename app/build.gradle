@@ -296,7 +296,6 @@ dependencies {
     testImplementation "org.mockito:mockito-core:$mockito_version"
     // required if you want to use Mockito for Android tests
     androidTestImplementation "org.mockito:mockito-android:$mockito_version"
-    compile 'me.kaelaela:verticalviewpager:1.0.0@aar'
 
     //For Espresso UI testing
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
