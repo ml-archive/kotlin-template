@@ -6,8 +6,11 @@ import android.view.MenuItem
 import android.view.View
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.home.Control
+import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelControlComponentFragment
 import dk.eboks.app.presentation.ui.home.components.channelcontrol.RefreshChannelControlDoneEvent
@@ -19,7 +22,7 @@ import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
 import dk.eboks.app.presentation.ui.profile.screens.ProfileActivity
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.putArg
-import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -29,12 +32,18 @@ import java.util.Locale
 import javax.inject.Inject
 
 class HomeActivity : BaseActivity(), HomeContract.View {
+
+
     @Inject lateinit var presenter: HomeContract.Presenter
 
     var folderPreviewFragment: FolderPreviewComponentFragment? = null
     private val channelControlFragment: ChannelControlComponentFragment
         get() = findFragment() ?: ChannelControlComponentFragment()
     var doneRefreshingFolderPreview = false
+    override fun onRefreshChannelDone() {
+
+    }
+
     var doneRefreshingChannelControls = false
 
     val onLanguageChange: (Locale) -> Unit = { locale ->
@@ -48,7 +57,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(dk.eboks.app.R.layout.activity_home)
+        setContentView(R.layout.activity_home)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
@@ -67,8 +76,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
                 .putExtra("folder", Folder(type = FolderType.HIGHLIGHTS)).start()
         }
 
-
-        presenter.setup()
     }
 
     override fun onResume() {
@@ -111,7 +118,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         return R.id.actionHome
     }
 
-    override fun addFolderPreviewComponentFragment(folder: Folder) {
+    override fun addFolderPreview(folder: Folder) {
         folderPreviewFragment = FolderPreviewComponentFragment().putArg(
             Folder::class.java.simpleName,
             folder
@@ -122,7 +129,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         }
     }
 
-    override fun addChannelControlComponentFragment() {
+    override fun addChannelControl() {
         supportFragmentManager.beginTransaction()
             .add(
                 R.id.channelControlFl,
@@ -152,9 +159,37 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         updateRefreshStatus()
     }
 
+    override fun onRefreshFolderDone() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: RefreshChannelControlDoneEvent) {
         doneRefreshingChannelControls = true
         updateRefreshStatus()
+    }
+
+    override fun showFolderProgress(show: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showFolder(messages: List<Message>, verifiedUser: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showChannelProgress(show: Boolean) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setupChannels(channels: List<Channel>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun updateControl(channel: Channel, control: Control) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun setControl(channel: Channel, text: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

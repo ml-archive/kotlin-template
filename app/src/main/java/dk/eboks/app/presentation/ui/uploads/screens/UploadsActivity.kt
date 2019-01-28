@@ -5,11 +5,13 @@ import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
-import dk.eboks.app.util.setVisible
+import dk.eboks.app.util.visible
+
 import kotlinx.android.synthetic.main.activity_uploads.*
 import javax.inject.Inject
 
-class UploadsActivity : BaseActivity(), UploadsContract.View, MailListComponentFragment.MailListComponentListener {
+class UploadsActivity : BaseActivity(), UploadsContract.View,
+    MailListComponentFragment.MailListComponentListener {
     @Inject
     lateinit var presenter: UploadsContract.Presenter
 
@@ -29,12 +31,11 @@ class UploadsActivity : BaseActivity(), UploadsContract.View, MailListComponentF
         }
     }
 
-
     override fun getNavigationMenuAction(): Int {
         return R.id.actionUploads
     }
 
     override fun onEditModeActive(active: Boolean) {
-        navBarContainer.setVisible(!active)
+        navBarContainer.visible = !active
     }
 }

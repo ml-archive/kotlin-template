@@ -15,7 +15,7 @@ import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
 import dk.eboks.app.util.ViewControl
 import dk.eboks.app.util.guard
-import dk.eboks.app.util.setVisible
+import dk.eboks.app.util.visible
 import dk.eboks.app.util.translatedName
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_mail_opening_error_component.*
@@ -89,7 +89,7 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
                 startActivityForResult(intent, PopupLoginActivity.REQUEST_VERIFICATION)
             }
         }.guard {   // hide relog button for now
-            loginSecureBtn.setVisible(false)
+            loginSecureBtn.visible = (false)
         }
         //loginTv.text = Translation.logoncredentials.logonWithProvider.replace("[provider]",mobileProvider.name)
     }

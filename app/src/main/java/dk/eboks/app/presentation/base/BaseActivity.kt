@@ -129,13 +129,14 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         }
     }
 
-    protected inline fun <reified T> findFragment(): T? {
-        return supportFragmentManager.findFragmentByTag(T::class.java.simpleName) as? T
+    protected inline fun <reified T> findFragment(tag: String? = null): T? {
+        return supportFragmentManager.findFragmentByTag(tag ?: T::class.java.simpleName) as? T
     }
 
     fun addFragmentOnTop(resId: Int, fragment: Fragment?, addToBack: Boolean = true) {
         fragment?.let {
-            val trans = supportFragmentManager.beginTransaction().replace(resId, it, it::class.java.simpleName)
+            val trans = supportFragmentManager.beginTransaction()
+                .replace(resId, it, it::class.java.simpleName)
             if (addToBack)
                 trans.addToBackStack(null)
             trans.commit()

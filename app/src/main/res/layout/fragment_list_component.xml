@@ -18,19 +18,14 @@
         android:gravity="bottom|left"
         tools:text="All categories"/>
 
-    <LinearLayout
-        android:id="@+id/listComponentContentLl"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical">
 
-        <!--<include layout="@layout/viewholder_title_subtitle"/>-->
-        <!--<include layout="@layout/viewholder_title_subtitle"/>-->
-        <!--<include layout="@layout/viewholder_title_subtitle"/>-->
-        <!--<include layout="@layout/viewholder_title_subtitle"/>-->
-
-    </LinearLayout>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <View
         android:layout_width="match_parent"

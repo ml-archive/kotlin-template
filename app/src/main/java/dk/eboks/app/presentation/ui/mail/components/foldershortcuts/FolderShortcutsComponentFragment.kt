@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.mail.components.foldershortcuts
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,9 +21,13 @@ import javax.inject.Inject
 class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponentContract.View {
 
     @Inject
-    lateinit var presenter : FolderShortcutsComponentContract.Presenter
+    lateinit var presenter: FolderShortcutsComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView =
             inflater.inflate(R.layout.fragment_folder_shortcuts_component, container, false)
         return rootView
@@ -34,29 +37,25 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-
     }
 
     override fun showFolders(folders: List<Folder>) {
         yourMailLl.removeAllViews()
-        val li : LayoutInflater = LayoutInflater.from(context)
+        val li: LayoutInflater = LayoutInflater.from(context)
         Timber.d("Filders: $folders")
-        for(folder in folders)
-        {
+        for (folder in folders) {
             var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
             v.findViewById<TextView>(R.id.nameTv)?.text = folder.name
-            if(folder.unreadCount != 0) {
+            if (folder.unreadCount != 0) {
                 v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.VISIBLE
                 v.findViewById<TextView>(R.id.badgeCountTv)?.text = "${folder.unreadCount}"
                 v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.GONE
-            }
-            else
-            {
+            } else {
                 v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.GONE
                 v.findViewById<ImageView>(R.id.chevronRightIv)?.visibility = View.VISIBLE
             }
 
-            folder.type?.let { type->
+            folder.type?.let { type ->
                 val iv = v.findViewById<ImageView>(R.id.iconIv)
                 iv?.let { it.setImageResource(type.getIconResId()) }
             }
@@ -67,9 +66,8 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
         insertTestData()
     }
 
-    fun insertTestData()
-    {
-        val li : LayoutInflater = LayoutInflater.from(context)
+    fun insertTestData() {
+        val li: LayoutInflater = LayoutInflater.from(context)
         var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
         v.findViewById<TextView>(R.id.nameTv)?.text = Translation.folders.foldersHeader
         v.findViewById<TextView>(R.id.badgeCountTv)?.text = "2"
@@ -83,10 +81,9 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if(show) View.VISIBLE else View.GONE
+        progressFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     override fun showEmpty(show: Boolean) {
-
     }
 }

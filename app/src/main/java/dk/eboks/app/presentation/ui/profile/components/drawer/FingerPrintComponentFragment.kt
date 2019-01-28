@@ -17,7 +17,7 @@ import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
 import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
 import dk.eboks.app.util.addAfterTextChangeListener
 import dk.eboks.app.util.isValidCpr
-import dk.eboks.app.util.setVisible
+import dk.eboks.app.util.visible
 import dk.nodes.locksmith.core.models.FingerprintDialogEvent
 import kotlinx.android.synthetic.main.fragment_profile_enable_fingerprint_component.*
 import timber.log.Timber
@@ -76,7 +76,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     private fun setupEmailFingerprintEnrollment() {
         Timber.d("setupEmailFingerprintEnrollment")
 
-        socialSecurityTil.setVisible(false)
+        socialSecurityTil.visible = (false)
 
         setupPasswordListener()
     }
@@ -84,7 +84,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     private fun setupSocialSecurityEnrollment() {
         Timber.d("setupSocialSecurityEnrollment")
 
-        socialSecurityTil.setVisible(true)
+        socialSecurityTil.visible = (true)
 
         setupSocialSecurityListeners()
         setupPasswordListener()
@@ -237,6 +237,6 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
 
     override fun showProgress(show: Boolean) {
         buttonsLl.visibility = if(!show) View.VISIBLE else View.INVISIBLE
-        progressPb.setVisible(show)
+        progressPb.visible = (show)
     }
 }

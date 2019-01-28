@@ -1,9 +1,11 @@
 package dk.eboks.app.presentation.ui.senders.screens.overview
 
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
+import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
+import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Sender
@@ -12,29 +14,38 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-class SendersOverviewPresenter(
+class SendersOverviewPresenter @Inject constructor(
     collectionsInteractor: GetCollectionsInteractor,
     getPendingInteractor: GetPendingInteractor,
     private val registerInteractor: RegisterInteractor,
-    private val unRegisterInteractor: UnRegisterInteractor
+    private val unRegisterInteractor: UnRegisterInteractor,
+    getSenderCategoriesInteractor: GetSenderCategoriesInteractor
 ) :
     SendersOverviewContract.Presenter,
     BasePresenterImpl<SendersOverviewContract.View>(),
     GetCollectionsInteractor.Output,
     RegisterInteractor.Output,
-    UnRegisterInteractor.Output, GetPendingInteractor.Output {
+    UnRegisterInteractor.Output, GetPendingInteractor.Output, GetSenderCategoriesInteractor.Output {
+
+
     init {
         collectionsInteractor.output = this
         registerInteractor.output = this
         unRegisterInteractor.output = this
         getPendingInteractor.output = this
+        getSenderCategoriesInteractor.output = this
+        getSenderCategoriesInteractor.input = GetSenderCategoriesInteractor.Input(true)
         collectionsInteractor.input = GetCollectionsInteractor.Input(false)
-        collectionsInteractor.run()
-        getPendingInteractor.run()
+        GlobalScope.launch(Dispatchers.IO) {
+            collectionsInteractor.run()
+            getPendingInteractor.run()
+            getSenderCategoriesInteractor.run()
+        }
     }
 
     override fun onGetCollections(collections: List<CollectionContainer>) {
@@ -73,6 +84,18 @@ class SendersOverviewPresenter(
         Timber.i("Success")
         runAction { v ->
             v.showSuccess()
+        }
+    }
+
+    override fun onGetCategories(categories: List<SenderCategory>) {
+        runAction { v ->
+            v.showCategories(categories)
+        }
+    }
+
+    override fun onGetCategoriesError(error: ViewError) {
+        runAction { v ->
+            v.showError(error.message ?: "")
         }
     }
 

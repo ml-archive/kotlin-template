@@ -12,8 +12,8 @@ import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
-import dk.eboks.app.util.setVisible
 import dk.eboks.app.util.translatedName
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_device_activation_component.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,7 +27,11 @@ class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationCompon
 
     var mHandler = Handler()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView =
             inflater.inflate(R.layout.fragment_device_activation_component, container, false)
         return rootView
@@ -43,7 +47,10 @@ class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationCompon
         super.onResume()
         Timber.d("VerifyProvider: ${Config.getVerificationProviderId()}")
         Config.getLoginProvider(Config.getVerificationProviderId() ?: "")?.let { provider ->
-            detailTv.text = Translation.deviceactivation.message.replace("[provider]", provider.translatedName())
+            detailTv.text = Translation.deviceactivation.message.replace(
+                "[provider]",
+                provider.translatedName()
+            )
         }
     }
 
@@ -54,8 +61,8 @@ class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationCompon
 
     override fun showProgress(show: Boolean) {
         activateDevicebuttonGroupLl.visibility = if (show) View.INVISIBLE else View.VISIBLE
-        activateDeviceProgressFl.visibility = if (!show) View.GONE else View.VISIBLE
-        progressBar.setVisible(show)
+        activateDeviceProgressFl.visible = show
+        progressBar.visible = show
     }
 
     override fun setupButtons() {
