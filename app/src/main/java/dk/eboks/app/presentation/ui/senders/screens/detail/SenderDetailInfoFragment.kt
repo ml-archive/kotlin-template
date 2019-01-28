@@ -15,6 +15,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_sender_detail_information.*
+import timber.log.Timber
 
 /**
  * Created by Christian on 3/15/2018.
@@ -45,8 +46,6 @@ class SenderDetailInfoFragment : BaseFragment() {
 
         sender?.description?.let {
             setDescription(it)
-        }.guard {
-            senderInfoMoreBtn.visible = false
         }
 
         sender?.address?.let {
@@ -61,12 +60,20 @@ class SenderDetailInfoFragment : BaseFragment() {
 
 
     private fun setSenderAddress(address: Address) {
-        val s = StringBuilder().appendln(address.name).appendln(address.addressLine1)
-        if (!address.addressLine2.isNullOrBlank()) {
-            s.appendln(address.addressLine2)
-        }
-        s.append(address.zipCode).append(" ").appendln(address.city)
 
+        val city = StringBuilder()
+                .appendNotEmpty(address.zipCode, false)
+                .append(" ")
+                .appendNotEmpty(address.city, false)
+
+
+        val s = StringBuilder()
+                .appendNotEmpty(address.name)
+                .appendNotEmpty(address.addressLine1)
+                .appendNotEmpty(address.addressLine2)
+                .appendNotEmpty(city.toString())
+
+        Timber.d("Address: $s")
         val navString = "geo:0,0?q=${address.name},+${address.addressLine1},+${address.addressLine2},+${address.city},+${address.zipCode}"
         senderInfoAddressTv.text = s.toString()
         senderInfoAdressLL.setOnClickListener {
@@ -130,9 +137,14 @@ class SenderDetailInfoFragment : BaseFragment() {
                 }
 
             }
-            senderInfoMoreBtn.text = it.text
-            senderInfoMoreBtn.visibility = View.VISIBLE
         }
+    }
+
+    private fun StringBuilder.appendNotEmpty(string: String?, newLine: Boolean = true) : StringBuilder {
+        if (!string.isNullOrBlank()) {
+            if (newLine) this.appendln(string) else this.append(string)
+        }
+        return  this
     }
 
 }
