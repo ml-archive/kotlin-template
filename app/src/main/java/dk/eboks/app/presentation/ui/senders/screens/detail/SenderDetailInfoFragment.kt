@@ -33,7 +33,6 @@ class SenderDetailInfoFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        senderInfoMoreBtn.visibility = View.GONE
         senderInfoAdressLL.visibility = View.GONE
         senderInfoWebLL.visibility = View.GONE
         senderInfoPhoneLL.visibility = View.GONE
