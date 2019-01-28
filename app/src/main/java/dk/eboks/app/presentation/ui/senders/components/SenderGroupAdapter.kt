@@ -42,8 +42,8 @@ class SenderGroupAdapter(callback: Callback? = null) :
             itemView.run {
                 titleTv.text = group.name
                 subTv.text = when (group.registered) {
-                    0 -> Translation.senderdetails.registeredTypeNo
-                    1 -> Translation.senderdetails.registeredTypeYes
+                    false -> Translation.senderdetails.registeredTypeNo
+                    true -> Translation.senderdetails.registeredTypeYes
                     else -> ""
                 }
                 setOnClickListener {

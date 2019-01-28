@@ -58,10 +58,10 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
             registerTitleTv.text = group.name
             registerContentTv.text = group.description?.text
             when (group.registered) {
-                0 -> {
+                false -> {
                     registerRegBtn.text = Translation.senderdetails.register
                 }
-                1 -> {
+                true -> {
                     registerRegBtn.text = Translation.senderdetails.registeredTypeYes
                 }
                 else -> ""
@@ -119,7 +119,7 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
                     Timber.d("alias: ${it.name}, <${it.key}, ${it.value}>")
                 }
 
-                if(group.registered != 0) {
+                if(group.registered != false) {
                     AlertDialog.Builder(context ?: return@setOnClickListener)
                             .setTitle(Translation.senders.unregisterAlertTitle)
                             .setMessage(Translation.senders.unregisterAlertDescription)

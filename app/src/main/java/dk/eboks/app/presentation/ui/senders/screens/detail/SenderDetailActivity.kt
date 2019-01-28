@@ -52,10 +52,10 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
 
         senderDetailRegisterTB.textOn = Translation.senders.registered
         senderDetailRegisterTB.textOff = Translation.senders.register
-//        senderDetailRegisterTB.text = when (sender.registered) {
-//            0 -> Translation.senders.register
-//            else -> Translation.senders.registered
-//        }
+        senderDetailRegisterTB.text = when (sender.registered) {
+            0 -> Translation.senders.register
+           else -> Translation.senders.registered
+        }
 
         senderDetailBodyTv.visibility = View.GONE // only for public authorities
         senderDetailRegisterTB.isChecked = sender.registered != 0
