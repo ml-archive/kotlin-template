@@ -8,7 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
+import dk.eboks.app.domain.models.shared.Address
+import dk.eboks.app.domain.models.shared.Description
+import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.util.guard
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_sender_detail_information.*
 
 /**
@@ -39,44 +44,63 @@ class SenderDetailInfoFragment : BaseFragment() {
         val sender = arguments?.getParcelable<Sender>(Sender::class.simpleName)
 
         sender?.description?.let {
-            senderInfoBodyTv.text = it.text
-            it.link?.let {
-                senderInfoMoreBtn.setOnClickListener { v ->
-                    val intent = Intent(Intent.ACTION_VIEW)
-                    intent.data = Uri.parse(it.url)
-
-                    if (intent.resolveActivity(v.context.packageManager) != null) {
-                        startActivity(intent)
-                    }
-
-                }
-                senderInfoMoreBtn.text = it.text
-                senderInfoMoreBtn.visibility = View.VISIBLE
-            }
+            setDescription(it)
+        }.guard {
+            senderInfoMoreBtn.visible = false
         }
 
         sender?.address?.let {
-            val s = StringBuilder().appendln(it.name).appendln(it.addressLine1)
-            if (!it.addressLine2.isNullOrBlank()) {
-                s.appendln(it.addressLine2)
-            }
-            s.append(it.zipCode).append(" ").appendln(it.city)
+            setSenderAddress(it)
+        }.guard {
+            senderInfoAdressLL.visible = false
+        }
 
-            val navString = "geo:0,0?q=${it.name},+${it.addressLine1},+${it.addressLine2},+${it.city},+${it.zipCode}"
-            senderInfoAddressTv.text = s.toString()
-            senderInfoAdressLL.setOnClickListener {
-                val gmmIntentUri = Uri.parse(navString)
-                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-                mapIntent.`package` = "com.google.android.apps.maps"
+        setLink(sender?.address?.link)
+        setPhone(sender?.address?.phone)
+    }
+
+
+    private fun setSenderAddress(address: Address) {
+        val s = StringBuilder().appendln(address.name).appendln(address.addressLine1)
+        if (!address.addressLine2.isNullOrBlank()) {
+            s.appendln(address.addressLine2)
+        }
+        s.append(address.zipCode).append(" ").appendln(address.city)
+
+        val navString = "geo:0,0?q=${address.name},+${address.addressLine1},+${address.addressLine2},+${address.city},+${address.zipCode}"
+        senderInfoAddressTv.text = s.toString()
+        senderInfoAdressLL.setOnClickListener {
+            val gmmIntentUri = Uri.parse(navString)
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.`package` = "com.google.android.apps.maps"
+            val context = context ?: return@setOnClickListener
+            if (mapIntent.resolveActivity(context.packageManager) != null) {
+                startActivity(mapIntent)
+            }
+        }
+        senderInfoAdressLL.visibility = View.VISIBLE
+    }
+
+    private fun setPhone(phone: String?) {
+        if (!phone.isNullOrBlank()) {
+            senderInfoPhoneTv.text = phone
+            senderInfoPhoneLL.setOnClickListener {
+                val intent = Intent(Intent.ACTION_DIAL)
+                intent.data = Uri.parse("tel:$phone")
                 val context = context ?: return@setOnClickListener
-                if (mapIntent.resolveActivity(context.packageManager) != null) {
-                    startActivity(mapIntent)
+                if (intent.resolveActivity(context.packageManager) != null) {
+                    startActivity(intent)
                 }
             }
-            senderInfoAdressLL.visibility = View.VISIBLE
+            senderInfoPhoneLL.visibility = View.VISIBLE
+        } else {
+            senderInfoPhoneLL.visibility = View.GONE
         }
-        sender?.address?.link?.let {
-            val url = it.url
+    }
+
+    private fun setLink(link: Link?) {
+        if (link != null && link.url.isNotEmpty()) {
+            val url = link.url
 
             senderInfoWebTv.text = url
             senderInfoWebLL.setOnClickListener {
@@ -88,20 +112,27 @@ class SenderDetailInfoFragment : BaseFragment() {
                 }
             }
             senderInfoWebLL.visibility = View.VISIBLE
-        }
-        sender?.address?.phone?.let {
+        } else {
+            senderInfoWebLL.visibility = View.GONE
 
-            val phone = it
-            senderInfoPhoneTv.text = phone
-            senderInfoPhoneLL.setOnClickListener {
-                val intent = Intent(Intent.ACTION_DIAL)
-                intent.data = Uri.parse("tel:$phone")
-                val context = context ?: return@setOnClickListener
-                if (intent.resolveActivity(context.packageManager) != null) {
-                    startActivity(intent)
-                }
-            }
-            senderInfoPhoneLL.visibility = View.VISIBLE
         }
     }
+
+    private fun setDescription(description: Description) {
+        senderInfoBodyTv.text = description.text
+        description.link?.let {
+            senderInfoMoreBtn.setOnClickListener { v ->
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(it.url)
+
+                if (intent.resolveActivity(v.context.packageManager) != null) {
+                    startActivity(intent)
+                }
+
+            }
+            senderInfoMoreBtn.text = it.text
+            senderInfoMoreBtn.visibility = View.VISIBLE
+        }
+    }
+
 }
