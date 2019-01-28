@@ -8,7 +8,7 @@ import android.widget.FrameLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
-import dk.eboks.app.util.setVisible
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.viewholder_pdfpage.view.*
 import timber.log.Timber
 
@@ -100,7 +100,7 @@ class PdfReaderView @JvmOverloads constructor(context: Context, attrs: Attribute
 
             fun bindView(page: RenderedPage) {
                 pageIv.setImageBitmap(page.page)
-                progressBar.setVisible(!page.loaded)
+                progressBar.visible = !page.loaded
             }
 
         }
