@@ -13,5 +13,9 @@ interface PdfViewComponentContract {
         fun showPdfView(filename: String)
     }
 
-    interface Presenter : BasePresenter<View>
+    interface Presenter : BasePresenter<View> {
+
+        val currentFile: String?
+
+    }
 }

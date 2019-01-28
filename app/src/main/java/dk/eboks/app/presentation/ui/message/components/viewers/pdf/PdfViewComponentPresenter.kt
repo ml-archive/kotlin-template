@@ -19,4 +19,7 @@ class PdfViewComponentPresenter @Inject constructor(val appState: AppStateManage
         }
 
     }
+
+    override val currentFile: String?
+        get() = appState.state?.currentViewerFileName
 }

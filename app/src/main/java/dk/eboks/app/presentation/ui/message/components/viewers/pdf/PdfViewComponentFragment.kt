@@ -1,6 +1,8 @@
 package dk.eboks.app.presentation.ui.message.components.viewers.pdf
 
+import android.content.Context
 import android.os.Bundle
+import android.print.PrintManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,13 +23,10 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, EmbeddedViewer, ViewerFragment {
-    private var pages: MutableList<RenderedPage> = ArrayList()
-    private lateinit var renderer: AsyncPdfRenderer
 
     @Inject
-    lateinit var presenter : PdfViewComponentContract.Presenter
+    lateinit var presenter: PdfViewComponentContract.Presenter
 
-    var pageMarginPx = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_pdfview_component, container, false)
@@ -44,54 +43,23 @@ class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, 
 
 
     override fun showPdfView(filename: String) {
-      pdfView.initWithFilename(filename)
+        pdfView.initWithFilename(filename)
     }
 
-
-
-    fun setupRecyclerView()
-    {
-      /*  pagesRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
-            context,
-            androidx.recyclerview.widget.RecyclerView.VERTICAL,
-            false
-        )
-        pagesRv.adapter = PageAdapter()*/
-    }
 
     override fun updateView(folder: Folder) {
 
     }
 
-
-    inner class PageAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<PageAdapter.PageViewHolder>() {
-
-        inner class PageViewHolder(val pageIv : ImageView) : androidx.recyclerview.widget.RecyclerView.ViewHolder(pageIv)
-        {
-            //val circleIv = root.findViewById<ImageView>(R.id.circleIv)
-
-        }
-
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PageViewHolder {
-            //val v = LayoutInflater.from(context).inflate(R.layout.viewholder_pdf_page, parent, false)
-            val pageiv = ImageView(context)
-            val vh = PageViewHolder(pageiv)
-            return vh
-        }
-
-        override fun getItemCount(): Int {
-            return pages.size
-        }
-
-        override fun onBindViewHolder(holder: PageViewHolder, position: Int) {
-            val params = androidx.recyclerview.widget.RecyclerView.LayoutParams(612, 792)
-            params.setMargins(pageMarginPx, pageMarginPx, pageMarginPx, pageMarginPx)
-            holder.pageIv.layoutParams = params
-            holder.pageIv.background = resources.getDrawable(R.color.white)
-        }
-    }
-
     override fun print() {
         Timber.e("Print called")
+
+        presenter.currentFile?.let {
+            val printManager = context?.getSystemService(Context.PRINT_SERVICE) as PrintManager
+            val adatpter = PdfPrintAdapter(it)
+            printManager.print(it, adatpter, null)
+
+        }
+
     }
 }
