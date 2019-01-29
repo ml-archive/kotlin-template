@@ -11,6 +11,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.util.onClick
 import dk.eboks.app.util.showCheckedDrawable
 import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
@@ -56,10 +57,9 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
         senderDetailRegisterTB.textOff = Translation.senders.register
         senderDetailRegisterTB.text = when (sender.registered) {
             0 -> Translation.senders.register
-           else -> Translation.senders.registered
+            else -> Translation.senders.registered
         }
 
-        senderDetailBodyTv.visibility = View.GONE // only for public authorities
         senderDetailRegisterTB.isChecked = sender.registered != 0
 
         senderDetailTB.setNavigationOnClickListener {
@@ -109,43 +109,35 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
                 )
                 .into(senderDetailIv)
 
-        senderDetailRegisterTB.setOnTouchListener(View.OnTouchListener { v, event ->
-            return@OnTouchListener when (event.action) {
-                MotionEvent.ACTION_UP -> {
-                    if (senderDetailRegisterTB.isChecked) {
-                        AlertDialog.Builder(this@SenderDetailActivity)
-                                .setTitle(Translation.senders.unregisterAlertTitle)
-                                .setMessage(Translation.senders.unregisterAlertDescription)
-                                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                    dialog.cancel()
-                                }
-                                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                    senderDetailRegisterTB.visibility = View.INVISIBLE
-                                    presenter.unregisterSender(sender.id)
-                                    dialog.dismiss()
-                                }
-                                .show()
-                    } else {
-                        AlertDialog.Builder(this@SenderDetailActivity)
-                                .setTitle(Translation.senders.registerAlertTitle)
-                                .setMessage(Translation.senders.registerAlertDescription)
-                                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                    dialog.cancel()
-                                }
-                                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                    senderDetailRegisterTB.visibility = View.INVISIBLE
-                                    presenter.registerSender(sender.id)
-                                    dialog.dismiss()
-                                }
-                                .show()
-                    }
-                    true
-                }
-                else -> {
-                    v.onTouchEvent(event)
-                }
+        senderDetailRegisterTB.onClick {
+            if (senderDetailRegisterTB.isChecked) {
+                AlertDialog.Builder(this@SenderDetailActivity)
+                        .setTitle(Translation.senders.unregisterAlertTitle)
+                        .setMessage(Translation.senders.unregisterAlertDescription)
+                        .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                            dialog.cancel()
+                        }
+                        .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                            senderDetailRegisterTB.visibility = View.INVISIBLE
+                            presenter.unregisterSender(sender.id)
+                            dialog.dismiss()
+                        }
+                        .show()
+            } else {
+                AlertDialog.Builder(this@SenderDetailActivity)
+                        .setTitle(Translation.senders.registerAlertTitle)
+                        .setMessage(Translation.senders.registerAlertDescription)
+                        .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                            dialog.cancel()
+                        }
+                        .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                            senderDetailRegisterTB.visibility = View.INVISIBLE
+                            presenter.registerSender(sender.id)
+                            dialog.dismiss()
+                        }
+                        .show()
             }
-        })
+        }
 
         senderDetailRegisterTB.isChecked = sender.registered != 0
         senderDetailRegisterTB.showCheckedDrawable()

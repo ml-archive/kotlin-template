@@ -1,5 +1,7 @@
 package dk.eboks.app.presentation.ui.senders.screens.segment
 
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -12,6 +14,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.components.categories.CategoriesComponentFragment
+import dk.eboks.app.util.onClick
 import dk.eboks.app.util.showCheckedDrawable
 import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
@@ -102,6 +105,12 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         senderDetailNameTv.text = segment.name
         senderDetailRegisterTB.visibility = View.VISIBLE
 
+        if (segment.type == "public") {
+            senderDetailBodyTv.visibility = View.VISIBLE
+            senderDetailBodyTv.text = if (segment.registered != 0) Translation.senderdetails.publicAuthoritiesRegisteredDescription
+            else Translation.senderdetails.publicAuthoritiesUnregisteredDescription
+        }
+
         Glide.with(this)
                 .load(segment.image?.url)
                 .apply(RequestOptions()
@@ -110,47 +119,43 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
                 )
                 .into(senderDetailIv)
 
-        senderDetailRegisterTB.setOnTouchListener(View.OnTouchListener { v, event ->
-            return@OnTouchListener when (event.action) {
-                MotionEvent.ACTION_UP -> {
-                    if (senderDetailRegisterTB.isChecked) {
-                        AlertDialog.Builder(this@SegmentDetailActivity)
-                                .setTitle(Translation.senders.unregisterAlertTitle)
-                                .setMessage(Translation.senders.unregisterAlertDescription)
-                                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                    dialog.cancel()
-                                }
-                                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                    senderDetailRegisterTB.visibility = View.INVISIBLE
-                                    presenter.unregisterSegment(segment.id)
-                                    dialog.dismiss()
-                                }
-                                .show()
-                    } else {
-                        AlertDialog.Builder(this@SegmentDetailActivity)
-                                .setTitle(Translation.senders.registerAlertTitle)
-                                .setMessage(Translation.senders.registerAlertDescription)
-                                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                    dialog.cancel()
-                                }
-                                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                    senderDetailRegisterTB.visibility = View.INVISIBLE
-                                    presenter.registerSegment(segment.id)
-                                    dialog.dismiss()
-                                }
-                                .show()
-                    }
-                    true
+
+
+        senderDetailRegisterTB.onClick {
+            when {
+                segment.type == "public" -> {
+                    AlertDialog.Builder(this)
+                            .setTitle(Translation.senders.cannotUnregister)
+                            .setMessage(Translation.senders.cannotUnregisterPublicDescription)
+                            .setPositiveButton(Translation.defaultSection.ok) { d, _ -> d.dismiss() }
+                            .show()
                 }
-                else -> {
-                    v.onTouchEvent(event)
+                senderDetailRegisterTB.isChecked ->
+                    showConfirmationDialog(Translation.senders.unregisterAlertTitle, Translation.senders.unregisterAlertDescription) { dialog ->
+                    senderDetailRegisterTB.visibility = View.INVISIBLE
+                    presenter.unregisterSegment(segment.id)
+                    dialog.dismiss()
+                }
+                else -> showConfirmationDialog(Translation.senders.registerAlertTitle, Translation.senders.registerAlertDescription) { dialog ->
+                    senderDetailRegisterTB.visibility = View.INVISIBLE
+                    presenter.registerSegment(segment.id)
+                    dialog.dismiss()
                 }
             }
-        })
+        }
 
         senderDetailRegisterTB.isChecked = segment.registered != 0
         senderDetailRegisterTB.showCheckedDrawable()
 
+    }
+
+    private fun showConfirmationDialog(title: String, message: String, onConfirm: (DialogInterface) -> Unit) {
+        AlertDialog.Builder(this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(Translation.defaultSection.ok) { dialog, _ -> onConfirm(dialog) }
+                .setNegativeButton(Translation.defaultSection.cancel) { dialog, _ -> dialog.cancel() }
+                .show()
     }
 
     override fun onDestroy() {

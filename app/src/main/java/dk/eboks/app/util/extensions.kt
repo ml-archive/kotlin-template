@@ -17,6 +17,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
@@ -416,5 +417,17 @@ fun CompoundButton.showCheckedDrawable(resId: Int = R.drawable.icon_48_checkmark
         this.setCompoundDrawablesWithIntrinsicBounds(0, 0,resId, 0)
     } else {
         this.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+    }
+}
+
+fun ToggleButton.onClick(block: () -> Unit) {
+    setOnTouchListener { view, motionEvent ->
+        return@setOnTouchListener  when (motionEvent.action) {
+            MotionEvent.ACTION_UP -> {
+                block()
+                true
+            }
+            else -> view.onTouchEvent(motionEvent)
+        }
     }
 }

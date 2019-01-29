@@ -56,6 +56,7 @@ class SendersOverviewPresenter @Inject constructor(
             }
         }
         runAction { v ->
+            Timber.d("print: ${collections.first()}")
             v.showCollections(collections.subList(0, 5))
         }
     }

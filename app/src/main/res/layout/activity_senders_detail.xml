@@ -49,12 +49,12 @@
                     android:textColor="@color/white" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/senderDetailBodyTv"
                     style="@style/text.header4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_half"
-                    android:text="Radius padius radius padius adius padius radius padius adius"
                     android:textAlignment="center"
                     android:textColor="@color/white" />
 
