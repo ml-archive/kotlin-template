@@ -11,6 +11,8 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.util.showCheckedDrawable
+import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_senders_detail.*
 import timber.log.Timber
@@ -74,13 +76,9 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
             }
         })
 
-            senderDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
+        senderDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
             Timber.d("toggle")
-            if (isChecked) {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_48_checkmark_white, 0)
-            } else {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-            }
+            buttonView.showCheckedDrawable()
         }
 
         presenter.loadSender(sender.id)
@@ -149,7 +147,8 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
             }
         })
 
-        senderDetailRegisterTB.isChecked = sender.registered == 0
+        senderDetailRegisterTB.isChecked = sender.registered != 0
+        senderDetailRegisterTB.showCheckedDrawable()
     }
 
     override fun onDestroy() {
@@ -164,6 +163,12 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
 
     override fun showError(message: String) {
         senderDetailRegisterTB.visibility = View.VISIBLE
+    }
+
+    override fun toggleLoading(enabled: Boolean) {
+        senderDetailRegisterTB.visible = !enabled
+        senderDetailContainer.visible = !enabled
+        progressBar.visible = enabled
     }
 }
 

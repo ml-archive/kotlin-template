@@ -27,6 +27,7 @@ class SenderDetailPresenter(val appStateManager: AppStateManager, val getSenderD
     }
 
     override fun loadSender(id: Long) {
+        runAction { it.toggleLoading(true) }
         getSenderDetailInteractor.input = GetSenderDetailInteractor.Input(id)
         getSenderDetailInteractor.run()
     }
@@ -44,11 +45,14 @@ class SenderDetailPresenter(val appStateManager: AppStateManager, val getSenderD
     override fun onGetSender(sender: Sender) {
         runAction { v ->
             v.showSender(sender)
+            v.toggleLoading(false)
         }
     }
 
     override fun onGetSenderError(error: ViewError) {
-        runAction { it.showErrorDialog(error) }
+        runAction {
+            it.toggleLoading(false)
+            it.showErrorDialog(error) }
     }
 
     override fun onSuccess() {

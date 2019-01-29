@@ -29,10 +29,12 @@ class SegmentDetailPresenter(val appStateManager: AppStateManager, val getSegmen
     override fun onGetSegment(segment: Segment) {
         runAction { v ->
             v.showSegment(segment)
+            v.toggleLoading(false)
         }
     }
 
     override fun loadSegment(id: Long) {
+        runAction { it.toggleLoading(true) }
         getSegmentInteractor.input = GetSegmentInteractor.Input(id)
         getSegmentInteractor.run()
     }
@@ -51,6 +53,7 @@ class SegmentDetailPresenter(val appStateManager: AppStateManager, val getSegmen
         Timber.i("Success")
         runAction { v ->
             v.showSuccess()
+            v.toggleLoading(false)
         }
     }
 

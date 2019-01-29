@@ -20,7 +20,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
+import android.widget.CompoundButton
 import android.widget.EditText
+import android.widget.ToggleButton
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
@@ -29,6 +31,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
+import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.exceptions.ServerErrorException
@@ -407,3 +410,11 @@ var View.visible: Boolean
     set(value) {
         visibility = if (value) View.VISIBLE else View.GONE
     }
+
+fun CompoundButton.showCheckedDrawable(resId: Int = R.drawable.icon_48_checkmark_white) {
+    if (isChecked) {
+        this.setCompoundDrawablesWithIntrinsicBounds(0, 0,resId, 0)
+    } else {
+        this.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+    }
+}

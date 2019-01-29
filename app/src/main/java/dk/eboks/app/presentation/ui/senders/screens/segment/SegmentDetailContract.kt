@@ -10,6 +10,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface SegmentDetailContract {
     interface View : BaseView {
         fun showSuccess()
+        fun toggleLoading(enabled: Boolean)
         fun showSegment(segment: Segment)
         fun showError(message: String)
     }

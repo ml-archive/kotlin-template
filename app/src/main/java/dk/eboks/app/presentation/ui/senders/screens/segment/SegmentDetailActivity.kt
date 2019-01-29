@@ -12,6 +12,8 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.components.categories.CategoriesComponentFragment
+import dk.eboks.app.util.showCheckedDrawable
+import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_senders_detail.*
 import timber.log.Timber
@@ -65,11 +67,7 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
 
         senderDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
             Timber.d("toggle")
-            if (isChecked) {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_48_checkmark_white, 0)
-            } else {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
-            }
+            buttonView.showCheckedDrawable()
         }
 
         presenter.loadSegment(segment.id)
@@ -90,6 +88,13 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
 
         // also update the header
         updateHeader(segment)
+
+    }
+
+    override fun toggleLoading(enabled: Boolean) {
+        senderDetailRegisterTB.visible = !enabled
+        senderDetailContainer.visible = !enabled
+        progressBar.visible = enabled
     }
 
     private fun updateHeader(segment: Segment) {
@@ -143,7 +148,9 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
             }
         })
 
-        senderDetailRegisterTB.isChecked = segment.registered == 0
+        senderDetailRegisterTB.isChecked = segment.registered != 0
+        senderDetailRegisterTB.showCheckedDrawable()
+
     }
 
     override fun onDestroy() {

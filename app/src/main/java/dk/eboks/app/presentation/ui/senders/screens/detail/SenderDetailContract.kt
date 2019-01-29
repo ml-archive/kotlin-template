@@ -14,6 +14,7 @@ interface SenderDetailContract {
         fun showSuccess()
         fun showSender(sender: Sender)
         fun showError(message: String)
+        fun toggleLoading(enabled: Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
