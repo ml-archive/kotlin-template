@@ -75,9 +75,9 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
                 )
             )
         } else {
-            cat.senders?.let(::showSenders).guard {
+           // cat.senders?.let(::showSenders).guard {
                 presenter.loadSenders(cat.id)
-            }
+           // }
             mainTb.title = cat.name
         }
         browseCatRv.setBubbleDrawable(resources.getDrawable(R.drawable.fastscroll_bubble))
@@ -130,16 +130,16 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
 
             // REMOVED FEATURE
             //  determine if we need to show the first-letter
-//            var firstInGroup = true
-//            try {
-//                val prev = senders[position - 1]
-//                if (s.name.toLowerCase().startsWith(prev.name.toLowerCase().first())) {
-//                    firstInGroup = false
-//                }
-//            }  catch (e : Exception) {}
+            var firstInGroup = true
+            try {
+                val prev = senders[position - 1]
+                if (s.name.toLowerCase().startsWith(prev.name.toLowerCase().first())) {
+                    firstInGroup = false
+               }
+            }  catch (e : Exception) {}
 
             holder.bind(s)
-//            holder?.showIndex(firstInGroup)
+           holder.showIndex(firstInGroup)
         }
 
         override fun getItemCount(): Int {

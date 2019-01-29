@@ -244,8 +244,8 @@ interface Api {
     @GET("groups/segments/type/{segment}/categories")
     fun getSenderCategories(@Path("segment") segment: String): Call<List<SenderCategory>> // private or public
 
-    @GET("groups/categories/{id}/senders")
-    fun getSenders(@Path("id") categoryId: Long): Call<SenderCategory>   // TODO: shouldn't this be called "/api/groups/private/categories/{id}" ??
+    @GET("groups/{id}")
+    fun getSenders(@Path("id") categoryId: Long): Call<SenderCategory>
 
     @GET("groups/senders")
     fun searchSenders(@Query("searchText") searchText: String): Call<List<Sender>>

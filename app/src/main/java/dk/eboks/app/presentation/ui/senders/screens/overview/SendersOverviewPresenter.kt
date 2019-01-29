@@ -56,7 +56,7 @@ class SendersOverviewPresenter @Inject constructor(
             }
         }
         runAction { v ->
-            v.showCollections(collections)
+            v.showCollections(collections.subList(0, 5))
         }
     }
 
