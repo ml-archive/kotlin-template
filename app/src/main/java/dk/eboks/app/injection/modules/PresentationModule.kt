@@ -45,10 +45,7 @@ import dk.eboks.app.domain.interactors.message.UploadFileInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
-import dk.eboks.app.domain.interactors.sender.GetSegmentInteractor
-import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
-import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
-import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
+import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
@@ -310,9 +307,9 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideMessagePresenter(
-        appState: AppStateManager,
-        deleteMessagesInteractor: DeleteMessagesInteractor,
-        updateMessageInteractor: UpdateMessageInteractor
+            appState: AppStateManager,
+            deleteMessagesInteractor: DeleteMessagesInteractor,
+            updateMessageInteractor: UpdateMessageInteractor
     ): MessageContract.Presenter {
         return MessagePresenter(appState, deleteMessagesInteractor, updateMessageInteractor)
     }
@@ -332,23 +329,23 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideMessageSheetPresenter(
-        stateManager: AppStateManager,
-        deleteMessagesInteractor: DeleteMessagesInteractor,
-        updateMessageInteractor: UpdateMessageInteractor
+            stateManager: AppStateManager,
+            deleteMessagesInteractor: DeleteMessagesInteractor,
+            updateMessageInteractor: UpdateMessageInteractor
     ): MessageEmbeddedContract.Presenter {
         return MessageEmbeddedPresenter(
-            stateManager,
-            deleteMessagesInteractor,
-            updateMessageInteractor
+                stateManager,
+                deleteMessagesInteractor,
+                updateMessageInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideMessageOpeningPresenter(
-        stateManager: AppStateManager,
-        executor: Executor,
-        openMessageInteractor: OpenMessageInteractor
+            stateManager: AppStateManager,
+            executor: Executor,
+            openMessageInteractor: OpenMessageInteractor
     ): MessageOpeningContract.Presenter {
         return MessageOpeningPresenter(stateManager, executor, openMessageInteractor)
     }
@@ -362,8 +359,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideNotesComponentPresenter(
-        stateManager: AppStateManager,
-        updateMessageInteractor: UpdateMessageInteractor
+            stateManager: AppStateManager,
+            updateMessageInteractor: UpdateMessageInteractor
     ): NotesComponentContract.Presenter {
         return NotesComponentPresenter(stateManager, updateMessageInteractor)
     }
@@ -383,8 +380,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideSignPresenter(
-        stateManager: AppStateManager,
-        getSignLinkInteractor: GetSignLinkInteractor
+            stateManager: AppStateManager,
+            getSignLinkInteractor: GetSignLinkInteractor
     ): SignContract.Presenter {
         return SignPresenter(stateManager, getSignLinkInteractor)
     }
@@ -392,14 +389,14 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideAttachmentsComponentPresenter(
-        stateManager: AppStateManager,
-        openAttachmentInteractor: OpenAttachmentInteractor,
-        saveAttachmentInteractor: SaveAttachmentInteractor
+            stateManager: AppStateManager,
+            openAttachmentInteractor: OpenAttachmentInteractor,
+            saveAttachmentInteractor: SaveAttachmentInteractor
     ): AttachmentsComponentContract.Presenter {
         return AttachmentsComponentPresenter(
-            stateManager,
-            openAttachmentInteractor,
-            saveAttachmentInteractor
+                stateManager,
+                openAttachmentInteractor,
+                saveAttachmentInteractor
         )
     }
 
@@ -412,8 +409,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideDocumentComponentPresenter(
-        stateManager: AppStateManager,
-        saveAttachmentInteractor: SaveAttachmentInteractor
+            stateManager: AppStateManager,
+            saveAttachmentInteractor: SaveAttachmentInteractor
     ): DocumentComponentContract.Presenter {
         return DocumentComponentPresenter(stateManager, saveAttachmentInteractor)
     }
@@ -427,9 +424,9 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideFoldersComponentPresenter(
-        stateManager: AppStateManager,
-        getFoldersInteractor: GetFoldersInteractor,
-        openFolderInteractor: OpenFolderInteractor
+            stateManager: AppStateManager,
+            getFoldersInteractor: GetFoldersInteractor,
+            openFolderInteractor: OpenFolderInteractor
     ): FoldersComponentContract.Presenter {
         return FoldersComponentPresenter(stateManager, getFoldersInteractor, openFolderInteractor)
     }
@@ -437,22 +434,22 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideFolderShortcutsComponentPresenter(
-        stateManager: AppStateManager,
-        getCategoriesInteractor: GetCategoriesInteractor,
-        openFolderInteractor: OpenFolderInteractor
+            stateManager: AppStateManager,
+            getCategoriesInteractor: GetCategoriesInteractor,
+            openFolderInteractor: OpenFolderInteractor
     ): FolderShortcutsComponentContract.Presenter {
         return FolderShortcutsComponentPresenter(
-            stateManager,
-            getCategoriesInteractor,
-            openFolderInteractor
+                stateManager,
+                getCategoriesInteractor,
+                openFolderInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideSenderCarouselComponentPresenter(
-        stateManager: AppStateManager,
-        sendersInteractor: GetSendersInteractor
+            stateManager: AppStateManager,
+            sendersInteractor: GetSendersInteractor
     ): SenderCarouselComponentContract.Presenter {
         return SenderCarouselComponentPresenter(stateManager, sendersInteractor)
     }
@@ -460,19 +457,19 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideMailListComponentPresenter(
-        stateManager: AppStateManager,
-        getMessagesInteractor: GetMessagesInteractor,
-        deleteMessagesInteractor: DeleteMessagesInteractor,
-        moveMessagesInteractor: MoveMessagesInteractor,
-        updateMessageInteractor: UpdateMessageInteractor
+            stateManager: AppStateManager,
+            getMessagesInteractor: GetMessagesInteractor,
+            deleteMessagesInteractor: DeleteMessagesInteractor,
+            moveMessagesInteractor: MoveMessagesInteractor,
+            updateMessageInteractor: UpdateMessageInteractor
 
     ): MailListComponentContract.Presenter {
         return MailListComponentPresenter(
-            stateManager,
-            getMessagesInteractor,
-            deleteMessagesInteractor,
-            moveMessagesInteractor,
-            updateMessageInteractor
+                stateManager,
+                getMessagesInteractor,
+                deleteMessagesInteractor,
+                moveMessagesInteractor,
+                updateMessageInteractor
         )
     }
 
@@ -503,8 +500,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideQuarantineComponentPresenter(
-        stateManager: AppStateManager,
-        executor: Executor
+            stateManager: AppStateManager,
+            executor: Executor
     ): QuarantineComponentContract.Presenter {
         return QuarantineComponentPresenter(stateManager, executor)
     }
@@ -512,8 +509,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideRecalledMessageComponentPresenter(
-        stateManager: AppStateManager,
-        executor: Executor
+            stateManager: AppStateManager,
+            executor: Executor
     ): RecalledComponentContract.Presenter {
         return RecalledComponentPresenter(stateManager, executor)
     }
@@ -521,8 +518,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun providePromulgationComponentPresenter(
-        stateManager: AppStateManager,
-        executor: Executor
+            stateManager: AppStateManager,
+            executor: Executor
     ): PromulgationComponentContract.Presenter {
         return PromulgationComponentPresenter(stateManager, executor)
     }
@@ -530,8 +527,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideProtectedMessageComponentPresenter(
-        stateManager: AppStateManager,
-        executor: Executor
+            stateManager: AppStateManager,
+            executor: Executor
     ): ProtectedMessageComponentContract.Presenter {
         return ProtectedMessageComponentPresenter(stateManager, executor)
     }
@@ -539,8 +536,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideOpeningReceiptComponentPresenter(
-        stateManager: AppStateManager,
-        executor: Executor
+            stateManager: AppStateManager,
+            executor: Executor
     ): OpeningReceiptComponentContract.Presenter {
         return OpeningReceiptComponentPresenter(stateManager, executor)
     }
@@ -548,8 +545,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun providePrivateSenderWarningComponentPresenter(
-        stateManager: AppStateManager,
-        executor: Executor
+            stateManager: AppStateManager,
+            executor: Executor
     ): PrivateSenderWarningComponentContract.Presenter {
         return PrivateSenderWarningComponentPresenter(stateManager, executor)
     }
@@ -557,8 +554,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideChannelListComponentPresenter(
-        stateManager: AppStateManager,
-        getChannelsInteractor: GetChannelsInteractor
+            stateManager: AppStateManager,
+            getChannelsInteractor: GetChannelsInteractor
     ): ChannelOverviewComponentContract.Presenter {
         return ChannelOverviewComponentPresenter(stateManager, getChannelsInteractor)
     }
@@ -578,7 +575,7 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideSendersOverviewPresenter(
-        presenter: SendersOverviewPresenter
+            presenter: SendersOverviewPresenter
     ): SendersOverviewContract.Presenter {
         return presenter
     }
@@ -586,9 +583,9 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideStartPresenter(
-        stateManager: AppStateManager,
-        bootstrapInteractor: BootstrapInteractor,
-        prefManager: PrefManager
+            stateManager: AppStateManager,
+            bootstrapInteractor: BootstrapInteractor,
+            prefManager: PrefManager
     ): StartContract.Presenter {
         return StartPresenter(stateManager, bootstrapInteractor, prefManager)
     }
@@ -596,110 +593,110 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideSignupComponentPresenter(
-        stateManager: AppStateManager,
-        createUserInteractor: CreateUserInteractor,
-        verifySignupMailInteractor: CheckSignupMailInteractor,
-        loginInteractor: LoginInteractor,
-        checkSsnExistsInteractor: CheckSsnExistsInteractor,
-        setCurrentUserInteractor: SetCurrentUserInteractor
+            stateManager: AppStateManager,
+            createUserInteractor: CreateUserInteractor,
+            verifySignupMailInteractor: CheckSignupMailInteractor,
+            loginInteractor: LoginInteractor,
+            checkSsnExistsInteractor: CheckSsnExistsInteractor,
+            setCurrentUserInteractor: SetCurrentUserInteractor
     ): SignupComponentContract.Presenter {
         return SignupComponentPresenter(
-            stateManager,
-            createUserInteractor,
-            loginInteractor,
-            verifySignupMailInteractor,
-            checkSsnExistsInteractor,
-            setCurrentUserInteractor
+                stateManager,
+                createUserInteractor,
+                loginInteractor,
+                verifySignupMailInteractor,
+                checkSsnExistsInteractor,
+                setCurrentUserInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideWebLoginPresenter(
-        stateManager: AppStateManager,
-        transformTokenInteractor: TransformTokenInteractor,
-        verifyProfileInteractor: VerifyProfileInteractor,
-        mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-        userSettingsManager: UserSettingsManager
+            stateManager: AppStateManager,
+            transformTokenInteractor: TransformTokenInteractor,
+            verifyProfileInteractor: VerifyProfileInteractor,
+            mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+            userSettingsManager: UserSettingsManager
     ): WebLoginContract.Presenter {
         return WebLoginPresenter(
-            stateManager,
-            transformTokenInteractor,
-            verifyProfileInteractor,
-            mergeAndImpersonateInteractor,
-            userSettingsManager
+                stateManager,
+                transformTokenInteractor,
+                verifyProfileInteractor,
+                mergeAndImpersonateInteractor,
+                userSettingsManager
         )
     }
 
     @ActivityScope
     @Provides
     fun provideNemIdLoginPresenter(
-        stateManager: AppStateManager,
-        transformTokenInteractor: TransformTokenInteractor,
-        verifyProfileInteractor: VerifyProfileInteractor,
-        mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-        userSettingsManager: UserSettingsManager
+            stateManager: AppStateManager,
+            transformTokenInteractor: TransformTokenInteractor,
+            verifyProfileInteractor: VerifyProfileInteractor,
+            mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+            userSettingsManager: UserSettingsManager
     ): WebLoginContract.Presenter {
         return NemIdComponentPresenter(
-            stateManager,
-            transformTokenInteractor,
-            verifyProfileInteractor,
-            mergeAndImpersonateInteractor,
-            userSettingsManager
+                stateManager,
+                transformTokenInteractor,
+                verifyProfileInteractor,
+                mergeAndImpersonateInteractor,
+                userSettingsManager
         )
     }
 
     @ActivityScope
     @Provides
     fun provideIdPortenComponentPresenter(
-        stateManager: AppStateManager,
-        transformTokenInteractor: TransformTokenInteractor,
-        verifyProfileInteractor: VerifyProfileInteractor,
-        mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-        userSettingsManager: UserSettingsManager
+            stateManager: AppStateManager,
+            transformTokenInteractor: TransformTokenInteractor,
+            verifyProfileInteractor: VerifyProfileInteractor,
+            mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+            userSettingsManager: UserSettingsManager
     ): WebLoginContract.Presenter {
         return IdPortenComponentPresenter(
-            stateManager,
-            transformTokenInteractor,
-            verifyProfileInteractor,
-            mergeAndImpersonateInteractor,
-            userSettingsManager
+                stateManager,
+                transformTokenInteractor,
+                verifyProfileInteractor,
+                mergeAndImpersonateInteractor,
+                userSettingsManager
         )
     }
 
     @ActivityScope
     @Provides
     fun provideBankIdSEComponentPresenter(
-        stateManager: AppStateManager,
-        transformTokenInteractor: TransformTokenInteractor,
-        verifyProfileInteractor: VerifyProfileInteractor,
-        mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-        userSettingsManager: UserSettingsManager
+            stateManager: AppStateManager,
+            transformTokenInteractor: TransformTokenInteractor,
+            verifyProfileInteractor: VerifyProfileInteractor,
+            mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+            userSettingsManager: UserSettingsManager
     ): WebLoginContract.Presenter {
         return BankIdSEComponentPresenter(
-            stateManager,
-            transformTokenInteractor,
-            verifyProfileInteractor,
-            mergeAndImpersonateInteractor,
-            userSettingsManager
+                stateManager,
+                transformTokenInteractor,
+                verifyProfileInteractor,
+                mergeAndImpersonateInteractor,
+                userSettingsManager
         )
     }
 
     @ActivityScope
     @Provides
     fun provideBankIdNOComponentPresenter(
-        stateManager: AppStateManager,
-        transformTokenInteractor: TransformTokenInteractor,
-        verifyProfileInteractor: VerifyProfileInteractor,
-        mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-        userSettingsManager: UserSettingsManager
+            stateManager: AppStateManager,
+            transformTokenInteractor: TransformTokenInteractor,
+            verifyProfileInteractor: VerifyProfileInteractor,
+            mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+            userSettingsManager: UserSettingsManager
     ): WebLoginContract.Presenter {
         return BankIdNOComponentPresenter(
-            stateManager,
-            transformTokenInteractor,
-            verifyProfileInteractor,
-            mergeAndImpersonateInteractor,
-            userSettingsManager
+                stateManager,
+                transformTokenInteractor,
+                verifyProfileInteractor,
+                mergeAndImpersonateInteractor,
+                userSettingsManager
         )
     }
 
@@ -712,34 +709,34 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideUserCarouselComponentPresenter(
-        stateManager: AppStateManager,
-        userSettingsManager: UserSettingsManager,
-        getUsersInteractor: GetUsersInteractor,
-        deleteUserInteractor: DeleteUserInteractor
+            stateManager: AppStateManager,
+            userSettingsManager: UserSettingsManager,
+            getUsersInteractor: GetUsersInteractor,
+            deleteUserInteractor: DeleteUserInteractor
     ): UserCarouselComponentContract.Presenter {
         return UserCarouselComponentPresenter(
-            stateManager,
-            userSettingsManager,
-            getUsersInteractor,
-            deleteUserInteractor
+                stateManager,
+                userSettingsManager,
+                getUsersInteractor,
+                deleteUserInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideLoginComponentPresenter(
-        stateManager: AppStateManager,
-        userSettingsManager: UserSettingsManager,
-        decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,
-        loginInteractor: LoginInteractor,
-        checkRSAKeyPresenceInteractor: CheckRSAKeyPresenceInteractor
+            stateManager: AppStateManager,
+            userSettingsManager: UserSettingsManager,
+            decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,
+            loginInteractor: LoginInteractor,
+            checkRSAKeyPresenceInteractor: CheckRSAKeyPresenceInteractor
     ): LoginComponentContract.Presenter {
         return LoginComponentPresenter(
-            stateManager,
-            userSettingsManager,
-            decryptUserLoginInfoInteractor,
-            loginInteractor,
-            checkRSAKeyPresenceInteractor
+                stateManager,
+                userSettingsManager,
+                decryptUserLoginInfoInteractor,
+                loginInteractor,
+                checkRSAKeyPresenceInteractor
         )
     }
 
@@ -752,8 +749,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideActivationCodeComponentPresenter(
-        stateManager: AppStateManager,
-        loginInteractor: LoginInteractor
+            stateManager: AppStateManager,
+            loginInteractor: LoginInteractor
     ): ActivationCodeComponentContract.Presenter {
         return ActivationCodeComponentPresenter(stateManager, loginInteractor)
     }
@@ -761,16 +758,16 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideChannelOpeningComponentPresenter(
-        stateManager: AppStateManager,
-        getChannelInteractor: GetChannelInteractor,
-        createStoreboxInteractor: CreateStoreboxInteractor,
-        installChannelInteractor: InstallChannelInteractor
+            stateManager: AppStateManager,
+            getChannelInteractor: GetChannelInteractor,
+            createStoreboxInteractor: CreateStoreboxInteractor,
+            installChannelInteractor: InstallChannelInteractor
     ): ChannelOpeningComponentContract.Presenter {
         return ChannelOpeningComponentPresenter(
-            stateManager,
-            getChannelInteractor,
-            createStoreboxInteractor,
-            installChannelInteractor
+                stateManager,
+                getChannelInteractor,
+                createStoreboxInteractor,
+                installChannelInteractor
         )
     }
 
@@ -783,8 +780,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideChannelContentComponentPresenter(
-        stateManager: AppStateManager,
-        getChannelContentLinkInteractor: GetChannelContentLinkInteractor
+            stateManager: AppStateManager,
+            getChannelContentLinkInteractor: GetChannelContentLinkInteractor
     ): ChannelContentComponentContract.Presenter {
         return ChannelContentComponentPresenter(stateManager, getChannelContentLinkInteractor)
     }
@@ -792,60 +789,60 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideChannelContentStoreboxComponentPresenter(
-        stateManager: AppStateManager,
-        getStoreboxReceiptsInteractor: GetStoreboxReceiptsInteractor,
-        getStoreboxCreditCardsInteractor: GetStoreboxCreditCardsInteractor
+            stateManager: AppStateManager,
+            getStoreboxReceiptsInteractor: GetStoreboxReceiptsInteractor,
+            getStoreboxCreditCardsInteractor: GetStoreboxCreditCardsInteractor
     ): ChannelContentStoreboxComponentContract.Presenter {
         return ChannelContentStoreboxComponentPresenter(
-            stateManager,
-            getStoreboxReceiptsInteractor,
-            getStoreboxCreditCardsInteractor
+                stateManager,
+                getStoreboxReceiptsInteractor,
+                getStoreboxCreditCardsInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideChannelContentStoreboxDetailComponentPresenter(
-        stateManager: AppStateManager,
-        getStoreboxReceiptInteractor: GetStoreboxReceiptInteractor,
-        deleteStoreboxReceiptInteractor: DeleteStoreboxReceiptInteractor,
-        saveReceiptInteractor: SaveReceiptInteractor,
-        shareReceiptInteractor: ShareReceiptInteractor
+            stateManager: AppStateManager,
+            getStoreboxReceiptInteractor: GetStoreboxReceiptInteractor,
+            deleteStoreboxReceiptInteractor: DeleteStoreboxReceiptInteractor,
+            saveReceiptInteractor: SaveReceiptInteractor,
+            shareReceiptInteractor: ShareReceiptInteractor
     ): ChannelContentStoreboxDetailComponentContract.Presenter {
         return ChannelContentStoreboxDetailComponentPresenter(
-            stateManager,
-            getStoreboxReceiptInteractor,
-            deleteStoreboxReceiptInteractor,
-            saveReceiptInteractor,
-            shareReceiptInteractor
+                stateManager,
+                getStoreboxReceiptInteractor,
+                deleteStoreboxReceiptInteractor,
+                saveReceiptInteractor,
+                shareReceiptInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideChannelSettingsComponentPresenter(
-        stateManager: AppStateManager,
-        getStoreboxCreditCardsInteractor: GetStoreboxCreditCardsInteractor,
-        deleteStoreboxCreditCardInteractor: DeleteStoreboxCreditCardInteractor,
-        getStoreboxProfileInteractor: GetStoreboxProfileInteractor,
-        putStoreboxProfileInteractor: PutStoreboxProfileInteractor,
-        getStoreboxCardLinkInteractor: GetStoreboxCardLinkInteractor,
-        deleteStoreboxAccountLinkInteractor: DeleteStoreboxAccountLinkInteractor,
-        updateStoreboxFlagsInteractor: UpdateStoreboxFlagsInteractor,
-        getChannelInteractor: GetChannelInteractor,
-        uninstallChannelInteractor: UninstallChannelInteractor
+            stateManager: AppStateManager,
+            getStoreboxCreditCardsInteractor: GetStoreboxCreditCardsInteractor,
+            deleteStoreboxCreditCardInteractor: DeleteStoreboxCreditCardInteractor,
+            getStoreboxProfileInteractor: GetStoreboxProfileInteractor,
+            putStoreboxProfileInteractor: PutStoreboxProfileInteractor,
+            getStoreboxCardLinkInteractor: GetStoreboxCardLinkInteractor,
+            deleteStoreboxAccountLinkInteractor: DeleteStoreboxAccountLinkInteractor,
+            updateStoreboxFlagsInteractor: UpdateStoreboxFlagsInteractor,
+            getChannelInteractor: GetChannelInteractor,
+            uninstallChannelInteractor: UninstallChannelInteractor
     ): ChannelSettingsComponentContract.Presenter {
         return ChannelSettingsComponentPresenter(
-            stateManager,
-            getStoreboxCreditCardsInteractor,
-            deleteStoreboxCreditCardInteractor,
-            getStoreboxProfileInteractor,
-            putStoreboxProfileInteractor,
-            getStoreboxCardLinkInteractor,
-            deleteStoreboxAccountLinkInteractor,
-            updateStoreboxFlagsInteractor,
-            getChannelInteractor,
-            uninstallChannelInteractor
+                stateManager,
+                getStoreboxCreditCardsInteractor,
+                deleteStoreboxCreditCardInteractor,
+                getStoreboxProfileInteractor,
+                putStoreboxProfileInteractor,
+                getStoreboxCardLinkInteractor,
+                deleteStoreboxAccountLinkInteractor,
+                updateStoreboxFlagsInteractor,
+                getChannelInteractor,
+                uninstallChannelInteractor
         )
     }
 
@@ -858,8 +855,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideCategoriesComponentPresenter(
-        stateManager: AppStateManager,
-        getSenderCategoriesInteractor: GetSenderCategoriesInteractor
+            stateManager: AppStateManager,
+            getSenderCategoriesInteractor: GetSenderCategoriesInteractor
     ): CategoriesComponentContract.Presenter {
         return CategoriesComponentPresenter(getSenderCategoriesInteractor)
     }
@@ -867,8 +864,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideBrowseCategoryPresenter(
-        stateManager: AppStateManager,
-        getSendersInteractor: GetSendersInteractor
+            stateManager: AppStateManager,
+            getSendersInteractor: GetSendersInteractor
     ): BrowseCategoryContract.Presenter {
         return BrowseCategoryPresenter(stateManager, getSendersInteractor)
     }
@@ -876,8 +873,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideRegistrationsPresenter(
-        stateManager: AppStateManager,
-        registrationsInteractor: GetRegistrationsInteractor
+            stateManager: AppStateManager,
+            registrationsInteractor: GetRegistrationsInteractor
     ): RegistrationsContract.Presenter {
         return RegistrationsPresenter(stateManager, registrationsInteractor)
     }
@@ -891,25 +888,25 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideUploadOverviewPresenter(
-        stateManager: AppStateManager,
-        getStorageInteractor: GetStorageInteractor,
-        getLatestUploadsInteractor: GetLatestUploadsInteractor,
-        uploadFileInteractor: UploadFileInteractor
+            stateManager: AppStateManager,
+            getStorageInteractor: GetStorageInteractor,
+            getLatestUploadsInteractor: GetLatestUploadsInteractor,
+            uploadFileInteractor: UploadFileInteractor
     ): UploadOverviewComponentContract.Presenter {
         return UploadOverviewComponentPresenter(
-            stateManager,
-            getStorageInteractor,
-            getLatestUploadsInteractor,
-            uploadFileInteractor
+                stateManager,
+                getStorageInteractor,
+                getLatestUploadsInteractor,
+                uploadFileInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideRegisterPresenter(
-        stateManager: AppStateManager,
-        registerInteractor: RegisterInteractor,
-        unRegisterInteractor: UnRegisterInteractor
+            stateManager: AppStateManager,
+            registerInteractor: RegisterInteractor,
+            unRegisterInteractor: UnRegisterInteractor
     ): RegistrationContract.Presenter {
         return RegisterPresenter(stateManager, registerInteractor, unRegisterInteractor)
     }
@@ -917,56 +914,58 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun providePendingPresenter(
-        stateManager: AppStateManager,
-        getPendingInteractor: GetPendingInteractor,
-        registerInteractor: RegisterInteractor,
-        unRegisterInteractor: UnRegisterInteractor
+            stateManager: AppStateManager,
+            getPendingInteractor: GetPendingInteractor,
+            registerInteractor: RegisterInteractor,
+            unRegisterInteractor: UnRegisterInteractor
     ): PendingContract.Presenter {
         return PendingPresenter(
-            stateManager,
-            getPendingInteractor,
-            registerInteractor,
-            unRegisterInteractor
+                stateManager,
+                getPendingInteractor,
+                registerInteractor,
+                unRegisterInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideSenderDetailPresenter(
-        stateManager: AppStateManager,
-        getSenderDetailInteractor: GetSenderDetailInteractor,
-        registerInteractor: RegisterInteractor,
-        unRegisterInteractor: UnRegisterInteractor
+            getSenderRegistrationLinkInteractor: GetSenderRegistrationLinkInteractor,
+            stateManager: AppStateManager,
+            getSenderDetailInteractor: GetSenderDetailInteractor,
+            registerInteractor: RegisterInteractor,
+            unRegisterInteractor: UnRegisterInteractor
     ): SenderDetailContract.Presenter {
         return SenderDetailPresenter(
-            stateManager,
-            getSenderDetailInteractor,
-            registerInteractor,
-            unRegisterInteractor
+                getSenderRegistrationLinkInteractor,
+                stateManager,
+                getSenderDetailInteractor,
+                registerInteractor,
+                unRegisterInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideSegmentDetailPresenter(
-        stateManager: AppStateManager,
-        getSegmentInteractor: GetSegmentInteractor,
-        registerInteractor: RegisterInteractor,
-        unRegisterInteractor: UnRegisterInteractor
+            stateManager: AppStateManager,
+            getSegmentInteractor: GetSegmentInteractor,
+            registerInteractor: RegisterInteractor,
+            unRegisterInteractor: UnRegisterInteractor
     ): SegmentDetailContract.Presenter {
         return SegmentDetailPresenter(
-            stateManager,
-            getSegmentInteractor,
-            registerInteractor,
-            unRegisterInteractor
+                stateManager,
+                getSegmentInteractor,
+                registerInteractor,
+                unRegisterInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideDebugOptionsComponentPresenter(
-        stateManager: AppStateManager,
-        prefManager: PrefManager
+            stateManager: AppStateManager,
+            prefManager: PrefManager
     ): DebugOptionsComponentContract.Presenter {
         return DebugOptionsComponentPresenter(stateManager, prefManager)
     }
@@ -974,9 +973,9 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideDebugUsersComponentPresenter(
-        stateManager: AppStateManager,
-        userSettingsManager: UserSettingsManager,
-        testLoginStates: MutableList<LoginState>
+            stateManager: AppStateManager,
+            userSettingsManager: UserSettingsManager,
+            testLoginStates: MutableList<LoginState>
     ): DebugUsersComponentContract.Presenter {
         return DebugUsersComponentPresenter(stateManager, userSettingsManager, testLoginStates)
     }
@@ -990,58 +989,58 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideProfileInfoComponentPresenter(
-        stateManager: AppStateManager,
-        saveUserInteractor: SaveUserInteractor,
-        saveUserSettingsInteractor: SaveUserSettingsInteractor,
-        getUserProfileInteractor: GetUserProfileInteractor,
-        userSettingsManager: UserSettingsManager
+            stateManager: AppStateManager,
+            saveUserInteractor: SaveUserInteractor,
+            saveUserSettingsInteractor: SaveUserSettingsInteractor,
+            getUserProfileInteractor: GetUserProfileInteractor,
+            userSettingsManager: UserSettingsManager
     ): ProfileInfoComponentContract.Presenter {
         return ProfileInfoComponentPresenter(
-            stateManager,
-            saveUserInteractor,
-            saveUserSettingsInteractor,
-            getUserProfileInteractor,
-            userSettingsManager
+                stateManager,
+                saveUserInteractor,
+                saveUserSettingsInteractor,
+                getUserProfileInteractor,
+                userSettingsManager
         )
     }
 
     @ActivityScope
     @Provides
     fun provideMyInfoComponentPresenter(
-        stateManager: AppStateManager,
-        saveUserInteractor: SaveUserInteractor,
-        updateUserInteractor: UpdateUserInteractor,
-        getUserProfileInteractor: GetUserProfileInteractor
+            stateManager: AppStateManager,
+            saveUserInteractor: SaveUserInteractor,
+            updateUserInteractor: UpdateUserInteractor,
+            getUserProfileInteractor: GetUserProfileInteractor
     ): MyInfoComponentContract.Presenter {
         return MyInfoComponentPresenter(
-            stateManager,
-            saveUserInteractor,
-            updateUserInteractor,
-            getUserProfileInteractor
+                stateManager,
+                saveUserInteractor,
+                updateUserInteractor,
+                getUserProfileInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideDebugUserPresenter(
-        stateManager: AppStateManager,
-        userSettingsManager: UserSettingsManager,
-        createUserInteractor: CreateDebugUserInteractorImpl,
-        saveUserInteractor: SaveUserInteractor
+            stateManager: AppStateManager,
+            userSettingsManager: UserSettingsManager,
+            createUserInteractor: CreateDebugUserInteractorImpl,
+            saveUserInteractor: SaveUserInteractor
     ): DebugUserContract.Presenter {
         return DebugUserPresenter(
-            stateManager,
-            userSettingsManager,
-            createUserInteractor,
-            saveUserInteractor
+                stateManager,
+                userSettingsManager,
+                createUserInteractor,
+                saveUserInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideEmailVerificationComponentPresenter(
-        stateManager: AppStateManager,
-        verifyEmailInteractor: VerifyEmailInteractor
+            stateManager: AppStateManager,
+            verifyEmailInteractor: VerifyEmailInteractor
     ): EmailVerificationComponentContract.Presenter {
         return EmailVerificationComponentPresenter(stateManager, verifyEmailInteractor)
     }
@@ -1049,48 +1048,48 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun providePhoneVerificationComponentPresenter(
-        stateManager: AppStateManager,
-        verifyPhoneInteractor: VerifyPhoneInteractor,
-        confirmPhoneInteractor: ConfirmPhoneInteractor
+            stateManager: AppStateManager,
+            verifyPhoneInteractor: VerifyPhoneInteractor,
+            confirmPhoneInteractor: ConfirmPhoneInteractor
     ): PhoneVerificationComponentContract.Presenter {
         return PhoneVerificationComponentPresenter(
-            stateManager,
-            verifyPhoneInteractor,
-            confirmPhoneInteractor
+                stateManager,
+                verifyPhoneInteractor,
+                confirmPhoneInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideFingerHintComponentPresenter(
-        stateManager: AppStateManager,
-        userSettingsManager: UserSettingsManager,
-        encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,
-        saveUserInteractor: SaveUserInteractor
+            stateManager: AppStateManager,
+            userSettingsManager: UserSettingsManager,
+            encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,
+            saveUserInteractor: SaveUserInteractor
     ): FingerHintComponentContract.Presenter {
         return FingerHintComponentPresenter(
-            stateManager,
-            userSettingsManager,
-            encryptUserLoginInfoInteractor,
-            saveUserInteractor
+                stateManager,
+                userSettingsManager,
+                encryptUserLoginInfoInteractor,
+                saveUserInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideFingerPrintComponentPresenter(
-        stateManager: AppStateManager,
-        userSettingsManager: UserSettingsManager,
-        encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,
-        saveUserInteractor: SaveUserInteractor,
-        testLoginInteractor: TestLoginInteractor
+            stateManager: AppStateManager,
+            userSettingsManager: UserSettingsManager,
+            encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,
+            saveUserInteractor: SaveUserInteractor,
+            testLoginInteractor: TestLoginInteractor
     ): FingerPrintComponentContract.Presenter {
         return FingerPrintComponentPresenter(
-            stateManager,
-            userSettingsManager,
-            encryptUserLoginInfoInteractor,
-            saveUserInteractor,
-            testLoginInteractor
+                stateManager,
+                userSettingsManager,
+                encryptUserLoginInfoInteractor,
+                saveUserInteractor,
+                testLoginInteractor
         )
     }
 
@@ -1121,16 +1120,16 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideConnectStoreboxPresenter(
-        stateManager: AppStateManager,
-        linkStoreboxInteractor: LinkStoreboxInteractor,
-        confirmStoreboxInteractor: ConfirmStoreboxInteractor,
-        createStoreboxInteractor: CreateStoreboxInteractor
+            stateManager: AppStateManager,
+            linkStoreboxInteractor: LinkStoreboxInteractor,
+            confirmStoreboxInteractor: ConfirmStoreboxInteractor,
+            createStoreboxInteractor: CreateStoreboxInteractor
     ): ConnectStoreboxContract.Presenter {
         return ConnectStoreboxPresenter(
-            stateManager,
-            linkStoreboxInteractor,
-            confirmStoreboxInteractor,
-            createStoreboxInteractor
+                stateManager,
+                linkStoreboxInteractor,
+                confirmStoreboxInteractor,
+                createStoreboxInteractor
         )
     }
 
@@ -1143,9 +1142,9 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideReplyFormPresenter(
-        appState: AppStateManager,
-        getReplyFormInteractor: GetReplyFormInteractor,
-        submitReplyFormInteractor: SubmitReplyFormInteractor
+            appState: AppStateManager,
+            getReplyFormInteractor: GetReplyFormInteractor,
+            submitReplyFormInteractor: SubmitReplyFormInteractor
     ): ReplyFormContract.Presenter {
         return ReplyFormPresenter(appState, getReplyFormInteractor, submitReplyFormInteractor)
     }
@@ -1159,8 +1158,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideSenderAllListComponentPresenter(
-        stateManager: AppStateManager,
-        sendersInteractor: GetSendersInteractor
+            stateManager: AppStateManager,
+            sendersInteractor: GetSendersInteractor
     ): SenderAllListComponentContract.Presenter {
         return SenderAllListComponentPresenter(stateManager, sendersInteractor)
     }
@@ -1168,24 +1167,24 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideNewFolderComponentPresenter(
-        stateManager: AppStateManager,
-        createFolderInteractor: CreateFolderInteractor,
-        deleteFolderInteractor: DeleteFolderInteractor,
-        editFolderInteractor: EditFolderInteractor
+            stateManager: AppStateManager,
+            createFolderInteractor: CreateFolderInteractor,
+            deleteFolderInteractor: DeleteFolderInteractor,
+            editFolderInteractor: EditFolderInteractor
     ): NewFolderComponentContract.Presenter {
         return NewFolderComponentPresenter(
-            stateManager,
-            createFolderInteractor,
-            deleteFolderInteractor,
-            editFolderInteractor
+                stateManager,
+                createFolderInteractor,
+                deleteFolderInteractor,
+                editFolderInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideFolderSelectUserComponentPresenter(
-        stateManager: AppStateManager,
-        getAllSharesInteractor: GetAllSharesInteractor
+            stateManager: AppStateManager,
+            getAllSharesInteractor: GetAllSharesInteractor
     ): FolderSelectUserComponentContract.Presenter {
         return FolderSelectUserComponentPresenter(stateManager, getAllSharesInteractor)
     }
@@ -1193,19 +1192,19 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideEkeyContentPresenter(
-        stateManager: AppStateManager, encryptedPreferences: EncryptedPreferences,
-        getEKeyMasterkeyInteractor: GetEKeyMasterkeyInteractor,
-        setEKeyMasterkeyInteractor: SetEKeyMasterkeyInteractor,
-        getEKeyVaultInteractor: GetEKeyVaultInteractor,
-        setEKeyVaultInteractor: SetEKeyVaultInteractor
+            stateManager: AppStateManager, encryptedPreferences: EncryptedPreferences,
+            getEKeyMasterkeyInteractor: GetEKeyMasterkeyInteractor,
+            setEKeyMasterkeyInteractor: SetEKeyMasterkeyInteractor,
+            getEKeyVaultInteractor: GetEKeyVaultInteractor,
+            setEKeyVaultInteractor: SetEKeyVaultInteractor
     ): EkeyContentContract.Presenter {
         return EkeyContentPresenter(
-            stateManager,
-            encryptedPreferences,
-            getEKeyMasterkeyInteractor,
-            setEKeyMasterkeyInteractor,
-            getEKeyVaultInteractor,
-            setEKeyVaultInteractor
+                stateManager,
+                encryptedPreferences,
+                getEKeyMasterkeyInteractor,
+                setEKeyMasterkeyInteractor,
+                getEKeyVaultInteractor,
+                setEKeyVaultInteractor
         )
     }
 
@@ -1224,22 +1223,22 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideEkeyDetailComponentPresenter(
-        stateManager: AppStateManager,
-        encryptedPreferences: EncryptedPreferences,
-        setEKeyVaultInteractor: SetEKeyVaultInteractor
+            stateManager: AppStateManager,
+            encryptedPreferences: EncryptedPreferences,
+            setEKeyVaultInteractor: SetEKeyVaultInteractor
     ): EkeyDetailComponentContract.Presenter {
         return EkeyDetailComponentPresenter(
-            stateManager,
-            encryptedPreferences,
-            setEKeyVaultInteractor
+                stateManager,
+                encryptedPreferences,
+                setEKeyVaultInteractor
         )
     }
 
     @ActivityScope
     @Provides
     fun provideFolderPreviewComponentPresenter(
-        stateManager: AppStateManager,
-        getMessagesInteractor: GetMessagesInteractor
+            stateManager: AppStateManager,
+            getMessagesInteractor: GetMessagesInteractor
     ): FolderPreviewComponentContract.Presenter {
         return FolderPreviewComponentPresenter(stateManager, getMessagesInteractor)
     }
@@ -1247,8 +1246,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideChannelControlComponentPresenter(
-        stateManager: AppStateManager,
-        getChannelHomeContentInteractor: GetChannelHomeContentInteractor
+            stateManager: AppStateManager,
+            getChannelHomeContentInteractor: GetChannelHomeContentInteractor
     ): ChannelControlComponentContract.Presenter {
         return ChannelControlComponentPresenter(stateManager, getChannelHomeContentInteractor)
     }
@@ -1256,14 +1255,14 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideEkeyOpenItemComponentPresenter(
-        stateManager: AppStateManager,
-        encryptedPreferences: EncryptedPreferences,
-        setEKeyVaultInteractor: SetEKeyVaultInteractor
+            stateManager: AppStateManager,
+            encryptedPreferences: EncryptedPreferences,
+            setEKeyVaultInteractor: SetEKeyVaultInteractor
     ): EkeyOpenItemComponentContract.Presenter {
         return EkeyOpenItemComponentPresenter(
-            stateManager,
-            encryptedPreferences,
-            setEKeyVaultInteractor
+                stateManager,
+                encryptedPreferences,
+                setEKeyVaultInteractor
         )
     }
 
@@ -1294,16 +1293,16 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideDeviceActivationComponentPresenter(
-        stateManager: AppStateManager,
-        generateRSAKeyInteractor: GenerateRSAKeyInteractor,
-        activateDeviceInteractor: ActivateDeviceInteractor,
-        deleteRSAKeyInteractor: DeleteRSAKeyInteractor
+            stateManager: AppStateManager,
+            generateRSAKeyInteractor: GenerateRSAKeyInteractor,
+            activateDeviceInteractor: ActivateDeviceInteractor,
+            deleteRSAKeyInteractor: DeleteRSAKeyInteractor
     ): DeviceActivationComponentContract.Presenter {
         return DeviceActivationComponentPresenter(
-            stateManager,
-            generateRSAKeyInteractor,
-            activateDeviceInteractor,
-            deleteRSAKeyInteractor
+                stateManager,
+                generateRSAKeyInteractor,
+                activateDeviceInteractor,
+                deleteRSAKeyInteractor
         )
     }
 

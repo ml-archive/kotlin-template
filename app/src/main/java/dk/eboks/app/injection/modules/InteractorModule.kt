@@ -94,16 +94,7 @@ import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInt
 import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractorImpl
 import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractorImpl
-import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
-import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractorImpl
-import dk.eboks.app.domain.interactors.sender.GetSegmentInteractor
-import dk.eboks.app.domain.interactors.sender.GetSegmentInteractorImpl
-import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
-import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractorImpl
-import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
-import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractorImpl
-import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
-import dk.eboks.app.domain.interactors.sender.GetSendersInteractorImpl
+import dk.eboks.app.domain.interactors.sender.*
 import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractorImpl
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
@@ -843,5 +834,10 @@ class InteractorModule {
     @Provides
     fun provideGetAllSharesInteractor(executor: Executor, api: Api): GetAllSharesInteractor {
         return GetAllSharesInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun provideGetSenderRigistrationLinkInteractor(api: Api) : GetSenderRegistrationLinkInteractor {
+        return GetSenderRegistrationLinkInteractorImpl(api)
     }
 }

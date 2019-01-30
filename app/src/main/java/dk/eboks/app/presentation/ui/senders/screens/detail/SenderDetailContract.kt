@@ -21,5 +21,6 @@ interface SenderDetailContract {
         fun loadSender(id : Long)
         fun registerSender(id: Long)
         fun unregisterSender(id: Long)
+        fun registerViaLink(id: Long)
     }
 }

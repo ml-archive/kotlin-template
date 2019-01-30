@@ -28,6 +28,7 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.shared.BooleanReply
 import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.domain.models.shared.ResourceLink
+import io.reactivex.Single
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -145,6 +146,9 @@ interface Api {
 
     @GET("mail/storage")
     fun getStorageInfo(): Call<StorageInfo>
+
+    @GET("/groups/senders/{senderId}/link")
+    fun getSenderRegistrationLink(@Path("senderId") senderId: Long) : Single<Any>
 
     // sign
     @GET("mail/folders/{folderId}/messages/{id}/sign/link")

@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.senders.screens.detail
 
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
+import dk.eboks.app.domain.interactors.sender.GetSenderRegistrationLinkInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.managers.AppStateManager
@@ -14,16 +15,23 @@ import timber.log.Timber
  * @author   bison
  * @since    20-05-2017.
  */
-class SenderDetailPresenter(val appStateManager: AppStateManager, val getSenderDetailInteractor: GetSenderDetailInteractor, val registerInteractor: RegisterInteractor, val unregisterInteractor: UnRegisterInteractor) :
+class SenderDetailPresenter(
+        val getSenderRegistrationLinkInteractor: GetSenderRegistrationLinkInteractor,
+        val appStateManager: AppStateManager,
+        val getSenderDetailInteractor: GetSenderDetailInteractor,
+        val registerInteractor: RegisterInteractor,
+        val unregisterInteractor: UnRegisterInteractor) :
         SenderDetailContract.Presenter, BasePresenterImpl<SenderDetailContract.View>(),
         GetSenderDetailInteractor.Output,
         RegisterInteractor.Output,
-        UnRegisterInteractor.Output{
+        UnRegisterInteractor.Output,
+        GetSenderRegistrationLinkInteractor.Output {
 
     init {
         getSenderDetailInteractor.output = this
         registerInteractor.output = this
         unregisterInteractor.output = this
+        getSenderRegistrationLinkInteractor.output = this
     }
 
     override fun loadSender(id: Long) {
@@ -66,5 +74,18 @@ class SenderDetailPresenter(val appStateManager: AppStateManager, val getSenderD
         runAction { v ->
             v.showError(error.message?:"")
         }
+    }
+
+    override fun registerViaLink(id: Long) {
+        getSenderRegistrationLinkInteractor.input = GetSenderRegistrationLinkInteractor.Input(id)
+        getSenderRegistrationLinkInteractor.run()
+    }
+
+    override fun onLinkLoaded(link: String) {
+
+    }
+
+    override fun onLinkLoadingError(viewError: ViewError) {
+
     }
 }
