@@ -2,39 +2,40 @@ package dk.nodes.template.presentation.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import dk.nodes.template.domain.interactors.GetPostsInteractor
+import dk.nodes.template.domain.interactors.PostsInteractor
 import dk.nodes.template.domain.models.Post
+import dk.nodes.template.domain.models.Result
+import dk.nodes.template.domain.models.Translation
 import dk.nodes.template.presentation.base.BaseViewModel
 import dk.nodes.template.util.Event
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MainActivityViewModel @Inject constructor(
-    private val getPostsInteractor: GetPostsInteractor
+        private val postsInteractor: PostsInteractor
 ) : BaseViewModel() {
 
-    private val output = object : GetPostsInteractor.Output {
-        override fun onPostsLoaded(posts: List<Post>) {
-            _postsLiveData.postValue(posts)
+    private val _viewState = MutableLiveData<MainActivityViewState>()
+    val viewState: LiveData<MainActivityViewState> = _viewState
+
+    fun fetchPosts() = scope.launch {
+        _viewState.value = MainActivityViewState(isLoading = true)
+        val result = withContext(Dispatchers.IO) { postsInteractor.run() }
+        when (result) {
+            is Result.Success -> _viewState.value = _viewState.value?.copy(
+                    isLoading = false,
+                    posts = result.data
+            )
+            is Result.Error -> _viewState.value = _viewState.value?.copy(
+                    isLoading = false,
+                    errorMessage = Event(Translation.error.unknownError)
+            )
         }
-
-        override fun onError(msg: String) {
-            _errorLiveData.postValue(Event(msg))
-        }
-    }
-
-    private val _postsLiveData = MutableLiveData<List<Post>>()
-    private val _errorLiveData = MutableLiveData<Event<String>>()
-    // Facade so the view doesn't know its mutable
-    val postsLiveData: LiveData<List<Post>> = _postsLiveData
-    val errorLiveData: LiveData<Event<String>> = _errorLiveData
-
-    init {
-        getPostsInteractor.output = output
-        getPostsInteractor.run()
     }
 
     override fun onCleared() {
         super.onCleared()
-        getPostsInteractor.output = null
     }
 }
