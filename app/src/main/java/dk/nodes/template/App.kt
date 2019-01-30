@@ -1,5 +1,7 @@
 package dk.nodes.template
 
+import android.content.Context
+import androidx.multidex.MultiDex
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 import dk.nodes.template.inititializers.AppInitializers
@@ -14,14 +16,11 @@ class App : DaggerApplication() {
         initializers.init(this)
     }
 
-    // uncomment me if multidex
-
-    /*
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         MultiDex.install(this)
     }
-    */
+
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerAppComponent.builder().create(this)
     }
