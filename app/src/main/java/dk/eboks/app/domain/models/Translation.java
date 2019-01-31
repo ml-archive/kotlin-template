@@ -199,7 +199,7 @@ public class Translation {
 		public static String passwordHeader = "Godt! Nu skal du v\u00E6lge en adgangskode, som er sikker og du nemt kan huske";
 		public static String passwordDetail = "Adgangskoden skal v\u00E6re p\u00E5 mindst 6 tegn og vi anbefaler, du bruger b\u00E5de tal og bogstaver. Bare for at v\u00E6re sikker!";
 		public static String verificationHeader = "Perfekt! Nu skal vi blot vide, hvem du er";
-		public static String verificationDetail = "Verificere din profil giver dig adgang til alle muligheder i e-Boks. Modtag post, underskrive dokumenter og betale regninger direkte i e-Boks!";
+		public static String verificationDetail = "Ved at verificere din profil f\u00E5r du adgang til alle muligheder i e-Boks. Modtag post, underskriv dokumenter og betal regninger direkte i e-Boks!";
 		public static String continueButton = "Forts\u00E6t";
 		public static String verifyButton = "Verificer min profil";
 		public static String continueWithoutVerificationButton = "Spring over";

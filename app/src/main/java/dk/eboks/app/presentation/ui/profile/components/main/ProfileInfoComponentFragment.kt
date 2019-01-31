@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -44,7 +43,7 @@ import java.io.File
 import javax.inject.Inject
 
 class ProfileInfoComponentFragment : BaseFragment(),
-    ProfileInfoComponentContract.View {
+        ProfileInfoComponentContract.View {
     @Inject
     lateinit var presenter: ProfileInfoComponentContract.Presenter
 
@@ -55,9 +54,9 @@ class ProfileInfoComponentFragment : BaseFragment(),
     private var showProgressOnLoad = false
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_profile_main_component, container, false)
     }
@@ -124,7 +123,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
             // Show our fingerprint stuff only if we are above API M
 //Fingerprint API only available on from Android 6.0 (M)
             val fingerprintManager =
-                context?.getSystemService(Context.FINGERPRINT_SERVICE) as? FingerprintManager
+                    context?.getSystemService(Context.FINGERPRINT_SERVICE) as? FingerprintManager
             if (fingerprintManager?.isHardwareDetected == true) {
                 profileDetailSwFingerprint.visible = (true)
                 // Device doesn't support fingerprint authentication
@@ -133,19 +132,27 @@ class ProfileInfoComponentFragment : BaseFragment(),
             profileDetailSwFingerprint.visible = (false)
     }
 
+
+
     override fun attachListeners() {
         profileDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
-            handleRegistereredButton(isChecked, buttonView)
+            if (isChecked) {
+                refreshOnResume = true
+                handleRegisteredButtonDrawable(isChecked)
+                VerificationComponentFragment.verificationSucceeded = false
+                getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
+            }
         }
 
 
         profileDetailContainerMyInformation.setOnClickListener {
             Timber.d("profileDetailContainerMyInformation Clicked")
             getBaseActivity()?.addFragmentOnTop(
-                R.id.profileActivityContainerFragment,
-                MyInfoComponentFragment()
+                    R.id.profileActivityContainerFragment,
+                    MyInfoComponentFragment()
             )
         }
+
 
         profileDetailSwFingerprint.setOnClickListener {
             val isChecked = profileDetailSwFingerprint.isChecked
@@ -189,16 +196,16 @@ class ProfileInfoComponentFragment : BaseFragment(),
         profileDetailContainerPrivacy.setOnClickListener {
             Timber.d("profileDetailContainerPrivacy Clicked")
             getBaseActivity()?.addFragmentOnTop(
-                R.id.profileActivityContainerFragment,
-                PrivacyFragment()
+                    R.id.profileActivityContainerFragment,
+                    PrivacyFragment()
             )
         }
 
         profileDetailContainerHelp.setOnClickListener {
             Timber.d("profileDetailContainerHelp Clicked")
             getBaseActivity()?.addFragmentOnTop(
-                R.id.profileActivityContainerFragment,
-                HelpFragment()
+                    R.id.profileActivityContainerFragment,
+                    HelpFragment()
             )
         }
 
@@ -214,21 +221,16 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
     }
 
-    private fun handleRegistereredButton(
-        isRegistered: Boolean,
-        buttonView: CompoundButton
-    ) {
+    private fun handleRegisteredButtonDrawable(isRegistered: Boolean) {
         if (isRegistered) {
-            buttonView.setCompoundDrawablesWithIntrinsicBounds(
-                0,
-                0,
-                R.drawable.icon_48_checkmark_white,
-                0
+            profileDetailRegisterTB.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.icon_48_checkmark_white,
+                    0
             )
-            VerificationComponentFragment.verificationSucceeded = false
-            getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
         } else {
-            buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
+            profileDetailRegisterTB.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
         }
     }
 
@@ -259,10 +261,10 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
     private fun acquireUserImage() {
         startActivityForResult(
-            OverlayActivity.createIntent(
-                requireContext(),
-                arrayListOf(OverlayButton(ButtonType.CAMERA), OverlayButton(ButtonType.GALLERY))
-            ), OverlayActivity.REQUEST_ID
+                OverlayActivity.createIntent(
+                        requireContext(),
+                        arrayListOf(OverlayButton(ButtonType.CAMERA), OverlayButton(ButtonType.GALLERY))
+                ), OverlayActivity.REQUEST_ID
         )
     }
 
@@ -319,9 +321,9 @@ class ProfileInfoComponentFragment : BaseFragment(),
             options.placeholder(R.drawable.ic_profile)
             options.circleCrop()
             Glide.with(context ?: return)
-                .load(url)
-                .apply(options)
-                .into(it)
+                    .load(url)
+                    .apply(options)
+                    .into(it)
         }
     }
 
@@ -337,24 +339,18 @@ class ProfileInfoComponentFragment : BaseFragment(),
             options.placeholder(R.drawable.ic_profile)
             options.circleCrop()
             Glide.with(context ?: return)
-                .load(Uri.fromFile(imgfile))
-                .apply(options)
-                .into(it)
+                    .load(Uri.fromFile(imgfile))
+                    .apply(options)
+                    .into(it)
         }
     }
 
     override fun setVerified(isVerified: Boolean) {
-        handleRegistereredButton(isVerified, profileDetailRegisterTB)
+        handleRegisteredButtonDrawable(isVerified)
         profileDetailRegisterTB?.let {
             it.isChecked = isVerified
             if (isVerified) {
                 it.isEnabled = false
-                it.setCompoundDrawablesWithIntrinsicBounds(
-                        0,
-                        0,
-                        R.drawable.icon_48_checkmark_white,
-                        0
-                )
             }
         }
     }
