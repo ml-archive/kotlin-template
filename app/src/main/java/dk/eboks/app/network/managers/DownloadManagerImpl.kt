@@ -12,6 +12,7 @@ import okhttp3.Request
 import okio.Okio
 import timber.log.Timber
 import java.io.File
+import java.nio.charset.Charset
 
 
 /**
@@ -24,21 +25,32 @@ class DownloadManagerImpl(val context: Context, val client: OkHttpClient, val ca
 
     override fun downloadContent(message: Message, content: Content) : String? {
         Timber.e("Downloading content...")
-        // TODO remove me
-        //throw(ServerErrorException(ServerError(id = "ffsfws", type = ErrorType.ERROR, code = 12260)))
-        var folderId = if(message.folder != null) message.folder!!.id else message.folderId
+
+        val folderId = if(message.folder != null) message.folder!!.id else message.folderId
         var url = "${Config.getApiUrl()}mail/folders/$folderId/messages/${content.id}/content".appendUserId(appStateManager.state?.impersoniateUser?.userId)
         content.contentUrlMock?.let { url = it } // if we have a mock url on the content object, use it instead
 
         val request = Request.Builder().url(url)
                 .get()
                 .build()
-        val response = client.newCall(request).execute()
+        val body = client.newCall(request).execute().body() ?: return null
+
         val filename = cacheManager.generateFileName(content)
         val downloadedFile = File(context.cacheDir, filename)
+
+
         // let okio do the actual buffering and writing of the file, after all thats why Jake made it, in his infinite wisdom
         val sink = Okio.buffer(Okio.sink(downloadedFile))
-        sink.writeAll(response.body()!!.source())
+
+        // Text can encoded differently, check the type and re-encode
+        val type = body.contentType()?.type()
+        if (type == "text" && body.contentType()?.charset() != Charsets.UTF_8) {
+            val string = String(body.bytes(), body.contentType()?.charset() ?: Charsets.UTF_8)
+            sink.writeString(string, Charsets.UTF_8)
+        } else {
+            sink.writeAll(body.source())
+        }
+
         sink.close()
         Timber.e("Downloaded $url to $filename")
         return filename

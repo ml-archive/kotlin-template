@@ -10,7 +10,12 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface PdfViewComponentContract {
     interface View : BaseView {
         fun updateView(folder : Folder)
+        fun showPdfView(filename: String)
     }
 
-    interface Presenter : BasePresenter<View>
+    interface Presenter : BasePresenter<View> {
+
+        val currentFile: String?
+
+    }
 }

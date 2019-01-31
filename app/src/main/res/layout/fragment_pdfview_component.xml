@@ -2,29 +2,12 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
-    <!--
-    <ImageView
-        android:id="@+id/pageIv"
-        android:background="@color/white"
-        android:padding="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    -->
 
-    <!--
- dk.eboks.app.presentation.widgets.pdf.pdf.PdfReaderView
+    <dk.eboks.app.presentation.widgets.pdf.PdfReaderView
         android:id="@+id/pdfView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/pagesRv"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        />
 
 </FrameLayout>

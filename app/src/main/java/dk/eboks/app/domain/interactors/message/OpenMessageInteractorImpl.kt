@@ -36,8 +36,8 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
             input?.msg?.let { msg->
                 //throw(ServerErrorException(ServerError(id="homemade", code = PROMULGATION, type = ERROR)))
                 val updated_msg = messagesRepository.getMessage(msg.folderId, msg.id, acceptedPrivateTerms = appStateManager.state?.openingState?.acceptPrivateTerms)
+                Timber.d("Opening meessage with lock status: ${msg.lockStatus}")
                 if(processLockedMessage(msg)) {
-                    Timber.d("Message opneing: $updated_msg ")
                     // update the (perhaps) more detailed message object with the extra info from the backend
                     // because the JVM can only deal with reference types silly reflection tricks like this are necessary
                     FieldMapper.copyAllFields(msg, updated_msg)
@@ -322,7 +322,8 @@ class OpenMessageInteractorImpl(executor: Executor, val appStateManager: AppStat
                 EboksContentType("bmp", "image/bmp"),
                 EboksContentType("html", "text/html"),
                 EboksContentType("htm", "text/html"),
-                EboksContentType("txt", "text/plain")
+                EboksContentType("txt", "text/plain"),
+                EboksContentType("pdf", "application/pdf")
         )
         
         val NO_PRIVATE_SENDER_WARNING = 9100
