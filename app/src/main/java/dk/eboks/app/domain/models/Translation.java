@@ -90,7 +90,7 @@ public class Translation {
 		public static String homeButton = "Hjem";
 		public static String mailButton = "Post";
 		public static String sendersButton = "Afsendere";
-		public static String channelsButton = "Plus";
+		public static String channelsButton = "Services";
 		public static String uploadsButton = "Upload";
 	}
 	public final static class folders {
@@ -111,7 +111,7 @@ public class Translation {
 	}
 	public final static class channels {
 		public static String channelsHeader = "Med e-Boks Plus kan du nemt betjene dig selv med services, som kan lette din hverdag";
-		public static String title = "e-Boks Plus";
+		public static String title = "Services";
 		public static String install = "Tilf\u00F8j";
 		public static String open = "\u00C5bn";
 		public static String openChannel = "\u00C5bn service";
@@ -498,7 +498,7 @@ public class Translation {
 	}
 	public final static class channelsettings {
 		public static String pinTitle = "F\u00F8j til startsiden";
-		public static String pinSubtitle = "Vis indhold fra denne kanal p\u00E5 startsiden";
+		public static String pinSubtitle = "Vis indhold fra denne service p\u00E5 startsiden";
 		public static String pushTitle = "Push-beskeder";
 		public static String pushSubtitle = "__pushSubtitle";
 		public static String title = "Indstillinger";

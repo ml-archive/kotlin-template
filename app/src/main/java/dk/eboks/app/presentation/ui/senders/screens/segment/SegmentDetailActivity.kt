@@ -60,7 +60,7 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         senderDetailCTL.isTitleEnabled = false
         senderDetailABL.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (appBarLayout.totalScrollRange + verticalOffset < 200) {
-                senderDetailTB.title = if (segment.isPublic) Translation.senderdetails.publicAuthoritiesHeader else Translation.senderdetails.privateSegmentHeader
+                senderDetailTB.title = segment.name
             } else {
                 senderDetailTB.title = ""
             }
@@ -101,16 +101,13 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
     private fun updateHeader(segment: Segment) {
         senderDetailRegisterTB.visibility = View.VISIBLE
         senderDetailBodyTv.visible = true
-
+        senderDetailTB.title = segment.name
+        senderDetailNameTv.text = segment.name
 
         if (segment.isPublic) {
-            senderDetailTB.title = Translation.senderdetails.publicAuthoritiesHeader
-            senderDetailNameTv.text =  Translation.senderdetails.publicAuthoritiesHeader
             senderDetailBodyTv.text = if (segment.isRegistered) Translation.senderdetails.publicAuthoritiesRegisteredDescription
             else Translation.senderdetails.publicAuthoritiesUnregisteredDescription
         } else {
-            senderDetailTB.title = Translation.senderdetails.privateSegmentHeader
-            senderDetailNameTv.text =  Translation.senderdetails.privateSegmentHeader
             senderDetailBodyTv.text = if (segment.isRegistered) Translation.senderdetails.privateSegmentRegisteredDescription
             else Translation.senderdetails.privateSegmentUnregisteredDescription
 
