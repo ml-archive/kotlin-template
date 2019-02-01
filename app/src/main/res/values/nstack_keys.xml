@@ -237,6 +237,9 @@
   <string name='nstack_senderdetails_publicAuthoritiesUnregisteredDescription' formatted='false'>{senderdetails_publicAuthoritiesUnregisteredDescription}</string>
   <string name='nstack_senderdetails_numberOfSenders' formatted='false'>{senderdetails_numberOfSenders}</string>
   <string name='nstack_senderdetails_publicAuthoritiesRegisteredDescription' formatted='false'>{senderdetails_publicAuthoritiesRegisteredDescription}</string>
+  <string name='nstack_senderdetails_privateSegmentHeader' formatted='false'>{senderdetails_privateSegmentHeader}</string>
+  <string name='nstack_senderdetails_privateSegmentRegisteredDescription' formatted='false'>{senderdetails_privateSegmentRegisteredDescription}</string>
+  <string name='nstack_senderdetails_privateSegmentUnregisteredDescription' formatted='false'>{senderdetails_privateSegmentUnregisteredDescription}</string>
   <string name='nstack_findactivationcode_title' formatted='false'>{findactivationcode_title}</string>
   <string name='nstack_findactivationcode_message' formatted='false'>{findactivationcode_message}</string>
   <string name='nstack_message_information' formatted='false'>{message_information}</string>

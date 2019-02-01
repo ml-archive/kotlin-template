@@ -29,4 +29,11 @@ data class Sender(
     var unreadMessageCount: Int = 0,
     var status: Status? = null
     //var unreadMessageCount: Int = 0 // todo this should be removed - its not in the draft
-) : Parcelable
+) : Parcelable {
+
+    val isPublic: Boolean
+        get() = type == "public"
+
+    val isRegistered: Boolean
+        get() = registered != 0
+}

@@ -412,7 +412,7 @@ var View.visible: Boolean
         visibility = if (value) View.VISIBLE else View.GONE
     }
 
-fun CompoundButton.showCheckedDrawable(resId: Int = R.drawable.icon_48_checkmark_white) {
+fun CompoundButton.updateCheckDrawable(resId: Int = R.drawable.icon_48_checkmark_white) {
     if (isChecked) {
         this.setCompoundDrawablesWithIntrinsicBounds(0, 0,resId, 0)
     } else {

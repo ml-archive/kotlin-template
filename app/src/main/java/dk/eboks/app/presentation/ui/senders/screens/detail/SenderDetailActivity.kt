@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.senders.screens.detail
 
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
@@ -12,7 +11,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.util.onClick
-import dk.eboks.app.util.showCheckedDrawable
+import dk.eboks.app.util.updateCheckDrawable
 import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_senders_detail.*
@@ -78,7 +77,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
 
         senderDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
             Timber.d("toggle")
-            buttonView.showCheckedDrawable()
+            buttonView.updateCheckDrawable()
         }
 
         presenter.loadSender(sender.id)
@@ -101,11 +100,15 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
         senderDetailNameTv.text = sender.name
         senderDetailRegisterTB.visibility = View.VISIBLE
 
+        val iconFallback = if (sender.isPublic) R.drawable.icon_72_senders_public else R.drawable.icon_72_senders_private
+        senderDetailBodyTv.visible = sender.isPublic
+
+
         Glide.with(this)
                 .load(sender.logo?.url)
                 .apply(RequestOptions()
-                        .fallback(R.drawable.icon_72_senders_private)
-                        .placeholder(R.drawable.icon_72_senders_private)
+                        .fallback(iconFallback)
+                        .placeholder(iconFallback)
                 )
                 .into(senderDetailIv)
 
@@ -140,7 +143,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
         }
 
         senderDetailRegisterTB.isChecked = sender.registered != 0
-        senderDetailRegisterTB.showCheckedDrawable()
+        senderDetailRegisterTB.updateCheckDrawable()
     }
 
     override fun onDestroy() {

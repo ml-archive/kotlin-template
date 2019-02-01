@@ -1,9 +1,7 @@
 package dk.eboks.app.presentation.ui.senders.screens.segment
 
-import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
@@ -15,7 +13,7 @@ import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.components.categories.CategoriesComponentFragment
 import dk.eboks.app.util.onClick
-import dk.eboks.app.util.showCheckedDrawable
+import dk.eboks.app.util.updateCheckDrawable
 import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_senders_detail.*
@@ -62,7 +60,7 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         senderDetailCTL.isTitleEnabled = false
         senderDetailABL.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (appBarLayout.totalScrollRange + verticalOffset < 200) {
-                senderDetailTB.title = segment.name
+                senderDetailTB.title = if (segment.isPublic) Translation.senderdetails.publicAuthoritiesHeader else Translation.senderdetails.privateSegmentHeader
             } else {
                 senderDetailTB.title = ""
             }
@@ -70,7 +68,7 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
 
         senderDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
             Timber.d("toggle")
-            buttonView.showCheckedDrawable()
+            buttonView.updateCheckDrawable()
         }
 
         presenter.loadSegment(segment.id)
@@ -101,21 +99,30 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
     }
 
     private fun updateHeader(segment: Segment) {
-        senderDetailTB.title = segment.name
-        senderDetailNameTv.text = segment.name
         senderDetailRegisterTB.visibility = View.VISIBLE
+        senderDetailBodyTv.visible = true
 
-        if (segment.type == "public") {
-            senderDetailBodyTv.visibility = View.VISIBLE
-            senderDetailBodyTv.text = if (segment.registered != 0) Translation.senderdetails.publicAuthoritiesRegisteredDescription
+
+        if (segment.isPublic) {
+            senderDetailTB.title = Translation.senderdetails.publicAuthoritiesHeader
+            senderDetailNameTv.text =  Translation.senderdetails.publicAuthoritiesHeader
+            senderDetailBodyTv.text = if (segment.isRegistered) Translation.senderdetails.publicAuthoritiesRegisteredDescription
             else Translation.senderdetails.publicAuthoritiesUnregisteredDescription
+        } else {
+            senderDetailTB.title = Translation.senderdetails.privateSegmentHeader
+            senderDetailNameTv.text =  Translation.senderdetails.privateSegmentHeader
+            senderDetailBodyTv.text = if (segment.isRegistered) Translation.senderdetails.privateSegmentRegisteredDescription
+            else Translation.senderdetails.privateSegmentUnregisteredDescription
+
         }
+
+        val iconFallback = if (segment.isPublic) R.drawable.icon_72_senders_public else R.drawable.icon_72_senders_private
 
         Glide.with(this)
                 .load(segment.image?.url)
                 .apply(RequestOptions()
-                        .fallback(R.drawable.icon_72_senders_private)
-                        .placeholder(R.drawable.icon_72_senders_private)
+                        .fallback(iconFallback)
+                        .placeholder(iconFallback)
                 )
                 .into(senderDetailIv)
 
@@ -123,7 +130,7 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
 
         senderDetailRegisterTB.onClick {
             when {
-                segment.type == "public" -> {
+               segment.isPublic -> {
                     AlertDialog.Builder(this)
                             .setTitle(Translation.senders.cannotUnregister)
                             .setMessage(Translation.senders.cannotUnregisterPublicDescription)
@@ -145,7 +152,7 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         }
 
         senderDetailRegisterTB.isChecked = segment.registered != 0
-        senderDetailRegisterTB.showCheckedDrawable()
+        senderDetailRegisterTB.updateCheckDrawable()
 
     }
 
