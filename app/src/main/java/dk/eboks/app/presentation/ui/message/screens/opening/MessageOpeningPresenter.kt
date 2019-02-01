@@ -55,8 +55,8 @@ class MessageOpeningPresenter(val appStateManager: AppStateManager, val executor
         runAction { v->v.showErrorDialog(error) }
     }
 
-    override fun onOpenMessageServerError(error: ServerError) {
-        when(error.code)
+    override fun onOpenMessageServerError(serverError: ServerError) {
+        when(serverError.code)
         {
             OpenMessageInteractorImpl.NO_PRIVATE_SENDER_WARNING -> runAction { v-> v.setOpeningFragment(PrivateSenderWarningComponentFragment::class.java) }
             OpenMessageInteractorImpl.MESSAGE_LOCKED -> runAction { v-> v.setOpeningFragment(ProtectedMessageComponentFragment::class.java) }

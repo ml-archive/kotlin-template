@@ -237,6 +237,9 @@
   <string name='nstack_senderdetails_publicAuthoritiesUnregisteredDescription' formatted='false'>{senderdetails_publicAuthoritiesUnregisteredDescription}</string>
   <string name='nstack_senderdetails_numberOfSenders' formatted='false'>{senderdetails_numberOfSenders}</string>
   <string name='nstack_senderdetails_publicAuthoritiesRegisteredDescription' formatted='false'>{senderdetails_publicAuthoritiesRegisteredDescription}</string>
+  <string name='nstack_senderdetails_privateSegmentHeader' formatted='false'>{senderdetails_privateSegmentHeader}</string>
+  <string name='nstack_senderdetails_privateSegmentRegisteredDescription' formatted='false'>{senderdetails_privateSegmentRegisteredDescription}</string>
+  <string name='nstack_senderdetails_privateSegmentUnregisteredDescription' formatted='false'>{senderdetails_privateSegmentUnregisteredDescription}</string>
   <string name='nstack_findactivationcode_title' formatted='false'>{findactivationcode_title}</string>
   <string name='nstack_findactivationcode_message' formatted='false'>{findactivationcode_message}</string>
   <string name='nstack_message_information' formatted='false'>{message_information}</string>
@@ -579,6 +582,9 @@
   <string name='nstack_ekey_deleteItemDescriptionPinCode' formatted='false'>{ekey_deleteItemDescriptionPinCode}</string>
   <string name='nstack_ekey_deleteItemDescriptionLogin' formatted='false'>{ekey_deleteItemDescriptionLogin}</string>
   <string name='nstack_ekey_overviewPinCode' formatted='false'>{ekey_overviewPinCode}</string>
+  <string name='nstack_ekey_insertPasswordHint' formatted='false'>{ekey_insertPasswordHint}</string>
+  <string name='nstack_ekey_insertPasswordDescription' formatted='false'>{ekey_insertPasswordDescription}</string>
+  <string name='nstack_ekey_insertPasswordLenghtError' formatted='false'>{ekey_insertPasswordLenghtError}</string>
   <string name='nstack_storeboxlogin_header' formatted='false'>{storeboxlogin_header}</string>
   <string name='nstack_storeboxlogin_subheader' formatted='false'>{storeboxlogin_subheader}</string>
   <string name='nstack_storeboxlogin_title' formatted='false'>{storeboxlogin_title}</string>

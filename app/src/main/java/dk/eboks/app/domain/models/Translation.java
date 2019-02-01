@@ -90,7 +90,7 @@ public class Translation {
 		public static String homeButton = "Hjem";
 		public static String mailButton = "Post";
 		public static String sendersButton = "Afsendere";
-		public static String channelsButton = "Plus";
+		public static String channelsButton = "Services";
 		public static String uploadsButton = "Upload";
 	}
 	public final static class folders {
@@ -111,7 +111,7 @@ public class Translation {
 	}
 	public final static class channels {
 		public static String channelsHeader = "Med e-Boks Plus kan du nemt betjene dig selv med services, som kan lette din hverdag";
-		public static String title = "e-Boks Plus";
+		public static String title = "Services";
 		public static String install = "Tilf\u00F8j";
 		public static String open = "\u00C5bn";
 		public static String openChannel = "\u00C5bn service";
@@ -271,6 +271,9 @@ public class Translation {
 		public static String publicAuthoritiesUnregisteredDescription = "__publicAuthoritiesUnregisteredDescription";
 		public static String numberOfSenders = "afsendere";
 		public static String publicAuthoritiesRegisteredDescription = "__publicAuthoritiesRegisteredDescription";
+		public static String privateSegmentHeader = "Private afsendere";
+		public static String privateSegmentRegisteredDescription = "__privateSegmentRegisteredDescription";
+		public static String privateSegmentUnregisteredDescription = "__privateSegmentUnregisteredDescription";
 	}
 	public final static class findactivationcode {
 		public static String title = "Find din aktiveringskode";
@@ -477,10 +480,10 @@ public class Translation {
 		public static String bottomChannelHeaderChannels = "Der er mere at se";
 		public static String bottomChannelTextChannels = "Vi tilf\u00F8jer l\u00F8bende nye services";
 		public static String messagesSectionHeaderButtonNewMessagesSuffix = "[value] nye meddelelser";
-		public static String bottomChannelBtn = "Vis e-Boks Plus";
+		public static String bottomChannelBtn = "Vis Services";
 		public static String messagesHeader = "Post";
 		public static String messagesSectionHeaderShowAllButton = "Vis alle";
-		public static String channelsHeader = "e-Boks Plus";
+		public static String channelsHeader = "Services";
 		public static String channelsHeaderButton = "Rediger";
 		public static String messagesUnverifiedTitle = "Modtag din post digitalt";
 		public static String messagesUnverifiedMessage = "Modtag din post digitalt fra private virksomheder og offentlige myndigheder.\r\nDu skal blot verificere din profil.";
@@ -495,7 +498,7 @@ public class Translation {
 	}
 	public final static class channelsettings {
 		public static String pinTitle = "F\u00F8j til startsiden";
-		public static String pinSubtitle = "Vis indhold fra denne kanal p\u00E5 startsiden";
+		public static String pinSubtitle = "Vis indhold fra denne service p\u00E5 startsiden";
 		public static String pushTitle = "Push-beskeder";
 		public static String pushSubtitle = "__pushSubtitle";
 		public static String title = "Indstillinger";
@@ -657,6 +660,9 @@ public class Translation {
 		public static String deleteItemDescriptionPinCode = "pinkode";
 		public static String deleteItemDescriptionLogin = "brugeroplysning";
 		public static String overviewPinCode = "Pinkode";
+		public static String insertPasswordHint = "__insertPasswordHint";
+		public static String insertPasswordDescription = "__insertPasswordDescription";
+		public static String insertPasswordLenghtError = "__insertPasswordLenghtError";
 	}
 	public final static class storeboxlogin {
 		public static String header = "Link til din Storebox profil";

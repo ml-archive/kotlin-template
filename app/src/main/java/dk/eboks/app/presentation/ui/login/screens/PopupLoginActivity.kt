@@ -13,7 +13,7 @@ class PopupLoginActivity : BaseActivity(), PopupLoginContract.View {
     @Inject lateinit var presenter: PopupLoginContract.Presenter
 
     companion object {
-        val REQUEST_VERIFICATION : Int = 13445
+        const val REQUEST_VERIFICATION : Int = 13445
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
