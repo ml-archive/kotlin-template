@@ -300,6 +300,7 @@ interface Api {
     @GET("channels/ekey/masterkey")
     fun masterKeyGet(): Call<EKeyGetMasterkeyResponse>
 
+    @POST("channels/ekey/masterkey")
     fun masterKeySet(@Body obj: JsonObject): Call<ResponseBody>
 
     @DELETE("channels/ekey/masterkey")

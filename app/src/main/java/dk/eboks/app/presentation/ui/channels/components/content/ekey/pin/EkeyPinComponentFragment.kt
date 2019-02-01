@@ -8,10 +8,13 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.BaseEkeyFragment
+import dk.eboks.app.util.onImeActionDone
+import dk.eboks.app.util.onTextChanged
 import kotlinx.android.synthetic.main.fragment_channel_ekey_pin.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -26,6 +29,9 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
 
     var handler = Handler()
 
+    private val isCreate: Boolean
+        get() = arguments?.getBoolean("ISCREATE", false) ?: false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_channel_ekey_pin, container, false)
         return rootView
@@ -36,7 +42,6 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        val isCreate = arguments?.getBoolean("ISCREATE", false) ?: false
 
         setupInputfields()
         setupTopbar(isCreate)
@@ -44,7 +49,8 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
     }
 
     private fun setupTexts(isCreate: Boolean) {
-        pinHeaderTv.text = when(isCreate) {
+        ekeyPasswordInputLayout.hint = Translation.ekey.insertPasswordHint
+        pinHeaderTv.text = when (isCreate) {
             true -> Translation.ekey.createEKey
             false -> Translation.ekey.pinCode
         }
@@ -72,48 +78,70 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
     private fun setupInputfields() {
         showKeyboard()
 
-        thief.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                s?.let {
-                    if (s.length > 0) {
-                        pin1Et.setText(s[0].toString())
-                    } else {
-                        pin1Et.setText("")
-                    }
-                    if (s.length > 1) {
-                        pin2Et.setText(s[1].toString())
-                    } else {
-                        pin2Et.setText("")
-                    }
-                    if (s.length > 2) {
-                        pin3Et.setText(s[2].toString())
-                    } else {
-                        pin3Et.setText("")
-                    }
-                    if (s.length > 3) {
-                        pin4Et.setText(s[3].toString())
+        ekeyPasswordInputEt.onImeActionDone {
+            if (isCreate) {
+                if (ekeyPasswordInputEt.text.toString().length >= 6) {
+                    getEkeyBaseActivity()?.setPin(ekeyPasswordInputEt.text.toString())
+                    getEkeyBaseActivity()?.refreshClearAndShowMain()
+                } else {
+                    ekeyPasswordInputEt.text?.clear()
+                    ekeyPasswordInputLayout.error = Translation.ekey.insertPasswordLenghtError
 
-                        //todo try to login
-                        val str = s.toString()
-                        s.clear()
-                        getEkeyBaseActivity()?.setPin(str)
-                        getEkeyBaseActivity()?.refreshClearAndShowMain()
-
-                    } else {
-                        pin4Et.setText("")
-                    }
                 }
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
+            else {
+                getEkeyBaseActivity()?.setPin(ekeyPasswordInputEt.text.toString())
+                getEkeyBaseActivity()?.refreshClearAndShowMain()
+            }
+        }
+
+        ekeyPasswordInputEt.onTextChanged {
+            ekeyPasswordInputLayout.error = null
+        }
+
+        /* thief.addTextChangedListener(object : TextWatcher {
+             override fun afterTextChanged(s: Editable?) {
+                 s?.let {
+                     if (s.length > 0) {
+                         pin1Et.setText(s[0].toString())
+                     } else {
+                         pin1Et.setText("")
+                     }
+                     if (s.length > 1) {
+                         pin2Et.setText(s[1].toString())
+                     } else {
+                         pin2Et.setText("")
+                     }
+                     if (s.length > 2) {
+                         pin3Et.setText(s[2].toString())
+                     } else {
+                         pin3Et.setText("")
+                     }
+                     if (s.length > 3) {
+                         pin4Et.setText(s[3].toString())
+
+                         //todo try to login
+                         val str = s.toString()
+                         s.clear()
+                         getEkeyBaseActivity()?.setPin(str)
+                         getEkeyBaseActivity()?.refreshClearAndShowMain()
+
+                     } else {
+                         pin4Et.setText("")
+                     }
+                 }
+             }
+
+             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+         })*/
 
     }
 
     private fun showKeyboard() {
         handler.postDelayed({
-            thief?.let { v ->
+            ekeyPasswordInputEt?.let { v ->
                 v.requestFocus()
                 val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
                 imm?.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT)

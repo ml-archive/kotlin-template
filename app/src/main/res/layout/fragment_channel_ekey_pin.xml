@@ -10,13 +10,23 @@
 
     <TextView
         android:id="@+id/pinHeaderTv"
-        style="@style/text.header3"
+        style="@style/text.header2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:gravity="center"
         tools:text="_Indtast din 4-cifrede kode"
         android:text="@string/nstack_ekey_insertPinCode"/>
+
+
+    <TextView
+        android:textSize="15sp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:gravity="center"
+        android:text="@string/nstack_ekey_insertPasswordDescription"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
     <FrameLayout
@@ -27,6 +37,7 @@
 
 
         <LinearLayout
+            android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -101,15 +112,21 @@
 
         </LinearLayout>
 
-        <EditText
-            android:background="@null"
-            android:id="@+id/thief"
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ekeyPasswordInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="number"
-            android:cursorVisible="false"
-            android:maxLength="4"
-            android:textColor="@android:color/transparent" />
+            android:hint="@string/nstack_ekey_insertPasswordHint"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:imeOptions="actionDone"
+                android:id="@+id/ekeyPasswordInputEt"
+                android:inputType="textPassword"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </FrameLayout>
 
