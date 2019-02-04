@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="darkGreyBlue">#294350</color>
+    <color name="darkGreyBlue">#223944</color>
     <color name="darkGreyBlue15">#26294350</color>
     <color name="darkGreyBlue50">#80294350</color>
 
@@ -14,7 +14,7 @@
     <color name="silver">#d5e0e3</color>
     <color name="white">#FFF</color>
     <color name="paleGrey2">#5e5e5e</color>
-
+    <color name="lightBlueGrey">#c1ced2</color>
 
     <color name="colorPrimary">@color/white</color>
     <color name="colorPrimaryDark">@color/darkGreyBlue</color>

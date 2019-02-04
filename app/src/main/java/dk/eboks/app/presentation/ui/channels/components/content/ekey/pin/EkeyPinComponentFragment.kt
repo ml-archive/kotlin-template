@@ -3,12 +3,9 @@ package dk.eboks.app.presentation.ui.channels.components.content.ekey.pin
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
@@ -43,7 +40,8 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
         presenter.onViewCreated(this, lifecycle)
 
 
-        setupInputfields()
+        showKeyboard()
+        setupListeners()
         setupTopbar(isCreate)
         setupTexts(isCreate)
     }
@@ -75,68 +73,31 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
         showKeyboard()
     }
 
-    private fun setupInputfields() {
-        showKeyboard()
+    private fun setupListeners() {
 
         ekeyPasswordInputEt.onImeActionDone {
-            if (isCreate) {
-                if (ekeyPasswordInputEt.text.toString().length >= 6) {
-                    getEkeyBaseActivity()?.setPin(ekeyPasswordInputEt.text.toString())
-                    getEkeyBaseActivity()?.refreshClearAndShowMain()
-                } else {
-                    ekeyPasswordInputEt.text?.clear()
-                    ekeyPasswordInputLayout.error = Translation.ekey.insertPasswordLenghtError
-
-                }
-            }
-
-            else {
-                getEkeyBaseActivity()?.setPin(ekeyPasswordInputEt.text.toString())
-                getEkeyBaseActivity()?.refreshClearAndShowMain()
+            if (isInputValid()) {
+                confirmPinAndProceed()
+            } else {
+                ekeyPasswordInputEt.text?.clear()
+                ekeyPasswordInputLayout.error = Translation.ekey.insertPasswordLenghtError
             }
         }
 
         ekeyPasswordInputEt.onTextChanged {
             ekeyPasswordInputLayout.error = null
+            continueBtn.isEnabled = isInputValid()
         }
 
-        /* thief.addTextChangedListener(object : TextWatcher {
-             override fun afterTextChanged(s: Editable?) {
-                 s?.let {
-                     if (s.length > 0) {
-                         pin1Et.setText(s[0].toString())
-                     } else {
-                         pin1Et.setText("")
-                     }
-                     if (s.length > 1) {
-                         pin2Et.setText(s[1].toString())
-                     } else {
-                         pin2Et.setText("")
-                     }
-                     if (s.length > 2) {
-                         pin3Et.setText(s[2].toString())
-                     } else {
-                         pin3Et.setText("")
-                     }
-                     if (s.length > 3) {
-                         pin4Et.setText(s[3].toString())
+        continueBtn.setOnClickListener {
+            confirmPinAndProceed()
+        }
 
-                         //todo try to login
-                         val str = s.toString()
-                         s.clear()
-                         getEkeyBaseActivity()?.setPin(str)
-                         getEkeyBaseActivity()?.refreshClearAndShowMain()
+    }
 
-                     } else {
-                         pin4Et.setText("")
-                     }
-                 }
-             }
-
-             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-         })*/
-
+    private fun confirmPinAndProceed() {
+        getEkeyBaseActivity()?.setPin(ekeyPasswordInputEt.text.toString())
+        getEkeyBaseActivity()?.refreshClearAndShowMain()
     }
 
     private fun showKeyboard() {
@@ -147,6 +108,13 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
                 imm?.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT)
             }
         }, 200)
+    }
+
+    private fun isInputValid(): Boolean {
+        return if (isCreate)
+            ekeyPasswordInputEt.text.toString().length >= 6
+        else
+            ekeyPasswordInputEt.text.toString().length >= 4
     }
 
     override fun onPause() {
