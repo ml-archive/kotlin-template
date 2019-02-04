@@ -39,8 +39,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_folder_newfolder, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_folder_newfolder, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

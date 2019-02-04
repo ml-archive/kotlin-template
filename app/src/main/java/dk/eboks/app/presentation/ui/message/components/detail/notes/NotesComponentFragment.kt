@@ -25,8 +25,7 @@ class NotesComponentFragment : BaseFragment(), NotesComponentContract.View, Text
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_notes_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_notes_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

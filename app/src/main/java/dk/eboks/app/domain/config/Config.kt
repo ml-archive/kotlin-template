@@ -32,7 +32,7 @@ object Config {
         cprLength = 10,
         demoVideo = "https://youtu.be/8OmF6uHxfWU",
 
-        environments = mapOf<String, Environments>(
+        environments = mapOf(
             "test" to Environments(
                 apiUrl = "http://test401-mobile-api-dk.internal.e-boks.com/2/",
                 authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
@@ -84,7 +84,7 @@ object Config {
         cprLength = 11,
         demoVideo = "https://youtu.be/8OmF6uHxfWU",
 
-        environments = mapOf<String, Environments>(
+        environments = mapOf(
             "test" to Environments(
                 apiUrl = "http://test401-mobile-api-no.internal.e-boks.com/2/",
                 authUrl = "http://test401-oauth-dk.internal.e-boks.com/1/connect/token",
@@ -149,7 +149,7 @@ object Config {
         cprLength = 12,
         demoVideo = "https://youtu.be/8OmF6uHxfWU",
 
-        environments = mapOf<String, Environments>(
+        environments = mapOf(
             "test" to Environments(
                 apiUrl = "http://test401-mobile-api-se.internal.e-boks.com/2/",
                 authUrl = "http://test401-oauth-se.internal.e-boks.com/1/connect/token",

@@ -49,7 +49,7 @@ class CryptoManagerImpl @Inject constructor(
             val kpg = KeyPairGenerator.getInstance("RSA", AndroidKeyStore)
             kpg.initialize(spec)
             val kp = kpg.generateKeyPair()
-            Timber.i("Public key: " + getPublicKeyAsString(kp.public))
+            Timber.i("Public key: %s", getPublicKeyAsString(kp.public))
             // NLog.e(TAG, "Private key: " + getPrivateKeyAsString(kp.getPrivate()));
         }
     }

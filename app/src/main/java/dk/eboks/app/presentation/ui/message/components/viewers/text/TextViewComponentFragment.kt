@@ -39,8 +39,7 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_textview_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_textview_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

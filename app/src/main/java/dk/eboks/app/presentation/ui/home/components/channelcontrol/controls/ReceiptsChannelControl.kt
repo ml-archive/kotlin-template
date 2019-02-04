@@ -35,13 +35,13 @@ class ReceiptsChannelControl(
                     inflater.inflate(R.layout.viewholder_home_reciept_row, rowsContainerLl, false)
 
                 nameContainer = v.findViewById<LinearLayout>(R.id.nameSubTitleContainerLl)
-                amountDateContainer = v.findViewById<LinearLayout>(R.id.amountDateContainerLl)
-                soloName = v.findViewById<TextView>(R.id.soloTitleTv)
-                soloAmount = v.findViewById<TextView>(R.id.soloAmountTv)
-                name = v.findViewById<TextView>(R.id.titleTv)
-                address = v.findViewById<TextView>(R.id.subTitleTv)
-                amount = v.findViewById<TextView>(R.id.amountTv)
-                date = v.findViewById<TextView>(R.id.dateTv)
+                amountDateContainer = v.findViewById(R.id.amountDateContainerLl)
+                soloName = v.findViewById(R.id.soloTitleTv)
+                soloAmount = v.findViewById(R.id.soloAmountTv)
+                name = v.findViewById(R.id.titleTv)
+                address = v.findViewById(R.id.subTitleTv)
+                amount = v.findViewById(R.id.amountTv)
+                date = v.findViewById(R.id.dateTv)
 
                 if (row.date == null) {
                     soloAmount.text = formatter.formatPrice(row)

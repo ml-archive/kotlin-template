@@ -31,12 +31,11 @@ class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComp
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(
+        return inflater.inflate(
             R.layout.fragment_profile_verify_mobile_number_component,
             container,
             false
         )
-        return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +52,7 @@ class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComp
         setEnableStateContinueButton()
         verifyBtn.setOnClickListener {
             val code = verificationCodeEt.text.toString()
-            if (!code.isNullOrEmpty())
+            if (!code.isEmpty())
                 presenter.confirmMobile(code)
         }
 

@@ -3,27 +3,23 @@ package dk.eboks.app.util
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import timber.log.Timber
 
 /**
  * Created by bison on 15/03/16.
  */
 class BroadcastReceiver {
-    private val filter: IntentFilter
+    private val filter: IntentFilter = IntentFilter()
     private var listener: OnIntentListener? = null
     var isRegistered: Boolean = false
         private set
 
-    init {
-        filter = IntentFilter()
-    }
-
     private val messageReceiver = object : android.content.BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
-            Timber.e("Receiving broadcast, action = " + action)
-            if (listener != null)
-                listener!!.onIntent(intent)
+            Timber.e("Receiving broadcast, action = %s", action)
+            listener?.onIntent(intent)
         }
     }
 
@@ -39,16 +35,14 @@ class BroadcastReceiver {
 
     fun register(c: Context): BroadcastReceiver {
         // NLog.d(TAG, "Registering receiver.");
-        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(c)
-            .registerReceiver(messageReceiver, filter)
+        LocalBroadcastManager.getInstance(c).registerReceiver(messageReceiver, filter)
         isRegistered = true
         return this
     }
 
     fun deregister(c: Context): BroadcastReceiver {
         // NLog.d(TAG, "Deregistering receiver.");
-        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(c)
-            .unregisterReceiver(messageReceiver)
+        LocalBroadcastManager.getInstance(c).unregisterReceiver(messageReceiver)
         isRegistered = false
         return this
     }
@@ -61,9 +55,8 @@ class BroadcastReceiver {
         val TAG = BroadcastReceiver::class.java.simpleName
 
         fun broadcast(c: Context, intent: Intent) {
-            Timber.e("Broadcasting action " + intent.action)
-            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(c)
-                .sendBroadcast(intent)
+            Timber.e("Broadcasting action %s", intent.action)
+            LocalBroadcastManager.getInstance(c).sendBroadcast(intent)
         }
     }
 }

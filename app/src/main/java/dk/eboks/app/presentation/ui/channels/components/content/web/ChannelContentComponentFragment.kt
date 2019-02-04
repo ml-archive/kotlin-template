@@ -119,7 +119,7 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
 
     override fun openChannelContent(content: String) {
         // val url = "file:///android_asset/index.html"
-        if (content.isNullOrBlank()) {
+        if (content.isBlank()) {
             webView.loadData("Missing channel content link", "text/html", "utf8")
             return
         }

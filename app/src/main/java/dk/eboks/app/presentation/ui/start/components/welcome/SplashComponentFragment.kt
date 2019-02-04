@@ -22,8 +22,7 @@ class SplashComponentFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_splash_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_splash_component, container, false)
     }
 
     override fun onResume() {

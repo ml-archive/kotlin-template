@@ -28,8 +28,7 @@ abstract class BaseWebFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_base_web, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_base_web, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

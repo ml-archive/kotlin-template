@@ -25,8 +25,7 @@ class DateDeserializer : JsonDeserializer<Date> {
             }
 
             try {
-                val res = formatters[format]?.parse(jsonElement.asString) ?: Date()
-                return res
+                return formatters[format]?.parse(jsonElement.asString) ?: Date()
             } catch (e: ParseException) {
                 // throw(JsonParseException("Died parsing jsonElement ${jsonElement.asString}"))
             }

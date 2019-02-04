@@ -197,10 +197,10 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
         // setting the header
         val v = inflator.inflate(R.layout.viewholder_upload_row, latestUploadsLl, false)
         uploadView = v
-        uploadPctProgressTv = v.findViewById<TextView>(R.id.uploadPctProgressTv)
+        uploadPctProgressTv = v.findViewById(R.id.uploadPctProgressTv)
         val showContainerLl = v.findViewById<LinearLayout>(R.id.showContainerLl)
         val uploadingContainerLl = v.findViewById<FrameLayout>(R.id.uploadingContainerLl)
-        circularProgress = v.findViewById<CircularProgressBar>(R.id.circularProgressBar)
+        circularProgress = v.findViewById(R.id.circularProgressBar)
         circularProgress?.progress = 0.0f
         circularProgress?.visibility = View.VISIBLE
         uploadPctProgressTv?.text = "0%"

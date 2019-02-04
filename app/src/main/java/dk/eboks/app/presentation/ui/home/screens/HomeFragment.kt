@@ -177,7 +177,7 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
             }
 
             v.tag = currentChannel.id
-            headerTv.text = "${currentChannel.name}"
+            headerTv.text = currentChannel.name
             channelsContentLL.addView(v)
         }
         if (channels.isEmpty()) {

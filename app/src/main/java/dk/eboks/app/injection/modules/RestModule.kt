@@ -59,13 +59,12 @@ class RestModule {
     @Provides
     @AppScope
     fun provideGson(typeFactory: ItemTypeAdapterFactory, dateDeserializer: DateDeserializer): Gson {
-        val gson = GsonBuilder()
+        return GsonBuilder()
             .registerTypeAdapterFactory(typeFactory)
             .registerTypeAdapter(Date::class.java, dateDeserializer)
 //                .registerTypeAdapter(List::class.java, ListDeserializer())
             .setDateFormat(DateDeserializer.DATE_FORMATS[0])
             .create()
-        return gson
     }
 
     @Provides

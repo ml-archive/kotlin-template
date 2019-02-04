@@ -24,7 +24,7 @@ public class CountingFileRequestBody extends RequestBody {
         this.contentType = contentType;
         this.listener = listener;
         this.fileSize = contentLength();
-        Timber.e("Filesize is " + fileSize);
+        Timber.e("Filesize is %s", fileSize);
     }
 
     @Override
