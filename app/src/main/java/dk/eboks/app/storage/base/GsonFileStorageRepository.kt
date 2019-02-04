@@ -48,8 +48,7 @@ abstract class GsonFileStorageRepository<T>(
             }
             val json = out.toString()
             Timber.i("Loaded cache file $filename")
-            val objects: T = gson.fromJson(json, type)
-            return objects
+            return gson.fromJson(json, type)
         } catch (e: Exception) {
             // if(BuildConfig.DEBUG)
             //    e.printStackTrace()

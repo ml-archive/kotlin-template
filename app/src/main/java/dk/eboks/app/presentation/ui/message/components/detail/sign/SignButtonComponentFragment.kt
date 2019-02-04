@@ -26,8 +26,7 @@ class SignButtonComponentFragment : BaseFragment(), SignButtonComponentContract.
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_sign_button_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_sign_button_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

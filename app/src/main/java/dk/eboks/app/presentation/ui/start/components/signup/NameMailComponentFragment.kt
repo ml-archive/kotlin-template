@@ -39,9 +39,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_signup_name_mail_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_signup_name_mail_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -117,7 +115,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     private fun setupNameListeners() {
         nameEt.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
             nameTil.error = null
-            if (nameEt.text.toString().trim().isNullOrBlank() && !hasFocus) {
+            if (nameEt.text.toString().trim().isBlank() && !hasFocus) {
                 nameTil.error = Translation.signup.invalidName
                 nameValid = false
                 checkContinueBtn()
@@ -127,7 +125,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         nameEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 nameTil.error = null
-                if (nameEt.text.toString().trim().isNullOrBlank()) {
+                if (nameEt.text.toString().trim().isBlank()) {
                     nameValid = false
                     checkContinueBtn()
                 } else {
@@ -178,6 +176,6 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     override fun showSignupMailError(error: ViewError) {
         showProgress(false)
         // todo something went wrong show error ?
-        Timber.e("server error " + error)
+        Timber.e("server error %s", error)
     }
 }

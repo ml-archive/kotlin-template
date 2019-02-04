@@ -27,7 +27,7 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
     override fun onCreate() {
         super.onCreate()
 
-        App.Companion._instance = this
+        App._instance = this
         // NStack.customRequestUrl = Config.currentMode.customTranslationUrl
 
         if (!BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))

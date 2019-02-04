@@ -56,7 +56,7 @@ class ChannelsAdapter(callback: ChannelsAdapter.Callback? = null) :
                 }
 
                 tag = channel.id
-                headerTv.text = "${channel.name}"
+                headerTv.text = channel.name
             }
         }
     }

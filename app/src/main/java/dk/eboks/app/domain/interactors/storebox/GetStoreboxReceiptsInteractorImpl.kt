@@ -32,7 +32,7 @@ class GetStoreboxReceiptsInteractorImpl(
                 output?.onGetReceiptsError(errorBodyToViewError(response))
             }
         } catch (e: Exception) {
-            Timber.e("Error Loading Receipts", e)
+            Timber.e(e, "Error Loading Receipts")
             output?.onGetReceiptsError(exceptionToViewError(e, true))
         }
     }

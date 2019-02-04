@@ -47,7 +47,7 @@ class DebugUserPresenter(
         verified: Boolean,
         fingerprint: Boolean
     ) {
-        val user: User = User(
+        val user = User(
             id = -1,
             name = name,
             identity = cpr,

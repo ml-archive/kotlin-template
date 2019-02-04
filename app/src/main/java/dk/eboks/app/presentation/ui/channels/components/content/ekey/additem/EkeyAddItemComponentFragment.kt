@@ -26,8 +26,7 @@ class EkeyAddItemComponentFragment : BaseEkeyFragment(), EkeyAddItemComponentCon
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_channel_ekey_additem, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_channel_ekey_additem, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

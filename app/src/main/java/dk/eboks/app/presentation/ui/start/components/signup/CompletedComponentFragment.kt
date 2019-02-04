@@ -23,9 +23,7 @@ class CompletedComponentFragment : BaseFragment(), SignupComponentContract.Compl
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_signup_completed_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_signup_completed_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

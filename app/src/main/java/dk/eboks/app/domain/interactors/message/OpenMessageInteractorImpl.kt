@@ -366,7 +366,7 @@ class OpenMessageInteractorImpl(
     }
 
     companion object {
-        var embeddedTypes = listOf<EboksContentType>(
+        var embeddedTypes = listOf(
             /* EboksContentType("pdf", "application/pdf"), */
             EboksContentType("png", "image/png"),
             EboksContentType("jpg", "image/jpeg"),

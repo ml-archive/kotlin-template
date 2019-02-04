@@ -37,7 +37,7 @@ class GetStoreboxReceiptInteractorImpl(
                 }
             }
         } catch (e: Exception) {
-            Timber.e("Error Loading Receipt", e)
+            Timber.e(e, "Error Loading Receipt")
             e.printStackTrace()
 
             runOnUIThread {

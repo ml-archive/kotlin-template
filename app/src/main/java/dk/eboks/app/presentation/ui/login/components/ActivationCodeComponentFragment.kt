@@ -33,9 +33,7 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_activation_code_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_activation_code_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

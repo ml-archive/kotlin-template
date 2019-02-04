@@ -45,7 +45,7 @@ class NumberFormInput(formInput: FormInput, inflater: LayoutInflater, handler: H
         // Timber.e("Validating $formInput")
         isValid = false
         val text: String = textEt?.text.toString().trim()
-        if (formInput.required && text.isNullOrBlank()) {
+        if (formInput.required && text.isBlank()) {
             textTil?.error = if (silent) null else Translation.reply.required
             return
         }

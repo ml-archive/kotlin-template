@@ -27,9 +27,7 @@ class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.Ter
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_signup_accept_terms_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_signup_accept_terms_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

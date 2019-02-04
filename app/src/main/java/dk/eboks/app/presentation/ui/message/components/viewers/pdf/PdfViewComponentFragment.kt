@@ -29,8 +29,7 @@ class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_pdfview_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_pdfview_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

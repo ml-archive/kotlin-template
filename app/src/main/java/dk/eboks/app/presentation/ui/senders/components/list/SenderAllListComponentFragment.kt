@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
@@ -39,8 +38,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_sender_list, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_sender_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -217,8 +215,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SenderViewHolder {
             val v = LayoutInflater.from(context)
                 .inflate(R.layout.viewholder_senders_list_item, parent, false)
-            val vh = SenderViewHolder(v)
-            return vh
+            return SenderViewHolder(v)
         }
 
         override fun getItemCount(): Int {
