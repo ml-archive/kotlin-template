@@ -54,6 +54,14 @@ Example:
 - Uses nstack-kotlin
 - Mockito and junit for testing
 
+## Code style
+
+This project uses [ktlint](https://github.com/shyiko/ktlint), provided via
+the [spotless](https://github.com/diffplug/spotless) gradle plugin, and the bundled project IntelliJ codestyle.
+
+If you find that one of your pull reviews does not pass the CI server check due to a code style conflict, you can
+easily fix it by running: `./gradlew spotlessApply`, or running IntelliJ/Android Studio's code formatter.
+
 ## Inspired/partially ripped off from the following sources:
 - [Clean Architecture by Uncle Bob](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 - [Some dudes android implementation](https://medium.com/@dmilicic/a-detailed-guide-on-developing-android-apps-using-the-clean-architecture-pattern-d38d71e94029)
