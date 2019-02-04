@@ -8,19 +8,20 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class HtmlViewComponentPresenter @Inject constructor(val appState: AppStateManager) : HtmlViewComponentContract.Presenter, BasePresenterImpl<HtmlViewComponentContract.View>() {
+class HtmlViewComponentPresenter @Inject constructor(val appState: AppStateManager) :
+    HtmlViewComponentContract.Presenter, BasePresenterImpl<HtmlViewComponentContract.View>() {
 
     init {
     }
 
     override fun setup(uriString: String?) {
         uriString?.let {
-            runAction { v->
+            runAction { v ->
                 v.showHtmlURI(uriString)
             }
         }.guard {
-            appState.state?.currentViewerFileName?.let { filename->
-                runAction { v->
+            appState.state?.currentViewerFileName?.let { filename ->
+                runAction { v ->
                     v.showHtml(filename)
                 }
             }

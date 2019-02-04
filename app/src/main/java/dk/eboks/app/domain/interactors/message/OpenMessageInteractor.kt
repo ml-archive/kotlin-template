@@ -9,17 +9,17 @@ import dk.nodes.arch.domain.interactor.Interactor
  * Created by bison on 01/02/18.
  */
 interface OpenMessageInteractor : Interactor {
-    var output : Output?
-    var input : Input?
+    var output: Output?
+    var input: Input?
 
-    data class Input(var msg : Message)
+    data class Input(var msg: Message)
 
     interface Output {
         fun onOpenMessageDone()
-        fun onOpenMessageServerError(serverError : ServerError)
-        fun onOpenMessageError(error : ViewError)
-        fun onReAuthenticate(loginProviderId : String, msg : Message)
-        fun onPrivateSenderWarning(msg : Message)
-        fun isViewAttached() : Boolean
+        fun onOpenMessageServerError(serverError: ServerError)
+        fun onOpenMessageError(error: ViewError)
+        fun onReAuthenticate(loginProviderId: String, msg: Message)
+        fun onPrivateSenderWarning(msg: Message)
+        fun isViewAttached(): Boolean
     }
 }

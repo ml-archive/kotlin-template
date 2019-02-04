@@ -8,7 +8,8 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 
-class GetReplyFormInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) : BaseInteractor(executor), GetReplyFormInteractor {
+class GetReplyFormInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) :
+    BaseInteractor(executor), GetReplyFormInteractor {
     override var output: GetReplyFormInteractor.Output? = null
     override var input: GetReplyFormInteractor.Input? = null
 
@@ -19,20 +20,16 @@ class GetReplyFormInteractorImpl(executor: Executor, val messagesRepository: Mes
                 runOnUIThread {
                     output?.onGetReplyForm(result)
                 }
-
             }.guard {
                 runOnUIThread {
                     output?.onGetReplyFormError(ViewError())
                 }
             }
-        }
-        catch (t : Throwable)
-        {
+        } catch (t: Throwable) {
             Timber.e(t)
             runOnUIThread {
                 output?.onGetReplyFormError(exceptionToViewError(t, shouldClose = true))
             }
         }
     }
-
 }

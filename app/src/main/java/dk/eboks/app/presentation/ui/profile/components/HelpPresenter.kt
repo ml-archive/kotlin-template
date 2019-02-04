@@ -8,18 +8,18 @@ import javax.inject.Named
 
 /**
  * Created by Christian on 5/23/2018.
- * @author   Christian
- * @since    5/23/2018.
+ * @author Christian
+ * @since 5/23/2018.
  */
 class HelpPresenter @Inject constructor(@Named("NAME_BASE_URL") val baseUrl: String) :
-        HelpContract.Presenter,
-        BasePresenterImpl<HelpContract.View>() {
+    HelpContract.Presenter,
+    BasePresenterImpl<HelpContract.View>() {
 
     override fun onViewCreated(view: HelpContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
 
         runAction { v ->
-            Config.getResourceLinkByType("support")?.let { link->
+            Config.getResourceLinkByType("support")?.let { link ->
                 v.loadUrl(link.link.url)
             }
         }

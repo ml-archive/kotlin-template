@@ -19,9 +19,13 @@ import javax.inject.Inject
 class SignButtonComponentFragment : BaseFragment(), SignButtonComponentContract.View {
 
     @Inject
-    lateinit var presenter : SignButtonComponentContract.Presenter
+    lateinit var presenter: SignButtonComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_sign_button_component, container, false)
         return rootView
     }
@@ -31,7 +35,7 @@ class SignButtonComponentFragment : BaseFragment(), SignButtonComponentContract.
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         arguments?.getParcelable<Message>(Message::class.java.simpleName)?.let { msg ->
-            //msg.sign?.status?.type = 2
+            // msg.sign?.status?.type = 2
             configureButton(msg)
             signBtn.setOnClickListener {
                 presenter.sign(msg)
@@ -39,11 +43,10 @@ class SignButtonComponentFragment : BaseFragment(), SignButtonComponentContract.
         }
     }
 
-    private fun configureButton(msg : Message) {
+    private fun configureButton(msg: Message) {
         signBtn.isEnabled = false
-        msg.sign?.let { sign->
-            when(sign.status.type)
-            {
+        msg.sign?.let { sign ->
+            when (sign.status.type) {
                 APIConstants.MSG_SIGN_WEB_ONLY -> {
                     signBtn.text = sign.status.title
                 }
@@ -71,7 +74,5 @@ class SignButtonComponentFragment : BaseFragment(), SignButtonComponentContract.
                 .putExtra(Message::class.java.simpleName, msg)
                 .start()
         }
-
     }
-
 }

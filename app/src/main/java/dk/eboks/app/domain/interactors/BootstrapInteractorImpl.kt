@@ -20,14 +20,17 @@ import javax.net.ssl.SSLPeerUnverifiedException
 /**
  * Created by bison on 24-06-2017.
  */
-class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
-                              val settingsRepository: SettingsRepository,
-                              val appStateManager: AppStateManager,
-                              val fileCacheManager: FileCacheManager,
-                              val cacheManager: CacheManager,
-                              val userManager: UserManager,
-                              val api: Api,
-                              val prefManager: PrefManager) : BaseInteractor(executor), BootstrapInteractor {
+class BootstrapInteractorImpl(
+    executor: Executor,
+    val guidManager: GuidManager,
+    val settingsRepository: SettingsRepository,
+    val appStateManager: AppStateManager,
+    val fileCacheManager: FileCacheManager,
+    val cacheManager: CacheManager,
+    val userManager: UserManager,
+    val api: Api,
+    val prefManager: PrefManager
+) : BaseInteractor(executor), BootstrapInteractor {
     override var output: BootstrapInteractor.Output? = null
     override var input: BootstrapInteractor.Input? = null
 
@@ -37,9 +40,8 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
             // we don't use input in this example but we could:
             input?.let {
                 // do something with unwrapped input
-
             }
-            if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+            if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
                 // do we have a saved config?
                 prefManager.getString("config", null)?.let {
                     Timber.e("Setting config to $it")
@@ -53,9 +55,8 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
             }
 
             val result = api.getResourceLinks().execute()
-            if(result.isSuccessful)
-            {
-                result?.body()?.let { links->
+            if (result.isSuccessful) {
+                result?.body()?.let { links ->
                     Config.resourceLinks = links
                 }
             }
@@ -72,7 +73,7 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
             val loginState = appStateManager.state?.loginState
             loginState?.firstLogin = !hasUsers
 
-            if(!stayLoggedIn) {
+            if (!stayLoggedIn) {
                 loginState?.kspToken = ""
                 loginState?.token = null
                 loginState?.activationCode = null
@@ -93,20 +94,30 @@ class BootstrapInteractorImpl(executor: Executor, val guidManager: GuidManager,
                 fileCacheManager.clearMemoryOnly()
             }
 
-
             Timber.d("LoginState: $loginState?")
-            //Thread.sleep(2000)
+            // Thread.sleep(2000)
             runOnUIThread {
                 output?.onBootstrapDone(hasUsers, stayLoggedIn)
             }
         } catch (e: Exception) {
             Timber.e(e)
             runOnUIThread {
-                if(e is SSLPeerUnverifiedException) {
-                    output?.onBootstrapError(ViewError(title = Translation.error.compromisedConnectionTitle, message = Translation.error.compromisedConnectionMessage, shouldCloseView = true))
-                }
-                else {
-                    output?.onBootstrapError(ViewError(title = Translation.error.startupTitle, message = Translation.error.startupMessage, shouldCloseView = true))
+                if (e is SSLPeerUnverifiedException) {
+                    output?.onBootstrapError(
+                        ViewError(
+                            title = Translation.error.compromisedConnectionTitle,
+                            message = Translation.error.compromisedConnectionMessage,
+                            shouldCloseView = true
+                        )
+                    )
+                } else {
+                    output?.onBootstrapError(
+                        ViewError(
+                            title = Translation.error.startupTitle,
+                            message = Translation.error.startupMessage,
+                            shouldCloseView = true
+                        )
+                    )
                 }
             }
         }

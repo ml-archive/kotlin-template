@@ -5,17 +5,15 @@ import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
-import timber.log.Timber
 
 class MoveMessagesInteractorImpl(
-        executor: Executor,
-        val messagesRepository: MessagesRepository)
-    :
-        BaseInteractor(executor),
-        MoveMessagesInteractor {
+    executor: Executor,
+    val messagesRepository: MessagesRepository
+) :
+    BaseInteractor(executor),
+    MoveMessagesInteractor {
     override var output: MoveMessagesInteractor.Output? = null
     override var input: MoveMessagesInteractor.Input? = null
-
 
     override fun execute() {
         try {

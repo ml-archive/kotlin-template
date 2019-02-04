@@ -19,9 +19,13 @@ import javax.inject.Inject
 class EkeyAddItemComponentFragment : BaseEkeyFragment(), EkeyAddItemComponentContract.View {
 
     @Inject
-    lateinit var presenter : EkeyAddItemComponentContract.Presenter
+    lateinit var presenter: EkeyAddItemComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_channel_ekey_additem, container, false)
         return rootView
     }
@@ -49,12 +53,11 @@ class EkeyAddItemComponentFragment : BaseEkeyFragment(), EkeyAddItemComponentCon
         }
     }
 
-    private fun showNextView(category: EkeyDetailMode){
+    private fun showNextView(category: EkeyDetailMode) {
         val fragment = EkeyDetailComponentFragment()
         val args = Bundle()
         args.putSerializable("category", category)
         fragment.arguments = args
         getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, true)
     }
-
 }

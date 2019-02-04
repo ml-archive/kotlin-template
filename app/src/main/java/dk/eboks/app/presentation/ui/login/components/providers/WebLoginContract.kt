@@ -10,17 +10,17 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface WebLoginContract {
     interface View : BaseView {
-        fun setupLogin(user : User?)
+        fun setupLogin(user: User?)
         fun showError(viewError: ViewError)
         fun close()
         fun proceed()
         fun showMergeAcountDrawer()
-        fun finishActivity(resultCode : Int? = null)
+        fun finishActivity(resultCode: Int? = null)
     }
 
     interface Presenter : BasePresenter<View> {
         fun setup()
-        fun login(webToken : String)
+        fun login(webToken: String)
         fun mergeAccountOrKeepSeparated()
         fun cancelAndClose()
     }

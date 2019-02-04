@@ -20,7 +20,6 @@ import javax.inject.Inject
 class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
 
     var onLanguageChangedListener: (Locale) -> Unit = {
-
     }
 
     @Inject
@@ -47,7 +46,7 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
         senderGroupsListComponentF.arguments = b
         senderDetailInfoF.arguments = b
 
-        //translations
+        // translations
         NStack.addLanguageChangeListener(onLanguageChangedListener)
 
         senderDetailRegisterTB.textOn = Translation.senders.registered
@@ -74,10 +73,15 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
             }
         })
 
-            senderDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
+        senderDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
             Timber.d("toggle")
             if (isChecked) {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_48_checkmark_white, 0)
+                buttonView.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.icon_48_checkmark_white,
+                    0
+                )
             } else {
                 buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
             }
@@ -104,42 +108,43 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
         senderDetailRegisterTB.visibility = View.VISIBLE
 
         Glide.with(this)
-                .load(sender.logo?.url)
-                .apply(RequestOptions()
-                        .fallback(R.drawable.icon_72_senders_private)
-                        .placeholder(R.drawable.icon_72_senders_private)
-                )
-                .into(senderDetailIv)
+            .load(sender.logo?.url)
+            .apply(
+                RequestOptions()
+                    .fallback(R.drawable.icon_72_senders_private)
+                    .placeholder(R.drawable.icon_72_senders_private)
+            )
+            .into(senderDetailIv)
 
         senderDetailRegisterTB.setOnTouchListener(View.OnTouchListener { v, event ->
             return@OnTouchListener when (event.action) {
                 MotionEvent.ACTION_UP -> {
                     if (senderDetailRegisterTB.isChecked) {
                         AlertDialog.Builder(this@SenderDetailActivity)
-                                .setTitle(Translation.senders.unregisterAlertTitle)
-                                .setMessage(Translation.senders.unregisterAlertDescription)
-                                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                    dialog.cancel()
-                                }
-                                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                    senderDetailRegisterTB.visibility = View.INVISIBLE
-                                    presenter.unregisterSender(sender.id)
-                                    dialog.dismiss()
-                                }
-                                .show()
+                            .setTitle(Translation.senders.unregisterAlertTitle)
+                            .setMessage(Translation.senders.unregisterAlertDescription)
+                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                                dialog.cancel()
+                            }
+                            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                                senderDetailRegisterTB.visibility = View.INVISIBLE
+                                presenter.unregisterSender(sender.id)
+                                dialog.dismiss()
+                            }
+                            .show()
                     } else {
                         AlertDialog.Builder(this@SenderDetailActivity)
-                                .setTitle(Translation.senders.registerAlertTitle)
-                                .setMessage(Translation.senders.registerAlertDescription)
-                                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                    dialog.cancel()
-                                }
-                                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                    senderDetailRegisterTB.visibility = View.INVISIBLE
-                                    presenter.registerSender(sender.id)
-                                    dialog.dismiss()
-                                }
-                                .show()
+                            .setTitle(Translation.senders.registerAlertTitle)
+                            .setMessage(Translation.senders.registerAlertDescription)
+                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                                dialog.cancel()
+                            }
+                            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                                senderDetailRegisterTB.visibility = View.INVISIBLE
+                                presenter.registerSender(sender.id)
+                                dialog.dismiss()
+                            }
+                            .show()
                     }
                     true
                 }
@@ -166,4 +171,3 @@ class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
         senderDetailRegisterTB.visibility = View.VISIBLE
     }
 }
-

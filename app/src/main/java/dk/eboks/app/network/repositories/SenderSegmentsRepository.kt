@@ -40,6 +40,4 @@ class SenderSegmentsRepository @Inject constructor(
             senderSegmentsStore.fetch("")
         } ?: throw(RuntimeException("dang"))
     }
-
-
 }

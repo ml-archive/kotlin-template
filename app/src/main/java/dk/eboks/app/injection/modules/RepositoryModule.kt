@@ -39,75 +39,104 @@ import okhttp3.OkHttpClient
 class RepositoryModule {
     @Provides
     @AppScope
-    fun provideAppStateRepository(context: Context, gson: Gson) : AppStateRepository
-    {
+    fun provideAppStateRepository(context: Context, gson: Gson): AppStateRepository {
         return AppStateRepositoryImpl(context, gson)
     }
 
     @Provides
     @AppScope
-    fun provideSignupRestRepository(context: Context, api: Api) : SignupRestRepository
-    {
+    fun provideSignupRestRepository(context: Context, api: Api): SignupRestRepository {
         return SignupRestRepository(context, api)
     }
 
     @Provides
     @AppScope
-    fun provideUserRestRepository(context: Context, api: Api, gson: Gson) : UserRepository
-    {
+    fun provideUserRestRepository(context: Context, api: Api, gson: Gson): UserRepository {
         return UserRestRepository(context, api, gson)
     }
 
     @Provides
     @AppScope
-    fun provideMessagesRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager, httpClient: OkHttpClient, appState: AppStateManager) : MessagesRepository
-    {
+    fun provideMessagesRepository(
+        context: Context,
+        api: Api,
+        gson: Gson,
+        cacheManager: CacheManager,
+        httpClient: OkHttpClient,
+        appState: AppStateManager
+    ): MessagesRepository {
         return MessagesRestRepository(context, api, gson, cacheManager, httpClient, appState)
     }
 
     @Provides
     @AppScope
-    fun provideSendersRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager) : SendersRepository {
+    fun provideSendersRepository(
+        context: Context,
+        api: Api,
+        gson: Gson,
+        cacheManager: CacheManager
+    ): SendersRepository {
         return SendersRestRepository(context, api, gson, cacheManager)
     }
 
     @Provides
     @AppScope
-    fun provideSenderCategoriesRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager) : SenderCategoriesRepository {
+    fun provideSenderCategoriesRepository(
+        context: Context,
+        api: Api,
+        gson: Gson,
+        cacheManager: CacheManager
+    ): SenderCategoriesRepository {
         return SenderCategoriesRestRepository(context, api, gson, cacheManager)
     }
 
     @Provides
     @AppScope
-    fun provideMailCategoriesRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager) : MailCategoriesRepository
-    {
+    fun provideMailCategoriesRepository(
+        context: Context,
+        api: Api,
+        gson: Gson,
+        cacheManager: CacheManager
+    ): MailCategoriesRepository {
         return MailCategoriesRestRepository(context, api, gson, cacheManager)
     }
 
     @Provides
     @AppScope
-    fun provideSettingsRepository(prefManager: PrefManager) : SettingsRepository
-    {
+    fun provideSettingsRepository(prefManager: PrefManager): SettingsRepository {
         return SharedPrefsSettingsRepository(prefManager)
     }
 
     @Provides
     @AppScope
-    fun provideFoldersRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager) : FoldersRepository
-    {
+    fun provideFoldersRepository(
+        context: Context,
+        api: Api,
+        gson: Gson,
+        cacheManager: CacheManager
+    ): FoldersRepository {
         return FoldersRestRepository(context, api, gson, cacheManager)
     }
 
     @Provides
     @AppScope
-    fun provideChannelsRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager) : ChannelsRepository
-    {
+    fun provideChannelsRepository(
+        context: Context,
+        api: Api,
+        gson: Gson,
+        cacheManager: CacheManager
+    ): ChannelsRepository {
         return ChannelsRestRepository(context, api, gson, cacheManager)
     }
 
     @Provides
     @AppScope
-    fun provideCollectionsRepository(context: Context, api: Api, gson: Gson, cacheManager : CacheManager) : CollectionsRepository {
+    fun provideCollectionsRepository(
+        context: Context,
+        api: Api,
+        gson: Gson,
+        cacheManager: CacheManager
+    ): CollectionsRepository {
         return CollectionsRestRepository(context, api, gson, cacheManager)
     }
 }

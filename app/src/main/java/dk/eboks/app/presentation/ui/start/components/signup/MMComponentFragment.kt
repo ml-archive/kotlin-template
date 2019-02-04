@@ -25,7 +25,11 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
 
     var mHandler = Handler()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_signup_mm_component, container, false)
         return rootView
     }
@@ -34,7 +38,7 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        //todo what should happend if you continue without ssn ?
+        // todo what should happend if you continue without ssn ?
         continueWithoutMMTv.setOnClickListener { onContinueClicked() }
         signupWithMMBtn.setOnClickListener { onContinueClicked() }
         setupTopBar()
@@ -51,7 +55,6 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
                         cprTil.error = Translation.signup.mmInvalidCprNumber
                     }
                 }, 1200)
-
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -84,7 +87,7 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
     }
 
     fun onContinueClicked() {
-        //(activity as StartActivity).showLogo(false)
+        // (activity as StartActivity).showLogo(false)
         showProgress(true)
         presenter.verifySSN(cprEt.text.toString())
     }
@@ -94,7 +97,11 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
         if (!ssnExisits) {
             content.postDelayed({
                 showProgress(false)
-                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
+                getBaseActivity()?.addFragmentOnTop(
+                    R.id.containerFl,
+                    AcceptTermsComponentFragment(),
+                    true
+                )
             }, 1000)
         } else {
             // todo ssn already exisits show dialog

@@ -6,8 +6,8 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 /**
  * Created by bison on 20-05-2017.
  */
-class MyInfoPresenter(val appStateManager: AppStateManager) : MyInfoContract.Presenter, BasePresenterImpl<MyInfoContract.View>() {
+class MyInfoPresenter(val appStateManager: AppStateManager) : MyInfoContract.Presenter,
+    BasePresenterImpl<MyInfoContract.View>() {
     init {
     }
-
 }

@@ -11,8 +11,11 @@ import java.lang.reflect.Type
     with retrofit. (Store expects okio BufferedSource)
  */
 class BufferedSourceConverterFactory : Converter.Factory() {
-    override fun responseBodyConverter(type: Type?, annotations: Array<Annotation>?,
-                                       retrofit: Retrofit?): Converter<ResponseBody, *>? {
+    override fun responseBodyConverter(
+        type: Type?,
+        annotations: Array<Annotation>?,
+        retrofit: Retrofit?
+    ): Converter<ResponseBody, *>? {
         return if (BufferedSource::class.java != type) {
             null
         } else Converter<ResponseBody, BufferedSource> { value -> value.source() }

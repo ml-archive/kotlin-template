@@ -7,8 +7,7 @@ import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFr
 import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity
 
 object ViewControl {
-    fun refreshAllOnResume()
-    {
+    fun refreshAllOnResume() {
         HomeActivity.refreshOnResume = true
         MailOverviewActivity.refreshOnResume = true
         MailListComponentFragment.refreshOnResume = true

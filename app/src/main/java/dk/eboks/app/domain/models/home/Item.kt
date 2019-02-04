@@ -11,13 +11,13 @@ import java.util.Date
  */
 @Parcelize
 data class Item(
-        var id : String,
-        var title : String?,
-        var description: String?,
-        var date: Date?,
-        var amount: Double?,
-        //var currency: String?,
-        var status : Status?,
-        var tag : String?,
-        var image : Image?
+    var id: String,
+    var title: String?,
+    var description: String?,
+    var date: Date?,
+    var amount: Double?,
+    // var currency: String?,
+    var status: Status?,
+    var tag: String?,
+    var image: Image?
 ) : Parcelable

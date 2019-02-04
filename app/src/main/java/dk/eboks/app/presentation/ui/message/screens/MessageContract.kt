@@ -25,7 +25,7 @@ interface MessageContract {
 
     interface Presenter : BasePresenter<View> {
         fun setup()
-        fun moveMessage(folder : Folder)
+        fun moveMessage(folder: Folder)
         fun deleteMessage()
         fun archiveMessage()
         fun markAsUnread(unread: Boolean)

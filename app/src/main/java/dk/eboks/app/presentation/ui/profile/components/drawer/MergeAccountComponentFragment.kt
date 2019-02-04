@@ -16,9 +16,13 @@ import javax.inject.Inject
 class MergeAccountComponentFragment : BaseFragment(), MergeAccountComponentContract.View {
 
     @Inject
-    lateinit var presenter : MergeAccountComponentContract.Presenter
+    lateinit var presenter: MergeAccountComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView =
             inflater.inflate(R.layout.fragment_profile_merge_account_component, container, false)
         return rootView
@@ -28,7 +32,7 @@ class MergeAccountComponentFragment : BaseFragment(), MergeAccountComponentContr
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        mergeAccountsBtn.setOnClickListener { presenter.setMergeStatus(true)  }
+        mergeAccountsBtn.setOnClickListener { presenter.setMergeStatus(true) }
         keepSeperatedBtn.setOnClickListener { presenter.setMergeStatus(false) }
         ProfileInfoComponentFragment.refreshOnResume = true
     }
@@ -36,5 +40,4 @@ class MergeAccountComponentFragment : BaseFragment(), MergeAccountComponentContr
     override fun close() {
         activity?.finish()
     }
-
 }

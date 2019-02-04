@@ -13,12 +13,16 @@ import kotlinx.android.synthetic.main.fragment_sender_detail_information.*
 
 /**
  * Created by Christian on 3/15/2018.
- * @author   Christian
- * @since    3/15/2018.
+ * @author Christian
+ * @since 3/15/2018.
  */
 class SenderDetailInfoFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView =
             inflater.inflate(R.layout.fragment_sender_detail_information, container, false)
         return rootView
@@ -48,7 +52,6 @@ class SenderDetailInfoFragment : BaseFragment() {
                     if (intent.resolveActivity(v.context.packageManager) != null) {
                         startActivity(intent)
                     }
-
                 }
                 senderInfoMoreBtn.text = it.text
                 senderInfoMoreBtn.visibility = View.VISIBLE
@@ -62,7 +65,8 @@ class SenderDetailInfoFragment : BaseFragment() {
             }
             s.append(it.zipCode).append(" ").appendln(it.city)
 
-            val navString = "geo:0,0?q=${it.name},+${it.addressLine1},+${it.addressLine2},+${it.city},+${it.zipCode}"
+            val navString =
+                "geo:0,0?q=${it.name},+${it.addressLine1},+${it.addressLine2},+${it.city},+${it.zipCode}"
             senderInfoAddressTv.text = s.toString()
             senderInfoAdressLL.setOnClickListener {
                 val gmmIntentUri = Uri.parse(navString)

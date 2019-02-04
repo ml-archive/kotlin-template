@@ -9,13 +9,13 @@ import dk.nodes.arch.domain.interactor.Interactor
  * Created by bison on 01/02/18.
  */
 interface SubmitReplyFormInteractor : Interactor {
-    var output : Output?
-    var input : Input?
+    var output: Output?
+    var input: Input?
 
-    data class Input(var msg : Message, var form: ReplyForm)
+    data class Input(var msg: Message, var form: ReplyForm)
 
     interface Output {
         fun onSubmitReplyForm()
-        fun onSubmitReplyFormError(error : ViewError)
+        fun onSubmitReplyFormError(error: ViewError)
     }
 }

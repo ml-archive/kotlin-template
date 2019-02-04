@@ -11,31 +11,32 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class PhoneVerificationComponentPresenter @Inject constructor(val appState: AppStateManager,
-                                                              val verifyPhoneInteractor: VerifyPhoneInteractor,
-                                                              val confirmPhoneInteractor: ConfirmPhoneInteractor) :
-        PhoneVerificationComponentContract.Presenter,
-        BasePresenterImpl<PhoneVerificationComponentContract.View>(),
-        VerifyPhoneInteractor.Output,
-        ConfirmPhoneInteractor.Output
-{
+class PhoneVerificationComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val verifyPhoneInteractor: VerifyPhoneInteractor,
+    val confirmPhoneInteractor: ConfirmPhoneInteractor
+) :
+    PhoneVerificationComponentContract.Presenter,
+    BasePresenterImpl<PhoneVerificationComponentContract.View>(),
+    VerifyPhoneInteractor.Output,
+    ConfirmPhoneInteractor.Output {
 
     init {
         verifyPhoneInteractor.output = this
         confirmPhoneInteractor.output = this
     }
 
-    var currentMobile : String? = null
+    var currentMobile: String? = null
 
     override fun setup(mobile: String) {
         currentMobile = mobile
-        runAction { v->v.showNumber(mobile) }
-        //verifyPhoneInteractor.input = VerifyPhoneInteractor.Input(mobile)
-        //verifyPhoneInteractor.run()
+        runAction { v -> v.showNumber(mobile) }
+        // verifyPhoneInteractor.input = VerifyPhoneInteractor.Input(mobile)
+        // verifyPhoneInteractor.run()
     }
 
     override fun resendVerificationCode() {
-        runAction { v->
+        runAction { v ->
             v.showProgress(true)
         }
         currentMobile?.let {
@@ -45,7 +46,7 @@ class PhoneVerificationComponentPresenter @Inject constructor(val appState: AppS
     }
 
     override fun confirmMobile(activationCode: String) {
-        currentMobile?.let { mobile->
+        currentMobile?.let { mobile ->
             confirmPhoneInteractor.input = ConfirmPhoneInteractor.Input(mobile, activationCode)
             confirmPhoneInteractor.run()
         }
@@ -57,13 +58,13 @@ class PhoneVerificationComponentPresenter @Inject constructor(val appState: AppS
 
     override fun onVerifyPhone() {
         MyInfoComponentFragment.refreshOnResume = true
-        runAction { v->
+        runAction { v ->
             v.showProgress(false)
         }
     }
 
     override fun onVerifyPhoneError(error: ViewError) {
-        runAction { v->
+        runAction { v ->
             v.showProgress(false)
             v.showErrorDialog(error)
         }
@@ -74,11 +75,11 @@ class PhoneVerificationComponentPresenter @Inject constructor(val appState: AppS
      */
     override fun onConfirmPhone() {
         MyInfoComponentFragment.refreshOnResume = true
-        runAction { v->v.finishActivity(null) }
+        runAction { v -> v.finishActivity(null) }
     }
 
     override fun onConfirmPhoneError(error: ViewError) {
-        runAction { v->
+        runAction { v ->
             v.showProgress(false)
             v.showErrorDialog(error)
         }

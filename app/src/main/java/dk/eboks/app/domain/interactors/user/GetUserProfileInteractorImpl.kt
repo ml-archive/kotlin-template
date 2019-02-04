@@ -12,15 +12,15 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 
 /**
  * Created by Christian on 5/7/2018.
- * @author   Christian
- * @since    5/7/2018.
+ * @author Christian
+ * @since 5/7/2018.
  */
 class GetUserProfileInteractorImpl(
-        executor: Executor,
-        val api: Api,
-        val appStateManager: AppStateManager,
-        val userManager: UserManager,
-        val userSettingsManager: UserSettingsManager
+    executor: Executor,
+    val api: Api,
+    val appStateManager: AppStateManager,
+    val userManager: UserManager,
+    val userSettingsManager: UserSettingsManager
 ) : BaseInteractor(executor), GetUserProfileInteractor {
 
     override var output: GetUserProfileInteractor.Output? = null
@@ -31,7 +31,8 @@ class GetUserProfileInteractorImpl(
             result?.body()?.let {
                 userManager.put(it)
                 appStateManager.state?.currentUser = it
-                appStateManager.state?.currentSettings = userSettingsManager.get(it.id) // also load settings
+                appStateManager.state?.currentSettings =
+                    userSettingsManager.get(it.id) // also load settings
                 appStateManager.save()
 
                 runOnUIThread {
@@ -46,7 +47,13 @@ class GetUserProfileInteractorImpl(
             return
         }
         runOnUIThread {
-            output?.onGetUserError(ViewError(title = Translation.error.startupTitle, message = Translation.error.startupMessage, shouldCloseView = false))
+            output?.onGetUserError(
+                ViewError(
+                    title = Translation.error.startupTitle,
+                    message = Translation.error.startupMessage,
+                    shouldCloseView = false
+                )
+            )
         }
         return
     }

@@ -11,7 +11,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface SendersOverviewContract {
     interface View : BaseView {
-        fun showCollections(collections : List<CollectionContainer>)
+        fun showCollections(collections: List<CollectionContainer>)
         fun showCategories(categories: List<SenderCategory>)
         fun showSuccess()
         fun showError(s: String)

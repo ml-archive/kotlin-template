@@ -18,17 +18,17 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class ChannelOpeningComponentPresenter @Inject constructor(
-        val appState: AppStateManager,
-        val getChannelInteractor: GetChannelInteractor,
-        val createStoreboxInteractor: CreateStoreboxInteractor,
-        val installChannelInteractor: InstallChannelInteractor) :
-        ChannelOpeningComponentContract.Presenter,
-        BasePresenterImpl<ChannelOpeningComponentContract.View>(),
-        GetChannelInteractor.Output,
-        CreateStoreboxInteractor.Output,
-        InstallChannelInteractor.Output
-{
-    var channelId : Int = 0
+    val appState: AppStateManager,
+    val getChannelInteractor: GetChannelInteractor,
+    val createStoreboxInteractor: CreateStoreboxInteractor,
+    val installChannelInteractor: InstallChannelInteractor
+) :
+    ChannelOpeningComponentContract.Presenter,
+    BasePresenterImpl<ChannelOpeningComponentContract.View>(),
+    GetChannelInteractor.Output,
+    CreateStoreboxInteractor.Output,
+    InstallChannelInteractor.Output {
+    var channelId: Int = 0
     var channel: Channel? = null
 
     init {
@@ -52,14 +52,11 @@ class ChannelOpeningComponentPresenter @Inject constructor(
 
     override fun install(channel: Channel) {
         runAction { v ->
-            //v.showChannelProgress(true)
+            // v.showChannelProgress(true)
             // do we have any requirements, if so are they all verified? if not show the requirements drawer
-            if(!channel.areAllRequirementsVerified())
-            {
+            if (!channel.areAllRequirementsVerified()) {
                 v.showRequirementsDrawer(channel)
-            }
-            else
-            {
+            } else {
                 when (channel.getType()) {
                     "channel" -> {
                         installChannelInteractor.input = InstallChannelInteractor.Input(channel.id)
@@ -80,8 +77,8 @@ class ChannelOpeningComponentPresenter @Inject constructor(
     }
 
     override fun open(channel: Channel) {
-        //storebox channels id 1 - 3
-        //ekey channels id 101 - 103
+        // storebox channels id 1 - 3
+        // ekey channels id 101 - 103
 
         when (channel.getType()) {
             "channel" -> {
@@ -110,8 +107,7 @@ class ChannelOpeningComponentPresenter @Inject constructor(
         // if channel is already installed we just open it
         if (channel.installed) {
             open(channel)
-        }
-        else    // else do the whole channel install shebang
+        } else // else do the whole channel install shebang
         {
             runAction { v -> v.showProgress(false) }
             when (channel.status?.type) {
@@ -120,7 +116,7 @@ class ChannelOpeningComponentPresenter @Inject constructor(
                 }
                 APIConstants.CHANNEL_STATUS_REQUIRES_VERIFIED -> {
                     runAction { v ->
-                        Config.getVerificationProviderId()?.let { id->
+                        Config.getVerificationProviderId()?.let { id ->
                             Config.getLoginProvider(id)?.let {
                                 v.showVerifyState(channel, it)
                             }
@@ -144,7 +140,6 @@ class ChannelOpeningComponentPresenter @Inject constructor(
                 else -> {
                     runAction { v -> v.showDisabledState(channel) }
                 }
-
             }
         }
     }
@@ -162,11 +157,11 @@ class ChannelOpeningComponentPresenter @Inject constructor(
     }
 
     override fun onStoreboxAccountCreatedError(error: ViewError) {
-        runAction { v->v.showErrorDialog(error) }
+        runAction { v -> v.showErrorDialog(error) }
     }
 
     override fun onStoreboxAccountExists() {
-        runAction { v->v.showStoreboxUserAlreadyExists() }
+        runAction { v -> v.showStoreboxUserAlreadyExists() }
     }
 
     /**

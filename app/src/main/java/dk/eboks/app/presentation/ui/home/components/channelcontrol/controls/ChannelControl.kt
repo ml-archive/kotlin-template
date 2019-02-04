@@ -12,24 +12,28 @@ import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
 import java.util.Observable
 
-abstract class ChannelControl(val channel: Channel, val control : Control, val view: View, val inflater : LayoutInflater, val handler: Handler) : Observable() {
-    var logoIv : ImageView
-    var progressPb : ProgressBar
-    var headerTv : TextView
-    var rowsContainerLl : LinearLayout
+abstract class ChannelControl(
+    val channel: Channel,
+    val control: Control,
+    val view: View,
+    val inflater: LayoutInflater,
+    val handler: Handler
+) : Observable() {
+    var logoIv: ImageView
+    var progressPb: ProgressBar
+    var headerTv: TextView
+    var rowsContainerLl: LinearLayout
 
     init {
         logoIv = view.findViewById(R.id.logoIv)
         progressPb = view.findViewById(R.id.progressPb)
         headerTv = view.findViewById(R.id.headerTv)
         rowsContainerLl = view.findViewById(R.id.rowsContainerLl)
-
     }
 
-    fun showProgress(show : Boolean)
-    {
-        logoIv.visibility = if(show) View.GONE else View.VISIBLE
-        progressPb.visibility = if(!show) View.GONE else View.VISIBLE
+    fun showProgress(show: Boolean) {
+        logoIv.visibility = if (show) View.GONE else View.VISIBLE
+        progressPb.visibility = if (!show) View.GONE else View.VISIBLE
     }
 
     abstract fun buildView()

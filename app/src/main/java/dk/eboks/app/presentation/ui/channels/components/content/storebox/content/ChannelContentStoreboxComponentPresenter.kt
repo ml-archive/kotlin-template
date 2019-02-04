@@ -12,15 +12,14 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class ChannelContentStoreboxComponentPresenter @Inject constructor(
-        val appState: AppStateManager,
-        private val getStoreboxReceiptsInteractor: GetStoreboxReceiptsInteractor,
-        private val getStoreboxCreditCardsInteractor: GetStoreboxCreditCardsInteractor
+    val appState: AppStateManager,
+    private val getStoreboxReceiptsInteractor: GetStoreboxReceiptsInteractor,
+    private val getStoreboxCreditCardsInteractor: GetStoreboxCreditCardsInteractor
 ) :
-        ChannelContentStoreboxComponentContract.Presenter,
-        BasePresenterImpl<ChannelContentStoreboxComponentContract.View>(),
-        GetStoreboxReceiptsInteractor.Output,
-        GetStoreboxCreditCardsInteractor.Output
-{
+    ChannelContentStoreboxComponentContract.Presenter,
+    BasePresenterImpl<ChannelContentStoreboxComponentContract.View>(),
+    GetStoreboxReceiptsInteractor.Output,
+    GetStoreboxCreditCardsInteractor.Output {
 
     init {
         getStoreboxReceiptsInteractor.output = this
@@ -28,13 +27,12 @@ class ChannelContentStoreboxComponentPresenter @Inject constructor(
     }
 
     override fun onViewCreated(
-            view: ChannelContentStoreboxComponentContract.View,
-            lifecycle: Lifecycle
+        view: ChannelContentStoreboxComponentContract.View,
+        lifecycle: Lifecycle
     ) {
         super.onViewCreated(view, lifecycle)
         loadReceipts()
     }
-
 
     /**
      * Methods called from the view
@@ -44,20 +42,16 @@ class ChannelContentStoreboxComponentPresenter @Inject constructor(
         getStoreboxReceiptsInteractor.run()
     }
 
-
     /**
      * Interactor callbacks ------------------------------------------------------------------------
      */
     override fun onGetReceipts(messages: List<StoreboxReceiptItem>) {
         Timber.d("onGetReceipts: %s", messages.size)
-        if(messages.isEmpty())
-        {
+        if (messages.isEmpty()) {
             getStoreboxCreditCardsInteractor.run()
+        } else {
+            runAction { view?.setReceipts(messages) }
         }
-        else {
-            runAction {view?.setReceipts(messages)}
-        }
-
     }
 
     override fun onGetReceiptsError(error: ViewError) {
@@ -69,13 +63,11 @@ class ChannelContentStoreboxComponentPresenter @Inject constructor(
 
     override fun onGetCardsSuccessful(result: MutableList<StoreboxCreditCard>) {
         // if no credits are added show specialized call to action empty view
-        if(result.isEmpty())
+        if (result.isEmpty()) {
+            runAction { v -> v.showNoCreditCardsEmptyView(true) }
+        } else // show regular empty view
         {
-            runAction { v->v.showNoCreditCardsEmptyView(true) }
-        }
-        else // show regular empty view
-        {
-            runAction { v->v.showEmptyView(true) }
+            runAction { v -> v.showEmptyView(true) }
         }
     }
 

@@ -5,14 +5,15 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
-class DeleteRSAKeyInteractorImpl(executor: Executor, val cryptoManager: CryptoManager) : BaseInteractor(executor), DeleteRSAKeyInteractor {
+class DeleteRSAKeyInteractorImpl(executor: Executor, val cryptoManager: CryptoManager) :
+    BaseInteractor(executor), DeleteRSAKeyInteractor {
     override var output: DeleteRSAKeyInteractor.Output? = null
 
     override fun execute() {
         try {
-                cryptoManager.deleteAllActivations()
-                runOnUIThread {
-                    output?.onDeleteRSAKeySuccess()
+            cryptoManager.deleteAllActivations()
+            runOnUIThread {
+                output?.onDeleteRSAKeySuccess()
             }
         } catch (t: Throwable) {
             runOnUIThread {

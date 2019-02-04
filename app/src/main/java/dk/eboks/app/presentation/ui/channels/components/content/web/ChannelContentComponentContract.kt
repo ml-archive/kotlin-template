@@ -9,12 +9,12 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface ChannelContentComponentContract {
     interface View : BaseView {
-        fun showChannel(channel : Channel)
-        fun openChannelContent(content : String)
+        fun showChannel(channel: Channel)
+        fun openChannelContent(content: String)
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setup(channel : Channel)
+        fun setup(channel: Channel)
         var currentChannel: Channel?
     }
 }

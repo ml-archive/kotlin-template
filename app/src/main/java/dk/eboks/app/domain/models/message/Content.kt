@@ -8,11 +8,11 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class Content(
-   var id : String,
-   var title : String,
-   var fileSize : Long,
-   var fileExtension : String,
-   var mimeType : String?,
-   var encoding : String?,
-   var contentUrlMock : String?
+    var id: String,
+    var title: String,
+    var fileSize: Long,
+    var fileExtension: String,
+    var mimeType: String?,
+    var encoding: String?,
+    var contentUrlMock: String?
 ) : Parcelable

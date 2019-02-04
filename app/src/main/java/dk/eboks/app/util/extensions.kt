@@ -156,12 +156,12 @@ fun EditText.addAfterTextChangeListener(listener: ((Editable?) -> Unit)) {
     })
 }
 
-//fun Channel.isStorebox(): Boolean {
+// fun Channel.isStorebox(): Boolean {
 //    if (this.id > 0 && this.id < 4) {
 //        return true
 //    }
 //    return false
-//}
+// }
 
 fun Channel.getType(): String {
     if (this.id > 0 && this.id < 4) {
@@ -206,7 +206,7 @@ fun BaseInteractor.errorBodyToViewError(
 ): ViewError {
     val responseString = response.errorBody()?.string()
 
-    //Todo add more cases like 401,402, ect ect
+    // Todo add more cases like 401,402, ect ect
 
     return when (response.code()) {
         else -> {

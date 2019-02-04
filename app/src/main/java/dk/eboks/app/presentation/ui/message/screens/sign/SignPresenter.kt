@@ -8,22 +8,23 @@ import dk.eboks.app.domain.models.shared.Link
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
-
 /**
  * Created by Christian on 5/23/2018.
- * @author   Christian
- * @since    5/23/2018.
+ * @author Christian
+ * @since 5/23/2018.
  */
-class SignPresenter @Inject constructor(val appState: AppStateManager, val getSignLinkInteractor: GetSignLinkInteractor) :
-        SignContract.Presenter,
-        BasePresenterImpl<SignContract.View>(),
-        GetSignLinkInteractor.Output
-{
+class SignPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val getSignLinkInteractor: GetSignLinkInteractor
+) :
+    SignContract.Presenter,
+    BasePresenterImpl<SignContract.View>(),
+    GetSignLinkInteractor.Output {
     init {
         getSignLinkInteractor.output = this
     }
 
-    override fun setup(msg : Message) {
+    override fun setup(msg: Message) {
         getSignLinkInteractor.input = GetSignLinkInteractor.Input(msg)
         getSignLinkInteractor.run()
     }
@@ -32,10 +33,10 @@ class SignPresenter @Inject constructor(val appState: AppStateManager, val getSi
      * GetSignLinkInteractor callbacks
      */
     override fun onGetSignLink(result: Link) {
-        runAction { v->v.loadUrl(result.url) }
+        runAction { v -> v.loadUrl(result.url) }
     }
 
     override fun onGetSignLinkError(error: ViewError) {
-        runAction { v->v.showErrorDialog(error) }
+        runAction { v -> v.showErrorDialog(error) }
     }
 }

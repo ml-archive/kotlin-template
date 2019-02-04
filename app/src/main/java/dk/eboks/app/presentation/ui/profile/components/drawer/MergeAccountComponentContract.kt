@@ -12,6 +12,6 @@ interface MergeAccountComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setMergeStatus(shouldMerge : Boolean)
+        fun setMergeStatus(shouldMerge: Boolean)
     }
 }

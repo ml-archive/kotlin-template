@@ -44,9 +44,9 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     lateinit var presenter: ChannelOpeningComponentContract.Presenter
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(
             R.layout.fragment_channel_opening_component,
@@ -64,7 +64,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
             presenter.setup(it.id)
             setupToolbar(it)
         }.guard {
-            //activity?.onBackPressed()
+            // activity?.onBackPressed()
         }
     }
 
@@ -81,7 +81,6 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
             activity?.onBackPressed()
         }
     }
-
 
     private fun setupTopView(channel: Channel) {
         headerTv.text = channel.payoff
@@ -100,9 +99,9 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
 
             channel.background.let {
                 Glide.with(context ?: return).load(url).apply(
-                        RequestOptions.bitmapTransform(
-                                GlideAlphaTransform(it.color)
-                        )
+                    RequestOptions.bitmapTransform(
+                        GlideAlphaTransform(it.color)
+                    )
                 ).into(backgroundIv)
             }.guard {
                 Glide.with(context ?: return).load(url).into(backgroundIv)
@@ -131,9 +130,9 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     override fun showDisabledState(channel: Channel) {
         Timber.i("showDisabledState ${channel.name}")
         val v = inflater.inflate(
-                R.layout.include_channel_detail_bottom_not_available,
-                contentBottom,
-                false
+            R.layout.include_channel_detail_bottom_not_available,
+            contentBottom,
+            false
         )
         setupTopView(channel)
         contentBottom.addView(v)
@@ -144,9 +143,9 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         contentBottom.removeAllViews()
 
         val v = inflater.inflate(
-                R.layout.include_channel_detail_bottom_install,
-                contentBottom,
-                false
+            R.layout.include_channel_detail_bottom_install,
+            contentBottom,
+            false
         )
         setupTopView(channel)
         contentBottom.addView(v)
@@ -175,9 +174,9 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         Timber.i("showVerifyState ${channel.name}")
         contentBottom.removeAllViews()
         val v = inflater.inflate(
-                R.layout.include_channel_detail_bottom_verify,
-                contentBottom,
-                false
+            R.layout.include_channel_detail_bottom_verify,
+            contentBottom,
+            false
         )
         setupTopView(channel)
         contentBottom.addView(v)
@@ -186,17 +185,16 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         v.findViewById<TextView>(R.id.descriptionTv)?.text = Translation.channels.verifyYourProfile
         var colorTint = Color.BLUE // default color
         var txtcolor = channel.background.rgb ?: ""
-        if(!txtcolor.contains('#'))
-        {
+        if (!txtcolor.contains('#')) {
             txtcolor = "#$txtcolor"
         }
         try {
             colorTint = Color.parseColor(txtcolor)
+        } catch (t: Throwable) {
         }
-        catch (t : Throwable) { }
         button.backgroundTintList = ColorStateList.valueOf(colorTint)
         button?.setOnClickListener {
-            //presenter.install(channel)
+            // presenter.install(channel)
             VerificationComponentFragment.verificationSucceeded = false
             getBaseActivity()?.openComponentDrawer(VerificationComponentFragment::class.java)
         }
@@ -205,30 +203,30 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     override fun showStoreboxUserAlreadyExists() {
         Timber.i("show already exists")
         AlertDialog.Builder(context ?: return)
-                .setMessage(Translation.storeboxlogin.errorAlreadyExistsMessage)
-                .setPositiveButton(Translation.storeboxlogin.signInButton) { dialog, which ->
-                    startActivity(Intent(context, ConnectStoreboxActivity::class.java))
-                }
-                .setNegativeButton(Translation.defaultSection.ok) { dialog, which ->
-                    dialog.dismiss()
-                }
-                .create()
-                .show()
+            .setMessage(Translation.storeboxlogin.errorAlreadyExistsMessage)
+            .setPositiveButton(Translation.storeboxlogin.signInButton) { dialog, which ->
+                startActivity(Intent(context, ConnectStoreboxActivity::class.java))
+            }
+            .setNegativeButton(Translation.defaultSection.ok) { dialog, which ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
     }
 
     private fun showStoreboxConfirmDialog(channel: Channel) {
         Timber.i("showStoreboxConfirmDialog")
         AlertDialog.Builder(context ?: return)
-                .setMessage(Translation.storeboxlogin.createUserButton)
-                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                    ChannelControlComponentFragment.refreshOnResume = true
-                    presenter.install(channel)
-                }
-                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                    dialog.dismiss()
-                }
-                .create()
-                .show()
+            .setMessage(Translation.storeboxlogin.createUserButton)
+            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                ChannelControlComponentFragment.refreshOnResume = true
+                presenter.install(channel)
+            }
+            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
     }
 
     override fun showProgress(show: Boolean) {
@@ -241,23 +239,27 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
             val data = Bundle()
             data.putParcelable("channel", channel)
             getBaseActivity()?.openComponentDrawer(
-                    ChannelRequirementsComponentFragment::class.java,
-                    data
+                ChannelRequirementsComponentFragment::class.java,
+                data
             )
         }.guard {
             showOpenState(channel)
         }
     }
 
-    override fun openChannelContent(channel : Channel) {
+    override fun openChannelContent(channel: Channel) {
         Timber.i("openChannelContent ${channel.name}")
-        val fragment = ChannelContentComponentFragment().putArg(Channel::class.simpleName!!, channel)
+        val fragment =
+            ChannelContentComponentFragment().putArg(Channel::class.simpleName!!, channel)
         getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
     }
 
-    override fun openStoreBoxContent(channel : Channel) {
+    override fun openStoreBoxContent(channel: Channel) {
         Timber.i("openStoreBoxContent ${channel.name}")
-        val fragment = ChannelContentStoreboxComponentFragment().putArg(Channel::class.java.simpleName, channel)
+        val fragment = ChannelContentStoreboxComponentFragment().putArg(
+            Channel::class.java.simpleName,
+            channel
+        )
         getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, false)
     }
 

@@ -23,9 +23,8 @@ class UserManagerImpl(val context: Context, val gson: Gson) : UserManager {
             Timber.e("Loaded currentUser store with ${users.size} entries")
 
             for (entry in users) {
-                Timber.e("Entry: ${entry}")
+                Timber.e("Entry: $entry")
             }
-
         } catch (t: Throwable) {
         }
     }
@@ -38,7 +37,7 @@ class UserManagerImpl(val context: Context, val gson: Gson) : UserManager {
     override fun put(user: User): User {
         for (u in users) {
             if (u.id == user.id) {
-                 FieldMapper.copyAllFields(u, user)
+                FieldMapper.copyAllFields(u, user)
 
                 userStore.save(users)
                 Timber.e("User ${user.id} : ${user.name} updated")
@@ -63,5 +62,6 @@ class UserManagerImpl(val context: Context, val gson: Gson) : UserManager {
         userStore.save(users)
     }
 
-    inner class UserStore : GsonFileStorageRepository<MutableList<User>>(context, gson, "users.json")
+    inner class UserStore :
+        GsonFileStorageRepository<MutableList<User>>(context, gson, "users.json")
 }

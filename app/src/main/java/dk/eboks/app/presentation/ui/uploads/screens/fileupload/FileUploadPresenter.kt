@@ -10,12 +10,13 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class FileUploadPresenter @Inject constructor(val appState: AppStateManager) : FileUploadContract.Presenter, BasePresenterImpl<FileUploadContract.View>() {
+class FileUploadPresenter @Inject constructor(val appState: AppStateManager) :
+    FileUploadContract.Presenter, BasePresenterImpl<FileUploadContract.View>() {
 
     var uriString: String? = null
     var mimeType: String? = null
 
-    override fun setup(uriString : String, mimeType : String?) {
+    override fun setup(uriString: String, mimeType: String?) {
         Timber.e("Got uriString $uriString mimeType = $mimeType")
 
         this.uriString = uriString
@@ -24,19 +25,16 @@ class FileUploadPresenter @Inject constructor(val appState: AppStateManager) : F
         startViewer(uriString, mimeType)
         runAction { v ->
             v.showFilename(uriString)
-            getDefaultFolder()?.let { deffolder->
+            getDefaultFolder()?.let { deffolder ->
                 v.showDestinationFolder(deffolder)
             }
         }
     }
 
-    private fun getDefaultFolder() : Folder?
-    {
-        appState.state?.selectedFolders?.let { folders->
-            for(f in folders)
-            {
-                if(f.type == FolderType.INBOX)
-                {
+    private fun getDefaultFolder(): Folder? {
+        appState.state?.selectedFolders?.let { folders ->
+            for (f in folders) {
+                if (f.type == FolderType.INBOX) {
                     return f
                 }
             }
@@ -44,25 +42,21 @@ class FileUploadPresenter @Inject constructor(val appState: AppStateManager) : F
         return null
     }
 
-    fun startViewer(uriString : String, mimetype : String?)
-    {
-        if(mimetype?.startsWith("image/", true) == true)
-        {
-            runAction { v-> v.addImageViewer(uriString) }
+    fun startViewer(uriString: String, mimetype: String?) {
+        if (mimetype?.startsWith("image/", true) == true) {
+            runAction { v -> v.addImageViewer(uriString) }
             return
         }
-        if(mimetype == "text/html")
-        {
-            runAction { v-> v.addHtmlViewer(uriString) }
+        if (mimetype == "text/html") {
+            runAction { v -> v.addHtmlViewer(uriString) }
             return
         }
-        if(mimetype?.startsWith("text/", true) == true)
-        {
-            runAction { v-> v.addTextViewer(uriString) }
+        if (mimetype?.startsWith("text/", true) == true) {
+            runAction { v -> v.addTextViewer(uriString) }
             return
         }
         // default
-        runAction { v->v.showNoPreviewAvailable() }
+        runAction { v -> v.showNoPreviewAvailable() }
     }
 
     override fun isVerified(): Boolean {
@@ -71,5 +65,4 @@ class FileUploadPresenter @Inject constructor(val appState: AppStateManager) : F
         }
         return false
     }
-
 }

@@ -28,7 +28,7 @@ import javax.inject.Inject
 class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     @Inject
-    lateinit var presenter : NemIdComponentPresenter
+    lateinit var presenter: NemIdComponentPresenter
 
     var loginUser: User? = null
     var didAttemptToInstallNemID = false
@@ -41,11 +41,9 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
         mainTb.title = Translation.loginproviders.nemidTitle
         nemIdSpecificSetup()
         presenter.setup()
-
     }
 
-    private fun nemIdSpecificSetup()
-    {
+    private fun nemIdSpecificSetup() {
         webView.addJavascriptInterface(WebAppInterfaceNemID(), "NemIDActivityJSI")
         webView.settings.javaScriptEnabled = true
         webView.webViewClient = object : WebViewClient() {
@@ -53,7 +51,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
                 super.onPageFinished(view, url)
                 Timber.e("Injecting js")
                 // TODO this is not compatible with older versions of android, use loadurl with javascript: instead
-                //view.loadUrl("javascript:" + getJS())
+                // view.loadUrl("javascript:" + getJS())
                 view.evaluateJavascript(getJS(), null)
             }
         }
@@ -64,11 +62,9 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
         getBaseActivity()?.backPressedCallback = {
             Timber.e("closeLoginOnBack in nemidfragment is $closeLoginOnBack")
-            if(!closeLoginOnBack) {
+            if (!closeLoginOnBack) {
                 presenter.cancelAndClose()
-            }
-            else
-            {
+            } else {
                 activity?.finish()
             }
             true
@@ -85,13 +81,13 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
         val loginUrl = "${Config.currentMode.environment?.kspUrl}nemid"
         Timber.e("Opening $loginUrl")
 
-        //Timber.e(getJS())
+        // Timber.e(getJS())
 
         webView.loadUrl(loginUrl)
     }
 
     override fun proceed() {
-        if(activity is StartActivity)
+        if (activity is StartActivity)
             (activity as StartActivity).startMain()
         else
             finishActivity(Activity.RESULT_OK)
@@ -100,15 +96,14 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     override fun showError(viewError: ViewError) {
         showErrorDialog(viewError)
     }
-    
+
     // shamelessly ripped from chnt
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
         mainTb.setNavigationOnClickListener {
-            if(!closeLoginOnBack) {
+            if (!closeLoginOnBack) {
                 presenter.cancelAndClose()
-            }
-            else {
+            } else {
                 activity?.finish()
             }
         }
@@ -123,40 +118,46 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     }
 
     override fun onLoadFinished(view: WebView?, url: String?) {
-
     }
 
     override fun close() {
         fragmentManager?.popBackStack()
     }
 
-    private fun openNemIdApp()
-    {
-        //app switch test
-        val secondFactorIntent = if(Config.getCurrentEnvironmentName()?.contentEquals("production") == false)
-            activity?.packageManager?.getLaunchIntentForPackage("dk.e_nettet.mobilekey.everyone.kopi")
-        else
-            activity?.packageManager?.getLaunchIntentForPackage("dk.e_nettet.mobilekey.everyone")
+    private fun openNemIdApp() {
+        // app switch test
+        val secondFactorIntent =
+            if (Config.getCurrentEnvironmentName()?.contentEquals("production") == false)
+                activity?.packageManager?.getLaunchIntentForPackage("dk.e_nettet.mobilekey.everyone.kopi")
+            else
+                activity?.packageManager?.getLaunchIntentForPackage("dk.e_nettet.mobilekey.everyone")
 
-        if(secondFactorIntent == null)
-        {
+        if (secondFactorIntent == null) {
             AlertDialog.Builder(context ?: return)
-                    .setTitle(Translation.nemidsupport.nemIdNotInstalledTitle)
-                    .setMessage(Translation.nemidsupport.nemIdNotInstalledMessage)
-                    .setPositiveButton(Translation.nemidsupport.installNemIdAppBtn.toUpperCase()) { dialog, which ->
-                        val appPackageName = "dk.e_nettet.mobilekey.everyone"
-                        try {
-                            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
-                        } catch (anfe: android.content.ActivityNotFoundException) {
-                            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
-                        }
-
+                .setTitle(Translation.nemidsupport.nemIdNotInstalledTitle)
+                .setMessage(Translation.nemidsupport.nemIdNotInstalledMessage)
+                .setPositiveButton(Translation.nemidsupport.installNemIdAppBtn.toUpperCase()) { dialog, which ->
+                    val appPackageName = "dk.e_nettet.mobilekey.everyone"
+                    try {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("market://details?id=$appPackageName")
+                            )
+                        )
+                    } catch (anfe: android.content.ActivityNotFoundException) {
+                        startActivity(
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                            )
+                        )
                     }
-                    .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-
-                    }
-                    .create()
-                    .show()
+                }
+                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                }
+                .create()
+                .show()
             return
         }
 
@@ -178,25 +179,23 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     fun getJS(): String {
         return "function onNemIDMessage(e) \n" +
-                "{ \n" +
-                "    var event = e || event;\n" +
-                "    var message = JSON.parse(event.data);\n" +
-                "    if(message.command === \"AwaitingAppApproval\") \n" +
-                "    {\n" +
-                "        NemIDActivityJSI.performAppSwitch();\n" +
-                "    }\n" +
-                "}\n" +
-                "\n" +
-                "if (window.addEventListener) \n" +
-                "{\n" +
-                "    window.addEventListener(\"message\", onNemIDMessage);\n" +
-                "}\n" +
-                "else if (window.attachEvent) \n" +
-                "{\n" +
-                "    window.attachEvent(\"onmessage\", onNemIDMessage); \n" +
-                "}" +
-                "console.log(\"registered eventhandlers\");"
+            "{ \n" +
+            "    var event = e || event;\n" +
+            "    var message = JSON.parse(event.data);\n" +
+            "    if(message.command === \"AwaitingAppApproval\") \n" +
+            "    {\n" +
+            "        NemIDActivityJSI.performAppSwitch();\n" +
+            "    }\n" +
+            "}\n" +
+            "\n" +
+            "if (window.addEventListener) \n" +
+            "{\n" +
+            "    window.addEventListener(\"message\", onNemIDMessage);\n" +
+            "}\n" +
+            "else if (window.attachEvent) \n" +
+            "{\n" +
+            "    window.attachEvent(\"onmessage\", onNemIDMessage); \n" +
+            "}" +
+            "console.log(\"registered eventhandlers\");"
     }
-
-
 }

@@ -13,8 +13,9 @@ import dk.eboks.app.storage.base.GsonFileStorageRepository
 /**
  * Created by bison on 01-07-2017.
  */
-class AppStateRepositoryImpl(context: Context, gson: Gson) : GsonFileStorageRepository<AppState>(context, gson, "app_state.json"), AppStateRepository {
-    var appState : AppState? = null
+class AppStateRepositoryImpl(context: Context, gson: Gson) :
+    GsonFileStorageRepository<AppState>(context, gson, "app_state.json"), AppStateRepository {
+    var appState: AppState? = null
 
     override fun saveState(state: AppState) {
         save(state)
@@ -22,12 +23,10 @@ class AppStateRepositoryImpl(context: Context, gson: Gson) : GsonFileStorageRepo
 
     override fun loadState(): AppState {
         try {
-            if(appState == null)
+            if (appState == null)
                 appState = load(AppState::class.java)
             return appState!!
-        }
-        catch (e : Exception)
-        {
+        } catch (e: Exception) {
             return AppState()
         }
     }

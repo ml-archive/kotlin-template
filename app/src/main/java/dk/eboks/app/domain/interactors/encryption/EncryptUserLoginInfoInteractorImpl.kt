@@ -10,11 +10,11 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 
 class EncryptUserLoginInfoInteractorImpl(
-        executor: Executor,
-        private val encryptionPreferenceManager: EncryptionPreferenceManager
+    executor: Executor,
+    private val encryptionPreferenceManager: EncryptionPreferenceManager
 ) :
-        BaseInteractor(executor),
-        EncryptUserLoginInfoInteractor {
+    BaseInteractor(executor),
+    EncryptUserLoginInfoInteractor {
 
     override var input: EncryptUserLoginInfoInteractor.Input? = null
     override var output: EncryptUserLoginInfoInteractor.Output? = null
@@ -34,10 +34,10 @@ class EncryptUserLoginInfoInteractorImpl(
             }
         } catch (e: Exception) {
             val viewError = ViewError(
-                    Translation.androidfingerprint.dialogTitle,
-                    Translation.androidfingerprint.errorMessage,
-                    true,
-                    true
+                Translation.androidfingerprint.dialogTitle,
+                Translation.androidfingerprint.errorMessage,
+                true,
+                true
             )
             runOnUIThread {
                 output?.onError(viewError)

@@ -14,14 +14,17 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class SenderCarouselComponentPresenter @Inject constructor(val appState: AppStateManager, val getSendersInteractor: GetSendersInteractor) :
-        SenderCarouselComponentContract.Presenter,
-        BasePresenterImpl<SenderCarouselComponentContract.View>(),
-        GetSendersInteractor.Output {
+class SenderCarouselComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val getSendersInteractor: GetSendersInteractor
+) :
+    SenderCarouselComponentContract.Presenter,
+    BasePresenterImpl<SenderCarouselComponentContract.View>(),
+    GetSendersInteractor.Output {
 
     init {
         refresh(true)
-        runAction { v-> v.showProgress(true) }
+        runAction { v -> v.showProgress(true) }
     }
 
     override fun onViewCreated(view: SenderCarouselComponentContract.View, lifecycle: Lifecycle) {
@@ -34,38 +37,34 @@ class SenderCarouselComponentPresenter @Inject constructor(val appState: AppStat
         super.onViewDetached()
     }
 
-    fun refresh(cached : Boolean)
-    {
+    fun refresh(cached: Boolean) {
         getSendersInteractor.input = GetSendersInteractor.Input(cached, userId = null)
         getSendersInteractor.output = this
         getSendersInteractor.run()
     }
 
     override fun onGetSenders(senders: List<Sender>) {
-        //Timber.e("Received them senders")
+        // Timber.e("Received them senders")
         val verified = appState.state?.currentUser?.verified ?: false
         runAction { v ->
             v.showProgress(false)
             EventBus.getDefault().post(RefreshSenderCarouselDoneEvent())
-            if(senders.isNotEmpty()) {
+            if (senders.isNotEmpty()) {
                 v.showEmpty(false, verified)
 
                 v.showSenders(sortSenders(senders))
-            }
-            else
-            {
+            } else {
                 v.showEmpty(true, verified)
             }
         }
     }
 
-    private fun sortSenders(senders: List<Sender>) : List<Sender>
-    {
-        return senders.sortedWith(compareBy({ it.unreadMessageCount <= 0}, { it.name }))
+    private fun sortSenders(senders: List<Sender>): List<Sender> {
+        return senders.sortedWith(compareBy({ it.unreadMessageCount <= 0 }, { it.name }))
     }
 
-    override fun onGetSendersError(error : ViewError) {
-        runAction { v->
+    override fun onGetSendersError(error: ViewError) {
+        runAction { v ->
             v.showProgress(false)
             EventBus.getDefault().post(RefreshSenderCarouselDoneEvent())
             v.showErrorDialog(error)

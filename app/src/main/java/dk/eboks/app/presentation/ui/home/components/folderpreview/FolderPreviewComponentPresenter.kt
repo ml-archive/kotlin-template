@@ -13,13 +13,15 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class FolderPreviewComponentPresenter @Inject constructor(val appState: AppStateManager, val getMessagesInteractor: GetMessagesInteractor) :
-        FolderPreviewComponentContract.Presenter,
-        BasePresenterImpl<FolderPreviewComponentContract.View>(),
-        GetMessagesInteractor.Output
-{
+class FolderPreviewComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val getMessagesInteractor: GetMessagesInteractor
+) :
+    FolderPreviewComponentContract.Presenter,
+    BasePresenterImpl<FolderPreviewComponentContract.View>(),
+    GetMessagesInteractor.Output {
 
-    //override val isVerified = appState.state?.currentUser?.verified ?: false
+    // override val isVerified = appState.state?.currentUser?.verified ?: false
     var currentFolder: Folder? = null
 
     init {
@@ -32,7 +34,7 @@ class FolderPreviewComponentPresenter @Inject constructor(val appState: AppState
         refresh(true)
     }
 
-    override fun refresh(cached : Boolean) {
+    override fun refresh(cached: Boolean) {
         currentFolder?.let {
             getMessagesInteractor.input = GetMessagesInteractor.Input(cached = cached, folder = it)
             getMessagesInteractor.run()
@@ -40,7 +42,7 @@ class FolderPreviewComponentPresenter @Inject constructor(val appState: AppState
     }
 
     override fun onGetMessages(messages: List<Message>) {
-        runAction { v->
+        runAction { v ->
             EventBus.getDefault().post(RefreshFolderPreviewDoneEvent())
             v.showProgress(false)
             v.showFolder(messages, appState.state?.currentUser?.verified ?: false)
@@ -48,7 +50,7 @@ class FolderPreviewComponentPresenter @Inject constructor(val appState: AppState
     }
 
     override fun onGetMessagesError(error: ViewError) {
-        runAction { v->
+        runAction { v ->
             EventBus.getDefault().post(RefreshFolderPreviewDoneEvent())
             v.showProgress(false)
             v.showErrorDialog(error)

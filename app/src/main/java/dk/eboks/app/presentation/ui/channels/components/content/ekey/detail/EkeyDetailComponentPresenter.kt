@@ -24,10 +24,12 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class EkeyDetailComponentPresenter @Inject constructor(val appState: AppStateManager,
-                                                       val encryptedPreferences: EncryptedPreferences,
-                                                       val setEKeyVaultInteractor: SetEKeyVaultInteractor
-) : EkeyDetailComponentContract.Presenter, BasePresenterImpl<EkeyDetailComponentContract.View>(), SetEKeyVaultInteractor.Output {
+class EkeyDetailComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val encryptedPreferences: EncryptedPreferences,
+    val setEKeyVaultInteractor: SetEKeyVaultInteractor
+) : EkeyDetailComponentContract.Presenter, BasePresenterImpl<EkeyDetailComponentContract.View>(),
+    SetEKeyVaultInteractor.Output {
 
     private val gson: Gson
 
@@ -35,15 +37,15 @@ class EkeyDetailComponentPresenter @Inject constructor(val appState: AppStateMan
         setEKeyVaultInteractor.output = this
         val baseEkeyListType = object : TypeToken<MutableList<BaseEkey>>() {}.type
         gson = GsonBuilder()
-                .registerTypeAdapter(baseEkeyListType, EKeyDeserializer())
-                .registerTypeAdapter(BaseEkey::class.java, EKeySerializer())
-                .create()
+            .registerTypeAdapter(baseEkeyListType, EKeyDeserializer())
+            .registerTypeAdapter(BaseEkey::class.java, EKeySerializer())
+            .create()
     }
 
     override fun putVault(items: MutableList<BaseEkey>, item: BaseEkey) {
         appState.state?.currentUser?.let {
             val masterKey = encryptedPreferences.getString("ekey_${it.id}", null)
-            masterKey?.let {mk ->
+            masterKey?.let { mk ->
                 items.add(item)
                 setVault(mk, items)
             }
@@ -73,10 +75,11 @@ class EkeyDetailComponentPresenter @Inject constructor(val appState: AppStateMan
 
         val vault = gson.toJson(keyList)
         val encrypted = handler.encrypt(vault.toByteArray(charset("UTF-8")))
-        //post vault
+        // post vault
         val signature = getSignatureAndSignatureTime(masterKey)
 
-        setEKeyVaultInteractor.input = SetEKeyVaultInteractor.Input(encrypted, signature.first, signature.second, 0)
+        setEKeyVaultInteractor.input =
+            SetEKeyVaultInteractor.Input(encrypted, signature.first, signature.second, 0)
         setEKeyVaultInteractor.run()
     }
 
@@ -94,5 +97,4 @@ class EkeyDetailComponentPresenter @Inject constructor(val appState: AppStateMan
 
         return Pair(time, hash)
     }
-
 }

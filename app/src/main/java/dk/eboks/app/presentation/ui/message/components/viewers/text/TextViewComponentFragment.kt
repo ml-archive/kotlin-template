@@ -54,7 +54,7 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
         GlobalScope.launch(Dispatchers.Default) {
             data = convertFileToByteArray(File(filename))
             data?.let {
-                //show()
+                // show()
                 var decoded = String(data!!, Charset.forName("ISO-8859-1"))
                 if (utf8Test(decoded)) {
                     Timber.i("text was not encoded with iso-8859-1, using utf-8 as fallback")

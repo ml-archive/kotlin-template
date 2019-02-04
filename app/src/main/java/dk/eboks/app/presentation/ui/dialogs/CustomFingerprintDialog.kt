@@ -29,7 +29,7 @@ class CustomFingerprintDialog(context: Context) : FingerprintAlertDialogBase(con
 
         dialogCustomFingerprintBtnCancel?.setOnClickListener {
             onCancelClicked()
-            //closeDialog()
+            // closeDialog()
         }
     }
 
@@ -43,8 +43,8 @@ class CustomFingerprintDialog(context: Context) : FingerprintAlertDialogBase(con
 
     override fun onFingerprintError() {
         setTvMessageWithStyle(
-                Translation.androidfingerprint.errorMessage,
-                dk.nodes.locksmith.R.style.FingerprintDialogError
+            Translation.androidfingerprint.errorMessage,
+            dk.nodes.locksmith.R.style.FingerprintDialogError
         )
 
         dialogCustomFingerprintBtnCancel.isEnabled = false
@@ -55,8 +55,8 @@ class CustomFingerprintDialog(context: Context) : FingerprintAlertDialogBase(con
 
     override fun onFingerprintSuccess() {
         setTvMessageWithStyle(
-                Translation.androidfingerprint.successMessage,
-                dk.nodes.locksmith.R.style.FingerprintDialogSuccess
+            Translation.androidfingerprint.successMessage,
+            dk.nodes.locksmith.R.style.FingerprintDialogSuccess
         )
 
         dialogCustomFingerprintBtnCancel.isEnabled = false

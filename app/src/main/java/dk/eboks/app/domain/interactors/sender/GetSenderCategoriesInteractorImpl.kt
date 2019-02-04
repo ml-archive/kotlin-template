@@ -6,11 +6,14 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 /**
-* Created by chnt on 14/03/18.
-* @author   chnt
-* @since    14/03/18.
-*/
-class GetSenderCategoriesInteractorImpl(executor: Executor, val senderCategoriesRepository: SenderCategoriesRepository) : BaseInteractor(executor), GetSenderCategoriesInteractor {
+ * Created by chnt on 14/03/18.
+ * @author chnt
+ * @since 14/03/18.
+ */
+class GetSenderCategoriesInteractorImpl(
+    executor: Executor,
+    val senderCategoriesRepository: SenderCategoriesRepository
+) : BaseInteractor(executor), GetSenderCategoriesInteractor {
     override var output: GetSenderCategoriesInteractor.Output? = null
     override var input: GetSenderCategoriesInteractor.Input? = null
 

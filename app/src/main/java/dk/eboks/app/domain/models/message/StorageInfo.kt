@@ -9,6 +9,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class StorageInfo(
-    var total : Int,
-    var used : Int
+    var total: Int,
+    var used: Int
 ) : Parcelable

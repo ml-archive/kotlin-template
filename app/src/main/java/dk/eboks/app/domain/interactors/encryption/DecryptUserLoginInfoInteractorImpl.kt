@@ -10,11 +10,11 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 
 class DecryptUserLoginInfoInteractorImpl(
-        executor: Executor,
-        private val encryptionPreferenceManager: EncryptionPreferenceManager
+    executor: Executor,
+    private val encryptionPreferenceManager: EncryptionPreferenceManager
 ) :
-        BaseInteractor(executor),
-        DecryptUserLoginInfoInteractor {
+    BaseInteractor(executor),
+    DecryptUserLoginInfoInteractor {
 
     override var output: DecryptUserLoginInfoInteractor.Output? = null
 
@@ -27,14 +27,13 @@ class DecryptUserLoginInfoInteractorImpl(
             output?.onDecryptSuccess(Gson().fromJson(s, LoginInfo::class.java))
         } catch (e: Exception) {
             output?.onDecryptError(
-                    ViewError(
-                            Translation.androidfingerprint.dialogTitle,
-                            Translation.androidfingerprint.errorMessage,
-                            true,
-                            true
-                    )
+                ViewError(
+                    Translation.androidfingerprint.dialogTitle,
+                    Translation.androidfingerprint.errorMessage,
+                    true,
+                    true
+                )
             )
         }
-
     }
 }

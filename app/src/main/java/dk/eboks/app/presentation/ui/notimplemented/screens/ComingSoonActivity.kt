@@ -11,14 +11,13 @@ class ComingSoonActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(NavBarComponentFragment.currentMenuItem == R.id.actionUploads) {
+        if (NavBarComponentFragment.currentMenuItem == R.id.actionUploads) {
             setContentView(dk.eboks.app.R.layout.activity_coming_soon_uploads)
             mainTb.title = Translation.uploads.title
         }
-        if(NavBarComponentFragment.currentMenuItem == R.id.actionSenders) {
+        if (NavBarComponentFragment.currentMenuItem == R.id.actionSenders) {
             setContentView(dk.eboks.app.R.layout.activity_coming_soon_senders)
             mainTb.title = Translation.senders.title
         }
     }
-
 }

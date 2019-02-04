@@ -28,7 +28,11 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
 
     var mHandler = Handler()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView =
             inflater.inflate(R.layout.fragment_activation_code_component, container, false)
         return rootView
@@ -102,7 +106,7 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
     }
 
     override fun showProgress(show: Boolean) {
-        buttonGroupLl.visibility = if(show) View.INVISIBLE else View.VISIBLE
-        progressFl.visibility = if(!show) View.GONE else View.VISIBLE
+        buttonGroupLl.visibility = if (show) View.INVISIBLE else View.VISIBLE
+        progressFl.visibility = if (!show) View.GONE else View.VISIBLE
     }
 }

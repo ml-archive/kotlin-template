@@ -19,20 +19,18 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 open class WebLoginPresenter @Inject constructor(
-        val appState: AppStateManager,
-        val transformTokenInteractor: TransformTokenInteractor,
-        val verifyProfileInteractor: VerifyProfileInteractor,
-        val mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-        val userSettingsManager: UserSettingsManager
+    val appState: AppStateManager,
+    val transformTokenInteractor: TransformTokenInteractor,
+    val verifyProfileInteractor: VerifyProfileInteractor,
+    val mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+    val userSettingsManager: UserSettingsManager
 
-        ) :
-        WebLoginContract.Presenter,
-        BasePresenterImpl<WebLoginContract.View>(),
-        TransformTokenInteractor.Output,
-        VerifyProfileInteractor.Output,
-        MergeAndImpersonateInteractor.Output
-{
-
+) :
+    WebLoginContract.Presenter,
+    BasePresenterImpl<WebLoginContract.View>(),
+    TransformTokenInteractor.Output,
+    VerifyProfileInteractor.Output,
+    MergeAndImpersonateInteractor.Output {
 
     init {
         transformTokenInteractor.output = this
@@ -52,14 +50,13 @@ open class WebLoginPresenter @Inject constructor(
             // narp this is a first time login using the provider
             runAction { v -> v.setupLogin(null) }
         }
-
     }
 
     override fun cancelAndClose() {
         // set fallback login provider and close
         val failProviderId = appState.state?.loginState?.userLoginProviderId
         failProviderId?.let {
-            Timber.e("Cancel and close called provider id = ${it}")
+            Timber.e("Cancel and close called provider id = $it")
             Config.getLoginProvider(failProviderId)?.let { provider ->
                 Timber.e("Setting lastLoginProvider to fallback provider ${provider.fallbackProvider}")
                 userSettingsManager.get(appState.state?.loginState?.selectedUser?.id ?: -1)
@@ -68,8 +65,7 @@ open class WebLoginPresenter @Inject constructor(
                         userSettingsManager.put(userSettings)
                         userSettingsManager.save()
                     }
-                //appState.state?.loginState?.userLoginProviderId = provider.fallbackProvider
-
+                // appState.state?.loginState?.userLoginProviderId = provider.fallbackProvider
             }.guard {
                 Timber.e("error")
             }
@@ -88,7 +84,8 @@ open class WebLoginPresenter @Inject constructor(
             verificationState.kspToken = webToken
             verifyProfileInteractor.input = VerifyProfileInteractor.Input(verificationState)
             verifyProfileInteractor.run()
-        }.guard {   // narp, maybe we'd be loggin in?
+        }.guard {
+            // narp, maybe we'd be loggin in?
             appState.state?.loginState?.let {
                 Timber.e("We're logging in, not verifying")
                 it.kspToken = webToken
@@ -101,7 +98,7 @@ open class WebLoginPresenter @Inject constructor(
     // the is called after the users is presented with the merge account drawer, check the result and merge or not
     override fun mergeAccountOrKeepSeparated() {
         Timber.e("Merge account or keep separated")
-        appState.state?.verificationState?.let { state->
+        appState.state?.verificationState?.let { state ->
             mergeAndImpersonateInteractor.input = MergeAndImpersonateInteractor.Input(state)
             mergeAndImpersonateInteractor.run()
         }
@@ -125,7 +122,7 @@ open class WebLoginPresenter @Inject constructor(
     /**
      * VerifyProfileInteractor callbacks
      */
-    override fun onVerificationSuccess(new_identity : String?) {
+    override fun onVerificationSuccess(new_identity: String?) {
         Timber.e("VerificationSuccess")
         Timber.e("Got new identity back after verification: $new_identity")
         ViewControl.refreshAllOnResume()
@@ -141,7 +138,7 @@ open class WebLoginPresenter @Inject constructor(
     }
 
     override fun onAlreadyVerifiedProfile() {
-        runAction { v->v.showMergeAcountDrawer() }
+        runAction { v -> v.showMergeAcountDrawer() }
     }
 
     /**
@@ -154,7 +151,7 @@ open class WebLoginPresenter @Inject constructor(
     }
 
     override fun onMergeError(error: ViewError) {
-        runAction { v->
+        runAction { v ->
             v.showError(error)
         }
     }

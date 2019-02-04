@@ -10,14 +10,14 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface ReplyFormContract {
     interface View : BaseView {
-        fun showProgress(show : Boolean)
+        fun showProgress(show: Boolean)
         fun clearForm()
-        fun showFormInput(input : FormInput)
+        fun showFormInput(input: FormInput)
         fun finish()
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setup(msg : Message)
+        fun setup(msg: Message)
         fun submit()
     }
 }

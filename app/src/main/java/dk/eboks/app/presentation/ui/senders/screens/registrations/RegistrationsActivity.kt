@@ -23,8 +23,8 @@ import javax.inject.Inject
 
 /**
  * Created by Christian on 3/28/2018.
- * @author   Christian
- * @since    3/28/2018.
+ * @author Christian
+ * @since 3/28/2018.
  */
 class RegistrationsActivity : BaseActivity(), RegistrationsContract.View {
 
@@ -64,7 +64,7 @@ class RegistrationsActivity : BaseActivity(), RegistrationsContract.View {
 
     override fun showRegistrations(registrations: Registrations) {
         registrationsPb.visibility = View.GONE
-        //TODO missing api to group senders
+        // TODO missing api to group senders
 //        if (0 != registrations.public?.type) {
 //            val vh = adapter.onCreateViewHolder(registrationsLl, 0)
 //

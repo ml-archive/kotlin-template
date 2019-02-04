@@ -12,17 +12,17 @@ interface ProfileInfoComponentContract {
         fun showFingerprintOptionIfSupported()
         fun showKeepMeSignedIn(isEnabled: Boolean)
         fun logout()
-        fun showProgress(show : Boolean)
+        fun showProgress(show: Boolean)
         fun attachListeners()
         fun detachListeners()
     }
 
     interface Presenter : BasePresenter<View> {
-        fun loadUserData(showProgress : Boolean)
+        fun loadUserData(showProgress: Boolean)
         fun enableUserFingerprint(enable: Boolean)
         fun enableKeepMeSignedIn(enable: Boolean)
         fun doLogout()
         fun saveUserImg(uri: String)
-        var isUserVerified : Boolean
+        var isUserVerified: Boolean
     }
 }

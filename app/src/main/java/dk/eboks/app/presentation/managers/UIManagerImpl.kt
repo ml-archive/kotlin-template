@@ -30,10 +30,10 @@ class UIManagerImpl(val context: Context) : UIManager {
         handler.post {
             App.currentActivity()?.let {
                 ActivityStarter(it)
-                        .activity(StartActivity::class.java)
-                        .putExtra("noboot", true)
-                        .putExtra("sessionExpired", true)
-                        .start()
+                    .activity(StartActivity::class.java)
+                    .putExtra("noboot", true)
+                    .putExtra("sessionExpired", true)
+                    .start()
             }.guard {
                 val i = Intent(context, StartActivity::class.java)
                 i.putExtra("noboot", true)
@@ -45,22 +45,51 @@ class UIManagerImpl(val context: Context) : UIManager {
 
     override fun showMessageScreen() {
         handler.post {
-            App.currentActivity()?.let { it.startActivity(Intent(context, MessageActivity::class.java)); it.overridePendingTransition(0, 0) }
-                    .guard { context.startActivity(Intent(context, MessageActivity::class.java)) }
+            App.currentActivity()?.let {
+                it.startActivity(
+                    Intent(
+                        context,
+                        MessageActivity::class.java
+                    )
+                ); it.overridePendingTransition(0, 0)
+            }
+                .guard { context.startActivity(Intent(context, MessageActivity::class.java)) }
         }
     }
 
     override fun showEmbeddedMessageScreen() {
         handler.post {
-            App.currentActivity()?.let { it.startActivity(Intent(context, MessageEmbeddedActivity::class.java)); it.overridePendingTransition(0, 0) }
-                    .guard { context.startActivity(Intent(context, MessageEmbeddedActivity::class.java)) }
+            App.currentActivity()?.let {
+                it.startActivity(
+                    Intent(
+                        context,
+                        MessageEmbeddedActivity::class.java
+                    )
+                ); it.overridePendingTransition(0, 0)
+            }
+                .guard {
+                    context.startActivity(
+                        Intent(
+                            context,
+                            MessageEmbeddedActivity::class.java
+                        )
+                    )
+                }
         }
     }
 
     override fun showMessageOpeningScreen() {
         handler.post {
-            App.currentActivity()?.startActivity(Intent(context, MessageOpeningActivity::class.java))
-                    .guard { context.startActivity(Intent(context, MessageOpeningActivity::class.java)) }
+            App.currentActivity()
+                ?.startActivity(Intent(context, MessageOpeningActivity::class.java))
+                .guard {
+                    context.startActivity(
+                        Intent(
+                            context,
+                            MessageOpeningActivity::class.java
+                        )
+                    )
+                }
         }
     }
 
@@ -69,15 +98,22 @@ class UIManagerImpl(val context: Context) : UIManager {
         intent.putExtra("folder", folder)
         handler.post {
             App.currentActivity()?.let { it.startActivity(intent) }
-                    .guard { context.startActivity(intent) }
+                .guard { context.startActivity(intent) }
         }
     }
 
     override fun showPermissionRequestScreen() {
         handler.post {
-            App.currentActivity()?.startActivity(Intent(context, PermissionRequestActivity::class.java))
-                    .guard { context.startActivity(Intent(context, PermissionRequestActivity::class.java)) }
+            App.currentActivity()
+                ?.startActivity(Intent(context, PermissionRequestActivity::class.java))
+                .guard {
+                    context.startActivity(
+                        Intent(
+                            context,
+                            PermissionRequestActivity::class.java
+                        )
+                    )
+                }
         }
     }
-
 }

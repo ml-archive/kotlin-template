@@ -6,8 +6,8 @@ import kotlinx.android.parcel.Parcelize
 /**
  *
  * Created by Christian on 4/20/2018.
- * @author   Christian
- * @since    4/20/2018.
+ * @author Christian
+ * @since 4/20/2018.
  */
 @Parcelize
 data class AccessToken(

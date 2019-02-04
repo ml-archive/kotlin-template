@@ -8,21 +8,22 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class OpeningReceiptComponentPresenter @Inject constructor(val appState: AppStateManager, val executor: Executor) :
-        OpeningReceiptComponentContract.Presenter,
-        BasePresenterImpl<OpeningReceiptComponentContract.View>()
-{
+class OpeningReceiptComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val executor: Executor
+) :
+    OpeningReceiptComponentContract.Presenter,
+    BasePresenterImpl<OpeningReceiptComponentContract.View>() {
 
     init {
     }
 
-    override fun setShouldProceed(proceed: Boolean, receipt : Boolean) {
+    override fun setShouldProceed(proceed: Boolean, receipt: Boolean) {
         appState.state?.openingState?.let { state ->
             state.shouldProceedWithOpening = proceed
             state.sendReceipt = receipt
         }
-        runAction { v->v.showOpeningProgress(true) }
+        runAction { v -> v.showOpeningProgress(true) }
         executor.signal("messageOpenDone")
     }
-
 }

@@ -15,17 +15,17 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class FingerPrintComponentPresenter @Inject constructor(
-        val appState: AppStateManager,
-        private val userSettingsManager: UserSettingsManager,
-        private val encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,
-        private val saveUserInteractor: SaveUserInteractor,
-        private val testLoginInteractor: TestLoginInteractor) :
-        FingerPrintComponentContract.Presenter,
-        BasePresenterImpl<FingerPrintComponentContract.View>(),
-        EncryptUserLoginInfoInteractor.Output,
-        SaveUserInteractor.Output,
-        TestLoginInteractor.Output
-{
+    val appState: AppStateManager,
+    private val userSettingsManager: UserSettingsManager,
+    private val encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,
+    private val saveUserInteractor: SaveUserInteractor,
+    private val testLoginInteractor: TestLoginInteractor
+) :
+    FingerPrintComponentContract.Presenter,
+    BasePresenterImpl<FingerPrintComponentContract.View>(),
+    EncryptUserLoginInfoInteractor.Output,
+    SaveUserInteractor.Output,
+    TestLoginInteractor.Output {
 
     init {
         encryptUserLoginInfoInteractor.output = this
@@ -54,17 +54,23 @@ class FingerPrintComponentPresenter @Inject constructor(
     }
 
     private fun showErrorMessage() {
-        val errorMessage = ViewError(Translation.error.genericTitle, Translation.error.genericMessage, true, true)
+        val errorMessage =
+            ViewError(Translation.error.genericTitle, Translation.error.genericMessage, true, true)
         view?.showErrorDialog(errorMessage)
     }
 
     override fun verifyLoginCredentials() {
         val loginInfo = view?.getUserLoginInfo()
         Timber.d("verifyLoginCredentials: $loginInfo")
-        runAction { v->v.showProgress(true) }
+        runAction { v -> v.showProgress(true) }
         loginInfo?.let {
-            it.actvationCode = userSettingsManager.get(appState.state?.currentUser?.id?:0).activationCode?:""
-            testLoginInteractor.input = TestLoginInteractor.Input(loginInfo.socialSecurity, loginInfo.password, it.actvationCode)
+            it.actvationCode =
+                userSettingsManager.get(appState.state?.currentUser?.id ?: 0).activationCode ?: ""
+            testLoginInteractor.input = TestLoginInteractor.Input(
+                loginInfo.socialSecurity,
+                loginInfo.password,
+                it.actvationCode
+            )
             testLoginInteractor.run()
         }
     }
@@ -75,7 +81,8 @@ class FingerPrintComponentPresenter @Inject constructor(
         Timber.d("encryptUserLoginInfo: $loginInfo")
 
         loginInfo?.let {
-            it.actvationCode = userSettingsManager.get(appState.state?.currentUser?.id?:0).activationCode?:""
+            it.actvationCode =
+                userSettingsManager.get(appState.state?.currentUser?.id ?: 0).activationCode ?: ""
             encryptUserLoginInfoInteractor.output = this
             encryptUserLoginInfoInteractor.input = EncryptUserLoginInfoInteractor.Input(loginInfo)
             encryptUserLoginInfoInteractor.run()
@@ -89,10 +96,10 @@ class FingerPrintComponentPresenter @Inject constructor(
 
         if (currentUser == null) {
             val viewError = ViewError(
-                    Translation.error.genericTitle,
-                    Translation.error.genericMessage,
-                    true,
-                    true
+                Translation.error.genericTitle,
+                Translation.error.genericMessage,
+                true,
+                true
             )
             view?.showErrorDialog(viewError)
             return
@@ -115,7 +122,7 @@ class FingerPrintComponentPresenter @Inject constructor(
     }
 
     override fun onError(e: ViewError) {
-        runAction { v->
+        runAction { v ->
             v.showProgress(false)
             v.showErrorDialog(e)
         }
@@ -125,13 +132,13 @@ class FingerPrintComponentPresenter @Inject constructor(
      * SaveUserInteractor callbacks
      */
     override fun onSaveUser(user: User, numberOfUsers: Int) {
-        runAction { v->
+        runAction { v ->
             v.finishView()
         }
     }
 
     override fun onSaveUserError(error: ViewError) {
-        runAction { v->
+        runAction { v ->
             v.showProgress(false)
             v.showErrorDialog(error)
         }
@@ -141,20 +148,20 @@ class FingerPrintComponentPresenter @Inject constructor(
      * TestLoginInteractor callbacks
      */
     override fun onTestLoginSuccess() {
-        runAction { v->
+        runAction { v ->
             v.proceedAfterLoginVerification()
         }
     }
 
     override fun onTestLoginDenied(error: ViewError) {
-        runAction { v->
+        runAction { v ->
             v.showProgress(false)
             v.showErrorDialog(error)
         }
     }
 
     override fun onTestLoginError(error: ViewError) {
-        runAction { v->
+        runAction { v ->
             v.showProgress(false)
             v.showErrorDialog(error)
         }

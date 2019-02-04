@@ -9,10 +9,12 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class PromulgationComponentPresenter @Inject constructor(val appState: AppStateManager, val executor: Executor) :
-        PromulgationComponentContract.Presenter,
-        BasePresenterImpl<PromulgationComponentContract.View>()
-{
+class PromulgationComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val executor: Executor
+) :
+    PromulgationComponentContract.Presenter,
+    BasePresenterImpl<PromulgationComponentContract.View>() {
     init {
         runAction { v ->
             v.setPromulgationHeader(Translation.message.promulgationHeader)

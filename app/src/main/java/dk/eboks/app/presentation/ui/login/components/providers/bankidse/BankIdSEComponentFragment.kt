@@ -99,10 +99,8 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
                                     )
                                 )
                             }
-
                         }
                         .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-
                         }
                         .create()
                         .show()

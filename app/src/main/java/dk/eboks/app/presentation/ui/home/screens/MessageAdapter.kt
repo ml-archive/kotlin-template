@@ -38,11 +38,11 @@ class MessageAdapter(
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -79,7 +79,6 @@ class MessageAdapter(
                     urgentTv?.visibility = View.GONE
                 }
 
-
                 titleTv.text = message.sender?.name ?: ""
                 subTitleTv.text = message.subject
                 dateTv.text = formatter.formatDateRelative(message)
@@ -89,7 +88,6 @@ class MessageAdapter(
 
                 rootLl?.setOnClickListener {
                     callbackWeakReference.get()?.onMessageClick(message)
-
                 }
             }
         }

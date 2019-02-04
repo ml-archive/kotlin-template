@@ -18,9 +18,13 @@ import javax.inject.Inject
  */
 class NotesComponentFragment : BaseFragment(), NotesComponentContract.View, TextWatcher {
     @Inject
-    lateinit var presenter : NotesComponentContract.Presenter
+    lateinit var presenter: NotesComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_notes_component, container, false)
         return rootView
     }

@@ -6,8 +6,8 @@ import dk.nodes.arch.domain.interactor.Interactor
 
 /**
  * Created by Christian on 3/13/2018.
- * @author   Christian
- * @since    3/13/2018.
+ * @author Christian
+ * @since 3/13/2018.
  */
 interface GetSenderCategoriesInteractor : Interactor {
     var output: Output?
@@ -17,6 +17,6 @@ interface GetSenderCategoriesInteractor : Interactor {
 
     interface Output {
         fun onGetCategories(categories: List<SenderCategory>)
-        fun onGetCategoriesError(error : ViewError)
+        fun onGetCategoriesError(error: ViewError)
     }
 }

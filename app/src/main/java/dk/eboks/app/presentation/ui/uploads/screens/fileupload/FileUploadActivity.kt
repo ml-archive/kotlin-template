@@ -38,9 +38,9 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
 
     var embeddedViewerComponentFragment: androidx.fragment.app.Fragment? = null
 
-    var destinationFolder : Folder? = null
-    var uriString : String? = null
-    var mimeType : String? = null
+    var destinationFolder: Folder? = null
+    var uriString: String? = null
+    var mimeType: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,14 +50,13 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
         mainTb.visible = (false)
 
         mainHandler.post {
-            intent.getStringExtra("uriString")?.let { uriString->
+            intent.getStringExtra("uriString")?.let { uriString ->
                 mimeType = intent.getStringExtra("mimeType")
                 presenter.setup(uriString, mimeType)
             }
         }
 
-        if(presenter.isVerified())
-        {
+        if (presenter.isVerified()) {
             chooseFolderLl.setOnClickListener {
                 val i = Intent(this, FolderActivity::class.java)
                 i.putExtra("pick", true)
@@ -74,6 +73,7 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
             override fun afterTextChanged(p0: Editable?) {
                 validate()
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
@@ -84,14 +84,14 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
                 intent.putExtra("filename", fileNameEt.text.toString().trim())
                 intent.putExtra("destinationFolderId", it.id)
                 uriString.let { intent.putExtra("uriString", it) }
-                mimeType.let { intent.putExtra("mimeType", it) }.guard { intent.putExtra("mimeType", "application/octet-stream") }
+                mimeType.let { intent.putExtra("mimeType", it) }
+                    .guard { intent.putExtra("mimeType", "application/octet-stream") }
                 setResult(Activity.RESULT_OK, intent)
                 finishAfterTransition()
             }
         }
 
-        if(!presenter.isVerified())
-        {
+        if (!presenter.isVerified()) {
             fileNameEt.isEnabled = false
             saveBtn.isEnabled = false
         }
@@ -111,9 +111,7 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
         setupPeakHeight(140)
     }
 
-
-    private fun validate()
-    {
+    private fun validate() {
         saveBtn.isEnabled = destinationFolder != null && fileNameEt.text.toString().isNotEmpty()
     }
 
@@ -123,9 +121,7 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
         try {
             val uri = Uri.parse(uriString)
             fileNameEt.setText(uri.lastPathSegment)
-        }
-        catch (t : Throwable)
-        {
+        } catch (t: Throwable) {
             fileNameEt.setText("")
         }
         validate()
@@ -142,42 +138,50 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
         noPreviewAvailableTv.visible = (true)
     }
 
-    override fun addPdfViewer(uri : String) {
+    override fun addPdfViewer(uri: String) {
         Handler(mainLooper).post {
             embeddedViewerComponentFragment = PdfViewComponentFragment()
             embeddedViewerComponentFragment?.putArg("URI", uri)
             embeddedViewerComponentFragment?.let {
-                supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, PdfViewComponentFragment::class.java.simpleName).commit()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.viewerFl, it, PdfViewComponentFragment::class.java.simpleName)
+                    .commit()
             }
         }
     }
 
-    override fun addImageViewer(uri : String) {
+    override fun addImageViewer(uri: String) {
         Handler(mainLooper).post {
             embeddedViewerComponentFragment = ImageViewComponentFragment()
             embeddedViewerComponentFragment?.putArg("URI", uri)
             embeddedViewerComponentFragment?.let {
-                supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, ImageViewComponentFragment::class.java.simpleName).commit()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.viewerFl, it, ImageViewComponentFragment::class.java.simpleName)
+                    .commit()
             }
         }
     }
 
-    override fun addHtmlViewer(uri : String) {
+    override fun addHtmlViewer(uri: String) {
         Handler(mainLooper).post {
             embeddedViewerComponentFragment = HtmlViewComponentFragment()
             embeddedViewerComponentFragment?.putArg("URI", uri)
             embeddedViewerComponentFragment?.let {
-                supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, HtmlViewComponentFragment::class.java.simpleName).commit()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.viewerFl, it, HtmlViewComponentFragment::class.java.simpleName)
+                    .commit()
             }
         }
     }
 
-    override fun addTextViewer(uri : String) {
+    override fun addTextViewer(uri: String) {
         Handler(mainLooper).post {
             embeddedViewerComponentFragment = TextViewComponentFragment()
             embeddedViewerComponentFragment?.putArg("URI", uri)
             embeddedViewerComponentFragment?.let {
-                supportFragmentManager.beginTransaction().add(R.id.viewerFl, it, TextViewComponentFragment::class.java.simpleName).commit()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.viewerFl, it, TextViewComponentFragment::class.java.simpleName)
+                    .commit()
             }
         }
     }
@@ -186,7 +190,9 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
         return true
     }
 
-    override fun getNavigationMenuAction(): Int { return R.id.actionMail }
+    override fun getNavigationMenuAction(): Int {
+        return R.id.actionMail
+    }
 
     companion object {
         val REQUEST_ID: Int = 2169

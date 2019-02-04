@@ -7,9 +7,9 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class EkeyAddItemComponentPresenter @Inject constructor(val appState: AppStateManager) : EkeyAddItemComponentContract.Presenter, BasePresenterImpl<EkeyAddItemComponentContract.View>() {
+class EkeyAddItemComponentPresenter @Inject constructor(val appState: AppStateManager) :
+    EkeyAddItemComponentContract.Presenter, BasePresenterImpl<EkeyAddItemComponentContract.View>() {
 
     init {
     }
-
 }

@@ -10,7 +10,11 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class SenderAllListComponentPresenter @Inject constructor(val appState: AppStateManager, val getSendersInteractor: GetSendersInteractor) : SenderAllListComponentContract.Presenter, BasePresenterImpl<SenderAllListComponentContract.View>(), GetSendersInteractor.Output {
+class SenderAllListComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val getSendersInteractor: GetSendersInteractor
+) : SenderAllListComponentContract.Presenter,
+    BasePresenterImpl<SenderAllListComponentContract.View>(), GetSendersInteractor.Output {
 
     var senders: MutableList<Sender> = ArrayList()
     var filteredSenders: MutableList<Sender> = ArrayList()
@@ -21,7 +25,8 @@ class SenderAllListComponentPresenter @Inject constructor(val appState: AppState
     }
 
     override fun refresh() {
-        getSendersInteractor.input = GetSendersInteractor.Input(userId = appState.state?.impersoniateUser?.userId)
+        getSendersInteractor.input =
+            GetSendersInteractor.Input(userId = appState.state?.impersoniateUser?.userId)
         getSendersInteractor.output = this
         getSendersInteractor.run()
     }
@@ -58,7 +63,7 @@ class SenderAllListComponentPresenter @Inject constructor(val appState: AppState
     override fun loadAllSenders() {
         filteredSenders.clear()
         filteredSenders.addAll(senders)
-        runAction { v->
+        runAction { v ->
             v.showSenders(filteredSenders)
         }
     }
@@ -70,9 +75,8 @@ class SenderAllListComponentPresenter @Inject constructor(val appState: AppState
                 filteredSenders.add(sender)
             }
         }
-        runAction { v->
+        runAction { v ->
             v.showSenders(filteredSenders)
         }
     }
-
 }

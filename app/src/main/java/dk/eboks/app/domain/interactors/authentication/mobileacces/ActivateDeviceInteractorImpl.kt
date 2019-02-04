@@ -7,7 +7,11 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
-class ActivateDeviceInteractorImpl(executor: Executor, val settingsRepository: SettingsRepository, val api : Api) : BaseInteractor(executor), ActivateDeviceInteractor {
+class ActivateDeviceInteractorImpl(
+    executor: Executor,
+    val settingsRepository: SettingsRepository,
+    val api: Api
+) : BaseInteractor(executor), ActivateDeviceInteractor {
     override var input: ActivateDeviceInteractor.Input? = null
     override var output: ActivateDeviceInteractor.Output? = null
 
@@ -20,7 +24,8 @@ class ActivateDeviceInteractorImpl(executor: Executor, val settingsRepository: S
                 val os = "Android"
                 val key = it.key
 
-                val userResult = api.activateDevice(ActivationDevice(deviceId, deviceName, os, key)).execute()
+                val userResult =
+                    api.activateDevice(ActivationDevice(deviceId, deviceName, os, key)).execute()
                 runOnUIThread { output?.onActivateDeviceSuccess() }
             }
         } catch (t: Throwable) {

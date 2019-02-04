@@ -166,7 +166,7 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
 
         inner class StoreboxViewHolder(val root: View) :
             androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
-            //cards
+            // cards
             private var amountDateContainer =
                 root.findViewById<LinearLayout>(R.id.amountDateContainerLl)
             private var soloAmountTv = root.findViewById<TextView>(R.id.soloAmountTv)

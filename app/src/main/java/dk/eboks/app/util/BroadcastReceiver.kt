@@ -21,7 +21,7 @@ class BroadcastReceiver {
     private val messageReceiver = object : android.content.BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             val action = intent.action
-           Timber.e("Receiving broadcast, action = " + action)
+            Timber.e("Receiving broadcast, action = " + action)
             if (listener != null)
                 listener!!.onIntent(intent)
         }
@@ -38,15 +38,17 @@ class BroadcastReceiver {
     }
 
     fun register(c: Context): BroadcastReceiver {
-        //NLog.d(TAG, "Registering receiver.");
-        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(c).registerReceiver(messageReceiver, filter)
+        // NLog.d(TAG, "Registering receiver.");
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(c)
+            .registerReceiver(messageReceiver, filter)
         isRegistered = true
         return this
     }
 
     fun deregister(c: Context): BroadcastReceiver {
-        //NLog.d(TAG, "Deregistering receiver.");
-        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(c).unregisterReceiver(messageReceiver)
+        // NLog.d(TAG, "Deregistering receiver.");
+        androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(c)
+            .unregisterReceiver(messageReceiver)
         isRegistered = false
         return this
     }
@@ -60,7 +62,8 @@ class BroadcastReceiver {
 
         fun broadcast(c: Context, intent: Intent) {
             Timber.e("Broadcasting action " + intent.action)
-            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(c).sendBroadcast(intent)
+            androidx.localbroadcastmanager.content.LocalBroadcastManager.getInstance(c)
+                .sendBroadcast(intent)
         }
     }
 }

@@ -6,9 +6,9 @@ import dk.nodes.locksmith.core.preferences.EncryptedPreferences
 
 class EncryptionPreferenceManagerImpl(context: Context) : EncryptionPreferenceManager {
     private val encryptedPreference = EncryptedPreferences(
-            context,
-            "EboksEncryptedPreferences",
-            Context.MODE_PRIVATE
+        context,
+        "EboksEncryptedPreferences",
+        Context.MODE_PRIVATE
     )
 
     override fun getInt(key: String, defaultValue: Int): Int {

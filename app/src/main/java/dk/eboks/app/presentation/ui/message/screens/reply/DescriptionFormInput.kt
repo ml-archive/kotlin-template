@@ -8,10 +8,10 @@ import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.formreply.FormInput
 
-class DescriptionFormInput(formInput: FormInput, inflater: LayoutInflater, handler : Handler) : ReplyFormInput(formInput, inflater, handler)
-{
-    var labelTv : TextView? = null
-    var descTv : TextView? = null
+class DescriptionFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) :
+    ReplyFormInput(formInput, inflater, handler) {
+    var labelTv: TextView? = null
+    var descTv: TextView? = null
 
     init {
         isValid = true
@@ -20,10 +20,10 @@ class DescriptionFormInput(formInput: FormInput, inflater: LayoutInflater, handl
     /*
         If we dont get a value show the smaller label-only viewholder (for the sections in the design)
      */
-    override fun buildView(vg : ViewGroup): View {
-        val resid = if(formInput.value != null)
+    override fun buildView(vg: ViewGroup): View {
+        val resid = if (formInput.value != null)
             R.layout.form_input_description
-                else
+        else
             R.layout.form_input_description_label_only
 
         val v = inflater.inflate(resid, vg, false)
@@ -37,5 +37,4 @@ class DescriptionFormInput(formInput: FormInput, inflater: LayoutInflater, handl
         }
         return v
     }
-
 }

@@ -29,56 +29,49 @@ import dk.nodes.locksmith.core.preferences.EncryptedPreferences
 class StorageModule {
     @Provides
     @AppScope
-    fun providePrefManager(context: Context) : PrefManager
-    {
+    fun providePrefManager(context: Context): PrefManager {
         return PrefManagerImpl(context)
     }
 
     @Provides
     @AppScope
-    fun provideResourceManager(context: Context) : ResourceManager
-    {
+    fun provideResourceManager(context: Context): ResourceManager {
         return ResourceManagerImpl(context)
     }
 
     @Provides
     @AppScope
-    fun provideAppStateManager(appStateRepository: AppStateRepository) : AppStateManager
-    {
+    fun provideAppStateManager(appStateRepository: AppStateRepository): AppStateManager {
         return AppStateManagerImpl(appStateRepository)
     }
 
     @Provides
     @AppScope
-    fun provideFileCacheManager(context: Context, gson: Gson) : FileCacheManager
-    {
+    fun provideFileCacheManager(context: Context, gson: Gson): FileCacheManager {
         return FileCacheManagerImpl(context, gson)
     }
 
     @Provides
     @AppScope
-    fun provideUserManager(context: Context, gson: Gson) : UserManager
-    {
+    fun provideUserManager(context: Context, gson: Gson): UserManager {
         return UserManagerImpl(context, gson)
     }
 
     @Provides
     @AppScope
-    fun provideUserSettingsManager(context: Context, gson: Gson) : UserSettingsManager {
+    fun provideUserSettingsManager(context: Context, gson: Gson): UserSettingsManager {
         return UserSettingsManagerImpl(context, gson)
     }
 
     @Provides
     @AppScope
-    fun provideCacheManager(context: Context) : CacheManager
-    {
+    fun provideCacheManager(context: Context): CacheManager {
         return CacheManagerImpl(context)
     }
 
     @Provides
     @AppScope
-    fun provideEncryptedPreferences(context: Context) : EncryptedPreferences
-    {
+    fun provideEncryptedPreferences(context: Context): EncryptedPreferences {
         return EncryptedPreferences(context, "EncryptedStorage", Context.MODE_PRIVATE)
     }
 }

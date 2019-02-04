@@ -96,7 +96,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             fragmentManager?.popBackStack()
         }
 
-        //mainTb?.overflowIcon = context.resources.getDrawable(R.drawable.icon_48_option_red_navigationbar)
+        // mainTb?.overflowIcon = context.resources.getDrawable(R.drawable.icon_48_option_red_navigationbar)
 
         val menuItem = mainTb?.menu?.add("_options")
         menuItem?.setIcon(R.drawable.icon_48_option_red_navigationbar)
@@ -289,7 +289,6 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
                 presenter.deleteReceipt()
             }
             .setNegativeButton(Translation.channelsettingsstoreboxadditions.deleteCardCancelButton) { dialog, which ->
-
             }
             .create()
             .show()
@@ -315,7 +314,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     override fun mailReceiptContent(filename: String) {
         try {
             val intent = Intent(Intent.ACTION_SEND)
-            //intent.type = "text/plain"
+            // intent.type = "text/plain"
 
             val uri = FileProvider.getUriForFile(
                 context ?: return,
@@ -369,7 +368,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         if (requestCode == FolderActivity.REQUEST_ID) {
             data?.extras?.let {
                 val moveToFolder = data.getSerializableExtra("res") as Folder
-                //Timber.d("Move To Folder ${moveToFolder?.toString()}")
+                // Timber.d("Move To Folder ${moveToFolder?.toString()}")
                 Timber.e("Returned from folder picker. folder picked: ${moveToFolder.name}")
                 presenter.saveReceipt(moveToFolder)
             }

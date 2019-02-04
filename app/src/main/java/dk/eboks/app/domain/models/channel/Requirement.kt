@@ -8,8 +8,8 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class Requirement(
-        var name : String,
-        var value : String?,
-        var type : RequirementType?,
-        var verified : Boolean? = false
+    var name: String,
+    var value: String?,
+    var type: RequirementType?,
+    var verified: Boolean? = false
 ) : Parcelable

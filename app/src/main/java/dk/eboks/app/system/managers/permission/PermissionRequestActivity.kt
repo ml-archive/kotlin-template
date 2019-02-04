@@ -20,22 +20,19 @@ class PermissionRequestActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permission_request)
-        //App.instance().appComponent.inject(this)
+        // App.instance().appComponent.inject(this)
         component.inject(this)
         requestThemPermissions()
     }
 
-    private fun requestThemPermissions()
-    {
-        if(!permissionManager.requestInProgress || permissionManager.permsToCheck?.isEmpty() == null)
-        {
+    private fun requestThemPermissions() {
+        if (!permissionManager.requestInProgress || permissionManager.permsToCheck?.isEmpty() == null) {
             Timber.e("No permissions requested, aborting permission request")
             finish()
             return
         }
         val perm_list = ArrayList<String>()
-        for(perm in permissionManager.permsToCheck!!)
-        {
+        for (perm in permissionManager.permsToCheck!!) {
             perm_list.add(perm.perm)
         }
 
@@ -58,23 +55,28 @@ class PermissionRequestActivity : BaseActivity() {
             */
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if(requestCode == PERMISSION_REQUEST) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == PERMISSION_REQUEST) {
             Timber.e("Permission request completed")
             for (i in 0..permissions.size - 1) {
                 Timber.e("Requested perm ${permissions[i]} = ${grantResults[i] == PackageManager.PERMISSION_GRANTED}")
                 permissionManager.permsToCheck?.let { perms ->
                     perms[i].wasGranted = grantResults[i] == PackageManager.PERMISSION_GRANTED
                 }
-
             }
 
             permissionManager.permsToCheck?.forEach { perm ->
-                if(ContextCompat.checkSelfPermission(this@PermissionRequestActivity, perm.perm) == PackageManager.PERMISSION_GRANTED)
-                {
+                if (ContextCompat.checkSelfPermission(
+                        this@PermissionRequestActivity,
+                        perm.perm
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
                     perm.wasGranted = true
                 }
-
             }
 
             permissionManager.onRequestCompleted()

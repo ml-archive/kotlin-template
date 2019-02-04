@@ -1,24 +1,15 @@
 package dk.eboks.app.presentation.ui.navigation.components
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.channels.screens.overview.ChannelOverviewActivity
-import dk.eboks.app.presentation.ui.home.screens.HomeActivity
-import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.main.MainActivity
 import dk.eboks.app.presentation.ui.main.Section
-import dk.eboks.app.presentation.ui.notimplemented.screens.ComingSoonActivity
-import dk.eboks.app.presentation.ui.senders.screens.overview.SendersOverviewActivity
-import dk.eboks.app.presentation.ui.uploads.screens.UploadsActivity
-import dk.eboks.app.util.Starter
 import dk.eboks.app.util.disableShiftingMode
 import kotlinx.android.synthetic.main.fragment_navbar_component.*
 import javax.inject.Inject
@@ -82,7 +73,6 @@ class NavBarComponentFragment : BaseFragment(), NavBarComponentContract.View {
         fun gotoChannels(activity: Activity) {
             activity.startActivity(MainActivity.createIntent(activity, Section.Channels))
             currentMenuItem = R.id.actionChannels
-
         }
 
         fun gotoMail(activity: Activity) {

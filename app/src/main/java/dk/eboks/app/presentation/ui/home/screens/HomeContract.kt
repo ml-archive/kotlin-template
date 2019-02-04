@@ -20,8 +20,8 @@ interface HomeContract {
         fun showFolder(messages: List<Message>, verifiedUser: Boolean)
         fun showChannelProgress(show: Boolean)
         fun setupChannels(channels: List<Channel>)
-        fun updateControl(channel : Channel, control : Control)
-        fun setControl(channel : Channel, text : String)
+        fun updateControl(channel: Channel, control: Control)
+        fun setControl(channel: Channel, text: String)
         fun onRefreshChannelDone()
         fun onRefreshFolderDone()
     }

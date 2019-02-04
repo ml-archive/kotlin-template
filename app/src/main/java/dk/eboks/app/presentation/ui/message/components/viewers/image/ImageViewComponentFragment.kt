@@ -18,12 +18,17 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.View, EmbeddedViewer, ViewerFragment {
+class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.View, EmbeddedViewer,
+    ViewerFragment {
 
     @Inject
     lateinit var presenter: ImageViewComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_imageview_component, container, false)
         Timber.e("onCreateView IMAGEVIEWER")
         return rootView
@@ -46,17 +51,20 @@ class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.Vi
         val deg = getImageRotation(filename)
         Timber.e("Attempting to open $filename, rotate: $deg")
         val html =
-                "<html>" +
-                        "<head></head>" +
-                        "<body style=\"background-image: linear-gradient(#294350, #537888);\n; margin: 0px; padding: 0px\"><img src=\"file://$filename\" width=\"100%\" style=\"${deg.toCssRotationTransform()}\" />" +
-                        "</body><" +
+            "<html>" +
+                "<head></head>" +
+                "<body style=\"background-image: linear-gradient(#294350, #537888);\n; margin: 0px; padding: 0px\"><img src=\"file://$filename\" width=\"100%\" style=\"${deg.toCssRotationTransform()}\" />" +
+                "</body><" +
                 "/html>"
         webView.loadDataWithBaseURL("", html, "text/html", "utf-8", "")
     }
 
     private fun getImageRotation(filename: String): Int {
         val exifInterface = ExifInterface(filename)
-        return when (exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)) {
+        return when (exifInterface.getAttributeInt(
+            ExifInterface.TAG_ORIENTATION,
+            ExifInterface.ORIENTATION_NORMAL
+        )) {
             ExifInterface.ORIENTATION_ROTATE_90 -> 90
             ExifInterface.ORIENTATION_ROTATE_180 -> 180
             ExifInterface.ORIENTATION_ROTATE_270 -> 270

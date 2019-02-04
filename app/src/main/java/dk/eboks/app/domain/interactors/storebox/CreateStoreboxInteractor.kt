@@ -5,15 +5,15 @@ import dk.nodes.arch.domain.interactor.Interactor
 
 /**
  * Created by Christian on 5/15/2018.
- * @author   Christian
- * @since    5/15/2018.
+ * @author Christian
+ * @since 5/15/2018.
  */
-interface CreateStoreboxInteractor: Interactor {
-    var output : Output?
+interface CreateStoreboxInteractor : Interactor {
+    var output: Output?
 
     interface Output {
         fun onStoreboxAccountCreated()
         fun onStoreboxAccountExists()
-        fun onStoreboxAccountCreatedError(error : ViewError)
+        fun onStoreboxAccountCreatedError(error: ViewError)
     }
 }

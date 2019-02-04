@@ -8,23 +8,23 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class TextViewComponentPresenter @Inject constructor(val appState: AppStateManager) : TextViewComponentContract.Presenter, BasePresenterImpl<TextViewComponentContract.View>() {
+class TextViewComponentPresenter @Inject constructor(val appState: AppStateManager) :
+    TextViewComponentContract.Presenter, BasePresenterImpl<TextViewComponentContract.View>() {
 
     init {
     }
 
     override fun setup(uriString: String?) {
         uriString?.let {
-            runAction { v->
+            runAction { v ->
                 v.showTextURI(uriString)
             }
         }.guard {
-            appState.state?.currentViewerFileName?.let { filename->
-                runAction { v->
+            appState.state?.currentViewerFileName?.let { filename ->
+                runAction { v ->
                     v.showText(filename)
                 }
             }
         }
     }
-
 }

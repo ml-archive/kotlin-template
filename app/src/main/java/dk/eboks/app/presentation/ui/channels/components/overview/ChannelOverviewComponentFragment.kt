@@ -52,7 +52,7 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
 
         setupRecyclerView()
         refreshSrl.setOnRefreshListener {
-            presenter.refresh(false)    // manually initiated refresh should never emit cached data
+            presenter.refresh(false) // manually initiated refresh should never emit cached data
         }
 
         presenter.setup()
@@ -72,15 +72,15 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
     }
 
     override fun showChannelOpening(channel: Channel) {
-        //storebox channels id 1 - 3
-        //ekey channels id 101 - 103
+        // storebox channels id 1 - 3
+        // ekey channels id 101 - 103
 
         activity?.run {
             Starter().activity(ChannelContentActivity::class.java)
                 .putExtra(Channel::class.java.simpleName, channel).start()
         }
 
-        //addFragmentOnTop(R.id.containerFl, ChannelOpeningComponentFragment().putArg(Channel::class.java.simpleName, channel), false)
+        // addFragmentOnTop(R.id.containerFl, ChannelOpeningComponentFragment().putArg(Channel::class.java.simpleName, channel), false)
 
         /*
         when (channel.getType()) {
@@ -203,10 +203,10 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
 
     override fun showChannels(channels: List<Channel>) {
 
-        //adding header card added to the top of the list
+        // adding header card added to the top of the list
         cards.clear()
         cards.add(Channel(-1, "", "", null, null, null, null, ChannelColor(), null, false, null))
-        //addings channels
+        // addings channels
         for (channel in channels) {
             cards.add(channel)
         }

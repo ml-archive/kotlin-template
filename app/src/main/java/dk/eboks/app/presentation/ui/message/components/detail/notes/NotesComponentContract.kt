@@ -9,11 +9,11 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface NotesComponentContract {
     interface View : BaseView {
-        fun updateView(message : Message)
+        fun updateView(message: Message)
     }
 
     interface Presenter : BasePresenter<NotesComponentContract.View> {
         fun setup()
-        fun saveNote(note : String)
+        fun saveNote(note: String)
     }
 }

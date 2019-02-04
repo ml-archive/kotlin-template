@@ -10,7 +10,7 @@ interface TestLoginInteractor : Interactor {
     var input: Input?
     var output: Output?
 
-    data class Input(val username : String, val password : String, val activationCode : String? = null)
+    data class Input(val username: String, val password: String, val activationCode: String? = null)
 
     interface Output {
         /** All good! */

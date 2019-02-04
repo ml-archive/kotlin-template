@@ -9,9 +9,9 @@ import com.google.gson.annotations.SerializedName
 "expiryYear": 19
  */
 data class StoreboxCreditCard(
-        @SerializedName("cardId")
-        val id: String = "",
-        val maskedCardNumber: String = "",
-        val expiryMonth: Int = 0,
-        val expiryYear: Int = 0
+    @SerializedName("cardId")
+    val id: String = "",
+    val maskedCardNumber: String = "",
+    val expiryMonth: Int = 0,
+    val expiryYear: Int = 0
 )

@@ -6,12 +6,7 @@ import android.os.Looper
 import dagger.Module
 import dagger.Provides
 import dk.nodes.arch.domain.executor.Executor
-import dk.nodes.arch.domain.executor.KoroutineExecutor
-import dk.nodes.arch.domain.executor.SignalDispatcher
-import dk.nodes.arch.domain.executor.ThreadExecutor
 import dk.nodes.arch.domain.injection.scopes.AppScope
-import timber.log.Timber
-
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
@@ -27,8 +22,6 @@ class ExecutorModule {
         return MyThreadExecutor()
     }
 }
-
-
 
 class MyThreadExecutor : Executor {
     override fun runOnUIThread(code: () -> Unit) {
@@ -48,11 +41,12 @@ class MyThreadExecutor : Executor {
     init {
         val keepAlive: Long = KEEP_ALIVE_TIME.toLong()
         threadPoolExecutor = ThreadPoolExecutor(
-                CORE_POOL_SIZE,
-                MAX_POOL_SIZE,
-                keepAlive,
-                TIME_UNIT,
-                WORK_QUEUE)
+            CORE_POOL_SIZE,
+            MAX_POOL_SIZE,
+            keepAlive,
+            TIME_UNIT,
+            WORK_QUEUE
+        )
     }
 
     override fun execute(runnable: Runnable) {

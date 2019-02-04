@@ -7,7 +7,6 @@ enum class EkeyDetailMode(val type: String) {
     NOTE("note"),
     LOGIN("login");
 
-
     override fun toString(): String {
         when (this) {
             PIN -> return Translation.ekey.addItemPinCode

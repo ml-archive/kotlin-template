@@ -15,9 +15,13 @@ import javax.inject.Inject
 class FolderInfoComponentFragment : BaseFragment(), FolderInfoComponentContract.View {
 
     @Inject
-    lateinit var presenter : FolderInfoComponentContract.Presenter
+    lateinit var presenter: FolderInfoComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_folderinfo_component, container, false)
         return rootView
     }
@@ -28,7 +32,7 @@ class FolderInfoComponentFragment : BaseFragment(), FolderInfoComponentContract.
         presenter.onViewCreated(this, lifecycle)
     }
 
-    override fun updateView(name : String) {
+    override fun updateView(name: String) {
         folderNameTv.text = name
     }
 }

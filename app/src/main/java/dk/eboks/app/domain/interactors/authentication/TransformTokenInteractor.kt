@@ -7,8 +7,8 @@ import dk.nodes.arch.domain.interactor.Interactor
 
 /**
  * Created by Christian on 5/28/2018.
- * @author   Christian
- * @since    5/28/2018.
+ * @author Christian
+ * @since 5/28/2018.
  */
 interface TransformTokenInteractor : Interactor {
     var input: Input?

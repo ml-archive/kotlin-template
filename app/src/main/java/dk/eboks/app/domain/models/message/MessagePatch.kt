@@ -8,13 +8,11 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class MessagePatch(
-   var unread : Boolean? = null,
-   var archive : Boolean? = null,
-   var folderId : Int? = null,
-   var note : String? = null
-)  : Parcelable {
+    var unread: Boolean? = null,
+    var archive: Boolean? = null,
+    var folderId: Int? = null,
+    var note: String? = null
+) : Parcelable {
 
-
-    fun isApplicableForUppload() : Boolean = unread == null && archive == null
-
+    fun isApplicableForUppload(): Boolean = unread == null && archive == null
 }

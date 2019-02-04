@@ -127,7 +127,6 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
                         }
                     }
                     .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-
                     }
                     .show()
                 true

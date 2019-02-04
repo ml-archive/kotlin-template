@@ -9,17 +9,17 @@ import dk.nodes.arch.domain.interactor.Interactor
  * Created by bison on 01/02/18.
  */
 interface GetChannelHomeContentInteractor : Interactor {
-    var output : Output?
-    var input : Input?
+    var output: Output?
+    var input: Input?
 
     data class Input(val cached: Boolean = true)
 
     interface Output {
-        fun onGetInstalledChannelList(channels : MutableList<Channel>)
-        fun onGetInstalledChannelListError(error : ViewError)
-        fun onGetChannelHomeContent(channel : Channel, content : HomeContent)
-        fun onGetChannelHomeContentError(channel : Channel)
-        fun onGetChannelHomeContentEmpty(channel : Channel)
+        fun onGetInstalledChannelList(channels: MutableList<Channel>)
+        fun onGetInstalledChannelListError(error: ViewError)
+        fun onGetChannelHomeContent(channel: Channel, content: HomeContent)
+        fun onGetChannelHomeContentError(channel: Channel)
+        fun onGetChannelHomeContentEmpty(channel: Channel)
         fun onGetChannelHomeContentDone()
         fun continueGetChannelHomeContent(): Boolean
     }

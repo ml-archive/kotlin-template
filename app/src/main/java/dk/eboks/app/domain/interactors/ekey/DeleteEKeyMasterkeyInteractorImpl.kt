@@ -6,8 +6,8 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 class DeleteEKeyMasterkeyInteractorImpl(executor: Executor, private val api: Api) :
-        BaseInteractor(executor),
-        DeleteEKeyMasterkeyInteractor {
+    BaseInteractor(executor),
+    DeleteEKeyMasterkeyInteractor {
 
     override var output: DeleteEKeyMasterkeyInteractor.Output? = null
 

@@ -10,16 +10,18 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 /**
  * Created by bison on 01/02/18.
  */
-class GetMailCategoriesInteractorImpl(executor: Executor, val foldersRepositoryMail: MailCategoriesRepository) : BaseInteractor(executor), GetCategoriesInteractor {
+class GetMailCategoriesInteractorImpl(
+    executor: Executor,
+    val foldersRepositoryMail: MailCategoriesRepository
+) : BaseInteractor(executor), GetCategoriesInteractor {
     override var output: GetCategoriesInteractor.Output? = null
     override var input: GetCategoriesInteractor.Input? = null
 
     override fun execute() {
         try {
-            input?.let { args->
+            input?.let { args ->
                 loadAndEmit(args.cached, args.userId)
-                if(args.cached)
-                {
+                if (args.cached) {
                     loadAndEmit(false, args.userId)
                 }
             }.guard { runOnUIThread { output?.onGetCategoriesError(ViewError()) } }
@@ -30,8 +32,7 @@ class GetMailCategoriesInteractorImpl(executor: Executor, val foldersRepositoryM
         }
     }
 
-    private fun loadAndEmit(cached: Boolean, userId: Int?)
-    {
+    private fun loadAndEmit(cached: Boolean, userId: Int?) {
         val senders = foldersRepositoryMail.getMailCategories(cached, userId)
         runOnUIThread {
             output?.onGetCategories(senders)

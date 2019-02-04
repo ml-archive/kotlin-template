@@ -33,7 +33,6 @@ import javax.inject.Inject
 
 class HomeActivity : BaseActivity(), HomeContract.View {
 
-
     @Inject lateinit var presenter: HomeContract.Presenter
 
     var folderPreviewFragment: FolderPreviewComponentFragment? = null
@@ -41,7 +40,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         get() = findFragment() ?: ChannelControlComponentFragment()
     var doneRefreshingFolderPreview = false
     override fun onRefreshChannelDone() {
-
     }
 
     var doneRefreshingChannelControls = false
@@ -75,7 +73,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
             Starter().activity(MailListActivity::class.java)
                 .putExtra("folder", Folder(type = FolderType.HIGHLIGHTS)).start()
         }
-
     }
 
     override fun onResume() {
@@ -109,7 +106,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         menuProfile.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuProfile.setOnMenuItemClickListener { item: MenuItem ->
             startActivity(Intent(this@HomeActivity, ProfileActivity::class.java))
-            //overridePendingTransition(R.anim.slide_up, 0)
+            // overridePendingTransition(R.anim.slide_up, 0)
             true
         }
     }
@@ -160,7 +157,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     override fun onRefreshFolderDone() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -170,26 +167,26 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     override fun showFolderProgress(show: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showFolder(messages: List<Message>, verifiedUser: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showChannelProgress(show: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun setupChannels(channels: List<Channel>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun updateControl(channel: Channel, control: Control) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun setControl(channel: Channel, text: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 }

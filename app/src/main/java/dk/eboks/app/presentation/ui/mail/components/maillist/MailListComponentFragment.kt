@@ -122,7 +122,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             sender = it
             presenter.setup(it)
         }
-        //this.folder = Folder(type = FolderType.LATEST, name = Translation.mail.allMail)
+        // this.folder = Folder(type = FolderType.LATEST, name = Translation.mail.allMail)
     }
 
     private fun getEditFromBundle() {
@@ -131,7 +131,10 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     private fun setupFab() {
         mainFab.setOnClickListener {
-            startActivityForResult(OverlayActivity.createIntent(it.context, getActonButtons()), OverlayActivity.REQUEST_ID)
+            startActivityForResult(
+                OverlayActivity.createIntent(it.context, getActonButtons()),
+                OverlayActivity.REQUEST_ID
+            )
         }
     }
 
@@ -141,9 +144,10 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             OverlayButton(ButtonType.DELETE)
 
         )
-        val showRead = checkedList.any { it.unread &&  it.type != MessageType.UPLOAD}
-        val showUnread = checkedList.any { !it.unread &&  it.type != MessageType.UPLOAD}
-        val showArchive = checkedList.any { it.type != MessageType.UPLOAD } && folder?.type == FolderType.INBOX
+        val showRead = checkedList.any { it.unread && it.type != MessageType.UPLOAD }
+        val showUnread = checkedList.any { !it.unread && it.type != MessageType.UPLOAD }
+        val showArchive =
+            checkedList.any { it.type != MessageType.UPLOAD } && folder?.type == FolderType.INBOX
 
         if (showRead) actionButtons.add(OverlayButton(ButtonType.READ))
         if (showUnread) actionButtons.add(OverlayButton(ButtonType.UNREAD))
@@ -401,8 +405,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     companion object {
         var refreshOnResume: Boolean = false
-
-
     }
 
     interface MailListComponentListener {

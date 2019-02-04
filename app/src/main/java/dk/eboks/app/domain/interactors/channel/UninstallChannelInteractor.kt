@@ -7,13 +7,13 @@ import dk.nodes.arch.domain.interactor.Interactor
  * Created by bison on 01/02/18.
  */
 interface UninstallChannelInteractor : Interactor {
-    var output : Output?
-    var input : Input?
+    var output: Output?
+    var input: Input?
 
-    data class Input(val id : Int)
+    data class Input(val id: Int)
 
     interface Output {
         fun onUninstallChannel()
-        fun onUninstallChannelError(error : ViewError)
+        fun onUninstallChannelError(error: ViewError)
     }
 }

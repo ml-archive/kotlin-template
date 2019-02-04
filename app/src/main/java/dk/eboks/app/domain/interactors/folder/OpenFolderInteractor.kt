@@ -8,13 +8,13 @@ import dk.nodes.arch.domain.interactor.Interactor
  * Created by bison on 01/02/18.
  */
 interface OpenFolderInteractor : Interactor {
-    var output : Output?
-    var input : Input?
+    var output: Output?
+    var input: Input?
 
-    data class Input(var folder : Folder)
+    data class Input(var folder: Folder)
 
     interface Output {
         fun onOpenFolderDone()
-        fun onOpenFolderError(error : ViewError)
+        fun onOpenFolderError(error: ViewError)
     }
 }

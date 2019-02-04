@@ -26,10 +26,9 @@ import dk.eboks.app.presentation.ui.home.components.channelcontrol.controls.Rece
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
 import dk.eboks.app.util.Starter
-import dk.eboks.app.util.visible
 import dk.eboks.app.util.views
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_channel_control_component.*
-import kotlinx.android.synthetic.main.fragment_login_component.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -53,7 +52,11 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     // find a clean way of getting this info to the right place (both run a the same time so maybe a countdown latch)
     var emailCount = 0
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_channel_control_component, container, false)
     }
 
@@ -88,7 +91,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
         for (i in 0..channels.size - 1) {
             val currentChannel = channels[i]
 
-            //setting the header
+            // setting the header
             val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContentLL, false)
             val logoIv = v.findViewById<ImageView>(R.id.logoIv)
             val headerTv = v.findViewById<TextView>(R.id.headerTv)
@@ -121,7 +124,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
             (activity as HomeActivity).showChannelControlsHeader(false)
             teaserLl.visible = (false)
             emptyStateChannelLl.visibility = View.VISIBLE
-            //bottomChannelBtn.isEnabled = (emailCount > 0)
+            // bottomChannelBtn.isEnabled = (emailCount > 0)
             bottomChannelBtn.isEnabled = true
             bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderNoChannels
             bottomChannelTextTv.text = Translation.home.bottomChannelTextNoChannels
@@ -140,7 +143,6 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
                 NavBarComponentFragment.gotoChannels(activity ?: return@setOnClickListener)
             }
             teaserLl.visible = (true)
-
         }
     }
 
@@ -163,14 +165,13 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
             if (channelControlMap.containsKey(channel.id)) // already instantiated, we're updating
             {
                 Timber.e("Already instantiated should update")
-            } else    // widget not yet instantiated, do that and more
+            } else // widget not yet instantiated, do that and more
             {
                 val cc = instantiateChannelControl(channel, control, view)
                 cc?.let {
                     it.buildView()
                     channelControlMap[channel.id] = it
                     it.showProgress(false)
-
                 }
             }
         }
@@ -187,29 +188,71 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
             logoIv.visible = (true)
             errorTv.text = text
             errorTv.visible = (true)
-            //channelsContentLL.removeView(view)
+            // channelsContentLL.removeView(view)
         }
     }
 
     fun instantiateChannelControl(channel: Channel, control: Control, view: View): ChannelControl? {
         when (control.type) {
             ItemType.RECEIPTS -> {
-                return ReceiptsChannelControl(channel, control, view, inflator, mainHandler, eboksFormatter)
+                return ReceiptsChannelControl(
+                    channel,
+                    control,
+                    view,
+                    inflator,
+                    mainHandler,
+                    eboksFormatter
+                )
             }
             ItemType.NEWS -> {
-                return NewsChannelControl(channel, control, view, inflator, mainHandler, eboksFormatter)
+                return NewsChannelControl(
+                    channel,
+                    control,
+                    view,
+                    inflator,
+                    mainHandler,
+                    eboksFormatter
+                )
             }
             ItemType.IMAGES -> {
-                return ImagesChannelControl(channel, control, view, inflator, mainHandler, eboksFormatter)
+                return ImagesChannelControl(
+                    channel,
+                    control,
+                    view,
+                    inflator,
+                    mainHandler,
+                    eboksFormatter
+                )
             }
             ItemType.NOTIFICATIONS -> {
-                return NotificationsChannelControl(channel, control, view, inflator, mainHandler, eboksFormatter)
+                return NotificationsChannelControl(
+                    channel,
+                    control,
+                    view,
+                    inflator,
+                    mainHandler,
+                    eboksFormatter
+                )
             }
             ItemType.MESSAGES -> {
-                return MessagesChannelControl(channel, control, view, inflator, mainHandler, eboksFormatter)
+                return MessagesChannelControl(
+                    channel,
+                    control,
+                    view,
+                    inflator,
+                    mainHandler,
+                    eboksFormatter
+                )
             }
             ItemType.FILES -> {
-                return FilesChannelControl(channel, control, view, inflator, mainHandler, eboksFormatter)
+                return FilesChannelControl(
+                    channel,
+                    control,
+                    view,
+                    inflator,
+                    mainHandler,
+                    eboksFormatter
+                )
             }
         }
         return null

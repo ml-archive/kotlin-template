@@ -8,7 +8,6 @@ import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.presentation.managers.UIManagerImpl
 import dk.nodes.arch.domain.injection.scopes.AppScope
 
-
 /**
  * Created by bison on 25/07/17.
  */
@@ -28,7 +27,7 @@ class AppModule(val application: App) {
 
     @AppScope
     @Provides
-    fun provideUIManager(context: Context) : UIManager {
+    fun provideUIManager(context: Context): UIManager {
         return UIManagerImpl(context)
     }
 }

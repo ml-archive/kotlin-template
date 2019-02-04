@@ -9,13 +9,12 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface SenderAllListComponentContract {
     interface View : ComponentBaseView {
-        fun showSenders(senders : List<Sender>)
-
+        fun showSenders(senders: List<Sender>)
     }
 
     interface Presenter : BasePresenter<View> {
         fun refresh()
         fun loadAllSenders()
-        fun searchSenders(searchText : String)
+        fun searchSenders(searchText: String)
     }
 }

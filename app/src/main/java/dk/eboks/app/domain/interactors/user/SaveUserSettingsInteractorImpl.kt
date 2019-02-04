@@ -6,8 +6,8 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 /**
- * @author   Christian
- * @since    6/19/2018.
+ * @author Christian
+ * @since 6/19/2018.
  */
 class SaveUserSettingsInteractorImpl(
     executor: Executor,
@@ -28,7 +28,6 @@ class SaveUserSettingsInteractorImpl(
                 }
             }
         } catch (t: Throwable) {
-
         }
     }
 }

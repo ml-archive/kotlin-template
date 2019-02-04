@@ -9,17 +9,17 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 
-
 /**
  * Created by Christian on 5/28/2018.
- * @author   Christinus
- * @since    5/28/2018.
+ * @author Christinus
+ * @since 5/28/2018.
  */
 class SetCurrentUserInteractorImpl(
-        executor: Executor, val api: Api,
-        val appStateManager: AppStateManager,
-        val userManager: UserManager,
-        val userSettingsManager: UserSettingsManager
+    executor: Executor,
+    val api: Api,
+    val appStateManager: AppStateManager,
+    val userManager: UserManager,
+    val userSettingsManager: UserSettingsManager
 ) : BaseInteractor(executor), SetCurrentUserInteractor {
     override var output: SetCurrentUserInteractor.Output? = null
 
@@ -46,5 +46,4 @@ class SetCurrentUserInteractorImpl(
             }
         }
     }
-
 }

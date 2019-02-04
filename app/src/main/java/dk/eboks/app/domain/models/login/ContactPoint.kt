@@ -5,6 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ContactPoint(
-        var value: String? = "",
-        var verified: Boolean = false
-):Parcelable
+    var value: String? = "",
+    var verified: Boolean = false
+) : Parcelable

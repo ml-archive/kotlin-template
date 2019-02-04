@@ -41,7 +41,7 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         senderDetailContainer.removeAllViews()
         updateHeader(segment)
 
-        //translations
+        // translations
         NStack.addLanguageChangeListener(onLanguageChangedListener)
 
         senderDetailRegisterTB.textOn = Translation.senders.registered
@@ -66,7 +66,12 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         senderDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
             Timber.d("toggle")
             if (isChecked) {
-                buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.icon_48_checkmark_white, 0)
+                buttonView.setCompoundDrawablesWithIntrinsicBounds(
+                    0,
+                    0,
+                    R.drawable.icon_48_checkmark_white,
+                    0
+                )
             } else {
                 buttonView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
             }
@@ -85,8 +90,8 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         val frag = CategoriesComponentFragment()
         frag.arguments = b
         supportFragmentManager.beginTransaction()
-                .add(senderDetailContainer.id, frag)
-                .commit()
+            .add(senderDetailContainer.id, frag)
+            .commit()
 
         // also update the header
         updateHeader(segment)
@@ -98,42 +103,43 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         senderDetailRegisterTB.visibility = View.VISIBLE
 
         Glide.with(this)
-                .load(segment.image?.url)
-                .apply(RequestOptions()
-                        .fallback(R.drawable.icon_72_senders_private)
-                        .placeholder(R.drawable.icon_72_senders_private)
-                )
-                .into(senderDetailIv)
+            .load(segment.image?.url)
+            .apply(
+                RequestOptions()
+                    .fallback(R.drawable.icon_72_senders_private)
+                    .placeholder(R.drawable.icon_72_senders_private)
+            )
+            .into(senderDetailIv)
 
         senderDetailRegisterTB.setOnTouchListener(View.OnTouchListener { v, event ->
             return@OnTouchListener when (event.action) {
                 MotionEvent.ACTION_UP -> {
                     if (senderDetailRegisterTB.isChecked) {
                         AlertDialog.Builder(this@SegmentDetailActivity)
-                                .setTitle(Translation.senders.unregisterAlertTitle)
-                                .setMessage(Translation.senders.unregisterAlertDescription)
-                                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                    dialog.cancel()
-                                }
-                                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                    senderDetailRegisterTB.visibility = View.INVISIBLE
-                                    presenter.unregisterSegment(segment.id)
-                                    dialog.dismiss()
-                                }
-                                .show()
+                            .setTitle(Translation.senders.unregisterAlertTitle)
+                            .setMessage(Translation.senders.unregisterAlertDescription)
+                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                                dialog.cancel()
+                            }
+                            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                                senderDetailRegisterTB.visibility = View.INVISIBLE
+                                presenter.unregisterSegment(segment.id)
+                                dialog.dismiss()
+                            }
+                            .show()
                     } else {
                         AlertDialog.Builder(this@SegmentDetailActivity)
-                                .setTitle(Translation.senders.registerAlertTitle)
-                                .setMessage(Translation.senders.registerAlertDescription)
-                                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                    dialog.cancel()
-                                }
-                                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                    senderDetailRegisterTB.visibility = View.INVISIBLE
-                                    presenter.registerSegment(segment.id)
-                                    dialog.dismiss()
-                                }
-                                .show()
+                            .setTitle(Translation.senders.registerAlertTitle)
+                            .setMessage(Translation.senders.registerAlertDescription)
+                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                                dialog.cancel()
+                            }
+                            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                                senderDetailRegisterTB.visibility = View.INVISIBLE
+                                presenter.registerSegment(segment.id)
+                                dialog.dismiss()
+                            }
+                            .show()
                     }
                     true
                 }
@@ -160,4 +166,3 @@ class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
         senderDetailRegisterTB.visibility = View.VISIBLE
     }
 }
-

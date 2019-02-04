@@ -13,12 +13,16 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateManager, val userSettingsManager: UserSettingsManager, val getUsersInteractor: GetUsersInteractor, val deleteUserInteractor: DeleteUserInteractor) :
-        UserCarouselComponentContract.Presenter,
-        BasePresenterImpl<UserCarouselComponentContract.View>(),
-        GetUsersInteractor.Output,
-        DeleteUserInteractor.Output
-{
+class UserCarouselComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val userSettingsManager: UserSettingsManager,
+    val getUsersInteractor: GetUsersInteractor,
+    val deleteUserInteractor: DeleteUserInteractor
+) :
+    UserCarouselComponentContract.Presenter,
+    BasePresenterImpl<UserCarouselComponentContract.View>(),
+    GetUsersInteractor.Output,
+    DeleteUserInteractor.Output {
     init {
         getUsersInteractor.output = this
         deleteUserInteractor.output = this
@@ -30,16 +34,15 @@ class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateM
 
     override fun login(user: User) {
         appState.state?.loginState?.selectedUser = user
-        runAction { v-> v.openLogin() }
+        runAction { v -> v.openLogin() }
     }
 
     override fun addAnotherUser() {
         appState.state?.loginState?.selectedUser = null
-        runAction { v-> v.openLogin() }
+        runAction { v -> v.openLogin() }
     }
 
-    override fun clearSelectedUser()
-    {
+    override fun clearSelectedUser() {
         appState.state?.loginState?.let { state ->
             state.selectedUser = null
             state.lastUser = null
@@ -54,9 +57,11 @@ class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateM
     }
 
     override fun onGetUsers(users: MutableList<User>) {
-        val list = MutableList(users.size, init =  { Pair(users[it], userSettingsManager.get(users[it].id))})
+        val list = MutableList(
+            users.size,
+            init = { Pair(users[it], userSettingsManager.get(users[it].id)) })
 
-        runAction { v->
+        runAction { v ->
             v.showUsers(list)
             appState.state?.loginState?.lastUser?.let { user ->
                 Timber.e("Setting selected user $user")
@@ -65,7 +70,7 @@ class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateM
         }
     }
 
-    override fun onGetUsersError(error : ViewError) {
+    override fun onGetUsersError(error: ViewError) {
         runAction { it.showErrorDialog(error) }
     }
 
@@ -73,7 +78,7 @@ class UserCarouselComponentPresenter @Inject constructor(val appState: AppStateM
         getUsersInteractor.run()
     }
 
-    override fun onDeleteUserError(error : ViewError) {
+    override fun onDeleteUserError(error: ViewError) {
         runAction { it.showErrorDialog(error) }
     }
 }

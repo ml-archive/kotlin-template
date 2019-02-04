@@ -9,7 +9,7 @@ interface GetSignLinkInteractor : Interactor {
     var output: Output?
     var input: Input?
 
-    data class Input(var msg : Message)
+    data class Input(var msg: Message)
 
     interface Output {
         fun onGetSignLink(result: Link)

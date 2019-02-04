@@ -21,7 +21,7 @@ interface MessageEmbeddedContract {
         fun addImageViewer()
         fun addHtmlViewer()
         fun addTextViewer()
-        fun showTitle(message : Message)
+        fun showTitle(message: Message)
         fun setHighPeakHeight()
         fun setActionButton(message: Message)
         fun messageDeleted()
@@ -30,7 +30,7 @@ interface MessageEmbeddedContract {
 
     interface Presenter : BasePresenter<View> {
         fun setup()
-        fun moveMessage(folder : Folder)
+        fun moveMessage(folder: Folder)
         fun deleteMessage()
         fun archiveMessage()
         fun markMessageRead()

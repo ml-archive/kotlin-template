@@ -9,8 +9,8 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface SenderCarouselComponentContract {
     interface View : ComponentBaseView {
-        fun showSenders(senders : List<Sender>)
-        fun showEmpty(show : Boolean, verified : Boolean)
+        fun showSenders(senders: List<Sender>)
+        fun showEmpty(show: Boolean, verified: Boolean)
     }
 
     interface Presenter : BasePresenter<SenderCarouselComponentContract.View>

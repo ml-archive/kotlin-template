@@ -9,10 +9,10 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class LoginInfo(
-        var type: LoginInfoType = LoginInfoType.EMAIL,
-        var socialSecurity: String = "",
-        var password: String = "",
-        var actvationCode: String = ""
+    var type: LoginInfoType = LoginInfoType.EMAIL,
+    var socialSecurity: String = "",
+    var password: String = "",
+    var actvationCode: String = ""
 ) : Parcelable {
     companion object {
         val KEY = "LoginInfo"

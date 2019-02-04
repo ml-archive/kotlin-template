@@ -27,8 +27,8 @@ import javax.inject.Inject
 
 /**
  * Created by Christian on 3/28/2018.
- * @author   Christian
- * @since    3/28/2018.
+ * @author Christian
+ * @since 3/28/2018.
  */
 class PendingActivity : BaseActivity(), PendingContract.View {
 
@@ -134,10 +134,8 @@ class PendingActivity : BaseActivity(), PendingContract.View {
                     startActivity(i)
                 }
                 approveBtn.setOnClickListener {
-
                 }
                 closeBtn.setOnClickListener {
-
                 }
             }
         }

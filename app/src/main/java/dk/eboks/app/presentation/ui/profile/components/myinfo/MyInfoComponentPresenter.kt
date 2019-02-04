@@ -55,7 +55,7 @@ class MyInfoComponentPresenter @Inject constructor(
                     ?.let { v.setSecondaryEmail(it, user.getSecondaryEmailIsVerified()) }
                 v.showSecondaryEmail(true)
             } else {
-                //v.showPrimaryEmail(false)
+                // v.showPrimaryEmail(false)
                 v.showSecondaryEmail(false)
             }
 
@@ -95,7 +95,6 @@ class MyInfoComponentPresenter @Inject constructor(
                 // save currentUser on the server
                 updateUserInteractor.input = UpdateUserInteractor.Input(user)
                 updateUserInteractor.run()
-
             }
         }
     }
@@ -107,7 +106,7 @@ class MyInfoComponentPresenter @Inject constructor(
             v.showProgress(false)
             v.showToast(Translation.profile.yourInfoWasSaved)
             refresh()
-            //if(closeView)
+            // if(closeView)
             //    v.onDone()
         }
     }

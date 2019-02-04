@@ -24,9 +24,9 @@ data class Sender(
     var authority: Int = 0,
     var groups: List<SenderGroup>? = null,
     var registered: Int? = 0, // (0: No, 1: Yes, 2: Partial)
-    //var messages: Messages? = null,
+    // var messages: Messages? = null,
     @SerializedName("unreadCount")
     var unreadMessageCount: Int = 0,
     var status: Status? = null
-    //var unreadMessageCount: Int = 0 // todo this should be removed - its not in the draft
+    // var unreadMessageCount: Int = 0 // todo this should be removed - its not in the draft
 ) : Parcelable

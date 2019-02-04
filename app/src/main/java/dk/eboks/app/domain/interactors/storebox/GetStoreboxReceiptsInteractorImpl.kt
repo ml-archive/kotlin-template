@@ -8,8 +8,8 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 
 class GetStoreboxReceiptsInteractorImpl(
-        executor: Executor,
-        private val api: Api
+    executor: Executor,
+    private val api: Api
 ) : BaseInteractor(executor),
     GetStoreboxReceiptsInteractor {
     override var output: GetStoreboxReceiptsInteractor.Output? = null

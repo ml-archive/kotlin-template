@@ -6,8 +6,8 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 class DeleteStoreboxCreditCardInteractorImpl(executor: Executor, private val api: Api) :
-        BaseInteractor(executor),
-        DeleteStoreboxCreditCardInteractor {
+    BaseInteractor(executor),
+    DeleteStoreboxCreditCardInteractor {
     override var input: DeleteStoreboxCreditCardInteractor.Input? = null
     override var output: DeleteStoreboxCreditCardInteractor.Output? = null
 

@@ -20,7 +20,6 @@ import java.util.Locale
  */
 class EboksFormatterImpl(val context: Context) : EboksFormatter {
 
-
     val messageDateFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("d. MMM", NStack.language)
@@ -39,7 +38,6 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
     val hourDateFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("HH:mm:ss", NStack.language)
-
         } catch (t: Throwable) {
             SimpleDateFormat()
         }
@@ -48,12 +46,10 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
     val dayDateFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("E", NStack.language)
-
         } catch (t: Throwable) {
             SimpleDateFormat()
         }
     }
-
 
     override fun formatCpr(cpr: String): String {
         if (Config.isDK()) {
@@ -88,7 +84,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
 
     private fun formatDateRelative(target: Date?): String {
         var result = ""
-        if(target == null) {
+        if (target == null) {
             // no date, no text!
             return result
         }
@@ -100,14 +96,15 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         val cal2 = Calendar.getInstance(currentLocale)
 
         val isThisYear = cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR)
-        val isToday = cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR) && cal_recv.get(Calendar.DAY_OF_YEAR) == cal.get(
+        val isToday =
+            cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR) && cal_recv.get(Calendar.DAY_OF_YEAR) == cal.get(
                 Calendar.DAY_OF_YEAR
-        )
+            )
 
         cal.add(Calendar.DATE, -1)
         // set call to yesterday
         val isYesterday = cal_recv.get(Calendar.YEAR) == cal.get(Calendar.YEAR) && cal_recv.get(
-                Calendar.DAY_OF_YEAR
+            Calendar.DAY_OF_YEAR
         ) == cal.get(Calendar.DAY_OF_YEAR)
 
         if (isToday) {
@@ -172,7 +169,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
 
     override fun formatSize(target: Int): String {
         if (target < 1024)
-            return "${target} B"
+            return "$target B"
         if (target < 1024f * 1024f)
             return String.format("%.2f KB", target.toFloat() / 1024f)
         if (target < 1024f * 1024f * 1024f)
@@ -182,11 +179,9 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         return "0 B"
     }
 
-
     fun getCurrentLocale(context: Context): Locale {
         return context.resources.configuration.locale
     }
-
 
     override fun formatDateToDay(date: Date): String {
         return messageDateYearFormat.format(date)
@@ -196,9 +191,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         return hourDateFormat.format(date)
     }
 
-    override fun formatPrice(item : Item) : String
-    {
+    override fun formatPrice(item: Item): String {
         return "%.2f".format(NStack.language, item.amount)
     }
-
 }

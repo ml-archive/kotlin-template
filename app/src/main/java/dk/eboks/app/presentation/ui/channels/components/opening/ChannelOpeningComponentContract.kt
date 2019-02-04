@@ -10,21 +10,21 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface ChannelOpeningComponentContract {
     interface View : BaseView {
-        fun showOpenState(channel : Channel)
+        fun showOpenState(channel: Channel)
         fun showDisabledState(channel: Channel)
         fun showInstallState(channel: Channel)
-        fun showVerifyState(channel: Channel, provider : LoginProvider)
-        fun showProgress(show : Boolean)
+        fun showVerifyState(channel: Channel, provider: LoginProvider)
+        fun showProgress(show: Boolean)
         fun showRequirementsDrawer(channel: Channel)
-        fun openChannelContent(channel : Channel)
-        fun openStoreBoxContent(channel : Channel)
+        fun openChannelContent(channel: Channel)
+        fun openStoreBoxContent(channel: Channel)
         fun openEkeyContent(channel: Channel)
         fun showStoreboxUserAlreadyExists()
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setup(channelId : Int)
-        fun install(channel : Channel)
+        fun setup(channelId: Int)
+        fun install(channel: Channel)
         fun open(channel: Channel)
         fun refreshChannel()
     }

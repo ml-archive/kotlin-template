@@ -14,7 +14,7 @@ interface ChannelContentStoreboxDetailComponentContract {
         fun setReceipt(receipt: StoreboxReceipt)
         fun showProgress(isLoading: Boolean)
         fun returnToMasterView()
-        fun shareReceiptContent(filename : String)
+        fun shareReceiptContent(filename: String)
         fun mailReceiptContent(filename: String)
     }
 
@@ -22,6 +22,6 @@ interface ChannelContentStoreboxDetailComponentContract {
         fun loadReceipt()
         fun deleteReceipt()
         fun saveReceipt(dstFolder: Folder)
-        fun shareReceipt(asMail : Boolean)
+        fun shareReceipt(asMail: Boolean)
     }
 }

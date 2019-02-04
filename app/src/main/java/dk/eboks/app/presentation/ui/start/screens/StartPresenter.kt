@@ -13,11 +13,15 @@ import timber.log.Timber
 /**
  * Created by bison on 20-05-2017.
  */
-class StartPresenter(val appStateManager: AppStateManager, val bootstrapInteractor: BootstrapInteractor, val prefManager: PrefManager) :
-        StartContract.Presenter,
-        BasePresenterImpl<StartContract.View>(),
-        BootstrapInteractor.Output,
-        GetUserProfileInteractor.Output {
+class StartPresenter(
+    val appStateManager: AppStateManager,
+    val bootstrapInteractor: BootstrapInteractor,
+    val prefManager: PrefManager
+) :
+    StartContract.Presenter,
+    BasePresenterImpl<StartContract.View>(),
+    BootstrapInteractor.Output,
+    GetUserProfileInteractor.Output {
 
     init {
         bootstrapInteractor.output = this

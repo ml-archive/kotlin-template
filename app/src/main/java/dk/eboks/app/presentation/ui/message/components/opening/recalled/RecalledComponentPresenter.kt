@@ -8,10 +8,12 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class RecalledComponentPresenter @Inject constructor(val appState: AppStateManager, val executor: Executor) :
-        RecalledComponentContract.Presenter,
-        BasePresenterImpl<RecalledComponentContract.View>()
-{
+class RecalledComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val executor: Executor
+) :
+    RecalledComponentContract.Presenter,
+    BasePresenterImpl<RecalledComponentContract.View>() {
 
     init {
     }
@@ -22,5 +24,4 @@ class RecalledComponentPresenter @Inject constructor(val appState: AppStateManag
         }
         executor.signal("messageOpenDone")
     }
-
 }

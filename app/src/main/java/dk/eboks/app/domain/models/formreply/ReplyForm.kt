@@ -4,6 +4,6 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class ReplyForm (
-    var inputs : List<FormInput> = ArrayList()
+data class ReplyForm(
+    var inputs: List<FormInput> = ArrayList()
 ) : Parcelable

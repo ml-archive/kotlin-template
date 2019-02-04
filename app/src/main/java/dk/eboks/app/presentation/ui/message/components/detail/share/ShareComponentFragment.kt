@@ -12,18 +12,21 @@ import dk.eboks.app.util.FileUtils
 import kotlinx.android.synthetic.main.fragment_share_component.*
 import javax.inject.Inject
 
-
 /**
  * Created by bison on 09-02-2018.
  */
 class ShareComponentFragment : BaseFragment(), ShareComponentContract.View {
     @Inject
-    lateinit var presenter : ShareComponentContract.Presenter
+    lateinit var presenter: ShareComponentContract.Presenter
 
     @Inject
     lateinit var uiManager: UIManager
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_share_component, container, false)
         return rootView
     }
@@ -35,19 +38,18 @@ class ShareComponentFragment : BaseFragment(), ShareComponentContract.View {
     }
 
     override fun updateView(message: Message) {
-        if(message.content == null)
-        {
+        if (message.content == null) {
             componentRoot.visibility = View.GONE
             return
         }
-        message.content?.let { content->
+        message.content?.let { content ->
             bodyLl.setOnClickListener {
                 presenter.openExternalViewer(message)
             }
         }
     }
 
-    override fun openExternalViewer(filename: String, mimeType : String) {
+    override fun openExternalViewer(filename: String, mimeType: String) {
         FileUtils.openExternalViewer(context ?: return, filename, mimeType)
     }
 }

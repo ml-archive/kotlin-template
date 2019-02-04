@@ -25,11 +25,11 @@ import javax.inject.Inject
 class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View,
     SendersCollectionAdapter.Callback {
     override fun onCategoryClick(category: SenderCategory) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showCategories(categories: List<SenderCategory>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     @Inject

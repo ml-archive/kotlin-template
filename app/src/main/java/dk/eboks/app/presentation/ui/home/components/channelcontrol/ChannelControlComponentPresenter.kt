@@ -57,7 +57,7 @@ class ChannelControlComponentPresenter @Inject constructor(
     override fun onGetInstalledChannelListError(error: ViewError) {
         Timber.e("onGetInstalledChannelListError")
         EventBus.getDefault().post(RefreshChannelControlDoneEvent())
-        if (BuildConfig.DEBUG) //TODO Temp until backend is fixed
+        if (BuildConfig.DEBUG) // TODO Temp until backend is fixed
             runAction { v -> v.showErrorDialog(error) }
     }
 

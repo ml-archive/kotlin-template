@@ -10,10 +10,11 @@ import timber.log.Timber
 
 /**
  * Created by Christian on 5/29/2018.
- * @author   Christian
- * @since    5/29/2018.
+ * @author Christian
+ * @since 5/29/2018.
  */
-class ResetPasswordInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(executor), ResetPasswordInteractor {
+class ResetPasswordInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(executor),
+    ResetPasswordInteractor {
     override var input: ResetPasswordInteractor.Input? = null
     override var output: ResetPasswordInteractor.Output? = null
 
@@ -25,8 +26,7 @@ class ResetPasswordInteractorImpl(executor: Executor, val api: Api) : BaseIntera
                     if (response.isSuccessful) {
                         Timber.i("Successfully Reset password")
                         output?.onSuccess()
-                    }
-                    else {
+                    } else {
                         output?.onError(errorBodyToViewError(response))
                     }
                 }

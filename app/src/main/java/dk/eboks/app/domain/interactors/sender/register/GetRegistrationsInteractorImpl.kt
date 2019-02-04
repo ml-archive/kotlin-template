@@ -9,10 +9,11 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 
 /**
  * Created by Christian on 3/28/2018.
- * @author   Christian
- * @since    3/28/2018.
+ * @author Christian
+ * @since 3/28/2018.
  */
-class GetRegistrationsInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(executor), GetRegistrationsInteractor {
+class GetRegistrationsInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(executor),
+    GetRegistrationsInteractor {
 
     override var output: GetRegistrationsInteractor.Output? = null
 
@@ -25,7 +26,13 @@ class GetRegistrationsInteractorImpl(executor: Executor, val api: Api) : BaseInt
                         output?.onRegistrationsLoaded(it)
                     }
                 } else {
-                    output?.onError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true))
+                    output?.onError(
+                        ViewError(
+                            title = Translation.error.genericTitle,
+                            message = Translation.error.genericMessage,
+                            shouldCloseView = true
+                        )
+                    )
                 }
             }
         } catch (t: Throwable) {
@@ -34,5 +41,4 @@ class GetRegistrationsInteractorImpl(executor: Executor, val api: Api) : BaseInt
             }
         }
     }
-
 }

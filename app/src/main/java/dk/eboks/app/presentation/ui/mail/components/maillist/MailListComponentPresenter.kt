@@ -16,19 +16,18 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class MailListComponentPresenter @Inject constructor(
-        val appState: AppStateManager,
-        val getMessagesInteractor: GetMessagesInteractor,
-        val deleteMessagesInteractor: DeleteMessagesInteractor,
-        val moveMessagesInteractor: MoveMessagesInteractor,
-        val updateMessageInteractor: UpdateMessageInteractor
+    val appState: AppStateManager,
+    val getMessagesInteractor: GetMessagesInteractor,
+    val deleteMessagesInteractor: DeleteMessagesInteractor,
+    val moveMessagesInteractor: MoveMessagesInteractor,
+    val updateMessageInteractor: UpdateMessageInteractor
 ) :
-        MailListComponentContract.Presenter,
-        BasePresenterImpl<MailListComponentContract.View>(),
-        GetMessagesInteractor.Output,
-        DeleteMessagesInteractor.Output,
-        MoveMessagesInteractor.Output,
-        UpdateMessageInteractor.Output
-{
+    MailListComponentContract.Presenter,
+    BasePresenterImpl<MailListComponentContract.View>(),
+    GetMessagesInteractor.Output,
+    DeleteMessagesInteractor.Output,
+    MoveMessagesInteractor.Output,
+    UpdateMessageInteractor.Output {
 
     companion object {
         val FOLDER_MODE = 1
@@ -40,11 +39,11 @@ class MailListComponentPresenter @Inject constructor(
     var currentFolder: Folder? = null
     var currentSender: Sender? = null
 
-    var currentOffset : Int = 0
-    var currentLimit : Int = 20
-    var totalMessages : Int = -1
+    var currentOffset: Int = 0
+    var currentLimit: Int = 20
+    var totalMessages: Int = -1
 
-    override var isLoading : Boolean = false
+    override var isLoading: Boolean = false
 
     init {
         getMessagesInteractor.output = this
@@ -56,7 +55,12 @@ class MailListComponentPresenter @Inject constructor(
         currentFolder = folder
         mode = FOLDER_MODE
         isLoading = true
-        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, folder = folder, offset = currentOffset, limit = currentLimit)
+        getMessagesInteractor.input = GetMessagesInteractor.Input(
+            cached = false,
+            folder = folder,
+            offset = currentOffset,
+            limit = currentLimit
+        )
         getMessagesInteractor.run()
         runAction { v ->
             v.showProgress(true)
@@ -67,25 +71,27 @@ class MailListComponentPresenter @Inject constructor(
         currentSender = sender
         mode = SENDER_MODE
         isLoading = true
-        getMessagesInteractor.input = GetMessagesInteractor.Input(cached = false, sender = sender, offset = currentOffset, limit = currentLimit)
+        getMessagesInteractor.input = GetMessagesInteractor.Input(
+            cached = false,
+            sender = sender,
+            offset = currentOffset,
+            limit = currentLimit
+        )
         getMessagesInteractor.run()
         runAction { v -> v.showProgress(true) }
     }
 
-    override fun loadNextPage()
-    {
+    override fun loadNextPage() {
         // bail out if were still loading the previous page
-        if(isLoading) {
+        if (isLoading) {
             return
         }
-        if(currentOffset + currentLimit < totalMessages-1) {
+        if (currentOffset + currentLimit < totalMessages - 1) {
             currentOffset += currentLimit
             Timber.e("loading next page.. offset = $currentOffset")
             getMessages()
-            runAction { v->v.showRefreshProgress(true) }
-        }
-        else
-        {
+            runAction { v -> v.showRefreshProgress(true) }
+        } else {
             Timber.e("No more pages to load offset = $currentOffset")
         }
     }
@@ -98,11 +104,12 @@ class MailListComponentPresenter @Inject constructor(
     fun getMessages() {
         isLoading = true
         getMessagesInteractor.input = GetMessagesInteractor.Input(
-                cached = false,
-                folder = currentFolder,
-                sender = currentSender,
-                offset = currentOffset,
-                limit = currentLimit)
+            cached = false,
+            folder = currentFolder,
+            sender = currentSender,
+            offset = currentOffset,
+            limit = currentLimit
+        )
         getMessagesInteractor.run()
     }
 
@@ -121,13 +128,12 @@ class MailListComponentPresenter @Inject constructor(
 
     override fun markReadMessages(selectedMessages: MutableList<Message>, unread: Boolean) {
         val messagePatch = MessagePatch(unread)
-        updateMessage(selectedMessages,messagePatch)
+        updateMessage(selectedMessages, messagePatch)
     }
 
     override fun archiveMessages(selectedMessages: MutableList<Message>) {
         val messagePatch = MessagePatch(archive = true)
         updateMessage(selectedMessages, messagePatch)
-
     }
 
     private fun updateMessage(selectedMessages: MutableList<Message>, messagePatch: MessagePatch) {
@@ -141,7 +147,7 @@ class MailListComponentPresenter @Inject constructor(
         isLoading = false
         totalMessages = messages.metaData?.total ?: -1
         Timber.e("Got messages offset = $currentOffset totalMsgs = $totalMessages")
-        if(currentOffset == 0) {
+        if (currentOffset == 0) {
             runAction { v ->
                 v.showProgress(false)
                 v.showRefreshProgress(false)
@@ -221,5 +227,4 @@ class MailListComponentPresenter @Inject constructor(
             view.showErrorDialog(error)
         }
     }
-
 }

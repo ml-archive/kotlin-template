@@ -5,10 +5,10 @@ import dk.nodes.arch.domain.interactor.Interactor
 
 /**
  * Created by Christian on 5/29/2018.
- * @author   Christian
- * @since    5/29/2018.
+ * @author Christian
+ * @since 5/29/2018.
  */
-interface ResetPasswordInteractor: Interactor {
+interface ResetPasswordInteractor : Interactor {
     var input: Input?
     var output: Output?
 

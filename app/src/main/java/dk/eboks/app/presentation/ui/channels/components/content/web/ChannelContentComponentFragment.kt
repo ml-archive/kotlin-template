@@ -28,7 +28,7 @@ import javax.inject.Inject
 class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentComponentContract.View {
 
     @Inject
-    lateinit var presenter : ChannelContentComponentContract.Presenter
+    lateinit var presenter: ChannelContentComponentContract.Presenter
 
     var channelAppInterface: ChannelContentComponentFragment.ChannelAppInterface? = null
 
@@ -40,8 +40,8 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
 
         refreshSrl.isEnabled = true
         refreshSrl.setOnRefreshListener {
-            //todo user refreshed the webview
-            //todo when we know what to refresh, add some BETTER (lol) logic to stop the refreshing
+            // todo user refreshed the webview
+            // todo when we know what to refresh, add some BETTER (lol) logic to stop the refreshing
             Timber.e("Reloading web content")
             webView.reload()
 
@@ -55,11 +55,10 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             presenter.setup(it)
             setupTopBar()
         }
-
     }
 
     // looks like this "mobilepay://send?amount=100&phone=24770011" taste like crab
-    fun openMobilePay(url : String) : Boolean {
+    fun openMobilePay(url: String): Boolean {
         val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         activity?.packageManager?.let {
             return if (i.resolveActivity(it) != null) {
@@ -71,13 +70,12 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             }
         }
         return false
-
     }
 
     override fun onResume() {
         super.onResume()
         getBaseActivity()?.backPressedCallback = {
-            if(webView.canGoBack())
+            if (webView.canGoBack())
                 webView.goBack()
             else
                 activity?.finish()
@@ -89,11 +87,11 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
         getBaseActivity()?.backPressedCallback = null
         super.onPause()
     }
-    
+
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.setNavigationOnClickListener {
-            if(webView.canGoBack())
+            if (webView.canGoBack())
                 webView.goBack()
             else
                 activity?.finish()
@@ -105,7 +103,10 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
         menuItem.setOnMenuItemClickListener { item: MenuItem ->
             val args = Bundle()
             args.putParcelable(Channel::class.java.simpleName, presenter.currentChannel)
-            getBaseActivity()?.openComponentDrawer(ChannelSettingsComponentFragment::class.java, args)
+            getBaseActivity()?.openComponentDrawer(
+                ChannelSettingsComponentFragment::class.java,
+                args
+            )
             true
         }
     }
@@ -117,8 +118,8 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
     }
 
     override fun openChannelContent(content: String) {
-        //val url = "file:///android_asset/index.html"
-        if(content.isNullOrBlank()) {
+        // val url = "file:///android_asset/index.html"
+        if (content.isNullOrBlank()) {
             webView.loadData("Missing channel content link", "text/html", "utf8")
             return
         }
@@ -128,40 +129,45 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
     override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {
         // mobile pay app deeplinking support (if present on device)
         url?.let {
-            if(it.startsWith("mobilepay://"))
-            {
+            if (it.startsWith("mobilepay://")) {
                 val result = openMobilePay(url)
-                if(!result) // if mobile pay not installed on device
+                if (!result) // if mobile pay not installed on device
                 {
                     AlertDialog.Builder(context ?: return@let)
-                            .setTitle(Translation.mobilepaysupport.mobilePayNotInstalledTitle)
-                            .setMessage(Translation.mobilepaysupport.mobilePayNotInstalledMessage)
-                            .setPositiveButton(Translation.mobilepaysupport.installMobilePayBtn.toUpperCase()) { dialog, which ->
-                                val appPackageName = "dk.danskebank.mobilepay"
-                                try {
-                                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
-                                } catch (anfe: android.content.ActivityNotFoundException) {
-                                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
-                                }
-
+                        .setTitle(Translation.mobilepaysupport.mobilePayNotInstalledTitle)
+                        .setMessage(Translation.mobilepaysupport.mobilePayNotInstalledMessage)
+                        .setPositiveButton(Translation.mobilepaysupport.installMobilePayBtn.toUpperCase()) { dialog, which ->
+                            val appPackageName = "dk.danskebank.mobilepay"
+                            try {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse("market://details?id=$appPackageName")
+                                    )
+                                )
+                            } catch (anfe: android.content.ActivityNotFoundException) {
+                                startActivity(
+                                    Intent(
+                                        Intent.ACTION_VIEW,
+                                        Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")
+                                    )
+                                )
                             }
-                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-
-                            }
-                            .create()
-                            .show()
+                        }
+                        .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                        }
+                        .create()
+                        .show()
                 }
                 return true
             }
-            if(it.startsWith("mailto:"))
-            {
+            if (it.startsWith("mailto:")) {
                 channelAppInterface?.let {
                     it.email(url.substringAfter("mailto:"), "", "")
                 }
                 return true
             }
-            if(it.startsWith("tel:"))
-            {
+            if (it.startsWith("tel:")) {
                 channelAppInterface?.let {
                     it.call(url)
                 }
@@ -172,18 +178,18 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
     }
 
     override fun onLoadFinished(view: WebView?, url: String?) {
-
     }
 
-    class ChannelAppInterface (private val baseFragment : BaseWebFragment, val webView: WebView) {
+    class ChannelAppInterface(private val baseFragment: BaseWebFragment, val webView: WebView) {
         // output functions
-        private fun updateUser(data : String) {
+        private fun updateUser(data: String) {
             val jUser = JSONObject()
             jUser.put("username", data)
             webView.post {
                 webView.evaluateJavascript("updateUser($jUser)", null)
             }
         }
+
         private fun displayValue(value: String) {
             val jData = JSONObject()
             jData.put("value", value)
@@ -198,6 +204,7 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             Timber.v("Login: $msg")
             updateUser("Testa Trialson")
         }
+
         @JavascriptInterface
         fun share(shareText: String) {
             Timber.v("Share: $shareText")
@@ -208,20 +215,28 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             try {
                 baseFragment.startActivity(Intent.createChooser(intent, "Share"))
             } catch (ex: ActivityNotFoundException) {
-                Toast.makeText(baseFragment.context, Translation.error.noInternetTitle, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    baseFragment.context,
+                    Translation.error.noInternetTitle,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
+
         @JavascriptInterface
         fun send(sendKey: String, sendValue: String) {
             Timber.v("Send: {$sendKey, $sendValue}")
-            Toast.makeText(baseFragment.context, "{$sendKey, $sendValue}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(baseFragment.context, "{$sendKey, $sendValue}", Toast.LENGTH_SHORT)
+                .show()
         }
+
         @JavascriptInterface
-        fun retrieve(retrieveKey : String) {
+        fun retrieve(retrieveKey: String) {
             Timber.v("Retrieve: $retrieveKey")
             val retrieveValue = "$retrieveKey -  Hello world!"
             displayValue(retrieveValue)
         }
+
         @JavascriptInterface
         fun call(uri: String) {
             Timber.v("Call: $uri")
@@ -229,6 +244,7 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             intent.data = Uri.parse(uri)
             baseFragment.startActivity(intent)
         }
+
         @JavascriptInterface
         fun email(address: String, subject: String, body: String) {
             Timber.v("Email: $address, $subject, $body")
@@ -238,21 +254,35 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             intent.putExtra(Intent.EXTRA_SUBJECT, subject)
             intent.putExtra(Intent.EXTRA_TEXT, body)
             try {
-                baseFragment.startActivity(Intent.createChooser(intent, Translation.signup.emailHint))
+                baseFragment.startActivity(
+                    Intent.createChooser(
+                        intent,
+                        Translation.signup.emailHint
+                    )
+                )
             } catch (ex: ActivityNotFoundException) {
-                Toast.makeText(baseFragment.context, Translation.error.noInternetTitle, Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    baseFragment.context,
+                    Translation.error.noInternetTitle,
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
+
         @JavascriptInterface
         fun pushWebpage(uri: String) { // Same as presentWebpage(), but perhaps with different animation
             Timber.v("PushWebPage: $uri")
             val fragment = ChannelContentComponentFragment()
             val args = Bundle()
-            args.putString(Channel::class.simpleName, "file:///android_asset/index2.html") // TODO: remove me and use the URI instead
+            args.putString(
+                Channel::class.simpleName,
+                "file:///android_asset/index2.html"
+            ) // TODO: remove me and use the URI instead
 //            args.putString(Channel::class.simpleName, uri)
             fragment.arguments = args
             baseFragment.getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, true)
         }
+
         @JavascriptInterface
         fun presentWebpage(uri: String) { // Same as pushWebpage(), but perhaps with different animation
             Timber.v("presentWebpage: $uri")
@@ -262,8 +292,9 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
             fragment.arguments = args
             baseFragment.getBaseActivity()?.addFragmentOnTop(R.id.content, fragment, true)
         }
+
         @JavascriptInterface
-        fun map(name : String, address : String) {
+        fun map(name: String, address: String) {
             val search = "geo:0,0?q=" + URLEncoder.encode("$name+$address", "UTF-8")
 
             Timber.v("Map: $name, $address = $search")
@@ -274,7 +305,6 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
                     baseFragment.startActivity(intent)
                 }
             }
-
         }
     }
 }

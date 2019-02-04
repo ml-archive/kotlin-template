@@ -13,16 +13,19 @@ import kotlinx.android.synthetic.main.fragment_debug_options_component.*
 import timber.log.Timber
 import javax.inject.Inject
 
-
 /**
  * Created by bison on 09-02-2018.
  */
 class DebugOptionsComponentFragment : BaseFragment(), DebugOptionsComponentContract.View {
 
     @Inject
-    lateinit var presenter : DebugOptionsComponentContract.Presenter
+    lateinit var presenter: DebugOptionsComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_debug_options_component, container, false)
         return rootView
     }
@@ -39,10 +42,13 @@ class DebugOptionsComponentFragment : BaseFragment(), DebugOptionsComponentContr
         presenter.setup()
     }
 
-    override fun showCountrySpinner(configIndex : Int)
-    {
+    override fun showCountrySpinner(configIndex: Int) {
         // Create an ArrayAdapter using the string array and a default spinner layout
-        val adapter = ArrayAdapter.createFromResource(context, R.array.countries, android.R.layout.simple_spinner_item)
+        val adapter = ArrayAdapter.createFromResource(
+            context,
+            R.array.countries,
+            android.R.layout.simple_spinner_item
+        )
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         // Apply the adapter to the spinner
@@ -58,13 +64,16 @@ class DebugOptionsComponentFragment : BaseFragment(), DebugOptionsComponentContr
         }
     }
 
-    override fun showEnvironmentSpinner(environments: Map<String, Environments>, curEnv : Environments?) {
+    override fun showEnvironmentSpinner(
+        environments: Map<String, Environments>,
+        curEnv: Environments?
+    ) {
         // Create an ArrayAdapter using the string array and a default spinner layout
         val keys = ArrayList(environments.keys)
         val adapter: ArrayAdapter<String> = ArrayAdapter(
-                context,
-                android.R.layout.simple_spinner_item,
-                keys
+            context,
+            android.R.layout.simple_spinner_item,
+            keys
         )
 
         // Specify the layout to use when the list of choices appears
@@ -73,9 +82,7 @@ class DebugOptionsComponentFragment : BaseFragment(), DebugOptionsComponentContr
         environmentSpr.adapter = adapter
         try {
             environmentSpr.setSelection(environments.values.indexOf(curEnv))
-        }
-        catch(t : Throwable)
-        {
+        } catch (t: Throwable) {
             Timber.e(t)
         }
 

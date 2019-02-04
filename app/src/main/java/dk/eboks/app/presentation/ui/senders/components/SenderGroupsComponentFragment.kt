@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 /**
  * Created by Christian on 3/15/2018.
- * @author   Christian
- * @since    3/15/2018.
+ * @author Christian
+ * @since 3/15/2018.
  */
 class SenderGroupsComponentFragment : BaseFragment(), SenderGroupsComponentContract.View,
     SenderGroupAdapter.Callback {

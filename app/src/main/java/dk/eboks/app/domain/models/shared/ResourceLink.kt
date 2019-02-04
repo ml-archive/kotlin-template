@@ -8,6 +8,6 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class ResourceLink(
-    var type : String,
-    var link : Link
+    var type: String,
+    var link: Link
 ) : Parcelable

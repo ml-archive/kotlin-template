@@ -10,7 +10,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Sign(
-        var status : Status,
-        var reject : Int?
+    var status: Status,
+    var reject: Int?
 
 ) : Parcelable

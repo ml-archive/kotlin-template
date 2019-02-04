@@ -20,14 +20,18 @@ import javax.inject.Inject
 class QuarantineComponentFragment : BaseFragment(), QuarantineComponentContract.View {
 
     @Inject
-    lateinit var presenter : QuarantineComponentContract.Presenter
+    lateinit var presenter: QuarantineComponentContract.Presenter
 
-    val onLanguageChange : (Locale)->Unit = { locale ->
+    val onLanguageChange: (Locale) -> Unit = { locale ->
         Timber.e("Locale changed to locale")
         updateTranslation()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView =
             inflater.inflate(R.layout.fragment_mail_opening_error_component, container, false)
         return rootView
@@ -40,7 +44,7 @@ class QuarantineComponentFragment : BaseFragment(), QuarantineComponentContract.
         setupTopBar()
         updateTranslation()
 
-        //todo there was no design for quarantine message. Right now it has a lock - this might have to be changed.
+        // todo there was no design for quarantine message. Right now it has a lock - this might have to be changed.
         iconIv.setImageDrawable(resources.getDrawable(R.drawable.icon_48_lock_white))
     }
 
@@ -54,8 +58,7 @@ class QuarantineComponentFragment : BaseFragment(), QuarantineComponentContract.
         super.onPause()
     }
 
-    private fun updateTranslation()
-    {
+    private fun updateTranslation() {
         mainTb.title = Translation.message.title
         headerTv.text = Translation.message.quarantinedTitle
         mainTv.text = Translation.message.quarantinedMessage
