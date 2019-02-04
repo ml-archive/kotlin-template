@@ -14,7 +14,12 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 /**
  * Created by bison on 24-06-2017.
  */
-class CreateUserInteractorImpl(executor: Executor, val userManager: UserManager, private val api: Api, val settingsRepository: SettingsRepository) : BaseInteractor(executor), CreateUserInteractor {
+class CreateUserInteractorImpl(
+    executor: Executor,
+    val userManager: UserManager,
+    private val api: Api,
+    val settingsRepository: SettingsRepository
+) : BaseInteractor(executor), CreateUserInteractor {
     override var output: CreateUserInteractor.Output? = null
     override var input: CreateUserInteractor.Input? = null
 
@@ -22,7 +27,7 @@ class CreateUserInteractorImpl(executor: Executor, val userManager: UserManager,
         try {
             input?.user?.let { user ->
                 input?.password?.let { password ->
-                    //todo find which of the missing fields should be included
+                    // todo find which of the missing fields should be included
                     val body = JsonObject()
                     body.addProperty("name", user.name)
                     body.addProperty("identity", user.identity)
@@ -31,8 +36,8 @@ class CreateUserInteractorImpl(executor: Executor, val userManager: UserManager,
                     if (Config.isSE()) body.addProperty("nationality", "SE")
                     if (Config.isDK()) body.addProperty("nationality", "DK")
                     if (Config.isNO()) body.addProperty("nationality", "NO")
-                    //body.addProperty("mobilenumber", "31674031")
-                    //body.addProperty("newsletter", false)
+                    // body.addProperty("mobilenumber", "31674031")
+                    // body.addProperty("newsletter", false)
                     val mails = JsonArray()
                     mails.add(user.getPrimaryEmail())
                     body.add("emails", mails)
@@ -51,7 +56,6 @@ class CreateUserInteractorImpl(executor: Executor, val userManager: UserManager,
                     }
                 }
             }
-
         } catch (t: Throwable) {
             runOnUIThread {
                 output?.onCreateUserError(exceptionToViewError(t))
@@ -67,5 +71,4 @@ class CreateUserInteractorImpl(executor: Executor, val userManager: UserManager,
 //
 //        ActivationDevice(deviceId, deviceName, os, gr)
 //    }
-
 }

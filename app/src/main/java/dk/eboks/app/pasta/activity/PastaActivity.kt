@@ -13,5 +13,4 @@ class PastaActivity : BaseActivity(), PastaContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
     }
-
 }

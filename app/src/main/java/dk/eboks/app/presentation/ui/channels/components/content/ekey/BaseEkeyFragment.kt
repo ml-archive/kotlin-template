@@ -5,7 +5,7 @@ import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentAct
 
 abstract class BaseEkeyFragment : BaseFragment() {
     fun getEkeyBaseActivity(): EkeyContentActivity? {
-        if(activity is EkeyContentActivity)
+        if (activity is EkeyContentActivity)
             return activity as EkeyContentActivity
         return null
     }

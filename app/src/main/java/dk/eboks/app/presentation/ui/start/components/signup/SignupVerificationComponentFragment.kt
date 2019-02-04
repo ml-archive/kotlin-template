@@ -16,12 +16,17 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContract.VerificationView {
+class SignupVerificationComponentFragment : BaseFragment(),
+    SignupComponentContract.VerificationView {
 
     @Inject
-    lateinit var presenter : SignupComponentContract.Presenter
+    lateinit var presenter: SignupComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_signup_verification_component, container, false)
     }
 
@@ -43,9 +48,12 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
 
     override fun onResume() {
         super.onResume()
-        if(VerificationComponentFragment.verificationSucceeded)
-        {
-            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
+        if (VerificationComponentFragment.verificationSucceeded) {
+            getBaseActivity()?.addFragmentOnTop(
+                R.id.containerFl,
+                AcceptTermsComponentFragment(),
+                true
+            )
             VerificationComponentFragment.verificationSucceeded = false
         }
     }
@@ -53,20 +61,24 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = Translation.signup.title
-        mainTb.setBackgroundColor(ContextCompat.getColor(context ?: return, R.color.backgroundColor))
+        mainTb.setBackgroundColor(
+            ContextCompat.getColor(
+                context ?: return,
+                R.color.backgroundColor
+            )
+        )
         mainTb.setNavigationOnClickListener {
             fragmentManager?.popBackStack()
         }
     }
 
     override fun showProgress(show: Boolean) {
-        content.visibility = if(show) View.GONE else View.VISIBLE
-        progress.visibility = if(show) View.VISIBLE else View.GONE
+        content.visibility = if (show) View.GONE else View.VISIBLE
+        progress.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    fun onContinueClicked()
-    {
-        //(activity as StartActivity).showLogo(false)
+    fun onContinueClicked() {
+        // (activity as StartActivity).showLogo(false)
         showProgress(true)
         content.postDelayed({
             showProgress(false)
@@ -76,7 +88,11 @@ class SignupVerificationComponentFragment : BaseFragment(), SignupComponentContr
 //            } else {
 //                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
 //            }
-            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)
+            getBaseActivity()?.addFragmentOnTop(
+                R.id.containerFl,
+                AcceptTermsComponentFragment(),
+                true
+            )
         }, 1000)
     }
 }

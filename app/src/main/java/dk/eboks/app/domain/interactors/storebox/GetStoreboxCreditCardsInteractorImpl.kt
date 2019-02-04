@@ -7,8 +7,8 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 
 class GetStoreboxCreditCardsInteractorImpl(executor: Executor, private val api: Api) :
-        BaseInteractor(executor),
-        GetStoreboxCreditCardsInteractor {
+    BaseInteractor(executor),
+    GetStoreboxCreditCardsInteractor {
     override var output: GetStoreboxCreditCardsInteractor.Output? = null
 
     override fun execute() {
@@ -19,7 +19,7 @@ class GetStoreboxCreditCardsInteractorImpl(executor: Executor, private val api: 
             result.body()?.let {
                 runOnUIThread {
                     output?.onGetCardsSuccessful(it)
-                    //output?.onGetCardsSuccessful(ArrayList())
+                    // output?.onGetCardsSuccessful(ArrayList())
                 }
             }
         } catch (t: Throwable) {

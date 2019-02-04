@@ -23,7 +23,7 @@ import javax.inject.Inject
 class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     @Inject
-    lateinit var presenter : BankIdNOComponentPresenter
+    lateinit var presenter: BankIdNOComponentPresenter
 
     var loginUser: User? = null
 
@@ -41,10 +41,9 @@ class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
         mainTb.setNavigationOnClickListener {
-            if(!closeLoginOnBack) {
+            if (!closeLoginOnBack) {
                 presenter.cancelAndClose()
-            }
-            else {
+            } else {
                 activity?.finish()
             }
         }
@@ -55,7 +54,6 @@ class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
     }
 
     override fun onLoadFinished(view: WebView?, url: String?) {
-
     }
 
     override fun onResume() {
@@ -85,7 +83,6 @@ class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
     override fun showError(viewError: ViewError) {
         showErrorDialog(viewError)
     }
-
 
     override fun close() {
         fragmentManager?.popBackStack()

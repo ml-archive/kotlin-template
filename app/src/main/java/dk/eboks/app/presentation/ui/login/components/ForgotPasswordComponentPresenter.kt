@@ -9,11 +9,11 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class ForgotPasswordComponentPresenter @Inject constructor(
-        val resetPasswordInteractor: ResetPasswordInteractor
+    val resetPasswordInteractor: ResetPasswordInteractor
 ) :
-        ForgotPasswordComponentContract.Presenter,
-        BasePresenterImpl<ForgotPasswordComponentContract.View>(),
-        ResetPasswordInteractor.Output {
+    ForgotPasswordComponentContract.Presenter,
+    BasePresenterImpl<ForgotPasswordComponentContract.View>(),
+    ResetPasswordInteractor.Output {
 
     init {
         resetPasswordInteractor.output = this
@@ -37,6 +37,4 @@ class ForgotPasswordComponentPresenter @Inject constructor(
         }
         */
     }
-
-
 }

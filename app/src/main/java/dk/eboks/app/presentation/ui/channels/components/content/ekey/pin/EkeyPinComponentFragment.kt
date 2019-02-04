@@ -26,7 +26,11 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
 
     var handler = Handler()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_channel_ekey_pin, container, false)
         return rootView
     }
@@ -44,7 +48,7 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
     }
 
     private fun setupTexts(isCreate: Boolean) {
-        pinHeaderTv.text = when(isCreate) {
+        pinHeaderTv.text = when (isCreate) {
             true -> Translation.ekey.createEKey
             false -> Translation.ekey.pinCode
         }
@@ -93,12 +97,11 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
                     if (s.length > 3) {
                         pin4Et.setText(s[3].toString())
 
-                        //todo try to login
+                        // todo try to login
                         val str = s.toString()
                         s.clear()
                         getEkeyBaseActivity()?.setPin(str)
                         getEkeyBaseActivity()?.refreshClearAndShowMain()
-
                     } else {
                         pin4Et.setText("")
                     }
@@ -108,14 +111,14 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
-
     }
 
     private fun showKeyboard() {
         handler.postDelayed({
             thief?.let { v ->
                 v.requestFocus()
-                val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                val imm =
+                    context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
                 imm?.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT)
             }
         }, 200)
@@ -129,10 +132,10 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
     companion object {
         @JvmStatic
         fun newInstance(isCreate: Boolean) =
-                EkeyPinComponentFragment().apply {
-                    arguments = Bundle().apply {
-                        putBoolean("ISCREATE", isCreate)
-                    }
+            EkeyPinComponentFragment().apply {
+                arguments = Bundle().apply {
+                    putBoolean("ISCREATE", isCreate)
                 }
+            }
     }
 }

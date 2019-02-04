@@ -15,17 +15,16 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class UploadOverviewComponentPresenter @Inject constructor(
-        val appState: AppStateManager,
-        val getStorageInteractor: GetStorageInteractor,
-        val getLatestUploadsInteractor: GetLatestUploadsInteractor,
-        val uploadFileInteractor: UploadFileInteractor
+    val appState: AppStateManager,
+    val getStorageInteractor: GetStorageInteractor,
+    val getLatestUploadsInteractor: GetLatestUploadsInteractor,
+    val uploadFileInteractor: UploadFileInteractor
 ) :
-        UploadOverviewComponentContract.Presenter,
-        BasePresenterImpl<UploadOverviewComponentContract.View>(),
-        GetStorageInteractor.Output,
-        GetLatestUploadsInteractor.Output,
-        UploadFileInteractor.Output
-{
+    UploadOverviewComponentContract.Presenter,
+    BasePresenterImpl<UploadOverviewComponentContract.View>(),
+    GetStorageInteractor.Output,
+    GetLatestUploadsInteractor.Output,
+    UploadFileInteractor.Output {
 
     init {
         getStorageInteractor.output = this
@@ -38,8 +37,8 @@ class UploadOverviewComponentPresenter @Inject constructor(
     }
 
     override fun refresh() {
-        appState.state?.currentUser?.let { user->
-            runAction { v->v.setupView(user.verified) }
+        appState.state?.currentUser?.let { user ->
+            runAction { v -> v.setupView(user.verified) }
         }
         getStorageInteractor.run()
         getLatestUploadsInteractor.input = GetLatestUploadsInteractor.Input()
@@ -52,10 +51,11 @@ class UploadOverviewComponentPresenter @Inject constructor(
         appState.state?.loginState?.token?.refresh_token = "REFRESHTOKENEVENMORERUINED"
     }
 
-    override fun upload(folderId: Int, filename: String, uriString: String, mimetype : String) {
-        uploadFileInteractor.input = UploadFileInteractor.Input(folderId, filename, uriString, mimetype)
+    override fun upload(folderId: Int, filename: String, uriString: String, mimetype: String) {
+        uploadFileInteractor.input =
+            UploadFileInteractor.Input(folderId, filename, uriString, mimetype)
         uploadFileInteractor.run()
-        runAction { v->v.showUploadProgress() }
+        runAction { v -> v.showUploadProgress() }
     }
 
     /**
@@ -63,19 +63,19 @@ class UploadOverviewComponentPresenter @Inject constructor(
      */
 
     override fun onGetStorage(storageInfo: StorageInfo) {
-        runAction { v->v.showStorageInfo(storageInfo) }
+        runAction { v -> v.showStorageInfo(storageInfo) }
     }
 
     override fun onGetStorageError(error: ViewError) {
-        runAction { v->v.showErrorDialog(error) }
+        runAction { v -> v.showErrorDialog(error) }
     }
 
     override fun onGetLatestUploads(messages: List<Message>) {
-        runAction { v->v.showLatestUploads(messages)}
+        runAction { v -> v.showLatestUploads(messages) }
     }
 
     override fun onGetLatestUploadsError(error: ViewError) {
-        runAction { v->v.showErrorDialog(error) }
+        runAction { v -> v.showErrorDialog(error) }
     }
 
     /**
@@ -83,17 +83,17 @@ class UploadOverviewComponentPresenter @Inject constructor(
      */
     override fun onUploadFileComplete() {
         Timber.e("onUploadFileComplete")
-        runAction { v->v.hideUploadProgress() }
+        runAction { v -> v.hideUploadProgress() }
         refresh()
     }
 
     override fun onUploadFileProgress(pct: Double) {
         Timber.e("onUploadFileProgress $pct")
-        runAction { v->v.updateUploadProgress(pct)}
+        runAction { v -> v.updateUploadProgress(pct) }
     }
 
     override fun onUploadFileError(error: ViewError) {
-        runAction { v->
+        runAction { v ->
             v.hideUploadProgress()
             v.showErrorDialog(error)
         }

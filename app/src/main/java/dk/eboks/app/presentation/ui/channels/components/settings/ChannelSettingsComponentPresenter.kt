@@ -25,17 +25,17 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class ChannelSettingsComponentPresenter @Inject constructor(
-        private val appState: AppStateManager,
-        private val storeboxCreditCardsInteractor: GetStoreboxCreditCardsInteractor,
-        private val deleteStoreboxCreditCardInteractor: DeleteStoreboxCreditCardInteractor,
-        private val getStoreboxProfileInteractor: GetStoreboxProfileInteractor,
-        private val putStoreboxProfileInteractor: PutStoreboxProfileInteractor,
-        private val getStoreboxCardLinkInteractor: GetStoreboxCardLinkInteractor,
-        private val deleteStoreboxAccountLinkInteractor: DeleteStoreboxAccountLinkInteractor,
-        private val updateStoreboxFlagsInteractor: UpdateStoreboxFlagsInteractor,
-        private val getChannelInteractor: GetChannelInteractor,
-        private val uninstallChannelInteractor: UninstallChannelInteractor
-        ) : ChannelSettingsComponentContract.Presenter,
+    private val appState: AppStateManager,
+    private val storeboxCreditCardsInteractor: GetStoreboxCreditCardsInteractor,
+    private val deleteStoreboxCreditCardInteractor: DeleteStoreboxCreditCardInteractor,
+    private val getStoreboxProfileInteractor: GetStoreboxProfileInteractor,
+    private val putStoreboxProfileInteractor: PutStoreboxProfileInteractor,
+    private val getStoreboxCardLinkInteractor: GetStoreboxCardLinkInteractor,
+    private val deleteStoreboxAccountLinkInteractor: DeleteStoreboxAccountLinkInteractor,
+    private val updateStoreboxFlagsInteractor: UpdateStoreboxFlagsInteractor,
+    private val getChannelInteractor: GetChannelInteractor,
+    private val uninstallChannelInteractor: UninstallChannelInteractor
+) : ChannelSettingsComponentContract.Presenter,
     BasePresenterImpl<ChannelSettingsComponentContract.View>(),
     DeleteStoreboxCreditCardInteractor.Output,
     GetStoreboxCreditCardsInteractor.Output,
@@ -45,8 +45,7 @@ class ChannelSettingsComponentPresenter @Inject constructor(
     DeleteStoreboxAccountLinkInteractor.Output,
     UpdateStoreboxFlagsInteractor.Output,
     GetChannelInteractor.Output,
-    UninstallChannelInteractor.Output
-{
+    UninstallChannelInteractor.Output {
 
     override var currentChannel: Channel? = null
 
@@ -80,7 +79,7 @@ class ChannelSettingsComponentPresenter @Inject constructor(
         getStoreboxProfileInteractor.run()
     }
 
-    override fun saveStoreboxProfile(profile : StoreboxProfile) {
+    override fun saveStoreboxProfile(profile: StoreboxProfile) {
         putStoreboxProfileInteractor.input = PutStoreboxProfileInteractor.Input(profile)
         putStoreboxProfileInteractor.run()
     }
@@ -95,7 +94,7 @@ class ChannelSettingsComponentPresenter @Inject constructor(
         deleteStoreboxAccountLinkInteractor.run()
     }
 
-    override fun updateChannelFlags(channel : Channel, flags: ChannelFlags) {
+    override fun updateChannelFlags(channel: Channel, flags: ChannelFlags) {
         updateStoreboxFlagsInteractor.input = UpdateStoreboxFlagsInteractor.Input(channel.id, flags)
         updateStoreboxFlagsInteractor.run()
     }
@@ -108,11 +107,11 @@ class ChannelSettingsComponentPresenter @Inject constructor(
         }
     }
 
-    private fun refreshChannel(channelId: Int)
-    {
+    private fun refreshChannel(channelId: Int) {
         getChannelInteractor.input = GetChannelInteractor.Input(channelId)
         getChannelInteractor.run()
     }
+
     /**
      * Interactor callbacks ----------------------------------------------------------------------->
      */
@@ -215,7 +214,7 @@ class ChannelSettingsComponentPresenter @Inject constructor(
 
     override fun onGetChannel(channel: Channel) {
         currentChannel = channel
-        runAction { v->
+        runAction { v ->
             v.setupChannel(channel)
         }
     }

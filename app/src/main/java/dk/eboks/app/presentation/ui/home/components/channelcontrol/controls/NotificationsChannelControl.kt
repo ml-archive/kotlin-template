@@ -11,25 +11,37 @@ import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
 import dk.eboks.app.util.guard
 
-class NotificationsChannelControl(channel: Channel, control : Control, view: View, inflater : LayoutInflater, handler: Handler, val formatter: EboksFormatter) : ChannelControl(channel, control, view, inflater, handler) {
+class NotificationsChannelControl(
+    channel: Channel,
+    control: Control,
+    view: View,
+    inflater: LayoutInflater,
+    handler: Handler,
+    val formatter: EboksFormatter
+) : ChannelControl(channel, control, view, inflater, handler) {
     override fun buildView() {
         control.items?.let { items ->
-            if(items.isEmpty())
-            {
-                val v = inflater.inflate(R.layout.viewholder_home_notification_row, rowsContainerLl, false)
+            if (items.isEmpty()) {
+                val v = inflater.inflate(
+                    R.layout.viewholder_home_notification_row,
+                    rowsContainerLl,
+                    false
+                )
                 val emptyContainer = v.findViewById<LinearLayout>(R.id.emptyContentContainer)
                 val contentContainer = v.findViewById<LinearLayout>(R.id.contentContainer)
                 emptyContainer.visibility = View.VISIBLE
                 contentContainer.visibility = View.GONE
                 rowsContainerLl.addView(v)
-            }
-            else {
+            } else {
                 for (currentItem in items) {
-                    val v = inflater.inflate(R.layout.viewholder_home_notification_row, rowsContainerLl, false)
+                    val v = inflater.inflate(
+                        R.layout.viewholder_home_notification_row,
+                        rowsContainerLl,
+                        false
+                    )
                     val title = v.findViewById<TextView>(R.id.titleTv)
                     val subtitle = v.findViewById<TextView>(R.id.subTitleTv)
                     val date = v.findViewById<TextView>(R.id.dateTv)
-
 
                     title.text = currentItem.title
                     subtitle.text = currentItem.description
@@ -37,8 +49,7 @@ class NotificationsChannelControl(channel: Channel, control : Control, view: Vie
 
                     // hide data if its a zero or null timestamp
                     currentItem.date?.let {
-                        if(it.time == -62135769600000L)
-                        {
+                        if (it.time == -62135769600000L) {
                             date.visibility = View.INVISIBLE
                         }
                     }.guard {

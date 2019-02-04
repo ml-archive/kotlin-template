@@ -10,15 +10,23 @@ import javax.inject.Inject
 
 /**
  * Created by Christian on 5/28/2018.
- * @author   Christian
- * @since    5/28/2018.
+ * @author Christian
+ * @since 5/28/2018.
  */
-class NemIdComponentPresenter @Inject constructor(appState: AppStateManager,
-                                                  transformTokenInteractor: TransformTokenInteractor,
-                                                  verifyProfileInteractor: VerifyProfileInteractor,
-                                                  mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-                                                  userSettingsManager: UserSettingsManager) :
-        WebLoginPresenter(appState, transformTokenInteractor, verifyProfileInteractor, mergeAndImpersonateInteractor, userSettingsManager) {
+class NemIdComponentPresenter @Inject constructor(
+    appState: AppStateManager,
+    transformTokenInteractor: TransformTokenInteractor,
+    verifyProfileInteractor: VerifyProfileInteractor,
+    mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+    userSettingsManager: UserSettingsManager
+) :
+    WebLoginPresenter(
+        appState,
+        transformTokenInteractor,
+        verifyProfileInteractor,
+        mergeAndImpersonateInteractor,
+        userSettingsManager
+    ) {
 
     override fun login(webToken: String) {
         appState.state?.loginState?.let {

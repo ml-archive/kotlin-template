@@ -16,7 +16,7 @@ interface BrowseCategoryContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun loadSenders(senderId : Long)
-        fun searchSenders(searchText : String)
+        fun loadSenders(senderId: Long)
+        fun searchSenders(searchText: String)
     }
 }

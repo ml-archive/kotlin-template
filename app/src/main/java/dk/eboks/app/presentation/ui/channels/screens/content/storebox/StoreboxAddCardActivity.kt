@@ -9,7 +9,6 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.BaseWebFragment
 import dk.eboks.app.util.putArg
 import kotlinx.android.synthetic.main.fragment_base_web.*
@@ -28,9 +27,11 @@ class StoreboxAddCardActivity : BaseActivity() {
             }
         }
         intent?.getParcelableExtra<Link>(Link::class.java.simpleName)?.let { link ->
-            setRootFragment(R.id.containerFl, StoreboxAddCardFragment().putArg(Link::class.java.simpleName, link))
+            setRootFragment(
+                R.id.containerFl,
+                StoreboxAddCardFragment().putArg(Link::class.java.simpleName, link)
+            )
         }
-
     }
 
     class StoreboxAddCardFragment : BaseWebFragment() {
@@ -52,11 +53,10 @@ class StoreboxAddCardActivity : BaseActivity() {
         override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             Timber.e("URL override: $url")
             url?.let {
-                if(url.contains(GetStoreboxCardLinkInteractorImpl.SUCCESS_CALLBACK)) {
+                if (url.contains(GetStoreboxCardLinkInteractorImpl.SUCCESS_CALLBACK)) {
                     activity?.finish()
                 }
-                if(url.contains(GetStoreboxCardLinkInteractorImpl.ERROR_CALLBACK))
-                {
+                if (url.contains(GetStoreboxCardLinkInteractorImpl.ERROR_CALLBACK)) {
                     val ve = ViewError()
                     ve.shouldCloseView = true
                     showErrorDialog(ve)
@@ -66,8 +66,6 @@ class StoreboxAddCardActivity : BaseActivity() {
         }
 
         override fun onLoadFinished(view: WebView?, url: String?) {
-
         }
-
     }
 }

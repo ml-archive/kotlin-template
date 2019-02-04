@@ -12,10 +12,10 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class FingerHintComponentPresenter @Inject constructor(
-        private val appState: AppStateManager,
-        private val userSettingsManager: UserSettingsManager,
-        private val encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,
-        private val saveUserInteractor: SaveUserInteractor
+    private val appState: AppStateManager,
+    private val userSettingsManager: UserSettingsManager,
+    private val encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,
+    private val saveUserInteractor: SaveUserInteractor
 ) : FingerHintComponentContract.Presenter,
     BasePresenterImpl<FingerHintComponentContract.View>(),
     EncryptUserLoginInfoInteractor.Output,
@@ -27,7 +27,8 @@ class FingerHintComponentPresenter @Inject constructor(
         Timber.d("encryptUserLoginInfo: $loginInfo")
 
         loginInfo?.let {
-            it.actvationCode = userSettingsManager.get(appState.state?.currentUser?.id?:0).activationCode?:""
+            it.actvationCode =
+                userSettingsManager.get(appState.state?.currentUser?.id ?: 0).activationCode ?: ""
             encryptUserLoginInfoInteractor.output = this
             encryptUserLoginInfoInteractor.input = EncryptUserLoginInfoInteractor.Input(loginInfo)
             encryptUserLoginInfoInteractor.run()
@@ -41,10 +42,10 @@ class FingerHintComponentPresenter @Inject constructor(
 
         if (currentUser == null) {
             val viewError = ViewError(
-                    Translation.error.genericTitle,
-                    Translation.error.genericMessage,
-                    true,
-                    true
+                Translation.error.genericTitle,
+                Translation.error.genericMessage,
+                true,
+                true
             )
             view?.showErrorDialog(viewError)
             return

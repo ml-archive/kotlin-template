@@ -27,17 +27,17 @@ import timber.log.Timber
  * Created by bison on 05/02/18.
  */
 abstract class BaseSheetActivity : BaseActivity() {
-    var sheetBehavior : BottomSheetBehavior<View>? = null
+    var sheetBehavior: BottomSheetBehavior<View>? = null
     var shouldClose = false
-    private lateinit var fadeAnim : Animation
-    private lateinit var bounceAnim : Animation
+    private lateinit var fadeAnim: Animation
+    private lateinit var bounceAnim: Animation
     private val handleOffsetMaxDP = 28
     private val handleOffsetMinDP = 0
     private var handleBounceDistance = 0f
-    private var handleOffsetMax : Float = 0f
-    private var handleOffsetMin : Float = 0f
-    private var elevationMin : Float = 0f
-    private var elevationMax : Float = 0f
+    private var handleOffsetMax: Float = 0f
+    private var handleOffsetMin: Float = 0f
+    private var elevationMin: Float = 0f
+    private var elevationMax: Float = 0f
     private val evaluator: ArgbEvaluator = ArgbEvaluator()
     private var handleStartColor: Int = 0
     private var handleEndColor: Int = 0
@@ -46,67 +46,66 @@ abstract class BaseSheetActivity : BaseActivity() {
 
     val callback = object : BottomSheetBehavior.BottomSheetCallback() {
         override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            //Timber.e("Slideoffset: $slideOffset")
+            // Timber.e("Slideoffset: $slideOffset")
             touchVeilV.alpha = MathUtil.reMapFloat(0f, 1.0f, .0f, 1.0f, slideOffset)
-            //touchVeilV.alpha = slideOffset
-            if(slideOffset >= 0) {
+            // touchVeilV.alpha = slideOffset
+            if (slideOffset >= 0) {
                 val params = contextSheetHandle.layoutParams as FrameLayout.LayoutParams
-                params.topMargin = MathUtil.lerp(handleOffsetMax, handleOffsetMin, slideOffset).toInt()
+                params.topMargin =
+                    MathUtil.lerp(handleOffsetMax, handleOffsetMin, slideOffset).toInt()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    contextSheetHandle.elevation = MathUtil.lerp(elevationMin, elevationMax, slideOffset)
+                    contextSheetHandle.elevation =
+                        MathUtil.lerp(elevationMin, elevationMax, slideOffset)
                 }
                 contextSheetHandle.layoutParams = params
                 val background = contextSheetHandle.background
-                setDrawableColor(background, (evaluator.evaluate(slideOffset, handleStartColor, handleEndColor) as Int))
-                //shape.paint.color = evaluator.evaluate(slideOffset, 0)
+                setDrawableColor(
+                    background,
+                    (evaluator.evaluate(slideOffset, handleStartColor, handleEndColor) as Int)
+                )
+                // shape.paint.color = evaluator.evaluate(slideOffset, 0)
             }
-
         }
 
         override fun onStateChanged(bottomSheet: View, newState: Int) {
-            //Timber.e("State changed to $newState")
-            if(newState == BottomSheetBehavior.STATE_HIDDEN)
-            {
+            // Timber.e("State changed to $newState")
+            if (newState == BottomSheetBehavior.STATE_HIDDEN) {
 
                 shouldClose = true
                 finish()
-                overridePendingTransition(0,0)
+                overridePendingTransition(0, 0)
             }
-            if(newState == BottomSheetBehavior.STATE_EXPANDED)
-            {
+            if (newState == BottomSheetBehavior.STATE_EXPANDED) {
                 bounceAnim.repeatCount = Animation.INFINITE
                 contextSheetHandle.startAnimation(bounceAnim)
             }
-            if(newState == BottomSheetBehavior.STATE_DRAGGING)
-            {
+            if (newState == BottomSheetBehavior.STATE_DRAGGING) {
                 hideKeyboard(bottomSheet)
-                if(oldState == BottomSheetBehavior.STATE_COLLAPSED)
-                {
+                if (oldState == BottomSheetBehavior.STATE_COLLAPSED) {
                     touchVeilV.visibility = View.VISIBLE
                 }
-                if(oldState == BottomSheetBehavior.STATE_EXPANDED) {
+                if (oldState == BottomSheetBehavior.STATE_EXPANDED) {
                     contextSheetHandle.animation?.let {
                         if (!it.hasEnded())
                             contextSheetHandle.animation.repeatCount = 0
                     }
                 }
             }
-            if(newState == BottomSheetBehavior.STATE_COLLAPSED)
-            {
+            if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
                 touchVeilV.visibility = View.GONE
-                contextSheetSv.scrollTo(0,0)
+                contextSheetSv.scrollTo(0, 0)
                 contextSheetHandle.animation?.let {
-                    if(!it.hasEnded())
+                    if (!it.hasEnded())
                         contextSheetHandle.animation.repeatCount = 0
                 }
             }
             oldState = newState
         }
-
     }
 
     private fun hideKeyboard(bottomSheet: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(bottomSheet.windowToken, 0)
     }
 
@@ -128,7 +127,6 @@ abstract class BaseSheetActivity : BaseActivity() {
         elevationMin = 0f
         elevationMax = resources.displayMetrics.density * 2.0f
 
-
         bounceAnim = TranslateAnimation(0f, 0f, 0f, handleBounceDistance)
         bounceAnim.interpolator = AccelerateDecelerateInterpolator()
         bounceAnim.duration = 1500
@@ -143,12 +141,11 @@ abstract class BaseSheetActivity : BaseActivity() {
         firstExpand = true
     }
 
-    fun setupBottomSheet()
-    {
+    fun setupBottomSheet() {
         sheetBehavior = BottomSheetBehavior.from(contextSheet)
         sheetBehavior?.isHideable = false
         sheetBehavior?.peekHeight = (resources.displayMetrics.density * 104.0).toInt()
-        if(shouldStartExpanded())
+        if (shouldStartExpanded())
             sheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
         else
             sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
@@ -163,12 +160,11 @@ abstract class BaseSheetActivity : BaseActivity() {
         }
     }
 
-    fun setupPeakHeight(height: Int){
+    fun setupPeakHeight(height: Int) {
         sheetBehavior?.peekHeight = (resources.displayMetrics.density * height).toInt()
     }
 
-    fun setDrawableColor(background: Drawable, color : Int)
-    {
+    fun setDrawableColor(background: Drawable, color: Int) {
         if (background is ShapeDrawable) {
             // cast to 'ShapeDrawable'
             background.paint.color = color
@@ -181,18 +177,15 @@ abstract class BaseSheetActivity : BaseActivity() {
         }
     }
 
-    fun expand()
-    {
+    fun expand() {
         sheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
-    fun collapse()
-    {
+    fun collapse() {
         sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
-    protected fun setContentSheet(resId : Int)
-    {
+    protected fun setContentSheet(resId: Int) {
         val li: LayoutInflater = LayoutInflater.from(this)
         val sheet = li.inflate(resId, contextSheetSv, false)
         contextSheetSv.addView(sheet)
@@ -203,8 +196,7 @@ abstract class BaseSheetActivity : BaseActivity() {
         super.onBackPressed()
     }
 
-    open fun shouldStartExpanded() : Boolean
-    {
+    open fun shouldStartExpanded(): Boolean {
         return false
     }
 }

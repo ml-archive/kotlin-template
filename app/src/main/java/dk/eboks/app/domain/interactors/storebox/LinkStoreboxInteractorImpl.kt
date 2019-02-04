@@ -8,10 +8,11 @@ import timber.log.Timber
 
 /**
  * Created by Christian on 5/15/2018.
- * @author   Christian
- * @since    5/15/2018.
+ * @author Christian
+ * @since 5/15/2018.
  */
-class LinkStoreboxInteractorImpl(executor: Executor, private val api: Api) : BaseInteractor(executor), LinkStoreboxInteractor {
+class LinkStoreboxInteractorImpl(executor: Executor, private val api: Api) :
+    BaseInteractor(executor), LinkStoreboxInteractor {
     override var input: LinkStoreboxInteractor.Input? = null
     override var output: LinkStoreboxInteractor.Output? = null
 
@@ -21,26 +22,25 @@ class LinkStoreboxInteractorImpl(executor: Executor, private val api: Api) : Bas
                 var map = mapOf(
                     Pair("email", it.email)
                 )
-                if(it.mobile.isNotBlank()) {
+                if (it.mobile.isNotBlank()) {
                     map = mapOf(
-                            Pair("email", it.email),
-                            Pair("mobile", it.mobile)
+                        Pair("email", it.email),
+                        Pair("mobile", it.mobile)
                     )
                 }
 
                 val result = api.postLinkStorebox(map).execute()
-                if(result.isSuccessful) {
+                if (result.isSuccessful) {
                     result.body()?.let { body ->
                         val str = body.toString()
-                        val newstr = if(str.contains("{")) str.substring(4, str.length-1) else str
+                        val newstr =
+                            if (str.contains("{")) str.substring(4, str.length - 1) else str
                         Timber.e("body : $newstr")
                         runOnUIThread {
                             output?.storeboxAccountFound(true, newstr)
                         }
                     }
-                }
-                else
-                {
+                } else {
                     runOnUIThread {
                         output?.storeboxAccountFound(false, null)
                     }
@@ -52,5 +52,4 @@ class LinkStoreboxInteractorImpl(executor: Executor, private val api: Api) : Bas
             }
         }
     }
-
 }

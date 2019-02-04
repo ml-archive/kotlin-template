@@ -7,19 +7,19 @@ import javax.inject.Named
 
 /**
  * Created by Christian on 5/23/2018.
- * @author   Christian
- * @since    5/23/2018.
+ * @author Christian
+ * @since 5/23/2018.
  */
 class PrivacyPresenter @Inject constructor(@Named("NAME_BASE_URL") val baseUrl: String) :
-        PrivacyContract.Presenter,
-        BasePresenterImpl<PrivacyContract.View>() {
+    PrivacyContract.Presenter,
+    BasePresenterImpl<PrivacyContract.View>() {
 
     override fun onViewCreated(view: PrivacyContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
 
         runAction { v ->
             v.loadUrl("${baseUrl}resources/privacypolicy")
-            //v.loadData(Translation.profile.privacyStatement)
+            // v.loadData(Translation.profile.privacyStatement)
         }
     }
 }

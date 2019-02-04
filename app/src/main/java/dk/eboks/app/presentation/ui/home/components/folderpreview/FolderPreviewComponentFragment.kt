@@ -167,7 +167,6 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
                 urgentTv?.visibility = View.GONE
             }
 
-
             titleTv.text = currentMessage.sender?.name ?: ""
             subTitleTv.text = currentMessage.subject
             dateTv.text = formatter.formatDateRelative(currentMessage)

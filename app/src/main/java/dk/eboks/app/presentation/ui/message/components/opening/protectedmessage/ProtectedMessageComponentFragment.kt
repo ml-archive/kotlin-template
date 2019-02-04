@@ -52,7 +52,7 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         presenter.onViewCreated(this, lifecycle)
         loginSecureBtn.visibility = View.VISIBLE
         loginTv.visibility = View.GONE
-        //progressPb.visibility = View.GONE
+        // progressPb.visibility = View.GONE
         setupTopBar()
         updateTranslation()
         iconIv.setImageResource(R.drawable.icon_48_lock_white)
@@ -101,7 +101,7 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
             // hide relog button for now
             loginSecureBtn.visible = (false)
         }
-        //loginTv.text = Translation.logoncredentials.logonWithProvider.replace("[provider]",mobileProvider.name)
+        // loginTv.text = Translation.logoncredentials.logonWithProvider.replace("[provider]",mobileProvider.name)
     }
 
     private fun updateTranslation() {

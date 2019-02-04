@@ -20,23 +20,19 @@ import java.nio.channels.FileChannel
  * TODO implement max size and delete old entries from disk
  */
 class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheManager {
-    var cache : MutableMap<String, CacheEntry>
+    var cache: MutableMap<String, CacheEntry>
     val cacheStore = GsonCacheStore()
-    var cacheDir : File
+    var cacheDir: File
 
     init {
-        val type = object : TypeToken<HashMap<String, CacheEntry>>(){}.type
+        val type = object : TypeToken<HashMap<String, CacheEntry>>() {}.type
         try {
             cache = cacheStore.load(type)
             Timber.e("Loaded filecache with ${cache.size} entries")
-            for(entry in cache)
-            {
+            for (entry in cache) {
                 Timber.e("Entry: ${entry.key} = ${entry.value.filename}")
             }
-
-        }
-        catch (t : Throwable)
-        {
+        } catch (t: Throwable) {
             Timber.e("Filecache empty")
             cache = HashMap()
         }
@@ -50,10 +46,8 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
         createCacheDirIfNotExists()
     }
 
-    private fun createCacheDirIfNotExists()
-    {
-        if(!cacheDir.exists())
-        {
+    private fun createCacheDirIfNotExists() {
+        if (!cacheDir.exists()) {
             Timber.e("Cache dir filecache does not exist, creating one")
             cacheDir.mkdirs()
         }
@@ -67,56 +61,52 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
     }
 
     override fun getCachedContentFileName(content: Content): String? {
-        cache[content.id]?.let { entry->
+        cache[content.id]?.let { entry ->
             return entry.filename
         }
         return null
     }
 
-    override fun cacheContent(filename: String, content: Content)
-    {
+    override fun cacheContent(filename: String, content: Content) {
         val entry = CacheEntry(filename, content)
         cache[content.id] = entry
         cacheStore.save(cache)
         Timber.e("Added entry ${content.id} = ${entry.filename}")
     }
 
-    override fun generateFileName(content: Content) : String
-    {
+    override fun generateFileName(content: Content): String {
         createCacheDirIfNotExists() // if for some reason our cache has been deleted be sure to recreate subdir
         return "filecache/${content.id}"
     }
 
-    override fun getAbsolutePath(filename: String) : String
-    {
+    override fun getAbsolutePath(filename: String): String {
         val downloadedFile = File(context.cacheDir, filename)
-        if(!downloadedFile.exists())
-        {
+        if (!downloadedFile.exists()) {
             Timber.e("Error file $filename does not exist")
         }
         return downloadedFile.absolutePath
     }
 
-    override fun copyContentToExternalStorage(content: Content) : String?
-    {
+    override fun copyContentToExternalStorage(content: Content): String? {
         var filename = getCachedContentFileName(content)
         filename?.let {
             val ext_filename = content.title.replace("[^a-zA-Z0-9\\.\\-]", "_")
             Timber.e("Generated safe filename $ext_filename")
             val srcfile = File(getAbsolutePath(filename))
-            if(!srcfile.exists()) {
+            if (!srcfile.exists()) {
                 Timber.e("Cache src file ${srcfile.absolutePath} does not exist")
                 return null
             }
-            val destfile = File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), ext_filename)
+            val destfile = File(
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                ext_filename
+            )
             Timber.e("Copying cached file to ${destfile.absolutePath}")
             try {
                 copyFileToExternalStorage(srcfile, destfile)
                 mediaScanFile(destfile.absolutePath, content.mimeType ?: "*/*")
                 return destfile.name
-            }
-            catch(t : Throwable)
-            {
+            } catch (t: Throwable) {
                 t.printStackTrace()
                 return null
             }
@@ -124,15 +114,16 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
         return null
     }
 
-    private fun mediaScanFile(path : String, mimetype : String)
-    {
+    private fun mediaScanFile(path: String, mimetype: String) {
         try {
-            MediaScannerConnection.scanFile(context, arrayOf(path), arrayOf(mimetype), { path, uri ->
-                Timber.e("Scan completed")
-            })
-        }
-        catch (t : Throwable)
-        {
+            MediaScannerConnection.scanFile(
+                context,
+                arrayOf(path),
+                arrayOf(mimetype),
+                { path, uri ->
+                    Timber.e("Scan completed")
+                })
+        } catch (t: Throwable) {
             t.printStackTrace()
         }
     }
@@ -171,9 +162,10 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
     /* Checks if external storage is available to at least read */
     override fun isExternalStorageReadable(): Boolean {
         return Environment.getExternalStorageState() in
-                setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)
+            setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)
     }
 
     inner class CacheEntry(var filename: String, var content: Content)
-    inner class GsonCacheStore : GsonFileStorageRepository<MutableMap<String, CacheEntry>>(context, gson, "file_cache.json")
+    inner class GsonCacheStore :
+        GsonFileStorageRepository<MutableMap<String, CacheEntry>>(context, gson, "file_cache.json")
 }

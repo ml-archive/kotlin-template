@@ -8,13 +8,16 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 
 /**
  * Created by Christian on 3/28/2018.
- * @author   Christian
- * @since    3/28/2018.
+ * @author Christian
+ * @since 3/28/2018.
  */
-class RegistrationsPresenter(val appStateManager: AppStateManager, registrationsInteractor: GetRegistrationsInteractor) :
-        BasePresenterImpl<RegistrationsContract.View>(),
-        RegistrationsContract.Presenter,
-        GetRegistrationsInteractor.Output {
+class RegistrationsPresenter(
+    val appStateManager: AppStateManager,
+    registrationsInteractor: GetRegistrationsInteractor
+) :
+    BasePresenterImpl<RegistrationsContract.View>(),
+    RegistrationsContract.Presenter,
+    GetRegistrationsInteractor.Output {
 
     init {
         registrationsInteractor.output = this
@@ -27,7 +30,7 @@ class RegistrationsPresenter(val appStateManager: AppStateManager, registrations
         }
     }
 
-    override fun onError(error: ViewError)  {
+    override fun onError(error: ViewError) {
         runAction { v ->
             v.showErrorDialog(error)
         }

@@ -22,7 +22,7 @@ class ChannelOverviewActivity : BaseActivity(), ChannelOverviewContract.View {
         setupTopBar()
 
         supportFragmentManager.addOnBackStackChangedListener {
-            //Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")
+            // Timber.e("bs changed entryCount ${supportFragmentManager.backStackEntryCount}")
             if (supportFragmentManager.backStackEntryCount == 0) {
                 if (!isDestroyed)
                     finish()

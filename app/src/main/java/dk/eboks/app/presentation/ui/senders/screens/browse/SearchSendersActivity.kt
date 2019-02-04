@@ -21,8 +21,8 @@ import javax.inject.Inject
 
 /**
  * Created by Christian on 3/14/2018.
- * @author   Christian
- * @since    3/14/2018.
+ * @author Christian
+ * @since 3/14/2018.
  */
 class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
 
@@ -99,13 +99,21 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
         searchSenderRv.adapter?.notifyDataSetChanged()
     }
 
-    inner class SenderAdapter(val senders: List<Sender>) : androidx.recyclerview.widget.RecyclerView.Adapter<SenderAdapter.SenderViewHolder>(), FastScroller.SectionIndexer {
+    inner class SenderAdapter(val senders: List<Sender>) :
+        androidx.recyclerview.widget.RecyclerView.Adapter<SenderAdapter.SenderViewHolder>(),
+        FastScroller.SectionIndexer {
         override fun getSectionText(position: Int): String {
             return "${senders[position].name.first()}"
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SenderViewHolder {
-            return SenderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.viewholder_sender, parent, false))
+            return SenderViewHolder(
+                LayoutInflater.from(parent.context).inflate(
+                    R.layout.viewholder_sender,
+                    parent,
+                    false
+                )
+            )
         }
 
         override fun onBindViewHolder(holder: SenderViewHolder, position: Int) {
@@ -116,7 +124,8 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
             return senders.size
         }
 
-        inner class SenderViewHolder(val v: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
+        inner class SenderViewHolder(val v: View) :
+            androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
             val mainLl = v.findViewById<View>(R.id.senderMainLl)
             val indexTv = v.findViewById<TextView>(R.id.senderIndexTv)
             val nameTv = v.findViewById<TextView>(R.id.senderNameTv)
@@ -130,12 +139,13 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
                 indexTv.text = "${sender.name.first().toUpperCase()}"
                 nameTv.text = sender.name
                 Glide.with(v.context)
-                        .load(sender.logo?.url)
-                        .apply(RequestOptions()
-                                .fallback(R.drawable.icon_64_senders_private)
-                                .placeholder(R.drawable.icon_64_senders_private)
-                        )
-                        .into(iconIv)
+                    .load(sender.logo?.url)
+                    .apply(
+                        RequestOptions()
+                            .fallback(R.drawable.icon_64_senders_private)
+                            .placeholder(R.drawable.icon_64_senders_private)
+                    )
+                    .into(iconIv)
 
                 mainLl.setOnClickListener {
                     val i = Intent(this@SearchSendersActivity, SenderDetailActivity::class.java)

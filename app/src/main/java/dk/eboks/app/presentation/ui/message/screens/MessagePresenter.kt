@@ -16,14 +16,15 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class MessagePresenter @Inject constructor(
-        val appState: AppStateManager,
-        val deleteMessagesInteractor: DeleteMessagesInteractor,
-        val updateMessageInteractor: UpdateMessageInteractor) :
+    val appState: AppStateManager,
+    val deleteMessagesInteractor: DeleteMessagesInteractor,
+    val updateMessageInteractor: UpdateMessageInteractor
+) :
 
-        MessageContract.Presenter,
-        BasePresenterImpl<MessageContract.View>(),
-        DeleteMessagesInteractor.Output,
-        UpdateMessageInteractor.Output {
+    MessageContract.Presenter,
+    BasePresenterImpl<MessageContract.View>(),
+    DeleteMessagesInteractor.Output,
+    UpdateMessageInteractor.Output {
     var message: Message? = null
     var moveToFolder: String? = null
 
@@ -44,21 +45,22 @@ class MessagePresenter @Inject constructor(
                 }
             }
             v.addNotesComponentFragment()
-            if(message?.attachments != null)
+            if (message?.attachments != null)
                 v.addAttachmentsComponentFragment()
             v.addShareComponentFragment()
             v.addFolderInfoComponentFragment()
             message?.let {
                 v.setActionButtons(it)
-                v.showTitle(it) }
+                v.showTitle(it)
+            }
         }
     }
-
 
     override fun moveMessage(folder: Folder) {
         message?.let {
             moveToFolder = folder.name
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(arrayListOf(it), MessagePatch(folderId = folder.id))
+            updateMessageInteractor.input =
+                UpdateMessageInteractor.Input(arrayListOf(it), MessagePatch(folderId = folder.id))
             updateMessageInteractor.run()
         }
     }
@@ -96,15 +98,16 @@ class MessagePresenter @Inject constructor(
 
     override fun archiveMessage() {
         message?.let {
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(arrayListOf(it), MessagePatch(archive = true))
+            updateMessageInteractor.input =
+                UpdateMessageInteractor.Input(arrayListOf(it), MessagePatch(archive = true))
             updateMessageInteractor.run()
         }
     }
 
-
     override fun markAsUnread(unread: Boolean) {
         message?.let {
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(arrayListOf(it), MessagePatch(unread = unread))
+            updateMessageInteractor.input =
+                UpdateMessageInteractor.Input(arrayListOf(it), MessagePatch(unread = unread))
             updateMessageInteractor.run()
         }
     }

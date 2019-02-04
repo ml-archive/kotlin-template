@@ -30,7 +30,11 @@ class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContr
     @Inject
     lateinit var presenter: EkeyDetailComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_channel_ekey_detail, container, false)
         return rootView
     }
@@ -70,7 +74,7 @@ class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContr
     }
 
     override fun showPinView() {
-        val act = if(activity is EkeyContentActivity) {
+        val act = if (activity is EkeyContentActivity) {
             activity as EkeyContentActivity
         } else {
             null
@@ -131,7 +135,7 @@ class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContr
         }
     }
 
-    private fun showPassword(){
+    private fun showPassword() {
         hidePassword = !hidePassword
         if (hidePassword) {
             passwordEt.transformationMethod = PasswordTransformationMethod.getInstance()
@@ -143,7 +147,6 @@ class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContr
             pinEt.transformationMethod = null
             pinShowPasswordIb.isSelected = true
             loginShowPasswordIb.isSelected = true
-
         }
     }
 
@@ -180,16 +183,17 @@ class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContr
             getBaseActivity()?.onBackPressed()
         }
 
-        val menuSearch = getBaseActivity()?.mainTb?.menu?.add(Translation.defaultSection.save.toUpperCase())
+        val menuSearch =
+            getBaseActivity()?.mainTb?.menu?.add(Translation.defaultSection.save.toUpperCase())
         menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
 
             val items = (activity as EkeyContentActivity).getVault()
             val doesExist = items?.firstOrNull { i -> i.hashCode() == editKey?.hashCode() }
 
-            items?.let {items ->
+            items?.let { items ->
                 doesExist?.let { items.remove(it) }
-                if(isDataValid()) {
+                if (isDataValid()) {
                     getBaseEkey()?.let { presenter.putVault(items, it) }
                 }
             }
@@ -206,33 +210,33 @@ class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContr
         pinTil.error = null
         return when (category) {
             EkeyDetailMode.LOGIN -> {
-                if(usernameEt.text.toString().isEmpty()) {
+                if (usernameEt.text.toString().isEmpty()) {
                     usernameTil.error = Translation.ekey.fieldIsRequired
                     valid = false
                 }
-                if(passwordEt.text.toString().isEmpty()) {
+                if (passwordEt.text.toString().isEmpty()) {
                     passwordTil.error = Translation.ekey.fieldIsRequired
                     valid = false
                 }
-                if(nameEt.text.toString().isEmpty()) {
+                if (nameEt.text.toString().isEmpty()) {
                     nameTil.error = Translation.ekey.fieldIsRequired
                     valid = false
                 }
                 valid
             }
             EkeyDetailMode.PIN -> {
-                if(pinEt.text.toString().isEmpty()) {
+                if (pinEt.text.toString().isEmpty()) {
                     pinTil.error = Translation.ekey.fieldIsRequired
                     valid = false
                 }
-                if(nameEt.text.toString().isEmpty()) {
+                if (nameEt.text.toString().isEmpty()) {
                     nameTil.error = Translation.ekey.fieldIsRequired
                     valid = false
                 }
                 valid
             }
             EkeyDetailMode.NOTE -> {
-                if(nameEt.text.toString().isEmpty()) {
+                if (nameEt.text.toString().isEmpty()) {
                     nameTil.error = Translation.ekey.fieldIsRequired
                     valid = false
                 }
@@ -248,25 +252,28 @@ class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContr
         return when (category) {
             EkeyDetailMode.LOGIN -> {
                 Login(
-                        usernameEt.text.toString(),
-                        passwordEt.text.toString(),
-                        nameEt.text.toString(),
-                        noteEt.text.toString())
+                    usernameEt.text.toString(),
+                    passwordEt.text.toString(),
+                    nameEt.text.toString(),
+                    noteEt.text.toString()
+                )
             }
             EkeyDetailMode.PIN -> {
                 Pin(
-                        nameEt.text.toString(),
-                        pinEt.text.toString(),
-                        noteEt.text.toString())
+                    nameEt.text.toString(),
+                    pinEt.text.toString(),
+                    noteEt.text.toString()
+                )
             }
             EkeyDetailMode.NOTE -> {
-                Note(nameEt.text.toString(),
-                        noteEt.text.toString())
+                Note(
+                    nameEt.text.toString(),
+                    noteEt.text.toString()
+                )
             }
             else -> {
                 null
             }
         }
     }
-
 }

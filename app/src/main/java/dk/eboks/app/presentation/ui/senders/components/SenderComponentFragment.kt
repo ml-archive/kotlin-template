@@ -20,19 +20,24 @@ import javax.inject.Inject
 
 /**
  * Created by Christian on 3/20/2018.
- * @author   Christian
- * @since    3/20/2018.
+ * @author Christian
+ * @since 3/20/2018.
  */
 class SenderComponentFragment : BaseFragment(), RegistrationContract.View {
 
     // the sound of silence!
     override fun showSuccess() {}
+
     override fun showError(message: String) {}
 
     @Inject
     lateinit var presenter: RegistrationContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_sender_component, container, false)
     }
 
@@ -43,12 +48,13 @@ class SenderComponentFragment : BaseFragment(), RegistrationContract.View {
         presenter.onViewCreated(this, lifecycle)
         arguments?.getParcelable<Sender>(Sender::class.simpleName)?.let { sender ->
             Glide.with(context ?: return)
-                    .load(sender.logo?.url)
-                    .apply(RequestOptions()
-                            .fallback(R.drawable.icon_64_senders_private)
-                            .placeholder(R.drawable.icon_64_senders_private)
-                    )
-                    .into(senderIv)
+                .load(sender.logo?.url)
+                .apply(
+                    RequestOptions()
+                        .fallback(R.drawable.icon_64_senders_private)
+                        .placeholder(R.drawable.icon_64_senders_private)
+                )
+                .into(senderIv)
             senderNameTv.text = sender.name
             senderCv.setOnClickListener {
                 val i = Intent(context, SenderDetailActivity::class.java)
@@ -60,32 +66,32 @@ class SenderComponentFragment : BaseFragment(), RegistrationContract.View {
             senderRegisterBtn.setOnClickListener { v ->
                 if (sender.registered != 0) {
                     AlertDialog.Builder(v.context)
-                            .setTitle(Translation.senders.unregisterAlertTitle)
-                            .setMessage(Translation.senders.unregisterAlertDescription)
-                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                dialog.cancel()
-                            }
-                            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                presenter.unregisterSender(sender)
-                                sender.registered = 0
-                                setButtonText(senderRegisterBtn, sender)
-                                dialog.dismiss()
-                            }
-                            .show()
+                        .setTitle(Translation.senders.unregisterAlertTitle)
+                        .setMessage(Translation.senders.unregisterAlertDescription)
+                        .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                            dialog.cancel()
+                        }
+                        .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                            presenter.unregisterSender(sender)
+                            sender.registered = 0
+                            setButtonText(senderRegisterBtn, sender)
+                            dialog.dismiss()
+                        }
+                        .show()
                 } else {
                     AlertDialog.Builder(v.context)
-                            .setTitle(Translation.senders.registerAlertTitle)
-                            .setMessage(Translation.senders.registerAlertDescription)
-                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                dialog.cancel()
-                            }
-                            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                presenter.registerSender(sender)
-                                sender.registered = 1
-                                setButtonText(senderRegisterBtn, sender)
-                                dialog.dismiss()
-                            }
-                            .show()
+                        .setTitle(Translation.senders.registerAlertTitle)
+                        .setMessage(Translation.senders.registerAlertDescription)
+                        .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                            dialog.cancel()
+                        }
+                        .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                            presenter.registerSender(sender)
+                            sender.registered = 1
+                            setButtonText(senderRegisterBtn, sender)
+                            dialog.dismiss()
+                        }
+                        .show()
                 }
             }
         }

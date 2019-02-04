@@ -12,21 +12,38 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface LoginComponentContract {
     interface View : BaseView {
-        fun setupView(loginProvider: LoginProvider?, user: User?, settings: UserSettings, altLoginProviders: List<LoginProvider>)
+        fun setupView(
+            loginProvider: LoginProvider?,
+            user: User?,
+            settings: UserSettings,
+            altLoginProviders: List<LoginProvider>
+        )
+
         fun showActivationCodeDialog()
         fun showError(viewError: ViewError)
         fun addFingerPrintProvider()
         fun proceedToApp()
         fun startDeviceActivation()
-        fun showProgress(show : Boolean)
+        fun showProgress(show: Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setup(verifyLoginProviderId : String? = null, reauth : Boolean = false, autoLogin : Boolean = false)
+        fun setup(
+            verifyLoginProviderId: String? = null,
+            reauth: Boolean = false,
+            autoLogin: Boolean = false
+        )
+
         fun fingerPrintConfirmed(user: User)
-        fun updateLoginState(userName: String, providerId: String, password: String, activationCode: String?)
+        fun updateLoginState(
+            userName: String,
+            providerId: String,
+            password: String,
+            activationCode: String?
+        )
+
         fun login()
         fun switchLoginProvider(provider: LoginProvider)
-        var reauthing : Boolean
+        var reauthing: Boolean
     }
 }

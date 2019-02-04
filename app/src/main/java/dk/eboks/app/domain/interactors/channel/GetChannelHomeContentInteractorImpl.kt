@@ -28,7 +28,6 @@ class GetChannelHomeContentInteractorImpl(
     override fun execute() {
         hadChannels = false
 
-
         try {
             refreshContent()
             runOnUIThread { output?.onGetChannelHomeContentDone() }
@@ -85,7 +84,7 @@ class GetChannelHomeContentInteractorImpl(
                     runOnUIThread {
                         val channel = pinnedChannels[entry.key]
                         output?.onGetChannelHomeContent(channel, content)
-                        //Timber.e("emitCachedData channel ${channel.name}")
+                        // Timber.e("emitCachedData channel ${channel.name}")
                     }
                 }
             }
@@ -119,7 +118,6 @@ class GetChannelHomeContentInteractorImpl(
                     }
                     channelMap[index] = d
                 }
-
             }
 
             // force uncached controls to finish loading
@@ -136,7 +134,7 @@ class GetChannelHomeContentInteractorImpl(
                     var channel = installedChannels[entry.key]
                     val content = entry.value.getCompleted()
                     output?.onGetChannelHomeContent(channel, content)
-                    //Timber.e("refreshCachedData channel ${channel.name}")
+                    // Timber.e("refreshCachedData channel ${channel.name}")
                 }
             }
             Timber.e("refreshCachedData completed, loaded ${channelMap.size} controls")
@@ -152,7 +150,7 @@ class GetChannelHomeContentInteractorImpl(
         }
 
         if (pinnedChannels.isNotEmpty()) {
-            //val channelMap : MutableMap<Int, Deferred<HomeContent>> = HashMap()
+            // val channelMap : MutableMap<Int, Deferred<HomeContent>> = HashMap()
             runBlocking {
                 pinnedChannels.forEachIndexed { index, channel ->
                     // if we had to fetch the data in emitCachedData() dont load it from the network again

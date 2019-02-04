@@ -20,11 +20,15 @@ import java.util.Calendar
 import java.util.Date
 import java.util.GregorianCalendar
 
-class DateFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler, val isDateTime : Boolean = false) : ReplyFormInput(formInput, inflater, handler)
-{
-    var textTil : TextInputLayout? = null
-    var textEt : EditText? = null
-    var parsedDate : Date? = null
+class DateFormInput(
+    formInput: FormInput,
+    inflater: LayoutInflater,
+    handler: Handler,
+    val isDateTime: Boolean = false
+) : ReplyFormInput(formInput, inflater, handler) {
+    var textTil: TextInputLayout? = null
+    var textEt: EditText? = null
+    var parsedDate: Date? = null
 
     val dateYearFormat: SimpleDateFormat by lazy {
         try {
@@ -45,7 +49,6 @@ class DateFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
     val dateTimeFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("d. MMM YYYY hh:mm", NStack.language)
-
         } catch (t: Throwable) {
             SimpleDateFormat()
         }
@@ -55,26 +58,25 @@ class DateFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
         showDatePicker()
     }
 
-    override fun buildView(vg : ViewGroup): View {
+    override fun buildView(vg: ViewGroup): View {
         val v = inflater.inflate(R.layout.form_input_date, vg, false)
         textTil = v.findViewById(R.id.textTil)
         textEt = v.findViewById(R.id.textEt)
 
-        textTil?.hint = if(!formInput.required) formInput.label else "${formInput.label}*"
+        textTil?.hint = if (!formInput.required) formInput.label else "${formInput.label}*"
 
-        val dateformat = if(isDateTime) dateTimeFormat else dateYearFormat
+        val dateformat = if (isDateTime) dateTimeFormat else dateYearFormat
 
         formInput.value?.let {
             try {
                 parsedDate = dateformat.parse(it)
                 textEt?.setText(dateformat.format(parsedDate))
-            }
-            catch (t : Throwable) {
+            } catch (t: Throwable) {
                 parsedDate = Date()
                 textEt?.setText(dateformat.format(parsedDate))
             }
         }
-        //textEt?.isEnabled = false
+        // textEt?.isEnabled = false
         v?.setOnClickListener(clickListener)
         textEt?.setOnClickListener(clickListener)
         textTil?.setOnClickListener(clickListener)
@@ -83,29 +85,36 @@ class DateFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
         return v
     }
 
-    fun showDatePicker()
-    {
+    fun showDatePicker() {
         val cal = GregorianCalendar()
         parsedDate?.let { cal.time = it }
 
-        val dlg = DatePickerDialog(inflater.context, R.style.DatePickerTheme, object : DatePickerDialog.OnDateSetListener {
-            override fun onDateSet(picker: DatePicker?, year: Int, month: Int, day: Int) {
-                cal.set(year, month, day)
-                parsedDate = cal.time
-                if(!isDateTime) {
-                    try {
-                        textEt?.setText(dateYearFormat.format(parsedDate))
-                    } catch (t: Throwable) {
-                        parsedDate = null
+        val dlg = DatePickerDialog(
+            inflater.context,
+            R.style.DatePickerTheme,
+            object : DatePickerDialog.OnDateSetListener {
+                override fun onDateSet(picker: DatePicker?, year: Int, month: Int, day: Int) {
+                    cal.set(year, month, day)
+                    parsedDate = cal.time
+                    if (!isDateTime) {
+                        try {
+                            textEt?.setText(dateYearFormat.format(parsedDate))
+                        } catch (t: Throwable) {
+                            parsedDate = null
+                        }
                     }
                 }
-            }
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
+            },
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
+        )
 
-        val title = if(isDateTime) Translation.reply.dateTimePickerCaption else Translation.reply.datePickerCaption
+        val title =
+            if (isDateTime) Translation.reply.dateTimePickerCaption else Translation.reply.datePickerCaption
         dlg.setTitle(title)
         dlg.setOnDismissListener { it ->
-            if(isDateTime)
+            if (isDateTime)
                 handler.post {
                     showTimePicker()
                 }
@@ -118,25 +127,32 @@ class DateFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
         dlg.show()
     }
 
-    fun showTimePicker()
-    {
+    fun showTimePicker() {
         val cal = GregorianCalendar()
         parsedDate?.let { cal.time = it }
 
-        val dlg = TimePickerDialog(inflater.context, R.style.DatePickerTheme, object : TimePickerDialog.OnTimeSetListener {
-            override fun onTimeSet(p0: TimePicker?, hour: Int, min: Int) {
-                cal.set(Calendar.HOUR_OF_DAY, hour)
-                cal.set(Calendar.MINUTE, min)
-                parsedDate = cal.time
-                try {
-                    textEt?.setText(dateTimeFormat.format(parsedDate))
-                } catch (t: Throwable) {
-                    parsedDate = null
+        val dlg = TimePickerDialog(
+            inflater.context,
+            R.style.DatePickerTheme,
+            object : TimePickerDialog.OnTimeSetListener {
+                override fun onTimeSet(p0: TimePicker?, hour: Int, min: Int) {
+                    cal.set(Calendar.HOUR_OF_DAY, hour)
+                    cal.set(Calendar.MINUTE, min)
+                    parsedDate = cal.time
+                    try {
+                        textEt?.setText(dateTimeFormat.format(parsedDate))
+                    } catch (t: Throwable) {
+                        parsedDate = null
+                    }
                 }
-            }
-        }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), true)
+            },
+            cal.get(Calendar.HOUR_OF_DAY),
+            cal.get(Calendar.MINUTE),
+            true
+        )
 
-        val title = if(isDateTime) Translation.reply.dateTimePickerCaption else Translation.reply.datePickerCaption
+        val title =
+            if (isDateTime) Translation.reply.dateTimePickerCaption else Translation.reply.datePickerCaption
         dlg.setTitle(title)
         dlg.setOnDismissListener { it ->
             it.dismiss()
@@ -147,21 +163,18 @@ class DateFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
         dlg.show()
     }
 
-    override fun validate(silent : Boolean) {
-        //Timber.e("Validating $formInput")
+    override fun validate(silent: Boolean) {
+        // Timber.e("Validating $formInput")
         isValid = false
-        val text : String = textEt?.text.toString().trim()
-        if(formInput.required && text.isNullOrBlank())
-        {
-            textTil?.error = if(silent) null else Translation.reply.required
+        val text: String = textEt?.text.toString().trim()
+        if (formInput.required && text.isNullOrBlank()) {
+            textTil?.error = if (silent) null else Translation.reply.required
             return
         }
 
         try {
             formInput.value = serverDateFormat.format(parsedDate)
-        }
-        catch (t : Throwable)
-        {
+        } catch (t: Throwable) {
             Timber.e(t)
             return
         }

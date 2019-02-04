@@ -21,7 +21,11 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
     @Inject
     lateinit var presenter: HeaderComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_header_component, container, false)
         return rootView
     }
@@ -53,7 +57,8 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
                 senderLogoIv.visibility = View.GONE
             }
             MessageType.SENT -> {
-                senderTv.text = "${Translation.message.recipientPrefixTo} ${message.sender?.name ?: ""}"
+                senderTv.text =
+                    "${Translation.message.recipientPrefixTo} ${message.sender?.name ?: ""}"
                 titleTv.text = message.subject
                 senderLogoIv.visibility = View.GONE
             }
@@ -89,9 +94,11 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
                 notesTv.text = " " + Translation.message.note
 
                 if (message.numberOfAttachments == 1) {
-                    attachmentsTv.text = "" + message.numberOfAttachments + " " + Translation.message.numberOfAttachmentsSingularSuffix
+                    attachmentsTv.text =
+                        "" + message.numberOfAttachments + " " + Translation.message.numberOfAttachmentsSingularSuffix
                 } else {
-                    attachmentsTv.text = "" + message.numberOfAttachments + " " + Translation.message.numberOfAttachmentsPluralSuffix
+                    attachmentsTv.text =
+                        "" + message.numberOfAttachments + " " + Translation.message.numberOfAttachmentsPluralSuffix
                 }
             } else {
                 attachmentsTv.visibility = View.GONE

@@ -12,18 +12,25 @@ import dk.eboks.app.util.dpToPx
  * This will put a drawable below each row in the RecyclerView.
  *
  * Created by Christian on 5/8/2018.
- * @author   Christian
- * @since    5/8/2018.
+ * @author Christian
+ * @since 5/8/2018.
  *
  * @param drawable The thing to draw below each view
  * @param indentationDp How many DP to indent from the LEFT edge
  * @param backgroundColor Sometimes you may need a background, otherwise transparent is used
  */
-class DividerItemDecoration(private val drawable : Drawable = ColorDrawable(Color.GRAY),
-                            private val indentationDp: Int = 0,
-                            private val backgroundColor: Int = Color.TRANSPARENT)  : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
+class DividerItemDecoration(
+    private val drawable: Drawable = ColorDrawable(Color.GRAY),
+    private val indentationDp: Int = 0,
+    private val backgroundColor: Int = Color.TRANSPARENT
+) : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
 
-    override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: androidx.recyclerview.widget.RecyclerView,
+        state: androidx.recyclerview.widget.RecyclerView.State
+    ) {
         super.getItemOffsets(outRect, view, parent, state)
 
         outRect.bottom += drawable.intrinsicHeight

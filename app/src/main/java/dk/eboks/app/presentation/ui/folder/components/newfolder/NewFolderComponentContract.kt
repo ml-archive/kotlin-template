@@ -8,14 +8,14 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface NewFolderComponentContract {
     interface View : BaseView {
-        fun setRootFolder(user : String)
+        fun setRootFolder(user: String)
         fun showFolderNameError()
         fun finish()
         val overrideActiveUser: Boolean
     }
 
     interface Presenter : BasePresenter<View> {
-        fun createNewFolder(parentFolderId : Int, name: String)
+        fun createNewFolder(parentFolderId: Int, name: String)
         fun folderNameNotAllowed()
         fun deleteFolder(folderiId: Int)
         fun editFolder(folderiId: Int, parentFolderId: Int?, name: String?)

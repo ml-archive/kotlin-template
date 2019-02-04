@@ -6,7 +6,6 @@ enum class FolderMode(val type: String) {
     SELECTFOLDER("selectFolder"),
     EDIT("email");
 
-
     override fun toString(): String {
         when (this) {
             NORMAL -> return "normal"

@@ -6,6 +6,6 @@ import dk.eboks.app.domain.models.SenderCategory
  * Created by bison on 01/02/18.
  */
 interface SenderCategoriesRepository {
-    fun getSenderCategories(cached : Boolean = false) : List<SenderCategory>
-    fun getSendersByCategory(catId : Long) : SenderCategory
+    fun getSenderCategories(cached: Boolean = false): List<SenderCategory>
+    fun getSendersByCategory(catId: Long): SenderCategory
 }

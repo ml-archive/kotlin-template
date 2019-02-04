@@ -32,7 +32,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     private var sensorManager: SensorManager? = null
     private var acceleroMeter: Sensor? = null
     */
-    //protected var showEmptyState: Boolean = false
+    // protected var showEmptyState: Boolean = false
     protected var countToDebug = 0
     var backPressedCallback: (() -> Boolean)? = null
 

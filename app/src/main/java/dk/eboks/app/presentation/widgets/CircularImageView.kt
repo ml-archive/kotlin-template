@@ -10,8 +10,9 @@ import android.widget.ImageView
 class CircularImageView : ImageView {
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attributes: AttributeSet?) : super(context, attributes)
-    constructor(context: Context?, attributes: AttributeSet?, defStyle: Int) : super(context, attributes, defStyle)
-
-
-
+    constructor(context: Context?, attributes: AttributeSet?, defStyle: Int) : super(
+        context,
+        attributes,
+        defStyle
+    )
 }

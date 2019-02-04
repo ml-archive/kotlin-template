@@ -6,11 +6,11 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 class DeleteFolderInteractorImpl(
-        executor: Executor,
-        val foldersRepository: FoldersRepository)
-    :
-        BaseInteractor(executor),
-        DeleteFolderInteractor {
+    executor: Executor,
+    val foldersRepository: FoldersRepository
+) :
+    BaseInteractor(executor),
+    DeleteFolderInteractor {
     override var output: DeleteFolderInteractor.Output? = null
     override var input: DeleteFolderInteractor.Input? = null
 

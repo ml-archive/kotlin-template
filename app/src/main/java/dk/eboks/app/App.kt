@@ -19,9 +19,9 @@ import java.lang.ref.WeakReference
 class App : Application(), Application.ActivityLifecycleCallbacks {
     val appComponent: AppComponent by lazy {
         DaggerAppComponent
-                .builder()
-                .appModule(AppModule(this))
-                .build()
+            .builder()
+            .appModule(AppModule(this))
+            .build()
     }
 
     override fun onCreate() {
@@ -30,7 +30,7 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
         App.Companion._instance = this
         // NStack.customRequestUrl = Config.currentMode.customTranslationUrl
 
-        if(!BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
+        if (!BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
             NStack.customRequestUrl = Config.currentMode.customTranslationUrl
 
         NStack.translationClass = Translation::class.java
@@ -54,10 +54,9 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
 //                    .init()
         }
 
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-
 
         appComponent.inject(this)
 
@@ -103,5 +102,4 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
     override fun onActivitySaveInstanceState(p0: Activity?, p1: Bundle?) {}
     override fun onActivityStopped(p0: Activity?) {}
     override fun onActivityCreated(p0: Activity?, p1: Bundle?) {}
-
 }

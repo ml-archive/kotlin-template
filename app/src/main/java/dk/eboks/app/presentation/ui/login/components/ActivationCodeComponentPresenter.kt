@@ -14,14 +14,12 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class ActivationCodeComponentPresenter @Inject constructor(
-        val appState: AppStateManager,
-        val loginInteractor: LoginInteractor
+    val appState: AppStateManager,
+    val loginInteractor: LoginInteractor
 ) :
-        ActivationCodeComponentContract.Presenter,
-        BasePresenterImpl<ActivationCodeComponentContract.View>(),
-        LoginInteractor.Output
-{
-
+    ActivationCodeComponentContract.Presenter,
+    BasePresenterImpl<ActivationCodeComponentContract.View>(),
+    LoginInteractor.Output {
 
     init {
         loginInteractor.output = this
@@ -31,7 +29,11 @@ class ActivationCodeComponentPresenter @Inject constructor(
         super.onViewCreated(view, lifecycle)
 
         appState.state?.loginState?.let {
-            if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true) && "3110276111" == it.userName) {
+            if (BuildConfig.BUILD_TYPE.contains(
+                    "debug",
+                    ignoreCase = true
+                ) && "3110276111" == it.userName
+            ) {
                 runAction { v ->
                     v.setDebugUp("Cr4x3N6Q")
                 }
@@ -55,7 +57,7 @@ class ActivationCodeComponentPresenter @Inject constructor(
     }
 
     override fun login() {
-        runAction { v->v.showProgress(true) }
+        runAction { v -> v.showProgress(true) }
         appState.state?.loginState?.let {
             loginInteractor.input = LoginInteractor.Input(it)
             loginInteractor.run()

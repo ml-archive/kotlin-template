@@ -60,11 +60,11 @@ class RestModule {
     @AppScope
     fun provideGson(typeFactory: ItemTypeAdapterFactory, dateDeserializer: DateDeserializer): Gson {
         val gson = GsonBuilder()
-                .registerTypeAdapterFactory(typeFactory)
-                .registerTypeAdapter(Date::class.java, dateDeserializer)
+            .registerTypeAdapterFactory(typeFactory)
+            .registerTypeAdapter(Date::class.java, dateDeserializer)
 //                .registerTypeAdapter(List::class.java, ListDeserializer())
-                .setDateFormat(DateDeserializer.DATE_FORMATS[0])
-                .create()
+            .setDateFormat(DateDeserializer.DATE_FORMATS[0])
+            .create()
         return gson
     }
 
@@ -84,10 +84,10 @@ class RestModule {
     @Provides
     @AppScope
     fun provideDownloadManager(
-            context: Context,
-            client: OkHttpClient,
-            cacheManager: FileCacheManager,
-            appStateManager: AppStateManager
+        context: Context,
+        client: OkHttpClient,
+        cacheManager: FileCacheManager,
+        appStateManager: AppStateManager
     ): DownloadManager {
         return DownloadManagerImpl(context, client, cacheManager, appStateManager)
     }
@@ -100,17 +100,22 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideHttpClient(eboksHeaderInterceptor: EboksHeaderInterceptor, eAuth2: EAuth2, prefManager: PrefManager, context: Context): OkHttpClient {
+    fun provideHttpClient(
+        eboksHeaderInterceptor: EboksHeaderInterceptor,
+        eAuth2: EAuth2,
+        prefManager: PrefManager,
+        context: Context
+    ): OkHttpClient {
 
         val clientBuilder = OkHttpClient.Builder()
-                .connectTimeout(45, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS)
-                .authenticator(eAuth2)
-                .addInterceptor(AcceptLanguageHeaderInterceptor())
-                .addInterceptor(ServerErrorInterceptor()) // parses the server error structure and throws the ServerErrorException
-                .addInterceptor(eboksHeaderInterceptor)
-        //.addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
+            .connectTimeout(45, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .authenticator(eAuth2)
+            .addInterceptor(AcceptLanguageHeaderInterceptor())
+            .addInterceptor(ServerErrorInterceptor()) // parses the server error structure and throws the ServerErrorException
+            .addInterceptor(eboksHeaderInterceptor)
+        // .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
 
         if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             clientBuilder.addInterceptor(ApiHostSelectionInterceptor())
@@ -126,15 +131,14 @@ class RestModule {
             // TODO: reenable cert pinning at some point
 
             clientBuilder.certificatePinner(
-                    CertificatePinner.Builder()
-                            //.add("*.e-boks.dk", "sha256/ABF0819A9C2A025C108014F66A7382E8BC4084612D53530792FF8BF3AA5B8503")
-                            //.add("*.eboks.dk", "sha256/bdf29436f609e83fcca59f1119a7e9e6eb69506a")
-                            //.add("*.e-boks.com", "sha256/bdf29436f609e83fcca59f1119a7e9e6eb69506a")
-                            .add("*.e-boks.com", "sha256/ai4fadHtzoMb+LlJR11Ar8YHh6wzhlSX9USbrDs8yjw=")
-                            //.add("*.e-boks.com", "sha256/bdf29436f609e83fcca59f1119a7e9e6eb69506a")
-                            .build()
+                CertificatePinner.Builder()
+                    // .add("*.e-boks.dk", "sha256/ABF0819A9C2A025C108014F66A7382E8BC4084612D53530792FF8BF3AA5B8503")
+                    // .add("*.eboks.dk", "sha256/bdf29436f609e83fcca59f1119a7e9e6eb69506a")
+                    // .add("*.e-boks.com", "sha256/bdf29436f609e83fcca59f1119a7e9e6eb69506a")
+                    .add("*.e-boks.com", "sha256/ai4fadHtzoMb+LlJR11Ar8YHh6wzhlSX9USbrDs8yjw=")
+                    // .add("*.e-boks.com", "sha256/bdf29436f609e83fcca59f1119a7e9e6eb69506a")
+                    .build()
             )
-
         }
 
         val cookieJar = PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(context))
@@ -158,25 +162,24 @@ class RestModule {
 
         clientBuilder.cookieJar(cookieJar)
 
-
         return clientBuilder.build()
     }
 
     @Provides
     @AppScope
     fun provideRetrofit(
-            client: OkHttpClient,
-            converter: Converter.Factory,
-            @Named("NAME_BASE_URL") baseUrl: String
+        client: OkHttpClient,
+        converter: Converter.Factory,
+        @Named("NAME_BASE_URL") baseUrl: String
     ): Retrofit {
         return Retrofit.Builder()
-                .client(client)
-                .baseUrl(baseUrl)
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(BufferedSourceConverterFactory())
-                .addConverterFactory(converter)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
+            .client(client)
+            .baseUrl(baseUrl)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(BufferedSourceConverterFactory())
+            .addConverterFactory(converter)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
     }
 
     @Provides
@@ -187,15 +190,21 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideAuthenticator(prefManager: PrefManager, appStateManager: AppStateManager, userSettingsManager: UserSettingsManager): EAuth2 {
+    fun provideAuthenticator(
+        prefManager: PrefManager,
+        appStateManager: AppStateManager,
+        userSettingsManager: UserSettingsManager
+    ): EAuth2 {
         return EAuth2(prefManager, appStateManager, userSettingsManager)
     }
 
     @Provides
     @AppScope
-    fun provideAuthClient(cryptoManager: CryptoManager, settingsRepository: SettingsRepository, appStateManager: AppStateManager): AuthClient {
+    fun provideAuthClient(
+        cryptoManager: CryptoManager,
+        settingsRepository: SettingsRepository,
+        appStateManager: AppStateManager
+    ): AuthClient {
         return AuthClientImpl(cryptoManager, settingsRepository, appStateManager)
     }
-
-
 }

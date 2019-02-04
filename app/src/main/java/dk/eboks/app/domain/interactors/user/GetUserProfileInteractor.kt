@@ -6,12 +6,12 @@ import dk.nodes.arch.domain.interactor.Interactor
 
 /**
  * Created by Christian on 5/7/2018.
- * @author   Christian
- * @since    5/7/2018.
+ * @author Christian
+ * @since 5/7/2018.
  */
 interface GetUserProfileInteractor : Interactor {
 
-    var output : GetUserProfileInteractor.Output?
+    var output: GetUserProfileInteractor.Output?
 
     interface Output {
         fun onGetUser(user: User)

@@ -6,7 +6,6 @@ interface UserRepository {
     fun updateProfile(user: JsonObject)
     fun verifyEmail(mail: String)
     fun verifyPhone(number: String)
-    fun confirmPhone(number: String, code : String)
+    fun confirmPhone(number: String, code: String)
     fun checkSsn(ssn: String): Boolean
-
 }

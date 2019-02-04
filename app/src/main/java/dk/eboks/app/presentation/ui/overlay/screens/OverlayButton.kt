@@ -24,7 +24,6 @@ class OverlayButton(val type: ButtonType) : Serializable {
             ButtonType.GALLERY -> Translation.overlaymenu.chooseFromLibrary
             ButtonType.CAMERA -> Translation.overlaymenu.takePhoto
         }
-
     }
 
     private fun getIcon(type: ButtonType): Int? {
@@ -42,9 +41,7 @@ class OverlayButton(val type: ButtonType) : Serializable {
             }
         }
     }
-
 }
-
 
 enum class ButtonType {
     MOVE, DELETE, PRINT, MAIL, OPEN, READ, UNREAD, ARCHIVE, CAMERA, GALLERY

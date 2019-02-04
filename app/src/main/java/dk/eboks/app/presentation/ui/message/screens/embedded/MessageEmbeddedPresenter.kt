@@ -14,14 +14,15 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateManager,
-                                                   val deleteMessagesInteractor: DeleteMessagesInteractor,
-                                                   val updateMessageInteractor: UpdateMessageInteractor
+class MessageEmbeddedPresenter @Inject constructor(
+    val stateManager: AppStateManager,
+    val deleteMessagesInteractor: DeleteMessagesInteractor,
+    val updateMessageInteractor: UpdateMessageInteractor
 ) :
-        MessageEmbeddedContract.Presenter,
-        BasePresenterImpl<MessageEmbeddedContract.View>(),
-        DeleteMessagesInteractor.Output,
-        UpdateMessageInteractor.Output {
+    MessageEmbeddedContract.Presenter,
+    BasePresenterImpl<MessageEmbeddedContract.View>(),
+    DeleteMessagesInteractor.Output,
+    UpdateMessageInteractor.Output {
 
     init {
         deleteMessagesInteractor.output = this
@@ -98,7 +99,7 @@ class MessageEmbeddedPresenter @Inject constructor(val stateManager: AppStateMan
     override fun moveMessage(folder: Folder) {
         message?.let {
             moveToFolder = folder.name
-            updateMessage(arrayListOf(it), MessagePatch(folderId =  folder.id))
+            updateMessage(arrayListOf(it), MessagePatch(folderId = folder.id))
         }
     }
 

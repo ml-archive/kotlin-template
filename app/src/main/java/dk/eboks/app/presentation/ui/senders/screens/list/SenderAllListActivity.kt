@@ -24,7 +24,6 @@ class SenderAllListActivity : BaseActivity(), SenderAllListContract.View {
         }
     }
 
-
     override fun getNavigationMenuAction(): Int {
         return R.id.actionMail
     }

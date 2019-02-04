@@ -14,7 +14,8 @@ import timber.log.Timber
 /**
  * Created by bison on 20-05-2017.
  */
-class ChannelContentPresenter(val appStateManager: AppStateManager) : ChannelContentContract.Presenter, BasePresenterImpl<ChannelContentContract.View>() {
+class ChannelContentPresenter(val appStateManager: AppStateManager) :
+    ChannelContentContract.Presenter, BasePresenterImpl<ChannelContentContract.View>() {
     init {
     }
 
@@ -31,12 +32,12 @@ class ChannelContentPresenter(val appStateManager: AppStateManager) : ChannelCon
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: CloseChannelEvent) {
         Timber.e("ChannelContentPresenter getting CloseChannelEvent")
-        runAction { v->v.finish() }
+        runAction { v -> v.finish() }
     }
 
     override fun open(channel: Channel) {
-        //storebox channels id 1 - 3
-        //ekey channels id 101 - 103
+        // storebox channels id 1 - 3
+        // ekey channels id 101 - 103
 
         when (channel.getType()) {
             "channel" -> {
@@ -50,7 +51,6 @@ class ChannelContentPresenter(val appStateManager: AppStateManager) : ChannelCon
                 }
             }
             "ekey" -> {
-
             }
         }
     }

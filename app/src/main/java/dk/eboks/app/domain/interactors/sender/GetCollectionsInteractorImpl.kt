@@ -5,11 +5,14 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 /**
-* Created by chnt on 14/03/18.
-* @author   chnt
-* @since    14/03/18.
-*/
-class GetCollectionsInteractorImpl(executor: Executor, val collectionsRepository: CollectionsRepository) : BaseInteractor(executor), GetCollectionsInteractor {
+ * Created by chnt on 14/03/18.
+ * @author chnt
+ * @since 14/03/18.
+ */
+class GetCollectionsInteractorImpl(
+    executor: Executor,
+    val collectionsRepository: CollectionsRepository
+) : BaseInteractor(executor), GetCollectionsInteractor {
     override var output: GetCollectionsInteractor.Output? = null
     override var input: GetCollectionsInteractor.Input? = null
 
@@ -22,7 +25,7 @@ class GetCollectionsInteractorImpl(executor: Executor, val collectionsRepository
         } catch (t: Throwable) {
             runOnUIThread {
                 // TODO add function to interface and change presenter accordingly
-                //output?.onGetCollectionsError(exceptionToViewError(t))
+                // output?.onGetCollectionsError(exceptionToViewError(t))
             }
         }
     }

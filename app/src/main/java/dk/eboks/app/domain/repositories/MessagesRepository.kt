@@ -14,12 +14,18 @@ interface MessagesRepository {
 
     fun deleteMessage(folderId: Int, messageId: String)
 
-    fun getMessagesByFolder(folderId : Int, offset : Int = 0, limit : Int = 20) : List<Message>
-    fun getMessagesBySender(senderId : Long, offset : Int = 0, limit : Int = 20): List<Message>
-    //fun getMessages(cached : Boolean = false, type : FolderType) : List<Message>
-    fun getMessage(folderId: Int, id : String, receipt : Boolean? = null, acceptedPrivateTerms: Boolean? = null) : Message
-    fun getMessageReplyForm(folderId: Int, id : String) : ReplyForm
-    fun submitMessageReplyForm(msg : Message, form: ReplyForm)
+    fun getMessagesByFolder(folderId: Int, offset: Int = 0, limit: Int = 20): List<Message>
+    fun getMessagesBySender(senderId: Long, offset: Int = 0, limit: Int = 20): List<Message>
+    // fun getMessages(cached : Boolean = false, type : FolderType) : List<Message>
+    fun getMessage(
+        folderId: Int,
+        id: String,
+        receipt: Boolean? = null,
+        acceptedPrivateTerms: Boolean? = null
+    ): Message
+
+    fun getMessageReplyForm(folderId: Int, id: String): ReplyForm
+    fun submitMessageReplyForm(msg: Message, form: ReplyForm)
     fun hasCachedMessageFolder(folder: Folder): Boolean
     fun hasCachedMessageSender(sender: Sender): Boolean
     fun getHighlights(cached: Boolean): List<Message>
@@ -27,8 +33,14 @@ interface MessagesRepository {
     fun getUnread(cached: Boolean): List<Message>
     fun getUploads(cached: Boolean): List<Message>
     fun updateMessage(message: Message, messagePatch: MessagePatch)
-    fun getStorageInfo() : StorageInfo
-    fun getLatestUploads(offset : Int? = null, limit : Int? = null) : List<Message>
+    fun getStorageInfo(): StorageInfo
+    fun getLatestUploads(offset: Int? = null, limit: Int? = null): List<Message>
 
-    fun uploadFileAsMessage(folderId : Int, filename : String, uriString : String, mimetype : String, callback: (Double) -> Unit)
+    fun uploadFileAsMessage(
+        folderId: Int,
+        filename: String,
+        uriString: String,
+        mimetype: String,
+        callback: (Double) -> Unit
+    )
 }

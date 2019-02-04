@@ -19,25 +19,21 @@ import javax.inject.Inject
 class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
     @Inject lateinit var presenter: MailOverviewContract.Presenter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mail_overview)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        //setupYourMail()
-
+        // setupYourMail()
 
         refreshSrl.setOnRefreshListener {
             presenter.refresh()
         }
-
     }
 
     override fun onResume() {
         super.onResume()
-        if(refreshOnResume)
-        {
+        if (refreshOnResume) {
             refreshOnResume = false
             presenter.refresh()
         }
@@ -45,11 +41,14 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
 
     private fun setupTopbar(userName: String?) {
         mainTb.title = userName
-        if(BuildConfig.ENABLE_SHARES) {
-            if(!mainTb.getChildrenViews().any { view -> view is ImageView }) {
+        if (BuildConfig.ENABLE_SHARES) {
+            if (!mainTb.getChildrenViews().any { view -> view is ImageView }) {
                 val imageView = ImageView(this)
                 imageView.setImageResource(R.drawable.icon_48_small_arrow_down)
-                val layoutparams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                val layoutparams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
                 imageView.layoutParams = layoutparams
                 mainTb.addView(imageView)
             }
@@ -61,15 +60,14 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
         }
     }
 
-    fun showConfirmDialog()
-    {
+    fun showConfirmDialog() {
         Timber.e("Showing confirm dialog")
         var dialog = ConfirmDialogFragment()
         dialog.show(supportFragmentManager, ConfirmDialogFragment::class.simpleName)
     }
 
     override fun showProgress(show: Boolean) {
-        if(refreshSrl.isRefreshing != show)
+        if (refreshSrl.isRefreshing != show)
             refreshSrl.isRefreshing = show
     }
 

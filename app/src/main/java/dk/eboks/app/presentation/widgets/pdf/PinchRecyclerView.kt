@@ -8,8 +8,11 @@ import android.view.ScaleGestureDetector
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-
-class PinchRecyclerView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : RecyclerView(context, attrs, defStyleAttr){
+class PinchRecyclerView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : RecyclerView(context, attrs, defStyleAttr) {
     private var mActivePointerId = INVALID_POINTER_ID
     private var mScaleDetector: ScaleGestureDetector? = null
     private var mScaleFactor = 1f
@@ -26,7 +29,6 @@ class PinchRecyclerView @JvmOverloads constructor(context: Context, attrs: Attri
         if (!isInEditMode)
             mScaleDetector = ScaleGestureDetector(getContext(), ScaleListener())
     }
-
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         width = View.MeasureSpec.getSize(widthMeasureSpec).toFloat()
@@ -62,9 +64,10 @@ class PinchRecyclerView @JvmOverloads constructor(context: Context, attrs: Attri
                 java.lang.IllegalArgumentException: pointerIndex out of range
                  ref http://stackoverflow.com/questions/6919292/pointerindex-out-of-range-android-multitouch
                 */
-                //final int pointerIndex = ev.findPointerIndex(mActivePointerId);
+                // final int pointerIndex = ev.findPointerIndex(mActivePointerId);
 
-                val pointerIndex = action and MotionEvent.ACTION_POINTER_INDEX_MASK shr MotionEvent.ACTION_POINTER_INDEX_SHIFT
+                val pointerIndex =
+                    action and MotionEvent.ACTION_POINTER_INDEX_MASK shr MotionEvent.ACTION_POINTER_INDEX_SHIFT
                 val x = ev.getX(pointerIndex)
                 val y = ev.getY(pointerIndex)
                 val dx = x - mLastTouchX
@@ -98,7 +101,8 @@ class PinchRecyclerView @JvmOverloads constructor(context: Context, attrs: Attri
             }
 
             MotionEvent.ACTION_POINTER_UP -> {
-                val pointerIndex = action and MotionEvent.ACTION_POINTER_INDEX_MASK shr MotionEvent.ACTION_POINTER_INDEX_SHIFT
+                val pointerIndex =
+                    action and MotionEvent.ACTION_POINTER_INDEX_MASK shr MotionEvent.ACTION_POINTER_INDEX_SHIFT
                 val pointerId = ev.getPointerId(pointerIndex)
                 if (pointerId == mActivePointerId) {
                     val newPointerIndex = if (pointerIndex == 0) 1 else 0

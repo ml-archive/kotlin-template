@@ -11,14 +11,22 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface DebugUserContract {
     interface View : BaseView {
-        fun showLoginProviderSpinner(providers : List<LoginProvider>)
-        fun close(gotoUsers : Boolean)
-        fun showUser(user : User, userSettings: UserSettings)
+        fun showLoginProviderSpinner(providers: List<LoginProvider>)
+        fun close(gotoUsers: Boolean)
+        fun showUser(user: User, userSettings: UserSettings)
     }
 
     interface Presenter : BasePresenter<View> {
         fun setup()
-        fun createUser(provider : LoginProvider, name : String, email : String?, cpr : String?, verified : Boolean, fingerprint : Boolean)
+        fun createUser(
+            provider: LoginProvider,
+            name: String,
+            email: String?,
+            cpr: String?,
+            verified: Boolean,
+            fingerprint: Boolean
+        )
+
         fun saveUser(user: User, loginProviderId: String, hasFingerprint: Boolean)
     }
 }

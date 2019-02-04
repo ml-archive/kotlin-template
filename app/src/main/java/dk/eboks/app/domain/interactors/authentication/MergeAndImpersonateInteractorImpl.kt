@@ -19,17 +19,18 @@ import timber.log.Timber
 
 /**
  * Created by Christian on 5/28/2018.
- * @author   Christian
- * @since    5/28/2018.
+ * @author Christian
+ * @since 5/28/2018.
  */
 class MergeAndImpersonateInteractorImpl(
-        executor: Executor, val api: Api,
-        val appStateManager: AppStateManager,
-        val userManager: UserManager,
-        val userSettingsManager: UserSettingsManager,
-        val authClient: AuthClient,
-        val cacheManager: CacheManager,
-        val foldersRepositoryMail: MailCategoriesRepository
+    executor: Executor,
+    val api: Api,
+    val appStateManager: AppStateManager,
+    val userManager: UserManager,
+    val userSettingsManager: UserSettingsManager,
+    val authClient: AuthClient,
+    val cacheManager: CacheManager,
+    val foldersRepositoryMail: MailCategoriesRepository
 ) : BaseInteractor(executor), MergeAndImpersonateInteractor {
     override var output: MergeAndImpersonateInteractor.Output? = null
     override var input: MergeAndImpersonateInteractor.Input? = null
@@ -39,14 +40,18 @@ class MergeAndImpersonateInteractorImpl(
             input?.verificationState?.let { verificationState ->
                 var targetUserId = ""
                 // if user choose to merge profiles, do that first, otherwise impersonate only
-                if(verificationState.shouldMergeProfiles)
-                {
+                if (verificationState.shouldMergeProfiles) {
                     verificationState.allowMigrateUserId?.let { userId ->
                         targetUserId = userId
                         val result = api.migrateUser(userId).execute()
-                        if(!result.isSuccessful)
-                        {
-                            output?.onMergeError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
+                        if (!result.isSuccessful) {
+                            output?.onMergeError(
+                                ViewError(
+                                    title = Translation.error.genericTitle,
+                                    message = Translation.error.genericMessage,
+                                    shouldCloseView = true
+                                )
+                            ) // TODO better error
                             return
                         }
                         verificationState.userBeingVerified?.let { olduser ->
@@ -64,9 +69,9 @@ class MergeAndImpersonateInteractorImpl(
                     }
                 }
 
-                appStateManager.state?.loginState?.token?.let { token->
+                appStateManager.state?.loginState?.token?.let { token ->
                     val userResult = api.getUserProfile().execute()
-                    userResult?.body()?.let { user->
+                    userResult?.body()?.let { user ->
                         // update the states
                         Timber.e("Saving user $user")
                         val newUser = userManager.put(user)
@@ -101,10 +106,19 @@ class MergeAndImpersonateInteractorImpl(
                 runOnUIThread {
                     output?.onMergeCompleted()
                 }
-                appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(false, appStateManager.state?.impersoniateUser?.userId)
+                appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(
+                    false,
+                    appStateManager.state?.impersoniateUser?.userId
+                )
             }.guard {
                 runOnUIThread {
-                    output?.onMergeError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
+                    output?.onMergeError(
+                        ViewError(
+                            title = Translation.error.genericTitle,
+                            message = Translation.error.genericMessage,
+                            shouldCloseView = true
+                        )
+                    ) // TODO better error
                 }
             }
         } catch (t: Throwable) {
@@ -113,5 +127,4 @@ class MergeAndImpersonateInteractorImpl(
             }
         }
     }
-
 }

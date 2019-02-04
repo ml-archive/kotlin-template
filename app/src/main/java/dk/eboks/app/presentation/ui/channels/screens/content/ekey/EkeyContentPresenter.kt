@@ -30,20 +30,22 @@ import java.util.TimeZone
 /**
  * Created by bison on 20-05-2017.
  */
-class EkeyContentPresenter(val appState: AppStateManager,
-                           val encryptedPreferences: EncryptedPreferences,
-                           val getMasterkeyInteractor: GetEKeyMasterkeyInteractor,
-                           val setMasterKeyInteractor: SetEKeyMasterkeyInteractor,
-                           val getEKeyVaultInteractor: GetEKeyVaultInteractor,
-                           val setEKeyVaultInteractor: SetEKeyVaultInteractor
-) : EkeyContentContract.Presenter, BasePresenterImpl<EkeyContentContract.View>(), GetEKeyMasterkeyInteractor.Output, SetEKeyMasterkeyInteractor.Output, GetEKeyVaultInteractor.Output, SetEKeyVaultInteractor.Output {
+class EkeyContentPresenter(
+    val appState: AppStateManager,
+    val encryptedPreferences: EncryptedPreferences,
+    val getMasterkeyInteractor: GetEKeyMasterkeyInteractor,
+    val setMasterKeyInteractor: SetEKeyMasterkeyInteractor,
+    val getEKeyVaultInteractor: GetEKeyVaultInteractor,
+    val setEKeyVaultInteractor: SetEKeyVaultInteractor
+) : EkeyContentContract.Presenter, BasePresenterImpl<EkeyContentContract.View>(),
+    GetEKeyMasterkeyInteractor.Output, SetEKeyMasterkeyInteractor.Output,
+    GetEKeyVaultInteractor.Output, SetEKeyVaultInteractor.Output {
 
     private var gson: Gson
     var masterKey: String? = null
     override var pin: String? = null
     private var keys: ArrayList<BaseEkey> = arrayListOf()
     private var hasRetried: Boolean = false
-
 
     init {
         getMasterkeyInteractor.output = this
@@ -52,9 +54,9 @@ class EkeyContentPresenter(val appState: AppStateManager,
         setEKeyVaultInteractor.output = this
         val baseEkeyListType = object : TypeToken<MutableList<BaseEkey>>() {}.type
         gson = GsonBuilder()
-                .registerTypeAdapter(baseEkeyListType, EKeyDeserializer())
-                .registerTypeAdapter(BaseEkey::class.java, EKeySerializer())
-                .create()
+            .registerTypeAdapter(baseEkeyListType, EKeyDeserializer())
+            .registerTypeAdapter(BaseEkey::class.java, EKeySerializer())
+            .create()
     }
 
     override fun onSetEKeyVaultError(viewError: ViewError) {
@@ -91,7 +93,7 @@ class EkeyContentPresenter(val appState: AppStateManager,
             keyList.add(Ekey(it, "Ekey", null))
         }
 
-        //Encrypt
+        // Encrypt
         masterKey?.let {
             keys = keyList
             setVault(it, keyList)
@@ -135,11 +137,15 @@ class EkeyContentPresenter(val appState: AppStateManager,
                     handleMasterKeySuccess(masterKey!!)
                 } catch (e: Exception) {
                     runAction { view ->
-                        view.showErrorDialog(ViewError(title = Translation.error.eKeyDecryptionFailedTitle, message = Translation.error.eKeyDecryptionFailedMessage))
+                        view.showErrorDialog(
+                            ViewError(
+                                title = Translation.error.eKeyDecryptionFailedTitle,
+                                message = Translation.error.eKeyDecryptionFailedMessage
+                            )
+                        )
                         view.showPinView(false)
                     }
                 }
-
             }.guard {
                 //            generateNewKeyAndSend(pin)
                 runAction { view -> view.showPinView(true) }
@@ -161,7 +167,7 @@ class EkeyContentPresenter(val appState: AppStateManager,
         runAction { view -> view.onGetMasterkeyError(viewError) }
     }
 
-    //HELPER METHODS
+    // HELPER METHODS
     override fun putVault(items: ArrayList<BaseEkey>) {
         appState.state?.currentUser?.let {
             val masterKey = encryptedPreferences.getString("ekey_${it.id}", null)
@@ -178,10 +184,11 @@ class EkeyContentPresenter(val appState: AppStateManager,
 
         val vault = gson.toJson(keyList)
         val encrypted = handler.encrypt(vault.toByteArray(charset("UTF-8")))
-        //post vault
+        // post vault
         val signature = getSignatureAndSignatureTime(masterKey)
 
-        setEKeyVaultInteractor.input = SetEKeyVaultInteractor.Input(encrypted, signature.first, signature.second, 0)
+        setEKeyVaultInteractor.input =
+            SetEKeyVaultInteractor.Input(encrypted, signature.first, signature.second, 0)
         setEKeyVaultInteractor.run()
     }
 
@@ -208,7 +215,12 @@ class EkeyContentPresenter(val appState: AppStateManager,
             String(handler.decrypt(vault), charset("UTF-8"))
         } catch (e: Exception) {
             runAction { view ->
-                view.showErrorDialog(ViewError(title = Translation.error.eKeyDecryptionFailedTitle, message = Translation.error.eKeyDecryptionFailedMessage))
+                view.showErrorDialog(
+                    ViewError(
+                        title = Translation.error.eKeyDecryptionFailedTitle,
+                        message = Translation.error.eKeyDecryptionFailedMessage
+                    )
+                )
                 view.showPinView(false)
             }
             null
@@ -246,12 +258,13 @@ class EkeyContentPresenter(val appState: AppStateManager,
         val encrypted = handler.encrypt(key.toByteArray(charset("UTF-8")))
         Timber.d("Encrypted: $encrypted")
 
-        //send key to backend
+        // send key to backend
         setMasterkey(hashed, encrypted, key)
     }
 
     private fun setMasterkey(hash: String, encrypted: String, unencrypted: String) {
-        setMasterKeyInteractor.input = SetEKeyMasterkeyInteractor.Input(encrypted, hash, unencrypted)
+        setMasterKeyInteractor.input =
+            SetEKeyMasterkeyInteractor.Input(encrypted, hash, unencrypted)
         setMasterKeyInteractor.run()
     }
 

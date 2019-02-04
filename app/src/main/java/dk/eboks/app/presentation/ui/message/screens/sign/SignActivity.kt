@@ -24,7 +24,6 @@ class SignActivity : BaseActivity(), SignContract.View {
     @Inject
     lateinit var presenter: SignContract.Presenter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_base_web)
@@ -35,8 +34,7 @@ class SignActivity : BaseActivity(), SignContract.View {
         intent.getParcelableExtra<Message>(Message::class.java.simpleName)?.let(presenter::setup)
     }
 
-    private fun setupTopBar()
-    {
+    private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_close_red_navigationbar)
         mainTb.title = Translation.sign.title
         mainTb.setNavigationOnClickListener {
@@ -44,8 +42,7 @@ class SignActivity : BaseActivity(), SignContract.View {
         }
     }
 
-    fun setupWebView()
-    {
+    fun setupWebView() {
         val settings = webView.settings
         settings.javaScriptEnabled = true
         settings.useWideViewPort = false
@@ -54,7 +51,8 @@ class SignActivity : BaseActivity(), SignContract.View {
         // Performance improvements
         settings.setAppCacheEnabled(true)
         settings.cacheMode = WebSettings.LOAD_DEFAULT
-        CookieManager.getInstance().setAcceptCookie(true) // Set this after WebView init but before load
+        CookieManager.getInstance()
+            .setAcceptCookie(true) // Set this after WebView init but before load
         if (Build.VERSION.SDK_INT >= 21) {
             CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true)
         }
@@ -76,15 +74,15 @@ class SignActivity : BaseActivity(), SignContract.View {
         // Avoid long click selection of UI elements
         webView.setOnLongClickListener { true }
 
-        //webView.setWebViewClient(new WebViewClient());
+        // webView.setWebViewClient(new WebViewClient());
 
         webView.scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
-        //webView.loadUrl(loginUrl)
+        // webView.loadUrl(loginUrl)
 
         webView.settings.javaScriptEnabled = true
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                if(!onOverrideUrlLoading(view, url))
+                if (!onOverrideUrlLoading(view, url))
                     return super.shouldOverrideUrlLoading(view, url)
                 else
                     return true
@@ -96,20 +94,16 @@ class SignActivity : BaseActivity(), SignContract.View {
         }
     }
 
-    fun onOverrideUrlLoading(view: WebView?, url: String?) : Boolean
-    {
+    fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {
         Timber.e("URL override: $url")
         url?.let {
-            if(url.contains(GetSignLinkInteractorImpl.SUCCESS_CALLBACK))
-            {
+            if (url.contains(GetSignLinkInteractorImpl.SUCCESS_CALLBACK)) {
                 finishAfterTransition()
             }
-            if(url.contains(GetSignLinkInteractorImpl.CANCEL_CALLBACK))
-            {
+            if (url.contains(GetSignLinkInteractorImpl.CANCEL_CALLBACK)) {
                 finishAfterTransition()
             }
-            if(url.contains(GetSignLinkInteractorImpl.ERROR_CALLBACK))
-            {
+            if (url.contains(GetSignLinkInteractorImpl.ERROR_CALLBACK)) {
                 val ve = ViewError()
                 ve.shouldCloseView = true
                 showErrorDialog(ve)
@@ -118,9 +112,7 @@ class SignActivity : BaseActivity(), SignContract.View {
         return false
     }
 
-    fun onLoadFinished(view: WebView?, url: String?)
-    {
-
+    fun onLoadFinished(view: WebView?, url: String?) {
     }
 
     override fun loadUrl(urlString: String) {
@@ -128,6 +120,5 @@ class SignActivity : BaseActivity(), SignContract.View {
     }
 
     override fun loadData(data: String) {
-
     }
 }

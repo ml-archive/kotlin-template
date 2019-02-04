@@ -17,17 +17,18 @@ import timber.log.Timber
 
 /**
  * Created by Christian on 5/28/2018.
- * @author   Christian
- * @since    5/28/2018.
+ * @author Christian
+ * @since 5/28/2018.
  */
 class VerifyProfileInteractorImpl(
-        executor: Executor, val api: Api,
-        val appStateManager: AppStateManager,
-        val userManager: UserManager,
-        val userSettingsManager: UserSettingsManager,
-        val authClient: AuthClient,
-        val cacheManager: CacheManager,
-        val foldersRepositoryMail: MailCategoriesRepository
+    executor: Executor,
+    val api: Api,
+    val appStateManager: AppStateManager,
+    val userManager: UserManager,
+    val userSettingsManager: UserSettingsManager,
+    val authClient: AuthClient,
+    val cacheManager: CacheManager,
+    val foldersRepositoryMail: MailCategoriesRepository
 ) : BaseInteractor(executor), VerifyProfileInteractor {
     override var output: VerifyProfileInteractor.Output? = null
     override var input: VerifyProfileInteractor.Input? = null
@@ -35,7 +36,11 @@ class VerifyProfileInteractorImpl(
     override fun execute() {
         try {
             input?.verificationState?.let { verificationState ->
-                authClient.transformKspToken(verificationState.kspToken, verificationState.oldAccessToken, longClient = appStateManager.state?.currentSettings?.stayLoggedIn ?: false)?.let { token ->
+                authClient.transformKspToken(
+                    verificationState.kspToken,
+                    verificationState.oldAccessToken,
+                    longClient = appStateManager.state?.currentSettings?.stayLoggedIn ?: false
+                )?.let { token ->
                     appStateManager.state?.loginState?.token = token
 
                     val jwtJson = authClient.decodeJWTBody(token.access_token)
@@ -43,7 +48,7 @@ class VerifyProfileInteractorImpl(
                     // if this verification during signup, we don't need to check for migration since the account isn't
                     // yet created. Hence there is no source account to migrate from yo
 
-                    var newIdentity : String? = null
+                    var newIdentity: String? = null
                     try {
                         if (verificationState.signupVerification) {
                             Timber.e("Doing signup verification for the lord")
@@ -53,30 +58,32 @@ class VerifyProfileInteractorImpl(
                                 Timber.e("Got identity in JWT = $newIdentity")
                             }
                         }
-                    }
-                    catch (t : Throwable)
-                    {
+                    } catch (t: Throwable) {
                         Timber.e(t)
                         Timber.e("New identity not found in sub field of JWT (like its supposed to) erroring out on verification")
                         runOnUIThread {
-                            output?.onVerificationError(ViewError("Error", "No identify found in JWT, can't verify"))
+                            output?.onVerificationError(
+                                ViewError(
+                                    "Error",
+                                    "No identify found in JWT, can't verify"
+                                )
+                            )
                         }
                         return
                     }
 
                     // do we need to do the whole migration dance?
-                    if(jwtJson.has("allow-migrate-user") && !verificationState.signupVerification)
-                    {
-                        verificationState.allowMigrateUserId = jwtJson.getString("allow-migrate-user")
+                    if (jwtJson.has("allow-migrate-user") && !verificationState.signupVerification) {
+                        verificationState.allowMigrateUserId =
+                            jwtJson.getString("allow-migrate-user")
                         Timber.e("Token has allow-migrate-user id = ${verificationState.allowMigrateUserId}")
                         runOnUIThread {
                             output?.onAlreadyVerifiedProfile()
                         }
-                    }
-                    else // narp
+                    } else // narp
                     {
                         // if this is during signup there is no user before create user is called, only a ksp ticket, hence get profile will fail
-                        if(!verificationState.signupVerification) {
+                        if (!verificationState.signupVerification) {
                             val userResult = api.getUserProfile().execute()
                             userResult?.body()?.let { user ->
                                 // update the states
@@ -102,11 +109,21 @@ class VerifyProfileInteractorImpl(
                         runOnUIThread {
                             output?.onVerificationSuccess(newIdentity)
                         }
-                        appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(false, appStateManager.state?.impersoniateUser?.userId)
+                        appStateManager.state?.selectedFolders =
+                            foldersRepositoryMail.getMailCategories(
+                                false,
+                                appStateManager.state?.impersoniateUser?.userId
+                            )
                     }
                 }.guard {
                     runOnUIThread {
-                        output?.onVerificationError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
+                        output?.onVerificationError(
+                            ViewError(
+                                title = Translation.error.genericTitle,
+                                message = Translation.error.genericMessage,
+                                shouldCloseView = true
+                            )
+                        ) // TODO better error
                     }
                 }
             }
@@ -116,5 +133,4 @@ class VerifyProfileInteractorImpl(
             }
         }
     }
-
 }

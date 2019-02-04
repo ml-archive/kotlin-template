@@ -8,12 +8,18 @@ import timber.log.Timber
 import java.lang.reflect.Type
 import java.util.concurrent.ConcurrentHashMap
 
-class CacheStore<K,V>(val cacheManager: CacheManager, val context: Context, val gson: Gson, val filename : String, mapType: Type, val fetchFunction : (K)->V?) : ICacheStore {
-    private var cacheMap : MutableMap<K, V>
+class CacheStore<K, V>(
+    val cacheManager: CacheManager,
+    val context: Context,
+    val gson: Gson,
+    val filename: String,
+    mapType: Type,
+    val fetchFunction: (K) -> V?
+) : ICacheStore {
+    private var cacheMap: MutableMap<K, V>
     private val store = GsonCacheStore()
 
-
-    //val mapType  = object : TypeToken<MutableMap<K, V>>() {}.type
+    // val mapType  = object : TypeToken<MutableMap<K, V>>() {}.type
 
     init {
         // register this bad bwoi with the cachemanager
@@ -22,10 +28,8 @@ class CacheStore<K,V>(val cacheManager: CacheManager, val context: Context, val 
 
         try {
             cacheMap = store.load(mapType)
-            //Timber.e("Cache map: $cacheMap")
-        }
-        catch (t : Throwable)
-        {
+            // Timber.e("Cache map: $cacheMap")
+        } catch (t: Throwable) {
             cacheMap = ConcurrentHashMap()
         }
         Timber.d("Initialized object cache ${store.filename} with ${cacheMap.size} entries")
@@ -34,8 +38,7 @@ class CacheStore<K,V>(val cacheManager: CacheManager, val context: Context, val 
     /*
         Always attempts to use the fetch function to retrieve the data
      */
-    fun fetch(key : K) : V?
-    {
+    fun fetch(key: K): V? {
         val res = fetchFunction(key)
         res?.let { put(key, res) }
         return res
@@ -44,33 +47,27 @@ class CacheStore<K,V>(val cacheManager: CacheManager, val context: Context, val 
     /*
         Looks for the data in the cache first, if not found uses the fetch function
      */
-    fun get(key : K) : V?
-    {
-        if(!cacheMap.containsKey(key))
-        {
+    fun get(key: K): V? {
+        if (!cacheMap.containsKey(key)) {
             val res = fetchFunction(key)
             res?.let { put(key, res) }
             return res
-        }
-        else {
+        } else {
             Timber.v("Cache $filename found key $key")
             return cacheMap[key]
         }
     }
 
-    fun put(key : K, value : V)
-    {
+    fun put(key: K, value: V) {
         cacheMap[key] = value
         store.save(cacheMap)
     }
 
-    fun isEmpty() : Boolean
-    {
+    fun isEmpty(): Boolean {
         return cacheMap.isEmpty()
     }
 
-    fun containsKey(key : K) : Boolean
-    {
+    fun containsKey(key: K): Boolean {
         return cacheMap.containsKey(key)
     }
 
@@ -83,5 +80,6 @@ class CacheStore<K,V>(val cacheManager: CacheManager, val context: Context, val 
         context.deleteFile(filename)
     }
 
-    inner class GsonCacheStore : GsonFileStorageRepository<MutableMap<K, V>>(context, gson, filename)
+    inner class GsonCacheStore :
+        GsonFileStorageRepository<MutableMap<K, V>>(context, gson, filename)
 }

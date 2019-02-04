@@ -7,26 +7,22 @@ import timber.log.Timber
 import java.io.File
 
 class CacheManagerImpl(val context: Context) : CacheManager {
-    private val cacheStores : MutableList<ICacheStore> = ArrayList()
+    private val cacheStores: MutableList<ICacheStore> = ArrayList()
 
-    override fun registerStore(store : ICacheStore)
-    {
+    override fun registerStore(store: ICacheStore) {
         cacheStores.add(store)
     }
 
-    override fun clearStores()
-    {
+    override fun clearStores() {
         clearStoresMemoryOnly()
         deleteCache()
-        for(store in cacheStores)
-        {
+        for (store in cacheStores) {
             store.clearDisc()
         }
     }
 
     override fun clearStoresMemoryOnly() {
-        for(store in cacheStores)
-        {
+        for (store in cacheStores) {
             store.clearMemory()
         }
     }
@@ -40,7 +36,6 @@ class CacheManagerImpl(val context: Context) : CacheManager {
         } catch (e: Exception) {
             Timber.e(e)
         }
-
     }
 
     fun deleteDir(dir: File?): Boolean {

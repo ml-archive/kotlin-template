@@ -7,10 +7,8 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
  * Created by bison on 20-05-2017.
  */
 class ChannelOverviewPresenter(val appStateManager: AppStateManager) :
-        ChannelOverviewContract.Presenter,
-        BasePresenterImpl<ChannelOverviewContract.View>()
-{
+    ChannelOverviewContract.Presenter,
+    BasePresenterImpl<ChannelOverviewContract.View>() {
     init {
     }
-
 }

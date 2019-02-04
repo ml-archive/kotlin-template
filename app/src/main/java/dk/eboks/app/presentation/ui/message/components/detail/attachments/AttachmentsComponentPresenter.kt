@@ -13,18 +13,21 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class AttachmentsComponentPresenter @Inject constructor(val appState: AppStateManager, val openAttachmentInteractor: OpenAttachmentInteractor, val saveAttachmentInteractor: SaveAttachmentInteractor) :
-        AttachmentsComponentContract.Presenter,
-        BasePresenterImpl<AttachmentsComponentContract.View>(),
-        OpenAttachmentInteractor.Output,
-        SaveAttachmentInteractor.Output
-{
+class AttachmentsComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val openAttachmentInteractor: OpenAttachmentInteractor,
+    val saveAttachmentInteractor: SaveAttachmentInteractor
+) :
+    AttachmentsComponentContract.Presenter,
+    BasePresenterImpl<AttachmentsComponentContract.View>(),
+    OpenAttachmentInteractor.Output,
+    SaveAttachmentInteractor.Output {
     private val message: Message? = appState.state?.currentMessage
 
     init {
         openAttachmentInteractor.output = this
         saveAttachmentInteractor.output = this
-        runAction { v->
+        runAction { v ->
             message?.let { v.updateView(it) }
         }
     }
@@ -44,21 +47,21 @@ class AttachmentsComponentPresenter @Inject constructor(val appState: AppStateMa
     }
 
     override fun onOpenAttachment(attachment: Content, filename: String, mimeType: String) {
-        runAction { v->
+        runAction { v ->
             v.openExternalViewer(attachment, filename, mimeType)
         }
     }
 
-    override fun onOpenAttachmentError(error : ViewError) {
+    override fun onOpenAttachmentError(error: ViewError) {
         runAction { it.showErrorDialog(error) }
     }
 
     override fun onSaveAttachment(filename: String) {
-        runAction { v->v.showToast("_Attachment $filename saved to Downloads") }
+        runAction { v -> v.showToast("_Attachment $filename saved to Downloads") }
         Timber.e("Saved attachment to $filename")
     }
 
-    override fun onSaveAttachmentError(error : ViewError) {
+    override fun onSaveAttachmentError(error: ViewError) {
         runAction { it.showErrorDialog(error) }
     }
 }

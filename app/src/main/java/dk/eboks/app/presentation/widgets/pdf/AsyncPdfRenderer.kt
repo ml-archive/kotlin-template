@@ -23,11 +23,10 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
 
     private var pdfRenderer: PdfRenderer? = null
     private var fileDescriptor: ParcelFileDescriptor? = null
-    //private var currentPage: PdfRenderer.Page? = null
+    // private var currentPage: PdfRenderer.Page? = null
     private var filename: String = ""
 
     var listener: PdfRendererListener? = null
-
 
     init {
         Timber.d("Initilized")
@@ -48,16 +47,16 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
                 val currentPage = renderer.openPage(request.pageNo)
                 currentPage?.let { page ->
                     Timber.e("Rendering pdf ${page.width}X${page.height}")
-                    val bitmap = Bitmap.createBitmap(page.width, page.height, Bitmap.Config.ARGB_8888)
+                    val bitmap =
+                        Bitmap.createBitmap(page.width, page.height, Bitmap.Config.ARGB_8888)
                     // Here, we render the page onto the Bitmap.
                     // To render a portion of the page, use the second and third parameter. Pass nulls to get
                     // the default result.
                     // Pass either RENDER_MODE_FOR_DISPLAY or RENDER_MODE_FOR_PRINT for the last parameter.
                     page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                    runOnUiThread {  listener?.onPageLoaded(bitmap, page.index) }
+                    runOnUiThread { listener?.onPageLoaded(bitmap, page.index) }
                     page.close()
                 }
-
             }
         }
 
@@ -127,7 +126,6 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
         }
     }
 
-
     private fun runOnUiThread(block: () -> Unit) {
         Handler(Looper.getMainLooper()).post(block)
     }
@@ -136,5 +134,4 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
         fun onPageLoaded(bitmap: Bitmap, pageNumber: Int)
         fun onPDFFileLoaded(pageCount: Int)
     }
-
 }

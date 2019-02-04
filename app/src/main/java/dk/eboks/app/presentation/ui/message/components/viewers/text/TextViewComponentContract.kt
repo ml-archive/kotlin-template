@@ -13,6 +13,6 @@ interface TextViewComponentContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setup(uriString : String?)
+        fun setup(uriString: String?)
     }
 }

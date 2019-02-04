@@ -11,25 +11,23 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class ShareComponentPresenter @Inject constructor(val appState: AppStateManager) :
-        ShareComponentContract.Presenter,
-        BasePresenterImpl<ShareComponentContract.View>()
-{
+    ShareComponentContract.Presenter,
+    BasePresenterImpl<ShareComponentContract.View>() {
 
     init {
-        runAction { v->
+        runAction { v ->
             appState.state?.currentMessage?.let { v.updateView(it) }
         }
     }
 
     override fun openExternalViewer(message: Message) {
-        appState.state?.currentViewerFileName?.let { filename->
+        appState.state?.currentViewerFileName?.let { filename ->
             val mime = message.content?.mimeType ?: "*/*"
             Timber.e("Share mime type $mime")
-            runAction { v-> v.openExternalViewer(filename, mime) }
+            runAction { v -> v.openExternalViewer(filename, mime) }
         }
-        .guard {
-            Timber.e("External viewer has no filename")
-        }
+            .guard {
+                Timber.e("External viewer has no filename")
+            }
     }
-
 }

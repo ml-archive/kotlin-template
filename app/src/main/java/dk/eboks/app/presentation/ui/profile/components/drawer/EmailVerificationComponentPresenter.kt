@@ -10,12 +10,12 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class EmailVerificationComponentPresenter @Inject constructor(
-        val appState: AppStateManager,
-        val verifyMailInteractor: VerifyEmailInteractor
+    val appState: AppStateManager,
+    private val verifyMailInteractor: VerifyEmailInteractor
 ) :
-        EmailVerificationComponentContract.Presenter,
-        BasePresenterImpl<EmailVerificationComponentContract.View>(),
-        VerifyEmailInteractor.Output {
+    EmailVerificationComponentContract.Presenter,
+    BasePresenterImpl<EmailVerificationComponentContract.View>(),
+    VerifyEmailInteractor.Output {
 
     init {
         verifyMailInteractor.output = this
@@ -30,17 +30,15 @@ class EmailVerificationComponentPresenter @Inject constructor(
     }
 
     override fun onVerifyMail() {
-        runAction { v->
+        runAction { v ->
             v.setVerifyBtnEnabled(true)
         }
     }
 
     override fun onVerifyMailError(error: ViewError) {
-        runAction { v->
+        runAction { v ->
             v.setVerifyBtnEnabled(true)
             v.showErrorDialog(error)
         }
     }
 }
-
-

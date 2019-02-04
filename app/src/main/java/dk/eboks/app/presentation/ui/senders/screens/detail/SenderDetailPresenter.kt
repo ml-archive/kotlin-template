@@ -11,14 +11,19 @@ import timber.log.Timber
 
 /**
  * Created by bison on 20-05-2017.
- * @author   bison
- * @since    20-05-2017.
+ * @author bison
+ * @since 20-05-2017.
  */
-class SenderDetailPresenter(val appStateManager: AppStateManager, val getSenderDetailInteractor: GetSenderDetailInteractor, val registerInteractor: RegisterInteractor, val unregisterInteractor: UnRegisterInteractor) :
-        SenderDetailContract.Presenter, BasePresenterImpl<SenderDetailContract.View>(),
-        GetSenderDetailInteractor.Output,
-        RegisterInteractor.Output,
-        UnRegisterInteractor.Output{
+class SenderDetailPresenter(
+    val appStateManager: AppStateManager,
+    val getSenderDetailInteractor: GetSenderDetailInteractor,
+    val registerInteractor: RegisterInteractor,
+    val unregisterInteractor: UnRegisterInteractor
+) :
+    SenderDetailContract.Presenter, BasePresenterImpl<SenderDetailContract.View>(),
+    GetSenderDetailInteractor.Output,
+    RegisterInteractor.Output,
+    UnRegisterInteractor.Output {
 
     init {
         getSenderDetailInteractor.output = this
@@ -60,7 +65,7 @@ class SenderDetailPresenter(val appStateManager: AppStateManager, val getSenderD
 
     override fun onError(error: ViewError) {
         runAction { v ->
-            v.showError(error.message?:"")
+            v.showError(error.message ?: "")
         }
     }
 }

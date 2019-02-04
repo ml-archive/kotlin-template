@@ -17,36 +17,38 @@ import timber.log.Timber
 /**
  * Created by bison on 01/02/18.
  */
-class OpenAttachmentInteractorImpl(executor: Executor, val appStateManager: AppStateManager,
-                                   val uiManager: UIManager, val downloadManager: DownloadManager,
-                                   val cacheManager: FileCacheManager)
-    : BaseInteractor(executor), OpenAttachmentInteractor {
+class OpenAttachmentInteractorImpl(
+    executor: Executor,
+    val appStateManager: AppStateManager,
+    val uiManager: UIManager,
+    val downloadManager: DownloadManager,
+    val cacheManager: FileCacheManager
+) : BaseInteractor(executor), OpenAttachmentInteractor {
 
     override var output: OpenAttachmentInteractor.Output? = null
     override var input: OpenAttachmentInteractor.Input? = null
 
     override fun execute() {
         try {
-            val message : Message = input?.message ?: throw InteractorException("No message given to interactor input")
-            input?.attachment?.let { content->
+            val message: Message =
+                input?.message ?: throw InteractorException("No message given to interactor input")
+            input?.attachment?.let { content ->
                 var filename = cacheManager.getCachedContentFileName(content)
-                if(filename == null) // is not in users
+                if (filename == null) // is not in users
                 {
                     Timber.e("Attachment content ${content.id} not in users, downloading")
                     // TODO the result of this call can result in all sorts of fun control flow changes depending on what error code the backend returns
                     filename = downloadManager.downloadAttachmentContent(message, content)
-                    if(filename == null)
+                    if (filename == null)
                         throw(InteractorException("Could not download content ${content.id}"))
                     Timber.e("Downloaded content to $filename")
                     cacheManager.cacheContent(filename, content)
-                }
-                else
-                {
+                } else {
                     Timber.e("Found content in users ($filename)")
                 }
 
                 val abs_path = cacheManager.getAbsolutePath(filename)
-                //appStateManager.save()
+                // appStateManager.save()
 
                 enrichType(content)
 
@@ -57,27 +59,29 @@ class OpenAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
         } catch (e: Throwable) {
             Timber.e(e)
             runOnUIThread {
-                output?.onOpenAttachmentError(ViewError(title = Translation.error.errorTitle, message = Translation.error.attachmentOpenErrorText))
+                output?.onOpenAttachmentError(
+                    ViewError(
+                        title = Translation.error.errorTitle,
+                        message = Translation.error.attachmentOpenErrorText
+                    )
+                )
             }
         }
     }
 
-    fun enrichType(content : Content)
-    {
+    fun enrichType(content: Content) {
         var ext = content.fileExtension
         var mime = content.mimeType
-        for(type in embeddedTypes)
-        {
+        for (type in embeddedTypes) {
             // do we have a mime type? those are the bestest!!
-            if(mime != null)
-            {
-                if(type.mimeType == mime) // recognized
+            if (mime != null) {
+                if (type.mimeType == mime) // recognized
                     return
-            }
-            else if(ext != null) // narp go with the oldschool windows file extension
+            } else if (ext != null) // narp go with the oldschool windows file extension
             {
-                if(type.fileExtension == ext) {
-                    content.mimeType = type.mimeType // enrich with the mimetype if we only have file ext
+                if (type.fileExtension == ext) {
+                    content.mimeType =
+                        type.mimeType // enrich with the mimetype if we only have file ext
                     return
                 }
             }
@@ -86,15 +90,15 @@ class OpenAttachmentInteractorImpl(executor: Executor, val appStateManager: AppS
 
     companion object {
         var embeddedTypes = listOf<EboksContentType>(
-                EboksContentType("pdf", "application/pdf"),
-                EboksContentType("png", "image/png"),
-                EboksContentType("jpg", "image/jpeg"),
-                EboksContentType("jpeg", "image/jpeg"),
-                EboksContentType("gif", "image/gif"),
-                EboksContentType("bmp", "image/bmp"),
-                EboksContentType("html", "text/html"),
-                EboksContentType("htm", "text/html"),
-                EboksContentType("txt", "text/plain")
+            EboksContentType("pdf", "application/pdf"),
+            EboksContentType("png", "image/png"),
+            EboksContentType("jpg", "image/jpeg"),
+            EboksContentType("jpeg", "image/jpeg"),
+            EboksContentType("gif", "image/gif"),
+            EboksContentType("bmp", "image/bmp"),
+            EboksContentType("html", "text/html"),
+            EboksContentType("htm", "text/html"),
+            EboksContentType("txt", "text/plain")
         )
     }
 }

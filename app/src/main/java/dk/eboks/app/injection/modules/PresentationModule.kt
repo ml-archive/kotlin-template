@@ -1193,7 +1193,8 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideEkeyContentPresenter(
-        stateManager: AppStateManager, encryptedPreferences: EncryptedPreferences,
+        stateManager: AppStateManager,
+        encryptedPreferences: EncryptedPreferences,
         getEKeyMasterkeyInteractor: GetEKeyMasterkeyInteractor,
         setEKeyMasterkeyInteractor: SetEKeyMasterkeyInteractor,
         getEKeyVaultInteractor: GetEKeyVaultInteractor,

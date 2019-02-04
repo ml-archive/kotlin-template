@@ -24,17 +24,21 @@ import java.util.Locale
 import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 
-class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: SettingsRepository, val appStateManager: AppStateManager) : AuthClient {
+class AuthClientImpl(
+    val cryptoManager: CryptoManager,
+    val settingsRepository: SettingsRepository,
+    val appStateManager: AppStateManager
+) : AuthClient {
     private var httpClient: OkHttpClient
     private var gson: Gson = Gson()
     private var useCustomId: Boolean = false
 
     init {
         val clientBuilder = OkHttpClient.Builder()
-                .connectTimeout(45, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS)
-                .addInterceptor(HttpLoggingInterceptor())
+            .connectTimeout(45, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
+            .writeTimeout(60, TimeUnit.SECONDS)
+            .addInterceptor(HttpLoggingInterceptor())
 
         if (BuildConfig.DEBUG) {
             val logging = okhttp3.logging.HttpLoggingInterceptor()
@@ -45,27 +49,30 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
         httpClient = clientBuilder.build()
     }
 
-    override fun transformKspToken(kspToken: String, oauthToken: String?, longClient: Boolean): AccessToken? {
+    override fun transformKspToken(
+        kspToken: String,
+        oauthToken: String?,
+        longClient: Boolean
+    ): AccessToken? {
         appStateManager.state?.loginState?.useCustomClientId = true
         appStateManager.state?.loginState?.useLongClientId = longClient
         appStateManager.save()
         val keys = getKeys(longClient)
 
         val formBody = FormBody.Builder()
-                .add("kspwebtoken", kspToken)
-                .add("grant_type", "kspwebtoken")
-                .add("scope", "mobileapi offline_access")
-                .add("client_id", keys.first)
-                .add("client_secret", keys.second)
-
+            .add("kspwebtoken", kspToken)
+            .add("grant_type", "kspwebtoken")
+            .add("scope", "mobileapi offline_access")
+            .add("client_id", keys.first)
+            .add("client_secret", keys.second)
 
         if (oauthToken != null)
             formBody.add("oauthtoken", oauthToken)
 
         val request = Request.Builder()
-                .url(Config.getAuthUrl())
-                .post(formBody.build())
-                .build()
+            .url(Config.getAuthUrl())
+            .post(formBody.build())
+            .build()
 
         val result = httpClient.newCall(request).execute()
         if (result.isSuccessful) {
@@ -85,18 +92,18 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
         val keys = getKeys(false)
 
         val formBody = FormBody.Builder()
-                .add("token", token)
-                .add("userid", userId)
-                .add("grant_type", "impersonate")
-                .add("scope", "mobileapi offline_access")
-                .add("client_id", keys.first)
-                .add("client_secret", keys.second)
-                .build()
+            .add("token", token)
+            .add("userid", userId)
+            .add("grant_type", "impersonate")
+            .add("scope", "mobileapi offline_access")
+            .add("client_id", keys.first)
+            .add("client_secret", keys.second)
+            .build()
 
         val request = Request.Builder()
-                .url(Config.getAuthUrl())
-                .post(formBody)
-                .build()
+            .url(Config.getAuthUrl())
+            .post(formBody)
+            .build()
 
         val result = httpClient.newCall(request).execute()
         if (result.isSuccessful) {
@@ -114,17 +121,17 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
         val keys = getKeys(longClient)
 
         val formBody = FormBody.Builder()
-                .add("refresh_token", refreshToken)
-                .add("grant_type", "refresh_token")
-                .add("scope", "mobileapi offline_access")
-                .add("client_id", keys.first)
-                .add("client_secret", keys.second)
-                .build()
+            .add("refresh_token", refreshToken)
+            .add("grant_type", "refresh_token")
+            .add("scope", "mobileapi offline_access")
+            .add("client_id", keys.first)
+            .add("client_secret", keys.second)
+            .build()
 
         val request = Request.Builder()
-                .url(Config.getAuthUrl())
-                .post(formBody)
-                .build()
+            .url(Config.getAuthUrl())
+            .post(formBody)
+            .build()
 
         val result = httpClient.newCall(request).execute()
         if (result.isSuccessful) {
@@ -138,18 +145,25 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
     }
 
     // Throws AuthException with http error code on other values than 200 okay
-    override fun login(username: String, password: String, longClient: Boolean, bearerToken: String?, verifyOnly: Boolean, userId: String?): AccessToken? {
+    override fun login(
+        username: String,
+        password: String,
+        longClient: Boolean,
+        bearerToken: String?,
+        verifyOnly: Boolean,
+        userId: String?
+    ): AccessToken? {
         appStateManager.state?.loginState?.useCustomClientId = false
         appStateManager.state?.loginState?.useLongClientId = longClient
         appStateManager.save()
         val keys = getKeys(longClient)
 
         val formBody = FormBody.Builder()
-                .add("grant_type", "password")
-                .add("client_id", keys.first)
-                .add("client_secret", keys.second)
-                .add("username", username)
-                .add("password", password)
+            .add("grant_type", "password")
+            .add("client_id", keys.first)
+            .add("client_secret", keys.second)
+            .add("username", username)
+            .add("password", password)
 
         if (verifyOnly)
             formBody.add("scope", "mobileapi")
@@ -180,14 +194,17 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
                 cryptoManager.getActivation(id)?.privateKey?.let { privateKey ->
                     val hashedChallenge = cryptoManager.hashStringData(challenge, privateKey)
                     Timber.i("login - hashedchallenge: $hashedChallenge")
-                    formBody.add("acr_values", "challenge:$hashedChallenge timestamp:$localTime deviceid:$deviceId")
+                    formBody.add(
+                        "acr_values",
+                        "challenge:$hashedChallenge timestamp:$localTime deviceid:$deviceId"
+                    )
                 }
             }
         }
 //      -----------------------------------
         val requestBuilder = Request.Builder()
-                .url(Config.getAuthUrl())
-                .post(formBody.build())
+            .url(Config.getAuthUrl())
+            .post(formBody.build())
 
         bearerToken?.let { token ->
             requestBuilder.addHeader("Authorization", "Bearer $token")
@@ -216,7 +233,7 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
                     throw(AuthException(result.code(), ""))
                 }
 
-                //Timber.e("Parsed json obj ${jsonObj?.toString(4)} errorDescription = ${jsonObj?.getString("error_description")}")
+                // Timber.e("Parsed json obj ${jsonObj?.toString(4)} errorDescription = ${jsonObj?.getString("error_description")}")
 
                 throw(AuthException(result.code(), jsonObj.getString("error_description") ?: ""))
             }
@@ -230,20 +247,24 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
         lateinit var idSecret: Pair<String, String>
         if (isCustom && isLong) {
             idSecret = Pair(
-                    Config.currentMode.environment?.longAuthCustomId ?: "",
-                    Config.currentMode.environment?.longAuthCustomSecret ?: "")
+                Config.currentMode.environment?.longAuthCustomId ?: "",
+                Config.currentMode.environment?.longAuthCustomSecret ?: ""
+            )
         } else if (isCustom && !isLong) {
             idSecret = Pair(
-                    Config.currentMode.environment?.shortAuthCustomId ?: "",
-                    Config.currentMode.environment?.shortAuthCustomSecret ?: "")
+                Config.currentMode.environment?.shortAuthCustomId ?: "",
+                Config.currentMode.environment?.shortAuthCustomSecret ?: ""
+            )
         } else if (!isCustom && isLong) {
             idSecret = Pair(
-                    Config.currentMode.environment?.longAuthId ?: "",
-                    Config.currentMode.environment?.longAuthSecret ?: "")
+                Config.currentMode.environment?.longAuthId ?: "",
+                Config.currentMode.environment?.longAuthSecret ?: ""
+            )
         } else if (!isCustom && !isLong) {
             idSecret = Pair(
-                    Config.currentMode.environment?.shortAuthId ?: "",
-                    Config.currentMode.environment?.shortAuthSecret ?: "")
+                Config.currentMode.environment?.shortAuthId ?: "",
+                Config.currentMode.environment?.shortAuthSecret ?: ""
+            )
         }
         return idSecret
     }
@@ -251,9 +272,9 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
     @Throws(Exception::class)
     override fun decodeJWTBody(JWTEncoded: String): JSONObject {
         val split = JWTEncoded.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        //val jwtHeaderJson = JSONObject(getJson(split[0]))
+        // val jwtHeaderJson = JSONObject(getJson(split[0]))
         val jwtBodyJson = JSONObject(getJson(split[1]))
-        //Timber.e("Header: $jwtHeaderJson")
+        // Timber.e("Header: $jwtHeaderJson")
         Timber.e("Body: $jwtBodyJson")
         return jwtBodyJson
     }
@@ -263,5 +284,4 @@ class AuthClientImpl(val cryptoManager: CryptoManager, val settingsRepository: S
         val decodedBytes = Base64.decode(strEncoded, Base64.URL_SAFE)
         return String(decodedBytes)
     }
-
 }

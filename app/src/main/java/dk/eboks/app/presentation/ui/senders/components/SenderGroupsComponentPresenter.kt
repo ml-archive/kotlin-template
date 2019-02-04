@@ -7,17 +7,19 @@ import javax.inject.Inject
 
 /**
  * Created by Christian on 3/15/2018.
- * @author   Christian
- * @since    3/15/2018.
+ * @author Christian
+ * @since 3/15/2018.
  */
-class SenderGroupsComponentPresenter @Inject constructor(val appState: AppStateManager) : SenderGroupsComponentContract.Presenter, BasePresenterImpl<SenderGroupsComponentContract.View>() {
+class SenderGroupsComponentPresenter @Inject constructor(val appState: AppStateManager) :
+    SenderGroupsComponentContract.Presenter,
+    BasePresenterImpl<SenderGroupsComponentContract.View>() {
 
     init {
     }
 
     override fun getSenderGroups(sender: Sender) {
         runAction { v ->
-            sender.groups?.let{
+            sender.groups?.let {
                 v.showSenderGroups(sender)
             }
         }

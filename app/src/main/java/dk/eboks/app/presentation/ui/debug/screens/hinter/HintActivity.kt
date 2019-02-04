@@ -23,8 +23,7 @@ class HintActivity : BaseActivity() {
         component.inject(this)
 
         closeBtn.setOnClickListener {
-            if(disableCb.isChecked)
-            {
+            if (disableCb.isChecked) {
                 prefManager.setBoolean("disable_hints", true)
             }
             finish()
@@ -33,8 +32,7 @@ class HintActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        if(disableCb.isChecked)
-        {
+        if (disableCb.isChecked) {
             prefManager.setBoolean("disable_hints", true)
         }
         super.onBackPressed()
@@ -42,14 +40,14 @@ class HintActivity : BaseActivity() {
     }
 
     companion object {
-        var hint : String = ""
-        var hintKey : String = ""
-        fun showHint(activity : Activity, newhint : String)
-        {
-            if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+        var hint: String = ""
+        var hintKey: String = ""
+        fun showHint(activity: Activity, newhint: String) {
+            if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
                 Handler(Looper.getMainLooper()).postDelayed({
-                    val sharedPrefs : SharedPreferences? = PreferenceManager.getDefaultSharedPreferences(activity)
-                    if(sharedPrefs != null) {
+                    val sharedPrefs: SharedPreferences? =
+                        PreferenceManager.getDefaultSharedPreferences(activity)
+                    if (sharedPrefs != null) {
 
                         if (!sharedPrefs.getBoolean("disable_hints", false)) {
                             hint = newhint
@@ -58,7 +56,10 @@ class HintActivity : BaseActivity() {
                             // only show each hint once
                             if (!sharedPrefs.getBoolean(hintKey, false)) {
                                 activity.startActivity(Intent(activity, HintActivity::class.java))
-                                activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+                                activity.overridePendingTransition(
+                                    android.R.anim.fade_in,
+                                    android.R.anim.fade_out
+                                )
                                 sharedPrefs.edit().putBoolean(hintKey, true).apply()
                             }
                         }

@@ -7,9 +7,10 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class ChannelVerificationComponentPresenter @Inject constructor(val appState: AppStateManager) : ChannelVerificationComponentContract.Presenter, BasePresenterImpl<ChannelVerificationComponentContract.View>() {
+class ChannelVerificationComponentPresenter @Inject constructor(val appState: AppStateManager) :
+    ChannelVerificationComponentContract.Presenter,
+    BasePresenterImpl<ChannelVerificationComponentContract.View>() {
 
     init {
     }
-
 }

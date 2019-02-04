@@ -6,8 +6,8 @@ import dk.nodes.arch.domain.interactor.Interactor
 
 /**
  * Created by Christian on 6/22/2018.
- * @author   Christian
- * @since    6/22/2018.
+ * @author Christian
+ * @since 6/22/2018.
  */
 interface DecryptUserLoginInfoInteractor : Interactor {
     var output: Output?

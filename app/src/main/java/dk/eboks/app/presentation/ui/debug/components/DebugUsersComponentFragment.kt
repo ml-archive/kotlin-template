@@ -14,15 +14,19 @@ import javax.inject.Inject
 
 /**
  * Created by Christian on 6/15/2018.
- * @author   Christian
- * @since    6/15/2018.
+ * @author Christian
+ * @since 6/15/2018.
  */
-class DebugUsersComponentFragment: BaseFragment(), DebugUsersComponentContract.View {
+class DebugUsersComponentFragment : BaseFragment(), DebugUsersComponentContract.View {
 
     @Inject
-    lateinit var presenter : DebugUsersComponentContract.Presenter
+    lateinit var presenter: DebugUsersComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_debug_users_component, container, false)
         return rootView
     }
@@ -46,7 +50,7 @@ class DebugUsersComponentFragment: BaseFragment(), DebugUsersComponentContract.V
         presenter.makeList()
     }
 
-    override fun showUsers(users : List<LoginState>) {
+    override fun showUsers(users: List<LoginState>) {
         // Create an ArrayAdapter using the string array and a default spinner layout
         val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, users)
         // Specify the layout to use when the list of choices appears

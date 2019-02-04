@@ -5,8 +5,8 @@ import dk.nodes.arch.domain.interactor.Interactor
 
 /**
  * Created by Christian on 3/13/2018.
- * @author   Christian
- * @since    3/13/2018.
+ * @author Christian
+ * @since 3/13/2018.
  */
 interface GetCollectionsInteractor : Interactor {
     var output: Output?

@@ -51,7 +51,7 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
     }
 
     private fun showLoading(show: Boolean) {
-        if(show) {
+        if (show) {
             content.visibility = View.GONE
             ekeyActivityProgressBar.visibility = View.VISIBLE
         } else {
@@ -71,8 +71,8 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
     fun clearBackStackAndSetToPin(isCreate: Boolean) {
         isDestroyable = false
         supportFragmentManager.popBackStack(
-                backStackRootTag,
-                FragmentManager.POP_BACK_STACK_INCLUSIVE
+            backStackRootTag,
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
 
         addFragmentOnTop(R.id.content, EkeyPinComponentFragment.newInstance(isCreate), false)
@@ -86,8 +86,8 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
 
     fun refreshClearAndShowMain() {
         supportFragmentManager.popBackStack(
-                backStackRootTag,
-                FragmentManager.POP_BACK_STACK_INCLUSIVE
+            backStackRootTag,
+            FragmentManager.POP_BACK_STACK_INCLUSIVE
         )
         presenter.getData()
     }
@@ -102,7 +102,7 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
 
     override fun onResume() {
         super.onResume()
-        if(shouldFinish) {
+        if (shouldFinish) {
             shouldFinish = false
             finish()
         }

@@ -12,14 +12,11 @@ class DebugActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(dk.eboks.app.R.layout.activity_debug)
 
-        //component.inject(this)
+        // component.inject(this)
         mainTb.title = "Debug"
 
         componentTestTv.setOnClickListener {
             startActivity(Intent(this, ComponentTestActivity::class.java))
         }
-
     }
-
-
 }

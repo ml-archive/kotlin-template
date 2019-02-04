@@ -38,9 +38,9 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MessageViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(
-                R.layout.viewholder_message_row,
-                parent,
-                false
+            R.layout.viewholder_message_row,
+            parent,
+            false
         )
         return MessageViewHolder(v)
     }
@@ -71,9 +71,8 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
         private val imageIv = contentContainer.findViewById<ImageView>(R.id.imageIv)
         private val markAsReadTv = markAsReadContainer.findViewById<TextView>(R.id.markAsReadTv)
 
-
         init {
-            if(BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
+            if (BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
                 swipeLayout.showMode = SwipeLayout.ShowMode.PullOut
                 swipeLayout.addDrag(SwipeLayout.DragEdge.Left, markAsReadContainer)
                 swipeLayout.addDrag(SwipeLayout.DragEdge.Right, moveContainer)
@@ -84,17 +83,15 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
             Timber.e("binding msg viewholder: Sub ${currentItem.subject} Sender ${currentItem.sender?.name} unread=${currentItem.unread}")
             setGeneric(currentItem)
 
-            if(BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
+            if (BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
                 swipeLayout.isLeftSwipeEnabled = !editMode
                 swipeLayout.isRightSwipeEnabled = !editMode
-                if (!currentItem.unread){
+                if (!currentItem.unread) {
                     markAsReadTv.text = Translation.inbox.actionMarkAsUnread
                 } else {
                     markAsReadTv.text = Translation.inbox.actionMarkAsRead
                 }
-            }
-            else
-            {
+            } else {
                 swipeLayout.isLeftSwipeEnabled = false
                 swipeLayout.isRightSwipeEnabled = false
             }
@@ -115,7 +112,7 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
         }
 
         private fun setGeneric(currentItem: Message) {
-            if (currentItem.unread && currentItem.type  != MessageType.UPLOAD) {
+            if (currentItem.unread && currentItem.type != MessageType.UPLOAD) {
                 headerTv.setTypeface(null, Typeface.BOLD)
                 dateTv?.setTypeface(null, Typeface.BOLD)
                 subHeaderTv?.setTypeface(null, Typeface.BOLD)
@@ -127,27 +124,22 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
                 dateTv?.setTextColor(ContextCompat.getColor(itemView.context, R.color.silver))
             }
 
-            if(showUploads) {
+            if (showUploads) {
                 headerTv.text = currentItem.subject
                 subHeaderTv.text = currentItem.folder?.name ?: ""
-            }
-            else
-            {
+            } else {
                 headerTv.text = currentItem.sender?.name
                 subHeaderTv.text = currentItem.subject
             }
             dateTv.text = formatter.formatDateRelative(currentItem)
             checkBox.isSelected = false
 
-
             if (currentItem.status?.title != null) {
                 urgentTv?.visibility = View.VISIBLE
                 urgentTv?.text = currentItem.status?.title
-                if(currentItem.status?.important == true)
-                {
+                if (currentItem.status?.important == true) {
                     urgentTv.setTextColor(root.context.resources.getColor(R.color.rougeTwo))
-                }
-                else
+                } else
                     urgentTv.setTextColor(root.context.resources.getColor(R.color.silver))
             } else {
                 urgentTv?.visibility = View.GONE
@@ -165,19 +157,16 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
             uploadFl.visibility = View.VISIBLE
             checkBox.visibility = View.GONE
 
-            if(currentItem.type == MessageType.UPLOAD)
-            {
+            if (currentItem.type == MessageType.UPLOAD) {
                 imageIv.setImageResource(R.drawable.ic_menu_uploads)
                 uploadFl.isSelected = false
-            }
-            else
-            {
-                currentItem.sender?.logo?.let { logo->
-                    //Timber.e("Loading the logo at URL ${logo.getWorkaroundUrl()}")
+            } else {
+                currentItem.sender?.logo?.let { logo ->
+                    // Timber.e("Loading the logo at URL ${logo.getWorkaroundUrl()}")
                     Glide.with(itemView.context)
-                            .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder))
-                            .load(logo.getWorkaroundUrl() )
-                            .into(imageIv)
+                        .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder))
+                        .load(logo.getWorkaroundUrl())
+                        .into(imageIv)
 
                     uploadFl.isSelected = currentItem.unread
                 }
@@ -189,7 +178,6 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
 
             contentContainer.setOnClickListener(messageListener)
             checkBox.setOnClickListener(messageListener)
-
         }
 
         private fun setSelectable(currentItem: Message, last: Boolean) {
@@ -211,7 +199,6 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
                     if (uploadFl.visibility == View.VISIBLE) {
                         onActionEvent?.invoke(currentItem, MailMessageEvent.OPEN)
                     }
-
                 }
             }
 

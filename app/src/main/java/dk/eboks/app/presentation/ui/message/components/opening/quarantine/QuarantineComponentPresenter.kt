@@ -8,10 +8,12 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class QuarantineComponentPresenter @Inject constructor(val appState: AppStateManager, val executor: Executor) :
-        QuarantineComponentContract.Presenter,
-        BasePresenterImpl<QuarantineComponentContract.View>()
-{
+class QuarantineComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val executor: Executor
+) :
+    QuarantineComponentContract.Presenter,
+    BasePresenterImpl<QuarantineComponentContract.View>() {
 
     init {
     }
@@ -22,5 +24,4 @@ class QuarantineComponentPresenter @Inject constructor(val appState: AppStateMan
         }
         executor.signal("messageOpenDone")
     }
-
 }

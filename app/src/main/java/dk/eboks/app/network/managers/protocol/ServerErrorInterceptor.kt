@@ -10,32 +10,27 @@ import javax.inject.Inject
 /**
  * Created by bison on 01/02/18.
  */
-class ServerErrorInterceptor : okhttp3.Interceptor  {
-    @Inject lateinit var gson : Gson
+class ServerErrorInterceptor : okhttp3.Interceptor {
+    @Inject lateinit var gson: Gson
 
     @Throws(java.io.IOException::class, ServerErrorException::class)
     override fun intercept(chain: okhttp3.Interceptor.Chain): okhttp3.Response {
         App.instance().appComponent.inject(this)
 
         val response = chain.proceed(chain.request())
-        if(!response.isSuccessful)
-        {
+        if (!response.isSuccessful) {
             response.peekBody(16384L)?.string()?.let { buffer ->
                 try {
-                    val se = gson.fromJson<ServerError>(buffer, ServerError::class.java) ?: return response
-                    if(se.id == null)
+                    val se = gson.fromJson<ServerError>(buffer, ServerError::class.java)
+                        ?: return response
+                    if (se.id == null)
                         return response
                     throw(ServerErrorException(se))
-                }
-                catch (t : Throwable)
-                {
-                    if(t is ServerErrorException || t.cause is ServerErrorException)
-                    {
+                } catch (t: Throwable) {
+                    if (t is ServerErrorException || t.cause is ServerErrorException) {
                         Timber.e("Rethrowing ServerErrorException")
                         throw(t)
-                    }
-                    else
-                    {
+                    } else {
                         Timber.e("Could not parse a ServerError passing through body")
                         Timber.e(t)
                         return response

@@ -20,21 +20,20 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class SignupComponentPresenter @Inject constructor(
-        val appState: AppStateManager,
-        val createUserInteractor: CreateUserInteractor,
-        val loginUserInteractor: LoginInteractor,
-        val checkSignupMailInteractor: CheckSignupMailInteractor,
-        val checkSsnExistsInteractor: CheckSsnExistsInteractor,
-        val setCurrentUserInteractor: SetCurrentUserInteractor
+    val appState: AppStateManager,
+    val createUserInteractor: CreateUserInteractor,
+    val loginUserInteractor: LoginInteractor,
+    val checkSignupMailInteractor: CheckSignupMailInteractor,
+    val checkSsnExistsInteractor: CheckSsnExistsInteractor,
+    val setCurrentUserInteractor: SetCurrentUserInteractor
 ) :
-        SignupComponentContract.Presenter,
-        BasePresenterImpl<SignupComponentContract.SignupView>(),
-        CreateUserInteractor.Output,
-        LoginInteractor.Output,
-        CheckSsnExistsInteractor.Output,
-        CheckSignupMailInteractor.Output,
-        SetCurrentUserInteractor.Output
-{
+    SignupComponentContract.Presenter,
+    BasePresenterImpl<SignupComponentContract.SignupView>(),
+    CreateUserInteractor.Output,
+    LoginInteractor.Output,
+    CheckSsnExistsInteractor.Output,
+    CheckSignupMailInteractor.Output,
+    SetCurrentUserInteractor.Output {
 
     init {
         createUserInteractor.output = this
@@ -46,7 +45,7 @@ class SignupComponentPresenter @Inject constructor(
 
     companion object {
         val tempUser: User = User()
-        val identity : String = ""
+        val identity: String = ""
     }
 
     override fun confirmMail(email: String, name: String) {
@@ -58,9 +57,9 @@ class SignupComponentPresenter @Inject constructor(
 
     override fun createUser() {
         appState.state?.loginState?.userPassWord?.let {
-            runAction { v->v.showProgress(true) }
+            runAction { v -> v.showProgress(true) }
 
-            WebLoginPresenter.newIdentity?.let { identity->
+            WebLoginPresenter.newIdentity?.let { identity ->
                 tempUser.identity = identity
             }.guard { tempUser.identity = tempUser.getPrimaryEmail() }
 
@@ -76,7 +75,7 @@ class SignupComponentPresenter @Inject constructor(
     override fun loginUser() {
         appState.state?.loginState?.let { loginState ->
             // we have a token, this is a verified user, set cpr instead of email as last login provider
-            if(VerificationComponentFragment.verificationSucceeded)
+            if (VerificationComponentFragment.verificationSucceeded)
                 loginState.userLoginProviderId = "cpr"
             else
                 loginState.userLoginProviderId = "email"
@@ -99,7 +98,6 @@ class SignupComponentPresenter @Inject constructor(
         checkSsnExistsInteractor.run()
     }
 
-
     /**
      * Login callbacks
      */
@@ -113,7 +111,7 @@ class SignupComponentPresenter @Inject constructor(
 
     override fun onLoginActivationCodeRequired() {
         Timber.d("onloginactivatedcoderequired")
-        runAction { v->v.showProgress(false) }
+        runAction { v -> v.showProgress(false) }
     }
 
     override fun onLoginDenied(error: ViewError) {
@@ -136,7 +134,7 @@ class SignupComponentPresenter @Inject constructor(
      * Create user callbacks
      */
     override fun onCreateUser(user: User) {
-        //if(!VerificationComponentFragment.verificationSucceeded)
+        // if(!VerificationComponentFragment.verificationSucceeded)
         appState.state?.loginState?.token = null
         loginUser()
     }
@@ -159,7 +157,7 @@ class SignupComponentPresenter @Inject constructor(
     }
 
     override fun onCheckSsnExists(error: ViewError) {
-        //todo error handling
+        // todo error handling
         // todo API does not work so we pretend the SSN did not exist to continue with the flow
         runAction { v ->
             v as SignupComponentContract.MMView

@@ -18,7 +18,6 @@ import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFr
 import dk.eboks.app.util.disableShiftingMode
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.include_toolbar.*
-import timber.log.Timber
 
 class MainActivity : BaseActivity(), MainNavigator {
 
@@ -114,7 +113,8 @@ class MainActivity : BaseActivity(), MainNavigator {
     private fun setMainFragment(
         fragment: Fragment,
         tag: String? = null,
-        clearBackStack: Boolean = true) {
+        clearBackStack: Boolean = true
+    ) {
 
         if (shownFragment == fragment) return
         // Clear back stack and avoid pop animations
@@ -138,7 +138,6 @@ class MainActivity : BaseActivity(), MainNavigator {
             ft.hide(it)
         }
 
-
         ft.commit()
 
         // Save for later
@@ -149,8 +148,7 @@ class MainActivity : BaseActivity(), MainNavigator {
         with(supportFragmentManager) {
             if (backStackEntryCount > 0) {
                 popBackStack()
-            }
-            else super.onBackPressed()
+            } else super.onBackPressed()
         }
     }
 

@@ -11,20 +11,28 @@ import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
 import dk.eboks.app.util.guard
 
-class ReceiptsChannelControl(channel: Channel, control : Control, view: View, inflater : LayoutInflater, handler: Handler, val formatter: EboksFormatter) : ChannelControl(channel, control, view, inflater, handler) {
-    lateinit var nameContainer : LinearLayout
-    lateinit var amountDateContainer : LinearLayout
-    lateinit var soloName : TextView
-    lateinit var soloAmount : TextView
-    lateinit var name : TextView
-    lateinit var address : TextView
-    lateinit var amount : TextView
-    lateinit var date  : TextView
+class ReceiptsChannelControl(
+    channel: Channel,
+    control: Control,
+    view: View,
+    inflater: LayoutInflater,
+    handler: Handler,
+    val formatter: EboksFormatter
+) : ChannelControl(channel, control, view, inflater, handler) {
+    lateinit var nameContainer: LinearLayout
+    lateinit var amountDateContainer: LinearLayout
+    lateinit var soloName: TextView
+    lateinit var soloAmount: TextView
+    lateinit var name: TextView
+    lateinit var address: TextView
+    lateinit var amount: TextView
+    lateinit var date: TextView
 
     override fun buildView() {
         control.items?.let { items ->
             for (row in items) {
-                val v = inflater.inflate(R.layout.viewholder_home_reciept_row, rowsContainerLl, false)
+                val v =
+                    inflater.inflate(R.layout.viewholder_home_reciept_row, rowsContainerLl, false)
 
                 nameContainer = v.findViewById<LinearLayout>(R.id.nameSubTitleContainerLl)
                 amountDateContainer = v.findViewById<LinearLayout>(R.id.amountDateContainerLl)
@@ -34,7 +42,6 @@ class ReceiptsChannelControl(channel: Channel, control : Control, view: View, in
                 address = v.findViewById<TextView>(R.id.subTitleTv)
                 amount = v.findViewById<TextView>(R.id.amountTv)
                 date = v.findViewById<TextView>(R.id.dateTv)
-
 
                 if (row.date == null) {
                     soloAmount.text = formatter.formatPrice(row)
@@ -46,7 +53,7 @@ class ReceiptsChannelControl(channel: Channel, control : Control, view: View, in
                 }
 
                 row.amount?.let {
-                    if(it == 0.0) {
+                    if (it == 0.0) {
                         amount.text = ""
                         date.text = ""
                     }

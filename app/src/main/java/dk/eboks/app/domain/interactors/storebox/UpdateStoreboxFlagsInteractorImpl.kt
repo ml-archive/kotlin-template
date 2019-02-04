@@ -6,8 +6,8 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 class UpdateStoreboxFlagsInteractorImpl(executor: Executor, private val api: Api) :
-        BaseInteractor(executor),
-        UpdateStoreboxFlagsInteractor {
+    BaseInteractor(executor),
+    UpdateStoreboxFlagsInteractor {
     override var input: UpdateStoreboxFlagsInteractor.Input? = null
     override var output: UpdateStoreboxFlagsInteractor.Output? = null
 

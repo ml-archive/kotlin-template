@@ -10,11 +10,11 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface UploadOverviewComponentContract {
     interface View : BaseView {
-        fun setupView(verifiedUser : Boolean)
+        fun setupView(verifiedUser: Boolean)
         fun showStorageInfo(storageInfo: StorageInfo)
-        fun showLatestUploads(messages : List<Message>)
+        fun showLatestUploads(messages: List<Message>)
         fun showUploadProgress()
-        fun updateUploadProgress(pct : Double)
+        fun updateUploadProgress(pct: Double)
         fun hideUploadProgress()
     }
 
@@ -22,6 +22,6 @@ interface UploadOverviewComponentContract {
         fun setup()
         fun refresh()
         fun poisonAccessToken()
-        fun upload(folderId : Int, filename : String, uriString : String, mimetype : String)
+        fun upload(folderId: Int, filename: String, uriString: String, mimetype: String)
     }
 }

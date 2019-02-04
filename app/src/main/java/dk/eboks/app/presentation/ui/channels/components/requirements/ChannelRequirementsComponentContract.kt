@@ -11,10 +11,10 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface ChannelRequirementsComponentContract {
     interface View : BaseView {
         fun setupView(channel: Channel)
-        fun showUnverifiedRequirements(requirements : List<Requirement>)
+        fun showUnverifiedRequirements(requirements: List<Requirement>)
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setup(channel : Channel)
+        fun setup(channel: Channel)
     }
 }

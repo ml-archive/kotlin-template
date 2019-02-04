@@ -22,7 +22,11 @@ class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.Ter
     @Inject
     lateinit var presenter: SignupComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView =
             inflater.inflate(R.layout.fragment_signup_accept_terms_component, container, false)
         return rootView
@@ -48,7 +52,6 @@ class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.Ter
 
         acceptBtn.setOnClickListener {
             presenter.createUser()
-
         }
 
         cancelBtn.setOnClickListener { showDialog() }
@@ -61,7 +64,6 @@ class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.Ter
         dialogBuilder.setTitle(Translation.signup.cancelDialogHeader)
         dialogBuilder.setMessage(Translation.signup.cancelDialogText)
         dialogBuilder.setPositiveButton(Translation.signup.cancelDialogCancelBtn) { dialog, whichButton ->
-
         }
 
         dialogBuilder.setNegativeButton(Translation.signup.cancelDialogDiscardBtn) { dialog, whichButton ->
@@ -75,9 +77,8 @@ class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.Ter
         getBaseActivity()?.addFragmentOnTop(R.id.containerFl, CompletedComponentFragment(), true)
     }
 
-
     override fun showProgress(show: Boolean) {
-        termsButtonsLl.visibility = if(show) View.INVISIBLE else View.VISIBLE
-        progressFl.visibility = if(!show) View.INVISIBLE else View.VISIBLE
+        termsButtonsLl.visibility = if (show) View.INVISIBLE else View.VISIBLE
+        progressFl.visibility = if (!show) View.INVISIBLE else View.VISIBLE
     }
 }

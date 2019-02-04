@@ -38,9 +38,9 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     private var didShowCardView = false
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_channel_settings_component, container, false)
     }
@@ -60,21 +60,19 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         arguments?.getParcelable<Channel>(Channel::class.java.simpleName)?.id?.let(presenter::setup)
 
         // should we open an display add a credit card webview immediately?
-        arguments?.getBoolean("openAddCreditCards")?.let { open->
-            if(open)
-            {
+        arguments?.getBoolean("openAddCreditCards")?.let { open ->
+            if (open) {
                 mainHandler.postDelayed({
                     presenter.getStoreboxCardLink()
                 }, 100)
             }
-
         }
         showProgress(true)
     }
 
     override fun onResume() {
         super.onResume()
-        if(isStorebox) {
+        if (isStorebox) {
             if (didShowCardView) {
                 presenter.getCreditCards()
             }
@@ -82,18 +80,15 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     }
 
     override fun setupChannel(channel: Channel) {
-        channel.supportPinned?.let { supported->
-            if(supported)
-            {
+        channel.supportPinned?.let { supported ->
+            if (supported) {
                 pinContainerLl.visibility = View.VISIBLE
                 pinSliderSwitch.isChecked = channel.pinned ?: false
                 pinSliderSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
                     Timber.d("_pin slider checked$isChecked")
                     presenter.updateChannelFlags(channel, ChannelFlags(pinned = isChecked))
                 }
-            }
-            else
-            {
+            } else {
                 mainSwitchContainerLl.visibility = View.GONE
                 pinContainerLl.visibility = View.GONE
             }
@@ -114,9 +109,9 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         pinContainerLl.visibility = View.VISIBLE
 
         // TODO renable notification settings in a later version
-        //hide row divider if notifications container is also hidden
-        //notificationContainerLl.visibility = View.GONE
-        //rowDivider.visibility = notificationContainerLl.visibility
+        // hide row divider if notifications container is also hidden
+        // notificationContainerLl.visibility = View.GONE
+        // rowDivider.visibility = notificationContainerLl.visibility
 
         storeboxProfileLl.visibility = View.VISIBLE
         creditCardContainerLl.visibility = View.VISIBLE
@@ -128,7 +123,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         creditcardRv.adapter = adapter
 
         addCardLl.setOnClickListener {
-            //Timber.v("_add card clicked")
+            // Timber.v("_add card clicked")
             presenter.getStoreboxCardLink()
         }
 
@@ -136,32 +131,33 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     }
 
     private fun showRemoveChannelDialog() {
-        if(isStorebox) {
+        if (isStorebox) {
             AlertDialog.Builder(context ?: return)
-                    .setTitle(Translation.channelsettingsstoreboxadditions.removeChannelTitle)
-                    .setMessage(Translation.channelsettingsstoreboxadditions.removeChannelMessage)
-                    .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
-                        presenter.deleteStoreboxAccountLink()
-                    }
-                    .setNegativeButton(Translation.channelsettingsstoreboxadditions.deleteCardCancelButton) { dialog, which ->
-
-                    }
-                    .create()
-                    .show()
-        }
-        else
-        {
+                .setTitle(Translation.channelsettingsstoreboxadditions.removeChannelTitle)
+                .setMessage(Translation.channelsettingsstoreboxadditions.removeChannelMessage)
+                .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
+                    presenter.deleteStoreboxAccountLink()
+                }
+                .setNegativeButton(Translation.channelsettingsstoreboxadditions.deleteCardCancelButton) { dialog, which ->
+                }
+                .create()
+                .show()
+        } else {
             AlertDialog.Builder(context ?: return)
-                    .setTitle(Translation.channelsettings.confirmDeleteTitle)
-                    .setMessage(Translation.channelsettings.confirmDeleteMessageReplaceChannelName.replace("[channelname]", presenter.currentChannel?.name ?: ""))
-                    .setPositiveButton(Translation.channelsettings.confirmRemoveButton.toUpperCase()) { dialog, which ->
-                        presenter.removeChannel()
-                    }
-                    .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-
-                    }
-                    .create()
-                    .show()
+                .setTitle(Translation.channelsettings.confirmDeleteTitle)
+                .setMessage(
+                    Translation.channelsettings.confirmDeleteMessageReplaceChannelName.replace(
+                        "[channelname]",
+                        presenter.currentChannel?.name ?: ""
+                    )
+                )
+                .setPositiveButton(Translation.channelsettings.confirmRemoveButton.toUpperCase()) { dialog, which ->
+                    presenter.removeChannel()
+                }
+                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                }
+                .create()
+                .show()
         }
     }
 
@@ -186,7 +182,6 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     }
 
     override fun showEmptyView(boolean: Boolean) {
-
     }
 
     override fun broadcastCloseChannel() {
@@ -196,7 +191,8 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
     override fun showAddCardView(link: Link) {
         didShowCardView = true
         activity?.run {
-            Starter().activity(StoreboxAddCardActivity::class.java).putExtra(Link::class.java.simpleName, link).start()
+            Starter().activity(StoreboxAddCardActivity::class.java)
+                .putExtra(Link::class.java.simpleName, link).start()
         }
         closeView()
     }
@@ -211,19 +207,20 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
     override fun closeView() {
         activity?.finish()
-        if(isEkey) {
+        if (isEkey) {
             EkeyContentActivity.shouldFinish = true
         }
     }
 
-    inner class CreditCardAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<CreditCardAdapter.CreditCardViewHolder>() {
+    inner class CreditCardAdapter :
+        androidx.recyclerview.widget.RecyclerView.Adapter<CreditCardAdapter.CreditCardViewHolder>() {
         var creditCards: MutableList<StoreboxCreditCard> = ArrayList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreditCardViewHolder {
             val v = LayoutInflater.from(context).inflate(
-                    R.layout.viewholder_channel_settings_creditcard_row,
-                    parent,
-                    false
+                R.layout.viewholder_channel_settings_creditcard_row,
+                parent,
+                false
             )
             return CreditCardViewHolder(v)
         }
@@ -237,7 +234,8 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
             holder.bind(currentCard)
         }
 
-        inner class CreditCardViewHolder(val root: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
+        inner class CreditCardViewHolder(val root: View) :
+            androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
             private var creditNumberTv = root.findViewById<TextView>(R.id.creditNumberTv)
             private var deleteIb = root.findViewById<ImageButton>(R.id.deleteIb)
 
@@ -251,17 +249,16 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
             private fun showDialog(storeboxCreditCard: StoreboxCreditCard) {
                 AlertDialog.Builder(context ?: return)
-                        .setTitle(Translation.channelsettingsstoreboxadditions.deleteCardAlertTitle)
-                        .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
-                            showProgress(true)
-                            presenter.deleteCreditCard(storeboxCreditCard.id)
-                        }
-                        .setNegativeButton(Translation.channelsettingsstoreboxadditions.deleteCardCancelButton) { dialog, which ->
-                        }
-                        .create()
-                        .show()
+                    .setTitle(Translation.channelsettingsstoreboxadditions.deleteCardAlertTitle)
+                    .setPositiveButton(Translation.channelsettingsstoreboxadditions.deleteCardAlertButton.toUpperCase()) { dialog, which ->
+                        showProgress(true)
+                        presenter.deleteCreditCard(storeboxCreditCard.id)
+                    }
+                    .setNegativeButton(Translation.channelsettingsstoreboxadditions.deleteCardCancelButton) { dialog, which ->
+                    }
+                    .create()
+                    .show()
             }
         }
     }
-
 }

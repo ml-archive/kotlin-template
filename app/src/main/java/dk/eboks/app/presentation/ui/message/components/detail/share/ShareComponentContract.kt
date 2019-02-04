@@ -9,11 +9,11 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface ShareComponentContract {
     interface View : BaseView {
-        fun updateView(message : Message)
-        fun openExternalViewer(filename: String, mimeType : String)
+        fun updateView(message: Message)
+        fun openExternalViewer(filename: String, mimeType: String)
     }
 
     interface Presenter : BasePresenter<ShareComponentContract.View> {
-        fun openExternalViewer(message : Message)
+        fun openExternalViewer(message: Message)
     }
 }

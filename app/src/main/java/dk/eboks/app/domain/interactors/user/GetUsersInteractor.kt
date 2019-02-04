@@ -7,12 +7,11 @@ import dk.nodes.arch.domain.interactor.Interactor
 /**
  * Created by bison on 24-06-2017.
  */
-interface GetUsersInteractor : Interactor
-{
-    var output : Output?
+interface GetUsersInteractor : Interactor {
+    var output: Output?
 
     interface Output {
-        fun onGetUsers(users : MutableList<User>)
-        fun onGetUsersError(error : ViewError)
+        fun onGetUsers(users: MutableList<User>)
+        fun onGetUsersError(error: ViewError)
     }
 }

@@ -27,7 +27,11 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     var repeatPasswordValid = false
     var handler = Handler()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_signup_password_component, container, false)
     }
 
@@ -53,12 +57,16 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = Translation.signup.title
-        mainTb.setBackgroundColor(ContextCompat.getColor(context ?: return, R.color.backgroundColor))
+        mainTb.setBackgroundColor(
+            ContextCompat.getColor(
+                context ?: return,
+                R.color.backgroundColor
+            )
+        )
         mainTb.setNavigationOnClickListener {
             fragmentManager?.popBackStack()
         }
     }
-
 
     private fun setupRepeatPasswordListener() {
         repeatPasswordEt.onFocusChangeListener = object : View.OnFocusChangeListener {
@@ -86,12 +94,12 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
 
     private fun setErrorMessages() {
         if (!passwordEt.text.isNullOrBlank() && !passwordValid) {
-        passwordTil.error = Translation.signup.invalidPassword
+            passwordTil.error = Translation.signup.invalidPassword
         } else {
             passwordTil.error = null
         }
 
-        if (!repeatPasswordEt.text.isNullOrBlank() && !repeatPasswordValid){
+        if (!repeatPasswordEt.text.isNullOrBlank() && !repeatPasswordValid) {
             repeatPasswordTil.error = Translation.signup.invalidPasswordMatch
         } else {
             repeatPasswordTil.error = null
@@ -124,7 +132,8 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
 
     fun comparePasswords() {
         passwordValid = (isValidPassword(passwordEt.text.toString().trim()))
-        repeatPasswordValid = (passwordEt.text.toString().trim() == repeatPasswordEt.text.toString().trim())
+        repeatPasswordValid =
+            (passwordEt.text.toString().trim() == repeatPasswordEt.text.toString().trim())
         continueBtn.isEnabled = (passwordValid && repeatPasswordValid)
     }
 
@@ -141,13 +150,16 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     }
 
     fun onContinueClicked() {
-        //(activity as StartActivity).showLogo(false)
+        // (activity as StartActivity).showLogo(false)
         presenter.setPassword(passwordEt.text.toString().trim())
         showProgress(true)
         content.postDelayed({
             showProgress(false)
-            getBaseActivity()?.addFragmentOnTop(R.id.containerFl, SignupVerificationComponentFragment(), true)
+            getBaseActivity()?.addFragmentOnTop(
+                R.id.containerFl,
+                SignupVerificationComponentFragment(),
+                true
+            )
         }, 1000)
     }
-
 }

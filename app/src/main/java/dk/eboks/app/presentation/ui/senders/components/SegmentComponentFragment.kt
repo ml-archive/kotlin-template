@@ -17,40 +17,46 @@ import kotlinx.android.synthetic.main.fragment_segment_component.*
 
 /**
  * Created by Christian on 3/20/2018.
- * @author   Christian
- * @since    3/20/2018.
+ * @author Christian
+ * @since 3/20/2018.
  */
 class SegmentComponentFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_segment_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getParcelable<CollectionContainer>(CollectionContainer::class.simpleName)?.let{ collectionContainer->
-            segmentTitleTv.text = collectionContainer.description?:""
-            collectionContainer.segment?.let { seg ->
-                Glide.with(context ?: return)
+        arguments?.getParcelable<CollectionContainer>(CollectionContainer::class.simpleName)
+            ?.let { collectionContainer ->
+                segmentTitleTv.text = collectionContainer.description ?: ""
+                collectionContainer.segment?.let { seg ->
+                    Glide.with(context ?: return)
                         .load(seg.image?.url)
-                        .apply(RequestOptions()
+                        .apply(
+                            RequestOptions()
                                 .fallback(R.drawable.icon_72_senders_private)
                                 .placeholder(R.drawable.icon_72_senders_private)
                         )
                         .into(segmentIv)
-                segmentIv.clipToOutline = true
+                    segmentIv.clipToOutline = true
 
-                segmentCv.setOnClickListener {
-                    val i = Intent(context, SegmentDetailActivity::class.java)
-                    i.putExtra(Segment::class.simpleName, seg)
-                    startActivity(i)
-                }
-                segmentCatTv.text = seg.name
-                segmentSignTv.text = when (seg.registered) {
-                    0 -> Translation.senders.register
-                    else -> Translation.senders.registered
+                    segmentCv.setOnClickListener {
+                        val i = Intent(context, SegmentDetailActivity::class.java)
+                        i.putExtra(Segment::class.simpleName, seg)
+                        startActivity(i)
+                    }
+                    segmentCatTv.text = seg.name
+                    segmentSignTv.text = when (seg.registered) {
+                        0 -> Translation.senders.register
+                        else -> Translation.senders.registered
+                    }
                 }
             }
-        }
     }
 }

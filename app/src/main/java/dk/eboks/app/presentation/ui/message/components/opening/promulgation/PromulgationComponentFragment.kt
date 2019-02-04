@@ -18,18 +18,25 @@ import javax.inject.Inject
  */
 class PromulgationComponentFragment : BaseFragment(), PromulgationComponentContract.View {
 
-    val onLanguageChange : (Locale)->Unit = { locale ->
+    val onLanguageChange: (Locale) -> Unit = { locale ->
         updateTranslation()
     }
 
     @Inject
-    lateinit var presenter : PromulgationComponentContract.Presenter
+    lateinit var presenter: PromulgationComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView =
-            inflater.inflate(R.layout.fragment_mail_opening_promulgation_component, container, false)
+            inflater.inflate(
+                R.layout.fragment_mail_opening_promulgation_component,
+                container,
+                false
+            )
         return rootView
-
     }
 
     override fun onResume() {
@@ -57,17 +64,14 @@ class PromulgationComponentFragment : BaseFragment(), PromulgationComponentContr
         okayBtn.visibility = View.VISIBLE
         setupTopBar()
         updateTranslation()
-
     }
 
-    private fun updateTranslation()
-    {
+    private fun updateTranslation() {
         mainTb.title = Translation.message.promulgationTopBarTitle
         okayBtn.text = Translation.message.promulgationOkButton
     }
 
     private fun setupTopBar() {
-
     }
 
     override fun setPromulgationText(promulgationText: String) {

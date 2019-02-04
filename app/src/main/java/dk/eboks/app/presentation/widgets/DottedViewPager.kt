@@ -20,7 +20,6 @@ class DottedViewPager : androidx.viewpager.widget.ViewPager {
     internal var density: Float = 0.toFloat()
     internal var screenWidth: Int = 0
 
-
     constructor(context: Context) : super(context) {
         init()
     }
@@ -52,25 +51,33 @@ class DottedViewPager : androidx.viewpager.widget.ViewPager {
         val horiz_off = this.computeHorizontalScrollOffset()
         curCircle = currentItem
 
-        //NLog.e(TAG, "dispatchDraw curCircle = " + curCircle + " noCircles = " + noCircles);
+        // NLog.e(TAG, "dispatchDraw curCircle = " + curCircle + " noCircles = " + noCircles);
         val span_w = noCircles * (circleSize + margin)
         val startx = screenWidth / 2 - span_w / 2
         var offx = 0
-        //int offy = getHeight() - marginBottom - circleSize;
+        // int offy = getHeight() - marginBottom - circleSize;
         val offy = height + (density * 8f).toInt()
-
 
         for (i in 0 until noCircles) {
             offx = startx + i * (circleSize + margin)
             if (i != curCircle) {
-                inactiveDot.setBounds(horiz_off + offx, offy, horiz_off + offx + circleSize, offy + circleSize)
+                inactiveDot.setBounds(
+                    horiz_off + offx,
+                    offy,
+                    horiz_off + offx + circleSize,
+                    offy + circleSize
+                )
                 inactiveDot.draw(canvas)
             } else {
-                activeDot.setBounds(horiz_off + offx, offy, horiz_off + offx + circleSize, offy + circleSize)
+                activeDot.setBounds(
+                    horiz_off + offx,
+                    offy,
+                    horiz_off + offx + circleSize,
+                    offy + circleSize
+                )
                 activeDot.draw(canvas)
             }
         }
-
     }
 
     override fun setAdapter(adapter: androidx.viewpager.widget.PagerAdapter?) {

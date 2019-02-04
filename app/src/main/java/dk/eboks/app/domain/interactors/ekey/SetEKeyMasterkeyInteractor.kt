@@ -4,7 +4,11 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.interactor.Interactor
 
 interface SetEKeyMasterkeyInteractor : Interactor {
-    data class Input(val masterKey: String, val masterKeyHash: String, val masterKeyUnencrypted: String)
+    data class Input(
+        val masterKey: String,
+        val masterKeyHash: String,
+        val masterKeyUnencrypted: String
+    )
 
     interface Output {
         fun onSetEKeyMasterkeySuccess(masterKey: String)

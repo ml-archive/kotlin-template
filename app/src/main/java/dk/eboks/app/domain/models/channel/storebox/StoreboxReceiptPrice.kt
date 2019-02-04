@@ -6,8 +6,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class StoreboxReceiptPrice(
-        @SerializedName("value")
-        var value: Double? = null,
-        @SerializedName("vat")
-        var vat: Double? = null
+    @SerializedName("value")
+    var value: Double? = null,
+    @SerializedName("vat")
+    var vat: Double? = null
 ) : Parcelable

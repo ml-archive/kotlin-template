@@ -9,10 +9,10 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface SignButtonComponentContract {
     interface View : BaseView {
-        fun startSigning(msg : Message)
+        fun startSigning(msg: Message)
     }
 
     interface Presenter : BasePresenter<View> {
-        fun sign(msg : Message)
+        fun sign(msg: Message)
     }
 }

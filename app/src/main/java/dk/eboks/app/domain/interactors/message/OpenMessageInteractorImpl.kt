@@ -24,9 +24,12 @@ import java.io.File
  * Created by bison on 01/02/18.
  */
 class OpenMessageInteractorImpl(
-    executor: Executor, val appStateManager: AppStateManager,
-    val uiManager: UIManager, val downloadManager: DownloadManager,
-    val cacheManager: FileCacheManager, val messagesRepository: MessagesRepository
+    executor: Executor,
+    val appStateManager: AppStateManager,
+    val uiManager: UIManager,
+    val downloadManager: DownloadManager,
+    val cacheManager: FileCacheManager,
+    val messagesRepository: MessagesRepository
 ) : BaseInteractor(executor), OpenMessageInteractor {
 
     override var output: OpenMessageInteractor.Output? = null
@@ -35,7 +38,7 @@ class OpenMessageInteractorImpl(
     override fun execute() {
         try {
             input?.msg?.let { msg ->
-                //throw(ServerErrorException(ServerError(id="homemade", code = PROMULGATION, type = ERROR)))
+                // throw(ServerErrorException(ServerError(id="homemade", code = PROMULGATION, type = ERROR)))
                 val updated_msg = messagesRepository.getMessage(
                     msg.folderId,
                     msg.id,
@@ -74,7 +77,7 @@ class OpenMessageInteractorImpl(
         Handle special opening conditions. This utilizes a mutex to make the interacter thread (one running this) sleep while the UI
         is displaying opening screens. If you don't know what mean, you're not allowed to ride this attraction son
      */
-    fun handleServerException(e: ServerErrorException, msg: Message) {
+    private fun handleServerException(e: ServerErrorException, msg: Message) {
         Timber.e("ServerException arose from getMessage api call")
         when (e.error.code) {
             MANDATORY_OPEN_RECEIPT -> {
@@ -113,7 +116,7 @@ class OpenMessageInteractorImpl(
                             )
                         }
                     }
-                } else    // abort
+                } else // abort
                 {
                     val ve = ViewError(shouldCloseView = true, shouldDisplay = false)
                     runOnUIThread { output?.onOpenMessageError(ve) }
@@ -156,7 +159,7 @@ class OpenMessageInteractorImpl(
                             )
                         }
                     }
-                } else    // abort
+                } else // abort
                 {
                     val ve = ViewError(shouldCloseView = true, shouldDisplay = false)
                     runOnUIThread { output?.onOpenMessageError(ve) }
@@ -203,7 +206,7 @@ class OpenMessageInteractorImpl(
                             )
                         }
                     }
-                } else    // abort
+                } else // abort
                 {
                     val ve = ViewError(shouldCloseView = true, shouldDisplay = false)
                     runOnUIThread { output?.onOpenMessageError(ve) }
@@ -230,7 +233,7 @@ class OpenMessageInteractorImpl(
      */
     private fun processLockedMessage(msg: Message): Boolean {
         // TODO for the love of god, memba to 'move me (for testing locked messages status 1)
-        //msg.lockStatus?.type = 5
+        // msg.lockStatus?.type = 5
         // check for stupid message protection / locking
         msg.lockStatus?.let { status ->
             when (status.type) {
@@ -260,7 +263,7 @@ class OpenMessageInteractorImpl(
                     executor.sleepUntilSignalled("messageOpenDone")
                     return if (appStateManager.state?.openingState?.shouldProceedWithOpening == true) {
                         appStateManager.state?.openingState?.acceptPrivateTerms = true
-                        //openMessage(currentmsg = msg, acceptedPrivateTerms = true)
+                        // openMessage(currentmsg = msg, acceptedPrivateTerms = true)
                         true
                     } else
                         false
@@ -312,7 +315,7 @@ class OpenMessageInteractorImpl(
 
             appStateManager.state?.currentMessage = msg
             appStateManager.state?.currentViewerFileName = cacheManager.getAbsolutePath(filename)
-            //appStateManager.save()
+            // appStateManager.save()
 
             // abort opening if view is no longer attached
             if (!secondAttempt) {
@@ -332,7 +335,7 @@ class OpenMessageInteractorImpl(
             } else {
                 uiManager.showMessageScreen()
             }
-            //Thread.sleep(500)
+            // Thread.sleep(500)
             runOnUIThread {
                 output?.onOpenMessageDone()
             }

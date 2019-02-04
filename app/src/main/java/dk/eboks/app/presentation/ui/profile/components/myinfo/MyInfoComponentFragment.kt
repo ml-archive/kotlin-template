@@ -34,7 +34,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
     lateinit var presenter: MyInfoComponentContract.Presenter
     var menuSave: MenuItem? = null
 
-    //val mobilenumber: ContactPoint = ContactPoint()
+    // val mobilenumber: ContactPoint = ContactPoint()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -166,7 +166,6 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
                 presenter.save(false)
             }
             .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-
             }
             .show()
     }
@@ -197,7 +196,6 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
         verifyEmailBtn.setVerifiedButtonVissible(primaryMailEt)
         verifySecondaryEmailBtn.setVerifiedButtonVissible(secondaryMailEt)
         verifyMobileNumberBtn.setVerifiedButtonVissible(mobilEt)
-
     }
 
     override fun onDone() {
@@ -244,7 +242,6 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
         verifyEmailBtn.visible = (!verified)
         primaryMailEt.isEnabled = userVerified
         updateVerifyButtonVisibility()
-
     }
 
     override fun setSecondaryEmail(email: String, verified: Boolean) {
@@ -256,8 +253,8 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
 
     override fun setMobileNumber(mobile: String, verified: Boolean) {
         mobilEt.setText(mobile)
-        //mobilenumber.value = mobile
-        //mobilenumber.verified = verified
+        // mobilenumber.value = mobile
+        // mobilenumber.verified = verified
         Timber.e("SetMobileNumber mobile $mobile veri: $verified")
         verifyMobileNumberBtn.tag = verified
         updateVerifyButtonVisibility()
@@ -316,7 +313,6 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
     companion object {
         var refreshOnResume = false
     }
-
 
     private fun Button.setVerifiedButtonVissible(input: EditText) {
         val verfiedTag = tag as? Boolean ?: false

@@ -8,18 +8,18 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 /**
  * Created by bison on 24-06-2017.
  */
-class SaveUsersInteractorImpl(executor: Executor, val userManager: UserManager) : BaseInteractor(executor), SaveUsersInteractor {
-    override var output : SaveUsersInteractor.Output? = null
+class SaveUsersInteractorImpl(executor: Executor, val userManager: UserManager) :
+    BaseInteractor(executor), SaveUsersInteractor {
+    override var output: SaveUsersInteractor.Output? = null
 
     override fun execute() {
         // we don't use input in this example but we could:
         try {
-                userManager.save()
-                runOnUIThread {
-                    output?.onSaveUsers()
-                }
+            userManager.save()
+            runOnUIThread {
+                output?.onSaveUsers()
             }
-        catch (t: Throwable) {
+        } catch (t: Throwable) {
             runOnUIThread {
                 output?.onSaveUsersError(exceptionToViewError(t))
             }

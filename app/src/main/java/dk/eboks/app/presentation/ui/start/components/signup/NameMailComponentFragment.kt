@@ -34,7 +34,11 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     var emailValid = false
     var handler = Handler()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView =
             inflater.inflate(R.layout.fragment_signup_name_mail_component, container, false)
         return rootView
@@ -65,7 +69,12 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.title = Translation.signup.title
-        mainTb.setBackgroundColor(ContextCompat.getColor(context ?: return, R.color.backgroundColor))
+        mainTb.setBackgroundColor(
+            ContextCompat.getColor(
+                context ?: return,
+                R.color.backgroundColor
+            )
+        )
         mainTb.setNavigationOnClickListener {
             hideKeyboard(view)
             fragmentManager?.popBackStack()
@@ -73,7 +82,8 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     }
 
     private fun hideKeyboard(view: View?) {
-        val inputMethodManager = getBaseActivity()?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getBaseActivity()?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
@@ -113,7 +123,6 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
                 checkContinueBtn()
             }
         }
-
 
         nameEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -168,7 +177,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
 
     override fun showSignupMailError(error: ViewError) {
         showProgress(false)
-        //todo something went wrong show error ?
+        // todo something went wrong show error ?
         Timber.e("server error " + error)
     }
 }

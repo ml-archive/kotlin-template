@@ -6,18 +6,18 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class StoreboxMerchant(
-        @SerializedName("logo")
-        var logo: StoreboxMerchantLogo? = StoreboxMerchantLogo(),
-        @SerializedName("name")
-        var name: String? = null,
-        @SerializedName("addressLine1")
-        var addressLine1: String? = null,
-        @SerializedName("addressLine2")
-        var addressLine2: String? = null,
-        @SerializedName("zipCode")
-        var zipCode: String? = null,
-        @SerializedName("phoneNumber")
-        var phoneNumber: String? = null,
-        @SerializedName("city")
-        var city: String? = null
+    @SerializedName("logo")
+    var logo: StoreboxMerchantLogo? = StoreboxMerchantLogo(),
+    @SerializedName("name")
+    var name: String? = null,
+    @SerializedName("addressLine1")
+    var addressLine1: String? = null,
+    @SerializedName("addressLine2")
+    var addressLine2: String? = null,
+    @SerializedName("zipCode")
+    var zipCode: String? = null,
+    @SerializedName("phoneNumber")
+    var phoneNumber: String? = null,
+    @SerializedName("city")
+    var city: String? = null
 ) : Parcelable

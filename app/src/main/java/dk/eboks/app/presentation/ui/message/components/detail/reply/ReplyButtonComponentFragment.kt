@@ -18,9 +18,13 @@ import javax.inject.Inject
 class ReplyButtonComponentFragment : BaseFragment(), ReplyButtonComponentContract.View {
 
     @Inject
-    lateinit var presenter : ReplyButtonComponentContract.Presenter
+    lateinit var presenter: ReplyButtonComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_reply_button_component, container, false)
     }
 
@@ -43,5 +47,4 @@ class ReplyButtonComponentFragment : BaseFragment(), ReplyButtonComponentContrac
                 .start()
         }
     }
-
 }

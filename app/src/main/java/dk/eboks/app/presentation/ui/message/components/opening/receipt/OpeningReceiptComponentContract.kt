@@ -8,10 +8,10 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface OpeningReceiptComponentContract {
     interface View : BaseView {
-        fun showOpeningProgress(show : Boolean)
+        fun showOpeningProgress(show: Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setShouldProceed(proceed : Boolean, receipt : Boolean)
+        fun setShouldProceed(proceed: Boolean, receipt: Boolean)
     }
 }

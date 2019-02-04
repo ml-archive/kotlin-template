@@ -11,7 +11,6 @@ import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.presentation.base.ViewerFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import dk.eboks.app.presentation.ui.message.components.detail.attachments.AttachmentsComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.document.DocumentComponentFragment
@@ -24,9 +23,7 @@ import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
-import dk.eboks.app.presentation.ui.uploads.screens.UploadsActivity
 import kotlinx.android.synthetic.main.include_toolbar.*
-import timber.log.Timber
 import javax.inject.Inject
 
 class MessageActivity : BaseActivity(), MessageContract.View {
@@ -52,10 +49,9 @@ class MessageActivity : BaseActivity(), MessageContract.View {
     }
 
     private var actionButtons = arrayListOf(
-            OverlayButton(ButtonType.MOVE),
-            OverlayButton(ButtonType.DELETE)
+        OverlayButton(ButtonType.MOVE),
+        OverlayButton(ButtonType.DELETE)
     )
-
 
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
@@ -68,10 +64,10 @@ class MessageActivity : BaseActivity(), MessageContract.View {
         menuItem?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuItem?.setOnMenuItemClickListener { item: MenuItem ->
             startActivityForResult(
-                    OverlayActivity.createIntent(
-                            this@MessageActivity,
-                            actionButtons
-                    ), OverlayActivity.REQUEST_ID
+                OverlayActivity.createIntent(
+                    this@MessageActivity,
+                    actionButtons
+                ), OverlayActivity.REQUEST_ID
             )
             true
         }
@@ -88,10 +84,11 @@ class MessageActivity : BaseActivity(), MessageContract.View {
     override fun setActionButtons(message: Message) {
 
         if (message.type != MessageType.UPLOAD && message.folder?.type == FolderType.INBOX) {
-            if (message.unread) actionButtons.add(OverlayButton(ButtonType.READ)) else actionButtons.add(OverlayButton(ButtonType.UNREAD))
+            if (message.unread) actionButtons.add(OverlayButton(ButtonType.READ)) else actionButtons.add(
+                OverlayButton(ButtonType.UNREAD)
+            )
             actionButtons.add(OverlayButton(ButtonType.ARCHIVE))
         }
-
     }
 
     override fun addHeaderComponentFragment() {

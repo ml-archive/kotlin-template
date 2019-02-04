@@ -6,15 +6,15 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 /**
-* Created by bison on 01/02/18.
-* @author   bison
-* @since    01/02/18.
-*/
-class GetSenderDetailInteractorImpl(executor: Executor, val sendersRepository: SendersRepository) : BaseInteractor(executor), GetSenderDetailInteractor {
+ * Created by bison on 01/02/18.
+ * @author bison
+ * @since 01/02/18.
+ */
+class GetSenderDetailInteractorImpl(executor: Executor, val sendersRepository: SendersRepository) :
+    BaseInteractor(executor), GetSenderDetailInteractor {
 
     override var output: GetSenderDetailInteractor.Output? = null
     override var input: GetSenderDetailInteractor.Input? = null
-
 
     override fun execute() {
         try {

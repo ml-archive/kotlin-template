@@ -7,8 +7,8 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 
 class GetStoreboxCardLinkInteractorImpl(executor: Executor, private val api: Api) :
-        BaseInteractor(executor),
-        GetStoreboxCardLinkInteractor {
+    BaseInteractor(executor),
+    GetStoreboxCardLinkInteractor {
     override var output: GetStoreboxCardLinkInteractor.Output? = null
 
     override fun execute() {

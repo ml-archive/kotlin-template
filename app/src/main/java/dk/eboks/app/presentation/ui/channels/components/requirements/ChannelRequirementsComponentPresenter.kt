@@ -9,23 +9,24 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class ChannelRequirementsComponentPresenter @Inject constructor(val appState: AppStateManager) : ChannelRequirementsComponentContract.Presenter, BasePresenterImpl<ChannelRequirementsComponentContract.View>() {
+class ChannelRequirementsComponentPresenter @Inject constructor(val appState: AppStateManager) :
+    ChannelRequirementsComponentContract.Presenter,
+    BasePresenterImpl<ChannelRequirementsComponentContract.View>() {
 
     init {
     }
 
-    val unverifiedRequirements : ArrayList<Requirement> = ArrayList()
+    val unverifiedRequirements: ArrayList<Requirement> = ArrayList()
 
     override fun setup(channel: Channel) {
         buildUnverifiedRequirements(channel)
-        runAction { v->
+        runAction { v ->
             v.setupView(channel)
             v.showUnverifiedRequirements(unverifiedRequirements)
         }
     }
 
-    private fun buildUnverifiedRequirements(channel: Channel)
-    {
+    private fun buildUnverifiedRequirements(channel: Channel) {
         channel.requirements?.let { reqs ->
             unverifiedRequirements.clear()
             unverifiedRequirements.addAll(reqs.filter { it.verified != null && it.verified == false })

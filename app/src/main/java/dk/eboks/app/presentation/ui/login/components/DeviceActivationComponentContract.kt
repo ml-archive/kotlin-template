@@ -8,7 +8,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface DeviceActivationComponentContract {
     interface View : BaseView {
-        fun showProgress(show : Boolean)
+        fun showProgress(show: Boolean)
         fun setupButtons()
         fun requestNemidLogin()
         fun closeDrawer()

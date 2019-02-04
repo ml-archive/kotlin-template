@@ -35,15 +35,16 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
         setupTopBar(Translation.reply.title)
 
         // deserialize or message and hand it to the presenter
-        intent?.extras?.getParcelable<Message>(Message::class.java.simpleName)?.let(presenter::setup)
-            .guard { finish() }   // finish if we didn't get a message
+        intent?.extras?.getParcelable<Message>(Message::class.java.simpleName)
+            ?.let(presenter::setup)
+            .guard { finish() } // finish if we didn't get a message
 
         submitBtn.setOnClickListener {
             presenter.submit()
         }
     }
 
-    private fun setupTopBar(txt : String) {
+    private fun setupTopBar(txt: String) {
         mainTb.setNavigationIcon(R.drawable.ic_red_close)
         mainTb.title = txt
         mainTb.setNavigationOnClickListener {
@@ -54,10 +55,8 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
     override fun onResume() {
         super.onResume()
         // iterate through form inputs and let them register listeners
-        for(v in formInputLl.views)
-        {
-            if(v.tag is ReplyFormInput)
-            {
+        for (v in formInputLl.views) {
+            if (v.tag is ReplyFormInput) {
                 val input = v.tag as ReplyFormInput
                 input.onResume()
             }
@@ -66,10 +65,8 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
 
     override fun onPause() {
         // iterate through form inputs and let them deregister listeners
-        for(v in formInputLl.views)
-        {
-            if(v.tag is ReplyFormInput)
-            {
+        for (v in formInputLl.views) {
+            if (v.tag is ReplyFormInput) {
                 val input = v.tag as ReplyFormInput
                 input.onPause()
             }
@@ -77,17 +74,14 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
         super.onPause()
     }
 
-    private fun allInputsValidate() : Boolean
-    {
-        if(formInputLl.childCount == 0)
+    private fun allInputsValidate(): Boolean {
+        if (formInputLl.childCount == 0)
             return false
-        for(v in formInputLl.views)
-        {
-            if(v.tag is ReplyFormInput)
-            {
+        for (v in formInputLl.views) {
+            if (v.tag is ReplyFormInput) {
                 val input = v.tag as ReplyFormInput
-                if(!input.isValid) {
-                    //Timber.e("${input.formInput.label} shit does not validate")
+                if (!input.isValid) {
+                    // Timber.e("${input.formInput.label} shit does not validate")
                     return false
                 }
             }
@@ -100,7 +94,7 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if(show) View.VISIBLE else View.INVISIBLE
+        progressFl.visibility = if (show) View.VISIBLE else View.INVISIBLE
     }
 
     override fun clearForm() {
@@ -108,9 +102,8 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
     }
 
     override fun showFormInput(input: FormInput) {
-        //Timber.e("showing form input $input")
-        when(input.type)
-        {
+        // Timber.e("showing form input $input")
+        when (input.type) {
             FormInputType.DESCRIPTION -> {
                 val fi = DescriptionFormInput(input, inflator, mainHandler)
                 fi.addObserver(inputObserver)
@@ -161,7 +154,8 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
                 fi.addObserver(inputObserver)
                 fi.addViewGroup(formInputLl)
             }
-            else -> {}
+            else -> {
+            }
         }
     }
 }

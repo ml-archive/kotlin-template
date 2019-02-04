@@ -8,10 +8,12 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class PrivateSenderWarningComponentPresenter @Inject constructor(val appState: AppStateManager, val executor: Executor) :
-        PrivateSenderWarningComponentContract.Presenter,
-        BasePresenterImpl<PrivateSenderWarningComponentContract.View>()
-{
+class PrivateSenderWarningComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val executor: Executor
+) :
+    PrivateSenderWarningComponentContract.Presenter,
+    BasePresenterImpl<PrivateSenderWarningComponentContract.View>() {
     init {
     }
 
@@ -19,7 +21,7 @@ class PrivateSenderWarningComponentPresenter @Inject constructor(val appState: A
         appState.state?.openingState?.let { state ->
             state.shouldProceedWithOpening = proceed
         }
-        runAction { v->v.showOpeningProgress(true) }
+        runAction { v -> v.showOpeningProgress(true) }
         executor.signal("messageOpenDone")
     }
 }

@@ -8,16 +8,16 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class PdfViewComponentPresenter @Inject constructor(val appState: AppStateManager) : PdfViewComponentContract.Presenter, BasePresenterImpl<PdfViewComponentContract.View>() {
+class PdfViewComponentPresenter @Inject constructor(val appState: AppStateManager) :
+    PdfViewComponentContract.Presenter, BasePresenterImpl<PdfViewComponentContract.View>() {
 
     override fun onViewCreated(view: PdfViewComponentContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
-        appState.state?.currentViewerFileName?.let {filename ->
+        appState.state?.currentViewerFileName?.let { filename ->
             runAction {
                 it.showPdfView(filename)
             }
         }
-
     }
 
     override val currentFile: String?

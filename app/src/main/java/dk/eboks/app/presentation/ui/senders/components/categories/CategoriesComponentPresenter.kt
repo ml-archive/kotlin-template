@@ -11,8 +11,8 @@ import javax.inject.Inject
  * Copied by chnt on 12-03-2018
  */
 class CategoriesComponentPresenter @Inject constructor(private val getSenderCategoriesInteractor: GetSenderCategoriesInteractor) :
-        CategoriesComponentContract.Presenter, BasePresenterImpl<CategoriesComponentContract.View>(),
-        GetSenderCategoriesInteractor.Output {
+    CategoriesComponentContract.Presenter, BasePresenterImpl<CategoriesComponentContract.View>(),
+    GetSenderCategoriesInteractor.Output {
 
     override fun getCategories() {
         getSenderCategoriesInteractor.input = GetSenderCategoriesInteractor.Input(true)
@@ -26,7 +26,7 @@ class CategoriesComponentPresenter @Inject constructor(private val getSenderCate
         }
     }
 
-    override fun onGetCategoriesError(error : ViewError) {
+    override fun onGetCategoriesError(error: ViewError) {
         runAction { v ->
             v.showErrorDialog(error)
         }

@@ -13,7 +13,11 @@ import okhttp3.Request
 /**
  * Created by bison on 01/02/18.
  */
-class GetChannelContentLinkInteractorImpl(executor: Executor, val httpClient: OkHttpClient, val appStateManager: AppStateManager) : BaseInteractor(executor), GetChannelContentLinkInteractor {
+class GetChannelContentLinkInteractorImpl(
+    executor: Executor,
+    val httpClient: OkHttpClient,
+    val appStateManager: AppStateManager
+) : BaseInteractor(executor), GetChannelContentLinkInteractor {
     override var output: GetChannelContentLinkInteractor.Output? = null
     override var input: GetChannelContentLinkInteractor.Input? = null
 
@@ -21,24 +25,21 @@ class GetChannelContentLinkInteractorImpl(executor: Executor, val httpClient: Ok
         try {
             input?.let { args ->
                 val accessToken = appStateManager.state?.loginState?.token
-                accessToken?.let { token->
+                accessToken?.let { token ->
                     val request = Request.Builder()
-                            .url(Config.getApiUrl() + "channels/${args.channelId}/content/open?access_token=${token.access_token}")
-                            .get()
-                            .build()
+                        .url(Config.getApiUrl() + "channels/${args.channelId}/content/open?access_token=${token.access_token}")
+                        .get()
+                        .build()
 
                     val result = httpClient.newCall(request).execute()
-                    if(result.isSuccessful)
-                    {
-                        result.body()?.string()?.let { content->
+                    if (result.isSuccessful) {
+                        result.body()?.string()?.let { content ->
                             runOnUIThread {
                                 output?.onGetChannelContentLink(content)
                             }
                         }
                         return
-                    }
-                    else
-                    {
+                    } else {
                         runOnUIThread {
                             output?.onGetChannelContentLinkError(ViewError())
                         }

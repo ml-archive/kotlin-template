@@ -7,30 +7,30 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.FolderRequest
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
 class NewFolderComponentPresenter @Inject constructor(
-        val appState: AppStateManager,
-        val createFolderInteractor: CreateFolderInteractor,
-        val deleteFolderInteractor: DeleteFolderInteractor,
-        val editFolderInteractor: EditFolderInteractor)
-    :
-        NewFolderComponentContract.Presenter,
-        CreateFolderInteractor.Output,
-        DeleteFolderInteractor.Output,
-        EditFolderInteractor.Output,
-        BasePresenterImpl<NewFolderComponentContract.View>() {
+    val appState: AppStateManager,
+    val createFolderInteractor: CreateFolderInteractor,
+    val deleteFolderInteractor: DeleteFolderInteractor,
+    val editFolderInteractor: EditFolderInteractor
+) :
+    NewFolderComponentContract.Presenter,
+    CreateFolderInteractor.Output,
+    DeleteFolderInteractor.Output,
+    EditFolderInteractor.Output,
+    BasePresenterImpl<NewFolderComponentContract.View>() {
 
     init {
         createFolderInteractor.output = this
         deleteFolderInteractor.output = this
         editFolderInteractor.output = this
 
-        val currentUserName = appState.state?.impersoniateUser?.name ?: appState.state?.currentUser?.name
+        val currentUserName =
+            appState.state?.impersoniateUser?.name ?: appState.state?.currentUser?.name
         currentUserName?.let { user ->
             runAction { v ->
                 v.setRootFolder(user)
@@ -40,8 +40,10 @@ class NewFolderComponentPresenter @Inject constructor(
 
     override fun createNewFolder(parentFolderId: Int, name: String) {
 
-        val userId = if (view?.overrideActiveUser == true) appState.state?.impersoniateUser?.userId else null
-        createFolderInteractor.input = CreateFolderInteractor.Input(FolderRequest(userId,parentFolderId,name))
+        val userId =
+            if (view?.overrideActiveUser == true) appState.state?.impersoniateUser?.userId else null
+        createFolderInteractor.input =
+            CreateFolderInteractor.Input(FolderRequest(userId, parentFolderId, name))
         createFolderInteractor.run()
     }
 
@@ -51,7 +53,7 @@ class NewFolderComponentPresenter @Inject constructor(
     }
 
     override fun editFolder(folderId: Int, parentFolderId: Int?, name: String?) {
-        editFolderInteractor.input = EditFolderInteractor.Input(folderId,name,parentFolderId)
+        editFolderInteractor.input = EditFolderInteractor.Input(folderId, name, parentFolderId)
         editFolderInteractor.run()
     }
 
@@ -66,7 +68,7 @@ class NewFolderComponentPresenter @Inject constructor(
     }
 
     override fun onCreateFolderError(error: ViewError) {
-        runAction { view->
+        runAction { view ->
             view.showErrorDialog(error)
         }
     }
@@ -82,7 +84,7 @@ class NewFolderComponentPresenter @Inject constructor(
     }
 
     override fun onDeleteFolderError(error: ViewError) {
-        runAction { view->
+        runAction { view ->
             view.showErrorDialog(error)
         }
     }
@@ -92,7 +94,7 @@ class NewFolderComponentPresenter @Inject constructor(
     }
 
     override fun onEditFolderError(error: ViewError) {
-        runAction { view->
+        runAction { view ->
             view.showErrorDialog(error)
         }
     }

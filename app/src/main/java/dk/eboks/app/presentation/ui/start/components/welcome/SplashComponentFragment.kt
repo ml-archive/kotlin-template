@@ -17,7 +17,11 @@ import kotlinx.android.synthetic.main.fragment_splash_component.*
  */
 class SplashComponentFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_splash_component, container, false)
         return rootView
     }
@@ -27,10 +31,10 @@ class SplashComponentFragment : BaseFragment() {
         logoIv.setImageResource(Config.getLogoResourceId())
     }
 
-    fun transitionToWelcomeFragment()
-    {
+    fun transitionToWelcomeFragment() {
         val move = TransitionInflater.from(activity).inflateTransition(android.R.transition.move)
-        val fade = TransitionInflater.from(activity).inflateTransition(android.R.transition.slide_bottom)
+        val fade =
+            TransitionInflater.from(activity).inflateTransition(android.R.transition.slide_bottom)
 
         val fragment = WelcomeComponentFragment()
 
@@ -39,11 +43,10 @@ class SplashComponentFragment : BaseFragment() {
 
         fragment.sharedElementEnterTransition = move
         fragment.enterTransition = fade
-        //exitT.excludeTarget(R.id.start_root, true)
-        //exitT.addTarget(R.id.start_desc_tv)
+        // exitT.excludeTarget(R.id.start_root, true)
+        // exitT.addTarget(R.id.start_desc_tv)
 
-
-        //fragmentManager.popBackStack(BaseActivity.backStackRootTag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        // fragmentManager.popBackStack(BaseActivity.backStackRootTag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         fragmentManager?.run {
             beginTransaction()
                 .replace(R.id.containerFl, fragment)
@@ -51,11 +54,9 @@ class SplashComponentFragment : BaseFragment() {
                 .addSharedElement(logoIv, "eboksLogoTransition")
                 .commitAllowingStateLoss()
         }
-
     }
 
-    fun transitionToUserCarouselFragment()
-    {
+    fun transitionToUserCarouselFragment() {
         val move = TransitionInflater.from(activity).inflateTransition(android.R.transition.move)
         val fade = TransitionInflater.from(activity).inflateTransition(android.R.transition.fade)
 
@@ -66,11 +67,10 @@ class SplashComponentFragment : BaseFragment() {
 
         fragment.sharedElementEnterTransition = move
         fragment.enterTransition = fade
-        //exitT.excludeTarget(R.id.start_root, true)
-        //exitT.addTarget(R.id.start_desc_tv)
+        // exitT.excludeTarget(R.id.start_root, true)
+        // exitT.addTarget(R.id.start_desc_tv)
 
-
-        //fragmentManager.popBackStack(BaseActivity.backStackRootTag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        // fragmentManager.popBackStack(BaseActivity.backStackRootTag, FragmentManager.POP_BACK_STACK_INCLUSIVE)
         fragmentManager?.run {
             beginTransaction()
                 .replace(R.id.containerFl, fragment)

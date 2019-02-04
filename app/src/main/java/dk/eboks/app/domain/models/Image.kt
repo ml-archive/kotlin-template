@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class Image(
-    var url : String?,
-    var text : String? = null,
-    var version : String? = null
+    var url: String?,
+    var text: String? = null,
+    var version: String? = null
 ) : Parcelable

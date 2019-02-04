@@ -6,7 +6,11 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
-class CheckSignupMailInteractorImpl(executor: Executor, val api: Api, val signUpRestRepo: SignupRestRepository) : BaseInteractor(executor), CheckSignupMailInteractor {
+class CheckSignupMailInteractorImpl(
+    executor: Executor,
+    val api: Api,
+    val signUpRestRepo: SignupRestRepository
+) : BaseInteractor(executor), CheckSignupMailInteractor {
     override var output: CheckSignupMailInteractor.Output? = null
     override var input: CheckSignupMailInteractor.Input? = null
 
@@ -14,7 +18,7 @@ class CheckSignupMailInteractorImpl(executor: Executor, val api: Api, val signUp
         var exists = true
         try {
             input?.email?.let {
-                 exists = signUpRestRepo.verifySignupMail(it)
+                exists = signUpRestRepo.verifySignupMail(it)
             }
             runOnUIThread {
                 output?.onVerifySignupMail(exists)
@@ -24,6 +28,5 @@ class CheckSignupMailInteractorImpl(executor: Executor, val api: Api, val signUp
                 output?.onVerifySignupMail(exceptionToViewError(t, shouldDisplay = false))
             }
         }
-
     }
 }
