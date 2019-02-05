@@ -1,117 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:background="@color/backgroundColor"
+    android:orientation="vertical"
     android:paddingLeft="32dp"
     android:paddingRight="32dp">
 
     <TextView
         android:id="@+id/pinHeaderTv"
-        style="@style/text.header3"
+        style="@style/text.header2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:gravity="center"
-        tools:text="_Indtast din 4-cifrede kode"
-        android:text="@string/nstack_ekey_insertPinCode"/>
+        android:text="@string/nstack_ekey_insertPinCode"
+        tools:text="_Indtast din 4-cifrede kode" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:gravity="center"
+        android:text="@string/nstack_ekey_insertPasswordDescription"
+        android:textSize="15sp"
+        tools:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor" />
 
 
     <FrameLayout
-        android:layout_marginTop="24dp"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="80dp"
+        android:layout_marginTop="24dp">
 
 
-
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:paddingTop="1dp">
-
-        <EditText
-            android:focusable="false"
-            android:id="@+id/pin1Et"
-            android:layout_width="56dp"
-            android:layout_height="68dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/rounded8_mask"
-            android:backgroundTint="@color/white"
-            android:elevation="2dp"
-            android:enabled="false"
-            android:gravity="center"
-            android:inputType="numberPassword"
-            android:maxLength="1"
-            android:textColor="@color/darkGreyBlue"
-            android:textSize="60dp"/>
-
-        <EditText
-            android:id="@+id/pin2Et"
-            android:layout_width="56dp"
-            android:layout_height="68dp"
-            android:layout_marginRight="16dp"
-            android:focusable="false"
-            android:background="@drawable/rounded8_mask"
-            android:backgroundTint="@color/white"
-            android:elevation="2dp"
-            android:enabled="false"
-            android:gravity="center"
-            android:inputType="numberPassword"
-            android:maxLength="1"
-            android:textColor="@color/darkGreyBlue"
-            android:textSize="60dp"/>
-
-        <EditText
-            android:focusable="false"
-            android:id="@+id/pin3Et"
-            android:layout_width="56dp"
-            android:layout_height="68dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/rounded8_mask"
-            android:backgroundTint="@color/white"
-            android:elevation="2dp"
-            android:enabled="false"
-            android:gravity="center"
-            android:inputType="numberPassword"
-            android:maxLength="1"
-            android:textColor="@color/darkGreyBlue"
-            android:textSize="60dp"/>
-
-        <EditText
-            android:focusable="false"
-            android:id="@+id/pin4Et"
-            android:layout_width="56dp"
-            android:layout_height="68dp"
-            android:layout_marginRight="2dp"
-            android:background="@drawable/rounded8_mask"
-            android:backgroundTint="@color/white"
-            android:elevation="2dp"
-            android:enabled="false"
-            android:gravity="center"
-            android:inputType="numberPassword"
-            android:maxLength="1"
-            android:textColor="@color/darkGreyBlue"
-            android:textSize="60dp"/>
-
-
-        </LinearLayout>
-
-        <EditText
-            android:background="@null"
-            android:id="@+id/thief"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ekeyPasswordInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="number"
-            android:cursorVisible="false"
-            android:maxLength="4"
-            android:textColor="@android:color/transparent" />
+            android:layout_height="wrap_content"
+            android:hint="@string/nstack_ekey_insertPasswordHint"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/ekeyPasswordInputEt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword" />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
 
     </FrameLayout>
 
+    <Button
+        android:enabled="false"
+        android:id="@+id/continueBtn"
+        style="@style/button.SolidGradient.large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/nstack_activationcode_continueButton" />
 
 </LinearLayout>

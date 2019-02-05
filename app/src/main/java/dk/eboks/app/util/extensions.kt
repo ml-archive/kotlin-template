@@ -19,6 +19,7 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.webkit.WebView
 import android.widget.EditText
 import androidx.annotation.LayoutRes
@@ -27,6 +28,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
+import com.google.android.material.textfield.TextInputEditText
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
 import dk.eboks.app.domain.config.Config
@@ -407,3 +409,26 @@ var View.visible: Boolean
     set(value) {
         visibility = if (value) View.VISIBLE else View.GONE
     }
+
+fun TextInputEditText.onTextChanged(block: (String) -> Unit) {
+    addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(p0: Editable?) {
+        }
+
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            p0?.let { block.invoke(it.toString()) }
+        }
+    })
+}
+
+fun TextInputEditText.onImeActionDone(block: () -> Unit) {
+    setOnEditorActionListener { _, id, _ ->
+        if (id == EditorInfo.IME_ACTION_DONE) {
+            block()
+        }
+        true
+    }
+}
