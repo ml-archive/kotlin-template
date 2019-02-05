@@ -13,7 +13,7 @@ import timber.log.Timber
  * @since 6/19/2018.
  */
 class UserSettingsManagerImpl(val context: Context, val gson: Gson) : UserSettingsManager {
-    private var userSettings: MutableMap<Int, UserSettings> = HashMap()
+    private var userSettings = mutableMapOf<Int, UserSettings>()
     private val settingsStore = UserSettingsStore()
 
     init {

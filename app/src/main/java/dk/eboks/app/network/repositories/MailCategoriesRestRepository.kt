@@ -29,24 +29,20 @@ class MailCategoriesRestRepository(
             context,
             gson,
             "mail_category_store.json",
-            object : TypeToken<MutableMap<Long, List<Folder>>>() {}.type,
-            { key ->
-                val response = api.getMailCategories(userId).execute()
-                var result: List<Folder>? = null
-                response?.let {
-                    if (it.isSuccessful)
-                        result = it.body()
-                }
-                result
-            })
+            object : TypeToken<MutableMap<Long, List<Folder>>>() {}.type
+        ) { key ->
+            val response = api.getMailCategories(userId).execute()
+            var result: List<Folder>? = null
+            response?.let {
+                if (it.isSuccessful)
+                    result = it.body()
+            }
+            result
+        }
     }
 
     override fun getMailCategories(cached: Boolean, userId: Int?): List<Folder> {
         this.userId = userId
-        val res = if (cached) mailCategoryStore.get(0) else mailCategoryStore.fetch(0)
-        if (res != null)
-            return res
-        else
-            return ArrayList()
+        return (if (cached) mailCategoryStore.get(0) else mailCategoryStore.fetch(0)) ?: listOf()
     }
 }

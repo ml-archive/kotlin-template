@@ -66,7 +66,7 @@ class DebugUserPresenter(
     }
 
     override fun saveUser(user: User, loginProviderId: String, hasFingerprint: Boolean) {
-        val settings = userSettingsManager.get(user.id)
+        val settings = userSettingsManager[user.id]
         settings.lastLoginProviderId = loginProviderId
         settings.hasFingerprint = hasFingerprint
         userSettingsManager.put(settings)

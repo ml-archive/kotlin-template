@@ -29,17 +29,17 @@ class ChannelsRestRepository(
             context,
             gson,
             "channel_list_store.json",
-            object : TypeToken<MutableMap<String, MutableList<Channel>>>() {}.type,
-            { key ->
-                val response =
-                    if (key == "pinned") api.getChannelsPinned().execute() else api.getChannels().execute()
-                var result: MutableList<Channel>? = null
-                response?.let {
-                    if (it.isSuccessful)
-                        result = it.body()
-                }
-                result
-            })
+            object : TypeToken<MutableMap<String, MutableList<Channel>>>() {}.type
+        ) { key ->
+            val response =
+                if (key == "pinned") api.getChannelsPinned().execute() else api.getChannels().execute()
+            var result: MutableList<Channel>? = null
+            response?.let {
+                if (it.isSuccessful)
+                    result = it.body()
+            }
+            result
+        }
     }
 
     val channelControlStore: ChannelControlStore by lazy {
