@@ -16,8 +16,8 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class MailOverviewPresenter @Inject constructor(val appState: AppStateManager) :
-        MailOverviewContract.Presenter,
-        BasePresenterImpl<MailOverviewContract.View>() {
+    MailOverviewContract.Presenter,
+    BasePresenterImpl<MailOverviewContract.View>() {
     var refreshingFolders = false
     var refreshingSenders = false
 
@@ -52,7 +52,6 @@ class MailOverviewPresenter @Inject constructor(val appState: AppStateManager) :
 
     private fun setUser(view: MailOverviewContract.View) {
         view.setUser(appState.state?.currentUser, appState.state?.currentUser?.name)
-
     }
 
     fun stopProgressIfDone() {
@@ -71,5 +70,4 @@ class MailOverviewPresenter @Inject constructor(val appState: AppStateManager) :
         refreshingSenders = false
         stopProgressIfDone()
     }
-
 }

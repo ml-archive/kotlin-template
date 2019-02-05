@@ -19,7 +19,11 @@ import javax.inject.Inject
 /**
  * E-boks Authenticator, based on OAuth2
  */
-class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val userSettingsManager: UserSettingsManager) : Authenticator {
+class EAuth2(
+    prefManager: PrefManager,
+    val appStateManager: AppStateManager,
+    val userSettingsManager: UserSettingsManager
+) : Authenticator {
     @Inject
     lateinit var executer: Executor
     @Inject
@@ -27,7 +31,6 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
 
     @Inject
     lateinit var authClient: AuthClient
-
 
     init {
         App.instance().appComponent.inject(this)
@@ -50,8 +53,8 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
         if (responseCount(response) <= 1) {
             token?.let {
                 return response.request().newBuilder()
-                        .header("Authorization", it.token_type + " " + it.access_token)
-                        .build()
+                    .header("Authorization", it.token_type + " " + it.access_token)
+                    .build()
             }
         }
 
@@ -79,10 +82,10 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
             // attach it to this request.
             // the main HttpClient will handle subsequent ones
             return response.request().newBuilder()
-                    .header("Authorization", it.token_type + " " + it.access_token)
-                    .build()
+                .header("Authorization", it.token_type + " " + it.access_token)
+                .build()
         }.guard {
-            if(!ignoreFurtherLoginRequests) {
+            if (!ignoreFurtherLoginRequests) {
                 ignoreFurtherLoginRequests = true
                 Timber.e("Authenticator giving up and returning to login, session expired")
                 uiManager.showLoginScreen()
@@ -92,9 +95,7 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
             Timber.e("Wake - login_condition")
             return authenticate(route, response)
             */
-            }
-            else
-            {
+            } else {
                 Timber.e("Ignoring further login attempts, since we already requested one")
             }
         }
@@ -107,7 +108,8 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
         if (reToken.isNullOrBlank()) {
             return null // no refresh token
         }
-        appStateManager.state?.loginState?.token = null // consume it. If we can't refresh it, we need a new one anyway
+        appStateManager.state?.loginState?.token =
+            null // consume it. If we can't refresh it, we need a new one anyway
         val longClient = appStateManager.state?.loginState?.useLongClientId == true
 
         try {
@@ -122,7 +124,9 @@ class EAuth2(prefManager: PrefManager, val appStateManager: AppStateManager, val
         try {
             val userName = appStateManager.state?.loginState?.userName
             val password = appStateManager.state?.loginState?.userPassWord
-            val longToken = userSettingsManager.get(appStateManager.state?.loginState?.selectedUser?.id ?: 0).stayLoggedIn
+            val longToken =
+                userSettingsManager.get(appStateManager.state?.loginState?.selectedUser?.id ?: 0)
+                    .stayLoggedIn
             if (userName.isNullOrBlank() || password.isNullOrBlank()) {
                 Timber.wtf("Much, much, much drastic error here - this is when the authenticator was started without a user being selected")
                 return null

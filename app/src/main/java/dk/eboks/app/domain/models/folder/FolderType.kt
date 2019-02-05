@@ -6,33 +6,41 @@ import dk.eboks.app.R
 /**
  * Created by bison on 09-02-2018.
  */
-enum class FolderType(val type : String) {
-    @SerializedName("inbox") INBOX("inbox"),
-    @SerializedName("drafts") DRAFTS("drafts"),
-    @SerializedName("archive") ARCHIVE("archive"),
-    @SerializedName("sentitems") SENT("sentitems"),
-    @SerializedName("trash") TRASH("trash"),
-    @SerializedName("deleteditems") DELETED("deleteditems"),
-    @SerializedName("highlights") HIGHLIGHTS("highlights"),
-    @SerializedName("unread") UNREAD("unread"),
-    @SerializedName("latest") LATEST("latest"),
-    @SerializedName("folder") FOLDER("folder"),
-    @SerializedName("receipts") RECEIPTS("receipts"),
-    @SerializedName("uploads") UPLOADS("uploads");
+enum class FolderType(val type: String) {
+    @SerializedName("inbox")
+    INBOX("inbox"),
+    @SerializedName("drafts")
+    DRAFTS("drafts"),
+    @SerializedName("archive")
+    ARCHIVE("archive"),
+    @SerializedName("sentitems")
+    SENT("sentitems"),
+    @SerializedName("trash")
+    TRASH("trash"),
+    @SerializedName("deleteditems")
+    DELETED("deleteditems"),
+    @SerializedName("highlights")
+    HIGHLIGHTS("highlights"),
+    @SerializedName("unread")
+    UNREAD("unread"),
+    @SerializedName("latest")
+    LATEST("latest"),
+    @SerializedName("folder")
+    FOLDER("folder"),
+    @SerializedName("receipts")
+    RECEIPTS("receipts"),
+    @SerializedName("uploads")
+    UPLOADS("uploads");
 
-    fun isSystemFolder() : Boolean
-    {
-        when(this)
-        {
+    fun isSystemFolder(): Boolean {
+        when (this) {
             INBOX, DRAFTS, ARCHIVE, SENT, TRASH, DELETED, HIGHLIGHTS, UNREAD, LATEST, RECEIPTS, UPLOADS -> return true
             else -> return false
         }
     }
 
-    fun getIconResId() : Int
-    {
-        when(this)
-        {
+    fun getIconResId(): Int {
+        when (this) {
             INBOX -> return R.drawable.ic_inbox
             DRAFTS -> return R.drawable.ic_draft
             ARCHIVE -> return R.drawable.ic_archive
@@ -47,8 +55,7 @@ enum class FolderType(val type : String) {
     }
 
     override fun toString(): String {
-        when(this)
-        {
+        when (this) {
             INBOX -> return "inbox"
             DRAFTS -> return "drafts"
             ARCHIVE -> return "archive"

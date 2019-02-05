@@ -12,12 +12,19 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class BankIdNOComponentPresenter @Inject constructor(
-        appState: AppStateManager,
-        transformTokenInteractor: TransformTokenInteractor,
-        verifyProfileInteractor: VerifyProfileInteractor,
-        mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-        userSettingsManager: UserSettingsManager) :
-        WebLoginPresenter(appState, transformTokenInteractor, verifyProfileInteractor, mergeAndImpersonateInteractor, userSettingsManager) {
+    appState: AppStateManager,
+    transformTokenInteractor: TransformTokenInteractor,
+    verifyProfileInteractor: VerifyProfileInteractor,
+    mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+    userSettingsManager: UserSettingsManager
+) :
+    WebLoginPresenter(
+        appState,
+        transformTokenInteractor,
+        verifyProfileInteractor,
+        mergeAndImpersonateInteractor,
+        userSettingsManager
+    ) {
 
     override fun login(webToken: String) {
         appState.state?.loginState?.let {

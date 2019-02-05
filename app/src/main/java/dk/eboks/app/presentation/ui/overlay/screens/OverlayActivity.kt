@@ -90,8 +90,7 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
             handler.postDelayed({
                 v.textTv.visibility = View.GONE
                 v.buttonFab.visible = false
-            }
-                , delay)
+            }, delay)
             delay += animationTime
         }
         handler.postDelayed({

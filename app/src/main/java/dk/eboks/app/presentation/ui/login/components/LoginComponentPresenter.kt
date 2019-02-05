@@ -23,22 +23,21 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class LoginComponentPresenter @Inject constructor(
-        val appState: AppStateManager,
-        val userSettingsManager: UserSettingsManager,
-        val decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,
-        val loginInteractor: LoginInteractor,
-        val checkRSAKeyPresenceInteractor: CheckRSAKeyPresenceInteractor
+    val appState: AppStateManager,
+    val userSettingsManager: UserSettingsManager,
+    val decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,
+    val loginInteractor: LoginInteractor,
+    val checkRSAKeyPresenceInteractor: CheckRSAKeyPresenceInteractor
 ) :
-        LoginComponentContract.Presenter,
-        BasePresenterImpl<LoginComponentContract.View>(),
-        DecryptUserLoginInfoInteractor.Output,
-        LoginInteractor.Output,
-        CheckRSAKeyPresenceInteractor.Output
-{
+    LoginComponentContract.Presenter,
+    BasePresenterImpl<LoginComponentContract.View>(),
+    DecryptUserLoginInfoInteractor.Output,
+    LoginInteractor.Output,
+    CheckRSAKeyPresenceInteractor.Output {
 
     var altProviders: List<LoginProvider> = Config.getAlternativeLoginProviders()
-    var verifyLoginProviderId : String? = null
-    override var reauthing : Boolean = false
+    var verifyLoginProviderId: String? = null
+    override var reauthing: Boolean = false
 
     init {
         appState.state?.currentUser = null
@@ -48,11 +47,11 @@ class LoginComponentPresenter @Inject constructor(
         checkRSAKeyPresenceInteractor.output = this
     }
 
-    override fun setup(verifyLoginProviderId : String?, reauth : Boolean, autoLogin : Boolean) {
+    override fun setup(verifyLoginProviderId: String?, reauth: Boolean, autoLogin: Boolean) {
         Timber.e("Setting up login view for provider $verifyLoginProviderId, reauth: $reauth, autologin: $autoLogin")
         reauthing = reauth
         this.verifyLoginProviderId = verifyLoginProviderId
-        if(verifyLoginProviderId == null) {
+        if (verifyLoginProviderId == null) {
             appState.state?.loginState?.let { state ->
                 state.selectedUser?.let {
                     val settings = userSettingsManager.get(it.id)
@@ -70,18 +69,30 @@ class LoginComponentPresenter @Inject constructor(
                     }
                 }
             }
-        }
-        else    // we open in verification mode with a given login provider and no alt providers
+        } else // we open in verification mode with a given login provider and no alt providers
         {
             Config.getLoginProvider(verifyLoginProviderId)?.let { provider ->
                 Timber.e("Verification login setup")
                 appState.state?.loginState?.lastUser?.let { user ->
                     val settings = userSettingsManager.get(user.id)
-                    runAction { v->v.setupView(provider, appState.state?.loginState?.lastUser, settings, altLoginProviders = ArrayList()) }
+                    runAction { v ->
+                        v.setupView(
+                            provider,
+                            appState.state?.loginState?.lastUser,
+                            settings,
+                            altLoginProviders = ArrayList()
+                        )
+                    }
                 }.guard {
-                    runAction { v->v.setupView(provider, null, UserSettings(0), altLoginProviders = ArrayList()) }
+                    runAction { v ->
+                        v.setupView(
+                            provider,
+                            null,
+                            UserSettings(0),
+                            altLoginProviders = ArrayList()
+                        )
+                    }
                 }
-
             }
         }
     }
@@ -96,23 +107,39 @@ class LoginComponentPresenter @Inject constructor(
             user?.let {
                 // setup for existing currentUser
                 val settings = userSettingsManager.get(it.id)
-                if (!it.verified) {   // currentUser is not verified
-                    v.setupView(loginProvider = lp, user = user, settings = settings, altLoginProviders = ArrayList())
+                if (!it.verified) { // currentUser is not verified
+                    v.setupView(
+                        loginProvider = lp,
+                        user = user,
+                        settings = settings,
+                        altLoginProviders = ArrayList()
+                    )
                 } else {
                     // currentUser is verified
-                    v.setupView(loginProvider = lp, user = user, settings = settings, altLoginProviders = altProviders)
+                    v.setupView(
+                        loginProvider = lp,
+                        user = user,
+                        settings = settings,
+                        altLoginProviders = altProviders
+                    )
                 }
             }.guard {
                 // setup for first time login
-                v.setupView(loginProvider = lp, user = null, settings = UserSettings(0), altLoginProviders = ArrayList())
+                v.setupView(
+                    loginProvider = lp,
+                    user = null,
+                    settings = UserSettings(0),
+                    altLoginProviders = ArrayList()
+                )
             }
         }
     }
 
     override fun onLoginSuccess(response: AccessToken) {
         Timber.i("Login Success: $response")
-        appState.state?.currentUser?.let { user->
-            checkRSAKeyPresenceInteractor.input = CheckRSAKeyPresenceInteractor.Input(userId = user.id.toString())
+        appState.state?.currentUser?.let { user ->
+            checkRSAKeyPresenceInteractor.input =
+                CheckRSAKeyPresenceInteractor.Input(userId = user.id.toString())
             checkRSAKeyPresenceInteractor.run()
         }
     }
@@ -140,12 +167,17 @@ class LoginComponentPresenter @Inject constructor(
     }
 
     override fun onDecryptSuccess(loginInfo: LoginInfo) {
-        val providerId = if(loginInfo.type==LoginInfoType.EMAIL) {
+        val providerId = if (loginInfo.type == LoginInfoType.EMAIL) {
             "email"
         } else {
             "cpr"
         }
-        updateLoginState(loginInfo.socialSecurity, providerId, loginInfo.password, loginInfo.actvationCode)
+        updateLoginState(
+            loginInfo.socialSecurity,
+            providerId,
+            loginInfo.password,
+            loginInfo.actvationCode
+        )
         login()
     }
 
@@ -156,13 +188,17 @@ class LoginComponentPresenter @Inject constructor(
         }
     }
 
-    override fun updateLoginState(userName: String, providerId: String, password: String, activationCode: String?) {
+    override fun updateLoginState(
+        userName: String,
+        providerId: String,
+        password: String,
+        activationCode: String?
+    ) {
         appState.state?.loginState?.let { ls ->
             ls.userName = userName
             ls.userPassWord = password
             ls.userLoginProviderId = providerId
             ls.activationCode = activationCode
-
         }
     }
 
@@ -194,19 +230,16 @@ class LoginComponentPresenter @Inject constructor(
     override fun onCheckRSAKeyPresence(keyExists: Boolean) {
         Timber.e("RSAKeyPresence: $keyExists")
         runAction { it.showProgress(false) }
-        //todo make sure key is connected to the correct user
-        if(keyExists)
-        {
+        // todo make sure key is connected to the correct user
+        if (keyExists) {
             runAction { it.proceedToApp() }
-        }
-        else
-        {
+        } else {
             val verified = appState.state?.loginState?.let { state ->
                 state.lastUser?.let { user ->
                     user.verified
                 }
             } ?: false
-            if(verified) {
+            if (verified) {
                 runAction { it.startDeviceActivation() }
             } else {
                 runAction { it.proceedToApp() }
@@ -215,6 +248,6 @@ class LoginComponentPresenter @Inject constructor(
     }
 
     override fun onCheckRSAKeyPresenceError(error: ViewError) {
-        runAction { v->v.showErrorDialog(error) }
+        runAction { v -> v.showErrorDialog(error) }
     }
 }

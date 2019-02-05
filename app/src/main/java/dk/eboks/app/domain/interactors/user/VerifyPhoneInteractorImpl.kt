@@ -6,7 +6,11 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
-class VerifyPhoneInteractorImpl(executor: Executor, val api: Api, val userRestRepo: UserRepository) : BaseInteractor(executor), VerifyPhoneInteractor {
+class VerifyPhoneInteractorImpl(
+    executor: Executor,
+    val api: Api,
+    val userRestRepo: UserRepository
+) : BaseInteractor(executor), VerifyPhoneInteractor {
     override var output: VerifyPhoneInteractor.Output? = null
     override var input: VerifyPhoneInteractor.Input? = null
 
@@ -24,6 +28,5 @@ class VerifyPhoneInteractorImpl(executor: Executor, val api: Api, val userRestRe
                 output?.onVerifyPhoneError(exceptionToViewError(t))
             }
         }
-
     }
 }

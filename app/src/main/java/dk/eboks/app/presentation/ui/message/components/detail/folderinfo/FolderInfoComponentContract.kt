@@ -8,7 +8,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface FolderInfoComponentContract {
     interface View : BaseView {
-        fun updateView(name : String)
+        fun updateView(name: String)
     }
 
     interface Presenter : BasePresenter<FolderInfoComponentContract.View>

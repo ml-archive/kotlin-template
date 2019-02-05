@@ -5,8 +5,8 @@ import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter
 
 /**
-* Created by chnt on 03-27-2018
-*/
+ * Created by chnt on 03-27-2018
+ */
 interface SegmentDetailContract {
     interface View : BaseView {
         fun showSuccess()
@@ -15,7 +15,7 @@ interface SegmentDetailContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun loadSegment(id : Long)
+        fun loadSegment(id: Long)
         fun registerSegment(id: Long)
         fun unregisterSegment(id: Long)
     }

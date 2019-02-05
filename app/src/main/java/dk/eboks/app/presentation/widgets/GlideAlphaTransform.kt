@@ -21,8 +21,8 @@ import java.security.MessageDigest
  * @param alpha the translucency of the image. The lower, the more of the background color will shine through.
  * Default is 20%
  *
- * @author   Christian
- * @since    5/14/2018.
+ * @author Christian
+ * @since 5/14/2018.
  */
 class GlideAlphaTransform(val color: Int, val alpha: Float = 0.2f) : BitmapTransformation() {
 
@@ -32,7 +32,12 @@ class GlideAlphaTransform(val color: Int, val alpha: Float = 0.2f) : BitmapTrans
         messageDigest.update((ID + color).toByteArray(CHARSET))
     }
 
-    override fun transform(pool: BitmapPool, toTransform: Bitmap, outWidth: Int, outHeight: Int): Bitmap {
+    override fun transform(
+        pool: BitmapPool,
+        toTransform: Bitmap,
+        outWidth: Int,
+        outHeight: Int
+    ): Bitmap {
         val config = toTransform.config ?: Bitmap.Config.ARGB_8888
         val bitmap = pool.get(toTransform.width, toTransform.height, config)
 
@@ -41,8 +46,7 @@ class GlideAlphaTransform(val color: Int, val alpha: Float = 0.2f) : BitmapTrans
         Timber.v("Color = $color")
         val solid = color.or(0xff000000.toInt())
         Timber.v("Solid Color = $solid")
-        canvas.drawColor( solid )
-
+        canvas.drawColor(solid)
 
         // Image
         val alphaPaint = Paint()
@@ -51,7 +55,15 @@ class GlideAlphaTransform(val color: Int, val alpha: Float = 0.2f) : BitmapTrans
         canvas.drawBitmap(toTransform, 0.0f, 0.0f, alphaPaint)
 
         // Foreground
-        val shaderG = LinearGradient(0.0f, 0.0f, bitmap.width.toFloat(), bitmap.height.toFloat() * 0.5f, 0xff999999.toInt(), 0xff666666.toInt(), Shader.TileMode.CLAMP)
+        val shaderG = LinearGradient(
+            0.0f,
+            0.0f,
+            bitmap.width.toFloat(),
+            bitmap.height.toFloat() * 0.5f,
+            0xff999999.toInt(),
+            0xff666666.toInt(),
+            Shader.TileMode.CLAMP
+        )
         val gradientPaint = Paint()
         gradientPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.OVERLAY)
         gradientPaint.shader = shaderG

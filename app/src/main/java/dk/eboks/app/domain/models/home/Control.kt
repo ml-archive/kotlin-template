@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class Control(
-        var id : String,
-        var type : ItemType,
-        var items : List<Item>? = null
+    var id: String,
+    var type: ItemType,
+    var items: List<Item>? = null
 ) : Parcelable

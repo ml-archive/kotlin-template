@@ -10,11 +10,11 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface MailListContract {
     interface View : BaseView {
-        fun showFolderName(name : String)
+        fun showFolderName(name: String)
     }
 
     interface Presenter : BasePresenter<View> {
-        fun setupFolder(folder : Folder)
-        fun setupSender(sender : Sender)
+        fun setupFolder(folder: Folder)
+        fun setupSender(sender: Sender)
     }
 }

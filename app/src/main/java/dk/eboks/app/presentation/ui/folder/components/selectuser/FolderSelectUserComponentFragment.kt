@@ -101,7 +101,7 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
 
     private fun setupMyProfile() {
         myProfileLl.setOnClickListener {
-            //close
+            // close
             presenter.setSharedUser(null)
             activity?.onBackPressed()
         }
@@ -131,7 +131,7 @@ class FolderSelectUserComponentFragment : BaseFragment(), FolderSelectUserCompon
                     nameTv.text = sharedUser.name
                     roleTv.text = sharedUser.permission
                     setOnClickListener {
-                        //open normal maillist for sharedUsers[position] and close the drawer
+                        // open normal maillist for sharedUsers[position] and close the drawer
                         Timber.d(sharedUser.toString())
                         presenter.setSharedUser(sharedUser)
                         activity?.onBackPressed()

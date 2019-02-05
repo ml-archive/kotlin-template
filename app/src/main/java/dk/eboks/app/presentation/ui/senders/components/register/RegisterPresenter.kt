@@ -13,13 +13,17 @@ import javax.inject.Inject
 
 /**
  * Created by Christian on 3/22/2018.
- * @author   Christian
- * @since    3/22/2018.
+ * @author Christian
+ * @since 3/22/2018.
  */
-class RegisterPresenter @Inject constructor(val appState: AppStateManager, val registerInteractor: RegisterInteractor, val unRegisterInteractor: UnRegisterInteractor) :
-        RegistrationContract.Presenter, BasePresenterImpl<RegistrationContract.View>(),
-        RegisterInteractor.Output,
-        UnRegisterInteractor.Output {
+class RegisterPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val registerInteractor: RegisterInteractor,
+    val unRegisterInteractor: UnRegisterInteractor
+) :
+    RegistrationContract.Presenter, BasePresenterImpl<RegistrationContract.View>(),
+    RegisterInteractor.Output,
+    UnRegisterInteractor.Output {
 
     init {
         registerInteractor.output = this
@@ -33,7 +37,8 @@ class RegisterPresenter @Inject constructor(val appState: AppStateManager, val r
 
     override fun registerSenderGroup(senderId: Long, sendergroup: SenderGroup) {
         Timber.i("registerSenderGroup")
-        registerInteractor.inputSenderGroup = RegisterInteractor.InputSenderGroup(senderId, sendergroup)
+        registerInteractor.inputSenderGroup =
+            RegisterInteractor.InputSenderGroup(senderId, sendergroup)
         registerInteractor.run()
     }
 
@@ -49,7 +54,8 @@ class RegisterPresenter @Inject constructor(val appState: AppStateManager, val r
 
     override fun unregisterSenderGroup(senderId: Long, sendergroup: SenderGroup) {
         Timber.i("unregisterSenderGroup")
-        unRegisterInteractor.inputSenderGroup = UnRegisterInteractor.InputSenderGroup(senderId, sendergroup)
+        unRegisterInteractor.inputSenderGroup =
+            UnRegisterInteractor.InputSenderGroup(senderId, sendergroup)
         unRegisterInteractor.run()
     }
 
@@ -67,8 +73,7 @@ class RegisterPresenter @Inject constructor(val appState: AppStateManager, val r
 
     override fun onError(error: ViewError) {
         runAction { v ->
-            v.showError(error.message?:"")
+            v.showError(error.message ?: "")
         }
     }
-
 }

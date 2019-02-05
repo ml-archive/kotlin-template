@@ -15,16 +15,27 @@ typealias FolderListStore = CacheStore<Int, List<Folder>>
 /**
  * Created by bison on 01/02/18.
  */
-class FoldersRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager) : FoldersRepository {
+class FoldersRestRepository(
+    val context: Context,
+    val api: Api,
+    val gson: Gson,
+    val cacheManager: CacheManager
+) : FoldersRepository {
 
     private var userId: Int? = null
 
     private val folderStore: FolderListStore by lazy {
-        FolderListStore(cacheManager, context, gson, "folder_list_store.json", object : TypeToken<MutableMap<Int, List<Folder>>>() {}.type) { key ->
+        FolderListStore(
+            cacheManager,
+            context,
+            gson,
+            "folder_list_store.json",
+            object : TypeToken<MutableMap<Int, List<Folder>>>() {}.type
+        ) { key ->
             val response = api.getFolders(userId).execute()
-            var result : List<Folder>? = null
+            var result: List<Folder>? = null
             response?.let {
-                if(it.isSuccessful)
+                if (it.isSuccessful)
                     result = it.body()
             }
             result
@@ -42,8 +53,8 @@ class FoldersRestRepository(val context: Context, val api: Api, val gson: Gson, 
 
     override fun createFolder(folderRequest: FolderRequest) {
         val response = api.createFolder(folderRequest).execute()
-        response?.let{
-            if (it.isSuccessful){
+        response?.let {
+            if (it.isSuccessful) {
                 return
             }
         }
@@ -51,8 +62,8 @@ class FoldersRestRepository(val context: Context, val api: Api, val gson: Gson, 
 
     override fun editFolder(folderId: Int, folderRequest: FolderRequest) {
         val response = api.editFolder(folderId, folderRequest).execute()
-        response?.let{
-            if (it.isSuccessful){
+        response?.let {
+            if (it.isSuccessful) {
                 return
             }
         }
@@ -60,8 +71,8 @@ class FoldersRestRepository(val context: Context, val api: Api, val gson: Gson, 
 
     override fun deleteFolder(folderId: Int) {
         val response = api.deleteFolder(folderId).execute()
-        response?.let{
-            if (it.isSuccessful){
+        response?.let {
+            if (it.isSuccessful) {
                 return
             }
         }

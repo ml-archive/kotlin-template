@@ -9,10 +9,10 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 
-class UpdateUserInteractorImpl(executor: Executor, val api: Api, val userRestRepo: UserRepository) : BaseInteractor(executor), UpdateUserInteractor {
+class UpdateUserInteractorImpl(executor: Executor, val api: Api, val userRestRepo: UserRepository) :
+    BaseInteractor(executor), UpdateUserInteractor {
     override var output: UpdateUserInteractor.Output? = null
     override var input: UpdateUserInteractor.Input? = null
-
 
     override fun execute() {
 
@@ -25,7 +25,7 @@ class UpdateUserInteractorImpl(executor: Executor, val api: Api, val userRestRep
                 val mails = JsonArray()
                 mails.add(it.getPrimaryEmail())
                 // only verified users are allowed to edit ANY email
-                if(it.verified) {
+                if (it.verified) {
                     it.getSecondaryEmail()?.let { email ->
                         mails.add(email)
                     }
@@ -42,6 +42,5 @@ class UpdateUserInteractorImpl(executor: Executor, val api: Api, val userRestRep
                 Timber.e(t)
             }
         }
-
     }
 }

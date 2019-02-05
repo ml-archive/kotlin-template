@@ -8,10 +8,11 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class FolderInfoComponentPresenter @Inject constructor(val appState: AppStateManager) : FolderInfoComponentContract.Presenter, BasePresenterImpl<FolderInfoComponentContract.View>() {
+class FolderInfoComponentPresenter @Inject constructor(val appState: AppStateManager) :
+    FolderInfoComponentContract.Presenter, BasePresenterImpl<FolderInfoComponentContract.View>() {
 
     init {
-        runAction { v->
+        runAction { v ->
 
             appState.state?.currentMessage?.folder?.let {
                 v.updateView(it.name)
@@ -20,5 +21,4 @@ class FolderInfoComponentPresenter @Inject constructor(val appState: AppStateMan
             }
         }
     }
-
 }

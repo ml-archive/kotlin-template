@@ -13,7 +13,7 @@ class PopupLoginActivity : BaseActivity(), PopupLoginContract.View {
     @Inject lateinit var presenter: PopupLoginContract.Presenter
 
     companion object {
-        val REQUEST_VERIFICATION : Int = 13445
+        const val REQUEST_VERIFICATION: Int = 13445
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,12 +30,17 @@ class PopupLoginActivity : BaseActivity(), PopupLoginContract.View {
                     finish()
             }
         }
-        intent?.getStringExtra("selectedLoginProviderId")?.let { provider_id->
+        intent?.getStringExtra("selectedLoginProviderId")?.let { provider_id ->
             val reauth = intent?.getBooleanExtra("reauth", false) ?: false
-            setRootFragment(R.id.containerFl, LoginComponentFragment().putArg("selectedLoginProviderId", provider_id).putArg("reauth", reauth))
+            setRootFragment(
+                R.id.containerFl,
+                LoginComponentFragment().putArg(
+                    "selectedLoginProviderId",
+                    provider_id
+                ).putArg("reauth", reauth)
+            )
         }.guard {
             setRootFragment(R.id.containerFl, LoginComponentFragment())
         }
     }
-
 }

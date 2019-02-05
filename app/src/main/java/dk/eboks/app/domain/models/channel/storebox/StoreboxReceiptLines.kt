@@ -6,8 +6,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class StoreboxReceiptLines(
-        @SerializedName("items")
-        var items: ArrayList<StoreboxReceiptLine> = arrayListOf(),
-        @SerializedName("total")
-        var total: Double? = null
+    @SerializedName("items")
+    var items: ArrayList<StoreboxReceiptLine> = arrayListOf(),
+    @SerializedName("total")
+    var total: Double? = null
 ) : Parcelable

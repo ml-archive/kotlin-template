@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.fragment_segment_component.view.*
 import kotlinx.android.synthetic.main.fragment_sender_component.view.*
 import kotlinx.android.synthetic.main.viewholder_sender_item.view.*
 import kotlinx.android.synthetic.main.viewholder_title_subtitle.view.*
-import timber.log.Timber
 import java.lang.ref.WeakReference
 
 class SendersCollectionAdapter(callback: Callback? = null) :

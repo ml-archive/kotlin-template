@@ -6,8 +6,8 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 /**
  * Created by bison on 20-05-2017.
  */
-class OverlayPresenter(val appStateManager: AppStateManager) : OverlayContract.Presenter, BasePresenterImpl<OverlayContract.View>() {
+class OverlayPresenter(val appStateManager: AppStateManager) : OverlayContract.Presenter,
+    BasePresenterImpl<OverlayContract.View>() {
     init {
     }
-
 }

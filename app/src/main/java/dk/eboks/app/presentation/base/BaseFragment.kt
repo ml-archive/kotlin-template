@@ -7,14 +7,12 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import dk.eboks.app.App
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.injection.modules.PresentationModule
 import kotlinx.android.synthetic.*
-import net.hockeyapp.android.metrics.model.Base
 import timber.log.Timber
 
 abstract class BaseFragment : androidx.fragment.app.Fragment(), BaseView {
@@ -43,7 +41,7 @@ abstract class BaseFragment : androidx.fragment.app.Fragment(), BaseView {
      * is true
      */
     open val defaultErrorHandler: ViewErrorController by lazy {
-        //ViewErrorController(context = context, closeFunction = {fragmentManager.popBackStack()} )
+        // ViewErrorController(context = context, closeFunction = {fragmentManager.popBackStack()} )
         ViewErrorController(context = context!!, closeFunction = { activity?.onBackPressed() })
     }
 
@@ -57,9 +55,9 @@ abstract class BaseFragment : androidx.fragment.app.Fragment(), BaseView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
-            //setupShakeDetection()
+            // setupShakeDetection()
         }
-        //if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onCreate")
+        // if(BuildConfig.DEBUG) Timber.v("${this.javaClass.simpleName} onCreate")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

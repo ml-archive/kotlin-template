@@ -13,34 +13,51 @@ import dk.eboks.app.storage.base.CacheStore
 typealias ChannelListStore = CacheStore<String, MutableList<Channel>>
 typealias ChannelControlStore = CacheStore<Long, HomeContent>
 
-
 /**
  * Created by bison on 01/02/18.
  */
-class ChannelsRestRepository(val context: Context, val api: Api, val gson: Gson, val cacheManager: CacheManager) : ChannelsRepository {
+class ChannelsRestRepository(
+    val context: Context,
+    val api: Api,
+    val gson: Gson,
+    val cacheManager: CacheManager
+) : ChannelsRepository {
 
     val channelStore: ChannelListStore by lazy {
-        ChannelListStore(cacheManager, context, gson, "channel_list_store.json", object : TypeToken<MutableMap<String, MutableList<Channel>>>() {}.type, { key ->
-            val response = if(key == "pinned") api.getChannelsPinned().execute() else api.getChannels().execute()
-            var result : MutableList<Channel>? = null
+        ChannelListStore(
+            cacheManager,
+            context,
+            gson,
+            "channel_list_store.json",
+            object : TypeToken<MutableMap<String, MutableList<Channel>>>() {}.type
+        ) { key ->
+            val response =
+                if (key == "pinned") api.getChannelsPinned().execute() else api.getChannels().execute()
+            var result: MutableList<Channel>? = null
             response?.let {
-                if(it.isSuccessful)
+                if (it.isSuccessful)
                     result = it.body()
             }
             result
-        })
+        }
     }
 
     val channelControlStore: ChannelControlStore by lazy {
-        ChannelControlStore(cacheManager, context, gson, "channel_control_store.json", object : TypeToken<MutableMap<Long, HomeContent>>() {}.type, { key ->
-            val response = api.getChannelHomeContent(key).execute()
-            var result : HomeContent? = null
-            response?.let {
-                if(it.isSuccessful)
-                    result = it.body()
-            }
-            result
-        })
+        ChannelControlStore(
+            cacheManager,
+            context,
+            gson,
+            "channel_control_store.json",
+            object : TypeToken<MutableMap<Long, HomeContent>>() {}.type,
+            { key ->
+                val response = api.getChannelHomeContent(key).execute()
+                var result: HomeContent? = null
+                response?.let {
+                    if (it.isSuccessful)
+                        result = it.body()
+                }
+                result
+            })
     }
 
     // TODO reenable caching here, this is a bit tricky because the cache should optimally be invalidated
@@ -55,9 +72,9 @@ class ChannelsRestRepository(val context: Context, val api: Api, val gson: Gson,
             return ArrayList()
             */
         val response = api.getChannels().execute()
-        var result : MutableList<Channel>? = null
+        var result: MutableList<Channel>? = null
         response?.let {
-            if(it.isSuccessful)
+            if (it.isSuccessful)
                 it.body()?.let { return it }
         }
         return ArrayList()
@@ -66,27 +83,25 @@ class ChannelsRestRepository(val context: Context, val api: Api, val gson: Gson,
     override fun getInstalledChannels(): MutableList<Channel> {
         val response = api.getChannelsInstalled().execute()
         response?.let {
-            if(it.isSuccessful)
+            if (it.isSuccessful)
                 it.body()?.let { return it }
         }
         return ArrayList()
     }
 
     override fun getPinnedChannels(cached: Boolean): MutableList<Channel> {
-        val res = if(cached) channelStore.get("pinned") else channelStore.fetch("pinned")
-        if(res != null)
+        val res = if (cached) channelStore.get("pinned") else channelStore.fetch("pinned")
+        if (res != null)
             return res
         else
             return ArrayList()
-
     }
 
-    override fun getChannel(id: Int) : Channel {
+    override fun getChannel(id: Int): Channel {
         val call = api.getChannel(id)
         val result = call.execute()
         result?.let { response ->
-            if(response.isSuccessful)
-            {
+            if (response.isSuccessful) {
                 return response.body() ?: throw(RuntimeException("Unknown"))
             }
         }
@@ -96,21 +111,17 @@ class ChannelsRestRepository(val context: Context, val api: Api, val gson: Gson,
     override fun getChannelHomeContent(id: Long, cached: Boolean): HomeContent {
         val result = api.getChannelHomeContent(id).execute()
         result?.let { response ->
-            if(response.isSuccessful)
-            {
+            if (response.isSuccessful) {
                 return response.body() ?: throw(RuntimeException("Unknown"))
-            }
-            else
-            {
-                if(response.code() == 404)
+            } else {
+                if (response.code() == 404)
                     throw(NoSuchElementException())
             }
         }
         throw(RuntimeException())
     }
 
-    override fun hasCachedChannelList(key : String) : Boolean
-    {
+    override fun hasCachedChannelList(key: String): Boolean {
         return channelStore.containsKey(key)
     }
 

@@ -6,7 +6,10 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 
-class GetLatestUploadsInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) : BaseInteractor(executor), GetLatestUploadsInteractor {
+class GetLatestUploadsInteractorImpl(
+    executor: Executor,
+    val messagesRepository: MessagesRepository
+) : BaseInteractor(executor), GetLatestUploadsInteractor {
     override var output: GetLatestUploadsInteractor.Output? = null
     override var input: GetLatestUploadsInteractor.Input? = null
 
@@ -16,14 +19,11 @@ class GetLatestUploadsInteractorImpl(executor: Executor, val messagesRepository:
             runOnUIThread {
                 output?.onGetLatestUploads(result)
             }
-        }
-        catch (t : Throwable)
-        {
+        } catch (t: Throwable) {
             Timber.e(t)
             runOnUIThread {
                 output?.onGetLatestUploadsError(exceptionToViewError(t, shouldClose = true))
             }
         }
     }
-
 }

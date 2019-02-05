@@ -8,12 +8,13 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class ReplyButtonComponentPresenter @Inject constructor(val appState: AppStateManager) : ReplyButtonComponentContract.Presenter, BasePresenterImpl<ReplyButtonComponentContract.View>() {
+class ReplyButtonComponentPresenter @Inject constructor(val appState: AppStateManager) :
+    ReplyButtonComponentContract.Presenter, BasePresenterImpl<ReplyButtonComponentContract.View>() {
 
     init {
     }
 
     override fun reply(msg: Message) {
-        runAction { v->v.showReplyForm(msg) }
+        runAction { v -> v.showReplyForm(msg) }
     }
 }

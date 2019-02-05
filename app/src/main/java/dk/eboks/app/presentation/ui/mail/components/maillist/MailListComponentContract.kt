@@ -22,12 +22,13 @@ interface MailListComponentContract {
         fun refresh()
         fun loadNextPage()
 
-//        fun updateMessage(message: Message)
+        //        fun updateMessage(message: Message)
         fun archiveMessages(selectedMessages: MutableList<Message>)
-        fun markReadMessages(selectedMessages: MutableList<Message>, unread : Boolean)
+
+        fun markReadMessages(selectedMessages: MutableList<Message>, unread: Boolean)
         fun deleteMessages(selectedMessages: MutableList<Message>)
         fun moveMessages(folderId: Int, selectedMessages: MutableList<Message>)
 
-        var isLoading : Boolean
+        var isLoading: Boolean
     }
 }

@@ -11,7 +11,11 @@ import dk.nodes.arch.domain.executor.Executor
 /**
  * Created by bison on 22/02/18.
  */
-class PermissionManagerImpl(val executor: Executor, val context: Context, val uiManager: UIManager) : PermissionManager {
+class PermissionManagerImpl(
+    val executor: Executor,
+    val context: Context,
+    val uiManager: UIManager
+) : PermissionManager {
     override var permsToCheck: MutableList<PermissionManager.Permission>? = null
     override var requestInProgress = false
 
@@ -19,23 +23,26 @@ class PermissionManagerImpl(val executor: Executor, val context: Context, val ui
         return ContextCompat.checkSelfPermission(context, perm) == PackageManager.PERMISSION_GRANTED
     }
 
-    override fun checkPermissions(perms : List<String>): Boolean {
-        for(perm in perms) {
-            if(ContextCompat.checkSelfPermission(context, perm) == PackageManager.PERMISSION_DENIED)
+    override fun checkPermissions(perms: List<String>): Boolean {
+        for (perm in perms) {
+            if (ContextCompat.checkSelfPermission(
+                    context,
+                    perm
+                ) == PackageManager.PERMISSION_DENIED
+            )
                 return false
         }
         return true
     }
 
-    override fun requestPermissions(perms : List<String>): List<PermissionManager.Permission>? {
+    override fun requestPermissions(perms: List<String>): List<PermissionManager.Permission>? {
         requestInProgress = true
-        if(permsToCheck == null)
+        if (permsToCheck == null)
             permsToCheck = ArrayList()
         else
             permsToCheck?.clear()
 
-        for(perm in perms)
-        {
+        for (perm in perms) {
             permsToCheck?.add(PermissionManager.Permission(perm, false))
         }
         uiManager.showPermissionRequestScreen()
@@ -45,11 +52,11 @@ class PermissionManagerImpl(val executor: Executor, val context: Context, val ui
         return permsToCheck
     }
 
-    override fun requestPermission(perm : String): Boolean {
+    override fun requestPermission(perm: String): Boolean {
         val perms = requestPermissions(listOf(perm))
         perms?.guard { return false }
         perms?.forEach {
-            if(it.perm == perm && it.wasGranted)
+            if (it.perm == perm && it.wasGranted)
                 return true
         }
         return false

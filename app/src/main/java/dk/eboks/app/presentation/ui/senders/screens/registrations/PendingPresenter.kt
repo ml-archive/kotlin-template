@@ -10,8 +10,8 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 
 /**
  * Created by Christian on 3/28/2018.
- * @author   Christian
- * @since    3/28/2018.
+ * @author Christian
+ * @since 3/28/2018.
  */
 class PendingPresenter(
     val appStateManager: AppStateManager,
@@ -24,7 +24,6 @@ class PendingPresenter(
     GetPendingInteractor.Output,
     RegisterInteractor.Output,
     UnRegisterInteractor.Output {
-
 
     init {
         getPendingInteractor.output = this

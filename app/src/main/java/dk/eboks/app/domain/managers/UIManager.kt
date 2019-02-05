@@ -2,7 +2,6 @@ package dk.eboks.app.domain.managers
 
 import dk.eboks.app.domain.models.folder.Folder
 
-
 /**
  * Created by bison on 16-02-2018.
  */

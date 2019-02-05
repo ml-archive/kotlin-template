@@ -15,6 +15,6 @@ interface DeleteMessagesInteractor : Interactor {
 
     interface Output {
         fun onDeleteMessagesSuccess()
-        fun onDeleteMessagesError(error : ViewError)
+        fun onDeleteMessagesError(error: ViewError)
     }
 }

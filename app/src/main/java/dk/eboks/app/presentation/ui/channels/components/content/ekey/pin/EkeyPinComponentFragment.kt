@@ -27,7 +27,7 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
     var handler = Handler()
 
     private val isCreate: Boolean
-        get() = arguments?.getBoolean("ISCREATE", false) ?: false
+        get() = arguments?.getBoolean(ARG_IS_CREATE, false) ?: false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_channel_ekey_pin, container, false)
@@ -39,9 +39,7 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-
-        showKeyboard()
-        setupListeners()
+        setupInputfields()
         setupTopbar(isCreate)
         setupTexts(isCreate)
     }
@@ -73,31 +71,27 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
         showKeyboard()
     }
 
-    private fun setupListeners() {
+    private fun setupInputfields() {
+        showKeyboard()
 
         ekeyPasswordInputEt.onImeActionDone {
-            if (isInputValid()) {
-                confirmPinAndProceed()
+            if (isCreate) {
+                if (ekeyPasswordInputEt.text.toString().length >= 6) {
+                    getEkeyBaseActivity()?.setPin(ekeyPasswordInputEt.text.toString())
+                    getEkeyBaseActivity()?.refreshClearAndShowMain()
+                } else {
+                    ekeyPasswordInputEt.text?.clear()
+                    ekeyPasswordInputLayout.error = Translation.ekey.insertPasswordLenghtError
+                }
             } else {
-                ekeyPasswordInputEt.text?.clear()
-                ekeyPasswordInputLayout.error = Translation.ekey.insertPasswordLenghtError
+                getEkeyBaseActivity()?.setPin(ekeyPasswordInputEt.text.toString())
+                getEkeyBaseActivity()?.refreshClearAndShowMain()
             }
         }
 
         ekeyPasswordInputEt.onTextChanged {
             ekeyPasswordInputLayout.error = null
-            continueBtn.isEnabled = isInputValid()
         }
-
-        continueBtn.setOnClickListener {
-            confirmPinAndProceed()
-        }
-
-    }
-
-    private fun confirmPinAndProceed() {
-        getEkeyBaseActivity()?.setPin(ekeyPasswordInputEt.text.toString())
-        getEkeyBaseActivity()?.refreshClearAndShowMain()
     }
 
     private fun showKeyboard() {
@@ -110,24 +104,20 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
         }, 200)
     }
 
-    private fun isInputValid(): Boolean {
-        return if (isCreate)
-            ekeyPasswordInputEt.text.toString().length >= 6
-        else
-            ekeyPasswordInputEt.text.toString().length >= 4
-    }
-
     override fun onPause() {
         handler.removeCallbacksAndMessages(null)
         super.onPause()
     }
 
     companion object {
+
+        private const val ARG_IS_CREATE = "is_create"
+
         @JvmStatic
         fun newInstance(isCreate: Boolean) =
                 EkeyPinComponentFragment().apply {
                     arguments = Bundle().apply {
-                        putBoolean("ISCREATE", isCreate)
+                        putBoolean(ARG_IS_CREATE, isCreate)
                     }
                 }
     }

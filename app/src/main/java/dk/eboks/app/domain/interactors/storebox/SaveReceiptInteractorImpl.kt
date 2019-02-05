@@ -9,24 +9,23 @@ import timber.log.Timber
 
 /**
  * Created by Christian on 5/15/2018.
- * @author   Christian
- * @since    5/15/2018.
+ * @author Christian
+ * @since 5/15/2018.
  */
-class SaveReceiptInteractorImpl(executor: Executor, private val api: Api) : BaseInteractor(executor), SaveReceiptInteractor {
+class SaveReceiptInteractorImpl(executor: Executor, private val api: Api) :
+    BaseInteractor(executor), SaveReceiptInteractor {
     override var output: SaveReceiptInteractor.Output? = null
     override var input: SaveReceiptInteractor.Input? = null
 
     override fun execute() {
         try {
-            input?.let { args->
+            input?.let { args ->
                 val result = api.saveStoreboxReceipt(args.receiptId, args.folderId).execute()
-                if(result.isSuccessful) {
+                if (result.isSuccessful) {
                     runOnUIThread {
                         output?.onSaveReceiptSuccess()
                     }
-                }
-                else
-                {
+                } else {
                     runOnUIThread {
                         output?.onSaveReceiptError(ViewError())
                     }
@@ -39,5 +38,4 @@ class SaveReceiptInteractorImpl(executor: Executor, private val api: Api) : Base
             }
         }
     }
-
 }

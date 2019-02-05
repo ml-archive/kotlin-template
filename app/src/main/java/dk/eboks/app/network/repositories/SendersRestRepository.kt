@@ -24,9 +24,15 @@ class SendersRestRepository(
     var userId: Int? = null
 
     val senderStore: SenderStore by lazy {
-        SenderStore(cacheManager, context, gson, "sender_store.json", object : TypeToken<MutableMap<Int, List<Sender>>>() {}.type ){ key ->
+        SenderStore(
+            cacheManager,
+            context,
+            gson,
+            "sender_store.json",
+            object : TypeToken<MutableMap<Int, List<Sender>>>() {}.type
+        ) { key ->
             val response = api.getSenders(userId).execute()
-            var result : List<Sender>? = null
+            var result: List<Sender>? = null
 
             response?.let {
                 if (it.isSuccessful)
@@ -37,7 +43,9 @@ class SendersRestRepository(
     }
 
     override fun getSenders(cached: Boolean, userId: Int?): List<Sender> {
-        return (if (cached) senderStore.get(0) else senderStore.fetch(0)) ?: throw(RuntimeException("darn"))
+        return (if (cached) senderStore.get(0) else senderStore.fetch(0)) ?: throw(RuntimeException(
+            "darn"
+        ))
     }
 
     override fun searchSenders(search: String): List<Sender> {

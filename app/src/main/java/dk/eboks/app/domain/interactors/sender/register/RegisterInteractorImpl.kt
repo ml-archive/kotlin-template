@@ -10,10 +10,11 @@ import timber.log.Timber
 
 /**
  * Created by chnt on 21-03-2018.
- * @author   chnt
- * @since    21-03-2018.
+ * @author chnt
+ * @since 21-03-2018.
  */
-class RegisterInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(executor), RegisterInteractor {
+class RegisterInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(executor),
+    RegisterInteractor {
 
     override var inputSender: RegisterInteractor.InputSender? = null
     override var inputSenderGroup: RegisterInteractor.InputSenderGroup? = null
@@ -38,7 +39,11 @@ class RegisterInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(
         inputSenderGroup?.let {
             Timber.d("SenderGroup")
             try {
-                api.registerSenderGroup(it.senderId, it.senderGroup.id, AliasBody(it.senderGroup.alias)).execute()
+                api.registerSenderGroup(
+                    it.senderId,
+                    it.senderGroup.id,
+                    AliasBody(it.senderGroup.alias)
+                ).execute()
                 runOnUIThread {
                     output?.onSuccess()
                 }

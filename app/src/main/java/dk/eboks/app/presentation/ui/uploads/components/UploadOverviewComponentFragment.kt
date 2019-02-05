@@ -50,7 +50,11 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
     var uploads: MutableList<Message> = ArrayList()
     var verified = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_upload_overview_component, container, false)
     }
 
@@ -71,14 +75,13 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
 
     override fun onResume() {
         super.onResume()
-        if(refreshOnResume)
-        {
+        if (refreshOnResume) {
             refreshOnResume = false
             presenter.refresh()
         }
     }
 
-    override fun setupView(verifiedUser : Boolean) {
+    override fun setupView(verifiedUser: Boolean) {
         activity?.mainTb?.title = Translation.uploads.title
         storageRowContainer.visible = (false)
         emptyVerifiedUserTv.visible = (false)
@@ -95,31 +98,34 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
 
         showAllBtn.setOnClickListener {
             val frag = MailListComponentFragment()
-            frag.putArg("folder", Folder(type = FolderType.UPLOADS, name = Translation.uploads.title))
+            frag.putArg(
+                "folder",
+                Folder(type = FolderType.UPLOADS, name = Translation.uploads.title)
+            )
             getBaseActivity()?.addFragmentOnTop(R.id.contentFl, frag, true)
         }
         fileBtn.setOnClickListener {
             findFile()
         }
-        photoBtn.setOnClickListener{
+        photoBtn.setOnClickListener {
             getPhoto()
         }
     }
 
     override fun showStorageInfo(storageInfo: StorageInfo) {
-        if(storageInfo.used > 0) {
+        if (storageInfo.used > 0) {
             leftProgressTv.text = "${formatter.formatSize(storageInfo.used)}"
-            rightProgressTv.text = "${formatter.formatSize(storageInfo.total - storageInfo.used)} ${Translation.uploads.remainingText}"
-        }
-        else
-        {
-            if(!verified)
+            rightProgressTv.text =
+                "${formatter.formatSize(storageInfo.total - storageInfo.used)} ${Translation.uploads.remainingText}"
+        } else {
+            if (!verified)
                 leftProgressTv.text = "${Translation.uploads.notVerifiedInitialAvailableSpace}"
             else
                 leftProgressTv.text = "${Translation.uploads.verifiedInitialAvailableSpace}"
         }
         storageProgressBar.visibility = View.INVISIBLE
-        storagePb.progress = (storageInfo.used.toFloat() / storageInfo.total.toFloat() * 100f).roundToInt()
+        storagePb.progress =
+            (storageInfo.used.toFloat() / storageInfo.total.toFloat() * 100f).roundToInt()
         storagePb.visibility = View.VISIBLE
     }
 
@@ -130,8 +136,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
         uploads.addAll(messages)
         if (uploads.size > 0) {
             // if user is not verified but have uploads show the small verify teaser
-            if(!verified)
-            {
+            if (!verified) {
                 storageRowContainer.visible = (true)
             }
             latestUploadsLl.visibility = View.VISIBLE
@@ -140,8 +145,8 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             for (i in 1..uploads.size) {
                 val currentItem = uploads[i - 1]
 
-                //setting the header
-                val v = inflator.inflate(R.layout.viewholder_upload_row,latestUploadsLl , false)
+                // setting the header
+                val v = inflator.inflate(R.layout.viewholder_upload_row, latestUploadsLl, false)
                 val headerTv = v.findViewById<TextView>(R.id.headerTv)
                 val subHeaderTv = v.findViewById<TextView>(R.id.subHeaderTv)
                 val dateTv = v.findViewById<TextView>(R.id.dateTv)
@@ -164,7 +169,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
                     }
                 }
 
-                if(i == uploads.size ){
+                if (i == uploads.size) {
                     dividerV.visibility = View.GONE
                 }
 
@@ -172,11 +177,9 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
                 latestUploadsLl.requestLayout()
             }
         } else {
-            if(verified) {
+            if (verified) {
                 emptyVerifiedUserTv.visible = (true)
-            }
-            else
-            {
+            } else {
                 emptyNonVerifiedUserLl.visible = (true)
             }
 
@@ -186,19 +189,18 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
         }
     }
 
-    var uploadPctProgressTv : TextView? = null
-    var uploadView : View? = null
-    var circularProgress : CircularProgressBar? = null
+    var uploadPctProgressTv: TextView? = null
+    var uploadView: View? = null
+    var circularProgress: CircularProgressBar? = null
 
-    override fun showUploadProgress()
-    {
-        //setting the header
-        val v = inflator.inflate(R.layout.viewholder_upload_row,latestUploadsLl, false)
+    override fun showUploadProgress() {
+        // setting the header
+        val v = inflator.inflate(R.layout.viewholder_upload_row, latestUploadsLl, false)
         uploadView = v
-        uploadPctProgressTv = v.findViewById<TextView>(R.id.uploadPctProgressTv)
+        uploadPctProgressTv = v.findViewById(R.id.uploadPctProgressTv)
         val showContainerLl = v.findViewById<LinearLayout>(R.id.showContainerLl)
         val uploadingContainerLl = v.findViewById<FrameLayout>(R.id.uploadingContainerLl)
-        circularProgress = v.findViewById<CircularProgressBar>(R.id.circularProgressBar)
+        circularProgress = v.findViewById(R.id.circularProgressBar)
         circularProgress?.progress = 0.0f
         circularProgress?.visibility = View.VISIBLE
         uploadPctProgressTv?.text = "0%"
@@ -216,8 +218,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
         latestUploadsLl.addView(v, 0)
     }
 
-    override fun updateUploadProgress(pct : Double)
-    {
+    override fun updateUploadProgress(pct: Double) {
         uploadPctProgressTv?.let {
             val value = pct * 100.0
             it.text = "${value.roundToInt()}%"
@@ -228,8 +229,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
         }
     }
 
-    override fun hideUploadProgress()
-    {
+    override fun hideUploadProgress() {
         circularProgress?.visibility = View.GONE
         uploadView?.let { latestUploadsLl.removeView(it) }
         fileBtn.isEnabled = true
@@ -261,32 +261,28 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             }
         }
 
-        if(requestCode == FileUploadActivity.REQUEST_ID)
-        {
+        if (requestCode == FileUploadActivity.REQUEST_ID) {
             val filename = data?.getStringExtra("filename") ?: ""
-            val destinationFolderId : Int = data?.getIntExtra("destinationFolderId", -1) ?: -1
+            val destinationFolderId: Int = data?.getIntExtra("destinationFolderId", -1) ?: -1
             val uriString = data?.getStringExtra("uriString") ?: ""
             var mimetype = data?.getStringExtra("mimeType") ?: "application/octet-stream"
-            if(filename.isNotEmpty() && uriString.isNotEmpty() && destinationFolderId != -1) {
+            if (filename.isNotEmpty() && uriString.isNotEmpty() && destinationFolderId != -1) {
                 presenter.upload(destinationFolderId, filename, uriString, mimetype)
                 Timber.e("Got filename = $filename and destiantionfolderID = $destinationFolderId back from upload window")
-            }
-            else
-            {
+            } else {
                 Timber.e("Invalid upload params")
             }
         }
-
     }
 
-    private fun uploadFile(data : Intent) {
-        //val uri = FilePickerUriHelper.getUri(data)
+    private fun uploadFile(data: Intent) {
+        // val uri = FilePickerUriHelper.getUri(data)
         Timber.e("About to upload file ${data.extras}")
 
         val mimetype = data.getStringExtra("mimeType")
         val i = Intent(context, FileUploadActivity::class.java)
-        i.putExtra("uriString", FilePickerUriHelper.getUriString(data) )
-        if(mimetype != null)
+        i.putExtra("uriString", FilePickerUriHelper.getUriString(data))
+        if (mimetype != null)
             i.putExtra("mimeType", mimetype)
         startActivityForResult(i, FileUploadActivity.REQUEST_ID)
     }

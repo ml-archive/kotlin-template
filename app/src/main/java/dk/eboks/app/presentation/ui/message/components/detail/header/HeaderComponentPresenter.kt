@@ -7,12 +7,12 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class HeaderComponentPresenter @Inject constructor(val appState: AppStateManager) : HeaderComponentContract.Presenter, BasePresenterImpl<HeaderComponentContract.View>() {
+class HeaderComponentPresenter @Inject constructor(val appState: AppStateManager) :
+    HeaderComponentContract.Presenter, BasePresenterImpl<HeaderComponentContract.View>() {
 
     init {
-        runAction { v->
+        runAction { v ->
             appState.state?.currentMessage?.let { v.updateView(it) }
         }
     }
-
 }

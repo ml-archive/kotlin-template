@@ -15,20 +15,21 @@ import timber.log.Timber
 /**
  * Created by bison on 01/02/18.
  */
-class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) : BaseInteractor(executor), GetMessagesInteractor {
+class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) :
+    BaseInteractor(executor), GetMessagesInteractor {
     override var output: GetMessagesInteractor.Output? = null
     override var input: GetMessagesInteractor.Input? = null
 
     override fun execute() {
         try {
-            input?.let { args->
-                args.folder?.let { folder->
-                    if(folder.id != 0)
+            input?.let { args ->
+                args.folder?.let { folder ->
+                    if (folder.id != 0)
                         getMessageFolder(folder, args.offset, args.limit)
                     else
                         getMessages(false, folder)
                 }.guard {
-                    args.sender?.let { sender->
+                    args.sender?.let { sender ->
                         getMessageSender(sender, args.offset, args.limit)
                     }.guard {
                         runOnUIThread {
@@ -45,8 +46,7 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
         }
     }
 
-    private fun getMessageFolder(folder: Folder, offset : Int = 0, limit : Int = 20)
-    {
+    private fun getMessageFolder(folder: Folder, offset: Int = 0, limit: Int = 20) {
         Timber.d("Fetching folder (${folder.id} : ${folder.name}) messages $offset $limit")
         val messages = messagesRepository.getMessagesByFolder(folder.id, offset, limit)
         runOnUIThread {
@@ -54,8 +54,7 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
         }
     }
 
-    private fun getMessageSender(sender: Sender, offset : Int = 0, limit : Int = 20)
-    {
+    private fun getMessageSender(sender: Sender, offset: Int = 0, limit: Int = 20) {
         Timber.d("Fetching sender (${sender.id} : ${sender.name}) messages $offset $limit")
         val messages = messagesRepository.getMessagesBySender(sender.id, offset, limit)
         runOnUIThread {
@@ -123,36 +122,30 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
     }
     */
 
-
-    private fun getMessages(cached : Boolean, folder: Folder)
-    {
-        var result : List<Message> = ArrayList()
+    private fun getMessages(cached: Boolean, folder: Folder) {
+        var result: List<Message> = ArrayList()
         folder.type?.let { type ->
-            when(type)
-            {
+            when (type) {
                 FolderType.HIGHLIGHTS -> {
                     try {
-                        result =  messagesRepository.getHighlights(cached)
-                    }
-                    catch (t : Throwable)
-                    {
+                        result = messagesRepository.getHighlights(cached)
+                    } catch (t: Throwable) {
                         t.printStackTrace()
                     }
                 }
                 FolderType.LATEST -> {
-                    result =  messagesRepository.getLatest(cached)
+                    result = messagesRepository.getLatest(cached)
                 }
                 FolderType.UNREAD -> {
-                    result =  messagesRepository.getUnread(cached)
+                    result = messagesRepository.getUnread(cached)
                 }
                 FolderType.UPLOADS -> {
-                    result =  messagesRepository.getUploads(cached)
+                    result = messagesRepository.getUploads(cached)
                 }
                 else -> {
                     Timber.e("No API call exists to fetch messages of type $type")
                 }
             }
-
         }
 
         runOnUIThread {

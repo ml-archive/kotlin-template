@@ -38,9 +38,7 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_sender_carousel_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_sender_carousel_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -113,8 +111,7 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         ): CircularSenderViewHolder {
             val v = LayoutInflater.from(context)
                 .inflate(R.layout.viewholder_circular_sender, parent, false)
-            val vh = CircularSenderViewHolder(v)
-            return vh
+            return CircularSenderViewHolder(v)
         }
 
         override fun getItemCount(): Int {
@@ -135,7 +132,7 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
             }
             holder.senderNameTv?.text = senders[position].name
             holder.root.let {
-                //it.isSelected = senders[position].messages?.metadata?.unreadCount ?: 0 > 0
+                // it.isSelected = senders[position].messages?.metadata?.unreadCount ?: 0 > 0
                 it.isSelected = senders[position].unreadMessageCount > 0
                 it.setOnClickListener {
 

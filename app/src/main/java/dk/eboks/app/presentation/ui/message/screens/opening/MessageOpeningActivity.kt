@@ -20,26 +20,29 @@ class MessageOpeningActivity : BaseActivity(), MessageOpeningContract.View {
         setContentView(dk.eboks.app.R.layout.activity_message_opening)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        intent?.extras?.getParcelable<Message>(Message::class.java.simpleName)?.let(presenter::setup)
+        intent?.extras?.getParcelable<Message>(Message::class.java.simpleName)
+            ?.let(presenter::setup)
             .guard { finish() }
     }
 
-    override fun setOpeningFragment(cls: Class<out BaseFragment>, voluntaryReceipt : Boolean) {
+    override fun setOpeningFragment(cls: Class<out BaseFragment>, voluntaryReceipt: Boolean) {
         val fragment = cls.newInstance()
         progressPb.visibility = View.GONE
         fragment.putArg("voluntaryReceipt", voluntaryReceipt)
-        fragment.let{
-            supportFragmentManager.beginTransaction().add(R.id.contentFl, it, it::class.java.simpleName).commit()
+        fragment.let {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.contentFl, it, it::class.java.simpleName).commit()
         }
     }
 
-    override fun showMessageLocked(loginProviderId: String, msg : Message) {
+    override fun showMessageLocked(loginProviderId: String, msg: Message) {
         val fragment = ProtectedMessageComponentFragment()
         progressPb.visibility = View.GONE
         fragment.putArg("loginProviderId", loginProviderId)
         fragment.putArg(Message::class.java.simpleName, msg)
-        fragment.let{
-            supportFragmentManager.beginTransaction().add(R.id.contentFl, it, it::class.java.simpleName).commit()
+        fragment.let {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.contentFl, it, it::class.java.simpleName).commit()
         }
     }
 
@@ -52,5 +55,7 @@ class MessageOpeningActivity : BaseActivity(), MessageOpeningContract.View {
         presenter.setup(msg)
     }
 
-    override fun getNavigationMenuAction(): Int { return R.id.actionMail }
+    override fun getNavigationMenuAction(): Int {
+        return R.id.actionMail
+    }
 }

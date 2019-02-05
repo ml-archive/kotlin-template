@@ -20,17 +20,19 @@ import javax.inject.Inject
 class RecalledComponentFragment : BaseFragment(), RecalledComponentContract.View {
 
     @Inject
-    lateinit var presenter : RecalledComponentContract.Presenter
+    lateinit var presenter: RecalledComponentContract.Presenter
 
-    val onLanguageChange : (Locale)->Unit = { locale ->
+    val onLanguageChange: (Locale) -> Unit = { locale ->
         Timber.e("Locale changed to locale")
         updateTranslation()
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_mail_opening_error_component, container, false)
-        return rootView
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_mail_opening_error_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,8 +54,7 @@ class RecalledComponentFragment : BaseFragment(), RecalledComponentContract.View
         super.onPause()
     }
 
-    private fun updateTranslation()
-    {
+    private fun updateTranslation() {
         mainTb.title = Translation.message.recalledTitle
         headerTv.text = Translation.message.recalledTitle
         mainTv.text = Translation.message.recalledMessage

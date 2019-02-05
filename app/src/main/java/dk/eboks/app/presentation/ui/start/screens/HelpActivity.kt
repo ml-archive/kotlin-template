@@ -8,8 +8,8 @@ import kotlinx.android.synthetic.main.include_toolbar.*
 
 /**
  * Created by Christian on 5/30/2018.
- * @author   Christian
- * @since    5/30/2018.
+ * @author Christian
+ * @since 5/30/2018.
  */
 class HelpActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

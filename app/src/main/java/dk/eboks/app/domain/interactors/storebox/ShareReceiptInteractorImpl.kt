@@ -8,13 +8,14 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 
-class ShareReceiptInteractorImpl(executor: Executor, private val downloadManager: DownloadManager) : BaseInteractor(executor), ShareReceiptInteractor {
+class ShareReceiptInteractorImpl(executor: Executor, private val downloadManager: DownloadManager) :
+    BaseInteractor(executor), ShareReceiptInteractor {
     override var output: ShareReceiptInteractor.Output? = null
     override var input: ShareReceiptInteractor.Input? = null
 
     override fun execute() {
         try {
-            input?.let { args->
+            input?.let { args ->
                 val result = downloadManager.downloadReceiptContent(args.receiptId)
                 result?.let {
                     runOnUIThread {
@@ -33,5 +34,4 @@ class ShareReceiptInteractorImpl(executor: Executor, private val downloadManager
             }
         }
     }
-
 }

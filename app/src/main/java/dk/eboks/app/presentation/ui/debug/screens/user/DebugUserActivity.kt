@@ -65,7 +65,14 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
     }
 
     private fun createDefaultUser() {
-        presenter.createUser(Config.getLoginProvider("cpr")!!, "Stefan Storebox", "", "3110276111", verified = true, fingerprint = false)
+        presenter.createUser(
+            Config.getLoginProvider("cpr")!!,
+            "Stefan Storebox",
+            "",
+            "3110276111",
+            verified = true,
+            fingerprint = false
+        )
     }
 
     private fun saveUser(user: User) {
@@ -83,7 +90,7 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
 
         val lastLoginProviderId = (loginProviderSpr.selectedItem as LoginProvider).id
         val hasFingerprint = fingerPrintSw.isChecked
-        presenter.saveUser(user, lastLoginProviderId, hasFingerprint )
+        presenter.saveUser(user, lastLoginProviderId, hasFingerprint)
     }
 
     override fun showUser(user: User, userSettings: UserSettings) {
@@ -114,9 +121,9 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
     override fun showLoginProviderSpinner(providers: List<LoginProvider>) {
         // Create an ArrayAdapter using the string array and a default spinner layout
         val adapter: ArrayAdapter<LoginProvider> = ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item,
-                providers
+            this,
+            android.R.layout.simple_spinner_item,
+            providers
         )
 
         // Specify the layout to use when the list of choices appears

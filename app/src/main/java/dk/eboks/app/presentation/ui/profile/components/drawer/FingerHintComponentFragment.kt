@@ -22,9 +22,9 @@ class FingerHintComponentFragment : BaseFragment(), FingerHintComponentContract.
     lateinit var presenter: FingerHintComponentContract.Presenter
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(
             R.layout.fragment_profile_enable_fingerprint_mobile_component,
@@ -66,7 +66,7 @@ class FingerHintComponentFragment : BaseFragment(), FingerHintComponentContract.
             customFingerprintDialog.dismiss()
 
             when (it) {
-                FingerprintDialogEvent.CANCEL  -> {
+                FingerprintDialogEvent.CANCEL -> {
                     // Do nothing?
                 }
                 FingerprintDialogEvent.SUCCESS -> {
@@ -76,14 +76,14 @@ class FingerHintComponentFragment : BaseFragment(), FingerHintComponentContract.
                 FingerprintDialogEvent.ERROR_ENROLLMENT,
                 FingerprintDialogEvent.ERROR_HARDWARE,
                 FingerprintDialogEvent.ERROR_SECURE,
-                FingerprintDialogEvent.ERROR   -> {
+                FingerprintDialogEvent.ERROR -> {
                     showErrorDialog(
-                            ViewError(
-                                    Translation.error.genericTitle,
-                                    Translation.androidfingerprint.errorGeneric,
-                                    true,
-                                    false
-                            )
+                        ViewError(
+                            Translation.error.genericTitle,
+                            Translation.androidfingerprint.errorGeneric,
+                            true,
+                            false
+                        )
                     )
                 }
             }

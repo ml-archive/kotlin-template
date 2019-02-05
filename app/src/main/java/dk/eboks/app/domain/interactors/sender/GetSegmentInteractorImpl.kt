@@ -7,10 +7,11 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 
 /**
  * Created by bison on 01/02/18.
- * @author   bison
- * @since    01/02/18.
+ * @author bison
+ * @since 01/02/18.
  */
-class GetSegmentInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(executor), GetSegmentInteractor {
+class GetSegmentInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(executor),
+    GetSegmentInteractor {
 
     override var output: GetSegmentInteractor.Output? = null
     override var input: GetSegmentInteractor.Input? = null

@@ -15,16 +15,22 @@ import timber.log.Timber
 /**
  * Created by bison on 24-06-2017.
  */
-class DeleteUserInteractorImpl(executor: Executor, val userManager: UserManager, val userSettingsManager: UserSettingsManager, val deleteRSAKeyForUserInteractor: DeleteRSAKeyForUserInteractor) : BaseInteractor(executor), DeleteUserInteractor {
-    override var output : DeleteUserInteractor.Output? = null
-    override var input : DeleteUserInteractor.Input? = null
+class DeleteUserInteractorImpl(
+    executor: Executor,
+    val userManager: UserManager,
+    val userSettingsManager: UserSettingsManager,
+    val deleteRSAKeyForUserInteractor: DeleteRSAKeyForUserInteractor
+) : BaseInteractor(executor), DeleteUserInteractor {
+    override var output: DeleteUserInteractor.Output? = null
+    override var input: DeleteUserInteractor.Input? = null
 
     override fun execute() {
         // we don't use input in this example (chnt: Yes we do!):
         try {
-            input?.user?.let { user->
+            input?.user?.let { user ->
                 userManager.remove(user)
-                deleteRSAKeyForUserInteractor.input = DeleteRSAKeyForUserInteractor.Input(user.id.toString())
+                deleteRSAKeyForUserInteractor.input =
+                    DeleteRSAKeyForUserInteractor.Input(user.id.toString())
                 deleteRSAKeyForUserInteractor.run()
                 userSettingsManager.remove(UserSettings(user.id)) // also remove the settings for that userId
                 runOnUIThread {
@@ -32,10 +38,14 @@ class DeleteUserInteractorImpl(executor: Executor, val userManager: UserManager,
                 }
             }.guard {
                 runOnUIThread {
-                    output?.onDeleteUserError(ViewError(Translation.error.genericStorageTitle, Translation.error.genericStorageMessage))
+                    output?.onDeleteUserError(
+                        ViewError(
+                            Translation.error.genericStorageTitle,
+                            Translation.error.genericStorageMessage
+                        )
+                    )
                 }
             }
-
         } catch (t: Throwable) {
             Timber.e(t)
             runOnUIThread {

@@ -18,21 +18,21 @@ interface ChannelSettingsComponentContract {
         fun showProgress(boolean: Boolean)
         fun showEmptyView(boolean: Boolean)
         fun setOnlyDigitalReceipts(onlyDigital: Boolean)
-        fun showAddCardView(link : Link)
+        fun showAddCardView(link: Link)
         fun broadcastCloseChannel()
         fun closeView()
     }
 
     interface Presenter : BasePresenter<View> {
         var currentChannel: Channel?
-        fun setup(channelId : Int)
+        fun setup(channelId: Int)
         fun getCreditCards()
         fun deleteCreditCard(id: String)
         fun getStoreboxProfile()
-        fun saveStoreboxProfile(profile : StoreboxProfile)
+        fun saveStoreboxProfile(profile: StoreboxProfile)
         fun getStoreboxCardLink()
         fun deleteStoreboxAccountLink()
-        fun updateChannelFlags(channel : Channel, flags : ChannelFlags)
+        fun updateChannelFlags(channel: Channel, flags: ChannelFlags)
         fun removeChannel()
     }
 }

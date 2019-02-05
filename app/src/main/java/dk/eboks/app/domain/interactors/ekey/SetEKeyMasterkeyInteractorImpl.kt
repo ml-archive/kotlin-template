@@ -9,8 +9,8 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 class SetEKeyMasterkeyInteractorImpl(executor: Executor, private val api: Api) :
-        BaseInteractor(executor),
-        SetEKeyMasterkeyInteractor {
+    BaseInteractor(executor),
+    SetEKeyMasterkeyInteractor {
 
     override var input: SetEKeyMasterkeyInteractor.Input? = null
     override var output: SetEKeyMasterkeyInteractor.Output? = null

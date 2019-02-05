@@ -6,7 +6,8 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 
-class GetStorageInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) : BaseInteractor(executor), GetStorageInteractor {
+class GetStorageInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) :
+    BaseInteractor(executor), GetStorageInteractor {
     override var output: GetStorageInteractor.Output? = null
 
     override fun execute() {
@@ -15,14 +16,11 @@ class GetStorageInteractorImpl(executor: Executor, val messagesRepository: Messa
             runOnUIThread {
                 output?.onGetStorage(result)
             }
-        }
-        catch (t : Throwable)
-        {
+        } catch (t: Throwable) {
             Timber.e(t)
             runOnUIThread {
                 output?.onGetStorageError(exceptionToViewError(t, shouldClose = true))
             }
         }
     }
-
 }

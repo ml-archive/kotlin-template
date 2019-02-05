@@ -8,12 +8,13 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class SignButtonComponentPresenter @Inject constructor(val appState: AppStateManager) : SignButtonComponentContract.Presenter, BasePresenterImpl<SignButtonComponentContract.View>() {
+class SignButtonComponentPresenter @Inject constructor(val appState: AppStateManager) :
+    SignButtonComponentContract.Presenter, BasePresenterImpl<SignButtonComponentContract.View>() {
 
     init {
     }
 
     override fun sign(msg: Message) {
-        runAction { v->v.startSigning(msg) }
+        runAction { v -> v.startSigning(msg) }
     }
 }

@@ -7,15 +7,19 @@ import dk.nodes.arch.domain.interactor.Interactor
  * Created by bison on 01/02/18.
  */
 interface UploadFileInteractor : Interactor {
-    var output : Output?
-    var input : Input?
+    var output: Output?
+    var input: Input?
 
-
-    data class Input(var folderId : Int, var filename : String, var uriString : String, var mimetype : String)
+    data class Input(
+        var folderId: Int,
+        var filename: String,
+        var uriString: String,
+        var mimetype: String
+    )
 
     interface Output {
         fun onUploadFileComplete()
-        fun onUploadFileProgress(pct : Double)
-        fun onUploadFileError(error : ViewError)
+        fun onUploadFileProgress(pct: Double)
+        fun onUploadFileError(error: ViewError)
     }
 }

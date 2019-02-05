@@ -15,15 +15,15 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
  * Created by bison on 20-05-2017.
  */
 class DebugUserPresenter(
-        val appStateManager: AppStateManager,
-        val userSettingsManager: UserSettingsManager,
-        val createUserInteractor: CreateDebugUserInteractorImpl,
-        val saveUserInteractor: SaveUserInteractor
+    val appStateManager: AppStateManager,
+    val userSettingsManager: UserSettingsManager,
+    val createUserInteractor: CreateDebugUserInteractorImpl,
+    val saveUserInteractor: SaveUserInteractor
 ) :
-        DebugUserContract.Presenter,
-        BasePresenterImpl<DebugUserContract.View>(),
-        CreateUserInteractor.Output,
-        SaveUserInteractor.Output {
+    DebugUserContract.Presenter,
+    BasePresenterImpl<DebugUserContract.View>(),
+    CreateUserInteractor.Output,
+    SaveUserInteractor.Output {
     init {
         createUserInteractor.output = this
         saveUserInteractor.output = this
@@ -40,19 +40,19 @@ class DebugUserPresenter(
     }
 
     override fun createUser(
-            provider: LoginProvider,
-            name: String,
-            email: String?,
-            cpr: String?,
-            verified: Boolean,
-            fingerprint: Boolean
+        provider: LoginProvider,
+        name: String,
+        email: String?,
+        cpr: String?,
+        verified: Boolean,
+        fingerprint: Boolean
     ) {
-        val user: User = User(
-                id = -1,
-                name = name,
-                identity = cpr,
-                avatarUri = null,
-                verified = verified
+        val user = User(
+            id = -1,
+            name = name,
+            identity = cpr,
+            avatarUri = null,
+            verified = verified
         )
 
         user.setPrimaryEmail(email)
@@ -61,13 +61,12 @@ class DebugUserPresenter(
         settings.hasFingerprint = fingerprint
         userSettingsManager.put(settings)
 
-
-        createUserInteractor.input = CreateUserInteractor.Input(user,"temp")
+        createUserInteractor.input = CreateUserInteractor.Input(user, "temp")
         createUserInteractor.run()
     }
 
     override fun saveUser(user: User, loginProviderId: String, hasFingerprint: Boolean) {
-        val settings = userSettingsManager.get(user.id)
+        val settings = userSettingsManager[user.id]
         settings.lastLoginProviderId = loginProviderId
         settings.hasFingerprint = hasFingerprint
         userSettingsManager.put(settings)
@@ -95,5 +94,4 @@ class DebugUserPresenter(
     companion object {
         var editUser: User? = null
     }
-
 }

@@ -58,7 +58,7 @@ interface Api {
     @GET("resources/links")
     fun getResourceLinks(): Call<List<ResourceLink>>
 
-    //folders
+    // folders
     @POST("mail/folders")
     fun createFolder(@Body folderRequest: FolderRequest): Call<Void>
 
@@ -107,22 +107,45 @@ interface Api {
     fun getFolders(@Query("userId") userId: Int?): Call<List<Folder>>
 
     @GET("mail/folders/{id}/messages")
-    fun getMessages(@Path("id") id: Int, @Query("userId") userId: Int?, @Query("offset") offset: Int? = null, @Query("limit") limit: Int? = null, @Query("acceptprivateterms") terms: Boolean? = null): Call<List<Message>>
+    fun getMessages(
+        @Path("id") id: Int,
+        @Query("userId") userId: Int?,
+        @Query("offset") offset: Int? = null,
+        @Query("limit") limit: Int? = null,
+        @Query("acceptprivateterms") terms: Boolean? = null
+    ): Call<List<Message>>
 
     @GET("mail/messages/senders/{id}")
-    fun getMessagesBySender(@Path("id") id: Long, @Query("userId") userId: Int?, @Query("offset") offset: Int? = null, @Query("limit") limit: Int? = null, @Query("acceptprivateterms") terms: Boolean? = null): Call<List<Message>>
+    fun getMessagesBySender(
+        @Path("id") id: Long,
+        @Query("userId") userId: Int?,
+        @Query("offset") offset: Int? = null,
+        @Query("limit") limit: Int? = null,
+        @Query("acceptprivateterms") terms: Boolean? = null
+    ): Call<List<Message>>
 
     @GET("mail/folders/{folderId}/messages/{id}")
-    fun getMessage(@Path("id") id: String, @Path("folderId") folderId: Int, @Query("userId") userId: Int?, @Query("receipt") receipt: Boolean? = null, @Query("acceptprivateterms") terms: Boolean? = null): Call<Message>
+    fun getMessage(
+        @Path("id") id: String,
+        @Path("folderId") folderId: Int,
+        @Query("userId") userId: Int?,
+        @Query("receipt") receipt: Boolean? = null,
+        @Query("acceptprivateterms") terms: Boolean? = null
+    ): Call<Message>
 
     @GET("mail/senders")
     fun getSenders(@Query("userId") userId: Int?): Call<List<Sender>>
 
     // edit message / document/message operations
     @POST("mail/folders/{folderId}/messages/{messageId}")
-    fun updateMessage(@Path("folderId") folderId: Int, @Path("messageId") messageId: String, @Body body: MessagePatch, @Query("userId") userId: Int?): Call<Void>
+    fun updateMessage(
+        @Path("folderId") folderId: Int,
+        @Path("messageId") messageId: String,
+        @Body body: MessagePatch,
+        @Query("userId") userId: Int?
+    ): Call<Void>
 
-    //edit folder
+    // edit folder
     @PATCH("mail/folders/{folderId}")
     fun updateFolder(@Path("folderId") folderId: Int, @Body body: FolderPatch): Call<Void>
 
@@ -149,11 +172,11 @@ interface Api {
     // sign
     @GET("mail/folders/{folderId}/messages/{id}/sign/link")
     fun getSignLink(
-            @Path("id") id: String,
-            @Path("folderId") folderId: Int,
-            @Query("callback_cancel") callbackCancel: String,
-            @Query("callback_success") callbackSuccess: String,
-            @Query("callback_error") callbackError: String
+        @Path("id") id: String,
+        @Path("folderId") folderId: Int,
+        @Query("callback_cancel") callbackCancel: String,
+        @Query("callback_success") callbackSuccess: String,
+        @Query("callback_error") callbackError: String
     ): Call<Link>
 
     // reply forms
@@ -245,13 +268,13 @@ interface Api {
     fun getSenderCategories(@Path("segment") segment: String): Call<List<SenderCategory>> // private or public
 
     @GET("groups/categories/{id}/senders")
-    fun getSenders(@Path("id") categoryId: Long): Call<SenderCategory>   // TODO: shouldn't this be called "/api/groups/private/categories/{id}" ??
+    fun getSenders(@Path("id") categoryId: Long): Call<SenderCategory> // TODO: shouldn't this be called "/api/groups/private/categories/{id}" ??
 
     @GET("groups/senders")
     fun searchSenders(@Query("searchText") searchText: String): Call<List<Sender>>
 
     @GET("groups/segments/{id}")
-    fun getSegmentDetail(@Path("id") segmentId: Long): Call<Segment>               // segment detail
+    fun getSegmentDetail(@Path("id") segmentId: Long): Call<Segment> // segment detail
 
     @GET("groups/senders/{id}")
     fun getSenderDetail(@Path("id") senderId: Long): Call<Sender>
@@ -261,10 +284,10 @@ interface Api {
 
     // register senders
     @PUT("groups/segments/{segId}")
-    fun registerSegment(@Path("segId") segmentId: Long): Call<Any>              // TODO should we have SegmentID or SegmentType?
+    fun registerSegment(@Path("segId") segmentId: Long): Call<Any> // TODO should we have SegmentID or SegmentType?
 
     @PUT("groups/segments/{segType}")
-    fun registerSegment(@Path("segType") segmentType: String): Call<Any>      // TODO should we have SegmentType or SegmentID?
+    fun registerSegment(@Path("segType") segmentType: String): Call<Any> // TODO should we have SegmentType or SegmentID?
 
     @PUT("groups/senders/{id}")
     fun registerSender(@Path("id") senderId: Long): Call<Any>
@@ -274,7 +297,7 @@ interface Api {
 
     // un-register senders
     @DELETE("groups/segments/{segId}")
-    fun unregisterSegment(@Path("segId") segmentId: Long): Call<Any>         // TODO should we have SegmentID or SegmentType?
+    fun unregisterSegment(@Path("segId") segmentId: Long): Call<Any> // TODO should we have SegmentID or SegmentType?
 
     @DELETE("groups/segments/{segType}")
     fun unregisterSegment(@Path("segType") segmentType: String): Call<Any> // TODO should we have SegmentType or SegmentID?
@@ -309,5 +332,4 @@ interface Api {
     // shares
     @GET("mail/shares/all")
     fun getAllShares(): Call<List<SharedUser>>
-
 }

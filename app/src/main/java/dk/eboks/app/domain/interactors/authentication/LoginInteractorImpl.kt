@@ -21,13 +21,15 @@ import timber.log.Timber
  * Created by bison on 24-06-2017.
  */
 class LoginInteractorImpl(
-        executor: Executor, val api: Api,
-        val appStateManager: AppStateManager,
-        val userManager: UserManager,
-        val userSettingsManager: UserSettingsManager,
-        val authClient: AuthClient,
-        val cacheManager: CacheManager,
-        val foldersRepositoryMail: MailCategoriesRepository) : BaseInteractor(executor), LoginInteractor {
+    executor: Executor,
+    val api: Api,
+    val appStateManager: AppStateManager,
+    val userManager: UserManager,
+    val userSettingsManager: UserSettingsManager,
+    val authClient: AuthClient,
+    val cacheManager: CacheManager,
+    val foldersRepositoryMail: MailCategoriesRepository
+) : BaseInteractor(executor), LoginInteractor {
     override var output: LoginInteractor.Output? = null
     override var input: LoginInteractor.Input? = null
 
@@ -35,22 +37,23 @@ class LoginInteractorImpl(
         try {
             input?.let { args ->
                 try {
-                    val useLongToken = userSettingsManager.get(args.loginState.selectedUser?.id ?: -1).stayLoggedIn
+                    val useLongToken =
+                        userSettingsManager.get(args.loginState.selectedUser?.id ?: -1).stayLoggedIn
 
                     var userid = "no id"
                     args.loginState.lastUser?.id?.let {
-                            userid = it.toString()
+                        userid = it.toString()
                     }
                     args.loginState.selectedUser?.id?.let {
-                            userid = it.toString()
+                        userid = it.toString()
                     }
 
                     val token = authClient.login(
-                            username = args.loginState.userName ?: "",
-                            password = args.loginState.userPassWord ?: "",
-                            longClient = useLongToken,
-                            bearerToken = args.bearerToken,
-                            userid = userid
+                        username = args.loginState.userName ?: "",
+                        password = args.loginState.userPassWord ?: "",
+                        longClient = useLongToken,
+                        bearerToken = args.bearerToken,
+                        userid = userid
 
                     )
 
@@ -82,7 +85,7 @@ class LoginInteractorImpl(
                             cacheManager.clearStores()
 
                             userSettingsManager.put(newSettings)
-                            appStateManager.state?.openingState?.acceptPrivateTerms =  false
+                            appStateManager.state?.openingState?.acceptPrivateTerms = false
                             appStateManager.state?.loginState?.lastUser = newUser
                             appStateManager.state?.currentUser = newUser
                             appStateManager.state?.currentSettings = newSettings
@@ -104,38 +107,56 @@ class LoginInteractorImpl(
                             output?.onLoginSuccess(t)
                         }
 
-                        appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(false, appStateManager.state?.impersoniateUser?.userId)
-
+                        appStateManager.state?.selectedFolders =
+                            foldersRepositoryMail.getMailCategories(
+                                false,
+                                appStateManager.state?.impersoniateUser?.userId
+                            )
                     }.guard {
                         runOnUIThread {
-                            output?.onLoginError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
+                            output?.onLoginError(
+                                ViewError(
+                                    title = Translation.error.genericTitle,
+                                    message = Translation.error.genericMessage,
+                                    shouldCloseView = true
+                                )
+                            ) // TODO better error
                         }
                     }
-                }
-                catch (e : AuthException)
-                {
+                } catch (e: AuthException) {
                     Timber.e("AuthException = ${e.httpCode} ${e.errorDescription}")
-                    if(e.httpCode == 400)
-                    {
+                    if (e.httpCode == 400) {
                         runOnUIThread {
                             when {
-                                e.errorDescription.contentEquals("User verification error") -> output?.onLoginDenied(ViewError(
+                                e.errorDescription.contentEquals("User verification error") -> output?.onLoginDenied(
+                                    ViewError(
                                         title = Translation.logoncredentials.invalidCredentialsTitle,
                                         message = Translation.logoncredentials.invalidCredentialsMessage,
-                                        shouldCloseView = false))
+                                        shouldCloseView = false
+                                    )
+                                )
                                 e.errorDescription.contentEquals("Activation code is required") -> output?.onLoginActivationCodeRequired()
-                                else -> output?.onLoginDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = false))
+                                else -> output?.onLoginDenied(
+                                    ViewError(
+                                        title = Translation.error.genericTitle,
+                                        message = Translation.error.genericMessage,
+                                        shouldCloseView = false
+                                    )
+                                )
                             }
                         }
-                    }
-                    else
-                    {
+                    } else {
                         runOnUIThread {
-                            output?.onLoginDenied(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true))
+                            output?.onLoginDenied(
+                                ViewError(
+                                    title = Translation.error.genericTitle,
+                                    message = Translation.error.genericMessage,
+                                    shouldCloseView = true
+                                )
+                            )
                         }
                     }
                 }
-
             }
         } catch (t: Throwable) {
             runOnUIThread {

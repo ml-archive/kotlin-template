@@ -8,5 +8,5 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class ChannelState(
-        var selectedChannel: Channel? = null
+    var selectedChannel: Channel? = null
 ) : Parcelable

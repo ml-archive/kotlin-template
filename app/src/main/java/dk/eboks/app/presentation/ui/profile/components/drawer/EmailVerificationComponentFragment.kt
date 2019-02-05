@@ -21,10 +21,12 @@ class EmailVerificationComponentFragment : BaseFragment(), EmailVerificationComp
 
     var mail: String? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_profile_verify_email_component, container, false)
-        return rootView
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_profile_verify_email_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,11 +34,10 @@ class EmailVerificationComponentFragment : BaseFragment(), EmailVerificationComp
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-
         mail = arguments?.getString("mail")
 
         mail?.let {
-            bodyTv.text = Translation.profile.verifyEmailText.replace("[email]", it,false)
+            bodyTv.text = Translation.profile.verifyEmailText.replace("[email]", it, false)
         }
 
         verifyBtn.setOnClickListener {
@@ -59,5 +60,4 @@ class EmailVerificationComponentFragment : BaseFragment(), EmailVerificationComp
     override fun setVerifyBtnEnabled(enabled: Boolean) {
         verifyBtn.isEnabled = enabled
     }
-
 }

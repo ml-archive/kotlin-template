@@ -5,13 +5,11 @@ import android.os.Bundle
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.content.storebox.content.ChannelContentStoreboxComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.web.ChannelContentComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.opening.ChannelOpeningComponentFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.util.putArg
-import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 class ChannelContentActivity : BaseActivity(), ChannelContentContract.View {

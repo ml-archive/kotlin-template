@@ -39,7 +39,6 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.interactor.BaseInteractor
-import org.w3c.dom.Text
 import retrofit2.Response
 import timber.log.Timber
 import java.io.IOException
@@ -159,12 +158,12 @@ fun EditText.addAfterTextChangeListener(listener: ((Editable?) -> Unit)) {
     })
 }
 
-//fun Channel.isStorebox(): Boolean {
+// fun Channel.isStorebox(): Boolean {
 //    if (this.id > 0 && this.id < 4) {
 //        return true
 //    }
 //    return false
-//}
+// }
 
 fun Channel.getType(): String {
     if (this.id > 0 && this.id < 4) {
@@ -209,7 +208,7 @@ fun BaseInteractor.errorBodyToViewError(
 ): ViewError {
     val responseString = response.errorBody()?.string()
 
-    //Todo add more cases like 401,402, ect ect
+    // Todo add more cases like 401,402, ect ect
 
     return when (response.code()) {
         else -> {
@@ -414,7 +413,6 @@ var View.visible: Boolean
 fun TextInputEditText.onTextChanged(block: (String) -> Unit) {
     addTextChangedListener(object : TextWatcher {
         override fun afterTextChanged(p0: Editable?) {
-
         }
 
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -434,4 +432,3 @@ fun TextInputEditText.onImeActionDone(block: () -> Unit) {
         true
     }
 }
-

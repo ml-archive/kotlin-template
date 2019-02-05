@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.message.components.viewers.html
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,17 +15,20 @@ import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
-
-
 /**
  * Created by bison on 09-02-2018.
  */
-class HtmlViewComponentFragment : BaseFragment(), HtmlViewComponentContract.View, EmbeddedViewer, ViewerFragment {
+class HtmlViewComponentFragment : BaseFragment(), HtmlViewComponentContract.View, EmbeddedViewer,
+    ViewerFragment {
 
     @Inject
-    lateinit var presenter : HtmlViewComponentContract.Presenter
+    lateinit var presenter: HtmlViewComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_htmlview_component, container, false)
         Timber.e("onCreateView HTMLVIEWER")
         return rootView
@@ -41,7 +43,6 @@ class HtmlViewComponentFragment : BaseFragment(), HtmlViewComponentContract.View
         settings.builtInZoomControls = true
         settings.displayZoomControls = false
         presenter.setup(arguments?.getString("URI"))
-
     }
 
     override fun showHtml(filename: String) {
@@ -57,6 +58,6 @@ class HtmlViewComponentFragment : BaseFragment(), HtmlViewComponentContract.View
 
     override fun print() {
         Timber.e("Print called")
-        webView.printAndForget(context?: return)
+        webView.printAndForget(context ?: return)
     }
 }

@@ -648,8 +648,8 @@ public class Translation {
 		public static String editNote = "Rediger note";
 		public static String typeHere = "Skriv her";
 		public static String unlockEkey = "L\u00E5s op";
-		public static String insertPinCode = "Indtast din 4-cifrede kode";
-		public static String insertNewPinCode = "Indtast en 4-cifret kode";
+		public static String insertPinCode = "Indtast din kode";
+		public static String insertNewPinCode = "Indtast en 6-cifret kode";
 		public static String createEKey = "Opret pinkode";
 		public static String ekeySecureKeyDescription = "Dette er din pinkode til denne service, s\u00E5 du kan logge ind p\u00E5 andre enheder. Det er dog en god id\u00E9, at kunne huske denne kode, hvis du mister denne enhed.";
 		public static String deleteSwipeBtn = "Slet";

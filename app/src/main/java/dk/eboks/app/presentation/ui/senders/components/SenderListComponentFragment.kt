@@ -24,19 +24,24 @@ import javax.inject.Inject
 
 /**
  * Created by Christian on 3/20/2018.
- * @author   Christian
- * @since    3/20/2018.
+ * @author Christian
+ * @since 3/20/2018.
  */
 class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
 
     // the sound of silence!
     override fun showSuccess() {}
+
     override fun showError(message: String) {}
 
     @Inject
     lateinit var presenter: RegistrationContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_senders_component, container, false)
     }
 
@@ -51,7 +56,7 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
         arguments?.getParcelable<CollectionContainer>(CollectionContainer::class.simpleName)?.let {
             sendersTitleTv.text = it.description
 
-            it.senders?.forEach {sender ->
+            it.senders?.forEach { sender ->
                 val v = inflator.inflate(R.layout.viewholder_sender, sendersListLl, false)
                 Timber.v("inflate sender: ${sender.name}, ${sender.logo?.url}")
                 val senderNameTv = v.findViewById<TextView>(R.id.senderNameTv)
@@ -59,12 +64,13 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
                 val senderLogoIv = v.findViewById<ImageView>(R.id.senderLogoIv)
 
                 Glide.with(context ?: return)
-                        .load(sender.logo?.url)
-                        .apply(RequestOptions()
-                                .fallback(R.drawable.icon_64_senders_private)
-                                .placeholder(R.drawable.icon_64_senders_private)
-                        )
-                        .into(senderLogoIv)
+                    .load(sender.logo?.url)
+                    .apply(
+                        RequestOptions()
+                            .fallback(R.drawable.icon_64_senders_private)
+                            .placeholder(R.drawable.icon_64_senders_private)
+                    )
+                    .into(senderLogoIv)
                 senderNameTv.text = sender.name
                 senderRegisterBtn.visibility = View.VISIBLE
                 setButtonText(senderRegisterBtn, sender)
@@ -72,32 +78,32 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
                 senderRegisterBtn.setOnClickListener { v ->
                     if (sender.registered != 0) {
                         AlertDialog.Builder(v.context)
-                                .setTitle(Translation.senders.unregisterAlertTitle)
-                                .setMessage(Translation.senders.unregisterAlertDescription)
-                                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                    dialog.cancel()
-                                }
-                                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                    presenter.unregisterSender(sender)
-                                    sender.registered = 0
-                                    setButtonText(senderRegisterBtn, sender)
-                                    dialog.dismiss()
-                                }
-                                .show()
+                            .setTitle(Translation.senders.unregisterAlertTitle)
+                            .setMessage(Translation.senders.unregisterAlertDescription)
+                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                                dialog.cancel()
+                            }
+                            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                                presenter.unregisterSender(sender)
+                                sender.registered = 0
+                                setButtonText(senderRegisterBtn, sender)
+                                dialog.dismiss()
+                            }
+                            .show()
                     } else {
                         AlertDialog.Builder(v.context)
-                                .setTitle(Translation.senders.registerAlertTitle)
-                                .setMessage(Translation.senders.registerAlertDescription)
-                                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                    dialog.cancel()
-                                }
-                                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                    presenter.registerSender(sender)
-                                    sender.registered = 1
-                                    setButtonText(senderRegisterBtn, sender)
-                                    dialog.dismiss()
-                                }
-                                .show()
+                            .setTitle(Translation.senders.registerAlertTitle)
+                            .setMessage(Translation.senders.registerAlertDescription)
+                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                                dialog.cancel()
+                            }
+                            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                                presenter.registerSender(sender)
+                                sender.registered = 1
+                                setButtonText(senderRegisterBtn, sender)
+                                dialog.dismiss()
+                            }
+                            .show()
                     }
                 }
                 v.setOnClickListener { _ ->
@@ -117,5 +123,4 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
             else -> Translation.senders.registered
         }
     }
-
 }

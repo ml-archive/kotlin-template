@@ -5,8 +5,8 @@ import dk.nodes.arch.presentation.base.BasePresenter
 
 /**
  * Created by Christian on 5/14/2018.
- * @author   Christian
- * @since    5/14/2018.
+ * @author Christian
+ * @since 5/14/2018.
  */
 interface ConnectStoreboxContract {
     interface View : BaseView {
@@ -14,7 +14,7 @@ interface ConnectStoreboxContract {
         fun showNotFound()
         fun showWrongCode()
         fun showSuccess()
-        fun showProgress(show : Boolean)
+        fun showProgress(show: Boolean)
         fun finish()
     }
 

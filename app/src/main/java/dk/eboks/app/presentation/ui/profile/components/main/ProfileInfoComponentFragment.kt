@@ -43,7 +43,7 @@ import java.io.File
 import javax.inject.Inject
 
 class ProfileInfoComponentFragment : BaseFragment(),
-        ProfileInfoComponentContract.View {
+    ProfileInfoComponentContract.View {
     @Inject
     lateinit var presenter: ProfileInfoComponentContract.Presenter
 
@@ -54,9 +54,9 @@ class ProfileInfoComponentFragment : BaseFragment(),
     private var showProgressOnLoad = false
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_profile_main_component, container, false)
     }
@@ -121,9 +121,9 @@ class ProfileInfoComponentFragment : BaseFragment(),
     override fun showFingerprintOptionIfSupported() {
         if (Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             // Show our fingerprint stuff only if we are above API M
-//Fingerprint API only available on from Android 6.0 (M)
+// Fingerprint API only available on from Android 6.0 (M)
             val fingerprintManager =
-                    context?.getSystemService(Context.FINGERPRINT_SERVICE) as? FingerprintManager
+                context?.getSystemService(Context.FINGERPRINT_SERVICE) as? FingerprintManager
             if (fingerprintManager?.isHardwareDetected == true) {
                 profileDetailSwFingerprint.visible = (true)
                 // Device doesn't support fingerprint authentication
@@ -131,8 +131,6 @@ class ProfileInfoComponentFragment : BaseFragment(),
         } else
             profileDetailSwFingerprint.visible = (false)
     }
-
-
 
     override fun attachListeners() {
         profileDetailRegisterTB.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -144,15 +142,13 @@ class ProfileInfoComponentFragment : BaseFragment(),
             }
         }
 
-
         profileDetailContainerMyInformation.setOnClickListener {
             Timber.d("profileDetailContainerMyInformation Clicked")
             getBaseActivity()?.addFragmentOnTop(
-                    R.id.profileActivityContainerFragment,
-                    MyInfoComponentFragment()
+                R.id.profileActivityContainerFragment,
+                MyInfoComponentFragment()
             )
         }
-
 
         profileDetailSwFingerprint.setOnClickListener {
             val isChecked = profileDetailSwFingerprint.isChecked
@@ -196,16 +192,16 @@ class ProfileInfoComponentFragment : BaseFragment(),
         profileDetailContainerPrivacy.setOnClickListener {
             Timber.d("profileDetailContainerPrivacy Clicked")
             getBaseActivity()?.addFragmentOnTop(
-                    R.id.profileActivityContainerFragment,
-                    PrivacyFragment()
+                R.id.profileActivityContainerFragment,
+                PrivacyFragment()
             )
         }
 
         profileDetailContainerHelp.setOnClickListener {
             Timber.d("profileDetailContainerHelp Clicked")
             getBaseActivity()?.addFragmentOnTop(
-                    R.id.profileActivityContainerFragment,
-                    HelpFragment()
+                R.id.profileActivityContainerFragment,
+                HelpFragment()
             )
         }
 
@@ -224,10 +220,10 @@ class ProfileInfoComponentFragment : BaseFragment(),
     private fun handleRegisteredButtonDrawable(isRegistered: Boolean) {
         if (isRegistered) {
             profileDetailRegisterTB.setCompoundDrawablesWithIntrinsicBounds(
-                    0,
-                    0,
-                    R.drawable.icon_48_checkmark_white,
-                    0
+                0,
+                0,
+                R.drawable.icon_48_checkmark_white,
+                0
             )
         } else {
             profileDetailRegisterTB.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0)
@@ -261,10 +257,10 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
     private fun acquireUserImage() {
         startActivityForResult(
-                OverlayActivity.createIntent(
-                        requireContext(),
-                        arrayListOf(OverlayButton(ButtonType.CAMERA), OverlayButton(ButtonType.GALLERY))
-                ), OverlayActivity.REQUEST_ID
+            OverlayActivity.createIntent(
+                requireContext(),
+                arrayListOf(OverlayButton(ButtonType.CAMERA), OverlayButton(ButtonType.GALLERY))
+            ), OverlayActivity.REQUEST_ID
         )
     }
 
@@ -321,9 +317,9 @@ class ProfileInfoComponentFragment : BaseFragment(),
             options.placeholder(R.drawable.ic_profile)
             options.circleCrop()
             Glide.with(context ?: return)
-                    .load(url)
-                    .apply(options)
-                    .into(it)
+                .load(url)
+                .apply(options)
+                .into(it)
         }
     }
 
@@ -331,7 +327,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
         Timber.d("setProfileImageLocal: $imgfile")
         profileDetailIv?.let {
             it.setPadding(dpToPx(4), dpToPx(4), dpToPx(4), dpToPx(4))
-            //todo should save image on server ?
+            // todo should save image on server ?
             presenter.saveUserImg(Uri.fromFile(imgfile).toString())
 
             val options = RequestOptions()
@@ -339,9 +335,9 @@ class ProfileInfoComponentFragment : BaseFragment(),
             options.placeholder(R.drawable.ic_profile)
             options.circleCrop()
             Glide.with(context ?: return)
-                    .load(Uri.fromFile(imgfile))
-                    .apply(options)
-                    .into(it)
+                .load(Uri.fromFile(imgfile))
+                .apply(options)
+                .into(it)
         }
     }
 

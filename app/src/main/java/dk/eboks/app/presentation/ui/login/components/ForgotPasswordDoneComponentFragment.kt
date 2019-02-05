@@ -12,15 +12,22 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class ForgotPasswordDoneComponentFragment : BaseFragment(), ForgotPasswordDoneComponentContract.View {
+class ForgotPasswordDoneComponentFragment : BaseFragment(),
+    ForgotPasswordDoneComponentContract.View {
 
     @Inject
-    lateinit var presenter : ForgotPasswordDoneComponentContract.Presenter
+    lateinit var presenter: ForgotPasswordDoneComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_forgot_password_mail_sent_component, container, false)
-        return rootView
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(
+            R.layout.fragment_forgot_password_mail_sent_component,
+            container,
+            false
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,7 +36,7 @@ class ForgotPasswordDoneComponentFragment : BaseFragment(), ForgotPasswordDoneCo
         presenter.onViewCreated(this, lifecycle)
 
         okBtn.setOnClickListener {
-           activity?.onBackPressed()
+            activity?.onBackPressed()
         }
     }
 }

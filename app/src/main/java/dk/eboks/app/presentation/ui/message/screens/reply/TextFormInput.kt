@@ -14,26 +14,30 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
 import java.util.regex.Pattern
 
-class TextFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler, val multiline : Boolean = false) : ReplyFormInput(formInput, inflater, handler), TextWatcher
-{
-    var textTil : TextInputLayout? = null
-    var textEt : EditText? = null
+class TextFormInput(
+    formInput: FormInput,
+    inflater: LayoutInflater,
+    handler: Handler,
+    val multiline: Boolean = false
+) : ReplyFormInput(formInput, inflater, handler), TextWatcher {
+    var textTil: TextInputLayout? = null
+    var textEt: EditText? = null
 
     // lazy compile the pattern only if we get one
     private val pattern: Pattern? by lazy {
         formInput.validate?.let {
-            //Timber.e("Compiling $it")
+            // Timber.e("Compiling $it")
             Pattern.compile(it)
         }
     }
 
-    override fun buildView(vg : ViewGroup): View {
-        val resid = if(multiline) R.layout.form_input_text_multiline else R.layout.form_input_text
+    override fun buildView(vg: ViewGroup): View {
+        val resid = if (multiline) R.layout.form_input_text_multiline else R.layout.form_input_text
         val v = inflater.inflate(resid, vg, false)
         textTil = v.findViewById(R.id.textTil)
         textEt = v.findViewById(R.id.textEt)
 
-        textTil?.hint = if(!formInput.required) formInput.label else "${formInput.label}*"
+        textTil?.hint = if (!formInput.required) formInput.label else "${formInput.label}*"
         formInput.value?.let {
             textEt?.setText(it)
         }
@@ -42,34 +46,36 @@ class TextFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
         return v
     }
 
-    override fun validate(silent : Boolean) {
-        //Timber.e("Validating $formInput")
+    override fun validate(silent: Boolean) {
+        // Timber.e("Validating $formInput")
         isValid = false
-        val text : String = textEt?.text.toString().trim()
-        if(formInput.required && text.isNullOrBlank())
-        {
-            textTil?.error = if(silent) null else Translation.reply.required
+        val text: String = textEt?.text.toString().trim()
+        if (formInput.required && text.isBlank()) {
+            textTil?.error = if (silent) null else Translation.reply.required
             return
         }
         formInput.minLength?.let { min ->
-            if(text.length < min)
-            {
-                textTil?.error = if(silent) null else Translation.reply.minLengthError.replace("[CHARS]", "$min")
+            if (text.length < min) {
+                textTil?.error = if (silent) null else Translation.reply.minLengthError.replace(
+                    "[CHARS]",
+                    "$min"
+                )
                 return
             }
         }
         formInput.maxLength?.let { max ->
-            if(text.length > max)
-            {
-                textTil?.error = if(silent) null else Translation.reply.maxLengthError.replace("[CHARS]", "$max")
+            if (text.length > max) {
+                textTil?.error = if (silent) null else Translation.reply.maxLengthError.replace(
+                    "[CHARS]",
+                    "$max"
+                )
                 return
             }
         }
         formInput.validate?.let {
             val matcher = pattern?.matcher(text)
-            if(matcher?.matches() == false)
-            {
-                textTil?.error = if(silent) null else formInput.error
+            if (matcher?.matches() == false) {
+                textTil?.error = if (silent) null else formInput.error
                 return
             }
         }
@@ -81,8 +87,7 @@ class TextFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Han
         return
     }
 
-    override fun onResume()
-    {
+    override fun onResume() {
         textEt?.addTextChangedListener(this)
     }
 

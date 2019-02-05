@@ -5,14 +5,14 @@ package dk.eboks.app.domain.managers
  */
 interface PermissionManager {
     var permsToCheck: MutableList<Permission>?
-    var requestInProgress : Boolean
+    var requestInProgress: Boolean
 
-    fun checkPermission(perm : String) : Boolean
-    fun checkPermissions(perms : List<String>): Boolean
-    fun requestPermission(perm : String) : Boolean
-    fun requestPermissions(perms : List<String>): List<PermissionManager.Permission>?
+    fun checkPermission(perm: String): Boolean
+    fun checkPermissions(perms: List<String>): Boolean
+    fun requestPermission(perm: String): Boolean
+    fun requestPermissions(perms: List<String>): List<PermissionManager.Permission>?
 
     fun onRequestCompleted()
 
-    data class Permission(var perm : String, var wasGranted : Boolean)
+    data class Permission(var perm: String, var wasGranted: Boolean)
 }

@@ -75,12 +75,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     var reauth: Boolean = false
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_login_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_login_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -112,7 +111,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             hideKeyboard(view)
             activity?.onBackPressed()
         }
-        mainTb.setBackgroundColor(ContextCompat.getColor(context ?: return, R.color.backgroundColor))
+        mainTb.setBackgroundColor(
+            ContextCompat.getColor(
+                context ?: return,
+                R.color.backgroundColor
+            )
+        )
         val menuRegist = mainTb.menu.add(Translation.logoncredentials.forgotPasswordButton)
         menuRegist.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
         menuRegist.setOnMenuItemClickListener { item: MenuItem ->
@@ -128,7 +132,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             continueBtn.visibility = View.VISIBLE
         } else {
             loginProvidersLl.visibility = View.VISIBLE
-            if (passwordEt.text.isNullOrEmpty() && cprEmailEt.text.isNullOrBlank()) continueBtn.visibility = View.GONE
+            if (passwordEt.text.isNullOrEmpty() && cprEmailEt.text.isNullOrBlank()) continueBtn.visibility =
+                View.GONE
         }
     }
 
@@ -152,9 +157,9 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         super.onPause()
     }
 
-
     private fun hideKeyboard(view: View?) {
-        val inputMethodManager = getBaseActivity()?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            getBaseActivity()?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
@@ -165,17 +170,21 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 val identity: String = if (provider.id == "email") {
                     user.emails[0].value ?: ""
                 } else {
-                    if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true) && !user.identity.isNullOrBlank()) {
+                    if (BuildConfig.BUILD_TYPE.contains(
+                            "debug",
+                            ignoreCase = true
+                        ) && !user.identity.isNullOrBlank()
+                    ) {
                         user.identity ?: cprEmailEt.text.toString().trim()
                     } else
                         cprEmailEt.text.toString().trim()
-                    //currentUser.identity ?: ""
+                    // currentUser.identity ?: ""
                 }
                 presenter.updateLoginState(
-                        identity,
-                        provider.id,
-                        passwordEt.text.toString().trim(),
-                        currentSettings?.activationCode
+                    identity,
+                    provider.id,
+                    passwordEt.text.toString().trim(),
+                    currentSettings?.activationCode
                 )
                 presenter.login()
                 continuePb.visibility = View.VISIBLE
@@ -192,7 +201,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         val password = passwordEt.text?.toString()?.trim() ?: ""
         if (emailOrCpr.isNotBlank() && password.isNotBlank()) {
             val providerId = if (emailOrCpr.contains("@")) "email" else "cpr"
-            presenter.updateLoginState(userName = emailOrCpr, providerId = providerId, password = password, activationCode = null)
+            presenter.updateLoginState(
+                userName = emailOrCpr,
+                providerId = providerId,
+                password = password,
+                activationCode = null
+            )
             presenter.login()
         } else {
             Timber.e("Need a username and password to login to existing currentUser")
@@ -200,7 +214,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
     override fun proceedToApp() {
-        //Timber.v("Signal - login_condition")
+        // Timber.v("Signal - login_condition")
         signal("login_condition") // allow the eAuth2 authenticator to continue
         if (!reauth)
             (activity as StartActivity).startMain()
@@ -212,8 +226,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
     }
 
-
-    override fun setupView(loginProvider: LoginProvider?, user: User?, settings: UserSettings, altLoginProviders: List<LoginProvider>) {
+    override fun setupView(
+        loginProvider: LoginProvider?,
+        user: User?,
+        settings: UserSettings,
+        altLoginProviders: List<LoginProvider>
+    ) {
         Timber.i("SetupView called loginProvider: $loginProvider, currentUser: $user, altProviders:  $altLoginProviders")
         continuePb.visibility = View.INVISIBLE
 
@@ -272,10 +290,11 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             val li = LayoutInflater.from(context)
             val v = li.inflate(R.layout.viewholder_login_provider, loginProvidersLl, false)
             v.findViewById<ImageView>(R.id.iconIv).setImageResource(R.drawable.ic_fingerprint)
-            v.findViewById<TextView>(R.id.nameTv).text = Translation.logoncredentials.logonWithProvider.replace(
+            v.findViewById<TextView>(R.id.nameTv).text =
+                Translation.logoncredentials.logonWithProvider.replace(
                     "[provider]",
                     Translation.profile.fingerprint
-            )
+                )
             v.findViewById<TextView>(R.id.descTv).visibility = View.GONE
 
             v.setOnClickListener {
@@ -314,12 +333,12 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 ERROR_SECURE,
                 ERROR -> {
                     showErrorDialog(
-                            ViewError(
-                                    Translation.error.genericTitle,
-                                    Translation.androidfingerprint.errorGeneric,
-                                    true,
-                                    false
-                            )
+                        ViewError(
+                            Translation.error.genericTitle,
+                            Translation.androidfingerprint.errorGeneric,
+                            true,
+                            false
+                        )
                     )
                 }
             }
@@ -347,12 +366,14 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         userEmailCprTv.text = user?.emails?.firstOrNull()?.value
 
         Glide.with(context ?: return)
-                .load(user?.avatarUri)
-                .apply(RequestOptions()
-                        .error(R.drawable.ic_profile_placeholder)
-                        .placeholder(R.drawable.ic_profile_placeholder)
-                        .transforms(CenterCrop(), RoundedCorners(30)))
-                .into(userAvatarIv)
+            .load(user?.avatarUri)
+            .apply(
+                RequestOptions()
+                    .error(R.drawable.ic_profile_placeholder)
+                    .placeholder(R.drawable.ic_profile_placeholder)
+                    .transforms(CenterCrop(), RoundedCorners(30))
+            )
+            .into(userAvatarIv)
     }
 
     private fun setupViewForProvider(user: User?) {
@@ -361,7 +382,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 "email" -> {
                     setupUserView(user)
                     userEmailCprTv.visible = (true)
-                    cprEmailEt.inputType = InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+                    cprEmailEt.inputType =
+                        InputType.TYPE_CLASS_TEXT and InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
                     cprEmailTil.visibility = View.GONE
                     userLl.visibility = View.VISIBLE
                 }
@@ -380,7 +402,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                         providerFragment?.putArg("closeLoginOnBack", true)
                     }
                     getBaseActivity()?.addFragmentOnTop(
-                            R.id.containerFl, providerFragment
+                        R.id.containerFl, providerFragment
                     )
                 }
             }
@@ -400,13 +422,14 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 v.findViewById<ImageView>(R.id.iconIv).setImageResource(provider.icon)
             }
 
-            //header
-            v.findViewById<TextView>(R.id.nameTv).text = Translation.logoncredentials.logonWithProvider.replace(
+            // header
+            v.findViewById<TextView>(R.id.nameTv).text =
+                Translation.logoncredentials.logonWithProvider.replace(
                     "[provider]",
                     provider.name
-            )
+                )
 
-            //description
+            // description
             provider.description?.let {
                 v.findViewById<TextView>(R.id.descTv).text = it
             }.guard {
@@ -483,7 +506,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     private fun setContinueButton() {
 
-        emailCprIsValid = (cprEmailEt.text?.isValidEmail() == true || cprEmailEt.text?.isValidCpr() == true)
+        emailCprIsValid =
+            (cprEmailEt.text?.isValidEmail() == true || cprEmailEt.text?.isValidCpr() == true)
         passwordIsValid = (!passwordEt.text.isNullOrBlank())
 
         currentProvider?.let { provider ->
@@ -498,7 +522,6 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
             val enabled = (emailCprIsValid && passwordIsValid)
             continueBtn.isEnabled = enabled
         }
-
     }
 
     override fun showProgress(show: Boolean) {
@@ -520,6 +543,4 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     companion object {
         var loginOnResume = false
     }
-
 }
-

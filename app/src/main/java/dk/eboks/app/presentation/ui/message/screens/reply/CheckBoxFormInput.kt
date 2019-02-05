@@ -90,7 +90,7 @@ class CheckBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
     }
 
     override fun validate(silent: Boolean) {
-        //Timber.e("Validating $formInput")
+        // Timber.e("Validating $formInput")
         isValid = false
         if (formInput.required && selectedOptions.isEmpty()) {
             if (!silent)

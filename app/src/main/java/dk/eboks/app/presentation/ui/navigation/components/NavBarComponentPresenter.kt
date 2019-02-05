@@ -7,9 +7,9 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class NavBarComponentPresenter @Inject constructor(val appState: AppStateManager) : NavBarComponentContract.Presenter, BasePresenterImpl<NavBarComponentContract.View>() {
+class NavBarComponentPresenter @Inject constructor(val appState: AppStateManager) :
+    NavBarComponentContract.Presenter, BasePresenterImpl<NavBarComponentContract.View>() {
 
     init {
     }
-
 }

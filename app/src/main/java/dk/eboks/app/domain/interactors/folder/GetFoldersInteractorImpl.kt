@@ -13,7 +13,11 @@ import timber.log.Timber
 /**
  * Created by bison on 01/02/18.
  */
-class GetFoldersInteractorImpl(executor: Executor, val foldersRepository: FoldersRepository, val resourceManager: ResourceManager) : BaseInteractor(executor), GetFoldersInteractor {
+class GetFoldersInteractorImpl(
+    executor: Executor,
+    val foldersRepository: FoldersRepository,
+    val resourceManager: ResourceManager
+) : BaseInteractor(executor), GetFoldersInteractor {
     override var output: GetFoldersInteractor.Output? = null
     override var input: GetFoldersInteractor.Input? = null
 
@@ -23,15 +27,14 @@ class GetFoldersInteractorImpl(executor: Executor, val foldersRepository: Folder
             val folders = foldersRepository.getFolders(input?.cached ?: true, input?.userId)
             runOnUIThread {
                 val pickerfolders = ArrayList<Folder>()
-                folders.forEach{ f ->
+                folders.forEach { f ->
 
-                    if(f.type == FolderType.FOLDER){
+                    if (f.type == FolderType.FOLDER) {
                         pickerfolders.add(f)
                     }
-                    if (f.type == FolderType.INBOX){
-                        pickerfolders.add(0,f)
+                    if (f.type == FolderType.INBOX) {
+                        pickerfolders.add(0, f)
                     }
-
                 }
                 output?.onGetFolders(pickerfolders)
             }

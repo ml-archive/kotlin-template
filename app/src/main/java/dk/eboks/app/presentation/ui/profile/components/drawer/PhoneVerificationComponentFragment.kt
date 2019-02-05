@@ -21,14 +21,21 @@ import javax.inject.Inject
 class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComponentContract.View {
 
     @Inject
-    lateinit var presenter : PhoneVerificationComponentContract.Presenter
+    lateinit var presenter: PhoneVerificationComponentContract.Presenter
 
     var handler = Handler()
     var codeIsValid = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_profile_verify_mobile_number_component, container, false)
-        return rootView
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(
+            R.layout.fragment_profile_verify_mobile_number_component,
+            container,
+            false
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,7 +52,7 @@ class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComp
         setEnableStateContinueButton()
         verifyBtn.setOnClickListener {
             val code = verificationCodeEt.text.toString()
-            if(!code.isNullOrEmpty())
+            if (!code.isEmpty())
                 presenter.confirmMobile(code)
         }
 
@@ -91,7 +98,7 @@ class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComp
     private fun setErrorMessages() {
         if (codeIsValid) {
             verificationCodeTil.error = null
-        } else  {
+        } else {
             verificationCodeTil.error = Translation.logoncredentials.invalidVerification
         }
     }
@@ -101,6 +108,7 @@ class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComp
     }
 
     override fun showNumber(mobile: String) {
-        verifyNumberSubTv.text = Translation.profile.verifyMobilText.replace("[mobileNumber]", mobile)
+        verifyNumberSubTv.text =
+            Translation.profile.verifyMobilText.replace("[mobileNumber]", mobile)
     }
 }

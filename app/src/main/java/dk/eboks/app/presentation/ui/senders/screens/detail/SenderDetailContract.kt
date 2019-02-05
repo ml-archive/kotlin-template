@@ -5,10 +5,10 @@ import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter
 
 /**
-* Created by bison on 07-11-2017.
-* @author   bison
-* @since    07-11-2017.
-*/
+ * Created by bison on 07-11-2017.
+ * @author bison
+ * @since 07-11-2017.
+ */
 interface SenderDetailContract {
     interface View : BaseView {
         fun showSuccess()
@@ -17,7 +17,7 @@ interface SenderDetailContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun loadSender(id : Long)
+        fun loadSender(id: Long)
         fun registerSender(id: Long)
         fun unregisterSender(id: Long)
     }

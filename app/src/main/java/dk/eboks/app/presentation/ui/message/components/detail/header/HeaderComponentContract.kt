@@ -9,7 +9,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface HeaderComponentContract {
     interface View : BaseView {
-        fun updateView(message : Message)
+        fun updateView(message: Message)
     }
 
     interface Presenter : BasePresenter<HeaderComponentContract.View>

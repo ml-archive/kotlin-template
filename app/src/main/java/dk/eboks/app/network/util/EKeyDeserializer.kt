@@ -16,7 +16,11 @@ import java.util.TreeMap
 class EKeyDeserializer : JsonDeserializer<List<BaseEkey>> {
 
     @Throws(JsonParseException::class)
-    override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): List<BaseEkey> {
+    override fun deserialize(
+        json: JsonElement,
+        typeOfT: Type,
+        context: JsonDeserializationContext
+    ): List<BaseEkey> {
 
         val list = ArrayList<BaseEkey>()
         val ja = json.asJsonArray
@@ -41,5 +45,4 @@ class EKeyDeserializer : JsonDeserializer<List<BaseEkey>> {
             map.put("Ekey", Ekey::class.java)
         }
     }
-
 }

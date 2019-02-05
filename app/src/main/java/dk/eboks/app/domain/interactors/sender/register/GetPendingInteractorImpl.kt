@@ -9,10 +9,11 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 
 /**
  * Created by Christian on 3/28/2018.
- * @author   Christian
- * @since    3/28/2018.
+ * @author Christian
+ * @since 3/28/2018.
  */
-class GetPendingInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(executor), GetPendingInteractor {
+class GetPendingInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(executor),
+    GetPendingInteractor {
 
     override var output: GetPendingInteractor.Output? = null
 
@@ -25,7 +26,13 @@ class GetPendingInteractorImpl(executor: Executor, val api: Api) : BaseInteracto
                         output?.onRegistrationsLoaded(it)
                     }
                 } else {
-                    output?.onError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true))
+                    output?.onError(
+                        ViewError(
+                            title = Translation.error.genericTitle,
+                            message = Translation.error.genericMessage,
+                            shouldCloseView = true
+                        )
+                    )
                 }
             }
         } catch (t: Throwable) {

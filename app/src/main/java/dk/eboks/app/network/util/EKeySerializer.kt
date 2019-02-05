@@ -15,16 +15,19 @@ import java.util.TreeMap
 
 class EKeySerializer : JsonSerializer<ArrayList<BaseEkey>> {
 
-    override fun serialize(src: ArrayList<BaseEkey>?, typeOfSrc: Type,
-                           context: JsonSerializationContext): JsonElement? {
+    override fun serialize(
+        src: ArrayList<BaseEkey>?,
+        typeOfSrc: Type,
+        context: JsonSerializationContext
+    ): JsonElement? {
         return if (src == null)
             null
         else {
             val ja = JsonArray()
             for (bc in src) {
-                val c = map.get(bc.eKeyType) ?: throw RuntimeException("Unknow class: " + bc.eKeyType)
+                val c =
+                    map.get(bc.eKeyType) ?: throw RuntimeException("Unknow class: " + bc.eKeyType)
                 ja.add(context.serialize(bc, c))
-
             }
             ja
         }

@@ -10,23 +10,25 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import timber.log.Timber
 import javax.inject.Inject
-
 
 /**
  * Created by bison on 20-05-2017.
  */
-class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppStateManager, val getCategoriesInteractor: GetCategoriesInteractor, val openFolderInteractor: OpenFolderInteractor) :
-        FolderShortcutsComponentContract.Presenter,
-        BasePresenterImpl<FolderShortcutsComponentContract.View>(),
-        GetCategoriesInteractor.Output,
-        OpenFolderInteractor.Output {
+class FolderShortcutsComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val getCategoriesInteractor: GetCategoriesInteractor,
+    val openFolderInteractor: OpenFolderInteractor
+) :
+    FolderShortcutsComponentContract.Presenter,
+    BasePresenterImpl<FolderShortcutsComponentContract.View>(),
+    GetCategoriesInteractor.Output,
+    OpenFolderInteractor.Output {
 
     init {
         openFolderInteractor.output = this
         refresh(true)
-        runAction { v-> v.showProgress(true) }
+        runAction { v -> v.showProgress(true) }
     }
 
     override fun onViewCreated(view: FolderShortcutsComponentContract.View, lifecycle: Lifecycle) {
@@ -44,7 +46,6 @@ class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppSta
         openFolderInteractor.run()
     }
 
-
     override fun onGetCategories(folders: List<Folder>) {
         runAction { v ->
             EventBus.getDefault().post(RefreshFolderShortcutsDoneEvent())
@@ -53,8 +54,8 @@ class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppSta
         }
     }
 
-    override fun onGetCategoriesError(error : ViewError) {
-        runAction { v->
+    override fun onGetCategoriesError(error: ViewError) {
+        runAction { v ->
             v.showProgress(false)
             EventBus.getDefault().post(RefreshFolderShortcutsDoneEvent())
             v.showErrorDialog(error)
@@ -62,14 +63,13 @@ class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppSta
     }
 
     override fun onOpenFolderDone() {
-
     }
 
-    override fun onOpenFolderError(error : ViewError) {
+    override fun onOpenFolderError(error: ViewError) {
         runAction { it.showErrorDialog(error) }
     }
 
-    fun refresh(cached : Boolean) {
+    fun refresh(cached: Boolean) {
         getCategoriesInteractor.output = this
         getCategoriesInteractor.input = GetCategoriesInteractor.Input(cached, null)
         getCategoriesInteractor.run()
@@ -79,5 +79,4 @@ class FolderShortcutsComponentPresenter @Inject constructor(val appState: AppSta
     fun onEvent(event: RefreshFolderShortcutsEvent) {
         refresh(false)
     }
-
 }

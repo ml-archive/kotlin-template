@@ -6,8 +6,8 @@ import dk.nodes.arch.presentation.base.BasePresenter
 
 /**
  * Created by Christian on 3/28/2018.
- * @author   Christian
- * @since    3/28/2018.
+ * @author Christian
+ * @since 3/28/2018.
  */
 interface PendingContract {
     interface View : BaseView {

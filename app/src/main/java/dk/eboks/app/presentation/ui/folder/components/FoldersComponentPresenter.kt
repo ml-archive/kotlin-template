@@ -12,13 +12,17 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class FoldersComponentPresenter @Inject constructor(val appState: AppStateManager, val getFoldersInteractor: GetFoldersInteractor, val openFolderInteractor: OpenFolderInteractor) :
-        FoldersComponentContract.Presenter,
-        BasePresenterImpl<FoldersComponentContract.View>(),
-        GetFoldersInteractor.Output,
-        OpenFolderInteractor.Output {
+class FoldersComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val getFoldersInteractor: GetFoldersInteractor,
+    val openFolderInteractor: OpenFolderInteractor
+) :
+    FoldersComponentContract.Presenter,
+    BasePresenterImpl<FoldersComponentContract.View>(),
+    GetFoldersInteractor.Output,
+    OpenFolderInteractor.Output {
 
-  var pickermode : FolderMode = FolderMode.NORMAL
+    var pickermode: FolderMode = FolderMode.NORMAL
 
     init {
 
@@ -26,16 +30,16 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
         getFoldersInteractor.output = this
         runAction { v ->
             v.showProgress(true)
-            v.setUser( appState.state?.currentUser)
+            v.setUser(appState.state?.currentUser)
             pickermode = v.getModeType()
             refresh()
         }
-
     }
 
     override fun refresh() {
         Timber.d("${view?.isSharedUserActive}")
-        val userId = if (view?.isSharedUserActive == false) null else  appState.state?.impersoniateUser?.userId
+        val userId =
+            if (view?.isSharedUserActive == false) null else appState.state?.impersoniateUser?.userId
         getFoldersInteractor.input = GetFoldersInteractor.Input(false, pickermode, userId)
         getFoldersInteractor.run()
     }
@@ -53,25 +57,22 @@ class FoldersComponentPresenter @Inject constructor(val appState: AppStateManage
         }
     }
 
-
     override fun onGetSystemFolders(folders: List<Folder>) {
         runAction { v -> v.showSystemFolders(folders) }
     }
 
-    override fun onGetFoldersError(error : ViewError) {
+    override fun onGetFoldersError(error: ViewError) {
         runAction { v ->
             v.showProgress(false)
             v.showRefreshProgress(false)
             v.showErrorDialog(error)
         }
-
     }
 
     override fun onOpenFolderDone() {
-
     }
 
-    override fun onOpenFolderError(error : ViewError) {
+    override fun onOpenFolderError(error: ViewError) {
         runAction { it.showErrorDialog(error) }
     }
 }

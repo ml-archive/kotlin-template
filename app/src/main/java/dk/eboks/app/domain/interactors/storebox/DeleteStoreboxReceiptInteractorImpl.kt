@@ -6,8 +6,8 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 class DeleteStoreboxReceiptInteractorImpl(executor: Executor, private val api: Api) :
-        BaseInteractor(executor),
-        DeleteStoreboxReceiptInteractor {
+    BaseInteractor(executor),
+    DeleteStoreboxReceiptInteractor {
     override var input: DeleteStoreboxReceiptInteractor.Input? = null
     override var output: DeleteStoreboxReceiptInteractor.Output? = null
 
@@ -15,7 +15,7 @@ class DeleteStoreboxReceiptInteractorImpl(executor: Executor, private val api: A
         try {
             input?.let {
                 val result = api.deleteStoreboxReceipt(it.id).execute()
-                if(result.isSuccessful) {
+                if (result.isSuccessful) {
                     runOnUIThread {
                         output?.onDeleteReceiptSuccess()
                     }

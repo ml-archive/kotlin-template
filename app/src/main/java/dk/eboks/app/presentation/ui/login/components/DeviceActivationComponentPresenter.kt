@@ -14,16 +14,16 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class DeviceActivationComponentPresenter @Inject constructor(
-        val appState: AppStateManager,
-        val generateRSAKeyInteractor: GenerateRSAKeyInteractor,
-        val activateDeviceInteractor: ActivateDeviceInteractor,
-        val deleteRSAKeyInteractor: DeleteRSAKeyInteractor
+    val appState: AppStateManager,
+    val generateRSAKeyInteractor: GenerateRSAKeyInteractor,
+    val activateDeviceInteractor: ActivateDeviceInteractor,
+    val deleteRSAKeyInteractor: DeleteRSAKeyInteractor
 ) :
-        DeviceActivationComponentContract.Presenter,
-        GenerateRSAKeyInteractor.Output,
-        ActivateDeviceInteractor.Output,
-        DeleteRSAKeyInteractor.Output,
-        BasePresenterImpl<DeviceActivationComponentContract.View>() {
+    DeviceActivationComponentContract.Presenter,
+    GenerateRSAKeyInteractor.Output,
+    ActivateDeviceInteractor.Output,
+    DeleteRSAKeyInteractor.Output,
+    BasePresenterImpl<DeviceActivationComponentContract.View>() {
 
     var loading = false
         set(value) {
@@ -71,16 +71,16 @@ class DeviceActivationComponentPresenter @Inject constructor(
     }
 
     override fun onActivateDeviceSuccess() {
-        //todo
+        // todo
         Timber.e("onActivateDevice  success")
         loading = false
-        runAction { view->
+        runAction { view ->
             view.login()
         }
     }
 
     override fun onActivateDeviceError(error: ViewError, RSAKey: String?) {
-            deleteRSAKeyInteractor.run()
+        deleteRSAKeyInteractor.run()
     }
 
     override fun onDeleteRSAKeySuccess() {

@@ -13,28 +13,30 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class DocumentComponentPresenter @Inject constructor(val appState: AppStateManager, val saveAttachmentInteractor: SaveAttachmentInteractor) :
-        DocumentComponentContract.Presenter,
-        BasePresenterImpl<DocumentComponentContract.View>(),
-        SaveAttachmentInteractor.Output
-{
+class DocumentComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val saveAttachmentInteractor: SaveAttachmentInteractor
+) :
+    DocumentComponentContract.Presenter,
+    BasePresenterImpl<DocumentComponentContract.View>(),
+    SaveAttachmentInteractor.Output {
 
     init {
         saveAttachmentInteractor.output = this
-        runAction { v->
+        runAction { v ->
             appState.state?.currentMessage?.let { v.updateView(it) }
         }
     }
 
     override fun openExternalViewer(message: Message) {
-        appState.state?.currentViewerFileName?.let { filename->
+        appState.state?.currentViewerFileName?.let { filename ->
             val mime = message.content?.mimeType ?: "*/*"
             Timber.e("Share mime type $mime")
-            runAction { v-> v.openExternalViewer(filename, mime) }
+            runAction { v -> v.openExternalViewer(filename, mime) }
         }
-        .guard {
-            Timber.e("External viewer has no filename")
-        }
+            .guard {
+                Timber.e("External viewer has no filename")
+            }
     }
 
     override fun saveAttachment(content: Content) {
@@ -45,11 +47,11 @@ class DocumentComponentPresenter @Inject constructor(val appState: AppStateManag
     }
 
     override fun onSaveAttachment(filename: String) {
-        runAction { v->v.showToast("_Document $filename saved to Downloads") }
+        runAction { v -> v.showToast("_Document $filename saved to Downloads") }
         Timber.e("Saved attachment to $filename")
     }
 
-    override fun onSaveAttachmentError(error : ViewError) {
+    override fun onSaveAttachmentError(error: ViewError) {
         runAction { it.showErrorDialog(error) }
     }
 }

@@ -78,7 +78,7 @@ class HomePresenter @Inject constructor(
     override fun onGetInstalledChannelListError(error: ViewError) {
         Timber.e("onGetInstalledChannelListError")
         runAction { v ->
-            if (BuildConfig.DEBUG) //TODO Temp until backend is fixed
+            if (BuildConfig.DEBUG) // TODO Temp until backend is fixed
                 v.showErrorDialog(error)
             v.onRefreshChannelDone()
         }

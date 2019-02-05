@@ -155,7 +155,7 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
         for (i in 0 until channels.size) {
             val currentChannel = channels[i]
 
-            //setting the header
+            // setting the header
             val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContentLL, false)
             val logoIv = v.findViewById<ImageView>(R.id.logoIv)
             val headerTv = v.findViewById<TextView>(R.id.headerTv)
@@ -177,14 +177,14 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
             }
 
             v.tag = currentChannel.id
-            headerTv.text = "${currentChannel.name}"
+            headerTv.text = currentChannel.name
             channelsContentLL.addView(v)
         }
         if (channels.isEmpty()) {
             showChannelControlsHeader(false)
             teaserLl.visible = (false)
             emptyStateChannelLl.visibility = View.VISIBLE
-            //bottomChannelBtn.isEnabled = (emailCount > 0)
+            // bottomChannelBtn.isEnabled = (emailCount > 0)
             bottomChannelBtn.isEnabled = true
             bottomChannelHeaderTv.text = Translation.home.bottomChannelHeaderNoChannels
             bottomChannelTextTv.text = Translation.home.bottomChannelTextNoChannels
@@ -211,14 +211,13 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
             if (channelControlMap.containsKey(channel.id)) // already instantiated, we're updating
             {
                 Timber.e("Already instantiated should update")
-            } else    // widget not yet instantiated, do that and more
+            } else // widget not yet instantiated, do that and more
             {
                 val cc = instantiateChannelControl(channel, control, view)
                 cc?.let {
                     it.buildView()
                     channelControlMap[channel.id] = it
                     it.showProgress(false)
-
                 }
             }
         }
@@ -314,7 +313,7 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
             logoIv.visible = (true)
             errorTv.text = text
             errorTv.visible = (true)
-            //channelsContentLL.removeView(view)
+            // channelsContentLL.removeView(view)
         }
     }
 

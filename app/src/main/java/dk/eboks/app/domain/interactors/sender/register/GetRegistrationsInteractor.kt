@@ -6,8 +6,8 @@ import dk.nodes.arch.domain.interactor.Interactor
 
 /**
  * Created by Christian on 3/28/2018.
- * @author   Christian
- * @since    3/28/2018.
+ * @author Christian
+ * @since 3/28/2018.
  */
 interface GetRegistrationsInteractor : Interactor {
     var output: Output?

@@ -16,7 +16,10 @@ import dk.eboks.app.domain.models.channel.ekey.Note
 import dk.eboks.app.domain.models.channel.ekey.Pin
 import timber.log.Timber
 
-class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklistener: BetterEkeyAdapter.Ekeyclicklistener? = null) : androidx.recyclerview.widget.RecyclerView.Adapter<BetterEkeyAdapter.EKeyHolder>() {
+class BetterEkeyAdapter(
+    private val keyList: List<ListItem>,
+    val ekeyclicklistener: BetterEkeyAdapter.Ekeyclicklistener? = null
+) : androidx.recyclerview.widget.RecyclerView.Adapter<BetterEkeyAdapter.EKeyHolder>() {
 
     var onActionEvent: ((BaseEkey) -> Unit)? = null
 
@@ -38,10 +41,22 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EKeyHolder {
         return when (viewType) {
             HeaderViewHolder.identifier -> {
-                HeaderViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_header, parent, false))
+                HeaderViewHolder(
+                    LayoutInflater.from(parent.context).inflate(
+                        R.layout.item_header,
+                        parent,
+                        false
+                    )
+                )
             }
             else -> {
-                EKeyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_ekey, parent, false))
+                EKeyViewHolder(
+                    LayoutInflater.from(parent.context).inflate(
+                        R.layout.item_ekey,
+                        parent,
+                        false
+                    )
+                )
             }
         }
     }
@@ -50,7 +65,8 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
         holder.bind(keyList[position])
     }
 
-    abstract class EKeyHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+    abstract class EKeyHolder(itemView: View) :
+        androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
         abstract fun bind(item: ListItem)
     }
 
@@ -95,7 +111,7 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
             }
 
             content.setOnClickListener {
-                //todo clicked
+                // todo clicked
                 Timber.i(item.toString())
                 ekeyclicklistener?.let {
                     it.onEkeyClicked(eKey.data)
@@ -111,7 +127,6 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
                     headingTv.text = eKey.data.name
                     subHeadingTv.text = Translation.ekey.pinCode
                     logoIv.setImageResource(R.drawable.icon_48_pincode_white)
-
                 }
                 is Login -> {
                     headingTv.text = eKey.data.name
@@ -125,6 +140,5 @@ class BetterEkeyAdapter(private val keyList: List<ListItem>, val ekeyclicklisten
                 }
             }
         }
-
     }
 }

@@ -11,14 +11,19 @@ import timber.log.Timber
 
 /**
  * Created by bison on 20-05-2017.
- * @author   bison
- * @since    20-05-2017.
+ * @author bison
+ * @since 20-05-2017.
  */
-class SegmentDetailPresenter(val appStateManager: AppStateManager, val getSegmentInteractor: GetSegmentInteractor, val registerInteractor: RegisterInteractor, val unregisterInteractor: UnRegisterInteractor) :
-        SegmentDetailContract.Presenter, BasePresenterImpl<SegmentDetailContract.View>(),
-        GetSegmentInteractor.Output,
-        RegisterInteractor.Output,
-        UnRegisterInteractor.Output {
+class SegmentDetailPresenter(
+    val appStateManager: AppStateManager,
+    val getSegmentInteractor: GetSegmentInteractor,
+    val registerInteractor: RegisterInteractor,
+    val unregisterInteractor: UnRegisterInteractor
+) :
+    SegmentDetailContract.Presenter, BasePresenterImpl<SegmentDetailContract.View>(),
+    GetSegmentInteractor.Output,
+    RegisterInteractor.Output,
+    UnRegisterInteractor.Output {
 
     init {
         getSegmentInteractor.output = this

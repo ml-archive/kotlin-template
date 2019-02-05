@@ -9,8 +9,8 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class ChannelColor(
-        val rgb: String? = null,
-        val rgba: String? = null
+    val rgb: String? = null,
+    val rgba: String? = null
 ) : Parcelable {
     // I'm not proud of this
     val color: Int

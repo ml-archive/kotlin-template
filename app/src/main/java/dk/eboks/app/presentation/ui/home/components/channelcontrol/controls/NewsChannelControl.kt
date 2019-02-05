@@ -13,11 +13,18 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
 
-class NewsChannelControl(channel: Channel, control : Control, view: View, inflater : LayoutInflater, handler: Handler, val formatter: EboksFormatter) : ChannelControl(channel, control, view, inflater, handler) {
+class NewsChannelControl(
+    channel: Channel,
+    control: Control,
+    view: View,
+    inflater: LayoutInflater,
+    handler: Handler,
+    val formatter: EboksFormatter
+) : ChannelControl(channel, control, view, inflater, handler) {
 
-    lateinit var title : TextView
-    lateinit var image : ImageView
-    lateinit var date : TextView
+    lateinit var title: TextView
+    lateinit var image: ImageView
+    lateinit var date: TextView
 
     override fun buildView() {
         control.items?.let { items ->
@@ -33,9 +40,9 @@ class NewsChannelControl(channel: Channel, control : Control, view: View, inflat
                     reqoptions = reqoptions.transform(RoundedCorners(8))
 
                     Glide.with(view.context)
-                            .load(row.image?.url)
-                            .apply(reqoptions)
-                            .into(image)
+                        .load(row.image?.url)
+                        .apply(reqoptions)
+                        .into(image)
                 }
                 rowsContainerLl.addView(v)
             }

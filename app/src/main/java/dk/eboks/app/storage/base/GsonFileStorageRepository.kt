@@ -12,7 +12,11 @@ import java.lang.reflect.Type
  * Created by bison on 01-07-2017.
  * Derive from this to save json files the easy way, see warningapp-kotlin for usage
  */
-abstract class GsonFileStorageRepository<T>(val context: Context, val gson: Gson, val filename : String) {
+abstract class GsonFileStorageRepository<T>(
+    val context: Context,
+    val gson: Gson,
+    val filename: String
+) {
 
     fun save(objects: T) {
         val outputStream: FileOutputStream
@@ -28,7 +32,7 @@ abstract class GsonFileStorageRepository<T>(val context: Context, val gson: Gson
         }
     }
 
-    fun load(type : Type): T {
+    fun load(type: Type): T {
         val inputStream: FileInputStream
         try {
             inputStream = context.openFileInput(filename)
@@ -44,12 +48,9 @@ abstract class GsonFileStorageRepository<T>(val context: Context, val gson: Gson
             }
             val json = out.toString()
             Timber.i("Loaded cache file $filename")
-            val objects : T = gson.fromJson(json, type)
-            return objects
-        }
-        catch (e : Exception)
-        {
-            //if(BuildConfig.DEBUG)
+            return gson.fromJson(json, type)
+        } catch (e: Exception) {
+            // if(BuildConfig.DEBUG)
             //    e.printStackTrace()
             Timber.e("Caching file not found ($filename)")
             throw(RuntimeException("File $filename could not be read from internal storage"))

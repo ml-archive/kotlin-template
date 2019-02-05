@@ -8,6 +8,6 @@ import kotlinx.android.parcel.Parcelize
  */
 
 @Parcelize
-data class BooleanReply (
-        var exists: Boolean = false
+data class BooleanReply(
+    var exists: Boolean = false
 ) : Parcelable

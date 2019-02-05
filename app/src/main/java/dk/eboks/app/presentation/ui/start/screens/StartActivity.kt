@@ -9,11 +9,9 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.presentation.ui.home.screens.HomeActivity
 import dk.eboks.app.presentation.ui.login.components.LoginComponentFragment
 import dk.eboks.app.presentation.ui.login.components.UserCarouselComponentFragment
 import dk.eboks.app.presentation.ui.main.MainActivity
-import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
 import dk.eboks.app.presentation.ui.start.components.disclaimer.BetaDisclaimerComponentFragment
 import dk.eboks.app.presentation.ui.start.components.signup.CompletedComponentFragment
 import dk.eboks.app.presentation.ui.start.components.welcome.SplashComponentFragment
@@ -45,7 +43,7 @@ class StartActivity : BaseActivity(), StartContract.View {
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        if(intent.getBooleanExtra("sessionExpired", false)) {
+        if (intent.getBooleanExtra("sessionExpired", false)) {
             Timber.e("Previous session expired, finish all lingering activities")
             BroadcastReceiver.broadcast(this, Intent("session_expired"))
             showSessionExpiredDialog()
@@ -53,22 +51,21 @@ class StartActivity : BaseActivity(), StartContract.View {
 
         // this will happen when we need to authorize - the user will be sent here, but the
         // boot has already happened, so skip it. Otherwise, we'll end in a, infinite loop
-        if(intent.getBooleanExtra("noboot", false)) {
+        if (intent.getBooleanExtra("noboot", false)) {
             addFragmentOnTop(R.id.containerFl, UserCarouselComponentFragment(), false)
             return
         }
 
         addFragmentOnTop(R.id.containerFl, splashFragment, false)
 
-        if(!ConnectionManager(this).isConnected())
-        {
+        if (!ConnectionManager(this).isConnected()) {
             AlertDialog.Builder(this)
-                    .setTitle(Translation.error.noInternetTitle)
-                    .setMessage(Translation.error.noInternetMessage)
-                    .setPositiveButton(Translation.defaultSection.close) { dialog, which ->
-                        finish()
-                    }
-                    .show()
+                .setTitle(Translation.error.noInternetTitle)
+                .setMessage(Translation.error.noInternetMessage)
+                .setPositiveButton(Translation.defaultSection.close) { dialog, which ->
+                    finish()
+                }
+                .show()
             return
         }
 
@@ -102,14 +99,14 @@ class StartActivity : BaseActivity(), StartContract.View {
     }
 
     override fun performVersionControl() {
-        //NStack.appOpen({ success -> Timber.e("appopen success = $success") })
+        // NStack.appOpen({ success -> Timber.e("appopen success = $success") })
         NStack.onAppUpdateListener = {
             Timber.e("ONAPPUPDATELISTENER")
 
             showUpdateDialog(it)
         }
-        NStack.appOpen{success ->
-//            NStack.forceReloadTranslations()
+        NStack.appOpen { success ->
+            //            NStack.forceReloadTranslations()
         }
     }
 
@@ -120,47 +117,45 @@ class StartActivity : BaseActivity(), StartContract.View {
         }
 
         AlertDialog.Builder(this, R.style.AlertDialogNStackUpdate)
-                .setTitle(appUpdate.title)
-                .setMessage(appUpdate.message)
-                .setPositiveButton(appUpdate.positiveBtn) { dialog, which ->
-                    when (appUpdate.state) {
-                        AppUpdateState.FORCE -> {
-                            dialog.dismiss()
-                            // TODO app should launch play intent taking you to the eboks package and do a check if the intent can be resolved and otherwise open in the external browser
-                            // centralize this functionality in a helper class instead of dumping it all in here
-                        }
-                        else -> {
-                            dialog.dismiss()
-                            presenter.proceed()
-                        }
+            .setTitle(appUpdate.title)
+            .setMessage(appUpdate.message)
+            .setPositiveButton(appUpdate.positiveBtn) { dialog, which ->
+                when (appUpdate.state) {
+                    AppUpdateState.FORCE -> {
+                        dialog.dismiss()
+                        // TODO app should launch play intent taking you to the eboks package and do a check if the intent can be resolved and otherwise open in the external browser
+                        // centralize this functionality in a helper class instead of dumping it all in here
+                    }
+                    else -> {
+                        dialog.dismiss()
+                        presenter.proceed()
                     }
                 }
-                .setNegativeButton(appUpdate.negativeBtn) { dialog, which ->
-                }
-                .show()
+            }
+            .setNegativeButton(appUpdate.negativeBtn) { dialog, which ->
+            }
+            .show()
     }
 
     private fun showSessionExpiredDialog() {
         AlertDialog.Builder(this)
-                .setTitle(Translation.error.authenticationErrorTitle)
-                .setMessage(Translation.error.authenticationErrorMessage)
-                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-
-                }
-                .show()
+            .setTitle(Translation.error.authenticationErrorTitle)
+            .setMessage(Translation.error.authenticationErrorMessage)
+            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+            }
+            .show()
     }
 
     override fun showUserCarouselComponent() {
         splashFragment?.transitionToUserCarouselFragment()
-        //setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
+        // setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
     }
 
     override fun showWelcomeComponent() {
         splashFragment?.transitionToWelcomeFragment()
     }
 
-    fun continueFromDisclaimer()
-    {
+    fun continueFromDisclaimer() {
         setRootFragment(R.id.containerFl, WelcomeComponentFragment())
     }
 
@@ -170,10 +165,10 @@ class StartActivity : BaseActivity(), StartContract.View {
     }
 
     override fun startMain() {
-        //TODO change back to regular when done
+        // TODO change back to regular when done
         startActivity(MainActivity.createIntent(this))
 
-        //overridePendingTransition(0, 0)
+        // overridePendingTransition(0, 0)
         Timber.d("Finishing StartActivity")
         finishAfterTransition()
     }
@@ -191,7 +186,7 @@ class StartActivity : BaseActivity(), StartContract.View {
     }
 
     override fun onBackPressed() {
-        if (supportFragmentManager.findFragmentById(R.id.containerFl) is CompletedComponentFragment ){
+        if (supportFragmentManager.findFragmentById(R.id.containerFl) is CompletedComponentFragment) {
             setRootFragment(R.id.containerFl, LoginComponentFragment())
             return
         }
@@ -206,15 +201,16 @@ class StartActivity : BaseActivity(), StartContract.View {
 
     override fun onPause() {
         super.onPause()
-        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
+        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
             UpdateManager.unregister()
     }
 
     override fun onResume() {
         super.onResume()
-        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             UpdateManager.register(this)
-            debugConfEnvTv.text = "Conf/Env: ${Config.getCurrentConfigName()}/${Config.getCurrentEnvironmentName()}"
+            debugConfEnvTv.text =
+                "Conf/Env: ${Config.getCurrentConfigName()}/${Config.getCurrentEnvironmentName()}"
         }
     }
 
@@ -226,10 +222,10 @@ class StartActivity : BaseActivity(), StartContract.View {
         updateConfEnvDisplay()
     }
 
-    private fun updateConfEnvDisplay()
-    {
-        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
-            debugConfEnvTv.text = "Conf/Env: ${Config.getCurrentConfigName()}/${Config.getCurrentEnvironmentName()}"
+    private fun updateConfEnvDisplay() {
+        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+            debugConfEnvTv.text =
+                "Conf/Env: ${Config.getCurrentConfigName()}/${Config.getCurrentEnvironmentName()}"
             debugConfEnvTv.visible = (true)
         }
     }

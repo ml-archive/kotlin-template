@@ -11,9 +11,15 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
 
-class FilesChannelControl(channel: Channel, control : Control, view: View, inflater : LayoutInflater, handler: Handler, val formatter: EboksFormatter) : ChannelControl(channel, control, view, inflater, handler) {
+class FilesChannelControl(
+    channel: Channel,
+    control: Control,
+    view: View,
+    inflater: LayoutInflater,
+    handler: Handler,
+    val formatter: EboksFormatter
+) : ChannelControl(channel, control, view, inflater, handler) {
 
-    
     override fun buildView() {
         control.items?.let { items ->
             for (currentItem in items) {
@@ -28,7 +34,6 @@ class FilesChannelControl(channel: Channel, control : Control, view: View, infla
 
                 bottomDivider.visibility = View.GONE
                 topDivider.visibility = View.VISIBLE
-
 
                 title.text = currentItem.title
                 subtitle.text = currentItem.description

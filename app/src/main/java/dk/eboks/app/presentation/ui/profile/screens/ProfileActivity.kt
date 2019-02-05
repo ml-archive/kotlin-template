@@ -43,5 +43,4 @@ class ProfileActivity : BaseActivity(), ProfileContract.View {
         overridePendingTransition(0, R.anim.slide_down)
     }
     */
-
 }

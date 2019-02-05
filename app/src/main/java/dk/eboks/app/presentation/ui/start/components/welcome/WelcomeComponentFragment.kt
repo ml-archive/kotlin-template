@@ -22,20 +22,24 @@ import kotlinx.android.synthetic.main.fragment_welcome_component.*
  */
 class WelcomeComponentFragment : BaseFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_welcome_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //(activity as StartActivity).showLogo(true)
+        // (activity as StartActivity).showLogo(true)
         signupBtn.setOnClickListener {
             getBaseActivity()?.addFragmentOnTop(R.id.containerFl, NameMailComponentFragment(), true)
         }
         logonBtn.setOnClickListener {
             getBaseActivity()?.addFragmentOnTop(R.id.containerFl, LoginComponentFragment(), true)
         }
-        if(BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             /*
             debugCreateBtn.visibility = View.VISIBLE
             debugCreateBtn.setOnClickListener {
@@ -61,8 +65,7 @@ class WelcomeComponentFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         logoIv.setImageResource(Config.getLogoResourceId())
-        if(shouldGotoUsersOnResume)
-        {
+        if (shouldGotoUsersOnResume) {
             shouldGotoUsersOnResume = false
             getBaseActivity()?.setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
         }
@@ -71,5 +74,4 @@ class WelcomeComponentFragment : BaseFragment() {
     companion object {
         var shouldGotoUsersOnResume = false
     }
-
 }

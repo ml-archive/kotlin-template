@@ -18,17 +18,18 @@ import timber.log.Timber
 
 /**
  * Created by Christian on 5/28/2018.
- * @author   Christian
- * @since    5/28/2018.
+ * @author Christian
+ * @since 5/28/2018.
  */
 class TransformTokenInteractorImpl(
-        executor: Executor, val api: Api,
-        val appStateManager: AppStateManager,
-        val userManager: UserManager,
-        val userSettingsManager: UserSettingsManager,
-        val authClient: AuthClient,
-        val cacheManager: CacheManager,
-        val foldersRepositoryMail: MailCategoriesRepository
+    executor: Executor,
+    val api: Api,
+    val appStateManager: AppStateManager,
+    val userManager: UserManager,
+    val userSettingsManager: UserSettingsManager,
+    val authClient: AuthClient,
+    val cacheManager: CacheManager,
+    val foldersRepositoryMail: MailCategoriesRepository
 ) : BaseInteractor(executor), TransformTokenInteractor {
     override var output: TransformTokenInteractor.Output? = null
     override var input: TransformTokenInteractor.Input? = null
@@ -36,22 +37,36 @@ class TransformTokenInteractorImpl(
     override fun execute() {
         try {
             input?.loginState?.kspToken?.let { kspToken ->
-                authClient.transformKspToken(kspToken, longClient = appStateManager.state?.currentSettings?.stayLoggedIn
-                        ?: false)?.let { token ->
+                authClient.transformKspToken(
+                    kspToken, longClient = appStateManager.state?.currentSettings?.stayLoggedIn
+                        ?: false
+                )?.let { token ->
                     appStateManager.state?.loginState?.token = token
 
                     val userResult = api.getUserProfile().execute()
                     // user exists in nemid, but not in eboks, show error
                     if (userResult.code() == 400) {
                         runOnUIThread {
-                            output?.onLoginError(ViewError(title = Translation.error.authenticationErrorTitle, message = Translation.error.authenticationErrorMessage, shouldCloseView = true))
+                            output?.onLoginError(
+                                ViewError(
+                                    title = Translation.error.authenticationErrorTitle,
+                                    message = Translation.error.authenticationErrorMessage,
+                                    shouldCloseView = true
+                                )
+                            )
                         }
                         return
                     }
                     // user exists in nemid, but is not the same as in eboks (used wrong Nem-ID), show error
                     if (userResult.code() == 403) {
                         runOnUIThread {
-                            output?.onLoginError(ViewError(title = Translation.error.wrongIdErrorTitle, message = Translation.error.wrongIdErrorMessage, shouldCloseView = true))
+                            output?.onLoginError(
+                                ViewError(
+                                    title = Translation.error.wrongIdErrorTitle,
+                                    message = Translation.error.wrongIdErrorMessage,
+                                    shouldCloseView = true
+                                )
+                            )
                         }
                         return
                     }
@@ -88,14 +103,24 @@ class TransformTokenInteractorImpl(
                     runOnUIThread {
                         output?.onLoginSuccess(token)
                     }
-                    appStateManager.state?.selectedFolders = foldersRepositoryMail.getMailCategories(false, appStateManager.state?.impersoniateUser?.userId)
-
+                    appStateManager.state?.selectedFolders =
+                        foldersRepositoryMail.getMailCategories(
+                            false,
+                            appStateManager.state?.impersoniateUser?.userId
+                        )
                 }.guard {
                     runOnUIThread {
-                        output?.onLoginError(ViewError(title = Translation.error.genericTitle, message = Translation.error.genericMessage, shouldCloseView = true)) // TODO better error
+                        output?.onLoginError(
+                            ViewError(
+                                title = Translation.error.genericTitle,
+                                message = Translation.error.genericMessage,
+                                shouldCloseView = true
+                            )
+                        ) // TODO better error
                     }
                 }
-                input?.loginState?.kspToken = null // consume the token - it's only usable once anyway
+                input?.loginState?.kspToken =
+                    null // consume the token - it's only usable once anyway
             }
         } catch (t: Throwable) {
             Timber.e("Token transform fail: $t")
@@ -104,5 +129,4 @@ class TransformTokenInteractorImpl(
             }
         }
     }
-
 }

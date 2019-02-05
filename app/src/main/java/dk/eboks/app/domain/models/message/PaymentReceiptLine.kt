@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class PaymentReceiptLine(
-        var name : String,
-        var value : String
+    var name: String,
+    var value: String
 
 ) : Parcelable

@@ -18,17 +18,20 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirementsComponentContract.View {
+class ChannelRequirementsComponentFragment : BaseFragment(),
+    ChannelRequirementsComponentContract.View {
 
     @Inject
     lateinit var presenter: ChannelRequirementsComponentContract.Presenter
 
-    //lateinit var currentItem: Channel
+    // lateinit var currentItem: Channel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_channel_requirements_component, container, false)
-        return rootView
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_channel_requirements_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +45,6 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
 
         arguments?.getParcelable<Channel>(("channel"))?.let(presenter::setup)
     }
-
 
     override fun setupView(channel: Channel) {
         updateTranslation(channel.name)
@@ -59,14 +61,20 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
         requirementRowsRv.adapter = RowAdapter(requirements)
     }
 
-    private fun updateTranslation(channelName : String) {
-        headerTextTv.text = Translation.channels.drawerHeaderText.replace("[channelname]", channelName)
+    private fun updateTranslation(channelName: String) {
+        headerTextTv.text =
+            Translation.channels.drawerHeaderText.replace("[channelname]", channelName)
     }
 
-    inner class RowAdapter(val requirements: List<Requirement>) : androidx.recyclerview.widget.RecyclerView.Adapter<RowAdapter.ChannelRequirementViewHolder>() {
+    inner class RowAdapter(val requirements: List<Requirement>) :
+        androidx.recyclerview.widget.RecyclerView.Adapter<RowAdapter.ChannelRequirementViewHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChannelRequirementViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.viewholder_channel_setting_boxrow, parent, false)
+        override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+        ): ChannelRequirementViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.viewholder_channel_setting_boxrow, parent, false)
             return ChannelRequirementViewHolder(view)
         }
 
@@ -79,10 +87,11 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
             holder.bind(requirement)
         }
 
-        inner class ChannelRequirementViewHolder(view: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+        inner class ChannelRequirementViewHolder(view: View) :
+            androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
             fun bind(requirement: Requirement) {
                 if (requirement.value.isNullOrBlank()) {
-                    //if no value, set name on centeredHeader
+                    // if no value, set name on centeredHeader
                     itemView.centeredHeaderTv.text = requirement.name
                     itemView.missingTv.text = Translation.channels.missing
                     itemView.centeredHeaderTv.visibility = View.VISIBLE
@@ -117,6 +126,5 @@ class ChannelRequirementsComponentFragment : BaseFragment(), ChannelRequirements
                 }
             }
         }
-
     }
 }

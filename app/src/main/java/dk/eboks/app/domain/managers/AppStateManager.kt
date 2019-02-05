@@ -7,6 +7,6 @@ import dk.eboks.app.domain.models.AppState
  */
 // TODO add instanced/local state concept for views like mail lists of which there can be more than one
 interface AppStateManager {
-    var state : AppState?
+    var state: AppState?
     fun save()
 }

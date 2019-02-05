@@ -16,7 +16,6 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.components.FoldersComponentFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folder_newfolder.*
-import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -35,9 +34,12 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
     override val overrideActiveUser: Boolean
         get() = arguments?.getBoolean("override_user") ?: false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_folder_newfolder, container, false)
-        return rootView
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_folder_newfolder, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -116,9 +118,9 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
 
     private fun createFolder() {
         val folderName = nameEt.text.toString()
-        //todo find out if the error handling for names should be done frontend. also the server will not accept special characters etc
+        // todo find out if the error handling for names should be done frontend. also the server will not accept special characters etc
 //        if (folderName.isNotBlank()) {
-            presenter.createNewFolder(parentFolder?.id ?: 0, folderName)
+        presenter.createNewFolder(parentFolder?.id ?: 0, folderName)
 //        } else {
 //            presenter.folderNameNotAllowed()
 //        }
@@ -154,7 +156,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
     }
 
     override fun setRootFolder(name: String) {
-        //should only set root folder if there is no selected parrentfolder
+        // should only set root folder if there is no selected parrentfolder
         rootFolderName = name
         if (parentFolder == null) {
             folderRootTv.text = rootFolderName
@@ -162,7 +164,6 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
     }
 
     override fun showFolderNameError() {
-        //todo
-
+        // todo
     }
 }

@@ -28,18 +28,22 @@ class FolderActivity : BaseActivity(), FolderContract.View {
         presenter.onViewCreated(this, lifecycle)
         setupTopBar()
         val frag = FoldersComponentFragment()
-        intent?.extras?.let { extras->
+        intent?.extras?.let { extras ->
             Timber.d("${extras.getBoolean(ARG_OVERIDE_USER)}")
             frag.putArg("override_user", extras.getBoolean(ARG_OVERIDE_USER, false))
-            if(extras.containsKey("pick")) {
+            if (extras.containsKey("pick")) {
                 frag.putArg("pick", true)
             }
             navBarContainer.visibility = View.GONE
             removeNavBarMargin()
         }.guard {
-            //if not pickmode, then nav bar should be shown
+            // if not pickmode, then nav bar should be shown
             navBarContainer.visibility = View.VISIBLE
-            supportFragmentManager.beginTransaction().add(R.id.navBarContainer, NavBarComponentFragment(), NavBarComponentFragment::class.java.simpleName).commit()
+            supportFragmentManager.beginTransaction().add(
+                R.id.navBarContainer,
+                NavBarComponentFragment(),
+                NavBarComponentFragment::class.java.simpleName
+            ).commit()
         }
         setRootFragment(R.id.foldersFl, frag)
         supportFragmentManager.addOnBackStackChangedListener {
@@ -51,12 +55,18 @@ class FolderActivity : BaseActivity(), FolderContract.View {
     }
 
     private fun removeNavBarMargin() {
-        var params = androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT)
+        var params = androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
         val tv = TypedValue()
         var actionBarHeight = 0
         if (this.theme.resolveAttribute(android.R.attr.actionBarSize, tv, true))
-            run { actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics) }
-        params.setMargins(0, actionBarHeight,0,0)
+            run {
+                actionBarHeight =
+                    TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
+            }
+        params.setMargins(0, actionBarHeight, 0, 0)
         foldersContainerFl.layoutParams = params
     }
 
@@ -68,8 +78,9 @@ class FolderActivity : BaseActivity(), FolderContract.View {
         }
     }
 
-
-    override fun getNavigationMenuAction(): Int { return R.id.actionMail }
+    override fun getNavigationMenuAction(): Int {
+        return R.id.actionMail
+    }
 
     companion object {
         val REQUEST_ID: Int = 2468

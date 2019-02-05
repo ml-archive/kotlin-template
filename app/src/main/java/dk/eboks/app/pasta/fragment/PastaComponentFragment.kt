@@ -14,17 +14,19 @@ import javax.inject.Inject
 class PastaComponentFragment : BaseFragment(), PastaComponentContract.View {
 
     @Inject
-    lateinit var presenter : PastaComponentContract.Presenter
+    lateinit var presenter: PastaComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_pasta_component, container, false)
-        return rootView
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_pasta_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //component.inject(this)
+        // component.inject(this)
         presenter.onViewCreated(this, lifecycle)
     }
-
 }

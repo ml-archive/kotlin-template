@@ -32,7 +32,6 @@ class SendersOverviewPresenter @Inject constructor(
     RegisterInteractor.Output,
     UnRegisterInteractor.Output, GetPendingInteractor.Output, GetSenderCategoriesInteractor.Output {
 
-
     init {
         collectionsInteractor.output = this
         registerInteractor.output = this

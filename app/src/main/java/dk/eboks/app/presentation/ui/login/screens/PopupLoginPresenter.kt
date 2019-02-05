@@ -6,9 +6,8 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 /**
  * Created by bison on 20-05-2017.
  */
-class PopupLoginPresenter(val appStateManager: AppStateManager) : PopupLoginContract.Presenter, BasePresenterImpl<PopupLoginContract.View>() {
+class PopupLoginPresenter(val appStateManager: AppStateManager) : PopupLoginContract.Presenter,
+    BasePresenterImpl<PopupLoginContract.View>() {
     init {
     }
-
-
 }

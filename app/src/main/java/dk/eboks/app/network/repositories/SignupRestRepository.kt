@@ -6,11 +6,10 @@ import dk.eboks.app.domain.repositories.SignupRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.guard
 
-
 // TODO delete me, create user moved to interactor
 class SignupRestRepository(private val context: Context, private val api: Api) : SignupRepository {
 
-    override fun verifySignupMail(email : String): Boolean {
+    override fun verifySignupMail(email: String): Boolean {
         val result = api.checkUserEmail(email).execute()
         result?.let { response ->
             if (response.isSuccessful) {
@@ -20,8 +19,7 @@ class SignupRestRepository(private val context: Context, private val api: Api) :
         throw(RuntimeException())
     }
 
-
-    override fun createUser(body: JsonObject)  {
+    override fun createUser(body: JsonObject) {
         val result = api.createUserProfile(body).execute()
         result?.let { response ->
             if (response.isSuccessful) {
@@ -29,7 +27,6 @@ class SignupRestRepository(private val context: Context, private val api: Api) :
             }
         }.guard {
             throw(RuntimeException())
-
         }
         throw(RuntimeException())
     }

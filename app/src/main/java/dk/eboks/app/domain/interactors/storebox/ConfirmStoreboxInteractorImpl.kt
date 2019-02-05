@@ -7,10 +7,11 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 
 /**
  * Created by Christian on 5/15/2018.
- * @author   Christian
- * @since    5/15/2018.
+ * @author Christian
+ * @since 5/15/2018.
  */
-class ConfirmStoreboxInteractorImpl(executor: Executor, private val api: Api ) : BaseInteractor(executor), ConfirmStoreboxInteractor {
+class ConfirmStoreboxInteractorImpl(executor: Executor, private val api: Api) :
+    BaseInteractor(executor), ConfirmStoreboxInteractor {
     override var input: ConfirmStoreboxInteractor.Input? = null
     override var output: ConfirmStoreboxInteractor.Output? = null
 
@@ -18,8 +19,8 @@ class ConfirmStoreboxInteractorImpl(executor: Executor, private val api: Api ) :
         try {
             input?.let {
                 val map = mapOf(
-                        Pair("id", it.id),
-                        Pair("code", it.code)
+                    Pair("id", it.id),
+                    Pair("code", it.code)
                 )
 
                 val result = api.postActivateStorebox(map).execute()

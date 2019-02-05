@@ -11,15 +11,18 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class ChannelVerificationComponentFragment : BaseFragment(), ChannelVerificationComponentContract.View {
+class ChannelVerificationComponentFragment : BaseFragment(),
+    ChannelVerificationComponentContract.View {
 
     @Inject
-    lateinit var presenter : ChannelVerificationComponentContract.Presenter
+    lateinit var presenter: ChannelVerificationComponentContract.Presenter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView =
-            inflater.inflate(R.layout.fragment_channel_verification_component, container, false)
-        return rootView
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_channel_verification_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -27,5 +30,4 @@ class ChannelVerificationComponentFragment : BaseFragment(), ChannelVerification
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
     }
-
 }

@@ -13,18 +13,18 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class ProfileInfoComponentPresenter @Inject constructor(
-        val appState: AppStateManager,
-        private val saveUserInteractor: SaveUserInteractor,
-        private val saveUserSettingsInteractor: SaveUserSettingsInteractor,
-        val getUserProfileInteractor: GetUserProfileInteractor,
-        val userSettingsManager: UserSettingsManager
+    val appState: AppStateManager,
+    private val saveUserInteractor: SaveUserInteractor,
+    private val saveUserSettingsInteractor: SaveUserSettingsInteractor,
+    val getUserProfileInteractor: GetUserProfileInteractor,
+    val userSettingsManager: UserSettingsManager
 ) :
-        ProfileInfoComponentContract.Presenter,
-        BasePresenterImpl<ProfileInfoComponentContract.View>(),
-        SaveUserInteractor.Output,
-        GetUserProfileInteractor.Output {
+    ProfileInfoComponentContract.Presenter,
+    BasePresenterImpl<ProfileInfoComponentContract.View>(),
+    SaveUserInteractor.Output,
+    GetUserProfileInteractor.Output {
 
-    override var isUserVerified : Boolean = false
+    override var isUserVerified: Boolean = false
 
     override fun onViewCreated(view: ProfileInfoComponentContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
@@ -34,7 +34,7 @@ class ProfileInfoComponentPresenter @Inject constructor(
         view.setName(appState.state?.currentUser?.name ?: "")
     }
 
-    override fun loadUserData(showProgress : Boolean) {
+    override fun loadUserData(showProgress: Boolean) {
         Timber.d("loadUserData")
 
         val currentUser = appState.state?.currentUser
@@ -45,7 +45,7 @@ class ProfileInfoComponentPresenter @Inject constructor(
 //            return
         }
 
-        runAction { v->v.showProgress(showProgress) }
+        runAction { v -> v.showProgress(showProgress) }
 
         getUserProfileInteractor.run()
     }
@@ -69,7 +69,7 @@ class ProfileInfoComponentPresenter @Inject constructor(
     }
 
     override fun onGetUserError(error: ViewError) {
-        runAction { v->
+        runAction { v ->
             v.showProgress(false)
             v.showErrorDialog(error)
         }
@@ -110,7 +110,7 @@ class ProfileInfoComponentPresenter @Inject constructor(
     }
 
     override fun onSaveUserError(error: ViewError) {
-        runAction { v->
+        runAction { v ->
             v.showProgress(false)
             v.showErrorDialog(error)
         }
@@ -122,7 +122,7 @@ class ProfileInfoComponentPresenter @Inject constructor(
         appState.state?.loginState?.userName = ""
         appState.state?.loginState?.token = null
         appState.state?.openingState?.acceptPrivateTerms = false
-        //activationCode still used ?
+        // activationCode still used ?
         appState.state?.loginState?.activationCode = null
         appState.save()
         view?.logout()

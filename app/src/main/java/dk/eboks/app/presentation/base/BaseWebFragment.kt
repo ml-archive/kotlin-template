@@ -20,12 +20,15 @@ import timber.log.Timber
  */
 abstract class BaseWebFragment : BaseFragment() {
 
-    var closeLoginOnBack : Boolean = false
+    var closeLoginOnBack: Boolean = false
     var shouldCheckMergeAccountOnResume = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_base_web, container, false)
-        return rootView
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_base_web, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,15 +44,13 @@ abstract class BaseWebFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        if(shouldCheckMergeAccountOnResume)
-        {
+        if (shouldCheckMergeAccountOnResume) {
             onCheckMergeAccountStatus()
             shouldCheckMergeAccountOnResume = false
         }
     }
 
-    fun setupWebView()
-    {
+    fun setupWebView() {
         val settings = webView.settings
         settings.javaScriptEnabled = true
         settings.useWideViewPort = false
@@ -58,7 +59,8 @@ abstract class BaseWebFragment : BaseFragment() {
         // Performance improvements
         settings.setAppCacheEnabled(true)
         settings.cacheMode = WebSettings.LOAD_DEFAULT
-        CookieManager.getInstance().setAcceptCookie(true) // Set this after WebView init but before load
+        CookieManager.getInstance()
+            .setAcceptCookie(true) // Set this after WebView init but before load
         if (Build.VERSION.SDK_INT >= 21) {
             CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true)
         }
@@ -80,15 +82,15 @@ abstract class BaseWebFragment : BaseFragment() {
         // Avoid long click selection of UI elements
         webView.setOnLongClickListener { true }
 
-        //webView.setWebViewClient(new WebViewClient());
+        // webView.setWebViewClient(new WebViewClient());
 
         webView.scrollBarStyle = WebView.SCROLLBARS_OUTSIDE_OVERLAY
-        //webView.loadUrl(loginUrl)
+        // webView.loadUrl(loginUrl)
 
         webView.settings.javaScriptEnabled = true
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                if(!onOverrideUrlLoading(view, url))
+                if (!onOverrideUrlLoading(view, url))
                     return super.shouldOverrideUrlLoading(view, url)
                 else
                     return true
@@ -101,25 +103,23 @@ abstract class BaseWebFragment : BaseFragment() {
         webView.addJavascriptInterface(WebAppInterface(), "app")
     }
 
-    abstract fun onOverrideUrlLoading(view: WebView?, url: String?) : Boolean
+    abstract fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean
     abstract fun onLoadFinished(view: WebView?, url: String?)
-    open fun loginKspToken(kspwebtoken : String) {}
+    open fun loginKspToken(kspwebtoken: String) {}
     open fun onCheckMergeAccountStatus() {}
 
     private inner class WebAppInterface {
         @JavascriptInterface
         fun logon(kspweb: String, ticket: String) {
             Timber.d("Received logon url from webview: kspweb=$kspweb, ticket=$ticket")
-            //onReceivedWebLogin(kspweb, ticket)
+            // onReceivedWebLogin(kspweb, ticket)
             loginKspToken(ticket)
         }
-
 
         @JavascriptInterface
         fun performAppSwitch() {
             Timber.e("Perform ipswitch")
         }
-
     }
 
     fun showMergeAcountDrawer() {

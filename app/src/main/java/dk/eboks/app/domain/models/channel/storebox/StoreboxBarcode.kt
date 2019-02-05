@@ -6,10 +6,10 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class StoreboxBarcode(
-        @SerializedName("type")
-        var type: String? = null,
-        @SerializedName("value")
-        var value: String? = null,
-        @SerializedName("displayValue")
-        var displayValue: String? = null
+    @SerializedName("type")
+    var type: String? = null,
+    @SerializedName("value")
+    var value: String? = null,
+    @SerializedName("displayValue")
+    var displayValue: String? = null
 ) : Parcelable

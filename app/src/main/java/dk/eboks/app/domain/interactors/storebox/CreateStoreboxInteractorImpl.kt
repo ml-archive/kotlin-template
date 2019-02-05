@@ -10,22 +10,21 @@ import timber.log.Timber
 
 /**
  * Created by Christian on 5/15/2018.
- * @author   Christian
- * @since    5/15/2018.
+ * @author Christian
+ * @since 5/15/2018.
  */
-class CreateStoreboxInteractorImpl(executor: Executor, private val api: Api) : BaseInteractor(executor), CreateStoreboxInteractor {
+class CreateStoreboxInteractorImpl(executor: Executor, private val api: Api) :
+    BaseInteractor(executor), CreateStoreboxInteractor {
     override var output: CreateStoreboxInteractor.Output? = null
 
     override fun execute() {
         try {
             val result = api.createStoreboxAccount().execute()
-            if(result.isSuccessful) {
+            if (result.isSuccessful) {
                 runOnUIThread {
                     output?.onStoreboxAccountCreated()
                 }
-            }
-            else
-            {
+            } else {
                 runOnUIThread {
                     output?.onStoreboxAccountCreatedError(ViewError())
                 }
@@ -33,24 +32,22 @@ class CreateStoreboxInteractorImpl(executor: Executor, private val api: Api) : B
         } catch (t: Throwable) {
             runOnUIThread {
                 Timber.e(t)
-                if(t is ServerErrorException)
-                {
+                if (t is ServerErrorException) {
                     val error = t.error
                     Timber.e("got servererroreception")
-                    when(error.code)
-                    {
+                    when (error.code) {
                         // TODO fix to use the correct error code when API returns it
-                        //APIConstants.STOREBOX_PROFILE_EXISTS -> {
+                        // APIConstants.STOREBOX_PROFILE_EXISTS -> {
                         0 -> {
-                           output?.onStoreboxAccountExists()
+                            output?.onStoreboxAccountExists()
                         }
-                        else -> {output?.onStoreboxAccountCreatedError(exceptionToViewError(t))}
+                        else -> {
+                            output?.onStoreboxAccountCreatedError(exceptionToViewError(t))
+                        }
                     }
-                }
-                else
+                } else
                     output?.onStoreboxAccountCreatedError(exceptionToViewError(t))
             }
         }
     }
-
 }

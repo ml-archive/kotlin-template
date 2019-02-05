@@ -8,8 +8,8 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class Description(
-        var text : String,
-        var title : String? = null,
-        var format : DescriptionFormat = DescriptionFormat.TEXT,
-        var link: Link? = null
+    var text: String,
+    var title: String? = null,
+    var format: DescriptionFormat = DescriptionFormat.TEXT,
+    var link: Link? = null
 ) : Parcelable

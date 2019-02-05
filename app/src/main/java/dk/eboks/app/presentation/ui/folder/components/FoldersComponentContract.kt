@@ -11,10 +11,10 @@ import dk.nodes.arch.presentation.base.BasePresenter
 interface FoldersComponentContract {
     interface View : ComponentBaseView {
         fun getModeType(): FolderMode
-        fun showUserFolders(folders : List<Folder>)
-        fun showSystemFolders(folders : List<Folder>)
-        fun showRefreshProgress(show : Boolean)
-        fun showSelectFolders(folders : List<Folder>)
+        fun showUserFolders(folders: List<Folder>)
+        fun showSystemFolders(folders: List<Folder>)
+        fun showRefreshProgress(show: Boolean)
+        fun showSelectFolders(folders: List<Folder>)
         fun setUser(user: User?)
 
         val isSharedUserActive: Boolean
@@ -23,6 +23,5 @@ interface FoldersComponentContract {
     interface Presenter : BasePresenter<View> {
         fun openFolder(folder: Folder)
         fun refresh()
-
     }
 }

@@ -24,7 +24,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
         val elementAdapter = gson.getAdapter(JsonElement::class.java)
         var listElement: JsonElement? = null
         var metadata: JsonElement? = null
-        //Timber.e("Creating typeadaptor for $type")
+        // Timber.e("Creating typeadaptor for $type")
 
         return object : TypeAdapter<T>() {
 
@@ -37,12 +37,11 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
             override fun read(reader: JsonReader): T {
                 var jsonElement = elementAdapter.read(reader)
 
-                //Timber.e("Path ${reader.path}")
-                //Timber.e("parsing element at path ${reader.path} = " + jsonElement.toString())
-
+                // Timber.e("Path ${reader.path}")
+                // Timber.e("parsing element at path ${reader.path} = " + jsonElement.toString())
 
                 if (reader.path != "$") {
-                    //Timber.e("Not root path, not doing custom stuff")
+                    // Timber.e("Not root path, not doing custom stuff")
                     return delegate.fromJsonTree(jsonElement)
                 }
 
@@ -55,7 +54,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                         for (entry in entry_set) {
                             val key: String = entry.key
                             val ele: JsonElement = entry.value
-                            //Timber.e("Examining key $key (${reader.path})")
+                            // Timber.e("Examining key $key (${reader.path})")
                             if (rootContainerNames.contains(key)) {
                                 if (ele.isJsonArray) {
                                     listElement = ele

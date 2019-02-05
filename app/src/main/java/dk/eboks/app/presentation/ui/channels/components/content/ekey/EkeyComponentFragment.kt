@@ -31,7 +31,8 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, BetterEkeyAdapter.Ekeyclicklistener {
+class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View,
+    BetterEkeyAdapter.Ekeyclicklistener {
     override fun onEkeyClicked(ekey: BaseEkey) {
         val frag = EkeyOpenItemComponentFragment()
         when (ekey) {
@@ -57,7 +58,11 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, Be
     private val items = ArrayList<ListItem>()
     private val actualItems = ArrayList<BaseEkey>()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_channel_ekey, container, false)
     }
 
@@ -87,21 +92,21 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, Be
     }
 
     private fun setupRecycler() {
-        //REFRESH
+        // REFRESH
         refreshSrl.setOnRefreshListener {
             getEkeyBaseActivity()?.presenter?.getData()
         }
 
-        //RECYCLER
+        // RECYCLER
         keysContentRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
         ViewCompat.setNestedScrollingEnabled(keysContentRv, false)
         keysContentRv.addItemDecoration(DividerDecoration())
         val adapter = BetterEkeyAdapter(items, this)
 
-        adapter.onActionEvent = {baseEkey ->
+        adapter.onActionEvent = { baseEkey ->
             val list = arrayListOf<BaseEkey>()
             actualItems.forEach { item ->
-                if(item != baseEkey)
+                if (item != baseEkey)
                     list.add(item)
             }
             getEkeyBaseActivity()?.presenter?.putVault(list)
@@ -130,8 +135,8 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, Be
                 arguments.putCharSequence("arguments", "ekey")
                 arguments.putParcelable(Channel::class.java.simpleName, channel)
                 getBaseActivity()?.openComponentDrawer(
-                        ChannelSettingsComponentFragment::class.java,
-                        arguments
+                    ChannelSettingsComponentFragment::class.java,
+                    arguments
                 )
             }
             true
@@ -154,10 +159,14 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, Be
         setEmptyState(keys.isEmpty())
 
         // group by type
-        keys.filter { it is Login }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name }).forEach { items.add(EkeyItem(it)) }
-        keys.filter { it is Pin }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name }).forEach { items.add(EkeyItem(it)) }
-        keys.filter { it is Note }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name }).forEach { items.add(EkeyItem(it)) }
-        keys.filter { it is Ekey }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name }).forEach { items.add(EkeyItem(it)) }
+        keys.filter { it is Login }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
+            .forEach { items.add(EkeyItem(it)) }
+        keys.filter { it is Pin }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
+            .forEach { items.add(EkeyItem(it)) }
+        keys.filter { it is Note }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
+            .forEach { items.add(EkeyItem(it)) }
+        keys.filter { it is Ekey }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
+            .forEach { items.add(EkeyItem(it)) }
 
         // add headers
         var index = items.indexOfFirst { it is EkeyItem && it.data is Login }
@@ -186,7 +195,7 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, Be
     }
 
     private fun showLoading(show: Boolean) {
-        if(show) {
+        if (show) {
             content.visibility = View.GONE
             progressBar.visibility = View.VISIBLE
         } else {
@@ -198,7 +207,12 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, Be
     inner class DividerDecoration : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
         private val d = resources.getDrawable(R.drawable.shape_divider)
 
-        override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: androidx.recyclerview.widget.RecyclerView.State) {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: androidx.recyclerview.widget.RecyclerView,
+            state: androidx.recyclerview.widget.RecyclerView.State
+        ) {
             super.getItemOffsets(outRect, view, parent, state)
 
             outRect.bottom += d.intrinsicHeight
@@ -233,10 +247,10 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View, Be
     companion object {
         @JvmStatic
         fun newInstance(vault: ArrayList<BaseEkey>) =
-                EkeyComponentFragment().apply {
-                    arguments = Bundle().apply {
-                        putParcelableArrayList("VAULT", vault)
-                    }
+            EkeyComponentFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelableArrayList("VAULT", vault)
                 }
+            }
     }
 }

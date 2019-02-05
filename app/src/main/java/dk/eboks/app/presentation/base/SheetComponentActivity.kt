@@ -25,17 +25,17 @@ import timber.log.Timber
  * Created by bison on 03-03-2018.
  */
 class SheetComponentActivity : BaseActivity() {
-    var sheetBehavior : BottomSheetBehavior<View>? = null
+    var sheetBehavior: BottomSheetBehavior<View>? = null
     var shouldClose = false
-    private lateinit var fadeAnim : Animation
-    private lateinit var bounceAnim : Animation
+    private lateinit var fadeAnim: Animation
+    private lateinit var bounceAnim: Animation
     private val handleOffsetMaxDP = 28
     private val handleOffsetMinDP = 0
     private var handleBounceDistance = 0f
-    private var handleOffsetMax : Float = 0f
-    private var handleOffsetMin : Float = 0f
-    private var elevationMin : Float = 0f
-    private var elevationMax : Float = 0f
+    private var handleOffsetMax: Float = 0f
+    private var handleOffsetMin: Float = 0f
+    private var elevationMin: Float = 0f
+    private var elevationMax: Float = 0f
     private val evaluator: ArgbEvaluator = ArgbEvaluator()
     private var handleStartColor: Int = 0
     private var handleEndColor: Int = 0
@@ -44,52 +44,51 @@ class SheetComponentActivity : BaseActivity() {
 
     val callback = object : BottomSheetBehavior.BottomSheetCallback() {
         override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            //Timber.e("Slideoffset: $slideOffset")
-            //touchVeilV.alpha = MathUtil.reMapFloat(-1.0f, 1.0f, .0f, 1.0f, slideOffset)
+            // Timber.e("Slideoffset: $slideOffset")
+            // touchVeilV.alpha = MathUtil.reMapFloat(-1.0f, 1.0f, .0f, 1.0f, slideOffset)
             touchVeilV.alpha = slideOffset
-            if(slideOffset >= 0) {
+            if (slideOffset >= 0) {
                 val params = contextSheetHandle.layoutParams as FrameLayout.LayoutParams
-                params.topMargin = MathUtil.lerp(handleOffsetMax, handleOffsetMin, slideOffset).toInt()
+                params.topMargin =
+                    MathUtil.lerp(handleOffsetMax, handleOffsetMin, slideOffset).toInt()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    contextSheetHandle.elevation = MathUtil.lerp(elevationMin, elevationMax, slideOffset)
+                    contextSheetHandle.elevation =
+                        MathUtil.lerp(elevationMin, elevationMax, slideOffset)
                 }
                 contextSheetHandle.layoutParams = params
                 val background = contextSheetHandle.background
-                setDrawableColor(background, (evaluator.evaluate(slideOffset, handleStartColor, handleEndColor) as Int))
-                //shape.paint.color = evaluator.evaluate(slideOffset, 0)
+                setDrawableColor(
+                    background,
+                    (evaluator.evaluate(slideOffset, handleStartColor, handleEndColor) as Int)
+                )
+                // shape.paint.color = evaluator.evaluate(slideOffset, 0)
             }
-
         }
 
         override fun onStateChanged(bottomSheet: View, newState: Int) {
-            //Timber.e("State changed to $newState")
-            if(newState == BottomSheetBehavior.STATE_HIDDEN)
-            {
+            // Timber.e("State changed to $newState")
+            if (newState == BottomSheetBehavior.STATE_HIDDEN) {
                 shouldClose = true
                 finish()
-                overridePendingTransition(0,0)
+                overridePendingTransition(0, 0)
             }
-            if(newState == BottomSheetBehavior.STATE_EXPANDED)
-            {
+            if (newState == BottomSheetBehavior.STATE_EXPANDED) {
                 bounceAnim.repeatCount = Animation.INFINITE
                 contextSheetHandle.startAnimation(bounceAnim)
             }
-            if(newState == BottomSheetBehavior.STATE_DRAGGING)
-            {
-                if(oldState == BottomSheetBehavior.STATE_COLLAPSED)
-                {
+            if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                if (oldState == BottomSheetBehavior.STATE_COLLAPSED) {
                     touchVeilV.visibility = View.VISIBLE
                 }
-                if(oldState == BottomSheetBehavior.STATE_EXPANDED) {
+                if (oldState == BottomSheetBehavior.STATE_EXPANDED) {
                     contextSheetHandle.animation?.let {
                         if (!it.hasEnded())
                             contextSheetHandle.animation.repeatCount = 0
                     }
                 }
             }
-            if(newState == BottomSheetBehavior.STATE_COLLAPSED)
-            {
-                //touchVeilV.visibility = View.GONE
+            if (newState == BottomSheetBehavior.STATE_COLLAPSED) {
+                // touchVeilV.visibility = View.GONE
                 /*
                 contextSheetSv.scrollTo(0,0)
                 contextSheetHandle.animation?.let {
@@ -100,11 +99,9 @@ class SheetComponentActivity : BaseActivity() {
                 contextSheet.post {
                     sheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
                 }
-
             }
             oldState = newState
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -126,7 +123,6 @@ class SheetComponentActivity : BaseActivity() {
         elevationMin = 0f
         elevationMax = resources.displayMetrics.density * 2.0f
 
-
         bounceAnim = TranslateAnimation(0f, 0f, 0f, handleBounceDistance)
         bounceAnim.interpolator = AccelerateDecelerateInterpolator()
         bounceAnim.duration = 1500
@@ -139,32 +135,30 @@ class SheetComponentActivity : BaseActivity() {
         try {
             val clazz = Class.forName(compname)
             val frag = clazz.newInstance() as BaseFragment
-            intent.getBundleExtra("arguments")?.let{
+            intent.getBundleExtra("arguments")?.let {
                 frag.arguments = it
             }
             addFragment(frag)
-        }
-        catch (t : Throwable)
-        {
+        } catch (t: Throwable) {
             Timber.e("Fragment $compname could not be instantiated")
         }
     }
 
-    fun addFragment(fragment : BaseFragment?)
-    {
-        fragment?.let{
-            supportFragmentManager.beginTransaction().add(R.id.sheetComponentFl, it, fragment.javaClass.simpleName).addToBackStack(fragment.javaClass.simpleName).commit()
+    fun addFragment(fragment: BaseFragment?) {
+        fragment?.let {
+            supportFragmentManager.beginTransaction()
+                .add(R.id.sheetComponentFl, it, fragment.javaClass.simpleName)
+                .addToBackStack(fragment.javaClass.simpleName).commit()
         }
     }
 
-    fun replaceFragment(fragment : BaseFragment?)
-    {
-        fragment?.let{
+    fun replaceFragment(fragment: BaseFragment?) {
+        fragment?.let {
             supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.slide_in_bottom,R.anim.slide_out_top)
-                    .replace(R.id.sheetComponentFl, it, fragment.javaClass.simpleName)
-                    .addToBackStack(fragment.javaClass.simpleName)
-                    .commit()
+                .setCustomAnimations(R.anim.slide_in_bottom, R.anim.slide_out_top)
+                .replace(R.id.sheetComponentFl, it, fragment.javaClass.simpleName)
+                .addToBackStack(fragment.javaClass.simpleName)
+                .commit()
         }
     }
 
@@ -173,13 +167,12 @@ class SheetComponentActivity : BaseActivity() {
         firstExpand = true
     }
 
-    fun setupBottomSheet()
-    {
+    fun setupBottomSheet() {
         sheetBehavior = BottomSheetBehavior.from(contextSheet)
         sheetBehavior?.isHideable = true
         sheetBehavior?.peekHeight = 0
-        //sheetBehavior?.peekHeight = (resources.displayMetrics.density * 104.0).toInt()
-        //sheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+        // sheetBehavior?.peekHeight = (resources.displayMetrics.density * 104.0).toInt()
+        // sheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
 
         sheetBehavior?.setBottomSheetCallback(callback)
         /*
@@ -190,11 +183,9 @@ class SheetComponentActivity : BaseActivity() {
         contextSheet.post {
             sheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
         }
-
     }
 
-    fun setDrawableColor(background: Drawable, color : Int)
-    {
+    fun setDrawableColor(background: Drawable, color: Int) {
         if (background is ShapeDrawable) {
             // cast to 'ShapeDrawable'
             background.paint.color = color
@@ -207,8 +198,7 @@ class SheetComponentActivity : BaseActivity() {
         }
     }
 
-    protected fun setContentSheet(resId : Int)
-    {
+    protected fun setContentSheet(resId: Int) {
         val li: LayoutInflater = LayoutInflater.from(this)
         val sheet = li.inflate(resId, contextSheetSv, false)
         contextSheetSv.addView(sheet)

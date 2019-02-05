@@ -19,7 +19,10 @@ import java.util.NoSuchElementException
 import javax.inject.Inject
 import javax.security.auth.x500.X500Principal
 
-class CryptoManagerImpl @Inject constructor(val context: Context, val settingsRepository: SettingsRepository) : CryptoManager {
+class CryptoManagerImpl @Inject constructor(
+    val context: Context,
+    val settingsRepository: SettingsRepository
+) : CryptoManager {
     private val AndroidKeyStore = "AndroidKeyStore"
 
     @SuppressLint("NewApi")
@@ -35,19 +38,19 @@ class CryptoManagerImpl @Inject constructor(val context: Context, val settingsRe
             end.add(Calendar.YEAR, 30)
 
             val spec = KeyPairGeneratorSpec.Builder(context)
-                    .setAlias(userId)
-                    .setSubject(X500Principal("CN=$userId"))
-                    .setSerialNumber(BigInteger.TEN)
-                    .setStartDate(start.time)
-                    .setKeySize(2048)
-                    .setEndDate(end.time)
-                    .build()
+                .setAlias(userId)
+                .setSubject(X500Principal("CN=$userId"))
+                .setSerialNumber(BigInteger.TEN)
+                .setStartDate(start.time)
+                .setKeySize(2048)
+                .setEndDate(end.time)
+                .build()
 
             val kpg = KeyPairGenerator.getInstance("RSA", AndroidKeyStore)
             kpg.initialize(spec)
             val kp = kpg.generateKeyPair()
-            Timber.i("Public key: " + getPublicKeyAsString(kp.public))
-            //NLog.e(TAG, "Private key: " + getPrivateKeyAsString(kp.getPrivate()));
+            Timber.i("Public key: %s", getPublicKeyAsString(kp.public))
+            // NLog.e(TAG, "Private key: " + getPrivateKeyAsString(kp.getPrivate()));
         }
     }
 
@@ -55,7 +58,6 @@ class CryptoManagerImpl @Inject constructor(val context: Context, val settingsRe
         Empty because the android key store saves the key when its generated above
      */
     override fun saveActivation(userId: String) {
-
     }
 
     /**
@@ -75,7 +77,6 @@ class CryptoManagerImpl @Inject constructor(val context: Context, val settingsRe
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     override fun loadActivation(userId: String): Boolean {
@@ -119,7 +120,12 @@ class CryptoManagerImpl @Inject constructor(val context: Context, val settingsRe
     override fun getActivation(userId: String): DeviceActivation? {
         try {
             if (hasActivation(userId)) {
-                return DeviceActivation(getPublicKeyFromKeystore(userId), getPrivateKeyFromKeystore(userId), settingsRepository.get().deviceId, userId)
+                return DeviceActivation(
+                    getPublicKeyFromKeystore(userId),
+                    getPrivateKeyFromKeystore(userId),
+                    settingsRepository.get().deviceId,
+                    userId
+                )
             } else {
                 Timber.e("No keypair found for user id $userId")
             }

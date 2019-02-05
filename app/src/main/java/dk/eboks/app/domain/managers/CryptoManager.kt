@@ -5,15 +5,24 @@ import java.security.PrivateKey
 import java.security.PublicKey
 
 interface CryptoManager {
-    @Throws(Exception::class) fun generateRSAKey(userId: String)
+    @Throws(Exception::class)
+    fun generateRSAKey(userId: String)
+
     fun saveActivation(userId: String)
     fun loadActivation(userId: String): Boolean
     fun hasActivation(userId: String): Boolean
-    @Throws(NoSuchElementException::class) fun renameActivation(oldAlias : String, newAlias : String)
-    @Throws(Exception::class) fun hashStringData(data: String, pk: PrivateKey): String
+    @Throws(NoSuchElementException::class)
+    fun renameActivation(oldAlias: String, newAlias: String)
+
+    @Throws(Exception::class)
+    fun hashStringData(data: String, pk: PrivateKey): String
+
     fun getPublicKeyAsString(publicKey: PublicKey): String
     fun getPrivateKeyAsString(privateKey: PrivateKey): String
     fun getActivation(userId: String): DeviceActivation?
-    @Throws(Exception::class) fun deleteActivation(userId: String)
-    @Throws(Exception::class) fun deleteAllActivations()
+    @Throws(Exception::class)
+    fun deleteActivation(userId: String)
+
+    @Throws(Exception::class)
+    fun deleteAllActivations()
 }

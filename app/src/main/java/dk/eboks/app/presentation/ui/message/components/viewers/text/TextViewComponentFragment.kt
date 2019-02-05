@@ -39,8 +39,7 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_textview_component, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_textview_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,7 +53,7 @@ class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View
         GlobalScope.launch(Dispatchers.Default) {
             data = convertFileToByteArray(File(filename))
             data?.let {
-                //show()
+                // show()
                 var decoded = String(data!!, Charset.forName("ISO-8859-1"))
                 if (utf8Test(decoded)) {
                     Timber.i("text was not encoded with iso-8859-1, using utf-8 as fallback")

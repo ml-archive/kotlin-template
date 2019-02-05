@@ -10,9 +10,9 @@ import java.util.Date
 
 @Parcelize
 data class Status(
-    var important : Boolean = false,
-    var title : String? = null,
-    var text : String? = null,
-    var type : Int,
-    var date : Date? = null
+    var important: Boolean = false,
+    var title: String? = null,
+    var text: String? = null,
+    var type: Int,
+    var date: Date? = null
 ) : Parcelable

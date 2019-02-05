@@ -8,8 +8,8 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 class PutStoreboxProfileInteractorImpl(executor: Executor, private val api: Api) :
-        BaseInteractor(executor),
-        PutStoreboxProfileInteractor {
+    BaseInteractor(executor),
+    PutStoreboxProfileInteractor {
     override var output: PutStoreboxProfileInteractor.Output? = null
     override var input: PutStoreboxProfileInteractor.Input? = null
 
@@ -17,14 +17,12 @@ class PutStoreboxProfileInteractorImpl(executor: Executor, private val api: Api)
         try {
             input?.profile?.let {
                 val result = api.putStoreboxProfile(it).execute()
-                if(result.isSuccessful)
-                {
+                if (result.isSuccessful) {
                     runOnUIThread {
                         output?.onPutProfile()
                     }
                 }
             }.guard { output?.onPutProfileError(ViewError()) }
-
         } catch (t: Throwable) {
             t.printStackTrace()
 

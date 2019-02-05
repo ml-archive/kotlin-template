@@ -30,8 +30,8 @@ import javax.inject.Inject
 
 /**
  * Created by Christian on 3/13/2018.
- * @author   Christian
- * @since    3/13/2018.
+ * @author Christian
+ * @since 3/13/2018.
  */
 class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
 

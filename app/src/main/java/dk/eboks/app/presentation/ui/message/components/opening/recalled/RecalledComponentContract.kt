@@ -10,6 +10,6 @@ interface RecalledComponentContract {
     interface View : BaseView
 
     interface Presenter : BasePresenter<View> {
-        fun setShouldProceed(proceed : Boolean)
+        fun setShouldProceed(proceed: Boolean)
     }
 }

@@ -9,7 +9,8 @@ import timber.log.Timber
 /**
  * Created by bison on 01/02/18.
  */
-class GetChannelsInteractorImpl(executor: Executor, val channelsRepository: ChannelsRepository) : BaseInteractor(executor), GetChannelsInteractor {
+class GetChannelsInteractorImpl(executor: Executor, val channelsRepository: ChannelsRepository) :
+    BaseInteractor(executor), GetChannelsInteractor {
     override var output: GetChannelsInteractor.Output? = null
     override var input: GetChannelsInteractor.Input? = null
 

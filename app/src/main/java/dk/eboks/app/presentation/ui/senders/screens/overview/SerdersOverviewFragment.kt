@@ -27,7 +27,6 @@ import javax.inject.Inject
 class SerdersOverviewFragment : BaseFragment(), SendersOverviewContract.View,
     SendersCollectionAdapter.Callback {
 
-
     @Inject lateinit var presenter: SendersOverviewContract.Presenter
 
     private lateinit var adapter: SendersCollectionAdapter

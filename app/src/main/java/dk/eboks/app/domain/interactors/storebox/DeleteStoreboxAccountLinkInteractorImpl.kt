@@ -6,8 +6,8 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 class DeleteStoreboxAccountLinkInteractorImpl(executor: Executor, private val api: Api) :
-        BaseInteractor(executor),
-        DeleteStoreboxAccountLinkInteractor {
+    BaseInteractor(executor),
+    DeleteStoreboxAccountLinkInteractor {
     override var output: DeleteStoreboxAccountLinkInteractor.Output? = null
 
     override fun execute() {
@@ -21,7 +21,7 @@ class DeleteStoreboxAccountLinkInteractorImpl(executor: Executor, private val ap
 
             val result = api.deleteStoreboxAccountLink().execute()
 
-            if(result.isSuccessful) {
+            if (result.isSuccessful) {
                 runOnUIThread {
                     output?.onStoreboxAccountLinkDelete()
                 }

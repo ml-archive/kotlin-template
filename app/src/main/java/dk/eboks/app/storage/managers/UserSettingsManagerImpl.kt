@@ -9,11 +9,11 @@ import dk.eboks.app.storage.base.GsonFileStorageRepository
 import timber.log.Timber
 
 /**
- * @author   Christian
- * @since    6/19/2018.
+ * @author Christian
+ * @since 6/19/2018.
  */
 class UserSettingsManagerImpl(val context: Context, val gson: Gson) : UserSettingsManager {
-    private var userSettings: MutableMap<Int, UserSettings> = HashMap()
+    private var userSettings = mutableMapOf<Int, UserSettings>()
     private val settingsStore = UserSettingsStore()
 
     init {
@@ -25,7 +25,6 @@ class UserSettingsManagerImpl(val context: Context, val gson: Gson) : UserSettin
             for (entry in userSettings) {
                 Timber.d("Entry: ${entry.value}")
             }
-
         } catch (t: Throwable) {
             Timber.w("creating empty settings store")
             save()
@@ -58,11 +57,11 @@ class UserSettingsManagerImpl(val context: Context, val gson: Gson) : UserSettin
     }
 
     override fun removeFingerprintFromYall() {
-        for(kv in userSettings)
-        {
+        for (kv in userSettings) {
             kv.value.hasFingerprint = false
         }
     }
 
-    inner class UserSettingsStore : GsonFileStorageRepository<MutableMap<Int, UserSettings>>(context, gson, "usersettings.json")
+    inner class UserSettingsStore :
+        GsonFileStorageRepository<MutableMap<Int, UserSettings>>(context, gson, "usersettings.json")
 }

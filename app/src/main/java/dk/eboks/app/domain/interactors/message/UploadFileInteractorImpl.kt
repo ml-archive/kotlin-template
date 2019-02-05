@@ -8,15 +8,21 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 
-class UploadFileInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) : BaseInteractor(executor), UploadFileInteractor {
+class UploadFileInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) :
+    BaseInteractor(executor), UploadFileInteractor {
     override var output: UploadFileInteractor.Output? = null
     override var input: UploadFileInteractor.Input? = null
 
     override fun execute() {
-        input?.let { args->
+        input?.let { args ->
             try {
-                messagesRepository.uploadFileAsMessage(args.folderId, args.filename, args.uriString, args.mimetype) { count ->
-                    //Timber.e("Upload progress $count")
+                messagesRepository.uploadFileAsMessage(
+                    args.folderId,
+                    args.filename,
+                    args.uriString,
+                    args.mimetype
+                ) { count ->
+                    // Timber.e("Upload progress $count")
                     runOnUIThread {
                         output?.onUploadFileProgress(count)
                     }
@@ -24,9 +30,7 @@ class UploadFileInteractorImpl(executor: Executor, val messagesRepository: Messa
                 runOnUIThread {
                     output?.onUploadFileComplete()
                 }
-            }
-            catch (t : Throwable)
-            {
+            } catch (t: Throwable) {
                 Timber.e(t)
                 runOnUIThread {
                     output?.onUploadFileError(exceptionToViewError(t, shouldClose = true))
@@ -35,7 +39,5 @@ class UploadFileInteractorImpl(executor: Executor, val messagesRepository: Messa
         }.guard {
             output?.onUploadFileError(ViewError())
         }
-
     }
-
 }

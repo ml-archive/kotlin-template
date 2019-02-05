@@ -9,10 +9,13 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 /**
  * Created by bison on 20-05-2017.
  */
-class BrowseCategoryPresenter(val appStateManager: AppStateManager, val getSendersInteractor: GetSendersInteractor) :
-        BrowseCategoryContract.Presenter,
-        BasePresenterImpl<BrowseCategoryContract.View>(),
-        GetSendersInteractor.Output {
+class BrowseCategoryPresenter(
+    val appStateManager: AppStateManager,
+    val getSendersInteractor: GetSendersInteractor
+) :
+    BrowseCategoryContract.Presenter,
+    BasePresenterImpl<BrowseCategoryContract.View>(),
+    GetSendersInteractor.Output {
 
     init {
         getSendersInteractor.output = this
@@ -24,8 +27,13 @@ class BrowseCategoryPresenter(val appStateManager: AppStateManager, val getSende
         }
         runAction { v ->
             v.showProgress(true)
-                getSendersInteractor.input = GetSendersInteractor.Input(false, "", appStateManager.state?.impersoniateUser?.userId, senderId)
-                getSendersInteractor.run()
+            getSendersInteractor.input = GetSendersInteractor.Input(
+                false,
+                "",
+                appStateManager.state?.impersoniateUser?.userId,
+                senderId
+            )
+            getSendersInteractor.run()
         }
     }
 
@@ -33,7 +41,11 @@ class BrowseCategoryPresenter(val appStateManager: AppStateManager, val getSende
         runAction { v ->
             v.showProgress(true)
             if (searchText.isNotBlank()) {
-                getSendersInteractor.input = GetSendersInteractor.Input(false, searchText, appStateManager.state?.impersoniateUser?.userId)
+                getSendersInteractor.input = GetSendersInteractor.Input(
+                    false,
+                    searchText,
+                    appStateManager.state?.impersoniateUser?.userId
+                )
                 getSendersInteractor.run()
             } else {
                 onGetSenders(ArrayList()) // empty result
@@ -48,7 +60,7 @@ class BrowseCategoryPresenter(val appStateManager: AppStateManager, val getSende
         }
     }
 
-    override fun onGetSendersError(error : ViewError) {
+    override fun onGetSendersError(error: ViewError) {
         runAction { v ->
             v.showProgress(false)
             v.showSenders(ArrayList()) // empty result

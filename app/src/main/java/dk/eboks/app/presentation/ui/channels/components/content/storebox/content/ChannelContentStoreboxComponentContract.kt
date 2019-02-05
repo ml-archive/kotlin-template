@@ -12,7 +12,7 @@ interface ChannelContentStoreboxComponentContract {
         fun setReceipts(data: List<StoreboxReceiptItem>)
         fun showProgress(show: Boolean)
         fun showEmptyView(show: Boolean)
-        fun showNoCreditCardsEmptyView(show : Boolean)
+        fun showNoCreditCardsEmptyView(show: Boolean)
     }
 
     interface Presenter : BasePresenter<View> {

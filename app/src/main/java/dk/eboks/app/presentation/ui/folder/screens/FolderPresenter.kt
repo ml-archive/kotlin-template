@@ -8,12 +8,8 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class FolderPresenter @Inject constructor(val appState: AppStateManager) :
-        FolderContract.Presenter,
-        BasePresenterImpl<FolderContract.View>()
-{
+    FolderContract.Presenter,
+    BasePresenterImpl<FolderContract.View>() {
     init {
     }
-
-
-
 }

@@ -9,14 +9,14 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface ChannelOverviewComponentContract {
     interface View : BaseView {
-        fun showChannels(channels : List<Channel>)
+        fun showChannels(channels: List<Channel>)
         fun showChannelOpening(channel: Channel)
-        fun showProgress(show : Boolean)
+        fun showProgress(show: Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
         fun setup()
-        fun openChannel(channel : Channel)
-        fun refresh(cached : Boolean)
+        fun openChannel(channel: Channel)
+        fun refresh(cached: Boolean)
     }
 }

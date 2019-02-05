@@ -11,9 +11,15 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.Control
 
-class MessagesChannelControl(channel: Channel, control : Control, view: View, inflater : LayoutInflater, handler: Handler, val formatter: EboksFormatter) : ChannelControl(channel, control, view, inflater, handler) {
+class MessagesChannelControl(
+    channel: Channel,
+    control: Control,
+    view: View,
+    inflater: LayoutInflater,
+    handler: Handler,
+    val formatter: EboksFormatter
+) : ChannelControl(channel, control, view, inflater, handler) {
 
-    
     override fun buildView() {
         control.items?.let { items ->
             for (currentItem in items) {
@@ -34,7 +40,6 @@ class MessagesChannelControl(channel: Channel, control : Control, view: View, in
                     urgent.visibility = View.VISIBLE
                     urgent.text = currentStatus.title
                 }
-
 
                 title.text = currentItem.title
                 subtitle.text = currentItem.description

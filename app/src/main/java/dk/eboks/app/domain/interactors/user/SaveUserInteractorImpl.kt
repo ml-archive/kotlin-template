@@ -10,13 +10,14 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 /**
  * Created by bison on 24-06-2017.
  */
-class SaveUserInteractorImpl(executor: Executor, val userManager: UserManager) : BaseInteractor(executor), SaveUserInteractor {
-    override var output : SaveUserInteractor.Output? = null
-    override var input : SaveUserInteractor.Input? = null
+class SaveUserInteractorImpl(executor: Executor, val userManager: UserManager) :
+    BaseInteractor(executor), SaveUserInteractor {
+    override var output: SaveUserInteractor.Output? = null
+    override var input: SaveUserInteractor.Input? = null
 
     override fun execute() {
         try {
-            input?.user?.let { user->
+            input?.user?.let { user ->
                 userManager.put(user)
                 runOnUIThread {
                     output?.onSaveUser(user, userManager.users.size)
@@ -26,7 +27,6 @@ class SaveUserInteractorImpl(executor: Executor, val userManager: UserManager) :
                     output?.onSaveUserError(ViewError())
                 }
             }
-
         } catch (t: Throwable) {
             runOnUIThread {
                 output?.onSaveUserError(exceptionToViewError(t))

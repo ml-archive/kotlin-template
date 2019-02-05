@@ -9,8 +9,8 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface ChannelContentContract {
     interface View : BaseView {
-        fun openChannelContent(channel : Channel)
-        fun openStoreBoxContent(channel : Channel)
+        fun openChannelContent(channel: Channel)
+        fun openStoreBoxContent(channel: Channel)
         fun openEkeyContent()
         fun finish()
     }

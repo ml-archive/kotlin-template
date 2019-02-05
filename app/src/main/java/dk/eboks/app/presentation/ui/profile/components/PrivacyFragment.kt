@@ -12,13 +12,13 @@ import javax.inject.Inject
 
 /**
  * Created by Christian on 5/23/2018.
- * @author   Christian
- * @since    5/23/2018.
+ * @author Christian
+ * @since 5/23/2018.
  */
-class PrivacyFragment: BaseWebFragment(), PrivacyContract.View {
+class PrivacyFragment : BaseWebFragment(), PrivacyContract.View {
 
     @Inject
-    lateinit var presenter : PrivacyContract.Presenter
+    lateinit var presenter: PrivacyContract.Presenter
 
     override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {
         return true
@@ -44,9 +44,7 @@ class PrivacyFragment: BaseWebFragment(), PrivacyContract.View {
         webView.loadUrl(urlString)
     }
 
-    override fun loadData(data : String)
-    {
+    override fun loadData(data: String) {
         webView.loadData(data, "text/html", "utf8")
     }
-
 }

@@ -20,11 +20,10 @@ import javax.inject.Inject
 
 /**
  * Created by Christian on 3/22/2018.
- * @author   Christian
- * @since    3/22/2018.
+ * @author Christian
+ * @since 3/22/2018.
  */
 class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View {
-
 
     @Inject
     lateinit var presenter: RegistrationContract.Presenter
@@ -41,7 +40,11 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
         activity?.onBackPressed() // TODO show error
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_register_component, container, false)
     }
 
@@ -75,7 +78,14 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
             val theEditors = ArrayList<TextInputEditText>()
             val theWatcher = object : TextWatcher {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
                 override fun afterTextChanged(s: Editable) {
                     registerRegBtn.isEnabled = theEditors.none {
                         it.text.toString().trim().isBlank()
@@ -87,7 +97,11 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
                 registerRegBtn.isEnabled = false // disable until all ET's has been filled
 
                 group.alias?.forEach {
-                    val v = inflator.inflate(R.layout.viewholder_textinput, registerAliasContainerLL, false)
+                    val v = inflator.inflate(
+                        R.layout.viewholder_textinput,
+                        registerAliasContainerLL,
+                        false
+                    )
                     val input = v.findViewById<TextInputLayout>(R.id.inputTil)
                     val edit = v.findViewById<TextInputEditText>(R.id.inputTiEt)
 
@@ -119,32 +133,37 @@ class RegisterGroupComponentFragment : BaseFragment(), RegistrationContract.View
                     Timber.d("alias: ${it.name}, <${it.key}, ${it.value}>")
                 }
 
-                if(group.registered != 0) {
+                if (group.registered != 0) {
                     AlertDialog.Builder(context ?: return@setOnClickListener)
-                            .setTitle(Translation.senders.unregisterAlertTitle)
-                            .setMessage(Translation.senders.unregisterAlertDescription)
-                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                dialog.cancel()
-                            }
-                            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                presenter.unregisterSenderGroup(senderId ?: return@setPositiveButton, group)
-                                dialog.dismiss()
-                            }
-                            .show()
+                        .setTitle(Translation.senders.unregisterAlertTitle)
+                        .setMessage(Translation.senders.unregisterAlertDescription)
+                        .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                            dialog.cancel()
+                        }
+                        .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                            presenter.unregisterSenderGroup(
+                                senderId ?: return@setPositiveButton,
+                                group
+                            )
+                            dialog.dismiss()
+                        }
+                        .show()
                 } else {
                     AlertDialog.Builder(context ?: return@setOnClickListener)
-                            .setTitle(Translation.senders.registerAlertTitle)
-                            .setMessage(Translation.senders.registerAlertDescription)
-                            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-                                dialog.cancel()
-                            }
-                            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                                presenter.registerSenderGroup(senderId ?: return@setPositiveButton, group)
-                                dialog.dismiss()
-                            }
-                            .show()
+                        .setTitle(Translation.senders.registerAlertTitle)
+                        .setMessage(Translation.senders.registerAlertDescription)
+                        .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+                            dialog.cancel()
+                        }
+                        .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                            presenter.registerSenderGroup(
+                                senderId ?: return@setPositiveButton,
+                                group
+                            )
+                            dialog.dismiss()
+                        }
+                        .show()
                 }
-
             }
         }
 

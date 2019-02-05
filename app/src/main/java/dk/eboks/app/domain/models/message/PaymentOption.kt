@@ -9,9 +9,9 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class PaymentOption(
-        var name : String,
-        var description : Description?,
-        var status: Int?,
-        var type: String  //  "type": (string) = ["betalingsservice","dibs","reepay"]
+    var name: String,
+    var description: Description?,
+    var status: Int?,
+    var type: String //  "type": (string) = ["betalingsservice","dibs","reepay"]
 
 ) : Parcelable

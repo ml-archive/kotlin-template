@@ -13,8 +13,8 @@ typealias CollectionsStore = CacheStore<Int, List<CollectionContainer>>
 
 /**
  * Created by chnt on 01/02/18.
- * @author   chnt
- * @since    01/02/18.
+ * @author chnt
+ * @since 01/02/18.
  */
 class CollectionsRestRepository(
     val context: Context,

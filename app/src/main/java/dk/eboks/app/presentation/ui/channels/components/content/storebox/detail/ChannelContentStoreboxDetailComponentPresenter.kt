@@ -14,22 +14,21 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class ChannelContentStoreboxDetailComponentPresenter @Inject constructor(
-        val appState: AppStateManager,
-        private val getStoreboxReceiptInteractor: GetStoreboxReceiptInteractor,
-        private val deleteStoreboxReceiptInteractor: DeleteStoreboxReceiptInteractor,
-        private val saveReceiptInteractor: SaveReceiptInteractor,
-        private val shareReceiptInteractor: ShareReceiptInteractor
+    val appState: AppStateManager,
+    private val getStoreboxReceiptInteractor: GetStoreboxReceiptInteractor,
+    private val deleteStoreboxReceiptInteractor: DeleteStoreboxReceiptInteractor,
+    private val saveReceiptInteractor: SaveReceiptInteractor,
+    private val shareReceiptInteractor: ShareReceiptInteractor
 ) :
-        ChannelContentStoreboxDetailComponentContract.Presenter,
-        BasePresenterImpl<ChannelContentStoreboxDetailComponentContract.View>(),
-        GetStoreboxReceiptInteractor.Output,
-        DeleteStoreboxReceiptInteractor.Output,
-        SaveReceiptInteractor.Output,
-        ShareReceiptInteractor.Output
-{
+    ChannelContentStoreboxDetailComponentContract.Presenter,
+    BasePresenterImpl<ChannelContentStoreboxDetailComponentContract.View>(),
+    GetStoreboxReceiptInteractor.Output,
+    DeleteStoreboxReceiptInteractor.Output,
+    SaveReceiptInteractor.Output,
+    ShareReceiptInteractor.Output {
 
-    var currentReceipt : StoreboxReceipt? = null
-    var currentFolderName : String? = null
+    var currentReceipt: StoreboxReceipt? = null
+    var currentFolderName: String? = null
     var shareAsMail = false
 
     init {
@@ -48,7 +47,7 @@ class ChannelContentStoreboxDetailComponentPresenter @Inject constructor(
 
     override fun deleteReceipt() {
         currentReceipt?.let {
-            runAction { v->v.showProgress(true) }
+            runAction { v -> v.showProgress(true) }
             deleteStoreboxReceiptInteractor.input = DeleteStoreboxReceiptInteractor.Input(it.id)
             deleteStoreboxReceiptInteractor.run()
         }
@@ -57,16 +56,16 @@ class ChannelContentStoreboxDetailComponentPresenter @Inject constructor(
     override fun saveReceipt(dstFolder: Folder) {
         currentReceipt?.let { receipt ->
             currentFolderName = dstFolder.name
-            runAction { v->v.showProgress(true) }
+            runAction { v -> v.showProgress(true) }
             saveReceiptInteractor.input = SaveReceiptInteractor.Input(receipt.id, dstFolder.id)
             saveReceiptInteractor.run()
         }
     }
 
-    override fun shareReceipt(asMail : Boolean) {
+    override fun shareReceipt(asMail: Boolean) {
         shareAsMail = asMail
         currentReceipt?.let { receipt ->
-            runAction { v->v.showProgress(true) }
+            runAction { v -> v.showProgress(true) }
             shareReceiptInteractor.input = ShareReceiptInteractor.Input(receipt.id)
             shareReceiptInteractor.run()
         }
@@ -78,10 +77,9 @@ class ChannelContentStoreboxDetailComponentPresenter @Inject constructor(
 
     override fun onGetReceipt(storeboxReceipt: StoreboxReceipt) {
         currentReceipt = storeboxReceipt
-        runAction { v->
+        runAction { v ->
             v.setReceipt(storeboxReceipt)
         }
-
     }
 
     override fun onGetReceiptsError(error: ViewError) {
@@ -96,7 +94,7 @@ class ChannelContentStoreboxDetailComponentPresenter @Inject constructor(
      */
 
     override fun onDeleteReceiptSuccess() {
-        runAction { v->
+        runAction { v ->
             v.returnToMasterView()
         }
     }
@@ -115,8 +113,13 @@ class ChannelContentStoreboxDetailComponentPresenter @Inject constructor(
     override fun onSaveReceiptSuccess() {
         runAction { v ->
             v.showProgress(false)
-            currentFolderName?.let { name->
-                v.showToast(Translation.storeboxreceipt.receiptSavedToFolderToast.replace("[folderName]", name))
+            currentFolderName?.let { name ->
+                v.showToast(
+                    Translation.storeboxreceipt.receiptSavedToFolderToast.replace(
+                        "[folderName]",
+                        name
+                    )
+                )
             }
         }
     }
@@ -135,11 +138,10 @@ class ChannelContentStoreboxDetailComponentPresenter @Inject constructor(
     override fun onShareReceiptSuccess(filename: String) {
         runAction { v ->
             v.showProgress(false)
-            if(!shareAsMail)
+            if (!shareAsMail)
                 v.shareReceiptContent(filename)
             else
                 v.mailReceiptContent(filename)
-
         }
         Timber.e("PDF saved to temporary file $filename")
     }

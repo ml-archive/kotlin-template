@@ -5,16 +5,16 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class User(
-        var id: Int = -1,
-        var name: String = "",
-        var emails: ArrayList<ContactPoint> = arrayListOf(ContactPoint()),
-        var mobilenumber: ContactPoint? = null,
-        var nationality: String? = "",
-        var identity: String? = null,
-        var identityType: String? = null,
-        var verified: Boolean = false,
-        var newsletter: Boolean = false,
-        var avatarUri: String? = null
+    var id: Int = -1,
+    var name: String = "",
+    var emails: ArrayList<ContactPoint> = arrayListOf(ContactPoint()),
+    var mobilenumber: ContactPoint? = null,
+    var nationality: String? = "",
+    var identity: String? = null,
+    var identityType: String? = null,
+    var verified: Boolean = false,
+    var newsletter: Boolean = false,
+    var avatarUri: String? = null
 ) : Parcelable {
 
     fun getPrimaryEmail(): String? {
@@ -30,7 +30,7 @@ data class User(
     }
 
     fun setPrimaryEmail(string: String?) {
-        if(emails.size >= 1) {
+        if (emails.size >= 1) {
             emails[0] = ContactPoint(string, true)
         } else {
             emails.add(0, ContactPoint(string, true))
@@ -42,7 +42,7 @@ data class User(
     }
 
     fun setSecondaryEmail(string: String?) {
-        if(emails.size >= 2) {
+        if (emails.size >= 2) {
             emails[1] = ContactPoint(string, true)
         } else {
             emails.add(1, ContactPoint(string, true))
@@ -50,7 +50,7 @@ data class User(
     }
 
     override fun equals(other: Any?): Boolean {
-        if(other is User && id == other.id) {
+        if (other is User && id == other.id) {
             return true
         }
         return false

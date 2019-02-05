@@ -39,7 +39,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     lateinit var presenter: FoldersComponentContract.Presenter
 
     companion object {
-         var refreshOnResume: Boolean = false
+        var refreshOnResume: Boolean = false
     }
 
     override val isSharedUserActive: Boolean
@@ -53,17 +53,19 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     var pickedCheckBox: ImageButton? = null
     var currentUser: User? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_folders_component, container, false)
-        return rootView
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_folders_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
 
-        if(!BuildConfig.ENABLE_FOLDERS_ACTIONS)
-        {
+        if (!BuildConfig.ENABLE_FOLDERS_ACTIONS) {
             addFolderBtn.visibility = View.GONE
         }
 
@@ -74,10 +76,8 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
         presenter.onViewCreated(this, lifecycle)
 
-
         mainFab.setOnClickListener {
             openDrawer()
-
         }
         refreshSrl.setOnRefreshListener {
             presenter.refresh()
@@ -86,14 +86,14 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     }
 
     override fun onResume() {
-        if (refreshOnResume){
+        if (refreshOnResume) {
             presenter.refresh()
         }
         super.onResume()
     }
 
     private fun animateView() {
-        //view should only animate in selectview
+        // view should only animate in selectview
         if (mode == FolderMode.SELECT) {
             val animation = AnimationUtils.loadAnimation(context, R.anim.abc_slide_in_bottom)
             animation.duration = 1000
@@ -158,7 +158,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
             activity?.onBackPressed()
         }
 
-        if(BuildConfig.ENABLE_FOLDERS_ACTIONS) {
+        if (BuildConfig.ENABLE_FOLDERS_ACTIONS) {
             val menuProfile = getBaseActivity()?.mainTb?.menu?.add(Translation.folders.topbarEdit)
             menuProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
             menuProfile?.setOnMenuItemClickListener { item: MenuItem ->
@@ -199,16 +199,14 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                     finish()
                 }
             }.guard {
-                activity?.run{
+                activity?.run {
                     setResult(Activity.RESULT_CANCELED)
                     finish()
                 }
             }
             true
-
         }
     }
-
 
     override fun setUser(user: User?) {
         currentUser = user
@@ -246,11 +244,10 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                     editView(v)
                 }
                 else -> {
-                    //default to normal
+                    // default to normal
                     normalView(v, folder)
                 }
             }
-
 
             folder.type?.let { type ->
                 val iv = v.findViewById<ImageView>(R.id.iconIv)
@@ -305,7 +302,6 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 iv?.let { it.setImageResource(type.getIconResId()) }
             }
 
-
             // custom
             when (mode) {
                 FolderMode.NORMAL -> {
@@ -321,9 +317,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                 }
             }
 
-
             foldersLl.addView(v)
-
 
             if (folder.folders.isNotEmpty()) {
                 processFoldersRecursive(folder.folders, level + 1, folder)
@@ -353,9 +347,9 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
                     v.nameTv.text = folder.name
                     v.iconIv?.let {
                         Glide.with(context ?: return)
-                                .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
-                                .load(user.avatarUri)
-                                .into(it)
+                            .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.icon_48_profile_grey))
+                            .load(user.avatarUri)
+                            .into(it)
                     }
                 }
             }
@@ -367,7 +361,6 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         v.findViewById<ImageButton>(R.id.checkboxIb)?.visibility = View.GONE
         v.findViewById<ImageButton>(R.id.editIb)?.visibility = View.GONE
         v.setOnClickListener { presenter.openFolder(folder) }
-
     }
 
     private fun editView(v: View) {
@@ -396,7 +389,6 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         arguments.putSerializable("editFolder", editFolder)
         getBaseActivity()?.openComponentDrawer(NewFolderComponentFragment::class.java, arguments)
     }
-
 
     private fun setSelected(checkbox: ImageButton?, folder: Folder) {
         checkbox?.isSelected?.let { isSelected ->

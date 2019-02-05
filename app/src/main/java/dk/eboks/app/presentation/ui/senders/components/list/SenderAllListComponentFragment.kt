@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
@@ -34,10 +33,12 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
     var filteredSenders: MutableList<Sender> = ArrayList()
     var searchMode: Boolean = false
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_sender_list, container, false)
-        return rootView
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_sender_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,11 +61,11 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
             switchMode()
         }
 
-        activity?.searchAllSenderSv?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            var filterSenders = Runnable{
+        activity?.searchAllSenderSv?.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            var filterSenders = Runnable {
                 var text = activity?.searchAllSenderSv?.query?.toString()?.trim() ?: ""
                 presenter.searchSenders(text)
-
             }
 
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -74,7 +75,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if(newText.isNullOrBlank()) {
+                if (newText.isNullOrBlank()) {
                     filteredSenders.clear()
                     allSendersRv?.adapter?.notifyDataSetChanged()
                 } else {
@@ -86,7 +87,6 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         })
     }
 
-
     private fun setupTopBar() {
         getBaseActivity()?.mainTb?.menu?.clear()
 
@@ -96,7 +96,6 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
             getBaseActivity()?.mainTb?.navigationIcon = null
             fragmentManager?.popBackStack()
         }
-
 
         val menuProfile = getBaseActivity()?.mainTb?.menu?.add("_search")
         menuProfile?.setIcon(R.drawable.search)
@@ -113,7 +112,6 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         if (searchMode) {
             getBaseActivity()?.mainAb?.visibility = View.GONE
             getBaseActivity()?.mainAllSenderAb?.visibility = View.VISIBLE
-
         } else {
             getBaseActivity()?.mainAb?.visibility = View.VISIBLE
             getBaseActivity()?.mainAllSenderAb?.visibility = View.GONE
@@ -129,7 +127,6 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
             false
         )
         allSendersRv.adapter = SendersAdapter()
-
     }
 
     override fun showProgress(show: Boolean) {
@@ -149,14 +146,15 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         allSendersRv.adapter?.notifyDataSetChanged()
     }
 
-    inner class SendersAdapter : androidx.recyclerview.widget.RecyclerView.Adapter<SendersAdapter.SenderViewHolder>() {
+    inner class SendersAdapter :
+        androidx.recyclerview.widget.RecyclerView.Adapter<SendersAdapter.SenderViewHolder>() {
 
-        inner class SenderViewHolder(val root: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
+        inner class SenderViewHolder(val root: View) :
+            androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
             val title = root.findViewById<TextView>(R.id.titleTv)
             val unreadCountTv = root.findViewById<TextView>(R.id.unreadCountTv)
             val dividerV = root.findViewById<View>(R.id.dividerV)
             val circleIv = root.findViewById<ImageView>(R.id.circleIv)
-
 
             fun bind(currentItem: Sender, last: Boolean) {
 
@@ -168,9 +166,13 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
 
                 currentItem.logo?.url.let {
                     Glide.with(context ?: return)
-                            .setDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder).error(R.drawable.ic_sender_placeholder))
-                            .load(it)
-                            .into(circleIv)
+                        .setDefaultRequestOptions(
+                            RequestOptions().placeholder(R.drawable.ic_sender_placeholder).error(
+                                R.drawable.ic_sender_placeholder
+                            )
+                        )
+                        .load(it)
+                        .into(circleIv)
                 }
 
                 /*
@@ -190,7 +192,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
 
                     circleIv.isSelected = (unreadCount > 0)
                     if (unreadCount > 0) {
-                        unreadCountTv.text = if(unreadCount > 99) {
+                        unreadCountTv.text = if (unreadCount > 99) {
                             "99+"
                         } else {
                             unreadCount.toString()
@@ -205,17 +207,15 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
                     val i = Intent(context, MailListActivity::class.java)
                     i.putExtra("sender", currentItem)
                     startActivity(i)
-
                 }
                 root.setOnClickListener(senderListener)
             }
         }
 
-
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SenderViewHolder {
-            val v = LayoutInflater.from(context).inflate(R.layout.viewholder_senders_list_item, parent, false)
-            val vh = SenderViewHolder(v)
-            return vh
+            val v = LayoutInflater.from(context)
+                .inflate(R.layout.viewholder_senders_list_item, parent, false)
+            return SenderViewHolder(v)
         }
 
         override fun getItemCount(): Int {

@@ -30,8 +30,16 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     var handler = Handler()
     private var mode: LoginInfoType? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_profile_enable_fingerprint_component, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(
+            R.layout.fragment_profile_enable_fingerprint_component,
+            container,
+            false
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,7 +50,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
         enableBtn.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 verifyLoginCredentials()
-                //showFingerprintDialog()
+                // showFingerprintDialog()
             }
         }
 
@@ -51,7 +59,6 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
         }
         ProfileInfoComponentFragment.refreshOnResume = true
     }
-
 
     // Setters
     override fun setProviderMode(mode: LoginInfoType) {
@@ -68,8 +75,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     }
 
     // Setup Methods
-    private fun verifyLoginCredentials()
-    {
+    private fun verifyLoginCredentials() {
         presenter.verifyLoginCredentials()
     }
 
@@ -93,7 +99,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     private fun setupPasswordListener() {
         passwordEt.addAfterTextChangeListener {
             when (mode) {
-                LoginInfoType.EMAIL           -> {
+                LoginInfoType.EMAIL -> {
                     checkEmailContinueState()
                 }
                 LoginInfoType.SOCIAL_SECURITY -> {
@@ -158,7 +164,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
 
     override fun getUserLoginInfo(): LoginInfo {
         mode?.let {
-            return LoginInfo(it, socialSecurityEt.text.toString(),passwordEt.text.toString())
+            return LoginInfo(it, socialSecurityEt.text.toString(), passwordEt.text.toString())
         }
         throw(IllegalStateException("mode must not be null"))
     }
@@ -177,7 +183,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
             customFingerprintDialog.dismiss()
 
             when (it) {
-                FingerprintDialogEvent.CANCEL  -> {
+                FingerprintDialogEvent.CANCEL -> {
                     showProgress(false)
                 }
                 FingerprintDialogEvent.SUCCESS -> {
@@ -188,15 +194,15 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
                 FingerprintDialogEvent.ERROR_ENROLLMENT,
                 FingerprintDialogEvent.ERROR_HARDWARE,
                 FingerprintDialogEvent.ERROR_SECURE,
-                FingerprintDialogEvent.ERROR   -> {
+                FingerprintDialogEvent.ERROR -> {
                     showProgress(false)
                     showErrorDialog(
-                            ViewError(
-                                    Translation.error.genericTitle,
-                                    Translation.androidfingerprint.errorGeneric,
-                                    true,
-                                    false
-                            )
+                        ViewError(
+                            Translation.error.genericTitle,
+                            Translation.androidfingerprint.errorGeneric,
+                            true,
+                            false
+                        )
                     )
                 }
             }
@@ -236,7 +242,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     }
 
     override fun showProgress(show: Boolean) {
-        buttonsLl.visibility = if(!show) View.VISIBLE else View.INVISIBLE
+        buttonsLl.visibility = if (!show) View.VISIBLE else View.INVISIBLE
         progressPb.visible = (show)
     }
 }

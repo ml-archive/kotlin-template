@@ -6,10 +6,10 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class StoreboxMerchantLogo(
-        @SerializedName("url")
-        var url: String? = "",
-        @SerializedName("text")
-        var text: String? = "",
-        @SerializedName("version")
-        var version: String? = ""
+    @SerializedName("url")
+    var url: String? = "",
+    @SerializedName("text")
+    var text: String? = "",
+    @SerializedName("version")
+    var version: String? = ""
 ) : Parcelable

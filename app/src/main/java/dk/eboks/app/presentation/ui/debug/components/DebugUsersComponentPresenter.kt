@@ -8,10 +8,14 @@ import javax.inject.Inject
 
 /**
  * Created by Christian on 6/15/2018.
- * @author   Christian
- * @since    6/15/2018.
+ * @author Christian
+ * @since 6/15/2018.
  */
-class DebugUsersComponentPresenter @Inject constructor(val appState: AppStateManager, val userSettingsManager: UserSettingsManager, val testLoginStates : MutableList<LoginState>) : DebugUsersComponentContract.Presenter, BasePresenterImpl<DebugUsersComponentContract.View>() {
+class DebugUsersComponentPresenter @Inject constructor(
+    val appState: AppStateManager,
+    val userSettingsManager: UserSettingsManager,
+    val testLoginStates: MutableList<LoginState>
+) : DebugUsersComponentContract.Presenter, BasePresenterImpl<DebugUsersComponentContract.View>() {
     override fun makeList() {
         runAction { v ->
             v.showUsers(testLoginStates)

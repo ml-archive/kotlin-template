@@ -9,10 +9,10 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface ReplyButtonComponentContract {
     interface View : BaseView {
-        fun showReplyForm(msg : Message)
+        fun showReplyForm(msg: Message)
     }
 
     interface Presenter : BasePresenter<View> {
-        fun reply(msg : Message)
+        fun reply(msg: Message)
     }
 }

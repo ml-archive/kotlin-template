@@ -8,6 +8,6 @@ import kotlinx.android.parcel.Parcelize
  */
 @Parcelize
 data class EboksContentType(
-    var fileExtension : String,
-    var mimeType : String? = null
+    var fileExtension: String,
+    var mimeType: String? = null
 ) : Parcelable

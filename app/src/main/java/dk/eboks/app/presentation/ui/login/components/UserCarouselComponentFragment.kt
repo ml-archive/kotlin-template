@@ -39,9 +39,12 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
     @Inject
     lateinit var formatter: EboksFormatter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater.inflate(R.layout.fragment_user_carousel_component, container, false)
-        return rootView
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_user_carousel_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,7 +52,13 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         setupViewPager()
-        signupBtn.setOnClickListener { getBaseActivity()?.addFragmentOnTop(R.id.containerFl, NameMailComponentFragment(), true) }
+        signupBtn.setOnClickListener {
+            getBaseActivity()?.addFragmentOnTop(
+                R.id.containerFl,
+                NameMailComponentFragment(),
+                true
+            )
+        }
         if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             /*
             debugCreateBtn.visibility = View.VISIBLE
@@ -84,7 +93,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         viewPager.setPadding(sidepad, 0, sidepad, 0)
         // sets a margin b/w individual pages to ensure that there is a gap b/w them
 
-        //val between = (density * 1f).toInt()
+        // val between = (density * 1f).toInt()
         viewPager.pageMargin = 0
         viewPager.offscreenPageLimit = 10
     }
@@ -100,7 +109,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
     override fun setSelectedUser(user: User) {
         val pos = (viewPager.adapter as UserPagerAdapter).users.indexOfFirst { it.first == user }
         Timber.i("setSelectedUser position: $pos, ${user.name}")
-        if(pos >= 0) {
+        if (pos >= 0) {
             viewPager.setCurrentItem(pos, true)
         }
     }
@@ -112,26 +121,30 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
 
     private fun showDeleteDialog(user: User) {
         AlertDialog.Builder(activity ?: return)
-                .setTitle(Translation.start.confimRemoveUserTitle)
-                .setMessage(Translation.start.confirmRemoveUserMessage)
-                .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
-                    //(viewPager.adapter as UserPagerAdapter).users.remove(user)
-                    //viewPager.adapter.notifyDataSetChanged()
-                    presenter.deleteUser(user)
-                }
-                .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
-
-                }
-                .show()
+            .setTitle(Translation.start.confimRemoveUserTitle)
+            .setMessage(Translation.start.confirmRemoveUserMessage)
+            .setPositiveButton(Translation.defaultSection.ok) { dialog, which ->
+                // (viewPager.adapter as UserPagerAdapter).users.remove(user)
+                // viewPager.adapter.notifyDataSetChanged()
+                presenter.deleteUser(user)
+            }
+            .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
+            }
+            .show()
     }
 
-    inner class UserPagerAdapter(val users: MutableList<Pair<User, UserSettings>>) : PagerAdapter() {
+    inner class UserPagerAdapter(val users: MutableList<Pair<User, UserSettings>>) :
+        PagerAdapter() {
         override fun instantiateItem(collection: ViewGroup, position: Int): Any {
             val inflater = LayoutInflater.from(context)
             if (position < users.size) {
                 val user = users[position].first
                 val settings = users[position].second
-                val v = inflater.inflate(R.layout.viewholder_user_carousel, collection, false) as ViewGroup
+                val v = inflater.inflate(
+                    R.layout.viewholder_user_carousel,
+                    collection,
+                    false
+                ) as ViewGroup
 
                 if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
                     var info = ""
@@ -174,7 +187,11 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                 }
                 return v
             } else {
-                val v = inflater.inflate(R.layout.viewholder_add_user_carousel, collection, false) as ViewGroup
+                val v = inflater.inflate(
+                    R.layout.viewholder_add_user_carousel,
+                    collection,
+                    false
+                ) as ViewGroup
                 v.findViewById<TextView>(R.id.nameTv)?.text = Translation.start.addNewUser
                 v.findViewById<LinearLayout>(R.id.addUserLl)?.setOnClickListener {
                     presenter.addAnotherUser()
@@ -195,6 +212,5 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
         override fun isViewFromObject(view: View, `object`: Any): Boolean {
             return view === `object`
         }
-
     }
 }

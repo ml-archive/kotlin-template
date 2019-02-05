@@ -8,7 +8,7 @@ interface PutStoreboxProfileInteractor : Interactor {
     var output: Output?
     var input: Input?
 
-    data class Input(val profile : StoreboxProfile)
+    data class Input(val profile: StoreboxProfile)
 
     interface Output {
         fun onPutProfile()

@@ -8,11 +8,11 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface EmailVerificationComponentContract {
     interface View : BaseView {
-        fun setVerifyBtnEnabled(enabled : Boolean)
-        fun finishActivity(resultCode : Int?)
+        fun setVerifyBtnEnabled(enabled: Boolean)
+        fun finishActivity(resultCode: Int?)
     }
 
     interface Presenter : BasePresenter<View> {
-        fun verifyMail(mail:String)
+        fun verifyMail(mail: String)
     }
 }

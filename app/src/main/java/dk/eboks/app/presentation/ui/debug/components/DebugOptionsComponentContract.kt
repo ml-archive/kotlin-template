@@ -9,13 +9,13 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface DebugOptionsComponentContract {
     interface View : BaseView {
-        fun showCountrySpinner(configIndex : Int)
-        fun showEnvironmentSpinner(environments: Map<String, Environments>, curEnv : Environments?)
+        fun showCountrySpinner(configIndex: Int)
+        fun showEnvironmentSpinner(environments: Map<String, Environments>, curEnv: Environments?)
     }
 
     interface Presenter : BasePresenter<View> {
         fun setup()
-        fun setConfig(name : String)
-        fun setEnvironment(name : String)
+        fun setConfig(name: String)
+        fun setEnvironment(name: String)
     }
 }
