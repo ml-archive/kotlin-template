@@ -18,12 +18,10 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.StorageInfo
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
-import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
 import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadActivity
 import dk.eboks.app.util.Starter
-import dk.eboks.app.util.putArg
 import dk.eboks.app.util.visible
 import dk.nodes.filepicker.FilePickerActivity
 import dk.nodes.filepicker.FilePickerConstants

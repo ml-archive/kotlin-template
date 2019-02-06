@@ -31,12 +31,7 @@ class UserSettingsManagerImpl(val context: Context, val gson: Gson) : UserSettin
         }
     }
 
-    override fun get(id: Int): UserSettings {
-        userSettings[id]?.let {
-            return it
-        }
-        return UserSettings(id = id)
-    }
+    override fun get(id: Int) = userSettings[id] ?: UserSettings(id = id)
 
     override fun put(settings: UserSettings): UserSettings {
         userSettings[settings.id] = settings

@@ -129,8 +129,8 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         }
     }
 
-    protected inline fun <reified T> findFragment(tag: String? = null): T? {
-        return supportFragmentManager.findFragmentByTag(tag ?: T::class.java.simpleName) as? T
+    protected inline fun <reified T> findFragment(tag: String = T::class.java.simpleName): T? {
+        return supportFragmentManager.findFragmentByTag(tag) as? T
     }
 
     fun addFragmentOnTop(resId: Int, fragment: Fragment?, addToBack: Boolean = true) {

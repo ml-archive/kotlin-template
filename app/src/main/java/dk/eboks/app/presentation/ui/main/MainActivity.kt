@@ -145,15 +145,11 @@ class MainActivity : BaseActivity(), MainNavigator {
     }
 
     fun setSecondaryFragment(fragment: Fragment) {
-
-        val ft= supportFragmentManager.beginTransaction()
+        val ft = supportFragmentManager.beginTransaction()
         ft.add(R.id.fragmentHolderLayout, fragment)
                 .addToBackStack("second")
                 .commit()
-
-
     }
-
 
     override fun onBackPressed() {
         with(supportFragmentManager) {

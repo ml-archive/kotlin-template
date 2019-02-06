@@ -21,13 +21,7 @@ class SignupRestRepository(private val context: Context, private val api: Api) :
 
     override fun createUser(body: JsonObject) {
         val result = api.createUserProfile(body).execute()
-        result?.let { response ->
-            if (response.isSuccessful) {
-                return
-            }
-        }.guard {
-            throw(RuntimeException())
-        }
+        if(result?.isSuccessful == true) return
         throw(RuntimeException())
     }
 }
