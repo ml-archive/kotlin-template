@@ -3,6 +3,7 @@ package dk.eboks.app.presentation.ui.mail.screens.list
 import android.os.Bundle
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
@@ -15,6 +16,9 @@ import javax.inject.Inject
 class MailListActivity : BaseActivity(), MailListContract.View,
     MailListComponentFragment.MailListComponentListener {
     @Inject lateinit var presenter: MailListContract.Presenter
+
+    private val isUpploads: Boolean
+        get() = (intent?.extras?.getSerializable("folder") as? Folder)?.type == FolderType.UPLOADS
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +60,7 @@ class MailListActivity : BaseActivity(), MailListContract.View,
     }
 
     override fun getNavigationMenuAction(): Int {
-        return R.id.actionMail
+        return if (!isUpploads) R.id.actionMail else R.id.actionUploads
     }
 
     override fun onEditModeActive(active: Boolean) {

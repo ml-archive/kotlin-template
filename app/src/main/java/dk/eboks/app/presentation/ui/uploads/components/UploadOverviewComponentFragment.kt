@@ -19,6 +19,7 @@ import dk.eboks.app.domain.models.message.StorageInfo
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
+import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadActivity
 import dk.eboks.app.util.Starter
@@ -97,12 +98,10 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
         }
 
         showAllBtn.setOnClickListener {
-            val frag = MailListComponentFragment()
-            frag.putArg(
-                "folder",
-                Folder(type = FolderType.UPLOADS, name = Translation.uploads.title)
-            )
-            getBaseActivity()?.addFragmentOnTop(R.id.contentFl, frag, true)
+            val intent = Intent(activity, MailListActivity::class.java).apply {
+                putExtra("folder", Folder(type = FolderType.UPLOADS, name = Translation.uploads.title))
+            }
+            startActivity(intent)
         }
         fileBtn.setOnClickListener {
             findFile()
