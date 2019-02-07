@@ -12,9 +12,6 @@ import dk.eboks.app.domain.interactors.authentication.SetCurrentUserInteractor
 import dk.eboks.app.domain.interactors.authentication.TestLoginInteractor
 import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
 import dk.eboks.app.domain.interactors.authentication.VerifyProfileInteractor
-import dk.eboks.app.domain.interactors.authentication.mobileacces.ActivateDeviceInteractor
-import dk.eboks.app.domain.interactors.authentication.mobileacces.DeleteRSAKeyInteractor
-import dk.eboks.app.domain.interactors.authentication.mobileacces.GenerateRSAKeyInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelContentLinkInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
@@ -1225,15 +1222,9 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideEkeyDetailComponentPresenter(
-        stateManager: AppStateManager,
-        encryptedPreferences: EncryptedPreferences,
-        setEKeyVaultInteractor: SetEKeyVaultInteractor
+        presenter: EkeyDetailComponentPresenter
     ): EkeyDetailComponentContract.Presenter {
-        return EkeyDetailComponentPresenter(
-            stateManager,
-            encryptedPreferences,
-            setEKeyVaultInteractor
-        )
+        return presenter
     }
 
     @ActivityScope
@@ -1248,25 +1239,14 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideChannelControlComponentPresenter(
-        stateManager: AppStateManager,
         getChannelHomeContentInteractor: GetChannelHomeContentInteractor
     ): ChannelControlComponentContract.Presenter {
-        return ChannelControlComponentPresenter(stateManager, getChannelHomeContentInteractor)
+        return ChannelControlComponentPresenter(getChannelHomeContentInteractor)
     }
 
     @ActivityScope
     @Provides
-    fun provideEkeyOpenItemComponentPresenter(
-        stateManager: AppStateManager,
-        encryptedPreferences: EncryptedPreferences,
-        setEKeyVaultInteractor: SetEKeyVaultInteractor
-    ): EkeyOpenItemComponentContract.Presenter {
-        return EkeyOpenItemComponentPresenter(
-            stateManager,
-            encryptedPreferences,
-            setEKeyVaultInteractor
-        )
-    }
+    fun provideEkeyOpenItemComponentPresenter(presenter: EkeyOpenItemComponentPresenter): EkeyOpenItemComponentContract.Presenter = presenter
 
     @ActivityScope
     @Provides
@@ -1295,17 +1275,9 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideDeviceActivationComponentPresenter(
-        stateManager: AppStateManager,
-        generateRSAKeyInteractor: GenerateRSAKeyInteractor,
-        activateDeviceInteractor: ActivateDeviceInteractor,
-        deleteRSAKeyInteractor: DeleteRSAKeyInteractor
+        presenter: DeviceActivationComponentPresenter
     ): DeviceActivationComponentContract.Presenter {
-        return DeviceActivationComponentPresenter(
-            stateManager,
-            generateRSAKeyInteractor,
-            activateDeviceInteractor,
-            deleteRSAKeyInteractor
-        )
+        return presenter
     }
 
     /* Pasta

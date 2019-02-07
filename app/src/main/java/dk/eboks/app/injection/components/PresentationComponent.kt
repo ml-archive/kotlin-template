@@ -207,144 +207,88 @@ interface PresentationComponent {
     // Screens
 
     fun inject(target: PastaActivity)
-    fun inject(target: PastaPresenter)
     fun inject(target: MailOverviewActivity)
-    fun inject(target: MailOverviewPresenter)
     fun inject(target: MailListActivity)
-    fun inject(target: MailListPresenter)
     fun inject(target: FolderActivity)
-    fun inject(target: FolderPresenter)
     fun inject(target: MessageActivity)
-    fun inject(target: MessagePresenter)
     fun inject(target: MessageEmbeddedActivity)
-    fun inject(target: MessageEmbeddedPresenter)
     fun inject(target: MessageOpeningActivity)
-    fun inject(target: MessageOpeningPresenter)
     fun inject(target: ChannelOverviewActivity)
-    fun inject(target: ChannelOverviewPresenter)
     fun inject(target: ChannelContentActivity)
-    fun inject(target: ChannelContentPresenter)
     fun inject(target: SendersOverviewActivity)
     fun inject(target: SerdersOverviewFragment)
-    fun inject(target: SendersOverviewPresenter)
     fun inject(target: StartActivity)
-    fun inject(target: StartPresenter)
     fun inject(target: ProfileActivity)
-    fun inject(target: ProfilePresenter)
     fun inject(target: UploadsActivity)
-    fun inject(target: UploadsPresenter)
     fun inject(target: OverlayActivity)
-    fun inject(target: OverlayPresenter)
     fun inject(target: ConnectStoreboxActivity)
     fun inject(target: MyInfoActivity)
-    fun inject(target: MyInfoPresenter)
     fun inject(target: SenderAllListActivity)
-    fun inject(target: SenderAllListPresenter)
     fun inject(target: EkeyContentActivity)
-    fun inject(target: EkeyContentPresenter)
 
     // Components
 
     // folder
 
     fun inject(target: NewFolderComponentFragment)
-    fun inject(target: NewFolderComponentPresenter)
     fun inject(target: FolderSelectUserComponentFragment)
-    fun inject(target: FolderSelectUserComponentPresenter)
 
     // message
 
     fun inject(target: HeaderComponentFragment)
-    fun inject(target: HeaderComponentPresenter)
     fun inject(target: NotesComponentFragment)
     fun inject(target: NotesComponentPresenter)
     fun inject(target: AttachmentsComponentFragment)
-    fun inject(target: AttachmentsComponentPresenter)
     fun inject(target: FolderInfoComponentFragment)
-    fun inject(target: FolderInfoComponentPresenter)
     fun inject(target: DocumentComponentFragment)
-    fun inject(target: DocumentComponentPresenter)
     fun inject(target: PdfViewComponentFragment)
-    fun inject(target: PdfViewComponentPresenter)
     fun inject(target: ShareComponentFragment)
-    fun inject(target: ShareComponentPresenter)
     fun inject(target: HtmlViewComponentFragment)
-    fun inject(target: HtmlViewComponentPresenter)
     fun inject(target: ImageViewComponentFragment)
-    fun inject(target: ImageViewComponentPresenter)
     fun inject(target: TextViewComponentFragment)
-    fun inject(target: TextViewComponentPresenter)
     fun inject(target: ProtectedMessageComponentFragment)
-    fun inject(target: ProtectedMessageComponentPresenter)
     fun inject(target: PrivateSenderWarningComponentFragment)
-    fun inject(target: PrivateSenderWarningComponentPresenter)
     fun inject(target: OpeningReceiptComponentFragment)
-    fun inject(target: OpeningReceiptComponentPresenter)
     fun inject(target: QuarantineComponentFragment)
-    fun inject(target: QuarantineComponentPresenter)
     fun inject(target: RecalledComponentFragment)
-    fun inject(target: RecalledComponentPresenter)
     fun inject(target: PromulgationComponentFragment)
-    fun inject(target: PromulgationComponentPresenter)
     fun inject(target: ReplyButtonComponentFragment)
-    fun inject(target: ReplyButtonComponentPresenter)
     fun inject(target: SignButtonComponentFragment)
-    fun inject(target: SignButtonComponentPresenter)
     fun inject(target: ReplyFormActivity)
-    fun inject(target: ReplyFormPresenter)
     fun inject(target: SignActivity)
-    fun inject(target: SignPresenter)
 
     // mail
 
     fun inject(target: FoldersComponentFragment)
-    fun inject(target: FoldersComponentPresenter)
     fun inject(target: FolderShortcutsComponentFragment)
-    fun inject(target: FolderShortcutsComponentPresenter)
     fun inject(target: SenderCarouselComponentFragment)
-    fun inject(target: SenderCarouselComponentPresenter)
     fun inject(target: MailListComponentFragment)
-    fun inject(target: MailListComponentPresenter)
     fun inject(target: SearchSendersActivity)
     fun inject(target: MailOverviewFragment)
 
     // generic
 
     fun inject(target: NavBarComponentFragment)
-    fun inject(target: NavBarComponentPresenter)
 
     // channels
 
     fun inject(target: ChannelOverviewComponentFragment)
-    fun inject(target: ChannelOverviewComponentPresenter)
     fun inject(target: ChannelRequirementsComponentFragment)
-    fun inject(target: ChannelRequirementsComponentPresenter)
     fun inject(target: ChannelOpeningComponentFragment)
-    fun inject(target: ChannelOpeningComponentPresenter)
     fun inject(target: ChannelVerificationComponentFragment)
-    fun inject(target: ChannelVerificationComponentPresenter)
     fun inject(target: ChannelContentComponentFragment)
-    fun inject(target: ChannelContentComponentPresenter)
     fun inject(target: ChannelContentStoreboxComponentFragment)
     fun inject(target: ChannelContentStoreboxDetailComponentFragment)
-    fun inject(target: ChannelContentStoreboxComponentPresenter)
     fun inject(target: ChannelSettingsComponentFragment)
-    fun inject(target: ChannelSettingsComponentPresenter)
     fun inject(target: EkeyComponentFragment)
-    fun inject(target: EkeyComponentPresenter)
     fun inject(target: EkeyAddItemComponentFragment)
-    fun inject(target: EkeyAddItemComponentPresenter)
     fun inject(target: EkeyDetailComponentFragment)
-    fun inject(target: EkeyDetailComponentPresenter)
     fun inject(target: EkeyOpenItemComponentFragment)
-    fun inject(target: EkeyOpenItemComponentPresenter)
     fun inject(target: EkeyPinComponentFragment)
-    fun inject(target: EkeyPinComponentPresenter)
 
     // senders
 
     fun inject(target: CategoriesComponentFragment)
-    fun inject(target: CategoriesComponentPresenter)
     fun inject(target: BrowseCategoryActivity)
     fun inject(target: SenderGroupsComponentFragment)
     fun inject(target: SenderDetailActivity)
@@ -357,8 +301,6 @@ interface PresentationComponent {
     fun inject(target: SenderAllListComponentFragment)
 
     // sign up
-
-    fun inject(target: SignupComponentPresenter)
     fun inject(target: NameMailComponentFragment)
     fun inject(target: PasswordComponentFragment)
     fun inject(target: SignupVerificationComponentFragment)
@@ -369,54 +311,32 @@ interface PresentationComponent {
     // login
 
     fun inject(target: UserCarouselComponentFragment)
-    fun inject(target: UserCarouselComponentPresenter)
     fun inject(target: LoginComponentFragment)
-    fun inject(target: LoginComponentPresenter)
     fun inject(target: ForgotPasswordComponentFragment)
-    fun inject(target: ForgotPasswordComponentPresenter)
     fun inject(target: ForgotPasswordDoneComponentFragment)
-    fun inject(target: ForgotPasswordDoneComponentPresenter)
     fun inject(target: ActivationCodeComponentFragment)
-    fun inject(target: ActivationCodeComponentPresenter)
     fun inject(target: NemIdComponentFragment)
-    fun inject(target: WebLoginPresenter)
     fun inject(target: IdPortenComponentFragment)
-    fun inject(target: IdPortenComponentPresenter)
     fun inject(target: BankIdSEComponentFragment)
-    fun inject(target: BankIdSEComponentPresenter)
     fun inject(target: BankIdNOComponentFragment)
-    fun inject(target: BankIdNOComponentPresenter)
     fun inject(target: PopupLoginActivity)
-    fun inject(target: PopupLoginPresenter)
     fun inject(target: DeviceActivationComponentFragment)
-    fun inject(target: DeviceActivationComponentPresenter)
 
     // profile
 
     fun inject(target: ProfileInfoComponentFragment)
-    fun inject(target: ProfileInfoComponentPresenter)
     fun inject(target: MyInfoComponentFragment)
-    fun inject(target: MyInfoComponentPresenter)
-    fun inject(target: EmailVerificationComponentPresenter)
     fun inject(target: EmailVerificationComponentFragment)
-    fun inject(target: PhoneVerificationComponentPresenter)
     fun inject(target: PhoneVerificationComponentFragment)
-    fun inject(target: MergeAccountComponentPresenter)
     fun inject(target: MergeAccountComponentFragment)
-    fun inject(target: FingerHintComponentPresenter)
     fun inject(target: FingerHintComponentFragment)
-    fun inject(target: FingerPrintComponentPresenter)
     fun inject(target: FingerPrintComponentFragment)
 
     // home
     fun inject(target: HomeActivity)
-
     fun inject(target: HomeFragment)
-    fun inject(target: HomePresenter)
     fun inject(target: FolderPreviewComponentFragment)
-    fun inject(target: FolderPreviewComponentPresenter)
     fun inject(target: ChannelControlComponentFragment)
-    fun inject(target: ChannelControlComponentPresenter)
 
     fun inject(target: PrivacyFragment)
     fun inject(target: HelpFragment)
@@ -424,7 +344,6 @@ interface PresentationComponent {
     // verification
 
     fun inject(target: VerificationComponentFragment)
-    fun inject(target: VerificationComponentPresenter)
 
     // brother
 
@@ -441,9 +360,7 @@ interface PresentationComponent {
     // debug
 
     fun inject(target: DebugOptionsComponentFragment)
-    fun inject(target: DebugOptionsComponentPresenter)
     fun inject(target: DebugUsersComponentFragment)
     fun inject(target: DebugUsersComponentPresenter)
     fun inject(target: DebugUserActivity)
-    fun inject(target: DebugUserPresenter)
 }

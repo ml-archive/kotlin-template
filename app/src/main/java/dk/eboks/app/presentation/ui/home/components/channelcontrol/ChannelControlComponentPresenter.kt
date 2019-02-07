@@ -2,7 +2,6 @@ package dk.eboks.app.presentation.ui.home.components.channelcontrol
 
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.home.HomeContent
@@ -16,8 +15,7 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class ChannelControlComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val getChannelHomeContentInteractor: GetChannelHomeContentInteractor
+    private val getChannelHomeContentInteractor: GetChannelHomeContentInteractor
 ) :
     ChannelControlComponentContract.Presenter,
     BasePresenterImpl<ChannelControlComponentContract.View>(),

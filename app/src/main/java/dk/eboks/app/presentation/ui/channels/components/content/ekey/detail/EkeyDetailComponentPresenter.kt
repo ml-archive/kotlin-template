@@ -25,9 +25,9 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class EkeyDetailComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val encryptedPreferences: EncryptedPreferences,
-    val setEKeyVaultInteractor: SetEKeyVaultInteractor
+    private val appState: AppStateManager,
+    private val encryptedPreferences: EncryptedPreferences,
+    private val setEKeyVaultInteractor: SetEKeyVaultInteractor
 ) : EkeyDetailComponentContract.Presenter, BasePresenterImpl<EkeyDetailComponentContract.View>(),
     SetEKeyVaultInteractor.Output {
 

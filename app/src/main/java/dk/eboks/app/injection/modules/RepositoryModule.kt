@@ -46,7 +46,7 @@ class RepositoryModule {
     @Provides
     @AppScope
     fun provideSignupRestRepository(context: Context, api: Api): SignupRestRepository {
-        return SignupRestRepository(context, api)
+        return SignupRestRepository(api)
     }
 
     @Provides

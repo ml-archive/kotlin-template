@@ -14,10 +14,10 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class DeviceActivationComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val generateRSAKeyInteractor: GenerateRSAKeyInteractor,
-    val activateDeviceInteractor: ActivateDeviceInteractor,
-    val deleteRSAKeyInteractor: DeleteRSAKeyInteractor
+    private val appState: AppStateManager,
+    private val generateRSAKeyInteractor: GenerateRSAKeyInteractor,
+    private val activateDeviceInteractor: ActivateDeviceInteractor,
+    private val deleteRSAKeyInteractor: DeleteRSAKeyInteractor
 ) :
     DeviceActivationComponentContract.Presenter,
     GenerateRSAKeyInteractor.Output,
