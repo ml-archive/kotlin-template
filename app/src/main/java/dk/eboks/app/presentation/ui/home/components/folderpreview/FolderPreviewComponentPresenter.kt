@@ -14,8 +14,8 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class FolderPreviewComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val getMessagesInteractor: GetMessagesInteractor
+    private val appState: AppStateManager,
+    private val getMessagesInteractor: GetMessagesInteractor
 ) :
     FolderPreviewComponentContract.Presenter,
     BasePresenterImpl<FolderPreviewComponentContract.View>(),

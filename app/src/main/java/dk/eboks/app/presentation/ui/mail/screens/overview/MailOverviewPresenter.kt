@@ -15,16 +15,14 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class MailOverviewPresenter @Inject constructor(val appState: AppStateManager) :
+class MailOverviewPresenter @Inject constructor(private val appState: AppStateManager) :
     MailOverviewContract.Presenter,
     BasePresenterImpl<MailOverviewContract.View>() {
-    var refreshingFolders = false
-    var refreshingSenders = false
+    private var refreshingFolders = false
+    private var refreshingSenders = false
 
     init {
-        runAction { v ->
-            setUser(v)
-        }
+        runAction(this::setUser)
     }
 
     override fun onViewCreated(view: MailOverviewContract.View, lifecycle: Lifecycle) {

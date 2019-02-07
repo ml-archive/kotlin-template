@@ -26,11 +26,12 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-class EkeyContentPresenter(
+class EkeyContentPresenter @Inject constructor(
     private val appState: AppStateManager,
     private val encryptedPreferences: EncryptedPreferences,
     private val getMasterkeyInteractor: GetEKeyMasterkeyInteractor,

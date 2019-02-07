@@ -16,17 +16,15 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class MessagePresenter @Inject constructor(
-    val appState: AppStateManager,
-    val deleteMessagesInteractor: DeleteMessagesInteractor,
-    val updateMessageInteractor: UpdateMessageInteractor
-) :
-
-    MessageContract.Presenter,
+    private val appState: AppStateManager,
+    private val deleteMessagesInteractor: DeleteMessagesInteractor,
+    private val updateMessageInteractor: UpdateMessageInteractor
+) : MessageContract.Presenter,
     BasePresenterImpl<MessageContract.View>(),
     DeleteMessagesInteractor.Output,
     UpdateMessageInteractor.Output {
-    var message: Message? = null
-    var moveToFolder: String? = null
+    private var message: Message? = null
+    private var moveToFolder: String? = null
 
     init {
         deleteMessagesInteractor.output = this

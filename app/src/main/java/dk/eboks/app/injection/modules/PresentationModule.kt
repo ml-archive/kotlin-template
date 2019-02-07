@@ -13,15 +13,10 @@ import dk.eboks.app.domain.interactors.authentication.TestLoginInteractor
 import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
 import dk.eboks.app.domain.interactors.authentication.VerifyProfileInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelContentLinkInteractor
-import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
 import dk.eboks.app.domain.interactors.channel.InstallChannelInteractor
 import dk.eboks.app.domain.interactors.channel.UninstallChannelInteractor
-import dk.eboks.app.domain.interactors.ekey.GetEKeyMasterkeyInteractor
-import dk.eboks.app.domain.interactors.ekey.GetEKeyVaultInteractor
-import dk.eboks.app.domain.interactors.ekey.SetEKeyMasterkeyInteractor
-import dk.eboks.app.domain.interactors.ekey.SetEKeyVaultInteractor
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.folder.CreateFolderInteractor
@@ -50,7 +45,6 @@ import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
-import dk.eboks.app.domain.interactors.shares.GetAllSharesInteractor
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
 import dk.eboks.app.domain.interactors.storebox.ConfirmStoreboxInteractor
 import dk.eboks.app.domain.interactors.storebox.CreateStoreboxInteractor
@@ -275,21 +269,20 @@ import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadContrac
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadPresenter
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
-import dk.nodes.locksmith.core.preferences.EncryptedPreferences
 import javax.inject.Named
 
 @Module
 class PresentationModule {
     @ActivityScope
     @Provides
-    fun providePastaPresenter(appState: AppStateManager): PastaContract.Presenter {
-        return PastaPresenter(appState)
+    fun providePastaPresenter(presenter: PastaPresenter): PastaContract.Presenter {
+        return presenter
     }
 
     @ActivityScope
     @Provides
-    fun provideMailOverviewPresenter(stateManager: AppStateManager): MailOverviewContract.Presenter {
-        return MailOverviewPresenter(stateManager)
+    fun provideMailOverviewPresenter(presenter: MailOverviewPresenter): MailOverviewContract.Presenter {
+        return presenter
     }
 
     @ActivityScope
@@ -307,11 +300,9 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideMessagePresenter(
-        appState: AppStateManager,
-        deleteMessagesInteractor: DeleteMessagesInteractor,
-        updateMessageInteractor: UpdateMessageInteractor
+        presenter: MessagePresenter
     ): MessageContract.Presenter {
-        return MessagePresenter(appState, deleteMessagesInteractor, updateMessageInteractor)
+        return presenter
     }
 
     @ActivityScope
@@ -1181,30 +1172,17 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideFolderSelectUserComponentPresenter(
-        stateManager: AppStateManager,
-        getAllSharesInteractor: GetAllSharesInteractor
+        presenter: FolderSelectUserComponentPresenter
     ): FolderSelectUserComponentContract.Presenter {
-        return FolderSelectUserComponentPresenter(stateManager, getAllSharesInteractor)
+        return presenter
     }
 
     @ActivityScope
     @Provides
     fun provideEkeyContentPresenter(
-        stateManager: AppStateManager,
-        encryptedPreferences: EncryptedPreferences,
-        getEKeyMasterkeyInteractor: GetEKeyMasterkeyInteractor,
-        setEKeyMasterkeyInteractor: SetEKeyMasterkeyInteractor,
-        getEKeyVaultInteractor: GetEKeyVaultInteractor,
-        setEKeyVaultInteractor: SetEKeyVaultInteractor
+        presenter: EkeyContentPresenter
     ): EkeyContentContract.Presenter {
-        return EkeyContentPresenter(
-            stateManager,
-            encryptedPreferences,
-            getEKeyMasterkeyInteractor,
-            setEKeyMasterkeyInteractor,
-            getEKeyVaultInteractor,
-            setEKeyVaultInteractor
-        )
+        return presenter
     }
 
     @ActivityScope
@@ -1230,23 +1208,23 @@ class PresentationModule {
     @ActivityScope
     @Provides
     fun provideFolderPreviewComponentPresenter(
-        stateManager: AppStateManager,
-        getMessagesInteractor: GetMessagesInteractor
+        presenter: FolderPreviewComponentPresenter
     ): FolderPreviewComponentContract.Presenter {
-        return FolderPreviewComponentPresenter(stateManager, getMessagesInteractor)
+        return presenter
     }
 
     @ActivityScope
     @Provides
     fun provideChannelControlComponentPresenter(
-        getChannelHomeContentInteractor: GetChannelHomeContentInteractor
+        presenter: ChannelControlComponentPresenter
     ): ChannelControlComponentContract.Presenter {
-        return ChannelControlComponentPresenter(getChannelHomeContentInteractor)
+        return presenter
     }
 
     @ActivityScope
     @Provides
-    fun provideEkeyOpenItemComponentPresenter(presenter: EkeyOpenItemComponentPresenter): EkeyOpenItemComponentContract.Presenter = presenter
+    fun provideEkeyOpenItemComponentPresenter(presenter: EkeyOpenItemComponentPresenter): EkeyOpenItemComponentContract.Presenter =
+        presenter
 
     @ActivityScope
     @Provides

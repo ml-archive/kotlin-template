@@ -19,7 +19,7 @@ class SignupRestRepository(private val api: Api) : SignupRepository {
 
     override fun createUser(body: JsonObject) {
         val result = api.createUserProfile(body).execute()
-        if(result?.isSuccessful == true) return
+        if (result?.isSuccessful == true) return
         throw(RuntimeException())
     }
 }
