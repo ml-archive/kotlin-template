@@ -238,7 +238,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
 
     implementation "androidx.appcompat:appcompat:$appcompat_version"
-    implementation "androidx.recyclerview:recyclerview:$appcompat_version"
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
     implementation "com.google.android.material:material:$material_version"
     implementation "androidx.cardview:cardview:$cardview_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
@@ -254,7 +254,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.1.1'
 
     implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
-    implementation 'com.squareup.retrofit2:converter-scalars:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
 
     implementation("com.squareup.retrofit2:converter-gson:$retrofit_version") {
         exclude module: "retrofit:$retrofit_version"
@@ -275,7 +275,7 @@ dependencies {
 
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
-    implementation "com.l4digital.fastscroll:fastscroll:1.0.4"
+    implementation "com.l4digital.fastscroll:fastscroll:2.0.1"
 
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 
@@ -283,13 +283,13 @@ dependencies {
     implementation 'dk.nodes.locksmith:core:1.2.2'
 
     // Barcode Generation Library
-    implementation 'com.google.zxing:core:3.3.0'
+    implementation 'com.google.zxing:core:3.3.3'
 
     // circular progress
     implementation 'com.mikhaellopez:circularprogressbar:2.0.0'
 
     // cookie jar for okhttp
-    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    implementation 'com.github.franmontiel:PersistentCookieJar:1.0.1'
 
     // Testing
     testImplementation "junit:junit:$junit_version"
