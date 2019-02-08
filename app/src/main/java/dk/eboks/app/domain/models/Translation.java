@@ -660,9 +660,9 @@ public class Translation {
 		public static String deleteItemDescriptionPinCode = "pinkode";
 		public static String deleteItemDescriptionLogin = "brugeroplysning";
 		public static String overviewPinCode = "Pinkode";
-		public static String insertPasswordHint = "__insertPasswordHint";
+		public static String insertPasswordHint = "Adgangskode";
 		public static String insertPasswordDescription = "__insertPasswordDescription";
-		public static String insertPasswordLenghtError = "__insertPasswordLenghtError";
+		public static String insertPasswordLenghtError = "Adgangskoden skal v\u00E6re p\u00E5 minimum 6 tegn";
 	}
 	public final static class storeboxlogin {
 		public static String header = "Link til din Storebox profil";

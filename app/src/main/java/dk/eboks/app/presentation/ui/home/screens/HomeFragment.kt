@@ -104,6 +104,7 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
         refreshSrl.setOnRefreshListener {
             doneRefreshingChannelControls = false
             doneRefreshingFolderPreview = false
+            presenter.refresh()
         }
     }
 
