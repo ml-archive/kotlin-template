@@ -9,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -29,7 +30,7 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
 
     private val formatter: EboksFormatter = App.instance().appComponent.eboksFormatter()
     var editMode: Boolean = false
-    var messages: MutableList<Message> = arrayListOf()
+    private val messages = mutableListOf<Message>()
     var folder: Folder? = null
     var showUploads: Boolean = false
 
@@ -52,6 +53,18 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
         val last = (position == messages.size)
         holder.bind(messages[position], last)
+    }
+
+    fun setData(messages: List<Message>) {
+        val diffResult = DiffUtil.calculateDiff(MessageDiff(this.messages, messages))
+        this.messages.clear()
+        this.messages += messages
+        diffResult.dispatchUpdatesTo(this)
+    }
+
+    fun addMessages(messages: List<Message>) {
+        val newList = this.messages + messages
+        setData(newList)
     }
 
     inner class MessageViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
@@ -204,6 +217,26 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
 
             contentContainer.setOnClickListener(uploadListener)
             checkBox.setOnClickListener(uploadListener)
+        }
+    }
+
+    private inner class MessageDiff(val oldList: List<Message>, val newList: List<Message>): DiffUtil.Callback() {
+
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].id == newList[newItemPosition].id
+        }
+
+        override fun getOldListSize(): Int {
+            return oldList.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newList.size
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition] == newList[newItemPosition]
         }
     }
 }

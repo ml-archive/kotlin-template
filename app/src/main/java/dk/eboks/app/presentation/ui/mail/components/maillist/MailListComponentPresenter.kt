@@ -30,8 +30,8 @@ class MailListComponentPresenter @Inject constructor(
     UpdateMessageInteractor.Output {
 
     companion object {
-        val FOLDER_MODE = 1
-        val SENDER_MODE = 2
+        private const val FOLDER_MODE = 1
+        private const val SENDER_MODE = 2
     }
 
     var mode = -1
@@ -40,7 +40,7 @@ class MailListComponentPresenter @Inject constructor(
     var currentSender: Sender? = null
 
     var currentOffset: Int = 0
-    var currentLimit: Int = 20
+    private val currentLimit: Int = 30
     var totalMessages: Int = -1
 
     override var isLoading: Boolean = false

@@ -49,17 +49,13 @@ class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: Mess
     private fun getMessageFolder(folder: Folder, offset: Int = 0, limit: Int = 20) {
         Timber.d("Fetching folder (${folder.id} : ${folder.name}) messages $offset $limit")
         val messages = messagesRepository.getMessagesByFolder(folder.id, offset, limit)
-        runOnUIThread {
-            output?.onGetMessages(messages)
-        }
+        runOnUIThread { output?.onGetMessages(messages) }
     }
 
     private fun getMessageSender(sender: Sender, offset: Int = 0, limit: Int = 20) {
         Timber.d("Fetching sender (${sender.id} : ${sender.name}) messages $offset $limit")
         val messages = messagesRepository.getMessagesBySender(sender.id, offset, limit)
-        runOnUIThread {
-            output?.onGetMessages(messages)
-        }
+        runOnUIThread { output?.onGetMessages(messages) }
     }
 
     /*

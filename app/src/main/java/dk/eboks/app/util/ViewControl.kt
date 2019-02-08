@@ -10,7 +10,6 @@ object ViewControl {
     fun refreshAllOnResume() {
         HomeActivity.refreshOnResume = true
         MailOverviewActivity.refreshOnResume = true
-        MailListComponentFragment.refreshOnResume = true
         ChannelControlComponentFragment.refreshOnResume = true
         FolderPreviewComponentFragment.refreshOnResume = true
     }

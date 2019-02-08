@@ -33,12 +33,12 @@ typealias CategoryMessageStore = CacheStore<String, List<Message>>
  * Created by bison on 01/02/18.
  */
 class MessagesRestRepository(
-    val context: Context,
-    val api: Api,
-    val gson: Gson,
-    val cacheManager: CacheManager,
-    val okHttpClient: OkHttpClient,
-    val appState: AppStateManager
+    private val context: Context,
+    private val api: Api,
+    private val gson: Gson,
+    private val cacheManager: CacheManager,
+    private val okHttpClient: OkHttpClient,
+    private val appState: AppStateManager
 ) : MessagesRepository {
 
     // delete message
@@ -137,7 +137,7 @@ class MessagesRestRepository(
         ) { key ->
             val response = api.getUploads().execute()
             var result: List<Message>? = null
-            response?.let {
+            response.let {
                 if (it.isSuccessful)
                     result = it.body()
             }
@@ -172,16 +172,10 @@ class MessagesRestRepository(
             limit,
             terms = appState.state?.openingState?.acceptPrivateTerms
         ).execute()
-        if (response.isSuccessful) {
-            response.body()?.let {
-                return it
-            }.guard { return ArrayList() }
-        }
-        return ArrayList()
+        return response.body() ?: listOf()
     }
 
     override fun getMessagesBySender(senderId: Long, offset: Int, limit: Int): List<Message> {
-
         val response = api.getMessagesBySender(
             senderId,
             appState.state?.impersoniateUser?.userId,
@@ -189,12 +183,7 @@ class MessagesRestRepository(
             limit,
             terms = appState.state?.openingState?.acceptPrivateTerms
         ).execute()
-        if (response.isSuccessful) {
-            response.body()?.let {
-                return it
-            }.guard { return ArrayList() }
-        }
-        return ArrayList()
+        return response.body() ?: listOf()
     }
 
     /*
@@ -208,80 +197,54 @@ class MessagesRestRepository(
     */
 
     override fun getHighlights(cached: Boolean): List<Message> {
-        val res =
-            if (cached) highlightsMessageStore.get("highlights") else highlightsMessageStore.fetch("highlights")
-        if (res != null)
-            return res
-        else
-            return ArrayList()
+        return (
+            if (cached) highlightsMessageStore.get("highlights")
+            else highlightsMessageStore.fetch("highlights")
+            ) ?: listOf()
     }
 
     override fun getLatest(cached: Boolean): List<Message> {
-        val res =
-            if (cached) latestMessageStore.get("latest") else latestMessageStore.fetch("latest")
-        if (res != null)
-            return res
-        else
-            return ArrayList()
+        return (if (cached) latestMessageStore.get("latest") else latestMessageStore.fetch("latest"))
+            ?: listOf()
     }
 
     override fun getUnread(cached: Boolean): List<Message> {
-        val res =
-            if (cached) unreadMessageStore.get("unread") else unreadMessageStore.fetch("unread")
-        if (res != null)
-            return res
-        else
-            return ArrayList()
+        return (if (cached) unreadMessageStore.get("unread") else unreadMessageStore.fetch("unread"))
+            ?: listOf()
     }
 
     override fun getUploads(cached: Boolean): List<Message> {
-        val res =
-            if (cached) uploadsMessageStore.get("uploads") else uploadsMessageStore.fetch("uploads")
-        if (res != null)
-            return res
-        else
-            return ArrayList()
+        return (if (cached) uploadsMessageStore.get("uploads") else uploadsMessageStore.fetch("uploads"))
+            ?: listOf()
     }
 
     override fun getMessage(
         folderId: Int,
         id: String,
         receipt: Boolean?,
-        terms: Boolean?
+        acceptedPrivateTerms: Boolean?
     ): Message {
         val call = api.getMessage(
             id,
             folderId,
             appState.state?.impersoniateUser?.userId,
             receipt,
-            terms = terms
+            terms = acceptedPrivateTerms
         )
         val result = call.execute()
-        result?.let { response ->
-            if (response.isSuccessful) {
-                return response.body() ?: throw(RuntimeException("Unknown"))
-            }
-        }
-        throw(RuntimeException())
+        return result.body() ?: throw(RuntimeException("Unknown"))
     }
 
     override fun getMessageReplyForm(folderId: Int, id: String): ReplyForm {
-        val call = api.getMessageReplyForm(id, folderId)
-        val result = call.execute()
-        result?.let { response ->
-            if (response.isSuccessful) {
-                return response.body() ?: throw(RuntimeException("Unknown"))
-            }
-        }
-
-        throw(RuntimeException())
+        return api.getMessageReplyForm(id, folderId).execute().body()
+            ?: throw(RuntimeException("Unknown"))
     }
 
     override fun submitMessageReplyForm(msg: Message, form: ReplyForm) {
         msg.folder?.let {
             val call = api.submitMessageReplyForm(msg.id, msg.folder?.id ?: 0, form)
             val result = call.execute()
-            result?.let { response ->
+            result.let { response ->
                 if (response.isSuccessful) {
                     return
                 }
@@ -332,7 +295,7 @@ class MessagesRestRepository(
             appState.state?.impersoniateUser?.userId
         )
         val result = call.execute()
-        result?.let { response ->
+        result.let { response ->
             if (response.isSuccessful) {
                 return
             }
@@ -342,17 +305,11 @@ class MessagesRestRepository(
     }
 
     override fun getStorageInfo(): StorageInfo {
-        api.getStorageInfo().execute()?.body()?.let {
-            return it
-        }
-        throw(RuntimeException())
+        return api.getStorageInfo().execute().body() ?: throw(RuntimeException())
     }
 
     override fun getLatestUploads(offset: Int?, limit: Int?): List<Message> {
-        api.getUploads(offset, limit).execute()?.body()?.let {
-            return it
-        }
-        throw(RuntimeException())
+        return api.getUploads(offset, limit).execute().body() ?: throw(RuntimeException())
     }
 
     override fun uploadFileAsMessage(

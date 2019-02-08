@@ -26,6 +26,7 @@ import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivi
 import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
+import dk.eboks.app.util.EndlessRecyclerViewScrollListener
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
@@ -47,6 +48,8 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     private var menuProfile: MenuItem? = null
 
     private var componentListener: MailListComponentListener? = null
+
+    private var scrollListener: EndlessRecyclerViewScrollListener? = null
 
     var sender: Sender? = null
 
@@ -89,6 +92,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         checkFabState()
 
         refreshSrl.setOnRefreshListener {
+            scrollListener?.resetState()
             presenter.refresh()
         }
         if (arguments == null) {
@@ -99,15 +103,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         getSenderFromBundle()
         getEditFromBundle()
         setupTopBar()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (refreshOnResume) {
-            refreshOnResume = false
-            presenter.refresh()
-        }
-        adapter.let { it.notifyDataSetChanged() }
+        presenter.refresh()
     }
 
     private fun getFolderFromBundle() {
@@ -239,7 +235,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
         setTopBar()
         componentListener?.onEditModeActive(modeEdit)
         checkFabState()
-        messagesRv.adapter?.notifyItemRangeChanged(0, adapter.messages.size)
+        messagesRv.adapter?.notifyDataSetChanged()
     }
 
     private fun checkFabState() {
@@ -293,12 +289,19 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
     private fun setupRecyclerView() {
         adapter.showUploads = showUploads
-        messagesRv.layoutManager = LinearLayoutManager(
+        val layoutManager = LinearLayoutManager(
             context,
             RecyclerView.VERTICAL,
             false
         )
+        messagesRv.layoutManager = layoutManager
         messagesRv.adapter = adapter
+        scrollListener = object : EndlessRecyclerViewScrollListener(layoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView?) {
+                presenter.loadNextPage()
+            }
+        }
+        messagesRv.addOnScrollListener(scrollListener!!)
 
         adapter.onActionEvent = { message, mailMessageEvent ->
             Timber.d("onActionEvent: %s", mailMessageEvent)
@@ -332,27 +335,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             checkFabState()
         }
 
-        messagesRv.addOnScrollListener(object :
-            androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
-            override fun onScrolled(
-                recyclerView: androidx.recyclerview.widget.RecyclerView,
-                dx: Int,
-                dy: Int
-            ) {
-                val layoutManager =
-                    recyclerView.layoutManager as LinearLayoutManager
-                layoutManager.let {
-                    if (layoutManager.findLastVisibleItemPosition() == layoutManager.itemCount - 1) {
-                        onScrolledToLastItem()
-                    }
-                }
-                super.onScrolled(recyclerView, dx, dy)
-            }
-        })
-    }
-
-    private fun onScrolledToLastItem() {
-        presenter.loadNextPage()
     }
 
     private fun startMessageOpenActivity(message: Message) {
@@ -392,15 +374,12 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     override fun showMessages(messages: List<Message>) {
         Timber.e("Showing messages")
         checkedList.clear()
-        adapter.messages.clear()
-        adapter.messages.addAll(messages)
-        messagesRv.adapter?.notifyDataSetChanged()
+        adapter.setData(messages)
     }
 
     override fun appendMessages(messages: List<Message>) {
         Timber.e("Appending messages")
-        adapter.messages.addAll(messages)
-        messagesRv.adapter?.notifyDataSetChanged()
+        adapter.addMessages(messages)
     }
 
     companion object {
