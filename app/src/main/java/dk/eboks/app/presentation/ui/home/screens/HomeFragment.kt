@@ -144,6 +144,7 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
 
     override fun showFolder(messages: List<Message>, verifiedUser: Boolean) {
         showEmptyState(messages.isEmpty(), verifiedUser)
+        if (messages.isEmpty()) return
         mailListContentLL.removeAllViews()
         var showCount = 3 // Not allowed to show more than 3
         if (messages.size < showCount) {
