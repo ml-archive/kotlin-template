@@ -4,6 +4,7 @@ import android.graphics.Typeface
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -28,9 +29,10 @@ class MessageAdapter(
     private val callbackWeakReference = WeakReference(callback)
 
     fun setData(list: List<Message>) {
+        val diff = DiffUtil.calculateDiff(MessageDiff(this.list, list))
         this.list.clear()
         this.list += list
-        notifyDataSetChanged()
+        diff.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,11 +40,11 @@ class MessageAdapter(
     }
 
     override fun getItemCount(): Int {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        return list.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+        holder.bind(list[position])
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -90,6 +92,27 @@ class MessageAdapter(
                     callbackWeakReference.get()?.onMessageClick(message)
                 }
             }
+        }
+    }
+
+    private class MessageDiff(
+        private val oldList: List<Message>,
+        private val newList: List<Message>
+    ) : DiffUtil.Callback() {
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return newList[newItemPosition].id == oldList[oldItemPosition].id
+        }
+
+        override fun getOldListSize(): Int {
+            return oldList.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newList.size
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return newList[newItemPosition] == oldList[oldItemPosition]
         }
     }
 }

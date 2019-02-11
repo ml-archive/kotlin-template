@@ -136,7 +136,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         })
     }
 
-    fun comparePasswords() {
+    private fun comparePasswords() {
         passwordValid = isValidPassword(passwordEt.text.toString().trim())
         repeatPasswordValid =
             passwordEt.text.toString().trim() == repeatPasswordEt.text.toString().trim()
@@ -152,7 +152,7 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         progress.visible = show
     }
 
-    fun onContinueClicked() {
+    private fun onContinueClicked() {
         // (activity as StartActivity).showLogo(false)
         presenter.setPassword(passwordEt.text.toString().trim())
         showProgress(true)

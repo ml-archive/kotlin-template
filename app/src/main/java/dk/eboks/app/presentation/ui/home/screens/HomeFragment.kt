@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.home.screens
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -9,9 +10,13 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
@@ -36,6 +41,7 @@ import dk.eboks.app.presentation.ui.main.Section
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
 import dk.eboks.app.presentation.ui.profile.screens.ProfileActivity
 import dk.eboks.app.util.Starter
+import dk.eboks.app.util.getWorkaroundUrl
 import dk.eboks.app.util.views
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_channel_control_component.*
@@ -137,11 +143,78 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
     }
 
     override fun showFolder(messages: List<Message>, verifiedUser: Boolean) {
-        if (messages.isEmpty()) {
-            showEmptyState(true, verifiedUser)
-            return
-        } else {
-            showEmptyState(false, verifiedUser)
+        showEmptyState(messages.isEmpty(), verifiedUser)
+        mailListContentLL.removeAllViews()
+        var showCount = 3 // Not allowed to show more than 3
+        if (messages.size < showCount) {
+            showCount = messages.size
+        }
+
+        for (i in 0 until showCount) {
+            val v = inflator.inflate(R.layout.viewholder_home_message, mailListContentLL, false)
+            val currentMessage = messages[i]
+            val circleIv = v.findViewById<ImageView>(R.id.circleIv)
+            val titleTv = v.findViewById<TextView>(R.id.titleTv)
+            val subTitleTv = v.findViewById<TextView>(R.id.subTitleTv)
+            val urgentTv = v.findViewById<TextView>(R.id.urgentTv)
+            val dateTv = v.findViewById<TextView>(R.id.dateTv)
+            val dividerV = v.findViewById<View>(R.id.dividerV)
+            val rootLl = v.findViewById<LinearLayout>(R.id.rootLl)
+
+            currentMessage.sender?.logo?.let {
+                Glide.with(context ?: return).load(it.url).into(circleIv)
+            }
+
+            if (currentMessage.unread) {
+                circleIv.isSelected = true
+                dateTv.setTypeface(null, Typeface.BOLD)
+                titleTv.setTypeface(null, Typeface.BOLD)
+                titleTv.setTextColor(ContextCompat.getColor(titleTv.context, R.color.darkGreyBlue))
+            } else {
+                dateTv.setTypeface(null, Typeface.NORMAL)
+                titleTv.setTypeface(null, Typeface.NORMAL)
+                titleTv.setTextColor(
+                    ContextCompat.getColor(
+                        titleTv.context,
+                        R.color.textColorPrimary
+                    )
+                )
+            }
+
+            currentMessage.sender?.logo?.let { logo ->
+                Glide.with(context ?: return)
+                    .applyDefaultRequestOptions(RequestOptions().placeholder(R.drawable.ic_sender_placeholder))
+                    .load(logo.getWorkaroundUrl())
+                    .into(circleIv)
+            }
+
+            if (currentMessage.status?.title != null) {
+                urgentTv?.visibility = View.VISIBLE
+                urgentTv?.text = currentMessage.status?.title
+                if (currentMessage.status?.important == true) {
+                    urgentTv.setTextColor(ContextCompat.getColor(v.context, R.color.rougeTwo))
+                } else
+                    urgentTv.setTextColor(ContextCompat.getColor(v.context, R.color.silver))
+            } else {
+                urgentTv?.visibility = View.GONE
+            }
+
+            titleTv.text = currentMessage.sender?.name ?: ""
+            subTitleTv.text = currentMessage.subject
+            dateTv.text = eboksFormatter.formatDateRelative(currentMessage)
+            if (i == showCount) {
+                dividerV.visibility = View.GONE
+            }
+
+            rootLl?.setOnClickListener {
+                activity?.run {
+                    Starter()
+                        .activity(MessageOpeningActivity::class.java)
+                        .putExtra(Message::class.java.simpleName, currentMessage)
+                        .start()
+                }
+            }
+            mailListContentLL.addView(v)
         }
     }
 
@@ -160,7 +233,7 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
             val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContentLL, false)
             val logoIv = v.findViewById<ImageView>(R.id.logoIv)
             val headerTv = v.findViewById<TextView>(R.id.headerTv)
-            val cardView = v.findViewById<androidx.cardview.widget.CardView>(R.id.channelItemCv)
+            val cardView = v.findViewById<CardView>(R.id.channelItemCv)
             cardView?.setOnClickListener {
                 activity?.run {
                     Starter().activity(ChannelContentActivity::class.java)
