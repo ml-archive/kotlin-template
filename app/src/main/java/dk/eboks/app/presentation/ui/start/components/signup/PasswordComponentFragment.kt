@@ -11,6 +11,8 @@ import androidx.core.content.ContextCompat
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.util.AppPatterns
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_signup_password_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -26,6 +28,10 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     var passwordValid = false
     var repeatPasswordValid = false
     var handler = Handler()
+
+    private val passwordRegex by lazy {
+        Regex(AppPatterns.PasswordRegex)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -131,22 +137,19 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     }
 
     fun comparePasswords() {
-        passwordValid = (isValidPassword(passwordEt.text.toString().trim()))
+        passwordValid = isValidPassword(passwordEt.text.toString().trim())
         repeatPasswordValid =
-            (passwordEt.text.toString().trim() == repeatPasswordEt.text.toString().trim())
-        continueBtn.isEnabled = (passwordValid && repeatPasswordValid)
+            passwordEt.text.toString().trim() == repeatPasswordEt.text.toString().trim()
+        continueBtn.isEnabled = passwordValid && repeatPasswordValid
     }
 
-    fun isValidPassword(password: CharSequence): Boolean {
-        if (password.isNotBlank()) {
-            return true
-        }
-        return false
+    private fun isValidPassword(password: CharSequence): Boolean {
+        return passwordRegex.matches(password)
     }
 
     override fun showProgress(show: Boolean) {
-        content.visibility = if (show) View.GONE else View.VISIBLE
-        progress.visibility = if (show) View.VISIBLE else View.GONE
+        content.visible = !show
+        progress.visible = show
     }
 
     fun onContinueClicked() {

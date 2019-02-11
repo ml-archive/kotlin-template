@@ -334,7 +334,6 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
 
             checkFabState()
         }
-
     }
 
     private fun startMessageOpenActivity(message: Message) {
