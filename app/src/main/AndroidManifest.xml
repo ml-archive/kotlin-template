@@ -104,10 +104,12 @@
             android:name=".presentation.ui.channels.screens.content.ChannelContentActivity"
             android:screenOrientation="portrait" />
         <activity
+
             android:name=".presentation.ui.channels.screens.content.storebox.ConnectStoreboxActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.channels.screens.content.ekey.EkeyContentActivity"
+            android:windowSoftInputMode="adjustResize"
+        android:name=".presentation.ui.channels.screens.content.ekey.EkeyContentActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.ui.senders.screens.overview.SendersOverviewActivity"
