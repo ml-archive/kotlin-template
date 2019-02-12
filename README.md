@@ -57,6 +57,30 @@ Example:
 - Dependency Injection (and thus factory)
 - Inward dependency rule (all dependencies must point inwards)
 
+## Code style
+We use [ktlint](https://github.com/shyiko/ktlint), provided via the [spotless](https://github.com/diffplug/spotless) 
+gradle plugin, and the bundled project IntelliJ codestyle.
+
+If you find that one of your pull reviews does not pass the CI server check due to a code style conflict, you can
+easily fix it by running: `./gradlew spotlessApply`, or running IntelliJ/Android Studio's code formatter.
+
+Here's how to configure it for use with Android Studio (instructions adapted
+from the ktlint [README](https://github.com/shyiko/ktlint/blob/master/README.md)):
+
+- Close Android Studio if it's open
+- Download ktlint using these [installation instructions](https://github.com/shyiko/ktlint/blob/master/README.md#installation)
+
+- Inside the project root directory run:
+
+  `./ktlint --apply-to-idea-project --android`
+
+- Remove ktlint if desired:
+
+  `rm ktlint`
+
+- Start Android Studio
+
+
 ## Stuff
 - kotlin data classes as entities
 - Retrofit2/OkHttp3
@@ -68,3 +92,4 @@ Example:
 - [Clean Architecture by Uncle Bob](http://blog.8thlight.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 - [Some dudes android implementation](https://medium.com/@dmilicic/a-detailed-guide-on-developing-android-apps-using-the-clean-architecture-pattern-d38d71e94029)
 - [Some other dudes implementation](https://fernandocejas.com/2014/09/03/architecting-android-the-clean-way)
+- [Plaid](https://github.com/nickbutcher/plaid)
