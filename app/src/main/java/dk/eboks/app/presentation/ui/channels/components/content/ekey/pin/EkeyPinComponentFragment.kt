@@ -88,20 +88,19 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
                     ekeyPasswordInputLayout.error = Translation.ekey.insertPasswordLenghtError
                 }
             } else {
-               confirmPinAndFinish()
+                confirmPinAndFinish()
             }
         }
 
         ekeyPasswordInputEt.onTextChanged {
             ekeyPasswordInputLayout.error = null
-
         }
 
         ekeyPasswordInputOptionsBtn.setOnClickListener {
-            val intent =  OverlayActivity.createIntent(
+            val intent = OverlayActivity.createIntent(
                     context, arrayListOf(
-                            OverlayButton(type = ButtonType.INPUT_ALPHANUMERIC),
-                            OverlayButton(ButtonType.INPUT_NUMERIC)))
+                    OverlayButton(type = ButtonType.INPUT_ALPHANUMERIC),
+                    OverlayButton(ButtonType.INPUT_NUMERIC)))
 
             startActivityForResult(intent, OverlayActivity.REQUEST_ID)
         }
@@ -111,7 +110,6 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
         getEkeyBaseActivity()?.setPin(ekeyPasswordInputEt.text.toString())
         getEkeyBaseActivity()?.refreshClearAndShowMain()
     }
-
 
     private fun showKeyboard() {
         handler.postDelayed({
