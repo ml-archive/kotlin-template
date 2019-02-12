@@ -585,6 +585,9 @@
   <string name='nstack_ekey_insertPasswordHint' formatted='false'>{ekey_insertPasswordHint}</string>
   <string name='nstack_ekey_insertPasswordDescription' formatted='false'>{ekey_insertPasswordDescription}</string>
   <string name='nstack_ekey_insertPasswordLenghtError' formatted='false'>{ekey_insertPasswordLenghtError}</string>
+  <string name='nstack_ekey_passwordOptions' formatted='false'>{ekey_passwordOptions}</string>
+  <string name='nstack_ekey_passwordOptionNumeric' formatted='false'>{ekey_passwordOptionNumeric}</string>
+  <string name='nstack_ekey_passwordOptionAlphanumeric' formatted='false'>{ekey_passwordOptionAlphanumeric}</string>
   <string name='nstack_storeboxlogin_header' formatted='false'>{storeboxlogin_header}</string>
   <string name='nstack_storeboxlogin_subheader' formatted='false'>{storeboxlogin_subheader}</string>
   <string name='nstack_storeboxlogin_title' formatted='false'>{storeboxlogin_title}</string>

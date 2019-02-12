@@ -171,11 +171,11 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
         if (target < 1024)
             return "$target B"
         if (target < 1024f * 1024f)
-            return String.format("%.2f KB", target.toFloat() / 1024f)
+            return String.format("%d KB", target / 1024)
         if (target < 1024f * 1024f * 1024f)
-            return String.format("%.2f MB", target.toFloat() / (1024f * 1024f))
+            return String.format("%d MB", target / (1024 * 1024))
         if (target < 1024f * 1024f * 1024f * 1024f)
-            return String.format("%.2f GB", target.toFloat() / (1024f * 1024f * 1024f))
+            return String.format("%d GB", target / (1024 * 1024 * 1024))
         return "0 B"
     }
 
