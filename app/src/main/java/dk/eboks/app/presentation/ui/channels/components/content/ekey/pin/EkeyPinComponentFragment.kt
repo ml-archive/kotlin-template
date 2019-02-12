@@ -1,8 +1,10 @@
 package dk.eboks.app.presentation.ui.channels.components.content.ekey.pin
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +12,9 @@ import android.view.inputmethod.InputMethodManager
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.BaseEkeyFragment
+import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
+import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
+import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
 import dk.eboks.app.util.onImeActionDone
 import dk.eboks.app.util.onTextChanged
 import kotlinx.android.synthetic.main.fragment_channel_ekey_pin.*
@@ -89,12 +94,16 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
 
         ekeyPasswordInputEt.onTextChanged {
             ekeyPasswordInputLayout.error = null
-            continueBtn.isEnabled = ekeyPasswordInputEt.text?.toString().isPasswordValid(isCreate)
 
         }
 
-        continueBtn.setOnClickListener {
-            confirmPinAndFinish()
+        ekeyPasswordInputOptionsBtn.setOnClickListener {
+            val intent =  OverlayActivity.createIntent(
+                    context, arrayListOf(
+                            OverlayButton(type = ButtonType.INPUT_ALPHANUMERIC),
+                            OverlayButton(ButtonType.INPUT_NUMERIC)))
+
+            startActivityForResult(intent, OverlayActivity.REQUEST_ID)
         }
     }
 
@@ -103,10 +112,6 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
         getEkeyBaseActivity()?.refreshClearAndShowMain()
     }
 
-    private fun String?.isPasswordValid(isCreate: Boolean) : Boolean {
-        this ?: return false
-        return if (isCreate) this.length >= 6 else this.length >= 4
-    }
 
     private fun showKeyboard() {
         handler.postDelayed({
@@ -121,6 +126,21 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
     override fun onPause() {
         handler.removeCallbacksAndMessages(null)
         super.onPause()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (OverlayActivity.REQUEST_ID == requestCode) {
+            val result = data?.getSerializableExtra("res") as? ButtonType?
+            when (result) {
+                ButtonType.INPUT_NUMERIC -> {
+                    ekeyPasswordInputEt.inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD or InputType.TYPE_CLASS_NUMBER
+                }
+                ButtonType.INPUT_ALPHANUMERIC -> {
+                    ekeyPasswordInputEt.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                }
+                else -> { /* do nothing */ }
+            }
+        }
     }
 
     companion object {

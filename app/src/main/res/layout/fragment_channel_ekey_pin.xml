@@ -55,12 +55,13 @@
     </FrameLayout>
 
     <Button
-        android:enabled="false"
-        android:id="@+id/continueBtn"
-        style="@style/button.SolidGradient.large"
+        android:id="@+id/ekeyPasswordInputOptionsBtn"
+        style="@style/button.borderless"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/nstack_activationcode_continueButton" />
+        android:text="@string/nstack_ekey_passwordOptions" />
+
+
 
 </LinearLayout>

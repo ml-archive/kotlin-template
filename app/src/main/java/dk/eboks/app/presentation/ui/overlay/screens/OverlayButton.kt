@@ -23,6 +23,8 @@ class OverlayButton(val type: ButtonType) : Serializable {
             ButtonType.UNREAD -> Translation.overlaymenu.markAsUnread
             ButtonType.GALLERY -> Translation.overlaymenu.chooseFromLibrary
             ButtonType.CAMERA -> Translation.overlaymenu.takePhoto
+            ButtonType.INPUT_ALPHANUMERIC -> Translation.ekey.passwordOptionAlphanumeric
+            ButtonType.INPUT_NUMERIC -> Translation.ekey.passwordOptionNumeric
         }
     }
 
@@ -36,6 +38,8 @@ class OverlayButton(val type: ButtonType) : Serializable {
             ButtonType.ARCHIVE -> R.drawable.icon_48_archive_red
             ButtonType.READ -> R.drawable.icon_48_mail_open_red
             ButtonType.UNREAD -> R.drawable.icon_48_mail_red
+            ButtonType.INPUT_NUMERIC -> R.drawable.icon_48_numeric_red
+            ButtonType.INPUT_ALPHANUMERIC -> R.drawable.icon_48_alphanumeric_red
             else -> {
                 null
             }
@@ -44,5 +48,5 @@ class OverlayButton(val type: ButtonType) : Serializable {
 }
 
 enum class ButtonType {
-    MOVE, DELETE, PRINT, MAIL, OPEN, READ, UNREAD, ARCHIVE, CAMERA, GALLERY
+    MOVE, DELETE, PRINT, MAIL, OPEN, READ, UNREAD, ARCHIVE, CAMERA, GALLERY, INPUT_NUMERIC, INPUT_ALPHANUMERIC
 }
