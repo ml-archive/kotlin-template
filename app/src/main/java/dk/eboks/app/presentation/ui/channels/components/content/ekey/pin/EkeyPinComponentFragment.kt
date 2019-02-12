@@ -39,7 +39,7 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
 
-        setupInputfields()
+        setupListeners()
         setupTopbar(isCreate)
         setupTexts(isCreate)
     }
@@ -71,27 +71,41 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
         showKeyboard()
     }
 
-    private fun setupInputfields() {
+    private fun setupListeners() {
         showKeyboard()
 
         ekeyPasswordInputEt.onImeActionDone {
             if (isCreate) {
                 if (ekeyPasswordInputEt.text.toString().length >= 6) {
-                    getEkeyBaseActivity()?.setPin(ekeyPasswordInputEt.text.toString())
-                    getEkeyBaseActivity()?.refreshClearAndShowMain()
+                    confirmPinAndFinish()
                 } else {
                     ekeyPasswordInputEt.text?.clear()
                     ekeyPasswordInputLayout.error = Translation.ekey.insertPasswordLenghtError
                 }
             } else {
-                getEkeyBaseActivity()?.setPin(ekeyPasswordInputEt.text.toString())
-                getEkeyBaseActivity()?.refreshClearAndShowMain()
+               confirmPinAndFinish()
             }
         }
 
         ekeyPasswordInputEt.onTextChanged {
             ekeyPasswordInputLayout.error = null
+            continueBtn.isEnabled = ekeyPasswordInputEt.text?.toString().isPasswordValid(isCreate)
+
         }
+
+        continueBtn.setOnClickListener {
+            confirmPinAndFinish()
+        }
+    }
+
+    private fun confirmPinAndFinish() {
+        getEkeyBaseActivity()?.setPin(ekeyPasswordInputEt.text.toString())
+        getEkeyBaseActivity()?.refreshClearAndShowMain()
+    }
+
+    private fun String?.isPasswordValid(isCreate: Boolean) : Boolean {
+        this ?: return false
+        return if (isCreate) this.length >= 6 else this.length >= 4
     }
 
     private fun showKeyboard() {
