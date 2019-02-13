@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.zxing.BarcodeFormat
@@ -154,9 +155,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             return
         }
 
-        val requestOptions = RequestOptions()
-        requestOptions.fitCenter()
-        requestOptions.override(300, 300)
+        val requestOptions = RequestOptions().fitCenter().override(300, 300)
 
         Glide.with(this)
             .load(url)
@@ -375,8 +374,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         }
     }
 
-    inner class PaymentLineAdapter :
-        androidx.recyclerview.widget.RecyclerView.Adapter<PaymentLineAdapter.PaymentLineViewHolder>() {
+    inner class PaymentLineAdapter : RecyclerView.Adapter<PaymentLineAdapter.PaymentLineViewHolder>() {
         var payments: ArrayList<StoreboxPayment> = arrayListOf()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentLineViewHolder {
@@ -406,8 +404,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         }
     }
 
-    inner class ReceiptLineAdapter :
-        androidx.recyclerview.widget.RecyclerView.Adapter<ReceiptLineAdapter.ReceiptLineViewHolder>() {
+    inner class ReceiptLineAdapter : RecyclerView.Adapter<ReceiptLineAdapter.ReceiptLineViewHolder>() {
         var receiptLines: ArrayList<StoreboxReceiptLine> = arrayListOf()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReceiptLineViewHolder {

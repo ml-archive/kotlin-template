@@ -1,51 +1,47 @@
 package dk.eboks.app.domain.models.formreply
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
-enum class FormInputType(val type: String) : Parcelable {
-    @SerializedName("description")
-    DESCRIPTION("description"),
-    @SerializedName("link")
-    LINK("link"),
-    @SerializedName("text")
-    TEXT("text"),
-    @SerializedName("textarea")
-    TEXTAREA("textarea"),
-    @SerializedName("number")
-    NUMBER("number"),
-    @SerializedName("dropdown")
-    DROPDOWN("dropdown"),
-    @SerializedName("list")
-    LIST("list"),
-    @SerializedName("radiobox")
-    RADIOBOX("radiobox"),
-    @SerializedName("checkbox")
-    CHECKBOX("checkbox"),
-    @SerializedName("date")
-    DATE("date"),
-    @SerializedName("datetime")
-    DATETIME("datetime"),
-    @SerializedName("upload")
-    UPLOAD("upload");
+enum class FormInputType {
+    @SerializedName("Description")
+    DESCRIPTION,
+    @SerializedName("Link")
+    LINK,
+    @SerializedName("Text")
+    TEXT,
+    @SerializedName("Textarea")
+    TEXTAREA,
+    @SerializedName("Number")
+    NUMBER,
+    @SerializedName("Dropdown")
+    DROPDOWN,
+    @SerializedName("List")
+    LIST,
+    @SerializedName("Radiobox")
+    RADIOBOX,
+    @SerializedName("Checkbox")
+    CHECKBOX,
+    @SerializedName("Date")
+    DATE,
+    @SerializedName("Datetime")
+    DATETIME,
+    @SerializedName("Upload")
+    UPLOAD;
 
     override fun toString(): String {
-        when (this) {
-            DESCRIPTION -> return "description"
-            LINK -> return "link"
-            TEXT -> return "text"
-            TEXTAREA -> return "textarea"
-            NUMBER -> return "number"
-            DROPDOWN -> return "dropdown"
-            LIST -> return "list"
-            RADIOBOX -> return "radiobox"
-            CHECKBOX -> return "checkbox"
-            DATE -> return "date"
-            DATETIME -> return "datetime"
-            UPLOAD -> return "upload"
-            else -> return "description"
+        return when (this) {
+            DESCRIPTION -> "Description"
+            LINK -> "Link"
+            TEXT -> "Text"
+            TEXTAREA -> "Textarea"
+            NUMBER -> "Number"
+            DROPDOWN -> "Dropdown"
+            LIST -> "List"
+            RADIOBOX -> "Radiobox"
+            CHECKBOX -> "Checkbox"
+            DATE -> "Date"
+            DATETIME -> "Datetime"
+            UPLOAD -> "Upload"
         }
     }
 }
