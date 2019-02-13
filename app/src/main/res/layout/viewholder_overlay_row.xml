@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="right|center_vertical"
     android:layout_marginBottom="16dp"
     android:layout_marginRight="24dp"
@@ -28,7 +29,7 @@
         app:backgroundTint="@color/white"
         android:clickable="true"
         android:layout_gravity="start"
-        android:src="@drawable/ic_delete_red"
+        tools:src="@drawable/ic_delete_red"
         android:visibility="visible" />
 
 

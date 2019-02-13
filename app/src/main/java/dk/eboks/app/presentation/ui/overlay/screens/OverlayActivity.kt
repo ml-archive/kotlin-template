@@ -108,7 +108,7 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
     companion object {
         const val REQUEST_ID: Int = 1454
         private const val PARAM_BUTTONS = "buttons"
-        fun createIntent(context: Context, buttons: ArrayList<OverlayButton>): Intent {
+        fun createIntent(context: Context?, buttons: ArrayList<OverlayButton>): Intent {
             return Intent(context, OverlayActivity::class.java).putExtra(PARAM_BUTTONS, buttons)
         }
     }
