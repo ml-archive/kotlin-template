@@ -9,149 +9,135 @@
     android:background="@color/backgroundColor"
     tools:ignore="MissingPrefix">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/content"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/backgroundColor">
+        android:fillViewport="true">
 
-        <include
-            android:id="@+id/include2"
-            layout="@layout/include_toolbar"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:orientation="vertical">
 
+            <include
+                android:id="@+id/include2"
+                layout="@layout/include_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <ProgressBar
-            android:id="@+id/progressBar3"
-            style="@style/Progress.Onboarding"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginLeft="36dp"
-            android:layout_marginTop="96dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginRight="36dp"
-            android:progress="30"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/headerTv"
-            style="@style/text.header1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginLeft="36dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginRight="36dp"
-            android:text="@string/nstack_signup_nameEmailHeader"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar3"
-            tools:text="_Header" />
-
-        <TextView
-            android:id="@+id/detailTv"
-            style="@style/text.body6.secondary"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginLeft="36dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginRight="36dp"
-            android:text="@string/nstack_signup_nameEmailDetail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/headerTv"
-            tools:text="_Please fill in the information below" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nameTil"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginEnd="36dp"
-            android:textColorHint="@color/blueGrey"
-            android:theme="@style/TextInputLayoutTheme"
-            app:errorEnabled="true"
-            app:errorTextAppearance="@style/errorappearance"
-            app:hintTextAppearance="@style/HintSmallTextAppearance"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:hint="Name">
-
-            <EditText
-                android:id="@+id/nameEt"
-                style="@style/EditText"
+            <ProgressBar
+                android:id="@+id/progressBar3"
+                style="@style/Progress.Onboarding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName|textCapWords"
-                nstack:hint="@string/nstack_signup_nameHint"
-                tools:text="Lucas Sales" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="36dp"
+                android:layout_marginLeft="36dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginRight="36dp"
+                android:progress="30" />
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/emailTil"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginEnd="36dp"
-            android:textColorHint="@color/blueGrey"
-            android:theme="@style/TextInputLayoutTheme"
-            app:errorEnabled="true"
-            app:errorTextAppearance="@style/errorappearance"
-            app:hintTextAppearance="@style/HintSmallTextAppearance"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guideline"
-            tools:hint="Email">
-
-            <EditText
-                android:id="@+id/emailEt"
-                style="@style/EditText"
+            <TextView
+                android:id="@+id/headerTv"
+                style="@style/text.header1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                nstack:hint="@string/nstack_signup_emailHint" />
+                android:layout_marginStart="36dp"
+                android:layout_marginLeft="36dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginRight="36dp"
+                android:text="@string/nstack_signup_nameEmailHeader"
+                tools:text="_Header" />
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/detailTv"
+                style="@style/text.body6.secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginLeft="36dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginRight="36dp"
+                android:text="@string/nstack_signup_nameEmailDetail"
+                tools:text="_Please fill in the information below" />
 
-        <Button
-            android:id="@+id/continueBtn"
-            style="@style/enabledButtton"
-            android:layout_width="0dp"
-            android:layout_height="52dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="24dp"
-            android:enabled="false"
-            android:text="@string/nstack_signup_continueButton"
-            android:textColor="@drawable/enabled_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:text="_Continue" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameTil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginEnd="36dp"
+                android:textColorHint="@color/blueGrey"
+                android:theme="@style/TextInputLayoutTheme"
+                app:errorEnabled="true"
+                app:errorTextAppearance="@style/errorappearance"
+                app:hintTextAppearance="@style/HintSmallTextAppearance"
+                tools:hint="Name">
 
-        <View
-            android:id="@+id/guideline"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            app:layout_constraintBottom_toTopOf="@+id/continueBtn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/detailTv" />
+                <EditText
+                    android:id="@+id/nameEt"
+                    style="@style/EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName|textCapWords"
+                    nstack:hint="@string/nstack_signup_nameHint"
+                    tools:text="Lucas Sales" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailTil"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="36dp"
+                android:textColorHint="@color/blueGrey"
+                android:theme="@style/TextInputLayoutTheme"
+                app:errorEnabled="true"
+                app:errorTextAppearance="@style/errorappearance"
+                app:hintTextAppearance="@style/HintSmallTextAppearance"
+                tools:hint="Email">
+
+                <EditText
+                    android:id="@+id/emailEt"
+                    style="@style/EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    nstack:hint="@string/nstack_signup_emailHint" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+
+            <Button
+                android:id="@+id/continueBtn"
+                style="@style/enabledButtton"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="32dp"
+                android:enabled="false"
+                android:text="@string/nstack_signup_continueButton"
+                android:textColor="@drawable/enabled_button"
+                tools:text="_Continue" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
     <FrameLayout
         android:id="@+id/progress"
