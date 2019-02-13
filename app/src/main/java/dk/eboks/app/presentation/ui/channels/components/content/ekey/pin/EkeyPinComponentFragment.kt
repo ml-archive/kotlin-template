@@ -34,7 +34,11 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
     private val isCreate: Boolean
         get() = arguments?.getBoolean(ARG_IS_CREATE, false) ?: false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val rootView = inflater.inflate(R.layout.fragment_channel_ekey_pin, container, false)
         return rootView
     }
@@ -87,9 +91,7 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
                     ekeyPasswordInputEt.text?.clear()
                     ekeyPasswordInputLayout.error = Translation.ekey.insertPasswordLenghtError
                 }
-            } else {
-                confirmPinAndFinish()
-            }
+            } else confirmPinAndFinish()
         }
 
         ekeyPasswordInputEt.onTextChanged {
@@ -115,7 +117,8 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
         handler.postDelayed({
             ekeyPasswordInputEt?.let { v ->
                 v.requestFocus()
-                val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+                val imm =
+                    context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
                 imm?.showSoftInput(v, InputMethodManager.SHOW_IMPLICIT)
             }
         }, 200)
@@ -147,10 +150,10 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
 
         @JvmStatic
         fun newInstance(isCreate: Boolean) =
-                EkeyPinComponentFragment().apply {
-                    arguments = Bundle().apply {
-                        putBoolean(ARG_IS_CREATE, isCreate)
-                    }
+            EkeyPinComponentFragment().apply {
+                arguments = Bundle().apply {
+                    putBoolean(ARG_IS_CREATE, isCreate)
                 }
+            }
     }
 }

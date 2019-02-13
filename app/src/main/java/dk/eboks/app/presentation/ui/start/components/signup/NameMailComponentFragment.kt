@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.start.components.signup
 
 import android.app.Activity
+import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -8,6 +9,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -15,9 +17,11 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.util.dpToPx
 import dk.eboks.app.util.isValidEmail
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_signup_name_mail_component.*
+import kotlinx.android.synthetic.main.fragment_signup_name_mail_component.view.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -39,7 +43,18 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         return inflater.inflate(R.layout.fragment_signup_name_mail_component, container, false)
+            .apply {
+                viewTreeObserver.addOnGlobalLayoutListener {
+                    val r = Rect()
+                    getWindowVisibleDisplayFrame(r)
+                    val heightDiff = rootView.height - (r.bottom - r.top)
+                    if (heightDiff > dpToPx(100)) {
+                        this.scrollView.fullScroll(View.FOCUS_DOWN)
+                    }
+                }
+            }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,6 +95,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     }
 
     private fun hideKeyboard(view: View?) {
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         val inputMethodManager =
             getBaseActivity()?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
@@ -145,7 +161,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     }
 
     override fun showProgress(show: Boolean) {
-        content.visibility = if (show) View.GONE else View.VISIBLE
+        scrollView.visibility = if (show) View.GONE else View.VISIBLE
         progress.visibility = if (show) View.VISIBLE else View.GONE
     }
 
