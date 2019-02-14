@@ -1,8 +1,6 @@
 package dk.eboks.app.presentation.ui.message.components.detail.payment
 
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +10,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.Payment
 import dk.eboks.app.domain.models.message.PaymentOption
-import dk.eboks.app.domain.models.shared.Description
-import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.widgets.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_payment_component.*
+import java.util.*
+import javax.inject.Inject
 
 
-class PaymentComponentFragment : BaseFragment() {
+class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View {
+
+    @Inject
+    lateinit var presenter: PaymentComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -33,12 +36,13 @@ class PaymentComponentFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         paymentNotificationSwitch.text = Translation.paymentdrawer.notificationsHeader
         setupListeners()
-        setupRecyclerView()
+        component.inject(this)
+        presenter.onViewCreated(this, lifecycle)
     }
 
-    private fun setupRecyclerView() {
+    private fun setupRecyclerView(options: List<PaymentOption>) {
         paymentOptionsRv.layoutManager = LinearLayoutManager(context)
-        paymentOptionsRv.adapter = PaymentOptionsAdapter(listOf(PaymentOption("card", description = Description("", "", link = Link()), status = 1, type = ""), PaymentOption("card", description = Description("", "", link = Link()), status = 1, type = "")))
+        paymentOptionsRv.adapter = PaymentOptionsAdapter(options)
         paymentOptionsRv.addItemDecoration( DividerItemDecoration(
                 drawable = ContextCompat.getDrawable(context!!, R.drawable.shape_divider)!!,
                 indentationDp = 72,
@@ -50,4 +54,16 @@ class PaymentComponentFragment : BaseFragment() {
 
     }
 
+    override fun showPaymentDetails(payment: Payment) {
+        paymentDueTv.text = (payment.status.date ?: Date()).toString()
+        paymentValueTv.text = "${payment.amount} ${payment.currency}"
+        paymentDisclaimer.text = payment.disclaimer
+        paymentNotificationSwitch.isChecked = payment.notfication
+        setupRecyclerView(payment.options ?: listOf())
+    }
+
+    companion object {
+        private const val ARG_MESSAGE = "Message"
+        fun createBundle(message: Message) = Bundle().apply { putParcelable(ARG_MESSAGE, message) }
+    }
 }

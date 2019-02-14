@@ -173,6 +173,8 @@ import dk.eboks.app.presentation.ui.message.components.detail.header.HeaderCompo
 import dk.eboks.app.presentation.ui.message.components.detail.header.HeaderComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentContract
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentComponentContract
+import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonComponentContract
 import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.detail.share.ShareComponentContract
@@ -1257,6 +1259,12 @@ class PresentationModule {
     ): DeviceActivationComponentContract.Presenter {
         return presenter
     }
+  @ActivityScope
+    @Provides
+    fun providePaymentPresenter(stateManager: AppStateManager) : PaymentComponentContract.Presenter {
+        return PaymentComponentPresenter(stateManager)
+    }
+
 
     /* Pasta
     @ActivityScope

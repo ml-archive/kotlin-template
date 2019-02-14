@@ -14,4 +14,15 @@ data class PaymentOption(
     var status: Int?,
     var type: String //  "type": (string) = ["betalingsservice","dibs","reepay"]
 
-) : Parcelable
+) : Parcelable {
+
+   companion object {
+       fun type(index: Int) : String {
+           return when (index) {
+               0 -> "betalingsservice"
+               1 -> "dibs"
+               else -> "reepay"
+           }
+       }
+   }
+}

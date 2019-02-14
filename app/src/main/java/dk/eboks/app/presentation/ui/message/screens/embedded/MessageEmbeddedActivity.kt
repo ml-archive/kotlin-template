@@ -78,18 +78,18 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         menuItem?.setIcon(R.drawable.icon_48_option_red_navigationbar)
         menuItem?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuItem?.setOnMenuItemClickListener { item: MenuItem ->
-           /* startActivityForResult(
+            startActivityForResult(
                 OverlayActivity.createIntent(
                     this@MessageEmbeddedActivity,
                     actionButtons
                 ), OverlayActivity.REQUEST_ID
-            )*/
-            openComponentDrawer(PaymentComponentFragment::class.java)
+            )
             true
         }
     }
 
     override fun setActionButton(message: Message) {
+        openComponentDrawer(PaymentComponentFragment::class.java, PaymentComponentFragment.createBundle(message))
 
         if (message.type != MessageType.UPLOAD && message.folder?.type == FolderType.INBOX) {
             if (message.unread) actionButtons.add(OverlayButton(ButtonType.READ)) else actionButtons.add(

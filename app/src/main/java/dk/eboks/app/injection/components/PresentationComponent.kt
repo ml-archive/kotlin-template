@@ -58,6 +58,7 @@ import dk.eboks.app.presentation.ui.message.components.detail.folderinfo.FolderI
 import dk.eboks.app.presentation.ui.message.components.detail.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.share.ShareComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.sign.SignButtonComponentFragment
@@ -175,6 +176,7 @@ interface PresentationComponent {
     fun inject(target: SignButtonComponentFragment)
     fun inject(target: ReplyFormActivity)
     fun inject(target: SignActivity)
+    fun inject(target: PaymentComponentFragment)
 
     // mail
 
