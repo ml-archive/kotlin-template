@@ -27,84 +27,18 @@
         android:text="2000,00 DKK"
         android:textColor="@color/darkGreyBlue" />
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/paymentCardCL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <View
         android:layout_marginTop="36dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/dividerColor"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:background="@drawable/circle_gradiant"
-            android:padding="@dimen/margin_medium"
-            android:src="@drawable/icon_48_payment_white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/paymentCreditCardTv"
-            style="@style/text.header4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/margin_normal"
-            android:text="Register and pay with Betalingsservice"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <include
-            layout="@layout/include_divider_leftmargin_whitebackground"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/paymentCreditCardTv"
-            app:layout_constraintStart_toStartOf="@+id/paymentCreditCardTv" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <LinearLayout
-        android:id="@+id/paymentServiceLL"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal">
+        android:layout_height="0.5dp"
+        android:background="@color/dividerColor" />
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:background="@drawable/circle_gradiant"
-            android:padding="@dimen/margin_medium"
-            android:src="@drawable/icon_48_alternative_bs_white" />
-
-        <TextView
-            android:id="@+id/paymentServiceTv"
-            style="@style/text.header4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/margin_normal"
-            android:text="Register and pay with Betalingsservice" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/paymentOptionsRv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
