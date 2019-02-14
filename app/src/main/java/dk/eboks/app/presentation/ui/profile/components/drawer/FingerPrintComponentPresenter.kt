@@ -101,12 +101,12 @@ class FingerPrintComponentPresenter @Inject constructor(
                 true,
                 true
             )
-            view?.showErrorDialog(viewError)
+            runAction { it.showErrorDialog(viewError) }
             return
         }
 
         userSettingsManager.removeFingerprintFromYall()
-        userSettingsManager.get(currentUser.id).hasFingerprint = true
+        userSettingsManager[currentUser.id].hasFingerprint = true
         userSettingsManager.save()
 
         saveUserInteractor.output = this
