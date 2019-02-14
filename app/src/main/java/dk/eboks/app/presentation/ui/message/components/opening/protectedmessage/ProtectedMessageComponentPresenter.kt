@@ -9,8 +9,8 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class ProtectedMessageComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val executor: Executor
+    private val appState: AppStateManager,
+    private val executor: Executor
 ) :
     ProtectedMessageComponentContract.Presenter,
     BasePresenterImpl<ProtectedMessageComponentContract.View>() {

@@ -10,11 +10,11 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class FileUploadPresenter @Inject constructor(val appState: AppStateManager) :
+class FileUploadPresenter @Inject constructor(private val appState: AppStateManager) :
     FileUploadContract.Presenter, BasePresenterImpl<FileUploadContract.View>() {
 
-    var uriString: String? = null
-    var mimeType: String? = null
+    private var uriString: String? = null
+    private var mimeType: String? = null
 
     override fun setup(uriString: String, mimeType: String?) {
         Timber.e("Got uriString $uriString mimeType = $mimeType")

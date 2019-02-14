@@ -14,10 +14,10 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class UserCarouselComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val userSettingsManager: UserSettingsManager,
-    val getUsersInteractor: GetUsersInteractor,
-    val deleteUserInteractor: DeleteUserInteractor
+    private val appState: AppStateManager,
+    private val userSettingsManager: UserSettingsManager,
+    private val getUsersInteractor: GetUsersInteractor,
+    private val deleteUserInteractor: DeleteUserInteractor
 ) :
     UserCarouselComponentContract.Presenter,
     BasePresenterImpl<UserCarouselComponentContract.View>(),

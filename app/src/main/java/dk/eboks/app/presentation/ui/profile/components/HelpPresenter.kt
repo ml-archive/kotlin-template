@@ -11,7 +11,7 @@ import javax.inject.Named
  * @author Christian
  * @since 5/23/2018.
  */
-class HelpPresenter @Inject constructor(@Named("NAME_BASE_URL") val baseUrl: String) :
+class HelpPresenter @Inject constructor(@Named("NAME_BASE_URL") private val baseUrl: String) :
     HelpContract.Presenter,
     BasePresenterImpl<HelpContract.View>() {
 

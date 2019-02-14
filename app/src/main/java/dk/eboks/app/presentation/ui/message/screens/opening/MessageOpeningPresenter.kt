@@ -2,7 +2,6 @@ package dk.eboks.app.presentation.ui.message.screens.opening
 
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractorImpl
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.ServerError
@@ -15,22 +14,21 @@ import dk.eboks.app.presentation.ui.message.components.opening.receipt.OpeningRe
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-class MessageOpeningPresenter(
-    val appStateManager: AppStateManager,
-    val executor: Executor,
-    val openMessageInteractor: OpenMessageInteractor
+class MessageOpeningPresenter @Inject constructor(
+    private val executor: Executor,
+    private val openMessageInteractor: OpenMessageInteractor
 ) :
     MessageOpeningContract.Presenter,
     BasePresenterImpl<MessageOpeningContract.View>(),
     OpenMessageInteractor.Output {
     // val serverError : ServerError? = appStateManager.state?.openingState?.serverError
 
-    var lockedMessage: Message? = null
-    var messageToOpen: Message? = null
+    private var lockedMessage: Message? = null
 
     init {
         openMessageInteractor.output = this

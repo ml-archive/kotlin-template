@@ -23,11 +23,11 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class LoginComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val userSettingsManager: UserSettingsManager,
-    val decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,
-    val loginInteractor: LoginInteractor,
-    val checkRSAKeyPresenceInteractor: CheckRSAKeyPresenceInteractor
+    private val appState: AppStateManager,
+    private val userSettingsManager: UserSettingsManager,
+    private val decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,
+    private val loginInteractor: LoginInteractor,
+    private val checkRSAKeyPresenceInteractor: CheckRSAKeyPresenceInteractor
 ) :
     LoginComponentContract.Presenter,
     BasePresenterImpl<LoginComponentContract.View>(),

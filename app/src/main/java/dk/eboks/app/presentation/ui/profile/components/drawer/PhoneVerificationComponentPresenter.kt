@@ -2,7 +2,6 @@ package dk.eboks.app.presentation.ui.profile.components.drawer
 
 import dk.eboks.app.domain.interactors.user.ConfirmPhoneInteractor
 import dk.eboks.app.domain.interactors.user.VerifyPhoneInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.ui.profile.components.myinfo.MyInfoComponentFragment
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -12,9 +11,8 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class PhoneVerificationComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val verifyPhoneInteractor: VerifyPhoneInteractor,
-    val confirmPhoneInteractor: ConfirmPhoneInteractor
+    private val verifyPhoneInteractor: VerifyPhoneInteractor,
+    private val confirmPhoneInteractor: ConfirmPhoneInteractor
 ) :
     PhoneVerificationComponentContract.Presenter,
     BasePresenterImpl<PhoneVerificationComponentContract.View>(),

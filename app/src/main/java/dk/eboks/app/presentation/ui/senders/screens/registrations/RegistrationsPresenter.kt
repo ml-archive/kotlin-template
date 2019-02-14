@@ -1,20 +1,17 @@
 package dk.eboks.app.presentation.ui.senders.screens.registrations
 
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Registrations
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import javax.inject.Inject
 
 /**
  * Created by Christian on 3/28/2018.
  * @author Christian
  * @since 3/28/2018.
  */
-class RegistrationsPresenter(
-    val appStateManager: AppStateManager,
-    registrationsInteractor: GetRegistrationsInteractor
-) :
+class RegistrationsPresenter @Inject constructor(registrationsInteractor: GetRegistrationsInteractor) :
     BasePresenterImpl<RegistrationsContract.View>(),
     RegistrationsContract.Presenter,
     GetRegistrationsInteractor.Output {

@@ -3,20 +3,19 @@ package dk.eboks.app.presentation.ui.start.screens
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.user.GetUserProfileInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-class StartPresenter(
-    val appStateManager: AppStateManager,
-    val bootstrapInteractor: BootstrapInteractor,
-    val prefManager: PrefManager
+class StartPresenter @Inject constructor(
+    private val bootstrapInteractor: BootstrapInteractor,
+    private val prefManager: PrefManager
 ) :
     StartContract.Presenter,
     BasePresenterImpl<StartContract.View>(),

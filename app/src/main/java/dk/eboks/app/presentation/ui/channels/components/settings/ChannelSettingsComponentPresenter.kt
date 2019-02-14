@@ -9,7 +9,6 @@ import dk.eboks.app.domain.interactors.storebox.GetStoreboxCreditCardsInteractor
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxProfileInteractor
 import dk.eboks.app.domain.interactors.storebox.PutStoreboxProfileInteractor
 import dk.eboks.app.domain.interactors.storebox.UpdateStoreboxFlagsInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.channel.ChannelFlags
 import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
@@ -25,7 +24,6 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class ChannelSettingsComponentPresenter @Inject constructor(
-    private val appState: AppStateManager,
     private val storeboxCreditCardsInteractor: GetStoreboxCreditCardsInteractor,
     private val deleteStoreboxCreditCardInteractor: DeleteStoreboxCreditCardInteractor,
     private val getStoreboxProfileInteractor: GetStoreboxProfileInteractor,

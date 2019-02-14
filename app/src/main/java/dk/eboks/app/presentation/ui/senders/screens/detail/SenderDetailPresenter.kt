@@ -3,22 +3,21 @@ package dk.eboks.app.presentation.ui.senders.screens.detail
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  * @author bison
  * @since 20-05-2017.
  */
-class SenderDetailPresenter(
-    val appStateManager: AppStateManager,
-    val getSenderDetailInteractor: GetSenderDetailInteractor,
-    val registerInteractor: RegisterInteractor,
-    val unregisterInteractor: UnRegisterInteractor
+class SenderDetailPresenter @Inject constructor(
+    private val getSenderDetailInteractor: GetSenderDetailInteractor,
+    private val registerInteractor: RegisterInteractor,
+    private val unregisterInteractor: UnRegisterInteractor
 ) :
     SenderDetailContract.Presenter, BasePresenterImpl<SenderDetailContract.View>(),
     GetSenderDetailInteractor.Output,

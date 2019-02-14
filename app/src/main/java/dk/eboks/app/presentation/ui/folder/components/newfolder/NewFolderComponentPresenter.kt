@@ -13,10 +13,10 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class NewFolderComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val createFolderInteractor: CreateFolderInteractor,
-    val deleteFolderInteractor: DeleteFolderInteractor,
-    val editFolderInteractor: EditFolderInteractor
+    private val appState: AppStateManager,
+    private val createFolderInteractor: CreateFolderInteractor,
+    private val deleteFolderInteractor: DeleteFolderInteractor,
+    private val editFolderInteractor: EditFolderInteractor
 ) :
     NewFolderComponentContract.Presenter,
     CreateFolderInteractor.Output,
@@ -39,7 +39,6 @@ class NewFolderComponentPresenter @Inject constructor(
     }
 
     override fun createNewFolder(parentFolderId: Int, name: String) {
-
         val userId =
             if (view?.overrideActiveUser == true) appState.state?.impersoniateUser?.userId else null
         createFolderInteractor.input =

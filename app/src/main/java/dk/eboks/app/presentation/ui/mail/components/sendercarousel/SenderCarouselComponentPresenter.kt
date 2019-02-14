@@ -15,8 +15,8 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class SenderCarouselComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val getSendersInteractor: GetSendersInteractor
+    private val appState: AppStateManager,
+    private val getSendersInteractor: GetSendersInteractor
 ) :
     SenderCarouselComponentContract.Presenter,
     BasePresenterImpl<SenderCarouselComponentContract.View>(),

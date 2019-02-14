@@ -5,13 +5,14 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-class BrowseCategoryPresenter(
-    val appStateManager: AppStateManager,
-    val getSendersInteractor: GetSendersInteractor
+class BrowseCategoryPresenter @Inject constructor(
+    private val appStateManager: AppStateManager,
+    private val getSendersInteractor: GetSendersInteractor
 ) :
     BrowseCategoryContract.Presenter,
     BasePresenterImpl<BrowseCategoryContract.View>(),

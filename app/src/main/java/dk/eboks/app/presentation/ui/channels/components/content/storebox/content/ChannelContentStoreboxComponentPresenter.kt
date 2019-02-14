@@ -3,7 +3,6 @@ package dk.eboks.app.presentation.ui.channels.components.content.storebox.conten
 import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxCreditCardsInteractor
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptsInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.domain.models.local.ViewError
@@ -12,7 +11,6 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class ChannelContentStoreboxComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
     private val getStoreboxReceiptsInteractor: GetStoreboxReceiptsInteractor,
     private val getStoreboxCreditCardsInteractor: GetStoreboxCreditCardsInteractor
 ) :

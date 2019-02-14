@@ -2,7 +2,6 @@ package dk.eboks.app.presentation.ui.senders.components.register
 
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.domain.models.sender.Sender
@@ -17,9 +16,8 @@ import javax.inject.Inject
  * @since 3/22/2018.
  */
 class RegisterPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val registerInteractor: RegisterInteractor,
-    val unRegisterInteractor: UnRegisterInteractor
+    private val registerInteractor: RegisterInteractor,
+    private val unRegisterInteractor: UnRegisterInteractor
 ) :
     RegistrationContract.Presenter, BasePresenterImpl<RegistrationContract.View>(),
     RegisterInteractor.Output,

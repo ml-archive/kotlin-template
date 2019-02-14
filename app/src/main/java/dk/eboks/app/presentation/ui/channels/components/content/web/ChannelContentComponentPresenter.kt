@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.channels.components.content.web
 
 import dk.eboks.app.domain.interactors.channel.GetChannelContentLinkInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -12,8 +11,7 @@ import javax.inject.Inject
  */
 
 class ChannelContentComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val getChannelContentLinkInteractor: GetChannelContentLinkInteractor
+    private val getChannelContentLinkInteractor: GetChannelContentLinkInteractor
 ) :
     ChannelContentComponentContract.Presenter,
     BasePresenterImpl<ChannelContentComponentContract.View>(),

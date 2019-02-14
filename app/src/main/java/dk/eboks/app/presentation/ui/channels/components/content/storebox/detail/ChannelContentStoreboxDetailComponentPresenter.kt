@@ -4,7 +4,6 @@ import dk.eboks.app.domain.interactors.storebox.DeleteStoreboxReceiptInteractor
 import dk.eboks.app.domain.interactors.storebox.GetStoreboxReceiptInteractor
 import dk.eboks.app.domain.interactors.storebox.SaveReceiptInteractor
 import dk.eboks.app.domain.interactors.storebox.ShareReceiptInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceipt
 import dk.eboks.app.domain.models.folder.Folder
@@ -14,7 +13,6 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class ChannelContentStoreboxDetailComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
     private val getStoreboxReceiptInteractor: GetStoreboxReceiptInteractor,
     private val deleteStoreboxReceiptInteractor: DeleteStoreboxReceiptInteractor,
     private val saveReceiptInteractor: SaveReceiptInteractor,

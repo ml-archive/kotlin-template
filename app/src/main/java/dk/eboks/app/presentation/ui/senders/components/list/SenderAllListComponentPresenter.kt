@@ -11,8 +11,8 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class SenderAllListComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val getSendersInteractor: GetSendersInteractor
+    private val appState: AppStateManager,
+    private val getSendersInteractor: GetSendersInteractor
 ) : SenderAllListComponentContract.Presenter,
     BasePresenterImpl<SenderAllListComponentContract.View>(), GetSendersInteractor.Output {
 

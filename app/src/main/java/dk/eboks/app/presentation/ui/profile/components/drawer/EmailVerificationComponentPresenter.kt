@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.profile.components.drawer
 
 import dk.eboks.app.domain.interactors.user.VerifyEmailInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
@@ -10,7 +9,6 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class EmailVerificationComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
     private val verifyMailInteractor: VerifyEmailInteractor
 ) :
     EmailVerificationComponentContract.Presenter,

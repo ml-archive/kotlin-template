@@ -13,8 +13,8 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class NotesComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val updateMessageInteractor: UpdateMessageInteractor
+    appState: AppStateManager,
+    private val updateMessageInteractor: UpdateMessageInteractor
 ) :
     NotesComponentContract.Presenter,
     BasePresenterImpl<NotesComponentContract.View>(),

@@ -14,10 +14,10 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class MyInfoComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val saveUserInteractor: SaveUserInteractor,
-    val updateUserInteractor: UpdateUserInteractor,
-    val getUserProfileInteractor: GetUserProfileInteractor
+    private val appState: AppStateManager,
+    private val saveUserInteractor: SaveUserInteractor,
+    private val updateUserInteractor: UpdateUserInteractor,
+    private val getUserProfileInteractor: GetUserProfileInteractor
 ) :
     MyInfoComponentContract.Presenter,
     BasePresenterImpl<MyInfoComponentContract.View>(),
@@ -30,8 +30,8 @@ class MyInfoComponentPresenter @Inject constructor(
         getUserProfileInteractor.output = this
     }
 
-    var currentUser: User? = null
-    var closeView = true
+    private var currentUser: User? = null
+    private var closeView = true
 
     override fun setup() {
         appState.state?.currentUser?.let { user ->

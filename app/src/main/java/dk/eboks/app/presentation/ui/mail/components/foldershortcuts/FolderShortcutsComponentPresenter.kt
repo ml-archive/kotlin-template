@@ -3,7 +3,6 @@ package dk.eboks.app.presentation.ui.mail.components.foldershortcuts
 import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -16,9 +15,8 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class FolderShortcutsComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val getCategoriesInteractor: GetCategoriesInteractor,
-    val openFolderInteractor: OpenFolderInteractor
+    private val getCategoriesInteractor: GetCategoriesInteractor,
+    private val openFolderInteractor: OpenFolderInteractor
 ) :
     FolderShortcutsComponentContract.Presenter,
     BasePresenterImpl<FolderShortcutsComponentContract.View>(),

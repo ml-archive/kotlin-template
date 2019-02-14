@@ -15,10 +15,10 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class UploadOverviewComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val getStorageInteractor: GetStorageInteractor,
-    val getLatestUploadsInteractor: GetLatestUploadsInteractor,
-    val uploadFileInteractor: UploadFileInteractor
+    private val appState: AppStateManager,
+    private val getStorageInteractor: GetStorageInteractor,
+    private val getLatestUploadsInteractor: GetLatestUploadsInteractor,
+    private val uploadFileInteractor: UploadFileInteractor
 ) :
     UploadOverviewComponentContract.Presenter,
     BasePresenterImpl<UploadOverviewComponentContract.View>(),

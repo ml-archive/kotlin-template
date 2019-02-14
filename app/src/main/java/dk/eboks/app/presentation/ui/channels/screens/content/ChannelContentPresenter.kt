@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.channels.screens.content
 
 import androidx.lifecycle.Lifecycle
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.presentation.ui.channels.components.settings.CloseChannelEvent
 import dk.eboks.app.util.getType
@@ -10,11 +9,12 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-class ChannelContentPresenter(val appStateManager: AppStateManager) :
+class ChannelContentPresenter @Inject constructor() :
     ChannelContentContract.Presenter, BasePresenterImpl<ChannelContentContract.View>() {
     init {
     }

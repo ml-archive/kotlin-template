@@ -2,20 +2,19 @@ package dk.eboks.app.presentation.ui.message.screens.reply
 
 import dk.eboks.app.domain.interactors.message.GetReplyFormInteractor
 import dk.eboks.app.domain.interactors.message.SubmitReplyFormInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-class ReplyFormPresenter(
-    val appStateManager: AppStateManager,
-    val getReplyFormInteractor: GetReplyFormInteractor,
-    val submitReplyFormInteractor: SubmitReplyFormInteractor
+class ReplyFormPresenter @Inject constructor(
+    private val getReplyFormInteractor: GetReplyFormInteractor,
+    private val submitReplyFormInteractor: SubmitReplyFormInteractor
 ) :
     ReplyFormContract.Presenter,
     BasePresenterImpl<ReplyFormContract.View>(),

@@ -5,20 +5,19 @@ import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.interactors.user.CreateDebugUserInteractorImpl
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-class DebugUserPresenter(
-    val appStateManager: AppStateManager,
-    val userSettingsManager: UserSettingsManager,
-    val createUserInteractor: CreateDebugUserInteractorImpl,
-    val saveUserInteractor: SaveUserInteractor
+class DebugUserPresenter @Inject constructor(
+    private val userSettingsManager: UserSettingsManager,
+    private val createUserInteractor: CreateDebugUserInteractorImpl,
+    private val saveUserInteractor: SaveUserInteractor
 ) :
     DebugUserContract.Presenter,
     BasePresenterImpl<DebugUserContract.View>(),

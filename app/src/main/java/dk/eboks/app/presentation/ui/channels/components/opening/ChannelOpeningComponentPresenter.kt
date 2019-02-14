@@ -4,7 +4,6 @@ import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.InstallChannelInteractor
 import dk.eboks.app.domain.interactors.storebox.CreateStoreboxInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.APIConstants
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.local.ViewError
@@ -18,10 +17,9 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class ChannelOpeningComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val getChannelInteractor: GetChannelInteractor,
-    val createStoreboxInteractor: CreateStoreboxInteractor,
-    val installChannelInteractor: InstallChannelInteractor
+    private val getChannelInteractor: GetChannelInteractor,
+    private val createStoreboxInteractor: CreateStoreboxInteractor,
+    private val installChannelInteractor: InstallChannelInteractor
 ) :
     ChannelOpeningComponentContract.Presenter,
     BasePresenterImpl<ChannelOpeningComponentContract.View>(),

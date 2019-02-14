@@ -15,7 +15,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class FingerPrintComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
+    private val appState: AppStateManager,
     private val userSettingsManager: UserSettingsManager,
     private val encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,
     private val saveUserInteractor: SaveUserInteractor,

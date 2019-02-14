@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class TextViewComponentPresenter @Inject constructor(val appState: AppStateManager) :
+class TextViewComponentPresenter @Inject constructor(private val appState: AppStateManager) :
     TextViewComponentContract.Presenter, BasePresenterImpl<TextViewComponentContract.View>() {
 
     init {

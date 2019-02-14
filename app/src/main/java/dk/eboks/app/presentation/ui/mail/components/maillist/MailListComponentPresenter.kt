@@ -4,7 +4,6 @@ import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
@@ -16,11 +15,10 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class MailListComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val getMessagesInteractor: GetMessagesInteractor,
-    val deleteMessagesInteractor: DeleteMessagesInteractor,
-    val moveMessagesInteractor: MoveMessagesInteractor,
-    val updateMessageInteractor: UpdateMessageInteractor
+    private val getMessagesInteractor: GetMessagesInteractor,
+    private val deleteMessagesInteractor: DeleteMessagesInteractor,
+    private val moveMessagesInteractor: MoveMessagesInteractor,
+    private val updateMessageInteractor: UpdateMessageInteractor
 ) :
     MailListComponentContract.Presenter,
     BasePresenterImpl<MailListComponentContract.View>(),

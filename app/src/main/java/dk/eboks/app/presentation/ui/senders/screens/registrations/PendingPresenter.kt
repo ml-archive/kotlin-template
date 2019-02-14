@@ -3,18 +3,17 @@ package dk.eboks.app.presentation.ui.senders.screens.registrations
 import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import javax.inject.Inject
 
 /**
  * Created by Christian on 3/28/2018.
  * @author Christian
  * @since 3/28/2018.
  */
-class PendingPresenter(
-    val appStateManager: AppStateManager,
+class PendingPresenter @Inject constructor(
     private val getPendingInteractor: GetPendingInteractor,
     private val registerInteractor: RegisterInteractor,
     private val unregisterInteractor: UnRegisterInteractor

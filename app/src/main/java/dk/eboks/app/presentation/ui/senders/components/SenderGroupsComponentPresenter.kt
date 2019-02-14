@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.senders.components
 
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
@@ -10,7 +9,7 @@ import javax.inject.Inject
  * @author Christian
  * @since 3/15/2018.
  */
-class SenderGroupsComponentPresenter @Inject constructor(val appState: AppStateManager) :
+class SenderGroupsComponentPresenter @Inject constructor() :
     SenderGroupsComponentContract.Presenter,
     BasePresenterImpl<SenderGroupsComponentContract.View>() {
 

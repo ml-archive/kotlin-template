@@ -3,21 +3,20 @@ package dk.eboks.app.presentation.ui.channels.screens.content.storebox
 import dk.eboks.app.domain.interactors.storebox.ConfirmStoreboxInteractor
 import dk.eboks.app.domain.interactors.storebox.CreateStoreboxInteractor
 import dk.eboks.app.domain.interactors.storebox.LinkStoreboxInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by Christian on 5/14/2018.
  * @author Christian
  * @since 5/14/2018.
  */
-class ConnectStoreboxPresenter(
-    val appStateManager: AppStateManager,
-    val linkStoreboxInteractor: LinkStoreboxInteractor,
-    val confirmStoreboxInteractor: ConfirmStoreboxInteractor,
-    val createStoreboxInteractor: CreateStoreboxInteractor
+class ConnectStoreboxPresenter @Inject constructor(
+    private val linkStoreboxInteractor: LinkStoreboxInteractor,
+    private val confirmStoreboxInteractor: ConfirmStoreboxInteractor,
+    private val createStoreboxInteractor: CreateStoreboxInteractor
 ) : ConnectStoreboxContract.Presenter, BasePresenterImpl<ConnectStoreboxContract.View>(),
     LinkStoreboxInteractor.Output,
     ConfirmStoreboxInteractor.Output,

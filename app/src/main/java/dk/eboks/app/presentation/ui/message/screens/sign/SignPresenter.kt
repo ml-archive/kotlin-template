@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.message.screens.sign
 
 import dk.eboks.app.domain.interactors.message.GetSignLinkInteractor
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.shared.Link
@@ -14,8 +13,7 @@ import javax.inject.Inject
  * @since 5/23/2018.
  */
 class SignPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val getSignLinkInteractor: GetSignLinkInteractor
+    private val getSignLinkInteractor: GetSignLinkInteractor
 ) :
     SignContract.Presenter,
     BasePresenterImpl<SignContract.View>(),

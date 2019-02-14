@@ -14,8 +14,8 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class ActivationCodeComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val loginInteractor: LoginInteractor
+    private val appState: AppStateManager,
+    private val loginInteractor: LoginInteractor
 ) :
     ActivationCodeComponentContract.Presenter,
     BasePresenterImpl<ActivationCodeComponentContract.View>(),
