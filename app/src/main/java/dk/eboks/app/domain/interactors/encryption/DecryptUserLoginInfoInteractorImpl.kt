@@ -20,20 +20,22 @@ class DecryptUserLoginInfoInteractorImpl(
 
     override fun execute() {
         Timber.d("execute")
-
         try {
             val s = encryptionPreferenceManager.getString(LoginInfo.KEY, "")
             Timber.i("loginInfoString: $s")
-            output?.onDecryptSuccess(Gson().fromJson(s, LoginInfo::class.java))
+            val loginInfo = Gson().fromJson(s, LoginInfo::class.java)
+            runOnUIThread { output?.onDecryptSuccess(loginInfo) }
         } catch (e: Exception) {
-            output?.onDecryptError(
-                ViewError(
-                    Translation.androidfingerprint.dialogTitle,
-                    Translation.androidfingerprint.errorMessage,
-                    true,
-                    true
+            runOnUIThread {
+                output?.onDecryptError(
+                    ViewError(
+                        Translation.androidfingerprint.dialogTitle,
+                        Translation.androidfingerprint.errorMessage,
+                        true,
+                        true
+                    )
                 )
-            )
+            }
         }
     }
 }

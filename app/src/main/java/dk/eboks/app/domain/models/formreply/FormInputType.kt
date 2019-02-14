@@ -3,29 +3,29 @@ package dk.eboks.app.domain.models.formreply
 import com.google.gson.annotations.SerializedName
 
 enum class FormInputType {
-    @SerializedName("Description")
+    @SerializedName(value = "Description", alternate = ["description"])
     DESCRIPTION,
-    @SerializedName("Link")
+    @SerializedName(value = "Link", alternate = ["link"])
     LINK,
-    @SerializedName("Text")
+    @SerializedName(value = "Text", alternate = ["text"])
     TEXT,
-    @SerializedName("Textarea")
+    @SerializedName(value = "Textarea", alternate = ["textarea"])
     TEXTAREA,
-    @SerializedName("Number")
+    @SerializedName(value = "Number", alternate = ["number"])
     NUMBER,
-    @SerializedName("Dropdown")
+    @SerializedName(value = "Dropdown", alternate = ["dropdown"])
     DROPDOWN,
-    @SerializedName("List")
+    @SerializedName(value = "List", alternate = ["list"])
     LIST,
-    @SerializedName("Radiobox")
+    @SerializedName(value = "Radiobox", alternate = ["radiobox"])
     RADIOBOX,
-    @SerializedName("Checkbox")
+    @SerializedName(value = "Checkbox", alternate = ["checkbox"])
     CHECKBOX,
-    @SerializedName("Date")
+    @SerializedName(value = "Date", alternate = ["date"])
     DATE,
-    @SerializedName("Datetime")
+    @SerializedName(value = "Datetime", alternate = ["datetime"])
     DATETIME,
-    @SerializedName("Upload")
+    @SerializedName(value = "Upload", alternate = ["upload"])
     UPLOAD;
 
     override fun toString(): String {

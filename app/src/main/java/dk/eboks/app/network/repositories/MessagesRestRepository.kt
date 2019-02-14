@@ -236,8 +236,13 @@ class MessagesRestRepository(
     }
 
     override fun getMessageReplyForm(folderId: Int, id: String): ReplyForm {
-        return api.getMessageReplyForm(id, folderId).execute().body()
-            ?: throw(RuntimeException("Unknown"))
+        val response = api.getMessageReplyForm(id, folderId).execute()
+        if (response.isSuccessful) {
+            response.body()?.let {
+                return it
+            }
+        }
+        throw(RuntimeException("Unknown"))
     }
 
     override fun submitMessageReplyForm(msg: Message, form: ReplyForm) {
