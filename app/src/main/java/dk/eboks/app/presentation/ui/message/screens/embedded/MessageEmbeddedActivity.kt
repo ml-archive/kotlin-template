@@ -18,6 +18,7 @@ import dk.eboks.app.presentation.ui.message.components.detail.attachments.Attach
 import dk.eboks.app.presentation.ui.message.components.detail.folderinfo.FolderInfoComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentFragment
+import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.share.ShareComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.sign.SignButtonComponentFragment
@@ -77,12 +78,13 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
         menuItem?.setIcon(R.drawable.icon_48_option_red_navigationbar)
         menuItem?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuItem?.setOnMenuItemClickListener { item: MenuItem ->
-            startActivityForResult(
+           /* startActivityForResult(
                 OverlayActivity.createIntent(
                     this@MessageEmbeddedActivity,
                     actionButtons
                 ), OverlayActivity.REQUEST_ID
-            )
+            )*/
+            openComponentDrawer(PaymentComponentFragment::class.java)
             true
         }
     }

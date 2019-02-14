@@ -46,7 +46,6 @@ android {
         buildConfigField "Boolean", "ENABLE_UPLOADS", "true"
         buildConfigField "Boolean", "ENABLE_DOCUMENT_ACTIONS", "true"
         buildConfigField "Boolean", "ENABLE_FOLDERS_ACTIONS", "true"
-        buildConfigField "Boolean", "ENABLE_PAYMENT", "false"
         buildConfigField "Boolean", "ENABLE_EKEY", "true"
         buildConfigField "Boolean", "ENABLE_CHANNEL_REORDERING", "false"
         buildConfigField "Boolean", "ENABLE_PROFILE_DATA_VERIFICATION", "true"

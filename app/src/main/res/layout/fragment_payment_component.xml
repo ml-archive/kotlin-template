@@ -1,0 +1,141 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    android:orientation="vertical"
+    tools:context="dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentComponentFragment">
+
+
+    <TextView
+        android:id="@+id/paymentDueTv"
+        style="@style/text.subHeader5.tertiary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_large"
+        android:gravity="center"
+        android:text="Payment due on 15 January 2018 " />
+
+
+    <TextView
+        android:id="@+id/paymentValueTv"
+        style="@style/text.header1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="2000,00 DKK"
+        android:textColor="@color/darkGreyBlue" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/paymentCardCL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/dividerColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:background="@drawable/circle_gradiant"
+            android:padding="@dimen/margin_medium"
+            android:src="@drawable/icon_48_payment_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/paymentCreditCardTv"
+            style="@style/text.header4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_normal"
+            android:text="Register and pay with Betalingsservice"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <include
+            layout="@layout/include_divider_leftmargin_whitebackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/paymentCreditCardTv"
+            app:layout_constraintStart_toStartOf="@+id/paymentCreditCardTv" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
+        android:id="@+id/paymentServiceLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_normal"
+            android:background="@drawable/circle_gradiant"
+            android:padding="@dimen/margin_medium"
+            android:src="@drawable/icon_48_alternative_bs_white" />
+
+        <TextView
+            android:id="@+id/paymentServiceTv"
+            style="@style/text.header4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_normal"
+            android:text="Register and pay with Betalingsservice" />
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dividerColor" />
+
+    <Switch
+        android:id="@+id/paymentNotificationSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/margin_normal"
+        android:paddingTop="20dp"
+        android:paddingEnd="@dimen/margin_normal"
+        android:paddingBottom="20dp"
+        android:text="@string/nstack_paymentdrawer_notificationsHeader"
+        tools:checked="true" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dividerColor" />
+
+
+    <TextView
+        android:id="@+id/paymentDisclaimer"
+        style="@style/text.subHeader5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_normal"
+        android:text="Disclaimer {sender-name} lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dictum scelerisque orci, sit amet auctor nulla. Nam ac odio sagittis, sodales ante accumsan, commodo sapien."
+        android:textColor="@color/blueGrey" />
+
+</LinearLayout>
