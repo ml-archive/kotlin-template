@@ -56,7 +56,7 @@ class BootstrapInteractorImpl(
 
             val result = api.getResourceLinks().execute()
             if (result.isSuccessful) {
-                result?.body()?.let { links ->
+                result.body()?.let { links ->
                     Config.resourceLinks = links
                 }
             }

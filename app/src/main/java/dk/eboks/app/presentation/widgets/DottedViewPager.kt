@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import androidx.core.content.ContextCompat
 import dk.eboks.app.R
 
 /**
@@ -31,8 +32,8 @@ class DottedViewPager : androidx.viewpager.widget.ViewPager {
     private fun init() {
         density = resources.displayMetrics.density
         screenWidth = resources.displayMetrics.widthPixels
-        activeDot = resources.getDrawable(R.drawable.circle_filled)
-        inactiveDot = resources.getDrawable(R.drawable.circle_outline)
+        activeDot = ContextCompat.getDrawable(context, R.drawable.circle_filled) ?: return
+        inactiveDot = ContextCompat.getDrawable(context, R.drawable.circle_outline) ?: return
         circleSize = (density * 6.0f).toInt()
         margin = (density * 5.0f).toInt()
         marginBottom = (density * 7f).toInt()

@@ -26,7 +26,7 @@ class SetCurrentUserInteractorImpl(
     override fun execute() {
         try {
             val userResult = api.getUserProfile().execute()
-            userResult?.body()?.let { user ->
+            userResult.body()?.let { user ->
                 // update the states
                 Timber.e("Setting current user $user")
                 val newUser = userManager.put(user)

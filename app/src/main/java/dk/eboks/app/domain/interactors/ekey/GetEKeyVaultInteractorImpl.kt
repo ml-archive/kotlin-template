@@ -20,13 +20,13 @@ class GetEKeyVaultInteractorImpl(executor: Executor, private val api: Api) :
                 val response = api.keyVaultGet(it.signatureTime, it.signature).execute()
 
                 when {
-                    response?.isSuccessful == true -> runOnUIThread {
+                    response.isSuccessful -> runOnUIThread {
                         output?.onGetEKeyVaultSuccess(
                             response.body()!!
                         )
                     }
-                    response?.code() == 403 -> runOnUIThread { output?.onAuthError(it.retryCount) }
-                    response?.code() == 404 -> runOnUIThread { output?.onGetEKeyVaultNotFound() }
+                    response.code() == 403 -> runOnUIThread { output?.onAuthError(it.retryCount) }
+                    response.code() == 404 -> runOnUIThread { output?.onGetEKeyVaultNotFound() }
                     else -> throw InteractorException("Wrong input")
                 }
             }.guard {

@@ -85,7 +85,7 @@ class VerifyProfileInteractorImpl(
                         // if this is during signup there is no user before create user is called, only a ksp ticket, hence get profile will fail
                         if (!verificationState.signupVerification) {
                             val userResult = api.getUserProfile().execute()
-                            userResult?.body()?.let { user ->
+                            userResult.body()?.let { user ->
                                 // update the states
                                 Timber.e("Saving user $user")
                                 val newUser = userManager.put(user)

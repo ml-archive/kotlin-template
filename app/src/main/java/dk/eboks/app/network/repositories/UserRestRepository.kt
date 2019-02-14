@@ -56,7 +56,7 @@ class UserRestRepository(
 
     override fun checkSsn(ssn: String): Boolean {
         val result = api.checkUserIdentity(ssn).execute()
-        result?.let { response ->
+        result.let { response ->
             if (response.isSuccessful) {
                 return response.body()?.exists ?: true
             }
@@ -70,6 +70,5 @@ class UserRestRepository(
             }
         }
         throw(RuntimeException())
-        return true
     }
 }

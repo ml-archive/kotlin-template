@@ -15,7 +15,7 @@ class DeleteEKeyMasterkeyInteractorImpl(executor: Executor, private val api: Api
         try {
             val response = api.masterKeyDelete().execute()
 
-            if (response?.isSuccessful == true) {
+            if (response.isSuccessful) {
                 runOnUIThread { output?.onDeleteEKeyMasterkeySuccess() }
             }
         } catch (exception: Exception) {

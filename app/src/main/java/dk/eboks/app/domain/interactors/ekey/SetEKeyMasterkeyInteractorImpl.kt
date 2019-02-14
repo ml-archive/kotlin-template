@@ -24,7 +24,7 @@ class SetEKeyMasterkeyInteractorImpl(executor: Executor, private val api: Api) :
 
                 val response = api.masterKeySet(json).execute()
 
-                if (response?.isSuccessful == true) {
+                if (response.isSuccessful) {
                     runOnUIThread { output?.onSetEKeyMasterkeySuccess(it.masterKeyUnencrypted) }
                 }
             }.guard {

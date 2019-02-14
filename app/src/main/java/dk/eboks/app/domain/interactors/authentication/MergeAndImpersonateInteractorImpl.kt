@@ -38,7 +38,7 @@ class MergeAndImpersonateInteractorImpl(
     override fun execute() {
         try {
             input?.verificationState?.let { verificationState ->
-                var targetUserId = ""
+                var targetUserId: String
                 // if user choose to merge profiles, do that first, otherwise impersonate only
                 if (verificationState.shouldMergeProfiles) {
                     verificationState.allowMigrateUserId?.let { userId ->
@@ -71,7 +71,7 @@ class MergeAndImpersonateInteractorImpl(
 
                 appStateManager.state?.loginState?.token?.let { token ->
                     val userResult = api.getUserProfile().execute()
-                    userResult?.body()?.let { user ->
+                    userResult.body()?.let { user ->
                         // update the states
                         Timber.e("Saving user $user")
                         val newUser = userManager.put(user)
