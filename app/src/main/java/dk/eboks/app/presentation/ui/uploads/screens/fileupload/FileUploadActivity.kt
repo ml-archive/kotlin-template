@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.fragment.app.Fragment
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.folder.Folder
@@ -36,7 +37,7 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
 
-    var embeddedViewerComponentFragment: androidx.fragment.app.Fragment? = null
+    var embeddedViewerComponentFragment: Fragment? = null
 
     var destinationFolder: Folder? = null
     var uriString: String? = null

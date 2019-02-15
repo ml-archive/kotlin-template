@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -114,8 +115,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     }
 
     private fun setupRecyclers() {
-        storeboxDetailRvReceiptLines.layoutManager =
-            androidx.recyclerview.widget.LinearLayoutManager(context)
+        storeboxDetailRvReceiptLines.layoutManager = LinearLayoutManager(context)
         storeboxDetailRvReceiptLines.adapter = adapter
 
         ViewCompat.setNestedScrollingEnabled(storeboxDetailRvReceiptLines, false)
@@ -410,8 +410,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             holder.bind(payment)
         }
 
-        inner class PaymentLineViewHolder(view: View) :
-            androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+        inner class PaymentLineViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             fun bind(payment: StoreboxPayment) {
                 itemView.viewHolderPaymentTvCardName.text = payment.cardName
                 itemView.viewHolderPaymentTvAmount.text = payment.priceValue
@@ -441,8 +440,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             holder.bind(payment)
         }
 
-        inner class ReceiptLineViewHolder(view: View) :
-            androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+        inner class ReceiptLineViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             fun bind(receiptLine: StoreboxReceiptLine) {
                 itemView.viewHolderReceiptTvItemName.text = receiptLine.name
                 itemView.viewHolderReceiptTvAmount.visible = (false)

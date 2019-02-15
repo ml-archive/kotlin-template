@@ -22,7 +22,7 @@ class GetPendingInteractorImpl(executor: Executor, val api: Api) : BaseInteracto
             val result = api.getPendingRegistrations().execute()
             runOnUIThread {
                 if (result.isSuccessful) {
-                    result?.body()?.let {
+                    result.body()?.let {
                         output?.onRegistrationsLoaded(it)
                     }
                 } else {

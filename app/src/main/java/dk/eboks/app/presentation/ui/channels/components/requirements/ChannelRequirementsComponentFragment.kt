@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
@@ -11,6 +13,7 @@ import dk.eboks.app.domain.models.channel.Requirement
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.profile.screens.myinfo.MyInfoActivity
 import dk.eboks.app.util.Starter
+import dk.eboks.app.util.inflate
 import kotlinx.android.synthetic.main.fragment_channel_requirements_component.*
 import kotlinx.android.synthetic.main.viewholder_channel_setting_boxrow.view.*
 import javax.inject.Inject
@@ -57,7 +60,7 @@ class ChannelRequirementsComponentFragment : BaseFragment(),
     }
 
     override fun showUnverifiedRequirements(requirements: List<Requirement>) {
-        requirementRowsRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+        requirementRowsRv.layoutManager = LinearLayoutManager(context)
         requirementRowsRv.adapter = RowAdapter(requirements)
     }
 
@@ -67,15 +70,13 @@ class ChannelRequirementsComponentFragment : BaseFragment(),
     }
 
     inner class RowAdapter(val requirements: List<Requirement>) :
-        androidx.recyclerview.widget.RecyclerView.Adapter<RowAdapter.ChannelRequirementViewHolder>() {
+        RecyclerView.Adapter<RowAdapter.ChannelRequirementViewHolder>() {
 
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
         ): ChannelRequirementViewHolder {
-            val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.viewholder_channel_setting_boxrow, parent, false)
-            return ChannelRequirementViewHolder(view)
+            return ChannelRequirementViewHolder(parent.inflate(R.layout.viewholder_channel_setting_boxrow))
         }
 
         override fun getItemCount(): Int {
@@ -87,8 +88,7 @@ class ChannelRequirementsComponentFragment : BaseFragment(),
             holder.bind(requirement)
         }
 
-        inner class ChannelRequirementViewHolder(view: View) :
-            androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+        inner class ChannelRequirementViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             fun bind(requirement: Requirement) {
                 if (requirement.value.isNullOrBlank()) {
                     // if no value, set name on centeredHeader

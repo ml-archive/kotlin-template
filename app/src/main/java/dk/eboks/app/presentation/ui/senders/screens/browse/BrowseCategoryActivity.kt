@@ -109,7 +109,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
     }
 
     inner class SenderAdapter(val senders: List<Sender>) :
-        androidx.recyclerview.widget.RecyclerView.Adapter<SenderAdapter.SenderViewHolder>(),
+        RecyclerView.Adapter<SenderAdapter.SenderViewHolder>(),
         FastScroller.SectionIndexer {
         override fun getSectionText(position: Int): String {
             return "${senders[position].name.first().toUpperCase()}"
@@ -146,8 +146,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
             return senders.size
         }
 
-        inner class SenderViewHolder(val v: View) :
-            androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
+        inner class SenderViewHolder(v: View) : RecyclerView.ViewHolder(v) {
             val mainLl = v.findViewById<View>(R.id.senderMainLl)
             val indexTv = v.findViewById<TextView>(R.id.senderIndexTv)
             val nameTv = v.findViewById<TextView>(R.id.senderNameTv)
@@ -161,7 +160,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
             fun bind(sender: Sender) {
                 indexTv.text = "${sender.name.first().toUpperCase()}"
                 nameTv.text = sender.name
-                Glide.with(v.context)
+                Glide.with(itemView.context)
                     .load(sender.logo?.url)
                     .apply(
                         RequestOptions()

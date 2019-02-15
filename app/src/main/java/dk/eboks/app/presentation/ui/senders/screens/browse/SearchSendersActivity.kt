@@ -2,12 +2,12 @@ package dk.eboks.app.presentation.ui.senders.screens.browse
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -16,6 +16,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
+import dk.eboks.app.util.inflate
 import kotlinx.android.synthetic.main.activity_senders_search_senders.*
 import javax.inject.Inject
 
@@ -42,9 +43,9 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
         }
 
         searchSenderRv.adapter = SenderAdapter(senders)
-        searchSenderRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+        searchSenderRv.layoutManager = LinearLayoutManager(
             this,
-            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            RecyclerView.VERTICAL,
             false
         )
 
@@ -100,20 +101,14 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
     }
 
     inner class SenderAdapter(val senders: List<Sender>) :
-        androidx.recyclerview.widget.RecyclerView.Adapter<SenderAdapter.SenderViewHolder>(),
+        RecyclerView.Adapter<SenderAdapter.SenderViewHolder>(),
         FastScroller.SectionIndexer {
         override fun getSectionText(position: Int): String {
             return "${senders[position].name.first()}"
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SenderViewHolder {
-            return SenderViewHolder(
-                LayoutInflater.from(parent.context).inflate(
-                    R.layout.viewholder_sender,
-                    parent,
-                    false
-                )
-            )
+            return SenderViewHolder(parent.inflate(R.layout.viewholder_sender))
         }
 
         override fun onBindViewHolder(holder: SenderViewHolder, position: Int) {
@@ -124,8 +119,7 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
             return senders.size
         }
 
-        inner class SenderViewHolder(val v: View) :
-            androidx.recyclerview.widget.RecyclerView.ViewHolder(v) {
+        inner class SenderViewHolder(v: View) : RecyclerView.ViewHolder(v) {
             val mainLl = v.findViewById<View>(R.id.senderMainLl)
             val indexTv = v.findViewById<TextView>(R.id.senderIndexTv)
             val nameTv = v.findViewById<TextView>(R.id.senderNameTv)
@@ -138,7 +132,7 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
             fun bind(sender: Sender) {
                 indexTv.text = "${sender.name.first().toUpperCase()}"
                 nameTv.text = sender.name
-                Glide.with(v.context)
+                Glide.with(itemView.context)
                     .load(sender.logo?.url)
                     .apply(
                         RequestOptions()

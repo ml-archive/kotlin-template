@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
@@ -101,7 +102,7 @@ class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
     }
 }
 
-class UserInfoFragment : androidx.fragment.app.Fragment() {
+class UserInfoFragment : Fragment() {
     var presenter: ConnectStoreboxContract.Presenter? = null
 
     override fun onCreateView(
@@ -140,7 +141,7 @@ class UserInfoFragment : androidx.fragment.app.Fragment() {
     }
 }
 
-class ConfirmCodeFragment : androidx.fragment.app.Fragment() {
+class ConfirmCodeFragment : Fragment() {
     var presenter: ConnectStoreboxContract.Presenter? = null
 
     override fun onCreateView(

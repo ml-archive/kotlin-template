@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
@@ -95,7 +96,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
             val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContentLL, false)
             val logoIv = v.findViewById<ImageView>(R.id.logoIv)
             val headerTv = v.findViewById<TextView>(R.id.headerTv)
-            val cardView = v.findViewById<androidx.cardview.widget.CardView>(R.id.channelItemCv)
+            val cardView = v.findViewById<CardView>(R.id.channelItemCv)
             cardView?.setOnClickListener {
                 activity?.run {
                     Starter().activity(ChannelContentActivity::class.java)

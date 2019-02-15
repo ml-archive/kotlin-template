@@ -55,7 +55,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
     }
 
     private fun removeNavBarMargin() {
-        var params = androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams(
+        var params = CoordinatorLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )

@@ -142,8 +142,7 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         showEmptyView(data.isEmpty())
     }
 
-    inner class StoreboxAdapter :
-        androidx.recyclerview.widget.RecyclerView.Adapter<StoreboxAdapter.StoreboxViewHolder>() {
+    inner class StoreboxAdapter : RecyclerView.Adapter<StoreboxAdapter.StoreboxViewHolder>() {
         var receipts: MutableList<StoreboxReceiptItem> = ArrayList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoreboxViewHolder {
@@ -164,8 +163,7 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
             holder.bind(currentReceipt)
         }
 
-        inner class StoreboxViewHolder(val root: View) :
-            androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
+        inner class StoreboxViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
             // cards
             private var amountDateContainer =
                 root.findViewById<LinearLayout>(R.id.amountDateContainerLl)

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -61,8 +62,8 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         }
     }
 
-    fun setupRecyclerView() {
-        sendersRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+    private fun setupRecyclerView() {
+        sendersRv.layoutManager = LinearLayoutManager(
             context,
             RecyclerView.HORIZONTAL,
             false

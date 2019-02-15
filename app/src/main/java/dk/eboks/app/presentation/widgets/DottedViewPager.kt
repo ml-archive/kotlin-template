@@ -5,12 +5,14 @@ import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import dk.eboks.app.R
 
 /**
  * Created by bison on 23/11/15.
  */
-class DottedViewPager : androidx.viewpager.widget.ViewPager {
+class DottedViewPager : ViewPager {
     lateinit var inactiveDot: Drawable
     lateinit var activeDot: Drawable
     internal var circleSize: Int = 0
@@ -81,7 +83,7 @@ class DottedViewPager : androidx.viewpager.widget.ViewPager {
         }
     }
 
-    override fun setAdapter(adapter: androidx.viewpager.widget.PagerAdapter?) {
+    override fun setAdapter(adapter: PagerAdapter?) {
         super.setAdapter(adapter)
         noCircles = adapter?.count ?: noCircles
     }

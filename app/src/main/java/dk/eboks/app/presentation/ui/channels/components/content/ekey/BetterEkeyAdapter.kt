@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.daimajia.swipe.SwipeLayout
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
@@ -19,7 +20,7 @@ import timber.log.Timber
 class BetterEkeyAdapter(
     private val keyList: List<ListItem>,
     val ekeyclicklistener: BetterEkeyAdapter.Ekeyclicklistener? = null
-) : androidx.recyclerview.widget.RecyclerView.Adapter<BetterEkeyAdapter.EKeyHolder>() {
+) : RecyclerView.Adapter<BetterEkeyAdapter.EKeyHolder>() {
 
     var onActionEvent: ((BaseEkey) -> Unit)? = null
 
@@ -66,7 +67,7 @@ class BetterEkeyAdapter(
     }
 
     abstract class EKeyHolder(itemView: View) :
-        androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+        RecyclerView.ViewHolder(itemView) {
         abstract fun bind(item: ListItem)
     }
 

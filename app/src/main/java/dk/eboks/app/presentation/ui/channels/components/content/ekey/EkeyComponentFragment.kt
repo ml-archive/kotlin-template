@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
@@ -98,7 +101,7 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View,
         }
 
         // RECYCLER
-        keysContentRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+        keysContentRv.layoutManager = LinearLayoutManager(context)
         ViewCompat.setNestedScrollingEnabled(keysContentRv, false)
         keysContentRv.addItemDecoration(DividerDecoration())
         val adapter = BetterEkeyAdapter(items, this)
@@ -204,21 +207,21 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View,
         }
     }
 
-    inner class DividerDecoration : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
-        private val d = resources.getDrawable(R.drawable.shape_divider)
+    inner class DividerDecoration : RecyclerView.ItemDecoration() {
+        private val d = ContextCompat.getDrawable(requireContext(), R.drawable.shape_divider)!!
 
         override fun getItemOffsets(
             outRect: Rect,
             view: View,
-            parent: androidx.recyclerview.widget.RecyclerView,
-            state: androidx.recyclerview.widget.RecyclerView.State
+            parent: RecyclerView,
+            state: RecyclerView.State
         ) {
             super.getItemOffsets(outRect, view, parent, state)
 
             outRect.bottom += d.intrinsicHeight
         }
 
-        override fun onDraw(c: Canvas, parent: androidx.recyclerview.widget.RecyclerView) {
+        override fun onDraw(c: Canvas, parent: RecyclerView) {
 
             for (i in 0 until parent.childCount - 1) { // not after the last
                 val child = parent.getChildAt(i)

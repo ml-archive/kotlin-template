@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.R
@@ -121,9 +123,9 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
     }
 
     private fun setupRecyclerView() {
-        allSendersRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+        allSendersRv.layoutManager = LinearLayoutManager(
             context,
-            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            RecyclerView.VERTICAL,
             false
         )
         allSendersRv.adapter = SendersAdapter()
@@ -146,11 +148,9 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         allSendersRv.adapter?.notifyDataSetChanged()
     }
 
-    inner class SendersAdapter :
-        androidx.recyclerview.widget.RecyclerView.Adapter<SendersAdapter.SenderViewHolder>() {
+    inner class SendersAdapter : RecyclerView.Adapter<SendersAdapter.SenderViewHolder>() {
 
-        inner class SenderViewHolder(val root: View) :
-            androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
+        inner class SenderViewHolder(root: View) : RecyclerView.ViewHolder(root) {
             val title = root.findViewById<TextView>(R.id.titleTv)
             val unreadCountTv = root.findViewById<TextView>(R.id.unreadCountTv)
             val dividerV = root.findViewById<View>(R.id.dividerV)
@@ -208,7 +208,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
                     i.putExtra("sender", currentItem)
                     startActivity(i)
                 }
-                root.setOnClickListener(senderListener)
+                itemView.setOnClickListener(senderListener)
             }
         }
 

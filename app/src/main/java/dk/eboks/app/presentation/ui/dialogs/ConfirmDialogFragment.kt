@@ -9,12 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.RelativeLayout
+import androidx.fragment.app.DialogFragment
 import dk.eboks.app.R
 
 /**
  * Created by bison on 31/01/18.
  */
-class ConfirmDialogFragment : androidx.fragment.app.DialogFragment() {
+class ConfirmDialogFragment : DialogFragment() {
     lateinit var dialogInstance: Dialog
     var parentView: View? = null
 
