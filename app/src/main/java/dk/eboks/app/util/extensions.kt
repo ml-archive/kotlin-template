@@ -46,6 +46,8 @@ import java.io.Serializable
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by bison on 01-07-2017.
@@ -431,4 +433,9 @@ fun TextInputEditText.onImeActionDone(block: () -> Unit) {
         }
         true
     }
+}
+
+fun Date.formatPayment() : String {
+    val formatter =  SimpleDateFormat("d MMMM YYYY", Locale.getDefault())
+    return "Payment due on ${formatter.format(this)}"
 }

@@ -15,6 +15,7 @@ import dk.eboks.app.domain.models.message.Payment
 import dk.eboks.app.domain.models.message.PaymentOption
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.widgets.DividerItemDecoration
+import dk.eboks.app.util.formatPayment
 import kotlinx.android.synthetic.main.fragment_payment_component.*
 import java.util.*
 import javax.inject.Inject
@@ -55,15 +56,11 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View {
     }
 
     override fun showPaymentDetails(payment: Payment) {
-        paymentDueTv.text = (payment.status.date ?: Date()).toString()
+        paymentDueTv.text = payment.status.date?.formatPayment()
         paymentValueTv.text = "${payment.amount} ${payment.currency}"
         paymentDisclaimer.text = payment.disclaimer
         paymentNotificationSwitch.isChecked = payment.notfication
         setupRecyclerView(payment.options ?: listOf())
     }
 
-    companion object {
-        private const val ARG_MESSAGE = "Message"
-        fun createBundle(message: Message) = Bundle().apply { putParcelable(ARG_MESSAGE, message) }
-    }
 }

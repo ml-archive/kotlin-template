@@ -4,6 +4,7 @@ import android.os.Parcelable
 import dk.eboks.app.domain.models.shared.Description
 import dk.eboks.app.domain.models.shared.Status
 import kotlinx.android.parcel.Parcelize
+import java.util.*
 
 /**
  * Created by bison on 24-06-2017.
@@ -27,7 +28,7 @@ data class Payment(
         private const val dis = "Disclaimer {sender-name} lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur dictum scelerisque orci, sit amet auctor nulla. Nam ac odio sagittis, sodales ante accumsan, commodo sapien."
 
         fun mock() : Payment {
-            val status = Status(type = 1)
+            val status = Status(type = 1, date = Date())
             val options = List(3) { index ->
                 PaymentOption("Berlin Service", Description("tex", "tiltle"), 1, PaymentOption.type(index))
             }

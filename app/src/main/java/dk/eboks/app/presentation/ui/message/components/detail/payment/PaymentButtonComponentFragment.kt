@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.message.Payment
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.util.formatPayment
 import kotlinx.android.synthetic.main.fragment_payment_button.*
 
 class PaymentButtonComponentFragment : BaseFragment() {
@@ -25,7 +26,7 @@ class PaymentButtonComponentFragment : BaseFragment() {
 
     private fun setPaymentDetails(payment: Payment) {
         paymentButton.text = "Pay ${payment.amount} ${payment.currency}"
-        paymentDueTv.text = "Payment due ${payment.status.date}"
+        paymentDueTv.text = payment.status.date?.formatPayment()
         paymentButton.setOnClickListener {
             getBaseActivity()?.openComponentDrawer(PaymentComponentFragment::class.java)
         }
