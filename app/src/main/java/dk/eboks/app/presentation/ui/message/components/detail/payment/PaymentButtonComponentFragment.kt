@@ -26,6 +26,9 @@ class PaymentButtonComponentFragment : BaseFragment() {
     private fun setPaymentDetails(payment: Payment) {
         paymentButton.text = "Pay ${payment.amount} ${payment.currency}"
         paymentDueTv.text = "Payment due ${payment.status.date}"
+        paymentButton.setOnClickListener {
+            getBaseActivity()?.openComponentDrawer(PaymentComponentFragment::class.java)
+        }
     }
 
 

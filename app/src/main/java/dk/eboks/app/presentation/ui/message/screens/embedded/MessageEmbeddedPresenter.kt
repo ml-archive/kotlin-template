@@ -39,9 +39,14 @@ class MessageEmbeddedPresenter @Inject constructor(
         startViewer()
         runAction { v ->
             v.addHeaderComponentFragment()
-            v.addPaymentButton(Payment.mock())
 
             message?.let { message ->
+
+                // TODO Remove mocked payment info
+                if (BuildConfig.ENABLE_PAYMENTS) {
+                    v.addPaymentButton(Payment.mock())
+                }
+
                 if (BuildConfig.ENABLE_REPLY) {
                     message.reply?.let {
                         v.addReplyButtonComponentFragment(message)

@@ -8,6 +8,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
+import dk.eboks.app.domain.models.message.Payment
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -36,6 +37,12 @@ class MessagePresenter @Inject constructor(
         message = appState.state?.currentMessage
         runAction { v ->
             v.addHeaderComponentFragment()
+
+            // TODO Remove mocked payment info
+            if (BuildConfig.ENABLE_PAYMENTS) {
+                v.addPaymentButton(Payment.mock())
+            }
+
             v.addDocumentComponentFragment()
             if (BuildConfig.ENABLE_REPLY) {
                 message?.reply?.let {
