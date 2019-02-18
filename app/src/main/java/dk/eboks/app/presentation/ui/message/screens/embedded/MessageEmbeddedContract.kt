@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.message.screens.embedded
 
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.Payment
 import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter
 
@@ -17,6 +18,7 @@ interface MessageEmbeddedContract {
         fun addAttachmentsComponentFragment()
         fun addFolderInfoComponentFragment()
         fun addShareComponentFragment()
+        fun addPaymentButton(payment: Payment)
         fun addPdfViewer()
         fun addImageViewer()
         fun addHtmlViewer()

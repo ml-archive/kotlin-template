@@ -8,6 +8,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
+import dk.eboks.app.domain.models.message.Payment
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
@@ -38,6 +39,8 @@ class MessageEmbeddedPresenter @Inject constructor(
         startViewer()
         runAction { v ->
             v.addHeaderComponentFragment()
+            v.addPaymentButton(Payment.mock())
+
             message?.let { message ->
                 if (BuildConfig.ENABLE_REPLY) {
                     message.reply?.let {
