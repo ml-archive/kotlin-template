@@ -28,9 +28,6 @@ buildscript {
         test_runner_version = '1.0.1'
         espresso_core_version = '3.0.1'
         mockito_version = '2.24.0'
-
-        nodes_nstack_kotlin_version = '1.0'
-
         nodes_arch_version = '2.3.1'
 
         rxkotlin_version = '2.2.0'

@@ -122,7 +122,7 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
                         ekey?.let {
                             val items = (activity as EkeyContentActivity).getVault()
                             items?.removeAll { r -> r.hashCode() == it.hashCode() }
-                            items?.let { items -> presenter.putVault(items) }
+                            items?.let(presenter::putVault)
                         }
                     }
                     .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->

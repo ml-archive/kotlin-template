@@ -23,9 +23,9 @@ import javax.inject.Inject
  */
 class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContract.View {
 
-    var category: EkeyDetailMode? = null
-    var editKey: BaseEkey? = null
-    var hidePassword: Boolean = false
+    private var category: EkeyDetailMode? = null
+    private var editKey: BaseEkey? = null
+    private var hidePassword: Boolean = false
 
     @Inject
     lateinit var presenter: EkeyDetailComponentContract.Presenter
@@ -190,8 +190,8 @@ class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContr
             val items = (activity as EkeyContentActivity).getVault()
             val doesExist = items?.firstOrNull { i -> i.hashCode() == editKey?.hashCode() }
 
-            items?.let { items ->
-                doesExist?.let { items.remove(it) }
+            items?.let {
+                doesExist?.let(items::remove)
                 if (isDataValid()) {
                     getBaseEkey()?.let { presenter.putVault(items, it) }
                 }

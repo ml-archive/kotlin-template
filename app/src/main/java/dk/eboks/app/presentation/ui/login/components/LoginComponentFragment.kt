@@ -35,6 +35,7 @@ import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import dk.eboks.app.util.KeyboardUtils
 import dk.eboks.app.util.guard
+import dk.eboks.app.util.invisible
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.isValidEmail
 import dk.eboks.app.util.putArg
@@ -158,9 +159,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
     private fun hideKeyboard(view: View?) {
-        val inputMethodManager =
-            getBaseActivity()?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+        (getBaseActivity()?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager)?.hideSoftInputFromWindow(
+            view?.windowToken,
+            0
+        )
     }
 
     private fun onContinue() {
@@ -526,7 +528,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     override fun showProgress(show: Boolean) {
         continueBtn.isEnabled = !show
-        continuePb.visibility = if (show) View.VISIBLE else View.INVISIBLE
+        continuePb.invisible = !show
     }
 
     override fun onDestroy() {
