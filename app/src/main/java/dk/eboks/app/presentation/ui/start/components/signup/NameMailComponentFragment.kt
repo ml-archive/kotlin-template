@@ -70,12 +70,14 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         super.onResume()
         nameEt.hint = ""
         emailEt.hint = ""
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setupNameListeners()
         setupEmailListeners()
     }
 
     override fun onPause() {
         handler.removeCallbacksAndMessages(null)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         super.onPause()
     }
 

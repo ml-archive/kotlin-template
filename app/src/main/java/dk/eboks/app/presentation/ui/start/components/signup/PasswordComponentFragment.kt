@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.start.components.signup
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -7,13 +8,16 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.AppPatterns
+import dk.eboks.app.util.dpToPx
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_signup_password_component.*
+import kotlinx.android.synthetic.main.fragment_signup_password_component.view.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
@@ -22,11 +26,10 @@ import javax.inject.Inject
  */
 class PasswordComponentFragment : BaseFragment(), SignupComponentContract.PasswordView {
 
-    @Inject
-    lateinit var presenter: SignupComponentContract.Presenter
+    @Inject lateinit var presenter: SignupComponentContract.Presenter
 
-    var passwordValid = false
-    var repeatPasswordValid = false
+    private var passwordValid = false
+    private var repeatPasswordValid = false
     var handler = Handler()
 
     private val passwordRegex by lazy {
@@ -38,7 +41,18 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         return inflater.inflate(R.layout.fragment_signup_password_component, container, false)
+            .apply {
+                viewTreeObserver.addOnGlobalLayoutListener {
+                    val r = Rect()
+                    getWindowVisibleDisplayFrame(r)
+                    val heightDiff = rootView.height - (r.bottom - r.top)
+                    if (heightDiff > dpToPx(100)) {
+                        this.scrollView.fullScroll(View.FOCUS_DOWN)
+                    }
+                }
+            }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,10 +67,12 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
         super.onResume()
         setupPasswordListeners()
         setupRepeatPasswordListener()
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
     }
 
     override fun onPause() {
         handler.removeCallbacksAndMessages(null)
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
         super.onPause()
     }
 
