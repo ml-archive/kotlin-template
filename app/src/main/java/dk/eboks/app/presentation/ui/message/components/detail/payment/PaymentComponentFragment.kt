@@ -1,6 +1,8 @@
 package dk.eboks.app.presentation.ui.message.components.detail.payment
 
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,14 +16,17 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.Payment
 import dk.eboks.app.domain.models.message.PaymentOption
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.base.SheetComponentActivity
+import dk.eboks.app.presentation.ui.message.screens.payment.PaymentWebViewActivity
 import dk.eboks.app.presentation.widgets.DividerItemDecoration
+import dk.eboks.app.util.ActivityStarter
 import dk.eboks.app.util.formatPayment
 import kotlinx.android.synthetic.main.fragment_payment_component.*
 import java.util.*
 import javax.inject.Inject
 
 
-class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View {
+class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, PaymentOptionsAdapter.PaymentOptionListener {
 
     @Inject
     lateinit var presenter: PaymentComponentContract.Presenter
@@ -36,14 +41,13 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         paymentNotificationSwitch.text = Translation.paymentdrawer.notificationsHeader
-        setupListeners()
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
     }
 
     private fun setupRecyclerView(options: List<PaymentOption>) {
         paymentOptionsRv.layoutManager = LinearLayoutManager(context)
-        paymentOptionsRv.adapter = PaymentOptionsAdapter(options)
+        paymentOptionsRv.adapter = PaymentOptionsAdapter(options, this)
         paymentOptionsRv.addItemDecoration( DividerItemDecoration(
                 drawable = ContextCompat.getDrawable(context!!, R.drawable.shape_divider)!!,
                 indentationDp = 72,
@@ -51,8 +55,8 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View {
         ))
     }
 
-    private fun setupListeners() {
-
+    override fun onPaymentOptionSelected(paymentOption: PaymentOption) {
+        PaymentWebViewActivity.startForResult(this, paymentOption)
     }
 
     override fun showPaymentDetails(payment: Payment) {
@@ -61,6 +65,13 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View {
         paymentDisclaimer.text = payment.disclaimer
         paymentNotificationSwitch.isChecked = payment.notfication
         setupRecyclerView(payment.options ?: listOf())
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PaymentWebViewActivity.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            (getBaseActivity() as SheetComponentActivity).replaceFragment(PaymentStatusComponentFragment())
+        }
     }
 
 }

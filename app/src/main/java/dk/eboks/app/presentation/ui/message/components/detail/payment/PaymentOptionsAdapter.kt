@@ -9,7 +9,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.PaymentOption
 import kotlinx.android.synthetic.main.viewholder_payment_option.view.*
 
-class PaymentOptionsAdapter(val options: List<PaymentOption>) : RecyclerView.Adapter<PaymentOptionsAdapter.ViewHolder>(){
+class PaymentOptionsAdapter(val options: List<PaymentOption>, val listener: PaymentOptionListener) : RecyclerView.Adapter<PaymentOptionsAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.viewholder_payment_option, parent, false)
@@ -27,7 +27,12 @@ class PaymentOptionsAdapter(val options: List<PaymentOption>) : RecyclerView.Ada
         fun bindView(paymentOption: PaymentOption) {
             view.paymentOptionIv.setImageResource(R.drawable.icon_48_alternative_bs_white)
             view.paymentOptionTv.text = "${Translation.paymentdrawer.payWithPrefix} ${paymentOption.name}"
+            view.setOnClickListener { listener.onPaymentOptionSelected(paymentOption) }
         }
+    }
+
+    interface PaymentOptionListener {
+        fun onPaymentOptionSelected(paymentOption: PaymentOption)
     }
 
 }

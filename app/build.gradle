@@ -10,7 +10,7 @@ translation {
     appId = "5Rg3muDHQL8J19lb6sZzjD6ANSOrigg5x55u"
     apiKey = "htCPriWP9yoaeoHHnPgYKYw68BoejYhJnR8w"
     acceptHeader = "da-DK"
-    autoRunUpdate = true
+    autoRunUpdate = false
 }
 
 bitrise {
@@ -225,6 +225,8 @@ repositories {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.0.0-beta01'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.1', {
         exclude group: "com.android.support", module: "support-annotations"
     })
