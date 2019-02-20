@@ -78,9 +78,10 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
 
     private fun setupTexts(isCreate: Boolean) {
         ekeyPasswordInputLayout.hint = Translation.ekey.insertPasswordHint
-        pinHeaderTv.text = when (isCreate) {
-            true -> Translation.ekey.createEKey
-            false -> Translation.ekey.pinCode
+        pinHeaderTv.text = if (isCreate) {
+            Translation.ekey.insertNewPinCode
+        } else {
+            Translation.ekey.insertPinCode
         }
     }
 
@@ -138,11 +139,6 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
         when (passwordType) {
             ButtonType.INPUT_NUMERIC -> if (!Regex("^[0-9]{4}$").matches(pin)) {
                 ekeyPasswordInputLayout.error = Translation.error.pincodeMinLenght
-                return
-            }
-
-            ButtonType.INPUT_ALPHANUMERIC -> if (pin.length < 6) {
-                ekeyPasswordInputLayout.error = Translation.ekey.insertPasswordLenghtError
                 return
             }
             else -> return
