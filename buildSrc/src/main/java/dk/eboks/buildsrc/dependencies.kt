@@ -40,9 +40,9 @@ object Libs {
 
     object Kotlin {
         private const val version = "1.3.21"
-        val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
-        val reflect = "org.jetbrains.kotlin:kotlin-reflect:$version"
-        val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
+        const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
+        const val reflect = "org.jetbrains.kotlin:kotlin-reflect:$version"
+        const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
     }
 
     object Coroutines {
@@ -67,8 +67,8 @@ object Libs {
 
     object Dagger {
         private const val version = "2.21"
-        val dagger = "com.google.dagger:dagger:$version"
-        val compiler = "com.google.dagger:dagger-compiler:$version"
+        const val dagger = "com.google.dagger:dagger:$version"
+        const val compiler = "com.google.dagger:dagger-compiler:$version"
     }
 
     object Glide {
@@ -79,20 +79,21 @@ object Libs {
 
     object Retrofit {
         private const val version = "2.5.0"
-        val retrofit = "com.squareup.retrofit2:retrofit:$version"
-        val retrofitRxjavaAdapter = "com.squareup.retrofit2:adapter-rxjava2:$version"
-        val scalarsConverter = "com.squareup.retrofit2:converter-scalars:$version"
-        val gsonConverter = "com.squareup.retrofit2:converter-gson:$version"
+        const val retrofit = "com.squareup.retrofit2:retrofit:$version"
+        const val retrofitRxjavaAdapter = "com.squareup.retrofit2:adapter-rxjava2:$version"
+        const val scalarsConverter = "com.squareup.retrofit2:converter-scalars:$version"
+        const val gsonConverter = "com.squareup.retrofit2:converter-gson:$version"
     }
 
     object OkHttp {
         private const val version = "3.12.1"
-        val okhttp = "com.squareup.okhttp3:okhttp:$version"
-        val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
+        const val okhttp = "com.squareup.okhttp3:okhttp:$version"
+        const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
     }
 
     object Test {
 
+        const val runner = "androidx.test:runner:1.1.1"
         object Expresso {
             private const val version = "3.1.1"
             const val core = "androidx.test.espresso:espresso-core:$version"

@@ -4,6 +4,13 @@ import dk.eboks.buildsrc.Versions
 
 buildscript {
 
+    ext.buildConfig = [
+            'compileSdk': 28,
+            'minSdk'    : 21,
+            'targetSdk' : 28,
+            'buildTools': '28.0.3'
+    ]
+
     repositories {
         maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url 'https://maven.google.com' }

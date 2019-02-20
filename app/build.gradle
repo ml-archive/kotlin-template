@@ -19,17 +19,14 @@ bitrise {
     defaultDeployMode = "release|debug"
     branchMode = true
 }
-androidExtensions {
-    experimental = true
-}
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion buildConfig.compileSdk
+    buildToolsVersion buildConfig.buildTools
     flavorDimensions "default"
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
         versionCode 145
         versionName "4.0.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -227,6 +224,7 @@ repositories {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(":base")
+    implementation project(":data")
 
     // uncomment me if using multidex
     //implementation "com.android.support:multidex:$multidex_version"
