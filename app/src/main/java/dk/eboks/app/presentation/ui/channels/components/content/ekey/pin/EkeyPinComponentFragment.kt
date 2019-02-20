@@ -34,6 +34,23 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
     private val isCreate: Boolean
         get() = arguments?.getBoolean(ARG_IS_CREATE, false) ?: false
 
+    private var passwordType = ButtonType.INPUT_ALPHANUMERIC
+    set(value) {
+        field = value
+        when (value) {
+            ButtonType.INPUT_NUMERIC -> {
+                if (!Regex("^[0-9]{0,4}$").matches((ekeyPasswordInputEt.text.toString()))) {
+                    ekeyPasswordInputEt.setText("")
+                }
+                ekeyPasswordInputEt.inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD or InputType.TYPE_CLASS_NUMBER
+            }
+            ButtonType.INPUT_ALPHANUMERIC -> {
+                ekeyPasswordInputEt.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+            }
+            else -> { /* do nothing */ }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -134,6 +151,9 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
             val result = data?.getSerializableExtra("res") as? ButtonType?
             when (result) {
                 ButtonType.INPUT_NUMERIC -> {
+                    if (!Regex("^[0-9]{0,4}$").matches((ekeyPasswordInputEt.text.toString()))) {
+                        ekeyPasswordInputEt.setText("")
+                    }
                     ekeyPasswordInputEt.inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD or InputType.TYPE_CLASS_NUMBER
                 }
                 ButtonType.INPUT_ALPHANUMERIC -> {
