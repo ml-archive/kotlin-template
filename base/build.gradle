@@ -1,0 +1,9 @@
+import dk.eboks.buildsrc.Libs
+
+apply plugin: 'kotlin'
+
+dependencies {
+
+    compile Libs.Kotlin.stdlib
+
+}

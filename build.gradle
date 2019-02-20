@@ -1,4 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+import dk.eboks.buildsrc.Libs
+import dk.eboks.buildsrc.Versions
 
 buildscript {
 
@@ -54,11 +56,11 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$gradle_version"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "dk.nodes.nstack:translation:2.3.0"
-        classpath "com.github.gfx.ribbonizer:ribbonizer-plugin:$ribbonizer_version"
-        classpath "dk.nodes.ci:bitrise:$bitrise_version"
+        classpath Libs.androidGradlePlugin
+        classpath Libs.Kotlin.gradlePlugin
+        classpath Libs.Nodes.Nstack.translation
+        classpath Libs.Nodes.bitrise
+        classpath Libs.ribbonizer
     }
 }
 
@@ -84,7 +86,7 @@ subprojects {
     spotless {
         kotlin {
             target "**/*.kt"
-            ktlint('0.30.0')
+            ktlint(Versions.ktlint)
         }
     }
 }
