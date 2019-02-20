@@ -46,7 +46,7 @@ object Libs {
     }
 
     object Coroutines {
-        private const val version = "1.1.0"
+        private const val version = "1.1.1"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
     }
@@ -60,9 +60,9 @@ object Libs {
     }
 
     object RxJava {
-        const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.5"
+        const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.6"
         const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.3.0"
-        const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.0"
+        const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
     }
 
     object Dagger {
@@ -72,7 +72,7 @@ object Libs {
     }
 
     object Glide {
-        private const val version = "4.8.0"
+        private const val version = "4.9.0"
         val glide = "com.github.bumptech.glide:glide:$version"
         val compiler = "com.github.bumptech.glide:compiler:$version"
     }
@@ -86,7 +86,7 @@ object Libs {
     }
 
     object OkHttp {
-        private const val version = "3.12.1"
+        private const val version = "3.13.1"
         val okhttp = "com.squareup.okhttp3:okhttp:$version"
         val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:$version"
     }
@@ -101,7 +101,7 @@ object Libs {
         }
 
         object Mockito {
-            private const val version = "2.24.0"
+            private const val version = "2.24.5"
             const val core = "org.mockito:mockito-core:$version"
             const val android = "org.mockito:mockito-android:$version"
         }
