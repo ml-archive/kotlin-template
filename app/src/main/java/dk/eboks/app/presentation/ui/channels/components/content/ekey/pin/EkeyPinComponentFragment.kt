@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.text.InputFilter
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
@@ -35,29 +36,34 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
         get() = arguments?.getBoolean(ARG_IS_CREATE, false) ?: false
 
     private var passwordType = ButtonType.INPUT_ALPHANUMERIC
-    set(value) {
-        field = value
-        when (value) {
-            ButtonType.INPUT_NUMERIC -> {
-                if (!Regex("^[0-9]{0,4}$").matches((ekeyPasswordInputEt.text.toString()))) {
-                    ekeyPasswordInputEt.setText("")
+        set(value) {
+            if (field != value) {
+                field = value
+                when (value) {
+                    ButtonType.INPUT_NUMERIC -> {
+                        if (!Regex("^[0-9]{0,4}$").matches((ekeyPasswordInputEt.text.toString()))) {
+                            ekeyPasswordInputEt.text?.clear()
+                        }
+                        ekeyPasswordInputEt.filters = arrayOf(InputFilter.LengthFilter(4))
+                        ekeyPasswordInputEt.inputType =
+                            InputType.TYPE_NUMBER_VARIATION_PASSWORD or InputType.TYPE_CLASS_NUMBER
+                    }
+                    ButtonType.INPUT_ALPHANUMERIC -> {
+                        ekeyPasswordInputEt.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                        ekeyPasswordInputEt.filters = arrayOf()
+                    }
+                    else -> { /* do nothing */
+                    }
                 }
-                ekeyPasswordInputEt.inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD or InputType.TYPE_CLASS_NUMBER
             }
-            ButtonType.INPUT_ALPHANUMERIC -> {
-                ekeyPasswordInputEt.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
-            }
-            else -> { /* do nothing */ }
         }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_channel_ekey_pin, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_channel_ekey_pin, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -117,16 +123,32 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
 
         ekeyPasswordInputOptionsBtn.setOnClickListener {
             val intent = OverlayActivity.createIntent(
-                    context, arrayListOf(
+                context, arrayListOf(
                     OverlayButton(type = ButtonType.INPUT_ALPHANUMERIC),
-                    OverlayButton(ButtonType.INPUT_NUMERIC)))
+                    OverlayButton(ButtonType.INPUT_NUMERIC)
+                )
+            )
 
             startActivityForResult(intent, OverlayActivity.REQUEST_ID)
         }
     }
 
     private fun confirmPinAndFinish() {
-        getEkeyBaseActivity()?.setPin(ekeyPasswordInputEt.text.toString())
+        val pin = ekeyPasswordInputEt.text.toString()
+        when (passwordType) {
+            ButtonType.INPUT_NUMERIC -> if (!Regex("^[0-9]{4}$").matches(pin)) {
+                ekeyPasswordInputLayout.error = Translation.error.pincodeMinLenght
+                return
+            }
+
+            ButtonType.INPUT_ALPHANUMERIC -> if (pin.length < 6) {
+                ekeyPasswordInputLayout.error = Translation.ekey.insertPasswordLenghtError
+                return
+            }
+            else -> return
+
+        }
+        getEkeyBaseActivity()?.setPin(pin)
         getEkeyBaseActivity()?.refreshClearAndShowMain()
     }
 
@@ -148,19 +170,7 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (OverlayActivity.REQUEST_ID == requestCode) {
-            val result = data?.getSerializableExtra("res") as? ButtonType?
-            when (result) {
-                ButtonType.INPUT_NUMERIC -> {
-                    if (!Regex("^[0-9]{0,4}$").matches((ekeyPasswordInputEt.text.toString()))) {
-                        ekeyPasswordInputEt.setText("")
-                    }
-                    ekeyPasswordInputEt.inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD or InputType.TYPE_CLASS_NUMBER
-                }
-                ButtonType.INPUT_ALPHANUMERIC -> {
-                    ekeyPasswordInputEt.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
-                }
-                else -> { /* do nothing */ }
-            }
+            passwordType = data?.getSerializableExtra("res") as? ButtonType? ?: return
         }
     }
 

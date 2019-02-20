@@ -71,6 +71,7 @@ public class Translation {
 		public static String eKeyEncryptionFailedMessage = "En fejl opstod da vi skulle \u00E5bne denne service. Pr\u00F8v igen.";
 		public static String wrongIdErrorTitle = "Forkert Nem-ID";
 		public static String wrongIdErrorMessage = "Det ser ud til at det brugte Nem-ID tilh\u00F8rer en anden person.";
+		public static String pincodeMinLenght = "__pincodeMinLenght";
 	}
 	public final static class mail {
 		public static String senderHeader = "Post fra dine afsendere";
