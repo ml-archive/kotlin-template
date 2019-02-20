@@ -663,9 +663,9 @@ public class Translation {
 		public static String insertPasswordHint = "Adgangskode";
 		public static String insertPasswordDescription = "__insertPasswordDescription";
 		public static String insertPasswordLenghtError = "Adgangskoden skal v\u00E6re p\u00E5 minimum 6 tegn";
-		public static String passwordOptions = "__passwordOptions";
-		public static String passwordOptionNumeric = "__passwordOptionNumeric";
-		public static String passwordOptionAlphanumeric = "__passwordOptionAlphanumeric";
+		public static String passwordOptions = "Kodeindstillinger";
+		public static String passwordOptionNumeric = "4-cifret kode";
+		public static String passwordOptionAlphanumeric = "Tal og bogstaver";
 	}
 	public final static class storeboxlogin {
 		public static String header = "Link til din Storebox profil";
