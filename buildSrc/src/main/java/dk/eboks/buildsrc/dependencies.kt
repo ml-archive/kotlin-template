@@ -4,11 +4,6 @@ object Versions {
     val ktlint = "0.30.0"
 }
 
-object Keys {
-    const val appId = "5Rg3muDHQL8J19lb6sZzjD6ANSOrigg5x55u"
-    const val apiKey = "htCPriWP9yoaeoHHnPgYKYw68BoejYhJnR8w"
-}
-
 object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:3.3.1"
 
