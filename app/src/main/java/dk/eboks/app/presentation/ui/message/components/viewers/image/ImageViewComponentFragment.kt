@@ -19,7 +19,7 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class ImageViewComponentFragment : BaseFragment(), ImageViewComponentContract.View, EmbeddedViewer,
-    ViewerFragment {
+        ViewerFragment {
 
     @Inject
     lateinit var presenter: ImageViewComponentContract.Presenter

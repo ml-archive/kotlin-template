@@ -5,7 +5,6 @@ import android.os.Bundle
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.login.components.LoginComponentFragment
-import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
 import javax.inject.Inject
 

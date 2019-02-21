@@ -7,9 +7,7 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.message.components.opening.protectedmessage.ProtectedMessageComponentFragment
-import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
-import kotlinx.android.synthetic.main.activity_message_opening.*
 import javax.inject.Inject
 
 class MessageOpeningActivity : BaseActivity(), MessageOpeningContract.View {

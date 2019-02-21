@@ -3,6 +3,8 @@ import dk.eboks.buildsrc.Libs
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
 
 androidExtensions {
     experimental = true
@@ -32,6 +34,19 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':data')
+
+    implementation Libs.AndroidX.appcompat
+    implementation Libs.AndroidX.recyclerview
+    implementation Libs.AndroidX.cardview
+    implementation Libs.AndroidX.constraintlayout
+
+    implementation Libs.Nodes.Nstack.kotlin
+
+    implementation Libs.Dagger.dagger
+    kapt Libs.Dagger.compiler
+
+    implementation Libs.hockeySDK
+    implementation Libs.timber
 
     testImplementation Libs.junit
     androidTestImplementation Libs.Test.runner

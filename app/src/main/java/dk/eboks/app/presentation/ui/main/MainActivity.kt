@@ -15,9 +15,6 @@ import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewFragment
 import dk.eboks.app.presentation.ui.notimplemented.screens.ComingSoonFragment
 import dk.eboks.app.presentation.ui.senders.screens.overview.SerdersOverviewFragment
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
-import dk.eboks.app.util.disableShiftingMode
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.include_toolbar.*
 
 class MainActivity : BaseActivity(), MainNavigator {
 

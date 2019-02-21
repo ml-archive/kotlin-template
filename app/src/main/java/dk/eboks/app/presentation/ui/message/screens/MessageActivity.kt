@@ -23,7 +23,6 @@ import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
-import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 class MessageActivity : BaseActivity(), MessageContract.View {
