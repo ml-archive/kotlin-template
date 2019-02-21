@@ -1,25 +1,22 @@
 package dk.eboks.app.network.repositories
 
-import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.protocol.ServerError
 import dk.eboks.app.domain.repositories.UserRepository
 import dk.eboks.app.network.Api
+import javax.inject.Inject
 
-class UserRestRepository(
-    private val context: Context,
+class UserRestRepository @Inject constructor(
     private val api: Api,
     private val gson: Gson
 ) : UserRepository {
 
     override fun updateProfile(user: JsonObject) {
         val result = api.updateProfile(user).execute()
-        result?.let { response ->
-            if (response.isSuccessful) {
-                return
-            }
+        if (result.isSuccessful) {
+            return
         }
         throw(RuntimeException())
     }

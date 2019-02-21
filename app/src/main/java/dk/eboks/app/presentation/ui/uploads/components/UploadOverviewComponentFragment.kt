@@ -97,7 +97,10 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
 
         showAllBtn.setOnClickListener {
             val intent = Intent(activity, MailListActivity::class.java).apply {
-                putExtra("folder", Folder(type = FolderType.UPLOADS, name = Translation.uploads.title))
+                putExtra(
+                    "folder",
+                    Folder(type = FolderType.UPLOADS, name = Translation.uploads.title)
+                )
             }
             startActivity(intent)
         }

@@ -9,11 +9,13 @@ import com.google.gson.Gson
 import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.repositories.AppStateRepository
 import dk.eboks.app.storage.base.GsonFileStorageRepository
+import dk.eboks.app.util.guard
+import javax.inject.Inject
 
 /**
  * Created by bison on 01-07-2017.
  */
-class AppStateRepositoryImpl(context: Context, gson: Gson) :
+class AppStateRepositoryImpl @Inject constructor(context: Context, gson: Gson) :
     GsonFileStorageRepository<AppState>(context, gson, "app_state.json"),
     AppStateRepository {
     var appState: AppState? = null
@@ -23,12 +25,11 @@ class AppStateRepositoryImpl(context: Context, gson: Gson) :
     }
 
     override fun loadState(): AppState {
-        try {
-            if (appState == null)
-                appState = load(AppState::class.java)
-            return appState!!
+        return try {
+            appState.guard { appState = load(AppState::class.java) }
+            appState!!
         } catch (e: Exception) {
-            return AppState()
+            AppState()
         }
     }
 }

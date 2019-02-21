@@ -8,17 +8,18 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.repositories.SendersRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
+import javax.inject.Inject
 
 typealias SenderStore = CacheStore<Int, List<Sender>>
 
 /**
  * Created by bison on 01/02/18.
  */
-class SendersRestRepository(
-    val context: Context,
-    val api: Api,
-    val gson: Gson,
-    val cacheManager: CacheManager
+class SendersRestRepository @Inject constructor(
+    private val context: Context,
+    private val api: Api,
+    private val gson: Gson,
+    private val cacheManager: CacheManager
 ) : SendersRepository {
 
     var userId: Int? = null

@@ -220,7 +220,8 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
         }
     }
 
-    private inner class MessageDiff(val oldList: List<Message>, val newList: List<Message>) : DiffUtil.Callback() {
+    private inner class MessageDiff(val oldList: List<Message>, val newList: List<Message>) :
+        DiffUtil.Callback() {
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldList[oldItemPosition].id == newList[newItemPosition].id

@@ -24,6 +24,7 @@ import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import timber.log.Timber
+import javax.inject.Inject
 
 typealias SenderIdMessageStore = CacheStore<Long, List<Message>>
 typealias FolderIdMessageStore = CacheStore<Int, List<Message>>
@@ -32,7 +33,7 @@ typealias CategoryMessageStore = CacheStore<String, List<Message>>
 /**
  * Created by bison on 01/02/18.
  */
-class MessagesRestRepository(
+class MessagesRestRepository @Inject constructor(
     private val context: Context,
     private val api: Api,
     private val gson: Gson,
@@ -44,7 +45,7 @@ class MessagesRestRepository(
     // delete message
     override fun deleteMessage(folderId: Int, messageId: String) {
         val response = api.deleteMessage(folderId, messageId).execute()
-        response?.let {
+        response.let {
             if (it.isSuccessful) {
                 return
             }

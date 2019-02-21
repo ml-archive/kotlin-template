@@ -3,11 +3,12 @@ package dk.eboks.app.storage.repositories
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.models.local.Settings
 import dk.eboks.app.domain.repositories.SettingsRepository
+import javax.inject.Inject
 
 /**
  * Created by bison on 15/12/17.
  */
-class SharedPrefsSettingsRepository(val prefManager: PrefManager) :
+class SharedPrefsSettingsRepository @Inject constructor(private val prefManager: PrefManager) :
     SettingsRepository {
     override fun get(): Settings {
         return Settings(prefManager.getString("deviceId", "")!!)

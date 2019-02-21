@@ -1,15 +1,14 @@
 package dk.eboks.app.domain.interactors.signup
 
-import dk.eboks.app.network.Api
-import dk.eboks.app.network.repositories.SignupRestRepository
+import dk.eboks.app.domain.repositories.SignupRepository
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
-class CheckSignupMailInteractorImpl(
+class CheckSignupMailInteractorImpl @Inject constructor(
     executor: Executor,
-    val api: Api,
-    val signUpRestRepo: SignupRestRepository
+    private val signUpRestRepo: SignupRepository
 ) : BaseInteractor(executor), CheckSignupMailInteractor {
     override var output: CheckSignupMailInteractor.Output? = null
     override var input: CheckSignupMailInteractor.Input? = null
