@@ -32,12 +32,12 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class EkeyContentPresenter @Inject constructor(
-    private val appState: AppStateManager,
-    private val encryptedPreferences: EncryptedPreferences,
-    private val getMasterkeyInteractor: GetEKeyMasterkeyInteractor,
-    private val setMasterKeyInteractor: SetEKeyMasterkeyInteractor,
-    private val getEKeyVaultInteractor: GetEKeyVaultInteractor,
-    private val setEKeyVaultInteractor: SetEKeyVaultInteractor
+        private val appState: AppStateManager,
+        private val encryptedPreferences: EncryptedPreferences,
+        private val getMasterkeyInteractor: GetEKeyMasterkeyInteractor,
+        private val setMasterKeyInteractor: SetEKeyMasterkeyInteractor,
+        private val getEKeyVaultInteractor: GetEKeyVaultInteractor,
+        private val setEKeyVaultInteractor: SetEKeyVaultInteractor
 ) : EkeyContentContract.Presenter, BasePresenterImpl<EkeyContentContract.View>(),
     GetEKeyMasterkeyInteractor.Output, SetEKeyMasterkeyInteractor.Output,
     GetEKeyVaultInteractor.Output, SetEKeyVaultInteractor.Output {

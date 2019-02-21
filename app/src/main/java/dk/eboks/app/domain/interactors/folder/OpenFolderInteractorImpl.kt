@@ -11,9 +11,9 @@ import timber.log.Timber
  * Created by bison on 01/02/18.
  */
 class OpenFolderInteractorImpl(
-    executor: Executor,
-    val appStateManager: AppStateManager,
-    val uiManager: UIManager
+        executor: Executor,
+        val appStateManager: AppStateManager,
+        val uiManager: UIManager
 ) : BaseInteractor(executor), OpenFolderInteractor {
     override var output: OpenFolderInteractor.Output? = null
     override var input: OpenFolderInteractor.Input? = null

@@ -16,11 +16,11 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
  * @since 5/7/2018.
  */
 class GetUserProfileInteractorImpl(
-    executor: Executor,
-    val api: Api,
-    val appStateManager: AppStateManager,
-    val userManager: UserManager,
-    val userSettingsManager: UserSettingsManager
+        executor: Executor,
+        val api: Api,
+        val appStateManager: AppStateManager,
+        val userManager: UserManager,
+        val userSettingsManager: UserSettingsManager
 ) : BaseInteractor(executor), GetUserProfileInteractor {
 
     override var output: GetUserProfileInteractor.Output? = null

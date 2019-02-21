@@ -14,9 +14,9 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class AttachmentsComponentPresenter @Inject constructor(
-    appState: AppStateManager,
-    private val openAttachmentInteractor: OpenAttachmentInteractor,
-    private val saveAttachmentInteractor: SaveAttachmentInteractor
+        appState: AppStateManager,
+        private val openAttachmentInteractor: OpenAttachmentInteractor,
+        private val saveAttachmentInteractor: SaveAttachmentInteractor
 ) :
     AttachmentsComponentContract.Presenter,
     BasePresenterImpl<AttachmentsComponentContract.View>(),

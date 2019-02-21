@@ -25,9 +25,9 @@ import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 
 class AuthClientImpl(
-    val cryptoManager: CryptoManager,
-    val settingsRepository: SettingsRepository,
-    val appStateManager: AppStateManager
+        val cryptoManager: CryptoManager,
+        val settingsRepository: SettingsRepository,
+        val appStateManager: AppStateManager
 ) : AuthClient {
     private var httpClient: OkHttpClient
     private var gson: Gson = Gson()
@@ -235,7 +235,8 @@ class AuthClientImpl(
 
                 // Timber.e("Parsed json obj ${jsonObj?.toString(4)} errorDescription = ${jsonObj?.getString("error_description")}")
 
-                throw(AuthException(result.code(), jsonObj.getString("error_description") ?: ""))
+                throw(AuthException(result.code(), jsonObj.getString("error_description")
+                        ?: ""))
             }
         }
         return null

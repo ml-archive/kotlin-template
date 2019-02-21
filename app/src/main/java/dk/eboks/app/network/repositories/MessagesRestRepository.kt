@@ -34,12 +34,12 @@ typealias CategoryMessageStore = CacheStore<String, List<Message>>
  * Created by bison on 01/02/18.
  */
 class MessagesRestRepository @Inject constructor(
-    private val context: Context,
-    private val api: Api,
-    private val gson: Gson,
-    private val cacheManager: CacheManager,
-    private val okHttpClient: OkHttpClient,
-    private val appState: AppStateManager
+        private val context: Context,
+        private val api: Api,
+        private val gson: Gson,
+        private val cacheManager: CacheManager,
+        private val okHttpClient: OkHttpClient,
+        private val appState: AppStateManager
 ) : MessagesRepository {
 
     // delete message

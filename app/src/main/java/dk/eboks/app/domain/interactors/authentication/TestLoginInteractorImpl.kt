@@ -14,9 +14,9 @@ import timber.log.Timber
  * Created by bison on 24-06-2017.
  */
 class TestLoginInteractorImpl(
-    executor: Executor,
-    val appStateManager: AppStateManager,
-    val authClient: AuthClient
+        executor: Executor,
+        val appStateManager: AppStateManager,
+        val authClient: AuthClient
 ) : BaseInteractor(executor), TestLoginInteractor {
     override var output: TestLoginInteractor.Output? = null
     override var input: TestLoginInteractor.Input? = null

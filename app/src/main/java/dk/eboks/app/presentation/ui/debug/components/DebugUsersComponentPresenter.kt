@@ -11,8 +11,8 @@ import javax.inject.Inject
  * @since 6/15/2018.
  */
 class DebugUsersComponentPresenter @Inject constructor(
-    private val appState: AppStateManager,
-    private val testLoginStates: MutableList<LoginState>
+        private val appState: AppStateManager,
+        private val testLoginStates: MutableList<LoginState>
 ) : DebugUsersComponentContract.Presenter, BasePresenterImpl<DebugUsersComponentContract.View>() {
     override fun makeList() {
         runAction { v ->

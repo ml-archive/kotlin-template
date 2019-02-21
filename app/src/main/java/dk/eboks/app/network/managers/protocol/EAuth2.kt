@@ -20,9 +20,9 @@ import javax.inject.Inject
  * E-boks Authenticator, based on OAuth2
  */
 class EAuth2(
-    prefManager: PrefManager,
-    val appStateManager: AppStateManager,
-    val userSettingsManager: UserSettingsManager
+        prefManager: PrefManager,
+        val appStateManager: AppStateManager,
+        val userSettingsManager: UserSettingsManager
 ) : Authenticator {
     @Inject
     lateinit var executer: Executor

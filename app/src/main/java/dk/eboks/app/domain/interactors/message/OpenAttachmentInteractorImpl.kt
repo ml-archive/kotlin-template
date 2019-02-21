@@ -18,11 +18,11 @@ import timber.log.Timber
  * Created by bison on 01/02/18.
  */
 class OpenAttachmentInteractorImpl(
-    executor: Executor,
-    val appStateManager: AppStateManager,
-    val uiManager: UIManager,
-    val downloadManager: DownloadManager,
-    val cacheManager: FileCacheManager
+        executor: Executor,
+        val appStateManager: AppStateManager,
+        val uiManager: UIManager,
+        val downloadManager: DownloadManager,
+        val cacheManager: FileCacheManager
 ) : BaseInteractor(executor), OpenAttachmentInteractor {
 
     override var output: OpenAttachmentInteractor.Output? = null

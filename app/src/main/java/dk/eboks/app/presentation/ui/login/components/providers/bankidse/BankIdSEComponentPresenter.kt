@@ -12,11 +12,11 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class BankIdSEComponentPresenter @Inject constructor(
-    appState: AppStateManager,
-    transformTokenInteractor: TransformTokenInteractor,
-    verifyProfileInteractor: VerifyProfileInteractor,
-    mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-    userSettingsManager: UserSettingsManager
+        appState: AppStateManager,
+        transformTokenInteractor: TransformTokenInteractor,
+        verifyProfileInteractor: VerifyProfileInteractor,
+        mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+        userSettingsManager: UserSettingsManager
 ) :
     WebLoginPresenter(
         appState,

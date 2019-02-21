@@ -203,14 +203,14 @@ import okhttp3.OkHttpClient
 class InteractorModule {
     @Provides
     fun provideLoginInteractor(
-        executor: Executor,
-        api: Api,
-        appStateManager: AppStateManager,
-        userManager: UserManager,
-        userSettingsManager: UserSettingsManager,
-        authClient: AuthClient,
-        cacheManager: CacheManager,
-        mailCategoriesRepository: MailCategoriesRepository
+            executor: Executor,
+            api: Api,
+            appStateManager: AppStateManager,
+            userManager: UserManager,
+            userSettingsManager: UserSettingsManager,
+            authClient: AuthClient,
+            cacheManager: CacheManager,
+            mailCategoriesRepository: MailCategoriesRepository
     ): LoginInteractor {
         return LoginInteractorImpl(
             executor,
@@ -226,9 +226,9 @@ class InteractorModule {
 
     @Provides
     fun provideTestLoginInteractor(
-        executor: Executor,
-        appStateManager: AppStateManager,
-        authClient: AuthClient
+            executor: Executor,
+            appStateManager: AppStateManager,
+            authClient: AuthClient
     ): TestLoginInteractor {
         return TestLoginInteractorImpl(executor, appStateManager, authClient)
     }
@@ -278,15 +278,15 @@ class InteractorModule {
 
     @Provides
     fun provideBootstrapInteractor(
-        executor: Executor,
-        guidManager: GuidManager,
-        settingsRepository: SettingsRepository,
-        appStateManager: AppStateManager,
-        fileCacheManager: FileCacheManager,
-        cacheManager: CacheManager,
-        userManager: UserManager,
-        api: Api,
-        prefManager: PrefManager
+            executor: Executor,
+            guidManager: GuidManager,
+            settingsRepository: SettingsRepository,
+            appStateManager: AppStateManager,
+            fileCacheManager: FileCacheManager,
+            cacheManager: CacheManager,
+            userManager: UserManager,
+            api: Api,
+            prefManager: PrefManager
     ): BootstrapInteractor {
         return BootstrapInteractorImpl(
             executor,
@@ -384,21 +384,21 @@ class InteractorModule {
 
     @Provides
     fun provideOpenFolderInteractor(
-        executor: Executor,
-        appStateManager: AppStateManager,
-        uiManager: UIManager
+            executor: Executor,
+            appStateManager: AppStateManager,
+            uiManager: UIManager
     ): OpenFolderInteractor {
         return OpenFolderInteractorImpl(executor, appStateManager, uiManager)
     }
 
     @Provides
     fun provideOpenMessageInteractor(
-        executor: Executor,
-        appStateManager: AppStateManager,
-        uiManager: UIManager,
-        downloadManager: DownloadManager,
-        fileCacheManager: FileCacheManager,
-        messagesRepository: MessagesRepository
+            executor: Executor,
+            appStateManager: AppStateManager,
+            uiManager: UIManager,
+            downloadManager: DownloadManager,
+            fileCacheManager: FileCacheManager,
+            messagesRepository: MessagesRepository
     ): OpenMessageInteractor {
         return OpenMessageInteractorImpl(
             executor,
@@ -412,11 +412,11 @@ class InteractorModule {
 
     @Provides
     fun provideOpenAttachmentInteractor(
-        executor: Executor,
-        appStateManager: AppStateManager,
-        uiManager: UIManager,
-        downloadManager: DownloadManager,
-        fileCacheManager: FileCacheManager
+            executor: Executor,
+            appStateManager: AppStateManager,
+            uiManager: UIManager,
+            downloadManager: DownloadManager,
+            fileCacheManager: FileCacheManager
     ): OpenAttachmentInteractor {
         return OpenAttachmentInteractorImpl(
             executor,
@@ -445,10 +445,10 @@ class InteractorModule {
 
     @Provides
     fun provideSaveAttachmentInteractor(
-        executor: Executor,
-        appStateManager: AppStateManager,
-        fileCacheManager: FileCacheManager,
-        permissionManager: PermissionManager
+            executor: Executor,
+            appStateManager: AppStateManager,
+            fileCacheManager: FileCacheManager,
+            permissionManager: PermissionManager
     ): SaveAttachmentInteractor {
         return SaveAttachmentInteractorImpl(
             executor,
@@ -468,10 +468,10 @@ class InteractorModule {
 
     @Provides
     fun provideCreateUserInteractor(
-        executor: Executor,
-        userManager: UserManager,
-        api: Api,
-        settingsRepository: SettingsRepository
+            executor: Executor,
+            userManager: UserManager,
+            api: Api,
+            settingsRepository: SettingsRepository
     ): CreateUserInteractor {
         return CreateUserInteractorImpl(executor, userManager, api, settingsRepository)
     }
@@ -486,9 +486,9 @@ class InteractorModule {
 
     @Provides
     fun provideSaveUserSettingsInteractor(
-        executor: Executor,
-        appStateManager: AppStateManager,
-        userManager: UserSettingsManager
+            executor: Executor,
+            appStateManager: AppStateManager,
+            userManager: UserSettingsManager
     ): SaveUserSettingsInteractor {
         return SaveUserSettingsInteractorImpl(executor, appStateManager, userManager)
     }
@@ -519,10 +519,10 @@ class InteractorModule {
 
     @Provides
     fun provideDeleteUserInteractor(
-        executor: Executor,
-        userManager: UserManager,
-        userSettingsManager: UserSettingsManager,
-        deleteRSAKeyForUserInteractor: DeleteRSAKeyForUserInteractor
+            executor: Executor,
+            userManager: UserManager,
+            userSettingsManager: UserSettingsManager,
+            deleteRSAKeyForUserInteractor: DeleteRSAKeyForUserInteractor
     ): DeleteUserInteractor {
         return DeleteUserInteractorImpl(
             executor,
@@ -542,11 +542,11 @@ class InteractorModule {
 
     @Provides
     fun provideGetUserProfileInteractor(
-        executor: Executor,
-        api: Api,
-        appStateManager: AppStateManager,
-        userManager: UserManager,
-        userSettingsManager: UserSettingsManager
+            executor: Executor,
+            api: Api,
+            appStateManager: AppStateManager,
+            userManager: UserManager,
+            userSettingsManager: UserSettingsManager
     ): GetUserProfileInteractor {
         return GetUserProfileInteractorImpl(
             executor,
@@ -659,9 +659,9 @@ class InteractorModule {
 
     @Provides
     fun provideEncryptUserLoginInfoInteractor(
-        executor: Executor,
-        encryptionPreferenceManager: EncryptionPreferenceManager,
-        prefManager: PrefManager
+            executor: Executor,
+            encryptionPreferenceManager: EncryptionPreferenceManager,
+            prefManager: PrefManager
     ): EncryptUserLoginInfoInteractor {
         return EncryptUserLoginInfoInteractorImpl(executor, encryptionPreferenceManager)
     }
@@ -754,14 +754,14 @@ class InteractorModule {
 
     @Provides
     fun provideTransformTokenInteractor(
-        executor: Executor,
-        api: Api,
-        appStateManager: AppStateManager,
-        userManager: UserManager,
-        userSettingsManager: UserSettingsManager,
-        authClient: AuthClient,
-        cacheManager: CacheManager,
-        mailCategoriesRepository: MailCategoriesRepository
+            executor: Executor,
+            api: Api,
+            appStateManager: AppStateManager,
+            userManager: UserManager,
+            userSettingsManager: UserSettingsManager,
+            authClient: AuthClient,
+            cacheManager: CacheManager,
+            mailCategoriesRepository: MailCategoriesRepository
     ): TransformTokenInteractor {
         return TransformTokenInteractorImpl(
             executor,
@@ -777,14 +777,14 @@ class InteractorModule {
 
     @Provides
     fun provideMergeAndImpersonateInteractor(
-        executor: Executor,
-        api: Api,
-        appStateManager: AppStateManager,
-        userManager: UserManager,
-        userSettingsManager: UserSettingsManager,
-        authClient: AuthClient,
-        cacheManager: CacheManager,
-        mailCategoriesRepository: MailCategoriesRepository
+            executor: Executor,
+            api: Api,
+            appStateManager: AppStateManager,
+            userManager: UserManager,
+            userSettingsManager: UserSettingsManager,
+            authClient: AuthClient,
+            cacheManager: CacheManager,
+            mailCategoriesRepository: MailCategoriesRepository
     ): MergeAndImpersonateInteractor {
         return MergeAndImpersonateInteractorImpl(
             executor,
@@ -800,14 +800,14 @@ class InteractorModule {
 
     @Provides
     fun provideVerifyProfileInteractor(
-        executor: Executor,
-        api: Api,
-        appStateManager: AppStateManager,
-        userManager: UserManager,
-        userSettingsManager: UserSettingsManager,
-        authClient: AuthClient,
-        cacheManager: CacheManager,
-        mailCategoriesRepository: MailCategoriesRepository
+            executor: Executor,
+            api: Api,
+            appStateManager: AppStateManager,
+            userManager: UserManager,
+            userSettingsManager: UserSettingsManager,
+            authClient: AuthClient,
+            cacheManager: CacheManager,
+            mailCategoriesRepository: MailCategoriesRepository
     ): VerifyProfileInteractor {
         return VerifyProfileInteractorImpl(
             executor,
@@ -823,11 +823,11 @@ class InteractorModule {
 
     @Provides
     fun provideSetCurrentUserInteractor(
-        executor: Executor,
-        api: Api,
-        appStateManager: AppStateManager,
-        userManager: UserManager,
-        userSettingsManager: UserSettingsManager
+            executor: Executor,
+            api: Api,
+            appStateManager: AppStateManager,
+            userManager: UserManager,
+            userSettingsManager: UserSettingsManager
     ): SetCurrentUserInteractor {
         return SetCurrentUserInteractorImpl(
             executor,

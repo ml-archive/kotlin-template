@@ -11,8 +11,8 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class BrowseCategoryPresenter @Inject constructor(
-    private val appStateManager: AppStateManager,
-    private val getSendersInteractor: GetSendersInteractor
+        private val appStateManager: AppStateManager,
+        private val getSendersInteractor: GetSendersInteractor
 ) :
     BrowseCategoryContract.Presenter,
     BasePresenterImpl<BrowseCategoryContract.View>(),

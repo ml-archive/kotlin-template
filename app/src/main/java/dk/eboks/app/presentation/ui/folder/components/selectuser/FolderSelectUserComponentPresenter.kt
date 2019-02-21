@@ -11,8 +11,8 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class FolderSelectUserComponentPresenter @Inject constructor(
-    private val appState: AppStateManager,
-    private val getAllSharesInteractor: GetAllSharesInteractor
+        private val appState: AppStateManager,
+        private val getAllSharesInteractor: GetAllSharesInteractor
 ) : FolderSelectUserComponentContract.Presenter,
     BasePresenterImpl<FolderSelectUserComponentContract.View>(),
     GetAllSharesInteractor.Output {

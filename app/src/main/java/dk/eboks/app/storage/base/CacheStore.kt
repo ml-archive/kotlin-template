@@ -9,12 +9,12 @@ import java.lang.reflect.Type
 import java.util.concurrent.ConcurrentHashMap
 
 class CacheStore<K, V>(
-    val cacheManager: CacheManager,
-    val context: Context,
-    val gson: Gson,
-    val filename: String,
-    mapType: Type,
-    val fetchFunction: (K) -> V?
+        val cacheManager: CacheManager,
+        val context: Context,
+        val gson: Gson,
+        val filename: String,
+        mapType: Type,
+        val fetchFunction: (K) -> V?
 ) : ICacheStore {
     private var cacheMap: MutableMap<K, V>
     private val store = GsonCacheStore()

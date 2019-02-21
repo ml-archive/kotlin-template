@@ -14,11 +14,11 @@ import javax.inject.Inject
  * @since 5/28/2018.
  */
 class NemIdComponentPresenter @Inject constructor(
-    appState: AppStateManager,
-    transformTokenInteractor: TransformTokenInteractor,
-    verifyProfileInteractor: VerifyProfileInteractor,
-    mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-    userSettingsManager: UserSettingsManager
+        appState: AppStateManager,
+        transformTokenInteractor: TransformTokenInteractor,
+        verifyProfileInteractor: VerifyProfileInteractor,
+        mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+        userSettingsManager: UserSettingsManager
 ) :
     WebLoginPresenter(
         appState,

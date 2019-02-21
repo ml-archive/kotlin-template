@@ -17,10 +17,10 @@ import java.io.File
  * Created by bison on 18-02-2018.
  */
 class DownloadManagerImpl(
-    val context: Context,
-    val client: OkHttpClient,
-    val cacheManager: FileCacheManager,
-    val appStateManager: AppStateManager
+        val context: Context,
+        val client: OkHttpClient,
+        val cacheManager: FileCacheManager,
+        val appStateManager: AppStateManager
 ) : DownloadManager {
     init {
     }
