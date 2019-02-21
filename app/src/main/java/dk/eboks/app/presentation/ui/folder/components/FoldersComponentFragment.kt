@@ -19,6 +19,8 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.getIconResId
+import dk.eboks.app.domain.models.isSystemFolder
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.components.newfolder.NewFolderComponentFragment
@@ -367,7 +369,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         v.findViewById<FrameLayout>(R.id.arrowFl)?.visibility = View.GONE
         v.findViewById<ImageButton>(R.id.checkboxIb)?.visibility = View.GONE
         val edit = v.findViewById<ImageButton>(R.id.editIb)
-        var folder = v.tag as Folder
+        val folder = v.tag as Folder
 
         if (folder.type?.isSystemFolder() == false) {
             edit?.visibility = View.VISIBLE

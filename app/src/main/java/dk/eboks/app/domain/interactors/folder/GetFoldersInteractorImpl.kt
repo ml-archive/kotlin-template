@@ -3,6 +3,7 @@ package dk.eboks.app.domain.interactors.folder
 import dk.eboks.app.domain.managers.ResourceManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.isSystemFolder
 import dk.eboks.app.domain.repositories.FoldersRepository
 import dk.eboks.app.presentation.ui.folder.components.FolderMode
 import dk.eboks.app.util.exceptionToViewError

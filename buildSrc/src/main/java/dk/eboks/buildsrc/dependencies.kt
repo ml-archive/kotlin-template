@@ -4,6 +4,11 @@ object Versions {
     val ktlint = "0.30.0"
 }
 
+object Keys {
+    const val appId = "5Rg3muDHQL8J19lb6sZzjD6ANSOrigg5x55u"
+    const val apiKey = "htCPriWP9yoaeoHHnPgYKYw68BoejYhJnR8w"
+}
+
 object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:3.3.1"
 
@@ -19,6 +24,7 @@ object Libs {
     const val materialedittext = "com.rengwuxian.materialedittext:library:2.1.4"
     const val circularProgressBar = "com.mikhaellopez:circularprogressbar:2.0.0"
     const val persistentCookieJar = "com.github.franmontiel:PersistentCookieJar:1.0.1"
+    const val gson = "com.google.code.gson:gson:2.8.5"
 
     object Nodes {
 
@@ -80,7 +86,6 @@ object Libs {
     object Retrofit {
         private const val version = "2.5.0"
         const val retrofit = "com.squareup.retrofit2:retrofit:$version"
-        const val retrofitRxjavaAdapter = "com.squareup.retrofit2:adapter-rxjava2:$version"
         const val scalarsConverter = "com.squareup.retrofit2:converter-scalars:$version"
         const val gsonConverter = "com.squareup.retrofit2:converter-gson:$version"
     }
