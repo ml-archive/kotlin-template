@@ -54,7 +54,8 @@ class EkeyDetailComponentPresenter @Inject constructor(
 
     override fun onSetEKeyVaultSuccess() {
         Timber.d("onSetEKeyVaultSuccess")
-        runAction { view -> view.onSuccess() }
+        runAction { view -> view.onSuccess()
+        }
     }
 
     override fun onAuthError(retryCount: Int) {
@@ -62,16 +63,23 @@ class EkeyDetailComponentPresenter @Inject constructor(
             encryptedPreferences.remove("ekey_${it.id}")
         }
 
-        runAction { view -> view.showPinView() }
+        runAction { view ->
+            view.showPinView()
+            view.showLoading(false)
+        }
     }
 
     override fun onSetEKeyVaultError(viewError: ViewError) {
-        runAction { view -> view.showErrorDialog(viewError) }
+        runAction { view ->
+            view.showErrorDialog(viewError)
+            view.showLoading(false)
+        }
     }
 
     private fun setVault(masterKey: String, keyList: MutableList<BaseEkey>) {
         val handler = EncryptionHandlerImpl(AesCBCPasswordKeyProviderImpl(masterKey))
         handler.init()
+        runAction { it.showLoading(true) }
 
         val vault = gson.toJson(keyList)
         val encrypted = handler.encrypt(vault.toByteArray(charset("UTF-8")))

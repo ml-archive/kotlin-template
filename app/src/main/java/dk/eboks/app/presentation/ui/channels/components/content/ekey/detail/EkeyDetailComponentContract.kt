@@ -11,6 +11,7 @@ interface EkeyDetailComponentContract {
     interface View : BaseView {
         fun onSuccess()
         fun showPinView()
+        fun showLoading(loading: Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
