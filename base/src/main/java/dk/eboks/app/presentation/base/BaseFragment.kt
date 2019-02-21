@@ -119,7 +119,7 @@ abstract class BaseFragment : Fragment(), BaseView {
         fragment?.let {
             activity?.run {
                 supportFragmentManager.popBackStack(
-                    BaseActivity.backStackRootTag,
+                        BaseActivity.backStackRootTag,
                     FragmentManager.POP_BACK_STACK_INCLUSIVE
                 )
                 activity?.run {
