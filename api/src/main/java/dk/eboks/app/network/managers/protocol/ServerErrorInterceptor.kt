@@ -10,13 +10,11 @@ import javax.inject.Inject
 /**
  * Created by bison on 01/02/18.
  */
-class ServerErrorInterceptor : okhttp3.Interceptor {
-    @Inject lateinit var gson: Gson
+class ServerErrorInterceptor(private val gson: Gson) : okhttp3.Interceptor {
+
 
     @Throws(java.io.IOException::class, ServerErrorException::class)
     override fun intercept(chain: okhttp3.Interceptor.Chain): okhttp3.Response {
-        App.instance().appComponent.inject(this)
-
         val response = chain.proceed(chain.request())
         if (!response.isSuccessful) {
             response.peekBody(16384L)?.string()?.let { buffer ->

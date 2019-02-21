@@ -1,4 +1,4 @@
-package dk.eboks.app.injection.modules
+package dk.eboks.app.network
 
 import android.content.Context
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
@@ -8,7 +8,6 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.AuthClient
@@ -17,8 +16,6 @@ import dk.eboks.app.domain.managers.DownloadManager
 import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.managers.UserSettingsManager
-import dk.eboks.app.domain.repositories.SettingsRepository
-import dk.eboks.app.network.Api
 import dk.eboks.app.network.managers.AuthClientImpl
 import dk.eboks.app.network.managers.DownloadManagerImpl
 import dk.eboks.app.network.managers.protocol.AcceptLanguageHeaderInterceptor
@@ -101,6 +98,7 @@ class RestModule {
     fun provideHttpClient(
         eboksHeaderInterceptor: EboksHeaderInterceptor,
         eAuth2: EAuth2,
+        gson: Gson,
         prefManager: PrefManager,
         context: Context
     ): OkHttpClient {
@@ -111,7 +109,7 @@ class RestModule {
             .writeTimeout(60, TimeUnit.SECONDS)
             .authenticator(eAuth2)
             .addInterceptor(AcceptLanguageHeaderInterceptor())
-            .addInterceptor(ServerErrorInterceptor()) // parses the server error structure and throws the ServerErrorException
+            .addInterceptor(ServerErrorInterceptor(gson)) // parses the server error structure and throws the ServerErrorException
             .addInterceptor(eboksHeaderInterceptor)
         // .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
 
@@ -187,21 +185,7 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideAuthenticator(
-        prefManager: PrefManager,
-        appStateManager: AppStateManager,
-        userSettingsManager: UserSettingsManager
-    ): EAuth2 {
-        return EAuth2(prefManager, appStateManager, userSettingsManager)
-    }
-
-    @Provides
-    @AppScope
-    fun provideAuthClient(
-        cryptoManager: CryptoManager,
-        settingsRepository: SettingsRepository,
-        appStateManager: AppStateManager
-    ): AuthClient {
-        return AuthClientImpl(cryptoManager, settingsRepository, appStateManager)
+    fun provideAuthClient(client: AuthClientImpl): AuthClient {
+        return client
     }
 }

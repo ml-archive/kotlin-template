@@ -23,8 +23,9 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class AuthClientImpl(
+class AuthClientImpl @Inject constructor(
     val cryptoManager: CryptoManager,
     val settingsRepository: SettingsRepository,
     val appStateManager: AppStateManager

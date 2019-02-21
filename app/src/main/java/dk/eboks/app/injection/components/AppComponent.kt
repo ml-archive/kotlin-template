@@ -16,7 +16,7 @@ import dk.eboks.app.injection.modules.ExecutorModule
 import dk.eboks.app.injection.modules.InteractorModule
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.injection.modules.RepositoryModule
-import dk.eboks.app.injection.modules.RestModule
+import dk.eboks.app.network.RestModule
 import dk.eboks.app.injection.modules.StorageModule
 import dk.eboks.app.injection.modules.UtilModule
 import dk.eboks.app.network.Api
@@ -44,7 +44,6 @@ interface AppComponent {
     fun inject(app: App)
     fun inject(t: PermissionRequestActivity)
     fun inject(eAuth2: EAuth2)
-    fun inject(t: ServerErrorInterceptor)
     fun inject(t: ICacheStore)
 
     // For Interactor Injection

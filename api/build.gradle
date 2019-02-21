@@ -1,0 +1,63 @@
+import dk.eboks.buildsrc.Libs
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion buildConfig.compileSdk
+
+    defaultConfig {
+        minSdkVersion buildConfig.minSdk
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        debug {
+        }
+        release {
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(":data")
+    implementation project(":base")
+
+    testImplementation Libs.junit
+    androidTestImplementation Libs.Test.runner
+    androidTestImplementation Libs.Test.Expresso.core
+    implementation Libs.Kotlin.stdlib
+    implementation Libs.timber
+    implementation Libs.Nodes.Nstack.kotlin
+    implementation Libs.Nodes.arch
+
+    implementation Libs.Retrofit.retrofit
+    implementation Libs.Retrofit.scalarsConverter
+    implementation Libs.Retrofit.gsonConverter
+
+    implementation Libs.OkHttp.okhttp
+    implementation Libs.OkHttp.loggingInterceptor
+
+    // cookie jar for okhttp
+    implementation Libs.persistentCookieJar
+
+    implementation Libs.Dagger.dagger
+    kapt Libs.Dagger.compiler
+}
+repositories {
+    mavenCentral()
+}
