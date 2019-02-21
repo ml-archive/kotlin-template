@@ -9,6 +9,7 @@ import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.getIconResId
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folder_shortcuts_component.*
@@ -55,7 +56,7 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
 
             folder.type?.let { type ->
                 val iv = v.findViewById<ImageView>(R.id.iconIv)
-                iv?.let { it.setImageResource(type.getIconResId()) }
+                iv?.setImageResource(type.getIconResId())
             }
 
             v.setOnClickListener { presenter.openFolder(folder) }

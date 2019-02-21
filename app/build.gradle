@@ -1,19 +1,12 @@
+import dk.eboks.buildsrc.Keys
 import dk.eboks.buildsrc.Libs
 
 apply plugin: 'com.android.application'
-apply plugin: 'dk.nstack.translation.plugin'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.gfx.ribbonizer'
 apply plugin: 'dk.nodes.ci.bitrise'
 apply plugin: 'kotlin-kapt'
-
-translation {
-    appId = "5Rg3muDHQL8J19lb6sZzjD6ANSOrigg5x55u"
-    apiKey = "htCPriWP9yoaeoHHnPgYKYw68BoejYhJnR8w"
-    acceptHeader = "da-DK"
-    autoRunUpdate = true
-}
 
 bitrise {
     defaultDeployMode = "release|debug"
@@ -33,8 +26,8 @@ android {
         multiDexEnabled true
 
         manifestPlaceholders = [
-                appId : translation.appId,
-                apiKey: translation.apiKey
+                appId : Keys.appId,
+                apiKey: Keys.apiKey
         ]
 
         buildConfigField "Long", "INPUT_VALIDATION_DELAY", "2100L"
@@ -271,7 +264,6 @@ dependencies {
 
     implementation Libs.Retrofit.retrofit
     implementation Libs.Retrofit.scalarsConverter
-    implementation Libs.Retrofit.retrofitRxjavaAdapter
     implementation Libs.Retrofit.gsonConverter
 
     implementation Libs.OkHttp.okhttp

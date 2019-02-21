@@ -1,8 +1,17 @@
+import dk.eboks.buildsrc.Keys
 import dk.eboks.buildsrc.Libs
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'dk.nstack.translation.plugin'
+
+translation {
+    appId = Keys.appId
+    apiKey = Keys.apiKey
+    acceptHeader = "da-DK"
+    autoRunUpdate = true
+}
 
 androidExtensions {
     experimental = true
@@ -13,7 +22,6 @@ android {
 
     defaultConfig {
         minSdkVersion buildConfig.minSdk
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
@@ -37,6 +45,7 @@ dependencies {
     androidTestImplementation Libs.Test.runner
     androidTestImplementation Libs.Test.Expresso.core
     implementation Libs.Kotlin.stdlib
+    implementation Libs.gson
 }
 repositories {
     mavenCentral()
