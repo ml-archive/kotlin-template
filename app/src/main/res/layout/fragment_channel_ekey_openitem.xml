@@ -98,9 +98,10 @@
                         app:layout_constraintTop_toBottomOf="@+id/pinHintTv" />
 
                     <ImageButton
+                        android:padding="4dp"
                         android:id="@+id/pinShowPasswordIb"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:src="@drawable/show_password_selector"
                         app:layout_constraintBottom_toBottomOf="@+id/pinTv"
@@ -147,9 +148,10 @@
                             app:layout_constraintTop_toBottomOf="@+id/usernameHintTv" />
 
                         <ImageButton
+                            android:padding="4dp"
                             android:id="@+id/copyUsernameBtn"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="right|center"
                             android:background="@color/white"
                             android:src="@drawable/icon_48_copy_red"
@@ -190,9 +192,10 @@
                             android:text="_Password" />
 
                         <ImageButton
+                            android:padding="4dp"
                             android:id="@+id/passwordShowPasswordIb"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="end|center"
                             android:background="@color/white"
                             app:layout_constraintBottom_toBottomOf="@+id/passwordTv"
@@ -202,9 +205,10 @@
                             android:src="@drawable/show_password_selector" />
 
                         <ImageButton
+                            android:padding="4dp"
                             android:id="@+id/copyPasswordBtn"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="end|center"
                             android:background="@color/white"
                             app:layout_constraintBottom_toBottomOf="@+id/passwordTv"
