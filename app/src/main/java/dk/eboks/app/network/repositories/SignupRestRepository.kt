@@ -5,7 +5,8 @@ import dk.eboks.app.domain.repositories.SignupRepository
 import dk.eboks.app.network.Api
 
 // TODO delete me, create user moved to interactor
-class SignupRestRepository(private val api: Api) : SignupRepository {
+class SignupRestRepository(private val api: Api) :
+    SignupRepository {
 
     override fun verifySignupMail(email: String): Boolean {
         val result = api.checkUserEmail(email).execute()

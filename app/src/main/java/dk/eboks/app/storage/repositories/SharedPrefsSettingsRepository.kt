@@ -7,7 +7,8 @@ import dk.eboks.app.domain.repositories.SettingsRepository
 /**
  * Created by bison on 15/12/17.
  */
-class SharedPrefsSettingsRepository(val prefManager: PrefManager) : SettingsRepository {
+class SharedPrefsSettingsRepository(val prefManager: PrefManager) :
+    SettingsRepository {
     override fun get(): Settings {
         return Settings(prefManager.getString("deviceId", "")!!)
     }
