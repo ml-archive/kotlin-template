@@ -193,9 +193,9 @@ import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.domain.repositories.SenderCategoriesRepository
 import dk.eboks.app.domain.repositories.SendersRepository
 import dk.eboks.app.domain.repositories.SettingsRepository
+import dk.eboks.app.domain.repositories.SignupRepository
 import dk.eboks.app.domain.repositories.UserRepository
 import dk.eboks.app.network.Api
-import dk.eboks.app.network.repositories.SignupRestRepository
 import dk.nodes.arch.domain.executor.Executor
 import okhttp3.OkHttpClient
 
@@ -253,10 +253,9 @@ class InteractorModule {
     @Provides
     fun provideVerifyignupMailInteractor(
         executor: Executor,
-        api: Api,
-        signupRestRepository: SignupRestRepository
+        signupRepository: SignupRepository
     ): CheckSignupMailInteractor {
-        return CheckSignupMailInteractorImpl(executor, api, signupRestRepository)
+        return CheckSignupMailInteractorImpl(executor, signupRepository)
     }
 
     @Provides

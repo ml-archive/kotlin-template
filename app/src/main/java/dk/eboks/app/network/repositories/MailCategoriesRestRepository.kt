@@ -8,22 +8,23 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.repositories.MailCategoriesRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
+import javax.inject.Inject
 
 typealias MailCategoryStore = CacheStore<Long, List<Folder>>
 
 /**
  * Created by bison on 01/02/18.
  */
-class MailCategoriesRestRepository(
-    val context: Context,
-    val api: Api,
-    val gson: Gson,
-    val cacheManager: CacheManager
+class MailCategoriesRestRepository @Inject constructor(
+    private val context: Context,
+    private val api: Api,
+    private val gson: Gson,
+    private val cacheManager: CacheManager
 ) : MailCategoriesRepository {
 
-    var userId: Int? = null
+    private var userId: Int? = null
 
-    val mailCategoryStore: MailCategoryStore by lazy {
+    private val mailCategoryStore: MailCategoryStore by lazy {
         MailCategoryStore(
             cacheManager,
             context,
@@ -33,7 +34,7 @@ class MailCategoriesRestRepository(
         ) { key ->
             val response = api.getMailCategories(userId).execute()
             var result: List<Folder>? = null
-            response?.let {
+            response.let {
                 if (it.isSuccessful)
                     result = it.body()
             }

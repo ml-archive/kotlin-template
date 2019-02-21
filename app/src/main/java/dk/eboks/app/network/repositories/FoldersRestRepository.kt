@@ -9,17 +9,18 @@ import dk.eboks.app.domain.models.folder.FolderRequest
 import dk.eboks.app.domain.repositories.FoldersRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
+import javax.inject.Inject
 
 typealias FolderListStore = CacheStore<Int, List<Folder>>
 
 /**
  * Created by bison on 01/02/18.
  */
-class FoldersRestRepository(
-    val context: Context,
-    val api: Api,
-    val gson: Gson,
-    val cacheManager: CacheManager
+class FoldersRestRepository @Inject constructor(
+    private val context: Context,
+    private val api: Api,
+    private val gson: Gson,
+    private val cacheManager: CacheManager
 ) : FoldersRepository {
 
     private var userId: Int? = null

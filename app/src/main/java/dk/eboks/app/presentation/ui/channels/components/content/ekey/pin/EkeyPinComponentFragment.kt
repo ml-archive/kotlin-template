@@ -100,9 +100,11 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
 
         ekeyPasswordInputOptionsBtn.setOnClickListener {
             val intent = OverlayActivity.createIntent(
-                    context, arrayListOf(
+                context, arrayListOf(
                     OverlayButton(type = ButtonType.INPUT_ALPHANUMERIC),
-                    OverlayButton(ButtonType.INPUT_NUMERIC)))
+                    OverlayButton(ButtonType.INPUT_NUMERIC)
+                )
+            )
 
             startActivityForResult(intent, OverlayActivity.REQUEST_ID)
         }
@@ -134,12 +136,14 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
             val result = data?.getSerializableExtra("res") as? ButtonType?
             when (result) {
                 ButtonType.INPUT_NUMERIC -> {
-                    ekeyPasswordInputEt.inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD or InputType.TYPE_CLASS_NUMBER
+                    ekeyPasswordInputEt.inputType =
+                        InputType.TYPE_NUMBER_VARIATION_PASSWORD or InputType.TYPE_CLASS_NUMBER
                 }
                 ButtonType.INPUT_ALPHANUMERIC -> {
                     ekeyPasswordInputEt.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
                 }
-                else -> { /* do nothing */ }
+                else -> { /* do nothing */
+                }
             }
         }
     }

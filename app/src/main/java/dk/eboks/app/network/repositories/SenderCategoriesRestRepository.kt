@@ -8,17 +8,18 @@ import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.repositories.SenderCategoriesRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
+import javax.inject.Inject
 
 typealias SenderCategoryStore = CacheStore<String, List<SenderCategory>>
 
 /**
  * Created by bison on 01/02/18.
  */
-class SenderCategoriesRestRepository(
-    val context: Context,
-    val api: Api,
-    val gson: Gson,
-    val cacheManager: CacheManager
+class SenderCategoriesRestRepository @Inject constructor(
+    private val context: Context,
+    private val api: Api,
+    private val gson: Gson,
+    private val cacheManager: CacheManager
 ) : SenderCategoriesRepository {
 
     private val senderCategoryStore: SenderCategoryStore by lazy {

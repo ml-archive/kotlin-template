@@ -8,6 +8,7 @@ import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.repositories.CollectionsRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
+import javax.inject.Inject
 
 typealias CollectionsStore = CacheStore<Int, List<CollectionContainer>>
 
@@ -16,11 +17,11 @@ typealias CollectionsStore = CacheStore<Int, List<CollectionContainer>>
  * @author chnt
  * @since 01/02/18.
  */
-class CollectionsRestRepository(
-    val context: Context,
-    val api: Api,
-    val gson: Gson,
-    val cacheManager: CacheManager
+class CollectionsRestRepository @Inject constructor(
+    private val context: Context,
+    private val api: Api,
+    private val gson: Gson,
+    private val cacheManager: CacheManager
 ) : CollectionsRepository {
 
     private val collectionsStore: CollectionsStore by lazy {

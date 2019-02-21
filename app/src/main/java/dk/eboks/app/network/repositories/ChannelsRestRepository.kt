@@ -9,6 +9,7 @@ import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.repositories.ChannelsRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
+import javax.inject.Inject
 
 typealias ChannelListStore = CacheStore<String, MutableList<Channel>>
 typealias ChannelControlStore = CacheStore<Long, HomeContent>
@@ -16,14 +17,14 @@ typealias ChannelControlStore = CacheStore<Long, HomeContent>
 /**
  * Created by bison on 01/02/18.
  */
-class ChannelsRestRepository(
-    val context: Context,
-    val api: Api,
-    val gson: Gson,
-    val cacheManager: CacheManager
+class ChannelsRestRepository @Inject constructor(
+    private val context: Context,
+    private val api: Api,
+    private val gson: Gson,
+    private val cacheManager: CacheManager
 ) : ChannelsRepository {
 
-    val channelStore: ChannelListStore by lazy {
+    private val channelStore: ChannelListStore by lazy {
         ChannelListStore(
             cacheManager,
             context,
@@ -42,22 +43,22 @@ class ChannelsRestRepository(
         }
     }
 
-    val channelControlStore: ChannelControlStore by lazy {
+    private val channelControlStore: ChannelControlStore by lazy {
         ChannelControlStore(
             cacheManager,
             context,
             gson,
             "channel_control_store.json",
-            object : TypeToken<MutableMap<Long, HomeContent>>() {}.type,
-            { key ->
-                val response = api.getChannelHomeContent(key).execute()
-                var result: HomeContent? = null
-                response?.let {
-                    if (it.isSuccessful)
-                        result = it.body()
-                }
-                result
-            })
+            object : TypeToken<MutableMap<Long, HomeContent>>() {}.type
+        ) { key ->
+            val response = api.getChannelHomeContent(key).execute()
+            var result: HomeContent? = null
+            response?.let {
+                if (it.isSuccessful)
+                    result = it.body()
+            }
+            result
+        }
     }
 
     // TODO reenable caching here, this is a bit tricky because the cache should optimally be invalidated
