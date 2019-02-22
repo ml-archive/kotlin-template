@@ -8,7 +8,11 @@ import dk.eboks.app.domain.models.formreply.FormInput
 import dk.eboks.app.domain.models.formreply.FormInputType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.util.guard
+import dk.eboks.app.util.views
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
+import kotlinx.android.synthetic.main.activity_reply_form.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import java.util.Locale
 import java.util.Observer

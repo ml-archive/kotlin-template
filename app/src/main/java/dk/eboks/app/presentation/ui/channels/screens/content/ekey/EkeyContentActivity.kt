@@ -10,6 +10,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.pin.EkeyPinComponentFragment
+import kotlinx.android.synthetic.main.activity_ekey_content.*
 import timber.log.Timber
 import javax.inject.Inject
 

@@ -230,10 +230,11 @@ dependencies {
 
 
     implementation Libs.Nodes.arch
-    //implementation "dk.nodes.arch:base:LOCAL"
-    implementation Libs.Nodes.filepicker
+    implementation Libs.Nodes.Nstack.kotlin
     // Encryption Lib
     implementation Libs.Nodes.locksmith
+    //implementation "dk.nodes.arch:base:LOCAL"
+    implementation Libs.Nodes.filepicker
 
     implementation Libs.Google.material
     // Barcode Generation Library

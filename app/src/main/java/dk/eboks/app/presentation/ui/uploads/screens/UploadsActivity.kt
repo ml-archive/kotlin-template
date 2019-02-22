@@ -5,6 +5,8 @@ import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
+import dk.eboks.app.util.visible
+import kotlinx.android.synthetic.main.activity_uploads.*
 
 import javax.inject.Inject
 

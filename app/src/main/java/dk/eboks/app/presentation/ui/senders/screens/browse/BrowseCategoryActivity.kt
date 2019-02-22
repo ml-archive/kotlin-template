@@ -21,6 +21,10 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import dk.eboks.app.presentation.widgets.DividerItemDecoration
+import dk.eboks.app.util.guard
+import dk.eboks.app.util.setBubbleDrawable
+import kotlinx.android.synthetic.main.activity_senders_browse_category.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -76,7 +80,8 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
             }
             mainTb.title = cat.name
         }
-        browseCatRv.setBubbleDrawable(resources.getDrawable(R.drawable.fastscroll_bubble))
+        ContextCompat.getDrawable(this, R.drawable.fastscroll_bubble)
+            ?.let(browseCatRv::setBubbleDrawable)
     }
 
     override fun showSenders(senders: List<Sender>) {

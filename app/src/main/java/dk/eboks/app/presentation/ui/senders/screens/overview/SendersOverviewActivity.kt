@@ -18,6 +18,8 @@ import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import dk.eboks.app.presentation.ui.senders.screens.registrations.PendingActivity
 import dk.eboks.app.presentation.ui.senders.screens.registrations.RegistrationsActivity
 import dk.eboks.app.presentation.ui.senders.screens.segment.SegmentDetailActivity
+import kotlinx.android.synthetic.main.fragment_senders_overview.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 class SendersOverviewActivity : BaseActivity(), SendersOverviewContract.View,

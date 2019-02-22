@@ -37,7 +37,9 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     var backPressedCallback: (() -> Boolean)? = null
 
     open val defaultErrorHandler: ViewErrorController by lazy {
-        ViewErrorController(context = this, closeFunction = { finish() })
+        ViewErrorController(
+            context = this,
+            closeFunction = { finish() })
     }
 
     companion object {
@@ -119,7 +121,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     fun setRootFragment(resId: Int, fragment: Fragment?) {
         fragment?.let {
             supportFragmentManager.popBackStack(
-                    backStackRootTag,
+                backStackRootTag,
                 FragmentManager.POP_BACK_STACK_INCLUSIVE
             )
             supportFragmentManager.beginTransaction()

@@ -43,7 +43,9 @@ abstract class BaseFragment : Fragment(), BaseView {
      */
     open val defaultErrorHandler: ViewErrorController by lazy {
         // ViewErrorController(context = context, closeFunction = {fragmentManager.popBackStack()} )
-        ViewErrorController(context = context!!, closeFunction = { activity?.onBackPressed() })
+        ViewErrorController(
+            context = context!!,
+            closeFunction = { activity?.onBackPressed() })
     }
 
     /*
@@ -119,7 +121,7 @@ abstract class BaseFragment : Fragment(), BaseView {
         fragment?.let {
             activity?.run {
                 supportFragmentManager.popBackStack(
-                        BaseActivity.backStackRootTag,
+                    BaseActivity.backStackRootTag,
                     FragmentManager.POP_BACK_STACK_INCLUSIVE
                 )
                 activity?.run {
