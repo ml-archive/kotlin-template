@@ -17,7 +17,6 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import dk.eboks.app.util.inflate
-import kotlinx.android.synthetic.main.activity_senders_search_senders.*
 import javax.inject.Inject
 
 /**

@@ -5,7 +5,6 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.channels.components.overview.ChannelOverviewComponentFragment
-import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 class ChannelOverviewActivity : BaseActivity(), ChannelOverviewContract.View {

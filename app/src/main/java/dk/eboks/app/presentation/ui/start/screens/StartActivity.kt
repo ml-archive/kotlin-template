@@ -17,12 +17,10 @@ import dk.eboks.app.presentation.ui.start.components.signup.CompletedComponentFr
 import dk.eboks.app.presentation.ui.start.components.welcome.SplashComponentFragment
 import dk.eboks.app.presentation.ui.start.components.welcome.WelcomeComponentFragment
 import dk.eboks.app.util.BroadcastReceiver
-import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.managers.ConnectionManager
 import dk.nodes.nstack.kotlin.models.AppUpdate
 import dk.nodes.nstack.kotlin.models.AppUpdateState
-import kotlinx.android.synthetic.main.activity_start.*
 import net.hockeyapp.android.CrashManager
 import net.hockeyapp.android.CrashManagerListener
 import net.hockeyapp.android.UpdateManager

@@ -1,0 +1,398 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/backgroundColor</item>
+        <item name="android:windowContentTransitions">true</item>
+
+        <item name="android:indeterminateTint">@color/colorAccent</item>
+        <item name="android:indeterminateTintMode">src_in</item>
+
+        <item name="android:windowActivityTransitions">true</item>
+        <!-- <item name="android:backgroundDimEnabled">true</item> -->
+        <item name="android:windowAnimationStyle">@style/AppTheme.WindowTransition</item>
+        <!-- <item name="android:windowIsTranslucent">true</item> -->
+    </style>
+
+    <!-- Setting window animation -->
+    <style name="AppTheme.WindowTransition">
+        <!-- <item name="android:windowShowAnimation">@anim/fade_in</item> -->
+        <!-- <item name="android:windowEnterAnimation">@anim/fade_in</item> -->
+        <item name="android:windowEnterAnimation">@null</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+        <!-- <item name="android:windowHideAnimation">@anim/fade_out</item> -->
+    </style>
+
+    <style name="AlertDialogNStackUpdate" parent="AlertDialog.AppCompat">
+
+    </style>
+
+    <style name="TransTheme" parent="AppTheme">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <!-- Base text styles -->
+    <style name="text" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Header 0 -->
+    <style name="text.header0">
+        <item name="android:textSize">@dimen/text_size_header_0</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Header 1 -->
+    <style name="text.header1">
+        <item name="android:textSize">@dimen/text_size_header_1</item>
+        <item name="android:lineSpacingExtra">8sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <!-- Header 2 -->
+    <style name="text.header2">
+        <item name="android:textSize">@dimen/text_size_header_2</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text.header2.secondary">
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Header 3 -->
+    <style name="text.header3">
+        <item name="android:textSize">@dimen/text_size_header_3</item>
+        <item name="android:lineSpacingExtra">5sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text.header3.condensed">
+        <item name="android:lineSpacingExtra">1sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text.header3.secondary">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <!-- Header 4 -->
+    <style name="text.header4">
+        <item name="android:textSize">@dimen/text_size_header_4</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="text.header4.secondary">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <style name="text.header4.tertiary">
+        <item name="android:textColor">@color/textColorTertiary</item>
+    </style>
+
+    <style name="text.header4.quaternary">
+        <item name="android:textColor">@color/textColorQuaternary</item>
+    </style>
+
+    <!-- Subheader 5 -->
+    <style name="text.subHeader5">
+        <item name="android:textSize">@dimen/text_size_subheader_5</item>
+        <item name="android:lineSpacingExtra">7sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="text.subHeader5.tertiary">
+        <item name="android:textColor">@color/textColorTertiary</item>
+    </style>
+
+    <style name="text.subHeader5.quaternary">
+        <item name="android:textColor">@color/textColorQuaternary</item>
+    </style>
+
+    <!-- 6 Body -->
+    <style name="text.body6">
+        <item name="android:textSize">@dimen/text_size_body_6</item>
+        <item name="android:lineSpacingExtra">9sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="text.body6.secondary">
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <!-- Buttons textstyle -->
+    <!-- normal -->
+    <style name="text.button">
+        <item name="android:textSize">@dimen/text_size_button</item>
+        <item name="android:lineSpacingExtra">6sp</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="text.button.white">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="text.button.tertiary">
+        <item name="android:textColor">@color/textColorTertiary</item>
+    </style>
+
+    <style name="text.button.quaternary">
+        <item name="android:textColor">@color/textColorQuaternary</item>
+    </style>
+
+    <!-- Large -->
+    <style name="text.buttonLarge">
+        <item name="android:textSize">@dimen/text_size_button_large</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text.buttonLarge.white">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="text.buttonLarge.tertiary">
+        <item name="android:textColor">@color/textColorTertiary</item>
+    </style>
+
+    <style name="text.buttonLarge.quaternary">
+        <item name="android:textColor">@color/textColorQuaternary</item>
+    </style>
+
+    <!-- smalll -->
+    <style name="text.buttonSmall">
+        <item name="android:textSize">@dimen/text_size_button_small</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text.buttonSmall.white">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="text.buttonSmall.tertiary">
+        <item name="android:textColor">@color/textColorTertiary</item>
+    </style>
+
+    <style name="text.buttonSmall.quaternary">
+        <item name="android:textColor">@color/textColorQuaternary</item>
+    </style>
+
+    <!--Text input edit styles-->
+    <style name="errorappearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/rouge</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <!-- Buttons -->
+    <style name="button" parent="Widget.AppCompat.Button">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:elevation">0dp</item>
+        <item name="elevation">0dp</item>
+        <item name="android:height">36dp</item>
+        <item name="android:minHeight">36dp</item>
+        <item name="android:paddingLeft">@dimen/margin_normal</item>
+        <item name="android:paddingRight">@dimen/margin_normal</item>
+        <item name="android:textSize">@dimen/text_size_button</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="button.borderless" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">@drawable/rippeldark</item>
+        <item name="android:textAppearance">@style/text.button.tertiary</item>
+    </style>
+
+    <style name="button.SolidGradient">
+        <item name="android:textColor">@color/selector_white_grey</item>
+        <item name="android:background">@drawable/rounded_gradient_button</item>
+    </style>
+
+    <style name="button.SolidGradient.large">
+        <item name="android:textSize">@dimen/text_size_button_large</item>
+        <item name="android:height">52dp</item>
+    </style>
+
+    <style name="button.OutlineGradient">
+        <item name="android:textColor">@color/rouge</item>
+        <item name="android:background">@drawable/rounded_outline_gradient_button</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="buttonRoundedCorners">
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_button</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="buttonRoundedCorners.Tintable">
+        <item name="android:background">@drawable/rounded_button_white</item>
+    </style>
+
+    <style name="buttonRoundedCorners.Tintable.darkText">
+        <item name="android:textAppearance">@style/text.buttonLarge</item>
+    </style>
+
+    <style name="buttonRoundedCorners.darkBlueGrey">
+        <item name="android:textAppearance">@style/text.buttonLarge</item>
+        <item name="android:textColor">@color/darkGreyBlue</item>
+    </style>
+
+    <style name="buttonRoundedCorners.darkBlueGrey.small">
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">12dp</item>
+        <item name="android:maxHeight">28dp</item>
+        <item name="android:textAppearance">@style/text.buttonSmall</item>
+        <item name="android:background">@drawable/ripple_rounded_grey</item>
+    </style>
+
+    <style name="enabledButtton">
+        <item name="android:background">@drawable/enabled_button</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/text_size_button_large</item>
+        <item name="android:textColor">@drawable/enabled_button</item>
+    </style>
+
+    <style name="enabledButtton.DarkText">
+        <item name="android:background">@drawable/enabled_button_dark_text</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@drawable/enabled_button_dark_text</item>
+    </style>
+
+    <!-- Indicators -->
+    <style name="badgeCount">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/rounded_gradient_button</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Progress" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="elevation">1dp</item>
+        <item name="android:maxHeight">4dp</item>
+        <item name="android:minHeight">4dp</item>
+    </style>
+
+    <style name="Progress.Onboarding">
+        <item name="android:progressDrawable">@drawable/progress_red_white</item>
+    </style>
+
+    <style name="Progress.Upload">
+        <item name="android:progressDrawable">@drawable/progress_red_grey</item>
+    </style>
+
+    <style name="EboksTextInputLayout">
+        <item name="android:textColorHint"></item>
+    </style>
+
+
+    <!-- hintTextAppearance -->
+    <style name="HintTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="HintSmallTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="HintSmallTextAppearance.red">
+        <item name="android:textColor">@color/textColorTertiary</item>
+    </style>
+
+    <style name="TextInputLayoutTheme" parent="AppTheme">
+        <item name="colorAccent">@color/textColorSecondary</item>
+        <item name="android:colorPrimary">@color/textColorSecondary</item>
+        <item name="android:colorControlActivated">@color/textColorSecondary</item>
+    </style>
+
+    <style name="TextInputLayoutTheme.red" parent="AppTheme">
+        <item name="colorAccent">@color/textColorTertiary</item>
+
+    </style>
+
+    <style name="TextInputLayoutMyProfileTheme" parent="AppTheme">
+        <item name="colorAccent">@color/white</item>
+        <item name="android:colorPrimary">@color/white</item>
+        <item name="android:colorControlActivated">@color/white</item>
+    </style>
+
+    <style name="MaterialTextInputLayoutMyProfileTheme" parent="AppTheme">
+        <item name="android:colorPrimary">@color/blueGrey</item>
+    </style>
+
+    <style name="EditText">
+        <item name="android:textColor">@color/darkGreyBlue</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:backgroundTint">@color/darkGreyBlue</item>
+    </style>
+
+    <style name="text.navigation">
+        <item name="android:textSize">9sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+
+    <!--
+    <style name="TextInputLayoutTheme" parent="AppTheme">
+        <item name="colorAccent">#f00</item>
+        <item name="android:colorPrimary">#0f0</item>
+        <item name="android:colorControlActivated">#00f</item>
+    </style>
+    -->
+
+    <style name="ToolbarTitle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">@dimen/text_size_header_2</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="ToolbarTitle.Secondary">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:elevation">2dp</item>
+
+        <!-- Activate the ripple effect when a toolbar menu item is clicked https://stackoverflow.com/a/30759118/1502079 -->
+        <item name="colorControlHighlight">@color/textColorSecondary</item>
+        <!-- https://stackoverflow.com/a/30977835/1502079 -->
+        <item name="actionBarItemBackground">?attr/selectableItemBackground</item>
+        <item name="colorControlNormal">@color/toolbarNormalColor</item>
+        <item name="actionMenuTextColor">@color/toolbar_item_selector</item>
+    </style>
+
+    <style name="ToolbarTheme.Secondary">
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="colorControlNormal">@color/textColorPrimary</item>
+        <item name="actionMenuTextColor">@color/textColorPrimary</item>
+    </style>
+
+    <style name="DatePickerTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/rouge</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColorPrimary">@android:color/black</item>
+    </style>
+</resources>

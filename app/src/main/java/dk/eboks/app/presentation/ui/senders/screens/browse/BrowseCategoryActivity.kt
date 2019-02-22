@@ -21,10 +21,6 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import dk.eboks.app.presentation.widgets.DividerItemDecoration
-import dk.eboks.app.util.guard
-import dk.eboks.app.util.setBubbleDrawable
-import kotlinx.android.synthetic.main.activity_senders_browse_category.*
-import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
 

@@ -27,7 +27,7 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View, EmbeddedViewer,
-    ViewerFragment {
+        ViewerFragment {
 
     @Inject
     lateinit var presenter: TextViewComponentContract.Presenter

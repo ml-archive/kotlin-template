@@ -228,12 +228,6 @@ dependencies {
     implementation Libs.Coroutines.core
     implementation Libs.Coroutines.android
 
-    implementation Libs.AndroidX.appcompat
-    implementation Libs.AndroidX.recyclerview
-    implementation Libs.AndroidX.cardview
-    implementation Libs.AndroidX.constraintlayout
-
-    implementation Libs.Nodes.Nstack.kotlin
 
     implementation Libs.Nodes.arch
     //implementation "dk.nodes.arch:base:LOCAL"

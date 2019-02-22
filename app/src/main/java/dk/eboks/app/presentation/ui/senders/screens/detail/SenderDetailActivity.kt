@@ -12,7 +12,6 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.nodes.nstack.kotlin.NStack
-import kotlinx.android.synthetic.main.activity_senders_detail.*
 import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject

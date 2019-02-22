@@ -119,7 +119,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     fun setRootFragment(resId: Int, fragment: Fragment?) {
         fragment?.let {
             supportFragmentManager.popBackStack(
-                backStackRootTag,
+                    backStackRootTag,
                 FragmentManager.POP_BACK_STACK_INCLUSIVE
             )
             supportFragmentManager.beginTransaction()

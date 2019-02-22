@@ -235,7 +235,8 @@ class AuthClientImpl(
 
                 // Timber.e("Parsed json obj ${jsonObj?.toString(4)} errorDescription = ${jsonObj?.getString("error_description")}")
 
-                throw(AuthException(result.code(), jsonObj.getString("error_description") ?: ""))
+                throw(AuthException(result.code(), jsonObj.getString("error_description")
+                        ?: ""))
             }
         }
         return null

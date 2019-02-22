@@ -10,7 +10,7 @@ interface PermissionManager {
     fun checkPermission(perm: String): Boolean
     fun checkPermissions(perms: List<String>): Boolean
     fun requestPermission(perm: String): Boolean
-    fun requestPermissions(perms: List<String>): List<PermissionManager.Permission>?
+    fun requestPermissions(perms: List<String>): List<Permission>?
 
     fun onRequestCompleted()
 

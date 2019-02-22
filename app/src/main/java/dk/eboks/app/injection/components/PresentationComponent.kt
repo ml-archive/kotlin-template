@@ -277,3 +277,6 @@ interface PresentationComponent {
     fun inject(target: DebugUsersComponentFragment)
     fun inject(target: DebugUserActivity)
 }
+
+fun PresentationComponent.inject(target: DebugOptionsComponentFragment) {
+}
