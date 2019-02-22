@@ -12,7 +12,10 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.folder.components.FoldersComponentFragment
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
+import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
+import kotlinx.android.synthetic.main.activity_folder.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
 

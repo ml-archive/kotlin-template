@@ -10,6 +10,8 @@ import dk.eboks.app.domain.models.login.UserSettings
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.start.components.welcome.WelcomeComponentFragment
 import dk.eboks.app.util.guard
+import kotlinx.android.synthetic.main.activity_debug_user.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 class DebugUserActivity : BaseActivity(), DebugUserContract.View {

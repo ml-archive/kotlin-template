@@ -12,8 +12,10 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.util.addAfterTextChangeListener
 import dk.eboks.app.util.isValidEmail
+import kotlinx.android.synthetic.main.activity_storebox_connect.*
 import kotlinx.android.synthetic.main.fragment_storeboxconnect_confirm.*
 import kotlinx.android.synthetic.main.fragment_storeboxconnect_userinfo.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
 import javax.inject.Inject
 

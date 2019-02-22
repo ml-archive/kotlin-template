@@ -11,8 +11,12 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.util.views
+import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
+import kotlinx.android.synthetic.main.activity_overlay.*
+import kotlinx.android.synthetic.main.viewholder_overlay_row.view.*
 import java.util.Locale
 import javax.inject.Inject
 

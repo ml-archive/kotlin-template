@@ -45,7 +45,8 @@ dependencies {
     implementation Libs.Coroutines.core
     implementation Libs.Coroutines.android
 
-    implementation Libs.Nodes.Nstack.kotlin
+    // Encryption Lib
+    implementation Libs.Nodes.locksmith
 
     implementation Libs.Dagger.dagger
     kapt Libs.Dagger.compiler

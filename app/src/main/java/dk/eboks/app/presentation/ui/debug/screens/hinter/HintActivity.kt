@@ -10,6 +10,7 @@ import android.preference.PreferenceManager
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.presentation.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_hint.*
 import javax.inject.Inject
 
 class HintActivity : BaseActivity() {

@@ -13,6 +13,7 @@ import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.components.categories.CategoriesComponentFragment
 import dk.nodes.nstack.kotlin.NStack
+import kotlinx.android.synthetic.main.activity_senders_detail.*
 import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject

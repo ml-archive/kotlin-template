@@ -20,7 +20,10 @@ import dk.eboks.app.presentation.ui.home.components.folderpreview.RefreshFolderP
 import dk.eboks.app.presentation.ui.home.components.folderpreview.RefreshFolderPreviewEvent
 import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
 import dk.eboks.app.presentation.ui.profile.screens.ProfileActivity
+import dk.eboks.app.util.Starter
 import dk.eboks.app.util.putArg
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.include_toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
