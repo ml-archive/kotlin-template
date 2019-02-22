@@ -1,7 +1,7 @@
 package dk.eboks.app.injection.modules
 
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentContract
@@ -56,6 +56,8 @@ import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelContro
 import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelControlComponentPresenter
 import dk.eboks.app.presentation.ui.home.components.folderpreview.FolderPreviewComponentContract
 import dk.eboks.app.presentation.ui.home.components.folderpreview.FolderPreviewComponentPresenter
+import dk.eboks.app.presentation.ui.home.screens.HomeContract
+import dk.eboks.app.presentation.ui.home.screens.HomePresenter
 import dk.eboks.app.presentation.ui.login.components.ActivationCodeComponentContract
 import dk.eboks.app.presentation.ui.login.components.ActivationCodeComponentPresenter
 import dk.eboks.app.presentation.ui.login.components.DeviceActivationComponentContract
@@ -189,578 +191,382 @@ import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadPresent
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
 @Module
-class PresentationModule {
+abstract class PresentationModule {
     @ActivityScope
-    @Provides
-    fun providePastaPresenter(presenter: PastaPresenter): PastaContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun providePastaPresenter(presenter: PastaPresenter): PastaContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideMailOverviewPresenter(presenter: MailOverviewPresenter): MailOverviewContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideMailOverviewPresenter(presenter: MailOverviewPresenter): MailOverviewContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideMailListPresenter(presenter: MailListPresenter): MailListContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideMailListPresenter(presenter: MailListPresenter): MailListContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideFolderPresenter(presenter: FolderPresenter): FolderContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideFolderPresenter(presenter: FolderPresenter): FolderContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideMessagePresenter(
-        presenter: MessagePresenter
-    ): MessageContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideMessagePresenter(presenter: MessagePresenter): MessageContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideChannelsPresenter(presenter: ChannelOverviewPresenter): ChannelOverviewContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideChannelsPresenter(presenter: ChannelOverviewPresenter): ChannelOverviewContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideFileUploadPresenter(presenter: FileUploadPresenter): FileUploadContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideFileUploadPresenter(presenter: FileUploadPresenter): FileUploadContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideMessageSheetPresenter(presenter: MessageEmbeddedPresenter): MessageEmbeddedContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideMessageSheetPresenter(presenter: MessageEmbeddedPresenter): MessageEmbeddedContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideMessageOpeningPresenter(presenter: MessageOpeningPresenter): MessageOpeningContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideMessageOpeningPresenter(presenter: MessageOpeningPresenter): MessageOpeningContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideHeaderComponentPresenter(presenter: HeaderComponentPresenter): HeaderComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideHeaderComponentPresenter(presenter: HeaderComponentPresenter): HeaderComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideNotesComponentPresenter(presenter: NotesComponentPresenter): NotesComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideNotesComponentPresenter(presenter: NotesComponentPresenter): NotesComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideReplyButtonComponentPresenter(presenter: ReplyButtonComponentPresenter): ReplyButtonComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideReplyButtonComponentPresenter(presenter: ReplyButtonComponentPresenter): ReplyButtonComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideSignButtonComponentPresenter(presenter: SignButtonComponentPresenter): SignButtonComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideSignButtonComponentPresenter(presenter: SignButtonComponentPresenter): SignButtonComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideSignPresenter(presenter: SignPresenter): SignContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideSignPresenter(presenter: SignPresenter): SignContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideAttachmentsComponentPresenter(presenter: AttachmentsComponentPresenter): AttachmentsComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideAttachmentsComponentPresenter(presenter: AttachmentsComponentPresenter): AttachmentsComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideFolderInfoComponentPresenter(presenter: FolderInfoComponentPresenter): FolderInfoComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideFolderInfoComponentPresenter(presenter: FolderInfoComponentPresenter): FolderInfoComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideDocumentComponentPresenter(presenter: DocumentComponentPresenter): DocumentComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideDocumentComponentPresenter(presenter: DocumentComponentPresenter): DocumentComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun providePdfPreviewComponentPresenter(presenter: PdfViewComponentPresenter): PdfViewComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun providePdfPreviewComponentPresenter(presenter: PdfViewComponentPresenter): PdfViewComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideFoldersComponentPresenter(presenter: FoldersComponentPresenter): FoldersComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideFoldersComponentPresenter(presenter: FoldersComponentPresenter): FoldersComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideFolderShortcutsComponentPresenter(presenter: FolderShortcutsComponentPresenter): FolderShortcutsComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideFolderShortcutsComponentPresenter(presenter: FolderShortcutsComponentPresenter): FolderShortcutsComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideSenderCarouselComponentPresenter(presenter: SenderCarouselComponentPresenter): SenderCarouselComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideSenderCarouselComponentPresenter(presenter: SenderCarouselComponentPresenter): SenderCarouselComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideMailListComponentPresenter(presenter: MailListComponentPresenter): MailListComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideMailListComponentPresenter(presenter: MailListComponentPresenter): MailListComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideNavBarComponentPresenter(presenter: NavBarComponentPresenter): NavBarComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideNavBarComponentPresenter(presenter: NavBarComponentPresenter): NavBarComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideHtmlViewComponentPresenter(presenter: HtmlViewComponentPresenter): HtmlViewComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideHtmlViewComponentPresenter(presenter: HtmlViewComponentPresenter): HtmlViewComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideImageViewComponentPresenter(presenter: ImageViewComponentPresenter): ImageViewComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideImageViewComponentPresenter(presenter: ImageViewComponentPresenter): ImageViewComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideTextViewComponentPresenter(presenter: TextViewComponentPresenter): TextViewComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideTextViewComponentPresenter(presenter: TextViewComponentPresenter): TextViewComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideQuarantineComponentPresenter(presenter: QuarantineComponentPresenter): QuarantineComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideQuarantineComponentPresenter(presenter: QuarantineComponentPresenter): QuarantineComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideRecalledMessageComponentPresenter(presenter: RecalledComponentPresenter): RecalledComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideRecalledMessageComponentPresenter(presenter: RecalledComponentPresenter): RecalledComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun providePromulgationComponentPresenter(presenter: PromulgationComponentPresenter): PromulgationComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun providePromulgationComponentPresenter(presenter: PromulgationComponentPresenter): PromulgationComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideProtectedMessageComponentPresenter(presenter: ProtectedMessageComponentPresenter): ProtectedMessageComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideProtectedMessageComponentPresenter(presenter: ProtectedMessageComponentPresenter): ProtectedMessageComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideOpeningReceiptComponentPresenter(presenter: OpeningReceiptComponentPresenter): OpeningReceiptComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideOpeningReceiptComponentPresenter(presenter: OpeningReceiptComponentPresenter): OpeningReceiptComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun providePrivateSenderWarningComponentPresenter(presenter: PrivateSenderWarningComponentPresenter): PrivateSenderWarningComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun providePrivateSenderWarningComponentPresenter(presenter: PrivateSenderWarningComponentPresenter): PrivateSenderWarningComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideChannelListComponentPresenter(presenter: ChannelOverviewComponentPresenter): ChannelOverviewComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideChannelListComponentPresenter(presenter: ChannelOverviewComponentPresenter): ChannelOverviewComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideChannelSettingsPopUpComponentPresenter(presenter: ChannelRequirementsComponentPresenter): ChannelRequirementsComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideChannelSettingsPopUpComponentPresenter(presenter: ChannelRequirementsComponentPresenter): ChannelRequirementsComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideShareComponentPresenter(presenter: ShareComponentPresenter): ShareComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideShareComponentPresenter(presenter: ShareComponentPresenter): ShareComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideSendersOverviewPresenter(presenter: SendersOverviewPresenter): SendersOverviewContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideSendersOverviewPresenter(presenter: SendersOverviewPresenter): SendersOverviewContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideStartPresenter(presenter: StartPresenter): StartContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideStartPresenter(presenter: StartPresenter): StartContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideSignupComponentPresenter(presenter: SignupComponentPresenter): SignupComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideSignupComponentPresenter(presenter: SignupComponentPresenter): SignupComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideVerificationComponentPresenter(presenter: VerificationComponentPresenter): VerificationComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideVerificationComponentPresenter(presenter: VerificationComponentPresenter): VerificationComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideUserCarouselComponentPresenter(presenter: UserCarouselComponentPresenter): UserCarouselComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideUserCarouselComponentPresenter(presenter: UserCarouselComponentPresenter): UserCarouselComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideLoginComponentPresenter(presenter: LoginComponentPresenter): LoginComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideLoginComponentPresenter(presenter: LoginComponentPresenter): LoginComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideForgotPasswordComponentPresenter(presenter: ForgotPasswordComponentPresenter): ForgotPasswordComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideForgotPasswordComponentPresenter(presenter: ForgotPasswordComponentPresenter): ForgotPasswordComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideActivationCodeComponentPresenter(presenter: ActivationCodeComponentPresenter): ActivationCodeComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideActivationCodeComponentPresenter(presenter: ActivationCodeComponentPresenter): ActivationCodeComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideChannelOpeningComponentPresenter(presenter: ChannelOpeningComponentPresenter): ChannelOpeningComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideChannelOpeningComponentPresenter(presenter: ChannelOpeningComponentPresenter): ChannelOpeningComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideChannelVerificationComponentPresenter(presenter: ChannelVerificationComponentPresenter): ChannelVerificationComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideChannelVerificationComponentPresenter(presenter: ChannelVerificationComponentPresenter): ChannelVerificationComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideChannelContentComponentPresenter(presenter: ChannelContentComponentPresenter): ChannelContentComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideChannelContentComponentPresenter(presenter: ChannelContentComponentPresenter): ChannelContentComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideChannelContentStoreboxComponentPresenter(presenter: ChannelContentStoreboxComponentPresenter): ChannelContentStoreboxComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideChannelContentStoreboxComponentPresenter(presenter: ChannelContentStoreboxComponentPresenter): ChannelContentStoreboxComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideChannelContentStoreboxDetailComponentPresenter(presenter: ChannelContentStoreboxDetailComponentPresenter): ChannelContentStoreboxDetailComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideChannelContentStoreboxDetailComponentPresenter(presenter: ChannelContentStoreboxDetailComponentPresenter): ChannelContentStoreboxDetailComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideChannelSettingsComponentPresenter(presenter: ChannelSettingsComponentPresenter): ChannelSettingsComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideChannelSettingsComponentPresenter(presenter: ChannelSettingsComponentPresenter): ChannelSettingsComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideChannelContentPresenter(presenter: ChannelContentPresenter): ChannelContentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideChannelContentPresenter(presenter: ChannelContentPresenter): ChannelContentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideCategoriesComponentPresenter(presenter: CategoriesComponentPresenter): CategoriesComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideCategoriesComponentPresenter(presenter: CategoriesComponentPresenter): CategoriesComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideBrowseCategoryPresenter(
-        presenter: BrowseCategoryPresenter
-    ): BrowseCategoryContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideBrowseCategoryPresenter(presenter: BrowseCategoryPresenter): BrowseCategoryContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideRegistrationsPresenter(presenter: RegistrationsPresenter): RegistrationsContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideRegistrationsPresenter(presenter: RegistrationsPresenter): RegistrationsContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideSenderGroupsComponentPresenter(presenter: SenderGroupsComponentPresenter): SenderGroupsComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideSenderGroupsComponentPresenter(presenter: SenderGroupsComponentPresenter): SenderGroupsComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideUploadOverviewPresenter(presenter: UploadOverviewComponentPresenter): UploadOverviewComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideUploadOverviewPresenter(presenter: UploadOverviewComponentPresenter): UploadOverviewComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideRegisterPresenter(presenter: RegisterPresenter): RegistrationContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideRegisterPresenter(presenter: RegisterPresenter): RegistrationContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun providePendingPresenter(presenter: PendingPresenter): PendingContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun providePendingPresenter(presenter: PendingPresenter): PendingContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideSenderDetailPresenter(presenter: SenderDetailPresenter): SenderDetailContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideSenderDetailPresenter(presenter: SenderDetailPresenter): SenderDetailContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideSegmentDetailPresenter(presenter: SegmentDetailPresenter): SegmentDetailContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideSegmentDetailPresenter(presenter: SegmentDetailPresenter): SegmentDetailContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideDebugOptionsComponentPresenter(presenter: DebugOptionsComponentPresenter): DebugOptionsComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideDebugOptionsComponentPresenter(presenter: DebugOptionsComponentPresenter): DebugOptionsComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideDebugUsersComponentPresenter(presenter: DebugUsersComponentPresenter): DebugUsersComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideDebugUsersComponentPresenter(presenter: DebugUsersComponentPresenter): DebugUsersComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideProfilePresenter(presenter: ProfilePresenter): ProfileContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideProfilePresenter(presenter: ProfilePresenter): ProfileContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideProfileInfoComponentPresenter(presenter: ProfileInfoComponentPresenter): ProfileInfoComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideProfileInfoComponentPresenter(presenter: ProfileInfoComponentPresenter): ProfileInfoComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideMyInfoComponentPresenter(presenter: MyInfoComponentPresenter): MyInfoComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideMyInfoComponentPresenter(presenter: MyInfoComponentPresenter): MyInfoComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideDebugUserPresenter(presenter: DebugUserPresenter): DebugUserContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideDebugUserPresenter(presenter: DebugUserPresenter): DebugUserContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideEmailVerificationComponentPresenter(presenter: EmailVerificationComponentPresenter): EmailVerificationComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideEmailVerificationComponentPresenter(presenter: EmailVerificationComponentPresenter): EmailVerificationComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun providePhoneVerificationComponentPresenter(presenter: PhoneVerificationComponentPresenter): PhoneVerificationComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun providePhoneVerificationComponentPresenter(presenter: PhoneVerificationComponentPresenter): PhoneVerificationComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideFingerHintComponentPresenter(presenter: FingerHintComponentPresenter): FingerHintComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideFingerHintComponentPresenter(presenter: FingerHintComponentPresenter): FingerHintComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideFingerPrintComponentPresenter(presenter: FingerPrintComponentPresenter): FingerPrintComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideFingerPrintComponentPresenter(presenter: FingerPrintComponentPresenter): FingerPrintComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideMergeAccountComponentPresenter(presenter: MergeAccountComponentPresenter): MergeAccountComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideMergeAccountComponentPresenter(presenter: MergeAccountComponentPresenter): MergeAccountComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideUploadsPresenter(presenter: UploadsPresenter): UploadsContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideUploadsPresenter(presenter: UploadsPresenter): UploadsContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideForgotPasswordDoneComponentPresenter(presenter: ForgotPasswordDoneComponentPresenter): ForgotPasswordDoneComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideForgotPasswordDoneComponentPresenter(presenter: ForgotPasswordDoneComponentPresenter): ForgotPasswordDoneComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideOverlayPresenter(presenter: OverlayPresenter): OverlayContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideOverlayPresenter(presenter: OverlayPresenter): OverlayContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideConnectStoreboxPresenter(
-        presenter: ConnectStoreboxPresenter
-    ): ConnectStoreboxContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideConnectStoreboxPresenter(presenter: ConnectStoreboxPresenter): ConnectStoreboxContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideMyInfoPresenter(presenter: MyInfoPresenter): MyInfoContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideMyInfoPresenter(presenter: MyInfoPresenter): MyInfoContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideReplyFormPresenter(
-        presenter: ReplyFormPresenter
-    ): ReplyFormContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideReplyFormPresenter(presenter: ReplyFormPresenter): ReplyFormContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideSenderAllListPresenter(presenter: SenderAllListPresenter): SenderAllListContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideSenderAllListPresenter(presenter: SenderAllListPresenter): SenderAllListContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideSenderAllListComponentPresenter(
-        presenter: SenderAllListComponentPresenter
-    ): SenderAllListComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideSenderAllListComponentPresenter(presenter: SenderAllListComponentPresenter): SenderAllListComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideNewFolderComponentPresenter(
-        presenter: NewFolderComponentPresenter
-    ): NewFolderComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideNewFolderComponentPresenter(presenter: NewFolderComponentPresenter): NewFolderComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideFolderSelectUserComponentPresenter(
-        presenter: FolderSelectUserComponentPresenter
-    ): FolderSelectUserComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideFolderSelectUserComponentPresenter(presenter: FolderSelectUserComponentPresenter): FolderSelectUserComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideEkeyContentPresenter(
-        presenter: EkeyContentPresenter
-    ): EkeyContentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideEkeyContentPresenter(presenter: EkeyContentPresenter): EkeyContentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideEkeyComponentPresenter(presenter: EkeyComponentPresenter): EkeyComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideEkeyComponentPresenter(presenter: EkeyComponentPresenter): EkeyComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideEkeyAddItemComponentPresenter(presenter: EkeyAddItemComponentPresenter): EkeyAddItemComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideEkeyAddItemComponentPresenter(presenter: EkeyAddItemComponentPresenter): EkeyAddItemComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideEkeyDetailComponentPresenter(presenter: EkeyDetailComponentPresenter): EkeyDetailComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideEkeyDetailComponentPresenter(presenter: EkeyDetailComponentPresenter): EkeyDetailComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideFolderPreviewComponentPresenter(presenter: FolderPreviewComponentPresenter): FolderPreviewComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideFolderPreviewComponentPresenter(presenter: FolderPreviewComponentPresenter): FolderPreviewComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideChannelControlComponentPresenter(presenter: ChannelControlComponentPresenter): ChannelControlComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideChannelControlComponentPresenter(presenter: ChannelControlComponentPresenter): ChannelControlComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideEkeyOpenItemComponentPresenter(presenter: EkeyOpenItemComponentPresenter): EkeyOpenItemComponentContract.Presenter =
-        presenter
+    @Binds
+    abstract fun provideEkeyOpenItemComponentPresenter(presenter: EkeyOpenItemComponentPresenter): EkeyOpenItemComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideEkeyPinComponentPresenter(presenter: EkeyPinComponentPresenter): EkeyPinComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideEkeyPinComponentPresenter(presenter: EkeyPinComponentPresenter): EkeyPinComponentContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun providePrivacyPresenter(presenter: PrivacyPresenter): PrivacyContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun providePrivacyPresenter(presenter: PrivacyPresenter): PrivacyContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideHelpPresenter(presenter: HelpPresenter): HelpContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideHelpPresenter(presenter: HelpPresenter): HelpContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun providePopupLoginPresenter(presenter: PopupLoginPresenter): PopupLoginContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun providePopupLoginPresenter(presenter: PopupLoginPresenter): PopupLoginContract.Presenter
 
     @ActivityScope
-    @Provides
-    fun provideDeviceActivationComponentPresenter(presenter: DeviceActivationComponentPresenter): DeviceActivationComponentContract.Presenter {
-        return presenter
-    }
+    @Binds
+    abstract fun provideDeviceActivationComponentPresenter(presenter: DeviceActivationComponentPresenter): DeviceActivationComponentContract.Presenter
 
+    @ActivityScope
+    @Binds
+    abstract fun provideHomePresenter(presenter: HomePresenter): HomeContract.Presenter
     /* Pasta
     @ActivityScope
-    @Provides
-    fun provideComponentPresenter(stateManager: AppStateManager) : ComponentContract.Presenter {
+    @Binds
+    abstract fun provideComponentPresenter(stateManager: AppStateManager) : ComponentContract.Presenter {
         return ComponentPresenter(stateManager)
     }
     */
