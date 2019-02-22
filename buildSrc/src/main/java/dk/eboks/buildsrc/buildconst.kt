@@ -1,7 +1,7 @@
 package dk.eboks.buildsrc
 
 object AppVersions {
-    const val code = 147
+    const val code = 148
     const val name = "4.0.4"
 }
 

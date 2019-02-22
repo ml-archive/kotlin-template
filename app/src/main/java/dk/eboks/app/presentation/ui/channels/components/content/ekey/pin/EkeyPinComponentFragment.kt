@@ -125,7 +125,7 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
         ekeyPasswordInputOptionsBtn.setOnClickListener {
             val intent = OverlayActivity.createIntent(
                 context, arrayListOf(
-                    OverlayButton(type = ButtonType.INPUT_ALPHANUMERIC),
+                    OverlayButton(ButtonType.INPUT_ALPHANUMERIC),
                     OverlayButton(ButtonType.INPUT_NUMERIC)
                 )
             )
@@ -141,7 +141,7 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
                 ekeyPasswordInputLayout.error = Translation.error.pincodeMinLenght
                 return
             }
-            else -> return
+
         }
         getEkeyBaseActivity()?.setPin(pin)
         getEkeyBaseActivity()?.refreshClearAndShowMain()
