@@ -229,18 +229,13 @@ dependencies {
     implementation Libs.Coroutines.core
     implementation Libs.Coroutines.android
 
-    implementation Libs.AndroidX.appcompat
-    implementation Libs.AndroidX.recyclerview
-    implementation Libs.AndroidX.cardview
-    implementation Libs.AndroidX.constraintlayout
-
-    implementation Libs.Nodes.Nstack.kotlin
 
     implementation Libs.Nodes.arch
-    //implementation "dk.nodes.arch:base:LOCAL"
-    implementation Libs.Nodes.filepicker
+    implementation Libs.Nodes.Nstack.kotlin
     // Encryption Lib
     implementation Libs.Nodes.locksmith
+    //implementation "dk.nodes.arch:base:LOCAL"
+    implementation Libs.Nodes.filepicker
 
     implementation Libs.Google.material
     // Barcode Generation Library

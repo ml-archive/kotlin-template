@@ -80,7 +80,8 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
             }
             mainTb.title = cat.name
         }
-        browseCatRv.setBubbleDrawable(resources.getDrawable(R.drawable.fastscroll_bubble))
+        ContextCompat.getDrawable(this, R.drawable.fastscroll_bubble)
+            ?.let(browseCatRv::setBubbleDrawable)
     }
 
     override fun showSenders(senders: List<Sender>) {

@@ -74,7 +74,7 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
     override fun setUser(user: User?, userName: String?) {
         setupTopbar(userName)
         user?.let {
-            folderShortcutsFragmentContainerFl.visible = (it.verified)
+            folderShortcutsFragmentContainerFl.visible = it.verified
         }
     }
 

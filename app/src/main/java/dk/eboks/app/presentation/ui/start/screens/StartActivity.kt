@@ -226,7 +226,7 @@ class StartActivity : BaseActivity(), StartContract.View {
         if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             debugConfEnvTv.text =
                 "Conf/Env: ${Config.getCurrentConfigName()}/${Config.getCurrentEnvironmentName()}"
-            debugConfEnvTv.visible = (true)
+            debugConfEnvTv.visible = true
         }
     }
 }

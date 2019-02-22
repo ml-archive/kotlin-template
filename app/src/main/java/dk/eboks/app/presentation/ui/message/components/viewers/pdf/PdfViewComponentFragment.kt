@@ -19,7 +19,7 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, EmbeddedViewer,
-    ViewerFragment {
+        ViewerFragment {
 
     @Inject
     lateinit var presenter: PdfViewComponentContract.Presenter

@@ -3,11 +3,12 @@ package dk.eboks.app.system.managers
 import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import dk.eboks.app.domain.managers.PrefManager
 
 /**
  * Created by bison on 11/10/17.
  */
-class PrefManagerImpl(context: Context) : dk.eboks.app.domain.managers.PrefManager {
+class PrefManagerImpl(context: Context) : PrefManager {
     private var sharedPrefs: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
 

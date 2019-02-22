@@ -37,7 +37,9 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     var backPressedCallback: (() -> Boolean)? = null
 
     open val defaultErrorHandler: ViewErrorController by lazy {
-        ViewErrorController(context = this, closeFunction = { finish() })
+        ViewErrorController(
+            context = this,
+            closeFunction = { finish() })
     }
 
     companion object {
