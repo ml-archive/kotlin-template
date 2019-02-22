@@ -1,7 +1,6 @@
 package dk.eboks.app.injection.components
 
 import dagger.Subcomponent
-import dk.eboks.app.injection.modules.PresentationBindingModule
 import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.pasta.activity.PastaActivity
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
@@ -115,7 +114,7 @@ import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadActivit
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
-@Subcomponent(modules = [PresentationModule::class, PresentationBindingModule::class])
+@Subcomponent(modules = [PresentationModule::class])
 @ActivityScope
 interface PresentationComponent {
 

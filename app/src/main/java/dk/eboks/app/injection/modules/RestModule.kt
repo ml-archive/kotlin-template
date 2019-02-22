@@ -13,7 +13,6 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.AuthClient
 import dk.eboks.app.domain.managers.DownloadManager
 import dk.eboks.app.domain.managers.FileCacheManager
-import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.network.Api
 import dk.eboks.app.network.BuildConfig
 import dk.eboks.app.network.managers.AuthClientImpl
@@ -103,7 +102,6 @@ class RestModule {
         eboksHeaderInterceptor: EboksHeaderInterceptor,
         eAuth2: EAuth2,
         gson: Gson,
-        prefManager: PrefManager,
         context: Context
     ): OkHttpClient {
 
