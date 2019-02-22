@@ -1,4 +1,4 @@
-package dk.eboks.app.injection.modules
+package dk.eboks.app.network
 
 import android.content.Context
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
@@ -8,14 +8,12 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.AuthClient
 import dk.eboks.app.domain.managers.DownloadManager
-import dk.eboks.app.domain.managers.FileCacheManager
-import dk.eboks.app.network.Api
-import dk.eboks.app.network.BuildConfig
 import dk.eboks.app.network.managers.AuthClientImpl
+import dk.eboks.app.network.managers.DownloadManagerImpl
 import dk.eboks.app.network.managers.protocol.AcceptLanguageHeaderInterceptor
 import dk.eboks.app.network.managers.protocol.ApiHostSelectionInterceptor
 import dk.eboks.app.network.managers.protocol.EAuth2
@@ -64,8 +62,8 @@ class RestModule {
     @Provides
     @Named("NAME_BASE_URL")
     @AppScope
-    fun provideBaseUrlString(): String {
-        return Config.getApiUrl()
+    fun provideBaseUrlString(appConfig: AppConfig): String {
+        return appConfig.getApiUrl()
     }
 
     @Provides
@@ -76,18 +74,8 @@ class RestModule {
 
     @Provides
     @AppScope
-    fun provideDownloadManager(
-        context: Context,
-        client: OkHttpClient,
-        cacheManager: FileCacheManager,
-        appStateManager: AppStateManager
-    ): DownloadManager {
-        return dk.eboks.app.network.managers.DownloadManagerImpl(
-            context,
-            client,
-            cacheManager,
-            appStateManager
-        )
+    fun provideDownloadManager(manager: DownloadManagerImpl): DownloadManager {
+        return manager
     }
 
     @Provides
@@ -102,7 +90,8 @@ class RestModule {
         eboksHeaderInterceptor: EboksHeaderInterceptor,
         eAuth2: EAuth2,
         gson: Gson,
-        context: Context
+        context: Context,
+        apiHostSelectionInterceptor: ApiHostSelectionInterceptor
     ): OkHttpClient {
 
         val clientBuilder = OkHttpClient.Builder()
@@ -116,7 +105,7 @@ class RestModule {
         // .addInterceptor(NMetaInterceptor(BuildConfig.FLAVOR))
 
         if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
-            clientBuilder.addInterceptor(ApiHostSelectionInterceptor())
+            clientBuilder.addInterceptor(apiHostSelectionInterceptor)
         }
 
         if (BuildConfig.DEBUG) {

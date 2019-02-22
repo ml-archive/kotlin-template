@@ -10,7 +10,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
@@ -27,8 +27,8 @@ import javax.inject.Inject
  */
 class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
-    @Inject
-    lateinit var presenter: NemIdComponentPresenter
+    @Inject lateinit var presenter: NemIdComponentPresenter
+    @Inject lateinit var appConfig: AppConfig
 
     var loginUser: User? = null
     var didAttemptToInstallNemID = false
@@ -78,7 +78,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     override fun setupLogin(user: User?) {
         loginUser = user
-        val loginUrl = "${Config.currentMode.environment?.kspUrl}nemid"
+        val loginUrl = "${appConfig.currentMode.environment?.kspUrl}nemid"
         Timber.e("Opening $loginUrl")
 
         // Timber.e(getJS())
@@ -127,7 +127,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     private fun openNemIdApp() {
         // app switch test
         val secondFactorIntent =
-            if (Config.getCurrentEnvironmentName()?.contentEquals("production") == false)
+            if (appConfig.currentEnvironmentName?.contentEquals("production") == false)
                 activity?.packageManager?.getLaunchIntentForPackage("dk.e_nettet.mobilekey.everyone.kopi")
             else
                 activity?.packageManager?.getLaunchIntentForPackage("dk.e_nettet.mobilekey.everyone")

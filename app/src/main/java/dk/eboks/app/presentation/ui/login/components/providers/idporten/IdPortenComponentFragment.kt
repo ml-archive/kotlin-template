@@ -6,7 +6,7 @@ import android.view.View
 import android.webkit.WebView
 import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
@@ -23,8 +23,8 @@ import javax.inject.Inject
  */
 class IdPortenComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
-    @Inject
-    lateinit var presenter: IdPortenComponentPresenter
+    @Inject lateinit var presenter: IdPortenComponentPresenter
+    @Inject lateinit var appConfig: AppConfig
 
     var loginUser: User? = null
 
@@ -71,7 +71,7 @@ class IdPortenComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     override fun setupLogin(user: User?) {
         loginUser = user
-        val loginUrl = "${Config.currentMode.environment?.kspUrl}idporten"
+        val loginUrl = "${appConfig.currentMode.environment?.kspUrl}idporten"
         Timber.e("Opening $loginUrl")
         webView.loadUrl(loginUrl)
     }

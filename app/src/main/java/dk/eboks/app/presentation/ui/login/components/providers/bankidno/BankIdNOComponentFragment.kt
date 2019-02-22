@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
@@ -22,8 +22,8 @@ import javax.inject.Inject
  */
 class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
-    @Inject
-    lateinit var presenter: BankIdNOComponentPresenter
+    @Inject lateinit var presenter: BankIdNOComponentPresenter
+    @Inject lateinit var appConfig: AppConfig
 
     var loginUser: User? = null
 
@@ -71,7 +71,7 @@ class BankIdNOComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     override fun setupLogin(user: User?) {
         loginUser = user
-        val loginUrl = "${Config.currentMode.environment?.kspUrl}bankid"
+        val loginUrl = "${appConfig.currentMode.environment?.kspUrl}bankid"
         Timber.e("Opening $loginUrl")
         webView.loadUrl(loginUrl)
     }

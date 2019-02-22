@@ -14,9 +14,8 @@ import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.injection.modules.AppModule
 import dk.eboks.app.injection.modules.ExecutorModule
 import dk.eboks.app.injection.modules.InteractorModule
-import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.injection.modules.RepositoryModule
-import dk.eboks.app.injection.modules.RestModule
+import dk.eboks.app.network.RestModule
 import dk.eboks.app.injection.modules.StorageModule
 import dk.eboks.app.injection.modules.UtilModule
 import dk.eboks.app.network.Api
@@ -46,7 +45,7 @@ interface AppComponent {
     fun inject(t: ICacheStore)
 
     // For Interactor Injection
-    fun plus(presentationModule: PresentationModule): PresentationComponent
+    fun plus(): PresentationComponent
 
     // expose functions to components dependent on this component
     fun executor(): Executor

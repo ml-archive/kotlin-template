@@ -46,7 +46,11 @@ dependencies {
     implementation Libs.Nodes.arch
 
     implementation Libs.Retrofit.retrofit
-    implementation Libs.gson
+    implementation Libs.Retrofit.scalarsConverter
+    implementation Libs.Retrofit.gsonConverter
+
+    // cookie jar for okhttp
+    implementation Libs.persistentCookieJar
 
     implementation Libs.OkHttp.okhttp
     implementation Libs.OkHttp.loggingInterceptor

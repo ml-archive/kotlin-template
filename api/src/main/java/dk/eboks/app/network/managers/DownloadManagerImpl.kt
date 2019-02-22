@@ -1,7 +1,7 @@
 package dk.eboks.app.network.managers
 
 import android.content.Context
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.DownloadManager
 import dk.eboks.app.domain.managers.FileCacheManager
@@ -12,15 +12,18 @@ import okhttp3.Request
 import okio.Okio
 import timber.log.Timber
 import java.io.File
+import javax.inject.Inject
 
 /**
  * Created by bison on 18-02-2018.
  */
-class DownloadManagerImpl(
-    val context: Context,
-    val client: OkHttpClient,
-    val cacheManager: FileCacheManager,
-    val appStateManager: AppStateManager
+class DownloadManagerImpl @Inject constructor(
+    private val context: Context,
+    private val client: OkHttpClient,
+    private val cacheManager: FileCacheManager,
+    private val appStateManager: AppStateManager,
+    private val appConfig: AppConfig
+
 ) : DownloadManager {
     init {
     }
@@ -30,7 +33,7 @@ class DownloadManagerImpl(
 
         val folderId = if (message.folder != null) message.folder!!.id else message.folderId
         var url =
-            "${Config.getApiUrl()}mail/folders/$folderId/messages/${content.id}/content".appendUserId(
+            "${appConfig.getApiUrl()}mail/folders/$folderId/messages/${content.id}/content".appendUserId(
                 appStateManager.state?.impersoniateUser?.userId
             )
         content.contentUrlMock?.let {
@@ -66,7 +69,7 @@ class DownloadManagerImpl(
         Timber.e("Downloading attachment content...")
         var folderId = if (message.folder != null) message.folder!!.id else message.folderId
         var url =
-            "${Config.getApiUrl()}mail/folders/$folderId/messages/${message.id}/attachment/${content.id}/content".appendUserId(
+            "${appConfig.getApiUrl()}mail/folders/$folderId/messages/${message.id}/attachment/${content.id}/content".appendUserId(
                 appStateManager.state?.impersoniateUser?.userId
             )
         content.contentUrlMock?.let {
@@ -89,9 +92,10 @@ class DownloadManagerImpl(
 
     override fun downloadReceiptContent(receiptId: String): String? {
         Timber.e("Downloading receipt content...")
-        var url = "${Config.getApiUrl()}channels/storebox/receipts/$receiptId/content".appendUserId(
-            appStateManager.state?.impersoniateUser?.userId
-        )
+        var url =
+            "${appConfig.getApiUrl()}channels/storebox/receipts/$receiptId/content".appendUserId(
+                appStateManager.state?.impersoniateUser?.userId
+            )
 
         val request = Request.Builder().url(url)
             .get()

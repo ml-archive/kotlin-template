@@ -2,8 +2,7 @@ package dk.eboks.app.network.managers
 
 import android.util.Base64
 import com.google.gson.Gson
-import dk.eboks.app.BuildConfig
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.AuthClient
@@ -11,6 +10,7 @@ import dk.eboks.app.domain.managers.AuthException
 import dk.eboks.app.domain.managers.CryptoManager
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.repositories.SettingsRepository
+import dk.eboks.app.network.BuildConfig
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -26,9 +26,10 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class AuthClientImpl @Inject constructor(
-    val cryptoManager: CryptoManager,
-    val settingsRepository: SettingsRepository,
-    val appStateManager: AppStateManager
+    private val cryptoManager: CryptoManager,
+    private val settingsRepository: SettingsRepository,
+    private val appStateManager: AppStateManager,
+    private val appConfig: AppConfig
 ) : AuthClient {
     private var httpClient: OkHttpClient
     private var gson: Gson = Gson()
@@ -71,7 +72,7 @@ class AuthClientImpl @Inject constructor(
             formBody.add("oauthtoken", oauthToken)
 
         val request = Request.Builder()
-            .url(Config.getAuthUrl())
+            .url(appConfig.getAuthUrl())
             .post(formBody.build())
             .build()
 
@@ -102,7 +103,7 @@ class AuthClientImpl @Inject constructor(
             .build()
 
         val request = Request.Builder()
-            .url(Config.getAuthUrl())
+            .url(appConfig.getAuthUrl())
             .post(formBody)
             .build()
 
@@ -130,7 +131,7 @@ class AuthClientImpl @Inject constructor(
             .build()
 
         val request = Request.Builder()
-            .url(Config.getAuthUrl())
+            .url(appConfig.getAuthUrl())
             .post(formBody)
             .build()
 
@@ -204,7 +205,7 @@ class AuthClientImpl @Inject constructor(
         }
 //      -----------------------------------
         val requestBuilder = Request.Builder()
-            .url(Config.getAuthUrl())
+            .url(appConfig.getAuthUrl())
             .post(formBody.build())
 
         bearerToken?.let { token ->
@@ -236,8 +237,10 @@ class AuthClientImpl @Inject constructor(
 
                 // Timber.e("Parsed json obj ${jsonObj?.toString(4)} errorDescription = ${jsonObj?.getString("error_description")}")
 
-                throw(AuthException(result.code(), jsonObj.getString("error_description")
-                        ?: ""))
+                throw(AuthException(
+                    result.code(), jsonObj.getString("error_description")
+                        ?: ""
+                ))
             }
         }
         return null
@@ -249,23 +252,23 @@ class AuthClientImpl @Inject constructor(
         lateinit var idSecret: Pair<String, String>
         if (isCustom && isLong) {
             idSecret = Pair(
-                Config.currentMode.environment?.longAuthCustomId ?: "",
-                Config.currentMode.environment?.longAuthCustomSecret ?: ""
+                appConfig.currentMode.environment?.longAuthCustomId ?: "",
+                appConfig.currentMode.environment?.longAuthCustomSecret ?: ""
             )
         } else if (isCustom && !isLong) {
             idSecret = Pair(
-                Config.currentMode.environment?.shortAuthCustomId ?: "",
-                Config.currentMode.environment?.shortAuthCustomSecret ?: ""
+                appConfig.currentMode.environment?.shortAuthCustomId ?: "",
+                appConfig.currentMode.environment?.shortAuthCustomSecret ?: ""
             )
         } else if (!isCustom && isLong) {
             idSecret = Pair(
-                Config.currentMode.environment?.longAuthId ?: "",
-                Config.currentMode.environment?.longAuthSecret ?: ""
+                appConfig.currentMode.environment?.longAuthId ?: "",
+                appConfig.currentMode.environment?.longAuthSecret ?: ""
             )
         } else if (!isCustom && !isLong) {
             idSecret = Pair(
-                Config.currentMode.environment?.shortAuthId ?: "",
-                Config.currentMode.environment?.shortAuthSecret ?: ""
+                appConfig.currentMode.environment?.shortAuthId ?: "",
+                appConfig.currentMode.environment?.shortAuthSecret ?: ""
             )
         }
         return idSecret

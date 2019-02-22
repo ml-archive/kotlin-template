@@ -1,6 +1,6 @@
 package dk.eboks.app.domain.interactors.channel
 
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.util.exceptionToViewError
@@ -9,14 +9,16 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import javax.inject.Inject
 
 /**
  * Created by bison on 01/02/18.
  */
-class GetChannelContentLinkInteractorImpl(
+class GetChannelContentLinkInteractorImpl @Inject constructor(
     executor: Executor,
-    val httpClient: OkHttpClient,
-    val appStateManager: AppStateManager
+    private val httpClient: OkHttpClient,
+    private val appStateManager: AppStateManager,
+    private val appConfig: AppConfig
 ) : BaseInteractor(executor), GetChannelContentLinkInteractor {
     override var output: GetChannelContentLinkInteractor.Output? = null
     override var input: GetChannelContentLinkInteractor.Input? = null
@@ -27,7 +29,7 @@ class GetChannelContentLinkInteractorImpl(
                 val accessToken = appStateManager.state?.loginState?.token
                 accessToken?.let { token ->
                     val request = Request.Builder()
-                        .url(Config.getApiUrl() + "channels/${args.channelId}/content/open?access_token=${token.access_token}")
+                        .url(appConfig.getApiUrl() + "channels/${args.channelId}/content/open?access_token=${token.access_token}")
                         .get()
                         .build()
 

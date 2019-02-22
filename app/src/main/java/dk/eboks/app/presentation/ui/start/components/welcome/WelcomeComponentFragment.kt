@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfigImpl
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.debug.components.DebugOptionsComponentFragment
 import dk.eboks.app.presentation.ui.debug.screens.user.DebugUserActivity
@@ -64,7 +64,7 @@ class WelcomeComponentFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        logoIv.setImageResource(Config.getLogoResourceId())
+        logoIv.setImageResource(AppConfigImpl.logoResourceId)
         if (shouldGotoUsersOnResume) {
             shouldGotoUsersOnResume = false
             getBaseActivity()?.setRootFragment(R.id.containerFl, UserCarouselComponentFragment())
