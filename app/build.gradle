@@ -264,6 +264,12 @@ dependencies {
     implementation Libs.RxJava.rxJava
     implementation Libs.RxJava.rxKotlin
 
+    implementation Libs.Retrofit.retrofit
+    implementation Libs.Retrofit.scalarsConverter
+    implementation Libs.Retrofit.gsonConverter
+
+    // cookie jar for okhttp
+    implementation Libs.persistentCookieJar
 
     implementation Libs.Glide.glide
     kapt Libs.Glide.compiler

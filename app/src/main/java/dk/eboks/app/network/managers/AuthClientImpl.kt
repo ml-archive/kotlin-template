@@ -152,7 +152,7 @@ class AuthClientImpl @Inject constructor(
         longClient: Boolean,
         bearerToken: String?,
         verifyOnly: Boolean,
-        userId: String?
+        userid: String?
     ): AccessToken? {
         appStateManager.state?.loginState?.useCustomClientId = false
         appStateManager.state?.loginState?.useLongClientId = longClient
@@ -185,7 +185,7 @@ class AuthClientImpl @Inject constructor(
 
         Timber.v("login - ChallengeTime: $challengeTime, LocalTime: $localTime")
 
-        userId?.let { id ->
+        userid?.let { id ->
             if (!cryptoManager.hasActivation(id)) {
                 formBody.add("acr_values", "deviceid:$deviceId")
             } else {
