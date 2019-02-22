@@ -1,7 +1,6 @@
 package dk.eboks.app.network.managers.protocol
 
 import com.google.gson.Gson
-import dk.eboks.app.App
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.protocol.ServerError
 import timber.log.Timber
@@ -10,13 +9,10 @@ import javax.inject.Inject
 /**
  * Created by bison on 01/02/18.
  */
-class ServerErrorInterceptor : okhttp3.Interceptor {
-    @Inject lateinit var gson: Gson
+class ServerErrorInterceptor @Inject constructor(private val gson: Gson) : okhttp3.Interceptor {
 
     @Throws(java.io.IOException::class, ServerErrorException::class)
     override fun intercept(chain: okhttp3.Interceptor.Chain): okhttp3.Response {
-        App.instance().appComponent.inject(this)
-
         val response = chain.proceed(chain.request())
         if (!response.isSuccessful) {
             response.peekBody(16384L)?.string()?.let { buffer ->

@@ -35,7 +35,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
 
             @Throws(IOException::class)
             override fun read(reader: JsonReader): T {
-                var jsonElement = elementAdapter.read(reader)
+                val jsonElement = elementAdapter.read(reader)
 
                 // Timber.e("Path ${reader.path}")
                 // Timber.e("parsing element at path ${reader.path} = " + jsonElement.toString())
@@ -66,7 +66,7 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                                 }
                             }
                         }
-                        if (listElement != null) {
+                        return if (listElement != null) {
                             val listobj = delegate.fromJsonTree(listElement)
                             try {
                                 val meta = gson.fromJson(metadata, Metadata::class.java)
@@ -75,9 +75,9 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
                             } catch (t: Throwable) {
                                 Timber.e("Could not deserialize metadata object, ignoring...")
                             }
-                            return listobj
+                            listobj
                         } else
-                            return delegate.fromJsonTree(jsonElement)
+                            delegate.fromJsonTree(jsonElement)
                     }
                 }
                 return delegate.fromJsonTree(jsonElement)

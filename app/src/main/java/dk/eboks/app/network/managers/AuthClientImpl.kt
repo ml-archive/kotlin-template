@@ -23,8 +23,9 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class AuthClientImpl(
+class AuthClientImpl @Inject constructor(
     val cryptoManager: CryptoManager,
     val settingsRepository: SettingsRepository,
     val appStateManager: AppStateManager
@@ -151,7 +152,7 @@ class AuthClientImpl(
         longClient: Boolean,
         bearerToken: String?,
         verifyOnly: Boolean,
-        userId: String?
+        userid: String?
     ): AccessToken? {
         appStateManager.state?.loginState?.useCustomClientId = false
         appStateManager.state?.loginState?.useLongClientId = longClient
@@ -184,7 +185,7 @@ class AuthClientImpl(
 
         Timber.v("login - ChallengeTime: $challengeTime, LocalTime: $localTime")
 
-        userId?.let { id ->
+        userid?.let { id ->
             if (!cryptoManager.hasActivation(id)) {
                 formBody.add("acr_values", "deviceid:$deviceId")
             } else {

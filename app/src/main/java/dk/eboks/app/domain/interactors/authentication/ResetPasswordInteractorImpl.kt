@@ -2,7 +2,7 @@ package dk.eboks.app.domain.interactors.authentication
 
 import dk.eboks.app.domain.config.Config
 import dk.eboks.app.network.Api
-import dk.eboks.app.util.errorBodyToViewError
+import dk.eboks.app.network.util.errorBodyToViewError
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -27,7 +27,7 @@ class ResetPasswordInteractorImpl(executor: Executor, val api: Api) : BaseIntera
                         Timber.i("Successfully Reset password")
                         output?.onSuccess()
                     } else {
-                        output?.onError(errorBodyToViewError(response))
+                        output?.onError(response.errorBodyToViewError())
                     }
                 }
             }

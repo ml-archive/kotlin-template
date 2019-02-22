@@ -1,7 +1,7 @@
 package dk.eboks.app.domain.interactors.shares
 
 import dk.eboks.app.network.Api
-import dk.eboks.app.util.errorBodyToViewError
+import dk.eboks.app.network.util.errorBodyToViewError
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -22,7 +22,7 @@ class GetAllSharesInteractorImpl(executor: Executor, private val api: Api) :
                 }
             } else {
                 runOnUIThread {
-                    output?.onGetAllSharesError(errorBodyToViewError(result, false))
+                    output?.onGetAllSharesError(result.errorBodyToViewError(false))
                 }
             }
         } catch (t: Throwable) {

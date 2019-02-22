@@ -219,6 +219,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(":base")
     implementation project(":data")
+    implementation project(":api")
 
     // uncomment me if using multidex
     //implementation "com.android.support:multidex:$multidex_version"
@@ -257,23 +258,18 @@ dependencies {
 
     // circular progress
     implementation Libs.circularProgressBar
-
-    implementation Libs.Retrofit.retrofit
-    implementation Libs.Retrofit.scalarsConverter
-    implementation Libs.Retrofit.gsonConverter
-
-    implementation Libs.OkHttp.okhttp
-    implementation Libs.OkHttp.loggingInterceptor
-    // cookie jar for okhttp
-    implementation Libs.persistentCookieJar
-
-
-
+    implementation Libs.gson
 
     implementation Libs.RxJava.rxAndroid
     implementation Libs.RxJava.rxJava
     implementation Libs.RxJava.rxKotlin
 
+    implementation Libs.Retrofit.retrofit
+    implementation Libs.Retrofit.scalarsConverter
+    implementation Libs.Retrofit.gsonConverter
+
+    // cookie jar for okhttp
+    implementation Libs.persistentCookieJar
 
     implementation Libs.Glide.glide
     kapt Libs.Glide.compiler

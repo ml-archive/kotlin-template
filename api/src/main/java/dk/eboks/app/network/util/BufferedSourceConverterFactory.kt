@@ -12,12 +12,11 @@ import java.lang.reflect.Type
  */
 class BufferedSourceConverterFactory : Converter.Factory() {
     override fun responseBodyConverter(
-        type: Type?,
-        annotations: Array<Annotation>?,
-        retrofit: Retrofit?
+        type: Type,
+        annotations: Array<Annotation>,
+        retrofit: Retrofit
     ): Converter<ResponseBody, *>? {
-        return if (BufferedSource::class.java != type) {
-            null
-        } else Converter<ResponseBody, BufferedSource> { value -> value.source() }
+        return if (BufferedSource::class.java != type) null
+        else Converter<ResponseBody, BufferedSource> { value -> value.source() }
     }
 }

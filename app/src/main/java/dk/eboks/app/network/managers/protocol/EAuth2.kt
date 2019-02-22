@@ -1,14 +1,11 @@
 package dk.eboks.app.network.managers.protocol
 
-import dk.eboks.app.App
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.AuthClient
-import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.util.guard
-import dk.nodes.arch.domain.executor.Executor
 import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
@@ -19,22 +16,12 @@ import javax.inject.Inject
 /**
  * E-boks Authenticator, based on OAuth2
  */
-class EAuth2(
-    prefManager: PrefManager,
+class EAuth2 @Inject constructor(
     val appStateManager: AppStateManager,
-    val userSettingsManager: UserSettingsManager
+    val userSettingsManager: UserSettingsManager,
+    val uiManager: UIManager,
+    val authClient: AuthClient
 ) : Authenticator {
-    @Inject
-    lateinit var executer: Executor
-    @Inject
-    lateinit var uiManager: UIManager
-
-    @Inject
-    lateinit var authClient: AuthClient
-
-    init {
-        App.instance().appComponent.inject(this)
-    }
 
     @Synchronized
     override fun authenticate(route: Route?, response: Response): Request? {

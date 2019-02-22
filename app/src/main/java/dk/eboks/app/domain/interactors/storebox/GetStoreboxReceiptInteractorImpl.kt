@@ -1,7 +1,7 @@
 package dk.eboks.app.domain.interactors.storebox
 
 import dk.eboks.app.network.Api
-import dk.eboks.app.util.errorBodyToViewError
+import dk.eboks.app.network.util.errorBodyToViewError
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -33,7 +33,7 @@ class GetStoreboxReceiptInteractorImpl(
             } else {
                 Timber.e("Error Loading Receipt: isSuccessful -> False")
                 runOnUIThread {
-                    output?.onGetReceiptsError(errorBodyToViewError(response))
+                    output?.onGetReceiptsError(response.errorBodyToViewError())
                 }
             }
         } catch (e: Exception) {

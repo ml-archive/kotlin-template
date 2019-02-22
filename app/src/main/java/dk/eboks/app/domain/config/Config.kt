@@ -402,6 +402,7 @@ object Config {
     }
 
     var currentMode: Mode
+    private set
 
     init {
         Timber.e("Running Config Init")
