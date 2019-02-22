@@ -17,8 +17,8 @@ import kotlinx.android.synthetic.main.viewholder_home_message.view.*
 import java.lang.ref.WeakReference
 
 class MessageAdapter(
-        private val formatter: EboksFormatter,
-        callback: MessageAdapter.Callback? = null
+    private val formatter: EboksFormatter,
+    callback: MessageAdapter.Callback? = null
 ) : RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
 
     interface Callback {

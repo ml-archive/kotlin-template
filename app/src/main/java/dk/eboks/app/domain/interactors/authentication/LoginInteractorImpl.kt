@@ -22,14 +22,14 @@ import javax.inject.Inject
  * Created by bison on 24-06-2017.
  */
 class LoginInteractorImpl @Inject constructor(
-        executor: Executor,
-        private val api: Api,
-        private val appStateManager: AppStateManager,
-        private val userManager: UserManager,
-        private val userSettingsManager: UserSettingsManager,
-        private val authClient: AuthClient,
-        private val cacheManager: CacheManager,
-        private val foldersRepositoryMail: MailCategoriesRepository
+    executor: Executor,
+    private val api: Api,
+    private val appStateManager: AppStateManager,
+    private val userManager: UserManager,
+    private val userSettingsManager: UserSettingsManager,
+    private val authClient: AuthClient,
+    private val cacheManager: CacheManager,
+    private val foldersRepositoryMail: MailCategoriesRepository
 ) : BaseInteractor(executor), LoginInteractor {
     override var output: LoginInteractor.Output? = null
     override var input: LoginInteractor.Input? = null

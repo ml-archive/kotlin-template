@@ -21,14 +21,14 @@ import timber.log.Timber
  * @since 5/28/2018.
  */
 class VerifyProfileInteractorImpl(
-        executor: Executor,
-        val api: Api,
-        val appStateManager: AppStateManager,
-        val userManager: UserManager,
-        val userSettingsManager: UserSettingsManager,
-        val authClient: AuthClient,
-        val cacheManager: CacheManager,
-        val foldersRepositoryMail: MailCategoriesRepository
+    executor: Executor,
+    val api: Api,
+    val appStateManager: AppStateManager,
+    val userManager: UserManager,
+    val userSettingsManager: UserSettingsManager,
+    val authClient: AuthClient,
+    val cacheManager: CacheManager,
+    val foldersRepositoryMail: MailCategoriesRepository
 ) : BaseInteractor(executor), VerifyProfileInteractor {
     override var output: VerifyProfileInteractor.Output? = null
     override var input: VerifyProfileInteractor.Input? = null

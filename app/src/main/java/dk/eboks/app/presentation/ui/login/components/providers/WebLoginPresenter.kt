@@ -19,11 +19,11 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 open class WebLoginPresenter @Inject constructor(
-        val appState: AppStateManager,
-        val transformTokenInteractor: TransformTokenInteractor,
-        val verifyProfileInteractor: VerifyProfileInteractor,
-        val mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-        val userSettingsManager: UserSettingsManager
+    val appState: AppStateManager,
+    val transformTokenInteractor: TransformTokenInteractor,
+    val verifyProfileInteractor: VerifyProfileInteractor,
+    val mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+    val userSettingsManager: UserSettingsManager
 
 ) :
     WebLoginContract.Presenter,

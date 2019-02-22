@@ -16,10 +16,10 @@ import timber.log.Timber
  * Created by bison on 01/02/18.
  */
 class SaveAttachmentInteractorImpl(
-        executor: Executor,
-        val appStateManager: AppStateManager,
-        val cacheManager: FileCacheManager,
-        val permissionManager: PermissionManager
+    executor: Executor,
+    val appStateManager: AppStateManager,
+    val cacheManager: FileCacheManager,
+    val permissionManager: PermissionManager
 ) : BaseInteractor(executor), SaveAttachmentInteractor {
 
     override var output: SaveAttachmentInteractor.Output? = null

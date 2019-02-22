@@ -16,10 +16,10 @@ import timber.log.Timber
  * Created by bison on 24-06-2017.
  */
 class DeleteUserInteractorImpl(
-        executor: Executor,
-        val userManager: UserManager,
-        val userSettingsManager: UserSettingsManager,
-        val deleteRSAKeyForUserInteractor: DeleteRSAKeyForUserInteractor
+    executor: Executor,
+    val userManager: UserManager,
+    val userSettingsManager: UserSettingsManager,
+    val deleteRSAKeyForUserInteractor: DeleteRSAKeyForUserInteractor
 ) : BaseInteractor(executor), DeleteUserInteractor {
     override var output: DeleteUserInteractor.Output? = null
     override var input: DeleteUserInteractor.Input? = null

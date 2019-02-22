@@ -279,5 +279,4 @@ interface PresentationComponent {
 }
 
 fun PresentationComponent.inject(target: DebugOptionsComponentFragment) {
-
 }

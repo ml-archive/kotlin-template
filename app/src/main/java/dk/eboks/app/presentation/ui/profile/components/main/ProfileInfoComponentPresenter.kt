@@ -12,10 +12,10 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class ProfileInfoComponentPresenter @Inject constructor(
-        private val appState: AppStateManager,
-        private val saveUserInteractor: SaveUserInteractor,
-        private val saveUserSettingsInteractor: SaveUserSettingsInteractor,
-        private val getUserProfileInteractor: GetUserProfileInteractor
+    private val appState: AppStateManager,
+    private val saveUserInteractor: SaveUserInteractor,
+    private val saveUserSettingsInteractor: SaveUserSettingsInteractor,
+    private val getUserProfileInteractor: GetUserProfileInteractor
 ) :
     ProfileInfoComponentContract.Presenter,
     BasePresenterImpl<ProfileInfoComponentContract.View>(),

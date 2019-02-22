@@ -10,9 +10,9 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
  * @since 6/19/2018.
  */
 class SaveUserSettingsInteractorImpl(
-        executor: Executor,
-        val appState: AppStateManager,
-        val userSettingsManager: UserSettingsManager
+    executor: Executor,
+    val appState: AppStateManager,
+    val userSettingsManager: UserSettingsManager
 ) : BaseInteractor(executor), SaveUserSettingsInteractor {
     override var output: SaveUserSettingsInteractor.Output? = null
     override var input: SaveUserSettingsInteractor.Input? = null

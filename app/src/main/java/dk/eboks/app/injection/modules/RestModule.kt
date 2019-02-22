@@ -82,10 +82,10 @@ class RestModule {
     @Provides
     @AppScope
     fun provideDownloadManager(
-            context: Context,
-            client: OkHttpClient,
-            cacheManager: FileCacheManager,
-            appStateManager: AppStateManager
+        context: Context,
+        client: OkHttpClient,
+        cacheManager: FileCacheManager,
+        appStateManager: AppStateManager
     ): DownloadManager {
         return DownloadManagerImpl(context, client, cacheManager, appStateManager)
     }
@@ -99,10 +99,10 @@ class RestModule {
     @Provides
     @AppScope
     fun provideHttpClient(
-            eboksHeaderInterceptor: EboksHeaderInterceptor,
-            eAuth2: EAuth2,
-            prefManager: PrefManager,
-            context: Context
+        eboksHeaderInterceptor: EboksHeaderInterceptor,
+        eAuth2: EAuth2,
+        prefManager: PrefManager,
+        context: Context
     ): OkHttpClient {
 
         val clientBuilder = OkHttpClient.Builder()
@@ -188,9 +188,9 @@ class RestModule {
     @Provides
     @AppScope
     fun provideAuthenticator(
-            prefManager: PrefManager,
-            appStateManager: AppStateManager,
-            userSettingsManager: UserSettingsManager
+        prefManager: PrefManager,
+        appStateManager: AppStateManager,
+        userSettingsManager: UserSettingsManager
     ): EAuth2 {
         return EAuth2(prefManager, appStateManager, userSettingsManager)
     }
@@ -198,9 +198,9 @@ class RestModule {
     @Provides
     @AppScope
     fun provideAuthClient(
-            cryptoManager: CryptoManager,
-            settingsRepository: SettingsRepository,
-            appStateManager: AppStateManager
+        cryptoManager: CryptoManager,
+        settingsRepository: SettingsRepository,
+        appStateManager: AppStateManager
     ): AuthClient {
         return AuthClientImpl(cryptoManager, settingsRepository, appStateManager)
     }

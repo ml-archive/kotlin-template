@@ -19,9 +19,9 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class HomePresenter @Inject constructor(
-        private val appState: AppStateManager,
-        private val getChannelHomeContentInteractor: GetChannelHomeContentInteractor,
-        private val getMessagesInteractor: GetMessagesInteractor
+    private val appState: AppStateManager,
+    private val getChannelHomeContentInteractor: GetChannelHomeContentInteractor,
+    private val getMessagesInteractor: GetMessagesInteractor
 ) : HomeContract.Presenter, BasePresenterImpl<HomeContract.View>(),
     GetChannelHomeContentInteractor.Output, GetMessagesInteractor.Output {
     override var continueFetching: Boolean = false

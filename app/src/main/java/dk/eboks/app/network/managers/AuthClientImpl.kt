@@ -25,9 +25,9 @@ import java.util.TimeZone
 import java.util.concurrent.TimeUnit
 
 class AuthClientImpl(
-        val cryptoManager: CryptoManager,
-        val settingsRepository: SettingsRepository,
-        val appStateManager: AppStateManager
+    val cryptoManager: CryptoManager,
+    val settingsRepository: SettingsRepository,
+    val appStateManager: AppStateManager
 ) : AuthClient {
     private var httpClient: OkHttpClient
     private var gson: Gson = Gson()

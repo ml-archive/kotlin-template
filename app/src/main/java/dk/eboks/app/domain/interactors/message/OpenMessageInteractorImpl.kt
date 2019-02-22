@@ -24,12 +24,12 @@ import java.io.File
  * Created by bison on 01/02/18.
  */
 class OpenMessageInteractorImpl(
-        executor: Executor,
-        val appStateManager: AppStateManager,
-        val uiManager: UIManager,
-        val downloadManager: DownloadManager,
-        val cacheManager: FileCacheManager,
-        val messagesRepository: MessagesRepository
+    executor: Executor,
+    val appStateManager: AppStateManager,
+    val uiManager: UIManager,
+    val downloadManager: DownloadManager,
+    val cacheManager: FileCacheManager,
+    val messagesRepository: MessagesRepository
 ) : BaseInteractor(executor), OpenMessageInteractor {
 
     override var output: OpenMessageInteractor.Output? = null

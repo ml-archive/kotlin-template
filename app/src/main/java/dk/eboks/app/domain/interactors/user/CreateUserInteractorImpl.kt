@@ -15,10 +15,10 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
  * Created by bison on 24-06-2017.
  */
 class CreateUserInteractorImpl(
-        executor: Executor,
-        val userManager: UserManager,
-        private val api: Api,
-        val settingsRepository: SettingsRepository
+    executor: Executor,
+    val userManager: UserManager,
+    private val api: Api,
+    val settingsRepository: SettingsRepository
 ) : BaseInteractor(executor), CreateUserInteractor {
     override var output: CreateUserInteractor.Output? = null
     override var input: CreateUserInteractor.Input? = null

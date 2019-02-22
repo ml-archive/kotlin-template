@@ -20,12 +20,12 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class SignupComponentPresenter @Inject constructor(
-        private val appState: AppStateManager,
-        private val createUserInteractor: CreateUserInteractor,
-        private val loginUserInteractor: LoginInteractor,
-        private val checkSignupMailInteractor: CheckSignupMailInteractor,
-        private val checkSsnExistsInteractor: CheckSsnExistsInteractor,
-        setCurrentUserInteractor: SetCurrentUserInteractor
+    private val appState: AppStateManager,
+    private val createUserInteractor: CreateUserInteractor,
+    private val loginUserInteractor: LoginInteractor,
+    private val checkSignupMailInteractor: CheckSignupMailInteractor,
+    private val checkSsnExistsInteractor: CheckSsnExistsInteractor,
+    setCurrentUserInteractor: SetCurrentUserInteractor
 ) :
     SignupComponentContract.Presenter,
     BasePresenterImpl<SignupComponentContract.SignupView>(),

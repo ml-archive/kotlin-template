@@ -15,9 +15,9 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class DebugUserPresenter @Inject constructor(
-        private val userSettingsManager: UserSettingsManager,
-        private val createUserInteractor: CreateDebugUserInteractorImpl,
-        private val saveUserInteractor: SaveUserInteractor
+    private val userSettingsManager: UserSettingsManager,
+    private val createUserInteractor: CreateDebugUserInteractorImpl,
+    private val saveUserInteractor: SaveUserInteractor
 ) :
     DebugUserContract.Presenter,
     BasePresenterImpl<DebugUserContract.View>(),

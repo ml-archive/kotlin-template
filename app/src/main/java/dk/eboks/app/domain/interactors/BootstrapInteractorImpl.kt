@@ -21,15 +21,15 @@ import javax.net.ssl.SSLPeerUnverifiedException
  * Created by bison on 24-06-2017.
  */
 class BootstrapInteractorImpl(
-        executor: Executor,
-        val guidManager: GuidManager,
-        val settingsRepository: SettingsRepository,
-        val appStateManager: AppStateManager,
-        val fileCacheManager: FileCacheManager,
-        val cacheManager: CacheManager,
-        val userManager: UserManager,
-        val api: Api,
-        val prefManager: PrefManager
+    executor: Executor,
+    val guidManager: GuidManager,
+    val settingsRepository: SettingsRepository,
+    val appStateManager: AppStateManager,
+    val fileCacheManager: FileCacheManager,
+    val cacheManager: CacheManager,
+    val userManager: UserManager,
+    val api: Api,
+    val prefManager: PrefManager
 ) : BaseInteractor(executor), BootstrapInteractor {
     override var output: BootstrapInteractor.Output? = null
     override var input: BootstrapInteractor.Input? = null

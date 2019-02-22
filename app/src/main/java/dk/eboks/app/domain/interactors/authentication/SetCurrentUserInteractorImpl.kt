@@ -15,11 +15,11 @@ import timber.log.Timber
  * @since 5/28/2018.
  */
 class SetCurrentUserInteractorImpl(
-        executor: Executor,
-        val api: Api,
-        val appStateManager: AppStateManager,
-        val userManager: UserManager,
-        val userSettingsManager: UserSettingsManager
+    executor: Executor,
+    val api: Api,
+    val appStateManager: AppStateManager,
+    val userManager: UserManager,
+    val userSettingsManager: UserSettingsManager
 ) : BaseInteractor(executor), SetCurrentUserInteractor {
     override var output: SetCurrentUserInteractor.Output? = null
 
