@@ -6,14 +6,17 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by chnt on 21-03-2018.
  * @author chnt
  * @since 21-03-2018.
  */
-class UnRegisterInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(executor),
-    UnRegisterInteractor {
+class UnRegisterInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val api: Api
+) : BaseInteractor(executor), UnRegisterInteractor {
 
     override var inputSender: UnRegisterInteractor.InputSender? = null
     override var inputSenderGroup: UnRegisterInteractor.InputSenderGroup? = null

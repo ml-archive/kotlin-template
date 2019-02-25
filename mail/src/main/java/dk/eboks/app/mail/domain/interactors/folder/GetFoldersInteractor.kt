@@ -1,8 +1,9 @@
 package dk.eboks.app.mail.domain.interactors.folder
 
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderMode
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.presentation.ui.folder.components.FolderMode
+
 import dk.nodes.arch.domain.interactor.Interactor
 
 /**

@@ -11,11 +11,15 @@ import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 01/02/18.
  */
-class GetMessagesInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) :
+class GetMessagesInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val messagesRepository: MessagesRepository
+) :
     BaseInteractor(executor), GetMessagesInteractor {
     override var output: GetMessagesInteractor.Output? = null
     override var input: GetMessagesInteractor.Input? = null

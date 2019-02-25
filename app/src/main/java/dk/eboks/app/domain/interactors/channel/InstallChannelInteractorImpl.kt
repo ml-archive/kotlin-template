@@ -7,12 +7,15 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
 /**
  * Created by bison on 01/02/18.
  */
-class InstallChannelInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(executor),
-    InstallChannelInteractor {
+class InstallChannelInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val api: Api
+) : BaseInteractor(executor), InstallChannelInteractor {
     override var output: InstallChannelInteractor.Output? = null
     override var input: InstallChannelInteractor.Input? = null
 

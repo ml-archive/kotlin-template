@@ -1,6 +1,5 @@
 package dk.eboks.app.domain.interactors.authentication
 
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.AuthClient
 import dk.eboks.app.domain.managers.AuthException
 import dk.eboks.app.domain.models.Translation
@@ -9,14 +8,14 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 24-06-2017.
  */
-class TestLoginInteractorImpl(
+class TestLoginInteractorImpl @Inject constructor(
     executor: Executor,
-    val appStateManager: AppStateManager,
-    val authClient: AuthClient
+    private val authClient: AuthClient
 ) : BaseInteractor(executor), TestLoginInteractor {
     override var output: TestLoginInteractor.Output? = null
     override var input: TestLoginInteractor.Input? = null

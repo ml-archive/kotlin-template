@@ -11,11 +11,12 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 01/02/18.
  */
-class GetChannelHomeContentInteractorImpl(
+class GetChannelHomeContentInteractorImpl @Inject constructor(
     executor: Executor,
     private val channelsRepository: ChannelsRepository
 ) : BaseInteractor(executor), GetChannelHomeContentInteractor {

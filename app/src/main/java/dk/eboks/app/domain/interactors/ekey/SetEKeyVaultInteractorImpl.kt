@@ -6,10 +6,12 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
-class SetEKeyVaultInteractorImpl(executor: Executor, private val api: Api) :
-    BaseInteractor(executor),
-    SetEKeyVaultInteractor {
+class SetEKeyVaultInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val api: Api
+) : BaseInteractor(executor), SetEKeyVaultInteractor {
 
     override var input: SetEKeyVaultInteractor.Input? = null
     override var output: SetEKeyVaultInteractor.Output? = null

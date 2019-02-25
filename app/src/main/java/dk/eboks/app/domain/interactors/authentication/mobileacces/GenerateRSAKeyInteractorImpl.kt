@@ -4,9 +4,12 @@ import dk.eboks.app.domain.managers.CryptoManager
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
-class GenerateRSAKeyInteractorImpl(executor: Executor, val cryptoManager: CryptoManager) :
-    BaseInteractor(executor), GenerateRSAKeyInteractor {
+class GenerateRSAKeyInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val cryptoManager: CryptoManager
+) : BaseInteractor(executor), GenerateRSAKeyInteractor {
     override var input: GenerateRSAKeyInteractor.Input? = null
     override var output: GenerateRSAKeyInteractor.Output? = null
 

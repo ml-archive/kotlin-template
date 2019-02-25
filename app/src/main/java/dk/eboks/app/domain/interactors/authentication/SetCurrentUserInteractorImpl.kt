@@ -8,18 +8,19 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by Christian on 5/28/2018.
  * @author Christinus
  * @since 5/28/2018.
  */
-class SetCurrentUserInteractorImpl(
+class SetCurrentUserInteractorImpl @Inject constructor(
     executor: Executor,
-    val api: Api,
-    val appStateManager: AppStateManager,
-    val userManager: UserManager,
-    val userSettingsManager: UserSettingsManager
+    private val api: Api,
+    private val appStateManager: AppStateManager,
+    private val userManager: UserManager,
+    private val userSettingsManager: UserSettingsManager
 ) : BaseInteractor(executor), SetCurrentUserInteractor {
     override var output: SetCurrentUserInteractor.Output? = null
 

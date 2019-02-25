@@ -4,15 +4,16 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
 /**
  * @author Christian
  * @since 6/19/2018.
  */
-class SaveUserSettingsInteractorImpl(
+class SaveUserSettingsInteractorImpl @Inject constructor(
     executor: Executor,
-    val appState: AppStateManager,
-    val userSettingsManager: UserSettingsManager
+    private val appState: AppStateManager,
+    private val userSettingsManager: UserSettingsManager
 ) : BaseInteractor(executor), SaveUserSettingsInteractor {
     override var output: SaveUserSettingsInteractor.Output? = null
     override var input: SaveUserSettingsInteractor.Input? = null

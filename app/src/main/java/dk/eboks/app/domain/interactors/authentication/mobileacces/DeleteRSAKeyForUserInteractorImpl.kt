@@ -4,8 +4,12 @@ import dk.eboks.app.domain.managers.CryptoManager
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
-class DeleteRSAKeyForUserInteractorImpl(executor: Executor, val cryptoManager: CryptoManager) :
+class DeleteRSAKeyForUserInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val cryptoManager: CryptoManager
+) :
     BaseInteractor(executor), DeleteRSAKeyForUserInteractor {
     override var input: DeleteRSAKeyForUserInteractor.Input? = null
     override var output: DeleteRSAKeyForUserInteractor.Output? = null

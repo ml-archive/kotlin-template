@@ -4,13 +4,12 @@ import dk.eboks.app.domain.repositories.FoldersRepository
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
-class CreateFolderInteractorImpl(
+class CreateFolderInteractorImpl @Inject constructor(
     executor: Executor,
-    val foldersRepository: FoldersRepository
-) :
-    BaseInteractor(executor),
-        CreateFolderInteractor {
+    private val foldersRepository: FoldersRepository
+) : BaseInteractor(executor), CreateFolderInteractor {
     override var output: CreateFolderInteractor.Output? = null
     override var input: CreateFolderInteractor.Input? = null
 

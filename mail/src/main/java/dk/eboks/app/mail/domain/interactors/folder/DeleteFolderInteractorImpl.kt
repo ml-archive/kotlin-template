@@ -4,13 +4,12 @@ import dk.eboks.app.domain.repositories.FoldersRepository
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
-class DeleteFolderInteractorImpl(
+class DeleteFolderInteractorImpl @Inject constructor(
     executor: Executor,
-    val foldersRepository: FoldersRepository
-) :
-    BaseInteractor(executor),
-        DeleteFolderInteractor {
+    private val foldersRepository: FoldersRepository
+) : BaseInteractor(executor), DeleteFolderInteractor {
     override var output: DeleteFolderInteractor.Output? = null
     override var input: DeleteFolderInteractor.Input? = null
 

@@ -7,14 +7,17 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by Christian on 5/15/2018.
  * @author Christian
  * @since 5/15/2018.
  */
-class CreateStoreboxInteractorImpl(executor: Executor, private val api: Api) :
-    BaseInteractor(executor), CreateStoreboxInteractor {
+class CreateStoreboxInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val api: Api
+) : BaseInteractor(executor), CreateStoreboxInteractor {
     override var output: CreateStoreboxInteractor.Output? = null
 
     override fun execute() {

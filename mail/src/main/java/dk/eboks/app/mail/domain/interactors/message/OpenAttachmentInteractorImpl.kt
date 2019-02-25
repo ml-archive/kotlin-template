@@ -1,10 +1,8 @@
 package dk.eboks.app.mail.domain.interactors.message
 
 import dk.eboks.app.domain.exceptions.InteractorException
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.DownloadManager
 import dk.eboks.app.domain.managers.FileCacheManager
-import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Content
@@ -13,16 +11,15 @@ import dk.eboks.app.domain.models.message.Message
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 01/02/18.
  */
-class OpenAttachmentInteractorImpl(
+class OpenAttachmentInteractorImpl @Inject constructor(
     executor: Executor,
-    val appStateManager: AppStateManager,
-    val uiManager: UIManager,
-    val downloadManager: DownloadManager,
-    val cacheManager: FileCacheManager
+    private val downloadManager: DownloadManager,
+    private val cacheManager: FileCacheManager
 ) : BaseInteractor(executor), OpenAttachmentInteractor {
 
     override var output: OpenAttachmentInteractor.Output? = null

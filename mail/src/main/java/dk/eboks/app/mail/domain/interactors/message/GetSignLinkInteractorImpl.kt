@@ -7,10 +7,12 @@ import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
-class GetSignLinkInteractorImpl(executor: Executor, private val api: Api) :
-    BaseInteractor(executor),
-        GetSignLinkInteractor {
+class GetSignLinkInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val api: Api
+) : BaseInteractor(executor), GetSignLinkInteractor {
     override var output: GetSignLinkInteractor.Output? = null
     override var input: GetSignLinkInteractor.Input? = null
 
@@ -22,9 +24,9 @@ class GetSignLinkInteractorImpl(executor: Executor, private val api: Api) :
                 val result = api.getSignLink(
                     args.msg.id,
                     folderId,
-                        CANCEL_CALLBACK,
-                        SUCCESS_CALLBACK,
-                        ERROR_CALLBACK
+                    CANCEL_CALLBACK,
+                    SUCCESS_CALLBACK,
+                    ERROR_CALLBACK
                 ).execute()
 
                 result.body()?.let {

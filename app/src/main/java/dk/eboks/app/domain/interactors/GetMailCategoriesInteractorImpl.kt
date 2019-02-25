@@ -7,13 +7,14 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
 /**
  * Created by bison on 01/02/18.
  */
-class GetMailCategoriesInteractorImpl(
+class GetMailCategoriesInteractorImpl @Inject constructor(
     executor: Executor,
-    val foldersRepositoryMail: MailCategoriesRepository
+    private val foldersRepositoryMail: MailCategoriesRepository
 ) : BaseInteractor(executor), GetCategoriesInteractor {
     override var output: GetCategoriesInteractor.Output? = null
     override var input: GetCategoriesInteractor.Input? = null

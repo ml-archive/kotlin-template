@@ -6,11 +6,12 @@ import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
-class ActivateDeviceInteractorImpl(
+class ActivateDeviceInteractorImpl @Inject constructor(
     executor: Executor,
-    val settingsRepository: SettingsRepository,
-    val api: Api
+    private val settingsRepository: SettingsRepository,
+    private val api: Api
 ) : BaseInteractor(executor), ActivateDeviceInteractor {
     override var input: ActivateDeviceInteractor.Input? = null
     override var output: ActivateDeviceInteractor.Output? = null

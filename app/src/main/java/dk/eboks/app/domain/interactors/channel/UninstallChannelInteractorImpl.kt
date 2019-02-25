@@ -7,12 +7,15 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
 /**
  * Created by bison on 01/02/18.
  */
-class UninstallChannelInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(executor),
-    UninstallChannelInteractor {
+class UninstallChannelInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val api: Api
+) : BaseInteractor(executor), UninstallChannelInteractor {
     override var output: UninstallChannelInteractor.Output? = null
     override var input: UninstallChannelInteractor.Input? = null
 

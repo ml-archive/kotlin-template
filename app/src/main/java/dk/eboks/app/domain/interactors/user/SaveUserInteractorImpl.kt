@@ -6,11 +6,15 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
 /**
  * Created by bison on 24-06-2017.
  */
-class SaveUserInteractorImpl(executor: Executor, val userManager: UserManager) :
+class SaveUserInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val userManager: UserManager
+) :
     BaseInteractor(executor), SaveUserInteractor {
     override var output: SaveUserInteractor.Output? = null
     override var input: SaveUserInteractor.Input? = null

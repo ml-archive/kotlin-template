@@ -4,14 +4,17 @@ import dk.eboks.app.domain.managers.CryptoManager
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
 /**
  * Created by Christian on 5/29/2018.
  * @author Christian
  * @since 5/29/2018.
  */
-class CheckRSAKeyPresenceInteractorImpl(executor: Executor, val cryptoManager: CryptoManager) :
-    BaseInteractor(executor), CheckRSAKeyPresenceInteractor {
+class CheckRSAKeyPresenceInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val cryptoManager: CryptoManager
+) : BaseInteractor(executor), CheckRSAKeyPresenceInteractor {
     override var input: CheckRSAKeyPresenceInteractor.Input? = null
     override var output: CheckRSAKeyPresenceInteractor.Output? = null
 

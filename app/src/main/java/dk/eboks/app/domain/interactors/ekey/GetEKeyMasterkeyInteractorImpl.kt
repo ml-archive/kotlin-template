@@ -5,10 +5,12 @@ import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
-class GetEKeyMasterkeyInteractorImpl(executor: Executor, private val api: Api) :
-    BaseInteractor(executor),
-    GetEKeyMasterkeyInteractor {
+class GetEKeyMasterkeyInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val api: Api
+) : BaseInteractor(executor), GetEKeyMasterkeyInteractor {
 
     override var output: GetEKeyMasterkeyInteractor.Output? = null
     override var input: GetEKeyMasterkeyInteractor.Input? = null

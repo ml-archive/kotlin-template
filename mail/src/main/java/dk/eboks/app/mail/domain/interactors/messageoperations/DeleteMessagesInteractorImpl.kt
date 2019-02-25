@@ -4,8 +4,12 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
-class DeleteMessagesInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) :
+class DeleteMessagesInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val messagesRepository: MessagesRepository
+) :
     BaseInteractor(executor),
         DeleteMessagesInteractor {
     override var output: DeleteMessagesInteractor.Output? = null
