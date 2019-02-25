@@ -318,6 +318,9 @@ object AppConfigImpl : AppConfig {
         currentMode.environment = currentMode.environments[name]
     }
 
+    override val isDebug: Boolean
+        get() = BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)
+
     override val currentConfigName: String
         get() {
             return when (currentMode) {

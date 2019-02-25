@@ -20,6 +20,7 @@ interface AppConfig {
     val logoResourceId: Int
     var currentMode: Mode
     val messagePageSize: Int
+    val isDebug: Boolean
 
     fun getApiUrl(): String {
         return currentMode.environment?.apiUrl
