@@ -12,13 +12,12 @@ import dk.eboks.app.App
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.injection.components.PresentationComponent
-import dk.eboks.app.injection.modules.PresentationModule
 import kotlinx.android.synthetic.*
 import timber.log.Timber
 
 abstract class BaseFragment : Fragment(), BaseView {
     protected val component: PresentationComponent by lazy {
-        App.instance().appComponent.plus(PresentationModule())
+        App.instance().appComponent.plus()
     }
 
     /**

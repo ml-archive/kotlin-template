@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.mail.presentation.ui.message.components.opening.protectedmessage.ProtectedMessageComponentContract
@@ -31,6 +31,7 @@ import javax.inject.Inject
 class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageComponentContract.View {
 
     @Inject lateinit var presenter: ProtectedMessageComponentContract.Presenter
+    @Inject lateinit var appConfig: AppConfig
 
     private var protectedMessage: Message? = null
 
@@ -82,7 +83,7 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
     private fun setLoginProvider(loginProviderId: String) {
         Timber.e("Configuring for login provider $loginProviderId")
 
-        Config.getLoginProvider(loginProviderId)?.let { provider ->
+        appConfig.getLoginProvider(loginProviderId)?.let { provider ->
             mainTv.text = Translation.message.protectedMessage.replace(
                 "[logonProvider]",
                 provider.translatedName()

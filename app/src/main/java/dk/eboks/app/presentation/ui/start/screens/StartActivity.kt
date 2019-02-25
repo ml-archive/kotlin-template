@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.login.components.LoginComponentFragment
@@ -30,11 +30,11 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class StartActivity : BaseActivity(), StartContract.View {
-    @Inject
-    lateinit var presenter: StartContract.Presenter
+    @Inject lateinit var presenter: StartContract.Presenter
+    @Inject lateinit var appConfig: AppConfig
 
-    var splashFragment: SplashComponentFragment? = SplashComponentFragment()
-    var disclaimerFragment: BetaDisclaimerComponentFragment? = BetaDisclaimerComponentFragment()
+    private var splashFragment: SplashComponentFragment? = SplashComponentFragment()
+    private var disclaimerFragment: BetaDisclaimerComponentFragment? = BetaDisclaimerComponentFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -210,7 +210,7 @@ class StartActivity : BaseActivity(), StartContract.View {
         if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             UpdateManager.register(this)
             debugConfEnvTv.text =
-                "Conf/Env: ${Config.getCurrentConfigName()}/${Config.getCurrentEnvironmentName()}"
+                "Conf/Env: ${appConfig.currentConfigName}/${appConfig.currentEnvironmentName}"
         }
     }
 
@@ -225,7 +225,7 @@ class StartActivity : BaseActivity(), StartContract.View {
     private fun updateConfEnvDisplay() {
         if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
             debugConfEnvTv.text =
-                "Conf/Env: ${Config.getCurrentConfigName()}/${Config.getCurrentEnvironmentName()}"
+                "Conf/Env: ${appConfig.currentConfigName}/${appConfig.currentEnvironmentName}"
             debugConfEnvTv.visible = true
         }
     }

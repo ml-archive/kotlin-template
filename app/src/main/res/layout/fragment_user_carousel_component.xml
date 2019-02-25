@@ -1,68 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:clipChildren="false"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:clipChildren="false"
     tools:ignore="MissingPrefix">
 
     <ImageView
         android:id="@+id/logoIv"
-        android:transitionName="eboksLogoTransition"
         android:layout_width="180dp"
         android:layout_height="36dp"
-        android:layout_marginTop="80dp"
         android:layout_gravity="center_horizontal"
-        />
+        android:layout_marginTop="80dp"
+        android:transitionName="eboksLogoTransition" />
 
     <dk.eboks.app.presentation.widgets.DottedViewPager
         android:id="@+id/viewPager"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="164dp"/>
+        android:layout_height="164dp"
+        android:layout_gravity="center" />
 
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+
         <Button
             android:id="@+id/signupBtn"
-            android:text="@string/nstack_start_signupButton"
-            android:background="@drawable/rounded_button"
-            android:backgroundTint="@color/darkGreyBlue"
-            android:transitionName="signUpButtonTransition"
+            style="@style/buttonRoundedCorners.darkBlueGrey"
             android:layout_width="match_parent"
-            android:layout_marginTop="12dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
-            android:alpha="0.95"
             android:layout_marginStart="36dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="36dp"
+            android:layout_marginBottom="40dp"
+            android:backgroundTint="@color/darkGreyBlue5"
+            android:text="@string/nstack_start_signupButton"
+            android:transitionName="signUpButtonTransition"
             tools:text="_Sign up" />
 
     </LinearLayout>
+
     <TextView
         android:id="@+id/debugOptionsTv"
-        android:visibility="gone"
+        style="@style/text.buttonSmall.tertiary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="12dp"
         android:layout_gravity="top|end"
+        android:padding="12dp"
+        android:text="Debug options"
         android:textAllCaps="true"
-        style="@style/text.buttonSmall.tertiary"
         android:textStyle="normal"
-        android:text="Debug options"/>
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/debugCreateUserTv"
-        android:visibility="gone"
+        style="@style/text.buttonSmall.tertiary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="12dp"
         android:layout_gravity="top|start"
+        android:padding="12dp"
+        android:text="Create user"
         android:textAllCaps="true"
-        style="@style/text.buttonSmall.tertiary"
         android:textStyle="normal"
-        android:text="Create user"/>
+        android:visibility="gone" />
 </FrameLayout>

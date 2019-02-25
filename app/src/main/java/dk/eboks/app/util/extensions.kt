@@ -31,7 +31,7 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.google.android.material.textfield.TextInputEditText
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfigImpl
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.Image
@@ -80,7 +80,7 @@ fun Editable?.isValidEmail(): Boolean {
 
 fun Editable?.isValidCpr(): Boolean {
     if (this == null) return false
-    val cprLength = Config.currentMode.cprLength
+    val cprLength = AppConfigImpl.currentMode.cprLength
     val cprRegex = Regex("^[0-9]{$cprLength}$")
     val text = toString().trim()
     return !TextUtils.isEmpty(text) && text.matches(cprRegex)

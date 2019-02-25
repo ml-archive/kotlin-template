@@ -10,7 +10,6 @@ import dk.eboks.app.presentation.ui.login.components.providers.bankidse.BankIdSE
 import dk.eboks.app.presentation.ui.login.components.providers.idporten.IdPortenComponentFragment
 import dk.eboks.app.presentation.ui.login.components.providers.nemid.NemIdComponentFragment
 import timber.log.Timber
-import java.net.URL
 
 // TODO this stuff should be downloaded from a url (on request of the customer) so that the app only contains
 // one harded coded url ya'll
@@ -21,9 +20,8 @@ import java.net.URL
  * app flavors (DK, SE, NO)
  *
  */
-object Config {
+object AppConfigImpl : AppConfig {
 
-    var resourceLinks: List<ResourceLink>? = null
     private const val VERSION = BuildConfig.VERSION_NAME
 
     private val danish: Mode = Mode(
@@ -195,7 +193,8 @@ object Config {
         alternativeLoginProviders = listOf("bankid_se")
     )
 
-    val loginProviders: Map<String, LoginProvider> = mapOf(
+    override var resourceLinks: List<ResourceLink> = listOf()
+    override val loginProviders: Map<String, LoginProvider> = mapOf(
         "email" to LoginProvider(
             id = "email",
             name = "Email",
@@ -252,177 +251,143 @@ object Config {
         )
     )
 
-    fun getLoginProvider(id: String): LoginProvider? {
+    override fun getLoginProvider(id: String): LoginProvider? {
         return loginProviders[id]
     }
 
-    fun getAlternativeLoginProviders(): MutableList<LoginProvider> {
-        val providers: MutableList<LoginProvider> = ArrayList()
-        for (provider_id in currentMode.alternativeLoginProviders) {
-            getLoginProvider(provider_id)?.let { provider ->
-                providers.add(provider)
+    override val alternativeLoginProviders: List<LoginProvider>
+        get() {
+            val providers: MutableList<LoginProvider> = ArrayList()
+            for (provider_id in currentMode.alternativeLoginProviders) {
+                getLoginProvider(provider_id)?.let { provider ->
+                    providers.add(provider)
+                }
             }
+            return providers
         }
-        return providers
-    }
 
     // returns the correct provider id for profile verification depending on country edition
-    fun getVerificationProviderId(): String? {
-        return when (currentMode) {
-            danish -> "nemid"
-            swedish -> "bankid_se"
-            norwegian -> "idporten"
-            else -> null
+    override val verificationProviderId: String?
+        get() {
+            return when (currentMode) {
+                danish -> "nemid"
+                swedish -> "bankid_se"
+                norwegian -> "idporten"
+                else -> null
+            }
         }
-    }
 
-    fun isDK(): Boolean {
-        return currentMode == danish
-    }
-
-    fun isNO(): Boolean {
-        return currentMode == norwegian
-    }
-
-    fun isSE(): Boolean {
-        return currentMode == swedish
-    }
-
-    fun getCurrentNationality(): String {
-        return when (currentMode) {
-            danish -> "DK"
-            swedish -> "SE"
-            norwegian -> "NO"
-            else -> "EN"
+    override val isDK: Boolean
+        get() {
+            return currentMode == danish
         }
-    }
 
-    fun changeConfig(name: String) {
-        when (name) {
-            "danish" -> {
-                Config.currentMode = Config.danish
+    override val isNO: Boolean
+        get() {
+            return currentMode == norwegian
+        }
+
+    override val isSE: Boolean
+        get() {
+            return currentMode == swedish
+        }
+
+    override val currentNationality: String
+        get() {
+            return when (currentMode) {
+                danish -> "DK"
+                swedish -> "SE"
+                norwegian -> "NO"
+                else -> "EN"
             }
-            "swedish" -> {
-                Config.currentMode = Config.swedish
-            }
-            "norwegian" -> {
-                Config.currentMode = Config.norwegian
-            }
+        }
+
+    override fun changeConfig(name: String) {
+        currentMode = when (name) {
+            "danish" -> AppConfigImpl.danish
+            "swedish" -> AppConfigImpl.swedish
+            "norwegian" -> AppConfigImpl.norwegian
             else -> throw(IllegalStateException("Configuration mode $name is invalid. Use danish, swedish or norwegian"))
         }
     }
 
-    fun changeEnvironment(name: String) {
+    override fun changeEnvironment(name: String) {
         if (!currentMode.environments.containsKey(name)) {
             throw(IllegalStateException("Environment couldn't be changed to $name because it doesn't exist"))
         }
         currentMode.environment = currentMode.environments[name]
     }
 
-    fun getCurrentConfigName(): String {
-        when (currentMode) {
-            danish -> {
-                return "danish"
-            }
-            swedish -> {
-                return "swedish"
-            }
-            norwegian -> {
-                return "norwegian"
-            }
-            else -> return "unknown"
-        }
-    }
+    override val isDebug: Boolean
+        get() = BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)
 
-    fun getCurrentEnvironmentName(): String? {
-        Timber.e("Running GetCurrentEnvironmentName")
-        try {
-            for (env in currentMode.environments) {
-                if (env.value == currentMode.environment)
-                    return env.key
-            }
-        } catch (t: Throwable) {
-        }
-        return null
-    }
-
-    fun getLogoResourceId(): Int {
-        when (currentMode) {
-            danish -> {
-                return R.drawable.eboks_dk_logo
-            }
-            swedish -> {
-                return R.drawable.eboks_se_logo
-            }
-            norwegian -> {
-                return R.drawable.eboks_no_logo
-            }
-            else -> return R.drawable.eboks_dk_logo
-        }
-    }
-
-    fun getApiUrl(): String {
-        return currentMode.environment?.apiUrl
-            ?: throw(IllegalStateException("No api url selected"))
-    }
-
-    fun getAuthUrl(): String {
-        return currentMode.environment?.authUrl
-            ?: throw(IllegalStateException("No auth url selected"))
-    }
-
-    fun getApiHost(): String {
-        return URL(getApiUrl()).host
-    }
-
-    fun getApiScheme(): String {
-        return URL(getApiUrl()).protocol
-    }
-
-    fun getAuthHost(): String {
-        return URL(getApiUrl()).host
-    }
-
-    fun getTermsAndConditionsUrl(): String {
-        return getApiUrl() + "resources/terms"
-    }
-
-    fun getMessagePageSize(): Int {
-        return 10
-    }
-
-    fun getResourceLinkByType(type: String): ResourceLink? {
-        resourceLinks?.let { links ->
-            for (link in links) {
-                if (link.type == type)
-                    return link
+    override val currentConfigName: String
+        get() {
+            return when (currentMode) {
+                danish -> {
+                    "danish"
+                }
+                swedish -> {
+                    "swedish"
+                }
+                norwegian -> {
+                    "norwegian"
+                }
+                else -> "unknown"
             }
         }
-        return null
+
+    override val currentEnvironmentName: String?
+        get() {
+            Timber.e("Running GetCurrentEnvironmentName")
+            try {
+                for (env in currentMode.environments) {
+                    if (env.value == currentMode.environment)
+                        return env.key
+                }
+            } catch (t: Throwable) {
+            }
+            return null
+        }
+
+    override val logoResourceId: Int
+        get() {
+            return when (currentMode) {
+                danish -> {
+                    R.drawable.eboks_dk_logo
+                }
+                swedish -> {
+                    R.drawable.eboks_se_logo
+                }
+                norwegian -> {
+                    R.drawable.eboks_no_logo
+                }
+                else -> R.drawable.eboks_dk_logo
+            }
+        }
+
+    override val messagePageSize: Int
+        get() {
+            return 10
+        }
+
+    override fun getResourceLinkByType(type: String): ResourceLink? {
+        return resourceLinks.find { it.type == type }
     }
 
-    var currentMode: Mode
-    private set
+    override var currentMode: Mode = when (BuildConfig.mode) {
+        "danish" -> danish
+        "swedish" -> swedish
+        "norwegian" -> norwegian
+        else -> throw(IllegalStateException("Configuration mode ${BuildConfig.mode} is invalid. Use danish, swedish or norwegian"))
+    }
 
     init {
-        Timber.e("Running Config Init")
-        when (BuildConfig.mode) {
-            "danish" -> {
-                currentMode = danish
-            }
-            "swedish" -> {
-                currentMode = swedish
-            }
-            "norwegian" -> {
-                currentMode = norwegian
-            }
-            else -> throw(IllegalStateException("Configuration mode ${BuildConfig.mode} is invalid. Use danish, swedish or norwegian"))
-        }
-        currentMode.environment = if (BuildConfig.BUILD_TYPE.contains(
-                "debug",
-                ignoreCase = true
-            )
-        ) currentMode.environments["demo"] else currentMode.environments["production"]
+        Timber.e("Running AppConfigImpl Init")
+        currentMode.environment = if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
+            currentMode.environments["demo"]
+        else
+            currentMode.environments["production"]
         if (currentMode == norwegian && BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
             currentMode.environment = currentMode.environments["demo2"]
         if (currentMode.environment == null)

@@ -1,7 +1,7 @@
 package dk.eboks.app.presentation.ui.login.components
 
 import dk.eboks.app.BuildConfig
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.interactors.authentication.CheckRSAKeyPresenceInteractor
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
@@ -27,7 +27,8 @@ class LoginComponentPresenter @Inject constructor(
     private val userSettingsManager: UserSettingsManager,
     private val decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,
     private val loginInteractor: LoginInteractor,
-    private val checkRSAKeyPresenceInteractor: CheckRSAKeyPresenceInteractor
+    private val checkRSAKeyPresenceInteractor: CheckRSAKeyPresenceInteractor,
+    private val appConfig: AppConfig
 ) :
     LoginComponentContract.Presenter,
     BasePresenterImpl<LoginComponentContract.View>(),
@@ -35,7 +36,7 @@ class LoginComponentPresenter @Inject constructor(
     LoginInteractor.Output,
     CheckRSAKeyPresenceInteractor.Output {
 
-    var altProviders: List<LoginProvider> = Config.getAlternativeLoginProviders()
+    var altProviders: List<LoginProvider> = appConfig.alternativeLoginProviders
     var verifyLoginProviderId: String? = null
     override var reauthing: Boolean = false
 
@@ -71,7 +72,7 @@ class LoginComponentPresenter @Inject constructor(
             }
         } else // we open in verification mode with a given login provider and no alt providers
         {
-            Config.getLoginProvider(verifyLoginProviderId)?.let { provider ->
+            appConfig.getLoginProvider(verifyLoginProviderId)?.let { provider ->
                 Timber.e("Verification login setup")
                 appState.state?.loginState?.lastUser?.let { user ->
                     val settings = userSettingsManager.get(user.id)
@@ -99,7 +100,7 @@ class LoginComponentPresenter @Inject constructor(
 
     private fun setupLogin(user: User?, provider: String?) {
         val lp = if (provider != null) {
-            Config.getLoginProvider(provider)
+            appConfig.getLoginProvider(provider)
         } else {
             null
         }
@@ -234,12 +235,7 @@ class LoginComponentPresenter @Inject constructor(
         if (keyExists) {
             runAction { it.proceedToApp() }
         } else {
-            val verified = appState.state?.loginState?.let { state ->
-                state.lastUser?.let { user ->
-                    user.verified
-                }
-            } ?: false
-            if (verified) {
+            if (appState.state?.loginState?.lastUser?.verified == true) {
                 runAction { it.startDeviceActivation() }
             } else {
                 runAction { it.proceedToApp() }

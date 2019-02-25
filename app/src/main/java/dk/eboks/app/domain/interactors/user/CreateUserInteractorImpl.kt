@@ -2,7 +2,7 @@ package dk.eboks.app.domain.interactors.user
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.managers.UserManager
 import dk.eboks.app.domain.repositories.SettingsRepository
 import dk.eboks.app.network.Api
@@ -10,15 +10,17 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
 /**
  * Created by bison on 24-06-2017.
  */
-class CreateUserInteractorImpl(
+class CreateUserInteractorImpl @Inject constructor(
     executor: Executor,
-    val userManager: UserManager,
+    private val userManager: UserManager,
     private val api: Api,
-    val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val appConfig: AppConfig
 ) : BaseInteractor(executor), CreateUserInteractor {
     override var output: CreateUserInteractor.Output? = null
     override var input: CreateUserInteractor.Input? = null
@@ -33,9 +35,9 @@ class CreateUserInteractorImpl(
                     body.addProperty("identity", user.identity)
                     body.addProperty("password", password)
                     body.addProperty("identityType", "P")
-                    if (Config.isSE()) body.addProperty("nationality", "SE")
-                    if (Config.isDK()) body.addProperty("nationality", "DK")
-                    if (Config.isNO()) body.addProperty("nationality", "NO")
+                    if (appConfig.isSE) body.addProperty("nationality", "SE")
+                    if (appConfig.isDK) body.addProperty("nationality", "DK")
+                    if (appConfig.isNO) body.addProperty("nationality", "NO")
                     // body.addProperty("mobilenumber", "31674031")
                     // body.addProperty("newsletter", false)
                     val mails = JsonArray()

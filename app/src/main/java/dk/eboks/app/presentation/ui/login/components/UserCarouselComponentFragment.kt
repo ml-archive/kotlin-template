@@ -12,7 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.viewpager.widget.PagerAdapter
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.login.User
@@ -33,11 +33,9 @@ import javax.inject.Inject
  */
 class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContract.View {
 
-    @Inject
-    lateinit var presenter: UserCarouselComponentContract.Presenter
-
-    @Inject
-    lateinit var formatter: EboksFormatter
+    @Inject lateinit var presenter: UserCarouselComponentContract.Presenter
+    @Inject lateinit var formatter: EboksFormatter
+    @Inject lateinit var appConfig: AppConfig
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -80,7 +78,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
 
     override fun onResume() {
         super.onResume()
-        logoIv.setImageResource(Config.getLogoResourceId())
+        logoIv.setImageResource(appConfig.logoResourceId)
         presenter.requestUsers()
     }
 

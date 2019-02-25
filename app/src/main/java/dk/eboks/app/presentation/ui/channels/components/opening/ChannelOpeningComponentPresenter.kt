@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.channels.components.opening
 
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.InstallChannelInteractor
 import dk.eboks.app.domain.interactors.storebox.CreateStoreboxInteractor
@@ -19,7 +19,8 @@ import javax.inject.Inject
 class ChannelOpeningComponentPresenter @Inject constructor(
     private val getChannelInteractor: GetChannelInteractor,
     private val createStoreboxInteractor: CreateStoreboxInteractor,
-    private val installChannelInteractor: InstallChannelInteractor
+    private val installChannelInteractor: InstallChannelInteractor,
+    private val appConfig: AppConfig
 ) :
     ChannelOpeningComponentContract.Presenter,
     BasePresenterImpl<ChannelOpeningComponentContract.View>(),
@@ -114,8 +115,8 @@ class ChannelOpeningComponentPresenter @Inject constructor(
                 }
                 APIConstants.CHANNEL_STATUS_REQUIRES_VERIFIED -> {
                     runAction { v ->
-                        Config.getVerificationProviderId()?.let { id ->
-                            Config.getLoginProvider(id)?.let {
+                        appConfig.verificationProviderId?.let { id ->
+                            appConfig.getLoginProvider(id)?.let {
                                 v.showVerifyState(channel, it)
                             }
                         }

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.start.components.welcome.WelcomeComponentFragment
@@ -19,8 +19,9 @@ import javax.inject.Inject
  */
 class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.TermsView {
 
-    @Inject
-    lateinit var presenter: SignupComponentContract.Presenter
+    @Inject lateinit var presenter: SignupComponentContract.Presenter
+
+    @Inject lateinit var appConfig: AppConfig
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +54,7 @@ class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.Ter
         }
 
         cancelBtn.setOnClickListener { showDialog() }
-        termsWV.loadUrl(Config.getTermsAndConditionsUrl())
+        termsWV.loadUrl(appConfig.getTermsAndConditionsUrl())
     }
 
     private fun showDialog() {

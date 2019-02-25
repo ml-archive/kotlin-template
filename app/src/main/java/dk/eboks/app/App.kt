@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.Application
 import android.os.Build
 import android.os.Bundle
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.injection.components.AppComponent
 import dk.eboks.app.injection.components.DaggerAppComponent
@@ -15,6 +15,7 @@ import dk.nodes.nstack.kotlin.NStack
 import dk.nodes.nstack.kotlin.util.NLog
 import timber.log.Timber
 import java.lang.ref.WeakReference
+import javax.inject.Inject
 
 class App : Application(), Application.ActivityLifecycleCallbacks {
     val appComponent: AppComponent by lazy {
@@ -24,14 +25,16 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
             .build()
     }
 
+    @Inject lateinit var appConfig: AppConfig
+
     override fun onCreate() {
         super.onCreate()
-
+        appComponent.inject(this)
         App._instance = this
-        // NStack.customRequestUrl = Config.currentMode.customTranslationUrl
+        // NStack.customRequestUrl = AppConfigImpl.currentMode.customTranslationUrl
 
         if (!BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true))
-            NStack.customRequestUrl = Config.currentMode.customTranslationUrl
+            NStack.customRequestUrl = appConfig.currentMode.customTranslationUrl
 
         NStack.translationClass = Translation::class.java
         NStack.debugMode = BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)
@@ -57,8 +60,6 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-
-        appComponent.inject(this)
 
         registerActivityLifecycleCallbacks(this)
     }

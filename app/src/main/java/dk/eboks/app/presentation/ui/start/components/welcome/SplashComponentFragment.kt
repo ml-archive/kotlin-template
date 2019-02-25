@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfigImpl
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.components.UserCarouselComponentFragment
@@ -27,7 +27,7 @@ class SplashComponentFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        logoIv.setImageResource(Config.getLogoResourceId())
+        logoIv.setImageResource(AppConfigImpl.logoResourceId)
     }
 
     fun transitionToWelcomeFragment() {

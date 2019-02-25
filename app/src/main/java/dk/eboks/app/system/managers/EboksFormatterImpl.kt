@@ -1,7 +1,7 @@
 package dk.eboks.app.system.managers
 
 import android.content.Context
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
@@ -14,11 +14,15 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import javax.inject.Inject
 
 /**
  * Created by bison on 19/02/18.
  */
-class EboksFormatterImpl(val context: Context) : EboksFormatter {
+class EboksFormatterImpl @Inject constructor(
+    private val context: Context,
+    private val appConfig: AppConfig
+) : EboksFormatter {
 
     val messageDateFormat: SimpleDateFormat by lazy {
         try {
@@ -52,7 +56,7 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
     }
 
     override fun formatCpr(cpr: String): String {
-        if (Config.isDK()) {
+        if (appConfig.isDK) {
             if (cpr.length > 9) {
                 return "${cpr.substring(0, 6)}-${cpr.substring(6, 10)}"
             }
@@ -62,11 +66,11 @@ class EboksFormatterImpl(val context: Context) : EboksFormatter {
     }
 
     override fun formatDate(target: Message): String {
-        try {
-            return messageDateFormat.format(target.received)
+        return try {
+            messageDateFormat.format(target.received)
         } catch (t: Throwable) {
             Timber.e(t)
-            return ""
+            ""
         }
     }
 

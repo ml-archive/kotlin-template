@@ -1,6 +1,6 @@
 package dk.eboks.app.domain.interactors.message
 
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.managers.AppStateManager
@@ -20,17 +20,19 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 import java.io.File
+import javax.inject.Inject
 
 /**
  * Created by bison on 01/02/18.
  */
-class OpenMessageInteractorImpl(
+class OpenMessageInteractorImpl @Inject constructor(
     executor: Executor,
-    val appStateManager: AppStateManager,
-    val uiManager: UIManager,
-    val downloadManager: DownloadManager,
-    val cacheManager: FileCacheManager,
-    val messagesRepository: MessagesRepository
+    private val appStateManager: AppStateManager,
+    private val uiManager: UIManager,
+    private val downloadManager: DownloadManager,
+    private val cacheManager: FileCacheManager,
+    private val messagesRepository: MessagesRepository,
+    private val appConfig: AppConfig
 ) : BaseInteractor(executor), OpenMessageInteractor {
 
     override var output: OpenMessageInteractor.Output? = null
@@ -248,7 +250,7 @@ class OpenMessageInteractorImpl(
                     return true
                 }
                 APIConstants.MSG_LOCKED_REQUIRES_HIGHER_SEC_LVL -> {
-                    Config.getVerificationProviderId()?.let { providerId ->
+                    appConfig.verificationProviderId?.let { providerId ->
                         runOnUIThread { output?.onReAuthenticate(providerId, msg) }
                         executor.sleepUntilSignalled("authenticationDone")
                         return true
@@ -346,8 +348,8 @@ class OpenMessageInteractorImpl(
     fun isEmbeddedType(msg: Message): Boolean {
         if (msg.content == null)
             return false
-        var ext = msg.content?.fileExtension
-        var mime = msg.content?.mimeType
+        val ext = msg.content?.fileExtension
+        val mime = msg.content?.mimeType
         for (type in embeddedTypes) {
             // do we have a mime type? those are the bestest!!
             if (mime != null) {

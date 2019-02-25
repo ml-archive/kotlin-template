@@ -16,7 +16,6 @@ import dk.eboks.app.App
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.injection.components.PresentationComponent
-import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.ui.debug.screens.DebugActivity
 import dk.eboks.app.util.BroadcastReceiver
 import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
@@ -25,7 +24,7 @@ import timber.log.Timber
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
     protected val component: PresentationComponent by lazy {
-        App.instance().appComponent.plus(PresentationModule())
+        App.instance().appComponent.plus()
     }
     /*
     private val shakeDetector: ShakeDetector? = if (BuildConfig.DEBUG) ShakeDetector() else null

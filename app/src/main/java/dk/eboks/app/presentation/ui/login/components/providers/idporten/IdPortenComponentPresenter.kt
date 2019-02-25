@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.login.components.providers.idporten
 
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.interactors.authentication.MergeAndImpersonateInteractor
 import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
 import dk.eboks.app.domain.interactors.authentication.VerifyProfileInteractor
@@ -16,14 +17,16 @@ class IdPortenComponentPresenter @Inject constructor(
     transformTokenInteractor: TransformTokenInteractor,
     verifyProfileInteractor: VerifyProfileInteractor,
     mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-    userSettingsManager: UserSettingsManager
+    userSettingsManager: UserSettingsManager,
+    appConfig: AppConfig
 ) :
     WebLoginPresenter(
         appState,
         transformTokenInteractor,
         verifyProfileInteractor,
         mergeAndImpersonateInteractor,
-        userSettingsManager
+        userSettingsManager,
+        appConfig
     ) {
 
     override fun login(webToken: String) {

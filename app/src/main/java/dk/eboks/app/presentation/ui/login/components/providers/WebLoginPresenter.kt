@@ -1,7 +1,7 @@
 package dk.eboks.app.presentation.ui.login.components.providers
 
 import android.app.Activity
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.interactors.authentication.MergeAndImpersonateInteractor
 import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
 import dk.eboks.app.domain.interactors.authentication.VerifyProfileInteractor
@@ -23,8 +23,8 @@ open class WebLoginPresenter @Inject constructor(
     val transformTokenInteractor: TransformTokenInteractor,
     val verifyProfileInteractor: VerifyProfileInteractor,
     val mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-    val userSettingsManager: UserSettingsManager
-
+    val userSettingsManager: UserSettingsManager,
+    val appConfig: AppConfig
 ) :
     WebLoginContract.Presenter,
     BasePresenterImpl<WebLoginContract.View>(),
@@ -57,7 +57,7 @@ open class WebLoginPresenter @Inject constructor(
         val failProviderId = appState.state?.loginState?.userLoginProviderId
         failProviderId?.let {
             Timber.e("Cancel and close called provider id = $it")
-            Config.getLoginProvider(failProviderId)?.let { provider ->
+            appConfig.getLoginProvider(failProviderId)?.let { provider ->
                 Timber.e("Setting lastLoginProvider to fallback provider ${provider.fallbackProvider}")
                 userSettingsManager.get(appState.state?.loginState?.selectedUser?.id ?: -1)
                     .let { userSettings ->
