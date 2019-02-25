@@ -83,7 +83,7 @@ class SignupVerificationComponentFragment : BaseFragment(),
         content.postDelayed({
             showProgress(false)
             // remove MM as it is out of scope for the current release
-//            if(Config.isSE()) {
+//            if(AppConfigImpl.isSE()) {
 //                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, MMComponentFragment(), true)
 //            } else {
 //                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)

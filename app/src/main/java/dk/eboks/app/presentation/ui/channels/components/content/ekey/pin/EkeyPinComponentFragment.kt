@@ -141,7 +141,6 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
                 ekeyPasswordInputLayout.error = Translation.error.pincodeMinLenght
                 return
             }
-
         }
         getEkeyBaseActivity()?.setPin(pin)
         getEkeyBaseActivity()?.refreshClearAndShowMain()

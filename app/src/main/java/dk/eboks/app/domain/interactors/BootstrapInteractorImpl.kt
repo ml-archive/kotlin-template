@@ -1,7 +1,7 @@
 package dk.eboks.app.domain.interactors
 
 import dk.eboks.app.BuildConfig
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.managers.FileCacheManager
@@ -15,21 +15,23 @@ import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 import javax.net.ssl.SSLPeerUnverifiedException
 
 /**
  * Created by bison on 24-06-2017.
  */
-class BootstrapInteractorImpl(
+class BootstrapInteractorImpl @Inject constructor(
     executor: Executor,
-    val guidManager: GuidManager,
-    val settingsRepository: SettingsRepository,
-    val appStateManager: AppStateManager,
-    val fileCacheManager: FileCacheManager,
-    val cacheManager: CacheManager,
-    val userManager: UserManager,
-    val api: Api,
-    val prefManager: PrefManager
+    private val guidManager: GuidManager,
+    private val settingsRepository: SettingsRepository,
+    private val appStateManager: AppStateManager,
+    private val fileCacheManager: FileCacheManager,
+    private val cacheManager: CacheManager,
+    private val userManager: UserManager,
+    private val api: Api,
+    private val prefManager: PrefManager,
+    private val appConfig: AppConfig
 ) : BaseInteractor(executor), BootstrapInteractor {
     override var output: BootstrapInteractor.Output? = null
     override var input: BootstrapInteractor.Input? = null
@@ -45,19 +47,19 @@ class BootstrapInteractorImpl(
                 // do we have a saved config?
                 prefManager.getString("config", null)?.let {
                     Timber.e("Setting config to $it")
-                    Config.changeConfig(it)
+                    appConfig.changeConfig(it)
                 }
                 // do we have a saved environment? then set it
                 prefManager.getString("environment", null)?.let {
                     Timber.e("Setting environment to $it")
-                    Config.changeEnvironment(it)
+                    appConfig.changeEnvironment(it)
                 }
             }
 
             val result = api.getResourceLinks().execute()
             if (result.isSuccessful) {
                 result.body()?.let { links ->
-                    Config.resourceLinks = links
+                    appConfig.resourceLinks = links
                 }
             }
 

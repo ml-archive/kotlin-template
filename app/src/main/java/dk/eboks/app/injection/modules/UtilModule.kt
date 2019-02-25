@@ -39,8 +39,8 @@ class UtilModule {
 
     @Provides
     @AppScope
-    fun provideEboksFormatter(context: Context): EboksFormatter {
-        return EboksFormatterImpl(context)
+    fun provideEboksFormatter(formatter: EboksFormatterImpl): EboksFormatter {
+        return formatter
     }
 
     @Provides

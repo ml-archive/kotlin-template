@@ -3,7 +3,7 @@ package dk.eboks.app.network.repositories
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.models.folder.Folder
@@ -39,7 +39,8 @@ class MessagesRestRepository @Inject constructor(
     private val gson: Gson,
     private val cacheManager: CacheManager,
     private val okHttpClient: OkHttpClient,
-    private val appState: AppStateManager
+    private val appState: AppStateManager,
+    private val appConfig: AppConfig
 ) : MessagesRepository {
 
     // delete message
@@ -325,7 +326,7 @@ class MessagesRestRepository @Inject constructor(
         mimetype: String,
         callback: (Double) -> Unit
     ) {
-        val url = "${Config.getApiUrl()}mail/folders/$folderId/messages"
+        val url = "${appConfig.getApiUrl()}mail/folders/$folderId/messages"
 
         val body = CountingFileRequestBody(
             FilePickerUriHelper.getFile(context, uriString),

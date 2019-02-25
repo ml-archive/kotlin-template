@@ -16,7 +16,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.appbar.AppBarLayout
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
@@ -44,8 +44,8 @@ import javax.inject.Inject
 
 class ProfileInfoComponentFragment : BaseFragment(),
     ProfileInfoComponentContract.View {
-    @Inject
-    lateinit var presenter: ProfileInfoComponentContract.Presenter
+    @Inject lateinit var presenter: ProfileInfoComponentContract.Presenter
+    @Inject lateinit var appConfig: AppConfig
 
     private var toolbarTitle = ""
 
@@ -211,7 +211,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
 
         profileDetailContainerFeedback.setOnClickListener {
-            Config.getResourceLinkByType("feedback")?.let { link ->
+            appConfig.getResourceLinkByType("feedback")?.let { link ->
                 openUrlExternal(link.link.url)
             }
         }

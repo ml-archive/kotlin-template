@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.debug.screens.user
 
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.interactors.user.CreateDebugUserInteractorImpl
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
@@ -17,7 +17,8 @@ import javax.inject.Inject
 class DebugUserPresenter @Inject constructor(
     private val userSettingsManager: UserSettingsManager,
     private val createUserInteractor: CreateDebugUserInteractorImpl,
-    private val saveUserInteractor: SaveUserInteractor
+    private val saveUserInteractor: SaveUserInteractor,
+    private val appConfig: AppConfig
 ) :
     DebugUserContract.Presenter,
     BasePresenterImpl<DebugUserContract.View>(),
@@ -30,9 +31,9 @@ class DebugUserPresenter @Inject constructor(
 
     override fun setup() {
         runAction { v ->
-            v.showLoginProviderSpinner(Config.loginProviders.values.toList())
+            v.showLoginProviderSpinner(appConfig.loginProviders.values.toList())
             editUser?.let {
-                v.showUser(it, userSettingsManager.get(it.id))
+                v.showUser(it, userSettingsManager[it.id])
                 editUser = null
             }
         }

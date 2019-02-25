@@ -178,7 +178,6 @@ import dk.eboks.app.domain.managers.CryptoManager
 import dk.eboks.app.domain.managers.DownloadManager
 import dk.eboks.app.domain.managers.EncryptionPreferenceManager
 import dk.eboks.app.domain.managers.FileCacheManager
-import dk.eboks.app.domain.managers.GuidManager
 import dk.eboks.app.domain.managers.PermissionManager
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.managers.ResourceManager
@@ -197,7 +196,6 @@ import dk.eboks.app.domain.repositories.SignupRepository
 import dk.eboks.app.domain.repositories.UserRepository
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.Executor
-import okhttp3.OkHttpClient
 
 @Module
 class InteractorModule {
@@ -277,28 +275,8 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideBootstrapInteractor(
-        executor: Executor,
-        guidManager: GuidManager,
-        settingsRepository: SettingsRepository,
-        appStateManager: AppStateManager,
-        fileCacheManager: FileCacheManager,
-        cacheManager: CacheManager,
-        userManager: UserManager,
-        api: Api,
-        prefManager: PrefManager
-    ): BootstrapInteractor {
-        return BootstrapInteractorImpl(
-            executor,
-            guidManager,
-            settingsRepository,
-            appStateManager,
-            fileCacheManager,
-            cacheManager,
-            userManager,
-            api,
-            prefManager
-        )
+    fun provideBootstrapInteractor(interactor: BootstrapInteractorImpl): BootstrapInteractor {
+        return interactor
     }
 
     @Provides
@@ -392,22 +370,8 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideOpenMessageInteractor(
-        executor: Executor,
-        appStateManager: AppStateManager,
-        uiManager: UIManager,
-        downloadManager: DownloadManager,
-        fileCacheManager: FileCacheManager,
-        messagesRepository: MessagesRepository
-    ): OpenMessageInteractor {
-        return OpenMessageInteractorImpl(
-            executor,
-            appStateManager,
-            uiManager,
-            downloadManager,
-            fileCacheManager,
-            messagesRepository
-        )
+    fun provideOpenMessageInteractor(interactor: OpenMessageInteractorImpl): OpenMessageInteractor {
+        return interactor
     }
 
     @Provides
@@ -467,13 +431,8 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideCreateUserInteractor(
-        executor: Executor,
-        userManager: UserManager,
-        api: Api,
-        settingsRepository: SettingsRepository
-    ): CreateUserInteractor {
-        return CreateUserInteractorImpl(executor, userManager, api, settingsRepository)
+    fun provideCreateUserInteractor(interactor: CreateUserInteractorImpl): CreateUserInteractor {
+        return interactor
     }
 
     @Provides
@@ -598,12 +557,8 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideGetChannelContentLinkInteractor(
-        executor: Executor,
-        httpClient: OkHttpClient,
-        appStateManager: AppStateManager
-    ): GetChannelContentLinkInteractor {
-        return GetChannelContentLinkInteractorImpl(executor, httpClient, appStateManager)
+    fun provideGetChannelContentLinkInteractor(interactor: GetChannelContentLinkInteractorImpl): GetChannelContentLinkInteractor {
+        return interactor
     }
 
     @Provides
@@ -839,8 +794,8 @@ class InteractorModule {
     }
 
     @Provides
-    fun provideResetPasswordInteractor(executor: Executor, api: Api): ResetPasswordInteractor {
-        return ResetPasswordInteractorImpl(executor, api)
+    fun provideResetPasswordInteractor(interactor: ResetPasswordInteractorImpl): ResetPasswordInteractor {
+        return interactor
     }
 
     @Provides
