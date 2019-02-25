@@ -18,6 +18,7 @@ import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderMode
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.getIconResId
 import dk.eboks.app.domain.models.isSystemFolder

@@ -4,6 +4,7 @@ import dk.eboks.app.mail.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.mail.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderMode
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber

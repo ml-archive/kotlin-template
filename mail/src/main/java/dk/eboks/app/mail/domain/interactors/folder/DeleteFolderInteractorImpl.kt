@@ -1,7 +1,6 @@
-package dk.eboks.app.domain.interactors.folder
+package dk.eboks.app.mail.domain.interactors.folder
 
 import dk.eboks.app.domain.repositories.FoldersRepository
-import dk.eboks.app.mail.domain.interactors.folder.DeleteFolderInteractor
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor

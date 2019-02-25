@@ -3,12 +3,6 @@ package dk.eboks.app.domain.models
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.folder.FolderType
 
-fun FolderType.isSystemFolder(): Boolean {
-    return when (this) {
-        FolderType.INBOX, FolderType.DRAFTS, FolderType.ARCHIVE, FolderType.SENT, FolderType.TRASH, FolderType.DELETED, FolderType.HIGHLIGHTS, FolderType.UNREAD, FolderType.LATEST, FolderType.RECEIPTS, FolderType.UPLOADS -> true
-        else -> false
-    }
-}
 
 fun FolderType.getIconResId(): Int {
     when (this) {
