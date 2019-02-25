@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.message.screens.embedded
 
 import dk.eboks.app.BuildConfig
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
 import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
@@ -15,6 +16,7 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class MessageEmbeddedPresenter @Inject constructor(
+        private val appConfig: AppConfig,
         private val stateManager: AppStateManager,
         private val deleteMessagesInteractor: DeleteMessagesInteractor,
         private val updateMessageInteractor: UpdateMessageInteractor
@@ -39,17 +41,17 @@ class MessageEmbeddedPresenter @Inject constructor(
         runAction { v ->
             v.addHeaderComponentFragment()
             message?.let { message ->
-                if (BuildConfig.ENABLE_REPLY) {
+                if (appConfig.ENABLE_REPLY) {
                     message.reply?.let {
                         v.addReplyButtonComponentFragment(message)
                     }
                 }
-                if (BuildConfig.ENABLE_SIGN) {
+                if (appConfig.ENABLE_SIGN) {
                     message.sign?.let {
                         v.addSignButtonComponentFragment(message)
                     }
                 }
-                if (BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
+                if (appConfig.ENABLE_DOCUMENT_ACTIONS) {
                     v.setActionButton(message)
                 }
 
