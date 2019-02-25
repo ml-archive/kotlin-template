@@ -1,7 +1,6 @@
-package dk.eboks.app.domain.interactors.message.messageoperations
+package dk.eboks.app.mail.domain.interactors.messageoperations
 
 import dk.eboks.app.domain.repositories.MessagesRepository
-import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor

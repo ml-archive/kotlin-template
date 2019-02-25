@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors.message
+package dk.eboks.app.mail.domain.interactors.message
 
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.mail.domain.interactors.message.GetStorageInteractor

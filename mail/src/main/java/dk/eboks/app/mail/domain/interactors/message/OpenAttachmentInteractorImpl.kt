@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors.message
+package dk.eboks.app.mail.domain.interactors.message
 
 import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.managers.AppStateManager
@@ -10,7 +10,6 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.EboksContentType
 import dk.eboks.app.domain.models.message.Message
-import dk.eboks.app.mail.domain.interactors.message.OpenAttachmentInteractor
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber

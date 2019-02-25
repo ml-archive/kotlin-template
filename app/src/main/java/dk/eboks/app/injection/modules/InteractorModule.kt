@@ -69,31 +69,31 @@ import dk.eboks.app.domain.interactors.folder.GetFoldersInteractorImpl
 import dk.eboks.app.mail.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.interactors.folder.OpenFolderInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.GetLatestUploadsInteractor
-import dk.eboks.app.domain.interactors.message.GetLatestUploadsInteractorImpl
+import dk.eboks.app.mail.domain.interactors.message.GetLatestUploadsInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractor
-import dk.eboks.app.domain.interactors.message.GetMessagesInteractorImpl
+import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.GetReplyFormInteractor
-import dk.eboks.app.domain.interactors.message.GetReplyFormInteractorImpl
+import dk.eboks.app.mail.domain.interactors.message.GetReplyFormInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractor
-import dk.eboks.app.domain.interactors.message.GetSignLinkInteractorImpl
+import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.GetStorageInteractor
-import dk.eboks.app.domain.interactors.message.GetStorageInteractorImpl
+import dk.eboks.app.mail.domain.interactors.message.GetStorageInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.OpenAttachmentInteractor
-import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractorImpl
+import dk.eboks.app.mail.domain.interactors.message.OpenAttachmentInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.interactors.message.OpenMessageInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.SaveAttachmentInteractor
-import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractorImpl
+import dk.eboks.app.mail.domain.interactors.message.SaveAttachmentInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.SubmitReplyFormInteractor
-import dk.eboks.app.domain.interactors.message.SubmitReplyFormInteractorImpl
+import dk.eboks.app.mail.domain.interactors.message.SubmitReplyFormInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.UploadFileInteractor
-import dk.eboks.app.domain.interactors.message.UploadFileInteractorImpl
+import dk.eboks.app.mail.domain.interactors.message.UploadFileInteractorImpl
 import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
-import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesInteractorImpl
+import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractorImpl
 import dk.eboks.app.mail.domain.interactors.messageoperations.MoveMessagesInteractor
-import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractorImpl
+import dk.eboks.app.mail.domain.interactors.messageoperations.MoveMessagesInteractorImpl
 import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
-import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractorImpl
+import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractorImpl
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractorImpl
 import dk.eboks.app.domain.interactors.sender.GetSegmentInteractor
@@ -103,7 +103,7 @@ import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractorImpl
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractorImpl
 import dk.eboks.app.mail.domain.interactors.senders.GetSendersInteractor
-import dk.eboks.app.domain.interactors.sender.GetSendersInteractorImpl
+import dk.eboks.app.mail.domain.interactors.senders.GetSendersInteractorImpl
 import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractorImpl
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
@@ -200,7 +200,7 @@ import dk.nodes.arch.domain.executor.Executor
 import okhttp3.OkHttpClient
 
 @Module
-class InteractorModule {
+class GetSendersInteractorImplInteractorModule {
     @Provides
     fun provideLoginInteractor(
         executor: Executor,
@@ -401,12 +401,12 @@ class InteractorModule {
         messagesRepository: MessagesRepository
     ): OpenMessageInteractor {
         return OpenMessageInteractorImpl(
-            executor,
-            appStateManager,
-            uiManager,
-            downloadManager,
-            fileCacheManager,
-            messagesRepository
+                executor,
+                appStateManager,
+                uiManager,
+                downloadManager,
+                fileCacheManager,
+                messagesRepository
         )
     }
 
@@ -419,11 +419,11 @@ class InteractorModule {
         fileCacheManager: FileCacheManager
     ): OpenAttachmentInteractor {
         return OpenAttachmentInteractorImpl(
-            executor,
-            appStateManager,
-            uiManager,
-            downloadManager,
-            fileCacheManager
+                executor,
+                appStateManager,
+                uiManager,
+                downloadManager,
+                fileCacheManager
         )
     }
 
@@ -451,10 +451,10 @@ class InteractorModule {
         permissionManager: PermissionManager
     ): SaveAttachmentInteractor {
         return SaveAttachmentInteractorImpl(
-            executor,
-            appStateManager,
-            fileCacheManager,
-            permissionManager
+                executor,
+                appStateManager,
+                fileCacheManager,
+                permissionManager
         )
     }
 

@@ -1,7 +1,6 @@
-package dk.eboks.app.domain.interactors.message
+package dk.eboks.app.mail.domain.interactors.message
 
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractor
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
@@ -23,9 +22,9 @@ class GetSignLinkInteractorImpl(executor: Executor, private val api: Api) :
                 val result = api.getSignLink(
                     args.msg.id,
                     folderId,
-                    CANCEL_CALLBACK,
-                    SUCCESS_CALLBACK,
-                    ERROR_CALLBACK
+                        CANCEL_CALLBACK,
+                        SUCCESS_CALLBACK,
+                        ERROR_CALLBACK
                 ).execute()
 
                 result.body()?.let {

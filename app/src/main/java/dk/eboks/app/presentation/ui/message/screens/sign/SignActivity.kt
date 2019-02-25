@@ -7,7 +7,7 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import dk.eboks.app.R
-import dk.eboks.app.domain.interactors.message.GetSignLinkInteractorImpl
+import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractorImpl
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message

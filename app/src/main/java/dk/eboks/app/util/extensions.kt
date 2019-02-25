@@ -169,63 +169,7 @@ fun Channel.areAllRequirementsVerified(): Boolean {
  * Its just for convenience yall
  */
 
-internal fun throwableToViewError(
-    t: Throwable,
-    shouldClose: Boolean = false,
-    shouldDisplay: Boolean = true
-): ViewError {
-    when (t) {
-        is ConnectException -> return ViewError(
-            title = Translation.error.noInternetTitle,
-            message = Translation.error.noInternetMessage,
-            shouldDisplay = shouldDisplay,
-            shouldCloseView = shouldClose
-        )
-        is UnknownHostException -> return ViewError(
-            title = Translation.error.noInternetTitle,
-            message = Translation.error.noInternetMessage,
-            shouldDisplay = shouldDisplay,
-            shouldCloseView = shouldClose
-        )
-        is IOException -> return ViewError(
-            title = Translation.error.genericStorageTitle,
-            message = Translation.error.genericStorageMessage,
-            shouldDisplay = shouldDisplay,
-            shouldCloseView = shouldClose
-        )
-        is SocketTimeoutException -> return ViewError(
-            title = Translation.error.noInternetTitle,
-            message = Translation.error.noInternetMessage,
-            shouldDisplay = shouldDisplay,
-            shouldCloseView = shouldClose
-        )
-        is ServerErrorException -> {
-            return ViewError(
-                title = t.error.description?.title,
-                message = t.error.description?.text,
-                shouldDisplay = shouldDisplay,
-                shouldCloseView = shouldClose
-            )
-        }
-        else -> return ViewError(
-            shouldDisplay = shouldDisplay,
-            shouldCloseView = shouldClose
-        )
-    }
-}
 
-fun BaseInteractor.exceptionToViewError(
-    t: Throwable,
-    shouldClose: Boolean = false,
-    shouldDisplay: Boolean = true
-): ViewError {
-    t.cause?.let {
-        return throwableToViewError(it, shouldClose, shouldDisplay)
-    }.guard {
-        return throwableToViewError(t, shouldClose, shouldDisplay)
-    }
-    return ViewError(shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
-}
 
 class ActivityStarter(val callingActivity: Activity) {
     private var activityClass: Class<out Activity>? = null
