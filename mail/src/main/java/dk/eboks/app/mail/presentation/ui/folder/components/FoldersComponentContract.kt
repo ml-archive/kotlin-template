@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.folder.components
+package dk.eboks.app.mail.presentation.ui.folder.components
 
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderMode

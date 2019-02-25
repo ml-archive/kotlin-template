@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.folder.components
+package dk.eboks.app.mail.presentation.ui.folder.components
 
 import dk.eboks.app.mail.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.mail.domain.interactors.folder.OpenFolderInteractor

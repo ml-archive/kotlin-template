@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.folder.components.newfolder
+package dk.eboks.app.mail.presentation.ui.folder.components
 
 enum class FolderDrawerMode(val type: String) {
     NEW("new"),

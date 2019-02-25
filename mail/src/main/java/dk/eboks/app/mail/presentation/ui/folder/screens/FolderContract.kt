@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.folder.screens
+package dk.eboks.app.mail.presentation.ui.folder.screens
 
 import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter

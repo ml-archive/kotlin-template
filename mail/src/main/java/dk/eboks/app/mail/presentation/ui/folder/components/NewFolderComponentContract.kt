@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.folder.components.newfolder
+package dk.eboks.app.mail.presentation.ui.folder.components
 
 import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter

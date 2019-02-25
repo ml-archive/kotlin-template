@@ -23,6 +23,7 @@ import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.getIconResId
 import dk.eboks.app.domain.models.isSystemFolder
 import dk.eboks.app.domain.models.login.User
+import dk.eboks.app.mail.presentation.ui.folder.components.FoldersComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.components.newfolder.NewFolderComponentFragment
 import dk.eboks.app.util.guard
