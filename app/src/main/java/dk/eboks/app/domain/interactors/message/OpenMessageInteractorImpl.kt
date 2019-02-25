@@ -12,6 +12,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.EboksContentType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.repositories.MessagesRepository
+import dk.eboks.app.mail.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.util.FieldMapper
 import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard

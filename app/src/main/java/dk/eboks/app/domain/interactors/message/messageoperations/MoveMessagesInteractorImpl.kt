@@ -3,6 +3,7 @@ package dk.eboks.app.domain.interactors.message.messageoperations
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.repositories.MessagesRepository
+import dk.eboks.app.mail.domain.interactors.messageoperations.MoveMessagesInteractor
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
@@ -11,7 +12,7 @@ class MoveMessagesInteractorImpl(
     val messagesRepository: MessagesRepository
 ) :
     BaseInteractor(executor),
-    MoveMessagesInteractor {
+        MoveMessagesInteractor {
     override var output: MoveMessagesInteractor.Output? = null
     override var input: MoveMessagesInteractor.Input? = null
 

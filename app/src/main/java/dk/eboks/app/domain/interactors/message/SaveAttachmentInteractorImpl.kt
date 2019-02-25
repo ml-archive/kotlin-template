@@ -7,6 +7,7 @@ import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.managers.PermissionManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.mail.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor

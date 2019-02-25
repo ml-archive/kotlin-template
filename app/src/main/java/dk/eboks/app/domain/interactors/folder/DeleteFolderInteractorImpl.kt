@@ -1,6 +1,7 @@
 package dk.eboks.app.domain.interactors.folder
 
 import dk.eboks.app.domain.repositories.FoldersRepository
+import dk.eboks.app.mail.domain.interactors.folder.DeleteFolderInteractor
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -10,7 +11,7 @@ class DeleteFolderInteractorImpl(
     val foldersRepository: FoldersRepository
 ) :
     BaseInteractor(executor),
-    DeleteFolderInteractor {
+        DeleteFolderInteractor {
     override var output: DeleteFolderInteractor.Output? = null
     override var input: DeleteFolderInteractor.Input? = null
 

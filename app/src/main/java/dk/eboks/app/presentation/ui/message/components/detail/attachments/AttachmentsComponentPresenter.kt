@@ -1,7 +1,7 @@
 package dk.eboks.app.presentation.ui.message.components.detail.attachments
 
-import dk.eboks.app.domain.interactors.message.OpenAttachmentInteractor
-import dk.eboks.app.domain.interactors.message.SaveAttachmentInteractor
+import dk.eboks.app.mail.domain.interactors.message.OpenAttachmentInteractor
+import dk.eboks.app.mail.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Content
@@ -14,9 +14,9 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class AttachmentsComponentPresenter @Inject constructor(
-    appState: AppStateManager,
-    private val openAttachmentInteractor: OpenAttachmentInteractor,
-    private val saveAttachmentInteractor: SaveAttachmentInteractor
+        appState: AppStateManager,
+        private val openAttachmentInteractor: OpenAttachmentInteractor,
+        private val saveAttachmentInteractor: SaveAttachmentInteractor
 ) :
     AttachmentsComponentContract.Presenter,
     BasePresenterImpl<AttachmentsComponentContract.View>(),

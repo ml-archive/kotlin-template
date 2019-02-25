@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.senders.components.list
 
-import dk.eboks.app.domain.interactors.sender.GetSendersInteractor
+import dk.eboks.app.mail.domain.interactors.senders.GetSendersInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender

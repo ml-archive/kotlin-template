@@ -1,6 +1,7 @@
 package dk.eboks.app.domain.interactors.folder
 
 import dk.eboks.app.domain.repositories.FoldersRepository
+import dk.eboks.app.mail.domain.interactors.folder.CreateFolderInteractor
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -10,7 +11,7 @@ class CreateFolderInteractorImpl(
     val foldersRepository: FoldersRepository
 ) :
     BaseInteractor(executor),
-    CreateFolderInteractor {
+        CreateFolderInteractor {
     override var output: CreateFolderInteractor.Output? = null
     override var input: CreateFolderInteractor.Input? = null
 

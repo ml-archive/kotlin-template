@@ -1,8 +1,8 @@
 package dk.eboks.app.presentation.ui.message.screens
 
 import dk.eboks.app.BuildConfig
-import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesInteractor
-import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
+import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
+import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
@@ -16,9 +16,9 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class MessagePresenter @Inject constructor(
-    private val appState: AppStateManager,
-    private val deleteMessagesInteractor: DeleteMessagesInteractor,
-    private val updateMessageInteractor: UpdateMessageInteractor
+        private val appState: AppStateManager,
+        private val deleteMessagesInteractor: DeleteMessagesInteractor,
+        private val updateMessageInteractor: UpdateMessageInteractor
 ) : MessageContract.Presenter,
     BasePresenterImpl<MessageContract.View>(),
     DeleteMessagesInteractor.Output,

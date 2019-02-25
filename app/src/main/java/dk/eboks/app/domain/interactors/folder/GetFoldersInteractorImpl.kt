@@ -5,6 +5,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.isSystemFolder
 import dk.eboks.app.domain.repositories.FoldersRepository
+import dk.eboks.app.mail.domain.interactors.folder.GetFoldersInteractor
 import dk.eboks.app.presentation.ui.folder.components.FolderMode
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor

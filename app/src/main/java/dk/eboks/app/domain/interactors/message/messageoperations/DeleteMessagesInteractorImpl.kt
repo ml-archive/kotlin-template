@@ -2,12 +2,13 @@ package dk.eboks.app.domain.interactors.message.messageoperations
 
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.repositories.MessagesRepository
+import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
 class DeleteMessagesInteractorImpl(executor: Executor, val messagesRepository: MessagesRepository) :
     BaseInteractor(executor),
-    DeleteMessagesInteractor {
+        DeleteMessagesInteractor {
     override var output: DeleteMessagesInteractor.Output? = null
     override var input: DeleteMessagesInteractor.Input? = null
 

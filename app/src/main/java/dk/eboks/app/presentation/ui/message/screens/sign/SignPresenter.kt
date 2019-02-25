@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.message.screens.sign
 
-import dk.eboks.app.domain.interactors.message.GetSignLinkInteractor
+import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractor
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.shared.Link

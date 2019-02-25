@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.message.components.detail.notes
 
-import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
+import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message

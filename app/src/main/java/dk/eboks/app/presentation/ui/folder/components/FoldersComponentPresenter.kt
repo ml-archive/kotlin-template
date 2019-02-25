@@ -1,7 +1,7 @@
 package dk.eboks.app.presentation.ui.folder.components
 
-import dk.eboks.app.domain.interactors.folder.GetFoldersInteractor
-import dk.eboks.app.domain.interactors.folder.OpenFolderInteractor
+import dk.eboks.app.mail.domain.interactors.folder.GetFoldersInteractor
+import dk.eboks.app.mail.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
@@ -13,9 +13,9 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class FoldersComponentPresenter @Inject constructor(
-    private val appState: AppStateManager,
-    private val getFoldersInteractor: GetFoldersInteractor,
-    private val openFolderInteractor: OpenFolderInteractor
+        private val appState: AppStateManager,
+        private val getFoldersInteractor: GetFoldersInteractor,
+        private val openFolderInteractor: OpenFolderInteractor
 ) :
     FoldersComponentContract.Presenter,
     BasePresenterImpl<FoldersComponentContract.View>(),

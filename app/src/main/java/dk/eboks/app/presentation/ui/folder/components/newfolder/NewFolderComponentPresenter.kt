@@ -1,8 +1,8 @@
 package dk.eboks.app.presentation.ui.folder.components.newfolder
 
-import dk.eboks.app.domain.interactors.folder.CreateFolderInteractor
-import dk.eboks.app.domain.interactors.folder.DeleteFolderInteractor
-import dk.eboks.app.domain.interactors.folder.EditFolderInteractor
+import dk.eboks.app.mail.domain.interactors.folder.CreateFolderInteractor
+import dk.eboks.app.mail.domain.interactors.folder.DeleteFolderInteractor
+import dk.eboks.app.mail.domain.interactors.folder.EditFolderInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.FolderRequest
 import dk.eboks.app.domain.models.local.ViewError
@@ -13,10 +13,10 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class NewFolderComponentPresenter @Inject constructor(
-    private val appState: AppStateManager,
-    private val createFolderInteractor: CreateFolderInteractor,
-    private val deleteFolderInteractor: DeleteFolderInteractor,
-    private val editFolderInteractor: EditFolderInteractor
+        private val appState: AppStateManager,
+        private val createFolderInteractor: CreateFolderInteractor,
+        private val deleteFolderInteractor: DeleteFolderInteractor,
+        private val editFolderInteractor: EditFolderInteractor
 ) :
     NewFolderComponentContract.Presenter,
     CreateFolderInteractor.Output,

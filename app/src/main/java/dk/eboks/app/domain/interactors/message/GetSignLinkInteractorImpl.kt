@@ -1,6 +1,7 @@
 package dk.eboks.app.domain.interactors.message
 
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractor
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
@@ -10,7 +11,7 @@ import timber.log.Timber
 
 class GetSignLinkInteractorImpl(executor: Executor, private val api: Api) :
     BaseInteractor(executor),
-    GetSignLinkInteractor {
+        GetSignLinkInteractor {
     override var output: GetSignLinkInteractor.Output? = null
     override var input: GetSignLinkInteractor.Input? = null
 
