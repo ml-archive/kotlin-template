@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.mail.presentation.ui.message.components.opening.receipt.OpeningReceiptComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack

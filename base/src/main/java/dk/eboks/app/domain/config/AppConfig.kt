@@ -22,6 +22,21 @@ interface AppConfig {
     val messagePageSize: Int
     val isDebug: Boolean
 
+    val isBetaDisclaimerEnabled: Boolean
+    val isChannelReorderingEnabled: Boolean
+    val isDocumentActionsEnabled: Boolean
+    val isEkeyEnabled: Boolean
+    val isFingerprintNonverifiedEnabled: Boolean
+    val isFolderActionsEnabled: Boolean
+    val isPaymentEnabled: Boolean
+    val isProfileDataVerificationEnabled: Boolean
+    val isProfilePictureEnabled: Boolean
+    val isReplyEnabled: Boolean
+    val isSendersEnabled: Boolean
+    val isSharesEnabled: Boolean
+    val isSignEnabled: Boolean
+    val isUploadsEnabled: Boolean
+
     fun getApiUrl(): String {
         return currentMode.environment?.apiUrl
             ?: throw(IllegalStateException("No api url selected"))

@@ -2,6 +2,7 @@ package dk.eboks.app.domain.interactors
 
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.repositories.MailCategoriesRepository
+import dk.eboks.app.mail.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor

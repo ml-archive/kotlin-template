@@ -12,6 +12,8 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.mail.presentation.ui.folder.components.FolderDrawerMode
+import dk.eboks.app.mail.presentation.ui.folder.components.NewFolderComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.components.FoldersComponentFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity

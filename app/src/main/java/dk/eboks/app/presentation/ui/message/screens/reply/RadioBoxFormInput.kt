@@ -12,6 +12,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
 import dk.eboks.app.domain.models.formreply.FormInputOption
+import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
 import dk.eboks.app.util.views
 
 class RadioBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) :
