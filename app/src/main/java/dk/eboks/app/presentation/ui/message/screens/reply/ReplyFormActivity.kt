@@ -7,8 +7,8 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
 import dk.eboks.app.domain.models.formreply.FormInputType
 import dk.eboks.app.domain.models.message.Message
-import dk.eboks.app.mail.presentation.ui.message.reply.ReplyFormContract
-import dk.eboks.app.mail.presentation.ui.message.reply.ReplyFormInput
+import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormContract
+import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.views

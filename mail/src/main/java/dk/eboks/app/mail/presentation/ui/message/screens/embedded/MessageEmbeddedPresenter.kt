@@ -1,6 +1,5 @@
-package dk.eboks.app.presentation.ui.message.screens.embedded
+package dk.eboks.app.mail.presentation.ui.message.screens.embedded
 
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
 import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor

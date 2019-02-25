@@ -11,7 +11,7 @@ import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
-import dk.eboks.app.mail.presentation.ui.message.reply.ReplyFormInput
+import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
 import java.util.regex.Pattern
 
 class DropdownFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) :

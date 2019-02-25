@@ -1,4 +1,4 @@
-package dk.eboks.app.mail.presentation.ui.message.reply
+package dk.eboks.app.mail.presentation.ui.message.screens.reply
 
 import android.os.Handler
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package dk.eboks.app.mail.presentation.ui.message.sign
+package dk.eboks.app.mail.presentation.ui.message.screens.sign
 
 import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractor
 import dk.eboks.app.domain.models.local.ViewError

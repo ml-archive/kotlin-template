@@ -1,4 +1,4 @@
-package dk.eboks.app.mail.presentation.ui.message.reply
+package dk.eboks.app.mail.presentation.ui.message.screens.reply
 
 import dk.eboks.app.domain.models.formreply.FormInput
 import dk.eboks.app.domain.models.message.Message

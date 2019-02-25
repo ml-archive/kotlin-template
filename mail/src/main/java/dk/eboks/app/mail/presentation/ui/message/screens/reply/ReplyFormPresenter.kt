@@ -1,11 +1,10 @@
-package dk.eboks.app.mail.presentation.ui.message.reply
+package dk.eboks.app.mail.presentation.ui.message.screens.reply
 
 import dk.eboks.app.mail.domain.interactors.message.GetReplyFormInteractor
 import dk.eboks.app.mail.domain.interactors.message.SubmitReplyFormInteractor
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
-import dk.eboks.app.mail.presentation.ui.message.reply.ReplyFormContract
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject

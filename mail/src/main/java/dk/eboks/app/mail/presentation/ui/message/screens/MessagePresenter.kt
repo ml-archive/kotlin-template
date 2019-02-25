@@ -1,6 +1,6 @@
-package dk.eboks.app.presentation.ui.message.screens
+package dk.eboks.app.mail.presentation.ui.message.screens
 
-import dk.eboks.app.BuildConfig
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
 import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
@@ -8,7 +8,6 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
-import dk.eboks.app.mail.presentation.ui.message.MessageContract
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -18,6 +17,7 @@ import javax.inject.Inject
  */
 class MessagePresenter @Inject constructor(
         private val appState: AppStateManager,
+        private val appConfig: AppConfig,
         private val deleteMessagesInteractor: DeleteMessagesInteractor,
         private val updateMessageInteractor: UpdateMessageInteractor
 ) : MessageContract.Presenter,
@@ -38,7 +38,7 @@ class MessagePresenter @Inject constructor(
         runAction { v ->
             v.addHeaderComponentFragment()
             v.addDocumentComponentFragment()
-            if (BuildConfig.ENABLE_REPLY) {
+            if (appConfig.ENABLE_REPLY) {
                 message?.reply?.let {
                     v.addReplyButtonComponentFragment(message!!)
                 }

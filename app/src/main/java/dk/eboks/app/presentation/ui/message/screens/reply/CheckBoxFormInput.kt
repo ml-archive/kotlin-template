@@ -13,7 +13,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
 import dk.eboks.app.domain.models.formreply.FormInputOption
-import dk.eboks.app.mail.presentation.ui.message.reply.ReplyFormInput
+import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
 
 class CheckBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) :
     ReplyFormInput(formInput, inflater, handler) {
