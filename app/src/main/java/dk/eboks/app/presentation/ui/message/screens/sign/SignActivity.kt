@@ -11,6 +11,7 @@ import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractorImpl
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.mail.presentation.ui.message.sign.SignContract
 import dk.eboks.app.presentation.base.BaseActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*

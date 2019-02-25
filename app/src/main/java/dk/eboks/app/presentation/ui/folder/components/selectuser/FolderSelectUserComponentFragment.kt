@@ -17,6 +17,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.login.SharedUser
 import dk.eboks.app.domain.models.login.User
+import dk.eboks.app.mail.presentation.ui.folder.components.FolderSelectUserComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import dk.eboks.app.util.inflate

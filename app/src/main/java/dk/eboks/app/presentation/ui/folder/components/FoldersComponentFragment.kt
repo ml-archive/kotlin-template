@@ -20,8 +20,8 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderMode
 import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.folder.isSystemFolder
 import dk.eboks.app.domain.models.getIconResId
-import dk.eboks.app.domain.models.isSystemFolder
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.mail.presentation.ui.folder.components.FoldersComponentContract
 import dk.eboks.app.presentation.base.BaseFragment

@@ -13,6 +13,7 @@ import com.google.android.material.textfield.TextInputLayout
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
+import dk.eboks.app.mail.presentation.ui.message.reply.ReplyFormInput
 import dk.nodes.nstack.kotlin.NStack
 import timber.log.Timber
 import java.text.SimpleDateFormat

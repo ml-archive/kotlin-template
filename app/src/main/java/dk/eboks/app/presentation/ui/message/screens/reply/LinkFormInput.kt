@@ -10,6 +10,7 @@ import android.widget.Button
 import androidx.core.content.ContextCompat.startActivity
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.formreply.FormInput
+import dk.eboks.app.mail.presentation.ui.message.reply.ReplyFormInput
 
 class LinkFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) :
     ReplyFormInput(formInput, inflater, handler) {

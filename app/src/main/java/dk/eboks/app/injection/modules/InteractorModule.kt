@@ -112,8 +112,8 @@ import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractorImpl
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractorImpl
-import dk.eboks.app.domain.interactors.shares.GetAllSharesInteractor
-import dk.eboks.app.domain.interactors.shares.GetAllSharesInteractorImpl
+import dk.eboks.app.mail.domain.interactors.shares.GetAllSharesInteractor
+import dk.eboks.app.mail.domain.interactors.shares.GetAllSharesInteractorImpl
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractorImpl
 import dk.eboks.app.domain.interactors.storebox.ConfirmStoreboxInteractor
