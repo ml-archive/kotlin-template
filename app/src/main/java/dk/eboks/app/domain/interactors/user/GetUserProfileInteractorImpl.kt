@@ -9,18 +9,19 @@ import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
 /**
  * Created by Christian on 5/7/2018.
  * @author Christian
  * @since 5/7/2018.
  */
-class GetUserProfileInteractorImpl(
+class GetUserProfileInteractorImpl @Inject constructor(
     executor: Executor,
-    val api: Api,
-    val appStateManager: AppStateManager,
-    val userManager: UserManager,
-    val userSettingsManager: UserSettingsManager
+    private val api: Api,
+    private val appStateManager: AppStateManager,
+    private val userManager: UserManager,
+    private val userSettingsManager: UserSettingsManager
 ) : BaseInteractor(executor), GetUserProfileInteractor {
 
     override var output: GetUserProfileInteractor.Output? = null

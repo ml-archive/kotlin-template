@@ -7,12 +7,15 @@ import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 01/02/18.
  */
-class GetChannelInteractorImpl(executor: Executor, val channelsRepository: ChannelsRepository) :
-    BaseInteractor(executor), GetChannelInteractor {
+class GetChannelInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val channelsRepository: ChannelsRepository
+) : BaseInteractor(executor), GetChannelInteractor {
     override var output: GetChannelInteractor.Output? = null
     override var input: GetChannelInteractor.Input? = null
 

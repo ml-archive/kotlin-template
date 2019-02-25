@@ -2,7 +2,6 @@ package dk.eboks.app.domain.interactors.message
 
 import android.Manifest
 import dk.eboks.app.domain.exceptions.InteractorException
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.managers.PermissionManager
 import dk.eboks.app.domain.models.Translation
@@ -11,15 +10,15 @@ import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 01/02/18.
  */
-class SaveAttachmentInteractorImpl(
+class SaveAttachmentInteractorImpl @Inject constructor(
     executor: Executor,
-    val appStateManager: AppStateManager,
-    val cacheManager: FileCacheManager,
-    val permissionManager: PermissionManager
+    private val cacheManager: FileCacheManager,
+    private val permissionManager: PermissionManager
 ) : BaseInteractor(executor), SaveAttachmentInteractor {
 
     override var output: SaveAttachmentInteractor.Output? = null

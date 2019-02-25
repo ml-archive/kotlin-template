@@ -6,14 +6,17 @@ import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
 /**
  * Created by Christian on 3/28/2018.
  * @author Christian
  * @since 3/28/2018.
  */
-class GetRegistrationsInteractorImpl(executor: Executor, val api: Api) : BaseInteractor(executor),
-    GetRegistrationsInteractor {
+class GetRegistrationsInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val api: Api
+) : BaseInteractor(executor), GetRegistrationsInteractor {
 
     override var output: GetRegistrationsInteractor.Output? = null
 

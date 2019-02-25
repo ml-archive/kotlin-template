@@ -11,15 +11,16 @@ import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 24-06-2017.
  */
-class DeleteUserInteractorImpl(
+class DeleteUserInteractorImpl @Inject constructor(
     executor: Executor,
-    val userManager: UserManager,
-    val userSettingsManager: UserSettingsManager,
-    val deleteRSAKeyForUserInteractor: DeleteRSAKeyForUserInteractor
+    private val userManager: UserManager,
+    private val userSettingsManager: UserSettingsManager,
+    private val deleteRSAKeyForUserInteractor: DeleteRSAKeyForUserInteractor
 ) : BaseInteractor(executor), DeleteUserInteractor {
     override var output: DeleteUserInteractor.Output? = null
     override var input: DeleteUserInteractor.Input? = null

@@ -8,16 +8,17 @@ import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 01/02/18.
  * @author bison
  * @since 01/02/18.
  */
-class GetSendersInteractorImpl(
+class GetSendersInteractorImpl @Inject constructor(
     executor: Executor,
-    val sendersRepository: SendersRepository,
-    val senderCategoriesRepository: SenderCategoriesRepository
+    private val sendersRepository: SendersRepository,
+    private val senderCategoriesRepository: SenderCategoriesRepository
 ) : BaseInteractor(executor), GetSendersInteractor {
 
     override var output: GetSendersInteractor.Output? = null

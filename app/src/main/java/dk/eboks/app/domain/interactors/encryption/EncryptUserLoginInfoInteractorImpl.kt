@@ -8,8 +8,9 @@ import dk.eboks.app.domain.models.login.LoginInfo
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
-class EncryptUserLoginInfoInteractorImpl(
+class EncryptUserLoginInfoInteractorImpl @Inject constructor(
     executor: Executor,
     private val encryptionPreferenceManager: EncryptionPreferenceManager
 ) :

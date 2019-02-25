@@ -5,10 +5,11 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
-class GetLatestUploadsInteractorImpl(
+class GetLatestUploadsInteractorImpl @Inject constructor(
     executor: Executor,
-    val messagesRepository: MessagesRepository
+    private val messagesRepository: MessagesRepository
 ) : BaseInteractor(executor), GetLatestUploadsInteractor {
     override var output: GetLatestUploadsInteractor.Output? = null
     override var input: GetLatestUploadsInteractor.Input? = null

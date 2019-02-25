@@ -3,13 +3,16 @@ package dk.eboks.app.domain.interactors.user
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import dk.eboks.app.domain.repositories.UserRepository
-import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
-class UpdateUserInteractorImpl(executor: Executor, val api: Api, val userRestRepo: UserRepository) :
+class UpdateUserInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val userRestRepo: UserRepository
+) :
     BaseInteractor(executor), UpdateUserInteractor {
     override var output: UpdateUserInteractor.Output? = null
     override var input: UpdateUserInteractor.Input? = null

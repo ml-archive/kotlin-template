@@ -5,10 +5,11 @@ import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
-class MoveMessagesInteractorImpl(
+class MoveMessagesInteractorImpl @Inject constructor(
     executor: Executor,
-    val messagesRepository: MessagesRepository
+    private val messagesRepository: MessagesRepository
 ) :
     BaseInteractor(executor),
     MoveMessagesInteractor {

@@ -1,6 +1,5 @@
 package dk.eboks.app.domain.interactors.folder
 
-import dk.eboks.app.domain.managers.ResourceManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.isSystemFolder
@@ -10,14 +9,14 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 01/02/18.
  */
-class GetFoldersInteractorImpl(
+class GetFoldersInteractorImpl @Inject constructor(
     executor: Executor,
-    val foldersRepository: FoldersRepository,
-    val resourceManager: ResourceManager
+    private val foldersRepository: FoldersRepository
 ) : BaseInteractor(executor), GetFoldersInteractor {
     override var output: GetFoldersInteractor.Output? = null
     override var input: GetFoldersInteractor.Input? = null

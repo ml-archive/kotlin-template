@@ -1,7 +1,7 @@
 package dk.eboks.app.injection.modules
 
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.BootstrapInteractorImpl
 import dk.eboks.app.domain.interactors.GetCategoriesInteractor
@@ -150,7 +150,6 @@ import dk.eboks.app.domain.interactors.user.CheckSsnExistsInteractor
 import dk.eboks.app.domain.interactors.user.CheckSsnExistsInteractorImpl
 import dk.eboks.app.domain.interactors.user.ConfirmPhoneInteractor
 import dk.eboks.app.domain.interactors.user.ConfirmPhoneInteractorImpl
-import dk.eboks.app.domain.interactors.user.CreateDebugUserInteractorImpl
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractorImpl
 import dk.eboks.app.domain.interactors.user.DeleteUserInteractor
@@ -171,769 +170,260 @@ import dk.eboks.app.domain.interactors.user.VerifyEmailInteractor
 import dk.eboks.app.domain.interactors.user.VerifyEmailInteractorImpl
 import dk.eboks.app.domain.interactors.user.VerifyPhoneInteractor
 import dk.eboks.app.domain.interactors.user.VerifyPhoneInteractorImpl
-import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.managers.AuthClient
-import dk.eboks.app.domain.managers.CacheManager
-import dk.eboks.app.domain.managers.CryptoManager
-import dk.eboks.app.domain.managers.DownloadManager
-import dk.eboks.app.domain.managers.EncryptionPreferenceManager
-import dk.eboks.app.domain.managers.FileCacheManager
-import dk.eboks.app.domain.managers.PermissionManager
-import dk.eboks.app.domain.managers.PrefManager
-import dk.eboks.app.domain.managers.ResourceManager
-import dk.eboks.app.domain.managers.UIManager
-import dk.eboks.app.domain.managers.UserManager
-import dk.eboks.app.domain.managers.UserSettingsManager
-import dk.eboks.app.domain.repositories.ChannelsRepository
-import dk.eboks.app.domain.repositories.CollectionsRepository
-import dk.eboks.app.domain.repositories.FoldersRepository
-import dk.eboks.app.domain.repositories.MailCategoriesRepository
-import dk.eboks.app.domain.repositories.MessagesRepository
-import dk.eboks.app.domain.repositories.SenderCategoriesRepository
-import dk.eboks.app.domain.repositories.SendersRepository
-import dk.eboks.app.domain.repositories.SettingsRepository
-import dk.eboks.app.domain.repositories.SignupRepository
-import dk.eboks.app.domain.repositories.UserRepository
-import dk.eboks.app.network.Api
-import dk.nodes.arch.domain.executor.Executor
 
 @Module
-class InteractorModule {
-    @Provides
-    fun provideLoginInteractor(
-        executor: Executor,
-        api: Api,
-        appStateManager: AppStateManager,
-        userManager: UserManager,
-        userSettingsManager: UserSettingsManager,
-        authClient: AuthClient,
-        cacheManager: CacheManager,
-        mailCategoriesRepository: MailCategoriesRepository
-    ): LoginInteractor {
-        return LoginInteractorImpl(
-            executor,
-            api,
-            appStateManager,
-            userManager,
-            userSettingsManager,
-            authClient,
-            cacheManager,
-            mailCategoriesRepository
-        )
-    }
-
-    @Provides
-    fun provideTestLoginInteractor(
-        executor: Executor,
-        appStateManager: AppStateManager,
-        authClient: AuthClient
-    ): TestLoginInteractor {
-        return TestLoginInteractorImpl(executor, appStateManager, authClient)
-    }
-
-    @Provides
-    fun provideDecryptInteractor(
-        executor: Executor,
-        encryptionPreferenceManager: EncryptionPreferenceManager
-    ): DecryptUserLoginInfoInteractor {
-        return DecryptUserLoginInfoInteractorImpl(executor, encryptionPreferenceManager)
-    }
-
-    @Provides
-    fun provideCheckSsnExistsInteractor(
-        executor: Executor,
-        api: Api,
-        userRestRepository: UserRepository
-    ): CheckSsnExistsInteractor {
-        return CheckSsnExistsInteractorImpl(executor, api, userRestRepository)
-    }
-
-    @Provides
-    fun provideVerifyignupMailInteractor(
-        executor: Executor,
-        signupRepository: SignupRepository
-    ): CheckSignupMailInteractor {
-        return CheckSignupMailInteractorImpl(executor, signupRepository)
-    }
-
-    @Provides
-    fun provideVerifyEmailInteractor(
-        executor: Executor,
-        api: Api,
-        userRestRepository: UserRepository
-    ): VerifyEmailInteractor {
-        return VerifyEmailInteractorImpl(executor, api, userRestRepository)
-    }
-
-    @Provides
-    fun provideUpdateUserInteractor(
-        executor: Executor,
-        api: Api,
-        userRestRepository: UserRepository
-    ): UpdateUserInteractor {
-        return UpdateUserInteractorImpl(executor, api, userRestRepository)
-    }
-
-    @Provides
-    fun provideBootstrapInteractor(interactor: BootstrapInteractorImpl): BootstrapInteractor {
-        return interactor
-    }
-
-    @Provides
-    fun provideGetCategoriesInteractor(
-        executor: Executor,
-        mailCategoriesRepository: MailCategoriesRepository
-    ): GetCategoriesInteractor {
-        return GetMailCategoriesInteractorImpl(executor, mailCategoriesRepository)
-    }
-
-    @Provides
-    fun provideGetFoldersInteractor(
-        executor: Executor,
-        foldersRepository: FoldersRepository,
-        resourceManager: ResourceManager
-    ): GetFoldersInteractor {
-        return GetFoldersInteractorImpl(executor, foldersRepository, resourceManager)
-    }
-
-    @Provides
-    fun provideDeleteMessagesInteractor(
-        executor: Executor,
-        messagesRepository: MessagesRepository
-    ): DeleteMessagesInteractor {
-        return DeleteMessagesInteractorImpl(executor, messagesRepository)
-    }
-
-    @Provides
-    fun provideMoveMessagesInteractor(
-        executor: Executor,
-        messagesRepository: MessagesRepository
-    ): MoveMessagesInteractor {
-        return MoveMessagesInteractorImpl(executor, messagesRepository)
-    }
-
-    @Provides
-    fun provideGetMessagesInteractor(
-        executor: Executor,
-        messagesRepository: MessagesRepository
-    ): GetMessagesInteractor {
-        return GetMessagesInteractorImpl(executor, messagesRepository)
-    }
-
-    @Provides
-    fun provideGetStorageInteractor(
-        executor: Executor,
-        messagesRepository: MessagesRepository
-    ): GetStorageInteractor {
-        return GetStorageInteractorImpl(executor, messagesRepository)
-    }
-
-    @Provides
-    fun provideGetLatestUploadsInteractor(
-        executor: Executor,
-        messagesRepository: MessagesRepository
-    ): GetLatestUploadsInteractor {
-        return GetLatestUploadsInteractorImpl(executor, messagesRepository)
-    }
-
-    @Provides
-    fun provideUploadFileInteractor(
-        executor: Executor,
-        messagesRepository: MessagesRepository
-    ): UploadFileInteractor {
-        return UploadFileInteractorImpl(executor, messagesRepository)
-    }
-
-    @Provides
-    fun provideGetStoreboxCreditCardsInteractor(
-        executor: Executor,
-        api: Api
-    ): GetStoreboxCreditCardsInteractor {
-        return GetStoreboxCreditCardsInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideDeleteStoreboxCreditCardInteractor(
-        executor: Executor,
-        api: Api
-    ): DeleteStoreboxCreditCardInteractor {
-        return DeleteStoreboxCreditCardInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideOpenFolderInteractor(
-        executor: Executor,
-        appStateManager: AppStateManager,
-        uiManager: UIManager
-    ): OpenFolderInteractor {
-        return OpenFolderInteractorImpl(executor, appStateManager, uiManager)
-    }
-
-    @Provides
-    fun provideOpenMessageInteractor(interactor: OpenMessageInteractorImpl): OpenMessageInteractor {
-        return interactor
-    }
-
-    @Provides
-    fun provideOpenAttachmentInteractor(
-        executor: Executor,
-        appStateManager: AppStateManager,
-        uiManager: UIManager,
-        downloadManager: DownloadManager,
-        fileCacheManager: FileCacheManager
-    ): OpenAttachmentInteractor {
-        return OpenAttachmentInteractorImpl(
-            executor,
-            appStateManager,
-            uiManager,
-            downloadManager,
-            fileCacheManager
-        )
-    }
-
-    @Provides
-    fun provideGetReplyFormInteractor(
-        executor: Executor,
-        messagesRepository: MessagesRepository
-    ): GetReplyFormInteractor {
-        return GetReplyFormInteractorImpl(executor, messagesRepository)
-    }
-
-    @Provides
-    fun provideSubmitReplyFormInteractor(
-        executor: Executor,
-        messagesRepository: MessagesRepository
-    ): SubmitReplyFormInteractor {
-        return SubmitReplyFormInteractorImpl(executor, messagesRepository)
-    }
-
-    @Provides
-    fun provideSaveAttachmentInteractor(
-        executor: Executor,
-        appStateManager: AppStateManager,
-        fileCacheManager: FileCacheManager,
-        permissionManager: PermissionManager
-    ): SaveAttachmentInteractor {
-        return SaveAttachmentInteractorImpl(
-            executor,
-            appStateManager,
-            fileCacheManager,
-            permissionManager
-        )
-    }
-
-    @Provides
-    fun provideGetChannelsInteractor(
-        executor: Executor,
-        channelsRepository: ChannelsRepository
-    ): GetChannelsInteractor {
-        return GetChannelsInteractorImpl(executor, channelsRepository)
-    }
-
-    @Provides
-    fun provideCreateUserInteractor(interactor: CreateUserInteractorImpl): CreateUserInteractor {
-        return interactor
-    }
-
-    @Provides
-    fun provideDebugCreateUserInteractor(
-        executor: Executor,
-        userManager: UserManager
-    ): CreateDebugUserInteractorImpl {
-        return CreateDebugUserInteractorImpl(executor, userManager)
-    }
-
-    @Provides
-    fun provideSaveUserSettingsInteractor(
-        executor: Executor,
-        appStateManager: AppStateManager,
-        userManager: UserSettingsManager
-    ): SaveUserSettingsInteractor {
-        return SaveUserSettingsInteractorImpl(executor, appStateManager, userManager)
-    }
-
-    @Provides
-    fun provideSaveUserInteractor(
-        executor: Executor,
-        userManager: UserManager
-    ): SaveUserInteractor {
-        return SaveUserInteractorImpl(executor, userManager)
-    }
-
-    @Provides
-    fun provideSaveUsersInteractor(
-        executor: Executor,
-        userManager: UserManager
-    ): SaveUsersInteractor {
-        return SaveUsersInteractorImpl(executor, userManager)
-    }
-
-    @Provides
-    fun provideDeleteRSAKeyForUserInteractor(
-        executor: Executor,
-        cryptoManager: CryptoManager
-    ): DeleteRSAKeyForUserInteractor {
-        return DeleteRSAKeyForUserInteractorImpl(executor, cryptoManager)
-    }
-
-    @Provides
-    fun provideDeleteUserInteractor(
-        executor: Executor,
-        userManager: UserManager,
-        userSettingsManager: UserSettingsManager,
-        deleteRSAKeyForUserInteractor: DeleteRSAKeyForUserInteractor
-    ): DeleteUserInteractor {
-        return DeleteUserInteractorImpl(
-            executor,
-            userManager,
-            userSettingsManager,
-            deleteRSAKeyForUserInteractor
-        )
-    }
-
-    @Provides
-    fun provideGetUsersInteractor(
-        executor: Executor,
-        userManager: UserManager
-    ): GetUsersInteractor {
-        return GetUsersInteractorImpl(executor, userManager)
-    }
-
-    @Provides
-    fun provideGetUserProfileInteractor(
-        executor: Executor,
-        api: Api,
-        appStateManager: AppStateManager,
-        userManager: UserManager,
-        userSettingsManager: UserSettingsManager
-    ): GetUserProfileInteractor {
-        return GetUserProfileInteractorImpl(
-            executor,
-            api,
-            appStateManager,
-            userManager,
-            userSettingsManager
-        )
-    }
-
-    @Provides
-    fun provideUpdateMessageInteractor(
-        executor: Executor,
-        messagesRepository: MessagesRepository
-    ): UpdateMessageInteractor {
-        return UpdateMessageInteractorImpl(executor, messagesRepository)
-    }
-
-    @Provides
-    fun provideGetChannelInteractor(
-        executor: Executor,
-        channelsRepository: ChannelsRepository
-    ): GetChannelInteractor {
-        return GetChannelInteractorImpl(executor, channelsRepository)
-    }
-
-    @Provides
-    fun provideInstallChannelInteractor(
-        executor: Executor,
-        api: Api
-    ): InstallChannelInteractor {
-        return InstallChannelInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideUninstallChannelInteractor(
-        executor: Executor,
-        api: Api
-    ): UninstallChannelInteractor {
-        return UninstallChannelInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideGetChannelHomeContentInteractor(
-        executor: Executor,
-        channelsRepository: ChannelsRepository
-    ): GetChannelHomeContentInteractor {
-        return GetChannelHomeContentInteractorImpl(executor, channelsRepository)
-    }
-
-    @Provides
-    fun provideGetChannelContentLinkInteractor(interactor: GetChannelContentLinkInteractorImpl): GetChannelContentLinkInteractor {
-        return interactor
-    }
-
-    @Provides
-    fun provideGetSenderCategoriesInteractor(
-        executor: Executor,
-        senderCategoriesRepository: SenderCategoriesRepository
-    ): GetSenderCategoriesInteractor {
-        return GetSenderCategoriesInteractorImpl(executor, senderCategoriesRepository)
-    }
-
-    @Provides
-    fun provideGetSendersInteractor(
-        executor: Executor,
-        sendersRepository: SendersRepository,
-        senderCategoriesRepository: SenderCategoriesRepository
-    ): GetSendersInteractor {
-        return GetSendersInteractorImpl(executor, sendersRepository, senderCategoriesRepository)
-    }
-
-    @Provides
-    fun provideGetSenderDetailInteractor(
-        executor: Executor,
-        sendersRepository: SendersRepository
-    ): GetSenderDetailInteractor {
-        return GetSenderDetailInteractorImpl(executor, sendersRepository)
-    }
-
-    @Provides
-    fun provideGetStoreboxReceiptsInteractor(
-        executor: Executor,
-        api: Api
-    ): GetStoreboxReceiptsInteractor {
-        return GetStoreboxReceiptsInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideGetStoreboxReceiptInteractor(
-        executor: Executor,
-        api: Api
-    ): GetStoreboxReceiptInteractor {
-        return GetStoreboxReceiptInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideGetSegmentDetailInteractor(executor: Executor, api: Api): GetSegmentInteractor {
-        return GetSegmentInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideGetPendingInteractor(executor: Executor, api: Api): GetPendingInteractor {
-        return GetPendingInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideEncryptUserLoginInfoInteractor(
-        executor: Executor,
-        encryptionPreferenceManager: EncryptionPreferenceManager,
-        prefManager: PrefManager
-    ): EncryptUserLoginInfoInteractor {
-        return EncryptUserLoginInfoInteractorImpl(executor, encryptionPreferenceManager)
-    }
-
-    @Provides
-    fun provideGetCollectionsInteractor(
-        executor: Executor,
-        collectionsRepository: CollectionsRepository
-    ): GetCollectionsInteractor {
-        return GetCollectionsInteractorImpl(executor, collectionsRepository)
-    }
-
-    @Provides
-    fun provideRegisterInteractor(executor: Executor, api: Api): RegisterInteractor {
-        return RegisterInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideUnRegisterInteractor(executor: Executor, api: Api): UnRegisterInteractor {
-        return UnRegisterInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideRegistrationsInteractor(executor: Executor, api: Api): GetRegistrationsInteractor {
-        return GetRegistrationsInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideLinkStoreboxInteractor(executor: Executor, api: Api): LinkStoreboxInteractor {
-        return LinkStoreboxInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideCreateStoreboxInteractor(executor: Executor, api: Api): CreateStoreboxInteractor {
-        return CreateStoreboxInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideGetStoreboxProfileInteractor(
-        executor: Executor,
-        api: Api
-    ): GetStoreboxProfileInteractor {
-        return GetStoreboxProfileInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun providePutStoreboxProfileInteractor(
-        executor: Executor,
-        api: Api
-    ): PutStoreboxProfileInteractor {
-        return PutStoreboxProfileInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideGetStoreboxCardLinkInteractor(
-        executor: Executor,
-        api: Api
-    ): GetStoreboxCardLinkInteractor {
-        return GetStoreboxCardLinkInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideDeleteStoreboxAccountLinkInteractor(
-        executor: Executor,
-        api: Api
-    ): DeleteStoreboxAccountLinkInteractor {
-        return DeleteStoreboxAccountLinkInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideDeleteStoreboxReceiptInteractor(
-        executor: Executor,
-        api: Api
-    ): DeleteStoreboxReceiptInteractor {
-        return DeleteStoreboxReceiptInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideUpdateStoreboxFlagsInteractor(
-        executor: Executor,
-        api: Api
-    ): UpdateStoreboxFlagsInteractor {
-        return UpdateStoreboxFlagsInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideConfirmStoreboxInteractor(executor: Executor, api: Api): ConfirmStoreboxInteractor {
-        return ConfirmStoreboxInteractorImpl(executor, api)
-    }
-
-    @Provides
-    fun provideTransformTokenInteractor(
-        executor: Executor,
-        api: Api,
-        appStateManager: AppStateManager,
-        userManager: UserManager,
-        userSettingsManager: UserSettingsManager,
-        authClient: AuthClient,
-        cacheManager: CacheManager,
-        mailCategoriesRepository: MailCategoriesRepository
-    ): TransformTokenInteractor {
-        return TransformTokenInteractorImpl(
-            executor,
-            api,
-            appStateManager,
-            userManager,
-            userSettingsManager,
-            authClient,
-            cacheManager,
-            mailCategoriesRepository
-        )
-    }
-
-    @Provides
-    fun provideMergeAndImpersonateInteractor(
-        executor: Executor,
-        api: Api,
-        appStateManager: AppStateManager,
-        userManager: UserManager,
-        userSettingsManager: UserSettingsManager,
-        authClient: AuthClient,
-        cacheManager: CacheManager,
-        mailCategoriesRepository: MailCategoriesRepository
-    ): MergeAndImpersonateInteractor {
-        return MergeAndImpersonateInteractorImpl(
-            executor,
-            api,
-            appStateManager,
-            userManager,
-            userSettingsManager,
-            authClient,
-            cacheManager,
-            mailCategoriesRepository
-        )
-    }
-
-    @Provides
-    fun provideVerifyProfileInteractor(
-        executor: Executor,
-        api: Api,
-        appStateManager: AppStateManager,
-        userManager: UserManager,
-        userSettingsManager: UserSettingsManager,
-        authClient: AuthClient,
-        cacheManager: CacheManager,
-        mailCategoriesRepository: MailCategoriesRepository
-    ): VerifyProfileInteractor {
-        return VerifyProfileInteractorImpl(
-            executor,
-            api,
-            appStateManager,
-            userManager,
-            userSettingsManager,
-            authClient,
-            cacheManager,
-            mailCategoriesRepository
-        )
-    }
-
-    @Provides
-    fun provideSetCurrentUserInteractor(
-        executor: Executor,
-        api: Api,
-        appStateManager: AppStateManager,
-        userManager: UserManager,
-        userSettingsManager: UserSettingsManager
-    ): SetCurrentUserInteractor {
-        return SetCurrentUserInteractorImpl(
-            executor,
-            api,
-            appStateManager,
-            userManager,
-            userSettingsManager
-        )
-    }
-
-    @Provides
-    fun provideResetPasswordInteractor(interactor: ResetPasswordInteractorImpl): ResetPasswordInteractor {
-        return interactor
-    }
-
-    @Provides
-    fun provideVerifyPhoneInteractor(
-        executor: Executor,
-        api: Api,
-        userRestRepo: UserRepository
-    ): VerifyPhoneInteractor {
-        return VerifyPhoneInteractorImpl(executor, api, userRestRepo)
-    }
-
-    @Provides
-    fun provideConfirmPhoneInteractor(
-        executor: Executor,
-        api: Api,
-        userRestRepo: UserRepository
-    ): ConfirmPhoneInteractor {
-        return ConfirmPhoneInteractorImpl(executor, api, userRestRepo)
-    }
-
-    @Provides
-    fun provideGetSignLinkInteractor(executor: Executor, api: Api): GetSignLinkInteractor {
-        return GetSignLinkInteractorImpl(executor, api)
-    }
+abstract class InteractorModule {
+    @Binds
+    abstract fun bindLoginInteractor(interactor: LoginInteractorImpl): LoginInteractor
+
+    @Binds
+    abstract fun bindTestLoginInteractor(interactor: TestLoginInteractorImpl): TestLoginInteractor
+
+    @Binds
+    abstract fun bindDecryptInteractor(interactor: DecryptUserLoginInfoInteractorImpl): DecryptUserLoginInfoInteractor
+
+    @Binds
+    abstract fun bindCheckSsnExistsInteractor(interactor: CheckSsnExistsInteractorImpl): CheckSsnExistsInteractor
+
+    @Binds
+    abstract fun bindVerifyignupMailInteractor(interactor: CheckSignupMailInteractorImpl): CheckSignupMailInteractor
+
+    @Binds
+    abstract fun bindVerifyEmailInteractor(interactor: VerifyEmailInteractorImpl): VerifyEmailInteractor
+
+    @Binds
+    abstract fun bindUpdateUserInteractor(interactor: UpdateUserInteractorImpl): UpdateUserInteractor
+
+    @Binds
+    abstract fun bindBootstrapInteractor(interactor: BootstrapInteractorImpl): BootstrapInteractor
+
+    @Binds
+    abstract fun bindGetCategoriesInteractor(interactor: GetMailCategoriesInteractorImpl): GetCategoriesInteractor
+
+    @Binds
+    abstract fun bindGetFoldersInteractor(interactor: GetFoldersInteractorImpl): GetFoldersInteractor
+
+    @Binds
+    abstract fun bindDeleteMessagesInteractor(interactor: DeleteMessagesInteractorImpl): DeleteMessagesInteractor
+
+    @Binds
+    abstract fun bindMoveMessagesInteractor(interactor: MoveMessagesInteractorImpl): MoveMessagesInteractor
+
+    @Binds
+    abstract fun bindGetMessagesInteractor(interactor: GetMessagesInteractorImpl): GetMessagesInteractor
+
+    @Binds
+    abstract fun bindGetStorageInteractor(interactor: GetStorageInteractorImpl): GetStorageInteractor
+
+    @Binds
+    abstract fun bindGetLatestUploadsInteractor(interactor: GetLatestUploadsInteractorImpl): GetLatestUploadsInteractor
+
+    @Binds
+    abstract fun bindUploadFileInteractor(interactor: UploadFileInteractorImpl): UploadFileInteractor
+
+    @Binds
+    abstract fun bindGetStoreboxCreditCardsInteractor(interactor: GetStoreboxCreditCardsInteractorImpl): GetStoreboxCreditCardsInteractor
+
+    @Binds
+    abstract fun bindDeleteStoreboxCreditCardInteractor(interactor: DeleteStoreboxCreditCardInteractorImpl): DeleteStoreboxCreditCardInteractor
+
+    @Binds
+    abstract fun bindOpenFolderInteractor(interactor: OpenFolderInteractorImpl): OpenFolderInteractor
+
+    @Binds
+    abstract fun bindOpenMessageInteractor(interactor: OpenMessageInteractorImpl): OpenMessageInteractor
+
+    @Binds
+    abstract fun bindOpenAttachmentInteractor(interactor: OpenAttachmentInteractorImpl): OpenAttachmentInteractor
+
+    @Binds
+    abstract fun bindGetReplyFormInteractor(interactor: GetReplyFormInteractorImpl): GetReplyFormInteractor
+
+    @Binds
+    abstract fun bindSubmitReplyFormInteractor(interactor: SubmitReplyFormInteractorImpl): SubmitReplyFormInteractor
+
+    @Binds
+    abstract fun bindSaveAttachmentInteractor(interactor: SaveAttachmentInteractorImpl): SaveAttachmentInteractor
+
+    @Binds
+    abstract fun bindGetChannelsInteractor(interactor: GetChannelsInteractorImpl): GetChannelsInteractor
+
+    @Binds
+    abstract fun bindCreateUserInteractor(interactor: CreateUserInteractorImpl): CreateUserInteractor
+
+    @Binds
+    abstract fun bindSaveUserSettingsInteractor(interactor: SaveUserSettingsInteractorImpl): SaveUserSettingsInteractor
+
+    @Binds
+    abstract fun bindSaveUserInteractor(interactor: SaveUserInteractorImpl): SaveUserInteractor
+
+    @Binds
+    abstract fun bindSaveUsersInteractor(interactor: SaveUsersInteractorImpl): SaveUsersInteractor
+
+    @Binds
+    abstract fun bindDeleteRSAKeyForUserInteractor(interactor: DeleteRSAKeyForUserInteractorImpl): DeleteRSAKeyForUserInteractor
+
+    @Binds
+    abstract fun bindDeleteUserInteractor(interactor: DeleteUserInteractorImpl): DeleteUserInteractor
+
+    @Binds
+    abstract fun bindGetUsersInteractor(interactor: GetUsersInteractorImpl): GetUsersInteractor
+
+    @Binds
+    abstract fun bindGetUserProfileInteractor(interactor: GetUserProfileInteractorImpl): GetUserProfileInteractor
+
+    @Binds
+    abstract fun bindUpdateMessageInteractor(interactor: UpdateMessageInteractorImpl): UpdateMessageInteractor
+
+    @Binds
+    abstract fun bindGetChannelInteractor(interactor: GetChannelInteractorImpl): GetChannelInteractor
+
+    @Binds
+    abstract fun bindInstallChannelInteractor(interactor: InstallChannelInteractorImpl): InstallChannelInteractor
+
+    @Binds
+    abstract fun bindUninstallChannelInteractor(interactor: UninstallChannelInteractorImpl): UninstallChannelInteractor
+
+    @Binds
+    abstract fun bindGetChannelHomeContentInteractor(interactor: GetChannelHomeContentInteractorImpl): GetChannelHomeContentInteractor
+
+    @Binds
+    abstract fun bindGetChannelContentLinkInteractor(interactor: GetChannelContentLinkInteractorImpl): GetChannelContentLinkInteractor
+
+    @Binds
+    abstract fun bindGetSenderCategoriesInteractor(interactor: GetSenderCategoriesInteractorImpl): GetSenderCategoriesInteractor
+
+    @Binds
+    abstract fun bindGetSendersInteractor(interactor: GetSendersInteractorImpl): GetSendersInteractor
+
+    @Binds
+    abstract fun bindGetSenderDetailInteractor(interactor: GetSenderDetailInteractorImpl): GetSenderDetailInteractor
+
+    @Binds
+    abstract fun bindGetStoreboxReceiptsInteractor(interactor: GetStoreboxReceiptsInteractorImpl): GetStoreboxReceiptsInteractor
+
+    @Binds
+    abstract fun bindGetStoreboxReceiptInteractor(interactor: GetStoreboxReceiptInteractorImpl): GetStoreboxReceiptInteractor
+
+    @Binds
+    abstract fun bindGetSegmentDetailInteractor(interactor: GetSegmentInteractorImpl): GetSegmentInteractor
+
+    @Binds
+    abstract fun bindGetPendingInteractor(interactor: GetPendingInteractorImpl): GetPendingInteractor
+
+    @Binds
+    abstract fun bindEncryptUserLoginInfoInteractor(interactor: EncryptUserLoginInfoInteractorImpl): EncryptUserLoginInfoInteractor
+
+    @Binds
+    abstract fun bindGetCollectionsInteractor(interactor: GetCollectionsInteractorImpl): GetCollectionsInteractor
+
+    @Binds
+    abstract fun bindRegisterInteractor(interactor: RegisterInteractorImpl): RegisterInteractor
+
+    @Binds
+    abstract fun bindUnRegisterInteractor(interactor: UnRegisterInteractorImpl): UnRegisterInteractor
+
+    @Binds
+    abstract fun bindRegistrationsInteractor(interactor: GetRegistrationsInteractorImpl): GetRegistrationsInteractor
+
+    @Binds
+    abstract fun bindLinkStoreboxInteractor(interactor: LinkStoreboxInteractorImpl): LinkStoreboxInteractor
+
+    @Binds
+    abstract fun bindCreateStoreboxInteractor(interactor: CreateStoreboxInteractorImpl): CreateStoreboxInteractor
+
+    @Binds
+    abstract fun bindGetStoreboxProfileInteractor(interactor: GetStoreboxProfileInteractorImpl): GetStoreboxProfileInteractor
+
+    @Binds
+    abstract fun bindPutStoreboxProfileInteractor(interactor: PutStoreboxProfileInteractorImpl): PutStoreboxProfileInteractor
+
+    @Binds
+    abstract fun bindGetStoreboxCardLinkInteractor(interactor: GetStoreboxCardLinkInteractorImpl): GetStoreboxCardLinkInteractor
+
+    @Binds
+    abstract fun bindDeleteStoreboxAccountLinkInteractor(interactor: DeleteStoreboxAccountLinkInteractorImpl): DeleteStoreboxAccountLinkInteractor
+
+    @Binds
+    abstract fun bindDeleteStoreboxReceiptInteractor(interactor: DeleteStoreboxReceiptInteractorImpl): DeleteStoreboxReceiptInteractor
+
+    @Binds
+    abstract fun bindUpdateStoreboxFlagsInteractor(interactor: UpdateStoreboxFlagsInteractorImpl): UpdateStoreboxFlagsInteractor
+
+    @Binds
+    abstract fun bindConfirmStoreboxInteractor(interactor: ConfirmStoreboxInteractorImpl): ConfirmStoreboxInteractor
+
+    @Binds
+    abstract fun bindTransformTokenInteractor(interactor: TransformTokenInteractorImpl): TransformTokenInteractor
+
+    @Binds
+    abstract fun bindMergeAndImpersonateInteractor(interactor: MergeAndImpersonateInteractorImpl): MergeAndImpersonateInteractor
+
+    @Binds
+    abstract fun bindVerifyProfileInteractor(interactor: VerifyProfileInteractorImpl): VerifyProfileInteractor
+
+    @Binds
+    abstract fun bindSetCurrentUserInteractor(interactor: SetCurrentUserInteractorImpl): SetCurrentUserInteractor
+
+    @Binds
+    abstract fun bindResetPasswordInteractor(interactor: ResetPasswordInteractorImpl): ResetPasswordInteractor
+
+    @Binds
+    abstract fun bindVerifyPhoneInteractor(interactor: VerifyPhoneInteractorImpl): VerifyPhoneInteractor
+
+    @Binds
+    abstract fun bindConfirmPhoneInteractor(interactor: ConfirmPhoneInteractorImpl): ConfirmPhoneInteractor
+
+    @Binds
+    abstract fun bindGetSignLinkInteractor(interactor: GetSignLinkInteractorImpl): GetSignLinkInteractor
 
     // E Key Interactors
 
-    @Provides
-    fun provideGetEKeyVaultInteractor(executor: Executor, api: Api): GetEKeyVaultInteractor {
-        return GetEKeyVaultInteractorImpl(executor, api)
-    }
+    @Binds
+    abstract fun bindGetEKeyVaultInteractor(interactor: GetEKeyVaultInteractorImpl): GetEKeyVaultInteractor
 
-    @Provides
-    fun provideSetEKeyVaultInteractor(executor: Executor, api: Api): SetEKeyVaultInteractor {
-        return SetEKeyVaultInteractorImpl(executor, api)
-    }
+    @Binds
+    abstract fun bindSetEKeyVaultInteractor(interactor: SetEKeyVaultInteractorImpl): SetEKeyVaultInteractor
 
-    @Provides
-    fun provideDeleteEKeyVaultInteractor(executor: Executor, api: Api): DeleteEKeyVaultInteractor {
-        return DeleteEKeyVaultInteractorImpl(executor, api)
-    }
+    @Binds
+    abstract fun bindDeleteEKeyVaultInteractor(interactor: DeleteEKeyVaultInteractorImpl): DeleteEKeyVaultInteractor
 
-    @Provides
-    fun provideGetEKeyMasterkeyInteractor(
-        executor: Executor,
-        api: Api
-    ): GetEKeyMasterkeyInteractor {
-        return GetEKeyMasterkeyInteractorImpl(executor, api)
-    }
+    @Binds
+    abstract fun bindGetEKeyMasterkeyInteractor(interactor: GetEKeyMasterkeyInteractorImpl): GetEKeyMasterkeyInteractor
 
-    @Provides
-    fun provideSetEKeyMasterkeyInteractor(
-        executor: Executor,
-        api: Api
-    ): SetEKeyMasterkeyInteractor {
-        return SetEKeyMasterkeyInteractorImpl(executor, api)
-    }
+    @Binds
+    abstract fun bindSetEKeyMasterkeyInteractor(interactor: SetEKeyMasterkeyInteractorImpl): SetEKeyMasterkeyInteractor
 
-    @Provides
-    fun provideDeleteEKeyMasterkeyInteractor(
-        executor: Executor,
-        api: Api
-    ): DeleteEKeyMasterkeyInteractor {
-        return DeleteEKeyMasterkeyInteractorImpl(executor, api)
-    }
+    @Binds
+    abstract fun bindDeleteEKeyMasterkeyInteractor(interactor: DeleteEKeyMasterkeyInteractorImpl): DeleteEKeyMasterkeyInteractor
 
-    @Provides
-    fun provideSaveReceiptInteractor(executor: Executor, api: Api): SaveReceiptInteractor {
-        return SaveReceiptInteractorImpl(executor, api)
-    }
+    @Binds
+    abstract fun bindSaveReceiptInteractor(interactor: SaveReceiptInteractorImpl): SaveReceiptInteractor
 
-    @Provides
-    fun provideShareReceiptInteractor(
-        executor: Executor,
-        downloadManager: DownloadManager
-    ): ShareReceiptInteractor {
-        return ShareReceiptInteractorImpl(executor, downloadManager)
-    }
+    @Binds
+    abstract fun bindShareReceiptInteractor(interactor: ShareReceiptInteractorImpl): ShareReceiptInteractor
 
-    @Provides
-    fun provideCheckRSAKeyPresenceInteractor(
-        executor: Executor,
-        cryptoManager: CryptoManager
-    ): CheckRSAKeyPresenceInteractor {
-        return CheckRSAKeyPresenceInteractorImpl(executor, cryptoManager)
-    }
+    @Binds
+    abstract fun bindCheckRSAKeyPresenceInteractor(interactor: CheckRSAKeyPresenceInteractorImpl): CheckRSAKeyPresenceInteractor
 
-    @Provides
-    fun provideGenerateRSAKey(
-        executor: Executor,
-        cryptoManager: CryptoManager
-    ): GenerateRSAKeyInteractor {
-        return GenerateRSAKeyInteractorImpl(executor, cryptoManager)
-    }
+    @Binds
+    abstract fun bindGenerateRSAKey(interactor: GenerateRSAKeyInteractorImpl): GenerateRSAKeyInteractor
 
-    @Provides
-    fun provideDeleteRSAKey(
-        executor: Executor,
-        cryptoManager: CryptoManager
-    ): DeleteRSAKeyInteractor {
-        return DeleteRSAKeyInteractorImpl(executor, cryptoManager)
-    }
+    @Binds
+    abstract fun bindDeleteRSAKey(interactor: DeleteRSAKeyInteractorImpl): DeleteRSAKeyInteractor
 
-    @Provides
-    fun provideActivateDevice(
-        executor: Executor,
-        settingsRepository: SettingsRepository,
-        api: Api
-    ): ActivateDeviceInteractor {
-        return ActivateDeviceInteractorImpl(executor, settingsRepository, api)
-    }
+    @Binds
+    abstract fun bindActivateDevice(interactor: ActivateDeviceInteractorImpl): ActivateDeviceInteractor
 
-    @Provides
-    fun provideCreateFolder(
-        executor: Executor,
-        foldersRepository: FoldersRepository
-    ): CreateFolderInteractor {
-        return CreateFolderInteractorImpl(executor, foldersRepository)
-    }
+    @Binds
+    abstract fun bindCreateFolder(interactor: CreateFolderInteractorImpl): CreateFolderInteractor
 
-    @Provides
-    fun provideDeleteFolder(
-        executor: Executor,
-        foldersRepository: FoldersRepository
-    ): DeleteFolderInteractor {
-        return DeleteFolderInteractorImpl(executor, foldersRepository)
-    }
+    @Binds
+    abstract fun bindDeleteFolder(interactor: DeleteFolderInteractorImpl): DeleteFolderInteractor
 
-    @Provides
-    fun provideEditFolder(
-        executor: Executor,
-        foldersRepository: FoldersRepository
-    ): EditFolderInteractor {
-        return EditFolderInteractorImpl(executor, foldersRepository)
-    }
+    @Binds
+    abstract fun bindEditFolder(interactor: EditFolderInteractorImpl): EditFolderInteractor
 
-    @Provides
-    fun provideGetAllSharesInteractor(executor: Executor, api: Api): GetAllSharesInteractor {
-        return GetAllSharesInteractorImpl(executor, api)
-    }
+    @Binds
+    abstract fun bindGetAllSharesInteractor(interactor: GetAllSharesInteractorImpl): GetAllSharesInteractor
 }

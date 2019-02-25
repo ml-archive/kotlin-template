@@ -6,10 +6,12 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
-class PutStoreboxProfileInteractorImpl(executor: Executor, private val api: Api) :
-    BaseInteractor(executor),
-    PutStoreboxProfileInteractor {
+class PutStoreboxProfileInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val api: Api
+) : BaseInteractor(executor), PutStoreboxProfileInteractor {
     override var output: PutStoreboxProfileInteractor.Output? = null
     override var input: PutStoreboxProfileInteractor.Input? = null
 

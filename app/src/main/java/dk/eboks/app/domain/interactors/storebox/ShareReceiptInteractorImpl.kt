@@ -7,9 +7,12 @@ import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
-class ShareReceiptInteractorImpl(executor: Executor, private val downloadManager: DownloadManager) :
-    BaseInteractor(executor), ShareReceiptInteractor {
+class ShareReceiptInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val downloadManager: DownloadManager
+) : BaseInteractor(executor), ShareReceiptInteractor {
     override var output: ShareReceiptInteractor.Output? = null
     override var input: ShareReceiptInteractor.Input? = null
 

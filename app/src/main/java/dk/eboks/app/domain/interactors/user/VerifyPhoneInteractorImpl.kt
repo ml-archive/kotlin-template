@@ -1,15 +1,14 @@
 package dk.eboks.app.domain.interactors.user
 
 import dk.eboks.app.domain.repositories.UserRepository
-import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
+import javax.inject.Inject
 
-class VerifyPhoneInteractorImpl(
+class VerifyPhoneInteractorImpl @Inject constructor(
     executor: Executor,
-    val api: Api,
-    val userRestRepo: UserRepository
+    private val userRestRepo: UserRepository
 ) : BaseInteractor(executor), VerifyPhoneInteractor {
     override var output: VerifyPhoneInteractor.Output? = null
     override var input: VerifyPhoneInteractor.Input? = null

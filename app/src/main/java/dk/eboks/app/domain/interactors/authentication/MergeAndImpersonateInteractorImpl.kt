@@ -16,21 +16,22 @@ import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by Christian on 5/28/2018.
  * @author Christian
  * @since 5/28/2018.
  */
-class MergeAndImpersonateInteractorImpl(
+class MergeAndImpersonateInteractorImpl @Inject constructor(
     executor: Executor,
-    val api: Api,
-    val appStateManager: AppStateManager,
-    val userManager: UserManager,
-    val userSettingsManager: UserSettingsManager,
-    val authClient: AuthClient,
-    val cacheManager: CacheManager,
-    val foldersRepositoryMail: MailCategoriesRepository
+    private val api: Api,
+    private val appStateManager: AppStateManager,
+    private val userManager: UserManager,
+    private val userSettingsManager: UserSettingsManager,
+    private val authClient: AuthClient,
+    private val cacheManager: CacheManager,
+    private val foldersRepositoryMail: MailCategoriesRepository
 ) : BaseInteractor(executor), MergeAndImpersonateInteractor {
     override var output: MergeAndImpersonateInteractor.Output? = null
     override var input: MergeAndImpersonateInteractor.Input? = null

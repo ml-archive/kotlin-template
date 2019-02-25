@@ -5,8 +5,12 @@ import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
+import javax.inject.Inject
 
-class GetStoreboxCreditCardsInteractorImpl(executor: Executor, private val api: Api) :
+class GetStoreboxCreditCardsInteractorImpl @Inject constructor(
+    executor: Executor,
+    private val api: Api
+) :
     BaseInteractor(executor),
     GetStoreboxCreditCardsInteractor {
     override var output: GetStoreboxCreditCardsInteractor.Output? = null
