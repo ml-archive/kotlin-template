@@ -12,6 +12,7 @@ import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
+import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
 import java.util.regex.Pattern
 
 class NumberFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) :

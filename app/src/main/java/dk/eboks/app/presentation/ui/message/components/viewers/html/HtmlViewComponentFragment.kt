@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.ViewerFragment
-import dk.eboks.app.presentation.ui.message.components.viewers.base.EmbeddedViewer
+import dk.eboks.app.mail.presentation.ui.message.components.viewers.base.EmbeddedViewer
+import dk.eboks.app.mail.presentation.ui.message.components.viewers.html.HtmlViewComponentContract
 import dk.eboks.app.util.printAndForget
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_htmlview_component.*

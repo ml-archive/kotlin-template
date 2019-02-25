@@ -375,6 +375,22 @@ object AppConfigImpl : AppConfig {
         return resourceLinks.find { it.type == type }
     }
 
+    // Feature Flags
+    override val isBetaDisclaimerEnabled: Boolean = BuildConfig.ENABLE_BETA_DISCLAIMER
+    override val isChannelReorderingEnabled: Boolean = BuildConfig.ENABLE_CHANNEL_REORDERING
+    override val isDocumentActionsEnabled: Boolean = BuildConfig.ENABLE_DOCUMENT_ACTIONS
+    override val isEkeyEnabled: Boolean = BuildConfig.ENABLE_EKEY
+    override val isFingerprintNonverifiedEnabled: Boolean = BuildConfig.ENABLE_FINGERPRINT_NONVERIFIED
+    override val isFolderActionsEnabled: Boolean = BuildConfig.ENABLE_FOLDERS_ACTIONS
+    override val isPaymentEnabled: Boolean = BuildConfig.ENABLE_PAYMENT
+    override val isProfileDataVerificationEnabled: Boolean = BuildConfig.ENABLE_PROFILE_DATA_VERIFICATION
+    override val isProfilePictureEnabled: Boolean = BuildConfig.ENABLE_PROFILE_PICTURE
+    override val isReplyEnabled: Boolean = BuildConfig.ENABLE_REPLY
+    override val isSendersEnabled: Boolean = BuildConfig.ENABLE_SENDERS
+    override val isSharesEnabled: Boolean = BuildConfig.ENABLE_SHARES
+    override val isSignEnabled: Boolean = BuildConfig.ENABLE_SIGN
+    override val isUploadsEnabled: Boolean = BuildConfig.ENABLE_UPLOADS
+
     override var currentMode: Mode = when (BuildConfig.mode) {
         "danish" -> danish
         "swedish" -> swedish

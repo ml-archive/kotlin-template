@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
+import dk.eboks.app.mail.presentation.ui.components.sendercarousel.SenderCarouselComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity

@@ -10,6 +10,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
+import dk.eboks.app.mail.presentation.ui.message.screens.MessageContract
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import dk.eboks.app.presentation.ui.message.components.detail.attachments.AttachmentsComponentFragment

@@ -47,3 +47,10 @@ enum class FolderType(val type: String) {
         }
     }
 }
+
+fun FolderType.isSystemFolder(): Boolean {
+    return when (this) {
+        FolderType.INBOX, FolderType.DRAFTS, FolderType.ARCHIVE, FolderType.SENT, FolderType.TRASH, FolderType.DELETED, FolderType.HIGHLIGHTS, FolderType.UNREAD, FolderType.LATEST, FolderType.RECEIPTS, FolderType.UPLOADS -> true
+        else -> false
+    }
+}

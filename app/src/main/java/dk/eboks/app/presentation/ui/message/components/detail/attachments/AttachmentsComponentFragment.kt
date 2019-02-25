@@ -11,6 +11,7 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.mail.presentation.ui.message.components.detail.attachments.AttachmentsComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.FileUtils
 import kotlinx.android.synthetic.main.fragment_attachments_component.*

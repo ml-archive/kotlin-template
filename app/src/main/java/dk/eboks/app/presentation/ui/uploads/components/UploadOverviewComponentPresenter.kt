@@ -1,8 +1,8 @@
 package dk.eboks.app.presentation.ui.uploads.components
 
-import dk.eboks.app.domain.interactors.message.GetLatestUploadsInteractor
-import dk.eboks.app.domain.interactors.message.GetStorageInteractor
-import dk.eboks.app.domain.interactors.message.UploadFileInteractor
+import dk.eboks.app.mail.domain.interactors.message.GetLatestUploadsInteractor
+import dk.eboks.app.mail.domain.interactors.message.GetStorageInteractor
+import dk.eboks.app.mail.domain.interactors.message.UploadFileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message

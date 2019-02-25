@@ -2,7 +2,7 @@ package dk.eboks.app.presentation.ui.home.screens
 
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
-import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
+import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
