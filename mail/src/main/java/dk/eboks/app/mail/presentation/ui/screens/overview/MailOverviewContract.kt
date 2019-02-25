@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.mail.screens.overview
+package dk.eboks.app.mail.presentation.ui.screens.overview
 
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseView

@@ -10,6 +10,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.getIconResId
+import dk.eboks.app.mail.presentation.ui.screens.components.FolderShortcutsComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import kotlinx.android.synthetic.main.fragment_folder_shortcuts_component.*

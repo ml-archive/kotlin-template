@@ -220,6 +220,7 @@ dependencies {
     implementation project(":base")
     implementation project(":data")
     implementation project(":api")
+    implementation project(":mail")
 
     // uncomment me if using multidex
     //implementation "com.android.support:multidex:$multidex_version"

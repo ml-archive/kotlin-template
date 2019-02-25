@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.mail.components.foldershortcuts
+package dk.eboks.app.mail.presentation.ui.screens.components
 
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.presentation.base.ComponentBaseView
@@ -12,7 +12,7 @@ interface FolderShortcutsComponentContract {
         fun showFolders(folders: List<Folder>)
     }
 
-    interface Presenter : BasePresenter<FolderShortcutsComponentContract.View> {
+    interface Presenter : BasePresenter<View> {
         fun openFolder(folder: Folder)
     }
 }

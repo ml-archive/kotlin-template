@@ -9,6 +9,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.models.sender.Sender
+import dk.eboks.app.mail.presentation.ui.screens.components.MailListComponentContract
 import dk.eboks.app.network.util.metaData
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber

@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.ui.mail.screens.overview
 
 import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.mail.presentation.ui.screens.overview.MailOverviewContract
 import dk.eboks.app.presentation.ui.mail.components.foldershortcuts.RefreshFolderShortcutsDoneEvent
 import dk.eboks.app.presentation.ui.mail.components.foldershortcuts.RefreshFolderShortcutsEvent
 import dk.eboks.app.presentation.ui.mail.components.sendercarousel.RefreshSenderCarouselDoneEvent

@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.login.User
+import dk.eboks.app.mail.presentation.ui.screens.overview.MailOverviewContract
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.dialogs.ConfirmDialogFragment
 import dk.eboks.app.presentation.ui.folder.components.selectuser.FolderSelectUserComponentFragment

@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.mail.components.sendercarousel
+package dk.eboks.app.mail.presentation.ui.screens.components
 
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.ComponentBaseView
@@ -13,5 +13,5 @@ interface SenderCarouselComponentContract {
         fun showEmpty(show: Boolean, verified: Boolean)
     }
 
-    interface Presenter : BasePresenter<SenderCarouselComponentContract.View>
+    interface Presenter : BasePresenter<View>
 }

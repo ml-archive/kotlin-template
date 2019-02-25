@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.mail.screens.list
+package dk.eboks.app.mail.presentation.ui.screens.list
 
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.sender.Sender
