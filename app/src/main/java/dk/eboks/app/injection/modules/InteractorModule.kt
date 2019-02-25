@@ -198,7 +198,7 @@ import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.Executor
 
 @Module
-class GetSendersInteractorImplInteractorModule {
+class InteractorModule {
     @Provides
     fun provideLoginInteractor(
         executor: Executor,
