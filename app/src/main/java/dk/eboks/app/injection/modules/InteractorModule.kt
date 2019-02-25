@@ -81,7 +81,7 @@ import dk.eboks.app.mail.domain.interactors.message.GetStorageInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.OpenAttachmentInteractor
 import dk.eboks.app.mail.domain.interactors.message.OpenAttachmentInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.OpenMessageInteractor
-import dk.eboks.app.domain.interactors.message.OpenMessageInteractorImpl
+import dk.eboks.app.mail.domain.interactors.message.OpenMessageInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.SaveAttachmentInteractor
 import dk.eboks.app.mail.domain.interactors.message.SaveAttachmentInteractorImpl
 import dk.eboks.app.mail.domain.interactors.message.SubmitReplyFormInteractor

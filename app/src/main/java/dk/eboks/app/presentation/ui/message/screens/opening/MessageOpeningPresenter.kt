@@ -1,7 +1,7 @@
 package dk.eboks.app.presentation.ui.message.screens.opening
 
 import dk.eboks.app.mail.domain.interactors.message.OpenMessageInteractor
-import dk.eboks.app.domain.interactors.message.OpenMessageInteractorImpl
+import dk.eboks.app.mail.domain.interactors.message.OpenMessageInteractorImpl
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.ServerError
