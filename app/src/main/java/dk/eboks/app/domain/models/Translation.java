@@ -65,8 +65,8 @@ public class Translation {
 		public static String printError = "Kunne ikke udskrive dokumentet";
 		public static String receiptOpenInErrorTitle = "Fejl";
 		public static String receiptOpenInErrorMessage = "Kvittering kunne ikke \u00E5bnes";
-		public static String eKeyDecryptionFailedTitle = "Ugyldig pinkode";
-		public static String eKeyDecryptionFailedMessage = "Du har indtastet en ugyldig pinkode.";
+		public static String eKeyDecryptionFailedTitle = "Ugyldig adgangskode";
+		public static String eKeyDecryptionFailedMessage = "Du har indtastet en ugyldig adgangskode. Din adgangskode er minimum 6 tegn eller en 4-cifret pinkode.";
 		public static String eKeyEncryptionFailedTitle = "En fejl opstod";
 		public static String eKeyEncryptionFailedMessage = "En fejl opstod da vi skulle \u00E5bne denne service. Pr\u00F8v igen.";
 		public static String wrongIdErrorTitle = "Forkert Nem-ID";
@@ -662,7 +662,7 @@ public class Translation {
 		public static String deleteItemDescriptionLogin = "brugeroplysning";
 		public static String overviewPinCode = "Pinkode";
 		public static String insertPasswordHint = "Adgangskode";
-		public static String insertPasswordDescription = "__insertPasswordDescription";
+		public static String insertPasswordDescription = "Adgangskoden skal v\u00E6re p\u00E5 minimum 6 tegn og bruges hver gang, du \u00E5bner denne service p\u00E5 en anden mobil enhed.";
 		public static String insertPasswordLenghtError = "Adgangskoden skal v\u00E6re p\u00E5 minimum 6 tegn";
 		public static String passwordOptions = "Kodeindstillinger";
 		public static String passwordOptionNumeric = "4-cifret kode";
