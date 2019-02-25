@@ -15,10 +15,10 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class MessageEmbeddedPresenter @Inject constructor(
-        private val appConfig: AppConfig,
-        private val stateManager: AppStateManager,
-        private val deleteMessagesInteractor: DeleteMessagesInteractor,
-        private val updateMessageInteractor: UpdateMessageInteractor
+    private val appConfig: AppConfig,
+    private val stateManager: AppStateManager,
+    private val deleteMessagesInteractor: DeleteMessagesInteractor,
+    private val updateMessageInteractor: UpdateMessageInteractor
 ) :
     MessageEmbeddedContract.Presenter,
     BasePresenterImpl<MessageEmbeddedContract.View>(),
@@ -40,17 +40,17 @@ class MessageEmbeddedPresenter @Inject constructor(
         runAction { v ->
             v.addHeaderComponentFragment()
             message?.let { message ->
-                if (appConfig.ENABLE_REPLY) {
+                if (appConfig.isReplyEnabled) {
                     message.reply?.let {
                         v.addReplyButtonComponentFragment(message)
                     }
                 }
-                if (appConfig.ENABLE_SIGN) {
+                if (appConfig.isSignEnabled) {
                     message.sign?.let {
                         v.addSignButtonComponentFragment(message)
                     }
                 }
-                if (appConfig.ENABLE_DOCUMENT_ACTIONS) {
+                if (appConfig.isDocumentActionsEnabled) {
                     v.setActionButton(message)
                 }
 

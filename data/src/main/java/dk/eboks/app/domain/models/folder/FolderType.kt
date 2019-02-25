@@ -54,4 +54,3 @@ fun FolderType.isSystemFolder(): Boolean {
         else -> false
     }
 }
-

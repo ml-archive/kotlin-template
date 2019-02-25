@@ -2,7 +2,6 @@ package dk.eboks.app.mail.presentation.ui.screens.list
 
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.sender.Sender
-import dk.eboks.app.mail.presentation.ui.screens.list.MailListContract
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 

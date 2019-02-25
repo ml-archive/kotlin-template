@@ -16,10 +16,10 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class MessagePresenter @Inject constructor(
-        private val appState: AppStateManager,
-        private val appConfig: AppConfig,
-        private val deleteMessagesInteractor: DeleteMessagesInteractor,
-        private val updateMessageInteractor: UpdateMessageInteractor
+    private val appState: AppStateManager,
+    private val appConfig: AppConfig,
+    private val deleteMessagesInteractor: DeleteMessagesInteractor,
+    private val updateMessageInteractor: UpdateMessageInteractor
 ) : MessageContract.Presenter,
     BasePresenterImpl<MessageContract.View>(),
     DeleteMessagesInteractor.Output,
@@ -38,7 +38,7 @@ class MessagePresenter @Inject constructor(
         runAction { v ->
             v.addHeaderComponentFragment()
             v.addDocumentComponentFragment()
-            if (appConfig.ENABLE_REPLY) {
+            if (appConfig.isReplyEnabled) {
                 message?.reply?.let {
                     v.addReplyButtonComponentFragment(message!!)
                 }

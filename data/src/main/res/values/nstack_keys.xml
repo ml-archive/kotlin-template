@@ -62,6 +62,7 @@
   <string name='nstack_error_wrongIdErrorTitle' formatted='false'>{error_wrongIdErrorTitle}</string>
   <string name='nstack_error_wrongIdErrorMessage' formatted='false'>{error_wrongIdErrorMessage}</string>
   <string name='nstack_error_pincodeMinLenght' formatted='false'>{error_pincodeMinLenght}</string>
+  <string name='nstack_error_replyMissingValuesMessage' formatted='false'>{error_replyMissingValuesMessage}</string>
   <string name='nstack_mail_senderHeader' formatted='false'>{mail_senderHeader}</string>
   <string name='nstack_mail_showAllSendersButton' formatted='false'>{mail_showAllSendersButton}</string>
   <string name='nstack_mail_smartFolderHeader' formatted='false'>{mail_smartFolderHeader}</string>

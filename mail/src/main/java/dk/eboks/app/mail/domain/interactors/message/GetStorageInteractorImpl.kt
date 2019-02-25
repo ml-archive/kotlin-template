@@ -1,7 +1,6 @@
 package dk.eboks.app.mail.domain.interactors.message
 
 import dk.eboks.app.domain.repositories.MessagesRepository
-import dk.eboks.app.mail.domain.interactors.message.GetStorageInteractor
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor

@@ -13,10 +13,10 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class NewFolderComponentPresenter @Inject constructor(
-        private val appState: AppStateManager,
-        private val createFolderInteractor: CreateFolderInteractor,
-        private val deleteFolderInteractor: DeleteFolderInteractor,
-        private val editFolderInteractor: EditFolderInteractor
+    private val appState: AppStateManager,
+    private val createFolderInteractor: CreateFolderInteractor,
+    private val deleteFolderInteractor: DeleteFolderInteractor,
+    private val editFolderInteractor: EditFolderInteractor
 ) :
     NewFolderComponentContract.Presenter,
     CreateFolderInteractor.Output,

@@ -13,8 +13,8 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class ReplyFormPresenter @Inject constructor(
-        private val getReplyFormInteractor: GetReplyFormInteractor,
-        private val submitReplyFormInteractor: SubmitReplyFormInteractor
+    private val getReplyFormInteractor: GetReplyFormInteractor,
+    private val submitReplyFormInteractor: SubmitReplyFormInteractor
 ) :
     ReplyFormContract.Presenter,
     BasePresenterImpl<ReplyFormContract.View>(),

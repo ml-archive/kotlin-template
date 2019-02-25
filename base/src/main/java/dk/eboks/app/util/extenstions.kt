@@ -45,9 +45,9 @@ inline fun <T> T.guard(block: T.() -> Unit): T {
 }
 
 fun BaseInteractor.exceptionToViewError(
-        t: Throwable,
-        shouldClose: Boolean = false,
-        shouldDisplay: Boolean = true
+    t: Throwable,
+    shouldClose: Boolean = false,
+    shouldDisplay: Boolean = true
 ): ViewError {
     t.cause?.let {
         return throwableToViewError(it, shouldClose, shouldDisplay)
@@ -58,9 +58,9 @@ fun BaseInteractor.exceptionToViewError(
 }
 
 internal fun throwableToViewError(
-        t: Throwable,
-        shouldClose: Boolean = false,
-        shouldDisplay: Boolean = true
+    t: Throwable,
+    shouldClose: Boolean = false,
+    shouldDisplay: Boolean = true
 ): ViewError {
     when (t) {
         is ConnectException -> return ViewError(

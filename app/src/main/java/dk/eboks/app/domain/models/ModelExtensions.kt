@@ -3,7 +3,6 @@ package dk.eboks.app.domain.models
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.folder.FolderType
 
-
 fun FolderType.getIconResId(): Int {
     when (this) {
         FolderType.INBOX -> return R.drawable.ic_inbox
