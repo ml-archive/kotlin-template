@@ -44,7 +44,6 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
                         if (!Regex("^[0-9]{0,4}$").matches((ekeyPasswordInputEt.text.toString()))) {
                             ekeyPasswordInputEt.text?.clear()
                         }
-                        ekeyPasswordInputEt.filters = arrayOf(InputFilter.LengthFilter(4))
                         ekeyPasswordInputEt.inputType =
                             InputType.TYPE_NUMBER_VARIATION_PASSWORD or InputType.TYPE_CLASS_NUMBER
                     }
