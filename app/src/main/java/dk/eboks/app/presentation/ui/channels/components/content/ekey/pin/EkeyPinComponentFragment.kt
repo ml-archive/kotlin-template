@@ -48,7 +48,8 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
                             InputType.TYPE_NUMBER_VARIATION_PASSWORD or InputType.TYPE_CLASS_NUMBER
                     }
                     ButtonType.INPUT_ALPHANUMERIC -> {
-                        ekeyPasswordInputEt.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+                        ekeyPasswordInputEt.inputType =
+                            InputType.TYPE_TEXT_VARIATION_PASSWORD or InputType.TYPE_CLASS_TEXT
                         ekeyPasswordInputEt.filters = arrayOf()
                     }
                     else -> { /* do nothing */
@@ -140,7 +141,6 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
                 ekeyPasswordInputLayout.error = Translation.error.pincodeMinLenght
                 return
             }
-
         }
         getEkeyBaseActivity()?.setPin(pin)
         getEkeyBaseActivity()?.refreshClearAndShowMain()

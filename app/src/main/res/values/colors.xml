@@ -45,5 +45,6 @@
     <color name="transparentWhite20">#3FFF</color>
     <color name="transparentBlack20">#3000</color>
     <color name="transparentBlack10">#19000000</color>
+    <color name="darkGreyBlue5">#0D223944</color>
 
 </resources>
