@@ -48,6 +48,9 @@ dependencies {
     // Encryption Lib
     implementation Libs.Nodes.locksmith
     implementation Libs.Nodes.arch
+    implementation Libs.gson
+
+    implementation Libs.Nodes.Nstack.kotlin
 
 
     implementation Libs.Dagger.dagger
