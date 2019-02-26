@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
 import androidx.appcompat.app.AlertDialog
+import cz.levinzonr.keychain.presentation.components.providers.BankIdSEComponentPresenter
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation

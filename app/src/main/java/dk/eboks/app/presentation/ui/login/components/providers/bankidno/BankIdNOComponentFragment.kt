@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
+import cz.levinzonr.keychain.presentation.components.providers.BankIdNOComponentPresenter
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation

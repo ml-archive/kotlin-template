@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.start.components.signup
+package cz.levinzonr.keychain.presentation.components
 
 import dk.eboks.app.keychain.interactors.authentication.LoginInteractor
 import dk.eboks.app.keychain.interactors.authentication.SetCurrentUserInteractor
@@ -10,7 +10,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.User
 import cz.levinzonr.keychain.presentation.components.providers.WebLoginPresenter
-import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
+import dk.eboks.app.presentation.base.ViewController
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
@@ -20,6 +20,7 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class SignupComponentPresenter @Inject constructor(
+    private val viewController: ViewController,
     private val appState: AppStateManager,
     private val createUserInteractor: CreateUserInteractor,
     private val loginUserInteractor: LoginInteractor,
@@ -75,7 +76,7 @@ class SignupComponentPresenter @Inject constructor(
     override fun loginUser() {
         appState.state?.loginState?.let { loginState ->
             // we have a token, this is a verified user, set cpr instead of email as last login provider
-            if (VerificationComponentFragment.verificationSucceeded)
+            if (viewController.isVerificationSucceeded)
                 loginState.userLoginProviderId = "cpr"
             else
                 loginState.userLoginProviderId = "email"
@@ -87,7 +88,7 @@ class SignupComponentPresenter @Inject constructor(
                 loginUserInteractor.input = LoginInteractor.Input(loginState, null)
                 loginUserInteractor.run()
             }
-            VerificationComponentFragment.verificationSucceeded = false
+            viewController.isVerificationSucceeded = false
             WebLoginPresenter.newIdentity = null
         }
     }
@@ -186,7 +187,7 @@ class SignupComponentPresenter @Inject constructor(
      * SetCurrentUserInteractor callbacks
      */
     override fun onSetCurrentUserSuccess() {
-        VerificationComponentFragment.verificationSucceeded = false
+        viewController.isVerificationSucceeded = false
         runAction { v ->
             v as SignupComponentContract.TermsView
             v.showSignupCompleted()

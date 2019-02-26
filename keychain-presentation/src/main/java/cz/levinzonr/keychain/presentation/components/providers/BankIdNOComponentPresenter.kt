@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.login.components.providers.nemid
+package cz.levinzonr.keychain.presentation.components.providers
 
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.keychain.interactors.authentication.MergeAndImpersonateInteractor
@@ -6,15 +6,14 @@ import dk.eboks.app.keychain.interactors.authentication.TransformTokenInteractor
 import dk.eboks.app.keychain.interactors.authentication.VerifyProfileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
-import cz.levinzonr.keychain.presentation.components.providers.WebLoginPresenter
+import dk.eboks.app.presentation.base.ViewController
 import javax.inject.Inject
 
 /**
- * Created by Christian on 5/28/2018.
- * @author Christian
- * @since 5/28/2018.
+ * Created by bison on 20-05-2017.
  */
-class NemIdComponentPresenter @Inject constructor(
+class BankIdNOComponentPresenter @Inject constructor(
+    viewController: ViewController,
     appState: AppStateManager,
     transformTokenInteractor: TransformTokenInteractor,
     verifyProfileInteractor: VerifyProfileInteractor,
@@ -23,6 +22,7 @@ class NemIdComponentPresenter @Inject constructor(
     appConfig: AppConfig
 ) :
     WebLoginPresenter(
+        viewController,
         appState,
         transformTokenInteractor,
         verifyProfileInteractor,
@@ -33,7 +33,7 @@ class NemIdComponentPresenter @Inject constructor(
 
     override fun login(webToken: String) {
         appState.state?.loginState?.let {
-            it.userLoginProviderId = "nemid"
+            it.userLoginProviderId = "bankid_no"
         }
         super.login(webToken)
     }

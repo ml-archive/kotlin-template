@@ -9,6 +9,7 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AlertDialog
+import cz.levinzonr.keychain.presentation.components.providers.NemIdComponentPresenter
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation

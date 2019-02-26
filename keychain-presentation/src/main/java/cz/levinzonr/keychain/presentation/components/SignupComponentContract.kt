@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.start.components.signup
+package cz.levinzonr.keychain.presentation.components
 
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseView

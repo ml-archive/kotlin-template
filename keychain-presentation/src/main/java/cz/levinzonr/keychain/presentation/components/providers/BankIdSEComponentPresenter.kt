@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.login.components.providers.bankidse
+package cz.levinzonr.keychain.presentation.components.providers
 
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.keychain.interactors.authentication.MergeAndImpersonateInteractor
@@ -6,13 +6,14 @@ import dk.eboks.app.keychain.interactors.authentication.TransformTokenInteractor
 import dk.eboks.app.keychain.interactors.authentication.VerifyProfileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
-import cz.levinzonr.keychain.presentation.components.providers.WebLoginPresenter
+import dk.eboks.app.presentation.base.ViewController
 import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
 class BankIdSEComponentPresenter @Inject constructor(
+    viewController: ViewController,
     appState: AppStateManager,
     transformTokenInteractor: TransformTokenInteractor,
     verifyProfileInteractor: VerifyProfileInteractor,
@@ -21,6 +22,7 @@ class BankIdSEComponentPresenter @Inject constructor(
     appConfig: AppConfig
 ) :
     WebLoginPresenter(
+        viewController,
         appState,
         transformTokenInteractor,
         verifyProfileInteractor,

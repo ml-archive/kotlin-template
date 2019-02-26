@@ -164,8 +164,8 @@ import dk.eboks.app.presentation.ui.senders.screens.registrations.RegistrationsC
 import dk.eboks.app.presentation.ui.senders.screens.registrations.RegistrationsPresenter
 import dk.eboks.app.presentation.ui.senders.screens.segment.SegmentDetailContract
 import dk.eboks.app.presentation.ui.senders.screens.segment.SegmentDetailPresenter
-import dk.eboks.app.presentation.ui.start.components.signup.SignupComponentContract
-import dk.eboks.app.presentation.ui.start.components.signup.SignupComponentPresenter
+import cz.levinzonr.keychain.presentation.components.SignupComponentContract
+import cz.levinzonr.keychain.presentation.components.SignupComponentPresenter
 import dk.eboks.app.presentation.ui.start.screens.StartContract
 import dk.eboks.app.presentation.ui.start.screens.StartPresenter
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentContract
