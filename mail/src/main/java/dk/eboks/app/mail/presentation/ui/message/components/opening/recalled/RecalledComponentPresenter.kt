@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class RecalledComponentPresenter @Inject constructor(
+internal class RecalledComponentPresenter @Inject constructor(
     private val appState: AppStateManager,
     private val executor: Executor
 ) :

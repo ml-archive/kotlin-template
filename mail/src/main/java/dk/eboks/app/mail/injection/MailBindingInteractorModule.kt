@@ -42,66 +42,71 @@ import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInter
 import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractorImpl
 import dk.eboks.app.mail.domain.interactors.senders.GetSendersInteractor
 import dk.eboks.app.mail.domain.interactors.senders.GetSendersInteractorImpl
+import dk.eboks.app.mail.domain.interactors.shares.GetAllSharesInteractor
+import dk.eboks.app.mail.domain.interactors.shares.GetAllSharesInteractorImpl
 
 @Module
 abstract class MailBindingInteractorModule {
     @Binds
-    abstract fun bindCreateFolder(interactor: CreateFolderInteractorImpl): CreateFolderInteractor
+    internal abstract fun bindCreateFolder(interactor: CreateFolderInteractorImpl): CreateFolderInteractor
 
     @Binds
-    abstract fun bindDeleteFolder(interactor: DeleteFolderInteractorImpl): DeleteFolderInteractor
+    internal abstract fun bindDeleteFolder(interactor: DeleteFolderInteractorImpl): DeleteFolderInteractor
 
     @Binds
-    abstract fun bindEditFolder(interactor: EditFolderInteractorImpl): EditFolderInteractor
+    internal abstract fun bindEditFolder(interactor: EditFolderInteractorImpl): EditFolderInteractor
 
     @Binds
-    abstract fun bindGetFoldersInteractor(interactor: GetFoldersInteractorImpl): GetFoldersInteractor
+    internal abstract fun bindGetFoldersInteractor(interactor: GetFoldersInteractorImpl): GetFoldersInteractor
 
     @Binds
-    abstract fun bindOpenFolderInteractor(interactor: OpenFolderInteractorImpl): OpenFolderInteractor
+    internal abstract fun bindOpenFolderInteractor(interactor: OpenFolderInteractorImpl): OpenFolderInteractor
 
     @Binds
-    abstract fun bindGetLatestUploadsInteractor(interactor: GetLatestUploadsInteractorImpl): GetLatestUploadsInteractor
+    internal abstract fun bindGetLatestUploadsInteractor(interactor: GetLatestUploadsInteractorImpl): GetLatestUploadsInteractor
 
     @Binds
-    abstract fun bindGetMessagesInteractor(interactor: GetMessagesInteractorImpl): GetMessagesInteractor
+    internal abstract fun bindGetMessagesInteractor(interactor: GetMessagesInteractorImpl): GetMessagesInteractor
 
     @Binds
-    abstract fun bindGetReplyFormInteractor(interactor: GetReplyFormInteractorImpl): GetReplyFormInteractor
+    internal abstract fun bindGetReplyFormInteractor(interactor: GetReplyFormInteractorImpl): GetReplyFormInteractor
 
     @Binds
-    abstract fun bindGetSignLinkInteractor(interactor: GetSignLinkInteractorImpl): GetSignLinkInteractor
+    internal abstract fun bindGetSignLinkInteractor(interactor: GetSignLinkInteractorImpl): GetSignLinkInteractor
 
     @Binds
-    abstract fun bindGetStorageInteractor(interactor: GetStorageInteractorImpl): GetStorageInteractor
+    internal abstract fun bindGetStorageInteractor(interactor: GetStorageInteractorImpl): GetStorageInteractor
 
     @Binds
-    abstract fun bindMoveMessagesInteractor(interactor: MoveMessagesInteractorImpl): MoveMessagesInteractor
+    internal abstract fun bindMoveMessagesInteractor(interactor: MoveMessagesInteractorImpl): MoveMessagesInteractor
 
     @Binds
-    abstract fun bindOpenAttachmentInteractor(interactor: OpenAttachmentInteractorImpl): OpenAttachmentInteractor
+    internal abstract fun bindOpenAttachmentInteractor(interactor: OpenAttachmentInteractorImpl): OpenAttachmentInteractor
 
     @Binds
-    abstract fun bindOpenMessageInteractor(interactor: OpenMessageInteractorImpl): OpenMessageInteractor
+    internal abstract fun bindOpenMessageInteractor(interactor: OpenMessageInteractorImpl): OpenMessageInteractor
 
     @Binds
-    abstract fun bindSaveAttachmentInteractor(interactor: SaveAttachmentInteractorImpl): SaveAttachmentInteractor
+    internal abstract fun bindSaveAttachmentInteractor(interactor: SaveAttachmentInteractorImpl): SaveAttachmentInteractor
 
     @Binds
-    abstract fun bindSubmitReplyFormInteractor(interactor: SubmitReplyFormInteractorImpl): SubmitReplyFormInteractor
+    internal abstract fun bindSubmitReplyFormInteractor(interactor: SubmitReplyFormInteractorImpl): SubmitReplyFormInteractor
 
     @Binds
-    abstract fun bindUploadFileInteractor(interactor: UploadFileInteractorImpl): UploadFileInteractor
+    internal abstract fun bindUploadFileInteractor(interactor: UploadFileInteractorImpl): UploadFileInteractor
 
     @Binds
-    abstract fun bindDeleteMessagesInteractor(interactor: DeleteMessagesInteractorImpl): DeleteMessagesInteractor
+    internal abstract fun bindDeleteMessagesInteractor(interactor: DeleteMessagesInteractorImpl): DeleteMessagesInteractor
 
     @Binds
-    abstract fun bindUpdateMessageInteractor(interactor: UpdateMessageInteractorImpl): UpdateMessageInteractor
+    internal abstract fun bindUpdateMessageInteractor(interactor: UpdateMessageInteractorImpl): UpdateMessageInteractor
 
     @Binds
-    abstract fun bindGetSendersInteractor(interactor: GetSendersInteractorImpl): GetSendersInteractor
+    internal abstract fun bindGetSendersInteractor(interactor: GetSendersInteractorImpl): GetSendersInteractor
 
     @Binds
-    abstract fun bindGetCategoriesInteractor(interactor: GetMailCategoriesInteractorImpl): GetCategoriesInteractor
+    internal abstract fun bindGetCategoriesInteractor(interactor: GetMailCategoriesInteractorImpl): GetCategoriesInteractor
+
+    @Binds
+    internal abstract fun bindGetAllSharesInteractor(interactor: GetAllSharesInteractorImpl): GetAllSharesInteractor
 }

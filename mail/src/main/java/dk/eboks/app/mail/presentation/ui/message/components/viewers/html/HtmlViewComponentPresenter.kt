@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class HtmlViewComponentPresenter @Inject constructor(private val appState: AppStateManager) :
+internal class HtmlViewComponentPresenter @Inject constructor(private val appState: AppStateManager) :
     HtmlViewComponentContract.Presenter, BasePresenterImpl<HtmlViewComponentContract.View>() {
 
     init {

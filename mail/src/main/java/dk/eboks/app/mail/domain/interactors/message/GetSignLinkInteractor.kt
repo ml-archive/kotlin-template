@@ -15,4 +15,10 @@ interface GetSignLinkInteractor : Interactor {
         fun onGetSignLink(result: Link)
         fun onGetSignLinkError(error: ViewError)
     }
+
+    companion object {
+        val CANCEL_CALLBACK = "eboksdk://cancel"
+        val SUCCESS_CALLBACK = "eboksdk://success"
+        val ERROR_CALLBACK = "eboksdk://error"
+    }
 }

@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class FolderSelectUserComponentPresenter @Inject constructor(
+internal class FolderSelectUserComponentPresenter @Inject constructor(
     private val appState: AppStateManager,
     private val getAllSharesInteractor: GetAllSharesInteractor
 ) : FolderSelectUserComponentContract.Presenter,

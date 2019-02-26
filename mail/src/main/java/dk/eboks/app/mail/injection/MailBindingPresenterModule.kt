@@ -70,125 +70,125 @@ import dk.nodes.arch.domain.injection.scopes.ActivityScope
 abstract class MailBindingPresenterModule {
     @ActivityScope
     @Binds
-    abstract fun bindFolderShortcutsComponentPresenter(presenter: FolderShortcutsComponentPresenter): FolderShortcutsComponentContract.Presenter
+    internal abstract fun bindFolderShortcutsComponentPresenter(presenter: FolderShortcutsComponentPresenter): FolderShortcutsComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindMailListComponentPresenter(presenter: MailListComponentPresenter): MailListComponentContract.Presenter
+    internal abstract fun bindMailListComponentPresenter(presenter: MailListComponentPresenter): MailListComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindSenderCarouselComponentPresenter(presenter: SenderCarouselComponentPresenter): SenderCarouselComponentContract.Presenter
+    internal abstract fun bindSenderCarouselComponentPresenter(presenter: SenderCarouselComponentPresenter): SenderCarouselComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindFoldersComponentPresenter(presenter: FoldersComponentPresenter): FoldersComponentContract.Presenter
+    internal abstract fun bindFoldersComponentPresenter(presenter: FoldersComponentPresenter): FoldersComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindFolderSelectUserComponentPresenter(presenter: FolderSelectUserComponentPresenter): FolderSelectUserComponentContract.Presenter
+    internal abstract fun bindFolderSelectUserComponentPresenter(presenter: FolderSelectUserComponentPresenter): FolderSelectUserComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindNewFolderComponentPresenter(presenter: NewFolderComponentPresenter): NewFolderComponentContract.Presenter
+    internal abstract fun bindNewFolderComponentPresenter(presenter: NewFolderComponentPresenter): NewFolderComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindFolderPresenter(presenter: FolderPresenter): FolderContract.Presenter
+    internal abstract fun bindFolderPresenter(presenter: FolderPresenter): FolderContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindAttachmentsComponentPresenter(presenter: AttachmentsComponentPresenter): AttachmentsComponentContract.Presenter
+    internal abstract fun bindAttachmentsComponentPresenter(presenter: AttachmentsComponentPresenter): AttachmentsComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindDocumentComponentPresenter(presenter: DocumentComponentPresenter): DocumentComponentContract.Presenter
+    internal abstract fun bindDocumentComponentPresenter(presenter: DocumentComponentPresenter): DocumentComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindFolderInfoComponentPresenter(presenter: FolderInfoComponentPresenter): FolderInfoComponentContract.Presenter
+    internal abstract fun bindFolderInfoComponentPresenter(presenter: FolderInfoComponentPresenter): FolderInfoComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindHeaderComponentPresenter(presenter: HeaderComponentPresenter): HeaderComponentContract.Presenter
+    internal abstract fun bindHeaderComponentPresenter(presenter: HeaderComponentPresenter): HeaderComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindNotesComponentPresenter(presenter: NotesComponentPresenter): NotesComponentContract.Presenter
+    internal abstract fun bindNotesComponentPresenter(presenter: NotesComponentPresenter): NotesComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindReplyButtonComponentPresenter(presenter: ReplyButtonComponentPresenter): ReplyButtonComponentContract.Presenter
+    internal abstract fun bindReplyButtonComponentPresenter(presenter: ReplyButtonComponentPresenter): ReplyButtonComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindShareComponentPresenter(presenter: ShareComponentPresenter): ShareComponentContract.Presenter
+    internal abstract fun bindShareComponentPresenter(presenter: ShareComponentPresenter): ShareComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindSignButtonComponentPresenter(presenter: SignButtonComponentPresenter): SignButtonComponentContract.Presenter
+    internal abstract fun bindSignButtonComponentPresenter(presenter: SignButtonComponentPresenter): SignButtonComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindPrivateSenderWarningComponentPresenter(presenter: PrivateSenderWarningComponentPresenter): PrivateSenderWarningComponentContract.Presenter
+    internal abstract fun bindPrivateSenderWarningComponentPresenter(presenter: PrivateSenderWarningComponentPresenter): PrivateSenderWarningComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindPromulgationComponentPresenter(presenter: PromulgationComponentPresenter): PromulgationComponentContract.Presenter
+    internal abstract fun bindPromulgationComponentPresenter(presenter: PromulgationComponentPresenter): PromulgationComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindProtectedMessageComponentPresenter(presenter: ProtectedMessageComponentPresenter): ProtectedMessageComponentContract.Presenter
+    internal abstract fun bindProtectedMessageComponentPresenter(presenter: ProtectedMessageComponentPresenter): ProtectedMessageComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindQuarantineComponentPresenter(presenter: QuarantineComponentPresenter): QuarantineComponentContract.Presenter
+    internal abstract fun bindQuarantineComponentPresenter(presenter: QuarantineComponentPresenter): QuarantineComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindRecalledMessageComponentPresenter(presenter: RecalledComponentPresenter): RecalledComponentContract.Presenter
+    internal abstract fun bindRecalledMessageComponentPresenter(presenter: RecalledComponentPresenter): RecalledComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindOpeningReceiptComponentPresenter(presenter: OpeningReceiptComponentPresenter): OpeningReceiptComponentContract.Presenter
+    internal abstract fun bindOpeningReceiptComponentPresenter(presenter: OpeningReceiptComponentPresenter): OpeningReceiptComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindHtmlViewComponentPresenter(presenter: HtmlViewComponentPresenter): HtmlViewComponentContract.Presenter
+    internal abstract fun bindHtmlViewComponentPresenter(presenter: HtmlViewComponentPresenter): HtmlViewComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindImageViewComponentPresenter(presenter: ImageViewComponentPresenter): ImageViewComponentContract.Presenter
+    internal abstract fun bindImageViewComponentPresenter(presenter: ImageViewComponentPresenter): ImageViewComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindPdfPreviewComponentPresenter(presenter: PdfViewComponentPresenter): PdfViewComponentContract.Presenter
+    internal abstract fun bindPdfPreviewComponentPresenter(presenter: PdfViewComponentPresenter): PdfViewComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindTextViewComponentPresenter(presenter: TextViewComponentPresenter): TextViewComponentContract.Presenter
+    internal abstract fun bindTextViewComponentPresenter(presenter: TextViewComponentPresenter): TextViewComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindMessageSheetPresenter(presenter: MessageEmbeddedPresenter): MessageEmbeddedContract.Presenter
+    internal abstract fun bindMessageSheetPresenter(presenter: MessageEmbeddedPresenter): MessageEmbeddedContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindReplyFormPresenter(presenter: ReplyFormPresenter): ReplyFormContract.Presenter
+    internal abstract fun bindReplyFormPresenter(presenter: ReplyFormPresenter): ReplyFormContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindSignPresenter(presenter: SignPresenter): SignContract.Presenter
+    internal abstract fun bindSignPresenter(presenter: SignPresenter): SignContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindMessagePresenter(presenter: MessagePresenter): MessageContract.Presenter
+    internal abstract fun bindMessagePresenter(presenter: MessagePresenter): MessageContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindMailListPresenter(presenter: MailListPresenter): MailListContract.Presenter
+    internal abstract fun bindMailListPresenter(presenter: MailListPresenter): MailListContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun bindMailOverviewPresenter(presenter: MailOverviewPresenter): MailOverviewContract.Presenter
+    internal abstract fun bindMailOverviewPresenter(presenter: MailOverviewPresenter): MailOverviewContract.Presenter
 }

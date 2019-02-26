@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class MailListPresenter @Inject constructor() :
+internal class MailListPresenter @Inject constructor() :
     MailListContract.Presenter,
     BasePresenterImpl<MailListContract.View>() {
     override fun setupFolder(folder: Folder) {

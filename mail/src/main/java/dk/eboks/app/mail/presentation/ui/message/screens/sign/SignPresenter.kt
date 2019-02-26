@@ -12,7 +12,7 @@ import javax.inject.Inject
  * @author Christian
  * @since 5/23/2018.
  */
-class SignPresenter @Inject constructor(
+internal class SignPresenter @Inject constructor(
     private val getSignLinkInteractor: GetSignLinkInteractor
 ) :
     SignContract.Presenter,

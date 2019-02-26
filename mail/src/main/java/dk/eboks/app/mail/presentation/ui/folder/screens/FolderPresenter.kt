@@ -6,7 +6,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class FolderPresenter @Inject constructor() :
+internal class FolderPresenter @Inject constructor() :
     FolderContract.Presenter,
     BasePresenterImpl<FolderContract.View>() {
     init {

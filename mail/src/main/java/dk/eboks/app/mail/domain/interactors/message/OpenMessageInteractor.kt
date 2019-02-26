@@ -22,4 +22,14 @@ interface OpenMessageInteractor : Interactor {
         fun onPrivateSenderWarning(msg: Message)
         fun isViewAttached(): Boolean
     }
+
+    companion object {
+        val NO_PRIVATE_SENDER_WARNING = 9100
+        val MANDATORY_OPEN_RECEIPT = 12194
+        val VOLUNTARY_OPEN_RECEIPT = 12245
+        val MESSAGE_QUARANTINED = 9300
+        val MESSAGE_RECALLED = 9301
+        val MESSAGE_LOCKED = 9302
+        val PROMULGATION = 12260
+    }
 }

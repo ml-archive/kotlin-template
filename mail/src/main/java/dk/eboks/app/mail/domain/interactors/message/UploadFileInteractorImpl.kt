@@ -9,7 +9,7 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 import javax.inject.Inject
 
-class UploadFileInteractorImpl @Inject constructor(
+internal class UploadFileInteractorImpl @Inject constructor(
     executor: Executor,
     private val messagesRepository: MessagesRepository
 ) :

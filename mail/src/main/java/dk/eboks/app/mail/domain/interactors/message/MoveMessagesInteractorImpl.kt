@@ -4,7 +4,7 @@ import dk.eboks.app.mail.domain.interactors.messageoperations.MoveMessagesIntera
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 
-class MoveMessagesInteractorImpl(executor: Executor) :
+internal class MoveMessagesInteractorImpl(executor: Executor) :
     BaseInteractor(executor),
         MoveMessagesInteractor {
     override var output: MoveMessagesInteractor.Output? = null

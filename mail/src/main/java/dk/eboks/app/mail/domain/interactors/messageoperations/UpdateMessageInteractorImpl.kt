@@ -7,7 +7,7 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 import javax.inject.Inject
 
-class UpdateMessageInteractorImpl @Inject constructor(
+internal class UpdateMessageInteractorImpl @Inject constructor(
     executor: Executor,
     private val messagesRepository: MessagesRepository
 ) : BaseInteractor(executor), UpdateMessageInteractor {
