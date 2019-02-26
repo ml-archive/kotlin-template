@@ -34,12 +34,12 @@ class MailListComponentPresenter @Inject constructor(
 
     var mode = -1
 
-    var currentFolder: Folder? = null
-    var currentSender: Sender? = null
+    private var currentFolder: Folder? = null
+    private var currentSender: Sender? = null
 
-    var currentOffset: Int = 0
+    private var currentOffset: Int = 0
     private val currentLimit: Int = 30
-    var totalMessages: Int = -1
+    private var totalMessages: Int = -1
 
     override var isLoading: Boolean = false
 
@@ -99,7 +99,7 @@ class MailListComponentPresenter @Inject constructor(
         getMessages()
     }
 
-    fun getMessages() {
+    private fun getMessages() {
         isLoading = true
         getMessagesInteractor.input = GetMessagesInteractor.Input(
             cached = false,

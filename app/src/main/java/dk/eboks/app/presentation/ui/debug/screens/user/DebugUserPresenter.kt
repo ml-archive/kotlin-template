@@ -56,7 +56,7 @@ class DebugUserPresenter @Inject constructor(
         )
 
         user.setPrimaryEmail(email)
-        val settings = userSettingsManager.get(user.id)
+        val settings = userSettingsManager[user.id]
         settings.lastLoginProviderId = provider.id
         settings.hasFingerprint = fingerprint
         userSettingsManager.put(settings)

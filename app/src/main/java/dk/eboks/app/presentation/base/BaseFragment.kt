@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.base
 
-import android.app.FragmentManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import dk.eboks.app.App
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.models.local.ViewError
@@ -24,7 +24,7 @@ abstract class BaseFragment : Fragment(), BaseView {
      * easy shortcut to get an inflater, this only gets instantiated if you use it and only the first time
      */
     val inflator by lazy {
-        LayoutInflater.from(context)
+        LayoutInflater.from(requireContext())!!
     }
 
     val mainHandler by lazy {

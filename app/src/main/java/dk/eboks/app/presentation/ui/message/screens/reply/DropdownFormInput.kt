@@ -16,9 +16,9 @@ import java.util.regex.Pattern
 
 class DropdownFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) :
     ReplyFormInput(formInput, inflater, handler), AdapterView.OnItemSelectedListener {
-    var dropdownSpr: Spinner? = null
-    var labelTv: TextView? = null
-    var errorTv: TextView? = null
+    private var dropdownSpr: Spinner? = null
+    private var labelTv: TextView? = null
+    private var errorTv: TextView? = null
     var options: MutableList<String> = ArrayList()
 
     // lazy compile the pattern only if we get one

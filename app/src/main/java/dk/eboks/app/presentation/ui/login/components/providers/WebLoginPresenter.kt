@@ -59,7 +59,7 @@ open class WebLoginPresenter @Inject constructor(
             Timber.e("Cancel and close called provider id = $it")
             appConfig.getLoginProvider(failProviderId)?.let { provider ->
                 Timber.e("Setting lastLoginProvider to fallback provider ${provider.fallbackProvider}")
-                userSettingsManager.get(appState.state?.loginState?.selectedUser?.id ?: -1)
+                userSettingsManager[appState.state?.loginState?.selectedUser?.id ?: -1]
                     .let { userSettings ->
                         userSettings.lastLoginProviderId = provider.fallbackProvider
                         userSettingsManager.put(userSettings)

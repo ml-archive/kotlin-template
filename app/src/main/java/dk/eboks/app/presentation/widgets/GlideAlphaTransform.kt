@@ -26,7 +26,7 @@ import java.security.MessageDigest
  */
 class GlideAlphaTransform(val color: Int, val alpha: Float = 0.2f) : BitmapTransformation() {
 
-    val ID = "AlphaTransform"
+    private val ID = "AlphaTransform"
 
     override fun updateDiskCacheKey(messageDigest: MessageDigest) {
         messageDigest.update((ID + color).toByteArray(CHARSET))

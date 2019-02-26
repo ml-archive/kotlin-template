@@ -19,13 +19,13 @@ class ReceiptsChannelControl(
     handler: Handler,
     val formatter: EboksFormatter
 ) : ChannelControl(channel, control, view, inflater, handler) {
-    lateinit var nameContainer: LinearLayout
-    lateinit var amountDateContainer: LinearLayout
-    lateinit var soloName: TextView
-    lateinit var soloAmount: TextView
+    private lateinit var nameContainer: LinearLayout
+    private lateinit var amountDateContainer: LinearLayout
+    private lateinit var soloName: TextView
+    private lateinit var soloAmount: TextView
     lateinit var name: TextView
-    lateinit var address: TextView
-    lateinit var amount: TextView
+    private lateinit var address: TextView
+    private lateinit var amount: TextView
     lateinit var date: TextView
 
     override fun buildView() {
@@ -34,7 +34,7 @@ class ReceiptsChannelControl(
                 val v =
                     inflater.inflate(R.layout.viewholder_home_reciept_row, rowsContainerLl, false)
 
-                nameContainer = v.findViewById<LinearLayout>(R.id.nameSubTitleContainerLl)
+                nameContainer = v.findViewById(R.id.nameSubTitleContainerLl)
                 amountDateContainer = v.findViewById(R.id.amountDateContainerLl)
                 soloName = v.findViewById(R.id.soloTitleTv)
                 soloAmount = v.findViewById(R.id.soloAmountTv)

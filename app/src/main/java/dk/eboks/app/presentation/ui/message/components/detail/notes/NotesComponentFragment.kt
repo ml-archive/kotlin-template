@@ -51,7 +51,7 @@ class NotesComponentFragment : BaseFragment(), NotesComponentContract.View, Text
         super.onPause()
     }
 
-    val delayedRunnable = Runnable {
+    private val delayedRunnable = Runnable {
         val note = noteEt.text.toString().trim()
         presenter.saveNote(note)
     }

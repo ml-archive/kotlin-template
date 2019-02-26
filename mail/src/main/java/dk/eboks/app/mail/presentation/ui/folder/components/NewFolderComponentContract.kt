@@ -17,7 +17,7 @@ interface NewFolderComponentContract {
     interface Presenter : BasePresenter<View> {
         fun createNewFolder(parentFolderId: Int, name: String)
         fun folderNameNotAllowed()
-        fun deleteFolder(folderiId: Int)
-        fun editFolder(folderiId: Int, parentFolderId: Int?, name: String?)
+        fun deleteFolder(folderId: Int)
+        fun editFolder(folderId: Int, parentFolderId: Int?, name: String?)
     }
 }

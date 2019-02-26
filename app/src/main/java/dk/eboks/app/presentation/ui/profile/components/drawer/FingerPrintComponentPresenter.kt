@@ -55,7 +55,10 @@ class FingerPrintComponentPresenter @Inject constructor(
 
     private fun showErrorMessage() {
         val errorMessage =
-            ViewError(Translation.error.genericTitle, Translation.error.genericMessage, true, true)
+            ViewError(Translation.error.genericTitle, Translation.error.genericMessage,
+                shouldDisplay = true,
+                shouldCloseView = true
+            )
         view?.showErrorDialog(errorMessage)
     }
 
@@ -65,7 +68,7 @@ class FingerPrintComponentPresenter @Inject constructor(
         runAction { v -> v.showProgress(true) }
         loginInfo?.let {
             it.actvationCode =
-                userSettingsManager.get(appState.state?.currentUser?.id ?: 0).activationCode ?: ""
+                userSettingsManager[appState.state?.currentUser?.id ?: 0].activationCode ?: ""
             testLoginInteractor.input = TestLoginInteractor.Input(
                 loginInfo.socialSecurity,
                 loginInfo.password,
@@ -82,7 +85,7 @@ class FingerPrintComponentPresenter @Inject constructor(
 
         loginInfo?.let {
             it.actvationCode =
-                userSettingsManager.get(appState.state?.currentUser?.id ?: 0).activationCode ?: ""
+                userSettingsManager[appState.state?.currentUser?.id ?: 0].activationCode ?: ""
             encryptUserLoginInfoInteractor.output = this
             encryptUserLoginInfoInteractor.input = EncryptUserLoginInfoInteractor.Input(loginInfo)
             encryptUserLoginInfoInteractor.run()
@@ -98,8 +101,8 @@ class FingerPrintComponentPresenter @Inject constructor(
             val viewError = ViewError(
                 Translation.error.genericTitle,
                 Translation.error.genericMessage,
-                true,
-                true
+                shouldDisplay = true,
+                shouldCloseView = true
             )
             runAction { it.showErrorDialog(viewError) }
             return

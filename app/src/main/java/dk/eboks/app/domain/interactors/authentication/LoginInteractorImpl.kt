@@ -39,7 +39,7 @@ class LoginInteractorImpl @Inject constructor(
             input?.let { args ->
                 try {
                     val useLongToken =
-                        userSettingsManager.get(args.loginState.selectedUser?.id ?: -1).stayLoggedIn
+                        userSettingsManager[args.loginState.selectedUser?.id ?: -1].stayLoggedIn
 
                     var userid = "no id"
                     args.loginState.lastUser?.id?.let {
@@ -62,11 +62,11 @@ class LoginInteractorImpl @Inject constructor(
                         appStateManager.state?.loginState?.token = t
 
                         val userResult = api.getUserProfile().execute()
-                        userResult?.body()?.let { user ->
+                        userResult.body()?.let { user ->
                             // update the states
                             Timber.e("Saving currentUser $user on login")
                             val newUser = userManager.put(user)
-                            val newSettings = userSettingsManager.get(newUser.id)
+                            val newSettings = userSettingsManager[newUser.id]
 
                             appStateManager.state?.loginState?.userLoginProviderId?.let {
                                 newSettings.lastLoginProviderId = it

@@ -32,7 +32,7 @@ class SenderCategoriesRestRepository @Inject constructor(
         ) { key ->
             val response = api.getSenderCategories(key).execute()
             var result: List<SenderCategory>? = null
-            response?.let {
+            response.let {
                 if (it.isSuccessful)
                     result = it.body()
             }
@@ -51,7 +51,7 @@ class SenderCategoriesRestRepository @Inject constructor(
     override fun getSendersByCategory(catId: Long): SenderCategory {
         val call = api.getSenders(catId)
         val result = call.execute()
-        result?.let { response ->
+        result.let { response ->
             if (response.isSuccessful) {
                 return response.body() ?: throw(RuntimeException("Unknown"))
             }

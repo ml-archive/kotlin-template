@@ -15,6 +15,6 @@ data class LoginInfo(
     var actvationCode: String = ""
 ) : Parcelable {
     companion object {
-        val KEY = "LoginInfo"
+        const val KEY = "LoginInfo"
     }
 }

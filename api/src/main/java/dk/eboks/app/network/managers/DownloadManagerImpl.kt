@@ -67,7 +67,7 @@ class DownloadManagerImpl @Inject constructor(
 
     override fun downloadAttachmentContent(message: Message, content: Content): String? {
         Timber.e("Downloading attachment content...")
-        var folderId = if (message.folder != null) message.folder!!.id else message.folderId
+        val folderId = if (message.folder != null) message.folder!!.id else message.folderId
         var url =
             "${appConfig.getApiUrl()}mail/folders/$folderId/messages/${message.id}/attachment/${content.id}/content".appendUserId(
                 appStateManager.state?.impersoniateUser?.userId
@@ -92,7 +92,7 @@ class DownloadManagerImpl @Inject constructor(
 
     override fun downloadReceiptContent(receiptId: String): String? {
         Timber.e("Downloading receipt content...")
-        var url =
+        val url =
             "${appConfig.getApiUrl()}channels/storebox/receipts/$receiptId/content".appendUserId(
                 appStateManager.state?.impersoniateUser?.userId
             )

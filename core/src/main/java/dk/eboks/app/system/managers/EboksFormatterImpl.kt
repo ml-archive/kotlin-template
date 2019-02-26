@@ -24,14 +24,14 @@ class EboksFormatterImpl @Inject constructor(
     private val appConfig: AppConfig
 ) : EboksFormatter {
 
-    val messageDateFormat: SimpleDateFormat by lazy {
+    private val messageDateFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("d. MMM", NStack.language)
         } catch (t: Throwable) {
             SimpleDateFormat()
         }
     }
-    val messageDateYearFormat: SimpleDateFormat by lazy {
+    private val messageDateYearFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("d. MMM yyyy", NStack.language)
         } catch (t: Throwable) {
@@ -39,7 +39,7 @@ class EboksFormatterImpl @Inject constructor(
         }
     }
 
-    val hourDateFormat: SimpleDateFormat by lazy {
+    private val hourDateFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("HH:mm:ss", NStack.language)
         } catch (t: Throwable) {
@@ -47,7 +47,7 @@ class EboksFormatterImpl @Inject constructor(
         }
     }
 
-    val dayDateFormat: SimpleDateFormat by lazy {
+    private val dayDateFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("E", NStack.language)
         } catch (t: Throwable) {
@@ -145,17 +145,13 @@ class EboksFormatterImpl @Inject constructor(
                 day = dayDateFormat.format(cal_recv.time)
             }
 
-            return if (day == null) {
-                cal_recv.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, currentLocale)
-            } else {
-                day
-            }
+            return day ?: cal_recv.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, currentLocale)
         }
 
-        if (isThisYear) {
-            return messageDateFormat.format(target)
+        return if (isThisYear) {
+            messageDateFormat.format(target)
         } else {
-            return messageDateYearFormat.format(target)
+            messageDateYearFormat.format(target)
         }
     }
 
@@ -183,7 +179,7 @@ class EboksFormatterImpl @Inject constructor(
         return "0 B"
     }
 
-    fun getCurrentLocale(context: Context): Locale {
+    private fun getCurrentLocale(context: Context): Locale {
         return context.resources.configuration.locale
     }
 

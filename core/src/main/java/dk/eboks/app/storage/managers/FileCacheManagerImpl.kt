@@ -21,8 +21,8 @@ import java.nio.channels.FileChannel
  */
 class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheManager {
     var cache: MutableMap<String, CacheEntry>
-    val cacheStore = GsonCacheStore()
-    var cacheDir: File
+    private val cacheStore = GsonCacheStore()
+    private var cacheDir: File
 
     init {
         val type = object : TypeToken<HashMap<String, CacheEntry>>() {}.type
@@ -88,7 +88,7 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
     }
 
     override fun copyContentToExternalStorage(content: Content): String? {
-        var filename = getCachedContentFileName(content)
+        val filename = getCachedContentFileName(content)
         filename?.let {
             val ext_filename = content.title.replace("[^a-zA-Z0-9\\.\\-]", "_")
             Timber.e("Generated safe filename $ext_filename")
@@ -102,13 +102,13 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
                 ext_filename
             )
             Timber.e("Copying cached file to ${destfile.absolutePath}")
-            try {
+            return try {
                 copyFileToExternalStorage(srcfile, destfile)
                 mediaScanFile(destfile.absolutePath, content.mimeType ?: "*/*")
-                return destfile.name
+                destfile.name
             } catch (t: Throwable) {
                 t.printStackTrace()
-                return null
+                null
             }
         }
         return null
@@ -119,10 +119,10 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
             MediaScannerConnection.scanFile(
                 context,
                 arrayOf(path),
-                arrayOf(mimetype),
-                { path, uri ->
-                    Timber.e("Scan completed")
-                })
+                arrayOf(mimetype)
+            ) { path, uri ->
+                Timber.e("Scan completed")
+            }
         } catch (t: Throwable) {
             t.printStackTrace()
         }
@@ -145,12 +145,8 @@ class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheMana
             destination = FileOutputStream(destFile).channel
             destination!!.transferFrom(source, 0, source!!.size())
         } finally {
-            if (source != null) {
-                source.close()
-            }
-            if (destination != null) {
-                destination.close()
-            }
+            source?.close()
+            destination?.close()
         }
     }
 

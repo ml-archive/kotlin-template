@@ -30,7 +30,7 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
     @Inject
     lateinit var presenter: ChannelContentComponentContract.Presenter
 
-    var channelAppInterface: ChannelContentComponentFragment.ChannelAppInterface? = null
+    private var channelAppInterface: ChannelContentComponentFragment.ChannelAppInterface? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,7 +58,7 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
     }
 
     // looks like this "mobilepay://send?amount=100&phone=24770011" taste like crab
-    fun openMobilePay(url: String): Boolean {
+    private fun openMobilePay(url: String): Boolean {
         val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         activity?.packageManager?.let {
             return if (i.resolveActivity(it) != null) {
@@ -162,15 +162,11 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
                 return true
             }
             if (it.startsWith("mailto:")) {
-                channelAppInterface?.let {
-                    it.email(url.substringAfter("mailto:"), "", "")
-                }
+                channelAppInterface?.email(url.substringAfter("mailto:"), "", "")
                 return true
             }
             if (it.startsWith("tel:")) {
-                channelAppInterface?.let {
-                    it.call(url)
-                }
+                channelAppInterface?.call(url)
                 return true
             }
         }

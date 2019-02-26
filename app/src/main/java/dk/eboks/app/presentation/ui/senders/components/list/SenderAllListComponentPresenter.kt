@@ -17,7 +17,7 @@ class SenderAllListComponentPresenter @Inject constructor(
     BasePresenterImpl<SenderAllListComponentContract.View>(), GetSendersInteractor.Output {
 
     var senders: MutableList<Sender> = ArrayList()
-    var filteredSenders: MutableList<Sender> = ArrayList()
+    private var filteredSenders: MutableList<Sender> = ArrayList()
 
     init {
         refresh()

@@ -132,7 +132,7 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View,
         val menuSearch = getBaseActivity()?.mainTb?.menu?.add("_settings")
         menuSearch?.setIcon(R.drawable.ic_settings_red)
         menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
+        menuSearch?.setOnMenuItemClickListener {
             (activity as EkeyContentActivity).channel?.let { channel ->
                 val arguments = Bundle()
                 arguments.putCharSequence("arguments", "ekey")
@@ -154,7 +154,7 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View,
         }
     }
 
-    fun showKeys(keys: List<BaseEkey>) {
+    private fun showKeys(keys: List<BaseEkey>) {
         items.clear()
         actualItems.clear()
         actualItems.addAll(keys)

@@ -13,12 +13,12 @@ enum class MessageType(val type: String) {
     RECEIVED("received");
 
     override fun toString(): String {
-        when (this) {
-            UPLOAD -> return "upload"
-            DRAFT -> return "draft"
-            SENT -> return "sent"
-            RECEIVED -> return "received"
-            else -> return "received"
+        return when (this) {
+            UPLOAD -> "upload"
+            DRAFT -> "draft"
+            SENT -> "sent"
+            RECEIVED -> "received"
+            else -> "received"
         }
     }
 }

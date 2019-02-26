@@ -44,7 +44,7 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
         val li: LayoutInflater = LayoutInflater.from(context)
         Timber.d("Filders: $folders")
         for (folder in folders) {
-            var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
+            val v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
             v.findViewById<TextView>(R.id.nameTv)?.text = folder.name
             if (folder.unreadCount != 0) {
                 v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.VISIBLE
@@ -66,9 +66,9 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
         insertTestData()
     }
 
-    fun insertTestData() {
+    private fun insertTestData() {
         val li: LayoutInflater = LayoutInflater.from(context)
-        var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
+        val v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
         v.findViewById<TextView>(R.id.nameTv)?.text = Translation.folders.foldersHeader
         v.findViewById<TextView>(R.id.badgeCountTv)?.text = "2"
 

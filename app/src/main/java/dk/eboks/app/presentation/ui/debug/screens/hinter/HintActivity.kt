@@ -41,7 +41,7 @@ class HintActivity : BaseActivity() {
 
     companion object {
         var hint: String = ""
-        var hintKey: String = ""
+        private var hintKey: String = ""
         fun showHint(activity: Activity, newhint: String) {
             if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
                 Handler(Looper.getMainLooper()).postDelayed({

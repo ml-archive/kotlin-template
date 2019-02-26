@@ -33,7 +33,6 @@ class AuthClientImpl @Inject constructor(
 ) : AuthClient {
     private var httpClient: OkHttpClient
     private var gson: Gson = Gson()
-    private var useCustomId: Boolean = false
 
     init {
         val clientBuilder = OkHttpClient.Builder()

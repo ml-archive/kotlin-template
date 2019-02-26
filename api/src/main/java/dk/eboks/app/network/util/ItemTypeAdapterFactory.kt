@@ -89,10 +89,10 @@ class ItemTypeAdapterFactory : TypeAdapterFactory {
 private val _metaDataMap: MutableMap<Any, Metadata> = HashMap()
 
 private fun <T> _findMetadata(list: List<T>): Metadata? {
-    if (_metaDataMap.containsKey(list))
-        return _metaDataMap[list]
+    return if (_metaDataMap.containsKey(list))
+        _metaDataMap[list]
     else
-        return null
+        null
 }
 
 // extension property that allows retrieval possible metadata objects using the above backing hashtable

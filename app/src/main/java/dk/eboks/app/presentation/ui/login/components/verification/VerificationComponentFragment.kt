@@ -25,7 +25,7 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
     @Inject lateinit var presenter: VerificationComponentContract.Presenter
     @Inject lateinit var appConfig: AppConfig
 
-    var signupVerification = false
+    private var signupVerification = false
 
     companion object {
         var verificationSucceeded = false

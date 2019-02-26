@@ -74,7 +74,7 @@ fun Editable?.isValidEmail(): Boolean {
 fun Editable?.isValidCpr(): Boolean {
     if (this == null) return false
     val cprLength = AppConfigImpl.currentMode.cprLength
-    val cprRegex = Regex("^[0-9]{$cprLength}$")
+    val cprRegex = Regex("^[0-9]*$cprLength}$")
     val text = toString().trim()
     return !TextUtils.isEmpty(text) && text.matches(cprRegex)
 }
@@ -126,12 +126,12 @@ fun EditText.addAfterTextChangeListener(listener: ((Editable?) -> Unit)) {
 // }
 
 fun Channel.getType(): String {
-    if (this.id > 0 && this.id < 4) {
+    if (this.id in 1..3) {
         return "storebox"
     }
     // TODO figure out ids and reenable ekey support later
 
-    if (this.id >= 11 && this.id <= 13) {
+    if (this.id in 11..13) {
         return "ekey"
     }
 
@@ -162,7 +162,7 @@ fun Channel.areAllRequirementsVerified(): Boolean {
  * Its just for convenience yall
  */
 
-class ActivityStarter(val callingActivity: Activity) {
+class ActivityStarter(private val callingActivity: Activity) {
     private var activityClass: Class<out Activity>? = null
     private var intent: Intent? = null
 
@@ -215,6 +215,7 @@ class ActivityStarter(val callingActivity: Activity) {
     }
 }
 
+@Suppress("FunctionName")
 fun Activity.Starter(): ActivityStarter {
     return ActivityStarter(this)
 }

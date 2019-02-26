@@ -52,7 +52,7 @@ class MailOverviewPresenter @Inject constructor(private val appState: AppStateMa
         view.setUser(appState.state?.currentUser, appState.state?.currentUser?.name)
     }
 
-    fun stopProgressIfDone() {
+    private fun stopProgressIfDone() {
         if (!refreshingFolders && !refreshingSenders)
             runAction { v -> v.showProgress(false) }
     }

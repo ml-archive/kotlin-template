@@ -38,7 +38,7 @@ class CompletedComponentFragment : BaseFragment(), SignupComponentContract.Compl
         progress.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    fun onContinueClicked() {
+    private fun onContinueClicked() {
         (activity as StartActivity).startMain()
     }
 }

@@ -22,7 +22,7 @@ import javax.inject.Inject
 class PrivateSenderWarningComponentFragment : BaseFragment(),
     PrivateSenderWarningComponentContract.View {
 
-    val onLanguageChange: (Locale) -> Unit = { locale ->
+    private val onLanguageChange: (Locale) -> Unit = { locale ->
         Timber.e("Locale changed to locale")
         updateTranslation()
     }

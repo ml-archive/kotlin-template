@@ -16,8 +16,7 @@ class UpdateStoreboxFlagsInteractorImpl @Inject constructor(
     override fun execute() {
         try {
             input?.let {
-                val result = api.updateChannelFlags(it.channelId, it.flags).execute()
-
+                api.updateChannelFlags(it.channelId, it.flags).execute()
                 runOnUIThread {
                     output?.onUpdateFlagsSuccess()
                 }

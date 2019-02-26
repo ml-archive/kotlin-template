@@ -128,11 +128,9 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     }
 
     private fun setupPasswordListeners() {
-        passwordEt.onFocusChangeListener = object : View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
-                comparePasswords()
-                setErrorMessages()
-            }
+        passwordEt.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+            comparePasswords()
+            setErrorMessages()
         }
 
         passwordEt.addTextChangedListener(object : TextWatcher {

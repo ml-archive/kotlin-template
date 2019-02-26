@@ -66,9 +66,9 @@ class OpenAttachmentInteractorImpl @Inject constructor(
         }
     }
 
-    fun enrichType(content: Content) {
-        var ext = content.fileExtension
-        var mime = content.mimeType
+    private fun enrichType(content: Content) {
+        val ext = content.fileExtension
+        val mime = content.mimeType
         for (type in embeddedTypes) {
             // do we have a mime type? those are the bestest!!
             if (mime != null) {

@@ -50,7 +50,7 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
                     val v = li.inflate(R.layout.viewholder_attachment, attachmentsLl, false)
                     v.findViewById<TextView>(R.id.nameTv)?.text = attachment.title
                     v.findViewById<TextView>(R.id.sizeTv)?.text =
-                        "${formatter.formatSize(attachment)}"
+                        formatter.formatSize(attachment)
                     attachmentsLl.addView(v)
                     v.setOnClickListener {
                         presenter.openAttachment(attachment)
@@ -64,7 +64,7 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
         }
     }
 
-    fun hide() {
+    private fun hide() {
         attachmentsTv.visibility = View.GONE
         attachmentsLl.visibility = View.GONE
     }

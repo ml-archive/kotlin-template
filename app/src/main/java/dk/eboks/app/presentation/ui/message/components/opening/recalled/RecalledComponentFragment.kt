@@ -23,7 +23,7 @@ class RecalledComponentFragment : BaseFragment(), RecalledComponentContract.View
     @Inject
     lateinit var presenter: RecalledComponentContract.Presenter
 
-    val onLanguageChange: (Locale) -> Unit = { locale ->
+    private val onLanguageChange: (Locale) -> Unit = { locale ->
         Timber.e("Locale changed to locale")
         updateTranslation()
     }

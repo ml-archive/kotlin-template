@@ -25,9 +25,9 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
     @Inject
     lateinit var presenter: OverlayContract.Presenter
 
-    var buttons: ArrayList<OverlayButton> = ArrayList()
+    private var buttons: ArrayList<OverlayButton> = ArrayList()
     var handler = Handler()
-    var animationTime = 50L
+    private var animationTime = 50L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

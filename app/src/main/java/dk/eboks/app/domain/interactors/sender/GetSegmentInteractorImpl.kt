@@ -23,7 +23,7 @@ class GetSegmentInteractorImpl @Inject constructor(
         input?.id?.let {
             try {
                 val result = api.getSegmentDetail(it).execute()
-                result?.body()?.let {
+                result.body()?.let {
                     runOnUIThread {
                         output?.onGetSegment(it)
                     }

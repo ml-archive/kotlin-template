@@ -24,7 +24,7 @@ class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComp
     lateinit var presenter: PhoneVerificationComponentContract.Presenter
 
     var handler = Handler()
-    var codeIsValid = false
+    private var codeIsValid = false
 
     override fun onCreateView(
         inflater: LayoutInflater,

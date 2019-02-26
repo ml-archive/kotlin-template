@@ -26,7 +26,7 @@ class IdPortenComponentFragment : BaseWebFragment(), WebLoginContract.View {
     @Inject lateinit var presenter: IdPortenComponentPresenter
     @Inject lateinit var appConfig: AppConfig
 
-    var loginUser: User? = null
+    private var loginUser: User? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

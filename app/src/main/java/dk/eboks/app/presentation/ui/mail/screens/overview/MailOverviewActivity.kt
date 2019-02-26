@@ -63,7 +63,7 @@ class MailOverviewActivity : BaseActivity(), MailOverviewContract.View {
 
     fun showConfirmDialog() {
         Timber.e("Showing confirm dialog")
-        var dialog = ConfirmDialogFragment()
+        val dialog = ConfirmDialogFragment()
         dialog.show(supportFragmentManager, ConfirmDialogFragment::class.simpleName)
     }
 

@@ -188,7 +188,7 @@ class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContr
         saveMenuItem =
             getBaseActivity()?.mainTb?.menu?.add(Translation.defaultSection.save.toUpperCase())
         saveMenuItem?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        saveMenuItem?.setOnMenuItemClickListener { item: MenuItem ->
+        saveMenuItem?.setOnMenuItemClickListener {
 
             val items = (activity as EkeyContentActivity).getVault()
             val doesExist = items?.firstOrNull { i -> i.hashCode() == editKey?.hashCode() }

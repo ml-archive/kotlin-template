@@ -56,7 +56,7 @@ class FolderPreviewComponentFragment : BaseFragment(), FolderPreviewComponentCon
 
         (arguments?.getSerializable(Folder::class.java.simpleName) as? Folder)?.let(presenter::setup)
             .guard {
-                showEmptyState(true, false)
+                showEmptyState(show = true, verifiedUser = false)
             }
     }
 

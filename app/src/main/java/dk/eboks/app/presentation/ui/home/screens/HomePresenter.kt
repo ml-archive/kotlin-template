@@ -68,7 +68,7 @@ class HomePresenter @Inject constructor(
         runAction { v -> v.onRefreshChannelDone() }
     }
 
-    override fun onGetInstalledChannelList(channels: MutableList<Channel>) {
+    override fun onGetInstalledChannelList(channels: List<Channel>) {
         runAction { v ->
             v.showChannelProgress(false)
             v.setupChannels(channels)

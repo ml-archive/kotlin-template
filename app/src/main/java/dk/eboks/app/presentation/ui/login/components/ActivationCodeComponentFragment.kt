@@ -57,7 +57,7 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         }
     }
 
-    fun setupValidation() {
+    private fun setupValidation() {
         activationCodeEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(activationCode: Editable?) {
                 activationCodeTil.error = null

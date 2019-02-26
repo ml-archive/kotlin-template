@@ -24,18 +24,18 @@ class SendersRestRepository @Inject constructor(
 
     var userId: Int? = null
 
-    val senderStore: SenderStore by lazy {
+    private val senderStore: SenderStore by lazy {
         SenderStore(
             cacheManager,
             context,
             gson,
             "sender_store.json",
             object : TypeToken<MutableMap<Int, List<Sender>>>() {}.type
-        ) { key ->
+        ) {
             val response = api.getSenders(userId).execute()
             var result: List<Sender>? = null
 
-            response?.let {
+            response.let {
                 if (it.isSuccessful)
                     result = it.body()
             }
@@ -53,7 +53,7 @@ class SendersRestRepository @Inject constructor(
 
         val call = api.searchSenders(search)
         val result = call.execute()
-        result?.let { response ->
+        result.let { response ->
             if (response.isSuccessful) {
                 return response.body() ?: throw(RuntimeException("Unknown"))
             }
@@ -64,7 +64,7 @@ class SendersRestRepository @Inject constructor(
     override fun getSenderDetail(id: Long): Sender {
         val call = api.getSenderDetail(id)
         val result = call.execute()
-        result?.let { response ->
+        result.let { response ->
             if (response.isSuccessful) {
                 return response.body() ?: throw(RuntimeException("Unknown"))
             }

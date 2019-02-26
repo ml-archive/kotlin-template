@@ -25,9 +25,9 @@ class ChannelContentStoreboxDetailComponentPresenter @Inject constructor(
     SaveReceiptInteractor.Output,
     ShareReceiptInteractor.Output {
 
-    var currentReceipt: StoreboxReceipt? = null
-    var currentFolderName: String? = null
-    var shareAsMail = false
+    private var currentReceipt: StoreboxReceipt? = null
+    private var currentFolderName: String? = null
+    private var shareAsMail = false
 
     init {
         getStoreboxReceiptInteractor.output = this

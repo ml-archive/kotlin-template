@@ -11,11 +11,11 @@ enum class ErrorType(val type: String) {
     INFORMATION("information");
 
     override fun toString(): String {
-        when (this) {
-            ERROR -> return "error"
-            WARNING -> return "warning"
-            INFORMATION -> return "information"
-            else -> return "error"
+        return when (this) {
+            ERROR -> "error"
+            WARNING -> "warning"
+            INFORMATION -> "information"
+            else -> "error"
         }
     }
 }

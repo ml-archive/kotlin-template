@@ -32,7 +32,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     private var acceleroMeter: Sensor? = null
     */
     // protected var showEmptyState: Boolean = false
-    protected var countToDebug = 0
+    private var countToDebug = 0
     var backPressedCallback: (() -> Boolean)? = null
 
     open val defaultErrorHandler: ViewErrorController by lazy {
@@ -51,7 +51,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
      * easy shortcut to get an inflater, this only gets instantiated if you use it and only the first time
      */
     val inflator by lazy {
-        LayoutInflater.from(this)
+        LayoutInflater.from(this)!!
     }
 
     val mainHandler by lazy {
@@ -79,7 +79,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         super.onDestroy()
     }
 
-    fun setupShakeDetection() {
+    private fun setupShakeDetection() {
         /*
         sensorManager = if (BuildConfig.DEBUG) getSystemService(Context.SENSOR_SERVICE) as SensorManager else null
         acceleroMeter = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)

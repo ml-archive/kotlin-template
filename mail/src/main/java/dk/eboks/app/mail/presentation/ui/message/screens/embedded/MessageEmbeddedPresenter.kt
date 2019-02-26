@@ -31,7 +31,7 @@ class MessageEmbeddedPresenter @Inject constructor(
     }
 
     var message: Message? = null
-    var moveToFolder: String? = null
+    private var moveToFolder: String? = null
 
     override fun setup() {
         message = stateManager.state?.currentMessage
@@ -69,7 +69,7 @@ class MessageEmbeddedPresenter @Inject constructor(
             runAction { v -> v.setHighPeakHeight() }
     }
 
-    fun startViewer() {
+    private fun startViewer() {
         message?.content?.mimeType?.let { mimetype ->
             if (mimetype.startsWith("image/", true)) {
                 runAction { v -> v.addImageViewer() }
@@ -90,7 +90,7 @@ class MessageEmbeddedPresenter @Inject constructor(
         }
     }
 
-    fun updateMessage(messages: ArrayList<Message>, messagePatch: MessagePatch) {
+    private fun updateMessage(messages: ArrayList<Message>, messagePatch: MessagePatch) {
         message?.let {
             updateMessageInteractor.input = UpdateMessageInteractor.Input(messages, messagePatch)
             updateMessageInteractor.run()

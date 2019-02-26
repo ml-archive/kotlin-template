@@ -36,8 +36,8 @@ class LoginComponentPresenter @Inject constructor(
     LoginInteractor.Output,
     CheckRSAKeyPresenceInteractor.Output {
 
-    var altProviders: List<LoginProvider> = appConfig.alternativeLoginProviders
-    var verifyLoginProviderId: String? = null
+    private var altProviders: List<LoginProvider> = appConfig.alternativeLoginProviders
+    private var verifyLoginProviderId: String? = null
     override var reauthing: Boolean = false
 
     init {
@@ -55,9 +55,9 @@ class LoginComponentPresenter @Inject constructor(
         if (verifyLoginProviderId == null) {
             appState.state?.loginState?.let { state ->
                 state.selectedUser?.let {
-                    val settings = userSettingsManager.get(it.id)
+                    val settings = userSettingsManager[it.id]
                     Timber.d("Loaded $settings")
-                    var provider = settings.lastLoginProviderId
+                    val provider = settings.lastLoginProviderId
                     // Test-uses has "test" prefix, as in 'DebugUsersComponentPresenter'
                     if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true) && autoLogin) {
                         login()
@@ -75,7 +75,7 @@ class LoginComponentPresenter @Inject constructor(
             appConfig.getLoginProvider(verifyLoginProviderId)?.let { provider ->
                 Timber.e("Verification login setup")
                 appState.state?.loginState?.lastUser?.let { user ->
-                    val settings = userSettingsManager.get(user.id)
+                    val settings = userSettingsManager[user.id]
                     runAction { v ->
                         v.setupView(
                             provider,
@@ -107,7 +107,7 @@ class LoginComponentPresenter @Inject constructor(
         runAction { v ->
             user?.let {
                 // setup for existing currentUser
-                val settings = userSettingsManager.get(it.id)
+                val settings = userSettingsManager[it.id]
                 if (!it.verified) { // currentUser is not verified
                     v.setupView(
                         loginProvider = lp,

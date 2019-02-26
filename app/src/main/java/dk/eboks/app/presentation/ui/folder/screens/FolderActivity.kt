@@ -56,7 +56,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
     }
 
     private fun removeNavBarMargin() {
-        var params = CoordinatorLayout.LayoutParams(
+        val params = CoordinatorLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
@@ -84,7 +84,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
     }
 
     companion object {
-        val REQUEST_ID: Int = 2468
+        const val REQUEST_ID: Int = 2468
         const val ARG_OVERIDE_USER = "override_user"
 
         fun startAsIntent(context: Context?, overrideCurrentUser: Boolean = false) {

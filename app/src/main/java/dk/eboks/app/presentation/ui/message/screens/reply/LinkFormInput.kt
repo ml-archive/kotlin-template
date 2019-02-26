@@ -14,7 +14,7 @@ import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
 
 class LinkFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) :
     ReplyFormInput(formInput, inflater, handler) {
-    var linkBtn: Button? = null
+    private var linkBtn: Button? = null
 
     init {
         isValid = true

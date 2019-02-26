@@ -16,7 +16,7 @@ class ChannelRequirementsComponentPresenter @Inject constructor(val appState: Ap
     init {
     }
 
-    val unverifiedRequirements: ArrayList<Requirement> = ArrayList()
+    private val unverifiedRequirements: ArrayList<Requirement> = ArrayList()
 
     override fun setup(channel: Channel) {
         buildUnverifiedRequirements(channel)

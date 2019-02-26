@@ -8,11 +8,11 @@ enum class EkeyDetailMode(val type: String) {
     LOGIN("login");
 
     override fun toString(): String {
-        when (this) {
-            PIN -> return Translation.ekey.addItemPinCode
-            NOTE -> return Translation.ekey.addItemNote
-            LOGIN -> return Translation.ekey.addItemLogin
-            else -> return "unknown"
+        return when (this) {
+            PIN -> Translation.ekey.addItemPinCode
+            NOTE -> Translation.ekey.addItemNote
+            LOGIN -> Translation.ekey.addItemLogin
+            else -> "unknown"
         }
     }
 }

@@ -35,7 +35,7 @@ class ChannelsRestRepository @Inject constructor(
             val response =
                 if (key == "pinned") api.getChannelsPinned().execute() else api.getChannels().execute()
             var result: MutableList<Channel>? = null
-            response?.let {
+            response.let {
                 if (it.isSuccessful)
                     result = it.body()
             }
@@ -53,7 +53,7 @@ class ChannelsRestRepository @Inject constructor(
         ) { key ->
             val response = api.getChannelHomeContent(key).execute()
             var result: HomeContent? = null
-            response?.let {
+            response.let {
                 if (it.isSuccessful)
                     result = it.body()
             }
@@ -73,35 +73,30 @@ class ChannelsRestRepository @Inject constructor(
             return ArrayList()
             */
         val response = api.getChannels().execute()
-        var result: MutableList<Channel>? = null
-        response?.let {
+        response.let {
             if (it.isSuccessful)
                 it.body()?.let { return it }
         }
         return ArrayList()
     }
 
-    override fun getInstalledChannels(): MutableList<Channel> {
+    override fun getInstalledChannels(): List<Channel> {
         val response = api.getChannelsInstalled().execute()
-        response?.let {
+        response.let {
             if (it.isSuccessful)
                 it.body()?.let { return it }
         }
         return ArrayList()
     }
 
-    override fun getPinnedChannels(cached: Boolean): MutableList<Channel> {
-        val res = if (cached) channelStore.get("pinned") else channelStore.fetch("pinned")
-        if (res != null)
-            return res
-        else
-            return ArrayList()
+    override fun getPinnedChannels(cached: Boolean): List<Channel> {
+        return (if (cached) channelStore.get("pinned") else channelStore.fetch("pinned")) ?: listOf()
     }
 
     override fun getChannel(id: Int): Channel {
         val call = api.getChannel(id)
         val result = call.execute()
-        result?.let { response ->
+        result.let { response ->
             if (response.isSuccessful) {
                 return response.body() ?: throw(RuntimeException("Unknown"))
             }
@@ -111,7 +106,7 @@ class ChannelsRestRepository @Inject constructor(
 
     override fun getChannelHomeContent(id: Long, cached: Boolean): HomeContent {
         val result = api.getChannelHomeContent(id).execute()
-        result?.let { response ->
+        result.let { response ->
             if (response.isSuccessful) {
                 return response.body() ?: throw(RuntimeException("Unknown"))
             } else {

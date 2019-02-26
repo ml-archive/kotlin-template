@@ -112,7 +112,7 @@ class EAuth2 @Inject constructor(
             val userName = appStateManager.state?.loginState?.userName
             val password = appStateManager.state?.loginState?.userPassWord
             val longToken =
-                userSettingsManager.get(appStateManager.state?.loginState?.selectedUser?.id ?: 0)
+                userSettingsManager[appStateManager.state?.loginState?.selectedUser?.id ?: 0]
                     .stayLoggedIn
             if (userName.isNullOrBlank() || password.isNullOrBlank()) {
                 Timber.wtf("Much, much, much drastic error here - this is when the authenticator was started without a user being selected")

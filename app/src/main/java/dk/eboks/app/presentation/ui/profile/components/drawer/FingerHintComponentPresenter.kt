@@ -28,7 +28,7 @@ class FingerHintComponentPresenter @Inject constructor(
 
         loginInfo?.let {
             it.actvationCode =
-                userSettingsManager.get(appState.state?.currentUser?.id ?: 0).activationCode ?: ""
+                userSettingsManager[appState.state?.currentUser?.id ?: 0].activationCode ?: ""
             encryptUserLoginInfoInteractor.output = this
             encryptUserLoginInfoInteractor.input = EncryptUserLoginInfoInteractor.Input(loginInfo)
             encryptUserLoginInfoInteractor.run()
@@ -44,14 +44,14 @@ class FingerHintComponentPresenter @Inject constructor(
             val viewError = ViewError(
                 Translation.error.genericTitle,
                 Translation.error.genericMessage,
-                true,
-                true
+                shouldDisplay = true,
+                shouldCloseView = true
             )
             view?.showErrorDialog(viewError)
             return
         }
 
-        userSettingsManager.get(currentUser.id).hasFingerprint = true
+        userSettingsManager[currentUser.id].hasFingerprint = true
         userSettingsManager.save()
 
         saveUserInteractor.output = this

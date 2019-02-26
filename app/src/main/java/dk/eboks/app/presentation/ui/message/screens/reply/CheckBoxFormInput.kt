@@ -17,10 +17,10 @@ import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
 
 class CheckBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) :
     ReplyFormInput(formInput, inflater, handler) {
-    var checkBoxesLl: LinearLayout? = null
-    var labelTv: TextView? = null
-    var errorTv: TextView? = null
-    var selectedOptions: MutableList<FormInputOption> = ArrayList()
+    private var checkBoxesLl: LinearLayout? = null
+    private var labelTv: TextView? = null
+    private var errorTv: TextView? = null
+    private var selectedOptions: MutableList<FormInputOption> = ArrayList()
 
     init {
         isValid = true

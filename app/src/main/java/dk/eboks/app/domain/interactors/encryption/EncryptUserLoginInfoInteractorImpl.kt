@@ -37,8 +37,8 @@ class EncryptUserLoginInfoInteractorImpl @Inject constructor(
             val viewError = ViewError(
                 Translation.androidfingerprint.dialogTitle,
                 Translation.androidfingerprint.errorMessage,
-                true,
-                true
+                shouldDisplay = true,
+                shouldCloseView = true
             )
             runOnUIThread {
                 output?.onError(viewError)

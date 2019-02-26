@@ -19,7 +19,7 @@ import javax.inject.Inject
  */
 class PromulgationComponentFragment : BaseFragment(), PromulgationComponentContract.View {
 
-    val onLanguageChange: (Locale) -> Unit = { locale ->
+    private val onLanguageChange: (Locale) -> Unit = { locale ->
         updateTranslation()
     }
 

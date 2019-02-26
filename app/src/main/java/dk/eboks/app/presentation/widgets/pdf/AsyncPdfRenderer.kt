@@ -64,7 +64,7 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
         shutdownThread()
     }
 
-    fun initThread() {
+    private fun initThread() {
         Timber.d("init thread")
         try {
             val file = File(filename)
@@ -97,7 +97,7 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
         }
     }
 
-    fun shutdownThread() {
+    private fun shutdownThread() {
         pdfRenderer?.close()
         fileDescriptor?.close()
     }

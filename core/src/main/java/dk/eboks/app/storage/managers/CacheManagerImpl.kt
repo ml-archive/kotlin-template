@@ -27,7 +27,7 @@ class CacheManagerImpl(val context: Context) : CacheManager {
         }
     }
 
-    fun deleteCache() {
+    private fun deleteCache() {
         try {
             val dir = context.cacheDir
             if (dir != null && dir.isDirectory) {
@@ -38,7 +38,7 @@ class CacheManagerImpl(val context: Context) : CacheManager {
         }
     }
 
-    fun deleteDir(dir: File?): Boolean {
+    private fun deleteDir(dir: File?): Boolean {
         if (dir != null && dir.isDirectory) {
             val children = dir.list()
             for (i in children.indices) {

@@ -25,7 +25,7 @@ class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationCompon
     @Inject lateinit var presenter: DeviceActivationComponentContract.Presenter
     @Inject lateinit var appConfig: AppConfig
 
-    var mHandler = Handler()
+    private var mHandler = Handler()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,7 +74,7 @@ class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationCompon
     }
 
     override fun requestNemidLogin() {
-        var intent = Intent(context, PopupLoginActivity::class.java)
+        val intent = Intent(context, PopupLoginActivity::class.java)
         intent.putExtra("selectedLoginProviderId", appConfig.verificationProviderId)
         startActivityForResult(intent, 770)
     }

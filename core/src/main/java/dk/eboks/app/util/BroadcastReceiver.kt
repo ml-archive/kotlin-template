@@ -12,8 +12,7 @@ import timber.log.Timber
 class BroadcastReceiver {
     private val filter: IntentFilter = IntentFilter()
     private var listener: OnIntentListener? = null
-    var isRegistered: Boolean = false
-        private set
+    private var isRegistered: Boolean = false
 
     private val messageReceiver = object : android.content.BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {

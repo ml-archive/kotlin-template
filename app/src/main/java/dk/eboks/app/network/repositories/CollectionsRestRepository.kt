@@ -34,7 +34,7 @@ class CollectionsRestRepository @Inject constructor(
         ) { key ->
             val response = api.getCollections().execute()
             var result: List<CollectionContainer>? = null
-            response?.let {
+            response.let {
                 if (it.isSuccessful)
                     result = it.body()
             }

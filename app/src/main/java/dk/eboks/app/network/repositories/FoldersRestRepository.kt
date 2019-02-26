@@ -35,7 +35,7 @@ class FoldersRestRepository @Inject constructor(
         ) { key ->
             val response = api.getFolders(userId).execute()
             var result: List<Folder>? = null
-            response?.let {
+            response.let {
                 if (it.isSuccessful)
                     result = it.body()
             }
@@ -45,16 +45,12 @@ class FoldersRestRepository @Inject constructor(
 
     override fun getFolders(cached: Boolean, userId: Int?): List<Folder> {
         this.userId = userId
-        val res = if (cached) folderStore.get(0) else folderStore.fetch(0)
-        if (res != null) {
-            return res
-        } else
-            return ArrayList()
+        return (if (cached) folderStore.get(0) else folderStore.fetch(0)) ?: ArrayList()
     }
 
     override fun createFolder(folderRequest: FolderRequest) {
         val response = api.createFolder(folderRequest).execute()
-        response?.let {
+        response.let {
             if (it.isSuccessful) {
                 return
             }
@@ -63,7 +59,7 @@ class FoldersRestRepository @Inject constructor(
 
     override fun editFolder(folderId: Int, folderRequest: FolderRequest) {
         val response = api.editFolder(folderId, folderRequest).execute()
-        response?.let {
+        response.let {
             if (it.isSuccessful) {
                 return
             }
@@ -72,7 +68,7 @@ class FoldersRestRepository @Inject constructor(
 
     override fun deleteFolder(folderId: Int) {
         val response = api.deleteFolder(folderId).execute()
-        response?.let {
+        response.let {
             if (it.isSuccessful) {
                 return
             }

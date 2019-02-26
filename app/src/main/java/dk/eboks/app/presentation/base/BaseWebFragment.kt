@@ -21,7 +21,7 @@ import timber.log.Timber
 abstract class BaseWebFragment : BaseFragment() {
 
     var closeLoginOnBack: Boolean = false
-    var shouldCheckMergeAccountOnResume = false
+    private var shouldCheckMergeAccountOnResume = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,7 +50,7 @@ abstract class BaseWebFragment : BaseFragment() {
         }
     }
 
-    fun setupWebView() {
+    private fun setupWebView() {
         val settings = webView.settings
         settings.javaScriptEnabled = true
         settings.useWideViewPort = false
@@ -90,10 +90,10 @@ abstract class BaseWebFragment : BaseFragment() {
         webView.settings.javaScriptEnabled = true
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                if (!onOverrideUrlLoading(view, url))
-                    return super.shouldOverrideUrlLoading(view, url)
+                return if (!onOverrideUrlLoading(view, url))
+                    super.shouldOverrideUrlLoading(view, url)
                 else
-                    return true
+                    true
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {

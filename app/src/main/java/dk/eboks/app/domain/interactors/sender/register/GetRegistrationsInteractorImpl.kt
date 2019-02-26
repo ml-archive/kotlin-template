@@ -25,7 +25,7 @@ class GetRegistrationsInteractorImpl @Inject constructor(
             val result = api.getRegistrations().execute()
             runOnUIThread {
                 if (result.isSuccessful) {
-                    result?.body()?.let {
+                    result.body()?.let {
                         output?.onRegistrationsLoaded(it)
                     }
                 } else {

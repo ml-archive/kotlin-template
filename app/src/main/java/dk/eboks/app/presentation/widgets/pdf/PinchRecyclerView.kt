@@ -141,6 +141,6 @@ class PinchRecyclerView @JvmOverloads constructor(
     }
 
     companion object {
-        private val INVALID_POINTER_ID = -1
+        private const val INVALID_POINTER_ID = -1
     }
 }

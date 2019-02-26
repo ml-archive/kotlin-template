@@ -43,7 +43,7 @@ class SignActivity : BaseActivity(), SignContract.View {
         }
     }
 
-    fun setupWebView() {
+    private fun setupWebView() {
         val settings = webView.settings
         settings.javaScriptEnabled = true
         settings.useWideViewPort = false
@@ -83,10 +83,10 @@ class SignActivity : BaseActivity(), SignContract.View {
         webView.settings.javaScriptEnabled = true
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                if (!onOverrideUrlLoading(view, url))
-                    return super.shouldOverrideUrlLoading(view, url)
+                return if (!onOverrideUrlLoading(view, url))
+                    super.shouldOverrideUrlLoading(view, url)
                 else
-                    return true
+                    true
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {

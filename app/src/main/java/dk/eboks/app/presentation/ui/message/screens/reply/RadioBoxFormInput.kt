@@ -17,10 +17,10 @@ import dk.eboks.app.util.views
 
 class RadioBoxFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) :
     ReplyFormInput(formInput, inflater, handler) {
-    var radioGroup: RadioGroup? = null
-    var labelTv: TextView? = null
-    var errorTv: TextView? = null
-    var selectedOption: FormInputOption? = null
+    private var radioGroup: RadioGroup? = null
+    private var labelTv: TextView? = null
+    private var errorTv: TextView? = null
+    private var selectedOption: FormInputOption? = null
 
     init {
         isValid = true

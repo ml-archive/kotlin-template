@@ -30,8 +30,8 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     @Inject lateinit var presenter: NemIdComponentPresenter
     @Inject lateinit var appConfig: AppConfig
 
-    var loginUser: User? = null
-    var didAttemptToInstallNemID = false
+    private var loginUser: User? = null
+    private var didAttemptToInstallNemID = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

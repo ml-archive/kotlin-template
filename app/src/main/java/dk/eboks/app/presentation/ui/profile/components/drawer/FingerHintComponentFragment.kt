@@ -81,8 +81,8 @@ class FingerHintComponentFragment : BaseFragment(), FingerHintComponentContract.
                         ViewError(
                             Translation.error.genericTitle,
                             Translation.androidfingerprint.errorGeneric,
-                            true,
-                            false
+                            shouldDisplay = true,
+                            shouldCloseView = false
                         )
                     )
                 }

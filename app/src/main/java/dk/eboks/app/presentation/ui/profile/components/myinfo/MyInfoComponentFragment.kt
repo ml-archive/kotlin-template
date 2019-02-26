@@ -32,7 +32,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
     OnLanguageChangedListener, TextWatcher {
     @Inject
     lateinit var presenter: MyInfoComponentContract.Presenter
-    var menuSave: MenuItem? = null
+    private var menuSave: MenuItem? = null
 
     // val mobilenumber: ContactPoint = ContactPoint()
 

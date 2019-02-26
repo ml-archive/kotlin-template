@@ -24,9 +24,9 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
     @Inject
     lateinit var presenter: OpeningReceiptComponentContract.Presenter
 
-    var voluntaryReceipt: Boolean = false
+    private var voluntaryReceipt: Boolean = false
 
-    val onLanguageChange: (Locale) -> Unit = { locale ->
+    private val onLanguageChange: (Locale) -> Unit = { locale ->
         updateTranslation()
     }
 
@@ -49,7 +49,7 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
         openMessageButtons.visible = true
 
         openBtn.setOnClickListener {
-            presenter.setShouldProceed(true, true)
+            presenter.setShouldProceed(proceed = true, receipt = true)
         }
         openBtn.visibility = View.VISIBLE
 
@@ -57,7 +57,7 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
             Timber.e("This is a voluntary receipt")
             secondaryOptionBtn.visible = (true)
             secondaryOptionBtn.setOnClickListener {
-                presenter.setShouldProceed(true, false)
+                presenter.setShouldProceed(proceed = true, receipt = false)
             }
         }
 
@@ -88,7 +88,7 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.setNavigationOnClickListener {
-            presenter.setShouldProceed(false, false)
+            presenter.setShouldProceed(proceed = false, receipt = false)
             activity?.onBackPressed()
         }
     }
