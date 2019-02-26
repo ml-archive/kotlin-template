@@ -2,7 +2,6 @@ package dk.eboks.app.storage.base
 
 import android.content.Context
 import com.google.gson.Gson
-import dk.eboks.app.App
 import dk.eboks.app.domain.managers.CacheManager
 import timber.log.Timber
 import java.lang.reflect.Type
@@ -23,7 +22,7 @@ class CacheStore<K, V>(
 
     init {
         // register this bad bwoi with the cachemanager
-        App.instance().appComponent.inject(this as ICacheStore)
+        // App.instance().appComponent.inject(this as ICacheStore)
         cacheManager.registerStore(this)
 
         try {

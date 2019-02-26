@@ -50,6 +50,7 @@ dependencies {
     implementation Libs.Retrofit.gsonConverter
 
     // cookie jar for okhttp
+    implementation Libs.Nodes.filepicker
     implementation Libs.persistentCookieJar
 
     implementation Libs.OkHttp.okhttp
