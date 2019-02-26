@@ -1,9 +1,9 @@
 package dk.eboks.app.presentation.ui.login.components
 
 import androidx.lifecycle.Lifecycle
-import dk.eboks.app.domain.interactors.authentication.mobileacces.ActivateDeviceInteractor
-import dk.eboks.app.domain.interactors.authentication.mobileacces.DeleteRSAKeyInteractor
-import dk.eboks.app.domain.interactors.authentication.mobileacces.GenerateRSAKeyInteractor
+import dk.eboks.app.keychain.interactors.mobileacces.ActivateDeviceInteractor
+import dk.eboks.app.keychain.interactors.mobileacces.DeleteRSAKeyInteractor
+import dk.eboks.app.keychain.interactors.mobileacces.GenerateRSAKeyInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -14,10 +14,10 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class DeviceActivationComponentPresenter @Inject constructor(
-    private val appState: AppStateManager,
-    private val generateRSAKeyInteractor: GenerateRSAKeyInteractor,
-    private val activateDeviceInteractor: ActivateDeviceInteractor,
-    private val deleteRSAKeyInteractor: DeleteRSAKeyInteractor
+        private val appState: AppStateManager,
+        private val generateRSAKeyInteractor: GenerateRSAKeyInteractor,
+        private val activateDeviceInteractor: ActivateDeviceInteractor,
+        private val deleteRSAKeyInteractor: DeleteRSAKeyInteractor
 ) :
     DeviceActivationComponentContract.Presenter,
     GenerateRSAKeyInteractor.Output,

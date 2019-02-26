@@ -3,8 +3,8 @@ package dk.eboks.app.presentation.ui.login.components
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.config.LoginProvider
-import dk.eboks.app.domain.interactors.authentication.CheckRSAKeyPresenceInteractor
-import dk.eboks.app.domain.interactors.authentication.LoginInteractor
+import dk.eboks.app.keychain.interactors.authentication.CheckRSAKeyPresenceInteractor
+import dk.eboks.app.keychain.interactors.authentication.LoginInteractor
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
@@ -23,12 +23,12 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class LoginComponentPresenter @Inject constructor(
-    private val appState: AppStateManager,
-    private val userSettingsManager: UserSettingsManager,
-    private val decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,
-    private val loginInteractor: LoginInteractor,
-    private val checkRSAKeyPresenceInteractor: CheckRSAKeyPresenceInteractor,
-    private val appConfig: AppConfig
+        private val appState: AppStateManager,
+        private val userSettingsManager: UserSettingsManager,
+        private val decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,
+        private val loginInteractor: LoginInteractor,
+        private val checkRSAKeyPresenceInteractor: CheckRSAKeyPresenceInteractor,
+        private val appConfig: AppConfig
 ) :
     LoginComponentContract.Presenter,
     BasePresenterImpl<LoginComponentContract.View>(),

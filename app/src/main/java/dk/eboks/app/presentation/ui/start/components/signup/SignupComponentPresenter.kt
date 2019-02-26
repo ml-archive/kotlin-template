@@ -1,8 +1,8 @@
 package dk.eboks.app.presentation.ui.start.components.signup
 
-import dk.eboks.app.domain.interactors.authentication.LoginInteractor
-import dk.eboks.app.domain.interactors.authentication.SetCurrentUserInteractor
-import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
+import dk.eboks.app.keychain.interactors.authentication.LoginInteractor
+import dk.eboks.app.keychain.interactors.authentication.SetCurrentUserInteractor
+import dk.eboks.app.keychain.interactors.signup.CheckSignupMailInteractor
 import dk.eboks.app.domain.interactors.user.CheckSsnExistsInteractor
 import dk.eboks.app.domain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
@@ -20,12 +20,12 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class SignupComponentPresenter @Inject constructor(
-    private val appState: AppStateManager,
-    private val createUserInteractor: CreateUserInteractor,
-    private val loginUserInteractor: LoginInteractor,
-    private val checkSignupMailInteractor: CheckSignupMailInteractor,
-    private val checkSsnExistsInteractor: CheckSsnExistsInteractor,
-    setCurrentUserInteractor: SetCurrentUserInteractor
+        private val appState: AppStateManager,
+        private val createUserInteractor: CreateUserInteractor,
+        private val loginUserInteractor: LoginInteractor,
+        private val checkSignupMailInteractor: CheckSignupMailInteractor,
+        private val checkSsnExistsInteractor: CheckSsnExistsInteractor,
+        setCurrentUserInteractor: SetCurrentUserInteractor
 ) :
     SignupComponentContract.Presenter,
     BasePresenterImpl<SignupComponentContract.SignupView>(),

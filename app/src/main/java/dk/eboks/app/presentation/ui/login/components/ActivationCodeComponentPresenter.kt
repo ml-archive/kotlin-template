@@ -2,7 +2,7 @@ package dk.eboks.app.presentation.ui.login.components
 
 import androidx.lifecycle.Lifecycle
 import dk.eboks.app.BuildConfig
-import dk.eboks.app.domain.interactors.authentication.LoginInteractor
+import dk.eboks.app.keychain.interactors.authentication.LoginInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken

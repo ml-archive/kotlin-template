@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.login.components
 
-import dk.eboks.app.domain.interactors.authentication.ResetPasswordInteractor
+import dk.eboks.app.keychain.interactors.authentication.ResetPasswordInteractor
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject

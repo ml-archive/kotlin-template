@@ -1,9 +1,9 @@
 package dk.eboks.app.presentation.ui.login.components.providers.nemid
 
 import dk.eboks.app.domain.config.AppConfig
-import dk.eboks.app.domain.interactors.authentication.MergeAndImpersonateInteractor
-import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
-import dk.eboks.app.domain.interactors.authentication.VerifyProfileInteractor
+import dk.eboks.app.keychain.interactors.authentication.MergeAndImpersonateInteractor
+import dk.eboks.app.keychain.interactors.authentication.TransformTokenInteractor
+import dk.eboks.app.keychain.interactors.authentication.VerifyProfileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.presentation.ui.login.components.providers.WebLoginPresenter
@@ -15,12 +15,12 @@ import javax.inject.Inject
  * @since 5/28/2018.
  */
 class NemIdComponentPresenter @Inject constructor(
-    appState: AppStateManager,
-    transformTokenInteractor: TransformTokenInteractor,
-    verifyProfileInteractor: VerifyProfileInteractor,
-    mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-    userSettingsManager: UserSettingsManager,
-    appConfig: AppConfig
+        appState: AppStateManager,
+        transformTokenInteractor: TransformTokenInteractor,
+        verifyProfileInteractor: VerifyProfileInteractor,
+        mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+        userSettingsManager: UserSettingsManager,
+        appConfig: AppConfig
 ) :
     WebLoginPresenter(
         appState,

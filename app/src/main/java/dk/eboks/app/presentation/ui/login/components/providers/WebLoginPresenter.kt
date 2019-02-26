@@ -2,9 +2,9 @@ package dk.eboks.app.presentation.ui.login.components.providers
 
 import android.app.Activity
 import dk.eboks.app.domain.config.AppConfig
-import dk.eboks.app.domain.interactors.authentication.MergeAndImpersonateInteractor
-import dk.eboks.app.domain.interactors.authentication.TransformTokenInteractor
-import dk.eboks.app.domain.interactors.authentication.VerifyProfileInteractor
+import dk.eboks.app.keychain.interactors.authentication.MergeAndImpersonateInteractor
+import dk.eboks.app.keychain.interactors.authentication.TransformTokenInteractor
+import dk.eboks.app.keychain.interactors.authentication.VerifyProfileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.local.ViewError
@@ -19,12 +19,12 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 open class WebLoginPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val transformTokenInteractor: TransformTokenInteractor,
-    val verifyProfileInteractor: VerifyProfileInteractor,
-    val mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-    val userSettingsManager: UserSettingsManager,
-    val appConfig: AppConfig
+        val appState: AppStateManager,
+        val transformTokenInteractor: TransformTokenInteractor,
+        val verifyProfileInteractor: VerifyProfileInteractor,
+        val mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+        val userSettingsManager: UserSettingsManager,
+        val appConfig: AppConfig
 ) :
     WebLoginContract.Presenter,
     BasePresenterImpl<WebLoginContract.View>(),
