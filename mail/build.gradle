@@ -40,6 +40,8 @@ dependencies {
     implementation Libs.eventbus
     implementation Libs.timber
     implementation Libs.Retrofit.retrofit
+    implementation Libs.Dagger.dagger
+    kapt Libs.Dagger.compiler
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
     testImplementation 'junit:junit:4.12'
