@@ -108,8 +108,8 @@ class EAuth2(
         if (reToken.isNullOrBlank()) {
             return null // no refresh token
         }
-        appStateManager.state?.loginState?.token =
-            null // consume it. If we can't refresh it, we need a new one anyway
+        // consume it. If we can't refresh it, we need a new one anyway
+        appStateManager.state?.loginState?.token = null
         val longClient = appStateManager.state?.loginState?.useLongClientId == true
 
         try {

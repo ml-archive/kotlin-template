@@ -45,5 +45,6 @@ interface LoginComponentContract {
         fun login()
         fun switchLoginProvider(provider: LoginProvider)
         var reauthing: Boolean
+        fun checkRsaKey()
     }
 }

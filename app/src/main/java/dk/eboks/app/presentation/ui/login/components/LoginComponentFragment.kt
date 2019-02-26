@@ -144,7 +144,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         presenter.setup(selectedLoginProviderId, reauth, loginOnResume)
         if (loginOnResume) {
             loginOnResume = false
-            onContinue()
+            presenter.checkRsaKey()
         }
         setupCprEmailListeners()
         setupPasswordListener()

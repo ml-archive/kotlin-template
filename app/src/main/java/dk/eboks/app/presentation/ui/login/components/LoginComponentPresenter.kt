@@ -137,6 +137,10 @@ class LoginComponentPresenter @Inject constructor(
 
     override fun onLoginSuccess(response: AccessToken) {
         Timber.i("Login Success: $response")
+        checkRsaKey()
+    }
+
+    override fun checkRsaKey() {
         appState.state?.currentUser?.let { user ->
             checkRSAKeyPresenceInteractor.input =
                 CheckRSAKeyPresenceInteractor.Input(userId = user.id.toString())
