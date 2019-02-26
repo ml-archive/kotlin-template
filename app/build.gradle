@@ -217,7 +217,7 @@ repositories {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation project(":base")
+    implementation project(':core')
     implementation project(":data")
     implementation project(":api")
     implementation project(":mail")
