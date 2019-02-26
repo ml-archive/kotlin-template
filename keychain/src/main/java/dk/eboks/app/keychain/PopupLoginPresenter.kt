@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.login.screens
+package dk.eboks.app.keychain
 
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject

@@ -72,8 +72,8 @@ import dk.eboks.app.presentation.ui.login.components.UserCarouselComponentContra
 import dk.eboks.app.presentation.ui.login.components.UserCarouselComponentPresenter
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentContract
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentPresenter
-import dk.eboks.app.presentation.ui.login.screens.PopupLoginContract
-import dk.eboks.app.presentation.ui.login.screens.PopupLoginPresenter
+import dk.eboks.app.keychain.PopupLoginContract
+import dk.eboks.app.keychain.PopupLoginPresenter
 import dk.eboks.app.mail.presentation.ui.components.foldershortcuts.FolderShortcutsComponentContract
 import dk.eboks.app.mail.presentation.ui.components.foldershortcuts.FolderShortcutsComponentPresenter
 import dk.eboks.app.mail.presentation.ui.components.maillist.MailListComponentContract
@@ -554,7 +554,7 @@ abstract class PresentationModule {
 
     @ActivityScope
     @Binds
-    abstract fun providePopupLoginPresenter(presenter: PopupLoginPresenter): PopupLoginContract.Presenter
+    abstract fun providePopupLoginPresenter(presenter: dk.eboks.app.keychain.PopupLoginPresenter): dk.eboks.app.keychain.PopupLoginContract.Presenter
 
     @ActivityScope
     @Binds
