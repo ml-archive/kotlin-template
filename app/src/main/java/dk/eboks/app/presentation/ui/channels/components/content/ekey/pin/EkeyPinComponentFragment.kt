@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.text.InputFilter
 import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +43,6 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
                         if (!Regex("^[0-9]{0,4}$").matches((ekeyPasswordInputEt.text.toString()))) {
                             ekeyPasswordInputEt.text?.clear()
                         }
-                        ekeyPasswordInputEt.filters = arrayOf(InputFilter.LengthFilter(4))
                         ekeyPasswordInputEt.inputType =
                             InputType.TYPE_NUMBER_VARIATION_PASSWORD or InputType.TYPE_CLASS_NUMBER
                     }
@@ -137,8 +135,8 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
 
     private fun confirmPinAndFinish() {
         val pin = ekeyPasswordInputEt.text.toString()
-        when (passwordType) {
-            ButtonType.INPUT_NUMERIC -> if (!Regex("^[0-9]{4}$").matches(pin)) {
+        if (passwordType == ButtonType.INPUT_NUMERIC) {
+            if (!Regex("^[0-9]{4,}$").matches(pin)) {
                 ekeyPasswordInputLayout.error = Translation.error.pincodeMinLenght
                 return
             }

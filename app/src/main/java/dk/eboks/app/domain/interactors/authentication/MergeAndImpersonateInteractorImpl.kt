@@ -62,9 +62,9 @@ class MergeAndImpersonateInteractorImpl @Inject constructor(
                         }
                         // after migrate call impersonate
                         appStateManager.state?.loginState?.token?.let {
-                            val new_token = authClient.impersonate(it.access_token, targetUserId)
-                            new_token?.let { newtoken ->
-                                appStateManager.state?.loginState?.token = new_token
+                            val newToken = authClient.impersonate(it.access_token, targetUserId)
+                            newToken?.let {
+                                appStateManager.state?.loginState?.token = it
                             }
                         }
                     }
