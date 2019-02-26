@@ -221,7 +221,7 @@ dependencies {
     implementation project(":data")
     implementation project(":api")
     implementation project(":mail")
-    implementation project(':keychain-interactors')
+    implementation project(':keychain-presentation')
 
     // uncomment me if using multidex
     //implementation "com.android.support:multidex:$multidex_version"

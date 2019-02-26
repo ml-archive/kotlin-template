@@ -56,14 +56,14 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
+class LoginComponentFragment : BaseFragment(), cz.levinzonr.keychain.presentation.components.LoginComponentContract.View {
 
     private var emailCprIsValid = false
     private var passwordIsValid = false
     var handler = Handler()
 
     @Inject
-    lateinit var presenter: LoginComponentContract.Presenter
+    lateinit var presenter: cz.levinzonr.keychain.presentation.components.LoginComponentContract.Presenter
 
     @Inject
     lateinit var formatter: EboksFormatter

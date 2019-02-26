@@ -10,7 +10,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseWebFragment
-import dk.eboks.app.presentation.ui.login.components.providers.WebLoginContract
+import cz.levinzonr.keychain.presentation.components.providers.WebLoginContract
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*

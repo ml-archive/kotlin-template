@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.profile.components.drawer
 
-import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
+import dk.eboks.app.keychain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager

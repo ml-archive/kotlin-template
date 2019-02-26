@@ -9,8 +9,8 @@ import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
 import javax.inject.Inject
 
-class PopupLoginActivity : BaseActivity(), PopupLoginContract.View {
-    @Inject lateinit var presenter: PopupLoginContract.Presenter
+class PopupLoginActivity : BaseActivity(), cz.levinzonr.keychain.presentation.PopupLoginContract.View {
+    @Inject lateinit var presenter: cz.levinzonr.keychain.presentation.PopupLoginContract.Presenter
 
     companion object {
         const val REQUEST_VERIFICATION: Int = 13445

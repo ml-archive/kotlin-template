@@ -21,8 +21,8 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationComponentContract.View {
-    @Inject lateinit var presenter: DeviceActivationComponentContract.Presenter
+class DeviceActivationComponentFragment : BaseFragment(), cz.levinzonr.keychain.presentation.components.DeviceActivationComponentContract.View {
+    @Inject lateinit var presenter: cz.levinzonr.keychain.presentation.components.DeviceActivationComponentContract.Presenter
     @Inject lateinit var appConfig: AppConfig
 
     var mHandler = Handler()

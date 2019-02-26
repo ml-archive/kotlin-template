@@ -9,7 +9,7 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
 import dk.eboks.app.domain.models.login.User
-import dk.eboks.app.presentation.ui.login.components.providers.WebLoginPresenter
+import cz.levinzonr.keychain.presentation.components.providers.WebLoginPresenter
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -20,12 +20,12 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class SignupComponentPresenter @Inject constructor(
-        private val appState: AppStateManager,
-        private val createUserInteractor: CreateUserInteractor,
-        private val loginUserInteractor: LoginInteractor,
-        private val checkSignupMailInteractor: CheckSignupMailInteractor,
-        private val checkSsnExistsInteractor: CheckSsnExistsInteractor,
-        setCurrentUserInteractor: SetCurrentUserInteractor
+    private val appState: AppStateManager,
+    private val createUserInteractor: CreateUserInteractor,
+    private val loginUserInteractor: LoginInteractor,
+    private val checkSignupMailInteractor: CheckSignupMailInteractor,
+    private val checkSsnExistsInteractor: CheckSsnExistsInteractor,
+    setCurrentUserInteractor: SetCurrentUserInteractor
 ) :
     SignupComponentContract.Presenter,
     BasePresenterImpl<SignupComponentContract.SignupView>(),

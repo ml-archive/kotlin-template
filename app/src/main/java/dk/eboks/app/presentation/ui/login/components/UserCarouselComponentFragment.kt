@@ -31,9 +31,9 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContract.View {
+class UserCarouselComponentFragment : BaseFragment(), cz.levinzonr.keychain.presentation.components.UserCarouselComponentContract.View {
 
-    @Inject lateinit var presenter: UserCarouselComponentContract.Presenter
+    @Inject lateinit var presenter: cz.levinzonr.keychain.presentation.components.UserCarouselComponentContract.Presenter
     @Inject lateinit var formatter: EboksFormatter
     @Inject lateinit var appConfig: AppConfig
 

@@ -3,6 +3,7 @@ import dk.eboks.buildsrc.Libs
 import dk.eboks.buildsrc.Versions
 
 buildscript {
+    ext.kotlin_version = '1.3.21'
 
     ext.buildConfig = [
             'compileSdk': 28,
@@ -25,6 +26,7 @@ buildscript {
         classpath Libs.Nodes.Nstack.translation
         classpath Libs.Nodes.bitrise
         classpath Libs.ribbonizer
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 

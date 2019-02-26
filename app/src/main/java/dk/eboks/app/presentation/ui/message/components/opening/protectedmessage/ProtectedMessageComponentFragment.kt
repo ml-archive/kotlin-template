@@ -14,7 +14,7 @@ import dk.eboks.app.mail.presentation.ui.message.components.opening.protectedmes
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
-import dk.eboks.app.util.ViewControl
+import dk.eboks.app.util.ViewControllerImpl
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.translatedName
 import dk.eboks.app.util.visible
@@ -124,7 +124,7 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         if (requestCode == PopupLoginActivity.REQUEST_VERIFICATION) {
             if (resultCode == Activity.RESULT_OK) {
                 Timber.e("Got result ok from login provider, reload message")
-                ViewControl.refreshAllOnResume()
+                ViewControllerImpl.refreshAllOnResume()
                 protectedMessage?.let {
                     if (it.id != "0")
                         (activity as MessageOpeningActivity).openMessage(it)
