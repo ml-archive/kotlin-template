@@ -2,6 +2,8 @@ package dk.eboks.app.injection.modules
 
 import dagger.Binds
 import dagger.Module
+import dk.eboks.app.mail.injection.MailBindingInteractorModule
+import dk.eboks.app.mail.injection.MailBindingPresenterModule
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentContract
@@ -44,14 +46,6 @@ import dk.eboks.app.presentation.ui.debug.components.DebugUsersComponentContract
 import dk.eboks.app.presentation.ui.debug.components.DebugUsersComponentPresenter
 import dk.eboks.app.presentation.ui.debug.screens.user.DebugUserContract
 import dk.eboks.app.presentation.ui.debug.screens.user.DebugUserPresenter
-import dk.eboks.app.mail.presentation.ui.folder.components.FoldersComponentContract
-import dk.eboks.app.mail.presentation.ui.folder.components.FoldersComponentPresenter
-import dk.eboks.app.mail.presentation.ui.folder.components.NewFolderComponentContract
-import dk.eboks.app.mail.presentation.ui.folder.components.NewFolderComponentPresenter
-import dk.eboks.app.mail.presentation.ui.folder.components.FolderSelectUserComponentContract
-import dk.eboks.app.mail.presentation.ui.folder.components.FolderSelectUserComponentPresenter
-import dk.eboks.app.mail.presentation.ui.folder.screens.FolderContract
-import dk.eboks.app.mail.presentation.ui.folder.screens.FolderPresenter
 import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelControlComponentContract
 import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelControlComponentPresenter
 import dk.eboks.app.presentation.ui.home.components.folderpreview.FolderPreviewComponentContract
@@ -74,62 +68,8 @@ import dk.eboks.app.presentation.ui.login.components.verification.VerificationCo
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentPresenter
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginContract
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginPresenter
-import dk.eboks.app.mail.presentation.ui.components.foldershortcuts.FolderShortcutsComponentContract
-import dk.eboks.app.mail.presentation.ui.components.foldershortcuts.FolderShortcutsComponentPresenter
-import dk.eboks.app.mail.presentation.ui.components.maillist.MailListComponentContract
-import dk.eboks.app.mail.presentation.ui.components.maillist.MailListComponentPresenter
-import dk.eboks.app.mail.presentation.ui.components.sendercarousel.SenderCarouselComponentContract
-import dk.eboks.app.mail.presentation.ui.screens.list.MailListContract
-import dk.eboks.app.mail.presentation.ui.screens.overview.MailOverviewContract
-import dk.eboks.app.mail.presentation.ui.components.sendercarousel.SenderCarouselComponentPresenter
-import dk.eboks.app.mail.presentation.ui.screens.list.MailListPresenter
-import dk.eboks.app.mail.presentation.ui.screens.overview.MailOverviewPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.detail.attachments.AttachmentsComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.detail.attachments.AttachmentsComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.detail.documents.DocumentComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.detail.documents.DocumentComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.detail.folderinfo.FolderInfoComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.detail.folderinfo.FolderInfoComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.detail.header.HeaderComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.detail.header.HeaderComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.detail.notes.NotesComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.detail.notes.NotesComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.detail.reply.ReplyButtonComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.detail.reply.ReplyButtonComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.detail.share.ShareComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.detail.share.ShareComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.detail.sign.SignButtonComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.detail.sign.SignButtonComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.opening.privatesender.PrivateSenderWarningComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.opening.privatesender.PrivateSenderWarningComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.opening.promulgation.PromulgationComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.opening.promulgation.PromulgationComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.opening.protectedmessage.ProtectedMessageComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.opening.protectedmessage.ProtectedMessageComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.opening.quarantine.QuarantineComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.opening.quarantine.QuarantineComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.opening.recalled.RecalledComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.opening.recalled.RecalledComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.opening.receipt.OpeningReceiptComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.opening.receipt.OpeningReceiptComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.viewers.html.HtmlViewComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.viewers.html.HtmlViewComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.viewers.image.ImageViewComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.viewers.image.ImageViewComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.viewers.pdf.PdfViewComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.viewers.pdf.PdfViewComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.components.viewers.text.TextViewComponentContract
-import dk.eboks.app.mail.presentation.ui.message.components.viewers.text.TextViewComponentPresenter
-import dk.eboks.app.mail.presentation.ui.message.screens.MessageContract
-import dk.eboks.app.mail.presentation.ui.message.screens.MessagePresenter
-import dk.eboks.app.mail.presentation.ui.message.screens.embedded.MessageEmbeddedContract
-import dk.eboks.app.mail.presentation.ui.message.screens.embedded.MessageEmbeddedPresenter
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningContract
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningPresenter
-import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormContract
-import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormPresenter
-import dk.eboks.app.mail.presentation.ui.message.screens.sign.SignContract
-import dk.eboks.app.mail.presentation.ui.message.screens.sign.SignPresenter
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentContract
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayContract
@@ -190,27 +130,15 @@ import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadContrac
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
-@Module
+@Module(
+    includes = [
+        MailBindingPresenterModule::class
+    ]
+)
 abstract class PresentationModule {
     @ActivityScope
     @Binds
     abstract fun providePastaPresenter(presenter: PastaPresenter): PastaContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideMailOverviewPresenter(presenter: MailOverviewPresenter): MailOverviewContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideMailListPresenter(presenter: MailListPresenter): MailListContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideFolderPresenter(presenter: FolderPresenter): FolderContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideMessagePresenter(presenter: MessagePresenter): MessageContract.Presenter
 
     @ActivityScope
     @Binds
@@ -222,103 +150,11 @@ abstract class PresentationModule {
 
     @ActivityScope
     @Binds
-    abstract fun provideMessageSheetPresenter(presenter: MessageEmbeddedPresenter): MessageEmbeddedContract.Presenter
-
-    @ActivityScope
-    @Binds
     abstract fun provideMessageOpeningPresenter(presenter: MessageOpeningPresenter): MessageOpeningContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideHeaderComponentPresenter(presenter: HeaderComponentPresenter): HeaderComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideNotesComponentPresenter(presenter: NotesComponentPresenter): NotesComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideReplyButtonComponentPresenter(presenter: ReplyButtonComponentPresenter): ReplyButtonComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideSignButtonComponentPresenter(presenter: SignButtonComponentPresenter): SignButtonComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideSignPresenter(presenter: SignPresenter): SignContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideAttachmentsComponentPresenter(presenter: AttachmentsComponentPresenter): AttachmentsComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideFolderInfoComponentPresenter(presenter: FolderInfoComponentPresenter): FolderInfoComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideDocumentComponentPresenter(presenter: DocumentComponentPresenter): DocumentComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun providePdfPreviewComponentPresenter(presenter: PdfViewComponentPresenter): PdfViewComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideFoldersComponentPresenter(presenter: FoldersComponentPresenter): FoldersComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideFolderShortcutsComponentPresenter(presenter: FolderShortcutsComponentPresenter): FolderShortcutsComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideSenderCarouselComponentPresenter(presenter: SenderCarouselComponentPresenter): SenderCarouselComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideMailListComponentPresenter(presenter: MailListComponentPresenter): MailListComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
     abstract fun provideNavBarComponentPresenter(presenter: NavBarComponentPresenter): NavBarComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideHtmlViewComponentPresenter(presenter: HtmlViewComponentPresenter): HtmlViewComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideImageViewComponentPresenter(presenter: ImageViewComponentPresenter): ImageViewComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideTextViewComponentPresenter(presenter: TextViewComponentPresenter): TextViewComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideQuarantineComponentPresenter(presenter: QuarantineComponentPresenter): QuarantineComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideRecalledMessageComponentPresenter(presenter: RecalledComponentPresenter): RecalledComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun providePromulgationComponentPresenter(presenter: PromulgationComponentPresenter): PromulgationComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideProtectedMessageComponentPresenter(presenter: ProtectedMessageComponentPresenter): ProtectedMessageComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideOpeningReceiptComponentPresenter(presenter: OpeningReceiptComponentPresenter): OpeningReceiptComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun providePrivateSenderWarningComponentPresenter(presenter: PrivateSenderWarningComponentPresenter): PrivateSenderWarningComponentContract.Presenter
 
     @ActivityScope
     @Binds
@@ -327,10 +163,6 @@ abstract class PresentationModule {
     @ActivityScope
     @Binds
     abstract fun provideChannelSettingsPopUpComponentPresenter(presenter: ChannelRequirementsComponentPresenter): ChannelRequirementsComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideShareComponentPresenter(presenter: ShareComponentPresenter): ShareComponentContract.Presenter
 
     @ActivityScope
     @Binds
@@ -494,23 +326,11 @@ abstract class PresentationModule {
 
     @ActivityScope
     @Binds
-    abstract fun provideReplyFormPresenter(presenter: ReplyFormPresenter): ReplyFormContract.Presenter
-
-    @ActivityScope
-    @Binds
     abstract fun provideSenderAllListPresenter(presenter: SenderAllListPresenter): SenderAllListContract.Presenter
 
     @ActivityScope
     @Binds
     abstract fun provideSenderAllListComponentPresenter(presenter: SenderAllListComponentPresenter): SenderAllListComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideNewFolderComponentPresenter(presenter: NewFolderComponentPresenter): NewFolderComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideFolderSelectUserComponentPresenter(presenter: FolderSelectUserComponentPresenter): FolderSelectUserComponentContract.Presenter
 
     @ActivityScope
     @Binds

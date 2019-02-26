@@ -4,8 +4,6 @@ import dagger.Binds
 import dagger.Module
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.BootstrapInteractorImpl
-import dk.eboks.app.mail.domain.interactors.GetCategoriesInteractor
-import dk.eboks.app.domain.interactors.GetMailCategoriesInteractorImpl
 import dk.eboks.app.domain.interactors.authentication.CheckRSAKeyPresenceInteractor
 import dk.eboks.app.domain.interactors.authentication.CheckRSAKeyPresenceInteractorImpl
 import dk.eboks.app.domain.interactors.authentication.LoginInteractor
@@ -58,42 +56,6 @@ import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractorImpl
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractorImpl
-import dk.eboks.app.mail.domain.interactors.folder.CreateFolderInteractor
-import dk.eboks.app.mail.domain.interactors.folder.CreateFolderInteractorImpl
-import dk.eboks.app.mail.domain.interactors.folder.DeleteFolderInteractor
-import dk.eboks.app.mail.domain.interactors.folder.DeleteFolderInteractorImpl
-import dk.eboks.app.mail.domain.interactors.folder.EditFolderInteractor
-import dk.eboks.app.mail.domain.interactors.folder.EditFolderInteractorImpl
-import dk.eboks.app.mail.domain.interactors.folder.GetFoldersInteractor
-import dk.eboks.app.mail.domain.interactors.folder.GetFoldersInteractorImpl
-import dk.eboks.app.mail.domain.interactors.folder.OpenFolderInteractor
-import dk.eboks.app.mail.domain.interactors.folder.OpenFolderInteractorImpl
-import dk.eboks.app.mail.domain.interactors.message.GetLatestUploadsInteractor
-import dk.eboks.app.mail.domain.interactors.message.GetLatestUploadsInteractorImpl
-import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractor
-import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractorImpl
-import dk.eboks.app.mail.domain.interactors.message.GetReplyFormInteractor
-import dk.eboks.app.mail.domain.interactors.message.GetReplyFormInteractorImpl
-import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractor
-import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractorImpl
-import dk.eboks.app.mail.domain.interactors.message.GetStorageInteractor
-import dk.eboks.app.mail.domain.interactors.message.GetStorageInteractorImpl
-import dk.eboks.app.mail.domain.interactors.message.OpenAttachmentInteractor
-import dk.eboks.app.mail.domain.interactors.message.OpenAttachmentInteractorImpl
-import dk.eboks.app.mail.domain.interactors.message.OpenMessageInteractor
-import dk.eboks.app.mail.domain.interactors.message.OpenMessageInteractorImpl
-import dk.eboks.app.mail.domain.interactors.message.SaveAttachmentInteractor
-import dk.eboks.app.mail.domain.interactors.message.SaveAttachmentInteractorImpl
-import dk.eboks.app.mail.domain.interactors.message.SubmitReplyFormInteractor
-import dk.eboks.app.mail.domain.interactors.message.SubmitReplyFormInteractorImpl
-import dk.eboks.app.mail.domain.interactors.message.UploadFileInteractor
-import dk.eboks.app.mail.domain.interactors.message.UploadFileInteractorImpl
-import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
-import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractorImpl
-import dk.eboks.app.mail.domain.interactors.messageoperations.MoveMessagesInteractor
-import dk.eboks.app.mail.domain.interactors.messageoperations.MoveMessagesInteractorImpl
-import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
-import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractorImpl
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractorImpl
 import dk.eboks.app.domain.interactors.sender.GetSegmentInteractor
@@ -102,8 +64,6 @@ import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractorImpl
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractorImpl
-import dk.eboks.app.mail.domain.interactors.senders.GetSendersInteractor
-import dk.eboks.app.mail.domain.interactors.senders.GetSendersInteractorImpl
 import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
 import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractorImpl
 import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
@@ -112,8 +72,6 @@ import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractorImpl
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractorImpl
-import dk.eboks.app.mail.domain.interactors.shares.GetAllSharesInteractor
-import dk.eboks.app.mail.domain.interactors.shares.GetAllSharesInteractorImpl
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractor
 import dk.eboks.app.domain.interactors.signup.CheckSignupMailInteractorImpl
 import dk.eboks.app.domain.interactors.storebox.ConfirmStoreboxInteractor
@@ -170,8 +128,15 @@ import dk.eboks.app.domain.interactors.user.VerifyEmailInteractor
 import dk.eboks.app.domain.interactors.user.VerifyEmailInteractorImpl
 import dk.eboks.app.domain.interactors.user.VerifyPhoneInteractor
 import dk.eboks.app.domain.interactors.user.VerifyPhoneInteractorImpl
+import dk.eboks.app.mail.domain.interactors.shares.GetAllSharesInteractor
+import dk.eboks.app.mail.domain.interactors.shares.GetAllSharesInteractorImpl
+import dk.eboks.app.mail.injection.MailBindingInteractorModule
 
-@Module
+@Module(
+    includes = [
+        MailBindingInteractorModule::class
+    ]
+)
 abstract class InteractorModule {
     @Binds
     abstract fun bindLoginInteractor(interactor: LoginInteractorImpl): LoginInteractor
@@ -198,52 +163,10 @@ abstract class InteractorModule {
     abstract fun bindBootstrapInteractor(interactor: BootstrapInteractorImpl): BootstrapInteractor
 
     @Binds
-    abstract fun bindGetCategoriesInteractor(interactor: GetMailCategoriesInteractorImpl): GetCategoriesInteractor
-
-    @Binds
-    abstract fun bindGetFoldersInteractor(interactor: GetFoldersInteractorImpl): GetFoldersInteractor
-
-    @Binds
-    abstract fun bindDeleteMessagesInteractor(interactor: DeleteMessagesInteractorImpl): DeleteMessagesInteractor
-
-    @Binds
-    abstract fun bindMoveMessagesInteractor(interactor: MoveMessagesInteractorImpl): MoveMessagesInteractor
-
-    @Binds
-    abstract fun bindGetMessagesInteractor(interactor: GetMessagesInteractorImpl): GetMessagesInteractor
-
-    @Binds
-    abstract fun bindGetStorageInteractor(interactor: GetStorageInteractorImpl): GetStorageInteractor
-
-    @Binds
-    abstract fun bindGetLatestUploadsInteractor(interactor: GetLatestUploadsInteractorImpl): GetLatestUploadsInteractor
-
-    @Binds
-    abstract fun bindUploadFileInteractor(interactor: UploadFileInteractorImpl): UploadFileInteractor
-
-    @Binds
     abstract fun bindGetStoreboxCreditCardsInteractor(interactor: GetStoreboxCreditCardsInteractorImpl): GetStoreboxCreditCardsInteractor
 
     @Binds
     abstract fun bindDeleteStoreboxCreditCardInteractor(interactor: DeleteStoreboxCreditCardInteractorImpl): DeleteStoreboxCreditCardInteractor
-
-    @Binds
-    abstract fun bindOpenFolderInteractor(interactor: OpenFolderInteractorImpl): OpenFolderInteractor
-
-    @Binds
-    abstract fun bindOpenMessageInteractor(interactor: OpenMessageInteractorImpl): OpenMessageInteractor
-
-    @Binds
-    abstract fun bindOpenAttachmentInteractor(interactor: OpenAttachmentInteractorImpl): OpenAttachmentInteractor
-
-    @Binds
-    abstract fun bindGetReplyFormInteractor(interactor: GetReplyFormInteractorImpl): GetReplyFormInteractor
-
-    @Binds
-    abstract fun bindSubmitReplyFormInteractor(interactor: SubmitReplyFormInteractorImpl): SubmitReplyFormInteractor
-
-    @Binds
-    abstract fun bindSaveAttachmentInteractor(interactor: SaveAttachmentInteractorImpl): SaveAttachmentInteractor
 
     @Binds
     abstract fun bindGetChannelsInteractor(interactor: GetChannelsInteractorImpl): GetChannelsInteractor
@@ -273,9 +196,6 @@ abstract class InteractorModule {
     abstract fun bindGetUserProfileInteractor(interactor: GetUserProfileInteractorImpl): GetUserProfileInteractor
 
     @Binds
-    abstract fun bindUpdateMessageInteractor(interactor: UpdateMessageInteractorImpl): UpdateMessageInteractor
-
-    @Binds
     abstract fun bindGetChannelInteractor(interactor: GetChannelInteractorImpl): GetChannelInteractor
 
     @Binds
@@ -292,9 +212,6 @@ abstract class InteractorModule {
 
     @Binds
     abstract fun bindGetSenderCategoriesInteractor(interactor: GetSenderCategoriesInteractorImpl): GetSenderCategoriesInteractor
-
-    @Binds
-    abstract fun bindGetSendersInteractor(interactor: GetSendersInteractorImpl): GetSendersInteractor
 
     @Binds
     abstract fun bindGetSenderDetailInteractor(interactor: GetSenderDetailInteractorImpl): GetSenderDetailInteractor
@@ -374,9 +291,6 @@ abstract class InteractorModule {
     @Binds
     abstract fun bindConfirmPhoneInteractor(interactor: ConfirmPhoneInteractorImpl): ConfirmPhoneInteractor
 
-    @Binds
-    abstract fun bindGetSignLinkInteractor(interactor: GetSignLinkInteractorImpl): GetSignLinkInteractor
-
     // E Key Interactors
 
     @Binds
@@ -414,15 +328,6 @@ abstract class InteractorModule {
 
     @Binds
     abstract fun bindActivateDevice(interactor: ActivateDeviceInteractorImpl): ActivateDeviceInteractor
-
-    @Binds
-    abstract fun bindCreateFolder(interactor: CreateFolderInteractorImpl): CreateFolderInteractor
-
-    @Binds
-    abstract fun bindDeleteFolder(interactor: DeleteFolderInteractorImpl): DeleteFolderInteractor
-
-    @Binds
-    abstract fun bindEditFolder(interactor: EditFolderInteractorImpl): EditFolderInteractor
 
     @Binds
     abstract fun bindGetAllSharesInteractor(interactor: GetAllSharesInteractorImpl): GetAllSharesInteractor
