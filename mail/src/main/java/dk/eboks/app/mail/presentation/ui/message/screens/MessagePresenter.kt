@@ -15,7 +15,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class MessagePresenter @Inject constructor(
+internal class MessagePresenter @Inject constructor(
     private val appState: AppStateManager,
     private val appConfig: AppConfig,
     private val deleteMessagesInteractor: DeleteMessagesInteractor,

@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class PrivateSenderWarningComponentPresenter @Inject constructor(
+internal class PrivateSenderWarningComponentPresenter @Inject constructor(
     private val appState: AppStateManager,
     private val executor: Executor
 ) :

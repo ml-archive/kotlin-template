@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class QuarantineComponentPresenter @Inject constructor(
+internal class QuarantineComponentPresenter @Inject constructor(
     private val appState: AppStateManager,
     private val executor: Executor
 ) :

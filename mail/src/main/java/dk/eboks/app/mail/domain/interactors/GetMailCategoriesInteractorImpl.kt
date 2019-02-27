@@ -11,7 +11,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 01/02/18.
  */
-class GetMailCategoriesInteractorImpl @Inject constructor(
+internal class GetMailCategoriesInteractorImpl @Inject constructor(
     executor: Executor,
     private val foldersRepositoryMail: MailCategoriesRepository
 ) : BaseInteractor(executor), GetCategoriesInteractor {

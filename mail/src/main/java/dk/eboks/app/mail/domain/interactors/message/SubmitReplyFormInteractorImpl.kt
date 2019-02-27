@@ -8,7 +8,7 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 import javax.inject.Inject
 
-class SubmitReplyFormInteractorImpl @Inject constructor(
+internal class SubmitReplyFormInteractorImpl @Inject constructor(
     executor: Executor,
     private val messagesRepository: MessagesRepository
 ) : BaseInteractor(executor), SubmitReplyFormInteractor {

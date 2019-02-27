@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class PdfViewComponentPresenter @Inject constructor(private val appState: AppStateManager) :
+internal class PdfViewComponentPresenter @Inject constructor(private val appState: AppStateManager) :
     PdfViewComponentContract.Presenter, BasePresenterImpl<PdfViewComponentContract.View>() {
 
     override fun onViewCreated(view: PdfViewComponentContract.View, lifecycle: Lifecycle) {

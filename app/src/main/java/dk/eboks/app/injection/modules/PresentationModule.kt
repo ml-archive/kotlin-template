@@ -2,7 +2,6 @@ package dk.eboks.app.injection.modules
 
 import dagger.Binds
 import dagger.Module
-import dk.eboks.app.mail.injection.MailBindingInteractorModule
 import dk.eboks.app.mail.injection.MailBindingPresenterModule
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter

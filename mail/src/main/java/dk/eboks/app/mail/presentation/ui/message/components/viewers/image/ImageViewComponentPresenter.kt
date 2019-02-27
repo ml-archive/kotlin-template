@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class ImageViewComponentPresenter @Inject constructor(private val appState: AppStateManager) :
+internal class ImageViewComponentPresenter @Inject constructor(private val appState: AppStateManager) :
     ImageViewComponentContract.Presenter, BasePresenterImpl<ImageViewComponentContract.View>() {
 
     init {

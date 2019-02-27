@@ -12,7 +12,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class NewFolderComponentPresenter @Inject constructor(
+internal class NewFolderComponentPresenter @Inject constructor(
     private val appState: AppStateManager,
     private val createFolderInteractor: CreateFolderInteractor,
     private val deleteFolderInteractor: DeleteFolderInteractor,

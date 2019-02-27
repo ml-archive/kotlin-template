@@ -7,7 +7,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class SignButtonComponentPresenter @Inject constructor() :
+internal class SignButtonComponentPresenter @Inject constructor() :
     SignButtonComponentContract.Presenter, BasePresenterImpl<SignButtonComponentContract.View>() {
 
     init {
