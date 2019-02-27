@@ -128,7 +128,7 @@ import dk.eboks.app.domain.interactors.user.VerifyEmailInteractor
 import dk.eboks.app.domain.interactors.user.VerifyEmailInteractorImpl
 import dk.eboks.app.domain.interactors.user.VerifyPhoneInteractor
 import dk.eboks.app.domain.interactors.user.VerifyPhoneInteractorImpl
-import dk.eboks.app.mail.injection.MailBindingInteractorModule
+import dk.eboks.app.mail.domain.interactors.MailBindingInteractorModule
 
 @Module(
     includes = [

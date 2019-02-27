@@ -26,14 +26,14 @@ class ChannelsRestRepository @Inject constructor(
 
     private val channelStore: ChannelListStore by lazy {
         dk.eboks.app.network.repositories.ChannelListStore(
-                cacheManager,
-                context,
-                gson,
-                "channel_list_store.json",
-                object : TypeToken<MutableMap<String, MutableList<Channel>>>() {}.type
+            cacheManager,
+            context,
+            gson,
+            "channel_list_store.json",
+            object : TypeToken<MutableMap<String, MutableList<Channel>>>() {}.type
         ) { key ->
             val response =
-                    if (key == "pinned") api.getChannelsPinned().execute() else api.getChannels().execute()
+                if (key == "pinned") api.getChannelsPinned().execute() else api.getChannels().execute()
             var result: MutableList<Channel>? = null
             response?.let {
                 if (it.isSuccessful)
@@ -44,12 +44,12 @@ class ChannelsRestRepository @Inject constructor(
     }
 
     private val channelControlStore: ChannelControlStore by lazy {
-        dk.eboks.app.network.repositories.ChannelControlStore(
-                cacheManager,
-                context,
-                gson,
-                "channel_control_store.json",
-                object : TypeToken<MutableMap<Long, HomeContent>>() {}.type
+        ChannelControlStore(
+            cacheManager,
+            context,
+            gson,
+            "channel_control_store.json",
+            object : TypeToken<MutableMap<Long, HomeContent>>() {}.type
         ) { key ->
             val response = api.getChannelHomeContent(key).execute()
             var result: HomeContent? = null

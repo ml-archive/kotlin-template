@@ -219,11 +219,12 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(':core')
     implementation project(":data")
-    implementation project(":api")
-    implementation project(":mail")
+    implementation project(':api')
+    implementation project(':mail-presentation')
+    implementation project(':mail-interactors')
 
     // uncomment me if using multidex
-    //implementation "com.android.support:multidex:$multidex_version"
+    implementation Libs.multidex
 
     implementation Libs.Kotlin.stdlib
     implementation Libs.Kotlin.reflect
@@ -281,5 +282,6 @@ dependencies {
     androidTestImplementation Libs.Test.Expresso.core
     androidTestImplementation Libs.Test.Expresso.intent
     androidTestImplementation Libs.Test.Expresso.contrib
+
 
 }
