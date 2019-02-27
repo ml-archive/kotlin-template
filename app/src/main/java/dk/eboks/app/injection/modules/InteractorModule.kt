@@ -4,6 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.BootstrapInteractorImpl
+import dk.eboks.app.domain.interactors.TestLoginInteractor
+import dk.eboks.app.domain.interactors.TestLoginInteractorImpl
 import dk.eboks.app.domain.interactors.channel.GetChannelContentLinkInteractor
 import dk.eboks.app.domain.interactors.channel.GetChannelContentLinkInteractorImpl
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
@@ -28,6 +30,10 @@ import dk.eboks.app.domain.interactors.ekey.SetEKeyMasterkeyInteractor
 import dk.eboks.app.domain.interactors.ekey.SetEKeyMasterkeyInteractorImpl
 import dk.eboks.app.domain.interactors.ekey.SetEKeyVaultInteractor
 import dk.eboks.app.domain.interactors.ekey.SetEKeyVaultInteractorImpl
+import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
+import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractorImpl
+import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
+import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractorImpl
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractorImpl
 import dk.eboks.app.domain.interactors.sender.GetSegmentInteractor
@@ -99,8 +105,7 @@ import dk.eboks.app.mail.injection.MailBindingInteractorModule
         KeychainInteractorsModule::class
     ]
 )
- abstract class InteractorModule {
-
+abstract class InteractorModule {
 
     @Binds
     internal abstract fun bindVerifyEmailInteractor(interactor: VerifyEmailInteractorImpl): VerifyEmailInteractor
@@ -120,8 +125,6 @@ import dk.eboks.app.mail.injection.MailBindingInteractorModule
     @Binds
     internal abstract fun bindGetChannelsInteractor(interactor: GetChannelsInteractorImpl): GetChannelsInteractor
 
-
-
     @Binds
     internal abstract fun bindSaveUserSettingsInteractor(interactor: SaveUserSettingsInteractorImpl): SaveUserSettingsInteractor
 
@@ -130,8 +133,6 @@ import dk.eboks.app.mail.injection.MailBindingInteractorModule
 
     @Binds
     internal abstract fun bindSaveUsersInteractor(interactor: SaveUsersInteractorImpl): SaveUsersInteractor
-
-
 
     @Binds
     internal abstract fun bindGetUserProfileInteractor(interactor: GetUserProfileInteractorImpl): GetUserProfileInteractor
@@ -168,8 +169,6 @@ import dk.eboks.app.mail.injection.MailBindingInteractorModule
 
     @Binds
     internal abstract fun bindGetPendingInteractor(interactor: GetPendingInteractorImpl): GetPendingInteractor
-
-
 
     @Binds
     internal abstract fun bindGetCollectionsInteractor(interactor: GetCollectionsInteractorImpl): GetCollectionsInteractor
@@ -209,8 +208,6 @@ import dk.eboks.app.mail.injection.MailBindingInteractorModule
 
     @Binds
     internal abstract fun bindConfirmStoreboxInteractor(interactor: ConfirmStoreboxInteractorImpl): ConfirmStoreboxInteractor
-
-
 
     @Binds
     internal abstract fun bindVerifyPhoneInteractor(interactor: VerifyPhoneInteractorImpl): VerifyPhoneInteractor

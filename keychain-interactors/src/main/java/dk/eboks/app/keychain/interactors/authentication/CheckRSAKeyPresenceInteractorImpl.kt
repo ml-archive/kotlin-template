@@ -11,7 +11,7 @@ import javax.inject.Inject
  * @author Christian
  * @since 5/29/2018.
  */
-class CheckRSAKeyPresenceInteractorImpl @Inject constructor(
+internal class CheckRSAKeyPresenceInteractorImpl @Inject constructor(
     executor: Executor,
     private val cryptoManager: CryptoManager
 ) : BaseInteractor(executor), CheckRSAKeyPresenceInteractor {

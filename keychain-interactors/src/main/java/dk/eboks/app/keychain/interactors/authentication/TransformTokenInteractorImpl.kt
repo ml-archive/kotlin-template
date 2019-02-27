@@ -22,7 +22,7 @@ import javax.inject.Inject
  * @author Christian
  * @since 5/28/2018.
  */
-class TransformTokenInteractorImpl @Inject constructor(
+internal class TransformTokenInteractorImpl @Inject constructor(
     executor: Executor,
     private val api: Api,
     private val appStateManager: AppStateManager,

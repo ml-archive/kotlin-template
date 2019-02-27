@@ -15,7 +15,7 @@ import javax.inject.Inject
  * @author Christinus
  * @since 5/28/2018.
  */
-class SetCurrentUserInteractorImpl @Inject constructor(
+internal class SetCurrentUserInteractorImpl @Inject constructor(
     executor: Executor,
     private val api: Api,
     private val appStateManager: AppStateManager,

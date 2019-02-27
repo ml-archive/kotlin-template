@@ -6,7 +6,7 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import javax.inject.Inject
 
-class DeleteRSAKeyInteractorImpl @Inject constructor(
+internal class DeleteRSAKeyInteractorImpl @Inject constructor(
     executor: Executor,
     private val cryptoManager: CryptoManager
 ) : BaseInteractor(executor), DeleteRSAKeyInteractor {

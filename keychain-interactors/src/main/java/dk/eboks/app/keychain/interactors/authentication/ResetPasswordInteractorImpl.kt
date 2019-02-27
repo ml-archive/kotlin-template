@@ -14,7 +14,7 @@ import javax.inject.Inject
  * @author Christian
  * @since 5/29/2018.
  */
-class ResetPasswordInteractorImpl @Inject constructor(
+internal class ResetPasswordInteractorImpl @Inject constructor(
     executor: Executor,
     private val api: Api,
     private val appConfig: AppConfig

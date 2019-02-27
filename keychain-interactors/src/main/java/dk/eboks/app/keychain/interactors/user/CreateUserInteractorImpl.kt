@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors.user
+package dk.eboks.app.keychain.interactors.user
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
@@ -15,7 +15,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 24-06-2017.
  */
-class CreateUserInteractorImpl @Inject constructor(
+internal class CreateUserInteractorImpl @Inject constructor(
     executor: Executor,
     private val userManager: UserManager,
     private val api: Api,

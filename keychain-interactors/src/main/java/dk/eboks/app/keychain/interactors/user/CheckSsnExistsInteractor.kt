@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors.user
+package dk.eboks.app.keychain.interactors.user
 
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.interactor.Interactor

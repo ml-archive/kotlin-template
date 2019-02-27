@@ -16,7 +16,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 24-06-2017.
  */
-class DeleteUserInteractorImpl @Inject constructor(
+internal class DeleteUserInteractorImpl @Inject constructor(
     executor: Executor,
     private val userManager: UserManager,
     private val userSettingsManager: UserSettingsManager,

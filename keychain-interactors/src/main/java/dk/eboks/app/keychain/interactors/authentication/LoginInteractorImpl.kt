@@ -21,7 +21,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 24-06-2017.
  */
-class LoginInteractorImpl @Inject constructor(
+internal class LoginInteractorImpl @Inject constructor(
     executor: Executor,
     private val api: Api,
     private val appStateManager: AppStateManager,

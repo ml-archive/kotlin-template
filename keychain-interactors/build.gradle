@@ -40,6 +40,7 @@ dependencies {
     implementation Libs.Dagger.dagger
 
     implementation Libs.gson
+    implementation Libs.Retrofit.retrofit
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
     testImplementation 'junit:junit:4.12'

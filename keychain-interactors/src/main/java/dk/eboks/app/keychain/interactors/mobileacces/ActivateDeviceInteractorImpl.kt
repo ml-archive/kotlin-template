@@ -8,7 +8,7 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import javax.inject.Inject
 
-class ActivateDeviceInteractorImpl @Inject constructor(
+internal class ActivateDeviceInteractorImpl @Inject constructor(
     executor: Executor,
     private val settingsRepository: SettingsRepository,
     private val api: Api

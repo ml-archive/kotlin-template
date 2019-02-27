@@ -3,8 +3,8 @@ package dk.eboks.app.keychain.presentation.components
 import dk.eboks.app.keychain.interactors.authentication.LoginInteractor
 import dk.eboks.app.keychain.interactors.authentication.SetCurrentUserInteractor
 import dk.eboks.app.keychain.interactors.signup.CheckSignupMailInteractor
-import dk.eboks.app.domain.interactors.user.CheckSsnExistsInteractor
-import dk.eboks.app.domain.interactors.user.CreateUserInteractor
+import dk.eboks.app.keychain.interactors.user.CheckSsnExistsInteractor
+import dk.eboks.app.keychain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken

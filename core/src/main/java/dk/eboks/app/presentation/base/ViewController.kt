@@ -5,6 +5,4 @@ interface ViewController {
     var isVerificationSucceeded: Boolean
 
     fun refreshAllOnResume()
-
-
 }

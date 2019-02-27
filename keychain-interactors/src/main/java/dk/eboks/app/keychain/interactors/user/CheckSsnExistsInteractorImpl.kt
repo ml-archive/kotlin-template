@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors.user
+package dk.eboks.app.keychain.interactors.user
 
 import dk.eboks.app.domain.repositories.UserRepository
 import dk.eboks.app.util.exceptionToViewError
@@ -6,7 +6,7 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import javax.inject.Inject
 
-class CheckSsnExistsInteractorImpl @Inject constructor(
+internal class CheckSsnExistsInteractorImpl @Inject constructor(
     executor: Executor,
     private val userRestRepo: UserRepository
 ) : BaseInteractor(executor), CheckSsnExistsInteractor {

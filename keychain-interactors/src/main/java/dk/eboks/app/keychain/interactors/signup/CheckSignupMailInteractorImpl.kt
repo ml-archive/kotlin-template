@@ -6,7 +6,7 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import javax.inject.Inject
 
-class CheckSignupMailInteractorImpl @Inject constructor(
+internal class CheckSignupMailInteractorImpl @Inject constructor(
     executor: Executor,
     private val signUpRestRepo: SignupRepository
 ) : BaseInteractor(executor), CheckSignupMailInteractor {

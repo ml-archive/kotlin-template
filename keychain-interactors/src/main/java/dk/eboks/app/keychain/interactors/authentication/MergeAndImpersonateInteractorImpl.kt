@@ -23,7 +23,7 @@ import javax.inject.Inject
  * @author Christian
  * @since 5/28/2018.
  */
-class MergeAndImpersonateInteractorImpl @Inject constructor(
+internal class MergeAndImpersonateInteractorImpl @Inject constructor(
     executor: Executor,
     private val api: Api,
     private val appStateManager: AppStateManager,

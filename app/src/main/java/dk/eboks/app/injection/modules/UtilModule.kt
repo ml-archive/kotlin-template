@@ -30,7 +30,7 @@ class UtilModule {
 
     @Provides
     @AppScope
-    fun provideViewController() : ViewController {
+    fun provideViewController(): ViewController {
         return ViewControllerImpl()
     }
 

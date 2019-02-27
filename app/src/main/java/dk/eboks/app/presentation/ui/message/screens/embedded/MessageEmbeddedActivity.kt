@@ -14,6 +14,7 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.mail.presentation.ui.message.screens.embedded.MessageEmbeddedContract
 import dk.eboks.app.presentation.base.BaseSheetActivity
+import dk.eboks.app.presentation.base.ViewController
 import dk.eboks.app.presentation.base.ViewerFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import dk.eboks.app.presentation.ui.message.components.detail.attachments.AttachmentsComponentFragment
@@ -38,11 +39,11 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.View {
-    @Inject
-    lateinit var presenter: MessageEmbeddedContract.Presenter
+    @Inject lateinit var presenter: MessageEmbeddedContract.Presenter
 
-    @Inject
-    lateinit var formatter: EboksFormatter
+    @Inject lateinit var formatter: EboksFormatter
+
+    @Inject lateinit var viewController: ViewController
 
     var headerComponentFragment: HeaderComponentFragment? = null
     var replyButtonComponentFragment: ReplyButtonComponentFragment? = null
@@ -153,7 +154,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     }
 
     override fun onBackPressed() {
-        ViewControllerImpl.refreshAllOnResume()
+        viewController.refreshAllOnResume()
         super.onBackPressed()
     }
 

@@ -157,8 +157,6 @@ abstract class PresentationModule {
     @Binds
     abstract fun provideStartPresenter(presenter: StartPresenter): StartContract.Presenter
 
-
-
     @ActivityScope
     @Binds
     abstract fun provideChannelOpeningComponentPresenter(presenter: ChannelOpeningComponentPresenter): ChannelOpeningComponentContract.Presenter
@@ -271,7 +269,6 @@ abstract class PresentationModule {
     @Binds
     abstract fun provideUploadsPresenter(presenter: UploadsPresenter): UploadsContract.Presenter
 
-
     @ActivityScope
     @Binds
     abstract fun provideOverlayPresenter(presenter: OverlayPresenter): OverlayContract.Presenter
@@ -331,7 +328,6 @@ abstract class PresentationModule {
     @ActivityScope
     @Binds
     abstract fun provideHelpPresenter(presenter: HelpPresenter): HelpContract.Presenter
-
 
     @ActivityScope
     @Binds

@@ -12,6 +12,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.mail.presentation.ui.message.components.opening.protectedmessage.ProtectedMessageComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.presentation.base.ViewController
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
 import dk.eboks.app.util.ViewControllerImpl
@@ -32,6 +33,7 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
 
     @Inject lateinit var presenter: ProtectedMessageComponentContract.Presenter
     @Inject lateinit var appConfig: AppConfig
+    @Inject lateinit var viewController: ViewController
 
     private var protectedMessage: Message? = null
 
@@ -124,7 +126,7 @@ class ProtectedMessageComponentFragment : BaseFragment(), ProtectedMessageCompon
         if (requestCode == PopupLoginActivity.REQUEST_VERIFICATION) {
             if (resultCode == Activity.RESULT_OK) {
                 Timber.e("Got result ok from login provider, reload message")
-                ViewControllerImpl.refreshAllOnResume()
+                viewController.refreshAllOnResume()
                 protectedMessage?.let {
                     if (it.id != "0")
                         (activity as MessageOpeningActivity).openMessage(it)
