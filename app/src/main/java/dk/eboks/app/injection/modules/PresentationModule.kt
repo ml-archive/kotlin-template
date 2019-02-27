@@ -5,40 +5,9 @@ import dagger.Module
 import dk.eboks.app.mail.injection.MailBindingPresenterModule
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentContract
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentPresenter
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.additem.EkeyAddItemComponentContract
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.additem.EkeyAddItemComponentPresenter
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailComponentContract
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailComponentPresenter
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.open.EkeyOpenItemComponentContract
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.open.EkeyOpenItemComponentPresenter
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.pin.EkeyPinComponentContract
-import dk.eboks.app.presentation.ui.channels.components.content.ekey.pin.EkeyPinComponentPresenter
-import dk.eboks.app.presentation.ui.channels.components.content.storebox.content.ChannelContentStoreboxComponentContract
-import dk.eboks.app.presentation.ui.channels.components.content.storebox.content.ChannelContentStoreboxComponentPresenter
-import dk.eboks.app.presentation.ui.channels.components.content.storebox.detail.ChannelContentStoreboxDetailComponentContract
-import dk.eboks.app.presentation.ui.channels.components.content.storebox.detail.ChannelContentStoreboxDetailComponentPresenter
-import dk.eboks.app.presentation.ui.channels.components.content.web.ChannelContentComponentContract
-import dk.eboks.app.presentation.ui.channels.components.content.web.ChannelContentComponentPresenter
-import dk.eboks.app.presentation.ui.channels.components.opening.ChannelOpeningComponentContract
-import dk.eboks.app.presentation.ui.channels.components.opening.ChannelOpeningComponentPresenter
-import dk.eboks.app.presentation.ui.channels.components.overview.ChannelOverviewComponentContract
-import dk.eboks.app.presentation.ui.channels.components.overview.ChannelOverviewComponentPresenter
-import dk.eboks.app.presentation.ui.channels.components.requirements.ChannelRequirementsComponentContract
-import dk.eboks.app.presentation.ui.channels.components.requirements.ChannelRequirementsComponentPresenter
-import dk.eboks.app.presentation.ui.channels.components.settings.ChannelSettingsComponentContract
-import dk.eboks.app.presentation.ui.channels.components.settings.ChannelSettingsComponentPresenter
-import dk.eboks.app.presentation.ui.channels.components.verification.ChannelVerificationComponentContract
-import dk.eboks.app.presentation.ui.channels.components.verification.ChannelVerificationComponentPresenter
-import dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentContract
-import dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentPresenter
-import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentContract
-import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentPresenter
+import dk.eboks.app.presentation.ui.channels.ChannelsBindingPresenterModule
 import dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectStoreboxContract
 import dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectStoreboxPresenter
-import dk.eboks.app.presentation.ui.channels.screens.overview.ChannelOverviewContract
-import dk.eboks.app.presentation.ui.channels.screens.overview.ChannelOverviewPresenter
 import dk.eboks.app.presentation.ui.debug.components.DebugOptionsComponentContract
 import dk.eboks.app.presentation.ui.debug.components.DebugOptionsComponentPresenter
 import dk.eboks.app.presentation.ui.debug.components.DebugUsersComponentContract
@@ -131,17 +100,14 @@ import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
 @Module(
     includes = [
-        MailBindingPresenterModule::class
+        MailBindingPresenterModule::class,
+        ChannelsBindingPresenterModule::class
     ]
 )
 abstract class PresentationModule {
     @ActivityScope
     @Binds
     abstract fun providePastaPresenter(presenter: PastaPresenter): PastaContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideChannelsPresenter(presenter: ChannelOverviewPresenter): ChannelOverviewContract.Presenter
 
     @ActivityScope
     @Binds
@@ -154,14 +120,6 @@ abstract class PresentationModule {
     @ActivityScope
     @Binds
     abstract fun provideNavBarComponentPresenter(presenter: NavBarComponentPresenter): NavBarComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideChannelListComponentPresenter(presenter: ChannelOverviewComponentPresenter): ChannelOverviewComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideChannelSettingsPopUpComponentPresenter(presenter: ChannelRequirementsComponentPresenter): ChannelRequirementsComponentContract.Presenter
 
     @ActivityScope
     @Binds
@@ -194,34 +152,6 @@ abstract class PresentationModule {
     @ActivityScope
     @Binds
     abstract fun provideActivationCodeComponentPresenter(presenter: ActivationCodeComponentPresenter): ActivationCodeComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideChannelOpeningComponentPresenter(presenter: ChannelOpeningComponentPresenter): ChannelOpeningComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideChannelVerificationComponentPresenter(presenter: ChannelVerificationComponentPresenter): ChannelVerificationComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideChannelContentComponentPresenter(presenter: ChannelContentComponentPresenter): ChannelContentComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideChannelContentStoreboxComponentPresenter(presenter: ChannelContentStoreboxComponentPresenter): ChannelContentStoreboxComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideChannelContentStoreboxDetailComponentPresenter(presenter: ChannelContentStoreboxDetailComponentPresenter): ChannelContentStoreboxDetailComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideChannelSettingsComponentPresenter(presenter: ChannelSettingsComponentPresenter): ChannelSettingsComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideChannelContentPresenter(presenter: ChannelContentPresenter): ChannelContentContract.Presenter
 
     @ActivityScope
     @Binds
@@ -333,35 +263,11 @@ abstract class PresentationModule {
 
     @ActivityScope
     @Binds
-    abstract fun provideEkeyContentPresenter(presenter: EkeyContentPresenter): EkeyContentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideEkeyComponentPresenter(presenter: EkeyComponentPresenter): EkeyComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideEkeyAddItemComponentPresenter(presenter: EkeyAddItemComponentPresenter): EkeyAddItemComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideEkeyDetailComponentPresenter(presenter: EkeyDetailComponentPresenter): EkeyDetailComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
     abstract fun provideFolderPreviewComponentPresenter(presenter: FolderPreviewComponentPresenter): FolderPreviewComponentContract.Presenter
 
     @ActivityScope
     @Binds
     abstract fun provideChannelControlComponentPresenter(presenter: ChannelControlComponentPresenter): ChannelControlComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideEkeyOpenItemComponentPresenter(presenter: EkeyOpenItemComponentPresenter): EkeyOpenItemComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideEkeyPinComponentPresenter(presenter: EkeyPinComponentPresenter): EkeyPinComponentContract.Presenter
 
     @ActivityScope
     @Binds

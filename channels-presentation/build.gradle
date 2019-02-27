@@ -1,0 +1,37 @@
+import dk.eboks.buildsrc.Libs
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion buildConfig.compileSdk
+
+    defaultConfig {
+        minSdkVersion buildConfig.minSdk
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':core')
+    implementation project(':api')
+    implementation project(':data')
+    implementation project(':channels-interactors')
+
+    implementation Libs.Nodes.locksmith
+    implementation Libs.Nodes.arch
+    implementation Libs.eventbus
+    implementation Libs.timber
+    implementation Libs.gson
+    implementation Libs.Dagger.dagger
+    kapt Libs.Dagger.compiler
+
+    testImplementation Libs.junit
+    androidTestImplementation Libs.Test.runner
+    androidTestImplementation Libs.Test.Expresso.core
+}

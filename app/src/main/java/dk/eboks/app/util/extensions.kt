@@ -125,35 +125,13 @@ fun EditText.addAfterTextChangeListener(listener: ((Editable?) -> Unit)) {
 //    return false
 // }
 
-fun Channel.getType(): String {
-    if (this.id > 0 && this.id < 4) {
-        return "storebox"
-    }
-    // TODO figure out ids and reenable ekey support later
 
-    if (this.id >= 11 && this.id <= 13) {
-        return "ekey"
-    }
-
-    return "channel"
-}
 
 fun Image.getWorkaroundUrl(): String {
     return "$url&type=1"
 }
 
-fun Channel.areAllRequirementsVerified(): Boolean {
-    this.requirements?.let { reqs ->
-        for (req in reqs) {
-            req.verified?.let {
-                if (!it)
-                    return false
-            }
-        }
-        return true
-    }.guard { return true }
-    return true
-}
+
 
 /**
  * Add cases to this where you want to use the standard exception to view error method

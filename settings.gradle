@@ -1,2 +1,2 @@
-include ':app', ':core', ':data', ':api', ':mail'
+include ':app', ':core', ':data', ':api', ':mail', ':channels-presentation', ':channels-interactors'
 

@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import java.io.IOException
@@ -100,4 +101,30 @@ internal fun throwableToViewError(
                 shouldCloseView = shouldClose
         )
     }
+}
+
+fun Channel.areAllRequirementsVerified(): Boolean {
+    this.requirements?.let { reqs ->
+        for (req in reqs) {
+            req.verified?.let {
+                if (!it)
+                    return false
+            }
+        }
+        return true
+    }.guard { return true }
+    return true
+}
+
+fun Channel.getType(): String {
+    if (this.id > 0 && this.id < 4) {
+        return "storebox"
+    }
+    // TODO figure out ids and reenable ekey support later
+
+    if (this.id >= 11 && this.id <= 13) {
+        return "ekey"
+    }
+
+    return "channel"
 }

@@ -221,6 +221,8 @@ dependencies {
     implementation project(":data")
     implementation project(":api")
     implementation project(":mail")
+    implementation project(":channels-interactors")
+    implementation project(":channels-presentation")
 
     // uncomment me if using multidex
     //implementation "com.android.support:multidex:$multidex_version"
