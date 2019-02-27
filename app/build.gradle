@@ -218,8 +218,8 @@ repositories {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(':core')
-    implementation project(":data")
-    implementation project(":api")
+    implementation project(':data')
+    implementation project(':api')
     implementation project(":channels-interactors")
     implementation project(":channels-presentation")
     implementation project(':mail-presentation')
