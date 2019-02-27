@@ -34,8 +34,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(":data")
     implementation project(':core')
+    implementation project(':data')
 
     testImplementation Libs.junit
     androidTestImplementation Libs.Test.runner

@@ -1,7 +1,7 @@
 package dk.eboks.app.presentation.ui.profile.components.drawer
 
 import androidx.lifecycle.Lifecycle
-import dk.eboks.app.domain.interactors.authentication.TestLoginInteractor
+import dk.eboks.app.domain.interactors.TestLoginInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.AppStateManager

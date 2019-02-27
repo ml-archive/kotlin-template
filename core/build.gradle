@@ -1,14 +1,8 @@
 import dk.eboks.buildsrc.Libs
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
-
-
-androidExtensions {
-    experimental = true
-}
 
 android {
     compileSdkVersion buildConfig.compileSdk
@@ -17,6 +11,13 @@ android {
         minSdkVersion buildConfig.minSdk
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+    }
+
+    buildTypes {
+        debug {
+        }
+        release {
+        }
     }
 
     compileOptions {
@@ -30,7 +31,6 @@ android {
         }
     }
 }
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':data')

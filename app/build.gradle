@@ -218,12 +218,17 @@ repositories {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(':core')
-    implementation project(":data")
-    implementation project(":api")
-    implementation project(":mail")
+    implementation project(':data')
+    implementation project(':api')
+    implementation project(":channels-interactors")
+    implementation project(":channels-presentation")
+    implementation project(':mail-presentation')
+    implementation project(':mail-interactors')
+    implementation project(':keychain-presentation')
+    implementation project(':keychain-interactors')
 
     // uncomment me if using multidex
-    //implementation "com.android.support:multidex:$multidex_version"
+    implementation Libs.multidex
 
     implementation Libs.Kotlin.stdlib
     implementation Libs.Kotlin.reflect

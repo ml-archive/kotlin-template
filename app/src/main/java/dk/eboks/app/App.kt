@@ -2,8 +2,10 @@ package dk.eboks.app
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import androidx.multidex.MultiDex
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.injection.components.AppComponent
@@ -66,12 +68,10 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
 
     // uncomment me if multidex
 
-    /*
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         MultiDex.install(this)
     }
-    */
 
     companion object {
         private lateinit var _instance: App

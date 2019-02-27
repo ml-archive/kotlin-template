@@ -17,10 +17,10 @@ import javax.inject.Inject
  * E-boks Authenticator, based on OAuth2
  */
 class EAuth2 @Inject constructor(
-    val appStateManager: AppStateManager,
-    val userSettingsManager: UserSettingsManager,
-    val uiManager: UIManager,
-    val authClient: AuthClient
+    private val appStateManager: AppStateManager,
+    private val userSettingsManager: UserSettingsManager,
+    private val uiManager: UIManager,
+    private val authClient: AuthClient
 ) : Authenticator {
 
     @Synchronized

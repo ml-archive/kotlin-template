@@ -8,7 +8,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.mail.presentation.ui.message.components.opening.privatesender.PrivateSenderWarningComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.util.ViewControl
+import dk.eboks.app.presentation.base.ViewController
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_mail_opening_error_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -27,8 +27,8 @@ class PrivateSenderWarningComponentFragment : BaseFragment(),
         updateTranslation()
     }
 
-    @Inject
-    lateinit var presenter: PrivateSenderWarningComponentContract.Presenter
+    @Inject lateinit var presenter: PrivateSenderWarningComponentContract.Presenter
+    @Inject lateinit var viewController: ViewController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,7 +53,7 @@ class PrivateSenderWarningComponentFragment : BaseFragment(),
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         openBtn.setOnClickListener {
-            ViewControl.refreshAllOnResume()
+            viewController.refreshAllOnResume()
             presenter.setShouldProceed(true)
         }
         openBtn.visibility = View.VISIBLE

@@ -1,2 +1,11 @@
-include ':app', ':core', ':data', ':api', ':mail'
+include ':app'
+include ':core'
+include ':data'
+include ':api'
+include ':mail-presentation'
+include ':mail-interactors'
+include ':keychain-interactors'
+include ':keychain-presentation'
+include ':channels-presentation'
+include ':channels-interactors'
 
