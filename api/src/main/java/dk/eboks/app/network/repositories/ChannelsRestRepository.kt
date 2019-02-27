@@ -25,7 +25,7 @@ class ChannelsRestRepository @Inject constructor(
 ) : ChannelsRepository {
 
     private val channelStore: ChannelListStore by lazy {
-        dk.eboks.app.network.repositories.ChannelListStore(
+        ChannelListStore(
             cacheManager,
             context,
             gson,
