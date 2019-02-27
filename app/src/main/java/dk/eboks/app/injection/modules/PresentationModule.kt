@@ -1,6 +1,6 @@
 package dk.eboks.app.injection.modules
 
-import cz.levinzonr.keychain.injection.KeychainPresentationModule
+import dk.eboks.app.keychain.injection.KeychainPresentationModule
 import dagger.Binds
 import dagger.Module
 import dk.eboks.app.mail.injection.MailBindingPresenterModule

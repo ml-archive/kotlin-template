@@ -13,10 +13,10 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class ForgotPasswordDoneComponentFragment : BaseFragment(),
-    cz.levinzonr.keychain.presentation.components.ForgotPasswordDoneComponentContract.View {
+    dk.eboks.app.keychain.presentation.components.ForgotPasswordDoneComponentContract.View {
 
     @Inject
-    lateinit var presenter: cz.levinzonr.keychain.presentation.components.ForgotPasswordDoneComponentContract.Presenter
+    lateinit var presenter: dk.eboks.app.keychain.presentation.components.ForgotPasswordDoneComponentContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater,

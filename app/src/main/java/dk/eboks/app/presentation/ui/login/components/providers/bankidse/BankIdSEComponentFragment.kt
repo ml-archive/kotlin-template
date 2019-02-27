@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
 import androidx.appcompat.app.AlertDialog
-import cz.levinzonr.keychain.presentation.components.providers.BankIdSEComponentPresenter
+import dk.eboks.app.keychain.presentation.components.providers.BankIdSEComponentPresenter
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
@@ -15,7 +15,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseWebFragment
 import dk.eboks.app.presentation.base.ViewErrorController
-import cz.levinzonr.keychain.presentation.components.providers.WebLoginContract
+import dk.eboks.app.keychain.presentation.components.providers.WebLoginContract
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*

@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
-import cz.levinzonr.keychain.presentation.components.SignupComponentContract
+import dk.eboks.app.keychain.presentation.components.SignupComponentContract
 import dk.app.AppPatterns
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation

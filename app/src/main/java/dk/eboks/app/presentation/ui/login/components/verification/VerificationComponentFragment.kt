@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import cz.levinzonr.keychain.presentation.components.verification.VerificationComponentContract
+import dk.eboks.app.keychain.presentation.components.verification.VerificationComponentContract
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
