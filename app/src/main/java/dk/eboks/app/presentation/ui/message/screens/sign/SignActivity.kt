@@ -7,10 +7,10 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import dk.eboks.app.R
-import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractorImpl
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractor
 import dk.eboks.app.mail.presentation.ui.message.screens.sign.SignContract
 import dk.eboks.app.presentation.base.BaseActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
@@ -98,13 +98,13 @@ class SignActivity : BaseActivity(), SignContract.View {
     fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {
         Timber.e("URL override: $url")
         url?.let {
-            if (url.contains(GetSignLinkInteractorImpl.SUCCESS_CALLBACK)) {
+            if (url.contains(GetSignLinkInteractor.SUCCESS_CALLBACK)) {
                 finishAfterTransition()
             }
-            if (url.contains(GetSignLinkInteractorImpl.CANCEL_CALLBACK)) {
+            if (url.contains(GetSignLinkInteractor.CANCEL_CALLBACK)) {
                 finishAfterTransition()
             }
-            if (url.contains(GetSignLinkInteractorImpl.ERROR_CALLBACK)) {
+            if (url.contains(GetSignLinkInteractor.ERROR_CALLBACK)) {
                 val ve = ViewError()
                 ve.shouldCloseView = true
                 showErrorDialog(ve)

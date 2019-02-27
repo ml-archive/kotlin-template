@@ -15,7 +15,7 @@ import javax.inject.Inject
  * @author bison
  * @since 01/02/18.
  */
-class GetSendersInteractorImpl @Inject constructor(
+internal class GetSendersInteractorImpl @Inject constructor(
     executor: Executor,
     private val sendersRepository: SendersRepository,
     private val senderCategoriesRepository: SenderCategoriesRepository

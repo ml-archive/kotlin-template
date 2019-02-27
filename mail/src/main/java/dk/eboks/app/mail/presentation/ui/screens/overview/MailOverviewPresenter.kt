@@ -15,7 +15,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class MailOverviewPresenter @Inject constructor(private val appState: AppStateManager) :
+internal class MailOverviewPresenter @Inject constructor(private val appState: AppStateManager) :
     MailOverviewContract.Presenter,
     BasePresenterImpl<MailOverviewContract.View>() {
     private var refreshingFolders = false

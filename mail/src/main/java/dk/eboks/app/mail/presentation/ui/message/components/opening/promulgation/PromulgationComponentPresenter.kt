@@ -9,7 +9,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class PromulgationComponentPresenter @Inject constructor(
+internal class PromulgationComponentPresenter @Inject constructor(
     private val appState: AppStateManager,
     private val executor: Executor
 ) :

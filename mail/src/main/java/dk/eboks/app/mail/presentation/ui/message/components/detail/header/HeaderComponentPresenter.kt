@@ -7,7 +7,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class HeaderComponentPresenter @Inject constructor(private val appState: AppStateManager) :
+internal class HeaderComponentPresenter @Inject constructor(private val appState: AppStateManager) :
     HeaderComponentContract.Presenter, BasePresenterImpl<HeaderComponentContract.View>() {
 
     init {

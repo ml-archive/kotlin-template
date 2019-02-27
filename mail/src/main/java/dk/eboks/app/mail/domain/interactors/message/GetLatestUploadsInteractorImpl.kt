@@ -7,7 +7,7 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 import javax.inject.Inject
 
-class GetLatestUploadsInteractorImpl @Inject constructor(
+internal class GetLatestUploadsInteractorImpl @Inject constructor(
     executor: Executor,
     private val messagesRepository: MessagesRepository
 ) : BaseInteractor(executor), GetLatestUploadsInteractor {

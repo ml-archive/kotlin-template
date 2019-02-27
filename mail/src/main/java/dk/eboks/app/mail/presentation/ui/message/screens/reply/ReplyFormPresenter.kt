@@ -12,7 +12,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class ReplyFormPresenter @Inject constructor(
+internal class ReplyFormPresenter @Inject constructor(
     private val getReplyFormInteractor: GetReplyFormInteractor,
     private val submitReplyFormInteractor: SubmitReplyFormInteractor
 ) :

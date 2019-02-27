@@ -24,7 +24,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 01/02/18.
  */
-class OpenMessageInteractorImpl @Inject constructor(
+internal class OpenMessageInteractorImpl @Inject constructor(
     executor: Executor,
     private val appStateManager: AppStateManager,
     private val uiManager: UIManager,

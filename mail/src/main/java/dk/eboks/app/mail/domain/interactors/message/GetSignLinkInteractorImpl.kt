@@ -9,7 +9,7 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 import javax.inject.Inject
 
-class GetSignLinkInteractorImpl @Inject constructor(
+internal class GetSignLinkInteractorImpl @Inject constructor(
     executor: Executor,
     private val api: Api
 ) : BaseInteractor(executor), GetSignLinkInteractor {

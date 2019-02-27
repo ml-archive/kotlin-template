@@ -15,7 +15,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 01/02/18.
  */
-class SaveAttachmentInteractorImpl @Inject constructor(
+internal class SaveAttachmentInteractorImpl @Inject constructor(
     executor: Executor,
     private val cacheManager: FileCacheManager,
     private val permissionManager: PermissionManager
