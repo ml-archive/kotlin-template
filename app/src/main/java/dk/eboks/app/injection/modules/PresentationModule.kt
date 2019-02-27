@@ -1,5 +1,6 @@
 package dk.eboks.app.injection.modules
 
+import dk.eboks.app.keychain.injection.KeychainPresentationModule
 import dagger.Binds
 import dagger.Module
 import dk.eboks.app.mail.injection.MailBindingPresenterModule
@@ -51,22 +52,7 @@ import dk.eboks.app.presentation.ui.home.components.folderpreview.FolderPreviewC
 import dk.eboks.app.presentation.ui.home.components.folderpreview.FolderPreviewComponentPresenter
 import dk.eboks.app.presentation.ui.home.screens.HomeContract
 import dk.eboks.app.presentation.ui.home.screens.HomePresenter
-import dk.eboks.app.presentation.ui.login.components.ActivationCodeComponentContract
-import dk.eboks.app.presentation.ui.login.components.ActivationCodeComponentPresenter
-import dk.eboks.app.presentation.ui.login.components.DeviceActivationComponentContract
-import dk.eboks.app.presentation.ui.login.components.DeviceActivationComponentPresenter
-import dk.eboks.app.presentation.ui.login.components.ForgotPasswordComponentContract
-import dk.eboks.app.presentation.ui.login.components.ForgotPasswordComponentPresenter
-import dk.eboks.app.presentation.ui.login.components.ForgotPasswordDoneComponentContract
-import dk.eboks.app.presentation.ui.login.components.ForgotPasswordDoneComponentPresenter
-import dk.eboks.app.presentation.ui.login.components.LoginComponentContract
-import dk.eboks.app.presentation.ui.login.components.LoginComponentPresenter
-import dk.eboks.app.presentation.ui.login.components.UserCarouselComponentContract
-import dk.eboks.app.presentation.ui.login.components.UserCarouselComponentPresenter
-import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentContract
-import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentPresenter
-import dk.eboks.app.presentation.ui.login.screens.PopupLoginContract
-import dk.eboks.app.presentation.ui.login.screens.PopupLoginPresenter
+
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningContract
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningPresenter
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentContract
@@ -117,8 +103,7 @@ import dk.eboks.app.presentation.ui.senders.screens.registrations.RegistrationsC
 import dk.eboks.app.presentation.ui.senders.screens.registrations.RegistrationsPresenter
 import dk.eboks.app.presentation.ui.senders.screens.segment.SegmentDetailContract
 import dk.eboks.app.presentation.ui.senders.screens.segment.SegmentDetailPresenter
-import dk.eboks.app.presentation.ui.start.components.signup.SignupComponentContract
-import dk.eboks.app.presentation.ui.start.components.signup.SignupComponentPresenter
+
 import dk.eboks.app.presentation.ui.start.screens.StartContract
 import dk.eboks.app.presentation.ui.start.screens.StartPresenter
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentContract
@@ -131,7 +116,8 @@ import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
 @Module(
     includes = [
-        MailBindingPresenterModule::class
+        MailBindingPresenterModule::class,
+        KeychainPresentationModule::class
     ]
 )
 abstract class PresentationModule {
@@ -170,30 +156,6 @@ abstract class PresentationModule {
     @ActivityScope
     @Binds
     abstract fun provideStartPresenter(presenter: StartPresenter): StartContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideSignupComponentPresenter(presenter: SignupComponentPresenter): SignupComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideVerificationComponentPresenter(presenter: VerificationComponentPresenter): VerificationComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideUserCarouselComponentPresenter(presenter: UserCarouselComponentPresenter): UserCarouselComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideLoginComponentPresenter(presenter: LoginComponentPresenter): LoginComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideForgotPasswordComponentPresenter(presenter: ForgotPasswordComponentPresenter): ForgotPasswordComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideActivationCodeComponentPresenter(presenter: ActivationCodeComponentPresenter): ActivationCodeComponentContract.Presenter
 
     @ActivityScope
     @Binds
@@ -309,10 +271,6 @@ abstract class PresentationModule {
 
     @ActivityScope
     @Binds
-    abstract fun provideForgotPasswordDoneComponentPresenter(presenter: ForgotPasswordDoneComponentPresenter): ForgotPasswordDoneComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
     abstract fun provideOverlayPresenter(presenter: OverlayPresenter): OverlayContract.Presenter
 
     @ActivityScope
@@ -370,14 +328,6 @@ abstract class PresentationModule {
     @ActivityScope
     @Binds
     abstract fun provideHelpPresenter(presenter: HelpPresenter): HelpContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun providePopupLoginPresenter(presenter: PopupLoginPresenter): PopupLoginContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideDeviceActivationComponentPresenter(presenter: DeviceActivationComponentPresenter): DeviceActivationComponentContract.Presenter
 
     @ActivityScope
     @Binds

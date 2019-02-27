@@ -218,10 +218,12 @@ repositories {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(':core')
-    implementation project(":data")
+    implementation project(':data')
     implementation project(':api')
     implementation project(':mail-presentation')
     implementation project(':mail-interactors')
+    implementation project(':keychain-presentation')
+    implementation project(':keychain-interactors')
 
     // uncomment me if using multidex
     implementation Libs.multidex
@@ -282,6 +284,5 @@ dependencies {
     androidTestImplementation Libs.Test.Expresso.core
     androidTestImplementation Libs.Test.Expresso.intent
     androidTestImplementation Libs.Test.Expresso.contrib
-
 
 }
