@@ -2,6 +2,7 @@ package dk.eboks.app.domain.interactors.channel
 
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.repositories.ChannelsRepository
+import dk.eboks.app.presentation.base.ViewController
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
@@ -17,7 +18,8 @@ import javax.inject.Inject
  */
 internal class GetChannelHomeContentInteractorImpl @Inject constructor(
     executor: Executor,
-    private val channelsRepository: ChannelsRepository
+    private val channelsRepository: ChannelsRepository,
+    private val viewController: ViewController
 ) : BaseInteractor(executor), GetChannelHomeContentInteractor {
     override var output: GetChannelHomeContentInteractor.Output? = null
     override var input: GetChannelHomeContentInteractor.Input? = null
@@ -159,8 +161,7 @@ internal class GetChannelHomeContentInteractorImpl @Inject constructor(
                         output?.let {
                             if (!it.continueGetChannelHomeContent()) {
                                 Timber.d("TESTING IN IF")
-                                // TODO refactor
-                                // ChannelControlComponentFragment.refreshOnResume = true
+                                viewController.refreshChannelComponent = true
                                 return@runBlocking
                             }
                         }

@@ -15,6 +15,7 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxCreditCard
 import dk.eboks.app.domain.models.channel.storebox.StoreboxProfile
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.shared.Link
+import dk.eboks.app.presentation.base.ViewController
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -31,7 +32,8 @@ internal class ChannelSettingsComponentPresenter @Inject constructor(
     private val deleteStoreboxAccountLinkInteractor: DeleteStoreboxAccountLinkInteractor,
     private val updateStoreboxFlagsInteractor: UpdateStoreboxFlagsInteractor,
     private val getChannelInteractor: GetChannelInteractor,
-    private val uninstallChannelInteractor: UninstallChannelInteractor
+    private val uninstallChannelInteractor: UninstallChannelInteractor,
+    private val viewController: ViewController
 ) : ChannelSettingsComponentContract.Presenter,
     BasePresenterImpl<ChannelSettingsComponentContract.View>(),
     DeleteStoreboxCreditCardInteractor.Output,
@@ -180,8 +182,7 @@ internal class ChannelSettingsComponentPresenter @Inject constructor(
     }
 
     override fun onStoreboxAccountLinkDelete() {
-//        TODO refactor
-//        ChannelControlComponentFragment.refreshOnResume = true
+        viewController.refreshChannelComponent = true
         runAction { v ->
             v.showProgress(false)
             v.broadcastCloseChannel()
@@ -197,8 +198,7 @@ internal class ChannelSettingsComponentPresenter @Inject constructor(
     }
 
     override fun onUpdateFlagsSuccess() {
-//        TODO refactor
-//        ChannelControlComponentFragment.refreshOnResume = true
+        viewController.refreshChannelComponent = true
     }
 
     override fun onUpdateFlagsError(error: ViewError) {
@@ -229,8 +229,7 @@ internal class ChannelSettingsComponentPresenter @Inject constructor(
      */
 
     override fun onUninstallChannel() {
-//        TODO refactor
-//        ChannelControlComponentFragment.refreshOnResume = true
+        viewController.refreshChannelComponent = true
         runAction { v ->
             v.showProgress(false)
             v.broadcastCloseChannel()

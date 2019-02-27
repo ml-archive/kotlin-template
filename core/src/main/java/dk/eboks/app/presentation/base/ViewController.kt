@@ -4,5 +4,7 @@ interface ViewController {
 
     var isVerificationSucceeded: Boolean
 
+    var refreshChannelComponent: Boolean
+
     fun refreshAllOnResume()
 }
