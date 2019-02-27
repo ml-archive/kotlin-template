@@ -22,9 +22,9 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentContract.View {
+class ActivationCodeComponentFragment : BaseFragment(), dk.eboks.app.keychain.presentation.components.ActivationCodeComponentContract.View {
     @Inject
-    lateinit var presenter: ActivationCodeComponentContract.Presenter
+    lateinit var presenter: dk.eboks.app.keychain.presentation.components.ActivationCodeComponentContract.Presenter
 
     var mHandler = Handler()
 

@@ -12,11 +12,13 @@ import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.domain.models.login.LoginState
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.repositories.SettingsRepository
+import dk.eboks.app.presentation.base.ViewController
 import dk.eboks.app.system.managers.CryptoManagerImpl
 import dk.eboks.app.system.managers.EboksFormatterImpl
 import dk.eboks.app.system.managers.EncryptionPreferenceManagerImpl
 import dk.eboks.app.system.managers.GuidManagerImpl
 import dk.eboks.app.system.managers.permission.PermissionManagerImpl
+import dk.eboks.app.util.ViewControllerImpl
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.injection.scopes.AppScope
 
@@ -25,6 +27,13 @@ import dk.nodes.arch.domain.injection.scopes.AppScope
  */
 @Module
 class UtilModule {
+
+    @Provides
+    @AppScope
+    fun provideViewController() : ViewController {
+        return ViewControllerImpl()
+    }
+
     @Provides
     @AppScope
     fun provideEncryptionManager(context: Context): EncryptionPreferenceManager {
