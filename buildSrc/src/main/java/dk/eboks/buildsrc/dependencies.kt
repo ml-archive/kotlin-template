@@ -20,6 +20,7 @@ object Libs {
     const val circularProgressBar = "com.mikhaellopez:circularprogressbar:2.0.0"
     const val persistentCookieJar = "com.github.franmontiel:PersistentCookieJar:1.0.1"
     const val gson = "com.google.code.gson:gson:2.8.5"
+    const val multidex = "com.android.support:multidex:1.0.3"
 
     object Nodes {
 

@@ -1,2 +1,2 @@
-include ':app', ':core', ':data', ':api', ':mail', ':keychain-interactors', ':keychain-presentation'
+include ':app', ':core', ':data', ':api', ':mail-presentation', ':mail-interactors', ':keychain-interactors', ':keychain-presentation'
 
