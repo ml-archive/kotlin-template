@@ -1,4 +1,4 @@
-package dk.eboks.app.keychain.interactors.authentication
+package dk.eboks.app.domain.interactors
 
 import dk.eboks.app.domain.managers.AuthClient
 import dk.eboks.app.domain.managers.AuthException

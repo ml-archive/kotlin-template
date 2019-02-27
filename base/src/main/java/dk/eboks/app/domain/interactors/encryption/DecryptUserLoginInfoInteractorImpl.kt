@@ -1,4 +1,4 @@
-package dk.eboks.app.keychain.interactors.encryption
+package dk.eboks.app.domain.interactors.encryption
 
 import com.google.gson.Gson
 import dk.eboks.app.domain.managers.EncryptionPreferenceManager

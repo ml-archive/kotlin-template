@@ -1,4 +1,4 @@
-package dk.eboks.app.keychain.interactors.encryption
+package dk.eboks.app.domain.interactors.encryption
 
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.LoginInfo
