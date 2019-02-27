@@ -11,7 +11,7 @@ data class Content(
     var id: String,
     var title: String,
     var fileSize: Long,
-    var fileExtension: String,
+    var fileExtension: String?,
     var mimeType: String?,
     var encoding: String?,
     var contentUrlMock: String?

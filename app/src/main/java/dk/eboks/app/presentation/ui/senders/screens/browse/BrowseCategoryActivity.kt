@@ -148,8 +148,8 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
         }
 
         inner class SenderViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-            val mainLl = v.findViewById<View>(R.id.senderMainLl)
-            val indexTv = v.findViewById<TextView>(R.id.senderIndexTv)
+            private val mainLl = v.findViewById<View>(R.id.senderMainLl)
+            private val indexTv = v.findViewById<TextView>(R.id.senderIndexTv)
             val nameTv = v.findViewById<TextView>(R.id.senderNameTv)
             val iconIv = v.findViewById<ImageView>(R.id.senderLogoIv)
 

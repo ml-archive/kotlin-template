@@ -21,7 +21,7 @@ class ConnectStoreboxPresenter @Inject constructor(
     LinkStoreboxInteractor.Output,
     ConfirmStoreboxInteractor.Output,
     CreateStoreboxInteractor.Output {
-    var returnCode: String? = null
+    private var returnCode: String? = null
 
     init {
         linkStoreboxInteractor.output = this

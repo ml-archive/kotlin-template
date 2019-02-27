@@ -7,12 +7,12 @@ enum class FolderMode(val type: String) {
     EDIT("email");
 
     override fun toString(): String {
-        when (this) {
-            NORMAL -> return "normal"
-            SELECT -> return "select"
-            EDIT -> return "edit"
-            SELECTFOLDER -> return "selectFolder"
-            else -> return "unknown"
+        return when (this) {
+            NORMAL -> "normal"
+            SELECT -> "select"
+            EDIT -> "edit"
+            SELECTFOLDER -> "selectFolder"
+            else -> "unknown"
         }
     }
 }

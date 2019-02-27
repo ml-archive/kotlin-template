@@ -20,14 +20,14 @@ enum class ItemType(val type: String) {
     NOTIFICATIONS("list-notifications");
 
     override fun toString(): String {
-        when (this) {
-            MESSAGES -> return "messages"
-            RECEIPTS -> return "receipts"
-            NEWS -> return "news"
-            FILES -> return "files"
-            IMAGES -> return "images"
-            NOTIFICATIONS -> return "notifications"
-            else -> return super.toString()
+        return when (this) {
+            MESSAGES -> "messages"
+            RECEIPTS -> "receipts"
+            NEWS -> "news"
+            FILES -> "files"
+            IMAGES -> "images"
+            NOTIFICATIONS -> "notifications"
+            else -> super.toString()
         }
     }
 }

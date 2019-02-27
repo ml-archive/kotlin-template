@@ -58,7 +58,7 @@ internal class GetSendersInteractorImpl @Inject constructor(
         }
     }
 
-    fun doGetByCategory() {
+    private fun doGetByCategory() {
         Timber.d("doGetByCategory")
         try {
             val category = senderCategoriesRepository.getSendersByCategory(input?.id ?: 0)
@@ -73,7 +73,7 @@ internal class GetSendersInteractorImpl @Inject constructor(
         }
     }
 
-    fun doSearch() {
+    private fun doSearch() {
         Timber.d("doSearch")
         try {
             val senders = sendersRepository.searchSenders(input?.name ?: "")

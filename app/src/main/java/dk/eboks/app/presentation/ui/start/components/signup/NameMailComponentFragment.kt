@@ -168,7 +168,7 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
         progress.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    fun onContinueClicked() {
+    private fun onContinueClicked() {
         presenter.confirmMail(emailEt.text.toString().trim(), nameEt.text.toString().trim())
         showProgress(true)
         hideKeyboard(view)

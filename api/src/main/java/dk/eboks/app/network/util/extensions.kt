@@ -11,6 +11,7 @@ fun Response<*>.errorBodyToViewError(
 
     // Todo add more cases like 401,402, ect ect
 
+    @Suppress("WhenWithOnlyElse")
     return when (code()) {
         else -> {
             ViewError(

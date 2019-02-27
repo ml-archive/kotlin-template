@@ -39,10 +39,10 @@ class EKeyDeserializer : JsonDeserializer<List<BaseEkey>> {
         private val map = TreeMap<String, Class<*>>()
 
         init {
-            map.put("Login", Login::class.java)
-            map.put("Note", Note::class.java)
-            map.put("Pin", Pin::class.java)
-            map.put("Ekey", Ekey::class.java)
+            map["Login"] = Login::class.java
+            map["Note"] = Note::class.java
+            map["Pin"] = Pin::class.java
+            map["Ekey"] = Ekey::class.java
         }
     }
 }

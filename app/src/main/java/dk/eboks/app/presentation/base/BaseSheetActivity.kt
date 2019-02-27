@@ -27,7 +27,7 @@ import timber.log.Timber
  * Created by bison on 05/02/18.
  */
 abstract class BaseSheetActivity : BaseActivity() {
-    var sheetBehavior: BottomSheetBehavior<View>? = null
+    private var sheetBehavior: BottomSheetBehavior<View>? = null
     var shouldClose = false
     private lateinit var fadeAnim: Animation
     private lateinit var bounceAnim: Animation
@@ -141,7 +141,7 @@ abstract class BaseSheetActivity : BaseActivity() {
         firstExpand = true
     }
 
-    fun setupBottomSheet() {
+    private fun setupBottomSheet() {
         sheetBehavior = BottomSheetBehavior.from(contextSheet)
         sheetBehavior?.isHideable = false
         sheetBehavior?.peekHeight = (resources.displayMetrics.density * 104.0).toInt()
@@ -165,15 +165,13 @@ abstract class BaseSheetActivity : BaseActivity() {
     }
 
     fun setDrawableColor(background: Drawable, color: Int) {
-        if (background is ShapeDrawable) {
-            // cast to 'ShapeDrawable'
-            background.paint.color = color
-        } else if (background is GradientDrawable) {
-            // cast to 'GradientDrawable'
-            background.setColor(color)
-        } else if (background is ColorDrawable) {
-            // alpha value may need to be set again after this call
-            background.color = color
+        when (background) {
+            is ShapeDrawable -> // cast to 'ShapeDrawable'
+                background.paint.color = color
+            is GradientDrawable -> // cast to 'GradientDrawable'
+                background.setColor(color)
+            is ColorDrawable -> // alpha value may need to be set again after this call
+                background.color = color
         }
     }
 

@@ -111,12 +111,12 @@ class PendingActivity : BaseActivity(), PendingContract.View {
 
         inner class SenderViewHolder(val v: View) :
             RecyclerView.ViewHolder(v) {
-            val mainLl = v.findViewById<View>(R.id.pendingMainLl)
+            private val mainLl = v.findViewById<View>(R.id.pendingMainLl)
             val iconIv = v.findViewById<ImageView>(R.id.pendingLogoIv)
             val nameTv = v.findViewById<TextView>(R.id.pendingNameTv)
-            val approveBtn = v.findViewById<Button>(R.id.pendingRegisterBtn)
-            val closeBtn = v.findViewById<ImageButton>(R.id.pendingCloseBtn)
-            val descriptionTv = v.findViewById<TextView>(R.id.pendingDescriptionTv)
+            private val approveBtn = v.findViewById<Button>(R.id.pendingRegisterBtn)
+            private val closeBtn = v.findViewById<ImageButton>(R.id.pendingCloseBtn)
+            private val descriptionTv = v.findViewById<TextView>(R.id.pendingDescriptionTv)
 
             fun bind(sender: Sender) {
                 Glide.with(v.context).load(sender.logo?.url).into(iconIv)

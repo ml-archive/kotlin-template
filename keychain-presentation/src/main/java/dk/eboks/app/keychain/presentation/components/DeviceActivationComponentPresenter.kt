@@ -25,7 +25,7 @@ class DeviceActivationComponentPresenter @Inject constructor(
     DeleteRSAKeyInteractor.Output,
     BasePresenterImpl<DeviceActivationComponentContract.View>() {
 
-    var loading = false
+    private var loading = false
         set(value) {
             field = value
             runAction { it.showProgress(value) }

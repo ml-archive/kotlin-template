@@ -3,8 +3,6 @@ package dk.eboks.app.keychain.interactors.user
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import dk.eboks.app.domain.config.AppConfig
-import dk.eboks.app.domain.managers.UserManager
-import dk.eboks.app.domain.repositories.SettingsRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
@@ -17,9 +15,7 @@ import javax.inject.Inject
  */
 internal class CreateUserInteractorImpl @Inject constructor(
     executor: Executor,
-    private val userManager: UserManager,
     private val api: Api,
-    private val settingsRepository: SettingsRepository,
     private val appConfig: AppConfig
 ) : BaseInteractor(executor), CreateUserInteractor {
     override var output: CreateUserInteractor.Output? = null
@@ -47,7 +43,7 @@ internal class CreateUserInteractorImpl @Inject constructor(
 //                    body.addProperty("device", GsonBuilder().create().toJson(createActivationDevice()))
 
                     val result = api.createUserProfile(body).execute()
-                    result?.let { response ->
+                    result.let { response ->
                         if (response.isSuccessful) {
                             runOnUIThread {
                                 output?.onCreateUser(user)

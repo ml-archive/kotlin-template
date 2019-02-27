@@ -25,7 +25,7 @@ class DeviceActivationComponentFragment : BaseFragment(), dk.eboks.app.keychain.
     @Inject lateinit var presenter: dk.eboks.app.keychain.presentation.components.DeviceActivationComponentContract.Presenter
     @Inject lateinit var appConfig: AppConfig
 
-    var mHandler = Handler()
+    private var mHandler = Handler()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -74,7 +74,7 @@ class DeviceActivationComponentFragment : BaseFragment(), dk.eboks.app.keychain.
     }
 
     override fun requestNemidLogin() {
-        var intent = Intent(context, PopupLoginActivity::class.java)
+        val intent = Intent(context, PopupLoginActivity::class.java)
         intent.putExtra("selectedLoginProviderId", appConfig.verificationProviderId)
         startActivityForResult(intent, 770)
     }

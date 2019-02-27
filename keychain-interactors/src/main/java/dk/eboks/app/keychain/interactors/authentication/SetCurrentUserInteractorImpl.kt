@@ -31,7 +31,7 @@ internal class SetCurrentUserInteractorImpl @Inject constructor(
                 // update the states
                 Timber.e("Setting current user $user")
                 val newUser = userManager.put(user)
-                val newSettings = userSettingsManager.get(newUser.id)
+                val newSettings = userSettingsManager[newUser.id]
                 userSettingsManager.put(newSettings)
                 appStateManager.state?.loginState?.lastUser = newUser
                 appStateManager.state?.currentUser = newUser

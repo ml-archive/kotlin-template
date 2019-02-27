@@ -30,7 +30,7 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
     @Inject lateinit var presenter: BankIdSEComponentPresenter
     @Inject lateinit var appConfig: AppConfig
 
-    var loginUser: User? = null
+    private var loginUser: User? = null
 
     override val defaultErrorHandler: ViewErrorController by lazy {
         ViewErrorController(context = context!!, closeFunction = { activity?.finish() })
@@ -59,7 +59,7 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
         }
     }
 
-    fun openBankId(url: String): Boolean {
+    private fun openBankId(url: String): Boolean {
         val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         activity?.packageManager?.let {
             return if (i.resolveActivity(it) != null) {

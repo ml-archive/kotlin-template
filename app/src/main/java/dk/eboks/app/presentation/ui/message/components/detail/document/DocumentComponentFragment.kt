@@ -29,7 +29,7 @@ class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View
     @Inject
     lateinit var uiManager: UIManager
 
-    var currentMessage: Message? = null
+    private var currentMessage: Message? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,

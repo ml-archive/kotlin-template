@@ -63,7 +63,7 @@ class MessagesRestRepository @Inject constructor(
         ) { key ->
             val response = api.getMessages(key, appState.state?.impersoniateUser?.userId).execute()
             var result: List<Message>? = null
-            response?.let {
+            response.let {
                 if (it.isSuccessful)
                     result = it.body()
             }
@@ -83,7 +83,7 @@ class MessagesRestRepository @Inject constructor(
                     api.getHighlights(terms = appState.state?.openingState?.acceptPrivateTerms)
                             .execute()
             var result: List<Message>? = null
-            response?.let {
+            response.let {
                 if (it.isSuccessful)
                     result = it.body()
             }
@@ -102,7 +102,7 @@ class MessagesRestRepository @Inject constructor(
             val response =
                     api.getLatest(terms = appState.state?.openingState?.acceptPrivateTerms).execute()
             var result: List<Message>? = null
-            response?.let {
+            response.let {
                 if (it.isSuccessful)
                     result = it.body()
             }
@@ -121,7 +121,7 @@ class MessagesRestRepository @Inject constructor(
             val response =
                     api.getUnread(terms = appState.state?.openingState?.acceptPrivateTerms).execute()
             var result: List<Message>? = null
-            response?.let {
+            response.let {
                 if (it.isSuccessful)
                     result = it.body()
             }
@@ -158,7 +158,7 @@ class MessagesRestRepository @Inject constructor(
             val response =
                     api.getMessagesBySender(key, appState.state?.impersoniateUser?.userId).execute()
             var result: List<Message>? = null
-            response?.let {
+            response.let {
                 if (it.isSuccessful)
                     result = it.body()
             }

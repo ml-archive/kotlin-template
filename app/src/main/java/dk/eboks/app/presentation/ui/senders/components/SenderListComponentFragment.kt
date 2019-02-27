@@ -106,7 +106,7 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
                             .show()
                     }
                 }
-                v.setOnClickListener { _ ->
+                v.setOnClickListener {
                     val i = Intent(context, SenderDetailActivity::class.java)
                     i.putExtra(Sender::class.simpleName, sender)
                     startActivity(i)

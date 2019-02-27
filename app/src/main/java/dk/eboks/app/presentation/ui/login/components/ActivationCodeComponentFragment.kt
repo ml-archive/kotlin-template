@@ -57,7 +57,7 @@ class ActivationCodeComponentFragment : BaseFragment(), dk.eboks.app.keychain.pr
         }
     }
 
-    fun setupValidation() {
+    private fun setupValidation() {
         activationCodeEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(activationCode: Editable?) {
                 activationCodeTil.error = null

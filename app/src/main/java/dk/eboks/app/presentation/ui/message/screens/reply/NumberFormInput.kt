@@ -17,8 +17,8 @@ import java.util.regex.Pattern
 
 class NumberFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) :
     ReplyFormInput(formInput, inflater, handler), TextWatcher {
-    var textTil: TextInputLayout? = null
-    var textEt: EditText? = null
+    private var textTil: TextInputLayout? = null
+    private var textEt: EditText? = null
 
     // lazy compile the pattern only if we get one
     private val pattern: Pattern? by lazy {
@@ -83,7 +83,7 @@ class NumberFormInput(formInput: FormInput, inflater: LayoutInflater, handler: H
         textEt?.removeTextChangedListener(this)
     }
 
-    val validateDelayedRunnable = Runnable {
+    private val validateDelayedRunnable = Runnable {
         validate()
         setChanged()
         notifyObservers()

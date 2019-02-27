@@ -35,14 +35,14 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     @Inject lateinit var presenter: HomeContract.Presenter
 
-    var folderPreviewFragment: FolderPreviewComponentFragment? = null
+    private var folderPreviewFragment: FolderPreviewComponentFragment? = null
     private val channelControlFragment: ChannelControlComponentFragment
         get() = findFragment() ?: ChannelControlComponentFragment()
-    var doneRefreshingFolderPreview = false
+    private var doneRefreshingFolderPreview = false
     override fun onRefreshChannelDone() {
     }
 
-    var doneRefreshingChannelControls = false
+    private var doneRefreshingChannelControls = false
 
     val onLanguageChange: (Locale) -> Unit = { locale ->
         Timber.e("Locale changed to locale")
@@ -143,7 +143,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         channelsHeaderFl.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    fun updateRefreshStatus() {
+    private fun updateRefreshStatus() {
         if (doneRefreshingChannelControls && doneRefreshingFolderPreview) {
             if (refreshSrl.isRefreshing)
                 refreshSrl.isRefreshing = false

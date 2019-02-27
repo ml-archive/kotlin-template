@@ -1,7 +1,7 @@
 package dk.eboks.buildsrc
 
 object Versions {
-    val ktlint = "0.30.0"
+    const val ktlint = "0.30.0"
 }
 
 object Libs {
@@ -75,8 +75,8 @@ object Libs {
 
     object Glide {
         private const val version = "4.9.0"
-        val glide = "com.github.bumptech.glide:glide:$version"
-        val compiler = "com.github.bumptech.glide:compiler:$version"
+        const val glide = "com.github.bumptech.glide:glide:$version"
+        const val compiler = "com.github.bumptech.glide:compiler:$version"
     }
 
     object Retrofit {

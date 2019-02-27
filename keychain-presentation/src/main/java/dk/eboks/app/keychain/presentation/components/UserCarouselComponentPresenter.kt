@@ -59,7 +59,7 @@ class UserCarouselComponentPresenter @Inject constructor(
     override fun onGetUsers(users: MutableList<User>) {
         val list = MutableList(
             users.size,
-            init = { Pair(users[it], userSettingsManager.get(users[it].id)) })
+            init = { Pair(users[it], userSettingsManager[users[it].id]) })
 
         runAction { v ->
             v.showUsers(list)

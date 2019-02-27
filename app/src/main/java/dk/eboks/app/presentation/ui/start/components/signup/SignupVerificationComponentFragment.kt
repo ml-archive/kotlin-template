@@ -78,7 +78,7 @@ class SignupVerificationComponentFragment : BaseFragment(),
         progress.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-    fun onContinueClicked() {
+    private fun onContinueClicked() {
         // (activity as StartActivity).showLogo(false)
         showProgress(true)
         content.postDelayed({

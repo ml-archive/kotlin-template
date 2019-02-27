@@ -12,10 +12,10 @@ enum class DescriptionFormat(val type: String) {
     HTML("html");
 
     override fun toString(): String {
-        when (this) {
-            TEXT -> return "text"
-            HTML -> return "html"
-            else -> return super.toString()
+        return when (this) {
+            TEXT -> "text"
+            HTML -> "html"
+            else -> super.toString()
         }
     }
 }

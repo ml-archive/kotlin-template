@@ -15,7 +15,7 @@ class ServerErrorInterceptor @Inject constructor(private val gson: Gson) : okhtt
     override fun intercept(chain: okhttp3.Interceptor.Chain): okhttp3.Response {
         val response = chain.proceed(chain.request())
         if (!response.isSuccessful) {
-            response.peekBody(16384L)?.string()?.let { buffer ->
+            response.peekBody(16384L).string().let { buffer ->
                 try {
                     val se = gson.fromJson<ServerError>(buffer, ServerError::class.java)
                         ?: return response

@@ -82,7 +82,7 @@ class UserCarouselComponentFragment : BaseFragment(), dk.eboks.app.keychain.pres
         presenter.requestUsers()
     }
 
-    fun setupViewPager() {
+    private fun setupViewPager() {
         // Disable clip to padding
         viewPager.clipToPadding = false
         // set padding manually, the more you set the padding the more you see of prev & next page

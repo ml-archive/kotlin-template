@@ -22,7 +22,7 @@ class FolderPreviewComponentPresenter @Inject constructor(
     GetMessagesInteractor.Output {
 
     // override val isVerified = appState.state?.currentUser?.verified ?: false
-    var currentFolder: Folder? = null
+    private var currentFolder: Folder? = null
 
     init {
         getMessagesInteractor.output = this

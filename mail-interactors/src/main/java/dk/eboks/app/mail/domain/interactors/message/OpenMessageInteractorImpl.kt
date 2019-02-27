@@ -344,7 +344,7 @@ internal class OpenMessageInteractorImpl @Inject constructor(
         }
     }
 
-    fun isEmbeddedType(msg: Message): Boolean {
+    private fun isEmbeddedType(msg: Message): Boolean {
         if (msg.content == null)
             return false
         val ext = msg.content?.fileExtension
@@ -381,12 +381,12 @@ internal class OpenMessageInteractorImpl @Inject constructor(
             EboksContentType("pdf", "application/pdf")
         )
 
-        val NO_PRIVATE_SENDER_WARNING = 9100
-        val MANDATORY_OPEN_RECEIPT = 12194
-        val VOLUNTARY_OPEN_RECEIPT = 12245
-        val MESSAGE_QUARANTINED = 9300
-        val MESSAGE_RECALLED = 9301
-        val MESSAGE_LOCKED = 9302
-        val PROMULGATION = 12260
+        const val NO_PRIVATE_SENDER_WARNING = 9100
+        const val MANDATORY_OPEN_RECEIPT = 12194
+        const val VOLUNTARY_OPEN_RECEIPT = 12245
+        const val MESSAGE_QUARANTINED = 9300
+        const val MESSAGE_RECALLED = 9301
+        const val MESSAGE_LOCKED = 9302
+        const val PROMULGATION = 12260
     }
 }

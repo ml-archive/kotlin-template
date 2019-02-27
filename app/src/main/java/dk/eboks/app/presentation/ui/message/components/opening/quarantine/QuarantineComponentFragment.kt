@@ -23,7 +23,7 @@ class QuarantineComponentFragment : BaseFragment(), QuarantineComponentContract.
     @Inject
     lateinit var presenter: QuarantineComponentContract.Presenter
 
-    val onLanguageChange: (Locale) -> Unit = { locale ->
+    private val onLanguageChange: (Locale) -> Unit = { locale ->
         Timber.e("Locale changed to locale")
         updateTranslation()
     }

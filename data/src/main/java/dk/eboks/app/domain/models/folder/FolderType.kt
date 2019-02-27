@@ -32,18 +32,18 @@ enum class FolderType(val type: String) {
     UPLOADS("uploads");
 
     override fun toString(): String {
-        when (this) {
-            INBOX -> return "inbox"
-            DRAFTS -> return "drafts"
-            ARCHIVE -> return "archive"
-            SENT -> return "sentitems"
-            DELETED -> return "deleteditems"
-            HIGHLIGHTS -> return "highlights"
-            UNREAD -> return "unread"
-            LATEST -> return "latest"
-            FOLDER -> return "folder"
-            UPLOADS -> return "uploads"
-            else -> return super.toString()
+        return when (this) {
+            INBOX -> "inbox"
+            DRAFTS -> "drafts"
+            ARCHIVE -> "archive"
+            SENT -> "sentitems"
+            DELETED -> "deleteditems"
+            HIGHLIGHTS -> "highlights"
+            UNREAD -> "unread"
+            LATEST -> "latest"
+            FOLDER -> "folder"
+            UPLOADS -> "uploads"
+            else -> super.toString()
         }
     }
 }

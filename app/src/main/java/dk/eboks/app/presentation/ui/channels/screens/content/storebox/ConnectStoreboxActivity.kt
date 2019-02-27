@@ -26,8 +26,8 @@ import javax.inject.Inject
  */
 class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
 
-    val infoFrag = UserInfoFragment()
-    val conFrag = ConfirmCodeFragment()
+    private val infoFrag = UserInfoFragment()
+    private val conFrag = ConfirmCodeFragment()
 
     @Inject
     lateinit var presenter: ConnectStoreboxContract.Presenter

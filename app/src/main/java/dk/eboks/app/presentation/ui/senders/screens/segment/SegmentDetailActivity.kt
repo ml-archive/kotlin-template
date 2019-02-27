@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
 
-    var onLanguageChangedListener: (Locale) -> Unit = { }
+    private var onLanguageChangedListener: (Locale) -> Unit = { }
 
     @Inject
     lateinit var presenter: SegmentDetailContract.Presenter

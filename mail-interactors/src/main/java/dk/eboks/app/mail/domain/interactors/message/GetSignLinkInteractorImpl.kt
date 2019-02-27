@@ -1,9 +1,6 @@
 package dk.eboks.app.mail.domain.interactors.message
 
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractor.Companion.CANCEL_CALLBACK
-import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractor.Companion.ERROR_CALLBACK
-import dk.eboks.app.mail.domain.interactors.message.GetSignLinkInteractor.Companion.SUCCESS_CALLBACK
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
@@ -44,5 +41,11 @@ internal class GetSignLinkInteractorImpl @Inject constructor(
                 }
             }
         }.guard { runOnUIThread { output?.onGetSignLinkError(ViewError()) } }
+    }
+
+    companion object {
+        const val CANCEL_CALLBACK = "eboksdk://cancel"
+        const val SUCCESS_CALLBACK = "eboksdk://success"
+        const val ERROR_CALLBACK = "eboksdk://error"
     }
 }

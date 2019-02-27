@@ -5,10 +5,10 @@ enum class FolderDrawerMode(val type: String) {
     EDIT("email");
 
     override fun toString(): String {
-        when (this) {
-            NEW -> return "new"
-            EDIT -> return "edit"
-            else -> return "unknown"
+        return when (this) {
+            NEW -> "new"
+            EDIT -> "edit"
+            else -> "unknown"
         }
     }
 }

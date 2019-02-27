@@ -33,7 +33,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
 
     var senders: MutableList<Sender> = ArrayList()
     var filteredSenders: MutableList<Sender> = ArrayList()
-    var searchMode: Boolean = false
+    private var searchMode: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,7 +66,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         activity?.searchAllSenderSv?.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             var filterSenders = Runnable {
-                var text = activity?.searchAllSenderSv?.query?.toString()?.trim() ?: ""
+                val text = activity?.searchAllSenderSv?.query?.toString()?.trim() ?: ""
                 presenter.searchSenders(text)
             }
 
@@ -152,7 +152,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
 
         inner class SenderViewHolder(root: View) : RecyclerView.ViewHolder(root) {
             val title = root.findViewById<TextView>(R.id.titleTv)
-            val unreadCountTv = root.findViewById<TextView>(R.id.unreadCountTv)
+            private val unreadCountTv = root.findViewById<TextView>(R.id.unreadCountTv)
             val dividerV = root.findViewById<View>(R.id.dividerV)
             val circleIv = root.findViewById<ImageView>(R.id.circleIv)
 

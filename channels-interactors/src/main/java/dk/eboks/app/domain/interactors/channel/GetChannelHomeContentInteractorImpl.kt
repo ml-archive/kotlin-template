@@ -133,7 +133,7 @@ internal class GetChannelHomeContentInteractorImpl @Inject constructor(
             runOnUIThread {
                 output?.onGetInstalledChannelList(installedChannels)
                 for (entry in channelMap) {
-                    var channel = installedChannels[entry.key]
+                    val channel = installedChannels[entry.key]
                     val content = entry.value.getCompleted()
                     output?.onGetChannelHomeContent(channel, content)
                     // Timber.e("refreshCachedData channel ${channel.name}")
@@ -154,7 +154,7 @@ internal class GetChannelHomeContentInteractorImpl @Inject constructor(
         if (pinnedChannels.isNotEmpty()) {
             // val channelMap : MutableMap<Int, Deferred<HomeContent>> = HashMap()
             runBlocking {
-                pinnedChannels.forEachIndexed { index, channel ->
+                pinnedChannels.forEach { channel ->
                     // if we had to fetch the data in emitCachedData() dont load it from the network again
                     try {
                         Timber.d("TESTING output == null ? ${output == null}")

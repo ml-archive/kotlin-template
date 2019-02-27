@@ -46,7 +46,7 @@ class SignupComponentPresenter @Inject constructor(
 
     companion object {
         val tempUser: User = User()
-        val identity: String = ""
+        const val identity: String = ""
     }
 
     override fun confirmMail(email: String, name: String) {

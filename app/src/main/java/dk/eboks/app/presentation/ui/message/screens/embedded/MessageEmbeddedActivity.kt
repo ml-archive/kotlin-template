@@ -44,14 +44,14 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
 
     @Inject lateinit var viewController: ViewController
 
-    var headerComponentFragment: HeaderComponentFragment? = null
-    var replyButtonComponentFragment: ReplyButtonComponentFragment? = null
-    var signButtonComponentFragment: SignButtonComponentFragment? = null
+    private var headerComponentFragment: HeaderComponentFragment? = null
+    private var replyButtonComponentFragment: ReplyButtonComponentFragment? = null
+    private var signButtonComponentFragment: SignButtonComponentFragment? = null
     var shareComponentFragment: ShareComponentFragment? = null
-    var notesComponentFragment: NotesComponentFragment? = null
-    var attachmentsComponentFragment: AttachmentsComponentFragment? = null
-    var folderInfoComponentFragment: FolderInfoComponentFragment? = null
-    var embeddedViewerComponentFragment: Fragment? = null
+    private var notesComponentFragment: NotesComponentFragment? = null
+    private var attachmentsComponentFragment: AttachmentsComponentFragment? = null
+    private var folderInfoComponentFragment: FolderInfoComponentFragment? = null
+    private var embeddedViewerComponentFragment: Fragment? = null
 
     private var actionButtons = arrayListOf(
         OverlayButton(ButtonType.PRINT),

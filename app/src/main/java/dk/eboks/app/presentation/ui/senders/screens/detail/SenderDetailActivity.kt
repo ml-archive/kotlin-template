@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 class SenderDetailActivity : BaseActivity(), SenderDetailContract.View {
 
-    var onLanguageChangedListener: (Locale) -> Unit = {
+    private var onLanguageChangedListener: (Locale) -> Unit = {
     }
 
     @Inject

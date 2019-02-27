@@ -59,7 +59,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             field = value
             adapter.folder = value
         }
-    var modeEdit: Boolean = false
+    private var modeEdit: Boolean = false
         set(value) {
             field = value
             adapter.editMode = value

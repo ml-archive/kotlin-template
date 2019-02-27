@@ -20,7 +20,7 @@ internal class DeleteEKeyVaultInteractorImpl @Inject constructor(
             input?.let {
                 val response = api.keyVaultDelete(it.signatureTime, it.signature).execute()
 
-                if (response?.isSuccessful == true) {
+                if (response.isSuccessful) {
                     runOnUIThread { output?.onDeleteEKeyVaultSuccess() }
                 }
             }.guard {

@@ -47,13 +47,13 @@ class CacheStore<K, V>(
         Looks for the data in the cache first, if not found uses the fetch function
      */
     fun get(key: K): V? {
-        if (!cacheMap.containsKey(key)) {
+        return if (!cacheMap.containsKey(key)) {
             val res = fetchFunction(key)
             res?.let { put(key, res) }
-            return res
+            res
         } else {
             Timber.v("Cache $filename found key $key")
-            return cacheMap[key]
+            cacheMap[key]
         }
     }
 

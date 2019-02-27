@@ -19,17 +19,10 @@ abstract class ChannelControl(
     val inflater: LayoutInflater,
     val handler: Handler
 ) : Observable() {
-    var logoIv: ImageView
-    var progressPb: ProgressBar
-    var headerTv: TextView
-    var rowsContainerLl: LinearLayout
-
-    init {
-        logoIv = view.findViewById(R.id.logoIv)
-        progressPb = view.findViewById(R.id.progressPb)
-        headerTv = view.findViewById(R.id.headerTv)
-        rowsContainerLl = view.findViewById(R.id.rowsContainerLl)
-    }
+    val logoIv: ImageView = view.findViewById(R.id.logoIv)
+    val progressPb: ProgressBar = view.findViewById(R.id.progressPb)
+    val headerTv: TextView = view.findViewById(R.id.headerTv)
+    val rowsContainerLl: LinearLayout = view.findViewById(R.id.rowsContainerLl)
 
     fun showProgress(show: Boolean) {
         logoIv.visibility = if (show) View.GONE else View.VISIBLE

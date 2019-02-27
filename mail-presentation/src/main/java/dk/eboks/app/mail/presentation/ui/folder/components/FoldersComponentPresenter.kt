@@ -23,7 +23,7 @@ internal class FoldersComponentPresenter @Inject constructor(
     GetFoldersInteractor.Output,
     OpenFolderInteractor.Output {
 
-    var pickermode: FolderMode = FolderMode.NORMAL
+    private var pickermode: FolderMode = FolderMode.NORMAL
 
     init {
 

@@ -62,7 +62,7 @@ class PermissionRequestActivity : BaseActivity() {
     ) {
         if (requestCode == PERMISSION_REQUEST) {
             Timber.e("Permission request completed")
-            for (i in 0..permissions.size - 1) {
+            for (i in 0 until permissions.size) {
                 Timber.e("Requested perm ${permissions[i]} = ${grantResults[i] == PackageManager.PERMISSION_GRANTED}")
                 permissionManager.permsToCheck?.let { perms ->
                     perms[i].wasGranted = grantResults[i] == PackageManager.PERMISSION_GRANTED

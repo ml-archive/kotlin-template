@@ -23,7 +23,7 @@ class UserRestRepository @Inject constructor(
 
     override fun verifyEmail(mail: String) {
         val result = api.verifyEmail(mail).execute()
-        result?.let { response ->
+        result.let { response ->
             if (response.isSuccessful) {
                 return
             }
@@ -33,7 +33,7 @@ class UserRestRepository @Inject constructor(
 
     override fun verifyPhone(number: String) {
         val result = api.verifyMobile(number).execute()
-        result?.let { response ->
+        result.let { response ->
             if (response.isSuccessful) {
                 return
             }
@@ -43,7 +43,7 @@ class UserRestRepository @Inject constructor(
 
     override fun confirmPhone(number: String, code: String) {
         val result = api.confirmMobile(number, code).execute()
-        result?.let { response ->
+        result.let { response ->
             if (response.isSuccessful) {
                 return
             }

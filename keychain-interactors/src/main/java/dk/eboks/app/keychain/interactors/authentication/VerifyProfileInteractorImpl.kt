@@ -90,7 +90,7 @@ internal class VerifyProfileInteractorImpl @Inject constructor(
                                 // update the states
                                 Timber.e("Saving user $user")
                                 val newUser = userManager.put(user)
-                                val newSettings = userSettingsManager.get(newUser.id)
+                                val newSettings = userSettingsManager[newUser.id]
 
                                 appStateManager.state?.loginState?.userLoginProviderId?.let {
                                     newSettings.lastLoginProviderId = "cpr"

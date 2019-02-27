@@ -35,7 +35,6 @@ import dk.eboks.app.domain.config.AppConfigImpl
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.Channel
 import timber.log.Timber
 import java.io.Serializable
 
@@ -74,7 +73,7 @@ fun Editable?.isValidEmail(): Boolean {
 fun Editable?.isValidCpr(): Boolean {
     if (this == null) return false
     val cprLength = AppConfigImpl.currentMode.cprLength
-    val cprRegex = Regex("^[0-9]{$cprLength}$")
+    val cprRegex = Regex("^[0-9]*$cprLength}$")
     val text = toString().trim()
     return !TextUtils.isEmpty(text) && text.matches(cprRegex)
 }
@@ -125,13 +124,9 @@ fun EditText.addAfterTextChangeListener(listener: ((Editable?) -> Unit)) {
 //    return false
 // }
 
-
-
 fun Image.getWorkaroundUrl(): String {
     return "$url&type=1"
 }
-
-
 
 /**
  * Add cases to this where you want to use the standard exception to view error method
@@ -140,7 +135,7 @@ fun Image.getWorkaroundUrl(): String {
  * Its just for convenience yall
  */
 
-class ActivityStarter(val callingActivity: Activity) {
+class ActivityStarter(private val callingActivity: Activity) {
     private var activityClass: Class<out Activity>? = null
     private var intent: Intent? = null
 
@@ -193,6 +188,7 @@ class ActivityStarter(val callingActivity: Activity) {
     }
 }
 
+@Suppress("FunctionName")
 fun Activity.Starter(): ActivityStarter {
     return ActivityStarter(this)
 }

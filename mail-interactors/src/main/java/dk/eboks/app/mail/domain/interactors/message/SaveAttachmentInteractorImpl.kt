@@ -27,7 +27,7 @@ internal class SaveAttachmentInteractorImpl @Inject constructor(
     override fun execute() {
         try {
             input?.attachment?.let { content ->
-                var filename = cacheManager.getCachedContentFileName(content)
+                val filename = cacheManager.getCachedContentFileName(content)
                 filename.guard { throw InteractorException("Cached content $filename could not be find") }
 
                 if (!permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {

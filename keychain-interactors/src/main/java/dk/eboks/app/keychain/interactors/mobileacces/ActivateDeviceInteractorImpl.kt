@@ -24,9 +24,7 @@ internal class ActivateDeviceInteractorImpl @Inject constructor(
                 val deviceName = "test device"
                 val os = "Android"
                 val key = it.key
-
-                val userResult =
-                    api.activateDevice(ActivationDevice(deviceId, deviceName, os, key)).execute()
+                api.activateDevice(ActivationDevice(deviceId, deviceName, os, key)).execute()
                 runOnUIThread { output?.onActivateDeviceSuccess() }
             }
         } catch (t: Throwable) {

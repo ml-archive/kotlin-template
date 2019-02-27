@@ -19,11 +19,11 @@ enum class RequirementType(val type: String) : Parcelable {
     MOBILNUMMER("mobilnummer");
 
     override fun toString(): String {
-        when (this) {
-            IDENTITY -> return "identity"
-            NAME -> return "name"
-            EMAIL -> return "email"
-            else -> return "mobilnummer"
+        return when (this) {
+            IDENTITY -> "identity"
+            NAME -> "name"
+            EMAIL -> "email"
+            else -> "mobilnummer"
         }
     }
 }

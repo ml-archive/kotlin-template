@@ -45,7 +45,7 @@ class ChannelControlComponentPresenter @Inject constructor(
         EventBus.getDefault().post(RefreshChannelControlDoneEvent())
     }
 
-    override fun onGetInstalledChannelList(channels: MutableList<Channel>) {
+    override fun onGetInstalledChannelList(channels: List<Channel>) {
         runAction { v ->
             v.showProgress(false)
             v.setupChannels(channels)

@@ -23,12 +23,12 @@ class CryptoManagerImpl @Inject constructor(
     val context: Context,
     val settingsRepository: SettingsRepository
 ) : CryptoManager {
-    private val AndroidKeyStore = "AndroidKeyStore"
+    private val androidKeyStore = "androidKeyStore"
 
     @SuppressLint("NewApi")
     @Throws(Exception::class)
     override fun generateRSAKey(userId: String) {
-        val keyStore = KeyStore.getInstance(AndroidKeyStore)
+        val keyStore = KeyStore.getInstance(androidKeyStore)
         keyStore.load(null)
         // Generate the RSA key pairs
         if (!keyStore.containsAlias(userId)) {
@@ -46,7 +46,7 @@ class CryptoManagerImpl @Inject constructor(
                 .setEndDate(end.time)
                 .build()
 
-            val kpg = KeyPairGenerator.getInstance("RSA", AndroidKeyStore)
+            val kpg = KeyPairGenerator.getInstance("RSA", androidKeyStore)
             kpg.initialize(spec)
             val kp = kpg.generateKeyPair()
             Timber.i("Public key: %s", getPublicKeyAsString(kp.public))
@@ -65,7 +65,7 @@ class CryptoManagerImpl @Inject constructor(
      */
     override fun renameActivation(oldAlias: String, newAlias: String) {
         try {
-            val keyStore = KeyStore.getInstance(AndroidKeyStore)
+            val keyStore = KeyStore.getInstance(androidKeyStore)
             keyStore.load(null)
             if (keyStore.containsAlias(oldAlias)) {
                 val entry = keyStore.getEntry(oldAlias, null)
@@ -85,7 +85,7 @@ class CryptoManagerImpl @Inject constructor(
 
     override fun hasActivation(userId: String): Boolean {
         try {
-            val keyStore = KeyStore.getInstance(AndroidKeyStore)
+            val keyStore = KeyStore.getInstance(androidKeyStore)
             keyStore.load(null)
             if (keyStore.containsAlias(userId))
                 return true
@@ -138,7 +138,7 @@ class CryptoManagerImpl @Inject constructor(
 
     @Throws(Exception::class)
     override fun deleteActivation(userId: String) {
-        val keyStore = KeyStore.getInstance(AndroidKeyStore)
+        val keyStore = KeyStore.getInstance(androidKeyStore)
         keyStore.load(null)
         keyStore.deleteEntry(userId)
         Timber.e("Deleting entry $userId")
@@ -146,7 +146,7 @@ class CryptoManagerImpl @Inject constructor(
 
     @Throws(Exception::class)
     override fun deleteAllActivations() {
-        val keyStore = KeyStore.getInstance(AndroidKeyStore)
+        val keyStore = KeyStore.getInstance(androidKeyStore)
         keyStore.load(null)
 
         val aliases = keyStore.aliases()
@@ -163,7 +163,7 @@ class CryptoManagerImpl @Inject constructor(
 
     @Throws(Exception::class)
     private fun getPrivateKeyFromKeystore(userId: String): PrivateKey {
-        val keyStore = KeyStore.getInstance(AndroidKeyStore)
+        val keyStore = KeyStore.getInstance(androidKeyStore)
         keyStore.load(null)
         /*
         Enumeration<String> aliases = keyStore.aliases();
@@ -178,7 +178,7 @@ class CryptoManagerImpl @Inject constructor(
 
     @Throws(Exception::class)
     private fun getPublicKeyFromKeystore(userId: String): PublicKey {
-        val keyStore = KeyStore.getInstance(AndroidKeyStore)
+        val keyStore = KeyStore.getInstance(androidKeyStore)
         keyStore.load(null)
         val privateKeyEntry = keyStore.getEntry(userId, null) as KeyStore.PrivateKeyEntry
         return privateKeyEntry.certificate.publicKey

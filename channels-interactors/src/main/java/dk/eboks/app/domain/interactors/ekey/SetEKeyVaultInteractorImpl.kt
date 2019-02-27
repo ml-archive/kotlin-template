@@ -22,8 +22,8 @@ internal class SetEKeyVaultInteractorImpl @Inject constructor(
                 val response = api.keyVaultSet(it.vault, it.signatureTime, it.signature).execute()
 
                 when {
-                    response?.isSuccessful == true -> runOnUIThread { output?.onSetEKeyVaultSuccess() }
-                    response?.code() == 403 -> runOnUIThread { output?.onAuthError(it.retryCount) }
+                    response.isSuccessful -> runOnUIThread { output?.onSetEKeyVaultSuccess() }
+                    response.code() == 403 -> runOnUIThread { output?.onAuthError(it.retryCount) }
                     else -> throw InteractorException("Wrong input")
                 }
             }.guard {

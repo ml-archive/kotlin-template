@@ -43,7 +43,7 @@ internal class EkeyContentPresenter @Inject constructor(
     GetEKeyVaultInteractor.Output, SetEKeyVaultInteractor.Output {
 
     private var gson: Gson
-    var masterKey: String? = null
+    private var masterKey: String? = null
     override var pin: String? = null
     private var keys: ArrayList<BaseEkey> = arrayListOf()
     private var hasRetried: Boolean = false
@@ -269,7 +269,7 @@ internal class EkeyContentPresenter @Inject constructor(
         setMasterKeyInteractor.run()
     }
 
-    fun getMasterkeyFromBackend() {
+    private fun getMasterkeyFromBackend() {
         getMasterkeyInteractor.input = GetEKeyMasterkeyInteractor.Input()
         getMasterkeyInteractor.run()
     }

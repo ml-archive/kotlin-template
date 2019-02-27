@@ -114,9 +114,7 @@ class BetterEkeyAdapter(
             content.setOnClickListener {
                 // todo clicked
                 Timber.i(item.toString())
-                ekeyclicklistener?.let {
-                    it.onEkeyClicked(eKey.data)
-                }
+                ekeyclicklistener?.onEkeyClicked(eKey.data)
             }
             when (eKey.data) {
                 is Note -> {
