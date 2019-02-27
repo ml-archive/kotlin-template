@@ -15,7 +15,6 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.ViewController
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
 import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivity
-import dk.eboks.app.util.ViewControllerImpl
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.translatedName
 import dk.eboks.app.util.visible

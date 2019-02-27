@@ -9,7 +9,6 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.mail.presentation.ui.message.components.opening.privatesender.PrivateSenderWarningComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.ViewController
-import dk.eboks.app.util.ViewControllerImpl
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_mail_opening_error_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*

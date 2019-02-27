@@ -31,7 +31,6 @@ import dk.eboks.app.presentation.ui.message.components.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
-import dk.eboks.app.util.ViewControllerImpl
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
