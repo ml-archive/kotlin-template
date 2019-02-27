@@ -2,7 +2,6 @@ import dk.eboks.buildsrc.Libs
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion buildConfig.compileSdk
@@ -14,7 +13,6 @@ android {
     }
 }
 
-
 dependencies {
     implementation project(':core')
     implementation project(':api')
@@ -24,7 +22,6 @@ dependencies {
     implementation Libs.timber
     implementation Libs.Retrofit.retrofit
     implementation Libs.Dagger.dagger
-    kapt Libs.Dagger.compiler
 
     testImplementation Libs.junit
     androidTestImplementation Libs.Test.runner
