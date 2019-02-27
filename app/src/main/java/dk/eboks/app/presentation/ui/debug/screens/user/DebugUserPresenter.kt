@@ -3,7 +3,7 @@ package dk.eboks.app.presentation.ui.debug.screens.user
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.interactors.user.CreateDebugUserInteractorImpl
-import dk.eboks.app.domain.interactors.user.CreateUserInteractor
+import dk.eboks.app.keychain.interactors.user.CreateUserInteractor
 import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.local.ViewError
