@@ -37,6 +37,7 @@ dependencies {
 
     implementation Libs.timber
     implementation Libs.Nodes.arch
+    implementation Libs.Dagger.dagger
 
     implementation Libs.gson
 

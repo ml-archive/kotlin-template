@@ -90,213 +90,166 @@ import dk.eboks.app.domain.interactors.user.VerifyEmailInteractor
 import dk.eboks.app.domain.interactors.user.VerifyEmailInteractorImpl
 import dk.eboks.app.domain.interactors.user.VerifyPhoneInteractor
 import dk.eboks.app.domain.interactors.user.VerifyPhoneInteractorImpl
+import dk.eboks.app.keychain.injection.KeychainInteractorsModule
 import dk.eboks.app.mail.injection.MailBindingInteractorModule
 
 @Module(
     includes = [
-        MailBindingInteractorModule::class
+        MailBindingInteractorModule::class,
+        KeychainInteractorsModule::class
     ]
 )
-abstract class InteractorModule {
+ abstract class InteractorModule {
 
 
     @Binds
-    abstract fun bindVerifyEmailInteractor(interactor: VerifyEmailInteractorImpl): VerifyEmailInteractor
+    internal abstract fun bindVerifyEmailInteractor(interactor: VerifyEmailInteractorImpl): VerifyEmailInteractor
 
     @Binds
-    abstract fun bindUpdateUserInteractor(interactor: UpdateUserInteractorImpl): UpdateUserInteractor
+    internal abstract fun bindUpdateUserInteractor(interactor: UpdateUserInteractorImpl): UpdateUserInteractor
 
     @Binds
-    abstract fun bindBootstrapInteractor(interactor: BootstrapInteractorImpl): BootstrapInteractor
+    internal abstract fun bindBootstrapInteractor(interactor: BootstrapInteractorImpl): BootstrapInteractor
 
     @Binds
-    abstract fun bindGetStoreboxCreditCardsInteractor(interactor: GetStoreboxCreditCardsInteractorImpl): GetStoreboxCreditCardsInteractor
+    internal abstract fun bindGetStoreboxCreditCardsInteractor(interactor: GetStoreboxCreditCardsInteractorImpl): GetStoreboxCreditCardsInteractor
 
     @Binds
-    abstract fun bindDeleteStoreboxCreditCardInteractor(interactor: DeleteStoreboxCreditCardInteractorImpl): DeleteStoreboxCreditCardInteractor
+    internal abstract fun bindDeleteStoreboxCreditCardInteractor(interactor: DeleteStoreboxCreditCardInteractorImpl): DeleteStoreboxCreditCardInteractor
 
     @Binds
-    abstract fun bindGetChannelsInteractor(interactor: GetChannelsInteractorImpl): GetChannelsInteractor
-
-
-
-    @Binds
-    abstract fun bindSaveUserSettingsInteractor(interactor: SaveUserSettingsInteractorImpl): SaveUserSettingsInteractor
-
-    @Binds
-    abstract fun bindSaveUserInteractor(interactor: SaveUserInteractorImpl): SaveUserInteractor
-
-    @Binds
-    abstract fun bindSaveUsersInteractor(interactor: SaveUsersInteractorImpl): SaveUsersInteractor
+    internal abstract fun bindGetChannelsInteractor(interactor: GetChannelsInteractorImpl): GetChannelsInteractor
 
 
 
     @Binds
-    abstract fun bindGetUserProfileInteractor(interactor: GetUserProfileInteractorImpl): GetUserProfileInteractor
+    internal abstract fun bindSaveUserSettingsInteractor(interactor: SaveUserSettingsInteractorImpl): SaveUserSettingsInteractor
 
     @Binds
-    abstract fun bindGetChannelInteractor(interactor: GetChannelInteractorImpl): GetChannelInteractor
+    internal abstract fun bindSaveUserInteractor(interactor: SaveUserInteractorImpl): SaveUserInteractor
 
     @Binds
-    abstract fun bindInstallChannelInteractor(interactor: InstallChannelInteractorImpl): InstallChannelInteractor
-
-    @Binds
-    abstract fun bindUninstallChannelInteractor(interactor: UninstallChannelInteractorImpl): UninstallChannelInteractor
-
-    @Binds
-    abstract fun bindGetChannelHomeContentInteractor(interactor: GetChannelHomeContentInteractorImpl): GetChannelHomeContentInteractor
-
-    @Binds
-    abstract fun bindGetChannelContentLinkInteractor(interactor: GetChannelContentLinkInteractorImpl): GetChannelContentLinkInteractor
-
-    @Binds
-    abstract fun bindGetSenderCategoriesInteractor(interactor: GetSenderCategoriesInteractorImpl): GetSenderCategoriesInteractor
-
-    @Binds
-    abstract fun bindGetSenderDetailInteractor(interactor: GetSenderDetailInteractorImpl): GetSenderDetailInteractor
-
-    @Binds
-    abstract fun bindGetStoreboxReceiptsInteractor(interactor: GetStoreboxReceiptsInteractorImpl): GetStoreboxReceiptsInteractor
-
-    @Binds
-    abstract fun bindGetStoreboxReceiptInteractor(interactor: GetStoreboxReceiptInteractorImpl): GetStoreboxReceiptInteractor
-
-    @Binds
-    abstract fun bindGetSegmentDetailInteractor(interactor: GetSegmentInteractorImpl): GetSegmentInteractor
-
-    @Binds
-    abstract fun bindGetPendingInteractor(interactor: GetPendingInteractorImpl): GetPendingInteractor
+    internal abstract fun bindSaveUsersInteractor(interactor: SaveUsersInteractorImpl): SaveUsersInteractor
 
 
 
     @Binds
-    abstract fun bindGetCollectionsInteractor(interactor: GetCollectionsInteractorImpl): GetCollectionsInteractor
+    internal abstract fun bindGetUserProfileInteractor(interactor: GetUserProfileInteractorImpl): GetUserProfileInteractor
 
     @Binds
-    abstract fun bindRegisterInteractor(interactor: RegisterInteractorImpl): RegisterInteractor
+    internal abstract fun bindGetChannelInteractor(interactor: GetChannelInteractorImpl): GetChannelInteractor
 
     @Binds
-    abstract fun bindUnRegisterInteractor(interactor: UnRegisterInteractorImpl): UnRegisterInteractor
+    internal abstract fun bindInstallChannelInteractor(interactor: InstallChannelInteractorImpl): InstallChannelInteractor
 
     @Binds
-    abstract fun bindRegistrationsInteractor(interactor: GetRegistrationsInteractorImpl): GetRegistrationsInteractor
+    internal abstract fun bindUninstallChannelInteractor(interactor: UninstallChannelInteractorImpl): UninstallChannelInteractor
 
     @Binds
-    abstract fun bindLinkStoreboxInteractor(interactor: LinkStoreboxInteractorImpl): LinkStoreboxInteractor
+    internal abstract fun bindGetChannelHomeContentInteractor(interactor: GetChannelHomeContentInteractorImpl): GetChannelHomeContentInteractor
 
     @Binds
-    abstract fun bindCreateStoreboxInteractor(interactor: CreateStoreboxInteractorImpl): CreateStoreboxInteractor
+    internal abstract fun bindGetChannelContentLinkInteractor(interactor: GetChannelContentLinkInteractorImpl): GetChannelContentLinkInteractor
 
     @Binds
-    abstract fun bindGetStoreboxProfileInteractor(interactor: GetStoreboxProfileInteractorImpl): GetStoreboxProfileInteractor
+    internal abstract fun bindGetSenderCategoriesInteractor(interactor: GetSenderCategoriesInteractorImpl): GetSenderCategoriesInteractor
 
     @Binds
-    abstract fun bindPutStoreboxProfileInteractor(interactor: PutStoreboxProfileInteractorImpl): PutStoreboxProfileInteractor
+    internal abstract fun bindGetSenderDetailInteractor(interactor: GetSenderDetailInteractorImpl): GetSenderDetailInteractor
 
     @Binds
-    abstract fun bindGetStoreboxCardLinkInteractor(interactor: GetStoreboxCardLinkInteractorImpl): GetStoreboxCardLinkInteractor
+    internal abstract fun bindGetStoreboxReceiptsInteractor(interactor: GetStoreboxReceiptsInteractorImpl): GetStoreboxReceiptsInteractor
 
     @Binds
-    abstract fun bindDeleteStoreboxAccountLinkInteractor(interactor: DeleteStoreboxAccountLinkInteractorImpl): DeleteStoreboxAccountLinkInteractor
+    internal abstract fun bindGetStoreboxReceiptInteractor(interactor: GetStoreboxReceiptInteractorImpl): GetStoreboxReceiptInteractor
 
     @Binds
-    abstract fun bindDeleteStoreboxReceiptInteractor(interactor: DeleteStoreboxReceiptInteractorImpl): DeleteStoreboxReceiptInteractor
+    internal abstract fun bindGetSegmentDetailInteractor(interactor: GetSegmentInteractorImpl): GetSegmentInteractor
 
     @Binds
-    abstract fun bindUpdateStoreboxFlagsInteractor(interactor: UpdateStoreboxFlagsInteractorImpl): UpdateStoreboxFlagsInteractor
-
-    @Binds
-    abstract fun bindConfirmStoreboxInteractor(interactor: ConfirmStoreboxInteractorImpl): ConfirmStoreboxInteractor
+    internal abstract fun bindGetPendingInteractor(interactor: GetPendingInteractorImpl): GetPendingInteractor
 
 
 
     @Binds
-    abstract fun bindVerifyPhoneInteractor(interactor: VerifyPhoneInteractorImpl): VerifyPhoneInteractor
+    internal abstract fun bindGetCollectionsInteractor(interactor: GetCollectionsInteractorImpl): GetCollectionsInteractor
 
     @Binds
-    abstract fun bindConfirmPhoneInteractor(interactor: ConfirmPhoneInteractorImpl): ConfirmPhoneInteractor
+    internal abstract fun bindRegisterInteractor(interactor: RegisterInteractorImpl): RegisterInteractor
+
+    @Binds
+    internal abstract fun bindUnRegisterInteractor(interactor: UnRegisterInteractorImpl): UnRegisterInteractor
+
+    @Binds
+    internal abstract fun bindRegistrationsInteractor(interactor: GetRegistrationsInteractorImpl): GetRegistrationsInteractor
+
+    @Binds
+    internal abstract fun bindLinkStoreboxInteractor(interactor: LinkStoreboxInteractorImpl): LinkStoreboxInteractor
+
+    @Binds
+    internal abstract fun bindCreateStoreboxInteractor(interactor: CreateStoreboxInteractorImpl): CreateStoreboxInteractor
+
+    @Binds
+    internal abstract fun bindGetStoreboxProfileInteractor(interactor: GetStoreboxProfileInteractorImpl): GetStoreboxProfileInteractor
+
+    @Binds
+    internal abstract fun bindPutStoreboxProfileInteractor(interactor: PutStoreboxProfileInteractorImpl): PutStoreboxProfileInteractor
+
+    @Binds
+    internal abstract fun bindGetStoreboxCardLinkInteractor(interactor: GetStoreboxCardLinkInteractorImpl): GetStoreboxCardLinkInteractor
+
+    @Binds
+    internal abstract fun bindDeleteStoreboxAccountLinkInteractor(interactor: DeleteStoreboxAccountLinkInteractorImpl): DeleteStoreboxAccountLinkInteractor
+
+    @Binds
+    internal abstract fun bindDeleteStoreboxReceiptInteractor(interactor: DeleteStoreboxReceiptInteractorImpl): DeleteStoreboxReceiptInteractor
+
+    @Binds
+    internal abstract fun bindUpdateStoreboxFlagsInteractor(interactor: UpdateStoreboxFlagsInteractorImpl): UpdateStoreboxFlagsInteractor
+
+    @Binds
+    internal abstract fun bindConfirmStoreboxInteractor(interactor: ConfirmStoreboxInteractorImpl): ConfirmStoreboxInteractor
+
+
+
+    @Binds
+    internal abstract fun bindVerifyPhoneInteractor(interactor: VerifyPhoneInteractorImpl): VerifyPhoneInteractor
+
+    @Binds
+    internal abstract fun bindConfirmPhoneInteractor(interactor: ConfirmPhoneInteractorImpl): ConfirmPhoneInteractor
 
     // E Key Interactors
 
     @Binds
-    abstract fun bindGetEKeyVaultInteractor(interactor: GetEKeyVaultInteractorImpl): GetEKeyVaultInteractor
+    internal abstract fun bindGetEKeyVaultInteractor(interactor: GetEKeyVaultInteractorImpl): GetEKeyVaultInteractor
 
     @Binds
-    abstract fun bindSetEKeyVaultInteractor(interactor: SetEKeyVaultInteractorImpl): SetEKeyVaultInteractor
+    internal abstract fun bindSetEKeyVaultInteractor(interactor: SetEKeyVaultInteractorImpl): SetEKeyVaultInteractor
 
     @Binds
-    abstract fun bindDeleteEKeyVaultInteractor(interactor: DeleteEKeyVaultInteractorImpl): DeleteEKeyVaultInteractor
+    internal abstract fun bindDeleteEKeyVaultInteractor(interactor: DeleteEKeyVaultInteractorImpl): DeleteEKeyVaultInteractor
 
     @Binds
-    abstract fun bindGetEKeyMasterkeyInteractor(interactor: GetEKeyMasterkeyInteractorImpl): GetEKeyMasterkeyInteractor
+    internal abstract fun bindGetEKeyMasterkeyInteractor(interactor: GetEKeyMasterkeyInteractorImpl): GetEKeyMasterkeyInteractor
 
     @Binds
-    abstract fun bindSetEKeyMasterkeyInteractor(interactor: SetEKeyMasterkeyInteractorImpl): SetEKeyMasterkeyInteractor
+    internal abstract fun bindSetEKeyMasterkeyInteractor(interactor: SetEKeyMasterkeyInteractorImpl): SetEKeyMasterkeyInteractor
 
     @Binds
-    abstract fun bindDeleteEKeyMasterkeyInteractor(interactor: DeleteEKeyMasterkeyInteractorImpl): DeleteEKeyMasterkeyInteractor
+    internal abstract fun bindDeleteEKeyMasterkeyInteractor(interactor: DeleteEKeyMasterkeyInteractorImpl): DeleteEKeyMasterkeyInteractor
 
     @Binds
-    abstract fun bindSaveReceiptInteractor(interactor: SaveReceiptInteractorImpl): SaveReceiptInteractor
+    internal abstract fun bindSaveReceiptInteractor(interactor: SaveReceiptInteractorImpl): SaveReceiptInteractor
 
     @Binds
-    abstract fun bindShareReceiptInteractor(interactor: ShareReceiptInteractorImpl): ShareReceiptInteractor
-
-   /* @Binds
-    abstract fun bindEncryptUserLoginInfoInteractor(interactor: EncryptUserLoginInfoInteractorImpl): EncryptUserLoginInfoInteractor
+    internal abstract fun bindShareReceiptInteractor(interactor: ShareReceiptInteractorImpl): ShareReceiptInteractor
 
     @Binds
-    abstract fun bindTransformTokenInteractor(interactor: TransformTokenInteractorImpl): TransformTokenInteractor
+    internal abstract fun bindEncryptUserLoginInfoInteractor(interactor: EncryptUserLoginInfoInteractorImpl): EncryptUserLoginInfoInteractor
 
     @Binds
-    abstract fun bindMergeAndImpersonateInteractor(interactor: MergeAndImpersonateInteractorImpl): MergeAndImpersonateInteractor
+    internal abstract fun bindTestLoginInteractor(interactor: TestLoginInteractorImpl): TestLoginInteractor
 
     @Binds
-    abstract fun bindVerifyProfileInteractor(interactor: VerifyProfileInteractorImpl): VerifyProfileInteractor
-
-    @Binds
-    abstract fun bindSetCurrentUserInteractor(interactor: SetCurrentUserInteractorImpl): SetCurrentUserInteractor
-
-    @Binds
-    abstract fun bindResetPasswordInteractor(interactor: ResetPasswordInteractorImpl): ResetPasswordInteractor
-
-    @Binds
-    abstract fun bindCheckRSAKeyPresenceInteractor(interactor: CheckRSAKeyPresenceInteractorImpl): CheckRSAKeyPresenceInteractor
-
-    @Binds
-    abstract fun bindGenerateRSAKey(interactor: GenerateRSAKeyInteractorImpl): GenerateRSAKeyInteractor
-
-    @Binds
-    abstract fun bindDeleteRSAKey(interactor: DeleteRSAKeyInteractorImpl): DeleteRSAKeyInteractor
-
-    @Binds
-    abstract fun bindActivateDevice(interactor: ActivateDeviceInteractorImpl): ActivateDeviceInteractor
-
-    @Binds
-    abstract fun bindDeleteRSAKeyForUserInteractor(interactor: DeleteRSAKeyForUserInteractorImpl): DeleteRSAKeyForUserInteractor
-
-    @Binds
-    abstract fun bindDeleteUserInteractor(interactor: DeleteUserInteractorImpl): DeleteUserInteractor
-
-    @Binds
-    abstract fun bindGetUsersInteractor(interactor: GetUsersInteractorImpl): GetUsersInteractor
-
-    @Binds
-    abstract fun bindCreateUserInteractor(interactor: CreateUserInteractorImpl): CreateUserInteractor
-
-
-    @Binds
-    abstract fun bindLoginInteractor(interactor: LoginInteractorImpl): LoginInteractor
-
-    @Binds
-    abstract fun bindTestLoginInteractor(interactor: TestLoginInteractorImpl): TestLoginInteractor
-
-    @Binds
-    abstract fun bindDecryptInteractor(interactor: DecryptUserLoginInfoInteractorImpl): DecryptUserLoginInfoInteractor
-
-    @Binds
-    abstract fun bindCheckSsnExistsInteractor(interactor: CheckSsnExistsInteractorImpl): CheckSsnExistsInteractor
-
-    @Binds
-    abstract fun bindVerifyignupMailInteractor(interactor: CheckSignupMailInteractorImpl): CheckSignupMailInteractor*/
+    internal abstract fun bindDecryptInteractor(interactor: DecryptUserLoginInfoInteractorImpl): DecryptUserLoginInfoInteractor
 }

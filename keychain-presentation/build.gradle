@@ -37,6 +37,7 @@ dependencies {
 
     implementation Libs.timber
     implementation Libs.Nodes.arch
+    implementation Libs.Dagger.dagger
 
 
     implementation 'com.android.support:appcompat-v7:28.0.0'
