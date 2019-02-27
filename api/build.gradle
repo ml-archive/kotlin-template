@@ -35,7 +35,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":data")
-    implementation project(":base")
+    implementation project(':base')
 
     testImplementation Libs.junit
     androidTestImplementation Libs.Test.runner
@@ -50,6 +50,7 @@ dependencies {
     implementation Libs.Retrofit.gsonConverter
 
     // cookie jar for okhttp
+    implementation Libs.Nodes.filepicker
     implementation Libs.persistentCookieJar
 
     implementation Libs.OkHttp.okhttp

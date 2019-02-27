@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class ShareComponentPresenter @Inject constructor(private val appState: AppStateManager) :
+internal class ShareComponentPresenter @Inject constructor(private val appState: AppStateManager) :
     ShareComponentContract.Presenter,
     BasePresenterImpl<ShareComponentContract.View>() {
 

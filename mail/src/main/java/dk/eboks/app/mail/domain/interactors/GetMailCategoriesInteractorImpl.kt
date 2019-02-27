@@ -1,8 +1,7 @@
-package dk.eboks.app.domain.interactors
+package dk.eboks.app.mail.domain.interactors
 
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.repositories.MailCategoriesRepository
-import dk.eboks.app.mail.domain.interactors.GetCategoriesInteractor
 import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
@@ -12,7 +11,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 01/02/18.
  */
-class GetMailCategoriesInteractorImpl @Inject constructor(
+internal class GetMailCategoriesInteractorImpl @Inject constructor(
     executor: Executor,
     private val foldersRepositoryMail: MailCategoriesRepository
 ) : BaseInteractor(executor), GetCategoriesInteractor {

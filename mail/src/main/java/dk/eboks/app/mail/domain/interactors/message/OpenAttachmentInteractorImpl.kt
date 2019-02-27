@@ -16,7 +16,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 01/02/18.
  */
-class OpenAttachmentInteractorImpl @Inject constructor(
+internal class OpenAttachmentInteractorImpl @Inject constructor(
     executor: Executor,
     private val downloadManager: DownloadManager,
     private val cacheManager: FileCacheManager

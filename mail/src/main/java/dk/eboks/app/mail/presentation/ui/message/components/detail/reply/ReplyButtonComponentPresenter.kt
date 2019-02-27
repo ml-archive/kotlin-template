@@ -7,7 +7,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class ReplyButtonComponentPresenter @Inject constructor() :
+internal class ReplyButtonComponentPresenter @Inject constructor() :
     ReplyButtonComponentContract.Presenter, BasePresenterImpl<ReplyButtonComponentContract.View>() {
 
     init {

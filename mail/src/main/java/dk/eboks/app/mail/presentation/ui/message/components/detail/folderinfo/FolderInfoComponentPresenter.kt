@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class FolderInfoComponentPresenter @Inject constructor(private val appState: AppStateManager) :
+internal class FolderInfoComponentPresenter @Inject constructor(private val appState: AppStateManager) :
     FolderInfoComponentContract.Presenter, BasePresenterImpl<FolderInfoComponentContract.View>() {
 
     init {

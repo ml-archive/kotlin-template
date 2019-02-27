@@ -12,7 +12,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class NotesComponentPresenter @Inject constructor(
+internal class NotesComponentPresenter @Inject constructor(
     appState: AppStateManager,
     private val updateMessageInteractor: UpdateMessageInteractor
 ) :

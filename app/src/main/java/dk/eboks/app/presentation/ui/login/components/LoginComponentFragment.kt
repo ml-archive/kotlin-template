@@ -144,7 +144,7 @@ class LoginComponentFragment : BaseFragment(), cz.levinzonr.keychain.presentatio
         presenter.setup(selectedLoginProviderId, reauth, loginOnResume)
         if (loginOnResume) {
             loginOnResume = false
-            onContinue()
+            presenter.checkRsaKey()
         }
         setupCprEmailListeners()
         setupPasswordListener()

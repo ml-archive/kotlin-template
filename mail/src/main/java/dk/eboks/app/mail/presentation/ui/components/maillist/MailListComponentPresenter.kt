@@ -14,7 +14,7 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
 
-class MailListComponentPresenter @Inject constructor(
+internal class MailListComponentPresenter @Inject constructor(
     private val getMessagesInteractor: GetMessagesInteractor,
     private val deleteMessagesInteractor: DeleteMessagesInteractor,
     private val moveMessagesInteractor: MoveMessagesInteractor,

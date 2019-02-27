@@ -14,7 +14,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class FolderShortcutsComponentPresenter @Inject constructor(
+internal class FolderShortcutsComponentPresenter @Inject constructor(
     private val getCategoriesInteractor: GetCategoriesInteractor,
     private val openFolderInteractor: OpenFolderInteractor
 ) :
