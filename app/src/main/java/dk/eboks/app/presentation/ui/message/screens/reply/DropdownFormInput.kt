@@ -19,7 +19,7 @@ class DropdownFormInput(formInput: FormInput, inflater: LayoutInflater, handler:
     private var dropdownSpr: Spinner? = null
     private var labelTv: TextView? = null
     private var errorTv: TextView? = null
-    var options: MutableList<String> = ArrayList()
+    private var options: MutableList<String> = ArrayList()
 
     // lazy compile the pattern only if we get one
     private val pattern: Pattern? by lazy {
