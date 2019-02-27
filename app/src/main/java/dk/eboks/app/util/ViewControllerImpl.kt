@@ -11,12 +11,20 @@ class ViewControllerImpl : ViewController {
 
     override var isVerificationSucceeded: Boolean
         get() = VerificationComponentFragment.verificationSucceeded
-        set(value) { VerificationComponentFragment.verificationSucceeded = value }
+        set(value) {
+            VerificationComponentFragment.verificationSucceeded = value
+        }
+
+    override var refreshChannelComponent: Boolean
+        get() = ChannelControlComponentFragment.refreshOnResume
+        set(value) {
+            ChannelControlComponentFragment.refreshOnResume = value
+        }
 
     override fun refreshAllOnResume() {
         HomeActivity.refreshOnResume = true
         MailOverviewActivity.refreshOnResume = true
-        ChannelControlComponentFragment.refreshOnResume = true
+        refreshChannelComponent = true
         FolderPreviewComponentFragment.refreshOnResume = true
     }
 }

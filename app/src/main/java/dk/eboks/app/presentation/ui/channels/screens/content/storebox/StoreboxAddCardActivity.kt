@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
 import dk.eboks.app.R
-import dk.eboks.app.domain.interactors.storebox.GetStoreboxCardLinkInteractorImpl
+import dk.eboks.app.domain.interactors.storebox.GetStoreboxCardLinkInteractor
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.shared.Link
@@ -53,10 +53,10 @@ class StoreboxAddCardActivity : BaseActivity() {
         override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {
             Timber.e("URL override: $url")
             url?.let {
-                if (url.contains(GetStoreboxCardLinkInteractorImpl.SUCCESS_CALLBACK)) {
+                if (url.contains(GetStoreboxCardLinkInteractor.SUCCESS_CALLBACK)) {
                     activity?.finish()
                 }
-                if (url.contains(GetStoreboxCardLinkInteractorImpl.ERROR_CALLBACK)) {
+                if (url.contains(GetStoreboxCardLinkInteractor.ERROR_CALLBACK)) {
                     val ve = ViewError()
                     ve.shouldCloseView = true
                     showErrorDialog(ve)
