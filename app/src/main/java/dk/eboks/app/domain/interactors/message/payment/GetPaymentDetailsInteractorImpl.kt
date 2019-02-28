@@ -19,9 +19,9 @@ class GetPaymentDetailsInteractorImpl(
         input?.let {
             try {
                 val result = repository.getPaymentDetails(it.folderId, it.messageId)
-                output?.onPaymentDetailsLoaded(result)
+                runOnUIThread { output?.onPaymentDetailsLoaded(result) }
             } catch (e: Exception) {
-                output?.onPaymentDetailsLoadingError(exceptionToViewError(e))
+                runOnUIThread { output?.onPaymentDetailsLoadingError(exceptionToViewError(e))  }
             }
         }
     }

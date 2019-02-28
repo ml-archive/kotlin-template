@@ -13,9 +13,6 @@ import javax.inject.Inject
 
 class PaymentButtonComponentFragment : BaseFragment(), PaymentButtonComponentContract.View {
 
-    private val payment: Payment?
-        get() = arguments?.getParcelable(ARG_PAYMENT)
-
     @Inject
     lateinit var presenter: PaymentButtonComponentContract.Presenter
 
@@ -34,7 +31,9 @@ class PaymentButtonComponentFragment : BaseFragment(), PaymentButtonComponentCon
         paymentButton.text = "${payment.status.title} ${payment.amount ?: ""}"
         paymentDueTv.text = payment.status.text
         paymentButton.setOnClickListener {
-            getBaseActivity()?.openComponentDrawer(PaymentComponentFragment::class.java)
+            getBaseActivity()?.openComponentDrawer(
+                    PaymentComponentFragment::class.java,
+                    PaymentComponentFragment.createBundle(payment))
         }
     }
 

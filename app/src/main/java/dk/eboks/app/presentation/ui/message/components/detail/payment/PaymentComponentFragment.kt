@@ -32,6 +32,9 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, 
     @Inject
     lateinit var presenter: PaymentComponentContract.Presenter
 
+    private val payment: Payment?
+        get() = arguments?.getParcelable(ARG_PAYMENT)
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -44,6 +47,7 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, 
         paymentNotificationSwitch.text = Translation.paymentdrawer.notificationsHeader
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
+        payment?.let(this::showPaymentDetails)
     }
 
     private fun setupRecyclerView(options: List<PaymentOption>) {
@@ -74,6 +78,12 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, 
         if (requestCode == PaymentWebViewActivity.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             (getBaseActivity() as SheetComponentActivity).replaceFragment(PaymentStatusComponentFragment())
         }
+    }
+
+
+    companion object {
+        private const val ARG_PAYMENT = "payment"
+        fun createBundle(payment: Payment) = Bundle().apply { putParcelable(ARG_PAYMENT, payment) }
     }
 
 }

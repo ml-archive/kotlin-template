@@ -26,7 +26,7 @@ class PaymentOptionsAdapter(val options: List<PaymentOption>, val listener: Paym
 
         fun bindView(paymentOption: PaymentOption) {
             view.paymentOptionIv.setImageResource(R.drawable.icon_48_alternative_bs_white)
-            view.paymentOptionTv.text = "${Translation.paymentdrawer.payWithPrefix} ${paymentOption.name}"
+            view.paymentOptionTv.text = paymentOption.name
             view.setOnClickListener { listener.onPaymentOptionSelected(paymentOption) }
         }
     }
