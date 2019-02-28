@@ -32,6 +32,8 @@ import dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentContr
 import dk.eboks.app.presentation.ui.channels.screens.content.ChannelContentPresenter
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentContract
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentPresenter
+import dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectStoreboxContract
+import dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectStoreboxPresenter
 import dk.eboks.app.presentation.ui.channels.screens.overview.ChannelOverviewContract
 import dk.eboks.app.presentation.ui.channels.screens.overview.ChannelOverviewPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
@@ -101,4 +103,8 @@ abstract class ChannelsBindingPresentationModule {
     @ActivityScope
     @Binds
     internal abstract fun provideEkeyPinComponentPresenter(presenter: EkeyPinComponentPresenter): EkeyPinComponentContract.Presenter
+
+    @ActivityScope
+    @Binds
+    internal abstract fun provideConnectStoreboxPresenter(presenter: ConnectStoreboxPresenter): ConnectStoreboxContract.Presenter
 }

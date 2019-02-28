@@ -13,7 +13,7 @@ import javax.inject.Inject
  * @author Christian
  * @since 5/14/2018.
  */
-class ConnectStoreboxPresenter @Inject constructor(
+internal class ConnectStoreboxPresenter @Inject constructor(
     private val linkStoreboxInteractor: LinkStoreboxInteractor,
     private val confirmStoreboxInteractor: ConfirmStoreboxInteractor,
     private val createStoreboxInteractor: CreateStoreboxInteractor

@@ -8,6 +8,8 @@ import dk.eboks.app.senders.presentation.ui.components.categories.CategoriesComp
 import dk.eboks.app.senders.presentation.ui.components.categories.CategoriesComponentPresenter
 import dk.eboks.app.senders.presentation.ui.components.list.SenderAllListComponentContract
 import dk.eboks.app.senders.presentation.ui.components.list.SenderAllListComponentPresenter
+import dk.eboks.app.senders.presentation.ui.components.register.RegisterPresenter
+import dk.eboks.app.senders.presentation.ui.components.register.RegistrationContract
 import dk.eboks.app.senders.presentation.ui.screens.browse.BrowseCategoryContract
 import dk.eboks.app.senders.presentation.ui.screens.browse.BrowseCategoryPresenter
 import dk.eboks.app.senders.presentation.ui.screens.detail.SenderDetailContract
@@ -65,4 +67,8 @@ abstract class SendersBindingPresentationModule {
     @ActivityScope
     @Binds
     internal abstract fun provideSenderAllListComponentPresenter(presenter: SenderAllListComponentPresenter): SenderAllListComponentContract.Presenter
+
+    @ActivityScope
+    @Binds
+    internal abstract fun provideRegisterPresenter(presenter: RegisterPresenter): RegistrationContract.Presenter
 }

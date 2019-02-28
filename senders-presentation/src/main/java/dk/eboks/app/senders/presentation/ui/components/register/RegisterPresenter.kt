@@ -1,4 +1,4 @@
-package dk.eboks.app.presentation.ui.senders.components.register
+package dk.eboks.app.senders.presentation.ui.components.register
 
 import dk.eboks.app.domain.senders.interactors.register.RegisterInteractor
 import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractor
@@ -16,7 +16,7 @@ import javax.inject.Inject
  * @author Christian
  * @since 3/22/2018.
  */
-class RegisterPresenter @Inject constructor(
+internal class RegisterPresenter @Inject constructor(
     private val registerInteractor: RegisterInteractor,
     private val unRegisterInteractor: UnRegisterInteractor
 ) :

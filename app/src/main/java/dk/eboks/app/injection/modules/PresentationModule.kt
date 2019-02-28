@@ -7,8 +7,6 @@ import dk.eboks.app.mail.injection.MailBindingPresentationModule
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
 import dk.eboks.app.presentation.ui.channels.ChannelsBindingPresentationModule
-import dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectStoreboxContract
-import dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectStoreboxPresenter
 import dk.eboks.app.presentation.ui.debug.components.DebugOptionsComponentContract
 import dk.eboks.app.presentation.ui.debug.components.DebugOptionsComponentPresenter
 import dk.eboks.app.presentation.ui.debug.components.DebugUsersComponentContract
@@ -27,7 +25,6 @@ import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentContrac
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayContract
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayPresenter
-import dk.eboks.app.presentation.ui.senders.components.register.RegisterPresenter
 import dk.eboks.app.presentation.ui.start.screens.StartContract
 import dk.eboks.app.presentation.ui.start.screens.StartPresenter
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentContract
@@ -38,7 +35,6 @@ import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadContrac
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadPresenter
 import dk.eboks.app.profile.injection.ProfileBindingPresentationModule
 import dk.eboks.app.senders.presentation.injection.SendersBindingPresentationModule
-import dk.eboks.app.senders.presentation.ui.components.register.RegistrationContract
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
 @Module(
@@ -77,10 +73,6 @@ abstract class PresentationModule {
 
     @ActivityScope
     @Binds
-    abstract fun provideRegisterPresenter(presenter: RegisterPresenter): RegistrationContract.Presenter
-
-    @ActivityScope
-    @Binds
     abstract fun provideDebugOptionsComponentPresenter(presenter: DebugOptionsComponentPresenter): DebugOptionsComponentContract.Presenter
 
     @ActivityScope
@@ -98,10 +90,6 @@ abstract class PresentationModule {
     @ActivityScope
     @Binds
     abstract fun provideOverlayPresenter(presenter: OverlayPresenter): OverlayContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideConnectStoreboxPresenter(presenter: ConnectStoreboxPresenter): ConnectStoreboxContract.Presenter
 
     @ActivityScope
     @Binds
