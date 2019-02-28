@@ -40,7 +40,6 @@ class MessagePresenter @Inject constructor(
 
             // TODO Remove mocked payment info
             if (BuildConfig.ENABLE_PAYMENTS) {
-                v.addPaymentButton(Payment.mock())
             }
 
             v.addDocumentComponentFragment()

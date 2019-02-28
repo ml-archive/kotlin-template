@@ -22,6 +22,7 @@ import dk.eboks.app.presentation.widgets.DividerItemDecoration
 import dk.eboks.app.util.ActivityStarter
 import dk.eboks.app.util.formatPayment
 import kotlinx.android.synthetic.main.fragment_payment_component.*
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
@@ -60,8 +61,9 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, 
     }
 
     override fun showPaymentDetails(payment: Payment) {
+        Timber.d("$payment")
         paymentDueTv.text = payment.status.date?.formatPayment()
-        paymentValueTv.text = "${payment.amount} ${payment.currency}"
+        paymentValueTv.text = payment.amount?.toString() ?: ""
         paymentDisclaimer.text = payment.disclaimer
         paymentNotificationSwitch.isChecked = payment.notfication
         setupRecyclerView(payment.options ?: listOf())

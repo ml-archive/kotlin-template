@@ -27,19 +27,15 @@ class PaymentButtonComponentFragment : BaseFragment(), PaymentButtonComponentCon
         super.onViewCreated(view, savedInstanceState)
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
-        payment?.let(this::setPaymentDetails)
     }
 
-    private fun setPaymentDetails(payment: Payment) {
-        paymentButton.text = "Pay ${payment.amount} ${payment.currency}"
-        paymentDueTv.text = payment.status.date?.formatPayment()
+
+    override fun showPaymentDetails(payment: Payment) {
+        paymentButton.text = "${payment.status.title} ${payment.amount ?: ""}"
+        paymentDueTv.text = payment.status.text
         paymentButton.setOnClickListener {
             getBaseActivity()?.openComponentDrawer(PaymentComponentFragment::class.java)
         }
-    }
-
-    override fun showPaymentDetails(payment: Payment) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     companion object {

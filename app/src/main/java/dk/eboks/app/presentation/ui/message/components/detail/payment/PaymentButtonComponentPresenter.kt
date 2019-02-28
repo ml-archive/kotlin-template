@@ -17,6 +17,7 @@ class PaymentButtonComponentPresenter @Inject constructor(
 
     override fun onViewCreated(view: PaymentButtonComponentContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
+        getPaymentDetailsInteractor.output = this
         appStateManager.state?.currentMessage?.let {
             getPaymentDetailsInteractor.input = GetPaymentDetailsInteractor.Input(it.findFolderId(), it.id)
             getPaymentDetailsInteractor.run()
