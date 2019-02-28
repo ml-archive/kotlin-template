@@ -129,7 +129,7 @@ class BetterEkeyAdapter(
                 }
                 is Login -> {
                     headingTv.text = eKey.data.name
-                    subHeadingTv.text = eKey.data.username
+                    subHeadingTv.text = (eKey.data as Login).username
                     logoIv.setImageResource(R.drawable.icon_48_lock_white)
                 }
                 is Ekey -> {
