@@ -10,6 +10,7 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.sender.SenderGroup
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.senders.components.register.RegisterGroupComponentFragment
+import dk.eboks.app.senders.presentation.ui.components.SenderGroupsComponentContract
 import kotlinx.android.synthetic.main.fragment_list_component.*
 import javax.inject.Inject
 

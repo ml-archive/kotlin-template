@@ -15,6 +15,7 @@ import dk.eboks.app.domain.models.sender.Registrations
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
+import dk.eboks.app.senders.presentation.ui.screens.registrations.RegistrationsContract
 import dk.eboks.app.util.inflate
 import kotlinx.android.synthetic.main.activity_senders_registrations.*
 import kotlinx.android.synthetic.main.include_toolbar.*

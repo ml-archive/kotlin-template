@@ -11,6 +11,7 @@ import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.senders.screens.browse.BrowseCategoryActivity
+import dk.eboks.app.senders.presentation.ui.components.categories.CategoriesComponentContract
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.fragment_list_component.*
 import javax.inject.Inject
