@@ -1,7 +1,7 @@
 package dk.eboks.app.presentation.ui.senders.components.register
 
-import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
-import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
+import dk.eboks.app.domain.senders.interactors.register.RegisterInteractor
+import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractor
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.domain.models.sender.Sender

@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors.sender.register
+package dk.eboks.app.domain.senders.interactors.register
 
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
@@ -13,7 +13,7 @@ import javax.inject.Inject
  * @author Christian
  * @since 3/28/2018.
  */
-class GetPendingInteractorImpl @Inject constructor(
+internal class GetPendingInteractorImpl @Inject constructor(
     executor: Executor,
     private val api: Api
 ) : BaseInteractor(executor), GetPendingInteractor {

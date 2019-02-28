@@ -1,8 +1,8 @@
 package dk.eboks.app.presentation.ui.senders.screens.detail
 
-import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
-import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
-import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
+import dk.eboks.app.domain.senders.interactors.GetSenderDetailInteractor
+import dk.eboks.app.domain.senders.interactors.register.RegisterInteractor
+import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractor
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl

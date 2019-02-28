@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors.sender.register
+package dk.eboks.app.domain.senders.interactors.register
 
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.SenderGroup
@@ -9,7 +9,7 @@ import dk.nodes.arch.domain.interactor.Interactor
  * @author chnt
  * @since 21-03-2017.
  */
-interface RegisterInteractor : Interactor {
+interface UnRegisterInteractor : Interactor {
     var inputSenderGroup: InputSenderGroup?
     var inputSender: InputSender?
     var inputSegment: InputSegment?

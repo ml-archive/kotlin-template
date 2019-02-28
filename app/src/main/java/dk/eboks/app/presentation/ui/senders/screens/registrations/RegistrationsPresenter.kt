@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.senders.screens.registrations
 
-import dk.eboks.app.domain.interactors.sender.register.GetRegistrationsInteractor
+import dk.eboks.app.domain.senders.interactors.register.GetRegistrationsInteractor
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Registrations
 import dk.nodes.arch.presentation.base.BasePresenterImpl

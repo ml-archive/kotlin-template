@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.senders.components.categories
 
-import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
+import dk.eboks.app.domain.senders.interactors.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl

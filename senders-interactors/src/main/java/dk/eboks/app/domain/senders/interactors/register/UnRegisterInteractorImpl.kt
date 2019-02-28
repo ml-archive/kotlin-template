@@ -1,7 +1,6 @@
-package dk.eboks.app.domain.interactors.sender.register
+package dk.eboks.app.domain.senders.interactors.register
 
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.protocol.AliasBody
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
@@ -14,22 +13,22 @@ import javax.inject.Inject
  * @author chnt
  * @since 21-03-2018.
  */
-class RegisterInteractorImpl @Inject constructor(
+internal class UnRegisterInteractorImpl @Inject constructor(
     executor: Executor,
     private val api: Api
-) : BaseInteractor(executor), RegisterInteractor {
+) : BaseInteractor(executor), UnRegisterInteractor {
 
-    override var inputSender: RegisterInteractor.InputSender? = null
-    override var inputSenderGroup: RegisterInteractor.InputSenderGroup? = null
-    override var inputSegment: RegisterInteractor.InputSegment? = null
+    override var inputSender: UnRegisterInteractor.InputSender? = null
+    override var inputSenderGroup: UnRegisterInteractor.InputSenderGroup? = null
+    override var inputSegment: UnRegisterInteractor.InputSegment? = null
 
-    override var output: RegisterInteractor.Output? = null
+    override var output: UnRegisterInteractor.Output? = null
 
     override fun execute() {
         inputSender?.let {
             Timber.d("Sender")
             try {
-                api.registerSender(it.senderId).execute()
+                api.unregisterSender(it.senderId).execute()
                 runOnUIThread {
                     output?.onSuccess()
                 }
@@ -42,11 +41,8 @@ class RegisterInteractorImpl @Inject constructor(
         inputSenderGroup?.let {
             Timber.d("SenderGroup")
             try {
-                api.registerSenderGroup(
-                    it.senderId,
-                    it.senderGroup.id,
-                    AliasBody(it.senderGroup.alias)
-                ).execute()
+                api.unregisterSenderGroup(it.senderId, it.senderGroup.id).execute()
+//                api.unregisterSenderGroup(it.senderId, it.senderGroup.id, AliasBody(it.senderGroup.alias)).execute() // TODO: we probably need the alias to a url param instead
                 runOnUIThread {
                     output?.onSuccess()
                 }
@@ -59,7 +55,7 @@ class RegisterInteractorImpl @Inject constructor(
         inputSegment?.let {
             Timber.d("Segment")
             try {
-                api.registerSegment(it.segmentId).execute()
+                api.unregisterSegment(it.segmentId).execute()
                 runOnUIThread {
                     output?.onSuccess()
                 }

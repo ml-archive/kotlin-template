@@ -1,14 +1,14 @@
 package dk.eboks.app.presentation.ui.senders.screens.overview
 
-import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
-import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
-import dk.eboks.app.domain.interactors.sender.register.GetPendingInteractor
-import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
-import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Sender
+import dk.eboks.app.domain.senders.interactors.GetCollectionsInteractor
+import dk.eboks.app.domain.senders.interactors.GetSenderCategoriesInteractor
+import dk.eboks.app.domain.senders.interactors.register.GetPendingInteractor
+import dk.eboks.app.domain.senders.interactors.register.RegisterInteractor
+import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

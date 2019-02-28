@@ -1,10 +1,10 @@
 package dk.eboks.app.presentation.ui.senders.screens.segment
 
-import dk.eboks.app.domain.interactors.sender.GetSegmentInteractor
-import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
-import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Segment
+import dk.eboks.app.domain.senders.interactors.GetSegmentInteractor
+import dk.eboks.app.domain.senders.interactors.register.RegisterInteractor
+import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject

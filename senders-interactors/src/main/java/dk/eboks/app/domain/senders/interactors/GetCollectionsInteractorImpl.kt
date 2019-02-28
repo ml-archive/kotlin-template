@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors.sender
+package dk.eboks.app.domain.senders.interactors
 
 import dk.eboks.app.domain.repositories.CollectionsRepository
 import dk.nodes.arch.domain.executor.Executor
@@ -10,7 +10,7 @@ import javax.inject.Inject
  * @author chnt
  * @since 14/03/18.
  */
-class GetCollectionsInteractorImpl @Inject constructor(
+internal class GetCollectionsInteractorImpl @Inject constructor(
     executor: Executor,
     private val collectionsRepository: CollectionsRepository
 ) : BaseInteractor(executor), GetCollectionsInteractor {

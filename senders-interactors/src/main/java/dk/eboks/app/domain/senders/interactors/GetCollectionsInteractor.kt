@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors.sender
+package dk.eboks.app.domain.senders.interactors
 
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.nodes.arch.domain.interactor.Interactor

@@ -226,6 +226,7 @@ dependencies {
     implementation project(':mail-interactors')
     implementation project(':keychain-presentation')
     implementation project(':keychain-interactors')
+    implementation project(':senders-interactors')
 
     // uncomment me if using multidex
     implementation Libs.multidex

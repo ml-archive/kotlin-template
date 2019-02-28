@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors.sender
+package dk.eboks.app.domain.senders.interactors
 
 import dk.eboks.app.domain.repositories.SendersRepository
 import dk.eboks.app.util.exceptionToViewError
@@ -11,7 +11,7 @@ import javax.inject.Inject
  * @author bison
  * @since 01/02/18.
  */
-class GetSenderDetailInteractorImpl @Inject constructor(
+internal class GetSenderDetailInteractorImpl @Inject constructor(
     executor: Executor,
     private val sendersRepository: SendersRepository
 ) : BaseInteractor(executor), GetSenderDetailInteractor {

@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.interactors.sender
+package dk.eboks.app.domain.senders.interactors
 
 import dk.eboks.app.network.Api
 import dk.eboks.app.util.exceptionToViewError
@@ -11,7 +11,7 @@ import javax.inject.Inject
  * @author bison
  * @since 01/02/18.
  */
-class GetSegmentInteractorImpl @Inject constructor(
+internal class GetSegmentInteractorImpl @Inject constructor(
     executor: Executor,
     private val api: Api
 ) : BaseInteractor(executor), GetSegmentInteractor {
