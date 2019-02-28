@@ -13,11 +13,10 @@ class PaymentComponentPresenter @Inject constructor(val appStateManager: AppStat
 
     override fun onViewCreated(view: PaymentComponentContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
-        Payment.mock().let {payment ->
-            runAction {
-                it.showPaymentDetails(payment)
-            }
+        appStateManager.state?.currentMessage?.payment?.let { payment ->
+            runAction { it.showPaymentDetails(payment) }
         }
+
     }
 
 }

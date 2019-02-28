@@ -44,7 +44,7 @@ class MessageEmbeddedPresenter @Inject constructor(
 
                 // TODO Remove mocked payment info
                 if (BuildConfig.ENABLE_PAYMENTS) {
-                    v.addPaymentButton(Payment.mock())
+                    message.payment?.let { v.addPaymentButton(it) }
                 }
 
                 if (BuildConfig.ENABLE_REPLY) {
