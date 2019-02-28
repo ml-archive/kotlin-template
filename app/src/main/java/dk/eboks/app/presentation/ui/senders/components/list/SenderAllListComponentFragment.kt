@@ -18,6 +18,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
+import dk.eboks.app.senders.presentation.ui.components.list.SenderAllListComponentContract
 import kotlinx.android.synthetic.main.activity_senders_list.*
 import kotlinx.android.synthetic.main.fragment_sender_list.*
 import kotlinx.android.synthetic.main.include_toolbar.*

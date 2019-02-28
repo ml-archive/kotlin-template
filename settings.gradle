@@ -10,4 +10,5 @@ include ':channels-presentation'
 include ':channels-interactors'
 include ':profile-interactors'
 include ':profile-presentation'
-
+include ':senders-interactors'
+include ':senders-presentation'

@@ -2,10 +2,10 @@ package dk.eboks.app.presentation.ui.start.screens
 
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.BootstrapInteractor
-import dk.eboks.app.profile.interactors.user.GetUserProfileInteractor
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
+import dk.eboks.app.profile.interactors.GetUserProfileInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject

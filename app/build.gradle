@@ -1,6 +1,6 @@
+import dk.eboks.buildsrc.AppVersions
 import dk.eboks.buildsrc.Keys
 import dk.eboks.buildsrc.Libs
-import dk.eboks.buildsrc.AppVersions
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -228,7 +228,8 @@ dependencies {
     implementation project(':keychain-interactors')
     implementation project(':profile-interactors')
     implementation project(':profile-presentation')
-
+    implementation project(':senders-interactors')
+    implementation project(':senders-presentation')
 
     // uncomment me if using multidex
     implementation Libs.multidex
@@ -289,5 +290,4 @@ dependencies {
     androidTestImplementation Libs.Test.Expresso.core
     androidTestImplementation Libs.Test.Expresso.intent
     androidTestImplementation Libs.Test.Expresso.contrib
-
 }
