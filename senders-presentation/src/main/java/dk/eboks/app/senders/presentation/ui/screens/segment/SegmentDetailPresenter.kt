@@ -5,7 +5,6 @@ import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.domain.senders.interactors.GetSegmentInteractor
 import dk.eboks.app.domain.senders.interactors.register.RegisterInteractor
 import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractor
-import dk.eboks.app.senders.presentation.ui.screens.segment.SegmentDetailContract
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject

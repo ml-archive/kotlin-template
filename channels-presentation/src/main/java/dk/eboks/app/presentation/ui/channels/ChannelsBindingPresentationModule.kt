@@ -37,7 +37,7 @@ import dk.eboks.app.presentation.ui.channels.screens.overview.ChannelOverviewPre
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
 @Module
-abstract class ChannelsBindingPresenterModule {
+abstract class ChannelsBindingPresentationModule {
     @ActivityScope
     @Binds
     internal abstract fun provideChannelsPresenter(presenter: ChannelOverviewPresenter): ChannelOverviewContract.Presenter

@@ -2,11 +2,11 @@ package dk.eboks.app.injection.modules
 
 import dagger.Binds
 import dagger.Module
-import dk.eboks.app.keychain.injection.KeychainPresentationModule
-import dk.eboks.app.mail.injection.MailBindingPresenterModule
+import dk.eboks.app.keychain.injection.KeychainBindingPresentationModule
+import dk.eboks.app.mail.injection.MailBindingPresentationModule
 import dk.eboks.app.pasta.activity.PastaContract
 import dk.eboks.app.pasta.activity.PastaPresenter
-import dk.eboks.app.presentation.ui.channels.ChannelsBindingPresenterModule
+import dk.eboks.app.presentation.ui.channels.ChannelsBindingPresentationModule
 import dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectStoreboxContract
 import dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectStoreboxPresenter
 import dk.eboks.app.presentation.ui.debug.components.DebugOptionsComponentContract
@@ -36,17 +36,17 @@ import dk.eboks.app.presentation.ui.uploads.screens.UploadsContract
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsPresenter
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadContract
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadPresenter
-import dk.eboks.app.profile.injection.ProfilePresentationModule
+import dk.eboks.app.profile.injection.ProfileBindingPresentationModule
 import dk.eboks.app.senders.presentation.injection.SendersBindingPresentationModule
 import dk.eboks.app.senders.presentation.ui.components.register.RegistrationContract
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
 @Module(
     includes = [
-        MailBindingPresenterModule::class,
-        ChannelsBindingPresenterModule::class,
-        KeychainPresentationModule::class,
-        ProfilePresentationModule::class,
+        MailBindingPresentationModule::class,
+        ChannelsBindingPresentationModule::class,
+        KeychainBindingPresentationModule::class,
+        ProfileBindingPresentationModule::class,
         SendersBindingPresentationModule::class
     ]
 )

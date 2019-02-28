@@ -23,7 +23,7 @@ import dk.eboks.app.keychain.presentation.components.verification.VerificationCo
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
 @Module
-abstract class KeychainPresentationModule {
+abstract class KeychainBindingPresentationModule {
 
     @ActivityScope
     @Binds

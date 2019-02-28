@@ -5,7 +5,6 @@ import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.senders.interactors.register.GetPendingInteractor
 import dk.eboks.app.domain.senders.interactors.register.RegisterInteractor
 import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractor
-import dk.eboks.app.senders.presentation.ui.screens.registrations.PendingContract
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 

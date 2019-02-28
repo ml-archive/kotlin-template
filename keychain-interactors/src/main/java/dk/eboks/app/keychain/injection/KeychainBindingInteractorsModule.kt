@@ -36,7 +36,7 @@ import dk.eboks.app.keychain.interactors.user.GetUsersInteractor
 import dk.eboks.app.keychain.interactors.user.GetUsersInteractorImpl
 
 @Module
-abstract class KeychainInteractorsModule {
+abstract class KeychainBindingInteractorsModule {
 
     @Binds
     internal abstract fun bindTransformTokenInteractor(interactor: TransformTokenInteractorImpl): TransformTokenInteractor

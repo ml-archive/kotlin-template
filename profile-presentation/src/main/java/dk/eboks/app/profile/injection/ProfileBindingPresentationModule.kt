@@ -27,7 +27,7 @@ import dk.eboks.app.profile.presentation.ui.screens.ProfilePresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
 @Module
-abstract class ProfilePresentationModule {
+abstract class ProfileBindingPresentationModule {
 
     @ActivityScope
     @Binds

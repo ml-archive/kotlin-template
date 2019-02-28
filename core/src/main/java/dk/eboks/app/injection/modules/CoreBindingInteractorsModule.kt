@@ -10,7 +10,7 @@ import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
 import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractorImpl
 
 @Module
-abstract class CoreInteractorsModule {
+abstract class CoreBindingInteractorsModule {
 
     @Binds
     internal abstract fun bindEncryptUserLoginInfoInteractor(interactor: EncryptUserLoginInfoInteractorImpl): EncryptUserLoginInfoInteractor

@@ -20,7 +20,7 @@ import dk.eboks.app.profile.interactors.ConfirmPhoneInteractor
 import dk.eboks.app.profile.interactors.ConfirmPhoneInteractorImpl
 
 @Module
-abstract class ProfileInteractorsModule {
+abstract class ProfileBindingInteractorsModule {
 
     @Binds
     internal abstract fun bindSaveUserSettingsInteractor(interactor: SaveUserSettingsInteractorImpl): SaveUserSettingsInteractor

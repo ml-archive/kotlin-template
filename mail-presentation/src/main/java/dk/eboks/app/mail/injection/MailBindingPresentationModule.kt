@@ -67,7 +67,7 @@ import dk.eboks.app.mail.presentation.ui.screens.overview.MailOverviewPresenter
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
 @Module
-abstract class MailBindingPresenterModule {
+abstract class MailBindingPresentationModule {
     @ActivityScope
     @Binds
     internal abstract fun bindFolderShortcutsComponentPresenter(presenter: FolderShortcutsComponentPresenter): FolderShortcutsComponentContract.Presenter

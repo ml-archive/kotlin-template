@@ -1,6 +1,5 @@
 package dk.eboks.app.senders.presentation.ui.components.list
 
-
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender

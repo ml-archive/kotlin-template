@@ -3,7 +3,6 @@ package dk.eboks.app.senders.presentation.ui.screens.registrations
 import dk.eboks.app.domain.senders.interactors.register.GetRegistrationsInteractor
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Registrations
-import dk.eboks.app.senders.presentation.ui.screens.registrations.RegistrationsContract
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 

@@ -6,17 +6,17 @@ import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.interactors.BootstrapInteractorImpl
 import dk.eboks.app.domain.interactors.ChannelsBindingInteractorModule
 import dk.eboks.app.domain.senders.injection.SendersBindingInteractorModule
-import dk.eboks.app.keychain.injection.KeychainInteractorsModule
+import dk.eboks.app.keychain.injection.KeychainBindingInteractorsModule
 import dk.eboks.app.mail.domain.interactors.MailBindingInteractorModule
-import dk.eboks.app.profile.injection.ProfileInteractorsModule
+import dk.eboks.app.profile.injection.ProfileBindingInteractorsModule
 
 @Module(
     includes = [
         MailBindingInteractorModule::class,
-        KeychainInteractorsModule::class,
+        KeychainBindingInteractorsModule::class,
         ChannelsBindingInteractorModule::class,
-        ProfileInteractorsModule::class,
-        CoreInteractorsModule::class,
+        ProfileBindingInteractorsModule::class,
+        CoreBindingInteractorsModule::class,
         SendersBindingInteractorModule::class
     ]
 )

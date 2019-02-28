@@ -3,7 +3,6 @@ package dk.eboks.app.senders.presentation.ui.components.categories
 import dk.eboks.app.domain.senders.interactors.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.senders.presentation.ui.components.categories.CategoriesComponentContract
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
