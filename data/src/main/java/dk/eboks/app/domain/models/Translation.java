@@ -642,7 +642,7 @@ public class Translation {
 		public static String addItemLoginSubtitle = "fx brugernavn";
 		public static String addItemNoteSubtitle = "fx vigtige aftaler";
 		public static String addPinCode = "Tilf\u00F8j pinkode";
-		public static String overviewEkey = "Informasion";
+		public static String overviewEkey = "Information";
 		public static String addLogin = "Tilf\u00F8j brugeroplysninger";
 		public static String addNote = "Tilf\u00F8j note";
 		public static String editPinCode = "Rediger pinkode";

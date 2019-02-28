@@ -2,7 +2,7 @@ package dk.eboks.app.presentation.ui.start.screens
 
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.BootstrapInteractor
-import dk.eboks.app.domain.interactors.user.GetUserProfileInteractor
+import dk.eboks.app.profile.interactors.user.GetUserProfileInteractor
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
