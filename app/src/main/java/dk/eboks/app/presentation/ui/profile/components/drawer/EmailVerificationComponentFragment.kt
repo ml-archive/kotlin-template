@@ -8,6 +8,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
+import dk.eboks.app.profile.presentation.ui.components.drawer.EmailVerificationComponentContract
 import kotlinx.android.synthetic.main.fragment_profile_verify_email_component.*
 import javax.inject.Inject
 

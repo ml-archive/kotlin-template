@@ -18,6 +18,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.profile.components.drawer.EmailVerificationComponentFragment
 import dk.eboks.app.presentation.ui.profile.components.drawer.PhoneVerificationComponentFragment
 import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
+import dk.eboks.app.profile.presentation.ui.components.myinfo.MyInfoComponentContract
 import dk.eboks.app.util.isValidEmail
 import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack

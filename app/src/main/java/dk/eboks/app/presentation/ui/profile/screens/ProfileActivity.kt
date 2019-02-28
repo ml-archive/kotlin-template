@@ -4,6 +4,7 @@ import android.os.Bundle
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
+import dk.eboks.app.profile.presentation.ui.screens.ProfileContract
 import javax.inject.Inject
 
 class ProfileActivity : BaseActivity(), ProfileContract.View {

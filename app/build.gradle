@@ -1,6 +1,6 @@
+import dk.eboks.buildsrc.AppVersions
 import dk.eboks.buildsrc.Keys
 import dk.eboks.buildsrc.Libs
-import dk.eboks.buildsrc.AppVersions
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -226,6 +226,8 @@ dependencies {
     implementation project(':mail-interactors')
     implementation project(':keychain-presentation')
     implementation project(':keychain-interactors')
+    implementation project(':profile-interactors')
+    implementation project(':profile-presentation')
     implementation project(':senders-interactors')
 
     // uncomment me if using multidex

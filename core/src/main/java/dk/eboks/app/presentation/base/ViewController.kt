@@ -6,5 +6,7 @@ interface ViewController {
 
     var refreshChannelComponent: Boolean
 
+    var refreshMyInfoComponent: Boolean
+
     fun refreshAllOnResume()
 }
