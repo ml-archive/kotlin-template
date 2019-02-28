@@ -38,16 +38,12 @@ import dk.eboks.app.profile.injection.ProfileInteractorsModule
         MailBindingInteractorModule::class,
         KeychainInteractorsModule::class,
         ChannelsBindingInteractorModule::class,
-        ProfileInteractorsModule::class
+        ProfileInteractorsModule::class,
+        CoreInteractorsModule::class
     ]
 )
 abstract class InteractorModule {
 
-    @Binds
-    abstract fun bindTestLoginInteractor(interactor: TestLoginInteractorImpl): TestLoginInteractor
-
-    @Binds
-    abstract fun bindDecryptInteractor(interactor: DecryptUserLoginInfoInteractorImpl): DecryptUserLoginInfoInteractor
 
 
 
@@ -81,6 +77,5 @@ abstract class InteractorModule {
     @Binds
     internal abstract fun bindDeleteEKeyMasterkeyInteractor(interactor: DeleteEKeyMasterkeyInteractorImpl): DeleteEKeyMasterkeyInteractor
 
-    @Binds
-    internal abstract fun bindEncryptUserLoginInfoInteractor(interactor: EncryptUserLoginInfoInteractorImpl): EncryptUserLoginInfoInteractor
+
 }
