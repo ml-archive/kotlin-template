@@ -30,6 +30,7 @@ import dk.eboks.app.presentation.ui.profile.components.drawer.FingerPrintCompone
 import dk.eboks.app.presentation.ui.profile.components.myinfo.MyInfoComponentFragment
 import dk.eboks.app.presentation.ui.start.components.signup.AcceptTermsComponentFragment
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
+import dk.eboks.app.profile.presentation.ui.components.main.ProfileInfoComponentContract
 import dk.eboks.app.util.dpToPx
 import dk.eboks.app.util.visible
 import dk.nodes.filepicker.FilePickerActivity
@@ -42,9 +43,8 @@ import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
-class ProfileInfoComponentFragment : BaseFragment(),
-    dk.eboks.app.profile.ui.components.ProfileInfoComponentContract.View {
-    @Inject lateinit var presenter: dk.eboks.app.profile.ui.components.ProfileInfoComponentContract.Presenter
+class ProfileInfoComponentFragment : BaseFragment(), ProfileInfoComponentContract.View {
+    @Inject lateinit var presenter: ProfileInfoComponentContract.Presenter
     @Inject lateinit var appConfig: AppConfig
 
     private var toolbarTitle = ""

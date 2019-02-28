@@ -8,16 +8,17 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
+import dk.eboks.app.profile.presentation.ui.components.drawer.EmailVerificationComponentContract
 import kotlinx.android.synthetic.main.fragment_profile_verify_email_component.*
 import javax.inject.Inject
 
 /**
  * Created by bison on 09-02-2018.
  */
-class EmailVerificationComponentFragment : BaseFragment(), dk.eboks.app.profile.EmailVerificationComponentContract.View {
+class EmailVerificationComponentFragment : BaseFragment(), EmailVerificationComponentContract.View {
 
     @Inject
-    lateinit var presenter: dk.eboks.app.profile.EmailVerificationComponentContract.Presenter
+    lateinit var presenter: EmailVerificationComponentContract.Presenter
 
     var mail: String? = null
 

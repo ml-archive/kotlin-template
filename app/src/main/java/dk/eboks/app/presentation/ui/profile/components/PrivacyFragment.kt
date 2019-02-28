@@ -6,6 +6,7 @@ import android.webkit.WebView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseWebFragment
+import dk.eboks.app.profile.presentation.ui.components.PrivacyContract
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -15,10 +16,10 @@ import javax.inject.Inject
  * @author Christian
  * @since 5/23/2018.
  */
-class PrivacyFragment : BaseWebFragment(), dk.eboks.app.profile.ui.components.PrivacyContract.View {
+class PrivacyFragment : BaseWebFragment(), PrivacyContract.View {
 
     @Inject
-    lateinit var presenter: dk.eboks.app.profile.ui.components.PrivacyContract.Presenter
+    lateinit var presenter: PrivacyContract.Presenter
 
     override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {
         return true

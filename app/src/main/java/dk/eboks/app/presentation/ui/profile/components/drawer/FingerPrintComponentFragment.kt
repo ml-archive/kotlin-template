@@ -15,6 +15,7 @@ import dk.eboks.app.domain.models.login.LoginInfoType
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
 import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
+import dk.eboks.app.profile.presentation.ui.components.drawer.FingerPrintComponentContract
 import dk.eboks.app.util.addAfterTextChangeListener
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.visible
@@ -23,9 +24,9 @@ import kotlinx.android.synthetic.main.fragment_profile_enable_fingerprint_compon
 import timber.log.Timber
 import javax.inject.Inject
 
-class FingerPrintComponentFragment : BaseFragment(), dk.eboks.app.profile.FingerPrintComponentContract.View {
+class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContract.View {
     @Inject
-    lateinit var presenter: dk.eboks.app.profile.FingerPrintComponentContract.Presenter
+    lateinit var presenter: FingerPrintComponentContract.Presenter
 
     var handler = Handler()
     private var mode: LoginInfoType? = null

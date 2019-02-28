@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
+import dk.eboks.app.profile.presentation.ui.components.drawer.MergeAccountComponentContract
 import kotlinx.android.synthetic.main.fragment_profile_merge_account_component.*
 import javax.inject.Inject
 
 /**
  * Created by bison on 09-02-2018.
  */
-class MergeAccountComponentFragment : BaseFragment(), dk.eboks.app.profile.MergeAccountComponentContract.View {
+class MergeAccountComponentFragment : BaseFragment(), MergeAccountComponentContract.View {
 
     @Inject
-    lateinit var presenter: dk.eboks.app.profile.MergeAccountComponentContract.Presenter
+    lateinit var presenter: MergeAccountComponentContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater,

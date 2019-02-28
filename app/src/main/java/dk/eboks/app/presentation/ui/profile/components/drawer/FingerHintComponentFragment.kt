@@ -12,14 +12,15 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.LoginInfo
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
+import dk.eboks.app.profile.presentation.ui.components.drawer.FingerHintComponentContract
 import dk.nodes.locksmith.core.models.FingerprintDialogEvent
 import kotlinx.android.synthetic.main.fragment_profile_enable_fingerprint_mobile_component.*
 import timber.log.Timber
 import javax.inject.Inject
 
-class FingerHintComponentFragment : BaseFragment(), dk.eboks.app.profile.FingerHintComponentContract.View {
+class FingerHintComponentFragment : BaseFragment(), FingerHintComponentContract.View {
     @Inject
-    lateinit var presenter: dk.eboks.app.profile.FingerHintComponentContract.Presenter
+    lateinit var presenter: FingerHintComponentContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater,
