@@ -137,11 +137,9 @@ abstract class PresentationModule {
     @Binds
     abstract fun provideDebugUsersComponentPresenter(presenter: DebugUsersComponentPresenter): DebugUsersComponentContract.Presenter
 
-
     @ActivityScope
     @Binds
     abstract fun provideDebugUserPresenter(presenter: DebugUserPresenter): DebugUserContract.Presenter
-
 
     @ActivityScope
     @Binds
@@ -154,8 +152,6 @@ abstract class PresentationModule {
     @ActivityScope
     @Binds
     abstract fun provideConnectStoreboxPresenter(presenter: ConnectStoreboxPresenter): ConnectStoreboxContract.Presenter
-
-
 
     @ActivityScope
     @Binds
@@ -172,7 +168,6 @@ abstract class PresentationModule {
     @ActivityScope
     @Binds
     abstract fun provideChannelControlComponentPresenter(presenter: ChannelControlComponentPresenter): ChannelControlComponentContract.Presenter
-
 
     @ActivityScope
     @Binds

@@ -20,5 +20,4 @@ abstract class CoreInteractorsModule {
 
     @Binds
     internal abstract fun bindDecryptInteractor(interactor: DecryptUserLoginInfoInteractorImpl): DecryptUserLoginInfoInteractor
-
 }

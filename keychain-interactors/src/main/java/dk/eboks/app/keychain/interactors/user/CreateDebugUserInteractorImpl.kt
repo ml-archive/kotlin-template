@@ -3,7 +3,6 @@ package dk.eboks.app.keychain.interactors.user
 import dk.eboks.app.domain.managers.UserManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.keychain.interactors.user.CreateUserInteractor
 import dk.eboks.app.util.exceptionToViewError
 import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor

@@ -2,17 +2,9 @@ package dk.eboks.app.injection.modules
 
 import dagger.Binds
 import dagger.Module
-import dk.eboks.app.domain.interactors.BootstrapInteractor
-import dk.eboks.app.domain.interactors.BootstrapInteractorImpl
 import dk.eboks.app.domain.interactors.ChannelsBindingInteractorModule
-import dk.eboks.app.domain.interactors.TestLoginInteractor
-import dk.eboks.app.domain.interactors.TestLoginInteractorImpl
 import dk.eboks.app.domain.interactors.ekey.DeleteEKeyMasterkeyInteractor
 import dk.eboks.app.domain.interactors.ekey.DeleteEKeyMasterkeyInteractorImpl
-import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
-import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractorImpl
-import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractor
-import dk.eboks.app.domain.interactors.encryption.EncryptUserLoginInfoInteractorImpl
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractorImpl
 import dk.eboks.app.domain.interactors.sender.GetSegmentInteractor
@@ -44,9 +36,6 @@ import dk.eboks.app.profile.injection.ProfileInteractorsModule
 )
 abstract class InteractorModule {
 
-
-
-
     @Binds
     internal abstract fun bindGetSenderCategoriesInteractor(interactor: GetSenderCategoriesInteractorImpl): GetSenderCategoriesInteractor
 
@@ -71,11 +60,8 @@ abstract class InteractorModule {
     @Binds
     internal abstract fun bindRegistrationsInteractor(interactor: GetRegistrationsInteractorImpl): GetRegistrationsInteractor
 
-
     // E Key Interactors
 
     @Binds
     internal abstract fun bindDeleteEKeyMasterkeyInteractor(interactor: DeleteEKeyMasterkeyInteractorImpl): DeleteEKeyMasterkeyInteractor
-
-
 }
