@@ -8,18 +8,25 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import dk.eboks.app.R
+import dk.eboks.app.domain.models.message.payment.PaymentCallback
 import dk.eboks.app.domain.models.message.payment.PaymentOption
+import dk.eboks.app.domain.models.shared.Link
+import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.activity_payment_web_view.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import timber.log.Timber
 
-class PaymentWebViewActivity : AppCompatActivity() {
+class PaymentWebViewActivity : BaseActivity() {
+
+    private val link: Link?
+        get() = intent?.getParcelableExtra(EXTRA_PAYMENT_LINK)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment_web_view)
-        setupWebView()
+        link?.let(this::setupWebView)
         setupToolbar()
 
     }
@@ -32,14 +39,12 @@ class PaymentWebViewActivity : AppCompatActivity() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
     }
 
-    private fun setupWebView() {
+    private fun setupWebView(link: Link) {
+        paymentWebView.settings.javaScriptEnabled = true
         paymentWebView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
-               url?.let {
-                   if (!it.contains("google")) {
-                       showPaymentComplete()
-                   }
-               }
+                Timber.d("Loaded: $url")
+                url?.let { handleUrlUpdate(it) }
             }
         }
 
@@ -47,8 +52,17 @@ class PaymentWebViewActivity : AppCompatActivity() {
 
         }
 
-        paymentWebView.loadUrl("https://google.com")
+        paymentWebView.loadUrl(link.url)
 
+    }
+
+    private fun handleUrlUpdate(url: String) {
+        when (url) {
+            PaymentCallback.CANCEL.url -> { showToast("cancel") }
+            PaymentCallback.FAILURE.url -> { showToast("fail")}
+            PaymentCallback.SUCCESS.url -> { showPaymentComplete() }
+            else -> {}
+        }
     }
 
     private fun showPaymentComplete() {
@@ -66,14 +80,19 @@ class PaymentWebViewActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        setResult(Activity.RESULT_CANCELED)
+        finish()
+    }
+
     companion object {
 
-        private const val EXTRA_PAYMENT = "PaymentOption"
+        private const val EXTRA_PAYMENT_LINK = "PaymentLink"
         const val REQUEST_CODE = 44
 
-        fun startForResult(fragment: BaseFragment, paymentOption: PaymentOption) {
+        fun startForResult(fragment: BaseFragment, link: Link) {
             val intent = Intent(fragment.context, PaymentWebViewActivity::class.java).apply {
-                putExtra(EXTRA_PAYMENT, paymentOption)
+                putExtra(EXTRA_PAYMENT_LINK, link)
             }
             fragment.startActivityForResult(intent, REQUEST_CODE)
         }

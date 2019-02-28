@@ -63,7 +63,7 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, 
     }
 
     override fun showPaymentWebView(link: Link) {
-        Timber.d("link: $link")
+        PaymentWebViewActivity.startForResult(this, link)
     }
 
     override fun showPaymentDetails(payment: Payment) {
