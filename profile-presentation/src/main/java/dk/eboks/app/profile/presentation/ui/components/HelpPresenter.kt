@@ -10,7 +10,7 @@ import javax.inject.Inject
  * @author Christian
  * @since 5/23/2018.
  */
-class HelpPresenter @Inject constructor(private val appConfig: AppConfig) :
+internal class HelpPresenter @Inject constructor(private val appConfig: AppConfig) :
     HelpContract.Presenter,
     BasePresenterImpl<HelpContract.View>() {
 

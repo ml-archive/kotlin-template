@@ -16,7 +16,7 @@ import javax.inject.Inject
  * @author Christian
  * @since 5/7/2018.
  */
-class GetUserProfileInteractorImpl @Inject constructor(
+internal class GetUserProfileInteractorImpl @Inject constructor(
     executor: Executor,
     private val api: Api,
     private val appStateManager: AppStateManager,

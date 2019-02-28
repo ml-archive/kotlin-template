@@ -9,7 +9,7 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 import javax.inject.Inject
 
-class UpdateUserInteractorImpl @Inject constructor(
+internal class UpdateUserInteractorImpl @Inject constructor(
     executor: Executor,
     private val userRestRepo: UserRepository
 ) :

@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class EmailVerificationComponentPresenter @Inject constructor(
+internal class EmailVerificationComponentPresenter @Inject constructor(
     private val verifyMailInteractor: VerifyEmailInteractor
 ) :
     EmailVerificationComponentContract.Presenter,

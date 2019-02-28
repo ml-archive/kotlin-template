@@ -10,10 +10,10 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class PhoneVerificationComponentPresenter @Inject constructor(
-        private val viewController: ViewController,
-        private val verifyPhoneInteractor: VerifyPhoneInteractor,
-        private val confirmPhoneInteractor: ConfirmPhoneInteractor
+internal class PhoneVerificationComponentPresenter @Inject constructor(
+    private val viewController: ViewController,
+    private val verifyPhoneInteractor: VerifyPhoneInteractor,
+    private val confirmPhoneInteractor: ConfirmPhoneInteractor
 ) :
     PhoneVerificationComponentContract.Presenter,
     BasePresenterImpl<PhoneVerificationComponentContract.View>(),

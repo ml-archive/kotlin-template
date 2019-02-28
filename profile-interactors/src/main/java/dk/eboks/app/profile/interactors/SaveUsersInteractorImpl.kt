@@ -9,7 +9,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 24-06-2017.
  */
-class SaveUsersInteractorImpl @Inject constructor(
+internal class SaveUsersInteractorImpl @Inject constructor(
     executor: Executor,
     private val userManager: UserManager
 ) :

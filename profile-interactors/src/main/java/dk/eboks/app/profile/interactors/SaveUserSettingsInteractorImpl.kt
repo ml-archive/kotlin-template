@@ -10,7 +10,7 @@ import javax.inject.Inject
  * @author Christian
  * @since 6/19/2018.
  */
-class SaveUserSettingsInteractorImpl @Inject constructor(
+internal class SaveUserSettingsInteractorImpl @Inject constructor(
     executor: Executor,
     private val appState: AppStateManager,
     private val userSettingsManager: UserSettingsManager

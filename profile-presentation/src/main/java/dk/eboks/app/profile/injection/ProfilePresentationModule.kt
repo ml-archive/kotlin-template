@@ -6,7 +6,16 @@ import dk.eboks.app.profile.presentation.ui.components.HelpContract
 import dk.eboks.app.profile.presentation.ui.components.HelpPresenter
 import dk.eboks.app.profile.presentation.ui.components.PrivacyContract
 import dk.eboks.app.profile.presentation.ui.components.PrivacyPresenter
-import dk.eboks.app.profile.presentation.ui.components.drawer.*
+import dk.eboks.app.profile.presentation.ui.components.drawer.EmailVerificationComponentContract
+import dk.eboks.app.profile.presentation.ui.components.drawer.EmailVerificationComponentPresenter
+import dk.eboks.app.profile.presentation.ui.components.drawer.PhoneVerificationComponentContract
+import dk.eboks.app.profile.presentation.ui.components.drawer.PhoneVerificationComponentPresenter
+import dk.eboks.app.profile.presentation.ui.components.drawer.FingerPrintComponentContract
+import dk.eboks.app.profile.presentation.ui.components.drawer.FingerPrintComponentPresenter
+import dk.eboks.app.profile.presentation.ui.components.drawer.FingerHintComponentPresenter
+import dk.eboks.app.profile.presentation.ui.components.drawer.FingerHintComponentContract
+import dk.eboks.app.profile.presentation.ui.components.drawer.MergeAccountComponentContract
+import dk.eboks.app.profile.presentation.ui.components.drawer.MergeAccountComponentPresenter
 import dk.eboks.app.profile.presentation.ui.components.main.ProfileInfoComponentContract
 import dk.eboks.app.profile.presentation.ui.components.main.ProfileInfoComponentPresenter
 import dk.eboks.app.profile.presentation.ui.components.myinfo.MyInfoComponentContract
@@ -20,50 +29,47 @@ import dk.nodes.arch.domain.injection.scopes.ActivityScope
 @Module
 abstract class ProfilePresentationModule {
 
+    @ActivityScope
+    @Binds
+    internal abstract fun providePrivacyPresenter(presenter: PrivacyPresenter): PrivacyContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun providePrivacyPresenter(presenter: PrivacyPresenter): PrivacyContract.Presenter
+    internal abstract fun provideHelpPresenter(presenter: HelpPresenter): HelpContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideHelpPresenter(presenter: HelpPresenter): HelpContract.Presenter
+    internal abstract fun provideProfilePresenter(presenter: ProfilePresenter): ProfileContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideProfilePresenter(presenter: ProfilePresenter): ProfileContract.Presenter
+    internal abstract fun provideProfileInfoComponentPresenter(presenter: ProfileInfoComponentPresenter): ProfileInfoComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideProfileInfoComponentPresenter(presenter: ProfileInfoComponentPresenter): ProfileInfoComponentContract.Presenter
+    internal abstract fun provideMyInfoComponentPresenter(presenter: MyInfoComponentPresenter): MyInfoComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideMyInfoComponentPresenter(presenter: MyInfoComponentPresenter): MyInfoComponentContract.Presenter
-
-
-    @ActivityScope
-    @Binds
-    abstract fun provideEmailVerificationComponentPresenter(presenter: EmailVerificationComponentPresenter): EmailVerificationComponentContract.Presenter
+    internal abstract fun provideEmailVerificationComponentPresenter(presenter: EmailVerificationComponentPresenter): EmailVerificationComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun providePhoneVerificationComponentPresenter(presenter: PhoneVerificationComponentPresenter): PhoneVerificationComponentContract.Presenter
+    internal abstract fun providePhoneVerificationComponentPresenter(presenter: PhoneVerificationComponentPresenter): PhoneVerificationComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideFingerHintComponentPresenter(presenter: FingerHintComponentPresenter): FingerHintComponentContract.Presenter
+    internal abstract fun provideFingerHintComponentPresenter(presenter: FingerHintComponentPresenter): FingerHintComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideFingerPrintComponentPresenter(presenter: FingerPrintComponentPresenter): FingerPrintComponentContract.Presenter
+    internal abstract fun provideFingerPrintComponentPresenter(presenter: FingerPrintComponentPresenter): FingerPrintComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideMergeAccountComponentPresenter(presenter: MergeAccountComponentPresenter): MergeAccountComponentContract.Presenter
+    internal abstract fun provideMergeAccountComponentPresenter(presenter: MergeAccountComponentPresenter): MergeAccountComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideMyInfoPresenter(presenter: MyInfoPresenter): MyInfoContract.Presenter
-
+    internal abstract fun provideMyInfoPresenter(presenter: MyInfoPresenter): MyInfoContract.Presenter
 }

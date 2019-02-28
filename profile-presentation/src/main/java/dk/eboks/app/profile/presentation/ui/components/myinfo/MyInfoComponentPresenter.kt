@@ -13,11 +13,11 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
 
-class MyInfoComponentPresenter @Inject constructor(
-        private val appState: AppStateManager,
-        private val saveUserInteractor: SaveUserInteractor,
-        private val updateUserInteractor: UpdateUserInteractor,
-        private val getUserProfileInteractor: GetUserProfileInteractor
+internal class MyInfoComponentPresenter @Inject constructor(
+    private val appState: AppStateManager,
+    private val saveUserInteractor: SaveUserInteractor,
+    private val updateUserInteractor: UpdateUserInteractor,
+    private val getUserProfileInteractor: GetUserProfileInteractor
 ) :
     MyInfoComponentContract.Presenter,
     BasePresenterImpl<MyInfoComponentContract.View>(),

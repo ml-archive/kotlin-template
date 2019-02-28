@@ -11,7 +11,7 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
 
-class FingerHintComponentPresenter @Inject constructor(
+internal class FingerHintComponentPresenter @Inject constructor(
     private val appState: AppStateManager,
     private val userSettingsManager: UserSettingsManager,
     private val encryptUserLoginInfoInteractor: EncryptUserLoginInfoInteractor,

@@ -10,7 +10,7 @@ import javax.inject.Named
  * @author Christian
  * @since 5/23/2018.
  */
-class PrivacyPresenter @Inject constructor(@Named("NAME_BASE_URL") private val baseUrl: String) :
+internal class PrivacyPresenter @Inject constructor(@Named("NAME_BASE_URL") private val baseUrl: String) :
     PrivacyContract.Presenter,
     BasePresenterImpl<PrivacyContract.View>() {
 

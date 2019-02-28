@@ -6,7 +6,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class MyInfoPresenter @Inject constructor() : MyInfoContract.Presenter,
+internal class MyInfoPresenter @Inject constructor() : MyInfoContract.Presenter,
     BasePresenterImpl<MyInfoContract.View>() {
     init {
     }

@@ -8,7 +8,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class MergeAccountComponentPresenter @Inject constructor(val appState: AppStateManager) :
+internal class MergeAccountComponentPresenter @Inject constructor(val appState: AppStateManager) :
     MergeAccountComponentContract.Presenter,
     BasePresenterImpl<MergeAccountComponentContract.View>() {
 
