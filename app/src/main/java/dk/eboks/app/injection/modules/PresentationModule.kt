@@ -27,28 +27,6 @@ import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentContrac
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentPresenter
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayContract
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayPresenter
-import dk.eboks.app.presentation.ui.profile.components.HelpContract
-import dk.eboks.app.presentation.ui.profile.components.HelpPresenter
-import dk.eboks.app.presentation.ui.profile.components.PrivacyContract
-import dk.eboks.app.presentation.ui.profile.components.PrivacyPresenter
-import dk.eboks.app.presentation.ui.profile.components.drawer.EmailVerificationComponentContract
-import dk.eboks.app.presentation.ui.profile.components.drawer.EmailVerificationComponentPresenter
-import dk.eboks.app.presentation.ui.profile.components.drawer.FingerHintComponentContract
-import dk.eboks.app.presentation.ui.profile.components.drawer.FingerHintComponentPresenter
-import dk.eboks.app.presentation.ui.profile.components.drawer.FingerPrintComponentContract
-import dk.eboks.app.presentation.ui.profile.components.drawer.FingerPrintComponentPresenter
-import dk.eboks.app.presentation.ui.profile.components.drawer.MergeAccountComponentContract
-import dk.eboks.app.presentation.ui.profile.components.drawer.MergeAccountComponentPresenter
-import dk.eboks.app.presentation.ui.profile.components.drawer.PhoneVerificationComponentContract
-import dk.eboks.app.presentation.ui.profile.components.drawer.PhoneVerificationComponentPresenter
-import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentContract
-import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentPresenter
-import dk.eboks.app.presentation.ui.profile.components.myinfo.MyInfoComponentContract
-import dk.eboks.app.presentation.ui.profile.components.myinfo.MyInfoComponentPresenter
-import dk.eboks.app.presentation.ui.profile.screens.ProfileContract
-import dk.eboks.app.presentation.ui.profile.screens.ProfilePresenter
-import dk.eboks.app.presentation.ui.profile.screens.myinfo.MyInfoContract
-import dk.eboks.app.presentation.ui.profile.screens.myinfo.MyInfoPresenter
 import dk.eboks.app.presentation.ui.senders.components.SenderGroupsComponentContract
 import dk.eboks.app.presentation.ui.senders.components.SenderGroupsComponentPresenter
 import dk.eboks.app.presentation.ui.senders.components.categories.CategoriesComponentContract
@@ -79,13 +57,15 @@ import dk.eboks.app.presentation.ui.uploads.screens.UploadsContract
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsPresenter
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadContract
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadPresenter
+import dk.eboks.app.profile.injection.ProfilePresentationModule
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
 @Module(
     includes = [
         MailBindingPresenterModule::class,
         ChannelsBindingPresenterModule::class,
-        KeychainPresentationModule::class
+        KeychainPresentationModule::class,
+        ProfilePresentationModule::class
     ]
 )
 abstract class PresentationModule {
@@ -157,41 +137,11 @@ abstract class PresentationModule {
     @Binds
     abstract fun provideDebugUsersComponentPresenter(presenter: DebugUsersComponentPresenter): DebugUsersComponentContract.Presenter
 
-    @ActivityScope
-    @Binds
-    abstract fun provideProfilePresenter(presenter: ProfilePresenter): ProfileContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideProfileInfoComponentPresenter(presenter: ProfileInfoComponentPresenter): ProfileInfoComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideMyInfoComponentPresenter(presenter: MyInfoComponentPresenter): MyInfoComponentContract.Presenter
 
     @ActivityScope
     @Binds
     abstract fun provideDebugUserPresenter(presenter: DebugUserPresenter): DebugUserContract.Presenter
 
-    @ActivityScope
-    @Binds
-    abstract fun provideEmailVerificationComponentPresenter(presenter: EmailVerificationComponentPresenter): EmailVerificationComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun providePhoneVerificationComponentPresenter(presenter: PhoneVerificationComponentPresenter): PhoneVerificationComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideFingerHintComponentPresenter(presenter: FingerHintComponentPresenter): FingerHintComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideFingerPrintComponentPresenter(presenter: FingerPrintComponentPresenter): FingerPrintComponentContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideMergeAccountComponentPresenter(presenter: MergeAccountComponentPresenter): MergeAccountComponentContract.Presenter
 
     @ActivityScope
     @Binds
@@ -205,9 +155,7 @@ abstract class PresentationModule {
     @Binds
     abstract fun provideConnectStoreboxPresenter(presenter: ConnectStoreboxPresenter): ConnectStoreboxContract.Presenter
 
-    @ActivityScope
-    @Binds
-    abstract fun provideMyInfoPresenter(presenter: MyInfoPresenter): MyInfoContract.Presenter
+
 
     @ActivityScope
     @Binds
@@ -225,13 +173,6 @@ abstract class PresentationModule {
     @Binds
     abstract fun provideChannelControlComponentPresenter(presenter: ChannelControlComponentPresenter): ChannelControlComponentContract.Presenter
 
-    @ActivityScope
-    @Binds
-    abstract fun providePrivacyPresenter(presenter: PrivacyPresenter): PrivacyContract.Presenter
-
-    @ActivityScope
-    @Binds
-    abstract fun provideHelpPresenter(presenter: HelpPresenter): HelpContract.Presenter
 
     @ActivityScope
     @Binds

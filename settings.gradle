@@ -8,4 +8,6 @@ include ':keychain-interactors'
 include ':keychain-presentation'
 include ':channels-presentation'
 include ':channels-interactors'
+include ':profile-interactors'
+include ':profile-presentation'
 

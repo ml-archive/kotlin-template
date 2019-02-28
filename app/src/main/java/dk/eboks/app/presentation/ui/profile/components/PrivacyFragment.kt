@@ -15,10 +15,10 @@ import javax.inject.Inject
  * @author Christian
  * @since 5/23/2018.
  */
-class PrivacyFragment : BaseWebFragment(), PrivacyContract.View {
+class PrivacyFragment : BaseWebFragment(), dk.eboks.app.profile.ui.components.PrivacyContract.View {
 
     @Inject
-    lateinit var presenter: PrivacyContract.Presenter
+    lateinit var presenter: dk.eboks.app.profile.ui.components.PrivacyContract.Presenter
 
     override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {
         return true

@@ -29,30 +29,16 @@ import dk.eboks.app.domain.interactors.sender.register.RegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.RegisterInteractorImpl
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractor
 import dk.eboks.app.domain.interactors.sender.register.UnRegisterInteractorImpl
-import dk.eboks.app.domain.interactors.user.ConfirmPhoneInteractor
-import dk.eboks.app.domain.interactors.user.ConfirmPhoneInteractorImpl
-import dk.eboks.app.domain.interactors.user.GetUserProfileInteractor
-import dk.eboks.app.domain.interactors.user.GetUserProfileInteractorImpl
-import dk.eboks.app.domain.interactors.user.SaveUserInteractor
-import dk.eboks.app.domain.interactors.user.SaveUserInteractorImpl
-import dk.eboks.app.domain.interactors.user.SaveUserSettingsInteractor
-import dk.eboks.app.domain.interactors.user.SaveUserSettingsInteractorImpl
-import dk.eboks.app.domain.interactors.user.SaveUsersInteractor
-import dk.eboks.app.domain.interactors.user.SaveUsersInteractorImpl
-import dk.eboks.app.domain.interactors.user.UpdateUserInteractor
-import dk.eboks.app.domain.interactors.user.UpdateUserInteractorImpl
-import dk.eboks.app.domain.interactors.user.VerifyEmailInteractor
-import dk.eboks.app.domain.interactors.user.VerifyEmailInteractorImpl
-import dk.eboks.app.domain.interactors.user.VerifyPhoneInteractor
-import dk.eboks.app.domain.interactors.user.VerifyPhoneInteractorImpl
 import dk.eboks.app.keychain.injection.KeychainInteractorsModule
 import dk.eboks.app.mail.domain.interactors.MailBindingInteractorModule
+import dk.eboks.app.profile.injection.ProfileInteractorsModule
 
 @Module(
     includes = [
         MailBindingInteractorModule::class,
         KeychainInteractorsModule::class,
-        ChannelsBindingInteractorModule::class
+        ChannelsBindingInteractorModule::class,
+        ProfileInteractorsModule::class
     ]
 )
 abstract class InteractorModule {
@@ -63,26 +49,7 @@ abstract class InteractorModule {
     @Binds
     abstract fun bindDecryptInteractor(interactor: DecryptUserLoginInfoInteractorImpl): DecryptUserLoginInfoInteractor
 
-    @Binds
-    abstract fun bindVerifyEmailInteractor(interactor: VerifyEmailInteractorImpl): VerifyEmailInteractor
 
-    @Binds
-    abstract fun bindUpdateUserInteractor(interactor: UpdateUserInteractorImpl): UpdateUserInteractor
-
-    @Binds
-    abstract fun bindBootstrapInteractor(interactor: BootstrapInteractorImpl): BootstrapInteractor
-
-    @Binds
-    abstract fun bindSaveUserSettingsInteractor(interactor: SaveUserSettingsInteractorImpl): SaveUserSettingsInteractor
-
-    @Binds
-    abstract fun bindSaveUserInteractor(interactor: SaveUserInteractorImpl): SaveUserInteractor
-
-    @Binds
-    abstract fun bindSaveUsersInteractor(interactor: SaveUsersInteractorImpl): SaveUsersInteractor
-
-    @Binds
-    internal abstract fun bindGetUserProfileInteractor(interactor: GetUserProfileInteractorImpl): GetUserProfileInteractor
 
     @Binds
     internal abstract fun bindGetSenderCategoriesInteractor(interactor: GetSenderCategoriesInteractorImpl): GetSenderCategoriesInteractor
@@ -108,11 +75,6 @@ abstract class InteractorModule {
     @Binds
     internal abstract fun bindRegistrationsInteractor(interactor: GetRegistrationsInteractorImpl): GetRegistrationsInteractor
 
-    @Binds
-    internal abstract fun bindVerifyPhoneInteractor(interactor: VerifyPhoneInteractorImpl): VerifyPhoneInteractor
-
-    @Binds
-    internal abstract fun bindConfirmPhoneInteractor(interactor: ConfirmPhoneInteractorImpl): ConfirmPhoneInteractor
 
     // E Key Interactors
 

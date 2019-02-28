@@ -13,10 +13,10 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class MergeAccountComponentFragment : BaseFragment(), MergeAccountComponentContract.View {
+class MergeAccountComponentFragment : BaseFragment(), dk.eboks.app.profile.MergeAccountComponentContract.View {
 
     @Inject
-    lateinit var presenter: MergeAccountComponentContract.Presenter
+    lateinit var presenter: dk.eboks.app.profile.MergeAccountComponentContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater,

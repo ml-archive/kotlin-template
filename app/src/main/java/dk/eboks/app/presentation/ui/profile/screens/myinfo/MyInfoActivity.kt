@@ -7,8 +7,8 @@ import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.profile.components.myinfo.MyInfoComponentFragment
 import javax.inject.Inject
 
-class MyInfoActivity : BaseActivity(), MyInfoContract.View {
-    @Inject lateinit var presenter: MyInfoContract.Presenter
+class MyInfoActivity : BaseActivity(), dk.eboks.app.profile.MyInfoContract.View {
+    @Inject lateinit var presenter: dk.eboks.app.profile.MyInfoContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -6,6 +6,7 @@ import dk.eboks.app.presentation.ui.home.components.folderpreview.FolderPreviewC
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity
+import dk.eboks.app.presentation.ui.profile.components.myinfo.MyInfoComponentFragment
 
 class ViewControllerImpl : ViewController {
 
@@ -13,6 +14,12 @@ class ViewControllerImpl : ViewController {
         get() = VerificationComponentFragment.verificationSucceeded
         set(value) {
             VerificationComponentFragment.verificationSucceeded = value
+        }
+
+    override var refreshMyInfoComponent: Boolean
+        get() = MyInfoComponentFragment.refreshOnResume
+        set(value) {
+            MyInfoComponentFragment.refreshOnResume = value
         }
 
     override var refreshChannelComponent: Boolean

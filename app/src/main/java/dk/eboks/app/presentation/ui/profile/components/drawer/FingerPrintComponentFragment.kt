@@ -23,9 +23,9 @@ import kotlinx.android.synthetic.main.fragment_profile_enable_fingerprint_compon
 import timber.log.Timber
 import javax.inject.Inject
 
-class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContract.View {
+class FingerPrintComponentFragment : BaseFragment(), dk.eboks.app.profile.FingerPrintComponentContract.View {
     @Inject
-    lateinit var presenter: FingerPrintComponentContract.Presenter
+    lateinit var presenter: dk.eboks.app.profile.FingerPrintComponentContract.Presenter
 
     var handler = Handler()
     private var mode: LoginInfoType? = null

@@ -14,10 +14,10 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class EmailVerificationComponentFragment : BaseFragment(), EmailVerificationComponentContract.View {
+class EmailVerificationComponentFragment : BaseFragment(), dk.eboks.app.profile.EmailVerificationComponentContract.View {
 
     @Inject
-    lateinit var presenter: EmailVerificationComponentContract.Presenter
+    lateinit var presenter: dk.eboks.app.profile.EmailVerificationComponentContract.Presenter
 
     var mail: String? = null
 

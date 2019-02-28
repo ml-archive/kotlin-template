@@ -18,10 +18,10 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class PhoneVerificationComponentFragment : BaseFragment(), PhoneVerificationComponentContract.View {
+class PhoneVerificationComponentFragment : BaseFragment(), dk.eboks.app.profile.PhoneVerificationComponentContract.View {
 
     @Inject
-    lateinit var presenter: PhoneVerificationComponentContract.Presenter
+    lateinit var presenter: dk.eboks.app.profile.PhoneVerificationComponentContract.Presenter
 
     var handler = Handler()
     private var codeIsValid = false

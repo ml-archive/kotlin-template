@@ -17,9 +17,9 @@ import kotlinx.android.synthetic.main.fragment_profile_enable_fingerprint_mobile
 import timber.log.Timber
 import javax.inject.Inject
 
-class FingerHintComponentFragment : BaseFragment(), FingerHintComponentContract.View {
+class FingerHintComponentFragment : BaseFragment(), dk.eboks.app.profile.FingerHintComponentContract.View {
     @Inject
-    lateinit var presenter: FingerHintComponentContract.Presenter
+    lateinit var presenter: dk.eboks.app.profile.FingerHintComponentContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -28,10 +28,10 @@ import timber.log.Timber
 import java.util.Locale
 import javax.inject.Inject
 
-class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
+class MyInfoComponentFragment : BaseFragment(), dk.eboks.app.profile.ui.components.MyInfoComponentContract.View,
     OnLanguageChangedListener, TextWatcher {
     @Inject
-    lateinit var presenter: MyInfoComponentContract.Presenter
+    lateinit var presenter: dk.eboks.app.profile.ui.components.MyInfoComponentContract.Presenter
     private var menuSave: MenuItem? = null
 
     // val mobilenumber: ContactPoint = ContactPoint()

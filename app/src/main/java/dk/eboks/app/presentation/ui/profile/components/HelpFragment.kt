@@ -15,10 +15,10 @@ import javax.inject.Inject
  * @author Christian
  * @since 5/23/2018.
  */
-class HelpFragment : BaseWebFragment(), HelpContract.View {
+class HelpFragment : BaseWebFragment(), dk.eboks.app.profile.ui.components.HelpContract.View {
 
     @Inject
-    lateinit var presenter: HelpContract.Presenter
+    lateinit var presenter: dk.eboks.app.profile.ui.components.HelpContract.Presenter
 
     override fun onOverrideUrlLoading(view: WebView?, url: String?): Boolean {
         return true

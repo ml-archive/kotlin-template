@@ -43,8 +43,8 @@ import java.io.File
 import javax.inject.Inject
 
 class ProfileInfoComponentFragment : BaseFragment(),
-    ProfileInfoComponentContract.View {
-    @Inject lateinit var presenter: ProfileInfoComponentContract.Presenter
+    dk.eboks.app.profile.ui.components.ProfileInfoComponentContract.View {
+    @Inject lateinit var presenter: dk.eboks.app.profile.ui.components.ProfileInfoComponentContract.Presenter
     @Inject lateinit var appConfig: AppConfig
 
     private var toolbarTitle = ""
