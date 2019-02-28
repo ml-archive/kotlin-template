@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.models.message
+package dk.eboks.app.domain.models.message.payment
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

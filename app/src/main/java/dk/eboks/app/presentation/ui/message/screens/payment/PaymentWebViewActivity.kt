@@ -8,7 +8,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.message.PaymentOption
+import dk.eboks.app.domain.models.message.payment.PaymentOption
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.activity_payment_web_view.*

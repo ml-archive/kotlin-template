@@ -12,18 +12,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.message.Message
-import dk.eboks.app.domain.models.message.Payment
-import dk.eboks.app.domain.models.message.PaymentOption
+import dk.eboks.app.domain.models.message.payment.Payment
+import dk.eboks.app.domain.models.message.payment.PaymentOption
+import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
 import dk.eboks.app.presentation.ui.message.screens.payment.PaymentWebViewActivity
 import dk.eboks.app.presentation.widgets.DividerItemDecoration
-import dk.eboks.app.util.ActivityStarter
 import dk.eboks.app.util.formatPayment
 import kotlinx.android.synthetic.main.fragment_payment_component.*
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 
@@ -61,7 +59,11 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, 
     }
 
     override fun onPaymentOptionSelected(paymentOption: PaymentOption) {
-        PaymentWebViewActivity.startForResult(this, paymentOption)
+        presenter.loadPaymentLink(paymentOption)
+    }
+
+    override fun showPaymentWebView(link: Link) {
+        Timber.d("link: $link")
     }
 
     override fun showPaymentDetails(payment: Payment) {
@@ -69,7 +71,7 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, 
         paymentDueTv.text = payment.status.date?.formatPayment()
         paymentValueTv.text = payment.amount?.toString() ?: ""
         paymentDisclaimer.text = payment.disclaimer
-        paymentNotificationSwitch.isChecked = payment.notfication
+        paymentNotificationSwitch.isChecked = payment.notification
         setupRecyclerView(payment.options ?: listOf())
     }
 

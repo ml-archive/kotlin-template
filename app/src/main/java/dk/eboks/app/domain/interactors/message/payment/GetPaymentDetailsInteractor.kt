@@ -1,7 +1,7 @@
 package dk.eboks.app.domain.interactors.message.payment
 
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.message.Payment
+import dk.eboks.app.domain.models.message.payment.Payment
 import dk.nodes.arch.domain.interactor.Interactor
 
 interface GetPaymentDetailsInteractor : Interactor {

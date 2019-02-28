@@ -38,6 +38,7 @@ import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesI
 import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.interactors.message.payment.GetPaymentDetailsInteractor
+import dk.eboks.app.domain.interactors.message.payment.GetPaymentLinkInteractor
 import dk.eboks.app.domain.interactors.sender.GetSegmentInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
@@ -1264,8 +1265,8 @@ class PresentationModule {
     }
   @ActivityScope
     @Provides
-    fun providePaymentPresenter(stateManager: AppStateManager) : PaymentComponentContract.Presenter {
-        return PaymentComponentPresenter(stateManager)
+    fun providePaymentPresenter(stateManager: AppStateManager, getPaymentLinkInteractor: GetPaymentLinkInteractor) : PaymentComponentContract.Presenter {
+        return PaymentComponentPresenter(stateManager, getPaymentLinkInteractor)
     }
 
     @ActivityScope

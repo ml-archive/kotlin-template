@@ -3,13 +3,11 @@ package dk.eboks.app.presentation.ui.message.screens.embedded
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
-import dk.eboks.app.domain.interactors.message.payment.GetPaymentDetailsInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
-import dk.eboks.app.domain.models.message.Payment
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 

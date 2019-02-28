@@ -10,7 +10,9 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.message.*
+import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.domain.models.sender.Sender
+import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
@@ -343,5 +345,9 @@ class MessagesRestRepository(
     override fun getPaymentDetails(folderId: Int, messageId: String): Payment {
         val call = api.getPaymentDetails(folderId, messageId)
         return call.execute().body() ?: throw RuntimeException()
+    }
+
+    override fun getPaymentLink(folderId: Int, messageId: String, type: String) : Link? {
+        return api.getPaymentLink(folderId, messageId, type).execute().body()
     }
 }

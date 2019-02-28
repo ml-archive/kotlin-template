@@ -4,7 +4,7 @@ import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.message.payment.GetPaymentDetailsInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.message.Payment
+import dk.eboks.app.domain.models.message.payment.Payment
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 

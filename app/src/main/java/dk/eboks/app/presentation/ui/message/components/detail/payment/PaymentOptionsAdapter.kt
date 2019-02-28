@@ -5,8 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.message.PaymentOption
+import dk.eboks.app.domain.models.message.payment.PaymentOption
 import kotlinx.android.synthetic.main.viewholder_payment_option.view.*
 
 class PaymentOptionsAdapter(val options: List<PaymentOption>, val listener: PaymentOptionListener) : RecyclerView.Adapter<PaymentOptionsAdapter.ViewHolder>(){

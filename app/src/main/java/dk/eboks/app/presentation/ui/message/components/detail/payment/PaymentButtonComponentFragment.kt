@@ -5,9 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
-import dk.eboks.app.domain.models.message.Payment
+import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.util.formatPayment
 import kotlinx.android.synthetic.main.fragment_payment_button.*
 import javax.inject.Inject
 

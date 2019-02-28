@@ -3,7 +3,6 @@ package dk.eboks.app.presentation.ui.message.screens.embedded
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.view.MenuItem
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
@@ -12,7 +11,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
-import dk.eboks.app.domain.models.message.Payment
+import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.presentation.base.BaseSheetActivity
 import dk.eboks.app.presentation.base.ViewerFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
@@ -21,7 +20,6 @@ import dk.eboks.app.presentation.ui.message.components.detail.folderinfo.FolderI
 import dk.eboks.app.presentation.ui.message.components.detail.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentButtonComponentFragment
-import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.share.ShareComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.sign.SignButtonComponentFragment
@@ -34,7 +32,6 @@ import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
 import dk.eboks.app.util.ViewControl
 import kotlinx.android.synthetic.main.include_toolbar.*
-import kotlinx.android.synthetic.main.sheet_message.*
 import javax.inject.Inject
 
 /**
