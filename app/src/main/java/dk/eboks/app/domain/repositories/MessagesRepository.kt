@@ -4,6 +4,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
+import dk.eboks.app.domain.models.message.Payment
 import dk.eboks.app.domain.models.message.StorageInfo
 import dk.eboks.app.domain.models.sender.Sender
 
@@ -35,6 +36,8 @@ interface MessagesRepository {
     fun updateMessage(message: Message, messagePatch: MessagePatch)
     fun getStorageInfo(): StorageInfo
     fun getLatestUploads(offset: Int? = null, limit: Int? = null): List<Message>
+
+    fun getPaymentDetails(folderId: Int, messageId: String) : Payment
 
     fun uploadFileAsMessage(
         folderId: Int,

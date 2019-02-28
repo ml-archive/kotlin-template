@@ -1,5 +1,6 @@
 package dk.eboks.app.injection.modules
 
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.interactors.BootstrapInteractor
@@ -94,6 +95,8 @@ import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInt
 import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractorImpl
 import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractorImpl
+import dk.eboks.app.domain.interactors.message.payment.GetPaymentDetailsInteractor
+import dk.eboks.app.domain.interactors.message.payment.GetPaymentDetailsInteractorImpl
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractorImpl
 import dk.eboks.app.domain.interactors.sender.GetSegmentInteractor
@@ -981,5 +984,10 @@ class InteractorModule {
     @Provides
     fun provideGetAllSharesInteractor(executor: Executor, api: Api): GetAllSharesInteractor {
         return GetAllSharesInteractorImpl(executor, api)
+    }
+
+    @Provides
+    fun provideGetPaymentDetailsInteractor(executor: Executor, messagesRepository: MessagesRepository) : GetPaymentDetailsInteractor {
+        return GetPaymentDetailsInteractorImpl(executor, messagesRepository)
     }
 }

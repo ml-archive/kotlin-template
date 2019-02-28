@@ -37,6 +37,7 @@ import dk.eboks.app.domain.interactors.message.UploadFileInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.DeleteMessagesInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
+import dk.eboks.app.domain.interactors.message.payment.GetPaymentDetailsInteractor
 import dk.eboks.app.domain.interactors.sender.GetSegmentInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.interactors.sender.GetSenderDetailInteractor
@@ -173,6 +174,8 @@ import dk.eboks.app.presentation.ui.message.components.detail.header.HeaderCompo
 import dk.eboks.app.presentation.ui.message.components.detail.header.HeaderComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentContract
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentPresenter
+import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentButtonComponentContract
+import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentButtonComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentComponentContract
 import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonComponentContract
@@ -1265,6 +1268,13 @@ class PresentationModule {
         return PaymentComponentPresenter(stateManager)
     }
 
+    @ActivityScope
+    @Provides
+    fun providePaymentButtonComponentFragment(
+            stateManager: AppStateManager,
+            getPaymentDetailsInteractor: GetPaymentDetailsInteractor) : PaymentButtonComponentContract.Presenter {
+        return PaymentButtonComponentPresenter(stateManager, getPaymentDetailsInteractor)
+    }
 
     /* Pasta
     @ActivityScope

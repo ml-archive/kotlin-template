@@ -19,6 +19,7 @@ import dk.eboks.app.domain.models.login.SharedUser
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
+import dk.eboks.app.domain.models.message.Payment
 import dk.eboks.app.domain.models.message.StorageInfo
 import dk.eboks.app.domain.models.protocol.AliasBody
 import dk.eboks.app.domain.models.sender.CollectionContainer
@@ -152,6 +153,10 @@ interface Api {
     // delete message
     @DELETE("mail/folders/{folderId}/messages/{messageId}")
     fun deleteMessage(@Path("folderId") folderId: Int, @Path("messageId") messageId: String): Call<Void>
+
+
+    @GET("mail/folders/{folderId}/messages/{messageId}/payment")
+    fun getPaymentDetails(@Path("folderId") folderId: Int, @Path("messageId") messageId: String) : Call<Payment>
 
     // get types of messages, used to be by folder type but now its just a couple of hardcoded endpoints
     @GET("mail/messages/highlights")

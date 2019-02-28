@@ -9,11 +9,15 @@ import dk.eboks.app.domain.models.message.Payment
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.formatPayment
 import kotlinx.android.synthetic.main.fragment_payment_button.*
+import javax.inject.Inject
 
-class PaymentButtonComponentFragment : BaseFragment() {
+class PaymentButtonComponentFragment : BaseFragment(), PaymentButtonComponentContract.View {
 
     private val payment: Payment?
         get() = arguments?.getParcelable(ARG_PAYMENT)
+
+    @Inject
+    lateinit var presenter: PaymentButtonComponentContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_payment_button, container, false)
@@ -21,6 +25,8 @@ class PaymentButtonComponentFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        component.inject(this)
+        presenter.onViewCreated(this, lifecycle)
         payment?.let(this::setPaymentDetails)
     }
 
@@ -32,6 +38,9 @@ class PaymentButtonComponentFragment : BaseFragment() {
         }
     }
 
+    override fun showPaymentDetails(payment: Payment) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     companion object {
 
