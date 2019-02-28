@@ -18,7 +18,7 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
     @Inject lateinit var presenter: DebugUserContract.Presenter
     @Inject lateinit var appConfig: AppConfig
 
-    var currentUser: User? = null
+    private var currentUser: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

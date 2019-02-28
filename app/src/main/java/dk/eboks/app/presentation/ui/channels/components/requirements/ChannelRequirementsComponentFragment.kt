@@ -69,7 +69,7 @@ class ChannelRequirementsComponentFragment : BaseFragment(),
             Translation.channels.drawerHeaderText.replace("[channelname]", channelName)
     }
 
-    inner class RowAdapter(val requirements: List<Requirement>) :
+    inner class RowAdapter(private val requirements: List<Requirement>) :
         RecyclerView.Adapter<RowAdapter.ChannelRequirementViewHolder>() {
 
         override fun onCreateViewHolder(

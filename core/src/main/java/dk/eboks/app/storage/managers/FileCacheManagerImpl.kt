@@ -20,7 +20,7 @@ import java.nio.channels.FileChannel
  * TODO implement max size and delete old entries from disk
  */
 class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheManager {
-    var cache: MutableMap<String, CacheEntry>
+    private var cache: MutableMap<String, CacheEntry>
     private val cacheStore = GsonCacheStore()
     private var cacheDir: File
 

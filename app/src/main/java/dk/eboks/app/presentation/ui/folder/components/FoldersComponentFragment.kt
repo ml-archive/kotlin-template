@@ -51,11 +51,11 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
     private var systemfolders: MutableList<Folder> = ArrayList()
     private var userfolders: MutableList<Folder> = ArrayList()
-    var mode: FolderMode = FolderMode.NORMAL
+    private var mode: FolderMode = FolderMode.NORMAL
     private var selectFolder: Boolean = false
     private var pickedFolder: Folder? = null
     private var pickedCheckBox: ImageButton? = null
-    var currentUser: User? = null
+    private var currentUser: User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -27,7 +27,7 @@ class NewFolderComponentFragment : BaseFragment(), NewFolderComponentContract.Vi
 
     @Inject
     lateinit var presenter: NewFolderComponentContract.Presenter
-    var mode: FolderDrawerMode = FolderDrawerMode.NEW
+    private var mode: FolderDrawerMode = FolderDrawerMode.NEW
 
     private var parentFolder: Folder? = null
     private var editFolder: Folder? = null

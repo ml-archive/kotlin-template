@@ -70,7 +70,7 @@ class LoginComponentFragment : BaseFragment(), dk.eboks.app.keychain.presentatio
 
     private var showGreeting: Boolean = true
     private var currentProvider: LoginProvider? = null
-    var currentUser: User? = null
+    private var currentUser: User? = null
     private var currentSettings: UserSettings? = null
     private var selectedLoginProviderId: String? = null
     private var reauth: Boolean = false

@@ -13,7 +13,7 @@ interface GetStoreboxCardLinkInteractor : Interactor {
     }
 
     companion object {
-        val SUCCESS_CALLBACK = "eboksdk://success"
-        val ERROR_CALLBACK = "eboksdk://error"
+        const val SUCCESS_CALLBACK = "eboksdk://success"
+        const val ERROR_CALLBACK = "eboksdk://error"
     }
 }

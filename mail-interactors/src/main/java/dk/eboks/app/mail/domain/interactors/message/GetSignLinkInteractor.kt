@@ -17,8 +17,8 @@ interface GetSignLinkInteractor : Interactor {
     }
 
     companion object {
-        val CANCEL_CALLBACK = "eboksdk://cancel"
-        val SUCCESS_CALLBACK = "eboksdk://success"
-        val ERROR_CALLBACK = "eboksdk://error"
+        const val CANCEL_CALLBACK = "eboksdk://cancel"
+        const val SUCCESS_CALLBACK = "eboksdk://success"
+        const val ERROR_CALLBACK = "eboksdk://error"
     }
 }

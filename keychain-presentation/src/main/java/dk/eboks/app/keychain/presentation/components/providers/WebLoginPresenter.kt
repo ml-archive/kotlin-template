@@ -21,9 +21,9 @@ import javax.inject.Inject
 open class WebLoginPresenter @Inject constructor(
     val viewController: ViewController,
     val appState: AppStateManager,
-    val transformTokenInteractor: TransformTokenInteractor,
-    val verifyProfileInteractor: VerifyProfileInteractor,
-    val mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
+    private val transformTokenInteractor: TransformTokenInteractor,
+    private val verifyProfileInteractor: VerifyProfileInteractor,
+    private val mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
     val userSettingsManager: UserSettingsManager,
     val appConfig: AppConfig
 ) :

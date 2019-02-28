@@ -27,7 +27,7 @@ internal class ChannelOpeningComponentPresenter @Inject constructor(
     GetChannelInteractor.Output,
     CreateStoreboxInteractor.Output,
     InstallChannelInteractor.Output {
-    var channelId: Int = 0
+    private var channelId: Int = 0
     var channel: Channel? = null
 
     init {

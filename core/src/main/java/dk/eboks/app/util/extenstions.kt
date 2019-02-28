@@ -117,12 +117,12 @@ fun Channel.areAllRequirementsVerified(): Boolean {
 }
 
 fun Channel.getType(): String {
-    if (this.id > 0 && this.id < 4) {
+    if (this.id in 1..3) {
         return "storebox"
     }
     // TODO figure out ids and reenable ekey support later
 
-    if (this.id >= 11 && this.id <= 13) {
+    if (this.id in 11..13) {
         return "ekey"
     }
 

@@ -299,7 +299,7 @@
     </style>
 
     <style name="EboksTextInputLayout">
-        <item name="android:textColorHint"></item>
+        <item name="android:textColorHint" />
     </style>
 
 
