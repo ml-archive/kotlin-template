@@ -94,6 +94,7 @@ object Libs {
 
     object Test {
 
+        const val mockk = "io.mockk:mockk:1.9"
         const val runner = "androidx.test:runner:1.1.1"
         object Expresso {
             private const val version = "3.1.1"
