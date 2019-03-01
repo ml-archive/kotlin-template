@@ -95,10 +95,7 @@ import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInt
 import dk.eboks.app.domain.interactors.message.messageoperations.MoveMessagesInteractorImpl
 import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.interactors.message.messageoperations.UpdateMessageInteractorImpl
-import dk.eboks.app.domain.interactors.message.payment.GetPaymentDetailsInteractor
-import dk.eboks.app.domain.interactors.message.payment.GetPaymentDetailsInteractorImpl
-import dk.eboks.app.domain.interactors.message.payment.GetPaymentLinkInteractor
-import dk.eboks.app.domain.interactors.message.payment.GetPaymentLinkInteractorImpl
+import dk.eboks.app.domain.interactors.message.payment.*
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractor
 import dk.eboks.app.domain.interactors.sender.GetCollectionsInteractorImpl
 import dk.eboks.app.domain.interactors.sender.GetSegmentInteractor
@@ -996,5 +993,10 @@ class InteractorModule {
     @Provides
     fun provideGetPaymentLinkInteractor(executor: Executor, messagesRepository: MessagesRepository) : GetPaymentLinkInteractor {
         return GetPaymentLinkInteractorImpl(executor, messagesRepository)
+    }
+
+    @Provides
+    fun provideTogglePaymentNotificationsInteractor(executor: Executor, api: Api) : TogglePaymentNotificationInteractor {
+        return TogglePaymentNotificationInteractorImpl(executor, api)
     }
 }

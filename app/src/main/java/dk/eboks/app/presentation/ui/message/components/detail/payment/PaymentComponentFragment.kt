@@ -46,6 +46,11 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, 
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         payment?.let(this::showPaymentDetails)
+
+        paymentNotificationSwitch.setOnCheckedChangeListener { compoundButton, b ->
+            Timber.d("$b")
+            presenter.toggleNotifications(b)
+        }
     }
 
     private fun setupRecyclerView(options: List<PaymentOption>) {
@@ -73,6 +78,9 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, 
         paymentDisclaimer.text = payment.disclaimer
         paymentNotificationSwitch.isChecked = payment.notification
         setupRecyclerView(payment.options ?: listOf())
+    }
+
+    override fun updateNotificationsToggle(toggled: Boolean) {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

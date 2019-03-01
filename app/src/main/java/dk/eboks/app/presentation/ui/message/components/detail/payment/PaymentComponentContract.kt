@@ -11,10 +11,12 @@ interface PaymentComponentContract {
     interface View {
         fun showPaymentDetails(payment: Payment)
         fun showPaymentWebView(link: Link)
+        fun updateNotificationsToggle(toggled: Boolean)
     }
 
     interface Presenter : BasePresenter<View> {
         fun loadPaymentLink(option: PaymentOption)
+        fun toggleNotifications(newValue: Boolean)
 
     }
 
