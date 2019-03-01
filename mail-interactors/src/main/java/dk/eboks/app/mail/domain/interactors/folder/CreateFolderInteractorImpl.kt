@@ -6,7 +6,7 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import javax.inject.Inject
 
-class CreateFolderInteractorImpl @Inject constructor(
+internal class CreateFolderInteractorImpl @Inject constructor(
     executor: Executor,
     private val foldersRepository: FoldersRepository
 ) : BaseInteractor(executor), CreateFolderInteractor {

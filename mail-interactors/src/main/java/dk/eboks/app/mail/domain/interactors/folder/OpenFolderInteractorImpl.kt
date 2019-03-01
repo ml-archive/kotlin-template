@@ -10,7 +10,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 01/02/18.
  */
-class OpenFolderInteractorImpl @Inject constructor(
+internal class OpenFolderInteractorImpl @Inject constructor(
     executor: Executor,
     private val uiManager: UIManager
 ) : BaseInteractor(executor), OpenFolderInteractor {

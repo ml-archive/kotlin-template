@@ -21,7 +21,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class LoginComponentPresenter @Inject constructor(
+internal class LoginComponentPresenter @Inject constructor(
     private val appState: AppStateManager,
     private val userSettingsManager: UserSettingsManager,
     private val decryptUserLoginInfoInteractor: DecryptUserLoginInfoInteractor,

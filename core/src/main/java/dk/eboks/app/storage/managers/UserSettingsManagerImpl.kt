@@ -7,12 +7,16 @@ import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.login.UserSettings
 import dk.eboks.app.storage.base.GsonFileStorageRepository
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * @author Christian
  * @since 6/19/2018.
  */
-class UserSettingsManagerImpl(val context: Context, val gson: Gson) : UserSettingsManager {
+internal class UserSettingsManagerImpl @Inject constructor(
+    private val context: Context,
+    private val gson: Gson
+) : UserSettingsManager {
     private var userSettings = mutableMapOf<Int, UserSettings>()
     private val settingsStore = UserSettingsStore()
 

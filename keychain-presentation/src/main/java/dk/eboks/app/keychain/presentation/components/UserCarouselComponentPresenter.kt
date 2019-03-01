@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class UserCarouselComponentPresenter @Inject constructor(
+internal class UserCarouselComponentPresenter @Inject constructor(
     private val appState: AppStateManager,
     private val userSettingsManager: UserSettingsManager,
     private val getUsersInteractor: GetUsersInteractor,

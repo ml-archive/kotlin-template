@@ -12,7 +12,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class AppStateManagerImpl @Inject constructor(private val appStateRepository: AppStateRepository) :
+internal class AppStateManagerImpl @Inject constructor(private val appStateRepository: AppStateRepository) :
         AppStateManager {
     override var state: AppState? = null
 

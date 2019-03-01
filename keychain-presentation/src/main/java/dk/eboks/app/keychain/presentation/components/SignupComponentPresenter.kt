@@ -19,7 +19,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class SignupComponentPresenter @Inject constructor(
+internal class SignupComponentPresenter @Inject constructor(
     private val viewController: ViewController,
     private val appState: AppStateManager,
     private val createUserInteractor: CreateUserInteractor,

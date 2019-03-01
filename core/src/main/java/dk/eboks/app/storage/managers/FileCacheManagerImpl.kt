@@ -14,12 +14,16 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.nio.channels.FileChannel
+import javax.inject.Inject
 
 /**
  * Created by bison on 17-02-2018.
  * TODO implement max size and delete old entries from disk
  */
-class FileCacheManagerImpl(val context: Context, val gson: Gson) : FileCacheManager {
+internal class FileCacheManagerImpl @Inject constructor(
+    private val context: Context,
+    private val gson: Gson
+) : FileCacheManager {
     private var cache: MutableMap<String, CacheEntry>
     private val cacheStore = GsonCacheStore()
     private var cacheDir: File

@@ -40,27 +40,7 @@ import dk.nodes.arch.domain.injection.scopes.AppScope
 @AppScope
 interface AppComponent {
     fun inject(app: App)
-    fun inject(t: PermissionRequestActivity)
-    fun inject(eAuth2: EAuth2)
-    fun inject(t: ICacheStore)
 
     // For Interactor Injection
     fun plus(): PresentationComponent
-
-    // expose functions to components dependent on this component
-    fun executor(): Executor
-
-    fun api(): Api
-
-    // managers
-    fun prefManager(): PrefManager
-
-    fun appStateManager(): AppStateManager
-    fun uiManager(): UIManager
-    fun fileCacheManager(): FileCacheManager
-    fun downloadManager(): DownloadManager
-    fun eboksFormatter(): EboksFormatter
-    fun permissionManager(): PermissionManager
-    fun userManager(): UserManager
-    fun userSettingsManager(): UserSettingsManager
 }

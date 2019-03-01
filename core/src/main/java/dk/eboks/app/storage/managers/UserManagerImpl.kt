@@ -8,11 +8,15 @@ import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.storage.base.GsonFileStorageRepository
 import dk.eboks.app.util.FieldMapper
 import timber.log.Timber
+import javax.inject.Inject
 
 /**
  * Created by bison on 17-02-2018.
  */
-class UserManagerImpl(val context: Context, val gson: Gson) : UserManager {
+internal class UserManagerImpl @Inject constructor(
+    private val context: Context,
+    private val gson: Gson
+) : UserManager {
     override var users: MutableList<User> = ArrayList()
     private val userStore = UserStore()
 

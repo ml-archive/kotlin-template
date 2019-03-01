@@ -9,7 +9,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class VerificationComponentPresenter @Inject constructor(
+internal class VerificationComponentPresenter @Inject constructor(
     private val appState: AppStateManager,
     private val appConfig: AppConfig
 ) :

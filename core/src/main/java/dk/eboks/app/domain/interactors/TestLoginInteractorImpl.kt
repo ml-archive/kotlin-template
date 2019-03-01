@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 24-06-2017.
  */
-class TestLoginInteractorImpl @Inject constructor(
+internal class TestLoginInteractorImpl @Inject constructor(
     executor: Executor,
     private val authClient: AuthClient
 ) : BaseInteractor(executor), TestLoginInteractor {

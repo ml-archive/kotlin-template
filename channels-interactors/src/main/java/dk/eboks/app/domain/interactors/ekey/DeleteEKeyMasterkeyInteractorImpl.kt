@@ -6,7 +6,7 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import javax.inject.Inject
 
-class DeleteEKeyMasterkeyInteractorImpl @Inject constructor(
+internal class DeleteEKeyMasterkeyInteractorImpl @Inject constructor(
     executor: Executor,
     private val api: Api
 ) : BaseInteractor(executor), DeleteEKeyMasterkeyInteractor {

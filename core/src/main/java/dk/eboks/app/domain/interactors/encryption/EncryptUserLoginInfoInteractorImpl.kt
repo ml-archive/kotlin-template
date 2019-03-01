@@ -10,7 +10,7 @@ import dk.nodes.arch.domain.interactor.BaseInteractor
 import timber.log.Timber
 import javax.inject.Inject
 
-class EncryptUserLoginInfoInteractorImpl @Inject constructor(
+internal class EncryptUserLoginInfoInteractorImpl @Inject constructor(
     executor: Executor,
     private val encryptionPreferenceManager: EncryptionPreferenceManager
 ) :

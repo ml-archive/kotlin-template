@@ -4,12 +4,13 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import dk.eboks.app.domain.managers.PrefManager
+import javax.inject.Inject
 
 /**
  * Created by bison on 11/10/17.
  */
-class PrefManagerImpl(context: Context) : PrefManager {
-    private var sharedPrefs: SharedPreferences =
+internal class PrefManagerImpl @Inject constructor(context: Context) : PrefManager {
+    private val sharedPrefs: SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(context)
 
     override fun getInt(key: String, defaultValue: Int): Int {

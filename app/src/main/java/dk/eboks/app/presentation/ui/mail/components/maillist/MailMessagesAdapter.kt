@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.daimajia.swipe.SwipeLayout
-import dk.eboks.app.App
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
@@ -21,11 +20,12 @@ import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.util.getWorkaroundUrl
 import kotlinx.android.synthetic.main.viewholder_message_row.view.*
 import timber.log.Timber
+import javax.inject.Inject
 
-class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageViewHolder>() {
+class MailMessagesAdapter @Inject constructor(private val formatter: EboksFormatter) :
+    RecyclerView.Adapter<MailMessagesAdapter.MessageViewHolder>() {
     enum class MailMessageEvent { OPEN, READ, MOVE }
 
-    private val formatter: EboksFormatter = App.instance().appComponent.eboksFormatter()
     var editMode: Boolean = false
     private val messages = mutableListOf<Message>()
     var folder: Folder? = null

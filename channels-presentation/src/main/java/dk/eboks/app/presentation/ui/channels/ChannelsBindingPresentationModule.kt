@@ -42,69 +42,69 @@ import dk.nodes.arch.domain.injection.scopes.ActivityScope
 abstract class ChannelsBindingPresentationModule {
     @ActivityScope
     @Binds
-    internal abstract fun provideChannelsPresenter(presenter: ChannelOverviewPresenter): ChannelOverviewContract.Presenter
+    internal abstract fun bindChannelsPresenter(presenter: ChannelOverviewPresenter): ChannelOverviewContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideChannelListComponentPresenter(presenter: ChannelOverviewComponentPresenter): ChannelOverviewComponentContract.Presenter
+    internal abstract fun bindChannelListComponentPresenter(presenter: ChannelOverviewComponentPresenter): ChannelOverviewComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideChannelSettingsPopUpComponentPresenter(presenter: ChannelRequirementsComponentPresenter): ChannelRequirementsComponentContract.Presenter
+    internal abstract fun bindChannelSettingsPopUpComponentPresenter(presenter: ChannelRequirementsComponentPresenter): ChannelRequirementsComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideChannelOpeningComponentPresenter(presenter: ChannelOpeningComponentPresenter): ChannelOpeningComponentContract.Presenter
+    internal abstract fun bindChannelOpeningComponentPresenter(presenter: ChannelOpeningComponentPresenter): ChannelOpeningComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideChannelVerificationComponentPresenter(presenter: ChannelVerificationComponentPresenter): ChannelVerificationComponentContract.Presenter
+    internal abstract fun bindChannelVerificationComponentPresenter(presenter: ChannelVerificationComponentPresenter): ChannelVerificationComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideChannelContentComponentPresenter(presenter: ChannelContentComponentPresenter): ChannelContentComponentContract.Presenter
+    internal abstract fun bindChannelContentComponentPresenter(presenter: ChannelContentComponentPresenter): ChannelContentComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideChannelContentStoreboxComponentPresenter(presenter: ChannelContentStoreboxComponentPresenter): ChannelContentStoreboxComponentContract.Presenter
+    internal abstract fun bindChannelContentStoreboxComponentPresenter(presenter: ChannelContentStoreboxComponentPresenter): ChannelContentStoreboxComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideChannelContentStoreboxDetailComponentPresenter(presenter: ChannelContentStoreboxDetailComponentPresenter): ChannelContentStoreboxDetailComponentContract.Presenter
+    internal abstract fun bindChannelContentStoreboxDetailComponentPresenter(presenter: ChannelContentStoreboxDetailComponentPresenter): ChannelContentStoreboxDetailComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideChannelSettingsComponentPresenter(presenter: ChannelSettingsComponentPresenter): ChannelSettingsComponentContract.Presenter
+    internal abstract fun bindChannelSettingsComponentPresenter(presenter: ChannelSettingsComponentPresenter): ChannelSettingsComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideChannelContentPresenter(presenter: ChannelContentPresenter): ChannelContentContract.Presenter
+    internal abstract fun bindChannelContentPresenter(presenter: ChannelContentPresenter): ChannelContentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideEkeyContentPresenter(presenter: EkeyContentPresenter): EkeyContentContract.Presenter
+    internal abstract fun bindEkeyContentPresenter(presenter: EkeyContentPresenter): EkeyContentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideEkeyComponentPresenter(presenter: EkeyComponentPresenter): EkeyComponentContract.Presenter
+    internal abstract fun bindEkeyComponentPresenter(presenter: EkeyComponentPresenter): EkeyComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideEkeyAddItemComponentPresenter(presenter: EkeyAddItemComponentPresenter): EkeyAddItemComponentContract.Presenter
+    internal abstract fun bindEkeyAddItemComponentPresenter(presenter: EkeyAddItemComponentPresenter): EkeyAddItemComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideEkeyDetailComponentPresenter(presenter: EkeyDetailComponentPresenter): EkeyDetailComponentContract.Presenter
+    internal abstract fun bindEkeyDetailComponentPresenter(presenter: EkeyDetailComponentPresenter): EkeyDetailComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideEkeyOpenItemComponentPresenter(presenter: EkeyOpenItemComponentPresenter): EkeyOpenItemComponentContract.Presenter
+    internal abstract fun bindEkeyOpenItemComponentPresenter(presenter: EkeyOpenItemComponentPresenter): EkeyOpenItemComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideEkeyPinComponentPresenter(presenter: EkeyPinComponentPresenter): EkeyPinComponentContract.Presenter
+    internal abstract fun bindEkeyPinComponentPresenter(presenter: EkeyPinComponentPresenter): EkeyPinComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideConnectStoreboxPresenter(presenter: ConnectStoreboxPresenter): ConnectStoreboxContract.Presenter
+    internal abstract fun bindConnectStoreboxPresenter(presenter: ConnectStoreboxPresenter): ConnectStoreboxContract.Presenter
 }

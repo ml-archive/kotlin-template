@@ -13,7 +13,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class ActivationCodeComponentPresenter @Inject constructor(
+internal class ActivationCodeComponentPresenter @Inject constructor(
     private val appConfig: AppConfig,
     private val appState: AppStateManager,
     private val loginInteractor: LoginInteractor

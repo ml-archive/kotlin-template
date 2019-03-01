@@ -7,7 +7,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 07/02/18.
  */
-class ResourceManagerImpl @Inject constructor(val context: Context) : ResourceManager {
+internal class ResourceManagerImpl @Inject constructor(val context: Context) : ResourceManager {
     override fun getStringArray(id: Int): Array<String> {
         return context.resources.getStringArray(id)
     }

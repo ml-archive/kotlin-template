@@ -27,37 +27,37 @@ abstract class KeychainBindingPresentationModule {
 
     @ActivityScope
     @Binds
-    abstract fun provideForgotPasswordDoneComponentPresenter(presenter: ForgotPasswordDoneComponentPresenter): ForgotPasswordDoneComponentContract.Presenter
+    internal abstract fun bindForgotPasswordDoneComponentPresenter(presenter: ForgotPasswordDoneComponentPresenter): ForgotPasswordDoneComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideUserCarouselComponentPresenter(presenter: UserCarouselComponentPresenter): UserCarouselComponentContract.Presenter
+    internal abstract fun bindUserCarouselComponentPresenter(presenter: UserCarouselComponentPresenter): UserCarouselComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideLoginComponentPresenter(presenter: LoginComponentPresenter): LoginComponentContract.Presenter
+    internal abstract fun bindLoginComponentPresenter(presenter: LoginComponentPresenter): LoginComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideForgotPasswordComponentPresenter(presenter: ForgotPasswordComponentPresenter): ForgotPasswordComponentContract.Presenter
+    internal abstract fun bindForgotPasswordComponentPresenter(presenter: ForgotPasswordComponentPresenter): ForgotPasswordComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideActivationCodeComponentPresenter(presenter: ActivationCodeComponentPresenter): ActivationCodeComponentContract.Presenter
+    internal abstract fun bindActivationCodeComponentPresenter(presenter: ActivationCodeComponentPresenter): ActivationCodeComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideSignupComponentPresenter(presenter: SignupComponentPresenter): SignupComponentContract.Presenter
+    internal abstract fun bindSignupComponentPresenter(presenter: SignupComponentPresenter): SignupComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideVerificationComponentPresenter(presenter: VerificationComponentPresenter): VerificationComponentContract.Presenter
+    internal abstract fun bindVerificationComponentPresenter(presenter: VerificationComponentPresenter): VerificationComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun providePopupLoginPresenter(presenter: PopupLoginPresenter): PopupLoginContract.Presenter
+    internal abstract fun bindPopupLoginPresenter(presenter: PopupLoginPresenter): PopupLoginContract.Presenter
 
     @ActivityScope
     @Binds
-    abstract fun provideDeviceActivationComponentPresenter(presenter: DeviceActivationComponentPresenter): DeviceActivationComponentContract.Presenter
+    internal abstract fun bindDeviceActivationComponentPresenter(presenter: DeviceActivationComponentPresenter): DeviceActivationComponentContract.Presenter
 }

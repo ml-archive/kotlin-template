@@ -30,45 +30,45 @@ import dk.nodes.arch.domain.injection.scopes.ActivityScope
 abstract class SendersBindingPresentationModule {
     @ActivityScope
     @Binds
-    internal abstract fun provideCategoriesComponentPresenter(presenter: CategoriesComponentPresenter): CategoriesComponentContract.Presenter
+    internal abstract fun bindCategoriesComponentPresenter(presenter: CategoriesComponentPresenter): CategoriesComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideSendersOverviewPresenter(presenter: SendersOverviewPresenter): SendersOverviewContract.Presenter
+    internal abstract fun bindSendersOverviewPresenter(presenter: SendersOverviewPresenter): SendersOverviewContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideBrowseCategoryPresenter(presenter: BrowseCategoryPresenter): BrowseCategoryContract.Presenter
+    internal abstract fun bindBrowseCategoryPresenter(presenter: BrowseCategoryPresenter): BrowseCategoryContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideRegistrationsPresenter(presenter: RegistrationsPresenter): RegistrationsContract.Presenter
+    internal abstract fun bindRegistrationsPresenter(presenter: RegistrationsPresenter): RegistrationsContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideSenderGroupsComponentPresenter(presenter: SenderGroupsComponentPresenter): SenderGroupsComponentContract.Presenter
+    internal abstract fun bindSenderGroupsComponentPresenter(presenter: SenderGroupsComponentPresenter): SenderGroupsComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun providePendingPresenter(presenter: PendingPresenter): PendingContract.Presenter
+    internal abstract fun bindPendingPresenter(presenter: PendingPresenter): PendingContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideSenderDetailPresenter(presenter: SenderDetailPresenter): SenderDetailContract.Presenter
+    internal abstract fun bindSenderDetailPresenter(presenter: SenderDetailPresenter): SenderDetailContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideSegmentDetailPresenter(presenter: SegmentDetailPresenter): SegmentDetailContract.Presenter
+    internal abstract fun bindSegmentDetailPresenter(presenter: SegmentDetailPresenter): SegmentDetailContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideSenderAllListPresenter(presenter: SenderAllListPresenter): SenderAllListContract.Presenter
+    internal abstract fun bindSenderAllListPresenter(presenter: SenderAllListPresenter): SenderAllListContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideSenderAllListComponentPresenter(presenter: SenderAllListComponentPresenter): SenderAllListComponentContract.Presenter
+    internal abstract fun bindSenderAllListComponentPresenter(presenter: SenderAllListComponentPresenter): SenderAllListComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun provideRegisterPresenter(presenter: RegisterPresenter): RegistrationContract.Presenter
+    internal abstract fun bindRegisterPresenter(presenter: RegisterPresenter): RegistrationContract.Presenter
 }

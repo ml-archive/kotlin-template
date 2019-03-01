@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
@@ -38,10 +39,9 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 class MailListComponentFragment : BaseFragment(), MailListComponentContract.View {
-    @Inject
-    lateinit var presenter: MailListComponentContract.Presenter
-
-    private val adapter = MailMessagesAdapter()
+    @Inject lateinit var presenter: MailListComponentContract.Presenter
+    @Inject lateinit var formatter: EboksFormatter
+    @Inject lateinit var adapter: MailMessagesAdapter
 
     private var checkedList: MutableList<Message> = ArrayList()
     private var editEnabled: Boolean = false

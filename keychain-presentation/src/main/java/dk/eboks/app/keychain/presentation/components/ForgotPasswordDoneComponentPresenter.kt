@@ -6,7 +6,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 20-05-2017.
  */
-class ForgotPasswordDoneComponentPresenter @Inject constructor() :
+internal class ForgotPasswordDoneComponentPresenter @Inject constructor() :
     ForgotPasswordDoneComponentContract.Presenter,
     BasePresenterImpl<ForgotPasswordDoneComponentContract.View>() {
 

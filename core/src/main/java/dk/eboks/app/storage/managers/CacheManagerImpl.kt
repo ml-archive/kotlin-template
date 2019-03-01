@@ -5,8 +5,9 @@ import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.storage.base.ICacheStore
 import timber.log.Timber
 import java.io.File
+import javax.inject.Inject
 
-class CacheManagerImpl(val context: Context) : CacheManager {
+internal class CacheManagerImpl @Inject constructor(private val context: Context) : CacheManager {
     private val cacheStores: MutableList<ICacheStore> = ArrayList()
 
     override fun registerStore(store: ICacheStore) {

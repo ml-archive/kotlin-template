@@ -14,7 +14,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 01/02/18.
  */
-class GetFoldersInteractorImpl @Inject constructor(
+internal class GetFoldersInteractorImpl @Inject constructor(
     executor: Executor,
     private val foldersRepository: FoldersRepository
 ) : BaseInteractor(executor), GetFoldersInteractor {

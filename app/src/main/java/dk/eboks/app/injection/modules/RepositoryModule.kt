@@ -33,45 +33,45 @@ import dk.nodes.arch.domain.injection.scopes.AppScope
 abstract class RepositoryModule {
     @Binds
     @AppScope
-    abstract fun provideAppStateRepository(repository: AppStateRepositoryImpl): AppStateRepository
+    abstract fun bindAppStateRepository(repository: AppStateRepositoryImpl): AppStateRepository
 
     @Binds
     @AppScope
-    abstract fun provideSignupRestRepository(repository: SignupRestRepository): SignupRepository
+    abstract fun bindSignupRestRepository(repository: SignupRestRepository): SignupRepository
 
     @Binds
     @AppScope
-    abstract fun provideUserRestRepository(repository: UserRestRepository): UserRepository
+    abstract fun bindUserRestRepository(repository: UserRestRepository): UserRepository
 
     @Binds
     @AppScope
-    abstract fun provideMessagesRepository(repository: MessagesRestRepository): MessagesRepository
+    abstract fun bindMessagesRepository(repository: MessagesRestRepository): MessagesRepository
 
     @Binds
     @AppScope
-    abstract fun provideSendersRepository(repository: SendersRestRepository): SendersRepository
+    abstract fun bindSendersRepository(repository: SendersRestRepository): SendersRepository
 
     @Binds
     @AppScope
-    abstract fun provideSenderCategoriesRepository(repository: SenderCategoriesRestRepository): SenderCategoriesRepository
+    abstract fun bindSenderCategoriesRepository(repository: SenderCategoriesRestRepository): SenderCategoriesRepository
 
     @Binds
     @AppScope
-    abstract fun provideMailCategoriesRepository(repository: MailCategoriesRestRepository): MailCategoriesRepository
+    abstract fun bindMailCategoriesRepository(repository: MailCategoriesRestRepository): MailCategoriesRepository
 
     @Binds
     @AppScope
-    abstract fun provideSettingsRepository(repository: SharedPrefsSettingsRepository): SettingsRepository
+    abstract fun bindSettingsRepository(repository: SharedPrefsSettingsRepository): SettingsRepository
 
     @Binds
     @AppScope
-    abstract fun provideFoldersRepository(repository: FoldersRestRepository): FoldersRepository
+    abstract fun bindFoldersRepository(repository: FoldersRestRepository): FoldersRepository
 
     @Binds
     @AppScope
-    abstract fun provideChannelsRepository(repository: ChannelsRestRepository): ChannelsRepository
+    abstract fun bindChannelsRepository(repository: ChannelsRestRepository): ChannelsRepository
 
     @Binds
     @AppScope
-    abstract fun provideCollectionsRepository(repository: CollectionsRestRepository): CollectionsRepository
+    abstract fun bindCollectionsRepository(repository: CollectionsRestRepository): CollectionsRepository
 }
