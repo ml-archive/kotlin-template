@@ -24,7 +24,7 @@ object Libs {
 
     object Nodes {
 
-        const val arch = "dk.nodes.arch:base:2.3.0"
+        const val arch = "dk.nodes.arch:base:2.3.2"
         const val filepicker = "dk.nodes.filepicker:filepicker:2.0.1"
         const val locksmith = "dk.nodes.locksmith:core:1.2.2"
         const val bitrise = "dk.nodes.ci:bitrise:1.0"
