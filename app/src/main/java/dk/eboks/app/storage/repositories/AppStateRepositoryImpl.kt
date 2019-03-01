@@ -18,7 +18,7 @@ import javax.inject.Inject
 class AppStateRepositoryImpl @Inject constructor(context: Context, gson: Gson) :
     GsonFileStorageRepository<AppState>(context, gson, "app_state.json"),
     AppStateRepository {
-    var appState: AppState? = null
+    private var appState: AppState? = null
 
     override fun saveState(state: AppState) {
         save(state)

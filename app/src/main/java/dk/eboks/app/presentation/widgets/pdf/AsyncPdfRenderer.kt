@@ -19,7 +19,6 @@ import java.util.concurrent.LinkedBlockingQueue
 class AsyncPdfRenderer(val context: Context) : Runnable {
     private val thread: Thread = Thread(this)
     private val requestQueue: BlockingQueue<RenderRequest> = LinkedBlockingQueue<RenderRequest>()
-    private val pageCache: ConcurrentHashMap<Int, RenderedPage> = ConcurrentHashMap()
 
     private var pdfRenderer: PdfRenderer? = null
     private var fileDescriptor: ParcelFileDescriptor? = null

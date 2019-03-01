@@ -17,6 +17,7 @@ import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
 import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
 import dk.eboks.app.profile.presentation.ui.components.drawer.FingerPrintComponentContract
 import dk.eboks.app.util.addAfterTextChangeListener
+import dk.eboks.app.util.invisible
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.visible
 import dk.nodes.locksmith.core.models.FingerprintDialogEvent
@@ -243,7 +244,7 @@ class FingerPrintComponentFragment : BaseFragment(), FingerPrintComponentContrac
     }
 
     override fun showProgress(show: Boolean) {
-        buttonsLl.visibility = if (!show) View.VISIBLE else View.INVISIBLE
-        progressPb.visible = (show)
+        buttonsLl.invisible = show
+        progressPb.visible = show
     }
 }

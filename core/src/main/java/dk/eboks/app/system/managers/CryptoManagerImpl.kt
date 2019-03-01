@@ -21,7 +21,7 @@ import javax.security.auth.x500.X500Principal
 
 class CryptoManagerImpl @Inject constructor(
     val context: Context,
-    val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository
 ) : CryptoManager {
     private val androidKeyStore = "androidKeyStore"
 

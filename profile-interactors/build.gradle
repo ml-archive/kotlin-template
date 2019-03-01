@@ -18,7 +18,6 @@ dependencies {
     implementation project(':api')
     implementation project(':data')
 
-
     implementation Libs.Nodes.arch
     implementation Libs.eventbus
     implementation Libs.timber

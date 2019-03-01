@@ -20,6 +20,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.dpToPx
 import dk.eboks.app.util.isValidEmail
+import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_signup_name_mail_component.*
 import kotlinx.android.synthetic.main.fragment_signup_name_mail_component.view.*
@@ -164,8 +165,8 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     }
 
     override fun showProgress(show: Boolean) {
-        scrollView.visibility = if (show) View.GONE else View.VISIBLE
-        progress.visibility = if (show) View.VISIBLE else View.GONE
+        scrollView.visible = !show
+        progress.visible = show
     }
 
     private fun onContinueClicked() {

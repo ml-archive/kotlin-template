@@ -35,7 +35,7 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View,
-    BetterEkeyAdapter.Ekeyclicklistener {
+    BetterEkeyAdapter.EkeyClickListener {
     override fun onEkeyClicked(ekey: BaseEkey) {
         val frag = EkeyOpenItemComponentFragment()
         when (ekey) {
@@ -163,30 +163,30 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View,
 
         // group by type
         keys.filter { it is Login }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
-            .forEach { items.add(EkeyItem(it)) }
+            .forEach { items.add(ListItem.EkeyItem(it)) }
         keys.filter { it is Pin }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
-            .forEach { items.add(EkeyItem(it)) }
+            .forEach { items.add(ListItem.EkeyItem(it)) }
         keys.filter { it is Note }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
-            .forEach { items.add(EkeyItem(it)) }
+            .forEach { items.add(ListItem.EkeyItem(it)) }
         keys.filter { it is Ekey }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
-            .forEach { items.add(EkeyItem(it)) }
+            .forEach { items.add(ListItem.EkeyItem(it)) }
 
         // add headers
-        var index = items.indexOfFirst { it is EkeyItem && it.data is Login }
+        var index = items.indexOfFirst { it is ListItem.EkeyItem && it.data is Login }
         if (index >= 0) {
-            items.add(index, Header(Translation.ekey.overviewLogins))
+            items.add(index, ListItem.Header(Translation.ekey.overviewLogins))
         }
-        index = items.indexOfFirst { it is EkeyItem && it.data is Pin }
+        index = items.indexOfFirst { it is ListItem.EkeyItem && it.data is Pin }
         if (index >= 0) {
-            items.add(index, Header(Translation.ekey.overviewPinCodes))
+            items.add(index, ListItem.Header(Translation.ekey.overviewPinCodes))
         }
-        index = items.indexOfFirst { it is EkeyItem && it.data is Note }
+        index = items.indexOfFirst { it is ListItem.EkeyItem && it.data is Note }
         if (index >= 0) {
-            items.add(index, Header(Translation.ekey.overviewNotes))
+            items.add(index, ListItem.Header(Translation.ekey.overviewNotes))
         }
-        index = items.indexOfFirst { it is EkeyItem && it.data is Ekey }
+        index = items.indexOfFirst { it is ListItem.EkeyItem && it.data is Ekey }
         if (index >= 0) {
-            items.add(index, Header(Translation.ekey.overviewEkey))
+            items.add(index, ListItem.Header(Translation.ekey.overviewEkey))
         }
 
         // all done

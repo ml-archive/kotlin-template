@@ -30,6 +30,7 @@ import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
 import dk.eboks.app.util.EndlessRecyclerViewScrollListener
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.guard
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -363,12 +364,12 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if (show) View.VISIBLE else View.GONE
+        progressFl.visible = show
     }
 
     override fun showEmpty(show: Boolean) {
-        emptyFl.visibility = if (show) View.VISIBLE else View.GONE
-        contentFl.visibility = if (!show) View.VISIBLE else View.GONE
+        emptyFl.visible = show
+        contentFl.visible = !show
     }
 
     override fun showMessages(messages: List<Message>) {

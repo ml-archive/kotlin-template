@@ -12,6 +12,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.isValidCpr
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_signup_mm_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -82,8 +83,8 @@ class MMComponentFragment : BaseFragment(), SignupComponentContract.MMView {
     }
 
     override fun showProgress(show: Boolean) {
-        content.visibility = if (show) View.GONE else View.VISIBLE
-        progress.visibility = if (show) View.VISIBLE else View.GONE
+        content.visible = !show
+        progress.visible = show
     }
 
     private fun onContinueClicked() {

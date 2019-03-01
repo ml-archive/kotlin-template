@@ -94,7 +94,7 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
     }
 
     override fun showOpeningProgress(show: Boolean) {
-        progressPb.visibility = if (show) View.VISIBLE else View.GONE
-        buttonsLl.visibility = if (!show) View.VISIBLE else View.GONE
+        progressPb.visible = show
+        buttonsLl.visible = !show
     }
 }

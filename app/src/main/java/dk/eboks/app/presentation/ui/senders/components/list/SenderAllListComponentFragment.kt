@@ -19,6 +19,7 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
 import dk.eboks.app.senders.presentation.ui.components.list.SenderAllListComponentContract
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.activity_senders_list.*
 import kotlinx.android.synthetic.main.fragment_sender_list.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -133,7 +134,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
     }
 
     override fun showProgress(show: Boolean) {
-        progressBarFl.visibility = if (show) View.VISIBLE else View.GONE
+        progressBarFl.visible = show
         refreshSrl.isRefreshing = show
     }
 

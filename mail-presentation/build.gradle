@@ -19,7 +19,6 @@ dependencies {
     implementation project(':data')
     implementation project(':mail-interactors')
 
-
     implementation Libs.Nodes.arch
     implementation Libs.eventbus
     implementation Libs.timber

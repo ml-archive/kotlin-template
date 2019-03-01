@@ -148,7 +148,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     }
 
     override fun showProgress(show: Boolean) {
-        progressChannelFl.visibility = if (show) View.VISIBLE else View.GONE
+        progressChannelFl.visible = show
     }
 
     private fun findControlView(channelId: Int): View? {

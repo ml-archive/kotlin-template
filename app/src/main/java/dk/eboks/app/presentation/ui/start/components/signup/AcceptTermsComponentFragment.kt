@@ -11,6 +11,7 @@ import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.start.components.welcome.WelcomeComponentFragment
+import dk.eboks.app.util.invisible
 import kotlinx.android.synthetic.main.fragment_signup_accept_terms_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -78,7 +79,7 @@ class AcceptTermsComponentFragment : BaseFragment(), SignupComponentContract.Ter
     }
 
     override fun showProgress(show: Boolean) {
-        termsButtonsLl.visibility = if (show) View.INVISIBLE else View.VISIBLE
-        progressFl.visibility = if (!show) View.INVISIBLE else View.VISIBLE
+        termsButtonsLl.invisible = show
+        progressFl.invisible = !show
     }
 }

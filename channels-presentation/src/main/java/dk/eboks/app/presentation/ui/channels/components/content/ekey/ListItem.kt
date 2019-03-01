@@ -8,7 +8,7 @@ import java.io.Serializable
  * @author Christian
  * @since 5/8/2018.
  */
-abstract class ListItem : Serializable
-
-data class Header(val text: String) : ListItem()
-data class EkeyItem(val data: BaseEkey) : ListItem()
+sealed class ListItem : Serializable {
+    data class Header(val text: String) : ListItem()
+    data class EkeyItem(val data: BaseEkey) : ListItem()
+}

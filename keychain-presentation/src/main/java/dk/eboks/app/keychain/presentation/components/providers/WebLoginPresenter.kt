@@ -19,13 +19,13 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 open class WebLoginPresenter @Inject constructor(
-    val viewController: ViewController,
-    val appState: AppStateManager,
+    private val viewController: ViewController,
+    protected val appState: AppStateManager,
     private val transformTokenInteractor: TransformTokenInteractor,
     private val verifyProfileInteractor: VerifyProfileInteractor,
     private val mergeAndImpersonateInteractor: MergeAndImpersonateInteractor,
-    val userSettingsManager: UserSettingsManager,
-    val appConfig: AppConfig
+    private val userSettingsManager: UserSettingsManager,
+    private val appConfig: AppConfig
 ) :
     WebLoginContract.Presenter,
     BasePresenterImpl<WebLoginContract.View>(),

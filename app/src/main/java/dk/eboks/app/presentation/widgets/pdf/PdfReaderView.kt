@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
+import dk.eboks.app.util.inflate
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.viewholder_pdfpage.view.*
 import timber.log.Timber
@@ -93,24 +94,19 @@ class PdfReaderView @JvmOverloads constructor(
 
     inner class PageAdapter : RecyclerView.Adapter<PageAdapter.PageViewHolder>() {
 
-        inner class PageViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
-            private val pageIv = root.imageView
-            private val progressBar = root.progressBar
+        inner class PageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             fun bindView(page: RenderedPage) {
-                pageIv.setImageBitmap(page.page)
-                progressBar.visible = !page.loaded
+                itemView.imageView.setImageBitmap(page.page)
+                itemView.progressBar.visible = !page.loaded
             }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PageViewHolder {
-            val v = LayoutInflater.from(context).inflate(R.layout.viewholder_pdfpage, parent, false)
-            return PageViewHolder(v)
+            return PageViewHolder(parent.inflate(R.layout.viewholder_pdfpage))
         }
 
-        override fun getItemCount(): Int {
-            return pages.size
-        }
+        override fun getItemCount() = pages.size
 
         override fun onBindViewHolder(holder: PageViewHolder, position: Int) {
             val page = pages[position]

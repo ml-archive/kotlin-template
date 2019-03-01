@@ -28,6 +28,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.components.newfolder.NewFolderComponentFragment
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.views
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_folders_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import kotlinx.android.synthetic.main.viewholder_folder.view.*
@@ -420,7 +421,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if (show) View.VISIBLE else View.GONE
+        progressFl.visible = show
     }
 
     override fun showEmpty(show: Boolean) {

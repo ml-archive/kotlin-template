@@ -22,6 +22,7 @@ import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
 import dk.eboks.app.presentation.ui.profile.screens.ProfileActivity
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.putArg
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import org.greenrobot.eventbus.EventBus
@@ -136,11 +137,11 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     override fun showMailsHeader(show: Boolean) {
-        mailHeaderFl.visibility = if (show) View.VISIBLE else View.GONE
+        mailHeaderFl.visible = show
     }
 
     override fun showChannelControlsHeader(show: Boolean) {
-        channelsHeaderFl.visibility = if (show) View.VISIBLE else View.GONE
+        channelsHeaderFl.visible = show
     }
 
     private fun updateRefreshStatus() {

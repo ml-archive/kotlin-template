@@ -375,8 +375,8 @@ class ProfileInfoComponentFragment : BaseFragment(), ProfileInfoComponentContrac
 
     override fun showProgress(show: Boolean) {
         Timber.e("showChannelProgress $show called in ProfileInfoComponentFragment")
-        progressFl.visibility = if (show) View.VISIBLE else View.GONE
-        profileFragmentRootContainer.visibility = if (!show) View.VISIBLE else View.GONE
+        progressFl.visible = show
+        profileFragmentRootContainer.visible = !show
     }
 
     companion object {

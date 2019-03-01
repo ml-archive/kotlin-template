@@ -14,7 +14,7 @@ import dk.nodes.arch.domain.executor.Executor
 class PermissionManagerImpl(
     val executor: Executor,
     val context: Context,
-    val uiManager: UIManager
+    private val uiManager: UIManager
 ) : PermissionManager {
     override var permsToCheck: MutableList<PermissionManager.Permission>? = null
     override var requestInProgress = false

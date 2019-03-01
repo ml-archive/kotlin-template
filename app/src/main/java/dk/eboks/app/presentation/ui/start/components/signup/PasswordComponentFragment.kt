@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
 import dk.eboks.app.keychain.presentation.components.SignupComponentContract
-import dk.app.AppPatterns
+import dk.eboks.app.AppPatterns
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment

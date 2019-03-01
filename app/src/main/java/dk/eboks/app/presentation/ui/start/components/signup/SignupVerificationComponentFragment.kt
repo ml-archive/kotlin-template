@@ -5,11 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import dk.eboks.app.keychain.presentation.components.SignupComponentContract
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.keychain.presentation.components.SignupComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
+import dk.eboks.app.util.gone
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_signup_verification_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -74,8 +76,8 @@ class SignupVerificationComponentFragment : BaseFragment(),
     }
 
     override fun showProgress(show: Boolean) {
-        content.visibility = if (show) View.GONE else View.VISIBLE
-        progress.visibility = if (show) View.VISIBLE else View.GONE
+        content.gone = show
+        progress.visible = show
     }
 
     private fun onContinueClicked() {

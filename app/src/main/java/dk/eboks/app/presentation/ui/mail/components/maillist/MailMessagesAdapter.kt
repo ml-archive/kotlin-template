@@ -4,10 +4,6 @@ import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +19,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.util.getWorkaroundUrl
+import kotlinx.android.synthetic.main.viewholder_message_row.view.*
 import timber.log.Timber
 
 class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageViewHolder>() {
@@ -67,22 +64,22 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
         setData(newList)
     }
 
-    inner class MessageViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
-        private val swipeLayout = root as SwipeLayout
-        private val contentContainer = root.findViewById<ViewGroup>(R.id.mainContainerView)
-        private val markAsReadContainer = root.findViewById<ViewGroup>(R.id.containerMarkAsRead)
-        private val moveContainer = root.findViewById<ViewGroup>(R.id.containerMove)
+    inner class MessageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val swipeLayout = itemView as SwipeLayout
+        private val contentContainer = itemView.mainContainerView
+        private val markAsReadContainer = itemView.containerMarkAsRead
+        private val moveContainer = itemView.containerMove
         // Main View
-        private val headerTv = contentContainer.findViewById<TextView>(R.id.headerTv)
-        private val subHeaderTv = contentContainer.findViewById<TextView>(R.id.subHeaderTv)
-        private val dateTv = contentContainer.findViewById<TextView>(R.id.dateTv)
-        private val dividerV = contentContainer.findViewById<View>(R.id.dividerV)
-        private val checkBox = contentContainer.findViewById<ImageButton>(R.id.checkboxIb)
-        private val uploadFl = contentContainer.findViewById<FrameLayout>(R.id.uploadFl)
-        private val urgentTv = contentContainer.findViewById<TextView>(R.id.urgentTv)
-        private val clipIv = contentContainer.findViewById<ImageView>(R.id.clipIv)
-        private val imageIv = contentContainer.findViewById<ImageView>(R.id.imageIv)
-        private val markAsReadTv = markAsReadContainer.findViewById<TextView>(R.id.markAsReadTv)
+        private val headerTv = contentContainer.headerTv
+        private val subHeaderTv = contentContainer.subHeaderTv
+        private val dateTv = contentContainer.dateTv
+        private val dividerV = contentContainer.dividerV
+        private val checkBox = contentContainer.checkboxIb
+        private val uploadFl = contentContainer.uploadFl
+        private val urgentTv = contentContainer.urgentTv
+        private val clipIv = contentContainer.clipIv
+        private val imageIv = contentContainer.imageIv
+        private val markAsReadTv = markAsReadContainer.markAsReadTv
 
         init {
             if (BuildConfig.ENABLE_DOCUMENT_ACTIONS) {
@@ -150,10 +147,13 @@ class MailMessagesAdapter : RecyclerView.Adapter<MailMessagesAdapter.MessageView
             if (currentItem.status?.title != null) {
                 urgentTv?.visibility = View.VISIBLE
                 urgentTv?.text = currentItem.status?.title
-                if (currentItem.status?.important == true) {
-                    urgentTv.setTextColor(root.context.resources.getColor(R.color.rougeTwo))
-                } else
-                    urgentTv.setTextColor(root.context.resources.getColor(R.color.silver))
+                if (currentItem.status?.important == true) urgentTv.setTextColor(
+                    ContextCompat.getColor(
+                        itemView.context,
+                        R.color.rougeTwo
+                    )
+                )
+                else urgentTv.setTextColor(ContextCompat.getColor(itemView.context, R.color.silver))
             } else {
                 urgentTv?.visibility = View.GONE
             }

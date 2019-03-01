@@ -12,6 +12,7 @@ import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
+import dk.eboks.app.util.invisible
 import dk.eboks.app.util.translatedName
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_device_activation_component.*
@@ -58,7 +59,7 @@ class DeviceActivationComponentFragment : BaseFragment(), dk.eboks.app.keychain.
     }
 
     override fun showProgress(show: Boolean) {
-        activateDevicebuttonGroupLl.visibility = if (show) View.INVISIBLE else View.VISIBLE
+        activateDevicebuttonGroupLl.invisible = show
         activateDeviceProgressFl.visible = show
         progressBar.visible = show
     }
