@@ -19,7 +19,7 @@ dependencies {
     implementation project(':data')
     implementation project(':profile-interactors')
 
-    implementation Libs.Nodes.arch
+    implementation project(':arch')
     implementation Libs.eventbus
     implementation Libs.timber
     implementation Libs.Dagger.dagger

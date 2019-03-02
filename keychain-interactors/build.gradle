@@ -22,7 +22,7 @@ dependencies {
     implementation project(':api')
 
     implementation Libs.timber
-    implementation Libs.Nodes.arch
+    implementation project(':arch')
     implementation Libs.Dagger.dagger
 
     implementation Libs.gson

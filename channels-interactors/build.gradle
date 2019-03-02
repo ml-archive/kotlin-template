@@ -1,6 +1,7 @@
 import dk.eboks.buildsrc.Libs
 
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
 android {
@@ -17,14 +18,19 @@ dependencies {
     implementation project(':core')
     implementation project(':api')
     implementation project(':data')
+    implementation project(':arch')
 
-    implementation Libs.Nodes.arch
     implementation Libs.timber
     implementation Libs.Retrofit.retrofit
     implementation Libs.Dagger.dagger
     implementation Libs.gson
+    implementation Libs.Kotlin.stdlib
+    implementation Libs.Coroutines.core
 
     testImplementation Libs.junit
     androidTestImplementation Libs.Test.runner
     androidTestImplementation Libs.Test.Expresso.core
+}
+repositories {
+    mavenCentral()
 }
