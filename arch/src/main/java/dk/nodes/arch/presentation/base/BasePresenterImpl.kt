@@ -53,7 +53,6 @@ abstract class BasePresenterImpl<V> : BasePresenter<V>, LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     override fun onStart() {
-
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -69,7 +68,6 @@ abstract class BasePresenterImpl<V> : BasePresenter<V>, LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     override fun onStop() {
-
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
@@ -118,7 +116,7 @@ abstract class BasePresenterImpl<V> : BasePresenter<V>, LifecycleObserver {
         return defaultScope.launch(context = defaultCoroutineContext, block = block)
     }
 
-    fun <T> asyncOnUI(block: suspend CoroutineScope.() -> T): Deferred<T>  {
+    fun <T> asyncOnUI(block: suspend CoroutineScope.() -> T): Deferred<T> {
         return mainScope.async(context = mainCoroutineContext, block = block)
     }
 
@@ -135,7 +133,6 @@ abstract class BasePresenterImpl<V> : BasePresenter<V>, LifecycleObserver {
         ioCoroutineContext = context + job
         defaultCoroutineContext = context + job
     }
-
 }
 
 @InternalCoroutinesApi
@@ -160,6 +157,6 @@ class TestContext : CoroutineDispatcher(), Delay {
     }
 
     override fun dispatch(context: CoroutineContext, block: Runnable) {
-        block.run()  // dispatch on calling thread
+        block.run() // dispatch on calling thread
     }
 }

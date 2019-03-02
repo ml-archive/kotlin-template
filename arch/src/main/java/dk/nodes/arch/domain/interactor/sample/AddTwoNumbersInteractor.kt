@@ -18,9 +18,9 @@ interface AddTwoNumbersInteractor : Interactor {
         This contain whatever inputs the interactor needs to complete its job, it is set before a call to run()
         by the client (a presenter most likely)
      */
-    data class Input (
-        val firstNumber : Int = 10,
-        val secondNumber : Int = 10
+    data class Input(
+        val firstNumber: Int = 10,
+        val secondNumber: Int = 10
     )
 
     /*

@@ -27,4 +27,3 @@ class AddTwoNumbersInteractorImpl(executor: Executor) : AddTwoNumbersInteractor,
         }
     }
 }
-

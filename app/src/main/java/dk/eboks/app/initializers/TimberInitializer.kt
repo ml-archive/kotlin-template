@@ -31,7 +31,7 @@ object HockeyTree : Timber.Tree() {
                     )
                     method.invoke(defaultHandler, Thread.currentThread(), t)
                 } catch (ex: ClassCastException) {
-                    //e.printStackTrace()
+                    // e.printStackTrace()
                     Timber.d("Could not get HockeySDK uncaught exception handler")
                 }
             } catch (e: ClassNotFoundException) {

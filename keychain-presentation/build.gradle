@@ -17,6 +17,7 @@ dependencies {
     implementation project(':core')
     implementation project(':data')
     implementation project(':keychain-interactors')
+    implementation Libs.Kotlin.stdlib
 
     implementation Libs.timber
     implementation project(':arch')
