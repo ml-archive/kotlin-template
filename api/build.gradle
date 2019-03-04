@@ -35,6 +35,7 @@ android {
 dependencies {
     implementation project(':core')
     implementation project(':data')
+    implementation project(':arch')
 
     testImplementation Libs.junit
     androidTestImplementation Libs.Test.runner
@@ -42,7 +43,6 @@ dependencies {
     implementation Libs.Kotlin.stdlib
     implementation Libs.timber
     implementation Libs.Nodes.Nstack.kotlin
-    implementation Libs.Nodes.arch
 
     implementation Libs.Retrofit.retrofit
     implementation Libs.Retrofit.scalarsConverter

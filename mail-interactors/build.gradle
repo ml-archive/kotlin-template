@@ -18,7 +18,8 @@ dependencies {
     implementation project(':api')
     implementation project(':data')
 
-    implementation Libs.Nodes.arch
+    implementation project(':arch')
+    implementation Libs.Kotlin.stdlib
     implementation Libs.timber
     implementation Libs.Retrofit.retrofit
     implementation Libs.Dagger.dagger

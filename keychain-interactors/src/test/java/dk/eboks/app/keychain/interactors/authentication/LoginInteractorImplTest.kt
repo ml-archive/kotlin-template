@@ -42,6 +42,7 @@ class LoginInteractorImplTest {
         cacheManager,
         foldersRepositoryMail
     )
+
     @After
     fun tearDown() {
         interactor.input = null
@@ -54,7 +55,12 @@ class LoginInteractorImplTest {
         val userSettings = UserSettings(0)
         every { api.getUserProfile().execute() } returns Response.success(user)
         every { userSettingsManager[any()] } returns userSettings
-        every { authClient.login(any(), any(), any(), any(), any(), any()) } returns AccessToken("", 0, "", "")
+        every { authClient.login(any(), any(), any(), any(), any(), any()) } returns AccessToken(
+            "",
+            0,
+            "",
+            ""
+        )
         every { appStateManager.state } returns AppState()
         every { userManager.put(any()) } returns user
         every { cacheManager.clearStores() } returns Unit
@@ -96,7 +102,10 @@ class LoginInteractorImplTest {
         val userSettings = UserSettings(0)
         every { api.getUserProfile().execute() } returns Response.success(user)
         every { userSettingsManager[any()] } returns userSettings
-        every { authClient.login(any(), any(), any(), any(), any(), any()) } throws AuthException(400, "")
+        every { authClient.login(any(), any(), any(), any(), any(), any()) } throws AuthException(
+            400,
+            ""
+        )
         interactor.input = LoginInteractor.Input(LoginState())
         interactor.output = object : LoginInteractor.Output {
             override fun onLoginSuccess(response: AccessToken) {

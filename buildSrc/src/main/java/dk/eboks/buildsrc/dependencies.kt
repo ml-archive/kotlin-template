@@ -21,6 +21,7 @@ object Libs {
     const val persistentCookieJar = "com.github.franmontiel:PersistentCookieJar:1.0.1"
     const val gson = "com.google.code.gson:gson:2.8.5"
     const val multidex = "com.android.support:multidex:1.0.3"
+    const val injex = "javax.inject:javax.inject:1"
 
     object Nodes {
 
@@ -42,7 +43,7 @@ object Libs {
 
     object Kotlin {
         private const val version = "1.3.21"
-        const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
+        const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version"
         const val reflect = "org.jetbrains.kotlin:kotlin-reflect:$version"
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
     }
@@ -51,6 +52,7 @@ object Libs {
         private const val version = "1.1.1"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
+        const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
     }
 
     object AndroidX {
@@ -59,6 +61,12 @@ object Libs {
         const val cardview = "androidx.cardview:cardview:1.0.0"
         const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.0-alpha3"
 
+        object Lifecycle {
+
+            private const val version = "2.0.0"
+            const val runtime = "androidx.lifecycle:lifecycle-runtime:$version"
+            const val compiler = "androidx.lifecycle:lifecycle-compiler:$version"
+        }
     }
 
     object RxJava {
@@ -96,6 +104,16 @@ object Libs {
 
         const val mockk = "io.mockk:mockk:1.9"
         const val runner = "androidx.test:runner:1.1.1"
+        const val okhttp = "com.github.gmazzo:okhttp-mock:1.2.1"
+        const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
+        const val assertjCore = "org.assertj:assertj-core:3.11.1"
+        const val junit = Libs.junit
+
+        object PowerMock {
+            const val core = "org.powermock:powermock-api-mockito2:2.0.0"
+            const val module = "org.powermock:powermock-module-junit4:1.6.4"
+        }
+
         object Expresso {
             private const val version = "3.1.1"
             const val core = "androidx.test.espresso:espresso-core:$version"

@@ -20,7 +20,9 @@ dependencies {
     implementation project(':channels-interactors')
 
     implementation Libs.Nodes.locksmith
-    implementation Libs.Nodes.arch
+    implementation project(':arch')
+
+
     implementation Libs.eventbus
     implementation Libs.timber
     implementation Libs.gson

@@ -230,6 +230,7 @@ dependencies {
     implementation project(':profile-presentation')
     implementation project(':senders-interactors')
     implementation project(':senders-presentation')
+    implementation project(':arch')
 
     // uncomment me if using multidex
     implementation Libs.multidex
@@ -240,7 +241,6 @@ dependencies {
     implementation Libs.Coroutines.android
 
 
-    implementation Libs.Nodes.arch
     implementation Libs.Nodes.Nstack.kotlin
     // Encryption Lib
     implementation Libs.Nodes.locksmith
