@@ -19,7 +19,7 @@ class DeleteFolderInteractorTestImpl {
 
 
     @Test
-    fun `Create Folder Test`() {
+    fun `Delete Folder Test`() {
         val latch = CountDownLatch(1)
         every { repository.deleteFolder(any()) } returns Unit
 
@@ -42,7 +42,7 @@ class DeleteFolderInteractorTestImpl {
     }
 
     @Test
-    fun `Create Folder Error Test`() {
+    fun `Delete Folder Error Test`() {
         val latch = CountDownLatch(1)
         every { repository.deleteFolder(any()) } throws Exception()
 
