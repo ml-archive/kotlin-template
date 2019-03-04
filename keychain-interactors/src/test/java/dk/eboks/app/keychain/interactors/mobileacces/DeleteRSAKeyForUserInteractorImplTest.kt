@@ -13,7 +13,7 @@ import java.util.concurrent.CountDownLatch
 
 class DeleteRSAKeyForUserInteractorImplTest {
     private val executor = TestExecutor()
-    private val cryptoManager = mockk<CryptoManager>()
+    private val cryptoManager = mockk<CryptoManager>(relaxUnitFun = true)
     private val interactor = DeleteRSAKeyForUserInteractorImpl(executor, cryptoManager)
 
     @After
@@ -24,7 +24,6 @@ class DeleteRSAKeyForUserInteractorImplTest {
 
     @Test
     fun `Test success`() {
-        every { cryptoManager.deleteActivation(any()) } just Runs
         interactor.input = DeleteRSAKeyForUserInteractor.Input("12346789")
         val latch = CountDownLatch(1)
         interactor.output = object : DeleteRSAKeyForUserInteractor.Output {
