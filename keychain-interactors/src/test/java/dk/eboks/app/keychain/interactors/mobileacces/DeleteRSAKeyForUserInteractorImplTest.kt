@@ -3,7 +3,9 @@ package dk.eboks.app.keychain.interactors.mobileacces
 import dk.eboks.app.domain.managers.CryptoManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.executor.TestExecutor
+import io.mockk.Runs
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
 import org.junit.After
 import org.junit.Test
@@ -22,7 +24,7 @@ class DeleteRSAKeyForUserInteractorImplTest {
 
     @Test
     fun `Test success`() {
-        every { cryptoManager.deleteActivation(any()) } returns Unit
+        every { cryptoManager.deleteActivation(any()) } just Runs
         interactor.input = DeleteRSAKeyForUserInteractor.Input("12346789")
         val latch = CountDownLatch(1)
         interactor.output = object : DeleteRSAKeyForUserInteractor.Output {

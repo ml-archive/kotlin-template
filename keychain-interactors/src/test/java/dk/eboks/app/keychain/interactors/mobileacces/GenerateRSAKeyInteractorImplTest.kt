@@ -4,7 +4,9 @@ import dk.eboks.app.domain.managers.CryptoManager
 import dk.eboks.app.domain.models.local.DeviceActivation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.executor.TestExecutor
+import io.mockk.Runs
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
 import org.junit.After
 import org.junit.Assert
@@ -23,7 +25,7 @@ class GenerateRSAKeyInteractorImplTest {
 
     @Before
     fun setup() {
-        every { cryptoManager.generateRSAKey(any()) } returns Unit
+        every { cryptoManager.generateRSAKey(any()) } just Runs
         every { cryptoManager.getActivation(any()) } returns DeviceActivation(publicKey = publicKey)
         every { publicKey.encoded } returns "encoded".toByteArray()
         every { cryptoManager.getPublicKeyAsString(any()) }.returns(rsaReturn)

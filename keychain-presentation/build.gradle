@@ -23,6 +23,7 @@ dependencies {
     implementation project(':arch')
     implementation Libs.Dagger.dagger
 
+    testImplementation Libs.Test.mockk
     testImplementation Libs.junit
     androidTestImplementation Libs.Test.runner
     androidTestImplementation Libs.Test.Expresso.core

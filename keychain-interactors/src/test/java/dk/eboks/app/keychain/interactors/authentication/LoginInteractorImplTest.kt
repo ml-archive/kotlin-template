@@ -15,7 +15,9 @@ import dk.eboks.app.domain.models.login.UserSettings
 import dk.eboks.app.domain.repositories.MailCategoriesRepository
 import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.TestExecutor
+import io.mockk.Runs
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
 import org.junit.After
 import org.junit.Assert.assertTrue
@@ -63,9 +65,9 @@ class LoginInteractorImplTest {
         )
         every { appStateManager.state } returns AppState()
         every { userManager.put(any()) } returns user
-        every { cacheManager.clearStores() } returns Unit
+        every { cacheManager.clearStores() } just Runs
         every { userSettingsManager.put(any()) } returns userSettings
-        every { appStateManager.save() } returns Unit
+        every { appStateManager.save() } just Runs
         every { foldersRepositoryMail.getMailCategories(any(), any()) } returns listOf()
 
         val latch = CountDownLatch(1)

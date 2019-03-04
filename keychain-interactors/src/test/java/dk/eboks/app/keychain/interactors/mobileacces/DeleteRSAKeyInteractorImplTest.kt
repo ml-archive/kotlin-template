@@ -4,7 +4,9 @@ import dk.eboks.app.domain.managers.CryptoManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.keychain.interactors.mobileacces.DeleteRSAKeyInteractor.Output
 import dk.nodes.arch.domain.executor.TestExecutor
+import io.mockk.Runs
 import io.mockk.every
+import io.mockk.just
 import io.mockk.mockk
 import org.junit.Test
 import java.util.concurrent.CountDownLatch
@@ -17,7 +19,7 @@ class DeleteRSAKeyInteractorImplTest {
     @Test
     fun `Test success`() {
         val latch = CountDownLatch(1)
-        every { cryptoManager.deleteAllActivations() } returns Unit
+        every { cryptoManager.deleteAllActivations() } just Runs
         interactor.output = object : Output {
             override fun onDeleteRSAKeySuccess() {
                 latch.countDown()
