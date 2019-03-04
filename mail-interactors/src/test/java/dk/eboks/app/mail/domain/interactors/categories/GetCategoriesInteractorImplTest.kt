@@ -1,15 +1,12 @@
-package dk.eboks.app.mail.domain.interactors
+package dk.eboks.app.mail.domain.interactors.categories
 
-import dk.eboks.app.domain.managers.*
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.repositories.MailCategoriesRepository
 import dk.eboks.app.mail.domain.interactors.categories.GetCategoriesInteractor
 import dk.eboks.app.mail.domain.interactors.categories.GetMailCategoriesInteractorImpl
-import dk.eboks.app.network.Api
 import dk.nodes.arch.domain.executor.TestExecutor
-import dk.nodes.arch.domain.interactor.Interactor
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.After
