@@ -62,6 +62,37 @@ internal class GetMessagesInteractorImpl @Inject constructor(
         runOnUIThread { output?.onGetMessages(messages) }
     }
 
+    private fun getMessages(cached: Boolean, folder: Folder) {
+        var result: List<Message> = ArrayList()
+        folder.type?.let { type ->
+            when (type) {
+                FolderType.HIGHLIGHTS -> {
+                    try {
+                        result = messagesRepository.getHighlights(cached)
+                    } catch (t: Throwable) {
+                        t.printStackTrace()
+                    }
+                }
+                FolderType.LATEST -> {
+                    result = messagesRepository.getLatest(cached)
+                }
+                FolderType.UNREAD -> {
+                    result = messagesRepository.getUnread(cached)
+                }
+                FolderType.UPLOADS -> {
+                    result = messagesRepository.getUploads(cached)
+                }
+                else -> {
+                    Timber.e("No API call exists to fetch messages of type $type")
+                }
+            }
+        }
+
+        runOnUIThread {
+            output?.onGetMessages(result)
+        }
+    }
+
     /*
     private fun getMessageFolder(folder: Folder, offset : Int = 0, limit : Int = 20)
     {
@@ -122,34 +153,4 @@ internal class GetMessagesInteractorImpl @Inject constructor(
     }
     */
 
-    private fun getMessages(cached: Boolean, folder: Folder) {
-        var result: List<Message> = ArrayList()
-        folder.type?.let { type ->
-            when (type) {
-                FolderType.HIGHLIGHTS -> {
-                    try {
-                        result = messagesRepository.getHighlights(cached)
-                    } catch (t: Throwable) {
-                        t.printStackTrace()
-                    }
-                }
-                FolderType.LATEST -> {
-                    result = messagesRepository.getLatest(cached)
-                }
-                FolderType.UNREAD -> {
-                    result = messagesRepository.getUnread(cached)
-                }
-                FolderType.UPLOADS -> {
-                    result = messagesRepository.getUploads(cached)
-                }
-                else -> {
-                    Timber.e("No API call exists to fetch messages of type $type")
-                }
-            }
-        }
-
-        runOnUIThread {
-            output?.onGetMessages(result)
-        }
-    }
 }
