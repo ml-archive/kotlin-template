@@ -70,7 +70,7 @@ object Libs {
     }
 
     object RxJava {
-        const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.6"
+        const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.7"
         const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.3.0"
         const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
     }
@@ -102,16 +102,16 @@ object Libs {
 
     object Test {
 
-        const val mockk = "io.mockk:mockk:1.9"
+        const val mockk = "io.mockk:mockk:1.9.1"
         const val runner = "androidx.test:runner:1.1.1"
         const val okhttp = "com.github.gmazzo:okhttp-mock:1.2.1"
         const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
-        const val assertjCore = "org.assertj:assertj-core:3.11.1"
+        const val assertjCore = "org.assertj:assertj-core:3.12.1"
         const val junit = Libs.junit
 
         object PowerMock {
             const val core = "org.powermock:powermock-api-mockito2:2.0.0"
-            const val module = "org.powermock:powermock-module-junit4:1.6.4"
+            const val module = "org.powermock:powermock-module-junit4:2.0.0"
         }
 
         object Expresso {

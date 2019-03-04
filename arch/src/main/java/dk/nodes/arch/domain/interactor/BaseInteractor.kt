@@ -44,7 +44,7 @@ abstract class BaseInteractor(protected val executor: Executor) : Interactor {
                 )
                 method.invoke(default_handler, Thread.currentThread(), t)
             } catch (ex: ClassCastException) {
-                //e.printStackTrace()
+                // e.printStackTrace()
                 Log.e("BaseInteractor", "Could not get HockeySDK uncaught exception handler")
             }
         } catch (e: ClassNotFoundException) {

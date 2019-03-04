@@ -11,6 +11,6 @@ interface CheckSsnExistsInteractor : Interactor {
 
     interface Output {
         fun onCheckSsnExists(exists: Boolean)
-        fun onCheckSsnExists(error: ViewError)
+        fun onCheckSsnExistsError(error: ViewError)
     }
 }
