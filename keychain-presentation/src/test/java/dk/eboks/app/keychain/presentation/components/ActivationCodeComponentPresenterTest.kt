@@ -10,7 +10,6 @@ import dk.eboks.app.domain.models.login.LoginState
 import dk.eboks.app.keychain.interactors.authentication.LoginInteractor
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.unmockkAll
 import io.mockk.verify
 import org.junit.After
 import org.junit.Before

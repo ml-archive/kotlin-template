@@ -4,9 +4,7 @@ import dk.eboks.app.domain.managers.CryptoManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.keychain.interactors.mobileacces.DeleteRSAKeyInteractor.Output
 import dk.nodes.arch.domain.executor.TestExecutor
-import io.mockk.Runs
 import io.mockk.every
-import io.mockk.just
 import io.mockk.mockk
 import org.junit.Test
 import java.util.concurrent.CountDownLatch
