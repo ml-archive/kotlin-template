@@ -18,8 +18,9 @@ dependencies {
     implementation project(':api')
     implementation project(':data')
     implementation project(':mail-interactors')
-
     implementation project(':arch')
+
+    implementation Libs.Kotlin.stdlib
     implementation Libs.eventbus
     implementation Libs.timber
     implementation Libs.Dagger.dagger

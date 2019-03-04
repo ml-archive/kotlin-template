@@ -20,9 +20,10 @@ dependencies {
     implementation project(':core')
     implementation project(':data')
     implementation project(':api')
-
-    implementation Libs.timber
     implementation project(':arch')
+
+    implementation Libs.Kotlin.stdlib
+    implementation Libs.timber
     implementation Libs.Dagger.dagger
 
     implementation Libs.gson

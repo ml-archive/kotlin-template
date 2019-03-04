@@ -19,6 +19,7 @@ dependencies {
     implementation project(':data')
 
     implementation project(':arch')
+    implementation Libs.Kotlin.stdlib
     implementation Libs.timber
     implementation Libs.Retrofit.retrofit
     implementation Libs.Dagger.dagger
