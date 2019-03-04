@@ -42,7 +42,7 @@ class EditFolderInteractorImplTest {
         val latch = CountDownLatch(1)
         every { repository.editFolder(any(), any()) } throws Exception()
 
-        interactor.input = EditFolderInteractor.Input(1, "folderNamae", 12)
+        interactor.input = EditFolderInteractor.Input(1, "folderName", 12)
         interactor.output = object : EditFolderInteractor.Output {
 
             override fun onEditFolderSuccess() {
