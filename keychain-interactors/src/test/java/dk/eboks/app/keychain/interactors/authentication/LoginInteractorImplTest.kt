@@ -102,10 +102,16 @@ class LoginInteractorImplTest {
         val userSettings = UserSettings(0)
         every { api.getUserProfile().execute() } returns Response.success(user)
         every { userSettingsManager[any()] } returns userSettings
-        every { authClient.login(any(), any(), any(), any(), any(), any()) } throws AuthException(
-            400,
-            ""
-        )
+        every {
+            authClient.login(
+                any(),
+                any(),
+                any(),
+                any(),
+                any(),
+                any()
+            )
+        } throws AuthException(400, "")
         interactor.input = LoginInteractor.Input(LoginState())
         interactor.output = object : LoginInteractor.Output {
             override fun onLoginSuccess(response: AccessToken) {
