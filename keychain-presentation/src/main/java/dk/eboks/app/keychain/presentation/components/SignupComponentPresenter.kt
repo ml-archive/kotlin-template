@@ -176,7 +176,7 @@ internal class SignupComponentPresenter @Inject constructor(
         }
     }
 
-    override fun onVerifySignupMail(error: ViewError) {
+    override fun onVerifySignupMailError(error: ViewError) {
         runAction { v ->
             v as SignupComponentContract.NameMailView
             v.showSignupMailError(error)

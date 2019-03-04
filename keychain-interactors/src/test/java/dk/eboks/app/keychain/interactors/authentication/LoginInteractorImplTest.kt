@@ -137,4 +137,6 @@ class LoginInteractorImplTest {
         interactor.run()
         latch.await()
     }
+
+    // TODO Add more unit tests for this
 }

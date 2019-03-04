@@ -17,7 +17,7 @@ internal class UserManagerImpl @Inject constructor(
     private val context: Context,
     private val gson: Gson
 ) : UserManager {
-    override var users: MutableList<User> = ArrayList()
+    override var users: MutableList<User> = mutableListOf()
     private val userStore = UserStore()
 
     init {

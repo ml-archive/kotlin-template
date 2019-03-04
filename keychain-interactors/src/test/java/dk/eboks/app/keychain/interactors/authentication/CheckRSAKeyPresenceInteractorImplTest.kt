@@ -5,6 +5,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.domain.executor.TestExecutor
 import io.mockk.every
 import io.mockk.mockk
+import org.junit.After
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -16,6 +17,12 @@ class CheckRSAKeyPresenceInteractorImplTest {
     private val executor = TestExecutor()
     private val cryptoManager = mockk<CryptoManager>()
     private val interactor = CheckRSAKeyPresenceInteractorImpl(executor, cryptoManager)
+
+    @After
+    fun tearDown() {
+        interactor.input = null
+        interactor.output = null
+    }
 
     @Test
     fun `Test Key Exists`() {

@@ -11,6 +11,6 @@ interface CheckSignupMailInteractor : Interactor {
 
     interface Output {
         fun onVerifySignupMail(exists: Boolean)
-        fun onVerifySignupMail(error: ViewError)
+        fun onVerifySignupMailError(error: ViewError)
     }
 }
