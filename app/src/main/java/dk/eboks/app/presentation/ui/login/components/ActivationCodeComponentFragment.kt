@@ -8,9 +8,10 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.keychain.presentation.components.ActivationCodeComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
@@ -25,9 +26,9 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class ActivationCodeComponentFragment : BaseFragment(),
-    dk.eboks.app.keychain.presentation.components.ActivationCodeComponentContract.View {
-    @Inject
-    lateinit var presenter: dk.eboks.app.keychain.presentation.components.ActivationCodeComponentContract.Presenter
+    ActivationCodeComponentContract.View {
+    @Inject lateinit var presenter: ActivationCodeComponentContract.Presenter
+    @Inject lateinit var appConfig: AppConfig
 
     var mHandler = Handler()
 
@@ -100,7 +101,7 @@ class ActivationCodeComponentFragment : BaseFragment(),
     }
 
     override fun setDebugUp(activationCode: String?) {
-        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+        if (appConfig.isDebug) {
             activationCodeEt.setText(activationCode)
             continueBtn.isEnabled = activationCodeEt.text?.isValidActivationCode() ?: false
         }

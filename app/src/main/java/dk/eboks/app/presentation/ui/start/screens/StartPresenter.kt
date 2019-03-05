@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.start.screens
 
 import dk.eboks.app.BuildConfig
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.models.local.ViewError
@@ -15,7 +16,8 @@ import javax.inject.Inject
  */
 class StartPresenter @Inject constructor(
     private val bootstrapInteractor: BootstrapInteractor,
-    private val prefManager: PrefManager
+    private val prefManager: PrefManager,
+    private val appConfig: AppConfig
 ) :
     StartContract.Presenter,
     BasePresenterImpl<StartContract.View>(),
@@ -28,7 +30,7 @@ class StartPresenter @Inject constructor(
 
     override fun startup() {
         Timber.e("Startup, running version control")
-        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+        if (appConfig.isDebug) {
             runAction { v -> v.performVersionControl() }
         } else {
             Timber.e("Release not running appOpen call")

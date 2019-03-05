@@ -1,6 +1,5 @@
 package dk.eboks.app.domain.interactors
 
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.CacheManager
@@ -43,7 +42,7 @@ class BootstrapInteractorImpl @Inject constructor(
             input?.let {
                 // do something with unwrapped input
             }
-            if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+            if (appConfig.isDebug) {
                 // do we have a saved config?
                 prefManager.getString("config", null)?.let {
                     Timber.e("Setting config to $it")
