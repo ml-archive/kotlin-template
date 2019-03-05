@@ -3,14 +3,12 @@ package dk.eboks.app.presentation.ui.channels.components.overview
 import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.interactors.channel.GetChannelsInteractor
 import dk.eboks.app.domain.models.channel.Channel
-import dk.eboks.app.domain.models.channel.ChannelColor
 import dk.eboks.app.domain.models.local.ViewError
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import kotlin.random.Random
 
 class ChannelOverviewComponentPresenterTest {
 
@@ -42,7 +40,7 @@ class ChannelOverviewComponentPresenterTest {
 
     @Test
     fun `Test open channel`() {
-        val channelMock = createMockChannel()
+        val channelMock = mockk<Channel>(relaxed = true)
         presenter.openChannel(channelMock)
         verify {
             viewMock.showChannelOpening(channelMock)
@@ -52,10 +50,10 @@ class ChannelOverviewComponentPresenterTest {
     @Test
     fun `Test on get channels`() {
 
-        val channelListMock = listOf(
-            createMockChannel(Random.nextInt()),
-            createMockChannel(Random.nextInt()),
-            createMockChannel(Random.nextInt())
+        val channelListMock = listOf<Channel>(
+            mockk(relaxed = true),
+            mockk(relaxed = true),
+            mockk(relaxed = true)
         )
         presenter.onGetChannels(channelListMock)
         verify {
@@ -72,22 +70,5 @@ class ChannelOverviewComponentPresenterTest {
             viewMock.showProgress(false)
             viewMock.showErrorDialog(viewError)
         }
-    }
-
-    private fun createMockChannel(channelId: Int = 15): Channel {
-        return Channel(
-            id = channelId,
-            name = "",
-            payoff = "",
-            description = "",
-            status = null,
-            logo = null,
-            image = null,
-            background = ChannelColor(),
-            requirements = listOf(),
-            installed = true,
-            pinned = true,
-            supportPinned = true
-        )
     }
 }
