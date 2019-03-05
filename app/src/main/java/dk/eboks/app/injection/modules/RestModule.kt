@@ -127,8 +127,6 @@ class RestModule {
         }
 
         if (!BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
-            // TODO: reenable cert pinning at some point
-
             clientBuilder.certificatePinner(
                 CertificatePinner.Builder()
                     // .add("*.e-boks.dk", "sha256/ABF0819A9C2A025C108014F66A7382E8BC4084612D53530792FF8BF3AA5B8503")
