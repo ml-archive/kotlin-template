@@ -31,7 +31,7 @@ class MailListComponentPresenterTest {
     private val mockView = mockk<MailListComponentContract.View>(relaxUnitFun = true)
     private val mockLifecycle = mockk<Lifecycle>(relaxUnitFun = true)
 
-    private lateinit var presenter : MailListComponentPresenter
+    private lateinit var presenter: MailListComponentPresenter
 
     @Before
     fun setUp() {
@@ -169,7 +169,7 @@ class MailListComponentPresenterTest {
         presenter.currentOffset = 0
 
 
-        val messages = List(30) { mockk<Message>(relaxed = true)}
+        val messages = List(30) { mockk<Message>(relaxed = true) }
 
         presenter.onGetMessages(messages)
 
@@ -214,7 +214,42 @@ class MailListComponentPresenterTest {
             mockView.showRefreshProgress(false)
             mockView.showEmpty(true)
         }
+    }
 
 
+    @Test
+    fun `On Move Message Error`() {
+        val viewError = ViewError()
+
+        presenter.onUpdateMessageError(viewError)
+
+        verify {
+            mockView.showProgress(false)
+            mockView.showErrorDialog(viewError)
+        }
+    }
+
+    @Test
+    fun `On Delete Message Error`() {
+        val viewError = ViewError()
+
+        presenter.onDeleteMessagesError(viewError)
+
+        verify {
+            mockView.showProgress(false)
+            mockView.showErrorDialog(viewError)
+        }
+    }
+
+    @Test
+    fun `On Update Message Error`() {
+        val viewError = ViewError()
+
+        presenter.onUpdateMessageError(viewError)
+
+        verify {
+            mockView.showProgress(false)
+            mockView.showErrorDialog(viewError)
+        }
     }
 }
