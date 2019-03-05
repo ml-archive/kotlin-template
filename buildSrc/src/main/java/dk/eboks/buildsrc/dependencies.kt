@@ -5,7 +5,7 @@ object Versions {
 }
 
 object Libs {
-    const val androidGradlePlugin = "com.android.tools.build:gradle:3.3.1"
+    const val androidGradlePlugin = "com.android.tools.build:gradle:3.3.2"
 
     const val timber = "com.jakewharton.timber:timber:4.7.1"
     const val junit = "junit:junit:4.12"
