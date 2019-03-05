@@ -6,7 +6,6 @@ import dk.eboks.app.domain.repositories.FoldersRepository
 import dk.nodes.arch.domain.executor.TestExecutor
 import io.mockk.every
 import io.mockk.mockk
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.util.concurrent.CountDownLatch
@@ -16,7 +15,6 @@ class CreateFolderInteractorImplTest {
     private val executor = TestExecutor()
     private val repository = mockk<FoldersRepository>()
     private val interactor = CreateFolderInteractorImpl(executor, repository)
-
 
     @Test
     fun `Create Folder Test`() {
@@ -63,5 +61,4 @@ class CreateFolderInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
 }

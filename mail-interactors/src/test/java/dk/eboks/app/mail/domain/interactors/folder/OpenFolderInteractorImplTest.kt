@@ -13,12 +13,9 @@ import java.util.concurrent.CountDownLatch
 
 class OpenFolderInteractorImplTest {
 
-
     private val executor = TestExecutor()
     private val uiManager = mockk<UIManager>()
     private val interactor = OpenFolderInteractorImpl(executor, uiManager)
-
-
 
     @Test
     fun `Open Folder Test`() {
@@ -63,5 +60,4 @@ class OpenFolderInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
 }

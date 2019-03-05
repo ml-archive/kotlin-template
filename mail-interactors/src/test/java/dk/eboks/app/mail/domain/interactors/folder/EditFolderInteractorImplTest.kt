@@ -18,7 +18,7 @@ class EditFolderInteractorImplTest {
     @Test
     fun `Edit Folder Test`() {
         val latch = CountDownLatch(1)
-        every { repository.editFolder(any(), any()) } returns  Unit
+        every { repository.editFolder(any(), any()) } returns Unit
 
         interactor.input = EditFolderInteractor.Input(1, "folderName", 2)
         interactor.output = object : EditFolderInteractor.Output {
@@ -54,12 +54,9 @@ class EditFolderInteractorImplTest {
                 Assert.assertTrue(true)
                 latch.countDown()
             }
-
         }
 
         interactor.run()
         latch.await()
-
     }
-
 }

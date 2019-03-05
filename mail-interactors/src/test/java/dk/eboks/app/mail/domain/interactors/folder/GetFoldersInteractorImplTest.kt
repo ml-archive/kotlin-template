@@ -5,9 +5,7 @@ import dk.eboks.app.domain.models.folder.FolderMode
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.folder.isSystemFolder
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.repositories.FoldersRepository
-import dk.eboks.app.mail.domain.interactors.categories.GetCategoriesInteractor
 import dk.nodes.arch.domain.executor.TestExecutor
 import io.mockk.every
 import io.mockk.mockk
@@ -21,7 +19,6 @@ class GetFoldersInteractorImplTest {
     private val executor = TestExecutor()
     private val repository = mockk<FoldersRepository>()
     private val interactor = GetFoldersInteractorImpl(executor, repository)
-
 
     // Preset folders with different types
     private val mockFolders = List(30) { index ->
@@ -49,7 +46,6 @@ class GetFoldersInteractorImplTest {
                 folders.map { it.type == FolderType.INBOX || it.type == FolderType.FOLDER }
                         .forEach { Assert.assertTrue(it) }
                 latch.countDown()
-
             }
 
             override fun onGetFoldersError(error: ViewError) {
@@ -66,15 +62,12 @@ class GetFoldersInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
-
 
     @Test
     fun `Test Get Folders NORMAL`() {
         every { repository.getFolders(any(), any()) } returns mockFolders
         val latch = CountDownLatch(2)
-
 
         // Running interactor in NORMAL mode
         interactor.input = GetFoldersInteractor.Input(false, FolderMode.NORMAL, userId = 12)
@@ -100,15 +93,12 @@ class GetFoldersInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
-
 
     @Test
     fun `Test Get Folders NORMAL Error`() {
         every { repository.getFolders(any(), any()) } throws Exception()
         val latch = CountDownLatch(1)
-
 
         // Running interactor in NORMAL mode
         interactor.input = GetFoldersInteractor.Input(false, FolderMode.NORMAL, userId = 12)
@@ -134,15 +124,12 @@ class GetFoldersInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
-
 
     @Test
     fun `Test Get Folders SELECT Error`() {
         every { repository.getFolders(any(), any()) } throws Exception()
         val latch = CountDownLatch(1)
-
 
         // Running interactor in SELECT mode
         interactor.input = GetFoldersInteractor.Input(false, FolderMode.SELECT, userId = 12)
@@ -168,9 +155,5 @@ class GetFoldersInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
-
-
-
 }

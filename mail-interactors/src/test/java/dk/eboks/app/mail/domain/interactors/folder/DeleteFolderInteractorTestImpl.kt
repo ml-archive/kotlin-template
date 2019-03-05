@@ -15,7 +15,6 @@ class DeleteFolderInteractorTestImpl {
     private val repository = mockk<FoldersRepository>()
     private val interactor = DeleteFolderInteractorImpl(executor, repository)
 
-
     @Test
     fun `Delete Folder Test`() {
         val latch = CountDownLatch(1)
@@ -61,5 +60,4 @@ class DeleteFolderInteractorTestImpl {
         interactor.run()
         latch.await()
     }
-
 }
