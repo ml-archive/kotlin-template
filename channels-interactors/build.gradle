@@ -28,6 +28,7 @@ dependencies {
     implementation Libs.Coroutines.core
 
     testImplementation Libs.junit
+    testImplementation Libs.Test.mockk
     androidTestImplementation Libs.Test.runner
     androidTestImplementation Libs.Test.Expresso.core
 }

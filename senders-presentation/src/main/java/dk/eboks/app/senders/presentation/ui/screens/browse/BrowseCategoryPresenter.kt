@@ -25,9 +25,6 @@ internal class BrowseCategoryPresenter @Inject constructor(
     override fun loadSenders(senderId: Long) {
         runAction { v ->
             v.showProgress(true)
-        }
-        runAction { v ->
-            v.showProgress(true)
             getSendersInteractor.input = GetSendersInteractor.Input(
                 false,
                 "",
@@ -49,7 +46,7 @@ internal class BrowseCategoryPresenter @Inject constructor(
                 )
                 getSendersInteractor.run()
             } else {
-                onGetSenders(ArrayList()) // empty result
+                onGetSenders(emptyList()) // empty result
             }
         }
     }
@@ -64,7 +61,7 @@ internal class BrowseCategoryPresenter @Inject constructor(
     override fun onGetSendersError(error: ViewError) {
         runAction { v ->
             v.showProgress(false)
-            v.showSenders(ArrayList()) // empty result
+            v.showSenders(emptyList()) // empty result
             v.showErrorDialog(error)
         }
     }

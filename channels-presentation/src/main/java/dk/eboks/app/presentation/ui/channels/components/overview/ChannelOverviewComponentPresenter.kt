@@ -48,6 +48,9 @@ internal class ChannelOverviewComponentPresenter @Inject constructor(
     }
 
     override fun onGetChannelsError(error: ViewError) {
-        runAction { it.showErrorDialog(error) }
+        runAction {
+            it.showProgress(false)
+            it.showErrorDialog(error)
+        }
     }
 }

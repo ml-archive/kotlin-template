@@ -26,6 +26,7 @@ dependencies {
     implementation Libs.gson
     implementation Libs.Retrofit.retrofit
 
+    testImplementation Libs.Test.mockk
     testImplementation Libs.junit
     androidTestImplementation Libs.Test.runner
     androidTestImplementation Libs.Test.Expresso.core

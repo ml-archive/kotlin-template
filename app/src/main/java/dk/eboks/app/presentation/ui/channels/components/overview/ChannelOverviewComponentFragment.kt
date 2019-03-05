@@ -59,8 +59,8 @@ class ChannelOverviewComponentFragment : BaseFragment(), ChannelOverviewComponen
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visible = (show)
-        refreshSrl.visible = (!show)
+        progressFl.visible = show
+        refreshSrl.visible = !show
         if (!show) {
             refreshSrl.isRefreshing = false
         }
