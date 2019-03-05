@@ -1,6 +1,7 @@
 package dk.eboks.app.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,8 +17,10 @@ public class FieldMapper {
         if (fields != null) {
             for (Field field : fields) {
                 try {
-                    field.setAccessible(true);
-                    field.set(to,field.get(from));
+                    if (!Modifier.isFinal(field.getModifiers()) && !Modifier.isStatic(field.getModifiers())) {
+                        field.setAccessible(true);
+                        field.set(to, field.get(from));
+                    }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }

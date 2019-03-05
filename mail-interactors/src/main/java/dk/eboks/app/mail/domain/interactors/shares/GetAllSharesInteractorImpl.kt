@@ -17,7 +17,7 @@ internal class GetAllSharesInteractorImpl @Inject constructor(
     override fun execute() {
         try {
             val result = api.getAllShares().execute()
-            if (result.isSuccessful) {
+            if (result.isSuccessful && result.body() != null) {
                 result.body()?.let {
                     runOnUIThread {
                         output?.onGetAllShares(it)
