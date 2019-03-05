@@ -59,7 +59,6 @@ class BrowseCategoryPresenterTest {
             viewMock.showProgress(true)
             getSendersInteractor.input = GetSendersInteractor.Input(false, searchText, userId)
             getSendersInteractor.run()
-
         }
     }
 

@@ -10,6 +10,7 @@ import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import kotlin.random.Random
 
 class ChannelOverviewComponentPresenterTest {
 
@@ -50,8 +51,12 @@ class ChannelOverviewComponentPresenterTest {
 
     @Test
     fun `Test on get channels`() {
-        val channelListMock =
-            listOf(createMockChannel(), createMockChannel(12), createMockChannel(51))
+
+        val channelListMock = listOf(
+            createMockChannel(Random.nextInt()),
+            createMockChannel(Random.nextInt()),
+            createMockChannel(Random.nextInt())
+        )
         presenter.onGetChannels(channelListMock)
         verify {
             viewMock.showChannels(channelListMock)

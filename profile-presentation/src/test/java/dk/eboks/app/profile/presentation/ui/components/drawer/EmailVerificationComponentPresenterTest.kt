@@ -54,6 +54,5 @@ class EmailVerificationComponentPresenterTest {
             viewMock.setVerifyBtnEnabled(true)
             viewMock.showErrorDialog(viewError)
         }
-
     }
 }
