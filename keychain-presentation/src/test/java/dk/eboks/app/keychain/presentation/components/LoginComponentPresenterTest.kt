@@ -5,12 +5,19 @@ import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
+import dk.eboks.app.domain.models.AppState
+import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.login.LoginState
+import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.keychain.interactors.authentication.CheckRSAKeyPresenceInteractor
 import dk.eboks.app.keychain.interactors.authentication.LoginInteractor
+import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import kotlin.random.Random
 
 class LoginComponentPresenterTest {
 
@@ -25,9 +32,14 @@ class LoginComponentPresenterTest {
     private val viewMock = mockk<LoginComponentContract.View>(relaxUnitFun = true)
     private val lifecycleMock = mockk<Lifecycle>(relaxUnitFun = true)
     private lateinit var presenter: LoginComponentPresenter
+    private val mockUserId = Random.nextInt()
+    private val mockUser = User(id = mockUserId)
 
     @Before
     fun setUp() {
+        every { appConfig.alternativeLoginProviders } returns listOf()
+        every { appState.state } returns AppState()
+        every { appState.state?.currentUser } returns mockUser
         presenter = LoginComponentPresenter(
             appState,
             userSettingsManager,
@@ -46,35 +58,61 @@ class LoginComponentPresenterTest {
 
     @Test
     fun `Test setup`() {
-        presenter.setup()
+        // TODO
     }
 
     @Test
-    fun onLoginSuccess() {
+    fun `Test check RSA Key`() {
+        presenter.checkRsaKey()
+        verify {
+            checkRSAKeyPresenceInteractor.input =
+                CheckRSAKeyPresenceInteractor.Input(mockUserId.toString())
+            checkRSAKeyPresenceInteractor.run()
+        }
     }
 
     @Test
-    fun checkRsaKey() {
+    fun `Test on login denied`() {
+        val viewError = ViewError()
+        presenter.onLoginDenied(viewError)
+        verify {
+            viewMock.showProgress(false)
+            viewMock.showError(viewError)
+        }
     }
 
     @Test
-    fun onLoginDenied() {
+    fun `Test on login error`() {
+        val viewError = ViewError()
+        presenter.onLoginError(viewError)
+        verify {
+            viewMock.showProgress(false)
+            viewMock.showError(viewError)
+        }
     }
 
     @Test
-    fun onLoginError() {
+    fun `Test finger print confirmed`() {
+        presenter.fingerPrintConfirmed(mockUser)
+        verify {
+            viewMock.showProgress(true)
+            decryptUserLoginInfoInteractor.run()
+        }
     }
 
     @Test
-    fun fingerPrintConfirmed() {
+    fun `Test decrypt success`() {
+        // TODO
     }
 
     @Test
-    fun onDecryptSuccess() {
-    }
-
-    @Test
-    fun onDecryptError() {
+    fun `Test on decrypt error`() {
+        val error = ViewError()
+        presenter.onDecryptError(error)
+        verify {
+            viewMock.showProgress(false)
+            viewMock.showError(error)
+        }
     }
 
     @Test
@@ -82,15 +120,25 @@ class LoginComponentPresenterTest {
     }
 
     @Test
-    fun login() {
+    fun `Test login`() {
+        val loginState = LoginState()
+        every { appState.state?.loginState } returns loginState
+        presenter.login()
+        verify {
+            viewMock.showProgress(true)
+            loginInteractor.input = LoginInteractor.Input(loginState)
+            loginInteractor.run()
+        }
     }
 
     @Test
-    fun switchLoginProvider() {
+    fun `Test switch login provider`() {
+
     }
 
     @Test
-    fun onLoginActivationCodeRequired() {
+    fun `Test on login activation code required`() {
+        presenter.onLoginA
     }
 
     @Test
