@@ -16,7 +16,8 @@ import dk.nodes.template.injection.modules.*
         InteractorModule::class,
         RestModule::class,
         RestRepositoryModule::class,
-        StorageModule::class
+        StorageModule::class,
+        TasksModule::class
     ]
 )
 @AppScope

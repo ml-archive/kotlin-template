@@ -25,6 +25,13 @@
             android:value="${apiKey}"
             tools:replace="android:value"/>
 
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            android:exported="false"
+            tools:node="remove"/>
+
+
         <!-- hockey id included from build.gradle manifest placeholder -->
         <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
 

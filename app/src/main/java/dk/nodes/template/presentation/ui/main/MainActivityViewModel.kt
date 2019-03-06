@@ -34,8 +34,4 @@ class MainActivityViewModel @Inject constructor(
             )
         }
     }
-
-    override fun onCleared() {
-        super.onCleared()
-    }
 }

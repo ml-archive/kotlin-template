@@ -3,7 +3,7 @@ package dk.nodes.template.injection.modules
 import androidx.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
-import dk.nodes.template.injection.DaggerViewModelFactory
+import dk.nodes.template.injection.factories.DaggerViewModelFactory
 import dk.nodes.template.presentation.ui.main.MainActivityBuilder
 
 @Module(
