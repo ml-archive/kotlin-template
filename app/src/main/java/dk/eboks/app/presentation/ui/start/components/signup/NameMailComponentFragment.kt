@@ -13,12 +13,14 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import dk.eboks.app.keychain.presentation.components.SignupComponentContract
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.dpToPx
 import dk.eboks.app.util.isValidEmail
+import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_signup_name_mail_component.*
 import kotlinx.android.synthetic.main.fragment_signup_name_mail_component.view.*
@@ -163,11 +165,11 @@ class NameMailComponentFragment : BaseFragment(), SignupComponentContract.NameMa
     }
 
     override fun showProgress(show: Boolean) {
-        scrollView.visibility = if (show) View.GONE else View.VISIBLE
-        progress.visibility = if (show) View.VISIBLE else View.GONE
+        scrollView.visible = !show
+        progress.visible = show
     }
 
-    fun onContinueClicked() {
+    private fun onContinueClicked() {
         presenter.confirmMail(emailEt.text.toString().trim(), nameEt.text.toString().trim())
         showProgress(true)
         hideKeyboard(view)

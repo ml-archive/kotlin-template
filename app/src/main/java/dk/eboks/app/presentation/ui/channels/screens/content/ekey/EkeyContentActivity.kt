@@ -20,7 +20,7 @@ class EkeyContentActivity : BaseActivity(), EkeyContentContract.View {
 
     private var keys: ArrayList<BaseEkey>? = null
     var channel: Channel? = null
-    var isDestroyable: Boolean = true
+    private var isDestroyable: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

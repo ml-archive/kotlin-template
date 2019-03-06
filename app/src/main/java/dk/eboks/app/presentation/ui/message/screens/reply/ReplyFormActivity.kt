@@ -7,8 +7,11 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
 import dk.eboks.app.domain.models.formreply.FormInputType
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormContract
+import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.util.guard
+import dk.eboks.app.util.invisible
 import dk.eboks.app.util.views
 import dk.nodes.nstack.kotlin.util.OnLanguageChangedListener
 import kotlinx.android.synthetic.main.activity_reply_form.*
@@ -94,7 +97,7 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if (show) View.VISIBLE else View.INVISIBLE
+        progressFl.invisible = !show
     }
 
     override fun clearForm() {

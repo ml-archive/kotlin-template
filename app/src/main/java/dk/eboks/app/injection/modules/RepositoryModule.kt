@@ -1,12 +1,7 @@
 package dk.eboks.app.injection.modules
 
-import android.content.Context
-import com.google.gson.Gson
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
-import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.managers.CacheManager
-import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.repositories.AppStateRepository
 import dk.eboks.app.domain.repositories.ChannelsRepository
 import dk.eboks.app.domain.repositories.CollectionsRepository
@@ -16,8 +11,8 @@ import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.domain.repositories.SenderCategoriesRepository
 import dk.eboks.app.domain.repositories.SendersRepository
 import dk.eboks.app.domain.repositories.SettingsRepository
+import dk.eboks.app.domain.repositories.SignupRepository
 import dk.eboks.app.domain.repositories.UserRepository
-import dk.eboks.app.network.Api
 import dk.eboks.app.network.repositories.ChannelsRestRepository
 import dk.eboks.app.network.repositories.CollectionsRestRepository
 import dk.eboks.app.network.repositories.FoldersRestRepository
@@ -30,113 +25,53 @@ import dk.eboks.app.network.repositories.UserRestRepository
 import dk.eboks.app.storage.repositories.AppStateRepositoryImpl
 import dk.eboks.app.storage.repositories.SharedPrefsSettingsRepository
 import dk.nodes.arch.domain.injection.scopes.AppScope
-import okhttp3.OkHttpClient
 
 /**
  * Created by bison on 25-07-2017.
  */
 @Module
-class RepositoryModule {
-    @Provides
+abstract class RepositoryModule {
+    @Binds
     @AppScope
-    fun provideAppStateRepository(context: Context, gson: Gson): AppStateRepository {
-        return AppStateRepositoryImpl(context, gson)
-    }
+    abstract fun bindAppStateRepository(repository: AppStateRepositoryImpl): AppStateRepository
 
-    @Provides
+    @Binds
     @AppScope
-    fun provideSignupRestRepository(context: Context, api: Api): SignupRestRepository {
-        return SignupRestRepository(api)
-    }
+    abstract fun bindSignupRestRepository(repository: SignupRestRepository): SignupRepository
 
-    @Provides
+    @Binds
     @AppScope
-    fun provideUserRestRepository(context: Context, api: Api, gson: Gson): UserRepository {
-        return UserRestRepository(context, api, gson)
-    }
+    abstract fun bindUserRestRepository(repository: UserRestRepository): UserRepository
 
-    @Provides
+    @Binds
     @AppScope
-    fun provideMessagesRepository(
-        context: Context,
-        api: Api,
-        gson: Gson,
-        cacheManager: CacheManager,
-        httpClient: OkHttpClient,
-        appState: AppStateManager
-    ): MessagesRepository {
-        return MessagesRestRepository(context, api, gson, cacheManager, httpClient, appState)
-    }
+    abstract fun bindMessagesRepository(repository: MessagesRestRepository): MessagesRepository
 
-    @Provides
+    @Binds
     @AppScope
-    fun provideSendersRepository(
-        context: Context,
-        api: Api,
-        gson: Gson,
-        cacheManager: CacheManager
-    ): SendersRepository {
-        return SendersRestRepository(context, api, gson, cacheManager)
-    }
+    abstract fun bindSendersRepository(repository: SendersRestRepository): SendersRepository
 
-    @Provides
+    @Binds
     @AppScope
-    fun provideSenderCategoriesRepository(
-        context: Context,
-        api: Api,
-        gson: Gson,
-        cacheManager: CacheManager
-    ): SenderCategoriesRepository {
-        return SenderCategoriesRestRepository(context, api, gson, cacheManager)
-    }
+    abstract fun bindSenderCategoriesRepository(repository: SenderCategoriesRestRepository): SenderCategoriesRepository
 
-    @Provides
+    @Binds
     @AppScope
-    fun provideMailCategoriesRepository(
-        context: Context,
-        api: Api,
-        gson: Gson,
-        cacheManager: CacheManager
-    ): MailCategoriesRepository {
-        return MailCategoriesRestRepository(context, api, gson, cacheManager)
-    }
+    abstract fun bindMailCategoriesRepository(repository: MailCategoriesRestRepository): MailCategoriesRepository
 
-    @Provides
+    @Binds
     @AppScope
-    fun provideSettingsRepository(prefManager: PrefManager): SettingsRepository {
-        return SharedPrefsSettingsRepository(prefManager)
-    }
+    abstract fun bindSettingsRepository(repository: SharedPrefsSettingsRepository): SettingsRepository
 
-    @Provides
+    @Binds
     @AppScope
-    fun provideFoldersRepository(
-        context: Context,
-        api: Api,
-        gson: Gson,
-        cacheManager: CacheManager
-    ): FoldersRepository {
-        return FoldersRestRepository(context, api, gson, cacheManager)
-    }
+    abstract fun bindFoldersRepository(repository: FoldersRestRepository): FoldersRepository
 
-    @Provides
+    @Binds
     @AppScope
-    fun provideChannelsRepository(
-        context: Context,
-        api: Api,
-        gson: Gson,
-        cacheManager: CacheManager
-    ): ChannelsRepository {
-        return ChannelsRestRepository(context, api, gson, cacheManager)
-    }
+    abstract fun bindChannelsRepository(repository: ChannelsRestRepository): ChannelsRepository
 
-    @Provides
+    @Binds
     @AppScope
-    fun provideCollectionsRepository(
-        context: Context,
-        api: Api,
-        gson: Gson,
-        cacheManager: CacheManager
-    ): CollectionsRepository {
-        return CollectionsRestRepository(context, api, gson, cacheManager)
-    }
+    abstract fun bindCollectionsRepository(repository: CollectionsRestRepository): CollectionsRepository
 }

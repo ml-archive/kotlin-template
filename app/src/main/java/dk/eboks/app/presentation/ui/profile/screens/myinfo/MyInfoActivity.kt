@@ -5,6 +5,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.profile.components.myinfo.MyInfoComponentFragment
+import dk.eboks.app.profile.presentation.ui.screens.MyInfoContract
 import javax.inject.Inject
 
 class MyInfoActivity : BaseActivity(), MyInfoContract.View {

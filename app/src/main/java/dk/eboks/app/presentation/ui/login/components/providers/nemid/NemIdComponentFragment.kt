@@ -9,13 +9,14 @@ import android.webkit.JavascriptInterface
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.appcompat.app.AlertDialog
+import dk.eboks.app.keychain.presentation.components.providers.NemIdComponentPresenter
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseWebFragment
-import dk.eboks.app.presentation.ui.login.components.providers.WebLoginContract
+import dk.eboks.app.keychain.presentation.components.providers.WebLoginContract
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -27,11 +28,11 @@ import javax.inject.Inject
  */
 class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
-    @Inject
-    lateinit var presenter: NemIdComponentPresenter
+    @Inject lateinit var presenter: NemIdComponentPresenter
+    @Inject lateinit var appConfig: AppConfig
 
-    var loginUser: User? = null
-    var didAttemptToInstallNemID = false
+    private var loginUser: User? = null
+    private var didAttemptToInstallNemID = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -78,7 +79,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     override fun setupLogin(user: User?) {
         loginUser = user
-        val loginUrl = "${Config.currentMode.environment?.kspUrl}nemid"
+        val loginUrl = "${appConfig.currentMode.environment?.kspUrl}nemid"
         Timber.e("Opening $loginUrl")
 
         // Timber.e(getJS())
@@ -127,7 +128,7 @@ class NemIdComponentFragment : BaseWebFragment(), WebLoginContract.View {
     private fun openNemIdApp() {
         // app switch test
         val secondFactorIntent =
-            if (Config.getCurrentEnvironmentName()?.contentEquals("production") == false)
+            if (appConfig.currentEnvironmentName?.contentEquals("production") == false)
                 activity?.packageManager?.getLaunchIntentForPackage("dk.e_nettet.mobilekey.everyone.kopi")
             else
                 activity?.packageManager?.getLaunchIntentForPackage("dk.e_nettet.mobilekey.everyone")

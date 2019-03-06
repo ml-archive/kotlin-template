@@ -1,0 +1,34 @@
+import dk.eboks.buildsrc.Libs
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion buildConfig.compileSdk
+
+    defaultConfig {
+        minSdkVersion buildConfig.minSdk
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+}
+
+dependencies {
+    implementation project(':core')
+    implementation project(':data')
+    implementation project(':api')
+
+    implementation Libs.timber
+    implementation Libs.Nodes.arch
+    implementation Libs.Dagger.dagger
+
+    implementation Libs.gson
+    implementation Libs.Retrofit.retrofit
+
+    testImplementation Libs.junit
+    androidTestImplementation Libs.Test.runner
+    androidTestImplementation Libs.Test.Expresso.core
+}
+repositories {
+    mavenCentral()
+}

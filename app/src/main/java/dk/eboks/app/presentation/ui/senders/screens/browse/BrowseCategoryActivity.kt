@@ -21,7 +21,9 @@ import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import dk.eboks.app.presentation.widgets.DividerItemDecoration
+import dk.eboks.app.senders.presentation.ui.screens.browse.BrowseCategoryContract
 import dk.eboks.app.util.guard
+import dk.eboks.app.util.invisible
 import dk.eboks.app.util.setBubbleDrawable
 import kotlinx.android.synthetic.main.activity_senders_browse_category.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -80,7 +82,8 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
             }
             mainTb.title = cat.name
         }
-        browseCatRv.setBubbleDrawable(resources.getDrawable(R.drawable.fastscroll_bubble))
+        ContextCompat.getDrawable(this, R.drawable.fastscroll_bubble)
+            ?.let(browseCatRv::setBubbleDrawable)
     }
 
     override fun showSenders(senders: List<Sender>) {
@@ -147,8 +150,8 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
         }
 
         inner class SenderViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-            val mainLl = v.findViewById<View>(R.id.senderMainLl)
-            val indexTv = v.findViewById<TextView>(R.id.senderIndexTv)
+            private val mainLl = v.findViewById<View>(R.id.senderMainLl)
+            private val indexTv = v.findViewById<TextView>(R.id.senderIndexTv)
             val nameTv = v.findViewById<TextView>(R.id.senderNameTv)
             val iconIv = v.findViewById<ImageView>(R.id.senderLogoIv)
 
@@ -178,11 +181,7 @@ class BrowseCategoryActivity : BaseActivity(), BrowseCategoryContract.View {
 
             // this will hide-show the first-letter textview
             fun showIndex(show: Boolean) {
-                indexTv.visibility = if (show) {
-                    View.VISIBLE
-                } else {
-                    View.INVISIBLE
-                }
+                indexTv.invisible = !show
             }
         }
     }

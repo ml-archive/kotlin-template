@@ -56,24 +56,24 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
+class LoginComponentFragment : BaseFragment(), dk.eboks.app.keychain.presentation.components.LoginComponentContract.View {
 
     private var emailCprIsValid = false
     private var passwordIsValid = false
     var handler = Handler()
 
     @Inject
-    lateinit var presenter: LoginComponentContract.Presenter
+    lateinit var presenter: dk.eboks.app.keychain.presentation.components.LoginComponentContract.Presenter
 
     @Inject
     lateinit var formatter: EboksFormatter
 
-    var showGreeting: Boolean = true
-    var currentProvider: LoginProvider? = null
-    var currentUser: User? = null
-    var currentSettings: UserSettings? = null
-    var selectedLoginProviderId: String? = null
-    var reauth: Boolean = false
+    private var showGreeting: Boolean = true
+    private var currentProvider: LoginProvider? = null
+    private var currentUser: User? = null
+    private var currentSettings: UserSettings? = null
+    private var selectedLoginProviderId: String? = null
+    private var reauth: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -127,7 +127,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
     }
 
-    val keyboardListener = KeyboardUtils.SoftKeyboardToggleListener {
+    private val keyboardListener = KeyboardUtils.SoftKeyboardToggleListener {
         if (it) {
             loginProvidersLl.visibility = View.GONE
             continueBtn.visibility = View.VISIBLE
@@ -338,8 +338,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                         ViewError(
                             Translation.error.genericTitle,
                             Translation.androidfingerprint.errorGeneric,
-                            true,
-                            false
+                            shouldDisplay = true,
+                            shouldCloseView = false
                         )
                     )
                 }

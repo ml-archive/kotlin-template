@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.ViewerFragment
-import dk.eboks.app.presentation.ui.message.components.viewers.base.EmbeddedViewer
+import dk.eboks.app.mail.presentation.ui.message.components.viewers.base.EmbeddedViewer
+import dk.eboks.app.mail.presentation.ui.message.components.viewers.text.TextViewComponentContract
 import dk.eboks.app.util.visible
 import dk.nodes.filepicker.uriHelper.FilePickerUriHelper
 import kotlinx.android.synthetic.main.fragment_textview_component.*
@@ -27,7 +28,7 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class TextViewComponentFragment : BaseFragment(), TextViewComponentContract.View, EmbeddedViewer,
-    ViewerFragment {
+        ViewerFragment {
 
     @Inject
     lateinit var presenter: TextViewComponentContract.Presenter

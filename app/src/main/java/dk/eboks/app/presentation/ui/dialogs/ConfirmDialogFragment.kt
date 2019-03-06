@@ -16,8 +16,8 @@ import dk.eboks.app.R
  * Created by bison on 31/01/18.
  */
 class ConfirmDialogFragment : DialogFragment() {
-    lateinit var dialogInstance: Dialog
-    var parentView: View? = null
+    private lateinit var dialogInstance: Dialog
+    private var parentView: View? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 

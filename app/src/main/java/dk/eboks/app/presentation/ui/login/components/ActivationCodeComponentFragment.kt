@@ -15,16 +15,19 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
 import dk.eboks.app.presentation.ui.home.screens.HomeActivity
 import dk.eboks.app.presentation.ui.start.screens.HelpActivity
+import dk.eboks.app.util.invisible
 import dk.eboks.app.util.isValidActivationCode
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_activation_code_component.*
 import javax.inject.Inject
 
 /**
  * Created by bison on 09-02-2018.
  */
-class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentContract.View {
+class ActivationCodeComponentFragment : BaseFragment(),
+    dk.eboks.app.keychain.presentation.components.ActivationCodeComponentContract.View {
     @Inject
-    lateinit var presenter: ActivationCodeComponentContract.Presenter
+    lateinit var presenter: dk.eboks.app.keychain.presentation.components.ActivationCodeComponentContract.Presenter
 
     var mHandler = Handler()
 
@@ -57,7 +60,7 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
         }
     }
 
-    fun setupValidation() {
+    private fun setupValidation() {
         activationCodeEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(activationCode: Editable?) {
                 activationCodeTil.error = null
@@ -104,7 +107,7 @@ class ActivationCodeComponentFragment : BaseFragment(), ActivationCodeComponentC
     }
 
     override fun showProgress(show: Boolean) {
-        buttonGroupLl.visibility = if (show) View.INVISIBLE else View.VISIBLE
-        progressFl.visibility = if (!show) View.GONE else View.VISIBLE
+        buttonGroupLl.invisible = show
+        progressFl.visible = show
     }
 }

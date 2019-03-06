@@ -9,8 +9,11 @@ import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.getIconResId
+import dk.eboks.app.mail.presentation.ui.components.foldershortcuts.FolderShortcutsComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_folder_shortcuts_component.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -42,7 +45,7 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
         val li: LayoutInflater = LayoutInflater.from(context)
         Timber.d("Filders: $folders")
         for (folder in folders) {
-            var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
+            val v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
             v.findViewById<TextView>(R.id.nameTv)?.text = folder.name
             if (folder.unreadCount != 0) {
                 v.findViewById<TextView>(R.id.badgeCountTv)?.visibility = View.VISIBLE
@@ -55,7 +58,7 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
 
             folder.type?.let { type ->
                 val iv = v.findViewById<ImageView>(R.id.iconIv)
-                iv?.let { it.setImageResource(type.getIconResId()) }
+                iv?.setImageResource(type.getIconResId())
             }
 
             v.setOnClickListener { presenter.openFolder(folder) }
@@ -64,9 +67,9 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
         insertTestData()
     }
 
-    fun insertTestData() {
+    private fun insertTestData() {
         val li: LayoutInflater = LayoutInflater.from(context)
-        var v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
+        val v = li.inflate(R.layout.viewholder_folder, yourMailLl, false)
         v.findViewById<TextView>(R.id.nameTv)?.text = Translation.folders.foldersHeader
         v.findViewById<TextView>(R.id.badgeCountTv)?.text = "2"
 
@@ -79,7 +82,7 @@ class FolderShortcutsComponentFragment : BaseFragment(), FolderShortcutsComponen
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if (show) View.VISIBLE else View.GONE
+        progressFl.visible = show
     }
 
     override fun showEmpty(show: Boolean) {

@@ -31,54 +31,17 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.google.android.material.textfield.TextInputEditText
 import com.l4digital.fastscroll.FastScrollRecyclerView
 import com.l4digital.fastscroll.FastScroller
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfigImpl
 import dk.eboks.app.domain.config.LoginProvider
-import dk.eboks.app.domain.exceptions.ServerErrorException
 import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.Translation
-import dk.eboks.app.domain.models.channel.Channel
-import dk.eboks.app.domain.models.local.ViewError
-import dk.nodes.arch.domain.interactor.BaseInteractor
-import retrofit2.Response
 import timber.log.Timber
-import java.io.IOException
 import java.io.Serializable
-import java.net.ConnectException
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 
 /**
  * Created by bison on 01-07-2017.
  */
 // makes viewgroups iterable (you can for the each out of them!:)
-fun ViewGroup.asSequence(): Sequence<View> = object : Sequence<View> {
-    override fun iterator(): Iterator<View> = object : Iterator<View> {
-        private var nextValue: View? = null
-        private var done = false
-        private var position: Int = 0
-
-        override fun hasNext(): Boolean {
-            if (nextValue == null && !done) {
-                nextValue = getChildAt(position)
-                position++
-                if (nextValue == null) done = true
-            }
-            return nextValue != null
-        }
-
-        override fun next(): View {
-            if (!hasNext()) {
-                throw NoSuchElementException()
-            }
-            val answer = nextValue
-            nextValue = null
-            return answer!!
-        }
-    }
-}
-
-val ViewGroup.views: List<View>
-    get() = asSequence().toList()
 
 @SuppressLint("RestrictedApi")
 fun BottomNavigationView.disableShiftingMode() {
@@ -109,8 +72,8 @@ fun Editable?.isValidEmail(): Boolean {
 
 fun Editable?.isValidCpr(): Boolean {
     if (this == null) return false
-    val cprLength = Config.currentMode.cprLength
-    val cprRegex = Regex("^[0-9]{$cprLength}$")
+    val cprLength = AppConfigImpl.currentMode.cprLength
+    val cprRegex = Regex("^[0-9]*$cprLength}$")
     val text = toString().trim()
     return !TextUtils.isEmpty(text) && text.matches(cprRegex)
 }
@@ -120,10 +83,6 @@ fun Editable?.isValidActivationCode(): Boolean {
     val cprRegex = Regex("^[a-zA-Z0-9]{8}$")
     val text = toString().trim()
     return !TextUtils.isEmpty(text) && text.matches(cprRegex)
-}
-
-inline fun <T> T.guard(block: T.() -> Unit): T {
-    if (this == null) block(); return this
 }
 
 fun dpToPx(dp: Int): Int {
@@ -165,34 +124,8 @@ fun EditText.addAfterTextChangeListener(listener: ((Editable?) -> Unit)) {
 //    return false
 // }
 
-fun Channel.getType(): String {
-    if (this.id > 0 && this.id < 4) {
-        return "storebox"
-    }
-    // TODO figure out ids and reenable ekey support later
-
-    if (this.id >= 11 && this.id <= 13) {
-        return "ekey"
-    }
-
-    return "channel"
-}
-
 fun Image.getWorkaroundUrl(): String {
     return "$url&type=1"
-}
-
-fun Channel.areAllRequirementsVerified(): Boolean {
-    this.requirements?.let { reqs ->
-        for (req in reqs) {
-            req.verified?.let {
-                if (!it)
-                    return false
-            }
-        }
-        return true
-    }.guard { return true }
-    return true
 }
 
 /**
@@ -202,85 +135,7 @@ fun Channel.areAllRequirementsVerified(): Boolean {
  * Its just for convenience yall
  */
 
-fun BaseInteractor.errorBodyToViewError(
-    response: Response<*>,
-    shouldClose: Boolean = false
-): ViewError {
-    val responseString = response.errorBody()?.string()
-
-    // Todo add more cases like 401,402, ect ect
-
-    return when (response.code()) {
-        else -> {
-            ViewError(
-                Translation.error.genericTitle,
-                Translation.error.genericMessage,
-                true,
-                shouldClose
-            )
-        }
-    }
-}
-
-internal fun throwableToViewError(
-    t: Throwable,
-    shouldClose: Boolean = false,
-    shouldDisplay: Boolean = true
-): ViewError {
-    when (t) {
-        is ConnectException -> return ViewError(
-            title = Translation.error.noInternetTitle,
-            message = Translation.error.noInternetMessage,
-            shouldDisplay = shouldDisplay,
-            shouldCloseView = shouldClose
-        )
-        is UnknownHostException -> return ViewError(
-            title = Translation.error.noInternetTitle,
-            message = Translation.error.noInternetMessage,
-            shouldDisplay = shouldDisplay,
-            shouldCloseView = shouldClose
-        )
-        is IOException -> return ViewError(
-            title = Translation.error.genericStorageTitle,
-            message = Translation.error.genericStorageMessage,
-            shouldDisplay = shouldDisplay,
-            shouldCloseView = shouldClose
-        )
-        is SocketTimeoutException -> return ViewError(
-            title = Translation.error.noInternetTitle,
-            message = Translation.error.noInternetMessage,
-            shouldDisplay = shouldDisplay,
-            shouldCloseView = shouldClose
-        )
-        is ServerErrorException -> {
-            return ViewError(
-                title = t.error.description?.title,
-                message = t.error.description?.text,
-                shouldDisplay = shouldDisplay,
-                shouldCloseView = shouldClose
-            )
-        }
-        else -> return ViewError(
-            shouldDisplay = shouldDisplay,
-            shouldCloseView = shouldClose
-        )
-    }
-}
-
-fun BaseInteractor.exceptionToViewError(
-    t: Throwable,
-    shouldClose: Boolean = false,
-    shouldDisplay: Boolean = true
-): ViewError {
-    t.cause?.let {
-        return throwableToViewError(it, shouldClose, shouldDisplay)
-    }.guard {
-        return throwableToViewError(t, shouldClose, shouldDisplay)
-    }
-    return ViewError(shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
-}
-
-class ActivityStarter(val callingActivity: Activity) {
+class ActivityStarter(private val callingActivity: Activity) {
     private var activityClass: Class<out Activity>? = null
     private var intent: Intent? = null
 
@@ -333,6 +188,7 @@ class ActivityStarter(val callingActivity: Activity) {
     }
 }
 
+@Suppress("FunctionName")
 fun Activity.Starter(): ActivityStarter {
     return ActivityStarter(this)
 }

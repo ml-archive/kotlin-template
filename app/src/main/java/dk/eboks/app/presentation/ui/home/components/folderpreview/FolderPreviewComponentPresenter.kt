@@ -1,6 +1,6 @@
 package dk.eboks.app.presentation.ui.home.components.folderpreview
 
-import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
+import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
@@ -22,7 +22,7 @@ class FolderPreviewComponentPresenter @Inject constructor(
     GetMessagesInteractor.Output {
 
     // override val isVerified = appState.state?.currentUser?.verified ?: false
-    var currentFolder: Folder? = null
+    private var currentFolder: Folder? = null
 
     init {
         getMessagesInteractor.output = this

@@ -10,10 +10,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.content.ContextCompat
+import dk.eboks.app.keychain.presentation.components.SignupComponentContract
+import dk.eboks.app.AppPatterns
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.util.AppPatterns
 import dk.eboks.app.util.dpToPx
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_signup_password_component.*
@@ -91,12 +92,11 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     }
 
     private fun setupRepeatPasswordListener() {
-        repeatPasswordEt.onFocusChangeListener = object : View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        repeatPasswordEt.onFocusChangeListener =
+            View.OnFocusChangeListener { v, hasFocus ->
                 comparePasswords()
                 setErrorMessages()
             }
-        }
 
         repeatPasswordEt.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(repeatPassword: Editable?) {
@@ -129,11 +129,9 @@ class PasswordComponentFragment : BaseFragment(), SignupComponentContract.Passwo
     }
 
     private fun setupPasswordListeners() {
-        passwordEt.onFocusChangeListener = object : View.OnFocusChangeListener {
-            override fun onFocusChange(v: View?, hasFocus: Boolean) {
-                comparePasswords()
-                setErrorMessages()
-            }
+        passwordEt.onFocusChangeListener = View.OnFocusChangeListener { v, hasFocus ->
+            comparePasswords()
+            setErrorMessages()
         }
 
         passwordEt.addTextChangedListener(object : TextWatcher {

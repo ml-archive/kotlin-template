@@ -21,6 +21,7 @@ import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import dk.eboks.app.presentation.ui.senders.screens.registrations.PendingActivity
 import dk.eboks.app.presentation.ui.senders.screens.registrations.RegistrationsActivity
 import dk.eboks.app.presentation.ui.senders.screens.segment.SegmentDetailActivity
+import dk.eboks.app.senders.presentation.ui.screens.overview.SendersOverviewContract
 import kotlinx.android.synthetic.main.fragment_senders_overview.*
 import javax.inject.Inject
 

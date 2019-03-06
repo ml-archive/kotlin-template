@@ -16,7 +16,9 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
+import dk.eboks.app.senders.presentation.ui.screens.browse.BrowseCategoryContract
 import dk.eboks.app.util.inflate
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.activity_senders_search_senders.*
 import javax.inject.Inject
 
@@ -93,8 +95,7 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
     }
 
     override fun showSenders(senders: List<Sender>) {
-        if (senders.size == 0) emptyTv.visibility = View.VISIBLE else emptyTv.visibility = View.GONE
-
+        emptyTv.visible = senders.isEmpty()
         this.senders.clear()
         this.senders.addAll(senders)
         searchSenderRv.adapter?.notifyDataSetChanged()
@@ -120,8 +121,8 @@ class SearchSendersActivity : BaseActivity(), BrowseCategoryContract.View {
         }
 
         inner class SenderViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-            val mainLl = v.findViewById<View>(R.id.senderMainLl)
-            val indexTv = v.findViewById<TextView>(R.id.senderIndexTv)
+            private val mainLl = v.findViewById<View>(R.id.senderMainLl)
+            private val indexTv = v.findViewById<TextView>(R.id.senderIndexTv)
             val nameTv = v.findViewById<TextView>(R.id.senderNameTv)
             val iconIv = v.findViewById<ImageView>(R.id.senderLogoIv)
 

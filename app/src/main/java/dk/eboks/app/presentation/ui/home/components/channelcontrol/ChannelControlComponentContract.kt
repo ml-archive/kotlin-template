@@ -10,7 +10,7 @@ import dk.nodes.arch.presentation.base.BasePresenter
  */
 interface ChannelControlComponentContract {
     interface View : BaseView {
-        fun setupChannels(channels: MutableList<Channel>)
+        fun setupChannels(channels: List<Channel>)
         fun updateControl(channel: Channel, control: Control)
         fun setControl(channel: Channel, text: String)
         fun showProgress(show: Boolean)

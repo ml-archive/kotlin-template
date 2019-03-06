@@ -12,6 +12,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.components.categories.CategoriesComponentFragment
+import dk.eboks.app.senders.presentation.ui.screens.segment.SegmentDetailContract
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.activity_senders_detail.*
 import timber.log.Timber
@@ -20,7 +21,7 @@ import javax.inject.Inject
 
 class SegmentDetailActivity : BaseActivity(), SegmentDetailContract.View {
 
-    var onLanguageChangedListener: (Locale) -> Unit = { }
+    private var onLanguageChangedListener: (Locale) -> Unit = { }
 
     @Inject
     lateinit var presenter: SegmentDetailContract.Presenter

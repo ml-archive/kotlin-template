@@ -13,15 +13,15 @@ import dk.eboks.app.R
  * Created by bison on 23/11/15.
  */
 class DottedViewPager : ViewPager {
-    lateinit var inactiveDot: Drawable
-    lateinit var activeDot: Drawable
-    internal var circleSize: Int = 0
-    internal var noCircles: Int = 0
-    internal var curCircle = 0
-    internal var margin: Int = 0
-    internal var marginBottom: Int = 0
-    internal var density: Float = 0.toFloat()
-    internal var screenWidth: Int = 0
+    private lateinit var inactiveDot: Drawable
+    private lateinit var activeDot: Drawable
+    private var circleSize: Int = 0
+    private var noCircles: Int = 0
+    private var curCircle = 0
+    private var margin: Int = 0
+    private var marginBottom: Int = 0
+    private var density: Float = 0.toFloat()
+    private var screenWidth: Int = 0
 
     constructor(context: Context) : super(context) {
         init()

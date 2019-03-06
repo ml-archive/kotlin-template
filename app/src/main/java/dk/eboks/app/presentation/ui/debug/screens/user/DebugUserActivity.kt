@@ -3,7 +3,7 @@ package dk.eboks.app.presentation.ui.debug.screens.user
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.login.UserSettings
@@ -15,10 +15,10 @@ import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
 class DebugUserActivity : BaseActivity(), DebugUserContract.View {
-    @Inject
-    lateinit var presenter: DebugUserContract.Presenter
+    @Inject lateinit var presenter: DebugUserContract.Presenter
+    @Inject lateinit var appConfig: AppConfig
 
-    var currentUser: User? = null
+    private var currentUser: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,7 +66,7 @@ class DebugUserActivity : BaseActivity(), DebugUserContract.View {
 
     private fun createDefaultUser() {
         presenter.createUser(
-            Config.getLoginProvider("cpr")!!,
+            appConfig.getLoginProvider("cpr")!!,
             "Stefan Storebox",
             "",
             "3110276111",

@@ -16,7 +16,6 @@ import dk.eboks.app.App
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.injection.components.PresentationComponent
-import dk.eboks.app.injection.modules.PresentationModule
 import dk.eboks.app.presentation.ui.debug.screens.DebugActivity
 import dk.eboks.app.util.BroadcastReceiver
 import dk.nodes.nstack.kotlin.inflater.NStackBaseContext
@@ -25,7 +24,7 @@ import timber.log.Timber
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
     protected val component: PresentationComponent by lazy {
-        App.instance().appComponent.plus(PresentationModule())
+        App.instance().appComponent.plus()
     }
     /*
     private val shakeDetector: ShakeDetector? = if (BuildConfig.DEBUG) ShakeDetector() else null
@@ -33,11 +32,13 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     private var acceleroMeter: Sensor? = null
     */
     // protected var showEmptyState: Boolean = false
-    protected var countToDebug = 0
+    private var countToDebug = 0
     var backPressedCallback: (() -> Boolean)? = null
 
     open val defaultErrorHandler: ViewErrorController by lazy {
-        ViewErrorController(context = this, closeFunction = { finish() })
+        ViewErrorController(
+            context = this,
+            closeFunction = { finish() })
     }
 
     companion object {
@@ -50,7 +51,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
      * easy shortcut to get an inflater, this only gets instantiated if you use it and only the first time
      */
     val inflator by lazy {
-        LayoutInflater.from(this)
+        LayoutInflater.from(this)!!
     }
 
     val mainHandler by lazy {
@@ -78,7 +79,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
         super.onDestroy()
     }
 
-    fun setupShakeDetection() {
+    private fun setupShakeDetection() {
         /*
         sensorManager = if (BuildConfig.DEBUG) getSystemService(Context.SENSOR_SERVICE) as SensorManager else null
         acceleroMeter = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)

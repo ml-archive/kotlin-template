@@ -28,6 +28,7 @@ import dk.eboks.app.presentation.widgets.GlideAlphaTransform
 import dk.eboks.app.util.getType
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_channel_opening_component.*
 import kotlinx.android.synthetic.main.include_channel_detail_bottom_install.*
@@ -230,7 +231,7 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
     }
 
     override fun showProgress(show: Boolean) {
-        progress.visibility = if (show) View.VISIBLE else View.GONE
+        progress.visible = show
     }
 
     override fun showRequirementsDrawer(channel: Channel) {

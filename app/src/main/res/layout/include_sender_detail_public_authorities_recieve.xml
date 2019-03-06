@@ -16,20 +16,20 @@
 
     <include
         layout="@layout/include_divider"
-        android:visibility="visible"></include>
+        android:visibility="visible" />
 
-    <include layout="@layout/include_sender_detail_public_authorities_receive_row"></include>
+    <include layout="@layout/include_sender_detail_public_authorities_receive_row" />
 
-    <include layout="@layout/include_divider_leftmargin_whitebackground"></include>
+    <include layout="@layout/include_divider_leftmargin_whitebackground" />
 
-    <include layout="@layout/include_sender_detail_public_authorities_receive_row"></include>
+    <include layout="@layout/include_sender_detail_public_authorities_receive_row" />
 
-    <include layout="@layout/include_divider_leftmargin_whitebackground"></include>
+    <include layout="@layout/include_divider_leftmargin_whitebackground" />
 
-    <include layout="@layout/include_sender_detail_public_authorities_receive_row"></include>
+    <include layout="@layout/include_sender_detail_public_authorities_receive_row" />
 
-    <include layout="@layout/include_divider_leftmargin_whitebackground"></include>
+    <include layout="@layout/include_divider_leftmargin_whitebackground" />
 
-    <include layout="@layout/include_sender_detail_public_authorities_receive_row"></include>
+    <include layout="@layout/include_sender_detail_public_authorities_receive_row" />
 
 </LinearLayout>

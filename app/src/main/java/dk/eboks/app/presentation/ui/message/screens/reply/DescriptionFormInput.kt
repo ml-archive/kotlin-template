@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.formreply.FormInput
+import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
 
 class DescriptionFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) :
     ReplyFormInput(formInput, inflater, handler) {
-    var labelTv: TextView? = null
-    var descTv: TextView? = null
+    private var labelTv: TextView? = null
+    private var descTv: TextView? = null
 
     init {
         isValid = true

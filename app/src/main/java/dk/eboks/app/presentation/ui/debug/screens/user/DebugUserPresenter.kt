@@ -1,13 +1,13 @@
 package dk.eboks.app.presentation.ui.debug.screens.user
 
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.config.LoginProvider
-import dk.eboks.app.domain.interactors.user.CreateDebugUserInteractorImpl
-import dk.eboks.app.domain.interactors.user.CreateUserInteractor
-import dk.eboks.app.domain.interactors.user.SaveUserInteractor
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
+import dk.eboks.app.keychain.interactors.user.CreateDebugUserInteractorImpl
+import dk.eboks.app.keychain.interactors.user.CreateUserInteractor
+import dk.eboks.app.profile.interactors.SaveUserInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
@@ -17,7 +17,8 @@ import javax.inject.Inject
 class DebugUserPresenter @Inject constructor(
     private val userSettingsManager: UserSettingsManager,
     private val createUserInteractor: CreateDebugUserInteractorImpl,
-    private val saveUserInteractor: SaveUserInteractor
+    private val saveUserInteractor: SaveUserInteractor,
+    private val appConfig: AppConfig
 ) :
     DebugUserContract.Presenter,
     BasePresenterImpl<DebugUserContract.View>(),
@@ -30,9 +31,9 @@ class DebugUserPresenter @Inject constructor(
 
     override fun setup() {
         runAction { v ->
-            v.showLoginProviderSpinner(Config.loginProviders.values.toList())
+            v.showLoginProviderSpinner(appConfig.loginProviders.values.toList())
             editUser?.let {
-                v.showUser(it, userSettingsManager.get(it.id))
+                v.showUser(it, userSettingsManager[it.id])
                 editUser = null
             }
         }
@@ -55,7 +56,7 @@ class DebugUserPresenter @Inject constructor(
         )
 
         user.setPrimaryEmail(email)
-        val settings = userSettingsManager.get(user.id)
+        val settings = userSettingsManager[user.id]
         settings.lastLoginProviderId = provider.id
         settings.hasFingerprint = fingerprint
         userSettingsManager.put(settings)

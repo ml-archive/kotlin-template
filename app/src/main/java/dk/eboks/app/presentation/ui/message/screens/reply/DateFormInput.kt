@@ -6,13 +6,12 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import android.widget.EditText
-import android.widget.TimePicker
 import com.google.android.material.textfield.TextInputLayout
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
+import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
 import dk.nodes.nstack.kotlin.NStack
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -26,11 +25,11 @@ class DateFormInput(
     handler: Handler,
     val isDateTime: Boolean = false
 ) : ReplyFormInput(formInput, inflater, handler) {
-    var textTil: TextInputLayout? = null
-    var textEt: EditText? = null
-    var parsedDate: Date? = null
+    private var textTil: TextInputLayout? = null
+    private var textEt: EditText? = null
+    private var parsedDate: Date? = null
 
-    val dateYearFormat: SimpleDateFormat by lazy {
+    private val dateYearFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("d MMMM YYYY", NStack.language)
         } catch (t: Throwable) {
@@ -38,7 +37,7 @@ class DateFormInput(
         }
     }
 
-    val serverDateFormat: SimpleDateFormat by lazy {
+    private val serverDateFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", NStack.language)
         } catch (t: Throwable) {
@@ -46,7 +45,7 @@ class DateFormInput(
         }
     }
 
-    val dateTimeFormat: SimpleDateFormat by lazy {
+    private val dateTimeFormat: SimpleDateFormat by lazy {
         try {
             SimpleDateFormat("d. MMM YYYY hh:mm", NStack.language)
         } catch (t: Throwable) {
@@ -54,7 +53,7 @@ class DateFormInput(
         }
     }
 
-    val clickListener = View.OnClickListener {
+    private val clickListener = View.OnClickListener {
         showDatePicker()
     }
 
@@ -85,23 +84,21 @@ class DateFormInput(
         return v
     }
 
-    fun showDatePicker() {
+    private fun showDatePicker() {
         val cal = GregorianCalendar()
         parsedDate?.let { cal.time = it }
 
         val dlg = DatePickerDialog(
             inflater.context,
             R.style.DatePickerTheme,
-            object : DatePickerDialog.OnDateSetListener {
-                override fun onDateSet(picker: DatePicker?, year: Int, month: Int, day: Int) {
-                    cal.set(year, month, day)
-                    parsedDate = cal.time
-                    if (!isDateTime) {
-                        try {
-                            textEt?.setText(dateYearFormat.format(parsedDate))
-                        } catch (t: Throwable) {
-                            parsedDate = null
-                        }
+            DatePickerDialog.OnDateSetListener { picker, year, month, day ->
+                cal.set(year, month, day)
+                parsedDate = cal.time
+                if (!isDateTime) {
+                    try {
+                        textEt?.setText(dateYearFormat.format(parsedDate))
+                    } catch (t: Throwable) {
+                        parsedDate = null
                     }
                 }
             },
@@ -113,37 +110,35 @@ class DateFormInput(
         val title =
             if (isDateTime) Translation.reply.dateTimePickerCaption else Translation.reply.datePickerCaption
         dlg.setTitle(title)
-        dlg.setOnDismissListener { it ->
+        dlg.setOnDismissListener {
             if (isDateTime)
                 handler.post {
                     showTimePicker()
                 }
             it.dismiss()
         }
-        dlg.setOnCancelListener { it ->
+        dlg.setOnCancelListener {
 
             it.dismiss()
         }
         dlg.show()
     }
 
-    fun showTimePicker() {
+    private fun showTimePicker() {
         val cal = GregorianCalendar()
         parsedDate?.let { cal.time = it }
 
         val dlg = TimePickerDialog(
             inflater.context,
             R.style.DatePickerTheme,
-            object : TimePickerDialog.OnTimeSetListener {
-                override fun onTimeSet(p0: TimePicker?, hour: Int, min: Int) {
-                    cal.set(Calendar.HOUR_OF_DAY, hour)
-                    cal.set(Calendar.MINUTE, min)
-                    parsedDate = cal.time
-                    try {
-                        textEt?.setText(dateTimeFormat.format(parsedDate))
-                    } catch (t: Throwable) {
-                        parsedDate = null
-                    }
+            TimePickerDialog.OnTimeSetListener { p0, hour, min ->
+                cal.set(Calendar.HOUR_OF_DAY, hour)
+                cal.set(Calendar.MINUTE, min)
+                parsedDate = cal.time
+                try {
+                    textEt?.setText(dateTimeFormat.format(parsedDate))
+                } catch (t: Throwable) {
+                    parsedDate = null
                 }
             },
             cal.get(Calendar.HOUR_OF_DAY),
@@ -154,10 +149,10 @@ class DateFormInput(
         val title =
             if (isDateTime) Translation.reply.dateTimePickerCaption else Translation.reply.datePickerCaption
         dlg.setTitle(title)
-        dlg.setOnDismissListener { it ->
+        dlg.setOnDismissListener {
             it.dismiss()
         }
-        dlg.setOnCancelListener { it ->
+        dlg.setOnCancelListener {
             it.dismiss()
         }
         dlg.show()

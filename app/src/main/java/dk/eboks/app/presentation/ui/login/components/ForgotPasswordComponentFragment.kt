@@ -22,10 +22,10 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class ForgotPasswordComponentFragment : BaseFragment(), ForgotPasswordComponentContract.View {
+class ForgotPasswordComponentFragment : BaseFragment(), dk.eboks.app.keychain.presentation.components.ForgotPasswordComponentContract.View {
 
     @Inject
-    lateinit var presenter: ForgotPasswordComponentContract.Presenter
+    lateinit var presenter: dk.eboks.app.keychain.presentation.components.ForgotPasswordComponentContract.Presenter
 
     var handler = Handler()
 

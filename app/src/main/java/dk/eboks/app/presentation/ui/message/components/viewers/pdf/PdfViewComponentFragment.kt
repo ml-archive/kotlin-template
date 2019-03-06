@@ -10,7 +10,9 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.ViewerFragment
-import dk.eboks.app.presentation.ui.message.components.viewers.base.EmbeddedViewer
+import dk.eboks.app.mail.presentation.ui.message.components.viewers.base.EmbeddedViewer
+import dk.eboks.app.mail.presentation.ui.message.components.viewers.pdf.PdfPrintAdapter
+import dk.eboks.app.mail.presentation.ui.message.components.viewers.pdf.PdfViewComponentContract
 import kotlinx.android.synthetic.main.fragment_pdfview_component.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -19,7 +21,7 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class PdfViewComponentFragment : BaseFragment(), PdfViewComponentContract.View, EmbeddedViewer,
-    ViewerFragment {
+        ViewerFragment {
 
     @Inject
     lateinit var presenter: PdfViewComponentContract.Presenter

@@ -97,7 +97,10 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
 
         showAllBtn.setOnClickListener {
             val intent = Intent(activity, MailListActivity::class.java).apply {
-                putExtra("folder", Folder(type = FolderType.UPLOADS, name = Translation.uploads.title))
+                putExtra(
+                    "folder",
+                    Folder(type = FolderType.UPLOADS, name = Translation.uploads.title)
+                )
             }
             startActivity(intent)
         }
@@ -111,14 +114,14 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
 
     override fun showStorageInfo(storageInfo: StorageInfo) {
         if (storageInfo.used > 0) {
-            leftProgressTv.text = "${formatter.formatSize(storageInfo.used)}"
+            leftProgressTv.text = formatter.formatSize(storageInfo.used)
             rightProgressTv.text =
                 "${formatter.formatSize(storageInfo.total - storageInfo.used)} ${Translation.uploads.remainingText}"
         } else {
             if (!verified)
-                leftProgressTv.text = "${Translation.uploads.notVerifiedInitialAvailableSpace}"
+                leftProgressTv.text = Translation.uploads.notVerifiedInitialAvailableSpace
             else
-                leftProgressTv.text = "${Translation.uploads.verifiedInitialAvailableSpace}"
+                leftProgressTv.text = Translation.uploads.verifiedInitialAvailableSpace
         }
         storageProgressBar.visibility = View.INVISIBLE
         storagePb.progress =
@@ -186,9 +189,9 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
         }
     }
 
-    var uploadPctProgressTv: TextView? = null
-    var uploadView: View? = null
-    var circularProgress: CircularProgressBar? = null
+    private var uploadPctProgressTv: TextView? = null
+    private var uploadView: View? = null
+    private var circularProgress: CircularProgressBar? = null
 
     override fun showUploadProgress() {
         // setting the header
@@ -262,7 +265,7 @@ class UploadOverviewComponentFragment : BaseFragment(), UploadOverviewComponentC
             val filename = data?.getStringExtra("filename") ?: ""
             val destinationFolderId: Int = data?.getIntExtra("destinationFolderId", -1) ?: -1
             val uriString = data?.getStringExtra("uriString") ?: ""
-            var mimetype = data?.getStringExtra("mimeType") ?: "application/octet-stream"
+            val mimetype = data?.getStringExtra("mimeType") ?: "application/octet-stream"
             if (filename.isNotEmpty() && uriString.isNotEmpty() && destinationFolderId != -1) {
                 presenter.upload(destinationFolderId, filename, uriString, mimetype)
                 Timber.e("Got filename = $filename and destiantionfolderID = $destinationFolderId back from upload window")

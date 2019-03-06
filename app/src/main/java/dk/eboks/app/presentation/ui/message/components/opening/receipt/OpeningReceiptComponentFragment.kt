@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.mail.presentation.ui.message.components.opening.receipt.OpeningReceiptComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
@@ -23,9 +24,9 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
     @Inject
     lateinit var presenter: OpeningReceiptComponentContract.Presenter
 
-    var voluntaryReceipt: Boolean = false
+    private var voluntaryReceipt: Boolean = false
 
-    val onLanguageChange: (Locale) -> Unit = { locale ->
+    private val onLanguageChange: (Locale) -> Unit = { locale ->
         updateTranslation()
     }
 
@@ -48,7 +49,7 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
         openMessageButtons.visible = true
 
         openBtn.setOnClickListener {
-            presenter.setShouldProceed(true, true)
+            presenter.setShouldProceed(proceed = true, receipt = true)
         }
         openBtn.visibility = View.VISIBLE
 
@@ -56,7 +57,7 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
             Timber.e("This is a voluntary receipt")
             secondaryOptionBtn.visible = (true)
             secondaryOptionBtn.setOnClickListener {
-                presenter.setShouldProceed(true, false)
+                presenter.setShouldProceed(proceed = true, receipt = false)
             }
         }
 
@@ -87,13 +88,13 @@ class OpeningReceiptComponentFragment : BaseFragment(), OpeningReceiptComponentC
     private fun setupTopBar() {
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
         mainTb.setNavigationOnClickListener {
-            presenter.setShouldProceed(false, false)
+            presenter.setShouldProceed(proceed = false, receipt = false)
             activity?.onBackPressed()
         }
     }
 
     override fun showOpeningProgress(show: Boolean) {
-        progressPb.visibility = if (show) View.VISIBLE else View.GONE
-        buttonsLl.visibility = if (!show) View.VISIBLE else View.GONE
+        progressPb.visible = show
+        buttonsLl.visible = !show
     }
 }

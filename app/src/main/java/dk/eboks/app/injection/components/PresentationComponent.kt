@@ -1,9 +1,11 @@
 package dk.eboks.app.injection.components
 
 import dagger.Subcomponent
-import dk.eboks.app.injection.modules.PresentationBindingModule
 import dk.eboks.app.injection.modules.PresentationModule
+import dk.eboks.app.keychain.injection.KeychainBindingPresentationModule
+import dk.eboks.app.mail.injection.MailBindingPresentationModule
 import dk.eboks.app.pasta.activity.PastaActivity
+import dk.eboks.app.presentation.ui.channels.ChannelsBindingPresentationModule
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.additem.EkeyAddItemComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailComponentFragment
@@ -112,10 +114,20 @@ import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsActivity
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadActivity
+import dk.eboks.app.profile.injection.ProfileBindingPresentationModule
+import dk.eboks.app.senders.presentation.injection.SendersBindingPresentationModule
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
-@Subcomponent(modules = [PresentationModule::class, PresentationBindingModule::class])
+@Subcomponent(
+    modules = [
+        PresentationModule::class,
+        MailBindingPresentationModule::class,
+        ChannelsBindingPresentationModule::class,
+        KeychainBindingPresentationModule::class,
+        ProfileBindingPresentationModule::class,
+        SendersBindingPresentationModule::class]
+)
 @ActivityScope
 interface PresentationComponent {
 

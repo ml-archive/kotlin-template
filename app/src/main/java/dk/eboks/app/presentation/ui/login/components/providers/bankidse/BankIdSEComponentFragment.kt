@@ -7,14 +7,15 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
 import androidx.appcompat.app.AlertDialog
+import dk.eboks.app.keychain.presentation.components.providers.BankIdSEComponentPresenter
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseWebFragment
 import dk.eboks.app.presentation.base.ViewErrorController
-import dk.eboks.app.presentation.ui.login.components.providers.WebLoginContract
+import dk.eboks.app.keychain.presentation.components.providers.WebLoginContract
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -26,10 +27,10 @@ import javax.inject.Inject
  */
 class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
-    @Inject
-    lateinit var presenter: BankIdSEComponentPresenter
+    @Inject lateinit var presenter: BankIdSEComponentPresenter
+    @Inject lateinit var appConfig: AppConfig
 
-    var loginUser: User? = null
+    private var loginUser: User? = null
 
     override val defaultErrorHandler: ViewErrorController by lazy {
         ViewErrorController(context = context!!, closeFunction = { activity?.finish() })
@@ -58,7 +59,7 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
         }
     }
 
-    fun openBankId(url: String): Boolean {
+    private fun openBankId(url: String): Boolean {
         val i = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         activity?.packageManager?.let {
             return if (i.resolveActivity(it) != null) {
@@ -129,7 +130,7 @@ class BankIdSEComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     override fun setupLogin(user: User?) {
         loginUser = user
-        val loginUrl = "${Config.currentMode.environment?.kspUrl}bankid"
+        val loginUrl = "${appConfig.currentMode.environment?.kspUrl}bankid"
         Timber.e("Opening $loginUrl")
         webView.loadUrl(loginUrl)
     }

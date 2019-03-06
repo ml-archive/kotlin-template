@@ -2,7 +2,7 @@ package dk.eboks.app.presentation.ui.home.screens
 
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
-import dk.eboks.app.domain.interactors.message.GetMessagesInteractor
+import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
@@ -68,7 +68,7 @@ class HomePresenter @Inject constructor(
         runAction { v -> v.onRefreshChannelDone() }
     }
 
-    override fun onGetInstalledChannelList(channels: MutableList<Channel>) {
+    override fun onGetInstalledChannelList(channels: List<Channel>) {
         runAction { v ->
             v.showChannelProgress(false)
             v.setupChannels(channels)

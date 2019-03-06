@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
+import dk.eboks.app.profile.presentation.ui.components.drawer.MergeAccountComponentContract
 import kotlinx.android.synthetic.main.fragment_profile_merge_account_component.*
 import javax.inject.Inject
 

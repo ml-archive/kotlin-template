@@ -42,7 +42,7 @@ class FileUploadPresenter @Inject constructor(private val appState: AppStateMana
         return null
     }
 
-    fun startViewer(uriString: String, mimetype: String?) {
+    private fun startViewer(uriString: String, mimetype: String?) {
         if (mimetype?.startsWith("image/", true) == true) {
             runAction { v -> v.addImageViewer(uriString) }
             return

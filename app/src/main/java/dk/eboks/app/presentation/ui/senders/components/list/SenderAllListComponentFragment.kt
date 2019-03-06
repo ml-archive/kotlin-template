@@ -18,6 +18,8 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
+import dk.eboks.app.senders.presentation.ui.components.list.SenderAllListComponentContract
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.activity_senders_list.*
 import kotlinx.android.synthetic.main.fragment_sender_list.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -33,7 +35,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
 
     var senders: MutableList<Sender> = ArrayList()
     var filteredSenders: MutableList<Sender> = ArrayList()
-    var searchMode: Boolean = false
+    private var searchMode: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,7 +68,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
         activity?.searchAllSenderSv?.setOnQueryTextListener(object :
             SearchView.OnQueryTextListener {
             var filterSenders = Runnable {
-                var text = activity?.searchAllSenderSv?.query?.toString()?.trim() ?: ""
+                val text = activity?.searchAllSenderSv?.query?.toString()?.trim() ?: ""
                 presenter.searchSenders(text)
             }
 
@@ -132,7 +134,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
     }
 
     override fun showProgress(show: Boolean) {
-        progressBarFl.visibility = if (show) View.VISIBLE else View.GONE
+        progressBarFl.visible = show
         refreshSrl.isRefreshing = show
     }
 
@@ -152,7 +154,7 @@ class SenderAllListComponentFragment : BaseFragment(), SenderAllListComponentCon
 
         inner class SenderViewHolder(root: View) : RecyclerView.ViewHolder(root) {
             val title = root.findViewById<TextView>(R.id.titleTv)
-            val unreadCountTv = root.findViewById<TextView>(R.id.unreadCountTv)
+            private val unreadCountTv = root.findViewById<TextView>(R.id.unreadCountTv)
             val dividerV = root.findViewById<View>(R.id.dividerV)
             val circleIv = root.findViewById<ImageView>(R.id.circleIv)
 

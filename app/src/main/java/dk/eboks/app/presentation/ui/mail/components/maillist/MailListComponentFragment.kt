@@ -11,12 +11,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
 import dk.eboks.app.domain.models.sender.Sender
+import dk.eboks.app.mail.presentation.ui.components.maillist.MailListComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailMessagesAdapter.MailMessageEvent.MOVE
@@ -29,6 +31,7 @@ import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
 import dk.eboks.app.util.EndlessRecyclerViewScrollListener
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.guard
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_mail_list_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import timber.log.Timber
@@ -36,10 +39,9 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 class MailListComponentFragment : BaseFragment(), MailListComponentContract.View {
-    @Inject
-    lateinit var presenter: MailListComponentContract.Presenter
-
-    private val adapter = MailMessagesAdapter()
+    @Inject lateinit var presenter: MailListComponentContract.Presenter
+    @Inject lateinit var formatter: EboksFormatter
+    @Inject lateinit var adapter: MailMessagesAdapter
 
     private var checkedList: MutableList<Message> = ArrayList()
     private var editEnabled: Boolean = false
@@ -58,7 +60,7 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             field = value
             adapter.folder = value
         }
-    var modeEdit: Boolean = false
+    private var modeEdit: Boolean = false
         set(value) {
             field = value
             adapter.editMode = value
@@ -362,12 +364,12 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if (show) View.VISIBLE else View.GONE
+        progressFl.visible = show
     }
 
     override fun showEmpty(show: Boolean) {
-        emptyFl.visibility = if (show) View.VISIBLE else View.GONE
-        contentFl.visibility = if (!show) View.VISIBLE else View.GONE
+        emptyFl.visible = show
+        contentFl.visible = !show
     }
 
     override fun showMessages(messages: List<Message>) {

@@ -30,9 +30,9 @@ class ImagesChannelControl(
 
             val currentItem = items.first()
 
-            channel.background.rgba?.let { background?.background?.setTint(Color.parseColor("#" + it)) }
+            channel.background.rgba?.let { background?.background?.setTint(Color.parseColor("#$it")) }
                 .guard {
-                    channel.background.rgb?.let { background?.background?.setTint(Color.parseColor("#" + it)) }
+                    channel.background.rgb?.let { background?.background?.setTint(Color.parseColor("#$it")) }
                 }
 
             title.text = currentItem.title

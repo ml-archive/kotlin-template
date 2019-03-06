@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.mail.presentation.ui.folder.screens.FolderContract
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.folder.components.FoldersComponentFragment
 import dk.eboks.app.presentation.ui.navigation.components.NavBarComponentFragment
@@ -55,7 +56,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
     }
 
     private fun removeNavBarMargin() {
-        var params = CoordinatorLayout.LayoutParams(
+        val params = CoordinatorLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
@@ -83,7 +84,7 @@ class FolderActivity : BaseActivity(), FolderContract.View {
     }
 
     companion object {
-        val REQUEST_ID: Int = 2468
+        const val REQUEST_ID: Int = 2468
         const val ARG_OVERIDE_USER = "override_user"
 
         fun startAsIntent(context: Context?, overrideCurrentUser: Boolean = false) {
