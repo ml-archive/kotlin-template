@@ -133,12 +133,15 @@ class LoginComponentPresenterTest {
 
     @Test
     fun `Test switch login provider`() {
-
     }
 
     @Test
     fun `Test on login activation code required`() {
-        presenter.onLoginA
+        presenter.onLoginActivationCodeRequired()
+        verify {
+            viewMock.showProgress(false)
+            viewMock.showActivationCodeDialog()
+        }
     }
 
     @Test
