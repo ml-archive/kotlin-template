@@ -11,21 +11,26 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
     implementation project(':core')
     implementation project(':data')
     implementation project(':api')
+    implementation project(':arch')
 
+    implementation Libs.Kotlin.stdlib
     implementation Libs.timber
-    implementation Libs.Nodes.arch
     implementation Libs.Dagger.dagger
 
     implementation Libs.gson
     implementation Libs.Retrofit.retrofit
 
     testImplementation Libs.junit
+    testImplementation Libs.Test.mockk
     androidTestImplementation Libs.Test.runner
     androidTestImplementation Libs.Test.Expresso.core
 }

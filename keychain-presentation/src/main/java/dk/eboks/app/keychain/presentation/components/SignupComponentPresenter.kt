@@ -157,7 +157,7 @@ internal class SignupComponentPresenter @Inject constructor(
         }
     }
 
-    override fun onCheckSsnExists(error: ViewError) {
+    override fun onCheckSsnExistsError(error: ViewError) {
         // todo error handling
         // todo API does not work so we pretend the SSN did not exist to continue with the flow
         runAction { v ->
@@ -176,7 +176,7 @@ internal class SignupComponentPresenter @Inject constructor(
         }
     }
 
-    override fun onVerifySignupMail(error: ViewError) {
+    override fun onVerifySignupMailError(error: ViewError) {
         runAction { v ->
             v as SignupComponentContract.NameMailView
             v.showSignupMailError(error)

@@ -1,7 +1,9 @@
 package dk.eboks.app.keychain.interactors.signup
 
+import dk.eboks.app.domain.exceptions.InteractorException
 import dk.eboks.app.domain.repositories.SignupRepository
 import dk.eboks.app.util.exceptionToViewError
+import dk.eboks.app.util.guard
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import javax.inject.Inject
@@ -18,13 +20,13 @@ internal class CheckSignupMailInteractorImpl @Inject constructor(
         try {
             input?.email?.let {
                 exists = signUpRestRepo.verifySignupMail(it)
-            }
+            }.guard { throw(InteractorException("bad args")) }
             runOnUIThread {
                 output?.onVerifySignupMail(exists)
             }
         } catch (t: Throwable) {
             runOnUIThread {
-                output?.onVerifySignupMail(exceptionToViewError(t, shouldDisplay = false))
+                output?.onVerifySignupMailError(exceptionToViewError(t, shouldDisplay = false))
             }
         }
     }

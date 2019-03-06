@@ -20,13 +20,16 @@ dependencies {
     implementation project(':channels-interactors')
 
     implementation Libs.Nodes.locksmith
-    implementation Libs.Nodes.arch
+    implementation project(':arch')
+
+
     implementation Libs.eventbus
     implementation Libs.timber
     implementation Libs.gson
     implementation Libs.Dagger.dagger
 
     testImplementation Libs.junit
+    testImplementation Libs.Test.mockk
     androidTestImplementation Libs.Test.runner
     androidTestImplementation Libs.Test.Expresso.core
 }

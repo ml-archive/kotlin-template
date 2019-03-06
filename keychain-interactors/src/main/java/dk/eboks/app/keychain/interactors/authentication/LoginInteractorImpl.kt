@@ -55,7 +55,6 @@ internal class LoginInteractorImpl @Inject constructor(
                         longClient = useLongToken,
                         bearerToken = args.bearerToken,
                         userid = userid
-
                     )
 
                     token?.let { t ->
