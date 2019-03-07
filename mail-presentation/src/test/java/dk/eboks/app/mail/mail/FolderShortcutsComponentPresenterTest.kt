@@ -1,4 +1,4 @@
-package dk.eboks.app.mail
+package dk.eboks.app.mail.mail
 
 import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.models.folder.Folder

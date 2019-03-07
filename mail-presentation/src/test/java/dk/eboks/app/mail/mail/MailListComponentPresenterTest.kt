@@ -1,11 +1,10 @@
-package dk.eboks.app.mail
+package dk.eboks.app.mail.mail
 
 import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
-import dk.eboks.app.domain.models.protocol.Metadata
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
@@ -13,9 +12,6 @@ import dk.eboks.app.mail.domain.interactors.messageoperations.MoveMessagesIntera
 import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.mail.presentation.ui.components.maillist.MailListComponentContract
 import dk.eboks.app.mail.presentation.ui.components.maillist.MailListComponentPresenter
-import dk.eboks.app.network.util.metaData
-import io.mockk.every
-import io.mockk.isMockKMock
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
