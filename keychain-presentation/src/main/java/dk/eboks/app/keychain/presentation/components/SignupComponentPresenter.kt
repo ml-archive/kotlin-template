@@ -76,14 +76,11 @@ internal class SignupComponentPresenter @Inject constructor(
     override fun loginUser() {
         appState.state?.loginState?.let { loginState ->
             // we have a token, this is a verified user, set cpr instead of email as last login provider
-            if (viewController.isVerificationSucceeded)
-                loginState.userLoginProviderId = "cpr"
-            else
-                loginState.userLoginProviderId = "email"
+            loginState.userLoginProviderId =
+                if (viewController.isVerificationSucceeded) "cpr"
+                else "email"
 
-            loginState.userPassWord?.let { password ->
-                loginState.userPassWord = password
-
+            loginState.userPassWord?.let {
                 loginState.userName = tempUser.identity
                 loginUserInteractor.input = LoginInteractor.Input(loginState, null)
                 loginUserInteractor.run()

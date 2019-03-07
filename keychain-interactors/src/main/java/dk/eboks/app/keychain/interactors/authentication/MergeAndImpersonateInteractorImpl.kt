@@ -46,13 +46,15 @@ internal class MergeAndImpersonateInteractorImpl @Inject constructor(
                         targetUserId = userId
                         val result = api.migrateUser(userId).execute()
                         if (!result.isSuccessful) {
-                            output?.onMergeError(
-                                ViewError(
-                                    title = Translation.error.genericTitle,
-                                    message = Translation.error.genericMessage,
-                                    shouldCloseView = true
-                                )
-                            ) // TODO better error
+                            runOnUIThread {
+                                output?.onMergeError(
+                                    ViewError(
+                                        title = Translation.error.genericTitle,
+                                        message = Translation.error.genericMessage,
+                                        shouldCloseView = true
+                                    )
+                                ) // TODO better error
+                            }
                             return
                         }
                         verificationState.userBeingVerified?.let { olduser ->
