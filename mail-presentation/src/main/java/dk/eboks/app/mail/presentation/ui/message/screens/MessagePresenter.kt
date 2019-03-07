@@ -35,9 +35,17 @@ internal class MessagePresenter @Inject constructor(
     override fun setup() {
         Timber.e("Current message ${appState.state?.currentMessage}")
         message = appState.state?.currentMessage
+
         view {
             addHeaderComponentFragment()
             addDocumentComponentFragment()
+
+            if (appConfig.isPaymentEnabled) {
+                message?.payment?.let {
+                    addPaymentButton(it)
+                }
+            }
+
             if (appConfig.isReplyEnabled) {
                 message?.reply?.let {
                     addReplyButtonComponentFragment(message!!)

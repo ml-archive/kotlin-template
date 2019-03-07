@@ -40,6 +40,11 @@ internal class MessageEmbeddedPresenter @Inject constructor(
         view {
             addHeaderComponentFragment()
             message?.let { message ->
+
+                if (appConfig.isPaymentEnabled) {
+                    message.payment?.let { addPaymentButton(it) }
+                }
+
                 if (appConfig.isReplyEnabled) {
                     message.reply?.let {
                         addReplyButtonComponentFragment(message)

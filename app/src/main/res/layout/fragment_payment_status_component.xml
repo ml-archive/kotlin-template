@@ -1,0 +1,214 @@
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/backgroundColor"
+    android:layout_height="match_parent"
+    tools:context="dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentStatusComponentFragment">
+
+    <TextView
+        android:id="@+id/paymentDueTv"
+        style="@style/text.subHeader5.tertiary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_large"
+        android:gravity="center"
+        android:text="Payment due on 15 January 2018 " />
+
+
+    <TextView
+        android:id="@+id/paymentValueTv"
+        style="@style/text.header1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="2000,00 DKK"
+        android:textColor="@color/darkGreyBlue" />
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:id="@+id/paymentServiceLl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/paymentOptionIv"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:background="@drawable/circle_gradiant"
+                android:padding="@dimen/margin_medium"
+                android:src="@drawable/icon_48_checkmark_white" />
+
+            <TextView
+                android:id="@+id/paymentOptionTv"
+                style="@style/text.header4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_normal"
+                android:text="Register and pay with Betalingsservice" />
+
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/dividerColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/paymentServiceLl"/>
+
+
+        <LinearLayout
+            android:padding="16dp"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/text.header4"
+                android:id="@+id/paymentStatusTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:text="_Status"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view" />
+
+
+            <TextView
+                android:gravity="end"
+                android:layout_gravity="end"
+                android:id="@+id/paymentStatusValueTv"
+                style="@style/text.subHeader5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:fontFamily="sans-serif"
+                android:text="status pending"
+                android:textColor="@color/blueGrey"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginStart="32dp"
+            android:id="@+id/dividerTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/dividerColor"/>
+
+        <LinearLayout
+            android:id="@+id/paymentTransactionLl"
+            android:padding="16dp"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                style="@style/text.header4"
+                android:id="@+id/paymentTransactionTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Transactiom number"
+                app:layout_constraintStart_toStartOf="@+id/dividerTransaction"
+                app:layout_constraintTop_toBottomOf="@+id/dividerTransaction" />
+
+
+            <TextView
+                android:gravity="end"
+                android:id="@+id/paymentTransactionNumberTv"
+                style="@style/text.subHeader5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_normal"
+                android:fontFamily="sans-serif"
+                android:text="1237725341"
+                android:textColor="@color/blueGrey"/>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/dividerColor"/>
+
+
+
+
+        <TextView
+            android:fontFamily="sans-serif"
+            android:textColor="@color/blueGrey"
+            style="@style/text.subHeader5"
+            android:id="@+id/paymentSenderInfoTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/margin_normal"
+            android:text="Contact sended inf yoy have any quesitnm about invoui"/>
+
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="@dimen/margin_normal"
+            android:background="@color/dividerColor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/paymentCancelLl"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                style="@style/text.subHeader5"
+                android:textColor="@color/blueGrey"
+                android:fontFamily="sans-serif"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum." />
+
+
+            <Button
+                android:layout_marginBottom="@dimen/margin_normal"
+                android:id="@+id/paymentCancelButton"
+                style="@style/button.borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel Payment" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    
+
+</LinearLayout>
