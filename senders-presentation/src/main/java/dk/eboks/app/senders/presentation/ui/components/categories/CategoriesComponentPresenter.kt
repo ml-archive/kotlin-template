@@ -1,8 +1,8 @@
 package dk.eboks.app.senders.presentation.ui.components.categories
 
-import dk.eboks.app.domain.senders.interactors.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.senders.interactors.GetSenderCategoriesInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
@@ -21,14 +21,10 @@ internal class CategoriesComponentPresenter @Inject constructor(private val getS
     }
 
     override fun onGetCategories(categories: List<SenderCategory>) {
-        runAction { v ->
-            v.showCategories(categories)
-        }
+        view { showCategories(categories) }
     }
 
     override fun onGetCategoriesError(error: ViewError) {
-        runAction { v ->
-            v.showErrorDialog(error)
-        }
+        view { showErrorDialog(error) }
     }
 }

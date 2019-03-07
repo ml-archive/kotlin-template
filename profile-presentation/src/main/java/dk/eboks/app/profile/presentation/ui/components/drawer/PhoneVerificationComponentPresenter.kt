@@ -29,15 +29,13 @@ internal class PhoneVerificationComponentPresenter @Inject constructor(
 
     override fun setup(mobile: String) {
         currentMobile = mobile
-        runAction { v -> v.showNumber(mobile) }
+        view { showNumber(mobile) }
         // verifyPhoneInteractor.input = VerifyPhoneInteractor.Input(mobile)
         // verifyPhoneInteractor.run()
     }
 
     override fun resendVerificationCode() {
-        runAction { v ->
-            v.showProgress(true)
-        }
+        view { showProgress(true) }
         currentMobile?.let {
             verifyPhoneInteractor.input = VerifyPhoneInteractor.Input(it)
             verifyPhoneInteractor.run()
@@ -57,15 +55,13 @@ internal class PhoneVerificationComponentPresenter @Inject constructor(
 
     override fun onVerifyPhone() {
         viewController.refreshMyInfoComponent = true
-        runAction { v ->
-            v.showProgress(false)
-        }
+        view { showProgress(false) }
     }
 
     override fun onVerifyPhoneError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
@@ -74,13 +70,13 @@ internal class PhoneVerificationComponentPresenter @Inject constructor(
      */
     override fun onConfirmPhone() {
         viewController.refreshMyInfoComponent = true
-        runAction { v -> v.finishActivity(null) }
+        view { finishActivity(null) }
     }
 
     override fun onConfirmPhoneError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 }

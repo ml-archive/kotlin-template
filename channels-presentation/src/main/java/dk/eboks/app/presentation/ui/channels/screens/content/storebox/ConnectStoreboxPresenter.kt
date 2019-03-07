@@ -33,13 +33,13 @@ internal class ConnectStoreboxPresenter @Inject constructor(
      * Methods called by the view
      */
     override fun signIn(email: String, password: String) {
-        runAction { v -> v.showProgress(true) }
+        view { showProgress(true) }
         linkStoreboxInteractor.input = LinkStoreboxInteractor.Input(email, password)
         linkStoreboxInteractor.run()
     }
 
     override fun confirm(code: String) {
-        runAction { v -> v.showProgress(true) }
+        view { showProgress(true) }
         Timber.d("id: $returnCode code: $code")
         returnCode?.let {
             confirmStoreboxInteractor.input = ConfirmStoreboxInteractor.Input(it, code)
@@ -48,7 +48,7 @@ internal class ConnectStoreboxPresenter @Inject constructor(
     }
 
     override fun createStoreboxUser() {
-        runAction { v -> v.showProgress(true) }
+        view { showProgress(true) }
         createStoreboxInteractor.run()
     }
 
@@ -59,52 +59,52 @@ internal class ConnectStoreboxPresenter @Inject constructor(
     override fun storeboxAccountFound(found: Boolean, returnCode: String?) {
         Timber.d("storeboxAccountFound: $found")
         this.returnCode = returnCode
-        runAction { v ->
-            v.showProgress(false)
+        view {
+            showProgress(false)
             if (found) {
-                v.showFound()
+                showFound()
             } else {
-                v.showNotFound()
+                showNotFound()
             }
         }
     }
 
     override fun onLinkingSuccess(result: Boolean) {
         Timber.d("onLinkingSuccess: $result")
-        runAction { v ->
+        view {
             if (result) {
-                v.showSuccess()
+                showSuccess()
             } else {
-                v.showProgress(false)
-                v.showWrongCode()
+                showProgress(false)
+                showWrongCode()
             }
         }
     }
 
     override fun onError(error: ViewError) {
         Timber.d("onError")
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
     override fun onStoreboxAccountCreated() {
-        runAction { v -> v.finish() }
+        view { finish() }
     }
 
     // this shouldnt be able to happen since we already tried to login to it :D
     override fun onStoreboxAccountExists() {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(ViewError())
+        view {
+            showProgress(false)
+            showErrorDialog(ViewError())
         }
     }
 
     override fun onStoreboxAccountCreatedError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 }

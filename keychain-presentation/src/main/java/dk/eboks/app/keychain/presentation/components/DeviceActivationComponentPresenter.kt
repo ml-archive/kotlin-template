@@ -1,11 +1,11 @@
 package dk.eboks.app.keychain.presentation.components
 
 import androidx.lifecycle.Lifecycle
+import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.keychain.interactors.mobileacces.ActivateDeviceInteractor
 import dk.eboks.app.keychain.interactors.mobileacces.DeleteRSAKeyInteractor
 import dk.eboks.app.keychain.interactors.mobileacces.GenerateRSAKeyInteractor
-import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.local.ViewError
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -28,7 +28,7 @@ internal class DeviceActivationComponentPresenter @Inject constructor(
     private var loading = false
         set(value) {
             field = value
-            runAction { it.showProgress(value) }
+            view { showProgress(value) }
         }
 
     init {
@@ -40,15 +40,11 @@ internal class DeviceActivationComponentPresenter @Inject constructor(
     override fun onViewCreated(view: DeviceActivationComponentContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
 
-        runAction { v ->
-            v.setupButtons()
-        }
+        view { setupButtons() }
     }
 
     override fun requestNemidLogin() {
-        runAction { v ->
-            v.requestNemidLogin()
-        }
+        view { requestNemidLogin() }
     }
 
     override fun activateDevice() {
@@ -74,9 +70,7 @@ internal class DeviceActivationComponentPresenter @Inject constructor(
         // todo
         Timber.e("onActivateDevice  success")
         loading = false
-        runAction { view ->
-            view.login()
-        }
+        view { login() }
     }
 
     override fun onActivateDeviceError(error: ViewError, RSAKey: String?) {

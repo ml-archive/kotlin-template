@@ -20,23 +20,19 @@ internal class EmailVerificationComponentPresenter @Inject constructor(
     }
 
     override fun verifyMail(mail: String) {
-        runAction { v ->
-            v.setVerifyBtnEnabled(false)
-        }
+        view { setVerifyBtnEnabled(false) }
         verifyMailInteractor.input = VerifyEmailInteractor.Input(mail)
         verifyMailInteractor.run()
     }
 
     override fun onVerifyMail() {
-        runAction { v ->
-            v.setVerifyBtnEnabled(true)
-        }
+        view { setVerifyBtnEnabled(true) }
     }
 
     override fun onVerifyMailError(error: ViewError) {
-        runAction { v ->
-            v.setVerifyBtnEnabled(true)
-            v.showErrorDialog(error)
+        view {
+            setVerifyBtnEnabled(true)
+            showErrorDialog(error)
         }
     }
 }

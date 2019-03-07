@@ -14,6 +14,6 @@ internal class ReplyButtonComponentPresenter @Inject constructor() :
     }
 
     override fun reply(msg: Message) {
-        runAction { v -> v.showReplyForm(msg) }
+        view { showReplyForm(msg) }
     }
 }

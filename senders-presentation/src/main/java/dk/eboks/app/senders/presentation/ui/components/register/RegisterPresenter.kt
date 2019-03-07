@@ -1,11 +1,11 @@
 package dk.eboks.app.senders.presentation.ui.components.register
 
-import dk.eboks.app.domain.senders.interactors.register.RegisterInteractor
-import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractor
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Segment
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.sender.SenderGroup
+import dk.eboks.app.domain.senders.interactors.register.RegisterInteractor
+import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -64,14 +64,10 @@ internal class RegisterPresenter @Inject constructor(
 
     override fun onSuccess() {
         Timber.i("Success")
-        runAction { v ->
-            v.showSuccess()
-        }
+        view { showSuccess() }
     }
 
     override fun onError(error: ViewError) {
-        runAction { v ->
-            v.showError(error.message ?: "")
-        }
+        view { showError(error.message ?: "") }
     }
 }

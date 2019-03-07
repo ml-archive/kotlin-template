@@ -30,10 +30,10 @@ class DebugUserPresenter @Inject constructor(
     }
 
     override fun setup() {
-        runAction { v ->
-            v.showLoginProviderSpinner(appConfig.loginProviders.values.toList())
+        view {
+            showLoginProviderSpinner(appConfig.loginProviders.values.toList())
             editUser?.let {
-                v.showUser(it, userSettingsManager[it.id])
+                showUser(it, userSettingsManager[it.id])
                 editUser = null
             }
         }
@@ -76,19 +76,19 @@ class DebugUserPresenter @Inject constructor(
     }
 
     override fun onCreateUser(user: User) {
-        runAction { v -> v.close(true) }
+        view { close(true) }
     }
 
     override fun onCreateUserError(error: ViewError) {
-        runAction { it.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 
     override fun onSaveUser(user: User, numberOfUsers: Int) {
-        runAction { v -> v.close(false) }
+        view { close(false) }
     }
 
     override fun onSaveUserError(error: ViewError) {
-        runAction { it.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 
     companion object {

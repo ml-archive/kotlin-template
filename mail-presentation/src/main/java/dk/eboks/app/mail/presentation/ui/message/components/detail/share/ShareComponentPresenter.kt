@@ -15,16 +15,14 @@ internal class ShareComponentPresenter @Inject constructor(private val appState:
     BasePresenterImpl<ShareComponentContract.View>() {
 
     init {
-        runAction { v ->
-            appState.state?.currentMessage?.let { v.updateView(it) }
-        }
+        view { appState.state?.currentMessage?.let(::updateView) }
     }
 
     override fun openExternalViewer(message: Message) {
         appState.state?.currentViewerFileName?.let { filename ->
             val mime = message.content?.mimeType ?: "*/*"
             Timber.e("Share mime type $mime")
-            runAction { v -> v.openExternalViewer(filename, mime) }
+            view { openExternalViewer(filename, mime) }
         }
             .guard {
                 Timber.e("External viewer has no filename")

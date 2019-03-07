@@ -41,9 +41,7 @@ class UploadFileInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
-
 
     @Test
     fun `File Upload Error Test`() {
@@ -71,7 +69,5 @@ class UploadFileInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
-
 }

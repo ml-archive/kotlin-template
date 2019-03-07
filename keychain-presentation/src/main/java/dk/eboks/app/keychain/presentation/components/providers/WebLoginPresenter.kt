@@ -2,13 +2,13 @@ package dk.eboks.app.keychain.presentation.components.providers
 
 import android.app.Activity
 import dk.eboks.app.domain.config.AppConfig
-import dk.eboks.app.keychain.interactors.authentication.MergeAndImpersonateInteractor
-import dk.eboks.app.keychain.interactors.authentication.TransformTokenInteractor
-import dk.eboks.app.keychain.interactors.authentication.VerifyProfileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
+import dk.eboks.app.keychain.interactors.authentication.MergeAndImpersonateInteractor
+import dk.eboks.app.keychain.interactors.authentication.TransformTokenInteractor
+import dk.eboks.app.keychain.interactors.authentication.VerifyProfileInteractor
 import dk.eboks.app.presentation.base.ViewController
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
@@ -46,10 +46,10 @@ open class WebLoginPresenter @Inject constructor(
     override fun setup() {
 //        appState.state?.loginState?.userLoginProviderId = "nemid"
         appState.state?.loginState?.selectedUser?.let { user ->
-            runAction { v -> v.setupLogin(user) }
+            view { setupLogin(user) }
         }.guard {
             // narp this is a first time login using the provider
-            runAction { v -> v.setupLogin(null) }
+            view { setupLogin(null) }
         }
     }
 
@@ -71,7 +71,7 @@ open class WebLoginPresenter @Inject constructor(
                 Timber.e("error")
             }
         }
-        runAction { v -> v.close() }
+        view { close() }
     }
 
     /**
@@ -109,14 +109,14 @@ open class WebLoginPresenter @Inject constructor(
      * TransformTokenInteractor callbacks
      */
     override fun onLoginSuccess(response: AccessToken) {
-        runAction { v ->
-            v.proceed()
+        view {
+            proceed()
         }
     }
 
     override fun onLoginError(error: ViewError) {
-        runAction { v ->
-            v.showError(error)
+        view {
+            showError(error)
         }
     }
 
@@ -128,18 +128,18 @@ open class WebLoginPresenter @Inject constructor(
         Timber.e("Got new identity back after verification: $new_identity")
         viewController.refreshAllOnResume()
         newIdentity = new_identity
-        runAction { v -> v.finishActivity(Activity.RESULT_OK) }
+        view { finishActivity(Activity.RESULT_OK) }
     }
 
     override fun onVerificationError(error: ViewError) {
-        runAction { v ->
+        view {
             error.shouldCloseView = true
-            v.showErrorDialog(error)
+            showErrorDialog(error)
         }
     }
 
     override fun onAlreadyVerifiedProfile() {
-        runAction { v -> v.showMergeAcountDrawer() }
+        view { showMergeAcountDrawer() }
     }
 
     /**
@@ -148,12 +148,10 @@ open class WebLoginPresenter @Inject constructor(
 
     override fun onMergeCompleted() {
         viewController.refreshAllOnResume()
-        runAction { v -> v.finishActivity(Activity.RESULT_OK) }
+        view { finishActivity(Activity.RESULT_OK) }
     }
 
     override fun onMergeError(error: ViewError) {
-        runAction { v ->
-            v.showError(error)
-        }
+        view { showError(error) }
     }
 }

@@ -21,7 +21,7 @@ internal class SenderAllListComponentPresenter @Inject constructor(
 
     init {
         refresh()
-        runAction { v -> v.showProgress(true) }
+        view { showProgress(true) }
     }
 
     override fun refresh() {
@@ -35,13 +35,13 @@ internal class SenderAllListComponentPresenter @Inject constructor(
 
         saveSenders(senders)
 
-        runAction { v ->
-            v.showProgress(false)
+        view {
+            showProgress(false)
             if (senders.isNotEmpty()) {
-                v.showEmpty(false)
-                v.showSenders(filteredSenders)
+                showEmpty(false)
+                showSenders(filteredSenders)
             } else {
-                v.showEmpty(true)
+                showEmpty(true)
             }
         }
     }
@@ -54,18 +54,16 @@ internal class SenderAllListComponentPresenter @Inject constructor(
     }
 
     override fun onGetSendersError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
     override fun loadAllSenders() {
         filteredSenders.clear()
         filteredSenders.addAll(senders)
-        runAction { v ->
-            v.showSenders(filteredSenders)
-        }
+        view { showSenders(filteredSenders) }
     }
 
     override fun searchSenders(searchText: String) {
@@ -75,8 +73,6 @@ internal class SenderAllListComponentPresenter @Inject constructor(
                 filteredSenders.add(sender)
             }
         }
-        runAction { v ->
-            v.showSenders(filteredSenders)
-        }
+        view { showSenders(filteredSenders) }
     }
 }

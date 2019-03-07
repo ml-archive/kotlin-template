@@ -22,14 +22,10 @@ internal class RegistrationsPresenter @Inject constructor(registrationsInteracto
     }
 
     override fun onRegistrationsLoaded(registrations: Registrations) {
-        runAction { v ->
-            v.showRegistrations(registrations)
-        }
+        view { showRegistrations(registrations) }
     }
 
     override fun onError(error: ViewError) {
-        runAction { v ->
-            v.showErrorDialog(error)
-        }
+        view { showErrorDialog(error) }
     }
 }

@@ -45,51 +45,51 @@ internal class MyInfoComponentPresenter @Inject constructor(
     }
 
     private fun showUser(user: User) {
-        runAction { v ->
+        view {
             Timber.e("SHOWING USER ID = ${user.id}")
-            v.setName(user.name)
+            setName(user.name)
             user.getPrimaryEmail()
-                ?.let { v.setPrimaryEmail(it, user.getPrimaryEmailIsVerified(), user.verified) }
+                ?.let { setPrimaryEmail(it, user.getPrimaryEmailIsVerified(), user.verified) }
             if (user.verified) {
                 user.getSecondaryEmail()
-                    ?.let { v.setSecondaryEmail(it, user.getSecondaryEmailIsVerified()) }
-                v.showSecondaryEmail(true)
+                    ?.let { setSecondaryEmail(it, user.getSecondaryEmailIsVerified()) }
+                showSecondaryEmail(true)
             } else {
-                // v.showPrimaryEmail(false)
-                v.showSecondaryEmail(false)
+                // showPrimaryEmail(false)
+                showSecondaryEmail(false)
             }
 
             user.mobilenumber?.let {
                 it.value?.let { value ->
-                    v.setMobileNumber(value, it.verified)
+                    setMobileNumber(value, it.verified)
                 }
             }
-            v.setNewsletter(user.newsletter)
-            v.setSaveEnabled(false)
+            setNewsletter(user.newsletter)
+            setSaveEnabled(false)
         }
     }
 
     override fun save(closeView: Boolean) {
         currentUser?.let { user ->
             this.closeView = closeView
-            runAction { v ->
-                v.showProgress(true)
-                v.setSaveEnabled(false)
+            view {
+                showProgress(true)
+                setSaveEnabled(false)
 
                 Timber.e("Attempting to save currentUser id: ${user.id}")
-                user.setPrimaryEmail(v.getPrimaryEmail())
+                user.setPrimaryEmail(getPrimaryEmail())
                 // secondary email only apply to verified users
                 if (user.verified)
-                    user.setSecondaryEmail(v.getSecondaryEmail())
+                    user.setSecondaryEmail(getSecondaryEmail())
 
-                user.newsletter = v.getNewsletter()
-                user.name = v.getName()
+                user.newsletter = getNewsletter()
+                user.name = getName()
                 user.mobilenumber?.let {
-                    it.value = v.getMobileNumber()
+                    it.value = getMobileNumber()
                 }.guard {
-                    user.mobilenumber = ContactPoint(v.getMobileNumber(), false)
+                    user.mobilenumber = ContactPoint(getMobileNumber(), false)
                 }
-                user.newsletter = v.getNewsletter()
+                user.newsletter = getNewsletter()
                 appState.state?.currentUser = currentUser
 
                 // save currentUser on the server
@@ -101,20 +101,20 @@ internal class MyInfoComponentPresenter @Inject constructor(
 
     override fun onSaveUser(user: User, numberOfUsers: Int) {
         Timber.e("User saved ${user.id}")
-        runAction { v ->
-            v.setSaveEnabled(false)
-            v.showProgress(false)
-            v.showToast(Translation.profile.yourInfoWasSaved)
+        view {
+            setSaveEnabled(false)
+            showProgress(false)
+            showToast(Translation.profile.yourInfoWasSaved)
             refresh()
             // if(closeView)
-            //    v.onDone()
+            //    onDone()
         }
     }
 
     override fun onSaveUserError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
@@ -128,11 +128,11 @@ internal class MyInfoComponentPresenter @Inject constructor(
 
     override fun onUpdateProfileError(error: ViewError) {
         Timber.e(error.message)
-        runAction { v ->
-            v.setSaveEnabled(true)
-            v.showProgress(false)
-            v.showToast(Translation.profile.failedToSaveProfile)
-            v.onDone()
+        view {
+            setSaveEnabled(true)
+            showProgress(false)
+            showToast(Translation.profile.failedToSaveProfile)
+            onDone()
         }
     }
 
@@ -141,8 +141,6 @@ internal class MyInfoComponentPresenter @Inject constructor(
     }
 
     override fun onGetUserError(error: ViewError) {
-        runAction { v ->
-            v.showErrorDialog(error)
-        }
+        view { showErrorDialog(error) }
     }
 }

@@ -1,9 +1,9 @@
 package dk.eboks.app.presentation.ui.message.screens.opening
 
-import dk.eboks.app.mail.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.protocol.ServerError
+import dk.eboks.app.mail.domain.interactors.message.OpenMessageInteractor
 import dk.eboks.app.presentation.ui.message.components.opening.privatesender.PrivateSenderWarningComponentFragment
 import dk.eboks.app.presentation.ui.message.components.opening.promulgation.PromulgationComponentFragment
 import dk.eboks.app.presentation.ui.message.components.opening.protectedmessage.ProtectedMessageComponentFragment
@@ -48,49 +48,49 @@ class MessageOpeningPresenter @Inject constructor(
     }
 
     override fun onOpenMessageDone() {
-        runAction { v -> v.finish() }
+        view { finish() }
     }
 
     override fun onOpenMessageError(error: ViewError) {
-        runAction { v -> v.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 
     override fun onOpenMessageServerError(serverError: ServerError) {
         when (serverError.code) {
-            OpenMessageInteractor.NO_PRIVATE_SENDER_WARNING -> runAction { v ->
-                v.setOpeningFragment(
+            OpenMessageInteractor.NO_PRIVATE_SENDER_WARNING -> view {
+                setOpeningFragment(
                     PrivateSenderWarningComponentFragment::class.java
                 )
             }
-            OpenMessageInteractor.MESSAGE_LOCKED -> runAction { v ->
-                v.setOpeningFragment(
+            OpenMessageInteractor.MESSAGE_LOCKED -> view {
+                setOpeningFragment(
                     ProtectedMessageComponentFragment::class.java
                 )
             }
-            OpenMessageInteractor.MANDATORY_OPEN_RECEIPT -> runAction { v ->
-                v.setOpeningFragment(
+            OpenMessageInteractor.MANDATORY_OPEN_RECEIPT -> view {
+                setOpeningFragment(
                     OpeningReceiptComponentFragment::class.java,
                     voluntaryReceipt = false
                 )
             }
-            OpenMessageInteractor.VOLUNTARY_OPEN_RECEIPT -> runAction { v ->
-                v.setOpeningFragment(
+            OpenMessageInteractor.VOLUNTARY_OPEN_RECEIPT -> view {
+                setOpeningFragment(
                     OpeningReceiptComponentFragment::class.java,
                     voluntaryReceipt = true
                 )
             }
-            OpenMessageInteractor.MESSAGE_QUARANTINED -> runAction { v ->
-                v.setOpeningFragment(
+            OpenMessageInteractor.MESSAGE_QUARANTINED -> view {
+                setOpeningFragment(
                     QuarantineComponentFragment::class.java
                 )
             }
-            OpenMessageInteractor.MESSAGE_RECALLED -> runAction { v ->
-                v.setOpeningFragment(
+            OpenMessageInteractor.MESSAGE_RECALLED -> view {
+                setOpeningFragment(
                     RecalledComponentFragment::class.java
                 )
             }
-            OpenMessageInteractor.PROMULGATION -> runAction { v ->
-                v.setOpeningFragment(
+            OpenMessageInteractor.PROMULGATION -> view {
+                setOpeningFragment(
                     PromulgationComponentFragment::class.java
                 )
             }
@@ -100,11 +100,11 @@ class MessageOpeningPresenter @Inject constructor(
     override fun onReAuthenticate(loginProviderId: String, msg: Message) {
         Timber.e("Must reauthenticate with $loginProviderId")
         lockedMessage = msg
-        runAction { v -> v.showMessageLocked(loginProviderId, msg) }
+        view { showMessageLocked(loginProviderId, msg) }
     }
 
     override fun onPrivateSenderWarning(msg: Message) {
-        runAction { v -> v.setOpeningFragment(PrivateSenderWarningComponentFragment::class.java) }
+        view { setOpeningFragment(PrivateSenderWarningComponentFragment::class.java) }
     }
 
     override fun isViewAttached(): Boolean {

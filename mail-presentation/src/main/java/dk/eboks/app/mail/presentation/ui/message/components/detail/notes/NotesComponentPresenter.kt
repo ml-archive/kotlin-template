@@ -1,10 +1,10 @@
 package dk.eboks.app.mail.presentation.ui.message.components.detail.notes
 
-import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
+import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,9 +27,7 @@ internal class NotesComponentPresenter @Inject constructor(
     }
 
     override fun setup() {
-        runAction { v ->
-            currentMessage?.let { v.updateView(it) }
-        }
+        view { currentMessage?.let(::updateView) }
     }
 
     override fun saveNote(note: String) {
@@ -46,6 +44,6 @@ internal class NotesComponentPresenter @Inject constructor(
     }
 
     override fun onUpdateMessageError(error: ViewError) {
-        runAction { v -> v.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 }

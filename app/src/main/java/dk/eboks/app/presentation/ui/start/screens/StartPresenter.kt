@@ -31,7 +31,7 @@ class StartPresenter @Inject constructor(
     override fun startup() {
         Timber.e("Startup, running version control")
         if (appConfig.isDebug) {
-            runAction { v -> v.performVersionControl() }
+            view { performVersionControl() }
         } else {
             Timber.e("Release not running appOpen call")
             proceed()
@@ -45,39 +45,35 @@ class StartPresenter @Inject constructor(
 
     override fun onBootstrapDone(hasUsers: Boolean, autoLogin: Boolean) {
         Timber.e("Boostrap done")
-        runAction { v ->
-            v.bootstrapDone()
+        view {
+            bootstrapDone()
             if (autoLogin) {
-                v.startMain()
+                startMain()
             } else if (hasUsers) {
-                v.showUserCarouselComponent()
+                showUserCarouselComponent()
             } else {
                 if (BuildConfig.ENABLE_BETA_DISCLAIMER) {
                     if (!prefManager.getBoolean("didShowBetaDisclaimer", false)) {
                         prefManager.setBoolean("didShowBetaDisclaimer", true)
-                        v.showDisclaimer()
+                        showDisclaimer()
                     } else
-                        v.showWelcomeComponent()
+                        showWelcomeComponent()
                 } else
-                    v.showWelcomeComponent()
+                    showWelcomeComponent()
             }
         }
     }
 
     override fun onBootstrapError(error: ViewError) {
-        runAction { v -> v.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 
     override fun onGetUser(user: User) {
-        runAction { v ->
-            v.startMain()
-        }
+        view { startMain() }
     }
 
     override fun onGetUserError(error: ViewError) {
         Timber.w("WARNING: SERVER COULDN'T FIND THE USER")
-        runAction { v ->
-            v.showUserCarouselComponent()
-        }
+        view { showUserCarouselComponent() }
     }
 }

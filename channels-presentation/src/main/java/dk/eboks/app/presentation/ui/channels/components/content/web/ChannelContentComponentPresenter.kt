@@ -24,17 +24,17 @@ internal class ChannelContentComponentPresenter @Inject constructor(
 
     override fun setup(channel: Channel) {
         currentChannel = channel
-        runAction { v -> v.showChannel(channel) }
+        view { showChannel(channel) }
         getChannelContentLinkInteractor.input =
             GetChannelContentLinkInteractor.Input(channelId = channel.id)
         getChannelContentLinkInteractor.run()
     }
 
     override fun onGetChannelContentLink(content: String) {
-        runAction { v -> v.openChannelContent(content) }
+        view { openChannelContent(content) }
     }
 
     override fun onGetChannelContentLinkError(error: ViewError) {
-        runAction { v -> v.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 }

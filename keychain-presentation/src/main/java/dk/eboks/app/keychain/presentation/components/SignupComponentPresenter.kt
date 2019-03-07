@@ -1,14 +1,14 @@
 package dk.eboks.app.keychain.presentation.components
 
+import dk.eboks.app.domain.managers.AppStateManager
+import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.login.AccessToken
+import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.keychain.interactors.authentication.LoginInteractor
 import dk.eboks.app.keychain.interactors.authentication.SetCurrentUserInteractor
 import dk.eboks.app.keychain.interactors.signup.CheckSignupMailInteractor
 import dk.eboks.app.keychain.interactors.user.CheckSsnExistsInteractor
 import dk.eboks.app.keychain.interactors.user.CreateUserInteractor
-import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.login.AccessToken
-import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.keychain.presentation.components.providers.WebLoginPresenter
 import dk.eboks.app.presentation.base.ViewController
 import dk.eboks.app.util.guard
@@ -58,7 +58,7 @@ internal class SignupComponentPresenter @Inject constructor(
 
     override fun createUser() {
         appState.state?.loginState?.userPassWord?.let {
-            runAction { v -> v.showProgress(true) }
+            view { showProgress(true) }
 
             WebLoginPresenter.newIdentity?.let { identity ->
                 tempUser.identity = identity
@@ -104,30 +104,30 @@ internal class SignupComponentPresenter @Inject constructor(
      */
     override fun onLoginSuccess(response: AccessToken) {
         Timber.d("success")
-        runAction { v ->
-            v as SignupComponentContract.TermsView
-            v.showSignupCompleted()
+        view {
+            this as SignupComponentContract.TermsView
+            showSignupCompleted()
         }
     }
 
     override fun onLoginActivationCodeRequired() {
         Timber.d("onloginactivatedcoderequired")
-        runAction { v -> v.showProgress(false) }
+        view { showProgress(false) }
     }
 
     override fun onLoginDenied(error: ViewError) {
         Timber.d("onlogindenied")
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
     override fun onLoginError(error: ViewError) {
         Timber.d("onloginerror")
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
@@ -141,9 +141,9 @@ internal class SignupComponentPresenter @Inject constructor(
     }
 
     override fun onCreateUserError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
@@ -151,18 +151,18 @@ internal class SignupComponentPresenter @Inject constructor(
      * CheckSsn Callbacks
      */
     override fun onCheckSsnExists(exists: Boolean) {
-        runAction { v ->
-            v as SignupComponentContract.MMView
-            v.ssnExists(exists)
+        view {
+            this as SignupComponentContract.MMView
+            ssnExists(exists)
         }
     }
 
     override fun onCheckSsnExistsError(error: ViewError) {
         // todo error handling
         // todo API does not work so we pretend the SSN did not exist to continue with the flow
-        runAction { v ->
-            v as SignupComponentContract.MMView
-            v.ssnExists(false)
+        view {
+            this as SignupComponentContract.MMView
+            ssnExists(false)
         }
     }
 
@@ -170,16 +170,16 @@ internal class SignupComponentPresenter @Inject constructor(
      * CheckMail callbacks
      */
     override fun onVerifySignupMail(exists: Boolean) {
-        runAction { v ->
-            v as SignupComponentContract.NameMailView
-            v.showSignupMail(exists)
+        view {
+            this as SignupComponentContract.NameMailView
+            showSignupMail(exists)
         }
     }
 
     override fun onVerifySignupMailError(error: ViewError) {
-        runAction { v ->
-            v as SignupComponentContract.NameMailView
-            v.showSignupMailError(error)
+        view {
+            this as SignupComponentContract.NameMailView
+            showSignupMailError(error)
         }
     }
 
@@ -188,16 +188,16 @@ internal class SignupComponentPresenter @Inject constructor(
      */
     override fun onSetCurrentUserSuccess() {
         viewController.isVerificationSucceeded = false
-        runAction { v ->
-            v as SignupComponentContract.TermsView
-            v.showSignupCompleted()
+        view {
+            this as SignupComponentContract.TermsView
+            showSignupCompleted()
         }
     }
 
     override fun onSetCurrentUserError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 }

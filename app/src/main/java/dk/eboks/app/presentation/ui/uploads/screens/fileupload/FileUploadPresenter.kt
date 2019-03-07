@@ -23,10 +23,10 @@ class FileUploadPresenter @Inject constructor(private val appState: AppStateMana
         this.mimeType = mimeType
 
         startViewer(uriString, mimeType)
-        runAction { v ->
-            v.showFilename(uriString)
+        view {
+            showFilename(uriString)
             getDefaultFolder()?.let { deffolder ->
-                v.showDestinationFolder(deffolder)
+                showDestinationFolder(deffolder)
             }
         }
     }
@@ -44,19 +44,19 @@ class FileUploadPresenter @Inject constructor(private val appState: AppStateMana
 
     private fun startViewer(uriString: String, mimetype: String?) {
         if (mimetype?.startsWith("image/", true) == true) {
-            runAction { v -> v.addImageViewer(uriString) }
+            view { addImageViewer(uriString) }
             return
         }
         if (mimetype == "text/html") {
-            runAction { v -> v.addHtmlViewer(uriString) }
+            view { addHtmlViewer(uriString) }
             return
         }
         if (mimetype?.startsWith("text/", true) == true) {
-            runAction { v -> v.addTextViewer(uriString) }
+            view { addTextViewer(uriString) }
             return
         }
         // default
-        runAction { v -> v.showNoPreviewAvailable() }
+        view { showNoPreviewAvailable() }
     }
 
     override fun isVerified(): Boolean {
