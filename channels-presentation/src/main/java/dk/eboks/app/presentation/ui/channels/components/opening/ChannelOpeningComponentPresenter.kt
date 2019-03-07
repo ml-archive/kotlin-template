@@ -42,34 +42,31 @@ internal class ChannelOpeningComponentPresenter @Inject constructor(
 
     override fun refreshChannel() {
         Timber.e("refreshChannel")
-        runAction { v ->
-            v.showProgress(true)
-        }
+        view { showProgress(true) }
         getChannelInteractor.input = GetChannelInteractor.Input(channelId)
         getChannelInteractor.run()
     }
 
     override fun install(channel: Channel) {
-        runAction { v ->
-            // v.showChannelProgress(true)
-            // do we have any requirements, if so are they all verified? if not show the requirements drawer
-            if (!channel.areAllRequirementsVerified()) {
-                v.showRequirementsDrawer(channel)
-            } else {
-                when (channel.getType()) {
-                    "channel" -> {
-                        installChannelInteractor.input = InstallChannelInteractor.Input(channel.id)
-                        runAction { v -> v.showProgress(true) }
-                        installChannelInteractor.run()
-                    }
-                    "storebox" -> {
-                        createStoreboxInteractor.run()
-                    }
-                    "ekey" -> {
-                        installChannelInteractor.input = InstallChannelInteractor.Input(channel.id)
-                        runAction { v -> v.showProgress(true) }
-                        installChannelInteractor.run()
-                    }
+
+        // v.showChannelProgress(true)
+        // do we have any requirements, if so are they all verified? if not show the requirements drawer
+        if (!channel.areAllRequirementsVerified()) {
+            view { showRequirementsDrawer(channel) }
+        } else {
+            when (channel.getType()) {
+                "channel" -> {
+                    installChannelInteractor.input = InstallChannelInteractor.Input(channel.id)
+                    view { showProgress(true) }
+                    installChannelInteractor.run()
+                }
+                "storebox" -> {
+                    createStoreboxInteractor.run()
+                }
+                "ekey" -> {
+                    installChannelInteractor.input = InstallChannelInteractor.Input(channel.id)
+                    view { showProgress(true) }
+                    installChannelInteractor.run()
                 }
             }
         }
@@ -80,21 +77,11 @@ internal class ChannelOpeningComponentPresenter @Inject constructor(
         // ekey channels id 101 - 103
 
         when (channel.getType()) {
-            "channel" -> {
-                runAction { v ->
-                    v.openChannelContent(channel)
-                }
-            }
-            "storebox" -> {
-                runAction { v ->
-                    v.openStoreBoxContent(channel)
-                }
-            }
-            "ekey" -> {
-                runAction { v ->
-                    v.openEkeyContent(channel)
-                }
-            }
+            "channel" -> view { openChannelContent(channel) }
+
+            "storebox" -> view { openStoreBoxContent(channel) }
+
+            "ekey" -> view { openEkeyContent(channel) }
         }
     }
 
@@ -108,45 +95,43 @@ internal class ChannelOpeningComponentPresenter @Inject constructor(
             open(channel)
         } else // else do the whole channel install shebang
         {
-            runAction { v -> v.showProgress(false) }
+            view { showProgress(false) }
             when (channel.status?.type) {
                 APIConstants.CHANNEL_STATUS_AVAILABLE -> {
-                    runAction { v -> v.showInstallState(channel) }
+                    view { showInstallState(channel) }
                 }
                 APIConstants.CHANNEL_STATUS_REQUIRES_VERIFIED -> {
-                    runAction { v ->
-                        appConfig.verificationProviderId?.let { id ->
-                            appConfig.getLoginProvider(id)?.let {
-                                v.showVerifyState(channel, it)
-                            }
+                    appConfig.verificationProviderId?.let { id ->
+                        appConfig.getLoginProvider(id)?.let {
+                            view { showVerifyState(channel, it) }
                         }
                     }
                 }
                 APIConstants.CHANNEL_STATUS_REQUIRES_HIGHER_SEC_LEVEL -> {
-                    runAction { v -> v.showDisabledState(channel) }
+                    view { showDisabledState(channel) }
                 }
                 APIConstants.CHANNEL_STATUS_REQUIRES_HIGHER_SEC_LEVEL2 -> {
                     // TODO Deal with me
-                    runAction { v -> v.showDisabledState(channel) }
+                    view { showDisabledState(channel) }
                 }
                 APIConstants.CHANNEL_STATUS_REQUIRES_NEW_VERSION -> {
                     // TODO Deal with me
-                    runAction { v -> v.showDisabledState(channel) }
+                    view { showDisabledState(channel) }
                 }
                 APIConstants.CHANNEL_STATUS_NOT_SUPPORTED -> {
-                    runAction { v -> v.showDisabledState(channel) }
+                    view { showDisabledState(channel) }
                 }
                 else -> {
-                    runAction { v -> v.showDisabledState(channel) }
+                    view { showDisabledState(channel) }
                 }
             }
         }
     }
 
     override fun onGetChannelError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
@@ -156,25 +141,25 @@ internal class ChannelOpeningComponentPresenter @Inject constructor(
     }
 
     override fun onStoreboxAccountCreatedError(error: ViewError) {
-        runAction { v -> v.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 
     override fun onStoreboxAccountExists() {
-        runAction { v -> v.showStoreboxUserAlreadyExists() }
+        view { showStoreboxUserAlreadyExists() }
     }
 
     /**
      * InstallChannelInteractor callbacks
      */
     override fun onInstallChannel() {
-        runAction { v -> v.showProgress(false) }
+        view { showProgress(false) }
         channel?.let { open(it) }
     }
 
     override fun onInstallChannelError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 }

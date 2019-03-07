@@ -16,14 +16,10 @@ internal class HtmlViewComponentPresenter @Inject constructor(private val appSta
 
     override fun setup(uriString: String?) {
         uriString?.let {
-            runAction { v ->
-                v.showHtmlURI(uriString)
-            }
+            view { showHtmlURI(uriString) }
         }.guard {
             appState.state?.currentViewerFileName?.let { filename ->
-                runAction { v ->
-                    v.showHtml(filename)
-                }
+                view { showHtml(filename) }
             }
         }
     }

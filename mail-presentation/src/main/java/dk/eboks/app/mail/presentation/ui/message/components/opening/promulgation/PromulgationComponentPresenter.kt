@@ -16,9 +16,9 @@ internal class PromulgationComponentPresenter @Inject constructor(
     PromulgationComponentContract.Presenter,
     BasePresenterImpl<PromulgationComponentContract.View>() {
     init {
-        runAction { v ->
-            v.setPromulgationHeader(Translation.message.promulgationHeader)
-            v.setPromulgationText(Translation.message.promulgationMessage)
+        view {
+            setPromulgationHeader(Translation.message.promulgationHeader)
+            setPromulgationText(Translation.message.promulgationMessage)
         }
     }
 

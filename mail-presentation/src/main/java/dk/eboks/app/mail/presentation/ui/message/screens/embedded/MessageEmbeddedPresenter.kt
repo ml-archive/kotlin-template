@@ -1,13 +1,13 @@
 package dk.eboks.app.mail.presentation.ui.message.screens.embedded
 
 import dk.eboks.app.domain.config.AppConfig
-import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
-import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
+import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
+import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
@@ -37,60 +37,59 @@ internal class MessageEmbeddedPresenter @Inject constructor(
         message = stateManager.state?.currentMessage
         setupDrawerHeader()
         startViewer()
-        runAction { v ->
-            v.addHeaderComponentFragment()
-
+        view {
+            addHeaderComponentFragment()
             message?.let { message ->
 
                 if (appConfig.isPaymentEnabled) {
-                    message.payment?.let { v.addPaymentButton(it) }
+                    message.payment?.let { addPaymentButton(it) }
                 }
 
                 if (appConfig.isReplyEnabled) {
                     message.reply?.let {
-                        v.addReplyButtonComponentFragment(message)
+                        addReplyButtonComponentFragment(message)
                     }
                 }
                 if (appConfig.isSignEnabled) {
                     message.sign?.let {
-                        v.addSignButtonComponentFragment(message)
+                        addSignButtonComponentFragment(message)
                     }
                 }
                 if (appConfig.isDocumentActionsEnabled) {
-                    v.setActionButton(message)
+                    setActionButton(message)
                 }
 
-                v.addNotesComponentFragment()
+                addNotesComponentFragment()
                 if (message.attachments != null)
-                    v.addAttachmentsComponentFragment()
-                v.addShareComponentFragment()
-                v.addFolderInfoComponentFragment()
-                v.showTitle(message)
+                    addAttachmentsComponentFragment()
+                addShareComponentFragment()
+                addFolderInfoComponentFragment()
+                showTitle(message)
             }
         }
     }
 
     private fun setupDrawerHeader() {
         if (message?.numberOfAttachments ?: 0 > 0)
-            runAction { v -> v.setHighPeakHeight() }
+            view { setHighPeakHeight() }
     }
 
     private fun startViewer() {
         message?.content?.mimeType?.let { mimetype ->
             if (mimetype.startsWith("image/", true)) {
-                runAction { v -> v.addImageViewer() }
+                view { addImageViewer() }
                 return
             }
             if (mimetype == "application/pdf") {
-                runAction { v -> v.addPdfViewer() }
+                view { addPdfViewer() }
                 return
             }
             if (mimetype == "text/html") {
-                runAction { v -> v.addHtmlViewer() }
+                view { addHtmlViewer() }
                 return
             }
             if (mimetype.startsWith("text/", true)) {
-                runAction { v -> v.addTextViewer() }
+                view { addTextViewer() }
                 return
             }
         }
@@ -136,29 +135,19 @@ internal class MessageEmbeddedPresenter @Inject constructor(
     }
 
     override fun onDeleteMessagesSuccess() {
-        runAction { v ->
-            v.messageDeleted()
-        }
+        view { messageDeleted() }
     }
 
     override fun onDeleteMessagesError(error: ViewError) {
-        runAction { view ->
-            view.showErrorDialog(error)
-        }
+        view { showErrorDialog(error) }
     }
 
     override fun onUpdateMessageSuccess() {
-        moveToFolder?.let {
-            runAction { v ->
-                v.updateFolderName(it)
-            }
-        }
+        moveToFolder?.let { view { updateFolderName(it) } }
     }
 
     override fun onUpdateMessageError(error: ViewError) {
         moveToFolder = null
-        runAction { view ->
-            view.showErrorDialog(error)
-        }
+        view { showErrorDialog(error) }
     }
 }

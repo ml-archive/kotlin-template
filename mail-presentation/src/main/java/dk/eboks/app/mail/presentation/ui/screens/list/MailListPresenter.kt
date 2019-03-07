@@ -12,10 +12,10 @@ internal class MailListPresenter @Inject constructor() :
     MailListContract.Presenter,
     BasePresenterImpl<MailListContract.View>() {
     override fun setupFolder(folder: Folder) {
-        runAction { v -> v.showFolderName(folder.name) }
+        view { showFolderName(folder.name) }
     }
 
     override fun setupSender(sender: Sender) {
-        runAction { v -> v.showFolderName(sender.name) }
+        view { showFolderName(sender.name) }
     }
 }

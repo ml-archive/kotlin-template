@@ -11,8 +11,6 @@ internal class HeaderComponentPresenter @Inject constructor(private val appState
     HeaderComponentContract.Presenter, BasePresenterImpl<HeaderComponentContract.View>() {
 
     init {
-        runAction { v ->
-            appState.state?.currentMessage?.let { v.updateView(it) }
-        }
+        view { appState.state?.currentMessage?.let(::updateView) }
     }
 }

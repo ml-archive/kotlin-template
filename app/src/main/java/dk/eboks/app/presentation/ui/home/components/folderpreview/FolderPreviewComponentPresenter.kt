@@ -42,18 +42,18 @@ class FolderPreviewComponentPresenter @Inject constructor(
     }
 
     override fun onGetMessages(messages: List<Message>) {
-        runAction { v ->
+        view {
             EventBus.getDefault().post(RefreshFolderPreviewDoneEvent())
-            v.showProgress(false)
-            v.showFolder(messages, appState.state?.currentUser?.verified ?: false)
+            showProgress(false)
+            showFolder(messages, appState.state?.currentUser?.verified ?: false)
         }
     }
 
     override fun onGetMessagesError(error: ViewError) {
-        runAction { v ->
+        view {
             EventBus.getDefault().post(RefreshFolderPreviewDoneEvent())
-            v.showProgress(false)
-            v.showErrorDialog(error)
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 }

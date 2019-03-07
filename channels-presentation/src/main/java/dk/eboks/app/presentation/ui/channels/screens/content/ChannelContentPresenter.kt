@@ -32,7 +32,7 @@ internal class ChannelContentPresenter @Inject constructor() :
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: CloseChannelEvent) {
         Timber.e("ChannelContentPresenter getting CloseChannelEvent")
-        runAction { v -> v.finish() }
+        view { finish() }
     }
 
     override fun open(channel: Channel) {
@@ -41,14 +41,10 @@ internal class ChannelContentPresenter @Inject constructor() :
 
         when (channel.getType()) {
             "channel" -> {
-                runAction { v ->
-                    v.openChannelContent(channel)
-                }
+                view { openChannelContent(channel) }
             }
             "storebox" -> {
-                runAction { v ->
-                    v.openStoreBoxContent(channel)
-                }
+                view { openStoreBoxContent(channel) }
             }
             "ekey" -> {
             }

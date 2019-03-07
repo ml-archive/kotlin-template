@@ -16,14 +16,10 @@ internal class TextViewComponentPresenter @Inject constructor(private val appSta
 
     override fun setup(uriString: String?) {
         uriString?.let {
-            runAction { v ->
-                v.showTextURI(uriString)
-            }
+            view { showTextURI(uriString) }
         }.guard {
             appState.state?.currentViewerFileName?.let { filename ->
-                runAction { v ->
-                    v.showText(filename)
-                }
+                view { showText(filename) }
             }
         }
     }

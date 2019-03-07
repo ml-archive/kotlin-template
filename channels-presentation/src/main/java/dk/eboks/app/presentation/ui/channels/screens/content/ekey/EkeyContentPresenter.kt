@@ -62,7 +62,7 @@ internal class EkeyContentPresenter @Inject constructor(
 
     override fun onSetEKeyVaultError(viewError: ViewError) {
         if (hasRetried) {
-            runAction { view -> view.showErrorDialog(viewError) }
+            view { showErrorDialog(viewError) }
             hasRetried = false
         } else {
             hasRetried = true
@@ -74,7 +74,7 @@ internal class EkeyContentPresenter @Inject constructor(
     }
 
     override fun onSetEKeyVaultSuccess() {
-        runAction { v -> v.showKeys(keys) }
+        view { showKeys(keys) }
     }
 
     override fun onGetEKeyVaultSuccess(vault: String) {
@@ -83,7 +83,7 @@ internal class EkeyContentPresenter @Inject constructor(
             decrypted?.let { decryptedString ->
                 val baseEkeyListType = object : TypeToken<MutableList<BaseEkey>>() {}.type
                 keys = gson.fromJson<ArrayList<BaseEkey>>(decryptedString, baseEkeyListType)
-                runAction { v -> v.showKeys(keys) }
+                view { showKeys(keys) }
             }
         }
     }
@@ -103,7 +103,7 @@ internal class EkeyContentPresenter @Inject constructor(
 
     override fun onGetEKeyVaultError(viewError: ViewError) {
         Timber.d("onGetEKeyVaultError")
-        runAction { view -> view.showErrorDialog(viewError) }
+        view { showErrorDialog(viewError) }
     }
 
     override fun onAuthError(retryCount: Int) {
@@ -111,7 +111,7 @@ internal class EkeyContentPresenter @Inject constructor(
             encryptedPreferences.remove("ekey_${it.id}")
         }
 
-        runAction { view -> view.showPinView(false) }
+        view { showPinView(false) }
     }
 
     override fun onSetEKeyMasterkeySuccess(masterKey: String) {
@@ -122,7 +122,7 @@ internal class EkeyContentPresenter @Inject constructor(
     override fun onSetEKeyMasterkeyError(viewError: ViewError) {
         Timber.d("onSetEKeyMasterkeyError")
 
-        runAction { view -> view.showErrorDialog(viewError) }
+        view { showErrorDialog(viewError) }
     }
 
     override fun onGetEKeyMasterkeySuccess(masterKeyResponse: String?) {
@@ -137,22 +137,22 @@ internal class EkeyContentPresenter @Inject constructor(
 
                     handleMasterKeySuccess(masterKey!!)
                 } catch (e: Exception) {
-                    runAction { view ->
-                        view.showErrorDialog(
+                    view {
+                        showErrorDialog(
                             ViewError(
                                 title = Translation.error.eKeyDecryptionFailedTitle,
                                 message = Translation.error.eKeyDecryptionFailedMessage
                             )
                         )
-                        view.showPinView(false)
+                        showPinView(false)
                     }
                 }
             }.guard {
                 //            generateNewKeyAndSend(pin)
-                runAction { view -> view.showPinView(true) }
+                view { showPinView(true) }
             }
         } else {
-            runAction { view -> view.showPinView(masterKeyResponse.isNullOrEmpty()) }
+            view { showPinView(masterKeyResponse.isNullOrEmpty()) }
         }
     }
 
@@ -160,12 +160,12 @@ internal class EkeyContentPresenter @Inject constructor(
         if (pin != null) {
             generateNewKeyAndSend(pin)
         } else {
-            runAction { view -> view.showPinView(true) }
+            view { showPinView(true) }
         }
     }
 
     override fun onGetEKeyMasterkeyError(viewError: ViewError) {
-        runAction { view -> view.onGetMasterkeyError(viewError) }
+        view { onGetMasterkeyError(viewError) }
     }
 
     // HELPER METHODS
@@ -215,14 +215,14 @@ internal class EkeyContentPresenter @Inject constructor(
         return try {
             String(handler.decrypt(vault), charset("UTF-8"))
         } catch (e: Exception) {
-            runAction { view ->
-                view.showErrorDialog(
+            view {
+                showErrorDialog(
                     ViewError(
                         title = Translation.error.eKeyDecryptionFailedTitle,
                         message = Translation.error.eKeyDecryptionFailedMessage
                     )
                 )
-                view.showPinView(false)
+                showPinView(false)
             }
             null
         }

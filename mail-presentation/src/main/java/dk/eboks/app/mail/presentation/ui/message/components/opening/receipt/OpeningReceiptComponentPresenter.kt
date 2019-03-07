@@ -23,7 +23,7 @@ internal class OpeningReceiptComponentPresenter @Inject constructor(
             state.shouldProceedWithOpening = proceed
             state.sendReceipt = receipt
         }
-        runAction { v -> v.showOpeningProgress(true) }
+        view { showOpeningProgress(true) }
         executor.signal("messageOpenDone")
     }
 }

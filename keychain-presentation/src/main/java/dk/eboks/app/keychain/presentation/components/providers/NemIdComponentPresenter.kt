@@ -34,9 +34,7 @@ class NemIdComponentPresenter @Inject constructor(
     ) {
 
     override fun login(webToken: String) {
-        appState.state?.loginState?.let {
-            it.userLoginProviderId = "nemid"
-        }
+        appState.state?.loginState?.userLoginProviderId = "nemid"
         super.login(webToken)
     }
 }

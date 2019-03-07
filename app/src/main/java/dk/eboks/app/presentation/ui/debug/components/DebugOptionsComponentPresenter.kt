@@ -20,8 +20,8 @@ class DebugOptionsComponentPresenter @Inject constructor(
 
     override fun setup() {
         setupConfigurationView()
-        runAction { v ->
-            v.showEnvironmentSpinner(
+        view {
+            showEnvironmentSpinner(
                 appConfig.currentMode.environments,
                 appConfig.currentMode.environment
             )
@@ -31,8 +31,8 @@ class DebugOptionsComponentPresenter @Inject constructor(
     override fun setConfig(name: String) {
         appConfig.changeConfig(name)
         Timber.e("appConfig changed: new current configuration is ${appConfig.currentConfigName}")
-        runAction { v ->
-            v.showEnvironmentSpinner(
+        view {
+            showEnvironmentSpinner(
                 appConfig.currentMode.environments,
                 appConfig.currentMode.environment
             )
@@ -53,15 +53,12 @@ class DebugOptionsComponentPresenter @Inject constructor(
 
     private fun setupConfigurationView() {
         when (appConfig.currentConfigName) {
-            "danish" -> {
-                runAction { v -> v.showCountrySpinner(0) }
-            }
-            "swedish" -> {
-                runAction { v -> v.showCountrySpinner(2) }
-            }
-            "norwegian" -> {
-                runAction { v -> v.showCountrySpinner(1) }
-            }
+            "danish" -> view { showCountrySpinner(0) }
+
+            "swedish" -> view { showCountrySpinner(2) }
+
+            "norwegian" -> view { showCountrySpinner(1) }
+
             else -> {
             }
         }

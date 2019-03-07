@@ -1,12 +1,12 @@
 package dk.eboks.app.presentation.ui.uploads.components
 
-import dk.eboks.app.mail.domain.interactors.message.GetLatestUploadsInteractor
-import dk.eboks.app.mail.domain.interactors.message.GetStorageInteractor
-import dk.eboks.app.mail.domain.interactors.message.UploadFileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.StorageInfo
+import dk.eboks.app.mail.domain.interactors.message.GetLatestUploadsInteractor
+import dk.eboks.app.mail.domain.interactors.message.GetStorageInteractor
+import dk.eboks.app.mail.domain.interactors.message.UploadFileInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -37,9 +37,7 @@ class UploadOverviewComponentPresenter @Inject constructor(
     }
 
     override fun refresh() {
-        appState.state?.currentUser?.let { user ->
-            runAction { v -> v.setupView(user.verified) }
-        }
+        appState.state?.currentUser?.let { user -> view { setupView(user.verified) } }
         getStorageInteractor.run()
         getLatestUploadsInteractor.input = GetLatestUploadsInteractor.Input()
         getLatestUploadsInteractor.run()
@@ -55,7 +53,7 @@ class UploadOverviewComponentPresenter @Inject constructor(
         uploadFileInteractor.input =
             UploadFileInteractor.Input(folderId, filename, uriString, mimetype)
         uploadFileInteractor.run()
-        runAction { v -> v.showUploadProgress() }
+        view { showUploadProgress() }
     }
 
     /**
@@ -63,19 +61,19 @@ class UploadOverviewComponentPresenter @Inject constructor(
      */
 
     override fun onGetStorage(storageInfo: StorageInfo) {
-        runAction { v -> v.showStorageInfo(storageInfo) }
+        view { showStorageInfo(storageInfo) }
     }
 
     override fun onGetStorageError(error: ViewError) {
-        runAction { v -> v.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 
     override fun onGetLatestUploads(messages: List<Message>) {
-        runAction { v -> v.showLatestUploads(messages) }
+        view { showLatestUploads(messages) }
     }
 
     override fun onGetLatestUploadsError(error: ViewError) {
-        runAction { v -> v.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 
     /**
@@ -83,19 +81,19 @@ class UploadOverviewComponentPresenter @Inject constructor(
      */
     override fun onUploadFileComplete() {
         Timber.e("onUploadFileComplete")
-        runAction { v -> v.hideUploadProgress() }
+        view { hideUploadProgress() }
         refresh()
     }
 
     override fun onUploadFileProgress(pct: Double) {
         Timber.e("onUploadFileProgress $pct")
-        runAction { v -> v.updateUploadProgress(pct) }
+        view { updateUploadProgress(pct) }
     }
 
     override fun onUploadFileError(error: ViewError) {
-        runAction { v ->
-            v.hideUploadProgress()
-            v.showErrorDialog(error)
+        view {
+            hideUploadProgress()
+            showErrorDialog(error)
         }
     }
 }

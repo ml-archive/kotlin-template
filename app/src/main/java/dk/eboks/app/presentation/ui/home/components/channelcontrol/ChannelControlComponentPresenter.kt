@@ -38,7 +38,7 @@ class ChannelControlComponentPresenter @Inject constructor(
     }
 
     override fun onGetChannelHomeContent(channel: Channel, content: HomeContent) {
-        runAction { v -> v.updateControl(channel, content.control) }
+        view { updateControl(channel, content.control) }
     }
 
     override fun onGetChannelHomeContentDone() {
@@ -46,9 +46,9 @@ class ChannelControlComponentPresenter @Inject constructor(
     }
 
     override fun onGetInstalledChannelList(channels: List<Channel>) {
-        runAction { v ->
-            v.showProgress(false)
-            v.setupChannels(channels)
+        view {
+            showProgress(false)
+            setupChannels(channels)
         }
     }
 
@@ -56,17 +56,17 @@ class ChannelControlComponentPresenter @Inject constructor(
         Timber.e("onGetInstalledChannelListError")
         EventBus.getDefault().post(RefreshChannelControlDoneEvent())
         if (BuildConfig.DEBUG) // TODO Temp until backend is fixed
-            runAction { v -> v.showErrorDialog(error) }
+            view { showErrorDialog(error) }
     }
 
     override fun onGetChannelHomeContentError(channel: Channel) {
         Timber.e("onGetChannelHomeContentError")
-        runAction { v -> v.setControl(channel, Translation.home.errorContentFetch) }
+        view { setControl(channel, Translation.home.errorContentFetch) }
     }
 
     override fun onGetChannelHomeContentEmpty(channel: Channel) {
         Timber.e("onGetChannelHomeContentEmpty")
-        runAction { v -> v.setControl(channel, Translation.home.noContentText) }
+        view { setControl(channel, Translation.home.noContentText) }
     }
 
     override fun continueGetChannelHomeContent(): Boolean {

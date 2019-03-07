@@ -17,9 +17,9 @@ internal class PrivacyPresenter @Inject constructor(@Named("NAME_BASE_URL") priv
     override fun onViewCreated(view: PrivacyContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
 
-        runAction { v ->
-            v.loadUrl("${baseUrl}resources/privacypolicy")
-            // v.loadData(Translation.profile.privacyStatement)
+        view {
+            loadUrl("${baseUrl}resources/privacypolicy")
+            // loadData(Translation.profile.privacyStatement)
         }
     }
 }

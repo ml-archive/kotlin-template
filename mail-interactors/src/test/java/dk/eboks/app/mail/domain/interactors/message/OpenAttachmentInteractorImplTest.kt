@@ -1,6 +1,5 @@
 package dk.eboks.app.mail.domain.interactors.message
 
-import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.managers.DownloadManager
 import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.models.local.ViewError
@@ -14,14 +13,12 @@ import java.util.concurrent.CountDownLatch
 
 class OpenAttachmentInteractorImplTest {
 
-
     private val executor = TestExecutor()
 
     private val downloadManager = mockk<DownloadManager>()
     private val cacheManager = mockk<FileCacheManager>()
 
     private val interactor = OpenAttachmentInteractorImpl(executor, downloadManager, cacheManager)
-
 
     @Test
     fun `Open Cached Attachment Test`() {
@@ -54,7 +51,6 @@ class OpenAttachmentInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
 
     @Test
     fun `Download and Open Attachment Test`() {

@@ -10,9 +10,8 @@ import dk.nodes.arch.domain.executor.TestExecutor
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Test
-import java.util.*
+import java.util.Date
 import java.util.concurrent.CountDownLatch
-import kotlin.collections.HashMap
 
 class GetMessagesInteractorImplTest {
 
@@ -21,17 +20,17 @@ class GetMessagesInteractorImplTest {
 
     private val interactor = GetMessagesInteractorImpl(executor, repository)
 
-    private fun initPair(type: FolderType) : Pair<FolderType, List<Message>> {
-        return type to List(type.ordinal) {
-            index -> Message(index.toString(), "$type $index", Date(), true)
+    private fun initPair(type: FolderType): Pair<FolderType, List<Message>> {
+        return type to List(type.ordinal) { index ->
+            Message(index.toString(), "$type $index", Date(), true)
         }
     }
 
     @Test
     fun `Get Messages From Folder Test`() {
 
-        val folderMessages = List(15) { index -> Message(index.toString(), "Subject $index", Date(), false) }
-
+        val folderMessages =
+            List(15) { index -> Message(index.toString(), "Subject $index", Date(), false) }
 
         val latch = CountDownLatch(1)
         every { repository.getMessagesByFolder(any(), any(), any()) } returns folderMessages
@@ -59,15 +58,13 @@ class GetMessagesInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
-
 
     @Test
     fun `Get Messages From Sender Test`() {
 
-        val senderMessages = List(15) { index -> Message(index.toString(), "Subject $index", Date(), false) }
-
+        val senderMessages =
+            List(15) { index -> Message(index.toString(), "Subject $index", Date(), false) }
 
         val latch = CountDownLatch(1)
         every { repository.getMessagesByFolder(any(), any(), any()) } returns listOf()
@@ -97,33 +94,42 @@ class GetMessagesInteractorImplTest {
         latch.await()
     }
 
-
     @Test
     fun `Get Messages From System Folder Test`() {
 
-        val messages :  HashMap<FolderType, List<Message>> = hashMapOf(
-                initPair(FolderType.HIGHLIGHTS),
-                initPair(FolderType.UPLOADS),
-                initPair(FolderType.LATEST),
-                initPair(FolderType.UNREAD)
+        val messages: HashMap<FolderType, List<Message>> = hashMapOf(
+            initPair(FolderType.HIGHLIGHTS),
+            initPair(FolderType.UPLOADS),
+            initPair(FolderType.LATEST),
+            initPair(FolderType.UNREAD)
         )
-
 
         every { repository.getMessagesByFolder(any(), any(), any()) } returns listOf()
         every { repository.getMessagesBySender(any(), any(), any()) } returns listOf()
 
         // Setup system messages
-        every { repository.getLatest(any()) } returns messages.getOrDefault(FolderType.LATEST, listOf())
-        every { repository.getUnread(any()) } returns messages.getOrDefault(FolderType.UNREAD, listOf())
-        every { repository.getUploads(any()) } returns messages.getOrDefault(FolderType.UPLOADS, listOf())
-        every { repository.getHighlights(any()) } returns messages.getOrDefault(FolderType.HIGHLIGHTS, listOf())
+        every { repository.getLatest(any()) } returns messages.getOrDefault(
+            FolderType.LATEST,
+            listOf()
+        )
+        every { repository.getUnread(any()) } returns messages.getOrDefault(
+            FolderType.UNREAD,
+            listOf()
+        )
+        every { repository.getUploads(any()) } returns messages.getOrDefault(
+            FolderType.UPLOADS,
+            listOf()
+        )
+        every { repository.getHighlights(any()) } returns messages.getOrDefault(
+            FolderType.HIGHLIGHTS,
+            listOf()
+        )
 
         // Get Messages from Folder
 
         messages.forEach { folderType, mockedMessages ->
 
             val latch = CountDownLatch(1)
-
 
             interactor.input = GetMessagesInteractor.Input(false, Folder(0, type = folderType))
             interactor.output = object : GetMessagesInteractor.Output {
@@ -142,8 +148,6 @@ class GetMessagesInteractorImplTest {
             interactor.run()
             latch.await()
         }
-
-
     }
 
     @Test
@@ -155,8 +159,8 @@ class GetMessagesInteractorImplTest {
         every { repository.getUploads(any()) } throws Exception()
         every { repository.getHighlights(any()) } throws Exception()
 
-        val inputs = List(4) {index ->
-            when(index) {
+        val inputs = List(4) { index ->
+            when (index) {
                 // Folder request
                 0 -> GetMessagesInteractor.Input(false, Folder(1))
 
@@ -189,9 +193,5 @@ class GetMessagesInteractorImplTest {
             interactor.run()
             latch.await()
         }
-
     }
-
-
-
 }

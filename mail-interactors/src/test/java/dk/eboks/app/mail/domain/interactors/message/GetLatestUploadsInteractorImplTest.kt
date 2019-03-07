@@ -16,7 +16,6 @@ class GetLatestUploadsInteractorImplTest {
     private val repository = mockk<MessagesRepository>()
     private val interactor = GetLatestUploadsInteractorImpl(executor, repository)
 
-
     @Test
     fun `Get Latest Uploads Test`() {
 
@@ -39,7 +38,6 @@ class GetLatestUploadsInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
 
     @Test
@@ -63,5 +61,4 @@ class GetLatestUploadsInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
 }

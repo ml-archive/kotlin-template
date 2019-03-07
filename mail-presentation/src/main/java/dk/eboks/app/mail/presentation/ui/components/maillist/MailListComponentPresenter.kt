@@ -1,14 +1,14 @@
 package dk.eboks.app.mail.presentation.ui.components.maillist
 
-import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractor
-import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
-import dk.eboks.app.mail.domain.interactors.messageoperations.MoveMessagesInteractor
-import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.models.sender.Sender
+import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractor
+import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
+import dk.eboks.app.mail.domain.interactors.messageoperations.MoveMessagesInteractor
+import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.network.util.metaData
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
@@ -60,9 +60,7 @@ internal class MailListComponentPresenter @Inject constructor(
             limit = currentLimit
         )
         getMessagesInteractor.run()
-        runAction { v ->
-            v.showProgress(true)
-        }
+        view { showProgress(true) }
     }
 
     override fun setup(sender: Sender) {
@@ -76,7 +74,7 @@ internal class MailListComponentPresenter @Inject constructor(
             limit = currentLimit
         )
         getMessagesInteractor.run()
-        runAction { v -> v.showProgress(true) }
+        view { showProgress(true) }
     }
 
     override fun loadNextPage() {
@@ -88,7 +86,7 @@ internal class MailListComponentPresenter @Inject constructor(
             currentOffset += currentLimit
             Timber.e("loading next page.. offset = $currentOffset")
             getMessages()
-            runAction { v -> v.showRefreshProgress(true) }
+            view { showRefreshProgress(true) }
         } else {
             Timber.e("No more pages to load offset = $currentOffset")
         }
@@ -146,20 +144,20 @@ internal class MailListComponentPresenter @Inject constructor(
         totalMessages = messages.metaData?.total ?: -1
         Timber.e("Got messages offset = $currentOffset totalMsgs = $totalMessages")
         if (currentOffset == 0) {
-            runAction { v ->
-                v.showProgress(false)
-                v.showRefreshProgress(false)
+            view {
+                showProgress(false)
+                showRefreshProgress(false)
                 if (messages.isNotEmpty()) {
-                    v.showEmpty(false)
-                    v.showMessages(messages)
+                    showEmpty(false)
+                    showMessages(messages)
                 } else
-                    v.showEmpty(true)
+                    showEmpty(true)
             }
         } else {
-            runAction { v ->
-                v.showRefreshProgress(false)
+            view {
+                showRefreshProgress(false)
                 if (messages.isNotEmpty()) {
-                    v.appendMessages(messages)
+                    appendMessages(messages)
                 }
             }
         }
@@ -167,62 +165,62 @@ internal class MailListComponentPresenter @Inject constructor(
 
     override fun onGetMessagesError(error: ViewError) {
         isLoading = false
-        runAction { v ->
-            v.showErrorDialog(error)
-            v.showProgress(false)
-            v.showRefreshProgress(false)
-            v.showEmpty(true)
+        view {
+            showErrorDialog(error)
+            showProgress(false)
+            showRefreshProgress(false)
+            showEmpty(true)
         }
     }
 
     // Delete Messages
     override fun onDeleteMessagesSuccess() {
         Timber.d("onDeleteMessagesSuccess")
-        runAction { v ->
-            v.showProgress(true)
+        view {
+            showProgress(true)
             refresh()
         }
     }
 
     override fun onDeleteMessagesError(error: ViewError) {
         Timber.d("onDeleteMessagesError")
-        runAction { view ->
-            view.showProgress(false)
-            view.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
     // Move Messages
     override fun onMoveMessagesSuccess() {
         Timber.d("onMoveMessagesSuccess")
-        runAction { v ->
-            v.showProgress(true)
+        view {
+            showProgress(true)
             refresh()
         }
     }
 
     override fun onMoveMessagesError(error: ViewError) {
         Timber.d("onMoveMessagesError")
-        runAction { view ->
-            view.showProgress(false)
-            view.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
     // Update Message
     override fun onUpdateMessageSuccess() {
         Timber.d("onUpdateMessageSuccess")
-        runAction { v ->
-            v.showProgress(true)
+        view {
+            showProgress(true)
             refresh()
         }
     }
 
     override fun onUpdateMessageError(error: ViewError) {
         Timber.d("onUpdateMessageError")
-        runAction { view ->
-            view.showProgress(false)
-            view.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 }

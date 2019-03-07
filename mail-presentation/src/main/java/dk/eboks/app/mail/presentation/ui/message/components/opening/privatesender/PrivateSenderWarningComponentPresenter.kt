@@ -21,7 +21,7 @@ internal class PrivateSenderWarningComponentPresenter @Inject constructor(
         appState.state?.openingState?.let { state ->
             state.shouldProceedWithOpening = proceed
         }
-        runAction { v -> v.showOpeningProgress(true) }
+        view { showOpeningProgress(true) }
         executor.signal("messageOpenDone")
     }
 }

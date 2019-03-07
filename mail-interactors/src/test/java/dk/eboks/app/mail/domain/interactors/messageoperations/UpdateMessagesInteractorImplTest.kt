@@ -21,21 +21,20 @@ class UpdateMessagesInteractorImplTest {
     fun `Update Messages Test`() {
 
         val patches = List(4) {
-            when(it) {
+            when (it) {
                 0 -> MessagePatch(unread = true)
                 1 -> MessagePatch(archive = true)
                 2 -> MessagePatch(folderId = 21)
-                else -> MessagePatch(note =  "note")
+                else -> MessagePatch(note = "note")
             }
         }
-
 
         every { repository.updateMessage(any(), any()) } returns Unit
 
         patches.forEach {
             val latch = CountDownLatch(1)
 
-            interactor.input = UpdateMessageInteractor.Input(arrayListOf(mockk()) , it)
+            interactor.input = UpdateMessageInteractor.Input(arrayListOf(mockk()), it)
             interactor.output = object : UpdateMessageInteractor.Output {
                 override fun onUpdateMessageSuccess() {
                     assert(true)
@@ -46,36 +45,31 @@ class UpdateMessagesInteractorImplTest {
                     assert(false)
                     latch.countDown()
                 }
-
             }
 
             interactor.run()
             latch.await()
         }
-
-
     }
-
 
     @Test
     fun `Update Messages Error Test`() {
 
         val patches = List(4) {
-            when(it) {
+            when (it) {
                 0 -> MessagePatch(unread = true)
                 1 -> MessagePatch(archive = true)
                 2 -> MessagePatch(folderId = 21)
-                else -> MessagePatch(note =  "note")
+                else -> MessagePatch(note = "note")
             }
         }
-
 
         every { repository.updateMessage(any(), any()) } throws Exception()
 
         patches.forEach {
             val latch = CountDownLatch(1)
 
-            interactor.input = UpdateMessageInteractor.Input(arrayListOf(mockk()) , it)
+            interactor.input = UpdateMessageInteractor.Input(arrayListOf(mockk()), it)
             interactor.output = object : UpdateMessageInteractor.Output {
                 override fun onUpdateMessageSuccess() {
                     assert(false)
@@ -86,14 +80,10 @@ class UpdateMessagesInteractorImplTest {
                     assert(true)
                     latch.countDown()
                 }
-
             }
 
             interactor.run()
             latch.await()
         }
-
-
     }
-
 }

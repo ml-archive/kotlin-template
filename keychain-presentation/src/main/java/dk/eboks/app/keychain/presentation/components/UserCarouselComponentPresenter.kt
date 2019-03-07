@@ -34,12 +34,12 @@ internal class UserCarouselComponentPresenter @Inject constructor(
 
     override fun login(user: User) {
         appState.state?.loginState?.selectedUser = user
-        runAction { v -> v.openLogin() }
+        view { openLogin() }
     }
 
     override fun addAnotherUser() {
         appState.state?.loginState?.selectedUser = null
-        runAction { v -> v.openLogin() }
+        view { openLogin() }
     }
 
     override fun clearSelectedUser() {
@@ -61,17 +61,17 @@ internal class UserCarouselComponentPresenter @Inject constructor(
             users.size,
             init = { Pair(users[it], userSettingsManager[users[it].id]) })
 
-        runAction { v ->
-            v.showUsers(list)
+        view {
+            showUsers(list)
             appState.state?.loginState?.lastUser?.let { user ->
                 Timber.e("Setting selected user $user")
-                v.setSelectedUser(user)
+                setSelectedUser(user)
             }
         }
     }
 
     override fun onGetUsersError(error: ViewError) {
-        runAction { it.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 
     override fun onDeleteUser(user: User) {
@@ -79,6 +79,6 @@ internal class UserCarouselComponentPresenter @Inject constructor(
     }
 
     override fun onDeleteUserError(error: ViewError) {
-        runAction { it.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 }

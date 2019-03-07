@@ -1,11 +1,11 @@
 package dk.eboks.app.mail.presentation.ui.folder.components
 
-import dk.eboks.app.mail.domain.interactors.folder.CreateFolderInteractor
-import dk.eboks.app.mail.domain.interactors.folder.DeleteFolderInteractor
-import dk.eboks.app.mail.domain.interactors.folder.EditFolderInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.FolderRequest
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.mail.domain.interactors.folder.CreateFolderInteractor
+import dk.eboks.app.mail.domain.interactors.folder.DeleteFolderInteractor
+import dk.eboks.app.mail.domain.interactors.folder.EditFolderInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
@@ -28,14 +28,8 @@ internal class NewFolderComponentPresenter @Inject constructor(
         createFolderInteractor.output = this
         deleteFolderInteractor.output = this
         editFolderInteractor.output = this
-
-        val currentUserName =
-            appState.state?.impersoniateUser?.name ?: appState.state?.currentUser?.name
-        currentUserName?.let { user ->
-            runAction { v ->
-                v.setRootFolder(user)
-            }
-        }
+        appState.state?.impersoniateUser?.name
+            ?: appState.state?.currentUser?.name?.let { user -> view { setRootFolder(user) } }
     }
 
     override fun createNewFolder(parentFolderId: Int, name: String) {
@@ -61,21 +55,17 @@ internal class NewFolderComponentPresenter @Inject constructor(
     }
 
     private fun finishView() {
-        runAction { view ->
-            view.finish()
+        view {
+            finish()
         }
     }
 
     override fun onCreateFolderError(error: ViewError) {
-        runAction { view ->
-            view.showErrorDialog(error)
-        }
+        view { showErrorDialog(error) }
     }
 
     override fun folderNameNotAllowed() {
-        runAction { view ->
-            view.showFolderNameError()
-        }
+        view { showFolderNameError() }
     }
 
     override fun onDeleteFolderSuccess() {
@@ -83,9 +73,7 @@ internal class NewFolderComponentPresenter @Inject constructor(
     }
 
     override fun onDeleteFolderError(error: ViewError) {
-        runAction { view ->
-            view.showErrorDialog(error)
-        }
+        view { showErrorDialog(error) }
     }
 
     override fun onEditFolderSuccess() {
@@ -93,8 +81,6 @@ internal class NewFolderComponentPresenter @Inject constructor(
     }
 
     override fun onEditFolderError(error: ViewError) {
-        runAction { view ->
-            view.showErrorDialog(error)
-        }
+        view { showErrorDialog(error) }
     }
 }

@@ -45,7 +45,7 @@ internal class ChannelContentStoreboxDetailComponentPresenter @Inject constructo
 
     override fun deleteReceipt() {
         currentReceipt?.let {
-            runAction { v -> v.showProgress(true) }
+            view { showProgress(true) }
             deleteStoreboxReceiptInteractor.input = DeleteStoreboxReceiptInteractor.Input(it.id)
             deleteStoreboxReceiptInteractor.run()
         }
@@ -54,7 +54,7 @@ internal class ChannelContentStoreboxDetailComponentPresenter @Inject constructo
     override fun saveReceipt(dstFolder: Folder) {
         currentReceipt?.let { receipt ->
             currentFolderName = dstFolder.name
-            runAction { v -> v.showProgress(true) }
+            view { showProgress(true) }
             saveReceiptInteractor.input = SaveReceiptInteractor.Input(receipt.id, dstFolder.id)
             saveReceiptInteractor.run()
         }
@@ -63,7 +63,7 @@ internal class ChannelContentStoreboxDetailComponentPresenter @Inject constructo
     override fun shareReceipt(asMail: Boolean) {
         shareAsMail = asMail
         currentReceipt?.let { receipt ->
-            runAction { v -> v.showProgress(true) }
+            view { showProgress(true) }
             shareReceiptInteractor.input = ShareReceiptInteractor.Input(receipt.id)
             shareReceiptInteractor.run()
         }
@@ -75,15 +75,13 @@ internal class ChannelContentStoreboxDetailComponentPresenter @Inject constructo
 
     override fun onGetReceipt(storeboxReceipt: StoreboxReceipt) {
         currentReceipt = storeboxReceipt
-        runAction { v ->
-            v.setReceipt(storeboxReceipt)
-        }
+        view { setReceipt(storeboxReceipt) }
     }
 
     override fun onGetReceiptsError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
@@ -92,15 +90,13 @@ internal class ChannelContentStoreboxDetailComponentPresenter @Inject constructo
      */
 
     override fun onDeleteReceiptSuccess() {
-        runAction { v ->
-            v.returnToMasterView()
-        }
+        view { returnToMasterView() }
     }
 
     override fun onDeleteReceiptError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
@@ -109,10 +105,10 @@ internal class ChannelContentStoreboxDetailComponentPresenter @Inject constructo
      */
 
     override fun onSaveReceiptSuccess() {
-        runAction { v ->
-            v.showProgress(false)
+        view {
+            showProgress(false)
             currentFolderName?.let { name ->
-                v.showToast(
+                showToast(
                     Translation.storeboxreceipt.receiptSavedToFolderToast.replace(
                         "[folderName]",
                         name
@@ -123,9 +119,9 @@ internal class ChannelContentStoreboxDetailComponentPresenter @Inject constructo
     }
 
     override fun onSaveReceiptError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
@@ -134,20 +130,18 @@ internal class ChannelContentStoreboxDetailComponentPresenter @Inject constructo
      */
 
     override fun onShareReceiptSuccess(filename: String) {
-        runAction { v ->
-            v.showProgress(false)
-            if (!shareAsMail)
-                v.shareReceiptContent(filename)
-            else
-                v.mailReceiptContent(filename)
+        view {
+            showProgress(false)
+            if (!shareAsMail) shareReceiptContent(filename)
+            else mailReceiptContent(filename)
         }
         Timber.e("PDF saved to temporary file $filename")
     }
 
     override fun onShareReceiptError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 }

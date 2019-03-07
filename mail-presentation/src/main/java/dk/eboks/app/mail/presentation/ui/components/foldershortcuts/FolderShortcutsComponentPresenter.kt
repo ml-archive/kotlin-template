@@ -26,7 +26,7 @@ internal class FolderShortcutsComponentPresenter @Inject constructor(
     init {
         openFolderInteractor.output = this
         refresh(true)
-        runAction { v -> v.showProgress(true) }
+        view { showProgress(true) }
     }
 
     override fun onViewCreated(view: FolderShortcutsComponentContract.View, lifecycle: Lifecycle) {
@@ -45,18 +45,18 @@ internal class FolderShortcutsComponentPresenter @Inject constructor(
     }
 
     override fun onGetCategories(folders: List<Folder>) {
-        runAction { v ->
+        view {
             EventBus.getDefault().post(RefreshFolderShortcutsDoneEvent())
-            v.showProgress(false)
-            v.showFolders(folders)
+            showProgress(false)
+            showFolders(folders)
         }
     }
 
     override fun onGetCategoriesError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
+        view {
+            showProgress(false)
             EventBus.getDefault().post(RefreshFolderShortcutsDoneEvent())
-            v.showErrorDialog(error)
+            showErrorDialog(error)
         }
     }
 
@@ -64,7 +64,7 @@ internal class FolderShortcutsComponentPresenter @Inject constructor(
     }
 
     override fun onOpenFolderError(error: ViewError) {
-        runAction { it.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 
     fun refresh(cached: Boolean) {

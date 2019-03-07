@@ -17,7 +17,6 @@ class MoveMessagesInteractorImplTest {
 
     private val interactor = MoveMessagesInteractorImpl(executor, repository)
 
-
     @Test
     fun `Move Messages Test`() {
 
@@ -43,9 +42,7 @@ class MoveMessagesInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
-
 
     @Test
     fun `Move Messages Error Test`() {
@@ -72,7 +69,5 @@ class MoveMessagesInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
-
 }

@@ -1,6 +1,5 @@
 package dk.eboks.app.mail.domain.interactors.message
 
-import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.managers.FileCacheManager
 import dk.eboks.app.domain.managers.PermissionManager
 import dk.eboks.app.domain.models.local.ViewError
@@ -20,7 +19,6 @@ class SaveAttachmentInteractorImplTest {
 
     private val interactor = SaveAttachmentInteractorImpl(executor, cacheManager, permissionManager)
 
-
     @Test
     fun `Save Attachment Test`() {
         val latch = CountDownLatch(1)
@@ -33,7 +31,6 @@ class SaveAttachmentInteractorImplTest {
         every { permissionManager.requestPermission(any()) } returns true
         every { cacheManager.isExternalStorageWritable() } returns true
         every { cacheManager.copyContentToExternalStorage(any()) } returns filename
-
 
         interactor.input = SaveAttachmentInteractor.Input(message, content)
         interactor.output = object : SaveAttachmentInteractor.Output {
@@ -50,7 +47,6 @@ class SaveAttachmentInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
 
     @Test
@@ -68,7 +64,6 @@ class SaveAttachmentInteractorImplTest {
         every { cacheManager.isExternalStorageWritable() } returns true
         every { cacheManager.copyContentToExternalStorage(any()) } returns filename
 
-
         interactor.input = SaveAttachmentInteractor.Input(message, content)
         interactor.output = object : SaveAttachmentInteractor.Output {
             override fun onSaveAttachment(filename: String) {
@@ -84,7 +79,6 @@ class SaveAttachmentInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
     @Test
     fun `Save Attachment That's not exists Error`() {
@@ -100,7 +94,6 @@ class SaveAttachmentInteractorImplTest {
         every { cacheManager.isExternalStorageWritable() } returns true
         every { cacheManager.copyContentToExternalStorage(any()) } returns filename
 
-
         interactor.input = SaveAttachmentInteractor.Input(message, content)
         interactor.output = object : SaveAttachmentInteractor.Output {
             override fun onSaveAttachment(filename: String) {
@@ -116,6 +109,5 @@ class SaveAttachmentInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
 }

@@ -2,10 +2,10 @@ package dk.eboks.app.keychain.presentation.components
 
 import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.config.AppConfig
-import dk.eboks.app.keychain.interactors.authentication.LoginInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.AccessToken
+import dk.eboks.app.keychain.interactors.authentication.LoginInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -31,9 +31,7 @@ internal class ActivationCodeComponentPresenter @Inject constructor(
 
         appState.state?.loginState?.let {
             if (appConfig.isDebug && "3110276111" == it.userName) {
-                runAction { v ->
-                    v.setDebugUp("Cr4x3N6Q")
-                }
+                view { setDebugUp("Cr4x3N6Q") }
             }
             Timber.e("selectedUser ${it.selectedUser}")
         }
@@ -54,7 +52,7 @@ internal class ActivationCodeComponentPresenter @Inject constructor(
     }
 
     override fun login() {
-        runAction { v -> v.showProgress(true) }
+        view { showProgress(true) }
         appState.state?.loginState?.let {
             loginInteractor.input = LoginInteractor.Input(it)
             loginInteractor.run()
@@ -62,31 +60,27 @@ internal class ActivationCodeComponentPresenter @Inject constructor(
     }
 
     override fun onLoginSuccess(response: AccessToken) {
-        runAction { v ->
-            v.proceedToApp()
-        }
+        view { proceedToApp() }
     }
 
     override fun onLoginActivationCodeRequired() {
         Timber.e("Wrong acti-code!!")
-        runAction { v ->
-            v.showError(error = null)
-        }
+        view { showError(error = null) }
     }
 
     override fun onLoginDenied(error: ViewError) {
         Timber.e("Login Denied!!")
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
     override fun onLoginError(error: ViewError) {
         Timber.e("Login Error!!")
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 }

@@ -17,10 +17,6 @@ internal class SenderGroupsComponentPresenter @Inject constructor() :
     }
 
     override fun getSenderGroups(sender: Sender) {
-        runAction { v ->
-            sender.groups?.let {
-                v.showSenderGroups(sender)
-            }
-        }
+        view { sender.groups?.let { showSenderGroups(sender) } }
     }
 }

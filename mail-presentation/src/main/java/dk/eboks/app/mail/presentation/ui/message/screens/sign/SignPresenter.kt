@@ -31,10 +31,10 @@ internal class SignPresenter @Inject constructor(
      * GetSignLinkInteractor callbacks
      */
     override fun onGetSignLink(result: Link) {
-        runAction { v -> v.loadUrl(result.url) }
+        view { loadUrl(result.url) }
     }
 
     override fun onGetSignLinkError(error: ViewError) {
-        runAction { v -> v.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 }

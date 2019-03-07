@@ -64,9 +64,7 @@ internal class LoginComponentPresenter @Inject constructor(
                         setupLogin(it, provider)
                     }
                 }.guard {
-                    runAction { v ->
-                        v.setupView(null, null, UserSettings(0), altProviders)
-                    }
+                    view { setupView(null, null, UserSettings(0), altProviders) }
                 }
             }
         } else // we open in verification mode with a given login provider and no alt providers
@@ -75,8 +73,8 @@ internal class LoginComponentPresenter @Inject constructor(
                 Timber.e("Verification login setup")
                 appState.state?.loginState?.lastUser?.let { user ->
                     val settings = userSettingsManager[user.id]
-                    runAction { v ->
-                        v.setupView(
+                    view {
+                        setupView(
                             provider,
                             appState.state?.loginState?.lastUser,
                             settings,
@@ -84,8 +82,8 @@ internal class LoginComponentPresenter @Inject constructor(
                         )
                     }
                 }.guard {
-                    runAction { v ->
-                        v.setupView(
+                    view {
+                        setupView(
                             provider,
                             null,
                             UserSettings(0),
@@ -103,12 +101,12 @@ internal class LoginComponentPresenter @Inject constructor(
         } else {
             null
         }
-        runAction { v ->
+        view {
             user?.let {
                 // setup for existing currentUser
                 val settings = userSettingsManager[it.id]
                 if (!it.verified) { // currentUser is not verified
-                    v.setupView(
+                    setupView(
                         loginProvider = lp,
                         user = user,
                         settings = settings,
@@ -116,7 +114,7 @@ internal class LoginComponentPresenter @Inject constructor(
                     )
                 } else {
                     // currentUser is verified
-                    v.setupView(
+                    setupView(
                         loginProvider = lp,
                         user = user,
                         settings = settings,
@@ -125,7 +123,7 @@ internal class LoginComponentPresenter @Inject constructor(
                 }
             }.guard {
                 // setup for first time login
-                v.setupView(
+                setupView(
                     loginProvider = lp,
                     user = null,
                     settings = UserSettings(0),
@@ -150,22 +148,22 @@ internal class LoginComponentPresenter @Inject constructor(
 
     override fun onLoginDenied(error: ViewError) {
         Timber.w(" \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word! \nUh uh uhhh - you didn't say the magic word!")
-        runAction { v ->
-            v.showProgress(false)
-            v.showError(error)
+        view {
+            showProgress(false)
+            showError(error)
         }
     }
 
     override fun onLoginError(error: ViewError) {
         Timber.e("Login Error!!")
-        runAction { v ->
-            v.showProgress(false)
-            v.showError(error)
+        view {
+            showProgress(false)
+            showError(error)
         }
     }
 
     override fun fingerPrintConfirmed(user: User) {
-        runAction { v -> v.showProgress(true) }
+        view { showProgress(true) }
 
         decryptUserLoginInfoInteractor.run()
     }
@@ -186,9 +184,9 @@ internal class LoginComponentPresenter @Inject constructor(
     }
 
     override fun onDecryptError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showError(error)
+        view {
+            showProgress(false)
+            showError(error)
         }
     }
 
@@ -208,7 +206,7 @@ internal class LoginComponentPresenter @Inject constructor(
 
     override fun login() {
         appState.state?.loginState?.let {
-            runAction { v -> v.showProgress(true) }
+            view { showProgress(true) }
             loginInteractor.input = LoginInteractor.Input(it)
             loginInteractor.run()
         }
@@ -225,28 +223,28 @@ internal class LoginComponentPresenter @Inject constructor(
     }
 
     override fun onLoginActivationCodeRequired() {
-        runAction { v ->
-            v.showProgress(false)
-            v.showActivationCodeDialog()
+        view {
+            showProgress(false)
+            showActivationCodeDialog()
         }
     }
 
     override fun onCheckRSAKeyPresence(keyExists: Boolean) {
         Timber.e("RSAKeyPresence: $keyExists")
-        runAction { it.showProgress(false) }
+        view { showProgress(false) }
         // todo make sure key is connected to the correct user
         if (keyExists) {
-            runAction { it.proceedToApp() }
+            view { proceedToApp() }
         } else {
             if (appState.state?.loginState?.lastUser?.verified == true) {
-                runAction { it.startDeviceActivation() }
+                view { startDeviceActivation() }
             } else {
-                runAction { it.proceedToApp() }
+                view { proceedToApp() }
             }
         }
     }
 
     override fun onCheckRSAKeyPresenceError(error: ViewError) {
-        runAction { v -> v.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 }

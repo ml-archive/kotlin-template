@@ -2,7 +2,6 @@ package dk.eboks.app.presentation.ui.home.screens
 
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.interactors.channel.GetChannelHomeContentInteractor
-import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
@@ -11,6 +10,7 @@ import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -45,53 +45,53 @@ class HomePresenter @Inject constructor(
     }
 
     override fun onGetMessages(messages: List<Message>) {
-        runAction { v ->
-            v.onRefreshFolderDone()
-            v.showFolderProgress(false)
-            v.showFolder(messages, appState.state?.currentUser?.verified ?: false)
+        view {
+            onRefreshFolderDone()
+            showFolderProgress(false)
+            showFolder(messages, appState.state?.currentUser?.verified ?: false)
         }
     }
 
     override fun onGetMessagesError(error: ViewError) {
-        runAction { v ->
-            v.onRefreshFolderDone()
-            v.showFolderProgress(false)
-            v.showErrorDialog(error)
+        view {
+            onRefreshFolderDone()
+            showFolderProgress(false)
+            showErrorDialog(error)
         }
     }
 
     override fun onGetChannelHomeContent(channel: Channel, content: HomeContent) {
-        runAction { v -> v.updateControl(channel, content.control) }
+        view { updateControl(channel, content.control) }
     }
 
     override fun onGetChannelHomeContentDone() {
-        runAction { v -> v.onRefreshChannelDone() }
+        view { onRefreshChannelDone() }
     }
 
     override fun onGetInstalledChannelList(channels: List<Channel>) {
-        runAction { v ->
-            v.showChannelProgress(false)
-            v.setupChannels(channels)
+        view {
+            showChannelProgress(false)
+            setupChannels(channels)
         }
     }
 
     override fun onGetInstalledChannelListError(error: ViewError) {
         Timber.e("onGetInstalledChannelListError")
-        runAction { v ->
+        view {
             if (BuildConfig.DEBUG) // TODO Temp until backend is fixed
-                v.showErrorDialog(error)
-            v.onRefreshChannelDone()
+                showErrorDialog(error)
+            onRefreshChannelDone()
         }
     }
 
     override fun onGetChannelHomeContentError(channel: Channel) {
         Timber.e("onGetChannelHomeContentError")
-        runAction { v -> v.setControl(channel, Translation.home.errorContentFetch) }
+        view { setControl(channel, Translation.home.errorContentFetch) }
     }
 
     override fun onGetChannelHomeContentEmpty(channel: Channel) {
         Timber.d("onGetChannelHomeContentEmpty")
-        runAction { v -> v.setControl(channel, Translation.home.noContentText) }
+        view { setControl(channel, Translation.home.noContentText) }
     }
 
     override fun continueGetChannelHomeContent(): Boolean {

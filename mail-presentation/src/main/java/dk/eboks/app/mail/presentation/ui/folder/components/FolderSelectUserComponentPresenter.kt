@@ -18,9 +18,7 @@ internal class FolderSelectUserComponentPresenter @Inject constructor(
     GetAllSharesInteractor.Output {
 
     init {
-        runAction { v ->
-            v.setUser(appState.state?.currentUser)
-        }
+        view { setUser(appState.state?.currentUser) }
         getAllSharesInteractor.output = this
     }
 
@@ -29,16 +27,16 @@ internal class FolderSelectUserComponentPresenter @Inject constructor(
     }
 
     override fun onGetAllShares(shares: List<SharedUser>) {
-        runAction { view ->
-            view.showShares(shares)
-            view.showProgress(false)
+        view {
+            showShares(shares)
+            showProgress(false)
         }
     }
 
     override fun onGetAllSharesError(viewError: ViewError) {
-        runAction { view ->
-            view.showErrorDialog(viewError)
-            view.showProgress(false)
+        view {
+            showErrorDialog(viewError)
+            showProgress(false)
         }
     }
 

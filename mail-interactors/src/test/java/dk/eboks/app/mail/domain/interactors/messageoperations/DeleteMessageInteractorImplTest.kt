@@ -7,11 +7,8 @@ import dk.nodes.arch.domain.executor.TestExecutor
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Test
-import java.lang.Exception
-import java.util.*
+import java.util.Date
 import java.util.concurrent.CountDownLatch
-import kotlin.collections.ArrayList
-import kotlin.random.Random
 
 class DeleteMessageInteractorImplTest {
 
@@ -20,15 +17,13 @@ class DeleteMessageInteractorImplTest {
 
     private val interactor = DeleteMessagesInteractorImpl(executor, repository)
 
-
-
     @Test
     fun `Delete Messages Test`() {
 
         val latch = CountDownLatch(1)
-        val messages = List(12) {Message(it.toString(), "s", Date(), false, folderId = 12)}
+        val messages = List(12) { Message(it.toString(), "s", Date(), false, folderId = 12) }
 
-        every { repository.deleteMessage(any(),any()) } returns Unit
+        every { repository.deleteMessage(any(), any()) } returns Unit
 
         interactor.input = DeleteMessagesInteractor.Input(ArrayList(messages))
         interactor.output = object : DeleteMessagesInteractor.Output {
@@ -45,13 +40,12 @@ class DeleteMessageInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
 
     @Test
     fun `Delete Messages Error Test`() {
         val latch = CountDownLatch(1)
-        val messages = List(12) {Message(it.toString(), "s", Date(), false, folderId = 12)}
+        val messages = List(12) { Message(it.toString(), "s", Date(), false, folderId = 12) }
 
         every { repository.deleteMessage(any(), any()) } throws Exception()
 
@@ -70,6 +64,5 @@ class DeleteMessageInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
 }

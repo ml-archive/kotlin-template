@@ -100,9 +100,8 @@ abstract class BasePresenterImpl<V> : BasePresenter<V>, LifecycleObserver {
         }
     }
 
-    fun view(block: V.() -> Unit) {
+    fun view(block: V.() -> Unit) =
         view?.let(block) ?: cachedViewActions.add(Runnable { view?.block() })
-    }
 
     fun launchOnUI(block: suspend CoroutineScope.() -> Unit): Job {
         return mainScope.launch(context = mainCoroutineContext, block = block)
@@ -152,7 +151,10 @@ fun <T> runBlockingTest(presenter: BasePresenter<*>, block: suspend CoroutineSco
 @InternalCoroutinesApi
 class TestContext : CoroutineDispatcher(), Delay {
 
-    override fun scheduleResumeAfterDelay(timeMillis: Long, continuation: CancellableContinuation<Unit>) {
+    override fun scheduleResumeAfterDelay(
+        timeMillis: Long,
+        continuation: CancellableContinuation<Unit>
+    ) {
         continuation.resume(Unit)
     }
 

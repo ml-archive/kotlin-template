@@ -35,15 +35,11 @@ internal class PendingPresenter @Inject constructor(
     }
 
     override fun onRegistrationsLoaded(registrations: List<CollectionContainer>) {
-        runAction { v ->
-            v.showPendingRegistrations(registrations)
-        }
+        view { showPendingRegistrations(registrations) }
     }
 
     override fun onError(error: ViewError) {
-        runAction { v ->
-            v.showErrorDialog(error)
-        }
+        view { showErrorDialog(error) }
     }
 
     override fun registerSender(id: Long) {
@@ -67,8 +63,6 @@ internal class PendingPresenter @Inject constructor(
     }
 
     override fun onSuccess() {
-        runAction { v ->
-            v.showRegistrationSuccess()
-        }
+        view { showRegistrationSuccess() }
     }
 }

@@ -43,9 +43,7 @@ internal class MailOverviewPresenter @Inject constructor(private val appState: A
 
         // Reset shared user
         appState.state?.impersoniateUser = null
-        runAction { view ->
-            setUser(view)
-        }
+        runAction(::setUser)
     }
 
     private fun setUser(view: MailOverviewContract.View) {
@@ -54,7 +52,7 @@ internal class MailOverviewPresenter @Inject constructor(private val appState: A
 
     private fun stopProgressIfDone() {
         if (!refreshingFolders && !refreshingSenders)
-            runAction { v -> v.showProgress(false) }
+            view { showProgress(false) }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

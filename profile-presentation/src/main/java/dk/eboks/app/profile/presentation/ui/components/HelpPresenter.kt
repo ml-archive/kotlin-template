@@ -17,9 +17,9 @@ internal class HelpPresenter @Inject constructor(private val appConfig: AppConfi
     override fun onViewCreated(view: HelpContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
 
-        runAction { v ->
+        view {
             appConfig.getResourceLinkByType("support")?.let { link ->
-                v.loadUrl(link.link.url)
+                loadUrl(link.link.url)
             }
         }
     }

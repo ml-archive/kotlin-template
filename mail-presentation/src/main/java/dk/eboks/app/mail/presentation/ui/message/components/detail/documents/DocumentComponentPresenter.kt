@@ -23,16 +23,14 @@ internal class DocumentComponentPresenter @Inject constructor(
 
     init {
         saveAttachmentInteractor.output = this
-        runAction { v ->
-            appState.state?.currentMessage?.let { v.updateView(it) }
-        }
+        appState.state?.currentMessage?.let { view { updateView(it) } }
     }
 
     override fun openExternalViewer(message: Message) {
         appState.state?.currentViewerFileName?.let { filename ->
             val mime = message.content?.mimeType ?: "*/*"
             Timber.e("Share mime type $mime")
-            runAction { v -> v.openExternalViewer(filename, mime) }
+            view { openExternalViewer(filename, mime) }
         }
             .guard {
                 Timber.e("External viewer has no filename")
@@ -47,11 +45,11 @@ internal class DocumentComponentPresenter @Inject constructor(
     }
 
     override fun onSaveAttachment(filename: String) {
-        runAction { v -> v.showToast("_Document $filename saved to Downloads") }
+        view { showToast("_Document $filename saved to Downloads") }
         Timber.e("Saved attachment to $filename")
     }
 
     override fun onSaveAttachmentError(error: ViewError) {
-        runAction { it.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 }
