@@ -37,14 +37,11 @@ import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.Translation
 import timber.log.Timber
 import java.io.Serializable
-<<<<<<< HEAD
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.text.SimpleDateFormat
 import java.util.*
-=======
->>>>>>> development
 
 /**
  * Created by bison on 01-07-2017.

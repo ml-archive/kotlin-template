@@ -382,7 +382,7 @@ object AppConfigImpl : AppConfig {
     override val isEkeyEnabled: Boolean = BuildConfig.ENABLE_EKEY
     override val isFingerprintNonverifiedEnabled: Boolean = BuildConfig.ENABLE_FINGERPRINT_NONVERIFIED
     override val isFolderActionsEnabled: Boolean = BuildConfig.ENABLE_FOLDERS_ACTIONS
-    override val isPaymentEnabled: Boolean = BuildConfig.ENABLE_PAYMENT
+    override val isPaymentEnabled: Boolean = BuildConfig.ENABLE_PAYMENTS
     override val isProfileDataVerificationEnabled: Boolean = BuildConfig.ENABLE_PROFILE_DATA_VERIFICATION
     override val isProfilePictureEnabled: Boolean = BuildConfig.ENABLE_PROFILE_PICTURE
     override val isReplyEnabled: Boolean = BuildConfig.ENABLE_REPLY

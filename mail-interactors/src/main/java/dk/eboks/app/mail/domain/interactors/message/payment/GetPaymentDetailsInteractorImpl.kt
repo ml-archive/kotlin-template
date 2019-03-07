@@ -1,12 +1,13 @@
-package dk.eboks.app.domain.interactors.message.payment
+package dk.eboks.app.mail.domain.interactors.message.payment
 
 import dk.eboks.app.domain.repositories.MessagesRepository
 import dk.eboks.app.util.exceptionToViewError
 import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.interactor.BaseInteractor
 import java.lang.Exception
+import javax.inject.Inject
 
-class GetPaymentDetailsInteractorImpl(
+internal class GetPaymentDetailsInteractorImpl @Inject constructor(
         executor: Executor,
         private val repository: MessagesRepository)
     : BaseInteractor(executor),

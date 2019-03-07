@@ -39,7 +39,7 @@ internal class MessagePresenter @Inject constructor(
             v.addHeaderComponentFragment()
 
             // TODO Remove mocked payment info
-            if (BuildConfig.ENABLE_PAYMENTS) {
+            if (appConfig.isPaymentEnabled) {
             }
 
             v.addDocumentComponentFragment()

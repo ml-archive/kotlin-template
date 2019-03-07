@@ -2,14 +2,12 @@ package dk.eboks.app.presentation.ui.message.screens.payment
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.message.payment.PaymentCallback
-import dk.eboks.app.domain.models.message.payment.PaymentOption
 import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.base.BaseFragment

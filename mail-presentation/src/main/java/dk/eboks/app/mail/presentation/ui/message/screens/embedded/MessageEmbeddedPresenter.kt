@@ -41,17 +41,12 @@ internal class MessageEmbeddedPresenter @Inject constructor(
             v.addHeaderComponentFragment()
 
             message?.let { message ->
-<<<<<<< HEAD:app/src/main/java/dk/eboks/app/presentation/ui/message/screens/embedded/MessageEmbeddedPresenter.kt
 
-                // TODO Remove mocked payment info
-                if (BuildConfig.ENABLE_PAYMENTS) {
+                if (appConfig.isPaymentEnabled) {
                     message.payment?.let { v.addPaymentButton(it) }
                 }
 
-                if (BuildConfig.ENABLE_REPLY) {
-=======
                 if (appConfig.isReplyEnabled) {
->>>>>>> development:mail-presentation/src/main/java/dk/eboks/app/mail/presentation/ui/message/screens/embedded/MessageEmbeddedPresenter.kt
                     message.reply?.let {
                         v.addReplyButtonComponentFragment(message)
                     }

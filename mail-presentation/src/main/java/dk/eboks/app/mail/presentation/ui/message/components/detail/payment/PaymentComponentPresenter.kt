@@ -1,15 +1,13 @@
-package dk.eboks.app.presentation.ui.message.components.detail.payment
+package dk.eboks.app.mail.presentation.ui.message.components.detail.payment
 
 import androidx.lifecycle.Lifecycle
-import dk.eboks.app.domain.interactors.message.payment.GetPaymentLinkInteractor
-import dk.eboks.app.domain.interactors.message.payment.TogglePaymentNotificationInteractor
+import dk.eboks.app.mail.domain.interactors.message.payment.GetPaymentLinkInteractor
+import dk.eboks.app.mail.domain.interactors.message.payment.TogglePaymentNotificationInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.domain.models.message.payment.PaymentOption
 import dk.eboks.app.domain.models.shared.Link
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import timber.log.Timber
 import javax.inject.Inject
 
 class PaymentComponentPresenter @Inject constructor(
@@ -25,7 +23,7 @@ class PaymentComponentPresenter @Inject constructor(
     override fun onViewCreated(view: PaymentComponentContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
         getPaymentLinkInteractor.output = this
-        togglePaymentNotificationInteractor.ouput = this
+        togglePaymentNotificationInteractor.output = this
     }
 
     override fun loadPaymentLink(option: PaymentOption) {

@@ -10,11 +10,8 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
-<<<<<<< HEAD
 import dk.eboks.app.domain.models.message.payment.Payment
-=======
 import dk.eboks.app.mail.presentation.ui.message.screens.MessageContract
->>>>>>> development
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import dk.eboks.app.presentation.ui.message.components.detail.attachments.AttachmentsComponentFragment
@@ -41,16 +38,10 @@ class MessageActivity : BaseActivity(), MessageContract.View {
     private var replyButtonComponentFragment: ReplyButtonComponentFragment? = null
     private var documentComponentFragment: DocumentComponentFragment? = null
     var shareComponentFragment: ShareComponentFragment? = null
-<<<<<<< HEAD
     var notesComponentFragment: NotesComponentFragment? = null
     var attachmentsComponentFragment: AttachmentsComponentFragment? = null
     var folderInfoComponentFragment: FolderInfoComponentFragment? = null
     var paymentButton: PaymentButtonComponentFragment? = null
-=======
-    private var notesComponentFragment: NotesComponentFragment? = null
-    private var attachmentsComponentFragment: AttachmentsComponentFragment? = null
-    private var folderInfoComponentFragment: FolderInfoComponentFragment? = null
->>>>>>> development
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

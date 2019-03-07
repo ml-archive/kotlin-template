@@ -58,13 +58,8 @@ import dk.eboks.app.presentation.ui.message.components.detail.document.DocumentC
 import dk.eboks.app.presentation.ui.message.components.detail.folderinfo.FolderInfoComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentFragment
-<<<<<<< HEAD
-import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentButtonComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentComponentFragment
-import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentStatusComponentFragment
-=======
->>>>>>> development
 import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.share.ShareComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.sign.SignButtonComponentFragment

@@ -1,7 +1,7 @@
-package dk.eboks.app.presentation.ui.message.components.detail.payment
+package dk.eboks.app.mail.presentation.ui.message.components.detail.payment
 
 import androidx.lifecycle.Lifecycle
-import dk.eboks.app.domain.interactors.message.payment.GetPaymentDetailsInteractor
+import dk.eboks.app.mail.domain.interactors.message.payment.GetPaymentDetailsInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.payment.Payment
@@ -31,4 +31,5 @@ class PaymentButtonComponentPresenter @Inject constructor(
     override fun onPaymentDetailsLoadingError(viewError: ViewError) {
 
     }
+
 }

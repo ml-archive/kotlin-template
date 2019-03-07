@@ -15,11 +15,11 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.domain.models.message.payment.PaymentOption
 import dk.eboks.app.domain.models.shared.Link
+import dk.eboks.app.mail.presentation.ui.message.components.detail.payment.PaymentComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
 import dk.eboks.app.presentation.ui.message.screens.payment.PaymentWebViewActivity
 import dk.eboks.app.presentation.widgets.DividerItemDecoration
-import dk.eboks.app.util.formatPayment
 import kotlinx.android.synthetic.main.fragment_payment_component.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -73,7 +73,7 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, 
 
     override fun showPaymentDetails(payment: Payment) {
         Timber.d("$payment")
-        paymentDueTv.text = payment.status.date?.formatPayment()
+        paymentDueTv.text = payment.status.text
         paymentValueTv.text = payment.amount?.toString() ?: ""
         paymentDisclaimer.text = payment.disclaimer
         paymentNotificationSwitch.isChecked = payment.notification

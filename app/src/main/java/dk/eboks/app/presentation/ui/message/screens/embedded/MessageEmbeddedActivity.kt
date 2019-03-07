@@ -12,11 +12,8 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
-<<<<<<< HEAD
 import dk.eboks.app.domain.models.message.payment.Payment
-=======
 import dk.eboks.app.mail.presentation.ui.message.screens.embedded.MessageEmbeddedContract
->>>>>>> development
 import dk.eboks.app.presentation.base.BaseSheetActivity
 import dk.eboks.app.presentation.base.ViewController
 import dk.eboks.app.presentation.base.ViewerFragment
@@ -53,18 +50,11 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     private var replyButtonComponentFragment: ReplyButtonComponentFragment? = null
     private var signButtonComponentFragment: SignButtonComponentFragment? = null
     var shareComponentFragment: ShareComponentFragment? = null
-<<<<<<< HEAD
     var notesComponentFragment: NotesComponentFragment? = null
     var attachmentsComponentFragment: AttachmentsComponentFragment? = null
     var folderInfoComponentFragment: FolderInfoComponentFragment? = null
     var embeddedViewerComponentFragment: androidx.fragment.app.Fragment? = null
     var paymentButton: PaymentButtonComponentFragment? = null
-=======
-    private var notesComponentFragment: NotesComponentFragment? = null
-    private var attachmentsComponentFragment: AttachmentsComponentFragment? = null
-    private var folderInfoComponentFragment: FolderInfoComponentFragment? = null
-    private var embeddedViewerComponentFragment: Fragment? = null
->>>>>>> development
 
     private var actionButtons = arrayListOf(
         OverlayButton(ButtonType.PRINT),

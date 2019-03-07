@@ -26,6 +26,10 @@ import dk.eboks.app.mail.presentation.ui.message.components.detail.header.Header
 import dk.eboks.app.mail.presentation.ui.message.components.detail.header.HeaderComponentPresenter
 import dk.eboks.app.mail.presentation.ui.message.components.detail.notes.NotesComponentContract
 import dk.eboks.app.mail.presentation.ui.message.components.detail.notes.NotesComponentPresenter
+import dk.eboks.app.mail.presentation.ui.message.components.detail.payment.PaymentButtonComponentContract
+import dk.eboks.app.mail.presentation.ui.message.components.detail.payment.PaymentButtonComponentPresenter
+import dk.eboks.app.mail.presentation.ui.message.components.detail.payment.PaymentComponentContract
+import dk.eboks.app.mail.presentation.ui.message.components.detail.payment.PaymentComponentPresenter
 import dk.eboks.app.mail.presentation.ui.message.components.detail.reply.ReplyButtonComponentContract
 import dk.eboks.app.mail.presentation.ui.message.components.detail.reply.ReplyButtonComponentPresenter
 import dk.eboks.app.mail.presentation.ui.message.components.detail.share.ShareComponentContract
@@ -191,4 +195,13 @@ abstract class MailBindingPresentationModule {
     @ActivityScope
     @Binds
     internal abstract fun bindMailOverviewPresenter(presenter: MailOverviewPresenter): MailOverviewContract.Presenter
+
+    @ActivityScope
+    @Binds
+    internal abstract fun bindPaymentButtonComponentPresenter(presenter: PaymentButtonComponentPresenter) : PaymentButtonComponentContract.Presenter
+
+    @ActivityScope
+    @Binds
+    internal abstract fun bindPaymentComponentPresenter(presenter: PaymentComponentPresenter) : PaymentComponentContract.Presenter
+
 }
