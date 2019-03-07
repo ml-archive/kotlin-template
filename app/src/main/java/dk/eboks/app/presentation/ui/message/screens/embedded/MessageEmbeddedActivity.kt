@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.MenuItem
+import androidx.fragment.app.Fragment
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
@@ -11,8 +12,13 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
+<<<<<<< HEAD
 import dk.eboks.app.domain.models.message.payment.Payment
+=======
+import dk.eboks.app.mail.presentation.ui.message.screens.embedded.MessageEmbeddedContract
+>>>>>>> development
 import dk.eboks.app.presentation.base.BaseSheetActivity
+import dk.eboks.app.presentation.base.ViewController
 import dk.eboks.app.presentation.base.ViewerFragment
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
 import dk.eboks.app.presentation.ui.message.components.detail.attachments.AttachmentsComponentFragment
@@ -30,7 +36,6 @@ import dk.eboks.app.presentation.ui.message.components.viewers.text.TextViewComp
 import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
-import dk.eboks.app.util.ViewControl
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
 
@@ -38,21 +43,28 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.View {
-    @Inject
-    lateinit var presenter: MessageEmbeddedContract.Presenter
+    @Inject lateinit var presenter: MessageEmbeddedContract.Presenter
 
-    @Inject
-    lateinit var formatter: EboksFormatter
+    @Inject lateinit var formatter: EboksFormatter
 
-    var headerComponentFragment: HeaderComponentFragment? = null
-    var replyButtonComponentFragment: ReplyButtonComponentFragment? = null
-    var signButtonComponentFragment: SignButtonComponentFragment? = null
+    @Inject lateinit var viewController: ViewController
+
+    private var headerComponentFragment: HeaderComponentFragment? = null
+    private var replyButtonComponentFragment: ReplyButtonComponentFragment? = null
+    private var signButtonComponentFragment: SignButtonComponentFragment? = null
     var shareComponentFragment: ShareComponentFragment? = null
+<<<<<<< HEAD
     var notesComponentFragment: NotesComponentFragment? = null
     var attachmentsComponentFragment: AttachmentsComponentFragment? = null
     var folderInfoComponentFragment: FolderInfoComponentFragment? = null
     var embeddedViewerComponentFragment: androidx.fragment.app.Fragment? = null
     var paymentButton: PaymentButtonComponentFragment? = null
+=======
+    private var notesComponentFragment: NotesComponentFragment? = null
+    private var attachmentsComponentFragment: AttachmentsComponentFragment? = null
+    private var folderInfoComponentFragment: FolderInfoComponentFragment? = null
+    private var embeddedViewerComponentFragment: Fragment? = null
+>>>>>>> development
 
     private var actionButtons = arrayListOf(
         OverlayButton(ButtonType.PRINT),
@@ -154,7 +166,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     }
 
     override fun onBackPressed() {
-        ViewControl.refreshAllOnResume()
+        viewController.refreshAllOnResume()
         super.onBackPressed()
     }
 

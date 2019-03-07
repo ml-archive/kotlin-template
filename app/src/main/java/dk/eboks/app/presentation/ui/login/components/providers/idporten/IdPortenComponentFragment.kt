@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebView
 import androidx.appcompat.app.AlertDialog
+import dk.eboks.app.keychain.presentation.components.providers.IdPortenComponentPresenter
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.presentation.base.BaseWebFragment
-import dk.eboks.app.presentation.ui.login.components.providers.WebLoginContract
+import dk.eboks.app.keychain.presentation.components.providers.WebLoginContract
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -23,10 +24,10 @@ import javax.inject.Inject
  */
 class IdPortenComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
-    @Inject
-    lateinit var presenter: IdPortenComponentPresenter
+    @Inject lateinit var presenter: IdPortenComponentPresenter
+    @Inject lateinit var appConfig: AppConfig
 
-    var loginUser: User? = null
+    private var loginUser: User? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -71,7 +72,7 @@ class IdPortenComponentFragment : BaseWebFragment(), WebLoginContract.View {
 
     override fun setupLogin(user: User?) {
         loginUser = user
-        val loginUrl = "${Config.currentMode.environment?.kspUrl}idporten"
+        val loginUrl = "${appConfig.currentMode.environment?.kspUrl}idporten"
         Timber.e("Opening $loginUrl")
         webView.loadUrl(loginUrl)
     }

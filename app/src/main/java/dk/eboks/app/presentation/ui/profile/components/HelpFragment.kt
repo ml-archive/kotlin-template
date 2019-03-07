@@ -6,6 +6,7 @@ import android.webkit.WebView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseWebFragment
+import dk.eboks.app.profile.presentation.ui.components.HelpContract
 import kotlinx.android.synthetic.main.fragment_base_web.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject

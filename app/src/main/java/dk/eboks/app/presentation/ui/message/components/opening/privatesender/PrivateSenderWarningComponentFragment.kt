@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.mail.presentation.ui.message.components.opening.privatesender.PrivateSenderWarningComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.util.ViewControl
+import dk.eboks.app.presentation.base.ViewController
+import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_mail_opening_error_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -21,13 +23,13 @@ import javax.inject.Inject
 class PrivateSenderWarningComponentFragment : BaseFragment(),
     PrivateSenderWarningComponentContract.View {
 
-    val onLanguageChange: (Locale) -> Unit = { locale ->
+    private val onLanguageChange: (Locale) -> Unit = { locale ->
         Timber.e("Locale changed to locale")
         updateTranslation()
     }
 
-    @Inject
-    lateinit var presenter: PrivateSenderWarningComponentContract.Presenter
+    @Inject lateinit var presenter: PrivateSenderWarningComponentContract.Presenter
+    @Inject lateinit var viewController: ViewController
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +54,7 @@ class PrivateSenderWarningComponentFragment : BaseFragment(),
         component.inject(this)
         presenter.onViewCreated(this, lifecycle)
         openBtn.setOnClickListener {
-            ViewControl.refreshAllOnResume()
+            viewController.refreshAllOnResume()
             presenter.setShouldProceed(true)
         }
         openBtn.visibility = View.VISIBLE
@@ -80,7 +82,7 @@ class PrivateSenderWarningComponentFragment : BaseFragment(),
     }
 
     override fun showOpeningProgress(show: Boolean) {
-        progressPb.visibility = if (show) View.VISIBLE else View.GONE
-        openBtn.visibility = if (!show) View.VISIBLE else View.GONE
+        progressPb.visible = show
+        openBtn.visible = !show
     }
 }

@@ -10,13 +10,13 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.viewpager.widget.PagerAdapter
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.login.UserSettings
+import dk.eboks.app.keychain.presentation.components.UserCarouselComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.debug.components.DebugOptionsComponentFragment
 import dk.eboks.app.presentation.ui.debug.screens.user.DebugUserActivity
@@ -33,11 +33,9 @@ import javax.inject.Inject
  */
 class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContract.View {
 
-    @Inject
-    lateinit var presenter: UserCarouselComponentContract.Presenter
-
-    @Inject
-    lateinit var formatter: EboksFormatter
+    @Inject lateinit var presenter: UserCarouselComponentContract.Presenter
+    @Inject lateinit var formatter: EboksFormatter
+    @Inject lateinit var appConfig: AppConfig
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,7 +57,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                 true
             )
         }
-        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+        if (appConfig.isDebug) {
             /*
             debugCreateBtn.visibility = View.VISIBLE
             debugCreateBtn.setOnClickListener {
@@ -80,11 +78,11 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
 
     override fun onResume() {
         super.onResume()
-        logoIv.setImageResource(Config.getLogoResourceId())
+        logoIv.setImageResource(appConfig.logoResourceId)
         presenter.requestUsers()
     }
 
-    fun setupViewPager() {
+    private fun setupViewPager() {
         // Disable clip to padding
         viewPager.clipToPadding = false
         // set padding manually, the more you set the padding the more you see of prev & next page
@@ -146,7 +144,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                     false
                 ) as ViewGroup
 
-                if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+                if (appConfig.isDebug) {
                     var info = ""
                     if (settings.lastLoginProviderId != null)
                         info += "${settings.lastLoginProviderId}\n"
@@ -169,7 +167,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                     it.setOnClickListener {
                         presenter.login(user)
                     }
-                    if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+                    if (appConfig.isDebug) {
                         it.setOnLongClickListener {
                             DebugUserPresenter.editUser = user
                             activity?.startActivity(Intent(activity, DebugUserActivity::class.java))
@@ -178,7 +176,7 @@ class UserCarouselComponentFragment : BaseFragment(), UserCarouselComponentContr
                     }
                 }
 
-                if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+                if (appConfig.isDebug) {
                     v.findViewById<TextView>(R.id.hintTv)?.visibility = View.VISIBLE
                 }
 

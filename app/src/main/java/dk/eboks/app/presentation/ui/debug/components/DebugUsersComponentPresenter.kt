@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.debug.components
 
 import dk.eboks.app.domain.managers.AppStateManager
-import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.login.LoginState
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
@@ -12,9 +11,8 @@ import javax.inject.Inject
  * @since 6/15/2018.
  */
 class DebugUsersComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val userSettingsManager: UserSettingsManager,
-    val testLoginStates: MutableList<LoginState>
+    private val appState: AppStateManager,
+    private val testLoginStates: MutableList<LoginState>
 ) : DebugUsersComponentContract.Presenter, BasePresenterImpl<DebugUsersComponentContract.View>() {
     override fun makeList() {
         runAction { v ->

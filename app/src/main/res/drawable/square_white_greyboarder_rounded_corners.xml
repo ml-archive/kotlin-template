@@ -4,7 +4,7 @@
     android:thicknessRatio="1.9"
     android:useLevel="false" >
 
-    <solid android:color="@color/white"></solid>
+    <solid android:color="@color/white" />
     <size
         android:width="120dp"
         android:height="120dp"/>

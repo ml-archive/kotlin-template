@@ -12,6 +12,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.LoginInfo
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
+import dk.eboks.app.profile.presentation.ui.components.drawer.FingerHintComponentContract
 import dk.nodes.locksmith.core.models.FingerprintDialogEvent
 import kotlinx.android.synthetic.main.fragment_profile_enable_fingerprint_mobile_component.*
 import timber.log.Timber
@@ -81,8 +82,8 @@ class FingerHintComponentFragment : BaseFragment(), FingerHintComponentContract.
                         ViewError(
                             Translation.error.genericTitle,
                             Translation.androidfingerprint.errorGeneric,
-                            true,
-                            false
+                            shouldDisplay = true,
+                            shouldCloseView = false
                         )
                     )
                 }

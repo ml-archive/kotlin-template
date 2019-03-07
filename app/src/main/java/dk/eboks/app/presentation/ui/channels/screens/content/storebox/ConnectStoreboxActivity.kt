@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.util.addAfterTextChangeListener
 import dk.eboks.app.util.isValidEmail
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.activity_storebox_connect.*
 import kotlinx.android.synthetic.main.fragment_storeboxconnect_confirm.*
 import kotlinx.android.synthetic.main.fragment_storeboxconnect_userinfo.*
@@ -25,8 +27,8 @@ import javax.inject.Inject
  */
 class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
 
-    val infoFrag = UserInfoFragment()
-    val conFrag = ConfirmCodeFragment()
+    private val infoFrag = UserInfoFragment()
+    private val conFrag = ConfirmCodeFragment()
 
     @Inject
     lateinit var presenter: ConnectStoreboxContract.Presenter
@@ -96,12 +98,12 @@ class ConnectStoreboxActivity : BaseActivity(), ConnectStoreboxContract.View {
     }
 
     override fun showProgress(show: Boolean) {
-        progress.visibility = if (show) View.VISIBLE else View.GONE
+        progress.visible = show
         // content.visibility = if(!show) View.VISIBLE else View.GONE
     }
 }
 
-class UserInfoFragment : androidx.fragment.app.Fragment() {
+class UserInfoFragment : Fragment() {
     var presenter: ConnectStoreboxContract.Presenter? = null
 
     override fun onCreateView(
@@ -140,7 +142,7 @@ class UserInfoFragment : androidx.fragment.app.Fragment() {
     }
 }
 
-class ConfirmCodeFragment : androidx.fragment.app.Fragment() {
+class ConfirmCodeFragment : Fragment() {
     var presenter: ConnectStoreboxContract.Presenter? = null
 
     override fun onCreateView(

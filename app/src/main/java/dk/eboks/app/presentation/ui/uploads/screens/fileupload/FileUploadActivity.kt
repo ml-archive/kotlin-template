@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.fragment.app.Fragment
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.folder.Folder
@@ -36,11 +37,11 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
     @Inject
     lateinit var formatter: EboksFormatter
 
-    var embeddedViewerComponentFragment: androidx.fragment.app.Fragment? = null
+    private var embeddedViewerComponentFragment: Fragment? = null
 
-    var destinationFolder: Folder? = null
-    var uriString: String? = null
-    var mimeType: String? = null
+    private var destinationFolder: Folder? = null
+    private var uriString: String? = null
+    private var mimeType: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +81,7 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
 
         saveBtn.setOnClickListener {
             destinationFolder?.let {
-                var intent = Intent()
+                val intent = Intent()
                 intent.putExtra("filename", fileNameEt.text.toString().trim())
                 intent.putExtra("destinationFolderId", it.id)
                 uriString.let { intent.putExtra("uriString", it) }
@@ -195,6 +196,6 @@ class FileUploadActivity : BaseSheetActivity(), FileUploadContract.View {
     }
 
     companion object {
-        val REQUEST_ID: Int = 2169
+        const val REQUEST_ID: Int = 2169
     }
 }

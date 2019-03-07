@@ -34,13 +34,35 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
     private val isCreate: Boolean
         get() = arguments?.getBoolean(ARG_IS_CREATE, false) ?: false
 
+    private var passwordType = ButtonType.INPUT_ALPHANUMERIC
+        set(value) {
+            if (field != value) {
+                field = value
+                when (value) {
+                    ButtonType.INPUT_NUMERIC -> {
+                        if (!Regex("^[0-9]{0,4}$").matches((ekeyPasswordInputEt.text.toString()))) {
+                            ekeyPasswordInputEt.text?.clear()
+                        }
+                        ekeyPasswordInputEt.inputType =
+                            InputType.TYPE_NUMBER_VARIATION_PASSWORD or InputType.TYPE_CLASS_NUMBER
+                    }
+                    ButtonType.INPUT_ALPHANUMERIC -> {
+                        ekeyPasswordInputEt.inputType =
+                            InputType.TYPE_TEXT_VARIATION_PASSWORD or InputType.TYPE_CLASS_TEXT
+                        ekeyPasswordInputEt.filters = arrayOf()
+                    }
+                    else -> { /* do nothing */
+                    }
+                }
+            }
+        }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_channel_ekey_pin, container, false)
-        return rootView
+        return inflater.inflate(R.layout.fragment_channel_ekey_pin, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,9 +77,10 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
 
     private fun setupTexts(isCreate: Boolean) {
         ekeyPasswordInputLayout.hint = Translation.ekey.insertPasswordHint
-        pinHeaderTv.text = when (isCreate) {
-            true -> Translation.ekey.createEKey
-            false -> Translation.ekey.pinCode
+        pinHeaderTv.text = if (isCreate) {
+            Translation.ekey.insertNewPinCode
+        } else {
+            Translation.ekey.insertPinCode
         }
     }
 
@@ -100,16 +123,25 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
 
         ekeyPasswordInputOptionsBtn.setOnClickListener {
             val intent = OverlayActivity.createIntent(
-                    context, arrayListOf(
-                    OverlayButton(type = ButtonType.INPUT_ALPHANUMERIC),
-                    OverlayButton(ButtonType.INPUT_NUMERIC)))
+                context, arrayListOf(
+                    OverlayButton(ButtonType.INPUT_ALPHANUMERIC),
+                    OverlayButton(ButtonType.INPUT_NUMERIC)
+                )
+            )
 
             startActivityForResult(intent, OverlayActivity.REQUEST_ID)
         }
     }
 
     private fun confirmPinAndFinish() {
-        getEkeyBaseActivity()?.setPin(ekeyPasswordInputEt.text.toString())
+        val pin = ekeyPasswordInputEt.text.toString()
+        if (passwordType == ButtonType.INPUT_NUMERIC) {
+            if (!Regex("^[0-9]{4,}$").matches(pin)) {
+                ekeyPasswordInputLayout.error = Translation.error.pincodeMinLenght
+                return
+            }
+        }
+        getEkeyBaseActivity()?.setPin(pin)
         getEkeyBaseActivity()?.refreshClearAndShowMain()
     }
 
@@ -131,16 +163,7 @@ class EkeyPinComponentFragment : BaseEkeyFragment(), EkeyPinComponentContract.Vi
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (OverlayActivity.REQUEST_ID == requestCode) {
-            val result = data?.getSerializableExtra("res") as? ButtonType?
-            when (result) {
-                ButtonType.INPUT_NUMERIC -> {
-                    ekeyPasswordInputEt.inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD or InputType.TYPE_CLASS_NUMBER
-                }
-                ButtonType.INPUT_ALPHANUMERIC -> {
-                    ekeyPasswordInputEt.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
-                }
-                else -> { /* do nothing */ }
-            }
+            passwordType = data?.getSerializableExtra("res") as? ButtonType? ?: return
         }
     }
 

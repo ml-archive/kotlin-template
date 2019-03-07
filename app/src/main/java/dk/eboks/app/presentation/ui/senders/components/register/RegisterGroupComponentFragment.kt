@@ -14,6 +14,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.sender.SenderGroup
 import dk.eboks.app.presentation.base.BaseFragment
+import dk.eboks.app.senders.presentation.ui.components.register.RegistrationContract
 import kotlinx.android.synthetic.main.fragment_register_component.*
 import timber.log.Timber
 import javax.inject.Inject

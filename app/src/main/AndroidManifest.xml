@@ -30,8 +30,8 @@
         <activity android:name=".presentation.ui.message.screens.payment.PaymentWebViewActivity"></activity>
         <activity
             android:name=".presentation.ui.main.MainActivity"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait" /> <!-- nstack app id and key from build.gradle manifest placeholder -->
+
         <meta-data
             android:name="dk.nodes.nstack.appId"
             android:value="${appId}"
@@ -40,6 +40,7 @@
             android:name="dk.nodes.nstack.apiKey"
             android:value="${apiKey}"
             tools:replace="android:value" /> <!-- hockey id included from build.gradle manifest placeholder -->
+
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />

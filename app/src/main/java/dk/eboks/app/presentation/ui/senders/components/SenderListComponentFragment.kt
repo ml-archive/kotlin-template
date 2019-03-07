@@ -16,7 +16,7 @@ import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseFragment
-import dk.eboks.app.presentation.ui.senders.components.register.RegistrationContract
+import dk.eboks.app.senders.presentation.ui.components.register.RegistrationContract
 import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
 import kotlinx.android.synthetic.main.fragment_senders_component.*
 import timber.log.Timber
@@ -106,7 +106,7 @@ class SenderListComponentFragment : BaseFragment(), RegistrationContract.View {
                             .show()
                     }
                 }
-                v.setOnClickListener { _ ->
+                v.setOnClickListener {
                     val i = Intent(context, SenderDetailActivity::class.java)
                     i.putExtra(Sender::class.simpleName, sender)
                     startActivity(i)

@@ -11,6 +11,7 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.Content
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.mail.presentation.ui.message.components.detail.attachments.AttachmentsComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.FileUtils
 import kotlinx.android.synthetic.main.fragment_attachments_component.*
@@ -49,7 +50,7 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
                     val v = li.inflate(R.layout.viewholder_attachment, attachmentsLl, false)
                     v.findViewById<TextView>(R.id.nameTv)?.text = attachment.title
                     v.findViewById<TextView>(R.id.sizeTv)?.text =
-                        "${formatter.formatSize(attachment)}"
+                        formatter.formatSize(attachment)
                     attachmentsLl.addView(v)
                     v.setOnClickListener {
                         presenter.openAttachment(attachment)
@@ -63,7 +64,7 @@ class AttachmentsComponentFragment : BaseFragment(), AttachmentsComponentContrac
         }
     }
 
-    fun hide() {
+    private fun hide() {
         attachmentsTv.visibility = View.GONE
         attachmentsLl.visibility = View.GONE
     }

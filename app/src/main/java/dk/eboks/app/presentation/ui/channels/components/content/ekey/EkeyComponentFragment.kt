@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel
@@ -32,7 +35,7 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View,
-    BetterEkeyAdapter.Ekeyclicklistener {
+    BetterEkeyAdapter.EkeyClickListener {
     override fun onEkeyClicked(ekey: BaseEkey) {
         val frag = EkeyOpenItemComponentFragment()
         when (ekey) {
@@ -98,7 +101,7 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View,
         }
 
         // RECYCLER
-        keysContentRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+        keysContentRv.layoutManager = LinearLayoutManager(context)
         ViewCompat.setNestedScrollingEnabled(keysContentRv, false)
         keysContentRv.addItemDecoration(DividerDecoration())
         val adapter = BetterEkeyAdapter(items, this)
@@ -129,7 +132,7 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View,
         val menuSearch = getBaseActivity()?.mainTb?.menu?.add("_settings")
         menuSearch?.setIcon(R.drawable.ic_settings_red)
         menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
+        menuSearch?.setOnMenuItemClickListener {
             (activity as EkeyContentActivity).channel?.let { channel ->
                 val arguments = Bundle()
                 arguments.putCharSequence("arguments", "ekey")
@@ -151,7 +154,7 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View,
         }
     }
 
-    fun showKeys(keys: List<BaseEkey>) {
+    private fun showKeys(keys: List<BaseEkey>) {
         items.clear()
         actualItems.clear()
         actualItems.addAll(keys)
@@ -160,30 +163,30 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View,
 
         // group by type
         keys.filter { it is Login }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
-            .forEach { items.add(EkeyItem(it)) }
+            .forEach { items.add(ListItem.EkeyItem(it)) }
         keys.filter { it is Pin }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
-            .forEach { items.add(EkeyItem(it)) }
+            .forEach { items.add(ListItem.EkeyItem(it)) }
         keys.filter { it is Note }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
-            .forEach { items.add(EkeyItem(it)) }
+            .forEach { items.add(ListItem.EkeyItem(it)) }
         keys.filter { it is Ekey }.sortedWith(compareBy(String.CASE_INSENSITIVE_ORDER) { it.name })
-            .forEach { items.add(EkeyItem(it)) }
+            .forEach { items.add(ListItem.EkeyItem(it)) }
 
         // add headers
-        var index = items.indexOfFirst { it is EkeyItem && it.data is Login }
+        var index = items.indexOfFirst { it is ListItem.EkeyItem && it.data is Login }
         if (index >= 0) {
-            items.add(index, Header(Translation.ekey.overviewLogins))
+            items.add(index, ListItem.Header(Translation.ekey.overviewLogins))
         }
-        index = items.indexOfFirst { it is EkeyItem && it.data is Pin }
+        index = items.indexOfFirst { it is ListItem.EkeyItem && it.data is Pin }
         if (index >= 0) {
-            items.add(index, Header(Translation.ekey.overviewPinCodes))
+            items.add(index, ListItem.Header(Translation.ekey.overviewPinCodes))
         }
-        index = items.indexOfFirst { it is EkeyItem && it.data is Note }
+        index = items.indexOfFirst { it is ListItem.EkeyItem && it.data is Note }
         if (index >= 0) {
-            items.add(index, Header(Translation.ekey.overviewNotes))
+            items.add(index, ListItem.Header(Translation.ekey.overviewNotes))
         }
-        index = items.indexOfFirst { it is EkeyItem && it.data is Ekey }
+        index = items.indexOfFirst { it is ListItem.EkeyItem && it.data is Ekey }
         if (index >= 0) {
-            items.add(index, Header(Translation.ekey.overviewEkey))
+            items.add(index, ListItem.Header(Translation.ekey.overviewEkey))
         }
 
         // all done
@@ -204,21 +207,21 @@ class EkeyComponentFragment : BaseEkeyFragment(), EkeyComponentContract.View,
         }
     }
 
-    inner class DividerDecoration : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
-        private val d = resources.getDrawable(R.drawable.shape_divider)
+    inner class DividerDecoration : RecyclerView.ItemDecoration() {
+        private val d = ContextCompat.getDrawable(requireContext(), R.drawable.shape_divider)!!
 
         override fun getItemOffsets(
             outRect: Rect,
             view: View,
-            parent: androidx.recyclerview.widget.RecyclerView,
-            state: androidx.recyclerview.widget.RecyclerView.State
+            parent: RecyclerView,
+            state: RecyclerView.State
         ) {
             super.getItemOffsets(outRect, view, parent, state)
 
             outRect.bottom += d.intrinsicHeight
         }
 
-        override fun onDraw(c: Canvas, parent: androidx.recyclerview.widget.RecyclerView) {
+        override fun onDraw(c: Canvas, parent: RecyclerView) {
 
             for (i in 0 until parent.childCount - 1) { // not after the last
                 val child = parent.getChildAt(i)

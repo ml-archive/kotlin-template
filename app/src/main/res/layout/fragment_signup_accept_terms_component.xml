@@ -51,7 +51,7 @@
 
     <include
         layout="@layout/include_divider"
-        android:visibility="visible"></include>
+        android:visibility="visible" />
 
     <!--Main content-->
 

@@ -18,6 +18,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.profile.components.drawer.EmailVerificationComponentFragment
 import dk.eboks.app.presentation.ui.profile.components.drawer.PhoneVerificationComponentFragment
 import dk.eboks.app.presentation.ui.profile.components.main.ProfileInfoComponentFragment
+import dk.eboks.app.profile.presentation.ui.components.myinfo.MyInfoComponentContract
 import dk.eboks.app.util.isValidEmail
 import dk.eboks.app.util.visible
 import dk.nodes.nstack.kotlin.NStack
@@ -32,7 +33,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
     OnLanguageChangedListener, TextWatcher {
     @Inject
     lateinit var presenter: MyInfoComponentContract.Presenter
-    var menuSave: MenuItem? = null
+    private var menuSave: MenuItem? = null
 
     // val mobilenumber: ContactPoint = ContactPoint()
 
@@ -286,7 +287,7 @@ class MyInfoComponentFragment : BaseFragment(), MyInfoComponentContract.View,
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if (show) View.VISIBLE else View.GONE
+        progressFl.visible = show
     }
 
     override fun showSecondaryEmail(show: Boolean) {

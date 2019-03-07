@@ -7,8 +7,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.keychain.presentation.components.SignupComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
+import dk.eboks.app.util.gone
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_signup_verification_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -73,17 +76,17 @@ class SignupVerificationComponentFragment : BaseFragment(),
     }
 
     override fun showProgress(show: Boolean) {
-        content.visibility = if (show) View.GONE else View.VISIBLE
-        progress.visibility = if (show) View.VISIBLE else View.GONE
+        content.gone = show
+        progress.visible = show
     }
 
-    fun onContinueClicked() {
+    private fun onContinueClicked() {
         // (activity as StartActivity).showLogo(false)
         showProgress(true)
         content.postDelayed({
             showProgress(false)
             // remove MM as it is out of scope for the current release
-//            if(Config.isSE()) {
+//            if(AppConfigImpl.isSE()) {
 //                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, MMComponentFragment(), true)
 //            } else {
 //                getBaseActivity()?.addFragmentOnTop(R.id.containerFl, AcceptTermsComponentFragment(), true)

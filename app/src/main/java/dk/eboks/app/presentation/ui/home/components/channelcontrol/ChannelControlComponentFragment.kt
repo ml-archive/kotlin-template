@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
@@ -46,7 +47,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     @Inject
     lateinit var eboksFormatter: EboksFormatter
 
-    val channelControlMap: MutableMap<Int, ChannelControl> = HashMap()
+    private val channelControlMap: MutableMap<Int, ChannelControl> = HashMap()
 
     // TODO channel controls empty state is dependent on info from the folderpreview in the top (for retarded design reasons)
     // find a clean way of getting this info to the right place (both run a the same time so maybe a countdown latch)
@@ -84,18 +85,18 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
         super.onPause()
     }
 
-    override fun setupChannels(channels: MutableList<Channel>) {
+    override fun setupChannels(channels: List<Channel>) {
         channelsContentLL.removeAllViews()
         channelControlMap.clear()
 
-        for (i in 0..channels.size - 1) {
+        for (i in 0 until channels.size) {
             val currentChannel = channels[i]
 
             // setting the header
             val v = inflator.inflate(R.layout.viewholder_home_card_header, channelsContentLL, false)
             val logoIv = v.findViewById<ImageView>(R.id.logoIv)
             val headerTv = v.findViewById<TextView>(R.id.headerTv)
-            val cardView = v.findViewById<androidx.cardview.widget.CardView>(R.id.channelItemCv)
+            val cardView = v.findViewById<CardView>(R.id.channelItemCv)
             cardView?.setOnClickListener {
                 activity?.run {
                     Starter().activity(ChannelContentActivity::class.java)
@@ -113,14 +114,14 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
             }
 
             v.tag = currentChannel.id
-            headerTv.text = "${currentChannel.name}"
+            headerTv.text = currentChannel.name
             channelsContentLL.addView(v)
         }
         setupBottomView(channels)
     }
 
     private fun setupBottomView(channels: List<Channel>) {
-        if (channels.size == 0) {
+        if (channels.isEmpty()) {
             (activity as HomeActivity).showChannelControlsHeader(false)
             teaserLl.visible = (false)
             emptyStateChannelLl.visibility = View.VISIBLE
@@ -147,10 +148,10 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
     }
 
     override fun showProgress(show: Boolean) {
-        progressChannelFl.visibility = if (show) View.VISIBLE else View.GONE
+        progressChannelFl.visible = show
     }
 
-    fun findControlView(channelId: Int): View? {
+    private fun findControlView(channelId: Int): View? {
         for (v in channelsContentLL.views) {
             if (v.tag as Int == channelId) {
                 return v
@@ -192,7 +193,7 @@ class ChannelControlComponentFragment : BaseFragment(), ChannelControlComponentC
         }
     }
 
-    fun instantiateChannelControl(channel: Channel, control: Control, view: View): ChannelControl? {
+    private fun instantiateChannelControl(channel: Channel, control: Control, view: View): ChannelControl? {
         when (control.type) {
             ItemType.RECEIPTS -> {
                 return ReceiptsChannelControl(

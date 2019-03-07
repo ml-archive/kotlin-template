@@ -4,21 +4,24 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import androidx.core.content.ContextCompat
+import androidx.viewpager.widget.PagerAdapter
+import androidx.viewpager.widget.ViewPager
 import dk.eboks.app.R
 
 /**
  * Created by bison on 23/11/15.
  */
-class DottedViewPager : androidx.viewpager.widget.ViewPager {
-    lateinit var inactiveDot: Drawable
-    lateinit var activeDot: Drawable
-    internal var circleSize: Int = 0
-    internal var noCircles: Int = 0
-    internal var curCircle = 0
-    internal var margin: Int = 0
-    internal var marginBottom: Int = 0
-    internal var density: Float = 0.toFloat()
-    internal var screenWidth: Int = 0
+class DottedViewPager : ViewPager {
+    private lateinit var inactiveDot: Drawable
+    private lateinit var activeDot: Drawable
+    private var circleSize: Int = 0
+    private var noCircles: Int = 0
+    private var curCircle = 0
+    private var margin: Int = 0
+    private var marginBottom: Int = 0
+    private var density: Float = 0.toFloat()
+    private var screenWidth: Int = 0
 
     constructor(context: Context) : super(context) {
         init()
@@ -31,8 +34,8 @@ class DottedViewPager : androidx.viewpager.widget.ViewPager {
     private fun init() {
         density = resources.displayMetrics.density
         screenWidth = resources.displayMetrics.widthPixels
-        activeDot = resources.getDrawable(R.drawable.circle_filled)
-        inactiveDot = resources.getDrawable(R.drawable.circle_outline)
+        activeDot = ContextCompat.getDrawable(context, R.drawable.circle_filled) ?: return
+        inactiveDot = ContextCompat.getDrawable(context, R.drawable.circle_outline) ?: return
         circleSize = (density * 6.0f).toInt()
         margin = (density * 5.0f).toInt()
         marginBottom = (density * 7f).toInt()
@@ -80,7 +83,7 @@ class DottedViewPager : androidx.viewpager.widget.ViewPager {
         }
     }
 
-    override fun setAdapter(adapter: androidx.viewpager.widget.PagerAdapter?) {
+    override fun setAdapter(adapter: PagerAdapter?) {
         super.setAdapter(adapter)
         noCircles = adapter?.count ?: noCircles
     }

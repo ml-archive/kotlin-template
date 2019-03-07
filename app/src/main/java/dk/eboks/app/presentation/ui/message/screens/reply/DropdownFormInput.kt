@@ -11,14 +11,15 @@ import android.widget.TextView
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
+import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
 import java.util.regex.Pattern
 
 class DropdownFormInput(formInput: FormInput, inflater: LayoutInflater, handler: Handler) :
     ReplyFormInput(formInput, inflater, handler), AdapterView.OnItemSelectedListener {
-    var dropdownSpr: Spinner? = null
-    var labelTv: TextView? = null
-    var errorTv: TextView? = null
-    var options: MutableList<String> = ArrayList()
+    private var dropdownSpr: Spinner? = null
+    private var labelTv: TextView? = null
+    private var errorTv: TextView? = null
+    private var options: MutableList<String> = ArrayList()
 
     // lazy compile the pattern only if we get one
     private val pattern: Pattern? by lazy {

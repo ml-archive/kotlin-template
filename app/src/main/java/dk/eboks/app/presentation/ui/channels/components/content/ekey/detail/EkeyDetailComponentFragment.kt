@@ -14,6 +14,7 @@ import dk.eboks.app.domain.models.channel.ekey.Note
 import dk.eboks.app.domain.models.channel.ekey.Pin
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.BaseEkeyFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_channel_ekey_detail.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import javax.inject.Inject
@@ -23,9 +24,11 @@ import javax.inject.Inject
  */
 class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContract.View {
 
-    var category: EkeyDetailMode? = null
-    var editKey: BaseEkey? = null
-    var hidePassword: Boolean = false
+    private var category: EkeyDetailMode? = null
+    private var editKey: BaseEkey? = null
+    private var hidePassword: Boolean = false
+
+    private var saveMenuItem: MenuItem? = null
 
     @Inject
     lateinit var presenter: EkeyDetailComponentContract.Presenter
@@ -182,22 +185,28 @@ class EkeyDetailComponentFragment : BaseEkeyFragment(), EkeyDetailComponentContr
             getBaseActivity()?.onBackPressed()
         }
 
-        val menuSearch =
+        saveMenuItem =
             getBaseActivity()?.mainTb?.menu?.add(Translation.defaultSection.save.toUpperCase())
-        menuSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        menuSearch?.setOnMenuItemClickListener { item: MenuItem ->
+        saveMenuItem?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        saveMenuItem?.setOnMenuItemClickListener {
 
             val items = (activity as EkeyContentActivity).getVault()
             val doesExist = items?.firstOrNull { i -> i.hashCode() == editKey?.hashCode() }
 
-            items?.let { items ->
-                doesExist?.let { items.remove(it) }
+            items?.let {
+                doesExist?.let(items::remove)
                 if (isDataValid()) {
+
                     getBaseEkey()?.let { presenter.putVault(items, it) }
                 }
             }
             true
         }
+    }
+
+    override fun showLoading(loading: Boolean) {
+        saveMenuItem?.isEnabled = !loading
+        progressBar.visible = loading
     }
 
     private fun isDataValid(): Boolean {

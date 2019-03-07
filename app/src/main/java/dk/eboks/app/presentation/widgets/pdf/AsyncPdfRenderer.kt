@@ -10,7 +10,6 @@ import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.util.concurrent.BlockingQueue
-import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.LinkedBlockingQueue
 
 /**
@@ -19,7 +18,6 @@ import java.util.concurrent.LinkedBlockingQueue
 class AsyncPdfRenderer(val context: Context) : Runnable {
     private val thread: Thread = Thread(this)
     private val requestQueue: BlockingQueue<RenderRequest> = LinkedBlockingQueue<RenderRequest>()
-    private val pageCache: ConcurrentHashMap<Int, RenderedPage> = ConcurrentHashMap()
 
     private var pdfRenderer: PdfRenderer? = null
     private var fileDescriptor: ParcelFileDescriptor? = null
@@ -64,7 +62,7 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
         shutdownThread()
     }
 
-    fun initThread() {
+    private fun initThread() {
         Timber.d("init thread")
         try {
             val file = File(filename)
@@ -97,7 +95,7 @@ class AsyncPdfRenderer(val context: Context) : Runnable {
         }
     }
 
-    fun shutdownThread() {
+    private fun shutdownThread() {
         pdfRenderer?.close()
         fileDescriptor?.close()
     }

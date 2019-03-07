@@ -16,7 +16,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.appbar.AppBarLayout
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
@@ -30,6 +30,7 @@ import dk.eboks.app.presentation.ui.profile.components.drawer.FingerPrintCompone
 import dk.eboks.app.presentation.ui.profile.components.myinfo.MyInfoComponentFragment
 import dk.eboks.app.presentation.ui.start.components.signup.AcceptTermsComponentFragment
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
+import dk.eboks.app.profile.presentation.ui.components.main.ProfileInfoComponentContract
 import dk.eboks.app.util.dpToPx
 import dk.eboks.app.util.visible
 import dk.nodes.filepicker.FilePickerActivity
@@ -42,10 +43,9 @@ import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 
-class ProfileInfoComponentFragment : BaseFragment(),
-    ProfileInfoComponentContract.View {
-    @Inject
-    lateinit var presenter: ProfileInfoComponentContract.Presenter
+class ProfileInfoComponentFragment : BaseFragment(), ProfileInfoComponentContract.View {
+    @Inject lateinit var presenter: ProfileInfoComponentContract.Presenter
+    @Inject lateinit var appConfig: AppConfig
 
     private var toolbarTitle = ""
 
@@ -211,7 +211,7 @@ class ProfileInfoComponentFragment : BaseFragment(),
         }
 
         profileDetailContainerFeedback.setOnClickListener {
-            Config.getResourceLinkByType("feedback")?.let { link ->
+            appConfig.getResourceLinkByType("feedback")?.let { link ->
                 openUrlExternal(link.link.url)
             }
         }
@@ -375,8 +375,8 @@ class ProfileInfoComponentFragment : BaseFragment(),
 
     override fun showProgress(show: Boolean) {
         Timber.e("showChannelProgress $show called in ProfileInfoComponentFragment")
-        progressFl.visibility = if (show) View.VISIBLE else View.GONE
-        profileFragmentRootContainer.visibility = if (!show) View.VISIBLE else View.GONE
+        progressFl.visible = show
+        profileFragmentRootContainer.visible = !show
     }
 
     companion object {

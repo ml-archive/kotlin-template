@@ -8,10 +8,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
+import dk.eboks.app.util.invisible
 import dk.eboks.app.util.translatedName
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_device_activation_component.*
@@ -21,11 +22,11 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationComponentContract.View {
-    @Inject
-    lateinit var presenter: DeviceActivationComponentContract.Presenter
+class DeviceActivationComponentFragment : BaseFragment(), dk.eboks.app.keychain.presentation.components.DeviceActivationComponentContract.View {
+    @Inject lateinit var presenter: dk.eboks.app.keychain.presentation.components.DeviceActivationComponentContract.Presenter
+    @Inject lateinit var appConfig: AppConfig
 
-    var mHandler = Handler()
+    private var mHandler = Handler()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,8 +44,8 @@ class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationCompon
 
     override fun onResume() {
         super.onResume()
-        Timber.d("VerifyProvider: ${Config.getVerificationProviderId()}")
-        Config.getLoginProvider(Config.getVerificationProviderId() ?: "")?.let { provider ->
+        Timber.d("VerifyProvider: ${appConfig.verificationProviderId}")
+        appConfig.getLoginProvider(appConfig.verificationProviderId ?: "")?.let { provider ->
             detailTv.text = Translation.deviceactivation.message.replace(
                 "[provider]",
                 provider.translatedName()
@@ -58,7 +59,7 @@ class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationCompon
     }
 
     override fun showProgress(show: Boolean) {
-        activateDevicebuttonGroupLl.visibility = if (show) View.INVISIBLE else View.VISIBLE
+        activateDevicebuttonGroupLl.invisible = show
         activateDeviceProgressFl.visible = show
         progressBar.visible = show
     }
@@ -74,8 +75,8 @@ class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationCompon
     }
 
     override fun requestNemidLogin() {
-        var intent = Intent(context, PopupLoginActivity::class.java)
-        intent.putExtra("selectedLoginProviderId", Config.getVerificationProviderId())
+        val intent = Intent(context, PopupLoginActivity::class.java)
+        intent.putExtra("selectedLoginProviderId", appConfig.verificationProviderId)
         startActivityForResult(intent, 770)
     }
 

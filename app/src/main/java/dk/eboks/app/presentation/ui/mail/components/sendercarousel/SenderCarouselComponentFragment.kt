@@ -5,14 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.sender.Sender
+import dk.eboks.app.mail.presentation.ui.components.sendercarousel.SenderCarouselComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
@@ -21,6 +21,7 @@ import dk.eboks.app.presentation.ui.senders.screens.list.SenderAllListActivity
 import dk.eboks.app.util.getWorkaroundUrl
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_sender_carousel_component.*
+import kotlinx.android.synthetic.main.viewholder_circular_sender.view.*
 import javax.inject.Inject
 
 /**
@@ -61,8 +62,8 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         }
     }
 
-    fun setupRecyclerView() {
-        sendersRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+    private fun setupRecyclerView() {
+        sendersRv.layoutManager = LinearLayoutManager(
             context,
             RecyclerView.HORIZONTAL,
             false
@@ -77,7 +78,7 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if (show) View.VISIBLE else View.GONE
+        progressFl.visible = show
     }
 
     override fun showEmpty(show: Boolean, verified: Boolean) {
@@ -92,17 +93,17 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
     }
 
     override fun showEmpty(show: Boolean) {
-        sendersListEmptyLl.visibility = if (show) View.VISIBLE else View.GONE
-        sendersListLl.visibility = if (!show) View.VISIBLE else View.GONE
+        sendersListEmptyLl.visible = show
+        sendersListLl.visible = !show
     }
 
     inner class HorizontalSendersAdapter :
         RecyclerView.Adapter<HorizontalSendersAdapter.CircularSenderViewHolder>() {
 
-        inner class CircularSenderViewHolder(val root: View) : RecyclerView.ViewHolder(root) {
+        inner class CircularSenderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-            val circleIv = root.findViewById<ImageView>(R.id.circleIv)
-            val senderNameTv = root.findViewById<TextView>(R.id.senderNameTv)
+            val circleIv = itemView.circleIv
+            val senderNameTv = itemView.senderNameTv
         }
 
         override fun onCreateViewHolder(
@@ -131,7 +132,7 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
                         .into(it)
             }
             holder.senderNameTv?.text = senders[position].name
-            holder.root.let {
+            holder.itemView.let {
                 // it.isSelected = senders[position].messages?.metadata?.unreadCount ?: 0 > 0
                 it.isSelected = senders[position].unreadMessageCount > 0
                 it.setOnClickListener {

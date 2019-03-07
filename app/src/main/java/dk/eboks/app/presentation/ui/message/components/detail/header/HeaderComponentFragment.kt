@@ -9,6 +9,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
+import dk.eboks.app.mail.presentation.ui.message.components.detail.header.HeaderComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.message.screens.embedded.MessageEmbeddedActivity
 import kotlinx.android.synthetic.main.fragment_header_component.*

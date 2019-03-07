@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
+import dk.eboks.app.keychain.presentation.components.SignupComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_signup_completed_component.*
 import javax.inject.Inject
 
@@ -34,11 +36,11 @@ class CompletedComponentFragment : BaseFragment(), SignupComponentContract.Compl
     }
 
     override fun showProgress(show: Boolean) {
-        content.visibility = if (show) View.GONE else View.VISIBLE
-        progress.visibility = if (show) View.VISIBLE else View.GONE
+        content.visible = !show
+        progress.visible = show
     }
 
-    fun onContinueClicked() {
+    private fun onContinueClicked() {
         (activity as StartActivity).startMain()
     }
 }

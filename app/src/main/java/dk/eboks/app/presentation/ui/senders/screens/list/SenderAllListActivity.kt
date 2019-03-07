@@ -4,6 +4,7 @@ import android.os.Bundle
 import dk.eboks.app.R
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.components.list.SenderAllListComponentFragment
+import dk.eboks.app.senders.presentation.ui.screens.list.SenderAllListContract
 import javax.inject.Inject
 
 class SenderAllListActivity : BaseActivity(), SenderAllListContract.View {

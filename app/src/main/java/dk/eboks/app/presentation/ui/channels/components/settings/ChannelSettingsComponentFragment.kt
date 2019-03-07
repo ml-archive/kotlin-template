@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
@@ -20,6 +21,7 @@ import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.screens.content.ekey.EkeyContentActivity
 import dk.eboks.app.presentation.ui.channels.screens.content.storebox.StoreboxAddCardActivity
 import dk.eboks.app.util.Starter
+import dk.eboks.app.util.inflate
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_channel_settings_component.*
 import org.greenrobot.eventbus.EventBus
@@ -115,9 +117,9 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
 
         storeboxProfileLl.visibility = View.VISIBLE
         creditCardContainerLl.visibility = View.VISIBLE
-        creditcardRv.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(
+        creditcardRv.layoutManager = LinearLayoutManager(
             context,
-            androidx.recyclerview.widget.RecyclerView.VERTICAL,
+            RecyclerView.VERTICAL,
             false
         )
         creditcardRv.adapter = adapter
@@ -212,17 +214,11 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
         }
     }
 
-    inner class CreditCardAdapter :
-        androidx.recyclerview.widget.RecyclerView.Adapter<CreditCardAdapter.CreditCardViewHolder>() {
+    inner class CreditCardAdapter : RecyclerView.Adapter<CreditCardAdapter.CreditCardViewHolder>() {
         var creditCards: MutableList<StoreboxCreditCard> = ArrayList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreditCardViewHolder {
-            val v = LayoutInflater.from(context).inflate(
-                R.layout.viewholder_channel_settings_creditcard_row,
-                parent,
-                false
-            )
-            return CreditCardViewHolder(v)
+            return CreditCardViewHolder(parent.inflate(R.layout.viewholder_channel_settings_creditcard_row))
         }
 
         override fun getItemCount(): Int {
@@ -234,8 +230,7 @@ class ChannelSettingsComponentFragment : BaseFragment(), ChannelSettingsComponen
             holder.bind(currentCard)
         }
 
-        inner class CreditCardViewHolder(val root: View) :
-            androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
+        inner class CreditCardViewHolder(root: View) : RecyclerView.ViewHolder(root) {
             private var creditNumberTv = root.findViewById<TextView>(R.id.creditNumberTv)
             private var deleteIb = root.findViewById<ImageButton>(R.id.deleteIb)
 

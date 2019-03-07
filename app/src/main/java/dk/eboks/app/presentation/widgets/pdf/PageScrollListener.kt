@@ -3,7 +3,7 @@ package dk.eboks.app.presentation.widgets.pdf
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class PageScrollListener(val listener: OnPageScrollChangeListener) :
+class PageScrollListener(private val listener: OnPageScrollChangeListener) :
     RecyclerView.OnScrollListener() {
 
     private var currentPosition = RecyclerView.NO_POSITION

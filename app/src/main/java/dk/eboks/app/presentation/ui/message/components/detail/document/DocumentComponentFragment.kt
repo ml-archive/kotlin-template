@@ -10,6 +10,7 @@ import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.mail.presentation.ui.message.components.detail.documents.DocumentComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.FileUtils
 import kotlinx.android.synthetic.main.fragment_document_component.*
@@ -28,7 +29,7 @@ class DocumentComponentFragment : BaseFragment(), DocumentComponentContract.View
     @Inject
     lateinit var uiManager: UIManager
 
-    var currentMessage: Message? = null
+    private var currentMessage: Message? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,

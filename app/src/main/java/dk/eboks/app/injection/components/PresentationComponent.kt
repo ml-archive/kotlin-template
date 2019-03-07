@@ -1,9 +1,11 @@
 package dk.eboks.app.injection.components
 
 import dagger.Subcomponent
-import dk.eboks.app.injection.modules.PresentationBindingModule
 import dk.eboks.app.injection.modules.PresentationModule
+import dk.eboks.app.keychain.injection.KeychainBindingPresentationModule
+import dk.eboks.app.mail.injection.MailBindingPresentationModule
 import dk.eboks.app.pasta.activity.PastaActivity
+import dk.eboks.app.presentation.ui.channels.ChannelsBindingPresentationModule
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.EkeyComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.additem.EkeyAddItemComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.content.ekey.detail.EkeyDetailComponentFragment
@@ -23,7 +25,6 @@ import dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectSto
 import dk.eboks.app.presentation.ui.channels.screens.overview.ChannelOverviewActivity
 import dk.eboks.app.presentation.ui.debug.components.DebugOptionsComponentFragment
 import dk.eboks.app.presentation.ui.debug.components.DebugUsersComponentFragment
-import dk.eboks.app.presentation.ui.debug.components.DebugUsersComponentPresenter
 import dk.eboks.app.presentation.ui.debug.screens.hinter.HintActivity
 import dk.eboks.app.presentation.ui.debug.screens.user.DebugUserActivity
 import dk.eboks.app.presentation.ui.folder.components.FoldersComponentFragment
@@ -57,10 +58,13 @@ import dk.eboks.app.presentation.ui.message.components.detail.document.DocumentC
 import dk.eboks.app.presentation.ui.message.components.detail.folderinfo.FolderInfoComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentFragment
+<<<<<<< HEAD
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentPresenter
 import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentButtonComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentStatusComponentFragment
+=======
+>>>>>>> development
 import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.share.ShareComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.sign.SignButtonComponentFragment
@@ -115,14 +119,22 @@ import dk.eboks.app.presentation.ui.start.components.signup.PasswordComponentFra
 import dk.eboks.app.presentation.ui.start.components.signup.SignupVerificationComponentFragment
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentFragment
-import dk.eboks.app.presentation.ui.uploads.components.UploadOverviewComponentPresenter
 import dk.eboks.app.presentation.ui.uploads.screens.UploadsActivity
 import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadActivity
-import dk.eboks.app.presentation.ui.uploads.screens.fileupload.FileUploadPresenter
+import dk.eboks.app.profile.injection.ProfileBindingPresentationModule
+import dk.eboks.app.senders.presentation.injection.SendersBindingPresentationModule
 import dk.eboks.app.system.managers.permission.PermissionRequestActivity
 import dk.nodes.arch.domain.injection.scopes.ActivityScope
 
-@Subcomponent(modules = [PresentationModule::class, PresentationBindingModule::class])
+@Subcomponent(
+    modules = [
+        PresentationModule::class,
+        MailBindingPresentationModule::class,
+        ChannelsBindingPresentationModule::class,
+        KeychainBindingPresentationModule::class,
+        ProfileBindingPresentationModule::class,
+        SendersBindingPresentationModule::class]
+)
 @ActivityScope
 interface PresentationComponent {
 
@@ -159,7 +171,6 @@ interface PresentationComponent {
 
     fun inject(target: HeaderComponentFragment)
     fun inject(target: NotesComponentFragment)
-    fun inject(target: NotesComponentPresenter)
     fun inject(target: AttachmentsComponentFragment)
     fun inject(target: FolderInfoComponentFragment)
     fun inject(target: DocumentComponentFragment)
@@ -226,6 +237,7 @@ interface PresentationComponent {
 
     // sign up
     fun inject(target: NameMailComponentFragment)
+
     fun inject(target: PasswordComponentFragment)
     fun inject(target: SignupVerificationComponentFragment)
     fun inject(target: MMComponentFragment)
@@ -258,6 +270,7 @@ interface PresentationComponent {
 
     // home
     fun inject(target: HomeActivity)
+
     fun inject(target: HomeFragment)
     fun inject(target: FolderPreviewComponentFragment)
     fun inject(target: ChannelControlComponentFragment)
@@ -277,14 +290,11 @@ interface PresentationComponent {
     // upload
 
     fun inject(target: UploadOverviewComponentFragment)
-    fun inject(target: UploadOverviewComponentPresenter)
     fun inject(target: FileUploadActivity)
-    fun inject(target: FileUploadPresenter)
 
     // debug
 
     fun inject(target: DebugOptionsComponentFragment)
     fun inject(target: DebugUsersComponentFragment)
-    fun inject(target: DebugUsersComponentPresenter)
     fun inject(target: DebugUserActivity)
 }

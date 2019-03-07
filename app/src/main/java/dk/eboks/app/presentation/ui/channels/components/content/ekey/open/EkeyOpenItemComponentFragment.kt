@@ -31,7 +31,7 @@ import javax.inject.Inject
 class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentContract.View {
 
     var ekey: BaseEkey? = null
-    var hidePassword: Boolean = true
+    private var hidePassword: Boolean = true
     var category = EkeyDetailMode.LOGIN
 
     @Inject
@@ -122,7 +122,7 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
                         ekey?.let {
                             val items = (activity as EkeyContentActivity).getVault()
                             items?.removeAll { r -> r.hashCode() == it.hashCode() }
-                            items?.let { items -> presenter.putVault(items) }
+                            items?.let(presenter::putVault)
                         }
                     }
                     .setNegativeButton(Translation.defaultSection.cancel) { dialog, which ->
@@ -248,14 +248,14 @@ class EkeyOpenItemComponentFragment : BaseEkeyFragment(), EkeyOpenItemComponentC
     }
 
     private fun getPassword(password: String): String? {
-        if (hidePassword) {
-            var sb = StringBuilder()
+        return if (hidePassword) {
+            val sb = StringBuilder()
             for (x in 1..password.length) {
                 sb.append('*')
             }
-            return sb.toString()
+            sb.toString()
         } else {
-            return password
+            password
         }
     }
 }

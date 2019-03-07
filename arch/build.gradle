@@ -1,0 +1,44 @@
+import dk.eboks.buildsrc.Libs
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion buildConfig.compileSdk
+
+    defaultConfig {
+        minSdkVersion buildConfig.minSdk
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+}
+
+
+dependencies {
+
+    implementation Libs.injex
+    implementation Libs.Kotlin.stdlib
+    implementation Libs.Coroutines.core
+    implementation Libs.Coroutines.android
+    implementation Libs.timber
+
+    api Libs.AndroidX.Lifecycle.runtime
+
+
+    // java 8 stuff
+    //implementation "androidx.lifecycle:lifecycle-common-java8:$androidx_support_library_version"
+
+    // Testing
+    testImplementation Libs.Test.okhttp
+    testImplementation Libs.Test.junit
+
+    testImplementation Libs.Coroutines.test
+
+    // required if you want to use Mockito for unit tests
+    testImplementation Libs.Test.Mockito.core
+    testImplementation Libs.Test.mockitoKotlin
+    testImplementation Libs.Test.assertjCore
+    testImplementation Libs.Test.PowerMock.core
+    testImplementation Libs.Test.PowerMock.module
+    testImplementation Libs.Test.mockk
+}

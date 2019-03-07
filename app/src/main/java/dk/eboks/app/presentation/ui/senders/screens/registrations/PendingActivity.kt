@@ -19,6 +19,7 @@ import dk.eboks.app.domain.models.sender.CollectionContainer
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.senders.screens.detail.SenderDetailActivity
+import dk.eboks.app.senders.presentation.ui.screens.registrations.PendingContract
 import dk.eboks.app.util.guard
 import kotlinx.android.synthetic.main.activity_senders_pending.*
 import kotlinx.android.synthetic.main.include_toolbar.*
@@ -111,12 +112,12 @@ class PendingActivity : BaseActivity(), PendingContract.View {
 
         inner class SenderViewHolder(val v: View) :
             RecyclerView.ViewHolder(v) {
-            val mainLl = v.findViewById<View>(R.id.pendingMainLl)
+            private val mainLl = v.findViewById<View>(R.id.pendingMainLl)
             val iconIv = v.findViewById<ImageView>(R.id.pendingLogoIv)
             val nameTv = v.findViewById<TextView>(R.id.pendingNameTv)
-            val approveBtn = v.findViewById<Button>(R.id.pendingRegisterBtn)
-            val closeBtn = v.findViewById<ImageButton>(R.id.pendingCloseBtn)
-            val descriptionTv = v.findViewById<TextView>(R.id.pendingDescriptionTv)
+            private val approveBtn = v.findViewById<Button>(R.id.pendingRegisterBtn)
+            private val closeBtn = v.findViewById<ImageButton>(R.id.pendingCloseBtn)
+            private val descriptionTv = v.findViewById<TextView>(R.id.pendingDescriptionTv)
 
             fun bind(sender: Sender) {
                 Glide.with(v.context).load(sender.logo?.url).into(iconIv)

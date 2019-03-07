@@ -4,7 +4,13 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.App
+import dk.eboks.app.domain.config.AppConfig
+import dk.eboks.app.domain.config.AppConfigImpl
 import dk.eboks.app.domain.managers.UIManager
+import dk.eboks.app.initializers.AppInitializers
+import dk.eboks.app.initializers.LocksmithInitializer
+import dk.eboks.app.initializers.NStackInitializer
+import dk.eboks.app.initializers.TimberInitializer
 import dk.eboks.app.presentation.managers.UIManagerImpl
 import dk.nodes.arch.domain.injection.scopes.AppScope
 
@@ -12,7 +18,7 @@ import dk.nodes.arch.domain.injection.scopes.AppScope
  * Created by bison on 25/07/17.
  */
 @Module
-class AppModule(val application: App) {
+class AppModule(private val application: App) {
     @Provides
     @AppScope
     fun provideContext(): Context {
@@ -29,5 +35,20 @@ class AppModule(val application: App) {
     @Provides
     fun provideUIManager(context: Context): UIManager {
         return UIManagerImpl(context)
+    }
+
+    @AppScope
+    @Provides
+    fun providesAppConfig(): AppConfig {
+        return AppConfigImpl
+    }
+
+    @Provides
+    fun provideAppInitializers(
+        nstackInitializer: NStackInitializer,
+        timberInitializer: TimberInitializer,
+        locksmithInitializer: LocksmithInitializer
+    ): AppInitializers {
+        return AppInitializers(nstackInitializer, timberInitializer, locksmithInitializer)
     }
 }

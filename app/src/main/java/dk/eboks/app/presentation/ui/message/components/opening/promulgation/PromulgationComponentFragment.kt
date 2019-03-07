@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.mail.presentation.ui.message.components.opening.promulgation.PromulgationComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.nodes.nstack.kotlin.NStack
 import kotlinx.android.synthetic.main.fragment_mail_opening_promulgation_component.*
@@ -18,7 +19,7 @@ import javax.inject.Inject
  */
 class PromulgationComponentFragment : BaseFragment(), PromulgationComponentContract.View {
 
-    val onLanguageChange: (Locale) -> Unit = { locale ->
+    private val onLanguageChange: (Locale) -> Unit = { locale ->
         updateTranslation()
     }
 

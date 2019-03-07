@@ -24,7 +24,7 @@ import timber.log.Timber
 /**
  * Created by bison on 03-03-2018.
  */
-class SheetComponentActivity : BaseActivity() {
+open class SheetComponentActivity : BaseActivity() {
     var sheetBehavior: BottomSheetBehavior<View>? = null
     var shouldClose = false
     private lateinit var fadeAnim: Animation
@@ -144,7 +144,7 @@ class SheetComponentActivity : BaseActivity() {
         }
     }
 
-    fun addFragment(fragment: BaseFragment?) {
+    private fun addFragment(fragment: BaseFragment?) {
         fragment?.let {
             supportFragmentManager.beginTransaction()
                 .add(R.id.sheetComponentFl, it, fragment.javaClass.simpleName)
@@ -167,7 +167,7 @@ class SheetComponentActivity : BaseActivity() {
         firstExpand = true
     }
 
-    fun setupBottomSheet() {
+    private fun setupBottomSheet() {
         sheetBehavior = BottomSheetBehavior.from(contextSheet)
         sheetBehavior?.isHideable = true
         sheetBehavior?.peekHeight = 0
@@ -186,19 +186,17 @@ class SheetComponentActivity : BaseActivity() {
     }
 
     fun setDrawableColor(background: Drawable, color: Int) {
-        if (background is ShapeDrawable) {
-            // cast to 'ShapeDrawable'
-            background.paint.color = color
-        } else if (background is GradientDrawable) {
-            // cast to 'GradientDrawable'
-            background.setColor(color)
-        } else if (background is ColorDrawable) {
-            // alpha value may need to be set again after this call
-            background.color = color
+        when (background) {
+            is ShapeDrawable -> // cast to 'ShapeDrawable'
+                background.paint.color = color
+            is GradientDrawable -> // cast to 'GradientDrawable'
+                background.setColor(color)
+            is ColorDrawable -> // alpha value may need to be set again after this call
+                background.color = color
         }
     }
 
-    protected fun setContentSheet(resId: Int) {
+    private fun setContentSheet(resId: Int) {
         val li: LayoutInflater = LayoutInflater.from(this)
         val sheet = li.inflate(resId, contextSheetSv, false)
         contextSheetSv.addView(sheet)

@@ -5,6 +5,7 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.sender.Sender
+import dk.eboks.app.mail.presentation.ui.screens.list.MailListContract
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.mail.components.maillist.MailListComponentFragment
 import dk.eboks.app.util.putArg

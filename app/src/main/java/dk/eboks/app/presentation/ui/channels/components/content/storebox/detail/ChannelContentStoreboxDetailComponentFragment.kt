@@ -12,11 +12,13 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
+import com.google.zxing.common.BitMatrix
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.managers.EboksFormatter
@@ -113,8 +115,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
     }
 
     private fun setupRecyclers() {
-        storeboxDetailRvReceiptLines.layoutManager =
-            androidx.recyclerview.widget.LinearLayoutManager(context)
+        storeboxDetailRvReceiptLines.layoutManager = LinearLayoutManager(context)
         storeboxDetailRvReceiptLines.adapter = adapter
 
         ViewCompat.setNestedScrollingEnabled(storeboxDetailRvReceiptLines, false)
@@ -248,35 +249,48 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             storeboxDetailBarcodeContainer.visible = (false)
             return
         }
-
+        val writer = MultiFormatWriter()
         try {
-            val writer = MultiFormatWriter()
-            val bm = writer.encode(barcode.value, BarcodeFormat.CODE_39, 400, 150)
-
-            val width = bm.width
-            val height = bm.height
-            val pixels = IntArray(width * height)
-
-            for (y in 0 until height) {
-                val offset = y * width
-                for (x in 0 until width) {
-                    pixels[offset + x] = if (bm.get(x, y)) BLACK else WHITE
-                }
-            }
-
-            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-            bitmap.setPixels(pixels, 0, width, 0, 0, width, height)
-
-            if (bitmap != null) {
-                storeboxDetailBarcodeContainer.visible = (true)
-                storeboxDetailIvBarcode.setImageBitmap(bitmap)
-                storeboxDetailTvBarcode.text = barcode.displayValue
-            } else {
+            val bm = writer.encode(barcode.value, BarcodeFormat.ITF, 400, 150)
+            drawBarcode(bm, barcode)
+        } catch (e: IllegalArgumentException) {
+            try {
+                val bm = writer.encode(barcode.value, BarcodeFormat.CODE_39, 400, 150)
+                drawBarcode(bm, barcode)
+            } catch (e: Exception) {
                 storeboxDetailBarcodeContainer.visible = (false)
+                Timber.e(e)
             }
         } catch (e: Exception) {
             storeboxDetailBarcodeContainer.visible = (false)
             Timber.e(e)
+        }
+    }
+
+    private fun drawBarcode(
+        bm: BitMatrix,
+        barcode: StoreboxBarcode
+    ) {
+        val width = bm.width
+        val height = bm.height
+        val pixels = IntArray(width * height)
+
+        for (y in 0 until height) {
+            val offset = y * width
+            for (x in 0 until width) {
+                pixels[offset + x] = if (bm.get(x, y)) BLACK else WHITE
+            }
+        }
+
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        bitmap.setPixels(pixels, 0, width, 0, 0, width, height)
+
+        if (bitmap != null) {
+            storeboxDetailBarcodeContainer.visible = (true)
+            storeboxDetailIvBarcode.setImageBitmap(bitmap)
+            storeboxDetailTvBarcode.text = barcode.displayValue
+        } else {
+            storeboxDetailBarcodeContainer.visible = (false)
         }
     }
 
@@ -374,7 +388,8 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         }
     }
 
-    inner class PaymentLineAdapter : RecyclerView.Adapter<PaymentLineAdapter.PaymentLineViewHolder>() {
+    inner class PaymentLineAdapter :
+        RecyclerView.Adapter<PaymentLineAdapter.PaymentLineViewHolder>() {
         var payments: ArrayList<StoreboxPayment> = arrayListOf()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaymentLineViewHolder {
@@ -395,8 +410,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             holder.bind(payment)
         }
 
-        inner class PaymentLineViewHolder(view: View) :
-            androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+        inner class PaymentLineViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             fun bind(payment: StoreboxPayment) {
                 itemView.viewHolderPaymentTvCardName.text = payment.cardName
                 itemView.viewHolderPaymentTvAmount.text = payment.priceValue
@@ -404,7 +418,8 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
         }
     }
 
-    inner class ReceiptLineAdapter : RecyclerView.Adapter<ReceiptLineAdapter.ReceiptLineViewHolder>() {
+    inner class ReceiptLineAdapter :
+        RecyclerView.Adapter<ReceiptLineAdapter.ReceiptLineViewHolder>() {
         var receiptLines: ArrayList<StoreboxReceiptLine> = arrayListOf()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReceiptLineViewHolder {
@@ -425,8 +440,7 @@ class ChannelContentStoreboxDetailComponentFragment : BaseFragment(),
             holder.bind(payment)
         }
 
-        inner class ReceiptLineViewHolder(view: View) :
-            androidx.recyclerview.widget.RecyclerView.ViewHolder(view) {
+        inner class ReceiptLineViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             fun bind(receiptLine: StoreboxReceiptLine) {
                 itemView.viewHolderReceiptTvItemName.text = receiptLine.name
                 itemView.viewHolderReceiptTvAmount.visible = (false)

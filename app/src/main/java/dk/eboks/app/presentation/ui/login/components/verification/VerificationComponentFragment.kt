@@ -6,8 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dk.eboks.app.keychain.presentation.components.verification.VerificationComponentContract
 import dk.eboks.app.R
-import dk.eboks.app.domain.config.Config
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.base.SheetComponentActivity
@@ -22,10 +23,10 @@ import javax.inject.Inject
  */
 class VerificationComponentFragment : BaseFragment(), VerificationComponentContract.View {
 
-    @Inject
-    lateinit var presenter: VerificationComponentContract.Presenter
+    @Inject lateinit var presenter: VerificationComponentContract.Presenter
+    @Inject lateinit var appConfig: AppConfig
 
-    var signupVerification = false
+    private var signupVerification = false
 
     companion object {
         var verificationSucceeded = false
@@ -49,7 +50,7 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
 
         signupVerification = arguments?.getBoolean("signupVerification", false) ?: false
 
-        Config.getLoginProvider(Config.getVerificationProviderId() ?: "")?.let { provider ->
+        appConfig.getLoginProvider(appConfig.verificationProviderId ?: "")?.let { provider ->
             headerTv.text = Translation.profile.verifyingAccountTitle.replace(
                 "[logonProvider]",
                 provider.translatedName()
@@ -65,7 +66,7 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
         }
 
         /*
-        when (Config.getCurrentConfigName()){
+        when (appConfig.getCurrentConfigName()){
             "danish" ->{
                 headerTv.text = Translation.profile.verifyingAccountTitle
                 detailTv.text = Translation.profile.verifyingAccountBody
@@ -95,7 +96,7 @@ class VerificationComponentFragment : BaseFragment(), VerificationComponentContr
             presenter.setupVerificationState(signupVerification)
             val intent = Intent(context, PopupLoginActivity::class.java).putExtra(
                 "selectedLoginProviderId",
-                Config.getVerificationProviderId()
+                appConfig.verificationProviderId
             )
             startActivityForResult(intent, PopupLoginActivity.REQUEST_VERIFICATION)
         }

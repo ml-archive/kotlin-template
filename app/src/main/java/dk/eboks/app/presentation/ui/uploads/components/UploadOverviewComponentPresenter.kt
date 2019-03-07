@@ -1,8 +1,8 @@
 package dk.eboks.app.presentation.ui.uploads.components
 
-import dk.eboks.app.domain.interactors.message.GetLatestUploadsInteractor
-import dk.eboks.app.domain.interactors.message.GetStorageInteractor
-import dk.eboks.app.domain.interactors.message.UploadFileInteractor
+import dk.eboks.app.mail.domain.interactors.message.GetLatestUploadsInteractor
+import dk.eboks.app.mail.domain.interactors.message.GetStorageInteractor
+import dk.eboks.app.mail.domain.interactors.message.UploadFileInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
@@ -15,10 +15,10 @@ import javax.inject.Inject
  * Created by bison on 20-05-2017.
  */
 class UploadOverviewComponentPresenter @Inject constructor(
-    val appState: AppStateManager,
-    val getStorageInteractor: GetStorageInteractor,
-    val getLatestUploadsInteractor: GetLatestUploadsInteractor,
-    val uploadFileInteractor: UploadFileInteractor
+    private val appState: AppStateManager,
+    private val getStorageInteractor: GetStorageInteractor,
+    private val getLatestUploadsInteractor: GetLatestUploadsInteractor,
+    private val uploadFileInteractor: UploadFileInteractor
 ) :
     UploadOverviewComponentContract.Presenter,
     BasePresenterImpl<UploadOverviewComponentContract.View>(),

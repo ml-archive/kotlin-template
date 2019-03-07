@@ -21,20 +21,22 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.login.UserSettings
+import dk.eboks.app.keychain.presentation.components.LoginComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.debug.components.DebugUsersComponentFragment
 import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
 import dk.eboks.app.presentation.ui.start.screens.StartActivity
 import dk.eboks.app.util.KeyboardUtils
 import dk.eboks.app.util.guard
+import dk.eboks.app.util.invisible
 import dk.eboks.app.util.isValidCpr
 import dk.eboks.app.util.isValidEmail
 import dk.eboks.app.util.putArg
@@ -61,18 +63,16 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     private var passwordIsValid = false
     var handler = Handler()
 
-    @Inject
-    lateinit var presenter: LoginComponentContract.Presenter
+    @Inject lateinit var presenter: LoginComponentContract.Presenter
+    @Inject lateinit var formatter: EboksFormatter
+    @Inject lateinit var appConfig: AppConfig
 
-    @Inject
-    lateinit var formatter: EboksFormatter
-
-    var showGreeting: Boolean = true
-    var currentProvider: LoginProvider? = null
-    var currentUser: User? = null
-    var currentSettings: UserSettings? = null
-    var selectedLoginProviderId: String? = null
-    var reauth: Boolean = false
+    private var showGreeting: Boolean = true
+    private var currentProvider: LoginProvider? = null
+    private var currentUser: User? = null
+    private var currentSettings: UserSettings? = null
+    private var selectedLoginProviderId: String? = null
+    private var reauth: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -126,7 +126,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         }
     }
 
-    val keyboardListener = KeyboardUtils.SoftKeyboardToggleListener {
+    private val keyboardListener = KeyboardUtils.SoftKeyboardToggleListener {
         if (it) {
             loginProvidersLl.visibility = View.GONE
             continueBtn.visibility = View.VISIBLE
@@ -143,7 +143,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
         presenter.setup(selectedLoginProviderId, reauth, loginOnResume)
         if (loginOnResume) {
             loginOnResume = false
-            onContinue()
+            presenter.checkRsaKey()
         }
         setupCprEmailListeners()
         setupPasswordListener()
@@ -158,9 +158,10 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
     }
 
     private fun hideKeyboard(view: View?) {
-        val inputMethodManager =
-            getBaseActivity()?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
+        (getBaseActivity()?.getSystemService(Activity.INPUT_METHOD_SERVICE) as? InputMethodManager)?.hideSoftInputFromWindow(
+            view?.windowToken,
+            0
+        )
     }
 
     private fun onContinue() {
@@ -170,11 +171,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 val identity: String = if (provider.id == "email") {
                     user.emails[0].value ?: ""
                 } else {
-                    if (BuildConfig.BUILD_TYPE.contains(
-                            "debug",
-                            ignoreCase = true
-                        ) && !user.identity.isNullOrBlank()
-                    ) {
+                    if (appConfig.isDebug && !user.identity.isNullOrBlank()) {
                         user.identity ?: cprEmailEt.text.toString().trim()
                     } else
                         cprEmailEt.text.toString().trim()
@@ -263,7 +260,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                 }
         }
 
-        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+        if (appConfig.isDebug) {
             testUsersBtn.visibility = View.VISIBLE
             testUsersBtn.setOnClickListener {
                 getBaseActivity()?.openComponentDrawer(DebugUsersComponentFragment::class.java)
@@ -336,8 +333,8 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
                         ViewError(
                             Translation.error.genericTitle,
                             Translation.androidfingerprint.errorGeneric,
-                            true,
-                            false
+                            shouldDisplay = true,
+                            shouldCloseView = false
                         )
                     )
                 }
@@ -354,7 +351,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
         continueBtn.visibility = View.GONE
         passwordTil.visibility = View.VISIBLE
-        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+        if (appConfig.isDebug) {
             showToast("Password preset to 'a12345' (DEBUG)")
             passwordEt.setText("a12345")
             continueBtn.isEnabled = true
@@ -526,7 +523,7 @@ class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     override fun showProgress(show: Boolean) {
         continueBtn.isEnabled = !show
-        continuePb.visibility = if (show) View.VISIBLE else View.INVISIBLE
+        continuePb.invisible = !show
     }
 
     override fun onDestroy() {

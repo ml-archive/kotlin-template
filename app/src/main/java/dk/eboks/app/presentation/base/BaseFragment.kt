@@ -1,30 +1,30 @@
 package dk.eboks.app.presentation.base
 
-import android.app.FragmentManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import dk.eboks.app.App
 import dk.eboks.app.BuildConfig
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.injection.components.PresentationComponent
-import dk.eboks.app.injection.modules.PresentationModule
 import kotlinx.android.synthetic.*
 import timber.log.Timber
 
-abstract class BaseFragment : androidx.fragment.app.Fragment(), BaseView {
+abstract class BaseFragment : Fragment(), BaseView {
     protected val component: PresentationComponent by lazy {
-        App.instance().appComponent.plus(PresentationModule())
+        App.instance().appComponent.plus()
     }
 
     /**
      * easy shortcut to get an inflater, this only gets instantiated if you use it and only the first time
      */
     val inflator by lazy {
-        LayoutInflater.from(context)
+        LayoutInflater.from(requireContext())!!
     }
 
     val mainHandler by lazy {
@@ -42,7 +42,9 @@ abstract class BaseFragment : androidx.fragment.app.Fragment(), BaseView {
      */
     open val defaultErrorHandler: ViewErrorController by lazy {
         // ViewErrorController(context = context, closeFunction = {fragmentManager.popBackStack()} )
-        ViewErrorController(context = context!!, closeFunction = { activity?.onBackPressed() })
+        ViewErrorController(
+            context = context!!,
+            closeFunction = { activity?.onBackPressed() })
     }
 
     /*

@@ -18,12 +18,17 @@ import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.folder.Folder
+import dk.eboks.app.domain.models.folder.FolderMode
 import dk.eboks.app.domain.models.folder.FolderType
+import dk.eboks.app.domain.models.folder.isSystemFolder
+import dk.eboks.app.domain.models.getIconResId
 import dk.eboks.app.domain.models.login.User
+import dk.eboks.app.mail.presentation.ui.folder.components.FoldersComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.folder.components.newfolder.NewFolderComponentFragment
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.views
+import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_folders_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import kotlinx.android.synthetic.main.viewholder_folder.view.*
@@ -45,13 +50,13 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     override val isSharedUserActive: Boolean
         get() = arguments?.getBoolean("override_user") ?: false
 
-    var systemfolders: MutableList<Folder> = ArrayList()
-    var userfolders: MutableList<Folder> = ArrayList()
-    var mode: FolderMode = FolderMode.NORMAL
-    var selectFolder: Boolean = false
-    var pickedFolder: Folder? = null
-    var pickedCheckBox: ImageButton? = null
-    var currentUser: User? = null
+    private var systemfolders: MutableList<Folder> = ArrayList()
+    private var userfolders: MutableList<Folder> = ArrayList()
+    private var mode: FolderMode = FolderMode.NORMAL
+    private var selectFolder: Boolean = false
+    private var pickedFolder: Folder? = null
+    private var pickedCheckBox: ImageButton? = null
+    private var currentUser: User? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -227,7 +232,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         systemFoldersLl.removeAllViews()
         val li: LayoutInflater = LayoutInflater.from(context)
         for (folder in folders) {
-            var v = li.inflate(R.layout.viewholder_folder, systemFoldersLl, false)
+            val v = li.inflate(R.layout.viewholder_folder, systemFoldersLl, false)
             v.tag = folder
             v.findViewById<TextView>(R.id.nameTv)?.text = folder.name
             if (folder.unreadCount != 0) {
@@ -251,7 +256,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
             folder.type?.let { type ->
                 val iv = v.findViewById<ImageView>(R.id.iconIv)
-                iv?.let { it.setImageResource(type.getIconResId()) }
+                iv?.setImageResource(type.getIconResId())
             }
 
             systemFoldersLl.addView(v)
@@ -262,7 +267,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         userfolders.clear()
         userfolders.addAll(folders)
         foldersLl.removeAllViews()
-        if (folders.size == 0) {
+        if (folders.isEmpty()) {
             userFolderEmptyLl.visibility = View.VISIBLE
             bottomDivider.visibility = View.GONE
         } else {
@@ -272,13 +277,12 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         }
     }
 
-    fun processFoldersRecursive(folders: List<Folder>, level: Int, parentFolder: Folder? = null) {
+    private fun processFoldersRecursive(folders: List<Folder>, level: Int, parentFolder: Folder? = null) {
         val li: LayoutInflater = LayoutInflater.from(context)
         for (folder in folders) {
 
             parentFolder?.let {
-                var parent = parentFolder
-                folder.parentFolder = parent
+                folder.parentFolder = parentFolder
             }.guard { folder.parentFolder = null }
 
             val v = li.inflate(R.layout.viewholder_folder, foldersLl, false)
@@ -299,7 +303,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
             folder.type?.let { type ->
                 val iv = v.findViewById<ImageView>(R.id.iconIv)
-                iv?.let { it.setImageResource(type.getIconResId()) }
+                iv?.setImageResource(type.getIconResId())
             }
 
             // custom
@@ -367,7 +371,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
         v.findViewById<FrameLayout>(R.id.arrowFl)?.visibility = View.GONE
         v.findViewById<ImageButton>(R.id.checkboxIb)?.visibility = View.GONE
         val edit = v.findViewById<ImageButton>(R.id.editIb)
-        var folder = v.tag as Folder
+        val folder = v.tag as Folder
 
         if (folder.type?.isSystemFolder() == false) {
             edit?.visibility = View.VISIBLE
@@ -417,7 +421,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     }
 
     override fun showProgress(show: Boolean) {
-        progressFl.visibility = if (show) View.VISIBLE else View.GONE
+        progressFl.visible = show
     }
 
     override fun showEmpty(show: Boolean) {

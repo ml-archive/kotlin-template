@@ -1,12 +1,12 @@
 package dk.eboks.app.presentation.ui.uploads.screens
 
-import dk.eboks.app.domain.managers.AppStateManager
 import dk.nodes.arch.presentation.base.BasePresenterImpl
+import javax.inject.Inject
 
 /**
  * Created by bison on 20-05-2017.
  */
-class UploadsPresenter(val appStateManager: AppStateManager) : UploadsContract.Presenter,
+class UploadsPresenter @Inject constructor() : UploadsContract.Presenter,
     BasePresenterImpl<UploadsContract.View>() {
     init {
     }

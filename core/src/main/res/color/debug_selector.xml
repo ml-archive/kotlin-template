@@ -1,0 +1,15 @@
+
+<!--
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/rouge" android:state_enabled="true" />
+    <item android:color="@color/textColorSecondary" android:state_enabled="false" />
+</selector>
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="#0f0" android:state_enabled="false"/>
+    <item android:color="#f0f" android:state_pressed="true"/>
+    <item android:color="#ff0" android:state_selected="true"/>
+    <item android:color="#0ff" android:state_checked="true"/>
+    <item android:color="#f00"/>
+</selector>

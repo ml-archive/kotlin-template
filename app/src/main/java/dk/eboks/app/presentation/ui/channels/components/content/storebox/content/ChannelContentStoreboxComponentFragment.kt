@@ -5,9 +5,6 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,10 +17,12 @@ import dk.eboks.app.domain.models.channel.storebox.StoreboxReceiptItem
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.channels.components.content.storebox.detail.ChannelContentStoreboxDetailComponentFragment
 import dk.eboks.app.presentation.ui.channels.components.settings.ChannelSettingsComponentFragment
+import dk.eboks.app.util.inflate
 import dk.eboks.app.util.putArg
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_channel_storebox_component.*
 import kotlinx.android.synthetic.main.include_toolbar.*
+import kotlinx.android.synthetic.main.viewholder_channel_storebox_row.view.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -43,11 +42,7 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(
-            R.layout.fragment_channel_storebox_component,
-            container,
-            false
-        )
+        return inflater.inflate(R.layout.fragment_channel_storebox_component, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -142,17 +137,11 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
         showEmptyView(data.isEmpty())
     }
 
-    inner class StoreboxAdapter :
-        androidx.recyclerview.widget.RecyclerView.Adapter<StoreboxAdapter.StoreboxViewHolder>() {
+    inner class StoreboxAdapter : RecyclerView.Adapter<StoreboxAdapter.StoreboxViewHolder>() {
         var receipts: MutableList<StoreboxReceiptItem> = ArrayList()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoreboxViewHolder {
-            val v = LayoutInflater.from(context).inflate(
-                R.layout.viewholder_channel_storebox_row,
-                parent,
-                false
-            )
-            return StoreboxViewHolder(v)
+            return StoreboxViewHolder(parent.inflate(R.layout.viewholder_channel_storebox_row))
         }
 
         override fun getItemCount(): Int {
@@ -164,50 +153,42 @@ class ChannelContentStoreboxComponentFragment : BaseFragment(),
             holder.bind(currentReceipt)
         }
 
-        inner class StoreboxViewHolder(val root: View) :
-            androidx.recyclerview.widget.RecyclerView.ViewHolder(root) {
-            // cards
-            private var amountDateContainer =
-                root.findViewById<LinearLayout>(R.id.amountDateContainerLl)
-            private var soloAmountTv = root.findViewById<TextView>(R.id.soloAmountTv)
-            private val row = root.findViewById<LinearLayout>(R.id.rowLl)
-            private val headerTv = root.findViewById<TextView>(R.id.headerTv)
-            private val amountTv = root.findViewById<TextView>(R.id.amountTv)
-            private val dateTv = root.findViewById<TextView>(R.id.dateTv)
-            private val logoIv = root.findViewById<ImageView>(R.id.logoIv)
+        inner class StoreboxViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             fun bind(currentReceipt: StoreboxReceiptItem) {
-                headerTv?.text = currentReceipt.storeName
+                itemView.run {
+                    headerTv?.text = currentReceipt.storeName
 
-                if (currentReceipt.purchaseDate != null) {
-                    amountDateContainer?.visibility = View.VISIBLE
-                    soloAmountTv?.visibility = View.GONE
-                    dateTv?.text = formatter.formatDateRelative(currentReceipt)
-                    Timber.e("Date: ${dateTv.text}")
-                } else {
-                    amountDateContainer?.visibility = View.GONE
-                    soloAmountTv?.visibility = View.VISIBLE
-                }
-                amountTv?.text = String.format(
-                    "%.2f",
-                    currentReceipt.grandTotal
-                )
-                if (currentReceipt.logo?.url != null) {
-                    logoIv?.let {
-                        Glide.with(root.context).load(currentReceipt.logo?.url).into(it)
+                    if (currentReceipt.purchaseDate != null) {
+                        amountDateContainerLl?.visibility = View.VISIBLE
+                        soloAmountTv?.visibility = View.GONE
+                        dateTv?.text = formatter.formatDateRelative(currentReceipt)
+                        Timber.e("Date: ${dateTv.text}")
+                    } else {
+                        amountDateContainerLl?.visibility = View.GONE
+                        soloAmountTv?.visibility = View.VISIBLE
                     }
-                }
-
-                row?.setOnClickListener {
-                    Timber.d("Receipt Clicked: %s", currentReceipt.id)
-                    addFragmentOnTop(
-                        R.id.content,
-                        ChannelContentStoreboxDetailComponentFragment().putArg(
-                            StoreboxReceipt.KEY_ID!!,
-                            currentReceipt.id
-                        ),
-                        true
+                    amountTv?.text = String.format(
+                        "%.2f",
+                        currentReceipt.grandTotal
                     )
+                    if (currentReceipt.logo?.url != null) {
+                        logoIv?.let {
+                            Glide.with(itemView.context).load(currentReceipt.logo?.url).into(it)
+                        }
+                    }
+
+                    rowLl?.setOnClickListener {
+                        Timber.d("Receipt Clicked: %s", currentReceipt.id)
+                        addFragmentOnTop(
+                            R.id.content,
+                            ChannelContentStoreboxDetailComponentFragment().putArg(
+                                StoreboxReceipt.KEY_ID!!,
+                                currentReceipt.id
+                            ),
+                            true
+                        )
+                    }
                 }
             }
         }

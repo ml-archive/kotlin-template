@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dk.eboks.app.R
-import dk.eboks.app.domain.managers.UIManager
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.mail.presentation.ui.message.components.detail.share.ShareComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.util.FileUtils
 import kotlinx.android.synthetic.main.fragment_share_component.*
@@ -16,11 +16,7 @@ import javax.inject.Inject
  * Created by bison on 09-02-2018.
  */
 class ShareComponentFragment : BaseFragment(), ShareComponentContract.View {
-    @Inject
-    lateinit var presenter: ShareComponentContract.Presenter
-
-    @Inject
-    lateinit var uiManager: UIManager
+    @Inject lateinit var presenter: ShareComponentContract.Presenter
 
     override fun onCreateView(
         inflater: LayoutInflater,

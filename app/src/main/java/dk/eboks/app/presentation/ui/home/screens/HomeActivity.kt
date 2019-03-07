@@ -22,7 +22,8 @@ import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
 import dk.eboks.app.presentation.ui.profile.screens.ProfileActivity
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.putArg
-import kotlinx.android.synthetic.main.fragment_home.*
+import dk.eboks.app.util.visible
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.include_toolbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -35,14 +36,14 @@ class HomeActivity : BaseActivity(), HomeContract.View {
 
     @Inject lateinit var presenter: HomeContract.Presenter
 
-    var folderPreviewFragment: FolderPreviewComponentFragment? = null
+    private var folderPreviewFragment: FolderPreviewComponentFragment? = null
     private val channelControlFragment: ChannelControlComponentFragment
         get() = findFragment() ?: ChannelControlComponentFragment()
-    var doneRefreshingFolderPreview = false
+    private var doneRefreshingFolderPreview = false
     override fun onRefreshChannelDone() {
     }
 
-    var doneRefreshingChannelControls = false
+    private var doneRefreshingChannelControls = false
 
     val onLanguageChange: (Locale) -> Unit = { locale ->
         Timber.e("Locale changed to locale")
@@ -136,14 +137,14 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     override fun showMailsHeader(show: Boolean) {
-        mailHeaderFl.visibility = if (show) View.VISIBLE else View.GONE
+        mailHeaderFl.visible = show
     }
 
     override fun showChannelControlsHeader(show: Boolean) {
-        channelsHeaderFl.visibility = if (show) View.VISIBLE else View.GONE
+        channelsHeaderFl.visible = show
     }
 
-    fun updateRefreshStatus() {
+    private fun updateRefreshStatus() {
         if (doneRefreshingChannelControls && doneRefreshingFolderPreview) {
             if (refreshSrl.isRefreshing)
                 refreshSrl.isRefreshing = false
