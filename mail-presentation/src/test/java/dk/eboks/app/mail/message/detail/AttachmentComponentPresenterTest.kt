@@ -1,4 +1,4 @@
-package dk.eboks.app.mail.message
+package dk.eboks.app.mail.message.detail
 
 import androidx.lifecycle.Lifecycle
 import dk.eboks.app.domain.managers.AppStateManager
