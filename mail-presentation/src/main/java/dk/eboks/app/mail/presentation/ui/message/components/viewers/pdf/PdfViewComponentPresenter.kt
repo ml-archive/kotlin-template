@@ -13,7 +13,7 @@ internal class PdfViewComponentPresenter @Inject constructor(private val appStat
 
     override fun onViewCreated(view: PdfViewComponentContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
-        appState.state?.currentViewerFileName?.let { filename ->
+        currentFile?.let { filename ->
             runAction {
                 it.showPdfView(filename)
             }
