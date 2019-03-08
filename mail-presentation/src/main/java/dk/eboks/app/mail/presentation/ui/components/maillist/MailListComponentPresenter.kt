@@ -1,14 +1,15 @@
 package dk.eboks.app.mail.presentation.ui.components.maillist
 
+import androidx.annotation.VisibleForTesting
+import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractor
+import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
+import dk.eboks.app.mail.domain.interactors.messageoperations.MoveMessagesInteractor
+import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.models.sender.Sender
-import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractor
-import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
-import dk.eboks.app.mail.domain.interactors.messageoperations.MoveMessagesInteractor
-import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.network.util.metaData
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
@@ -37,9 +38,10 @@ internal class MailListComponentPresenter @Inject constructor(
     private var currentFolder: Folder? = null
     private var currentSender: Sender? = null
 
-    private var currentOffset: Int = 0
-    private val currentLimit: Int = 30
-    private var totalMessages: Int = -1
+
+    @VisibleForTesting var currentOffset: Int = 0
+    @VisibleForTesting val currentLimit: Int = 30
+    @VisibleForTesting var totalMessages: Int = -1
 
     override var isLoading: Boolean = false
 

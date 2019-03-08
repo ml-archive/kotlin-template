@@ -1,5 +1,6 @@
 package dk.eboks.app.mail.presentation.ui.message.screens.reply
 
+import androidx.annotation.VisibleForTesting
 import dk.eboks.app.mail.domain.interactors.message.GetReplyFormInteractor
 import dk.eboks.app.mail.domain.interactors.message.SubmitReplyFormInteractor
 import dk.eboks.app.domain.models.formreply.ReplyForm
@@ -20,8 +21,9 @@ internal class ReplyFormPresenter @Inject constructor(
     BasePresenterImpl<ReplyFormContract.View>(),
     GetReplyFormInteractor.Output,
     SubmitReplyFormInteractor.Output {
-    private var currentForm: ReplyForm? = null
-    private var currentMessage: Message? = null
+
+    @VisibleForTesting var currentForm: ReplyForm? = null
+    @VisibleForTesting var currentMessage: Message? = null
 
     init {
         getReplyFormInteractor.output = this

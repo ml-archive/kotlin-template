@@ -58,7 +58,7 @@ internal class SenderCarouselComponentPresenter @Inject constructor(
         }
     }
 
-    private fun sortSenders(senders: List<Sender>): List<Sender> {
+    fun sortSenders(senders: List<Sender>): List<Sender> {
         return senders.sortedWith(compareBy({ it.unreadMessageCount <= 0 }, { it.name }))
     }
 
