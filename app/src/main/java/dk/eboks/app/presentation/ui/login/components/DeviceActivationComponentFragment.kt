@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import dk.eboks.app.R
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.models.Translation
+import dk.eboks.app.keychain.presentation.components.DeviceActivationComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.login.screens.PopupLoginActivity
 import dk.eboks.app.util.invisible
@@ -22,8 +23,8 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class DeviceActivationComponentFragment : BaseFragment(), dk.eboks.app.keychain.presentation.components.DeviceActivationComponentContract.View {
-    @Inject lateinit var presenter: dk.eboks.app.keychain.presentation.components.DeviceActivationComponentContract.Presenter
+class DeviceActivationComponentFragment : BaseFragment(), DeviceActivationComponentContract.View {
+    @Inject lateinit var presenter: DeviceActivationComponentContract.Presenter
     @Inject lateinit var appConfig: AppConfig
 
     private var mHandler = Handler()

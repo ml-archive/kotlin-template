@@ -23,7 +23,6 @@ class CryptoManagerImpl @Inject constructor(
     val context: Context,
     private val settingsRepository: SettingsRepository
 ) : CryptoManager {
-    private val androidKeyStore = "androidKeyStore"
 
     @SuppressLint("NewApi")
     @Throws(Exception::class)
@@ -182,5 +181,9 @@ class CryptoManagerImpl @Inject constructor(
         keyStore.load(null)
         val privateKeyEntry = keyStore.getEntry(userId, null) as KeyStore.PrivateKeyEntry
         return privateKeyEntry.certificate.publicKey
+    }
+
+    companion object {
+        private const val androidKeyStore = "AndroidKeyStore"
     }
 }
