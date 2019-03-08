@@ -26,13 +26,11 @@ class PaymentWebViewActivity : BaseActivity() {
         setContentView(R.layout.activity_payment_web_view)
         link?.let(this::setupWebView)
         setupToolbar()
-
     }
-
 
     private fun setupToolbar() {
         mainTb.setNavigationOnClickListener {
-           onBackPressed()
+            onBackPressed()
         }
         mainTb.setNavigationIcon(R.drawable.icon_48_chevron_left_red_navigationbar)
     }
@@ -47,19 +45,24 @@ class PaymentWebViewActivity : BaseActivity() {
         }
 
         paymentWebView.webChromeClient = object : WebChromeClient() {
-
         }
 
         paymentWebView.loadUrl(link.url)
-
     }
 
     private fun handleUrlUpdate(url: String) {
         when (url) {
-            PaymentCallback.CANCEL.url -> { showToast("cancel") }
-            PaymentCallback.FAILURE.url -> { showToast("fail")}
-            PaymentCallback.SUCCESS.url -> { showPaymentComplete() }
-            else -> {}
+            PaymentCallback.CANCEL.url -> {
+                showToast("cancel")
+            }
+            PaymentCallback.FAILURE.url -> {
+                showToast("fail")
+            }
+            PaymentCallback.SUCCESS.url -> {
+                showPaymentComplete()
+            }
+            else -> {
+            }
         }
     }
 

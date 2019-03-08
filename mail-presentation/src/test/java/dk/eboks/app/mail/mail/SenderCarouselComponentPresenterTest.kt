@@ -15,22 +15,19 @@ import org.junit.Test
 
 class SenderCarouselComponentPresenterTest {
 
-
     private val appStateManager = mockk<AppStateManager>(relaxUnitFun = true)
     private val getSendersInteractor = mockk<GetSendersInteractor>(relaxUnitFun = true)
 
     private val mockView = mockk<SenderCarouselComponentContract.View>(relaxUnitFun = true)
     private val mockLifecycle = mockk<Lifecycle>(relaxUnitFun = true)
 
-    private lateinit var presenter : SenderCarouselComponentPresenter
-
+    private lateinit var presenter: SenderCarouselComponentPresenter
 
     @Before
     fun setUp() {
         presenter = SenderCarouselComponentPresenter(appStateManager, getSendersInteractor)
         presenter.onViewCreated(mockView, mockLifecycle)
     }
-
 
     @Test
     fun `Test On Get Senders`() {
@@ -48,10 +45,7 @@ class SenderCarouselComponentPresenterTest {
             mockView.showEmpty(false, true)
             mockView.showSenders(presenter.sortSenders(senders))
         }
-
-
     }
-
 
     @Test
     fun `Test On Get Empty Senders`() {
@@ -66,7 +60,6 @@ class SenderCarouselComponentPresenterTest {
             mockView.showProgress(false)
             mockView.showEmpty(true, true)
         }
-
     }
 
     @Test
@@ -78,7 +71,5 @@ class SenderCarouselComponentPresenterTest {
             mockView.showProgress(false)
             mockView.showErrorDialog(error)
         }
-
     }
-
 }

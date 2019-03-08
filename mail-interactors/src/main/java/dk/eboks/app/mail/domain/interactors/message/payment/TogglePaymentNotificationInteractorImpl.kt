@@ -10,8 +10,9 @@ import java.lang.Exception
 import javax.inject.Inject
 
 internal class TogglePaymentNotificationInteractorImpl @Inject constructor(
-        executor: Executor,
-        private val api: Api)
+    executor: Executor,
+    private val api: Api
+)
     : BaseInteractor(executor), TogglePaymentNotificationInteractor {
 
     override var input: TogglePaymentNotificationInteractor.Input? = null
@@ -28,6 +29,4 @@ internal class TogglePaymentNotificationInteractorImpl @Inject constructor(
             }
         }
     }
-
-
 }

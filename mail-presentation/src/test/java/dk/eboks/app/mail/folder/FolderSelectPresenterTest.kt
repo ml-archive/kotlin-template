@@ -22,7 +22,6 @@ class FolderSelectPresenterTest {
 
     private lateinit var presenter: FolderSelectUserComponentPresenter
 
-
     @Before
     fun setUp() {
         presenter = FolderSelectUserComponentPresenter(appStateManager, getAllSharesInteractor)
@@ -46,7 +45,6 @@ class FolderSelectPresenterTest {
             mockView.showProgress(false)
             mockView.showShares(sharedFolders)
         }
-
     }
 
     @Test
@@ -61,5 +59,4 @@ class FolderSelectPresenterTest {
             mockView.showErrorDialog(error)
         }
     }
-
 }

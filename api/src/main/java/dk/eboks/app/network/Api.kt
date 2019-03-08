@@ -19,8 +19,8 @@ import dk.eboks.app.domain.models.login.SharedUser
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
-import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.domain.models.message.StorageInfo
+import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.domain.models.message.payment.PaymentCallback
 import dk.eboks.app.domain.models.protocol.AliasBody
 import dk.eboks.app.domain.models.sender.CollectionContainer
@@ -32,7 +32,16 @@ import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.domain.models.shared.ResourceLink
 import okhttp3.ResponseBody
 import retrofit2.Call
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * Created by bison on 20-05-2017.
@@ -148,24 +157,26 @@ interface Api {
     @DELETE("mail/folders/{folderId}/messages/{messageId}")
     fun deleteMessage(@Path("folderId") folderId: Int, @Path("messageId") messageId: String): Call<Void>
 
-
     @GET("mail/folders/{folderId}/messages/{messageId}/payment")
-    fun getPaymentDetails(@Path("folderId") folderId: Int, @Path("messageId") messageId: String) : Call<Payment>
+    fun getPaymentDetails(@Path("folderId") folderId: Int, @Path("messageId") messageId: String): Call<Payment>
 
     @FormUrlEncoded
     @PATCH("mail/folders/{folderId}/messages/{messageId}/payment")
     fun togglePaymentNotifications(
-            @Path("folderId") folderId: Int,
-            @Path("messageId") messageId: String,
-            @Field("notification") on: Boolean) : Call<Void>
+        @Path("folderId") folderId: Int,
+        @Path("messageId") messageId: String,
+        @Field("notification") on: Boolean
+    ): Call<Void>
 
     @GET("mail/folders/{folderId}/messages/{messageId}/payment/{type}/link")
-    fun getPaymentLink(@Path("folderId") folderId: Int,
-                       @Path("messageId")  messageId: String,
-                       @Path("type") paymentType: String,
-                       @Query("callback_success") successCallback: String = PaymentCallback.SUCCESS.url,
-                       @Query("callback_error") failureCallback: String = PaymentCallback.FAILURE.url,
-                       @Query("callback_cancel") cancelCallback: String = PaymentCallback.CANCEL.url) : Call<Link>
+    fun getPaymentLink(
+        @Path("folderId") folderId: Int,
+        @Path("messageId") messageId: String,
+        @Path("type") paymentType: String,
+        @Query("callback_success") successCallback: String = PaymentCallback.SUCCESS.url,
+        @Query("callback_error") failureCallback: String = PaymentCallback.FAILURE.url,
+        @Query("callback_cancel") cancelCallback: String = PaymentCallback.CANCEL.url
+    ): Call<Link>
 
     // get types of messages, used to be by folder type but now its just a couple of hardcoded endpoints
     @GET("mail/messages/highlights")

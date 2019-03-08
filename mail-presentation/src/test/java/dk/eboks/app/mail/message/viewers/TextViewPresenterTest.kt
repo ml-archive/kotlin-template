@@ -14,18 +14,16 @@ import org.junit.Test
 class TextViewPresenterTest {
 
     private val appStateManager: AppStateManager = mockk(relaxUnitFun = true)
-    private val view :  TextViewComponentContract.View = mockk(relaxUnitFun = true)
-    private val lifecycle : Lifecycle = mockk(relaxUnitFun = true)
+    private val view: TextViewComponentContract.View = mockk(relaxUnitFun = true)
+    private val lifecycle: Lifecycle = mockk(relaxUnitFun = true)
 
     private lateinit var presenter: TextViewComponentPresenter
-
 
     @Before
     fun setUp() {
         presenter = TextViewComponentPresenter(appStateManager)
         presenter.onViewCreated(view, lifecycle)
     }
-
 
     @Test
     fun `Setup With Uri String Test`() {

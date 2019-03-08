@@ -8,18 +8,15 @@ import dk.eboks.app.mail.presentation.ui.message.components.viewers.pdf.PdfViewC
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.Before
 import org.junit.Test
 
 class PdfViewPresenterTest {
 
     private val appStateManager: AppStateManager = mockk(relaxUnitFun = true)
-    private val view :  PdfViewComponentContract.View = mockk(relaxUnitFun = true)
-    private val lifecycle : Lifecycle = mockk(relaxUnitFun = true)
+    private val view: PdfViewComponentContract.View = mockk(relaxUnitFun = true)
+    private val lifecycle: Lifecycle = mockk(relaxUnitFun = true)
 
     private lateinit var presenter: PdfViewComponentPresenter
-
-
 
     @Test
     fun `View CreatedTest`() {
@@ -33,8 +30,5 @@ class PdfViewPresenterTest {
         verify {
             view.showPdfView(filename)
         }
-
-
     }
-
 }

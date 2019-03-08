@@ -24,8 +24,10 @@ class OpenAttachmentInteractorImplTest {
     fun `Open Cached Attachment Test`() {
 
         val latch = CountDownLatch(1)
-        val content = Content("id", "title", 123L,
-                "pdf", "application/pdf", "UTF-8", null)
+        val content = Content(
+            "id", "title", 123L,
+            "pdf", "application/pdf", "UTF-8", null
+        )
         val message = mockk<Message>()
         val fileName = "filename"
         val path = "path"
@@ -56,8 +58,10 @@ class OpenAttachmentInteractorImplTest {
     fun `Download and Open Attachment Test`() {
 
         val latch = CountDownLatch(1)
-        val content = Content("id", "title", 123L,
-                "pdf", "application/pdf", "UTF-8", null)
+        val content = Content(
+            "id", "title", 123L,
+            "pdf", "application/pdf", "UTF-8", null
+        )
         val message = mockk<Message>()
         val fileName = "filename"
         val path = "path/to/$fileName"
@@ -93,8 +97,10 @@ class OpenAttachmentInteractorImplTest {
     fun `Open Attachment Error Test`() {
 
         val latch = CountDownLatch(1)
-        val content = Content("id", "title", 123L,
-                "pdf", "application/pdf", "UTF-8", null)
+        val content = Content(
+            "id", "title", 123L,
+            "pdf", "application/pdf", "UTF-8", null
+        )
         val message = mockk<Message>()
         val fileName = "filename"
         val path = "path/to/$fileName"

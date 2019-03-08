@@ -8,8 +8,9 @@ import java.lang.Exception
 import javax.inject.Inject
 
 internal class GetPaymentDetailsInteractorImpl @Inject constructor(
-        executor: Executor,
-        private val repository: MessagesRepository)
+    executor: Executor,
+    private val repository: MessagesRepository
+)
     : BaseInteractor(executor),
         GetPaymentDetailsInteractor {
 
@@ -22,9 +23,8 @@ internal class GetPaymentDetailsInteractorImpl @Inject constructor(
                 val result = repository.getPaymentDetails(it.folderId, it.messageId)
                 runOnUIThread { output?.onPaymentDetailsLoaded(result) }
             } catch (e: Exception) {
-                runOnUIThread { output?.onPaymentDetailsLoadingError(exceptionToViewError(e))  }
+                runOnUIThread { output?.onPaymentDetailsLoadingError(exceptionToViewError(e)) }
             }
         }
     }
-
 }

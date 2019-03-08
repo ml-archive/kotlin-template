@@ -48,7 +48,15 @@ class UploadFileInteractorImplTest {
 
         val latch = CountDownLatch(1)
 
-        every { repository.uploadFileAsMessage(any(), any(), any(), any(), any()) } throws Exception()
+        every {
+            repository.uploadFileAsMessage(
+                any(),
+                any(),
+                any(),
+                any(),
+                any()
+            )
+        } throws Exception()
 
         interactor.input = UploadFileInteractor.Input(12, "filename", "uri", "*/*")
         interactor.output = object : UploadFileInteractor.Output {

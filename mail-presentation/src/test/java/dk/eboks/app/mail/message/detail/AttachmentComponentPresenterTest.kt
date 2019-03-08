@@ -30,7 +30,11 @@ class AttachmentComponentPresenterTest {
     @Before
     fun setUp() {
         every { appStateManager.state } returns AppState(currentMessage = message)
-        presenter = AttachmentsComponentPresenter(appStateManager, openAttachmentInteractor, saveAttachmentInteractor)
+        presenter = AttachmentsComponentPresenter(
+            appStateManager,
+            openAttachmentInteractor,
+            saveAttachmentInteractor
+        )
         presenter.onViewCreated(mockView, mockLifecycle)
     }
 
@@ -42,7 +46,6 @@ class AttachmentComponentPresenterTest {
             openAttachmentInteractor.input = OpenAttachmentInteractor.Input(message, content)
             openAttachmentInteractor.run()
         }
-
     }
 
     @Test
@@ -53,7 +56,6 @@ class AttachmentComponentPresenterTest {
             saveAttachmentInteractor.input = SaveAttachmentInteractor.Input(message, content)
             saveAttachmentInteractor.run()
         }
-
     }
 
     @Test

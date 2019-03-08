@@ -11,14 +11,14 @@ import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
 class PaymentComponentPresenter @Inject constructor(
-        private val appStateManager: AppStateManager,
-        private val getPaymentLinkInteractor: GetPaymentLinkInteractor,
-        private val togglePaymentNotificationInteractor: TogglePaymentNotificationInteractor)
-    :   BasePresenterImpl<PaymentComponentContract.View>(),
+    private val appStateManager: AppStateManager,
+    private val getPaymentLinkInteractor: GetPaymentLinkInteractor,
+    private val togglePaymentNotificationInteractor: TogglePaymentNotificationInteractor
+)
+    : BasePresenterImpl<PaymentComponentContract.View>(),
         PaymentComponentContract.Presenter,
         GetPaymentLinkInteractor.Output,
         TogglePaymentNotificationInteractor.Output {
-
 
     override fun onViewCreated(view: PaymentComponentContract.View, lifecycle: Lifecycle) {
         super.onViewCreated(view, lifecycle)
@@ -51,6 +51,5 @@ class PaymentComponentPresenter @Inject constructor(
     }
 
     override fun onNotificationToggleUpdateError(viewError: ViewError) {
-
     }
 }

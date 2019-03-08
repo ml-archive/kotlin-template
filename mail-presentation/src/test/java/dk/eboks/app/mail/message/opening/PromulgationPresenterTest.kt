@@ -10,21 +10,18 @@ import dk.nodes.arch.domain.executor.Executor
 import dk.nodes.arch.domain.executor.TestExecutor
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
 class PromulgationPresenterTest {
 
+    private val appStateManager: AppStateManager = mockk(relaxUnitFun = true)
+    private val executor: Executor = TestExecutor()
 
-    private val appStateManager : AppStateManager = mockk(relaxUnitFun = true)
-    private val executor : Executor = TestExecutor()
-
-    private val view : PrivateSenderWarningComponentContract.View = mockk(relaxUnitFun = true)
-    private val lifecycle : Lifecycle = mockk(relaxUnitFun = true)
+    private val view: PrivateSenderWarningComponentContract.View = mockk(relaxUnitFun = true)
+    private val lifecycle: Lifecycle = mockk(relaxUnitFun = true)
 
     private lateinit var presenter: PrivateSenderWarningComponentPresenter
-
 
     @Before
     fun setUp() {
@@ -32,11 +29,14 @@ class PromulgationPresenterTest {
         presenter.onViewCreated(view, lifecycle)
     }
 
-
     @Test
     fun `Test Set Should Proceed`() {
 
-        every { appStateManager.state } returns AppState(openingState = MessageOpeningState(shouldProceedWithOpening = false))
+        every { appStateManager.state } returns AppState(
+            openingState = MessageOpeningState(
+                shouldProceedWithOpening = false
+            )
+        )
 
         presenter.setShouldProceed(true)
         assert(appStateManager.state?.openingState?.shouldProceedWithOpening == true)
@@ -44,5 +44,4 @@ class PromulgationPresenterTest {
         presenter.setShouldProceed(false)
         assert(appStateManager.state?.openingState?.shouldProceedWithOpening == false)
     }
-
 }

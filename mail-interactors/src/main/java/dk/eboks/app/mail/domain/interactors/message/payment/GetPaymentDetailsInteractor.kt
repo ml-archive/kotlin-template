@@ -15,5 +15,4 @@ interface GetPaymentDetailsInteractor : Interactor {
         fun onPaymentDetailsLoaded(payment: Payment)
         fun onPaymentDetailsLoadingError(viewError: ViewError)
     }
-
 }

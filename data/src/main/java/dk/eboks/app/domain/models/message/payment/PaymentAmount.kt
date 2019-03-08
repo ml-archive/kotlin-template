@@ -5,8 +5,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class PaymentAmount(
-        val value: Double,
-        val currency: String
+    val value: Double,
+    val currency: String
 ) : Parcelable {
 
     override fun toString(): String {

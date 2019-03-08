@@ -14,18 +14,16 @@ import org.junit.Test
 class HtmlViewerPresenterTest {
 
     private val appStateManager: AppStateManager = mockk(relaxUnitFun = true)
-    private val view :  HtmlViewComponentContract.View = mockk(relaxUnitFun = true)
-    private val lifecycle : Lifecycle = mockk(relaxUnitFun = true)
+    private val view: HtmlViewComponentContract.View = mockk(relaxUnitFun = true)
+    private val lifecycle: Lifecycle = mockk(relaxUnitFun = true)
 
     private lateinit var presenter: HtmlViewComponentPresenter
-
 
     @Before
     fun setUp() {
         presenter = HtmlViewComponentPresenter(appStateManager)
         presenter.onViewCreated(view, lifecycle)
     }
-
 
     @Test
     fun `Setup With Uri String Test`() {

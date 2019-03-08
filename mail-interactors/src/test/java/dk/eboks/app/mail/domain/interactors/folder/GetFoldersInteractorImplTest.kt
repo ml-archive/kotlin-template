@@ -11,7 +11,6 @@ import io.mockk.every
 import io.mockk.mockk
 import org.junit.Assert
 import org.junit.Test
-import java.lang.Exception
 import java.util.concurrent.CountDownLatch
 
 class GetFoldersInteractorImplTest {
@@ -44,7 +43,7 @@ class GetFoldersInteractorImplTest {
             // Result folders should consist only be of type INBOX or FOLDER
             override fun onGetFolders(folders: List<Folder>) {
                 folders.map { it.type == FolderType.INBOX || it.type == FolderType.FOLDER }
-                        .forEach { Assert.assertTrue(it) }
+                    .forEach { Assert.assertTrue(it) }
                 latch.countDown()
             }
 

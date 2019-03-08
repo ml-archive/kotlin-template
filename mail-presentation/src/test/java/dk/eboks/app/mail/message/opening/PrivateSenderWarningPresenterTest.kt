@@ -15,21 +15,19 @@ import org.junit.Test
 
 class PrivateSenderWarningPresenterTest {
 
-    private val appStateManager : AppStateManager = mockk(relaxUnitFun = true)
-    private val executor : Executor = TestExecutor()
+    private val appStateManager: AppStateManager = mockk(relaxUnitFun = true)
+    private val executor: Executor = TestExecutor()
 
-    private val view : PrivateSenderWarningComponentContract.View = mockk(relaxUnitFun = true)
-    private val lifecycle : Lifecycle = mockk(relaxUnitFun = true)
+    private val view: PrivateSenderWarningComponentContract.View = mockk(relaxUnitFun = true)
+    private val lifecycle: Lifecycle = mockk(relaxUnitFun = true)
 
     private lateinit var presenter: PrivateSenderWarningComponentPresenter
-
 
     @Before
     fun setUp() {
         presenter = PrivateSenderWarningComponentPresenter(appStateManager, executor)
         presenter.onViewCreated(view, lifecycle)
     }
-
 
     @Test
     fun `Test Set Should Proceed`() {

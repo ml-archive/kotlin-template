@@ -14,5 +14,4 @@ interface TogglePaymentNotificationInteractor : Interactor {
         fun onNotificationsToggleUpdated(newValue: Boolean)
         fun onNotificationToggleUpdateError(viewError: ViewError)
     }
-
 }

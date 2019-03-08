@@ -6,7 +6,11 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.AppState
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.message.*
+import dk.eboks.app.domain.models.message.Content
+import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.MessagePatch
+import dk.eboks.app.domain.models.message.Sign
+import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
 import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
@@ -30,7 +34,6 @@ class MessageEmbeddedPresenterTest {
 
     private lateinit var presenter: MessageEmbeddedPresenter
 
-
     private val replyStatus: Status = mockk(relaxed = true)
     private val payment: Payment = mockk(relaxed = true)
     private val attachments: List<Content> = listOf()
@@ -48,11 +51,14 @@ class MessageEmbeddedPresenterTest {
 
         every { appStateManager.state } returns AppState(currentMessage = message)
 
-        presenter = MessageEmbeddedPresenter(appConfig, appStateManager, deleteMessagesInteractor, updateMessageInteractor)
+        presenter = MessageEmbeddedPresenter(
+            appConfig,
+            appStateManager,
+            deleteMessagesInteractor,
+            updateMessageInteractor
+        )
         presenter.onViewCreated(view, lifecycle)
-
     }
-
 
     @Test
     fun `Setup Test`() {
@@ -79,7 +85,6 @@ class MessageEmbeddedPresenterTest {
             view.addFolderInfoComponentFragment()
             view.showTitle(message)
             view.addAttachmentsComponentFragment()
-
         }
 
         // Replies, action etc actions called only once
@@ -110,7 +115,6 @@ class MessageEmbeddedPresenterTest {
             view.addPdfViewer()
         }
 
-
         every { content.mimeType } returns "text/html"
         presenter.setup()
 
@@ -124,7 +128,6 @@ class MessageEmbeddedPresenterTest {
         verify {
             view.addTextViewer()
         }
-
     }
 
     @Test
@@ -137,7 +140,8 @@ class MessageEmbeddedPresenterTest {
 
         verify {
             val patch = MessagePatch(folderId = folder.id)
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(arrayListOf(message), patch)
+            updateMessageInteractor.input =
+                UpdateMessageInteractor.Input(arrayListOf(message), patch)
             updateMessageInteractor.run()
         }
     }
@@ -154,7 +158,6 @@ class MessageEmbeddedPresenterTest {
         }
     }
 
-
     @Test
     fun `Test Archive Message`() {
 
@@ -163,7 +166,8 @@ class MessageEmbeddedPresenterTest {
 
         verify {
             val patch = MessagePatch(archive = true)
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(arrayListOf(message), patch)
+            updateMessageInteractor.input =
+                UpdateMessageInteractor.Input(arrayListOf(message), patch)
             updateMessageInteractor.run()
         }
     }
@@ -176,11 +180,10 @@ class MessageEmbeddedPresenterTest {
 
         verify {
             val patch = MessagePatch(unread = false)
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(arrayListOf(message), patch)
+            updateMessageInteractor.input =
+                UpdateMessageInteractor.Input(arrayListOf(message), patch)
             updateMessageInteractor.run()
         }
-
-
     }
 
     @Test
@@ -191,11 +194,11 @@ class MessageEmbeddedPresenterTest {
 
         verify {
             val patch = MessagePatch(unread = true)
-            updateMessageInteractor.input = UpdateMessageInteractor.Input(arrayListOf(message), patch)
+            updateMessageInteractor.input =
+                UpdateMessageInteractor.Input(arrayListOf(message), patch)
             updateMessageInteractor.run()
         }
     }
-
 
     @Test
     fun `Test On Update Message Error`() {
@@ -206,6 +209,4 @@ class MessageEmbeddedPresenterTest {
             view.showErrorDialog(error)
         }
     }
-
-
 }

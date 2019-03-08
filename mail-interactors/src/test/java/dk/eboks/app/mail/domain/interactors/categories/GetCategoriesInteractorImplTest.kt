@@ -9,15 +9,14 @@ import io.mockk.every
 import io.mockk.mockk
 import org.junit.After
 import org.junit.Test
-import java.lang.Exception
 import java.util.concurrent.CountDownLatch
 
 class GetCategoriesInteractorImplTest {
     private val executor = TestExecutor()
     private val foldersRepositoryMail = mockk<MailCategoriesRepository>()
     private val interactor = GetMailCategoriesInteractorImpl(
-            executor,
-            foldersRepositoryMail
+        executor,
+        foldersRepositoryMail
     )
 
     @After
@@ -29,7 +28,10 @@ class GetCategoriesInteractorImplTest {
     @Test
     fun `Test Get Categories`() {
         val user = User(id = 12)
-        every { foldersRepositoryMail.getMailCategories(any(), any()) } returns listOf(Folder(), Folder())
+        every { foldersRepositoryMail.getMailCategories(any(), any()) } returns listOf(
+            Folder(),
+            Folder()
+        )
 
         val latch = CountDownLatch(1)
 

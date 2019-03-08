@@ -198,10 +198,9 @@ abstract class MailBindingPresentationModule {
 
     @ActivityScope
     @Binds
-    internal abstract fun bindPaymentButtonComponentPresenter(presenter: PaymentButtonComponentPresenter) : PaymentButtonComponentContract.Presenter
+    internal abstract fun bindPaymentButtonComponentPresenter(presenter: PaymentButtonComponentPresenter): PaymentButtonComponentContract.Presenter
 
     @ActivityScope
     @Binds
-    internal abstract fun bindPaymentComponentPresenter(presenter: PaymentComponentPresenter) : PaymentComponentContract.Presenter
-
+    internal abstract fun bindPaymentComponentPresenter(presenter: PaymentComponentPresenter): PaymentComponentContract.Presenter
 }

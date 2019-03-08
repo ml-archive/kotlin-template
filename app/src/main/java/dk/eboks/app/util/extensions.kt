@@ -37,11 +37,9 @@ import dk.eboks.app.domain.models.Image
 import dk.eboks.app.domain.models.Translation
 import timber.log.Timber
 import java.io.Serializable
-import java.net.ConnectException
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
+import java.util.Locale
 
 /**
  * Created by bison on 01-07-2017.
@@ -306,7 +304,7 @@ fun TextInputEditText.onImeActionDone(block: () -> Unit) {
     }
 }
 
-fun Date.formatPayment() : String {
-    val formatter =  SimpleDateFormat("d MMMM YYYY", Locale.getDefault())
+fun Date.formatPayment(): String {
+    val formatter = SimpleDateFormat("d MMMM YYYY", Locale.getDefault())
     return "Payment due on ${formatter.format(this)}"
 }

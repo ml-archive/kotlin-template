@@ -1,6 +1,5 @@
 package dk.eboks.app.presentation.ui.message.components.detail.payment
 
-
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -24,7 +23,6 @@ import kotlinx.android.synthetic.main.fragment_payment_component.*
 import timber.log.Timber
 import javax.inject.Inject
 
-
 class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, PaymentOptionsAdapter.PaymentOptionListener {
 
     @Inject
@@ -33,12 +31,14 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, 
     private val payment: Payment?
         get() = arguments?.getParcelable(ARG_PAYMENT)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_payment_component, container, false)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -56,7 +56,7 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, 
     private fun setupRecyclerView(options: List<PaymentOption>) {
         paymentOptionsRv.layoutManager = LinearLayoutManager(context)
         paymentOptionsRv.adapter = PaymentOptionsAdapter(options, this)
-        paymentOptionsRv.addItemDecoration( DividerItemDecoration(
+        paymentOptionsRv.addItemDecoration(DividerItemDecoration(
                 drawable = ContextCompat.getDrawable(context!!, R.drawable.shape_divider)!!,
                 indentationDp = 72,
                 backgroundColor = ContextCompat.getColor(context!!, R.color.white)
@@ -90,10 +90,8 @@ class PaymentComponentFragment : BaseFragment(), PaymentComponentContract.View, 
         }
     }
 
-
     companion object {
         private const val ARG_PAYMENT = "payment"
         fun createBundle(payment: Payment) = Bundle().apply { putParcelable(ARG_PAYMENT, payment) }
     }
-
 }
