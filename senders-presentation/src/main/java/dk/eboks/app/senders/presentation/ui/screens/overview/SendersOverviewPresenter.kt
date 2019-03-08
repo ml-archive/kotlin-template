@@ -10,9 +10,6 @@ import dk.eboks.app.domain.senders.interactors.register.GetPendingInteractor
 import dk.eboks.app.domain.senders.interactors.register.RegisterInteractor
 import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -40,7 +37,7 @@ internal class SendersOverviewPresenter @Inject constructor(
         getSenderCategoriesInteractor.output = this
         getSenderCategoriesInteractor.input = GetSenderCategoriesInteractor.Input(true)
         collectionsInteractor.input = GetCollectionsInteractor.Input(false)
-        GlobalScope.launch(Dispatchers.IO) {
+        launchOnIO {
             collectionsInteractor.run()
             getPendingInteractor.run()
             getSenderCategoriesInteractor.run()
@@ -49,7 +46,7 @@ internal class SendersOverviewPresenter @Inject constructor(
 
     override fun onGetCollections(collections: List<CollectionContainer>) {
         Timber.i("Collection loaded")
-        GlobalScope.launch(Dispatchers.IO) {
+        launchOnIO {
             collections.forEach {
                 Timber.d("Container type: ${it.type}")
             }
