@@ -16,14 +16,10 @@ internal class ImageViewComponentPresenter @Inject constructor(private val appSt
 
     override fun setup(uriString: String?) {
         uriString?.let {
-            runAction { v ->
-                v.showImageURI(uriString)
-            }
+            view { showImageURI(uriString) }
         }.guard {
             appState.state?.currentViewerFileName?.let { filename ->
-                runAction { v ->
-                    v.showImage(filename)
-                }
+                view { showImage(filename) }
             }
         }
     }

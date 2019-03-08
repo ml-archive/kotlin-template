@@ -1,4 +1,4 @@
-package dk.eboks.app.domain.models.message
+package dk.eboks.app.domain.models.message.payment
 
 import android.os.Parcelable
 import dk.eboks.app.domain.models.shared.Description
@@ -10,7 +10,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class PaymentOption(
     var name: String,
-    var description: Description?,
     var status: Int?,
     var type: String //  "type": (string) = ["betalingsservice","dibs","reepay"]
 

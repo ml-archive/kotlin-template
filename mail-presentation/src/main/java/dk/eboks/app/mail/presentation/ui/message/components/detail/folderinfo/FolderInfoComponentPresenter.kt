@@ -12,12 +12,9 @@ internal class FolderInfoComponentPresenter @Inject constructor(private val appS
     FolderInfoComponentContract.Presenter, BasePresenterImpl<FolderInfoComponentContract.View>() {
 
     init {
-        runAction { v ->
-
-            appState.state?.currentMessage?.folder?.let {
-                v.updateView(it.name)
-            }.guard {
-                appState.state?.currentFolder?.let { v.updateView(it.name) }
+        view {
+            appState.state?.currentMessage?.folder?.name?.let(::updateView).guard {
+                appState.state?.currentFolder?.name?.let(::updateView)
             }
         }
     }

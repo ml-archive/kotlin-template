@@ -10,6 +10,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
+import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.mail.presentation.ui.message.screens.MessageContract
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.folder.screens.FolderActivity
@@ -18,6 +19,7 @@ import dk.eboks.app.presentation.ui.message.components.detail.document.DocumentC
 import dk.eboks.app.presentation.ui.message.components.detail.folderinfo.FolderInfoComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentFragment
+import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentButtonComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.share.ShareComponentFragment
 import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
@@ -36,9 +38,10 @@ class MessageActivity : BaseActivity(), MessageContract.View {
     private var replyButtonComponentFragment: ReplyButtonComponentFragment? = null
     private var documentComponentFragment: DocumentComponentFragment? = null
     var shareComponentFragment: ShareComponentFragment? = null
-    private var notesComponentFragment: NotesComponentFragment? = null
-    private var attachmentsComponentFragment: AttachmentsComponentFragment? = null
-    private var folderInfoComponentFragment: FolderInfoComponentFragment? = null
+    var notesComponentFragment: NotesComponentFragment? = null
+    var attachmentsComponentFragment: AttachmentsComponentFragment? = null
+    var folderInfoComponentFragment: FolderInfoComponentFragment? = null
+    var paymentButton: PaymentButtonComponentFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -143,6 +146,14 @@ class MessageActivity : BaseActivity(), MessageContract.View {
             supportFragmentManager.beginTransaction()
                 .add(R.id.bodyContainerLl, it, NotesComponentFragment::class.java.simpleName)
                 .commit()
+        }
+    }
+
+    override fun addPaymentButton(payment: Payment) {
+        paymentButton = PaymentButtonComponentFragment.newInstance(payment)
+        paymentButton?.let {
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.sheetComponentsLl, it, it::class.java.simpleName).commit()
         }
     }
 

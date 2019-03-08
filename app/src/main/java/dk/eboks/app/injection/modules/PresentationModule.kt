@@ -89,11 +89,5 @@ abstract class PresentationModule {
     @ActivityScope
     @Binds
     abstract fun bindHomePresenter(presenter: HomePresenter): HomeContract.Presenter
-    /* Pasta
-    @ActivityScope
-    @Binds
-    abstract fun bindComponentPresenter(stateManager: AppStateManager) : ComponentContract.Presenter {
-        return ComponentPresenter(stateManager)
-    }
-    */
+
 }

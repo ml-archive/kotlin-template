@@ -3,14 +3,15 @@ package dk.eboks.app.presentation.ui.login.screens
 import android.app.Activity
 import android.os.Bundle
 import dk.eboks.app.R
+import dk.eboks.app.keychain.presentation.PopupLoginContract
 import dk.eboks.app.presentation.base.BaseActivity
 import dk.eboks.app.presentation.ui.login.components.LoginComponentFragment
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
 import javax.inject.Inject
 
-class PopupLoginActivity : BaseActivity(), dk.eboks.app.keychain.presentation.PopupLoginContract.View {
-    @Inject lateinit var presenter: dk.eboks.app.keychain.presentation.PopupLoginContract.Presenter
+class PopupLoginActivity : BaseActivity(), PopupLoginContract.View {
+    @Inject lateinit var presenter: PopupLoginContract.Presenter
 
     companion object {
         const val REQUEST_VERIFICATION: Int = 13445

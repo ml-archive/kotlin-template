@@ -1,6 +1,7 @@
 package dk.eboks.app.presentation.ui.start.screens
 
 import dk.eboks.app.BuildConfig
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.interactors.BootstrapInteractor
 import dk.eboks.app.domain.managers.PrefManager
 import dk.eboks.app.domain.models.local.ViewError
@@ -15,7 +16,8 @@ import javax.inject.Inject
  */
 class StartPresenter @Inject constructor(
     private val bootstrapInteractor: BootstrapInteractor,
-    private val prefManager: PrefManager
+    private val prefManager: PrefManager,
+    private val appConfig: AppConfig
 ) :
     StartContract.Presenter,
     BasePresenterImpl<StartContract.View>(),
@@ -28,8 +30,8 @@ class StartPresenter @Inject constructor(
 
     override fun startup() {
         Timber.e("Startup, running version control")
-        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
-            runAction { v -> v.performVersionControl() }
+        if (appConfig.isDebug) {
+            view { performVersionControl() }
         } else {
             Timber.e("Release not running appOpen call")
             proceed()
@@ -43,39 +45,35 @@ class StartPresenter @Inject constructor(
 
     override fun onBootstrapDone(hasUsers: Boolean, autoLogin: Boolean) {
         Timber.e("Boostrap done")
-        runAction { v ->
-            v.bootstrapDone()
+        view {
+            bootstrapDone()
             if (autoLogin) {
-                v.startMain()
+                startMain()
             } else if (hasUsers) {
-                v.showUserCarouselComponent()
+                showUserCarouselComponent()
             } else {
                 if (BuildConfig.ENABLE_BETA_DISCLAIMER) {
                     if (!prefManager.getBoolean("didShowBetaDisclaimer", false)) {
                         prefManager.setBoolean("didShowBetaDisclaimer", true)
-                        v.showDisclaimer()
+                        showDisclaimer()
                     } else
-                        v.showWelcomeComponent()
+                        showWelcomeComponent()
                 } else
-                    v.showWelcomeComponent()
+                    showWelcomeComponent()
             }
         }
     }
 
     override fun onBootstrapError(error: ViewError) {
-        runAction { v -> v.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 
     override fun onGetUser(user: User) {
-        runAction { v ->
-            v.startMain()
-        }
+        view { startMain() }
     }
 
     override fun onGetUserError(error: ViewError) {
         Timber.w("WARNING: SERVER COULDN'T FIND THE USER")
-        runAction { v ->
-            v.showUserCarouselComponent()
-        }
+        view { showUserCarouselComponent() }
     }
 }

@@ -43,33 +43,33 @@ internal class ProfileInfoComponentPresenter @Inject constructor(
 //            return
         }
 
-        runAction { v -> v.showProgress(showProgress) }
+        view { showProgress(showProgress) }
 
         getUserProfileInteractor.run()
     }
 
     override fun onGetUser(user: User) {
-        runAction { v ->
-            v.detachListeners()
-            v.setName(user.name)
-            v.setVerified(user.verified)
-            v.showFingerprintOptionIfSupported()
+        view {
+            detachListeners()
+            setName(user.name)
+            setVerified(user.verified)
+            showFingerprintOptionIfSupported()
 
-            v.setProfileImage(user.avatarUri)
+            setProfileImage(user.avatarUri)
 
             appState.state?.currentSettings?.let {
-                v.showFingerprintEnabled(it.hasFingerprint, it.lastLoginProviderId)
-                v.showKeepMeSignedIn(it.stayLoggedIn)
+                showFingerprintEnabled(it.hasFingerprint, it.lastLoginProviderId)
+                showKeepMeSignedIn(it.stayLoggedIn)
             }
-            v.showProgress(false)
-            v.attachListeners()
+            showProgress(false)
+            attachListeners()
         }
     }
 
     override fun onGetUserError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
@@ -108,9 +108,9 @@ internal class ProfileInfoComponentPresenter @Inject constructor(
     }
 
     override fun onSaveUserError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
@@ -123,6 +123,6 @@ internal class ProfileInfoComponentPresenter @Inject constructor(
         // activationCode still used ?
         appState.state?.loginState?.activationCode = null
         appState.save()
-        view?.logout()
+        view { logout() }
     }
 }

@@ -32,9 +32,7 @@ class BankIdSEComponentPresenter @Inject constructor(
     ) {
 
     override fun login(webToken: String) {
-        appState.state?.loginState?.let {
-            it.userLoginProviderId = "bankid_se"
-        }
+        appState.state?.loginState?.userLoginProviderId = "bankid_se"
         super.login(webToken)
     }
 }

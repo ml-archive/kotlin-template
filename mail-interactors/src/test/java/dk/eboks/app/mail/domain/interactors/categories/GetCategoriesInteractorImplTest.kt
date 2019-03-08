@@ -4,8 +4,6 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.repositories.MailCategoriesRepository
-import dk.eboks.app.mail.domain.interactors.categories.GetCategoriesInteractor
-import dk.eboks.app.mail.domain.interactors.categories.GetMailCategoriesInteractorImpl
 import dk.nodes.arch.domain.executor.TestExecutor
 import io.mockk.every
 import io.mockk.mockk
@@ -22,21 +20,18 @@ class GetCategoriesInteractorImplTest {
             foldersRepositoryMail
     )
 
-
     @After
     fun tearDown() {
         interactor.output = null
         interactor.input = null
     }
 
-
-
     @Test
     fun `Test Get Categories`() {
         val user = User(id = 12)
         every { foldersRepositoryMail.getMailCategories(any(), any()) } returns listOf(Folder(), Folder())
 
-        val latch =  CountDownLatch(1)
+        val latch = CountDownLatch(1)
 
         interactor.input = GetCategoriesInteractor.Input(false, user.id)
         interactor.output = object : GetCategoriesInteractor.Output {
@@ -50,14 +45,11 @@ class GetCategoriesInteractorImplTest {
                 assert(false)
                 latch.countDown()
             }
-
         }
 
         interactor.run()
         latch.await()
-
     }
-
 
     @Test
     fun `Test Get Categories Error`() {
@@ -82,6 +74,4 @@ class GetCategoriesInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
-
 }

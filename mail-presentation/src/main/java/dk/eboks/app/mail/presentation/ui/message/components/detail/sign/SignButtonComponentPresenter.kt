@@ -14,6 +14,6 @@ internal class SignButtonComponentPresenter @Inject constructor() :
     }
 
     override fun sign(msg: Message) {
-        runAction { v -> v.startSigning(msg) }
+        view { startSigning(msg) }
     }
 }

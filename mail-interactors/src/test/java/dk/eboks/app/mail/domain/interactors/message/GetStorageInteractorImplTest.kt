@@ -16,7 +16,6 @@ class GetStorageInteractorImplTest {
 
     private val interactor = GetStorageInteractorImpl(executor, repository)
 
-
     @Test
     fun `Get Storage Test`() {
         val latch = CountDownLatch(1)
@@ -37,7 +36,6 @@ class GetStorageInteractorImplTest {
         }
         interactor.run()
         latch.await()
-
     }
 
     @Test
@@ -58,7 +56,5 @@ class GetStorageInteractorImplTest {
         }
         interactor.run()
         latch.await()
-
     }
-
 }

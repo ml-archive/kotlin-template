@@ -1,10 +1,10 @@
 package dk.eboks.app.senders.presentation.ui.screens.detail
 
+import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.senders.interactors.GetSenderDetailInteractor
 import dk.eboks.app.domain.senders.interactors.register.RegisterInteractor
 import dk.eboks.app.domain.senders.interactors.register.UnRegisterInteractor
-import dk.eboks.app.domain.models.local.ViewError
-import dk.eboks.app.domain.models.sender.Sender
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -46,25 +46,19 @@ internal class SenderDetailPresenter @Inject constructor(
     }
 
     override fun onGetSender(sender: Sender) {
-        runAction { v ->
-            v.showSender(sender)
-        }
+        view { showSender(sender) }
     }
 
     override fun onGetSenderError(error: ViewError) {
-        runAction { it.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 
     override fun onSuccess() {
         Timber.i("Success")
-        runAction { v ->
-            v.showSuccess()
-        }
+        view { showSuccess() }
     }
 
     override fun onError(error: ViewError) {
-        runAction { v ->
-            v.showError(error.message ?: "")
-        }
+        view { showError(error.message ?: "") }
     }
 }

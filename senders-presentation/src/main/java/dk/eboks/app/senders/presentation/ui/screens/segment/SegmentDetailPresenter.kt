@@ -31,9 +31,7 @@ internal class SegmentDetailPresenter @Inject constructor(
     }
 
     override fun onGetSegment(segment: Segment) {
-        runAction { v ->
-            v.showSegment(segment)
-        }
+        view { showSegment(segment) }
     }
 
     override fun loadSegment(id: Long) {
@@ -53,14 +51,10 @@ internal class SegmentDetailPresenter @Inject constructor(
 
     override fun onSuccess() {
         Timber.i("Success")
-        runAction { v ->
-            v.showSuccess()
-        }
+        view { showSuccess() }
     }
 
     override fun onError(error: ViewError) {
-        runAction { v ->
-            v.showError(error.message ?: "")
-        }
+        view { showError(error.message ?: "") }
     }
 }

@@ -15,9 +15,7 @@ class DebugUsersComponentPresenter @Inject constructor(
     private val testLoginStates: MutableList<LoginState>
 ) : DebugUsersComponentContract.Presenter, BasePresenterImpl<DebugUsersComponentContract.View>() {
     override fun makeList() {
-        runAction { v ->
-            v.showUsers(testLoginStates)
-        }
+        view { showUsers(testLoginStates) }
     }
 
     override fun updateLoginState(ls: LoginState) {

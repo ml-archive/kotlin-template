@@ -27,12 +27,10 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup,android:label">
-
+        <activity android:name=".presentation.ui.message.screens.payment.PaymentWebViewActivity"></activity>
         <activity
             android:name=".presentation.ui.main.MainActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait" />
-        <!-- nstack app id and key from build.gradle manifest placeholder -->
+            android:screenOrientation="portrait" /> <!-- nstack app id and key from build.gradle manifest placeholder -->
 
         <meta-data
             android:name="dk.nodes.nstack.appId"
@@ -57,7 +55,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".presentation.ui.debug.screens.hinter.HintActivity"
             android:screenOrientation="portrait" />
@@ -106,13 +103,12 @@
             android:name=".presentation.ui.channels.screens.content.ChannelContentActivity"
             android:screenOrientation="portrait" />
         <activity
-
             android:name=".presentation.ui.channels.screens.content.storebox.ConnectStoreboxActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:windowSoftInputMode="adjustResize"
             android:name=".presentation.ui.channels.screens.content.ekey.EkeyContentActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".presentation.ui.senders.screens.overview.SendersOverviewActivity"
             android:launchMode="singleTask"
@@ -181,7 +177,6 @@
         <activity
             android:name=".presentation.ui.message.screens.sign.SignActivity"
             android:screenOrientation="portrait" />
-
 
         <provider
             android:name="androidx.core.content.FileProvider"

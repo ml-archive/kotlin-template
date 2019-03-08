@@ -48,31 +48,29 @@ internal class ChannelContentStoreboxComponentPresenter @Inject constructor(
         if (messages.isEmpty()) {
             getStoreboxCreditCardsInteractor.run()
         } else {
-            runAction { view?.setReceipts(messages) }
+            view { setReceipts(messages) }
         }
     }
 
     override fun onGetReceiptsError(error: ViewError) {
         Timber.e("onGetReceiptsError: %s", error)
-        runAction {
-            view?.showErrorDialog(error)
-        }
+        view { showErrorDialog(error) }
     }
 
     override fun onGetCardsSuccessful(result: MutableList<StoreboxCreditCard>) {
         // if no credits are added show specialized call to action empty view
         if (result.isEmpty()) {
-            runAction { v -> v.showNoCreditCardsEmptyView(true) }
+            view { showNoCreditCardsEmptyView(true) }
         } else // show regular empty view
         {
-            runAction { v -> v.showEmptyView(true) }
+            view { showEmptyView(true) }
         }
     }
 
     override fun onGetCardsError(error: ViewError) {
-        runAction {
-            view?.showEmptyView(true)
-            view?.showErrorDialog(error)
+        view {
+            showEmptyView(true)
+            showErrorDialog(error)
         }
     }
 }

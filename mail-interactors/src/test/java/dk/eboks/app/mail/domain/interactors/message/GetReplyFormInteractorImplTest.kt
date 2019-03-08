@@ -16,7 +16,6 @@ class GetReplyFormInteractorImplTest {
 
     private val interactor = GetReplyFormInteractorImpl(executor, repository)
 
-
     @Test
     fun `Get Reply Form Test`() {
 
@@ -43,7 +42,6 @@ class GetReplyFormInteractorImplTest {
         latch.await()
     }
 
-
     @Test
     fun `Get Reply Form Error Test`() {
         val latch = CountDownLatch(1)
@@ -66,5 +64,4 @@ class GetReplyFormInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
 }

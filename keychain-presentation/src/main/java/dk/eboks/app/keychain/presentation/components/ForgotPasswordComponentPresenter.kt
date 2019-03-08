@@ -1,7 +1,7 @@
 package dk.eboks.app.keychain.presentation.components
 
-import dk.eboks.app.keychain.interactors.authentication.ResetPasswordInteractor
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.keychain.interactors.authentication.ResetPasswordInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import javax.inject.Inject
 
@@ -25,16 +25,10 @@ internal class ForgotPasswordComponentPresenter @Inject constructor(
     }
 
     override fun onSuccess() {
-        runAction { v ->
-            v.showSuccess()
-        }
+        view { showSuccess() }
     }
 
     override fun onError(error: ViewError) {
-        /*
-        runAction { v ->
-            v.showError(error)
-        }
-        */
+        // view { showError(error) }
     }
 }

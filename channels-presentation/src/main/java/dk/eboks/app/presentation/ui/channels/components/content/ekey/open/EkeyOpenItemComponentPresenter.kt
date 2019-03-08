@@ -57,16 +57,16 @@ internal class EkeyOpenItemComponentPresenter @Inject constructor(
             encryptedPreferences.remove("ekey_${it.id}")
         }
 
-        runAction { view -> view.showPinView() }
+        view { showPinView() }
     }
 
     override fun onSetEKeyVaultSuccess() {
         Timber.d("onSetEKeyVaultSuccess")
-        runAction { view -> view.onSuccess() }
+        view { onSuccess() }
     }
 
     override fun onSetEKeyVaultError(viewError: ViewError) {
-        runAction { view -> view.showErrorDialog(viewError) }
+        view { showErrorDialog(viewError) }
     }
 
     private fun setVault(masterKey: String, keyList: MutableList<BaseEkey>) {

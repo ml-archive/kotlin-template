@@ -24,7 +24,7 @@ internal class SenderCarouselComponentPresenter @Inject constructor(
 
     init {
         refresh(true)
-        runAction { v -> v.showProgress(true) }
+        view { showProgress(true) }
     }
 
     override fun onViewCreated(view: SenderCarouselComponentContract.View, lifecycle: Lifecycle) {
@@ -46,15 +46,14 @@ internal class SenderCarouselComponentPresenter @Inject constructor(
     override fun onGetSenders(senders: List<Sender>) {
         // Timber.e("Received them senders")
         val verified = appState.state?.currentUser?.verified ?: false
-        runAction { v ->
-            v.showProgress(false)
+        view {
+            showProgress(false)
             EventBus.getDefault().post(RefreshSenderCarouselDoneEvent())
             if (senders.isNotEmpty()) {
-                v.showEmpty(false, verified)
-
-                v.showSenders(sortSenders(senders))
+                showEmpty(false, verified)
+                showSenders(sortSenders(senders))
             } else {
-                v.showEmpty(true, verified)
+                showEmpty(true, verified)
             }
         }
     }
@@ -64,10 +63,10 @@ internal class SenderCarouselComponentPresenter @Inject constructor(
     }
 
     override fun onGetSendersError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
+        view {
+            showProgress(false)
             EventBus.getDefault().post(RefreshSenderCarouselDoneEvent())
-            v.showErrorDialog(error)
+            showErrorDialog(error)
         }
     }
 

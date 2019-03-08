@@ -1,13 +1,13 @@
 package dk.eboks.app.mail.presentation.ui.message.screens
 
 import dk.eboks.app.domain.config.AppConfig
-import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
-import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
+import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
+import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -35,22 +35,30 @@ internal class MessagePresenter @Inject constructor(
     override fun setup() {
         Timber.e("Current message ${appState.state?.currentMessage}")
         message = appState.state?.currentMessage
-        runAction { v ->
-            v.addHeaderComponentFragment()
-            v.addDocumentComponentFragment()
-            if (appConfig.isReplyEnabled) {
-                message?.reply?.let {
-                    v.addReplyButtonComponentFragment(message!!)
+
+        view {
+            addHeaderComponentFragment()
+            addDocumentComponentFragment()
+
+            if (appConfig.isPaymentEnabled) {
+                message?.payment?.let {
+                    addPaymentButton(it)
                 }
             }
-            v.addNotesComponentFragment()
+
+            if (appConfig.isReplyEnabled) {
+                message?.reply?.let {
+                    addReplyButtonComponentFragment(message!!)
+                }
+            }
+            addNotesComponentFragment()
             if (message?.attachments != null)
-                v.addAttachmentsComponentFragment()
-            v.addShareComponentFragment()
-            v.addFolderInfoComponentFragment()
+                addAttachmentsComponentFragment()
+            addShareComponentFragment()
+            addFolderInfoComponentFragment()
             message?.let {
-                v.setActionButtons(it)
-                v.showTitle(it)
+                setActionButtons(it)
+                showTitle(it)
             }
         }
     }
@@ -72,17 +80,17 @@ internal class MessagePresenter @Inject constructor(
     }
 
     override fun onDeleteMessagesSuccess() {
-        runAction { it.messageDeleted() }
+        view { messageDeleted() }
     }
 
     override fun onDeleteMessagesError(error: ViewError) {
-        runAction { it.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 
     override fun onUpdateMessageSuccess() {
         moveToFolder?.let { name ->
-            runAction {
-                it.updateFolderName(name)
+            view {
+                updateFolderName(name)
                 moveToFolder = null
             }
         }
@@ -90,9 +98,7 @@ internal class MessagePresenter @Inject constructor(
 
     override fun onUpdateMessageError(error: ViewError) {
         moveToFolder = null
-        runAction { view ->
-            view.showErrorDialog(error)
-        }
+        view { showErrorDialog(error) }
     }
 
     override fun archiveMessage() {

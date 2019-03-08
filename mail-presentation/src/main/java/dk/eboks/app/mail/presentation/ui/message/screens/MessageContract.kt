@@ -2,6 +2,7 @@ package dk.eboks.app.mail.presentation.ui.message.screens
 
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.presentation.base.BaseView
 import dk.nodes.arch.presentation.base.BasePresenter
 
@@ -18,6 +19,7 @@ interface MessageContract {
         fun addAttachmentsComponentFragment()
         fun addFolderInfoComponentFragment()
         fun addShareComponentFragment()
+        fun addPaymentButton(payment: Payment)
         fun messageDeleted()
         fun setActionButtons(message: Message)
         fun updateFolderName(name: String)

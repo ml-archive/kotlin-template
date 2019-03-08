@@ -20,9 +20,9 @@ internal class ChannelRequirementsComponentPresenter @Inject constructor(val app
 
     override fun setup(channel: Channel) {
         buildUnverifiedRequirements(channel)
-        runAction { v ->
-            v.setupView(channel)
-            v.showUnverifiedRequirements(unverifiedRequirements)
+        view {
+            setupView(channel)
+            showUnverifiedRequirements(unverifiedRequirements)
         }
     }
 

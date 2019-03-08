@@ -84,12 +84,12 @@ internal class ChannelSettingsComponentPresenter @Inject constructor(
     }
 
     override fun getStoreboxCardLink() {
-        runAction { it.showProgress(true) }
+        view { showProgress(true) }
         getStoreboxCardLinkInteractor.run()
     }
 
     override fun deleteStoreboxAccountLink() {
-        runAction { it.showProgress(true) }
+        view { showProgress(true) }
         deleteStoreboxAccountLinkInteractor.run()
     }
 
@@ -99,7 +99,7 @@ internal class ChannelSettingsComponentPresenter @Inject constructor(
     }
 
     override fun removeChannel() {
-        runAction { it.showProgress(true) }
+        view { showProgress(true) }
         currentChannel?.let {
             uninstallChannelInteractor.input = UninstallChannelInteractor.Input(it.id)
             uninstallChannelInteractor.run()
@@ -116,16 +116,16 @@ internal class ChannelSettingsComponentPresenter @Inject constructor(
      */
 
     override fun onGetCardsSuccessful(result: MutableList<StoreboxCreditCard>) {
-        runAction {
-            it.showProgress(false)
-            it.setCreditCards(result)
+        view {
+            showProgress(false)
+            setCreditCards(result)
         }
     }
 
     override fun onGetCardsError(error: ViewError) {
-        runAction {
-            it.showProgress(false)
-            it.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
@@ -134,66 +134,60 @@ internal class ChannelSettingsComponentPresenter @Inject constructor(
     }
 
     override fun onDeleteCardError(error: ViewError) {
-        runAction {
-            it.showProgress(false)
-            it.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
     override fun onGetProfile(result: StoreboxProfile) {
-        runAction { v ->
-            v.setOnlyDigitalReceipts(result.greenProfile)
-        }
+        view { setOnlyDigitalReceipts(result.greenProfile) }
         getCreditCards()
     }
 
     override fun onGetProfileError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
     override fun onPutProfile() {
         Timber.d("Storebox profile saved")
-        runAction { v ->
-            v.showProgress(false)
-        }
+        view { showProgress(false) }
     }
 
     override fun onPutProfileError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
     override fun onGetStoreboxCardLink(result: Link) {
-        runAction {
-            it.showAddCardView(result)
-        }
+        view { showAddCardView(result) }
     }
 
     override fun onGetStoreboxCardLinkError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
     override fun onStoreboxAccountLinkDelete() {
         viewController.refreshChannelComponent = true
-        runAction { v ->
-            v.showProgress(false)
-            v.broadcastCloseChannel()
-            v.closeView()
+        view {
+            showProgress(false)
+            broadcastCloseChannel()
+            closeView()
         }
     }
 
     override fun onStoreboxAccountLinkDeleteError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
@@ -202,9 +196,7 @@ internal class ChannelSettingsComponentPresenter @Inject constructor(
     }
 
     override fun onUpdateFlagsError(error: ViewError) {
-        runAction { v ->
-            v.showErrorDialog(error)
-        }
+        view { showErrorDialog(error) }
     }
 
     /**
@@ -213,15 +205,11 @@ internal class ChannelSettingsComponentPresenter @Inject constructor(
 
     override fun onGetChannel(channel: Channel) {
         currentChannel = channel
-        runAction { v ->
-            v.setupChannel(channel)
-        }
+        view { setupChannel(channel) }
     }
 
     override fun onGetChannelError(error: ViewError) {
-        runAction { v ->
-            v.showErrorDialog(error)
-        }
+        view { showErrorDialog(error) }
     }
 
     /**
@@ -230,17 +218,17 @@ internal class ChannelSettingsComponentPresenter @Inject constructor(
 
     override fun onUninstallChannel() {
         viewController.refreshChannelComponent = true
-        runAction { v ->
-            v.showProgress(false)
-            v.broadcastCloseChannel()
-            v.closeView()
+        view {
+            showProgress(false)
+            broadcastCloseChannel()
+            closeView()
         }
     }
 
     override fun onUninstallChannelError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 }

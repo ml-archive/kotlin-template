@@ -43,9 +43,7 @@ class GetAllSharesInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
-
 
     @Test
     fun `Get All Shares Empty Body Test`() {
@@ -67,7 +65,6 @@ class GetAllSharesInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
 
     @Test
@@ -90,8 +87,5 @@ class GetAllSharesInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
-
-
 }

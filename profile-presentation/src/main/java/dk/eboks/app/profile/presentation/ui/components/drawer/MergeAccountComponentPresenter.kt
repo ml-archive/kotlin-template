@@ -20,6 +20,6 @@ internal class MergeAccountComponentPresenter @Inject constructor(val appState: 
             Timber.e("Setting profile merge status to $shouldMerge")
             state.shouldMergeProfiles = shouldMerge
         }
-        runAction { v -> v.close() }
+        view { close() }
     }
 }

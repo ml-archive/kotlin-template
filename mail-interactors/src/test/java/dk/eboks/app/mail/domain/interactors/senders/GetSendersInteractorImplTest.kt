@@ -20,7 +20,6 @@ class GetSendersInteractorImplTest {
 
     private val interactor = GetSendersInteractorImpl(executor, sendersRepository, categoryRepository)
 
-
     // Dummy data
     private val cachedSenders = listOf(Sender(1, "cached"))
     private val loadedSenders = listOf(Sender(2, "loaded"))
@@ -33,7 +32,6 @@ class GetSendersInteractorImplTest {
         every { sendersRepository.getSenders(false, any()) } returns loadedSenders
         every { sendersRepository.searchSenders(any()) } returns queriedSenders
         every { categoryRepository.getSendersByCategory(any()) } returns sendersCategory
-
     }
 
     @Test
@@ -57,7 +55,6 @@ class GetSendersInteractorImplTest {
                 }
 
                 latch.countDown()
-
             }
 
             override fun onGetSendersError(error: ViewError) {
@@ -68,7 +65,6 @@ class GetSendersInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
 
     @Test
@@ -93,9 +89,7 @@ class GetSendersInteractorImplTest {
 
         interactor.run()
         latch.await()
-
     }
-
 
     @Test
     fun `Get Senders By Category Test`() {
@@ -146,7 +140,6 @@ class GetSendersInteractorImplTest {
         latch.await()
     }
 
-
     @Test
     fun `Get Senders By Name Error Test`() {
         val latch = CountDownLatch(1)
@@ -170,7 +163,6 @@ class GetSendersInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
 
     @Test
     fun `Get Senders Category Error Test`() {
@@ -196,7 +188,6 @@ class GetSendersInteractorImplTest {
         latch.await()
     }
 
-
     @Test
     fun `Get All Senders Error Test`() {
         val latch = CountDownLatch(1)
@@ -220,6 +211,4 @@ class GetSendersInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
-
 }

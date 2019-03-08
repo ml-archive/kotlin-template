@@ -9,7 +9,7 @@ import io.mockk.every
 import io.mockk.mockk
 import org.junit.Test
 import retrofit2.Response
-import java.util.*
+import java.util.Date
 import java.util.concurrent.CountDownLatch
 
 class GetSignLinkInteractorImplTest {
@@ -19,15 +19,16 @@ class GetSignLinkInteractorImplTest {
 
     private val interactor = GetSignLinkInteractorImpl(executor, api)
 
-
     @Test
     fun `Get Sign Link Interactor Test`() {
 
         val latch = CountDownLatch(1)
-        val link  = Link("URL", "nodesagency.cz")
-        every { api.getSignLink(any(), any(), any(), any(), any()).execute() } returns Response.success(link)
+        val link = Link("URL", "nodesagency.cz")
+        every {
+            api.getSignLink(any(), any(), any(), any(), any()).execute()
+        } returns Response.success(link)
 
-        interactor.input = GetSignLinkInteractor.Input(Message("id","s", Date(), false ))
+        interactor.input = GetSignLinkInteractor.Input(Message("id", "s", Date(), false))
         interactor.output = object : GetSignLinkInteractor.Output {
             override fun onGetSignLink(result: Link) {
                 assert(link == result)
@@ -51,9 +52,11 @@ class GetSignLinkInteractorImplTest {
         val latch = CountDownLatch(1)
 
         // Api to return null body for some reason
-        every { api.getSignLink(any(), any(), any(), any(), any()).execute() } returns Response.success(null)
+        every {
+            api.getSignLink(any(), any(), any(), any(), any()).execute()
+        } returns Response.success(null)
 
-        interactor.input = GetSignLinkInteractor.Input(Message("id","s", Date(), false ))
+        interactor.input = GetSignLinkInteractor.Input(Message("id", "s", Date(), false))
         interactor.output = object : GetSignLinkInteractor.Output {
             override fun onGetSignLink(result: Link) {
                 assert(false)
@@ -78,7 +81,7 @@ class GetSignLinkInteractorImplTest {
         // Api to return null body for some reason
         every { api.getSignLink(any(), any(), any(), any(), any()).execute() } throws Exception()
 
-        interactor.input = GetSignLinkInteractor.Input(Message("id","s", Date(), false ))
+        interactor.input = GetSignLinkInteractor.Input(Message("id", "s", Date(), false))
         interactor.output = object : GetSignLinkInteractor.Output {
             override fun onGetSignLink(result: Link) {
                 assert(false)

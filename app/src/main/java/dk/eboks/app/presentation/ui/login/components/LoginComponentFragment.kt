@@ -21,14 +21,15 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import dk.eboks.app.BuildConfig
 import dk.eboks.app.R
+import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.config.LoginProvider
 import dk.eboks.app.domain.managers.EboksFormatter
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.login.UserSettings
+import dk.eboks.app.keychain.presentation.components.LoginComponentContract
 import dk.eboks.app.presentation.base.BaseFragment
 import dk.eboks.app.presentation.ui.debug.components.DebugUsersComponentFragment
 import dk.eboks.app.presentation.ui.dialogs.CustomFingerprintDialog
@@ -56,17 +57,15 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class LoginComponentFragment : BaseFragment(), dk.eboks.app.keychain.presentation.components.LoginComponentContract.View {
+class LoginComponentFragment : BaseFragment(), LoginComponentContract.View {
 
     private var emailCprIsValid = false
     private var passwordIsValid = false
     var handler = Handler()
 
-    @Inject
-    lateinit var presenter: dk.eboks.app.keychain.presentation.components.LoginComponentContract.Presenter
-
-    @Inject
-    lateinit var formatter: EboksFormatter
+    @Inject lateinit var presenter: LoginComponentContract.Presenter
+    @Inject lateinit var formatter: EboksFormatter
+    @Inject lateinit var appConfig: AppConfig
 
     private var showGreeting: Boolean = true
     private var currentProvider: LoginProvider? = null
@@ -172,11 +171,7 @@ class LoginComponentFragment : BaseFragment(), dk.eboks.app.keychain.presentatio
                 val identity: String = if (provider.id == "email") {
                     user.emails[0].value ?: ""
                 } else {
-                    if (BuildConfig.BUILD_TYPE.contains(
-                            "debug",
-                            ignoreCase = true
-                        ) && !user.identity.isNullOrBlank()
-                    ) {
+                    if (appConfig.isDebug && !user.identity.isNullOrBlank()) {
                         user.identity ?: cprEmailEt.text.toString().trim()
                     } else
                         cprEmailEt.text.toString().trim()
@@ -265,7 +260,7 @@ class LoginComponentFragment : BaseFragment(), dk.eboks.app.keychain.presentatio
                 }
         }
 
-        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+        if (appConfig.isDebug) {
             testUsersBtn.visibility = View.VISIBLE
             testUsersBtn.setOnClickListener {
                 getBaseActivity()?.openComponentDrawer(DebugUsersComponentFragment::class.java)
@@ -356,7 +351,7 @@ class LoginComponentFragment : BaseFragment(), dk.eboks.app.keychain.presentatio
 
         continueBtn.visibility = View.GONE
         passwordTil.visibility = View.VISIBLE
-        if (BuildConfig.BUILD_TYPE.contains("debug", ignoreCase = true)) {
+        if (appConfig.isDebug) {
             showToast("Password preset to 'a12345' (DEBUG)")
             passwordEt.setText("a12345")
             continueBtn.isEnabled = true

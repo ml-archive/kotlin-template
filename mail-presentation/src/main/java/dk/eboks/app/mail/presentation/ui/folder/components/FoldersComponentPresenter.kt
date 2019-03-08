@@ -1,11 +1,11 @@
 package dk.eboks.app.mail.presentation.ui.folder.components
 
-import dk.eboks.app.mail.domain.interactors.folder.GetFoldersInteractor
-import dk.eboks.app.mail.domain.interactors.folder.OpenFolderInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderMode
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.mail.domain.interactors.folder.GetFoldersInteractor
+import dk.eboks.app.mail.domain.interactors.folder.OpenFolderInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -29,10 +29,10 @@ internal class FoldersComponentPresenter @Inject constructor(
 
         openFolderInteractor.output = this
         getFoldersInteractor.output = this
-        runAction { v ->
-            v.showProgress(true)
-            v.setUser(appState.state?.currentUser)
-            pickermode = v.getModeType()
+        view {
+            showProgress(true)
+            setUser(appState.state?.currentUser)
+            pickermode = getModeType()
             refresh()
         }
     }
@@ -51,22 +51,22 @@ internal class FoldersComponentPresenter @Inject constructor(
     }
 
     override fun onGetFolders(folders: List<Folder>) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showUserFolders(folders)
-            v.showRefreshProgress(false)
+        view {
+            showProgress(false)
+            showUserFolders(folders)
+            showRefreshProgress(false)
         }
     }
 
     override fun onGetSystemFolders(folders: List<Folder>) {
-        runAction { v -> v.showSystemFolders(folders) }
+        view { showSystemFolders(folders) }
     }
 
     override fun onGetFoldersError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showRefreshProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showRefreshProgress(false)
+            showErrorDialog(error)
         }
     }
 
@@ -74,6 +74,6 @@ internal class FoldersComponentPresenter @Inject constructor(
     }
 
     override fun onOpenFolderError(error: ViewError) {
-        runAction { it.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 }

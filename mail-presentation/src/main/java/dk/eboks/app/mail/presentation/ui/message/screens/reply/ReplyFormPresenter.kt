@@ -35,7 +35,7 @@ internal class ReplyFormPresenter @Inject constructor(
         currentMessage = msg
         getReplyFormInteractor.input = GetReplyFormInteractor.Input(msg.id, msg.folder?.id ?: 0)
         getReplyFormInteractor.run()
-        runAction { v -> v.clearForm() }
+        view { clearForm() }
     }
 
     override fun submit() {
@@ -48,27 +48,27 @@ internal class ReplyFormPresenter @Inject constructor(
 
     override fun onGetReplyForm(form: ReplyForm) {
         currentForm = form
-        runAction { v ->
-            v.showProgress(false)
+        view {
+            showProgress(false)
             for (input in form.inputs) {
-                v.showFormInput(input)
+                showFormInput(input)
             }
         }
         Timber.e("Received replyform $form")
     }
 
     override fun onGetReplyFormError(error: ViewError) {
-        runAction { v ->
-            v.showProgress(false)
-            v.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 
     override fun onSubmitReplyForm() {
-        runAction { v -> v.finish() }
+        view { finish() }
     }
 
     override fun onSubmitReplyFormError(error: ViewError) {
-        runAction { v -> v.showErrorDialog(error) }
+        view { showErrorDialog(error) }
     }
 }

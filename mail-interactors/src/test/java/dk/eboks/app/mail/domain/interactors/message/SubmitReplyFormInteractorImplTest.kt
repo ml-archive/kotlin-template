@@ -8,8 +8,7 @@ import dk.nodes.arch.domain.executor.TestExecutor
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.Test
-import java.lang.Exception
-import java.util.*
+import java.util.Date
 import java.util.concurrent.CountDownLatch
 
 class SubmitReplyFormInteractorImplTest {
@@ -70,5 +69,4 @@ class SubmitReplyFormInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
 }

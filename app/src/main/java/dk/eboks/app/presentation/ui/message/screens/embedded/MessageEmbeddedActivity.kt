@@ -12,6 +12,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessageType
+import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.mail.presentation.ui.message.screens.embedded.MessageEmbeddedContract
 import dk.eboks.app.presentation.base.BaseSheetActivity
 import dk.eboks.app.presentation.base.ViewController
@@ -21,6 +22,7 @@ import dk.eboks.app.presentation.ui.message.components.detail.attachments.Attach
 import dk.eboks.app.presentation.ui.message.components.detail.folderinfo.FolderInfoComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.header.HeaderComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.notes.NotesComponentFragment
+import dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentButtonComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.reply.ReplyButtonComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.share.ShareComponentFragment
 import dk.eboks.app.presentation.ui.message.components.detail.sign.SignButtonComponentFragment
@@ -48,10 +50,11 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
     private var replyButtonComponentFragment: ReplyButtonComponentFragment? = null
     private var signButtonComponentFragment: SignButtonComponentFragment? = null
     var shareComponentFragment: ShareComponentFragment? = null
-    private var notesComponentFragment: NotesComponentFragment? = null
-    private var attachmentsComponentFragment: AttachmentsComponentFragment? = null
-    private var folderInfoComponentFragment: FolderInfoComponentFragment? = null
-    private var embeddedViewerComponentFragment: Fragment? = null
+    var notesComponentFragment: NotesComponentFragment? = null
+    var attachmentsComponentFragment: AttachmentsComponentFragment? = null
+    var folderInfoComponentFragment: FolderInfoComponentFragment? = null
+    var embeddedViewerComponentFragment: androidx.fragment.app.Fragment? = null
+    var paymentButton: PaymentButtonComponentFragment? = null
 
     private var actionButtons = arrayListOf(
         OverlayButton(ButtonType.PRINT),
@@ -195,6 +198,14 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
             it.arguments = args
             supportFragmentManager.beginTransaction()
                 .add(R.id.sheetComponentsLl, it, it::class.java.simpleName).commit()
+        }
+    }
+
+    override fun addPaymentButton(payment: Payment) {
+        paymentButton = PaymentButtonComponentFragment.newInstance(payment)
+        paymentButton?.let {
+            supportFragmentManager.beginTransaction()
+                    .add(R.id.sheetComponentsLl, it, it::class.java.simpleName).commit()
         }
     }
 

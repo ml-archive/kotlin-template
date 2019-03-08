@@ -37,20 +37,20 @@ internal class ChannelOverviewComponentPresenter @Inject constructor(
             state.selectedChannel = channel
         }
         */
-        runAction { v -> v.showChannelOpening(channel) }
+        view { showChannelOpening(channel) }
     }
 
     override fun onGetChannels(channels: List<Channel>) {
-        runAction { v ->
-            v.showChannels(channels)
-            v.showProgress(false)
+        view {
+            showChannels(channels)
+            showProgress(false)
         }
     }
 
     override fun onGetChannelsError(error: ViewError) {
-        runAction {
-            it.showProgress(false)
-            it.showErrorDialog(error)
+        view {
+            showProgress(false)
+            showErrorDialog(error)
         }
     }
 }

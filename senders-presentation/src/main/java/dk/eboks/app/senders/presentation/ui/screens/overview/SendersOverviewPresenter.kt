@@ -54,17 +54,15 @@ internal class SendersOverviewPresenter @Inject constructor(
                 Timber.d("Container type: ${it.type}")
             }
         }
-        runAction { v ->
-            v.showCollections(collections)
-        }
+        view { showCollections(collections) }
     }
 
     override fun onRegistrationsLoaded(registrations: List<CollectionContainer>) {
-        runAction {
+        view {
             if (registrations.isEmpty()) {
-                it.hidePendingRegistrations()
+                hidePendingRegistrations()
             } else {
-                it.showPendingRegistrations(registrations)
+                showPendingRegistrations(registrations)
             }
         }
     }
@@ -81,26 +79,18 @@ internal class SendersOverviewPresenter @Inject constructor(
 
     override fun onSuccess() {
         Timber.i("Success")
-        runAction { v ->
-            v.showSuccess()
-        }
+        view { showSuccess() }
     }
 
     override fun onGetCategories(categories: List<SenderCategory>) {
-        runAction { v ->
-            v.showCategories(categories)
-        }
+        view { showCategories(categories) }
     }
 
     override fun onGetCategoriesError(error: ViewError) {
-        runAction { v ->
-            v.showError(error.message ?: "")
-        }
+        view { showError(error.message ?: "") }
     }
 
     override fun onError(error: ViewError) {
-        runAction { v ->
-            v.showError(error.message ?: "")
-        }
+        view { showError(error.message ?: "") }
     }
 }
