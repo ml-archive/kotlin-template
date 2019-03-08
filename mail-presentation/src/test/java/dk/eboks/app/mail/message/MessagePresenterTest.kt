@@ -10,25 +10,24 @@ import dk.eboks.app.domain.models.message.*
 import dk.eboks.app.domain.models.shared.Status
 import dk.eboks.app.mail.domain.interactors.messageoperations.DeleteMessagesInteractor
 import dk.eboks.app.mail.domain.interactors.messageoperations.UpdateMessageInteractor
-import dk.eboks.app.mail.presentation.ui.message.screens.embedded.MessageEmbeddedContract
-import dk.eboks.app.mail.presentation.ui.message.screens.embedded.MessageEmbeddedPresenter
+import dk.eboks.app.mail.presentation.ui.message.screens.MessageContract
+import dk.eboks.app.mail.presentation.ui.message.screens.MessagePresenter
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
-class MessageEmbeddedPresenterTest {
-
+class MessagePresenterTest {
     private val appConfig: AppConfig = mockk(relaxUnitFun = true, relaxed = true)
     private val appStateManager: AppStateManager = mockk(relaxUnitFun = true)
     private val deleteMessagesInteractor: DeleteMessagesInteractor = mockk(relaxUnitFun = true)
     private val updateMessageInteractor: UpdateMessageInteractor = mockk(relaxUnitFun = true)
 
-    private val view: MessageEmbeddedContract.View = mockk(relaxUnitFun = true)
+    private val view: MessageContract.View = mockk(relaxUnitFun = true)
     private val lifecycle: Lifecycle = mockk(relaxUnitFun = true)
 
-    private lateinit var presenter: MessageEmbeddedPresenter
+    private lateinit var presenter: MessagePresenter
 
 
     private val replyStatus: Status = mockk(relaxed = true)
@@ -37,10 +36,10 @@ class MessageEmbeddedPresenterTest {
     private val sign = mockk<Sign>(relaxed = true)
 
     private val message: Message = mockk(relaxed = true) {
-        every { reply } returns this@MessageEmbeddedPresenterTest.replyStatus
-        every { attachments } returns this@MessageEmbeddedPresenterTest.attachments
-        every { payment } returns this@MessageEmbeddedPresenterTest.payment
-        every { sign } returns this@MessageEmbeddedPresenterTest.sign
+        every { reply } returns this@MessagePresenterTest.replyStatus
+        every { attachments } returns this@MessagePresenterTest.attachments
+        every { payment } returns this@MessagePresenterTest.payment
+        every { sign } returns this@MessagePresenterTest.sign
     }
 
     @Before
@@ -48,7 +47,7 @@ class MessageEmbeddedPresenterTest {
 
         every { appStateManager.state } returns AppState(currentMessage = message)
 
-        presenter = MessageEmbeddedPresenter(appConfig, appStateManager, deleteMessagesInteractor, updateMessageInteractor)
+        presenter = MessagePresenter(appStateManager, appConfig, deleteMessagesInteractor, updateMessageInteractor)
         presenter.onViewCreated(view, lifecycle)
 
     }
@@ -85,47 +84,9 @@ class MessageEmbeddedPresenterTest {
         // Replies, action etc actions called only once
         verify(exactly = 1) {
             view.addReplyButtonComponentFragment(message)
-            view.setActionButton(message)
-            view.addSignButtonComponentFragment(message)
         }
     }
 
-    @Test
-    fun `Setup Viewer Test`() {
-        val content: Content = mockk(relaxed = true) {
-            every { mimeType } returns "image/*"
-        }
-        every { message.content } returns content
-
-        presenter.setup()
-
-        verify {
-            view.addImageViewer()
-        }
-
-        every { content.mimeType } returns "application/pdf"
-        presenter.setup()
-
-        verify {
-            view.addPdfViewer()
-        }
-
-
-        every { content.mimeType } returns "text/html"
-        presenter.setup()
-
-        verify {
-            view.addHtmlViewer()
-        }
-
-        every { content.mimeType } returns "text/"
-        presenter.setup()
-
-        verify {
-            view.addTextViewer()
-        }
-
-    }
 
     @Test
     fun `Test Move Message`() {
@@ -172,7 +133,7 @@ class MessageEmbeddedPresenterTest {
     fun `Test Read Message`() {
 
         presenter.setup()
-        presenter.markMessageRead()
+        presenter.markAsUnread(false)
 
         verify {
             val patch = MessagePatch(unread = false)
@@ -187,7 +148,7 @@ class MessageEmbeddedPresenterTest {
     fun `Test Unread Message`() {
 
         presenter.setup()
-        presenter.markMessageUnread()
+        presenter.markAsUnread(true)
 
         verify {
             val patch = MessagePatch(unread = true)
@@ -206,6 +167,5 @@ class MessageEmbeddedPresenterTest {
             view.showErrorDialog(error)
         }
     }
-
 
 }
