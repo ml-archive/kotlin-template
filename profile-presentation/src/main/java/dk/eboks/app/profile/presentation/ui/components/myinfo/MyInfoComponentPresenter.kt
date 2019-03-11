@@ -30,7 +30,7 @@ internal class MyInfoComponentPresenter @Inject constructor(
         getUserProfileInteractor.output = this
     }
 
-    private var currentUser: User? = null
+    var currentUser: User? = null
     private var closeView = true
 
     override fun setup() {
