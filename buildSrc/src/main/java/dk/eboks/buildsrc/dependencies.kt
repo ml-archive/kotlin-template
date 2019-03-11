@@ -102,7 +102,7 @@ object Libs {
 
     object Test {
 
-        const val mockk = "io.mockk:mockk:1.9.1"
+        const val mockk = "io.mockk:mockk:1.9.2"
         const val runner = "androidx.test:runner:1.1.1"
         const val okhttp = "com.github.gmazzo:okhttp-mock:1.2.1"
         const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
@@ -122,7 +122,7 @@ object Libs {
         }
 
         object Mockito {
-            private const val version = "2.24.5"
+            private const val version = "2.25.0"
             const val core = "org.mockito:mockito-core:$version"
             const val android = "org.mockito:mockito-android:$version"
         }
