@@ -25,7 +25,7 @@ internal class PhoneVerificationComponentPresenter @Inject constructor(
         confirmPhoneInteractor.output = this
     }
 
-    private var currentMobile: String? = null
+    var currentMobile: String? = null
 
     override fun setup(mobile: String) {
         currentMobile = mobile
