@@ -46,7 +46,6 @@ internal class ChannelContentPresenter @Inject constructor() :
             ChannelType.Channel -> view { openChannelContent(channel) }
 
             else -> {
-
             }
         }
     }

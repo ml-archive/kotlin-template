@@ -1,4 +1,4 @@
 package dk.eboks.app.presentation.ui.channels.screens.content.ekey
 
-//TODO
+// TODO
 class EkeyContentPresenterTest

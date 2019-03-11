@@ -193,6 +193,5 @@ class ChannelOpeningComponentPresenterTest {
             viewMock.showProgress(false)
             viewMock.showErrorDialog(error)
         }
-
     }
 }

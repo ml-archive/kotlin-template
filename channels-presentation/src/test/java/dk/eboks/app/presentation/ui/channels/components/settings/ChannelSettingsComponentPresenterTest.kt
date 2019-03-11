@@ -262,7 +262,6 @@ class ChannelSettingsComponentPresenterTest {
             viewMock.showProgress(false)
             viewMock.showErrorDialog(error)
         }
-
     }
 
     @Test
