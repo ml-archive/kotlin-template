@@ -17,6 +17,7 @@ internal class ChannelContentComponentPresenter @Inject constructor(
     BasePresenterImpl<ChannelContentComponentContract.View>(),
     GetChannelContentLinkInteractor.Output {
     override var currentChannel: Channel? = null
+        internal set
 
     init {
         getChannelContentLinkInteractor.output = this

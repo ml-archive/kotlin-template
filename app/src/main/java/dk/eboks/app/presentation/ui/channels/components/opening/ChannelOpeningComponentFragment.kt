@@ -25,9 +25,10 @@ import dk.eboks.app.presentation.ui.channels.screens.content.storebox.ConnectSto
 import dk.eboks.app.presentation.ui.home.components.channelcontrol.ChannelControlComponentFragment
 import dk.eboks.app.presentation.ui.login.components.verification.VerificationComponentFragment
 import dk.eboks.app.presentation.widgets.GlideAlphaTransform
-import dk.eboks.app.util.getType
+import dk.eboks.app.util.ChannelType
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.putArg
+import dk.eboks.app.util.type
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.fragment_channel_opening_component.*
@@ -155,14 +156,14 @@ class ChannelOpeningComponentFragment : BaseFragment(), ChannelOpeningComponentC
         val colorTint = channel.background.color
         installBtn.backgroundTintList = ColorStateList.valueOf(colorTint)
         installBtn?.setOnClickListener {
-            if (channel.getType() == "storebox") { // notify about storebox one last time...
+            if (channel.type == ChannelType.Storebox) { // notify about storebox one last time...
                 showStoreboxConfirmDialog(channel)
             } else {
                 ChannelControlComponentFragment.refreshOnResume = true
                 presenter.install(channel)
             }
         }
-        if (channel.getType() == "storebox") {
+        if (channel.type == ChannelType.Storebox) {
             linkStoreboxBtn.visibility = View.VISIBLE
             linkStoreboxBtn.setOnClickListener {
                 ChannelControlComponentFragment.refreshOnResume = true

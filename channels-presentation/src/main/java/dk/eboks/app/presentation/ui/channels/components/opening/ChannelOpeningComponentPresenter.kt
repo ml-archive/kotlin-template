@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.channels.components.opening
 
+import androidx.annotation.VisibleForTesting
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.interactors.channel.GetChannelInteractor
 import dk.eboks.app.domain.interactors.channel.InstallChannelInteractor
@@ -7,8 +8,9 @@ import dk.eboks.app.domain.interactors.storebox.CreateStoreboxInteractor
 import dk.eboks.app.domain.models.APIConstants
 import dk.eboks.app.domain.models.channel.Channel
 import dk.eboks.app.domain.models.local.ViewError
+import dk.eboks.app.util.ChannelType
 import dk.eboks.app.util.areAllRequirementsVerified
-import dk.eboks.app.util.getType
+import dk.eboks.app.util.type
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber
 import javax.inject.Inject
@@ -27,7 +29,7 @@ internal class ChannelOpeningComponentPresenter @Inject constructor(
     GetChannelInteractor.Output,
     CreateStoreboxInteractor.Output,
     InstallChannelInteractor.Output {
-    private var channelId: Int = 0
+    @VisibleForTesting var channelId: Int = 0
     var channel: Channel? = null
 
     init {
@@ -54,16 +56,9 @@ internal class ChannelOpeningComponentPresenter @Inject constructor(
         if (!channel.areAllRequirementsVerified()) {
             view { showRequirementsDrawer(channel) }
         } else {
-            when (channel.getType()) {
-                "channel" -> {
-                    installChannelInteractor.input = InstallChannelInteractor.Input(channel.id)
-                    view { showProgress(true) }
-                    installChannelInteractor.run()
-                }
-                "storebox" -> {
-                    createStoreboxInteractor.run()
-                }
-                "ekey" -> {
+            when (channel.type) {
+                ChannelType.Storebox -> createStoreboxInteractor.run()
+                else -> {
                     installChannelInteractor.input = InstallChannelInteractor.Input(channel.id)
                     view { showProgress(true) }
                     installChannelInteractor.run()
@@ -76,12 +71,10 @@ internal class ChannelOpeningComponentPresenter @Inject constructor(
         // storebox channels id 1 - 3
         // ekey channels id 101 - 103
 
-        when (channel.getType()) {
-            "channel" -> view { openChannelContent(channel) }
-
-            "storebox" -> view { openStoreBoxContent(channel) }
-
-            "ekey" -> view { openEkeyContent(channel) }
+        when (channel.type) {
+            ChannelType.Storebox -> view { openStoreBoxContent(channel) }
+            ChannelType.Ekey -> view { openEkeyContent(channel) }
+            ChannelType.Channel -> view { openChannelContent(channel) }
         }
     }
 

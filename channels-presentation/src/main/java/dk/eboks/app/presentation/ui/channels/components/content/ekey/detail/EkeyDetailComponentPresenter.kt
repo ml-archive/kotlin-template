@@ -44,8 +44,7 @@ internal class EkeyDetailComponentPresenter @Inject constructor(
 
     override fun putVault(items: MutableList<BaseEkey>, item: BaseEkey) {
         appState.state?.currentUser?.let {
-            val masterKey = encryptedPreferences.getString("ekey_${it.id}", null)
-            masterKey?.let { mk ->
+            encryptedPreferences.getString("ekey_${it.id}", null)?.let { mk ->
                 items.add(item)
                 setVault(mk, items)
             }
@@ -102,6 +101,6 @@ internal class EkeyDetailComponentPresenter @Inject constructor(
         val time2 = dateFormat2.format(date)
         val hash = HashingUtils.hmacSha256(keyHash, time2)
 
-        return Pair(time, hash)
+        return time to hash
     }
 }

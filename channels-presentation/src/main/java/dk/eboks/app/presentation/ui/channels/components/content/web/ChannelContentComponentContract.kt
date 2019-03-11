@@ -15,6 +15,6 @@ interface ChannelContentComponentContract {
 
     interface Presenter : BasePresenter<View> {
         fun setup(channel: Channel)
-        var currentChannel: Channel?
+        val currentChannel: Channel?
     }
 }

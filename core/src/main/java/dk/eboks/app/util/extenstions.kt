@@ -55,7 +55,10 @@ fun BaseInteractor.exceptionToViewError(
     }.guard {
         return throwableToViewError(t, shouldClose, shouldDisplay)
     }
-    return dk.eboks.app.domain.models.local.ViewError(shouldDisplay = shouldDisplay, shouldCloseView = shouldClose)
+    return dk.eboks.app.domain.models.local.ViewError(
+        shouldDisplay = shouldDisplay,
+        shouldCloseView = shouldClose
+    )
 }
 
 internal fun throwableToViewError(
@@ -65,40 +68,40 @@ internal fun throwableToViewError(
 ): ViewError {
     when (t) {
         is ConnectException -> return ViewError(
-                title = Translation.error.noInternetTitle,
-                message = Translation.error.noInternetMessage,
-                shouldDisplay = shouldDisplay,
-                shouldCloseView = shouldClose
+            title = Translation.error.noInternetTitle,
+            message = Translation.error.noInternetMessage,
+            shouldDisplay = shouldDisplay,
+            shouldCloseView = shouldClose
         )
         is UnknownHostException -> return ViewError(
-                title = Translation.error.noInternetTitle,
-                message = Translation.error.noInternetMessage,
-                shouldDisplay = shouldDisplay,
-                shouldCloseView = shouldClose
+            title = Translation.error.noInternetTitle,
+            message = Translation.error.noInternetMessage,
+            shouldDisplay = shouldDisplay,
+            shouldCloseView = shouldClose
         )
         is IOException -> return ViewError(
-                title = Translation.error.genericStorageTitle,
-                message = Translation.error.genericStorageMessage,
-                shouldDisplay = shouldDisplay,
-                shouldCloseView = shouldClose
+            title = Translation.error.genericStorageTitle,
+            message = Translation.error.genericStorageMessage,
+            shouldDisplay = shouldDisplay,
+            shouldCloseView = shouldClose
         )
         is SocketTimeoutException -> return ViewError(
-                title = Translation.error.noInternetTitle,
-                message = Translation.error.noInternetMessage,
-                shouldDisplay = shouldDisplay,
-                shouldCloseView = shouldClose
+            title = Translation.error.noInternetTitle,
+            message = Translation.error.noInternetMessage,
+            shouldDisplay = shouldDisplay,
+            shouldCloseView = shouldClose
         )
         is ServerErrorException -> {
             return ViewError(
-                    title = t.error.description?.title,
-                    message = t.error.description?.text,
-                    shouldDisplay = shouldDisplay,
-                    shouldCloseView = shouldClose
+                title = t.error.description?.title,
+                message = t.error.description?.text,
+                shouldDisplay = shouldDisplay,
+                shouldCloseView = shouldClose
             )
         }
         else -> return ViewError(
-                shouldDisplay = shouldDisplay,
-                shouldCloseView = shouldClose
+            shouldDisplay = shouldDisplay,
+            shouldCloseView = shouldClose
         )
     }
 }
@@ -116,15 +119,15 @@ fun Channel.areAllRequirementsVerified(): Boolean {
     return true
 }
 
-fun Channel.getType(): String {
-    if (this.id in 1..3) {
-        return "storebox"
+val Channel.type: ChannelType
+    get() {
+        return when (id) {
+            in 1..3 -> ChannelType.Storebox
+            in 11..13 -> ChannelType.Ekey
+            else -> ChannelType.Channel
+        }
     }
-    // TODO figure out ids and reenable ekey support later
 
-    if (this.id in 11..13) {
-        return "ekey"
-    }
-
-    return "channel"
+enum class ChannelType {
+    Storebox, Ekey, Channel
 }

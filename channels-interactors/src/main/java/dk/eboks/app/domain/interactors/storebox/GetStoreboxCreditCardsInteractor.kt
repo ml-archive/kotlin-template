@@ -8,7 +8,7 @@ interface GetStoreboxCreditCardsInteractor : Interactor {
     var output: Output?
 
     interface Output {
-        fun onGetCardsSuccessful(result: MutableList<StoreboxCreditCard>)
+        fun onGetCardsSuccessful(result: List<StoreboxCreditCard>)
         fun onGetCardsError(error: ViewError)
     }
 }
