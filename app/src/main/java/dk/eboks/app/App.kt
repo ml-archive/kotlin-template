@@ -27,7 +27,6 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
     override fun onCreate() {
         super.onCreate()
         appComponent.inject(this)
-        App._instance = this
         appInitializers.init(this)
         registerActivityLifecycleCallbacks(this)
     }
@@ -40,12 +39,7 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
     }
 
     companion object {
-        private lateinit var _instance: App
         private var activityRef: WeakReference<Activity?>? = null
-
-        fun instance(): App {
-            return _instance
-        }
 
         fun currentActivity(): Activity? {
             activityRef?.let {

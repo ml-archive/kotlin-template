@@ -24,7 +24,7 @@ import timber.log.Timber
 
 abstract class BaseActivity : AppCompatActivity(), BaseView {
     protected val component: PresentationComponent by lazy {
-        App.instance().appComponent.plus()
+        (application as App).appComponent.plus()
     }
     /*
     private val shakeDetector: ShakeDetector? = if (BuildConfig.DEBUG) ShakeDetector() else null

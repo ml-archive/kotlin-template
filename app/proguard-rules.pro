@@ -85,3 +85,5 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-dontwarn dk.eboks.app.presentation.ui.**
