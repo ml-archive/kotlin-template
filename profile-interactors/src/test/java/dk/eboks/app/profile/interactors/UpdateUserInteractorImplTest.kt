@@ -4,9 +4,7 @@ import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.repositories.UserRepository
 import dk.nodes.arch.domain.executor.TestExecutor
-import io.mockk.Runs
 import io.mockk.every
-import io.mockk.just
 import io.mockk.mockk
 import org.junit.Test
 import java.lang.Exception
@@ -18,7 +16,6 @@ class UpdateUserInteractorImplTest {
     private val repository: UserRepository = mockk(relaxUnitFun = true)
 
     private val interactor = UpdateUserInteractorImpl(executor, repository)
-
 
     @Test
     fun `Update User Test`() {

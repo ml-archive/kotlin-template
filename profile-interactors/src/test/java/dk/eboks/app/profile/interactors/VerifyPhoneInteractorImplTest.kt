@@ -20,7 +20,6 @@ class VerifyPhoneInteractorImplTest {
         val latch = CountDownLatch(1)
         val phone = "41211312312"
 
-
         interactor.input = VerifyPhoneInteractor.Input(phone)
         interactor.output = object : VerifyPhoneInteractor.Output {
 

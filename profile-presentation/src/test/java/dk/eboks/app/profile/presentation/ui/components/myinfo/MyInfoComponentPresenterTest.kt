@@ -41,7 +41,6 @@ class MyInfoComponentPresenterTest {
         assert(user == presenter.currentUser)
     }
 
-
     @Test
     fun `Show User test`() {
 

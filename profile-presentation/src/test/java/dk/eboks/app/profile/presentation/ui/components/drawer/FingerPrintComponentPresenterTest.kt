@@ -32,12 +32,10 @@ class FingerPrintComponentPresenterTest {
 
     private lateinit var presenter: FingerPrintComponentPresenter
 
-
     @Before
     fun setUp() {
         presenter = FingerPrintComponentPresenter(appStateManager, userSettingsManager, encryptUserLoginInfoInteractor, saveUserLoginInfoInteractor, testLoginInteractor)
     }
-
 
     @Test
     fun `Test Load User State`() {
@@ -72,7 +70,7 @@ class FingerPrintComponentPresenterTest {
 
         every { view.getUserLoginInfo() } returns loginInfo
         every { userSettingsManager[any()].activationCode } returns code
-        every { appStateManager.state } returns  appState
+        every { appStateManager.state } returns appState
 
         presenter.onViewCreated(view, lifecycle)
         presenter.verifyLoginCredentials()
@@ -84,7 +82,6 @@ class FingerPrintComponentPresenterTest {
         }
     }
 
-
     @Test
     fun `Test Encrypt User Info`() {
         val loginInfo = LoginInfo()
@@ -94,7 +91,7 @@ class FingerPrintComponentPresenterTest {
 
         every { view.getUserLoginInfo() } returns loginInfo
         every { userSettingsManager[any()].activationCode } returns code
-        every { appStateManager.state } returns  appState
+        every { appStateManager.state } returns appState
 
         presenter.onViewCreated(view, lifecycle)
         presenter.encryptUserLoginInfo()
@@ -104,7 +101,6 @@ class FingerPrintComponentPresenterTest {
             encryptUserLoginInfoInteractor.run()
         }
     }
-
 
     @Test
     fun `Test On Error`() {

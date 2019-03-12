@@ -40,7 +40,6 @@ class FingerHintComponentPresenterTest {
         presenter.onViewCreated(view, lifecycle)
     }
 
-
     @Test
     fun `Test Encrypt User Info`() {
         every { view.getUserLoginInfo() } returns loginInfo
@@ -55,7 +54,6 @@ class FingerHintComponentPresenterTest {
     @Test
     fun `Test Finger Print Enrollment Success`() {
 
-
         presenter.onSuccess()
         verify {
 
@@ -63,9 +61,7 @@ class FingerHintComponentPresenterTest {
 
             saveUserInteractor.input = SaveUserInteractor.Input(currentUser)
             saveUserInteractor.run()
-
         }
-
     }
 
     @Test

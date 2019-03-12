@@ -43,7 +43,6 @@ class SaveUserInteractorImplTest {
         latch.await()
     }
 
-
     @Test
     fun `Save User Success Error`() {
 

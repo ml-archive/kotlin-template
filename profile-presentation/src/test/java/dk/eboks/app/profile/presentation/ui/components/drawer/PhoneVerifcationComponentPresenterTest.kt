@@ -13,7 +13,6 @@ import org.junit.Test
 
 class PhoneVerifcationComponentPresenterTest {
 
-
     private val viewController: ViewController = mockk(relaxUnitFun = true) {
         every { refreshMyInfoComponent } returns true
     }
@@ -38,15 +37,11 @@ class PhoneVerifcationComponentPresenterTest {
         assert(presenter.currentMobile == mobile)
     }
 
-
     @Test
     fun `Setup Test`() {
         val mobile = "1241241"
         presenter.setup(mobile)
-
-
     }
-
 
     @Test
     fun `Resend Verification Code Test`() {
@@ -77,7 +72,6 @@ class PhoneVerifcationComponentPresenterTest {
         presenter.onConfirmPhone()
         verify { view.finishActivity(null) }
     }
-
 
     @Test
     fun `On Verify Phone Test`() {

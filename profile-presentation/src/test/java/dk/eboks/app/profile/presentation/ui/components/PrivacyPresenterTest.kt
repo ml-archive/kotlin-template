@@ -1,6 +1,5 @@
 package dk.eboks.app.profile.presentation.ui.components
 
-import dk.eboks.app.domain.config.AppConfig
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.Test

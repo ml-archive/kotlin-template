@@ -13,11 +13,10 @@ class MergeAccountComponentPresenterTest {
 
     private val appStateManager: AppStateManager = mockk(relaxUnitFun = true)
 
-    private val view:  MergeAccountComponentContract.View = mockk(relaxUnitFun = true)
+    private val view: MergeAccountComponentContract.View = mockk(relaxUnitFun = true)
     private val lifecycle: Lifecycle = mockk(relaxUnitFun = true)
 
     private val presenter = MergeAccountComponentPresenter(appStateManager)
-
 
     @Test
     fun `Set Merge Status Test`() {
@@ -34,6 +33,5 @@ class MergeAccountComponentPresenterTest {
         assert(appState.verificationState?.shouldMergeProfiles == false)
 
         verify(exactly = 2) { view.close() }
-
     }
 }

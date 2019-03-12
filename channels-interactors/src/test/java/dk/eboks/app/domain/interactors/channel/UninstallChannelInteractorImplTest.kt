@@ -28,7 +28,7 @@ class UninstallChannelInteractorImplTest {
         every { apiMock.uninstallChannel(id).execute() } returns Response.success(null)
         interactor.input = UninstallChannelInteractor.Input(id)
         val latch = CountDownLatch(1)
-        interactor.output = object: UninstallChannelInteractor.Output {
+        interactor.output = object : UninstallChannelInteractor.Output {
             override fun onUninstallChannel() {
                 latch.countDown()
             }
@@ -48,7 +48,7 @@ class UninstallChannelInteractorImplTest {
         every { apiMock.uninstallChannel(id).execute() } returns Response.error(400, mockk())
         interactor.input = UninstallChannelInteractor.Input(id)
         val latch = CountDownLatch(1)
-        interactor.output = object: UninstallChannelInteractor.Output {
+        interactor.output = object : UninstallChannelInteractor.Output {
             override fun onUninstallChannel() {
                 assert(false)
                 latch.countDown()
@@ -65,7 +65,7 @@ class UninstallChannelInteractorImplTest {
     @Test
     fun `Test no args`() {
         val latch = CountDownLatch(1)
-        interactor.output = object: UninstallChannelInteractor.Output {
+        interactor.output = object : UninstallChannelInteractor.Output {
             override fun onUninstallChannel() {
                 assert(false)
                 latch.countDown()
@@ -78,6 +78,4 @@ class UninstallChannelInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
-
 }

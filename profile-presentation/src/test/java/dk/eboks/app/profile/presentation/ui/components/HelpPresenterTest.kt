@@ -7,16 +7,14 @@ import dk.eboks.app.domain.models.shared.ResourceLink
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.Before
 import org.junit.Test
 
 class HelpPresenterTest {
 
-    private val appConfig : AppConfig = mockk(relaxUnitFun = true)
+    private val appConfig: AppConfig = mockk(relaxUnitFun = true)
     private val presenter: HelpPresenter = HelpPresenter(appConfig)
     private val view: HelpContract.View = mockk(relaxUnitFun = true)
     private val lifecycle: Lifecycle = mockk(relaxUnitFun = true)
-
 
     @Test
     fun `Test On View Created`() {
@@ -25,6 +23,5 @@ class HelpPresenterTest {
         presenter.onViewCreated(view, lifecycle)
 
         verify { view.loadUrl(link.link.url) }
-
     }
 }

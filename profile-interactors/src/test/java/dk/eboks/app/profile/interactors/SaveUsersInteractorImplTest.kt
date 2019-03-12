@@ -52,5 +52,4 @@ class SaveUsersInteractorImplTest {
         interactor.run()
         latch.await()
     }
-
 }

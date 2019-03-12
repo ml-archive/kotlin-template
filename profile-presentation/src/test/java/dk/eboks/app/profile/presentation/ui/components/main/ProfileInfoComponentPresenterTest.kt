@@ -34,7 +34,7 @@ class ProfileInfoComponentPresenterTest {
     @Before
     fun setUp() {
 
-        every { appStateManager.state} returns AppState(currentUser = user)
+        every { appStateManager.state } returns AppState(currentUser = user)
 
         presenter = ProfileInfoComponentPresenter(appStateManager, saveUserInteractor, saveUseSettingsInteractor, getUserProfileInteractor)
         presenter.onViewCreated(view, lifecycle)
@@ -103,7 +103,6 @@ class ProfileInfoComponentPresenterTest {
         }
     }
 
-
     @Test
     fun `Save User Image Test`() {
         val uri = "content://image/uri"
@@ -115,13 +114,11 @@ class ProfileInfoComponentPresenterTest {
 
         assert(appStateManager.state?.currentUser?.avatarUri == uri)
 
-
         verify {
             appStateManager.save()
             saveUseSettingsInteractor.input = SaveUserSettingsInteractor.Input(userSettings)
             saveUseSettingsInteractor.run()
         }
-
     }
 
     @Test
@@ -135,13 +132,11 @@ class ProfileInfoComponentPresenterTest {
 
         assert(appStateManager.state?.currentSettings?.hasFingerprint == enable)
 
-
         verify {
             appStateManager.save()
             saveUseSettingsInteractor.input = SaveUserSettingsInteractor.Input(userSettings)
             saveUseSettingsInteractor.run()
         }
-
     }
 
     @Test
@@ -155,13 +150,11 @@ class ProfileInfoComponentPresenterTest {
 
         assert(appStateManager.state?.currentSettings?.stayLoggedIn == enable)
 
-
         verify {
             appStateManager.save()
             saveUseSettingsInteractor.input = SaveUserSettingsInteractor.Input(userSettings)
             saveUseSettingsInteractor.run()
         }
-
     }
 
     @Test
@@ -182,7 +175,5 @@ class ProfileInfoComponentPresenterTest {
         assert(appStateManager.state?.loginState?.token == null)
         assert(appStateManager.state?.openingState?.acceptPrivateTerms == false)
         assert(appStateManager.state?.loginState?.activationCode == null)
-
-
     }
 }

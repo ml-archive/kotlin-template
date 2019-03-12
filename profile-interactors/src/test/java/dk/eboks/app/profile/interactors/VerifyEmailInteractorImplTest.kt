@@ -20,7 +20,6 @@ class VerifyEmailInteractorImplTest {
         val latch = CountDownLatch(1)
         val email = "role@nodesagency.com"
 
-
         interactor.input = VerifyEmailInteractor.Input(email)
         interactor.output = object : VerifyEmailInteractor.Output {
             override fun onVerifyMail() {
