@@ -40,13 +40,7 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
 
     private var activityRef: WeakReference<Activity?>? = null
 
-    fun currentActivity(): Activity? {
-        activityRef?.let {
-            if (it.get() != null)
-                return it.get()
-        }
-        return null
-    }
+    val currentActivity: Activity? = activityRef?.get()
 
     override fun onActivityPaused(activity: Activity?) {
         activityRef = null
