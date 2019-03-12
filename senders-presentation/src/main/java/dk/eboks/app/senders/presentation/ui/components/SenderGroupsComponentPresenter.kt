@@ -13,9 +13,6 @@ internal class SenderGroupsComponentPresenter @Inject constructor() :
     SenderGroupsComponentContract.Presenter,
     BasePresenterImpl<SenderGroupsComponentContract.View>() {
 
-    init {
-    }
-
     override fun getSenderGroups(sender: Sender) {
         view { sender.groups?.let { showSenderGroups(sender) } }
     }

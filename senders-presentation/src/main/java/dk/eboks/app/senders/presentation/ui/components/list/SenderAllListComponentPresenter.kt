@@ -1,5 +1,6 @@
 package dk.eboks.app.senders.presentation.ui.components.list
 
+import androidx.annotation.VisibleForTesting
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.Sender
@@ -16,8 +17,8 @@ internal class SenderAllListComponentPresenter @Inject constructor(
 ) : SenderAllListComponentContract.Presenter,
     BasePresenterImpl<SenderAllListComponentContract.View>(), GetSendersInteractor.Output {
 
-    var senders: MutableList<Sender> = ArrayList()
-    private var filteredSenders: MutableList<Sender> = ArrayList()
+    @VisibleForTesting val senders = mutableListOf<Sender>()
+    @VisibleForTesting val filteredSenders = mutableListOf<Sender>()
 
     init {
         refresh()
@@ -68,11 +69,7 @@ internal class SenderAllListComponentPresenter @Inject constructor(
 
     override fun searchSenders(searchText: String) {
         filteredSenders.clear()
-        for (sender in senders) {
-            if (sender.name.contains(searchText, true)) {
-                filteredSenders.add(sender)
-            }
-        }
+        filteredSenders += senders.filter { it.name.contains(searchText, true) }
         view { showSenders(filteredSenders) }
     }
 }

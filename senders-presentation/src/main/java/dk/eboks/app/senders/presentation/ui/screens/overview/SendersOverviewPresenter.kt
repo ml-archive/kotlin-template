@@ -3,7 +3,6 @@ package dk.eboks.app.senders.presentation.ui.screens.overview
 import dk.eboks.app.domain.models.SenderCategory
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.sender.CollectionContainer
-import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.senders.interactors.GetCollectionsInteractor
 import dk.eboks.app.domain.senders.interactors.GetSenderCategoriesInteractor
 import dk.eboks.app.domain.senders.interactors.register.GetPendingInteractor
@@ -64,14 +63,14 @@ internal class SendersOverviewPresenter @Inject constructor(
         }
     }
 
-    override fun unregisterSender(sender: Sender) {
-        registerInteractor.inputSender = RegisterInteractor.InputSender(sender.id)
-        registerInteractor.run()
+    override fun unregisterSender(senderId: Long) {
+        unRegisterInteractor.inputSender = UnRegisterInteractor.InputSender(senderId)
+        unRegisterInteractor.run()
     }
 
-    override fun registerSender(sender: Sender) {
-        unRegisterInteractor.inputSender = UnRegisterInteractor.InputSender(sender.id)
-        unRegisterInteractor.run()
+    override fun registerSender(senderId: Long) {
+        registerInteractor.inputSender = RegisterInteractor.InputSender(senderId)
+        registerInteractor.run()
     }
 
     override fun onSuccess() {

@@ -16,7 +16,7 @@ interface GetSenderDetailInteractor : Interactor {
     data class Input(val id: Long = 0)
 
     interface Output {
-        fun onGetSender(senders: Sender)
+        fun onGetSender(sender: Sender)
         fun onGetSenderError(error: ViewError)
     }
 }

@@ -75,5 +75,9 @@ internal class RegisterInteractorImpl @Inject constructor(
                 output?.onError(ViewError(null, "Missing input"))
             }
         }
+
+        inputSender = null
+        inputSenderGroup = null
+        inputSegment = null
     }
 }
