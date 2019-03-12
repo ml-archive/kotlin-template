@@ -38,16 +38,14 @@ class App : Application(), Application.ActivityLifecycleCallbacks {
         MultiDex.install(this)
     }
 
-    companion object {
-        private var activityRef: WeakReference<Activity?>? = null
+    private var activityRef: WeakReference<Activity?>? = null
 
-        fun currentActivity(): Activity? {
-            activityRef?.let {
-                if (it.get() != null)
-                    return it.get()
-            }
-            return null
+    fun currentActivity(): Activity? {
+        activityRef?.let {
+            if (it.get() != null)
+                return it.get()
         }
+        return null
     }
 
     override fun onActivityPaused(activity: Activity?) {
