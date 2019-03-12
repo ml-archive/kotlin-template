@@ -10,9 +10,7 @@ import javax.inject.Inject
 internal class GetPaymentLinkInteractorImpl @Inject constructor(
     executor: Executor,
     private val repository: MessagesRepository
-)
-    : BaseInteractor(executor),
-        GetPaymentLinkInteractor {
+) : BaseInteractor(executor), GetPaymentLinkInteractor {
 
     override var input: GetPaymentLinkInteractor.Input? = null
     override var output: GetPaymentLinkInteractor.Output? = null

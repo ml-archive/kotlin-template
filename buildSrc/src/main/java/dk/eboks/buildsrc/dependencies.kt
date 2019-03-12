@@ -1,7 +1,7 @@
 package dk.eboks.buildsrc
 
 object Versions {
-    const val ktlint = "0.30.0"
+    const val ktlint = "0.31.0"
 }
 
 object Libs {
@@ -104,7 +104,7 @@ object Libs {
 
         const val mockk = "io.mockk:mockk:1.9.2"
         const val runner = "androidx.test:runner:1.1.1"
-        const val okhttp = "com.github.gmazzo:okhttp-mock:1.2.1"
+        const val okhttp = "com.github.gmazzo:okhttp-mock:1.3.1"
         const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
         const val assertjCore = "org.assertj:assertj-core:3.12.1"
         const val junit = Libs.junit
