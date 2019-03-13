@@ -29,7 +29,6 @@ class ApiTest {
             .setDateFormat(DateDeserializer.DATE_FORMATS[0])
             .create()
 
-
         gson.fromJson(getMessageReplyFormJsonString, ReplyForm::class.java)
     }
 }

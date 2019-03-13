@@ -4,8 +4,8 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.formreply.ReplyForm
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
-import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.domain.models.message.StorageInfo
+import dk.eboks.app.domain.models.message.payment.Payment
 import dk.eboks.app.domain.models.sender.Sender
 import dk.eboks.app.domain.models.shared.Link
 

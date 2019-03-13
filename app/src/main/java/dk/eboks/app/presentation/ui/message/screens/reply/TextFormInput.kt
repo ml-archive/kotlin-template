@@ -13,7 +13,6 @@ import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput
 import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
-import java.util.regex.Pattern
 
 class TextFormInput(
     formInput: FormInput,
@@ -23,14 +22,6 @@ class TextFormInput(
 ) : ReplyFormInput(formInput, inflater, handler), TextWatcher {
     private var textTil: TextInputLayout? = null
     private var textEt: EditText? = null
-
-    // lazy compile the pattern only if we get one
-    private val pattern: Pattern? by lazy {
-        formInput.validate?.let {
-            // Timber.e("Compiling $it")
-            Pattern.compile(it)
-        }
-    }
 
     override fun buildView(vg: ViewGroup): View {
         val resid = if (multiline) R.layout.form_input_text_multiline else R.layout.form_input_text
@@ -73,9 +64,8 @@ class TextFormInput(
                 return
             }
         }
-        formInput.validate?.let {
-            val matcher = pattern?.matcher(text)
-            if (matcher?.matches() == false) {
+        formInput.validate?.toRegex()?.let {
+            if (it.matches(text)) {
                 textTil?.error = if (silent) null else formInput.error
                 return
             }

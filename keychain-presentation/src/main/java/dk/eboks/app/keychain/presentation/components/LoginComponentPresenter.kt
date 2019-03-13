@@ -2,8 +2,7 @@ package dk.eboks.app.keychain.presentation.components
 
 import dk.eboks.app.domain.config.AppConfig
 import dk.eboks.app.domain.config.LoginProvider
-import dk.eboks.app.keychain.interactors.authentication.CheckRSAKeyPresenceInteractor
-import dk.eboks.app.keychain.interactors.authentication.LoginInteractor
+import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.UserSettingsManager
 import dk.eboks.app.domain.models.local.ViewError
@@ -12,7 +11,8 @@ import dk.eboks.app.domain.models.login.LoginInfo
 import dk.eboks.app.domain.models.login.LoginInfoType
 import dk.eboks.app.domain.models.login.User
 import dk.eboks.app.domain.models.login.UserSettings
-import dk.eboks.app.domain.interactors.encryption.DecryptUserLoginInfoInteractor
+import dk.eboks.app.keychain.interactors.authentication.CheckRSAKeyPresenceInteractor
+import dk.eboks.app.keychain.interactors.authentication.LoginInteractor
 import dk.eboks.app.util.guard
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import timber.log.Timber

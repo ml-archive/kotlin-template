@@ -3,7 +3,6 @@ package dk.eboks.app.presentation.ui.home.screens
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.channel.Channel

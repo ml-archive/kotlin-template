@@ -1,7 +1,6 @@
 package dk.eboks.app.presentation.ui.message.screens.reply
 
 import android.os.Bundle
-import android.view.View
 import dk.eboks.app.R
 import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.formreply.FormInput

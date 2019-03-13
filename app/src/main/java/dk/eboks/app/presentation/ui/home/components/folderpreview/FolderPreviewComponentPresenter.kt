@@ -1,10 +1,10 @@
 package dk.eboks.app.presentation.ui.home.components.folderpreview
 
-import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractor
 import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.domain.models.message.Message
+import dk.eboks.app.mail.domain.interactors.message.GetMessagesInteractor
 import dk.nodes.arch.presentation.base.BasePresenterImpl
 import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
