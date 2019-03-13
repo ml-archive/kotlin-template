@@ -2,14 +2,18 @@ package dk.eboks.app.network;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
 
 import org.junit.Test;
 
+import java.lang.reflect.Type;
 import java.util.Date;
 
 import dk.eboks.app.domain.models.formreply.ReplyForm;
 import dk.eboks.app.network.util.DateDeserializer;
-import dk.eboks.app.network.util.DoubleDeserializer;
 import dk.eboks.app.network.util.ItemTypeAdapterFactory;
 
 public class ApiTestJava {
@@ -17,7 +21,17 @@ public class ApiTestJava {
     public void testDeserializeReplyForm() {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapterFactory(new ItemTypeAdapterFactory())
-                .registerTypeAdapter(Double.class, new DoubleDeserializer())
+                .registerTypeAdapter(Double.class, new JsonDeserializer<Double>() {
+                    @Override
+                    public Double deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                        try {
+                            return json.getAsDouble();
+                        } catch (NumberFormatException ne) {
+                            return Double.valueOf(json.getAsString().replace(',', '.'));
+                        }
+
+                    }
+                })
                 .registerTypeAdapter(Date.class, new DateDeserializer())
                 .create();
 
