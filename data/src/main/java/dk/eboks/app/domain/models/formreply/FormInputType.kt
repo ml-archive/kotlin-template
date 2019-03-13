@@ -9,7 +9,7 @@ enum class FormInputType {
     LINK,
     @SerializedName(value = "Text", alternate = ["text"])
     TEXT,
-    @SerializedName(value = "Textarea", alternate = ["textarea"])
+    @SerializedName(value = "TextArea", alternate = ["textarea"])
     TEXTAREA,
     @SerializedName(value = "Number", alternate = ["number"])
     NUMBER,

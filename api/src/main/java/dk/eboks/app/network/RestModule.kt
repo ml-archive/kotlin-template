@@ -6,6 +6,7 @@ import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.JsonDeserializer
 import dagger.Module
 import dagger.Provides
 import dk.eboks.app.domain.config.AppConfig
@@ -53,6 +54,16 @@ class RestModule {
     fun provideGson(typeFactory: ItemTypeAdapterFactory, dateDeserializer: DateDeserializer): Gson {
         return GsonBuilder()
             .registerTypeAdapterFactory(typeFactory)
+            .registerTypeAdapter(
+                java.lang.Double::class.java,
+                JsonDeserializer<Double> { json, _, _ ->
+                    val string = json?.asString ?: return@JsonDeserializer null
+                    try {
+                        string.toDouble()
+                    } catch (ne: NumberFormatException) {
+                        string.replace(",", ".").toDouble()
+                    }
+                })
             .registerTypeAdapter(Date::class.java, dateDeserializer)
 //                .registerTypeAdapter(List::class.java, ListDeserializer())
             .setDateFormat(DateDeserializer.DATE_FORMATS[0])

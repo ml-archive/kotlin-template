@@ -37,9 +37,6 @@ dependencies {
     implementation project(':data')
     implementation project(':arch')
 
-    testImplementation Libs.junit
-    androidTestImplementation Libs.Test.runner
-    androidTestImplementation Libs.Test.Expresso.core
     implementation Libs.Kotlin.stdlib
     implementation Libs.timber
     implementation Libs.Nodes.Nstack.kotlin
@@ -57,6 +54,12 @@ dependencies {
 
     implementation Libs.Dagger.dagger
     kapt Libs.Dagger.compiler
+
+
+    testImplementation Libs.junit
+    testImplementation Libs.Test.mockk
+    androidTestImplementation Libs.Test.runner
+    androidTestImplementation Libs.Test.Expresso.core
 }
 repositories {
     mavenCentral()
