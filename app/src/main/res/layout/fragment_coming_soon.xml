@@ -10,6 +10,7 @@
     android:orientation="vertical"
     android:paddingLeft="32dp"
     android:paddingRight="32dp"
+    android:focusable="true"
     tools:showIn="@layout/activity_coming_soon_uploads">
 
 

@@ -25,6 +25,7 @@
 
         <!-- channel teaser -->
         <LinearLayout
+            android:focusable="true"
             android:id="@+id/teaserLl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -75,6 +76,7 @@
 
     <!-- empty state -->
     <LinearLayout
+        android:focusable="true"
         android:id="@+id/emptyStateChannelLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

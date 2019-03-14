@@ -6,6 +6,7 @@
     android:background="@color/backgroundColor"
     android:orientation="vertical"
     android:paddingLeft="40dp"
+    android:focusable="true"
     android:paddingRight="40dp"
     tools:ignore="MissingPrefix">
 

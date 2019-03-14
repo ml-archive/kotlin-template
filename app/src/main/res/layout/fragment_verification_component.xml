@@ -15,23 +15,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-                <TextView
-                    android:id="@+id/headerTv"
+                <LinearLayout
+                    android:focusable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    style="@style/text.header1"
-                    android:text="_Verify with NemID"/>
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/detailTv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    style="@style/text.body6.secondary"
-                    android:text="_Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit ametLorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum."/>
+                        <TextView
+                            android:id="@+id/headerTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            style="@style/text.header1"
+                            android:text="_Verify with NemID"/>
+
+                        <TextView
+                            android:id="@+id/detailTv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:gravity="center"
+                            style="@style/text.body6.secondary"
+                            android:text="_Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet Lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit ametLorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum."/>
+
+
+                </LinearLayout>
+
 
                 <Button
                     android:id="@+id/verifyBtn"
@@ -42,13 +51,14 @@
                     android:layout_marginBottom="24dp"
                     android:text="_Verify with NemID" />
 
-                <TextView
+                <Button
+                    android:gravity="center"
                     android:id="@+id/cancelTv"
                     android:text="@string/nstack_default_cancel"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    style="@style/text.button.tertiary"
+                    style="@style/button.borderless"
                     tools:text="_Cancel"/>
 
         </LinearLayout>
