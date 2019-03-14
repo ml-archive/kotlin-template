@@ -21,6 +21,7 @@
             android:padding="8dp" />
 
         <LinearLayout
+            android:focusable="true"
             android:layout_width="0dp"
             android:layout_height="44dp"
             android:layout_weight="1"

@@ -25,10 +25,10 @@
 
         <!-- channel teaser -->
         <LinearLayout
-            android:focusable="true"
             android:id="@+id/teaserLl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:focusable="true"
             android:orientation="vertical"
             android:paddingLeft="32dp"
             android:paddingTop="@dimen/margin_normal"
@@ -36,26 +36,36 @@
             android:visibility="gone"
             tools:visibility="visible">
 
-            <TextView
-                style="@style/text.header2"
+            <LinearLayout
+                android:orientation="vertical"
+                android:focusable="true"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:gravity="center"
-                android:text="@string/nstack_home_bottomChannelHeaderChannels"
-                android:textStyle="normal" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                style="@style/text.body6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="@dimen/default_padding_top"
-                android:layout_marginRight="32dp"
-                android:gravity="center"
-                android:text="@string/nstack_home_bottomChannelTextChannels"
-                android:textColor="@color/blueGrey" />
+
+                <TextView
+                    style="@style/text.header2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginRight="32dp"
+                    android:gravity="center"
+                    android:text="@string/nstack_home_bottomChannelHeaderChannels"
+                    android:textStyle="normal" />
+
+                <TextView
+                    style="@style/text.body6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="@dimen/default_padding_top"
+                    android:layout_marginRight="32dp"
+                    android:gravity="center"
+                    android:text="@string/nstack_home_bottomChannelTextChannels"
+                    android:textColor="@color/blueGrey" />
+
+            </LinearLayout>
+
 
             <Button
                 android:id="@+id/teaserChannelBtn"
@@ -76,10 +86,10 @@
 
     <!-- empty state -->
     <LinearLayout
-        android:focusable="true"
         android:id="@+id/emptyStateChannelLl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
         android:orientation="vertical"
         android:paddingLeft="32dp"
         android:paddingTop="@dimen/margin_normal"

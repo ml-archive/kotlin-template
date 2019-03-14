@@ -10,6 +10,7 @@
     <include android:id="@+id/toolbarInclude" layout="@layout/include_toolbar" android:visibility="gone" />
 
     <LinearLayout
+        android:focusable="true"
         android:id="@+id/termsHeaderLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,164 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <include layout="@layout/include_toolbar" />
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_gravity="bottom"
+        <!--Top part-->
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_weight="1"
+            android:background="@color/backgroundColor">
 
-            <!--Top part-->
-            <FrameLayout
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/backgroundColor"
-                >
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginBottom="32dp"
+                android:src="@drawable/visual_mail" />
 
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:layout_marginBottom="32dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/visual_mail" />
+        </FrameLayout>
 
-            </FrameLayout>
+        <!--middle image-->
 
-            <!--middle image-->
+        <!--Bottom part-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/containerCv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp">
 
-            <!--Bottom part-->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/containerCv"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="3dp">
+                android:layout_marginTop="52dp"
+                android:focusable="true"
+                android:orientation="vertical"
+                android:paddingBottom="32dp">
 
                 <LinearLayout
-                    android:focusable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="52dp"
-                    android:paddingBottom="32dp"
+                    android:focusable="true"
                     android:orientation="vertical">
 
+
                     <TextView
-                        style="@style/text.header1"
                         android:id="@+id/headerTv"
+                        style="@style/text.header1"
                         android:layout_width="wrap_content"
                         android:layout_height="28dp"
                         android:layout_gravity="center_horizontal"
                         android:text="_Private sender" />
 
                     <TextView
-                        style="@style/text.body6.secondary"
                         android:id="@+id/mainTv"
-                        android:textAlignment="center"
+                        style="@style/text.body6.secondary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:paddingLeft="40dp"
                         android:paddingRight="40dp"
-                        android:text="Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh." />
+                        android:text="Donec euismod a nulla a cursus. Nullam varius magna augue, in tincidunt arcu aliquet lobortis. Quisque ac ipsum tellus. Morbi nibh risus, fermentum a nunc id, cursus vehicula nibh."
+                        android:textAlignment="center" />
+                </LinearLayout>
 
-                    <FrameLayout
-                        android:visibility="gone"
-                        android:id="@+id/openMessageButtons"
+                <FrameLayout
+                    android:id="@+id/openMessageButtons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="4dp"
+                    android:animateLayoutChanges="true"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:id="@+id/buttonsLl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="4dp"
-                        android:clipChildren="false"
-                        android:clipToPadding="false"
-                        android:animateLayoutChanges="true">
-                        <LinearLayout
-                            tools:visibility="visible"
-                            android:id="@+id/buttonsLl"
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        tools:visibility="visible">
+
+                        <Button
+                            android:id="@+id/openBtn"
+                            style="@style/button.SolidGradient.large"
+                            android:layout_width="280dp"
                             android:layout_height="wrap_content"
-                            android:visibility="gone">
-                            <Button
-                                tools:visibility="visible"
-                                android:id="@+id/openBtn"
-                                style="@style/button.SolidGradient.large"
-                                android:visibility="gone"
-                                android:layout_width="280dp"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:text="_Open message"/>
-
-                            <Button
-                                tools:visibility="visible"
-                                android:id="@+id/secondaryOptionBtn"
-                                android:visibility="gone"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
-                                android:layout_marginBottom="20dp"
-                                android:layout_gravity="center"
-                                style="@style/button.borderless"
-                                android:textStyle="bold"
-                                android:text="_Cancel"
-                                />
-
-                        </LinearLayout>
-
-                        <ProgressBar
-                            android:id="@+id/progressPb"
-                            android:visibility="invisible"
                             android:layout_gravity="center"
-                            android:layout_width="52dp"
-                            android:layout_height="52dp" />
-                    </FrameLayout>
+                            android:text="_Open message"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
 
-                    <Button
-                        style="@style/button.SolidGradient.large"
-                        android:id="@+id/loginSecureBtn"
-                        android:visibility="gone"
-                        tools:visibility="visible"
-                        android:layout_marginTop="20dp"
-                        android:layout_width="280dp"
-                        android:layout_height="wrap_content"
+                        <Button
+                            android:id="@+id/secondaryOptionBtn"
+                            style="@style/button.borderless"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:text="_Cancel"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            tools:visibility="visible" />
+
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressPb"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
                         android:layout_gravity="center"
-                        android:text="_Log on with NemID"/>
+                        android:visibility="invisible" />
+                </FrameLayout>
 
-                    <TextView
-                        style="@style/text.buttonSmall.tertiary"
-                        android:id="@+id/loginTv"
-                        android:visibility="gone"
-                        tools:visibility="visible"
-                        android:clickable="true"
-                        android:text="_Log on with mobile access"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:paddingTop="20dp"
-                        android:paddingBottom="20dp"
-                        android:textColor="@color/delete_button_selector"
-                        />
+                <Button
+                    android:id="@+id/loginSecureBtn"
+                    style="@style/button.SolidGradient.large"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:text="_Log on with NemID"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/loginTv"
+                    style="@style/text.buttonSmall.tertiary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:clickable="true"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:text="_Log on with mobile access"
+                    android:textColor="@color/delete_button_selector"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
     <ImageView
-        android:scaleType="center"
-        android:src="@drawable/icon_48_mail_white"
         android:id="@+id/iconIv"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_gravity="center"
         android:background="@drawable/circle_gradiant"
+        android:scaleType="center"
+        android:src="@drawable/icon_48_mail_white"
         app:layout_anchor="@+id/containerCv"
         app:layout_anchorGravity="center|top" />
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:animateLayoutChanges="false"
     tools:ignore="MissingPrefix">
 
@@ -16,7 +16,6 @@
 
     <!--Empty state - Mail-->
     <LinearLayout
-        android:focusable="true"
         android:id="@+id/emptyStateLl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,28 +23,36 @@
         android:orientation="vertical"
         android:paddingLeft="32dp"
         android:paddingRight="32dp"
-        tools:visibility="visible"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
-        <TextView
-            android:id="@+id/emptyStateHeaderTv"
-            style="@style/text.header2"
+        <LinearLayout
+            android:orientation="vertical"
+            android:focusable="true"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:gravity="center"
-            android:textStyle="normal"
-            android:text="@string/nstack_home_messagesUnverifiedTitle" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/emptyStateTextTv"
-            style="@style/text.header3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textColor="@color/blueGrey"
-            android:textStyle="normal"
-            android:text="@string/nstack_home_messagesUnverifiedMessage" />
+
+            <TextView
+                android:id="@+id/emptyStateHeaderTv"
+                style="@style/text.header2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:text="@string/nstack_home_messagesUnverifiedTitle"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/emptyStateTextTv"
+                style="@style/text.header3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nstack_home_messagesUnverifiedMessage"
+                android:textAlignment="center"
+                android:textColor="@color/blueGrey"
+                android:textStyle="normal" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/emptyStateBtn"
@@ -53,21 +60,22 @@
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_gravity="center"
-            android:layout_marginBottom="24dp"
             android:layout_marginTop="@dimen/margin_normal"
-            android:textAppearance="@style/text.buttonSmall"
-            android:text="@string/nstack_home_messagesUnverifiedButton" />
+            android:layout_marginBottom="24dp"
+            android:text="@string/nstack_home_messagesUnverifiedButton"
+            android:textAppearance="@style/text.buttonSmall" />
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/progressFolderFl"
         android:layout_width="match_parent"
-        tools:visibility="gone"
-        android:layout_height="140dp">
+        android:layout_height="140dp"
+        tools:visibility="gone">
+
         <ProgressBar
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
     </FrameLayout>
 
 
