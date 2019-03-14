@@ -15,7 +15,7 @@ abstract class GsonFileStorageRepository<T>(
     val filename: String
 ) {
 
-    @Throws(dk.nodes.template.domain.repositories.RepositoryException::class)
+    @Throws(RepositoryException::class)
     fun save(objects: T) {
         val outputStream: FileOutputStream
         try {
@@ -26,14 +26,14 @@ abstract class GsonFileStorageRepository<T>(
             outputStream.close()
         } catch (e: Exception) {
             e.printStackTrace()
-            throw(dk.nodes.template.domain.repositories.RepositoryException(
+            throw(RepositoryException(
                 -1,
                 "file could not be written to internal storage"
             ))
         }
     }
 
-    @Throws(dk.nodes.template.domain.repositories.RepositoryException::class)
+    @Throws(RepositoryException::class)
     fun load(type: Type): T {
         val inputStream: FileInputStream
         try {
@@ -54,7 +54,7 @@ abstract class GsonFileStorageRepository<T>(
             return objects
         } catch (e: Exception) {
             Timber.e("Catching file not found")
-            throw(dk.nodes.template.domain.repositories.RepositoryException(
+            throw(RepositoryException(
                 -1,
                 "File $filename could not be read from internal storage"
             ))
