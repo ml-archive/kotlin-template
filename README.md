@@ -60,7 +60,7 @@ This project uses multi-module approach, splitting by layer and feature.
 If you have any problem on compiling the project, run `gradlew clean` and `gradlew assemble`.
 
 Dependencies are kept in *buildSrc* module using *kotlin-dsl*, In order to check if there's any 
-dependency update run `gradlew dependencyUpdates` and then update [dependencies.kt](dk.eboks.buildsrc.dependencies.kt)
+dependency update run `gradlew dependencyUpdates` and then update [dependencies.kt](buildSrc/src/main/java/dk/eboks/buildsrc/dependencies.kt)
 on *buildSrc* module.  
 ## Code style
 
