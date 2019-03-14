@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import dk.eboks.app.R
@@ -57,15 +58,16 @@ class OverlayActivity : BaseActivity(), OverlayContract.View, OnLanguageChangedL
                     buttonContainerLl,
                     false
                 )
-                val button = v.findViewById<ImageButton>(R.id.buttonFab)
+                val button = v.findViewById<ImageView>(R.id.buttonFab)
                 val text = v.findViewById<TextView>(R.id.textTv)
+                val buttonHolder = v.findViewById<LinearLayout>(R.id.buttonHolder)
 
                 text.text = item.text
                 item.icon?.let {
                     button.setImageResource(it)
                 }
                 v.tag = item
-                button.setOnClickListener {
+                buttonHolder.setOnClickListener {
                     closeAnimation(item.type)
                 }
                 buttonContainerLl.addView(v)
