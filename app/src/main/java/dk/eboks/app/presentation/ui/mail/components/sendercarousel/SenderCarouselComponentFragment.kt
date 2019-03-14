@@ -19,6 +19,7 @@ import dk.eboks.app.presentation.ui.mail.screens.list.MailListActivity
 import dk.eboks.app.presentation.ui.mail.screens.overview.MailOverviewActivity
 import dk.eboks.app.presentation.ui.senders.screens.list.SenderAllListActivity
 import dk.eboks.app.util.getWorkaroundUrl
+import dk.eboks.app.util.inflate
 import dk.eboks.app.util.visible
 import kotlinx.android.synthetic.main.fragment_sender_carousel_component.*
 import kotlinx.android.synthetic.main.viewholder_circular_sender.view.*
@@ -83,11 +84,11 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
 
     override fun showEmpty(show: Boolean, verified: Boolean) {
         if (verified) {
-            sendersListEmptyUnverifiedLl.visible = (false)
-            sendersListEmptyLl.visible = (show)
+            sendersListEmptyUnverifiedLl.visible = false
+            sendersListEmptyLl.visible = show
         } else {
-            sendersListEmptyLl.visible = (false)
-            sendersListEmptyUnverifiedLl.visible = (show)
+            sendersListEmptyLl.visible = false
+            sendersListEmptyUnverifiedLl.visible = show
         }
         sendersListLl.visible = (!show)
     }
@@ -101,18 +102,38 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         RecyclerView.Adapter<HorizontalSendersAdapter.CircularSenderViewHolder>() {
 
         inner class CircularSenderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            fun bind(sender: Sender) {
+                itemView.run {
+                    circleIv?.let {
+                        if (sender.logo != null)
+                            Glide.with(it.context)
+                                .setDefaultRequestOptions(
+                                    RequestOptions.circleCropTransform()
+                                        .placeholder(R.drawable.ic_sender_placeholder)
+                                        .error(R.drawable.ic_sender_placeholder)
+                                )
+                                .load(sender.logo?.getWorkaroundUrl())
+                                .into(it)
+                    }
+                    senderNameTv?.text = sender.name
 
-            val circleIv = itemView.circleIv
-            val senderNameTv = itemView.senderNameTv
+                    // isSelected = senders[position].messages?.metadata?.unreadCount ?: 0 > 0
+                    isSelected = sender.unreadMessageCount > 0
+                    setOnClickListener {
+
+                        val i = Intent(context, MailListActivity::class.java)
+                        i.putExtra("sender", sender)
+                        startActivity(i)
+                    }
+                }
+            }
         }
 
         override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
         ): CircularSenderViewHolder {
-            val v = LayoutInflater.from(context)
-                .inflate(R.layout.viewholder_circular_sender, parent, false)
-            return CircularSenderViewHolder(v)
+            return CircularSenderViewHolder(parent.inflate(R.layout.viewholder_circular_sender))
         }
 
         override fun getItemCount(): Int {
@@ -120,28 +141,7 @@ class SenderCarouselComponentFragment : BaseFragment(), SenderCarouselComponentC
         }
 
         override fun onBindViewHolder(holder: CircularSenderViewHolder, position: Int) {
-            holder.circleIv?.let {
-                if (senders[position].logo != null)
-                    Glide.with(it.context)
-                        .setDefaultRequestOptions(
-                            RequestOptions().placeholder(R.drawable.ic_sender_placeholder).error(
-                                R.drawable.ic_sender_placeholder
-                            )
-                        )
-                        .load(senders[position].logo?.getWorkaroundUrl())
-                        .into(it)
-            }
-            holder.senderNameTv?.text = senders[position].name
-            holder.itemView.let {
-                // it.isSelected = senders[position].messages?.metadata?.unreadCount ?: 0 > 0
-                it.isSelected = senders[position].unreadMessageCount > 0
-                it.setOnClickListener {
-
-                    val i = Intent(context, MailListActivity::class.java)
-                    i.putExtra("sender", senders[position])
-                    startActivity(i)
-                }
-            }
+            holder.bind(senders[position])
         }
     }
 }
