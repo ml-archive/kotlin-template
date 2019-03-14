@@ -331,7 +331,7 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
 
     private fun selectView(v: View, folder: Folder) {
         v.findViewById<FrameLayout>(R.id.arrowFl)?.visibility = View.GONE
-        v.findViewById<ImageButton>(R.id.editIb)?.visibility = View.GONE
+        v.findViewById<ImageView>(R.id.editIv)?.visibility = View.GONE
         val checkbox = v.findViewById<ImageButton>(R.id.checkboxIb)
         checkbox?.visibility = View.VISIBLE
         checkbox.setOnClickListener {
@@ -363,22 +363,19 @@ class FoldersComponentFragment : BaseFragment(), FoldersComponentContract.View {
     private fun normalView(v: View, folder: Folder) {
         v.findViewById<FrameLayout>(R.id.arrowFl)?.visibility = View.VISIBLE
         v.findViewById<ImageButton>(R.id.checkboxIb)?.visibility = View.GONE
-        v.findViewById<ImageButton>(R.id.editIb)?.visibility = View.GONE
+        v.findViewById<ImageView>(R.id.editIv)?.visibility = View.GONE
         v.setOnClickListener { presenter.openFolder(folder) }
     }
 
     private fun editView(v: View) {
         v.findViewById<FrameLayout>(R.id.arrowFl)?.visibility = View.GONE
         v.findViewById<ImageButton>(R.id.checkboxIb)?.visibility = View.GONE
-        val edit = v.findViewById<ImageButton>(R.id.editIb)
+        val edit = v.findViewById<ImageView>(R.id.editIv)
         val folder = v.tag as Folder
 
         if (folder.type?.isSystemFolder() == false) {
             edit?.visibility = View.VISIBLE
 
-            edit.setOnClickListener {
-                editButtonClicked(v)
-            }
             v.setOnClickListener {
                 editButtonClicked(v)
             }
