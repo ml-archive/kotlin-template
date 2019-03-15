@@ -9,7 +9,6 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormContract
 import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
 import dk.eboks.app.presentation.base.BaseActivity
-import dk.eboks.app.util.asSequence
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.invisible
 import dk.eboks.app.util.views
@@ -27,7 +26,7 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
     // observer without rx, how is teh possible?
     private val inputObserver = Observer { observable, newval ->
         Timber.d("Input observer firing! $observable")
-        submitBtn.isEnabled = allInputsValidate()
+        submitBtn?.isEnabled = allInputsValidate()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,13 +42,17 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
             .guard { finish() } // finish if we didn't get a message
 
         submitBtn.setOnClickListener {
-            presenter.submit(formInputLl
-                .asSequence()
-                .map { it.tag }
-                .filterIsInstance<ReplyFormInput>()
-                .map { it.formInput }
-                .toList())
+            presenter.submit(
+                replyForms().map { it.formInput }
+            )
         }
+    }
+
+    private fun replyForms(): List<ReplyFormInput> {
+        return formInputLl
+            .views
+            .map { it.tag }
+            .filterIsInstance<ReplyFormInput>()
     }
 
     private fun setupTopBar(txt: String) {
@@ -63,35 +66,22 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
     override fun onResume() {
         super.onResume()
         // iterate through form inputs and let them register listeners
-        for (v in formInputLl.views) {
-            if (v.tag is ReplyFormInput) {
-                val input = v.tag as ReplyFormInput
-                input.onResume()
-            }
-        }
+        replyForms().forEach { input -> input.onResume() }
     }
 
     override fun onPause() {
         // iterate through form inputs and let them deregister listeners
-        for (v in formInputLl.views) {
-            if (v.tag is ReplyFormInput) {
-                val input = v.tag as ReplyFormInput
-                input.onPause()
-            }
-        }
+        replyForms().forEach { input -> input.onPause() }
         super.onPause()
     }
 
     private fun allInputsValidate(): Boolean {
         if (formInputLl.childCount == 0)
             return false
-        for (v in formInputLl.views) {
-            if (v.tag is ReplyFormInput) {
-                val input = v.tag as ReplyFormInput
-                if (!input.isValid) {
-                    // Timber.e("${input.formInput.label} shit does not validate")
-                    return false
-                }
+        replyForms().forEach { input ->
+            if (!input.isValid) {
+                // Timber.e("${input.formInput.label} shit does not validate")
+                return false
             }
         }
         return true // alles sehr gut
