@@ -47,15 +47,15 @@ class ReplyFormPresenterTest {
     @Test
     fun `Submit Test`() {
 
-        presenter.currentForm = ReplyForm()
+        val replyForm = ReplyForm()
         presenter.currentMessage = message
 
-        presenter.submit()
+        presenter.submit(replyForm.inputs)
 
         presenter.currentMessage = null
         presenter.currentForm = null
 
-        presenter.submit()
+        presenter.submit(replyForm.inputs)
 
         // Submit interactor runs only once
         verify(exactly = 1) {

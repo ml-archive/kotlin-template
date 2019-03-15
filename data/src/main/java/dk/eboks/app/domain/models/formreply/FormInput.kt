@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class FormInput(
-    var name: String,
+    var name: String?,
     var type: FormInputType,
     var label: String? = null,
     var validate: String? = null,

@@ -11,7 +11,7 @@ import dk.eboks.app.network.Api
 import dk.eboks.app.storage.base.CacheStore
 import javax.inject.Inject
 
-typealias ChannelListStore = CacheStore<String, MutableList<Channel>>
+typealias ChannelListStore = CacheStore<String, List<Channel>>
 typealias ChannelControlStore = CacheStore<Long, HomeContent>
 
 /**
@@ -30,11 +30,11 @@ class ChannelsRestRepository @Inject constructor(
             context,
             gson,
             "channel_list_store.json",
-            object : TypeToken<MutableMap<String, MutableList<Channel>>>() {}.type
+            object : TypeToken<MutableMap<String, List<Channel>>>() {}.type
         ) { key ->
             val response =
                 if (key == "pinned") api.getChannelsPinned().execute() else api.getChannels().execute()
-            var result: MutableList<Channel>? = null
+            var result: List<Channel>? = null
             response.let {
                 if (it.isSuccessful)
                     result = it.body()

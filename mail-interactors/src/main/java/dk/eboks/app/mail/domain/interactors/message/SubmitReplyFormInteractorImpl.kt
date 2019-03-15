@@ -28,7 +28,7 @@ internal class SubmitReplyFormInteractorImpl @Inject constructor(
         } catch (t: Throwable) {
             Timber.e(t)
             runOnUIThread {
-                output?.onSubmitReplyFormError(exceptionToViewError(t, shouldClose = true))
+                output?.onSubmitReplyFormError(exceptionToViewError(t, shouldClose = false))
             }
         }
     }

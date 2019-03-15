@@ -32,6 +32,7 @@ import dk.eboks.app.domain.models.shared.Link
 import dk.eboks.app.domain.models.shared.ResourceLink
 import okhttp3.ResponseBody
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.Field
@@ -208,18 +209,18 @@ interface Api {
     @GET("mail/folders/{folderId}/messages/{id}/reply")
     fun getMessageReplyForm(@Path("id") id: String, @Path("folderId") folderId: Int): Call<ReplyForm>
 
-    @PATCH("mail/folders/{folderId}/messages/{id}/reply")
-    fun submitMessageReplyForm(@Path("id") id: String, @Path("folderId") folderId: Int, @Body body: ReplyForm): Call<Any>
+    @PUT("mail/folders/{folderId}/messages/{id}/reply")
+    fun submitMessageReplyForm(@Path("id") id: String, @Path("folderId") folderId: Int, @Body body: ReplyForm): Call<Response<Void>>
 
     // channels
     @GET("channels")
-    fun getChannels(): Call<MutableList<Channel>>
+    fun getChannels(): Call<List<Channel>>
 
     @GET("channels?pinned=true")
-    fun getChannelsPinned(): Call<MutableList<Channel>>
+    fun getChannelsPinned(): Call<List<Channel>>
 
     @GET("channels?installed=true")
-    fun getChannelsInstalled(): Call<MutableList<Channel>>
+    fun getChannelsInstalled(): Call<List<Channel>>
 
     @GET("channels/{id}")
     fun getChannel(@Path("id") id: Int): Call<Channel>
@@ -268,7 +269,7 @@ interface Api {
     fun getStoreboxCardLink(@Query("callback_success") callbackSuccess: String, @Query("callback_error") callbackError: String): Call<Link>
 
     @GET("channels/storebox/user/cards")
-    fun getStoreboxCreditCards(): Call<MutableList<StoreboxCreditCard>>
+    fun getStoreboxCreditCards(): Call<List<StoreboxCreditCard>>
 
     @DELETE("channels/storebox/user/cards/{cardId}")
     fun deleteStoreboxCreditCard(@Path("cardId") id: String): Call<Void>

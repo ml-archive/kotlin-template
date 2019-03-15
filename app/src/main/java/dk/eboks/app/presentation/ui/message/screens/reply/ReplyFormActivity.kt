@@ -9,6 +9,7 @@ import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormContract
 import dk.eboks.app.mail.presentation.ui.message.screens.reply.ReplyFormInput
 import dk.eboks.app.presentation.base.BaseActivity
+import dk.eboks.app.util.asSequence
 import dk.eboks.app.util.guard
 import dk.eboks.app.util.invisible
 import dk.eboks.app.util.views
@@ -25,7 +26,7 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
 
     // observer without rx, how is teh possible?
     private val inputObserver = Observer { observable, newval ->
-        Timber.e("Input observer firing! $observable")
+        Timber.d("Input observer firing! $observable")
         submitBtn.isEnabled = allInputsValidate()
     }
 
@@ -42,7 +43,12 @@ class ReplyFormActivity : BaseActivity(), ReplyFormContract.View, OnLanguageChan
             .guard { finish() } // finish if we didn't get a message
 
         submitBtn.setOnClickListener {
-            presenter.submit()
+            presenter.submit(formInputLl
+                .asSequence()
+                .map { it.tag }
+                .filterIsInstance<ReplyFormInput>()
+                .map { it.formInput }
+                .toList())
         }
     }
 

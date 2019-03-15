@@ -55,7 +55,7 @@ fun BaseInteractor.exceptionToViewError(
     }.guard {
         return throwableToViewError(t, shouldClose, shouldDisplay)
     }
-    return dk.eboks.app.domain.models.local.ViewError(
+    return ViewError(
         shouldDisplay = shouldDisplay,
         shouldCloseView = shouldClose
     )

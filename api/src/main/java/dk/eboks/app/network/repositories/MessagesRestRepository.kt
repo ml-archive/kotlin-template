@@ -251,7 +251,12 @@ class MessagesRestRepository @Inject constructor(
 
     override fun submitMessageReplyForm(msg: Message, form: ReplyForm) {
         msg.folder?.let {
-            val call = api.submitMessageReplyForm(msg.id, msg.folder?.id ?: 0, form)
+
+            val call = api.submitMessageReplyForm(
+                msg.id,
+                msg.folder?.id ?: 0,
+                ReplyForm(form.inputs.filter { it.name != null })
+            )
             val result = call.execute()
             result.let { response ->
                 if (response.isSuccessful) {

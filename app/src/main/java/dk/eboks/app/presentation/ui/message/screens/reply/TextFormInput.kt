@@ -65,7 +65,7 @@ class TextFormInput(
             }
         }
         formInput.validate?.toRegex()?.let {
-            if (it.matches(text)) {
+            if (!it.matches(text)) {
                 textTil?.error = if (silent) null else formInput.error
                 return
             }
