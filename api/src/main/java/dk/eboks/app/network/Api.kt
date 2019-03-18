@@ -13,6 +13,7 @@ import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderPatch
 import dk.eboks.app.domain.models.folder.FolderRequest
 import dk.eboks.app.domain.models.formreply.ReplyForm
+import dk.eboks.app.domain.models.formreply.ReplyFormOutput
 import dk.eboks.app.domain.models.home.HomeContent
 import dk.eboks.app.domain.models.login.ActivationDevice
 import dk.eboks.app.domain.models.login.SharedUser
@@ -210,7 +211,7 @@ interface Api {
     fun getMessageReplyForm(@Path("id") id: String, @Path("folderId") folderId: Int): Call<ReplyForm>
 
     @PUT("mail/folders/{folderId}/messages/{id}/reply")
-    fun submitMessageReplyForm(@Path("id") id: String, @Path("folderId") folderId: Int, @Body body: ReplyForm): Call<Response<Void>>
+    fun submitMessageReplyForm(@Path("id") id: String, @Path("folderId") folderId: Int, @Body body: ReplyFormOutput): Call<Response<Void>>
 
     // channels
     @GET("channels")

@@ -2,6 +2,7 @@ package dk.eboks.app.presentation.managers
 
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Handler
 import dk.eboks.app.App
 import dk.eboks.app.domain.managers.UIManager
@@ -37,6 +38,7 @@ class UIManagerImpl(val context: Context) : UIManager {
             }.guard {
                 val i = Intent(context, StartActivity::class.java)
                 i.putExtra("noboot", true)
+                i.addFlags(FLAG_ACTIVITY_NEW_TASK)
                 i.putExtra("sessionExpired", true)
                 context.startActivity(i)
             }
@@ -53,7 +55,7 @@ class UIManagerImpl(val context: Context) : UIManager {
                     )
                 ); it.overridePendingTransition(0, 0)
             }
-                .guard { context.startActivity(Intent(context, MessageActivity::class.java)) }
+                .guard { context.startActivity(Intent(context, MessageActivity::class.java).addFlags(FLAG_ACTIVITY_NEW_TASK)) }
         }
     }
 
@@ -72,7 +74,7 @@ class UIManagerImpl(val context: Context) : UIManager {
                         Intent(
                             context,
                             MessageEmbeddedActivity::class.java
-                        )
+                        ).addFlags(FLAG_ACTIVITY_NEW_TASK)
                     )
                 }
         }
@@ -87,7 +89,7 @@ class UIManagerImpl(val context: Context) : UIManager {
                         Intent(
                             context,
                             MessageOpeningActivity::class.java
-                        )
+                        ).addFlags(FLAG_ACTIVITY_NEW_TASK)
                     )
                 }
         }
@@ -98,7 +100,7 @@ class UIManagerImpl(val context: Context) : UIManager {
         intent.putExtra("folder", folder)
         handler.post {
             (context.applicationContext as? App)?.currentActivity?.startActivity(intent)
-                .guard { context.startActivity(intent) }
+                .guard { context.startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK))}
         }
     }
 
@@ -111,7 +113,7 @@ class UIManagerImpl(val context: Context) : UIManager {
                         Intent(
                             context,
                             PermissionRequestActivity::class.java
-                        )
+                        ).addFlags(FLAG_ACTIVITY_NEW_TASK)
                     )
                 }
         }
