@@ -54,6 +54,7 @@
         </LinearLayout>
 
         <ImageView
+            android:contentDescription="@string/nstack_accessibility_removeUserButton"
             android:id="@+id/deleteIv"
             android:layout_width="24dp"
             android:layout_height="24dp"

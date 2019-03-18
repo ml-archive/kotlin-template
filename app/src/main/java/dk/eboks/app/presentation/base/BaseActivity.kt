@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import dk.eboks.app.App
 import dk.eboks.app.BuildConfig
+import dk.eboks.app.domain.models.Translation
 import dk.eboks.app.domain.models.local.ViewError
 import dk.eboks.app.injection.components.PresentationComponent
 import dk.eboks.app.presentation.ui.debug.screens.DebugActivity
@@ -184,5 +185,10 @@ abstract class BaseActivity : AppCompatActivity(), BaseView {
     override fun showToast(msg: String, showLongTime: Boolean) {
         val dur = if (showLongTime) Toast.LENGTH_LONG else Toast.LENGTH_SHORT
         Toast.makeText(this, msg, dur).show()
+    }
+
+    fun setupHomeAsUp() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        getToolbar().navigationContentDescription = Translation.accessibility.navigateBackButton
     }
 }

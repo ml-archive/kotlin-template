@@ -676,4 +676,11 @@
   <string name='nstack_editupload_editUpload' formatted='false'>{editupload_editUpload}</string>
   <string name='nstack_editupload_uploadName' formatted='false'>{editupload_uploadName}</string>
   <string name='nstack_editupload_uploadNameNonEmpty' formatted='false'>{editupload_uploadNameNonEmpty}</string>
+  <string name='nstack_accessibility_removeUserButton' formatted='false'>{accessibility_removeUserButton}</string>
+  <string name='nstack_accessibility_navigateBackButton' formatted='false'>{accessibility_navigateBackButton}</string>
+  <string name='nstack_accessibility_messageActionsButton' formatted='false'>{accessibility_messageActionsButton}</string>
+  <string name='nstack_accessibility_openProfileButton' formatted='false'>{accessibility_openProfileButton}</string>
+  <string name='nstack_accessibility_createFolderButton' formatted='false'>{accessibility_createFolderButton}</string>
+  <string name='nstack_accessibility_serviceSettingsButton' formatted='false'>{accessibility_serviceSettingsButton}</string>
+  <string name='nstack_accessibility_closeActionsMenuButton' formatted='false'>{accessibility_closeActionsMenuButton}</string>
 </resources>

@@ -108,6 +108,7 @@
         android:id="@+id/mainFab"
         android:layout_width="56dp"
         android:layout_height="56dp"
+        android:contentDescription="@string/nstack_accessibility_createFolderButton"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:clickable="true"

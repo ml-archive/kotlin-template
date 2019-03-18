@@ -785,4 +785,13 @@ public class Translation {
 		public static String uploadName = "__uploadName";
 		public static String uploadNameNonEmpty = "__uploadNameNonEmpty";
 	}
+	public final static class accessibility {
+		public static String removeUserButton = "__removeUserButton";
+		public static String navigateBackButton = "__navigateBackButton";
+		public static String messageActionsButton = "__messageActionsButton";
+		public static String openProfileButton = "__openProfileButton";
+		public static String createFolderButton = "__createFolderButton";
+		public static String serviceSettingsButton = "__serviceSettingsButton";
+		public static String closeActionsMenuButton = "__closeActionsMenuButton";
+	}
 }

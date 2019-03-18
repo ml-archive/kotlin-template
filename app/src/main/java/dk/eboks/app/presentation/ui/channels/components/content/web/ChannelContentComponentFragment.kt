@@ -97,7 +97,7 @@ class ChannelContentComponentFragment : BaseWebFragment(), ChannelContentCompone
                 activity?.finish()
         }
 
-        val menuItem = mainTb.menu.add("_settings")
+        val menuItem = mainTb.menu.add(Translation.accessibility.serviceSettingsButton)
         menuItem.setIcon(R.drawable.ic_settings_red)
         menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuItem.setOnMenuItemClickListener { item: MenuItem ->
