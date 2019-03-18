@@ -8,9 +8,8 @@ import dk.eboks.app.domain.managers.AppStateManager
 import dk.eboks.app.domain.managers.CacheManager
 import dk.eboks.app.domain.models.folder.Folder
 import dk.eboks.app.domain.models.folder.FolderType
-import dk.eboks.app.domain.models.formreply.FormOutput
 import dk.eboks.app.domain.models.formreply.ReplyForm
-import dk.eboks.app.domain.models.formreply.ReplyFormOutput
+import dk.eboks.app.domain.models.formreply.toOutputForm
 import dk.eboks.app.domain.models.message.Message
 import dk.eboks.app.domain.models.message.MessagePatch
 import dk.eboks.app.domain.models.message.MessageType
@@ -254,16 +253,7 @@ class MessagesRestRepository @Inject constructor(
     override fun submitMessageReplyForm(msg: Message, form: ReplyForm) {
         msg.folder?.let {
 
-            val call = api.submitMessageReplyForm(
-                msg.id,
-                msg.folder?.id ?: 0,
-                ReplyFormOutput(form.inputs.filter { it.name != null }.map {
-                    FormOutput(
-                        it.name!!,
-                        it.value!!
-                    )
-                })
-            )
+            val call = api.submitMessageReplyForm(msg.id, msg.folder?.id ?: 0, form.toOutputForm())
             val result = call.execute()
             result.let { response ->
                 if (response.isSuccessful) {
