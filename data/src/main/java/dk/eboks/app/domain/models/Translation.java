@@ -793,5 +793,6 @@ public class Translation {
 		public static String createFolderButton = "__createFolderButton";
 		public static String serviceSettingsButton = "__serviceSettingsButton";
 		public static String closeActionsMenuButton = "__closeActionsMenuButton";
+		public static String searchSendersButton = "__searchSendersButton";
 	}
 }
