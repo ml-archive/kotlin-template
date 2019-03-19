@@ -14,36 +14,44 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <TextView
-        style="@style/text.header2"
+    <LinearLayout
+        android:focusable="true"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="32dp"
-        tools:text="_Enable Mobile access to use fingerprint"
-        android:text="@string/nstack_profile_fingerHintTitle" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        style="@style/text.body6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="8dp"
-        tools:text="_Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer cursus, dui vel pretium laoreet, sapien nunc laoreet neque, ac vestibulum velit tellus at diam. "
-        android:textColor="@color/blueGrey"
-        android:text="@string/nstack_profile_fingerHintText" />
+
+        <TextView
+            style="@style/text.header2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="32dp"
+            android:text="@string/nstack_profile_fingerHintTitle"
+            tools:text="_Enable Mobile access to use fingerprint" />
+
+        <TextView
+            style="@style/text.body6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:text="@string/nstack_profile_fingerHintText"
+            android:textColor="@color/blueGrey"
+            tools:text="_Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer cursus, dui vel pretium laoreet, sapien nunc laoreet neque, ac vestibulum velit tellus at diam. " />
+    </LinearLayout>
 
     <Button
         android:id="@+id/okBtn"
         style="@style/buttonRoundedCorners.darkBlueGrey"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:layout_marginBottom="24dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="#0D223944"
-        tools:text="_Ok"
+        android:text="@string/nstack_default_ok"
         android:textSize="16dp"
-        android:text="@string/nstack_default_ok" />
+        tools:text="_Ok" />
 
 
 </LinearLayout>

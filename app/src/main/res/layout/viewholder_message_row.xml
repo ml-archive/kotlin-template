@@ -61,142 +61,126 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/mainContainerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="?selectableItemBackground"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp">
+
 
         <LinearLayout
-            android:id="@+id/mainContainerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:background="?selectableItemBackground"
-            android:gravity="center"
-
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:gravity="center">
 
-                <LinearLayout
+                <FrameLayout
+                    android:id="@+id/uploadFl"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
-                    android:gravity="center">
-
-                    <FrameLayout
-                        android:id="@+id/uploadFl"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:background="@drawable/circular_image_view_no_inner_circle_background"
-                        android:visibility="visible">
-
-                        <ImageView
-                            android:id="@+id/imageIv"
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_menu_uploads" />
-                    </FrameLayout>
-
-                    <ImageButton
-                        android:id="@+id/checkboxIb"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:background="@drawable/square_gradiant_selector"
-                        android:src="@drawable/icon_48_checkmark_white"
-                        android:visibility="gone" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/showContainerLl"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="5dp"
+                    android:background="@drawable/circular_image_view_no_inner_circle_background"
                     android:visibility="visible">
 
-
-                    <TextView
-                        android:id="@+id/headerTv"
-                        style="@style/text.header4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:gravity="bottom"
-                        android:lines="1"
-                        android:text="" />
-
-
-                    <TextView
-                        android:id="@+id/subHeaderTv"
-                        style="@style/text.subHeader5.quaternary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="top"
-                        android:ellipsize="end"
-                        android:lines="1"
-                        android:text=""
-                        android:textColor="@color/blueGrey" />
-
-                    <TextView
-                        android:id="@+id/urgentTv"
-                        style="@style/text.subHeader5.tertiary"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:lineSpacingExtra="7sp"
-                        android:lines="1"
-                        android:text=""
-                        android:visibility="visible" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/dateTv"
-                        style="@style/text.subHeader5.quaternary"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:lines="1"
-                        android:text=""
-                        tools:text="Today" />
-
                     <ImageView
-                        android:id="@+id/clipIv"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/imageIv"
+                        android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:layout_gravity="end"
-                        android:src="@drawable/icon_48_attachment_small_grey"
-                        android:visibility="visible" />
-                </LinearLayout>
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_menu_uploads" />
+                </FrameLayout>
+
+                <ImageButton
+                    android:id="@+id/checkboxIb"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/square_gradiant_selector"
+                    android:src="@drawable/icon_48_checkmark_white"
+                    android:visibility="gone" />
+
             </LinearLayout>
 
-        </LinearLayout>
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            <LinearLayout
+                android:id="@+id/showContainerLl"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="12dp"
+                android:paddingRight="5dp"
+                android:visibility="visible">
 
-        <View
-            android:id="@+id/dividerV"
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="14dp"
-            android:background="@color/dividerColor" />
+
+                <TextView
+                    android:id="@+id/headerTv"
+                    style="@style/text.header4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="bottom"
+                    android:lines="1"
+                    android:text="" />
+
+
+                <TextView
+                    android:id="@+id/subHeaderTv"
+                    style="@style/text.subHeader5.quaternary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text=""
+                    android:textColor="@color/blueGrey" />
+
+                <TextView
+                    android:id="@+id/urgentTv"
+                    style="@style/text.subHeader5.tertiary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lineSpacingExtra="7sp"
+                    android:lines="1"
+                    android:text=""
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/dateTv"
+                    style="@style/text.subHeader5.quaternary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:text=""
+                    tools:text="Today" />
+
+                <ImageView
+                    android:id="@+id/clipIv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/icon_48_attachment_small_grey"
+                    android:visibility="visible" />
+            </LinearLayout>
+        </LinearLayout>
+
+
     </LinearLayout>
 </com.daimajia.swipe.SwipeLayout>

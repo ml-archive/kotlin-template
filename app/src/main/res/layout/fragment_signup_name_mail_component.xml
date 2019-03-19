@@ -38,31 +38,41 @@
                 android:layout_marginRight="36dp"
                 android:progress="30" />
 
-            <TextView
-                android:id="@+id/headerTv"
-                style="@style/text.header1"
+            <LinearLayout
+                android:focusable="true"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginLeft="36dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="36dp"
-                android:layout_marginRight="36dp"
-                android:text="@string/nstack_signup_nameEmailHeader"
-                tools:text="_Header" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/detailTv"
-                style="@style/text.body6.secondary"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginLeft="36dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="36dp"
-                android:layout_marginRight="36dp"
-                android:text="@string/nstack_signup_nameEmailDetail"
-                tools:text="_Please fill in the information below" />
+                <TextView
+                    android:id="@+id/headerTv"
+                    style="@style/text.header1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginLeft="36dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="36dp"
+                    android:layout_marginRight="36dp"
+                    android:text="@string/nstack_signup_nameEmailHeader"
+                    tools:text="_Header" />
+
+                <TextView
+                    android:id="@+id/detailTv"
+                    style="@style/text.body6.secondary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginLeft="36dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="36dp"
+                    android:layout_marginRight="36dp"
+                    android:text="@string/nstack_signup_nameEmailDetail"
+                    tools:text="_Please fill in the information below" />
+
+            </LinearLayout>
+
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/nameTil"

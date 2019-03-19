@@ -9,28 +9,39 @@
     android:layout_marginRight="24dp"
     android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/textTv"
-        style="@style/text.body6"
+    <LinearLayout
+        android:focusable="true"
+        android:id="@+id/buttonHolder"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_half"
-        android:layout_gravity="center"
-        android:text="_Open in..."
-        android:textColor="@color/white"
-        android:visibility="visible" />
+        android:layout_height="wrap_content">
 
-    <!-- Using android: backgroundtint will crash on android 5-->
-    <ImageButton
-        android:background="@drawable/ripple_cirlced_white"
-        android:id="@+id/buttonFab"
-        android:layout_height="40dp"
-        android:layout_width="40dp"
-        app:backgroundTint="@color/white"
-        android:clickable="true"
-        android:layout_gravity="start"
-        tools:src="@drawable/ic_delete_red"
-        android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/textTv"
+            style="@style/text.body6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_half"
+            android:layout_gravity="center"
+            android:text="_Open in..."
+            android:textColor="@color/white"
+            android:visibility="visible" />
+
+        <!-- Using android: backgroundtint will crash on android 5-->
+        <ImageView
+            android:background="@drawable/ripple_cirlced_white"
+            android:id="@+id/buttonFab"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:layout_width="40dp"
+            app:backgroundTint="@color/white"
+            android:layout_gravity="start"
+            tools:src="@drawable/ic_delete_red"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+
 
 
 </LinearLayout>

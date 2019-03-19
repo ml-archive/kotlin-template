@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:contentScrim="@drawable/square_gradient"
+            android:focusable="true"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:animateLayoutChanges="true">
 

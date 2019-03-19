@@ -792,5 +792,8 @@ public class Translation {
 		public static String openProfileButton = "__openProfileButton";
 		public static String createFolderButton = "__createFolderButton";
 		public static String serviceSettingsButton = "__serviceSettingsButton";
+		public static String closeActionsMenuButton = "__closeActionsMenuButton";
+		public static String searchSendersButton = "__searchSendersButton";
+		public static String messageHeaderDrawer = "__messageHeaderDrawer";
 	}
 }

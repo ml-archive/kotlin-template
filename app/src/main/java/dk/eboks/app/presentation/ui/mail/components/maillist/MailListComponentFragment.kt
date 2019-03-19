@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dk.eboks.app.BuildConfig
@@ -28,6 +29,7 @@ import dk.eboks.app.presentation.ui.message.screens.opening.MessageOpeningActivi
 import dk.eboks.app.presentation.ui.overlay.screens.ButtonType
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayActivity
 import dk.eboks.app.presentation.ui.overlay.screens.OverlayButton
+import dk.eboks.app.presentation.widgets.DividerItemDecoration
 import dk.eboks.app.util.EndlessRecyclerViewScrollListener
 import dk.eboks.app.util.Starter
 import dk.eboks.app.util.guard
@@ -304,6 +306,11 @@ class MailListComponentFragment : BaseFragment(), MailListComponentContract.View
             }
         }
         messagesRv.addOnScrollListener(scrollListener!!)
+        messagesRv.addItemDecoration( DividerItemDecoration(
+                drawable = ContextCompat.getDrawable(context!!, R.drawable.shape_divider)!!,
+                indentationDp = 72,
+                backgroundColor = ContextCompat.getColor(context!!, R.color.white)
+        ))
 
         adapter.onActionEvent = { message, mailMessageEvent ->
             Timber.d("onActionEvent: %s", mailMessageEvent)

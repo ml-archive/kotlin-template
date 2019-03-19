@@ -7,24 +7,34 @@
     android:layout_height="match_parent"
     tools:context="dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentStatusComponentFragment">
 
-    <TextView
-        android:id="@+id/paymentDueTv"
-        style="@style/text.subHeader5.tertiary"
+
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_large"
-        android:gravity="center"
-        android:text="Payment due on 15 January 2018 " />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/paymentDueTv"
+            style="@style/text.subHeader5.tertiary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:gravity="center"
+            android:text="Payment due on 15 January 2018 " />
 
 
-    <TextView
-        android:id="@+id/paymentValueTv"
-        style="@style/text.header1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="2000,00 DKK"
-        android:textColor="@color/darkGreyBlue" />
+        <TextView
+            android:id="@+id/paymentValueTv"
+            style="@style/text.header1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="2000,00 DKK"
+            android:textColor="@color/darkGreyBlue" />
+
+
+    </LinearLayout>
+
 
 
     <LinearLayout
@@ -76,6 +86,7 @@
 
 
         <LinearLayout
+            android:focusable="true"
             android:padding="16dp"
             android:layout_gravity="center"
             android:layout_width="match_parent"
@@ -115,6 +126,7 @@
             android:background="@color/dividerColor"/>
 
         <LinearLayout
+            android:focusable="true"
             android:id="@+id/paymentTransactionLl"
             android:padding="16dp"
             android:layout_gravity="center"

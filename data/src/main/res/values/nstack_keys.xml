@@ -682,4 +682,7 @@
   <string name='nstack_accessibility_openProfileButton' formatted='false'>{accessibility_openProfileButton}</string>
   <string name='nstack_accessibility_createFolderButton' formatted='false'>{accessibility_createFolderButton}</string>
   <string name='nstack_accessibility_serviceSettingsButton' formatted='false'>{accessibility_serviceSettingsButton}</string>
+  <string name='nstack_accessibility_closeActionsMenuButton' formatted='false'>{accessibility_closeActionsMenuButton}</string>
+  <string name='nstack_accessibility_searchSendersButton' formatted='false'>{accessibility_searchSendersButton}</string>
+  <string name='nstack_accessibility_messageHeaderDrawer' formatted='false'>{accessibility_messageHeaderDrawer}</string>
 </resources>

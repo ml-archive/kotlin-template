@@ -28,6 +28,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/mainFab"
+            android:contentDescription="@string/nstack_accessibility_messageActionsButton"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_gravity="bottom|right"

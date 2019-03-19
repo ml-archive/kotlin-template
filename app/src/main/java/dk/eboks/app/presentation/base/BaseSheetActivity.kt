@@ -183,6 +183,14 @@ abstract class BaseSheetActivity : BaseActivity() {
         sheetBehavior?.state = BottomSheetBehavior.STATE_COLLAPSED
     }
 
+    fun toggle() {
+        if (sheetBehavior?.state == BottomSheetBehavior.STATE_COLLAPSED) {
+            expand()
+        } else {
+            collapse()
+        }
+    }
+
     protected fun setContentSheet(resId: Int) {
         val li: LayoutInflater = LayoutInflater.from(this)
         val sheet = li.inflate(resId, contextSheetSv, false)

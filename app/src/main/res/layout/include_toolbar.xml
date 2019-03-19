@@ -7,7 +7,8 @@
     android:layout_height="wrap_content"
     android:theme="@style/ToolbarTheme">
 
-    <androidx.appcompat.widget.Toolbar
+    <dk.eboks.app.presentation.widgets.AppToolbar
+        app:navigationContentDescription="@string/nstack_accessibility_navigateBackButton"
         android:id="@+id/mainTb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,5 +1,6 @@
 package dk.eboks.app.presentation.ui.message.components.detail.header
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,12 +23,20 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
     @Inject
     lateinit var presenter: HeaderComponentContract.Presenter
 
+
+    private var listener: HeaderComponentFragment.HeaderFragmentListener? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_header_component, container, false)
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        listener = context as? HeaderFragmentListener
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,6 +47,9 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
             if (args.getBoolean("show_divider", false))
                 dividerV.visibility = View.VISIBLE
         }
+
+        headerView.setOnClickListener { listener?.onHeaderComponentClick() }
+
     }
 
     override fun updateView(message: Message) {
@@ -107,4 +119,9 @@ class HeaderComponentFragment : BaseFragment(), HeaderComponentContract.View {
             }
         }
     }
+
+    interface HeaderFragmentListener {
+        fun onHeaderComponentClick()
+    }
+
 }

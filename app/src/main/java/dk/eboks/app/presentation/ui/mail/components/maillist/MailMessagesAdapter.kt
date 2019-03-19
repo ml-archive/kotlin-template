@@ -73,7 +73,6 @@ class MailMessagesAdapter @Inject constructor(private val formatter: EboksFormat
         private val headerTv = contentContainer.headerTv
         private val subHeaderTv = contentContainer.subHeaderTv
         private val dateTv = contentContainer.dateTv
-        private val dividerV = contentContainer.dividerV
         private val checkBox = contentContainer.checkboxIb
         private val uploadFl = contentContainer.uploadFl
         private val urgentTv = contentContainer.urgentTv
@@ -194,10 +193,6 @@ class MailMessagesAdapter @Inject constructor(private val formatter: EboksFormat
         }
 
         private fun setSelectable(currentItem: Message, last: Boolean) {
-
-            if (last) {
-                dividerV.visibility = View.GONE
-            }
 
             uploadFl.visibility = View.GONE
             checkBox.visibility = View.VISIBLE

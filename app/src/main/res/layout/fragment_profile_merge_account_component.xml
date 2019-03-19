@@ -14,25 +14,35 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <TextView
-        style="@style/text.header2"
+    <LinearLayout
+        android:focusable="true"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="32dp"
-        tools:text="_You already something"
-        android:text="@string/nstack_profile_mergeAccountHeader"
-        />
+        android:layout_height="wrap_content">
 
-    <TextView
-        style="@style/text.body6"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="8dp"
-        tools:text="_Do you want to merge profiles yada yada bla bla balba bla."
-        android:text="@string/nstack_profile_mergeAccountText"
-        android:textColor="@color/blueGrey" />
+        <TextView
+            style="@style/text.header2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="32dp"
+            tools:text="_You already something"
+            android:text="@string/nstack_profile_mergeAccountHeader"
+            />
+
+        <TextView
+            style="@style/text.body6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            tools:text="_Do you want to merge profiles yada yada bla bla balba bla."
+            android:text="@string/nstack_profile_mergeAccountText"
+            android:textColor="@color/blueGrey" />
+
+    </LinearLayout>
+
+
 
     <Button
         android:id="@+id/mergeAccountsBtn"

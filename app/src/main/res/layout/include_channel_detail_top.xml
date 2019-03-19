@@ -36,6 +36,11 @@
             android:orientation="vertical"
             android:paddingBottom="24dp">
 
+            <LinearLayout
+                android:focusable="true"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/headerTv"
                     style="@style/text.header1"
@@ -54,6 +59,8 @@
                     android:layout_height="28dp"
                     android:layout_gravity="center_horizontal"
                     android:text="_Storebox" />
+
+            </LinearLayout>
 
                 <TextView
                     android:id="@+id/descriptionTv"

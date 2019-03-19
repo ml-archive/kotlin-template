@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:focusable="true"
         android:orientation="vertical"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"

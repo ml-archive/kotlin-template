@@ -38,7 +38,7 @@ import javax.inject.Inject
 /**
  * Created by bison on 09-02-2018.
  */
-class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.View {
+class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.View, HeaderComponentFragment.HeaderFragmentListener {
     @Inject lateinit var presenter: MessageEmbeddedContract.Presenter
 
     @Inject lateinit var formatter: EboksFormatter
@@ -77,7 +77,7 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
             onBackPressed()
         }
 
-        val menuItem = mainTb?.menu?.add("_options")
+        val menuItem = mainTb?.menu?.add(Translation.accessibility.messageActionsButton)
         menuItem?.setIcon(R.drawable.icon_48_option_red_navigationbar)
         menuItem?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         menuItem?.setOnMenuItemClickListener { item: MenuItem ->
@@ -288,6 +288,10 @@ class MessageEmbeddedActivity : BaseSheetActivity(), MessageEmbeddedContract.Vie
                     .commit()
             }
         }
+    }
+
+    override fun onHeaderComponentClick() {
+        toggle()
     }
 
     override fun getNavigationMenuAction(): Int {

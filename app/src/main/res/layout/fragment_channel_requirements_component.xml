@@ -7,7 +7,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingPrefix">
 
+    <TextView
+        android:id="@+id/headLineTv"
+        android:text="@string/nstack_channels_drawerHeader"
+        style="@style/text.header4.tertiary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="_e-Boks Sign up" />
+
+
     <LinearLayout
+        android:focusable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_top_corners"
@@ -17,14 +28,6 @@
         android:paddingRight="16dp"
         android:paddingTop="40dp">
 
-        <TextView
-            android:id="@+id/headLineTv"
-            android:text="@string/nstack_channels_drawerHeader"
-            style="@style/text.header4.tertiary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            tools:text="_e-Boks Sign up" />
 
         <TextView
             android:id="@+id/subHeadLineTv"

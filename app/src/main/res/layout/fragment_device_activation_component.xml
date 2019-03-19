@@ -33,6 +33,14 @@
                 android:paddingLeft="36dp"
                 android:paddingRight="36dp">
 
+                <LinearLayout
+                    android:focusable="true"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+
                 <TextView
                     android:id="@+id/headerTv"
                     style="@style/text.header1"
@@ -52,6 +60,7 @@
                     android:layout_marginTop="@dimen/margin_half"
                     android:gravity="center"
                     android:text="@string/nstack_deviceactivation_message" />
+                </LinearLayout>
 
 
                 <FrameLayout

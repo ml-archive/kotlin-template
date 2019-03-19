@@ -7,25 +7,35 @@
     android:orientation="vertical"
     tools:context="dk.eboks.app.presentation.ui.message.components.detail.payment.PaymentComponentFragment">
 
-
-    <TextView
-        android:id="@+id/paymentDueTv"
-        style="@style/text.subHeader5.tertiary"
+    <LinearLayout
+        android:focusable="true"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_large"
-        android:gravity="center"
-        android:text="Payment due on 15 January 2018 " />
+        android:layout_height="wrap_content">
 
 
-    <TextView
-        android:id="@+id/paymentValueTv"
-        style="@style/text.header1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="2000,00 DKK"
-        android:textColor="@color/darkGreyBlue" />
+        <TextView
+            android:id="@+id/paymentDueTv"
+            style="@style/text.subHeader5.tertiary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_large"
+            android:gravity="center"
+            android:text="Payment due on 15 January 2018 " />
+
+
+        <TextView
+            android:id="@+id/paymentValueTv"
+            style="@style/text.header1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="2000,00 DKK"
+            android:textColor="@color/darkGreyBlue" />
+
+    </LinearLayout>
+
+
 
     <View
         android:layout_marginTop="36dp"

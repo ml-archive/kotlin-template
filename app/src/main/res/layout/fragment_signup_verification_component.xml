@@ -14,7 +14,7 @@
         android:background="@color/backgroundColor"
         android:orientation="vertical">
 
-        <include layout="@layout/include_toolbar"/>
+        <include layout="@layout/include_toolbar" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -33,26 +33,35 @@
                     style="@style/Progress.Onboarding"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
                     android:layout_marginTop="40dp"
-                    android:progress="75"/>
+                    android:layout_marginBottom="20dp"
+                    android:progress="75" />
 
-                <TextView
-                    android:id="@+id/headerTv"
-                    style="@style/text.header1"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:text="Header"
-                    android:text="@string/nstack_signup_verificationHeader"/>
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/detailTv"
-                    style="@style/text.body6.secondary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    tools:text="_Please fill in the information below"
-                    android:text="@string/nstack_signup_verificationDetail"/>
+
+                    <TextView
+                        android:id="@+id/headerTv"
+                        style="@style/text.header1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nstack_signup_verificationHeader"
+                        tools:text="Header" />
+
+                    <TextView
+                        android:id="@+id/detailTv"
+                        style="@style/text.body6.secondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/nstack_signup_verificationDetail"
+                        tools:text="_Please fill in the information below" />
+
+                </LinearLayout>
+
 
                 <View
                     android:layout_width="match_parent"
@@ -65,8 +74,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="52dp"
-                    tools:text="_Verify my account"
-                    android:text="@string/nstack_signup_verifyButton"/>
+                    android:text="@string/nstack_signup_verifyButton"
+                    tools:text="_Verify my account" />
 
                 <Button
                     android:id="@+id/continueWithoutVerificationBtn"
@@ -74,10 +83,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginBottom="24dp"
                     android:layout_marginTop="10dp"
-                    tools:text="_Continue without verification"
-                    android:text="@string/nstack_signup_continueWithoutVerificationButton"/>
+                    android:layout_marginBottom="24dp"
+                    android:text="@string/nstack_signup_continueWithoutVerificationButton"
+                    tools:text="_Continue without verification" />
 
             </LinearLayout>
         </ScrollView>
@@ -93,6 +102,6 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
     </FrameLayout>
 </FrameLayout>
