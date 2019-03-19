@@ -8,6 +8,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.github.gfx.ribbonizer'
 apply plugin: 'dk.nodes.ci.bitrise'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'jacoco'
 
 bitrise {
     defaultDeployMode = "release|debug"

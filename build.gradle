@@ -45,6 +45,10 @@ allprojects {
         google()
         mavenLocal()
     }
+
+
+
+
 }
 
 subprojects {
@@ -54,6 +58,52 @@ subprojects {
             target "**/*.kt"
             ktlint(Versions.ktlint)
         }
+    }
+}
+
+def coverageExcludes = ['**/R.class',
+                        '**/R$*.class',
+                        '**/*$$ViewBinder*.*',
+                        '**/inject/*',
+                        '**/*$InjectAdapter.*',
+                        '**/BuildConfig.*',
+                        '**/Manifest*.*',
+                        '**/Dagger*.*',
+                        '**/*_Provide*Factory.*',
+                        '**/*_Member*Injector.*',
+                        '**/*_Factory.*']
+
+def modules = ["core", "data"]
+def moduleTasks = modules.collect { it + ":jacocoTestReport" }
+
+def coverageSourceDirs = modules.collect { it + "src/main/java"}
+def coverageClassDirectories = modules.collect { fileTree(dir: it + "/build/intermediates/classes/debug", excludes: coverageExcludes) }
+
+
+task jacocoRootReport(type: JacocoReport, dependsOn: moduleTasks) {
+    apply plugin: 'jacoco'
+
+    additionalSourceDirs = files(coverageSourceDirs)
+    sourceDirectories = files(coverageSourceDirs)
+    classDirectories = files(coverageClassDirectories)
+
+    executionData = files(moduleTasks.collect { tasks.getByPath(it).executionData })
+
+
+    reports {
+
+        html.enabled = true
+        xml.enabled = false
+        csv.enabled = false
+    }
+    onlyIf = {
+        true
+    }
+
+    doFirst {
+        executionData = files(executionData.findAll {
+            it.exists()
+        })
     }
 }
 
