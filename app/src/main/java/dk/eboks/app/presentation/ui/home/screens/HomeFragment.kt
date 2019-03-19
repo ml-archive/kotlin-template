@@ -80,7 +80,6 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
         menu.findItem(R.id.menu_profile)?.title = Translation.accessibility.openProfileButton
     }
 
-
     override fun onResume() {
         super.onResume()
         presenter.continueFetching = true
