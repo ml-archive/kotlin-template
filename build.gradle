@@ -25,6 +25,7 @@ buildscript {
         classpath Libs.Nodes.Nstack.translation
         classpath Libs.Nodes.bitrise
         classpath Libs.ribbonizer
+        classpath Libs.Test.jacoco
 
     }
 }

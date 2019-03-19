@@ -2,6 +2,7 @@ package dk.eboks.buildsrc
 
 object Versions {
     const val ktlint = "0.31.0"
+    const val jacoco = "0.8.1"
 }
 
 object Libs {
@@ -108,6 +109,7 @@ object Libs {
         const val mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0"
         const val assertjCore = "org.assertj:assertj-core:3.12.1"
         const val junit = Libs.junit
+        const val jacoco = "org.jacoco:org.jacoco.core:${Versions.jacoco}"
 
         object PowerMock {
             const val core = "org.powermock:powermock-api-mockito2:2.0.0"
