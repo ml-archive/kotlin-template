@@ -77,7 +77,9 @@ class HomeFragment : BaseFragment(), HomeContract.View, ChannelsAdapter.Callback
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.home, menu)
+        menu.findItem(R.id.menu_profile)?.title = Translation.accessibility.openProfileButton
     }
+
 
     override fun onResume() {
         super.onResume()
